@@ -158,7 +158,7 @@ public class MetafacadeMapping {
 	}
 	
 	/**
-	 * Gets the unique key that indentifies this mapping
+	 * Gets the unique key that identifies this mapping
 	 */
 	protected String getKey() {
 		if (StringUtils.isEmpty(this.key)) {
@@ -168,8 +168,8 @@ public class MetafacadeMapping {
 					this.stereotype);
 			} else {
 				key = MetafacadeMappingsUtils.constructKey(
-						this.metaobjectClassName,
-						this.context);				
+					this.metaobjectClassName,
+					this.context);				
 			}
 		}
 		return key;

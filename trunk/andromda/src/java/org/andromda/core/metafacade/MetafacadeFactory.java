@@ -19,6 +19,11 @@ public class MetafacadeFactory
 
     private String activeNamespace;
     private ModelAccessFacade model;
+    
+    /**
+     * The cache for already created metafacades.
+     */
+    private Map metafacadeCache;
 
     /**
      * Caches the registered properties used
@@ -29,7 +34,8 @@ public class MetafacadeFactory
     // constructor is private to make sure that nobody instantiates it
     private MetafacadeFactory()
     {
-        registeredProperties = new HashMap();
+        this.metafacadeCache = new HashMap();
+        this.registeredProperties = new HashMap();
         MetafacadeMappings.instance().discoverMetafacades();
         MetafacadeImpls.instance().discoverMetafacadeImpls();
     }
@@ -123,7 +129,8 @@ public class MetafacadeFactory
             
             if (stereotypeNames == null) {
             	throw new MetafacadeFactoryException(methodName
-                    + " - could not retrieve stereotypes for metaobject --> '" + metaobject + "'");
+                    + " - could not retrieve stereotypes for metaobject --> '" 
+                    + metaobject + "'");
             }
             
             MetafacadeMapping mapping = null;
@@ -162,7 +169,7 @@ public class MetafacadeFactory
                                 + "'");
                 }
             }
-
+            
             if (metafacadeClass == null)
             {
                 throw new MetafacadeMappingsException(
@@ -173,46 +180,74 @@ public class MetafacadeFactory
                         + "'");
             }
 
-            if (internalGetLogger().isDebugEnabled())
-                if (internalGetLogger().isDebugEnabled())
-                    internalGetLogger().debug(
-                        "lookupFacadeClass: "
-                            + metaobjectClassName
-                            + " -> "
-                            + metafacadeClass);
-
-            MetafacadeBase metafacade =
-                (MetafacadeBase) ConstructorUtils.invokeConstructor(
-                    metafacadeClass,
-                    new Object[] {
-                        metaobject, 
-                        contextName
-                    },
-                    new Class[] {
-                        metaobject.getClass(), 
-                        java.lang.String.class
-                    });
             
-            // make sure that the facade has a proper logger associated
-            // with it.
-            metafacade.setLogger(internalGetLogger());
+            Object metafacadeCacheKey;
+            if (mapping != null) {
+                metafacadeCacheKey = mapping.getKey();
+            } else {
+                // if there is no mapping, then the metafacadeClass
+                // will be the default metafacade class, so use
+                // that as the cache key.
+                metafacadeCacheKey = metafacadeClass;
+            }
+            
+            // attempt to get the metafacade from the cache
+            // since we don't want to recreate if one already 
+            // has been created
+            MetafacadeBase metafacade = 
+                this.getFromMetafacadeCache(
+                    metaobject, 
+                    metafacadeCacheKey);
 
-            // set this namespace to the metafacade's namespace
-            metafacade.setNamespace(this.getActiveNamespace());
-            this.populatePropertyReferences(
-                metafacade,
-                mappings.getPropertyReferences(this.getActiveNamespace()));
+            if (metafacade == null) {
+	            if (internalGetLogger().isDebugEnabled())
+	                if (internalGetLogger().isDebugEnabled())
+	                    internalGetLogger().debug(
+	                        "lookupFacadeClass: "
+	                            + metaobjectClassName
+	                            + " -> "
+	                            + metafacadeClass);
+	
+	            metafacade =
+	                (MetafacadeBase) ConstructorUtils.invokeConstructor(
+	                    metafacadeClass,
+	                    new Object[] {
+	                        metaobject, 
+	                        contextName
+	                    },
+	                    new Class[] {
+	                        metaobject.getClass(), 
+	                        java.lang.String.class
+	                    });
+	            
+	            // make sure that the facade has a proper logger associated
+	            // with it.
+	            metafacade.setLogger(internalGetLogger());
 
-            // now populate any context property references (if
-            // we have any)
-            if (mapping != null)
-            {
-                this.populatePropertyReferences(
-                    metafacade,
-                    mapping.getPropertyReferences());
-            } 
-            // validate the meta-facade
-            metafacade.validate();
+	            // set this namespace to the metafacade's namespace
+	            metafacade.setNamespace(this.getActiveNamespace());	            
+	            
+	            this.populatePropertyReferences(
+	                metafacade,
+	                mappings.getPropertyReferences(this.getActiveNamespace()));
+	
+	            // now populate any context property references (if
+	            // we have any)
+	            if (mapping != null)
+	            {
+	                this.populatePropertyReferences(
+	                    metafacade,
+	                    mapping.getPropertyReferences());
+	            } 
+	            // validate the meta-facade
+	            metafacade.validate();
+	            
+	            this.addToMetafacadeCache(
+	                metaobject, 
+	                metafacadeCacheKey, 
+	                metafacade);	            
+            }
+                     
             return metafacade;
         }
         catch (Throwable th)
@@ -286,6 +321,54 @@ public class MetafacadeFactory
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
+    
+    /**
+     * Returns the metafacade from the metafacade cache. T
+     * Metafacades are cached first by according to its <code>metaobject</code>
+     * and then according to the given <code>key</code> and current
+     * active namespace.  Metafacades
+     * must be cached in order to keep track of the state of its validation.
+     * If we keep creating a new one each time, we can never tell whether or
+     * not a metafacade has been previously validated.
+     * 
+     * @param metaobject the metaobject for which to cache the metafacade.
+     * @param key the unique key for the given metaobject
+     * @return MetafacadeBase stored in the cache.
+     */
+    private MetafacadeBase getFromMetafacadeCache(Object metaobject, Object key) {
+        MetafacadeBase metafacade = null;
+        Map namespaceMetafacadeCache = (Map)
+        	this.metafacadeCache.get(metaobject);
+        if (namespaceMetafacadeCache != null) {
+            metafacade = (MetafacadeBase)namespaceMetafacadeCache.get(
+                this.getActiveNamespace() + key);
+        }
+        return metafacade;
+    }
+    
+    /**
+     * Adds the <code>metafacade</code> to the cache accorinding
+     * to first <code>metaobject</code> and then by <code>key</code>
+     * and current active namespace.
+     * 
+     * @param metaobject the metaobject for which to cache the metafacade.
+     * @param key the unique key by which the metafacade is cached (within 
+     *        the scope of the <code>metaobject</code.
+     * @param metafacade the metafacade to cache.
+     */
+    private void addToMetafacadeCache(Object metaobject, Object key, MetafacadeBase metafacade) {
+        Map namespaceMetafacadeCache = (Map)
+            this.metafacadeCache.get(metaobject);
+        if (namespaceMetafacadeCache == null) {
+            namespaceMetafacadeCache = new HashMap();
+        }
+        namespaceMetafacadeCache.put(
+            this.getActiveNamespace() + key, 
+            metafacade);
+        this.metafacadeCache.put(
+            metaobject, 
+            namespaceMetafacadeCache);
+    }
 
     /**
      * Populates the metafacade with the values retrieved from the property references
@@ -298,7 +381,6 @@ public class MetafacadeFactory
         Collection propertyReferences)
     {
 
-        // only add the property once per context
         final String methodName =
             "MetafacadeFactory.populatePropertyReferences";
         ExceptionUtils.checkNull(methodName, "metafacade", metafacade);
