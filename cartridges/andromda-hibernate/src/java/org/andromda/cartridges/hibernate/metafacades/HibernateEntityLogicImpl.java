@@ -29,11 +29,12 @@ import org.apache.commons.collections.Predicate;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the 
- * base/root class. All subclasses must then follow the same strategy. NB if the 
- * strategy is changed after the initial generation, the impl classes have to be 
- * hand modified.
- * </p>
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
+ *                                 subclasses must then follow the same
+ *                                 strategy. NB if the strategy is changed after
+ *                                 the initial generation, the impl classes have
+ *                                 to be hand modified.
+ *                                 </p>
  * @author Martin West
  */
 public class HibernateEntityLogicImpl
@@ -96,8 +97,9 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsRootInheritanceEntity()
     {
-        logger.debug(">>> handleIsRootInheritanceEntity start:" + this + " : "
-            + getInheritance(this));
+        if (logger.isDebugEnabled())
+            logger.debug(">>> handleIsRootInheritanceEntity start:" + this
+                + " : " + getInheritance(this));
         boolean result = false;
         GeneralizableElementFacade superElement = this.getGeneralization();
         if (superElement == null)
@@ -124,7 +126,8 @@ public class HibernateEntityLogicImpl
                     root.getFullyQualifiedName());
             }
         }
-        logger.debug("<<< handleIsRootInheritanceEntity return:" + result);
+        if (logger.isDebugEnabled())
+            logger.debug("<<< handleIsRootInheritanceEntity return:" + result);
         return result;
     }
 
@@ -137,15 +140,17 @@ public class HibernateEntityLogicImpl
      */
     private GeneralizableElementFacade getRootInheritanceEntity()
     {
-        logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
-            + getInheritance(this));
+        if (logger.isDebugEnabled())
+            logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
+                + getInheritance(this));
         GeneralizableElementFacade result = null;
         GeneralizableElementFacade superElement = this.getGeneralization();
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            logger.debug("*** getSuperInheritance element:" + superElement
-                + " : " + getInheritance(superElement));
+            if (logger.isDebugEnabled())
+                logger.debug("*** getSuperInheritance element:" + superElement
+                    + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
         }
@@ -180,7 +185,8 @@ public class HibernateEntityLogicImpl
             // Must be all concrete, odd
             result = this;
         }
-        logger.debug("<<< getRootInheritanceEntity return:" + result);
+        if (logger.isDebugEnabled())
+            logger.debug("<<< getRootInheritanceEntity return:" + result);
         return result;
     }
 
@@ -190,7 +196,8 @@ public class HibernateEntityLogicImpl
     protected String handleGetInheritanceStrategy()
     {
         String result = null;
-        logger.debug(">>> handleGetInheritanceStrategy start:" + this);
+        if (logger.isDebugEnabled())
+            logger.debug(">>> handleGetInheritanceStrategy start:" + this);
 
         try
         {
@@ -211,7 +218,8 @@ public class HibernateEntityLogicImpl
             ExceptionRecorder.record(errorMessage, ex, "hibernate");
             logger.error(errorMessage);
         }
-        logger.debug("<<< handleGetInheritanceStrategy return:" + result);
+        if (logger.isDebugEnabled())
+            logger.debug("<<< handleGetInheritanceStrategy return:" + result);
         return result;
     }
 
@@ -224,15 +232,17 @@ public class HibernateEntityLogicImpl
      */
     private String getSuperInheritance()
     {
-        logger.debug(">>> getSuperInheritance start:" + this + " : "
-            + getInheritance(this));
+        if (logger.isDebugEnabled())
+            logger.debug(">>> getSuperInheritance start:" + this + " : "
+                + getInheritance(this));
         String rootInheritance = null;
         GeneralizableElementFacade superElement = this.getGeneralization();
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            logger.debug("*** getSuperInheritance element:" + superElement
-                + " : " + getInheritance(superElement));
+            if (logger.isDebugEnabled())
+                logger.debug("*** getSuperInheritance element: " + superElement
+                    + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
         }
@@ -262,8 +272,8 @@ public class HibernateEntityLogicImpl
                 rootInheritance = validateInterfaceInheritance(superclasses);
             }
         }
-        logger.debug("<<< getSuperInheritance return:" + rootInheritance);
-
+        if (logger.isDebugEnabled())
+            logger.debug("<<< getSuperInheritance return:" + rootInheritance);
         return rootInheritance;
     }
 
@@ -296,7 +306,8 @@ public class HibernateEntityLogicImpl
     private String validateConcreteInheritance(
         GeneralizableElementFacade[] superclasses)
     {
-        logger.debug(">>> validateConcreteInheritance:" + this );
+        if (logger.isDebugEnabled())
+            logger.debug(">>> validateConcreteInheritance:" + this);
         String result = null;
         String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
         // Search from root class but 1 to lowest.
@@ -333,7 +344,8 @@ public class HibernateEntityLogicImpl
                 }
             }
         }
-        logger.debug("<<< validateConcreteInheritance:" + result );
+        if (logger.isDebugEnabled())
+            logger.debug("<<< validateConcreteInheritance:" + result);
         return result;
     }
 
@@ -347,16 +359,23 @@ public class HibernateEntityLogicImpl
     private String validateInterfaceInheritance(
         GeneralizableElementFacade[] superclasses)
     {
-        logger.debug(">>> validateInterfaceInheritance:" + this );
-        logger.debug("*** validateInterfaceInheritance superclasses:" + superclasses.length );
+        if (logger.isDebugEnabled())
+        {
+            logger.debug(">>> validateInterfaceInheritance:" + this);
+            logger.debug("*** validateInterfaceInheritance superclasses:"
+                + superclasses.length);
+        }
         String result = null;
         int rootSubclassIndex = superclasses.length - 2;
         if (rootSubclassIndex > 0)
         {
             result = getInheritance(superclasses[rootSubclassIndex]);
-            logger.debug("*** validateInterfaceInheritance rootSubclass:" + result );
+            if (logger.isDebugEnabled())
+                logger.debug("*** validateInterfaceInheritance rootSubclass:"
+                    + result);
         }
-        logger.debug("<<< validateInterfaceInheritance:" + result );
+        if (logger.isDebugEnabled())
+            logger.debug("<<< validateInterfaceInheritance:" + result);
         return result;
     }
 
@@ -409,8 +428,9 @@ public class HibernateEntityLogicImpl
         attribute = (EntityAttributeFacade)CollectionUtils.find(
             attributes,
             pred);
-        logger.debug("*** handleGetIdentifierColumn return:"
-            + (attribute == null ? null : attribute.getColumnName()));
+        if (logger.isDebugEnabled())
+            logger.debug("*** handleGetIdentifierColumn return:"
+                + (attribute == null ? null : attribute.getColumnName()));
         columnName = attribute == null ? "ID" : attribute.getColumnName();
         return columnName;
     }
