@@ -63,6 +63,8 @@
                 <session-beans>${maven.andromda.core.generated.dir}</session-beans>
                 <session-impls>${maven.andromda.core.manual.dir}</session-impls>
                 <configuration>${maven.andromda.core.generated.dir}</configuration>
+                <!-- uncomment to enable EJB security -->
+                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
             </properties>
         </dependency>
 #else
