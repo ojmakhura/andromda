@@ -2,19 +2,17 @@
 
 
 <div id="connect" class="action">
-    <h3><bean:message key="maintenance.connect"/></h3>
+    <h3><bean:message key="maintenance.enter.login.info.connect"/></h3>
     <div class="trigger">
         <html:form action="/Maintenance/EnterLoginInfoConnect" onsubmit="ensureUrl(); return validateEnterLoginInfoConnectForm(this);">
-
-
             <table>
                 <tbody>
                     <c:set var="knownUrls" value="${databaseLoginSession.configurator.knownDatabaseUrls}"/>
                     <c:choose>
                         <c:when test="${databaseLoginSession.configurator.arbitraryUrlAllowed}">
                             <tr>
-                                <td><bean:message key="maintenance.param.url"/></td>
-                                <td><html:text name="form" property="url" onmouseover="hints.show('maintenance.param.url.title')" onmouseout="hints.hide()" /></td>
+                                <td><bean:message key="maintenance.enter.login.info.param.url"/></td>
+                                <td><html:text name="form" property="url"/></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -40,7 +38,7 @@
                         <c:otherwise>
                             <html:hidden name="form" property="url"/>
                             <tr>
-                                <td><bean:message key="maintenance.param.url"/></td>
+                                <td><bean:message key="maintenance.enter.login.info.param.url"/></td>
                                 <td>
                                     <select name="selectedUrl">
                                         <c:forEach var="url" items="${knownUrls}">
@@ -59,29 +57,19 @@
                         </c:otherwise>
                     </c:choose>
                     <tr>
-                        <td><bean:message key="maintenance.param.user"/> <div class="important">*</div></td>
-                        <td>
-                           <html:text name="form" property="user" onmouseover="hints.show('maintenance.param.user.title')" onmouseout="hints.hide()" />
-                        </td>
+                        <td><bean:message key="maintenance.enter.login.info.param.user"/> <div class="important">*</div></td>
+                        <td><html:text name="form" property="user"/></td>
                     </tr>
                     <tr>
-                        <td><bean:message key="maintenance.param.password"/></td>
-                        <td>
-                           <html:text name="form" property="password" onmouseover="hints.show('maintenance.param.password.title')" onmouseout="hints.hide()" />
-                        </td>
+                        <td><bean:message key="maintenance.enter.login.info.param.password"/></td>
+                        <td><html:text name="form" property="password"/></td>
                     </tr>
                     <tr>
-                        <td><bean:message key="maintenance.param.schema"/></td>
-                        <td>
-                           <html:text name="form" property="schema" onmouseover="hints.show('maintenance.param.schema.title')" onmouseout="hints.hide()" />
-                        </td>
+                        <td><bean:message key="maintenance.enter.login.info.param.schema"/></td>
+                        <td><html:text name="form" property="schema"/></td>
                     </tr>
                     <tr>
-                        <td>
-                              <html:submit onmouseover="hints.show('connect')" onmouseout="hints.hide()">
-                                  <bean:message key="maintenance.connect"/>
-                              </html:submit>
-                        </td>
+                        <td><html:submit><bean:message key="maintenance.enter.login.info.connect"/></html:submit></td>
                     </tr>
                 </tbody>
             </table>
