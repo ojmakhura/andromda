@@ -1,0 +1,191 @@
+package org.andromda.ant;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+
+import java.io.*;
+import java.util.*;
+
+/**
+ * @ todo: document this class
+ */
+public class AndromdaAntRunner
+{
+    /**
+     * @ todo: document this constructor
+     */
+    public AndromdaAntRunner()
+    {
+    }
+
+    public static void main(String[] args)
+    {
+        AndromdaAntRunner runner = new AndromdaAntRunner();
+        runner.run();
+    }
+
+    /**
+     * @ todo: document this method
+     */
+    private Map prompt()
+    {
+        final Map propertiesMap = new HashMap();
+
+        String inputValue = null;
+        while (null == (inputValue=promptForInput("application id")));
+        propertiesMap.put("applicationId", inputValue);
+
+        inputValue = null;
+        while (null == (inputValue=promptForInput("application name")));
+        propertiesMap.put("applicationName", inputValue);
+
+        inputValue = null;
+        while (null == (inputValue=promptForInput("application version")));
+        propertiesMap.put("applicationVersion", inputValue);
+
+        inputValue = null;
+        while (null == (inputValue=promptForInput("persistence type [ejb,hibernate]"))
+                || (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)));
+        propertiesMap.put("persistenceType", inputValue);
+
+        return Collections.unmodifiableMap(propertiesMap);
+    }
+
+    /**
+     * @ todo: document this method
+     */
+    private String promptForInput(String property)
+    {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Please enter the "+property+": ");
+        String inputString = null;
+        try
+        {
+            inputString = in.readLine();
+        } catch (IOException e)
+        {
+            inputString = null;
+        }
+
+        return (inputString == null || inputString.trim().length()==0)
+            ? null
+            : inputString;
+    }
+    /**
+     * @ todo: document this method
+     */
+    private void run()
+    {
+        try
+        {
+            Properties properties = new Properties();
+            properties.put("resource.loader", "class");
+            properties.put("class.resource.loader.class",
+                    "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+
+            Velocity.init(properties);
+
+            VelocityContext context = new VelocityContext(prompt());
+            VelocityContext emptyContext = new VelocityContext();
+
+            Map templatesMap = listTemplates(context);
+
+            File parentDirectory = new File((String) context.get("applicationName"));
+
+            Collection templates = templatesMap.entrySet();
+            for (Iterator iterator = templates.iterator(); iterator.hasNext();)
+            {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                Template template = (Template) Velocity.getTemplate((String) entry.getKey());
+                File target = new File(parentDirectory, (String) entry.getValue());
+
+                target.getParentFile().mkdirs();
+
+                BufferedWriter writer = writer = new BufferedWriter(new FileWriter(target));
+
+                if (entry.getKey().toString().endsWith(".vsl"))
+                {
+                    template.merge(context, writer);
+                }
+                else
+                {
+                    // no substitution for these files
+                    template.merge(emptyContext, writer);
+                }
+                writer.flush();
+                writer.close();
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * @ todo: document this method
+     */
+    private Map listTemplates(VelocityContext context)
+    {
+        final Map templateMap = new HashMap();
+
+        final String appName = (String)context.get("applicationName");
+
+        templateMap.put("templates/j2ee-app/build.xml.vsl", "build.xml");
+        templateMap.put("templates/j2ee-app/build.properties.vsl", "build.properties");
+
+        templateMap.put("templates/j2ee-app/web/build.xml.vsl", "web/build.xml");
+        templateMap.put("templates/j2ee-app/web/build.properties.vsl", "web/build.properties");
+
+        templateMap.put("templates/j2ee-app/mda/build.xml.vsl", "mda/build.xml");
+        templateMap.put("templates/j2ee-app/mda/build.properties.vsl", "mda/build.properties");
+        templateMap.put("templates/j2ee-app/mda/src/uml/model.xmi", "mda/src/uml/"+appName+".xmi");
+        templateMap.put("templates/j2ee-app/mda/src/mappings/HypersonicSqlMappings.xml", "mda/src/mappings/HypersonicSqlMappings.xml");
+        templateMap.put("templates/j2ee-app/mda/src/mappings/JavaMappings.xml", "mda/src/mappings/JavaMappings.xml");
+        templateMap.put("templates/j2ee-app/mda/src/mappings/JdbcMappings.xml", "mda/src/mappings/JdbcMappings.xml");
+        templateMap.put("templates/j2ee-app/mda/src/mappings/MySQLMappings.xml", "mda/src/mappings/MySQLMappings.xml");
+        templateMap.put("templates/j2ee-app/mda/src/mappings/Oracle9iMappings.xml", "mda/src/mappings/Oracle9iMappings.xml");
+
+        templateMap.put("templates/j2ee-app/app/build.xml.vsl", "app/build.xml");
+        templateMap.put("templates/j2ee-app/app/build.properties.vsl", "app/build.properties");
+
+        templateMap.put("templates/j2ee-app/common/build.xml.vsl", "common/build.xml");
+        templateMap.put("templates/j2ee-app/common/build.properties.vsl", "common/build.properties");
+
+        if ("hibernate".equals(context.get("persistenceType")))
+        {
+            templateMap.put("templates/j2ee-app/hibernate/build.xml.vsl", "hibernate/build.xml");
+            templateMap.put("templates/j2ee-app/hibernate/build.properties.vsl", "hibernate/build.properties");
+/*
+        templateMap.put("templates/j2ee-app/hibernate/db/build.xml.vsl", "hibernate/db/build.xml");
+        templateMap.put("templates/j2ee-app/hibernate/db/build.properties.vsl", "hibernate/db/build.properties");
+*/
+            templateMap.put("templates/j2ee-app/hibernate/sar/build.xml.vsl", "hibernate/sar/build.xml");
+            templateMap.put("templates/j2ee-app/hibernate/sar/build.properties.vsl", "hibernate/sar/build.properties");
+            templateMap.put("templates/j2ee-app/hibernate/ejb/build.xml.vsl", "hibernate/ejb/build.xml");
+            templateMap.put("templates/j2ee-app/hibernate/ejb/build.properties.vsl", "hibernate/ejb/build.properties");
+        } else
+        {
+            templateMap.put("templates/j2ee-app/ejb/build.xml.vsl", "ejb/build.xml");
+            templateMap.put("templates/j2ee-app/ejb/build.properties.vsl", "ejb/build.properties");
+        }
+
+        return templateMap;
+    }
+
+    /**
+     * @ todo: document this method
+     */
+    private String getTargetName(String rootPath, File file)
+    {
+        String filePath = file.getPath();
+
+        if (filePath.endsWith(".vsl"))
+            filePath = filePath.substring(0, filePath.length() - 4);
+
+        return (filePath.startsWith(rootPath))
+                ? filePath.substring(rootPath.length())
+                : filePath;
+    }
+}
+

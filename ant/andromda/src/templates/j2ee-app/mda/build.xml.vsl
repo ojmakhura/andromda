@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="mda" name="mda" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <mkdir dir="${app.root.dir}/${lib.dir}"/>
+    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
+    <path id="classpath">
+        <fileset refid="libraries"/>
+    </path>
+
+    <condition property="useProxy">
+        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
+    </condition>
+    <target name="init-proxy">
+        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
+    </target>
+
+    <target name="mda" depends="get-deps">
+        <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
+        <andromda modelURL="file:${basedir}/${uml.model.path}">
+            <namespace name="default" ignore="false">
+                <property name="languageMappingsUri" value="file:${basedir}/${mappings.src.dir}/JavaMappings.xml"/>
+            </namespace>
+            <namespace name="java" ignore="false">
+                <property name="exceptions" value="${app.root.dir}/common/${java.src.dir}"/>
+                <property name="enumerations" value="${app.root.dir}/common/${java.src.dir}"/>
+                <property name="value-objects" value="${app.root.dir}/common/${java.src.dir}"/>
+            </namespace>
+#if ($persistenceType == 'hibernate')
+            <namespace name="hibernate" ignore="false">
+#else
+            <namespace name="hibernate" ignore="true">
+#end
+                <property name="jdbcMappingsUri" value="file:${basedir}/${mappings.src.dir}/JdbcMappings.xml"/>
+                <property name="sqlMappingsUri" value="file:${basedir}/${mappings.src.dir}/HypersonicSqlMappings.xml"/>
+                <property name="foreignKeySuffix" value="_FK"/>
+                <property name="maxSqlNameLength" value="30"/>
+                <property name="entities" value="${app.root.dir}/${hibernate.dir}/ejb/${mda.build.dir}"/>
+                <property name="entity-impls" value="${app.root.dir}/${hibernate.dir}/ejb/${java.src.dir}"/>
+                <property name="session-beans" value="${app.root.dir}/${hibernate.dir}/ejb/${mda.build.dir}"/>
+                <property name="session-impls" value="${app.root.dir}/${hibernate.dir}/ejb/${java.src.dir}"/>
+            </namespace>
+#if ($persistenceType == 'hibernate')
+            <namespace name="ejb" ignore="true">
+#else
+            <namespace name="ejb" ignore="false">
+#end
+                <property name="jdbcMappingsUri" value="file:${basedir}/${mappings.src.dir}/JdbcMappings.xml"/>
+                <property name="sqlMappingsUri" value="file:${basedir}/${mappings.src.dir}/HypersonicSqlMappings.xml"/>
+                <property name="foreignKeySuffix" value="_FK"/>
+                <property name="maxSqlNameLength" value="30"/>
+                <property name="entity-beans" value="${app.root.dir}/${ejb.dir}/${mda.build.dir}"/>
+                <property name="entity-impls" value="${app.root.dir}/${ejb.dir}/${java.src.dir}"/>
+                <property name="session-beans" value="${app.root.dir}/${ejb.dir}/${mda.build.dir}"/>
+                <property name="session-impls" value="${app.root.dir}/${ejb.dir}/${java.src.dir}"/>
+            </namespace>
+            <namespace name="bpm4struts" ignore="false">
+                <property name="securityEnabled" value="false"/>
+                <property name="securityRealm" value="other"/>
+                <property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/>
+                <property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+                <property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+                <property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+                <property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/>
+                <property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/>
+                <property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+                <property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/>
+            </namespace>
+        </andromda>
+    </target>
+
+    <target name="get-deps" depends="init-proxy">
+#if ($persistenceType == "hibernate")
+        <get dest="${app.root.dir}/${lib.dir}/andromda-hibernate-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-hibernate-cartridge-3.0M1-SNAPSHOT.jar"/>
+#else
+        <get dest="${app.root.dir}/${lib.dir}/andromda-ejb-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-ejb-cartridge-3.0M1-SNAPSHOT.jar"/>
+#end
+        <get dest="${app.root.dir}/${lib.dir}/maven-andromda-plugin-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/plugins/maven-andromda-plugin-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-core-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-core-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-java-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-java-cartridge-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-bpm4struts-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-bpm4struts-cartridge-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-templateengine-velocity-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-templateengine-velocity-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-repository-mdr-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-repository-mdr-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-metafacades-uml-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-metafacades-uml-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/andromda-metafacades-uml14-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-metafacades-uml14-3.0M1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/log4j-1.2.8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/log4j/jars/log4j-1.2.8.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-digester-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-1.5.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/picocontainer-1.0-RC-1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/picocontainer/jars/picocontainer-1.0-RC-1-SNAPSHOT.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/velocity-1.4-rc1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/velocity/jars/velocity-1.4-rc1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/jmi-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/jmi/jars/jmi-200401240117.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/jmiuml-1.4di.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/jmi/jars/jmiuml-1.4di.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/mof-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/jmi/jars/mof-200401240117.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/jmiutils-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/jmiutils-200401240117.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/mdrapi-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/mdrapi-200401240117.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/openide-util-200401141900.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/openide-util-200401141900.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/jmitoolkit-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/jmitoolkit-200401240117.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/nbmdr-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/nbmdr-200401240117.jar"/>
+    </target>
+
+</project>

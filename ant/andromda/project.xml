@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../../project.xml</extend>
+    <id>andromda-ant</id>
+    <name>AndroMDA Ant</name>
+    <shortDescription>AndroMDA Ant development environment generator</shortDescription>
+    <description>
+		This application generates an AndroMDA user's working environment for J2EE
+        applications. By using this little tool the end-user does not need to take care
+        of setting a set of Ant build.xml files and corresponding properties, it will
+        be generated.
+    </description>
+    <developers>
+        <developer>
+            <name>Wouter Zoons</name>
+            <id>draftdog</id>
+            <email>draftdog@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.4</version>
+            <type>jar</type>
+            <properties>
+                <jar.bundle>true</jar.bundle>
+                <jar.manifest.classpath>true</jar.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.0</version>
+            <type>jar</type>
+            <properties>
+                <jar.bundle>true</jar.bundle>
+                <jar.manifest.classpath>true</jar.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>logkit</groupId>
+            <artifactId>logkit</artifactId>
+            <version>1.0.1</version>
+            <type>jar</type>
+            <properties>
+                <jar.bundle>true</jar.bundle>
+                <jar.manifest.classpath>true</jar.manifest.classpath>
+            </properties>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>templates/**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="hibernate-ejb" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/../.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="jar.bundle.name" value="${application.id}-hibernate-ejb-${application.version}.jar"/>
+    <property name="javadoc.bundle.name" value="${application.id}-hibernate-ejb-${application.version}-javadoc.zip"/>
+
+    <property name="xdoclet.gen.dir" value="${xdoclet.build.dir}/ejb"/>
+    <property name="ejb.descriptor.dir" value="${xdoclet.gen.dir}/META-INF"/>
+
+    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
+    <fileset id="classes" dir="${basedir}/${java.build.dir}" includes="**/*.class"/>
+    <fileset id="bean-sources" dir="${basedir}/${mda.build.dir}" includes="**/*Bean.java"/>
+    <fileset id="mda-java-sources" dir="${basedir}/${mda.build.dir}" includes="**/*.java"/>
+    <fileset id="java-sources" dir="${basedir}/${java.src.dir}" includes="**/*.java"/>
+    <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
+
+    <path id="classpath">
+        <fileset refid="libraries"/>
+        <pathelement path="${basedir}/${java.build.dir}"/>
+    </path>
+
+    <condition property="useProxy">
+        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
+    </condition>
+    <target name="init-proxy">
+        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
+    </target>
+
+    <target name="clean" description="o Clean up the generated directories">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="xdoclet" description="o Run XDoclet EJB" depends="get-deps">
+        <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
+        <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
+        <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
+        <ejbdoclet destdir="${basedir}/${xdoclet.gen.dir}" ejbspec="2.0" force="false">
+            <fileset refid="bean-sources"/>
+            <utilobject kind="logical" cacheHomes="true"/>
+            <remoteinterface/>
+            <homeinterface/>
+            <localinterface/>
+            <localhomeinterface/>
+            <deploymentdescriptor destdir="${basedir}/${ejb.descriptor.dir}"/>
+            <jboss version="3.0"
+                   xmlencoding="UTF-8"
+                   typemapping="Hypersonic SQL"
+                   datasource="java:/DefaultDS"
+                   destdir="${basedir}/${ejb.descriptor.dir}"/>
+        </ejbdoclet>
+        <!--
+             XDoclet stores the *Bean classes into ejb-jar.xml
+             but the used andromda templates have created
+             subclasses *BeanImpl.  Replace
+             the names in the deployment descriptor so that
+             everyone is happy.
+         -->
+        <replace file="${basedir}/${ejb.descriptor.dir}/ejb-jar.xml"
+        	token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
+        </replace>
+    </target>
+
+    <target name="compile" description="o Compile the code" depends="xdoclet">
+        <mkdir dir="${basedir}/${java.build.dir}"/>
+        <javac destdir="${basedir}/${java.build.dir}" classpathref="classpath"
+               deprecation="true" debug="true" optimize="false">
+            <src path="${basedir}/${mda.build.dir}"/>
+            <src path="${basedir}/${java.src.dir}"/>
+            <src path="${basedir}/${xdoclet.gen.dir}"/>
+        </javac>
+    </target>
+
+    <target name="jar" description="o Create the JAR" depends="compile">
+        <mkdir dir="${basedir}/target"/>
+        <jar jarfile="${basedir}/target/${jar.bundle.name}" manifest="${basedir}/src/META-INF/MANIFEST.MF">
+            <fileset dir="${basedir}/${java.build.dir}"/>
+            <fileset dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.xml"/>
+        </jar>
+    </target>
+
+    <target name="zip" description="o Create the zip" depends="javadoc">
+        <mkdir dir="${basedir}/target"/>
+        <zip destfile="${basedir}/target/${javadoc.bundle.name}" basedir="${basedir}/${javadoc.build.dir}"/>
+    </target>
+
+    <target name="javadoc" description="o Generate javadoc">
+        <mkdir dir="${basedir}/${javadoc.build.dir}"/>
+        <tstamp>
+            <format pattern="2003-yyyy" property="year"/>
+        </tstamp>
+        <property name="copyright" value="Copyright &amp;copy; ${year} ${application.author}. All Rights Reserved."/>
+        <property name="title" value="${application.name} EJB ${application.version} API - ${copyright}"/>
+        <javadoc destdir="${basedir}/${javadoc.build.dir}" use="true" author="true" version="true" windowtitle="${title}"
+                 packagenames="${base.package}" classpathref="classpath">
+            <fileset refid="java-sources"/>
+        </javadoc>
+    </target>
+
+    <target name="dist" description="o Create a distribution" depends="jar,zip">
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <mkdir dir="${app.root.dir}/${dist.dir}"/>
+        <copy todir="${app.root.dir}/${lib.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+        <copy todir="${app.root.dir}/${dist.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+                <include name="${javadoc.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="get-deps" depends="init-proxy">
+        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/jboss-j2ee-3.2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jboss/jars/jboss-j2ee-3.2.3.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xjavadoc-1.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xjavadoc/jars/xjavadoc-1.0.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-xdoclet-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-xdoclet-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-ejb-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-ejb-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jboss-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jboss-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jmx-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jmx-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-web-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-web-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/hibernate-2.1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hibernate/jars/hibernate-2.1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/cglib-2.0-rc2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/cglib/jars/cglib-2.0-rc2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/dom4j-1.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/odmg-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/odmg/jars/odmg-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ehcache-0.7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ehcache/jars/ehcache-0.7.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/asm-1.4.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/asm/jars/asm-1.4.1.jar"/>
+    </target>
+
+</project>
