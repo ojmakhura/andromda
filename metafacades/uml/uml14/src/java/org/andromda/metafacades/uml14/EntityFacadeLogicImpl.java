@@ -1,6 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
