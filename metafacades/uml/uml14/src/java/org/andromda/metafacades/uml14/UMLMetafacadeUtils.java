@@ -240,6 +240,35 @@ public class UMLMetafacadeUtils
         }
         return attribute;
     }
+    
+    /**
+     * Indicates whether or not the attribute exists on the given 
+     * </code>classifier</code>.  
+     * 
+     * @param classifier the classifier to check
+     * @param name the name of the attribute
+     * @return
+     */
+    static boolean attributeExists(Object classifier, String name)
+    {
+        boolean exists = false;
+        if (Classifier.class.isAssignableFrom(classifier.getClass()))
+        {
+            List features = ((Classifier)classifier).getFeature();
+            if (features != null && !features.isEmpty())
+            {
+                for (Iterator featureIterator = features.iterator(); featureIterator.hasNext();)
+                {
+                    Object feature = featureIterator.next();
+                    if (feature != null && Attribute.class.isAssignableFrom(feature.getClass()))
+                    {
+                        exists = StringUtils.trimToEmpty(((Attribute)feature).getName()).equals(name);
+                    }
+                }
+            }
+        }
+        return exists;
+    }
 
     /**
      * Finds or creates a stereotype with the given name. If the stereotype

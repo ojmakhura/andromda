@@ -99,8 +99,6 @@ public class EntityFacadeLogicImpl
      */
     public java.util.Collection handleGetIdentifiers(boolean follow)
     {
-        // first check if foreign identifiers are defined and add them if so
-        this.checkForAndAddForeignIdentifiers(follow);
         Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
             this,
             follow);
@@ -113,8 +111,13 @@ public class EntityFacadeLogicImpl
      */
     private void createIdentifier()
     {
-        this.createIdentifier(this.getDefaultIdentifier(), this
-            .getDefaultIdentifierType(), this.getDefaultIdentifierVisibility());
+        // first check if the foreign identifier flag is set, and 
+        // let those taken precedence if so
+        if (!this.checkForAndAddForeignIdentifiers())
+        {
+            this.createIdentifier(this.getDefaultIdentifier(), this
+                .getDefaultIdentifierType(), this.getDefaultIdentifierVisibility());
+        }
     }
 
     /**
@@ -127,20 +130,25 @@ public class EntityFacadeLogicImpl
      */
     private void createIdentifier(String name, String type, String visibility)
     {
-        Attribute identifier = UMLMetafacadeUtils
-            .createAttribute(
-                name,
-                type,
-                visibility,
-                String
-                    .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
-
-        identifier.getStereotype().add(
-            UMLMetafacadeUtils
-                .findOrCreateStereotype(UMLProfile.STEREOTYPE_IDENTIFIER));
-
-        ((Classifier)this.metaObject).getFeature().add(identifier);
+        // only create the identifier if an identifer with the name doesn't
+        // already exist
+        if (!UMLMetafacadeUtils.attributeExists(this.metaObject, name))
+        {
+            Attribute identifier = UMLMetafacadeUtils
+                .createAttribute(
+                    name,
+                    type,
+                    visibility,
+                    String
+                        .valueOf(this
+                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
+    
+            identifier.getStereotype().add(
+                UMLMetafacadeUtils
+                    .findOrCreateStereotype(UMLProfile.STEREOTYPE_IDENTIFIER));
+    
+            ((Classifier)this.metaObject).getFeature().add(identifier);
+        }
     }
 
     /**
@@ -576,22 +584,17 @@ public class EntityFacadeLogicImpl
         return (String)this
             .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
     }
-
-    /**
-     * Keeps track of whether or not a check for foreign identifiers was already
-     * performed (since we only want it to occur once).
-     */
-    boolean foreignIdentifiersCheckPerformed = false;
-
+    
     /**
      * Checks to see if this entity has any associations where the foreign
      * identifier flag may be set, and if so creates and adds identifiers just
      * like the foreign entity to this entity.
+     * 
+     * @return true if any identifiers were added, false otherwise
      */
-    private void checkForAndAddForeignIdentifiers(boolean follow)
+    private boolean checkForAndAddForeignIdentifiers()
     {
-        if (!this.foreignIdentifiersCheckPerformed)
-        {
+        boolean identifiersAdded = false;
             EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
             if (end != null
                 && EntityFacade.class
@@ -601,7 +604,7 @@ public class EntityFacadeLogicImpl
                     .getType();
                 Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
                     foreignEntity,
-                    follow);
+                    true);
                 for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
                     .hasNext();)
                 {
@@ -610,10 +613,10 @@ public class EntityFacadeLogicImpl
                     this.createIdentifier(identifier.getName(), identifier
                         .getType().getFullyQualifiedName(true), identifier
                         .getVisibility());
+                    identifiersAdded = true;
                 }
-            }
         }
-        this.foreignIdentifiersCheckPerformed = true;
+        return identifiersAdded;
     }
 
     /**
