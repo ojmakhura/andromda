@@ -6,6 +6,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0M3-SNAPSHOT" date="2004-11-23">
+            <action dev="draftdog" type="add">
+                Bpm4Struts now supports file uploads, just use the pre-defined
+                <code>datatype.File</code> from the profile (or create it yourself)
+                on an action parameter.
+            </action>
+        </release>
         <release version="3.0M3-SNAPSHOT" date="2004-11-18">
             <action dev="cwbrandon" type="add">
                 Added new tagged value to BPM4Struts called <code>@andromda.struts.view.field.reset</code>
