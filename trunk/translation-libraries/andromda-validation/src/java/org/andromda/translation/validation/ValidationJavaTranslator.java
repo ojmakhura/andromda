@@ -271,7 +271,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 */
         {
             newTranslationLayer();
-            write("OCLCollections.");
+            write("org.andromda.translation.validation.OCLCollections.");
             inAFeatureCall(featureCall);
             if (featureCall.getPathName() != null)
             {
@@ -294,7 +294,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 
                 if (parameterList.getExpression() != null)
                 {
-                    if (arrow) write(",new OCLExpression(){public boolean evaluate(Object object){return ");
+                    if (arrow) write(",new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return ");
                     parameterList.getExpression().apply(this);
                 }
                 for (int ctr = 0; ctr < expressions.size(); ctr++)
@@ -369,7 +369,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     public void caseARelationalExpressionTail(ARelationalExpressionTail node)
     {
         newTranslationLayer();
-        write("OCLExpressions.");
+        write("org.andromda.translation.validation.OCLExpressions.");
         node.getRelationalOperator().apply(this);
         write("(");
         mergeTranslationLayerBefore();
@@ -685,7 +685,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     }
 
     /**
-     * todo: this method very naively replaces every single quote by a double quote, this should be updated
+     * @todo: this method very naively replaces every single quote by a double quote, this should be updated
      */
     public void caseTStringLit(TStringLit tStringLit)
     {
