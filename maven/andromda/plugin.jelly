@@ -119,7 +119,7 @@
             </j:forEach>
             
             <!-- set the repository module search path -->
-            <ant:repository classname="${maven.andromda.repository}">
+            <ant:repository>
                 <ant:moduleSearchPath>
                     <j:set var="index" value="0"/>
                     <j:forEach begin="0" end="${maximum}" indexVar="index">
