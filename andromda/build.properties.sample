@@ -4,6 +4,9 @@ thirdparty.home = c:/ntdev/thirdparty/
 
 myant.home = ${thirdparty.home}jakarta-ant-1.5.1/
 velocity.home = ${andromda.home}
+jdom.home = ${andromda.home}
+werken.home = ${andromda.home}
+antlr.home = ${andromda.home}
 struts.home = ${andromda.home}
 xdoclet.home = ${andromda.home}
 log4j.home = ${andromda.home}
@@ -15,10 +18,13 @@ jboss.home = c:/ntdev/jboss-3.0.4/
 castor.libs = ${andromda.home}lib/castor-0.9.4.3.jar
 log4j.libs = ${log4j.home}lib/log4j.jar
 velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
+werken.libs = ${werken.home}lib/werken.xpath.jar
+jdom.libs = ${velocity.home}lib/jdom-b8.jar
+antlr.libs = ${antlr.home}lib/antlr-runtime.jar
 junit.libs = ${junit.home}lib/junit.jar
 ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar:${myant.home}lib/xercesImpl.jar
 j2ee.libs = ${jboss.home}server/default/lib/jboss-j2ee.jar:${jboss.home}server/default/lib/javax.servlet.jar
 struts.libs = ${struts.home}lib/struts.jar
 mdr.libs = ${mdr.home}lib/openide-lookup.jar;${mdr.home}lib/openide-fs.jar:${mdr.home}lib/nbmdr.jar;${mdr.home}lib/mdrapi.jar;${mdr.home}lib/jmi.jar;${mdr.home}lib/jmiutils.jar;${mdr.home}lib/jmitoolkit.jar;${mdr.home}lib/mof.jar;${mdr.home}lib/mdr.jar;${mdr.home}lib/uml14.jar
 
-build.classpath = ${castor.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
+build.classpath = ${castor.libs}:${ant.libs}:${velocity.libs}:${jdom.libs}:${werken.libs}:${antlr.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
