@@ -3,6 +3,7 @@ package org.andromda.core.common;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -26,10 +27,10 @@ public class ResourceUtils
     private static final Logger logger = Logger.getLogger(ResourceUtils.class);
 
     /**
-     * Retrieves a resource from the class package
+     * Retrieves a resource from the current classpath.
      * 
      * @param resourceName the name of the resource
-     * @return java.net.URL
+     * @return the resource url
      */
     public static URL getResource(String resourceName)
     {
@@ -44,7 +45,7 @@ public class ResourceUtils
     }
 
     /**
-     * Loads the file resource and returns the contents as a String.
+     * Loads the resource and returns the contents as a String.
      * 
      * @param resourceName the name of the resource.
      * @return String
@@ -80,10 +81,10 @@ public class ResourceUtils
     }
 
     /**
-     * If the <code>resource</code> represents a classpath archive 
-     * (i.e. jar, zip, etc), this method will retrieve all contents 
-     * from that resource as a List of relative paths (relative to 
-     * the archive base). Otherwise an empty List will be returned.
+     * If the <code>resource</code> represents a classpath archive (i.e. jar,
+     * zip, etc), this method will retrieve all contents from that resource as a
+     * List of relative paths (relative to the archive base). Otherwise an empty
+     * List will be returned.
      * 
      * @param resource the resource from which to retrieve the contents
      * @return a list of Strings containing the names of every nested resource
@@ -107,12 +108,12 @@ public class ResourceUtils
         }
         return contents;
     }
-    
+
     /**
-     * If this <code>resource</code> happens to be a directory, it will load the 
-     * contents of that directory into the a List and return the list of names 
-     * relative to the given <code>resource</code> (otherwise it will return
-     * an empty List).
+     * If this <code>resource</code> happens to be a directory, it will load
+     * the contents of that directory into the a List and return the list of
+     * names relative to the given <code>resource</code> (otherwise it will
+     * return an empty List).
      * 
      * @param resource the resource from which to retrieve the contents
      * @param levels the number of levels to go step down if the resource ends
@@ -259,6 +260,51 @@ public class ResourceUtils
     private static String getClassNameAsResource(String className)
     {
         return className.replace('.', '/') + ".class";
+    }
+
+    /**
+     * <p>
+     * Retrieves a resource from an optionally given <code>directory</code> or
+     * from the package on the classpath.
+     * </p>
+     * <p>
+     * If the directory is specified and is a valid directory then an attempt at
+     * finding the resource by appending the <code>resourceName</code> to the
+     * given <code>directory</code> will be made, otherwise an attempt to find
+     * the <code>resourceName</code> directly on the classpath will be
+     * initiated.
+     * </p>
+     * 
+     * @param resource the name of a resource
+     * @param directory the directory location
+     * @return the resource url
+     */
+    public static URL getResource(String resourceName, String directory)
+    {
+        final String methodName = "ResourceUtils.getResource";
+        if (logger.isDebugEnabled())
+            logger.debug("performing '" + methodName + "' with resourceName '"
+                + resourceName + "' and directory '" + directory + "'");
+        ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
+
+        if (directory != null)
+        {
+            File file = new File(directory, resourceName);
+            if (file.exists())
+            {
+                try
+                {
+                    return file.toURL();
+                }
+                catch (MalformedURLException ex)
+                {
+                    logger.warn("'" + file + "' is an invalid resource,"
+                        + " attempting to find resource '" + resourceName
+                        + "' on classpath");
+                }
+            }
+        }
+        return getResource(resourceName);
     }
 
 }
