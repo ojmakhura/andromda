@@ -68,7 +68,7 @@ public class PackageFacadeLogicImpl
         final String fullyQualifiedName)
     {
         return (ModelElementFacade)this.shieldedElement(
-            UMLMetafacadeUtils.findByFullyQualifiedName(
+            UML14MetafacadeUtils.findByFullyQualifiedName(
                 fullyQualifiedName,
                 String.valueOf(this.getConfiguredProperty(
                     MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR))));

@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -39,7 +38,7 @@ import org.omg.uml.modelmanagement.UmlPackage;
  * 
  * @author Chad Brandon
  */
-public class UMLMetafacadeUtils
+public class UML14MetafacadeUtils
 {
 
     /**
@@ -151,7 +150,7 @@ public class UMLMetafacadeUtils
     static UmlPackage getRootPackage()
     {
         Object rootPackage = null;
-        Collection rootPackages = UMLMetafacadeUtils.getModel()
+        Collection rootPackages = UML14MetafacadeUtils.getModel()
             .getModelManagement().getModel().refAllOfType();
         Iterator packageIt = rootPackages.iterator();
         while (packageIt.hasNext())
@@ -226,12 +225,12 @@ public class UMLMetafacadeUtils
         String visibility,
         String separator)
     {
-        Attribute attribute = UMLMetafacadeUtils.getCorePackage()
+        Attribute attribute = UML14MetafacadeUtils.getCorePackage()
             .getAttribute().createAttribute();
         attribute.setName(name);
-        attribute.setVisibility(UMLMetafacadeUtils
+        attribute.setVisibility(UML14MetafacadeUtils
             .getVisibilityKind(visibility));
-        Object type = UMLMetafacadeUtils.findByFullyQualifiedName(
+        Object type = UML14MetafacadeUtils.findByFullyQualifiedName(
             fullyQualifiedTypeName,
             separator);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
@@ -279,11 +278,11 @@ public class UMLMetafacadeUtils
      */
     static Stereotype findOrCreateStereotype(String name)
     {
-        Object stereotype = UMLMetafacadeUtils.findByName(name);
+        Object stereotype = UML14MetafacadeUtils.findByName(name);
         if (stereotype == null
             || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
         {
-            stereotype = UMLMetafacadeUtils.getCorePackage().getStereotype()
+            stereotype = UML14MetafacadeUtils.getCorePackage().getStereotype()
                 .createStereotype();
             ((Stereotype)stereotype).setName(name);
         }
@@ -306,40 +305,6 @@ public class UMLMetafacadeUtils
                 + "\\s*\\w*\\s*:.*", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
         return matcher.matches();
-    }
-
-    /**
-     * Returns true or false depending on whether or not this Classifier or any
-     * of its specializations is of the given type having the specified
-     * <code>typeName</code>
-     * 
-     * @param typeName the name of the type (i.e. datatype.Collection)
-     * @return true/false
-     */
-    static boolean isType(ClassifierFacade classifier, String typeName)
-    {
-        final String type = StringUtils.trimToEmpty(typeName);
-        String name = StringUtils.trimToEmpty(classifier
-            .getFullyQualifiedName(true));
-        boolean isType = name.equals(type);
-        // if this isn't a type defined by typeName, see if we can find any
-        // types that inherit from the type.
-        if (!isType)
-        {
-            isType = CollectionUtils.find(
-                classifier.getAllGeneralizations(),
-                new Predicate()
-                {
-                    public boolean evaluate(Object object)
-                    {
-                        String name = StringUtils
-                            .trimToEmpty(((ModelElementFacade)object)
-                                .getFullyQualifiedName(true));
-                        return name.equals(type);
-                    }
-                }) != null;
-        }
-        return isType;
     }
 
     /**

@@ -63,7 +63,7 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName(boolean modelName)
     {
-        return UMLMetafacadeUtils.getPackageName(this.metaObject,
+        return UML14MetafacadeUtils.getPackageName(this.metaObject,
             String.valueOf(this.getConfiguredProperty(this.getNamespaceScopeProperty(modelName))));
     }
     
@@ -495,7 +495,7 @@ public class ModelElementFacadeLogicImpl
      */
     protected Object handleGetRootPackage()
     {
-        return UMLMetafacadeUtils.getRootPackage();
+        return UML14MetafacadeUtils.getRootPackage();
     }
 
     /**
@@ -504,7 +504,7 @@ public class ModelElementFacadeLogicImpl
     protected java.util.Collection handleGetSourceDependencies()
     {
         Collection dependencies = new ArrayList();
-        Collection clientDependencies = UMLMetafacadeUtils.getCorePackage()
+        Collection clientDependencies = UML14MetafacadeUtils.getCorePackage()
             .getAClientClientDependency().getClientDependency(this.metaObject);
         if (clientDependencies != null)
         {
@@ -527,7 +527,7 @@ public class ModelElementFacadeLogicImpl
     protected Collection handleGetTargetDependencies()
     {
         Collection dependencies = new ArrayList();
-        Collection supplierDependencies = UMLMetafacadeUtils.getCorePackage()
+        Collection supplierDependencies = UML14MetafacadeUtils.getCorePackage()
             .getASupplierSupplierDependency().getSupplierDependency(
                 this.metaObject);
         if (supplierDependencies != null)
@@ -687,7 +687,7 @@ public class ModelElementFacadeLogicImpl
             public boolean evaluate(Object object)
             {
                 ConstraintFacade constraint = (ConstraintFacade)object;
-                return UMLMetafacadeUtils.isConstraintKind(
+                return UML14MetafacadeUtils.isConstraintKind(
                     constraint.getBody(),
                     kind);
             }
@@ -702,7 +702,7 @@ public class ModelElementFacadeLogicImpl
     {
         ActivityGraph graphContext = null;
 
-        Collection graphs = UMLMetafacadeUtils.getModel().getActivityGraphs()
+        Collection graphs = UML14MetafacadeUtils.getModel().getActivityGraphs()
             .getActivityGraph().refAllOfType();
         for (Iterator graphIterator = graphs.iterator(); graphIterator
             .hasNext();)

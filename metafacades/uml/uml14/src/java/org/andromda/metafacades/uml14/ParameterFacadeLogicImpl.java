@@ -88,7 +88,7 @@ public class ParameterFacadeLogicImpl
     protected Object handleGetOperation()
     {
         Operation parameterOperation = null;
-        Collection allOperations = UMLMetafacadeUtils.getModel().getCore()
+        Collection allOperations = UML14MetafacadeUtils.getModel().getCore()
             .getOperation().refAllOfType();
         for (Iterator iterator = allOperations.iterator(); iterator.hasNext()
             && parameterOperation == null;)
@@ -108,7 +108,7 @@ public class ParameterFacadeLogicImpl
     protected Object handleGetEvent()
     {
         SignalEvent parameterSignalEvent = null;
-        Collection allSignalEvents = UMLMetafacadeUtils.getModel()
+        Collection allSignalEvents = UML14MetafacadeUtils.getModel()
             .getStateMachines().getSignalEvent().refAllOfType();
         for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext()
             && parameterSignalEvent == null;)

@@ -54,6 +54,17 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = profile.get("CONTROLLER_USECASE");
     public static final String TAGGEDVALUE_USECASE_ACTIVITY = profile.get("USECASE_ACTIVITY");
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
+    
+    /* ----------------- Data Types -------------------- */
+    
+    public static final String CHARACTER_TYPE_NAME = profile.get("CHARACTER_TYPE");
+    public static final String BYTE_TYPE_NAME = profile.get("BYTE_TYPE");
+    public static final String SHORT_TYPE_NAME = profile.get("SHORT_TYPE");
+    public static final String INTEGER_TYPE_NAME = profile.get("INTEGER_TYPE");
+    public static final String LONG_TYPE_NAME = profile.get("LONG_TYPE");
+    public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE");    
+    public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE");   
+    public static final String URL_TYPE_NAME = profile.get("URL_TYPE");   
 
     /* ----------------- Default Values ------------------- */
     public static final String TAGGEDVALUE_INPUT_DEFAULT_REQUIRED = "true";

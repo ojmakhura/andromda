@@ -58,7 +58,7 @@ public class ModelFacadeLogicImpl
         String tag,
         String value)
     {
-        return (UseCaseFacade)shieldedElement(UMLMetafacadeUtils
+        return (UseCaseFacade)shieldedElement(UML14MetafacadeUtils
             .findUseCaseWithTaggedValueOrHyperlink(tag, value));
     }
 
@@ -66,13 +66,13 @@ public class ModelFacadeLogicImpl
         String tag,
         String value)
     {
-        return (ClassifierFacade)shieldedElement(UMLMetafacadeUtils
+        return (ClassifierFacade)shieldedElement(UML14MetafacadeUtils
             .findClassWithTaggedValueOrHyperlink(tag, value));
     }
 
     protected ActivityGraphFacade handleFindActivityGraphByName(String name)
     {
-        return (ActivityGraphFacade)shieldedElement(UMLMetafacadeUtils
+        return (ActivityGraphFacade)shieldedElement(UML14MetafacadeUtils
             .findFirstActivityGraphWithName(name));
     }
 
@@ -80,13 +80,13 @@ public class ModelFacadeLogicImpl
         String name,
         String stereotypeName)
     {
-        return (ActivityGraphFacade)shieldedElement(UMLMetafacadeUtils
+        return (ActivityGraphFacade)shieldedElement(UML14MetafacadeUtils
             .findFirstActivityGraphWithNameAndStereotype(name, stereotypeName));
     }
 
     protected UseCaseFacade handleFindUseCaseByName(String name)
     {
-        return (UseCaseFacade)shieldedElement(UMLMetafacadeUtils
+        return (UseCaseFacade)shieldedElement(UML14MetafacadeUtils
             .findFirstUseCaseWithName(name));
     }
 
@@ -94,15 +94,15 @@ public class ModelFacadeLogicImpl
         String name,
         String stereotypeName)
     {
-        return (UseCaseFacade)shieldedElement(UMLMetafacadeUtils
+        return (UseCaseFacade)shieldedElement(UML14MetafacadeUtils
             .findFirstUseCaseWithNameAndStereotype(name, stereotypeName));
     }
 
     protected Collection handleFindFinalStatesWithNameOrHyperlink(
         UseCaseFacade useCase)
     {
-        UseCase useCaseMetaClass = UMLMetafacadeUtils.getMetaClass(useCase);
-        return shieldedElements(UMLMetafacadeUtils
+        UseCase useCaseMetaClass = UML14MetafacadeUtils.getMetaClass(useCase);
+        return shieldedElements(UML14MetafacadeUtils
             .findFinalStatesWithNameOrHyperlink(useCaseMetaClass));
     }
 
@@ -110,7 +110,7 @@ public class ModelFacadeLogicImpl
         ActivityGraphFacade activityGraph,
         String stereotypeName)
     {
-        ActivityGraph activityGraphMetaClass = UMLMetafacadeUtils
+        ActivityGraph activityGraphMetaClass = UML14MetafacadeUtils
             .getMetaClass(activityGraph);
 
         CompositeState compositeState = (CompositeState)activityGraphMetaClass
@@ -134,7 +134,7 @@ public class ModelFacadeLogicImpl
         public boolean evaluate(Object o)
         {
             return (o instanceof ActionState)
-                && UMLMetafacadeUtils.isStereotypePresent(
+                && UML14MetafacadeUtils.isStereotypePresent(
                     (ModelElement)o,
                     stereotypeName);
         }

@@ -132,7 +132,7 @@ public class ActivityGraphFacadeLogicImpl
     {
         UseCase stateMachineUseCase = null;
 
-        Collection useCases = UMLMetafacadeUtils.getModel().getUseCases()
+        Collection useCases = UML14MetafacadeUtils.getModel().getUseCases()
             .getUseCase().refAllOfType();
         for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator
             .hasNext()

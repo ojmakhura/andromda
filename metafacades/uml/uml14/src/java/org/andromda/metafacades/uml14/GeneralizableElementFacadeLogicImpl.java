@@ -77,7 +77,7 @@ public class GeneralizableElementFacadeLogicImpl
      */
     public Collection handleGetSpecializations()
     {
-        Collection specializations = new ArrayList(UMLMetafacadeUtils
+        Collection specializations = new ArrayList(UML14MetafacadeUtils
             .getCorePackage().getAParentSpecialization().getSpecialization(
                 this.metaObject));
         CollectionUtils.transform(specializations, new Transformer()
