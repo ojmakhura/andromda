@@ -62,6 +62,14 @@
                 size({0}) = 0
             </kind>
         </fragment>
+        
+        <!-- This is what is appended when '-> size()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*->\s*size${emptyParentheses}"
+                  handlerMethod="handleSize">
+            <kind name="body">
+                size({0})
+            </kind>
+        </fragment>
 
         <!-- the '{0}' represents the first argument in the 'isLike(<expression>,<expression>)' operation -->
         <fragment name="\s*StringUtils\s*.\s*isLike\s*\(.*,.*\)\s*"

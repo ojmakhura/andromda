@@ -156,6 +156,27 @@
         </to>
     </expression>
     
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate) 
+            body findInvalidByPerson : 
+                allInstances() -> select( certificate | 
+                   certificate.person.id = personId 
+                   and (certificate.validityStart > date or certificate.validityEnd < date)
+                   and certificate.notes -> size() >= 1)
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.contracts.MedicalCertificate as certificate 
+            where certificate.person.id = :personId 
+            and (certificate.validityStart > :date or certificate.validityEnd < :date)  
+            and size(certificate.notes) >= 1
+            ]]>          
+        </to> 
+    </expression>
+    
     <!--
     <expression>
         <from>
