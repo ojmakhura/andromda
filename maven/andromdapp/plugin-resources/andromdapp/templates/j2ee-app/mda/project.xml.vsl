@@ -81,6 +81,7 @@
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
                 <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
+                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
                 <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
                 <springTypesPackage>${pom.package}</springTypesPackage>
                 <daos>${maven.andromda.core.generated.dir}</daos>
@@ -101,7 +102,7 @@
             <type>jar</type>
             <properties>
                 <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-                <hibernateInheritanceStrategy>subclass</hibernateInheritanceStrategy>
+                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
                 <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
                 <hibernateDefaultCascade>none</hibernateDefaultCascade>
                 <entities>${maven.andromda.core.generated.dir}</entities>
