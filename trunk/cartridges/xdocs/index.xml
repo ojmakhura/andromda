@@ -14,7 +14,7 @@
       <p>
             The <strong>primary plugin</strong> of the AndroMDA framework, <em>cartridges</em>
             provide the ability to process model elements that have specified <code>stereotypes</code>
-            (i.e. <code><![CDATA[<<Entity>>]]></code>, <code><![CDATA[<<Enumeration>>]]></code>, etc.).  
+            (i.e. <code><![CDATA[<<Entity>>]]></code>, <code><![CDATA[<<Enumeration>>]]></code>, etc.).
             Cartridges process these model elements using template files defined within the cartridge
             <a href="descriptor-schema.html">descriptor</a>.
       </p>
@@ -26,12 +26,12 @@
 
       <h2>Using a cartridge</h2>
       <p>
-          If you want to use existing cartridge(s) for generation 
-          (i.e. the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>, 
-          etc.), simply place the cartridges on your classpath; using the 
-          <a href="../maven-andromda-plugin/index.html">AndroMDA Maven Plugin</a> 
+          If you want to use existing cartridge(s) for generation
+          (i.e. the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>,
+          etc.), simply place the cartridges on your classpath; using the
+          <a href="../maven-andromda-plugin/index.html">AndroMDA Maven Plugin</a>
           this is VERY simple, you just add the AndroMDA maven plugin and cartridge(s)
-          as dependencies to your project.xml file and then run the plugin goal 
+          as dependencies to your project.xml file and then run the plugin goal
           <em>andromda:run</em>, that's it!
           <source><![CDATA[
 <dependencies>
@@ -64,7 +64,7 @@
             that the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>
             generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
             and put the replacement-files in that directory (if you generated your project using the Maven
-            <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in 
+            <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in
             <code>&lt;your-project&gt;/mda/project.xml</code>):
         </p>
         <source><![CDATA[
@@ -103,18 +103,18 @@
      ...
  </namespace>
  ...
-]]></source>      
+]]></source>
       <a name="mergeMappingsUri"/>
       <h3>Merging cartridge resources</h3>
       <p>
-        Sometimes you may want to merge (or replace) things in a cartridge: this can be done in templates, within 
-        the andromda-cartrige.xml, or even within the andromda-metafacades.xml. For example within the BPM4Struts cartridge, 
-        the web.xml (or struts-config.xml) may not contain everyting you need (i.e. you may need to add a new <![CDATA[<servlet/>]]> 
-        and <![CDATA[<servlet-mapping/>]]>, some <![CDATA[<context-param/>]]>, or even <![CDATA[<error-page/>]]> definitions). 
+        Sometimes you may want to merge (or replace) things in a cartridge: this can be done in templates, within
+        the andromda-cartrige.xml, or even within the andromda-metafacades.xml. For example within the BPM4Struts cartridge,
+        the web.xml (or struts-config.xml) may not contain everyting you need (i.e. you may need to add a new <![CDATA[<servlet/>]]>
+        and <![CDATA[<servlet-mapping/>]]>, some <![CDATA[<context-param/>]]>, or even <![CDATA[<error-page/>]]> definitions).
       </p>
       <p>
-        This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the 
-        cartridge-dependency and create a new mappings file in which to map what you want merged. 
+        This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the
+        cartridge-dependency and create a new mappings file in which to map what you want merged.
       </p>
       <source><![CDATA[
 ...
@@ -126,44 +126,40 @@
         ...
         <mergeMappingsUri>file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</mergeMappingsUri>
         ...
-    </properties>  
+    </properties>
 </dependency>
-... 
+...
 ]]></source>
       <p>
-        For example, this fragment below (from a mappings file) says we want to replace anything found 
+        For example, this fragment below (from a mappings file) says we want to replace anything found
         matching <em><![CDATA[<!-- error-page merge-point -->]]></em> (defined in the <![CDATA[<to/>]]>
-        definition) with the <em><![CDATA[<error-page/>]]></em> fragments (found in the from 
+        definition) with the <em><![CDATA[<error-page/>]]></em> fragments (found in the from
         <![CDATA[<from/>]]> definition):
      </p>
-     <p class="highlight"> 
-        In reality the contents of the <em>from</em> and <em>to</em> elements MUST be escaped with 
-        a CDATA section.
-     </p>
-      <source><![CDATA[
+     <source>
 ...
-<mapping>
-    <from><!-- error-page merge-point --></from>
-    <to>
-<error-page>
-    <error-code>404</error-code>
-    <location>/index.jsp</location>
-</error-page>
-<error-page>
-    <error-code>408</error-code>
-    <location>/index.jsp</location>
-</error-page>
-<error-page>
-    <error-code>400</error-code>
-    <location>/index.jsp</location>
-</error-page>   
-    </to>
-</mapping>
+<strong>&lt;mapping&gt;
+    &lt;from&gt;&lt;![CDATA[</strong>&lt;!-- error-page merge-point --&gt;<strong>]]&gt;&lt;/from&gt;
+    &lt;to&gt;
+&lt;![CDATA[</strong>&lt;error-page&gt;
+    &lt;error-code&gt;404&lt;/error-code&gt;
+    &lt;location&gt;/index.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+&lt;error-page&gt;
+    &lt;error-code&gt;408&lt;/error-code&gt;
+    &lt;location&gt;/index.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+&lt;error-page&gt;
+    &lt;error-code&gt;400&lt;/error-code&gt;
+    &lt;location&gt;/index.jsp&lt;/location&gt;
+&lt;/error-page&gt;<strong>]]&gt;
+    &lt;/to&gt;
+&lt;/mapping&gt;</strong>
 ...
-]]></source>       
-     <p class="highlight"> 
+     </source>
+     <p class="highlight">
         If you wanted to add resources (i.e. a new template, image, static file, etc) to a cartridge without modifying the contents
-        of the cartridge, you could use the <a href="#mergeMappingsUri">mergeMappingsUri</a> in combination with the 
+        of the cartridge, you could use the <a href="#mergeMappingsUri">mergeMappingsUri</a> in combination with the
         <a href="#mergeLocation">mergeLocation</a>.  You would use the <a href="#mergeMappingsUri">mergeMappingsUri</a> to define
         the new template in a cartridge, and use the mergeLocation to specify the actual template.
      </p>
@@ -183,23 +179,23 @@
                 <code>src/java/**/*</code>
             </td>
             <td>
-                There could be a couple uses for this directory, placing cartridge specific 
-                <a href="../andromda-metafacades/index.html">metafacade</a> code, <strong>OR</strong> 
-                source code for classes that are invoked at 
+                There could be a couple uses for this directory, placing cartridge specific
+                <a href="../andromda-metafacades/index.html">metafacade</a> code, <strong>OR</strong>
+                source code for classes that are invoked at
                 runtime of the code generated by a cartridge.
             </td>
             <td>
                 No
-            </td>			
+            </td>
         </tr>
         <tr>
             <td nowrap="nowrap">
                 <code>src/META-INF/andromda-cartridge.xml</code>
             </td>
-            <td> 
-                Declarative cartridge descriptor (see below). 
+            <td>
+                Declarative cartridge descriptor (see below).
             </td>
-            <td> 
+            <td>
                 Yes
             </td>
         </tr>
@@ -207,17 +203,17 @@
             <td nowrap="nowrap">
                 <code>src/META-INF/andromda-metafacades.xml</code>
             </td>
-            <td> 
+            <td>
                 Metafacades descriptor. This is used to specify
                 <a href="../andromda-metafacades/index.html">metafacades</a> for the underlying metamodel (UML 1.4, etc.).
             </td>
-            <td> 
+            <td>
                 No
             </td>
         </tr>
         <tr>
             <td>
-                <code>src/templates/*.vsl</code> (or any template extension depending on your 
+                <code>src/templates/*.vsl</code> (or any template extension depending on your
                 cartridge <a href="../andromda-templateengines/index.html">template engine</a>).
             </td>
           <td>
@@ -228,7 +224,7 @@
       </table>
       <p>
           All items except the descriptor and the templates are optional. If
-          you want to see a complete cartridge, have a look inside the 
+          you want to see a complete cartridge, have a look inside the
           <em>andromda-bpm4struts-cartridge</em> cartridge.
       </p>
 
@@ -263,7 +259,7 @@
         outlet="entity-beans"
         overwrite="true">
     </resource>
-    
+
     <template
         path="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -336,13 +332,13 @@
       </table>
       <h3><![CDATA[<property/>]]></h3>
       <p>
-        The <code><![CDATA[<property/>]]></code> element is used to specify 
+        The <code><![CDATA[<property/>]]></code> element is used to specify
         property references for a cartridge.  These references are defined
         by the calling client of a cartridge.  For example, if you have
-        the property reference <code>securityEnabled</code> defined 
-        (i.e. <strong><![CDATA[<property reference="securityEnabled"/>]]></strong>), 
-        then the framework will expect the client to define a namespace property 
-        named <code>securityEnabled</code> when this cartridge is run. This property 
+        the property reference <code>securityEnabled</code> defined
+        (i.e. <strong><![CDATA[<property reference="securityEnabled"/>]]></strong>),
+        then the framework will expect the client to define a namespace property
+        named <code>securityEnabled</code> when this cartridge is run. This property
         (and it's value) will then be made available to the template during processing
       </p>
       <table>
@@ -356,7 +352,7 @@
               <td>
                   Specifies the name of the reference.  This is
                   the name that must be defined in the namespace
-                  and its the name that will be made available to 
+                  and its the name that will be made available to
                   the template during processing.
               </td>
               <td >Yes</td>
@@ -365,7 +361,7 @@
               <td>default</td>
               <td>
                   Specifies the default value to be used if
-                  <strong>NOT</strong> supplied by the 
+                  <strong>NOT</strong> supplied by the
                   cartridge client.
               </td>
               <td >No</td>
@@ -493,8 +489,8 @@
         <a name="modelElements"/>
         <h3><![CDATA[<modelElements/>]]></h3>
         <p>
-            The <code><![CDATA[<modelElements/>]]></code> element is nested directly within 
-            the <a href="#template"><code><![CDATA[<template/>]]></code></a> element, it is used to 
+            The <code><![CDATA[<modelElements/>]]></code> element is nested directly within
+            the <a href="#template"><code><![CDATA[<template/>]]></code></a> element, it is used to
             instruct each <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
             elements it should process.  The <code><![CDATA[<modelElements/>]]></code> ecloses the
             <a href="#modelElement"><code><![CDATA[<modelElement/>]]></code></a>.
@@ -510,7 +506,7 @@
                 variable
             </td>
             <td>
-                The variable which is made available to the template (i.e. a value of <em>entity</em> 
+                The variable which is made available to the template (i.e. a value of <em>entity</em>
                 would make <em>$entity</em> available in a velocity template).
             </td>
             <td>
@@ -521,9 +517,9 @@
         <a name="modelElement"/>
         <h3><![CDATA[<modelElement/>]]></h3>
         <p>
-            The <code><![CDATA[<modelElement/>]]></code> is nested directly within 
-            the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a>, it is used to 
-            within the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> to instruct each 
+            The <code><![CDATA[<modelElement/>]]></code> is nested directly within
+            the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a>, it is used to
+            within the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> to instruct each
             <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
             elements it should process.  For example, using this element you can specify both stereotypes and
             or metafacade types (and optionally the metafacade's properties).
@@ -559,9 +555,9 @@
                 this would allow you to group model elements together and make them available to the template as collections.
                 The below example makes all model elements stereotyped with <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
                 as <em>$entityEjbs</em> and <em>$sessionEjbs</em> respectively (if you're using velocity for your
-                templating language).  If you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice 
-                the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong> 
-                entities and services available as <code>$ejbs</code> in a velocity template (since 
+                templating language).  If you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice
+                the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong>
+                entities and services available as <code>$ejbs</code> in a velocity template (since
                 <a href="#outputToSingleFile">outputToSingleFile</a> is set to <em>true</em>).
                 <source><![CDATA[
 ...
@@ -587,26 +583,26 @@
        <a name="type"/>
        <h3><![CDATA[<type/>]]></h3>
         <p>
-            The <code><![CDATA[<type/>]]></code> element is nested directly within 
-            a <a href="#modelElement"><code><![CDATA[<modelElement/>]]></code></a>, it is used to 
-            specify in what <a href="../andromda-metafacades/index.html">metafacade</a> <em>type</em> 
-            the meta model element <strong>MUST</strong> be wrapped in order 
+            The <code><![CDATA[<type/>]]></code> element is nested directly within
+            a <a href="#modelElement"><code><![CDATA[<modelElement/>]]></code></a>, it is used to
+            specify in what <a href="../andromda-metafacades/index.html">metafacade</a> <em>type</em>
+            the meta model element <strong>MUST</strong> be wrapped in order
             to be made available to a <a href="#template"><code><![CDATA[<template/>]]></code></a>.
-            For example, this could make each metafacade of type 
+            For example, this could make each metafacade of type
             <code>org.andromda.cartridges.webservice.metafacades.WebService</code> available to a template:
 <source><![CDATA[
 ...
-<template 
-    path="templates/webservice/wsdl/wrapped-wsdl.vsl" 
-    outputPattern="{0}/{1}.wsdl"     
-    outlet="wsdls" 
+<template
+    path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+    outputPattern="{0}/{1}.wsdl"
+    outlet="wsdls"
     overwrite="true">
     <modelElements variable="service">
         <modelElement>
             <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
         </modelElement>
     </modelElements>
-</template>  
+</template>
 ...
 ]]></source>
         </p>
@@ -621,7 +617,7 @@
                 name
             </td>
             <td>
-                The name of the metafacade type. (i.e. <em>org.andromda.core.uml.ClassifierFacade</em>, 
+                The name of the metafacade type. (i.e. <em>org.andromda.core.uml.ClassifierFacade</em>,
                <em>org.andromda.cartridges.webservice.metafacades.WebService</em>, etc).
             </td>
             <td>
@@ -633,10 +629,10 @@
        <a name="typeProperty"/>
        <h3><![CDATA[<property/>]]></h3>
         <p>
-            There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements 
-            that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>, 
-            they are used to specify what properties the <a href="../andromda-metafacades/index.html">metafacade</a> 
-            <em>type</em> must have or be equal to in order for the model element to be made available to a 
+            There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements
+            that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>,
+            they are used to specify what properties the <a href="../andromda-metafacades/index.html">metafacade</a>
+            <em>type</em> must have or be equal to in order for the model element to be made available to a
             <a href="#template"><code><![CDATA[<template/>]]></code></a>. For example, the following would make each
             model element with a metafacade of type <em>org.andromda.core.uml.ClassifierFacade</em> with the property
             <em>enumeration</em> equal to <code>true</code> available to a template:
@@ -647,14 +643,14 @@
         <type name="org.andromda.metafacades.uml.ClassifierFacade">
             <property name="enumeration" value="true"/>
         </type>
-    </modelElement> 
+    </modelElement>
 </modelElements>
-...                
-]]></source> 
+...
+]]></source>
         </p>
         <p class="highlight">
-            Its important to note that you are NOT required to specify a property's value when using the nested 
-            <code><![CDATA[<property/>]]></code>, if you do not specify the <em>value</em> attribute, then only 
+            Its important to note that you are NOT required to specify a property's value when using the nested
+            <code><![CDATA[<property/>]]></code>, if you do not specify the <em>value</em> attribute, then only
             the presence of the property will be enough (presence meaning existing on the metafacade
             and having a non-null value).
         </p>
@@ -726,7 +722,7 @@
                  the resource output file names. The pattern can consist of any ordinary
                  printable characters as well as some predefined placeholders
                  for things that AndroMDA already knows about: <br/>
-                 <code>{0}</code> stands for the name of the resource 
+                 <code>{0}</code> stands for the name of the resource
                  file contained within your cartridge.<br/>
                  See example below.
             </td>
@@ -776,7 +772,7 @@
           </tr>
         </table>
         <p>
-            This example would copy all <code>.jar</code> files to the 
+            This example would copy all <code>.jar</code> files to the
             location defined by the <em>resource</em> outlet within
             the <code>lib</code> directory.
         </p>
@@ -786,7 +782,7 @@
     path="**/*.jar"
     outputPattern="lib/{0}"
     outlet="resources"
-    overwrite="false"/> 
+    overwrite="false"/>
      ]]></source>
     </section>
   </body>
