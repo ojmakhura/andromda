@@ -1,5 +1,6 @@
 package org.andromda.core;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -66,7 +67,10 @@ public class ModelProcessor
                     + versionPropertiesUri + "'");
             }
             Properties properties = new Properties();
-            properties.load(versionUri.openStream());
+            InputStream stream = versionUri.openStream();
+            properties.load(stream);
+            stream.close();
+            stream = null;
             VERSION = properties.getProperty("andromda.version");
             if (VERSION == null)
             {

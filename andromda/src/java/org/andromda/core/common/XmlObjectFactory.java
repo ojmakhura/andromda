@@ -172,6 +172,7 @@ public class XmlObjectFactory
                     {
                         InputStream stream = this.schemaUri.openStream();
                         stream.close();
+                        stream = null;
                     }
                 }
                 catch (IOException ex)
@@ -223,7 +224,10 @@ public class XmlObjectFactory
         Object object = null;
         try
         {
-            object = this.digester.parse(objectXml.openStream());
+            InputStream stream = objectXml.openStream();
+            object = this.digester.parse(stream);
+            stream.close();
+            stream = null;
             if (object == null)
             {
                 String errMsg = "Was not able to instantiate an object using objectRulesXml '"

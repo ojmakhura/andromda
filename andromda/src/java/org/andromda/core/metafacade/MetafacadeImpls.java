@@ -1,5 +1,6 @@
 package org.andromda.core.metafacade;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -91,7 +92,10 @@ public class MetafacadeImpls
                             .debug("loading metafacade implementations from resource --> '"
                                 + resource + "'");
                     }
-                    properties.load(resource.openStream());
+                    InputStream stream = resource.openStream();
+                    properties.load(stream);
+                    stream.close();
+                    stream = null;
                 }
                 Iterator propertyIt = properties.keySet().iterator();
                 while (propertyIt.hasNext())

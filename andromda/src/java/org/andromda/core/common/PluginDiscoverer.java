@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -34,7 +35,10 @@ public class PluginDiscoverer {
                 logger.error(errMsg); 
                 throw new PluginDiscovererException(errMsg);
             } 
-            pluginResources.load(andromdaPluginsUri.openStream());    
+            InputStream stream =  andromdaPluginsUri.openStream();
+            pluginResources.load(stream);
+            stream.close();
+            stream = null;
         } catch (Throwable th) {
             String errMsg = "Error loading --> '" + ANDROMDA_PLUGINS + "'";
             logger.error(errMsg, th);
