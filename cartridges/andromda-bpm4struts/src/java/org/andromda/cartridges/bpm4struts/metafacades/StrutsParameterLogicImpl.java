@@ -1,16 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.*;
 
 
 /**
@@ -385,6 +380,12 @@ public class StrutsParameterLogicImpl
         return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_CALENDAR)).equals("true");
     }
 
+    public boolean handleIsActionParameter()
+    {
+        StrutsAction action = getAction();
+        return (action == null) ? false : action.getActionParameters().contains(this);
+    }
+
     public boolean handleIsTable()
     {
         boolean isTable = this.getType() != null;
@@ -475,7 +476,7 @@ public class StrutsParameterLogicImpl
     {
         StrutsJsp jsp = getJsp();
         return StringUtilsHelper.upperCamelCaseName(jsp.getName()) +
-                StringUtilsHelper.upperCamelCaseName(getName()) + "TableDecorator";
+                StringUtilsHelper.upperCamelCaseName(getName()) + "Decorator";
     }
 
     public String handleGetDecoratorFullPath()
