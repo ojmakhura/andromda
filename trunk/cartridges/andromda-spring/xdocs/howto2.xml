@@ -10,8 +10,8 @@
     <body>
         <section name="Relationships">
             <p>
-                Most of the business objects that appear in real applications have relationships with other
-                business objects, consider the simple case of a person owning a car. Here we say
+                Most of the entities that appear in real applications have relationships with other
+                entities, consider the simple case of a person owning a car. Here we say
                 <code>Person</code> has an <code>owning</code> relationship with the <code>Car</code>, and from
                 the perspective of the person there can be any number of cars that are owned, denoted in UML
                 by <code>[0..*]</code> at the car's end. Make sure the association ends are <code>public</code>
