@@ -4,7 +4,7 @@
 <metafacades namespace="hibernate">
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacadeLogicImpl">
+		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl">
 		<stereotype>FinderMethod</stereotype>
 	</metafacade>
 	<metafacade 
@@ -18,5 +18,10 @@
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
 		<stereotype>Service</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
-	</metafacade>	
+	</metafacade>		
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
+		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
+        <property reference="hibernateTypeMappingsUri"/>
+	</metafacade>
 </metafacades>

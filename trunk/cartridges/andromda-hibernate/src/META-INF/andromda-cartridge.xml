@@ -10,8 +10,15 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
+    <!-- copy resources -->
+	<resource
+		path="resources/hibernate/*.java"
+		outputPattern="org/andromda/persistence/hibernate/{0}"
+		outlet="entities"
+		overwrite="true"/>
+
     <template
-        path="templates/HibernateEntity.vsl"
+        path="templates/hibernate/HibernateEntity.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entities"
         overwrite="true">
@@ -21,7 +28,7 @@
     </template>
 
     <template
-        path="templates/HibernateEntityImpl.vsl"
+        path="templates/hibernate/HibernateEntityImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
         outlet="entity-impls"
         overwrite="false">
@@ -31,7 +38,7 @@
     </template>
 
     <template
-        path="templates/HibernateEntityFactory.vsl"
+        path="templates/hibernate/HibernateEntityFactory.vsl"
         outputPattern="{0}/{1}Factory.java"
         outlet="entities"
         overwrite="true">
@@ -41,7 +48,7 @@
     </template>
 
     <template
-        path="templates/HibernateSessionBean.vsl"
+        path="templates/hibernate/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overwrite="true">
@@ -51,7 +58,7 @@
     </template>
 
     <template
-        path="templates/HibernateSessionBeanImpl.vsl"
+        path="templates/hibernate/HibernateSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overwrite="false">
