@@ -23,16 +23,16 @@
             <fileset dir="${app.root.dir}/hibernate/ejb/target" includes="*.jar"/>
             <fileset dir="${app.root.dir}/common/target" includes="*.jar"/>
             <fileset dir="${app.root.dir}/lib">
-                <include name="commons-collections-3.0.jar"/>
-                <include name="commons-beanutils-1.6.1.jar"/>
-                <include name="hibernate-2.1.2.jar"/>
-                <include name="cglib-2.0-rc2.jar"/>
-                <include name="dom4j-1.4.jar"/>
-                <include name="odmg-3.0.jar"/>
-                <include name="ehcache-0.7.jar"/>
-                <include name="asm-1.4.1.jar"/>
-                <include name="commons-logging-1.0.3.jar"/>
-                <include name="commons-lang-2.0.jar"/>
+                <include name="commons-collections-*.jar"/>
+                <include name="commons-beanutils-*.jar"/>
+                <include name="hibernate-*.jar"/>
+                <include name="cglib-*.jar"/>
+                <include name="dom4j-*.jar"/>
+                <include name="odmg-*.jar"/>
+                <include name="ehcache-*.jar"/>
+                <include name="asm-*.jar"/>
+                <include name="commons-logging-*.jar"/>
+                <include name="commons-lang-*.jar"/>
             </fileset>
             <fileset dir="${basedir}/src" includes="META-INF/*.xml" excludes="META-INF/application.xml"/>
         </ear>
