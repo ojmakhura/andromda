@@ -375,7 +375,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * contact(string) is a special feature defined by OCL on all objects.
+     * contact(string) is a special feature defined by OCL on strings.
      */
     private void handleConcat(AFeatureCall featureCall)
     {
