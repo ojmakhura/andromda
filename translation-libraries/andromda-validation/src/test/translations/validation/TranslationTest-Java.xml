@@ -5,7 +5,7 @@
 
 	<translation name="validation.java"></translation>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: age &gt;= 18
@@ -15,7 +15,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context CustomerCard
             inv: validFrom.isBefore(goodThru)
@@ -25,7 +25,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Membership
             inv: card.customer = customer
@@ -35,7 +35,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context CustomerCard
             inv: printedName = customer.title.concat( customer.name )
@@ -45,7 +45,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyProgram
             inv: serviceLevel-&gt;size() = 2
@@ -55,7 +55,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: program-&gt;size() = cards-&gt;select( valid = true )-&gt;size()
@@ -65,7 +65,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyProgram
             inv: partners.deliveredServices-&gt;forAll( pointsEarned = 0 and pointsBurned = 0 )
@@ -76,7 +76,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context ProgramPartner
             inv: numberOfCustomers = loyaltyProgram.customer-&gt;size()
@@ -86,7 +86,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context ProgramPartner
             inv: numberOfCustomers = loyaltyProgram.customer-&gt;asSet()-&gt;size()
@@ -96,7 +96,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyProgram
             inv: partners.deliveredServices.transaction.points-&gt;sum() &lt; 10000
@@ -106,7 +106,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyProgram
             inv: partners.deliveredServices.transaction-&gt;select(oclType = Burning)-&gt;collect( points )-&gt;sum() &lt; 10000
@@ -117,7 +117,7 @@
     </expression>
 
 <!--
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyAccount::isEmpty()
             pre : - - none
@@ -128,7 +128,7 @@
     </expression>
 -->
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyProgram
             inv: customer-&gt;forAll( age &gt;= 18 )
@@ -138,7 +138,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: name = 'Edward'
@@ -148,7 +148,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: self.name = 'Edward'
@@ -158,7 +158,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Membership
             inv: customer.card.membership->includes( self )
@@ -168,7 +168,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Services
             inv: self.pointsOffered &gt; 0 implies not (self.pointsBurned = 0)
@@ -178,7 +178,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: title = (if isMale = true then 'Mr.' else 'Ms.' endif)
@@ -188,7 +188,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: self.age() &gt;= 0
@@ -198,7 +198,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Customer
             inv: self.isRelatedTo(self) = true
@@ -208,7 +208,7 @@
         </to>
     </expression>
 
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context Membership
             inv: (actualLevel.name = 'Silver' implies card.color = Color::silver)
@@ -221,7 +221,7 @@
     </expression>
 
 <!--
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
             context LoyaltyAccount::isEmpty()
             pre : - - none
@@ -233,7 +233,7 @@
 -->
 
 <!--
-    <expression contextType="org.ocltf.contracts.LegalAgreement">
+    <expression>
         <from>
         </from>
         <to>
