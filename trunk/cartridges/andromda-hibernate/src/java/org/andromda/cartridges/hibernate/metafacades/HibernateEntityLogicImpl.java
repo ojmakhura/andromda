@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -16,6 +17,7 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -444,6 +446,35 @@ public class HibernateEntityLogicImpl
         columnName = attribute == null ? this.getDefaultIdentifier()
             .toUpperCase() : attribute.getColumnName();
         return columnName;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
+     */
+    public java.util.Collection getProperties()
+    {
+        Collection properties = this.getAttributes();
+        Collection connectingEnds = this.getAssociationEnds();
+        CollectionUtils.transform(connectingEnds, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return ((AssociationEndFacade)object).getOtherEnd();
+            }
+        });
+        class NavigableFilter
+            implements Predicate
+        {
+            public boolean evaluate(Object object)
+            {
+                AssociationEndFacade end = (AssociationEndFacade)object;
+                return end.isNavigable()
+                    || (end.getOtherEnd().isChild() && isForeignHibernateGeneratorClass());
+            }
+        }
+        CollectionUtils.filter(connectingEnds, new NavigableFilter());
+        properties.addAll(connectingEnds);
+        return properties;
     }
 
     private String getDefaultIdentifier()
