@@ -24,15 +24,14 @@ public class ${controller.name}Impl extends ${controller.name}
 #if (!$returnType)
 #set ($returnType = "void")
 #end
-#foreach ($action in $operation.deferringActions)
     /**
 $operation.getDocumentation("     * ")
      */
-    $visibility final $returnType ${operation.name}(ActionMapping mapping, $action.formBeanType form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    $visibility final $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #set($allowDummyData = ($dummyData == 'true'))
 #if ($allowDummyData)
-#set ($formFields = $action.actionFormFields)
+#set ($formFields = $operation.formFields)
 #if ($formFields.empty)
         // nothing to be done for this operation, there are no properties that can be set
 #else
@@ -66,7 +65,6 @@ $operation.getDocumentation("     * ")
     }
 #set ($returnType = false)
 
-#end
 #end
 ## here we populate tabular data with dummy values
 #set ($quote = '"')
