@@ -47,11 +47,7 @@ public class OperationFacadeLogicImpl
      */
     public String handleGetSignature(boolean withArgumentNames)
     {
-        StringBuffer signature = new StringBuffer(this.getName());
-        signature.append("(");
-        signature.append(this.getTypedArgumentList(withArgumentNames));
-        signature.append(")");
-        return signature.toString();
+        return this.getSignature(withArgumentNames, null);
     }
 
     /**
@@ -64,44 +60,7 @@ public class OperationFacadeLogicImpl
 
     private String getTypedArgumentList(boolean withArgumentNames)
     {
-        StringBuffer sb = new StringBuffer();
-        Iterator it = metaObject.getParameter().iterator();
-
-        boolean commaNeeded = false;
-        while (it.hasNext())
-        {
-            Parameter p = (Parameter)it.next();
-
-            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
-            {
-                String type = null;
-                if (p.getType() == null)
-                {
-                    this.logger
-                        .error("ERROR! No type specified for parameter --> '"
-                            + p.getName() + "' on operation --> '"
-                            + this.getName() + "', please check your model");
-                }
-                else
-                {
-                    type = ((ClassifierFacade)this.shieldedElement(p.getType()))
-                        .getFullyQualifiedName();
-                }
-
-                if (commaNeeded)
-                {
-                    sb.append(", ");
-                }
-                sb.append(type);
-                if (withArgumentNames)
-                {
-                    sb.append(" ");
-                    sb.append(p.getName());
-                }
-                commaNeeded = true;
-            }
-        }
-        return sb.toString();
+        return this.getTypedArgumentList(withArgumentNames, null);
     }
 
     /**
@@ -383,5 +342,77 @@ public class OperationFacadeLogicImpl
         }
 
         return exceptionList.toString();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList(java.lang.String)
+     */
+    public String handleGetTypedArgumentList(String modifier)
+    {
+        return this.getTypedArgumentList(true, modifier);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getSignature(java.lang.String)
+     */
+    public String handleGetSignature(String argumentModifier)
+    {
+        return this.getSignature(true, argumentModifier);
+    }
+    
+    private String getSignature(boolean withArgumentNames, String argumentModifier)
+    {
+        StringBuffer signature = new StringBuffer(this.getName());
+        signature.append("(");
+        signature.append(this.getTypedArgumentList(withArgumentNames, argumentModifier));
+        signature.append(")");
+        return signature.toString();
+    }
+    
+    private String getTypedArgumentList(boolean withArgumentNames, String modifier)
+    {
+        StringBuffer sb = new StringBuffer();
+        Iterator it = metaObject.getParameter().iterator();
+
+        boolean commaNeeded = false;
+        while (it.hasNext())
+        {
+            Parameter p = (Parameter)it.next();
+
+            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            {
+                String type = null;
+                if (p.getType() == null)
+                {
+                    this.logger
+                        .error("ERROR! No type specified for parameter --> '"
+                            + p.getName() + "' on operation --> '"
+                            + this.getName() + "', please check your model");
+                }
+                else
+                {
+                    type = ((ClassifierFacade)this.shieldedElement(p.getType()))
+                        .getFullyQualifiedName();
+                }
+
+                if (commaNeeded)
+                {
+                    sb.append(", ");
+                }
+                if (StringUtils.isNotBlank(modifier))
+                {
+                    sb.append(modifier);
+                    sb.append(" ");
+                }
+                sb.append(type);
+                if (withArgumentNames)
+                {
+                    sb.append(" ");
+                    sb.append(p.getName());
+                }
+                commaNeeded = true;
+            }
+        }
+        return sb.toString();
     }
 }
