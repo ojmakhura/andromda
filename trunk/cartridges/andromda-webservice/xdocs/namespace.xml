@@ -157,7 +157,35 @@
 					<td>
 						No, default is <code>no prefix</code>.
 					</td>
-				</tr>          		        	        	        	     	             	        	
+				</tr>    
+				<tr>
+					<td>
+						ejbInterfacePattern
+					</td>
+					<td>
+						The pattern to use when determining the interface of an EJB
+						provider: <em>{0}</em> represents the package name of the
+						model element and <em>{1}</em> represents the name of the
+						model element.
+					</td>
+					<td>
+						No, default is <code>{0}.{1}</code>
+					</td>
+				</tr>      
+				<tr>
+					<td>
+						ejbHomeInterfacePattern
+					</td>
+					<td>
+						The pattern to use when determining the home interface of 
+						an EJB provider: <em>{0}</em> represents the package name 
+						of the model element and <em>{1}</em> represents the name 
+						of the model element.
+					</td>
+					<td>
+						No, default is <code>{0}.{1}Home</code>
+					</td>
+				</tr>  		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
