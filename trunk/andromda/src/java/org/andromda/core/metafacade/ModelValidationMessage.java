@@ -1,5 +1,8 @@
 package org.andromda.core.metafacade;
 
+import java.util.List;
+
+import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -12,32 +15,25 @@ import org.apache.commons.lang.StringUtils;
 public class ModelValidationMessage
 {
     /**
-     * Constructs a new instance of MetafacadeValidationMessage taking the
-     * <code>metafacadeClass</code> the <code>modelElementName</code> and
-     * <code>message</code>.
+     * Constructs a new instance of MetafacadeValidationMessage taking a
+     * <code>metafacade</code> instance and a <code>message</code>
+     * indicating what has been violated.
      * 
      * @param metafacadeClass the Class of the metafacade being validated.
      * @param modelElementName the name of the model element being validated.
      * @param message the message to to communitate about the validation.
      */
     public ModelValidationMessage(
-        Class metafacadeClass,
-        String modelElementName,
+        MetafacadeBase metafacade,
         String message)
     {
         final String constructorName = "MetafacadeValidationMessage";
-        ExceptionUtils.checkNull(
-            constructorName,
-            "metafacadeClass",
-            metafacadeClass);
+        ExceptionUtils.checkNull(constructorName, "metafacade", metafacade);
         ExceptionUtils.checkEmpty(constructorName, "message", message);
-        this.metafacadeClass = metafacadeClass;
-        this.modelElementName = modelElementName;
+        this.metafacade = metafacade;
         this.message = message;
     }
 
-    private Class metafacadeClass;
-    private String modelElementName;
     private String message;
 
     /**
@@ -48,20 +44,67 @@ public class ModelValidationMessage
         return message;
     }
 
+    private MetafacadeBase metafacade;
+
     /**
-     * @return Returns the metafacadeClass.
+     * Used if a metafacade has no name defined.
+     */
+    private static final String UNDEFINED_NAME = "undefined";
+
+    private String metafacadeName = null;
+
+    /**
+     * Gets the name of the metafacade to which this validation message applies.
+     * 
+     * @return Returns the metafacade.
+     */
+    public String getMetafacadeName()
+    {
+        if (this.metafacadeName == null)
+        {
+            StringBuffer name = new StringBuffer();
+            if (StringUtils.isNotEmpty(this.metafacade.getName()))
+            {
+                name.append(this.metafacade.getName());
+                if (metafacade.getMetafacadeOwner() != null)
+                {
+                    MetafacadeBase owner = metafacade.getMetafacadeOwner();
+                    if (StringUtils.isNotEmpty(owner.getName()))
+                    {
+                        name.insert(0, "::");
+                        name.insert(0, owner.getName());
+                    }
+                }
+            }
+            else
+            {
+                name = new StringBuffer(UNDEFINED_NAME);
+            }
+            this.metafacadeName = name.toString();
+        }
+        return metafacadeName;
+    }
+
+    private Class metafacadeClass = null;
+
+    /**
+     * Gets the class of the metafacade to which this validation message
+     * applies.
+     * 
+     * @return the metafacade Class.
      */
     public Class getMetafacadeClass()
     {
-        return metafacadeClass;
-    }
-
-    /**
-     * @return Returns the modelElementName.
-     */
-    public String getModelElementName()
-    {
-        return modelElementName;
+        if (metafacadeClass == null)
+        {
+            List interfaces = ClassUtils.getAllInterfaces(this.metafacade
+                .getClass());
+            if (interfaces != null && !interfaces.isEmpty())
+            {
+                this.metafacadeClass = (Class)interfaces.iterator().next();
+            }
+        }
+        return this.metafacadeClass;
     }
 
     /**
@@ -69,9 +112,10 @@ public class ModelValidationMessage
      */
     public String toString()
     {
-        StringBuffer toString = new StringBuffer(metafacadeClass.getName());
+        StringBuffer toString = new StringBuffer(this.getMetafacadeClass()
+            .getName());
         toString.append("[");
-        toString.append(modelElementName);
+        toString.append(this.getMetafacadeName());
         toString.append("]");
         toString.append(":");
         toString.append(this.message);
@@ -83,9 +127,7 @@ public class ModelValidationMessage
      */
     public int hashCode()
     {
-        return StringUtils.trimToEmpty(this.message).hashCode()
-            + StringUtils.trimToEmpty(this.getModelElementName()).hashCode()
-            + this.getMetafacadeClass().hashCode();
+        return this.toString().hashCode();
     }
 
     /**
@@ -98,18 +140,7 @@ public class ModelValidationMessage
         if (equals)
         {
             ModelValidationMessage message = (ModelValidationMessage)object;
-            equals = message.getMetafacadeClass() == this.getMetafacadeClass();
-            if (equals)
-            {
-                equals = StringUtils
-                    .trimToEmpty(message.getModelElementName())
-                    .equals(StringUtils.trimToEmpty(this.getModelElementName()));
-                if (equals)
-                {
-                    equals = StringUtils.trimToEmpty(message.getMessage())
-                        .equals(StringUtils.trimToEmpty(this.getMessage()));
-                }
-            }
+            equals = message.toString().equals(this.toString());
         }
         return equals;
     }

@@ -402,8 +402,8 @@ public class ModelProcessor
             ModelValidationMessage b = (ModelValidationMessage)objectB;
 
             return collator.compare(StringUtils.trimToEmpty(a
-                .getModelElementName()), StringUtils.trimToEmpty(b
-                .getModelElementName()));
+                .getMetafacadeName()), StringUtils.trimToEmpty(b
+                .getMetafacadeName()));
         }
     }
 }
