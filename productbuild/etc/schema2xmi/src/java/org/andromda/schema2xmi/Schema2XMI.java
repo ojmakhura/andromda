@@ -215,7 +215,7 @@ public class Schema2XMI
         option = new Option(
             OUTPUT_MODEL,
             true,
-            "Set output name to which the result of the transformation will be written");
+            "Output name to which the result of the transformation will be written");
         option.setLongOpt("output");
         options.addOption(option);
     }
