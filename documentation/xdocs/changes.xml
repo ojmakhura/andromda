@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-13" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="SPRING-26">
+                Entity attributes are now required to have a public visibility (an OCL
+                constraint has been added to validate this).
+            </action>
             <action dev="cwbrandon" type="update" issue="SPRING-33">
                 The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and 
                 <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now generate child
