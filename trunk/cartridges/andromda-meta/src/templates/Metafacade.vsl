@@ -1,10 +1,7 @@
 //
 // Attention: generated code (by Metafacade.vsl) - do not modify!
 //
-package ${metafacade.packageName};
-#set ($myOutputFile = ${metafacade.fullyQualifiedName})
-#set ($myOutputFile = ${myOutputFile.replaceAll('\.', '/')})
-#set ($myOutputFile = "${myOutputFile}.java")
+package $metafacade.packageName;
 
 /**
 $metafacade.getDocumentation(" * ")

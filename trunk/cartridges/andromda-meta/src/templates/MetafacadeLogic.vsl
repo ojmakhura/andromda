@@ -88,15 +88,14 @@ public abstract class ${metafacade.logicName}
 
 ##
 
-#set ($atts = $metafacade.attributes)
-#if (!$atts.empty)
+#if (!$metafacade.attributes.empty)
     // --------------- attributes ---------------------
-#foreach ( $att in $atts )
+#foreach ( $attribute in $metafacade.attributes )
 ##
-#set ($memberTypeName = $att.type.fullyQualifiedName)
-#set ($methodName = $att.getterName)
-#set ($memberName = "${att.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($memberTypeName = $attribute.type.fullyQualifiedName)
+#set ($methodName = $attribute.getterName)
+#set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
+#set ($handleMethodName = "handle$str.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
@@ -110,12 +109,12 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
-#renderTranslation ($att "pre")
+#renderTranslation ($attribute "pre")
     }
 
     private void $handleMethodPostCondition
     {
-#renderTranslation ($att "post")
+#renderTranslation ($attribute "post")
     }
 
     public final $memberTypeName ${methodName}()
@@ -128,42 +127,41 @@ public abstract class ${metafacade.logicName}
 
 #end
 #end
-#set ($ops = $metafacade.operations)
-#if (!$ops.empty)
+#if (!$$metafacade.operations.empty)
     // ---------------- real business methods ----------------------
 
-#foreach ($op in $ops)
-#set ($hasArguments = (!$op.arguments.empty))
-#set ($memberTypeName = $op.returnType.fullyQualifiedName)
-#set ($methodName = $op.name)
+#foreach ($operation in $metafacade.operations)
+#set ($hasArguments = (!$operation.arguments.empty))
+#set ($memberTypeName = $operation.returnType.fullyQualifiedName)
+#set ($methodName = $operation.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
-#set ($typedArgumentList = $op.typedArgumentList)
+#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($typedArgumentList = $operation.typedArgumentList)
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
 
-    $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+    $operation.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
     private void $handleMethodPreCondition
     {
-#renderTranslation ($op "pre")
+#renderTranslation ($operation "pre")
     }
 
     private void $handleMethodPostCondition
     {
-#renderTranslation ($op "post")
+#renderTranslation ($operation "post")
     }
 
     public final $memberTypeName ${methodName}($typedArgumentList)
     {
         $handleMethodPreCondition;
-#if($op.hasReturnType())
-        $memberTypeName returnValue = ${handleMethodName}($op.argumentNames);
+#if($operation.hasReturnType())
+        $memberTypeName returnValue = ${handleMethodName}($operation.argumentNames);
 #else
-        ${handleMethodName}($op.argumentNames);
+        ${handleMethodName}($operation.argumentNames);
 #end
         ${handleMethodPostCondition};
-#if($op.hasReturnType())
+#if($operation.hasReturnType())
         return returnValue;
 #end
     }
@@ -171,17 +169,16 @@ public abstract class ${metafacade.logicName}
 #end
 #end
 ##
-#set ($assocEnds = $metafacade.associationEnds)
-#if (!$assocEnds.empty)
+#if (!$metafacade.associationEnds.empty)
     // ------------- relations ------------------
 
-#foreach ( $assocEnd in $assocEnds )
-#if ($assocEnd.otherEnd.navigable)
+#foreach ( $associationEnd in $metafacade.associationEnds )
+#if ($associationEnd.otherEnd.navigable)
 ##
-#set ($memberTypeName = $assocEnd.getterSetterTypeName)
-#set ($methodName = "get$str.upperCaseFirstLetter($assocEnd.otherEnd.name)")
+#set ($memberTypeName = $associationEnd.getterSetterTypeName)
+#set ($methodName = $associationEnd.otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($handleMethodName = "handle$str.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
@@ -190,15 +187,15 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
-#renderTranslation ($assocEnd "pre")
+#renderTranslation ($associationEnd "pre")
     }
 
     private void $handleMethodPostCondition
     {
-#renderTranslation ($assocEnd "post")
+#renderTranslation ($associationEnd "post")
     }
 
-#if ($assocEnd.one2Many || $assocEnd.many2Many)
+#if ($associationEnd.otherEnd.many)
     protected abstract java.util.Collection ${handleMethodName}($typedArgumentList);
 #else
     protected abstract java.lang.Object ${handleMethodName}($typedArgumentList);
@@ -207,7 +204,7 @@ public abstract class ${metafacade.logicName}
     public final $memberTypeName ${methodName}()
     {
         ${handleMethodPreCondition};
-#if ($assocEnd.one2Many || $assocEnd.many2Many)
+#if ($associationEnd.otherEnd.many)
         $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
 #else
         $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
@@ -221,7 +218,7 @@ public abstract class ${metafacade.logicName}
 #end
 ##
 #if ($superMetafacade)
-    // ----------- delegates to "superMetafacade" ------------
+    // ----------- delegates to $superMetafacade.fullyQualifiedName ------------
 #foreach ( $method in $superMetafacade.getMethodDataForPSM(true) )
     // from ${method.metafacadeName}
 	${method.buildMethodDeclaration(true)}
@@ -232,6 +229,7 @@ public abstract class ${metafacade.logicName}
         super_.${method.buildMethodCall()};
 #end
 	}
+	
 #end
 
      /**
