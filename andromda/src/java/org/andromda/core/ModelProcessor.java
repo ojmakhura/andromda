@@ -19,6 +19,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
+import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -120,17 +121,6 @@ public class ModelProcessor
 
         try
         {
-            PluginDiscoverer.instance().discoverPlugins();
-            MetafacadeFactory.getInstance().initialize();
-            
-            Collection cartridges = PluginDiscoverer.instance().findPlugins(
-                Cartridge.class);
-
-            if (cartridges.isEmpty())
-            {
-                AndroMDALogger
-                    .warn("WARNING! No cartridges found, check your classpath!");
-            }
 
             RepositoryFacade repository = (RepositoryFacade)ComponentContainer
                 .instance().findComponent(RepositoryFacade.class);
@@ -144,10 +134,10 @@ public class ModelProcessor
                         + " instance on your classpath");
             }
 
-            if (models != null && cartridges != null)
+            if (models != null)
             {
                 repository.open();
-                process(repository, models, cartridges);
+                process(repository, models);
                 repository.close();
                 repository = null;
             }
@@ -188,10 +178,7 @@ public class ModelProcessor
      * @param models the Model(s) to process.
      * @param cartridges the collection of cartridge used to process the models.
      */
-    private void process(
-        RepositoryFacade repository,
-        Model[] models,
-        Collection cartridges)
+    private void process(RepositoryFacade repository, Model[] models)
     {
         final String methodName = "ModelProcessor.process";
         try
@@ -201,16 +188,12 @@ public class ModelProcessor
             ModelPackages modelPackages = new ModelPackages();
             modelPackages.setProcessAllPackages(this.processAllModelPackages);
 
+            // get the time from the model with the newest modified time
             for (int ctr = 0; ctr < models.length; ctr++)
             {
                 Model model = models[ctr];
+                ResourceWriter.instance().resetHistory(model.getUrl());
                 AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
-                // read the model into the repository
-                repository.readModel(model.getUrl(), model
-                    .getModuleSearchPath());
-                // @todo lastModifiedDate needs to be handled correctly
-                // for multiple models currently if one is set to false,
-                // all will be false
                 lastModifiedCheck = model.isLastModifiedCheck()
                     && lastModifiedCheck;
                 // we go off the model that was most recently modified.
@@ -218,51 +201,78 @@ public class ModelProcessor
                 {
                     lastModified = model.getLastModified();
                 }
-                modelPackages.addPackages(model.getPackages());
             }
 
-            CodeGenerationContext context = new CodeGenerationContext(
-                repository,
-                lastModified,
-                lastModifiedCheck,
-                modelPackages);
-
-            Namespace defaultNamespace = Namespaces.instance().findNamespace(
-                Namespaces.DEFAULT);
-
-            for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt
-                .hasNext();)
+            boolean shouldProcess = true;
+            if (lastModifiedCheck)
             {
-                Cartridge cartridge = (Cartridge)cartridgeIt.next();
+                shouldProcess = ResourceWriter.instance().isHistoryBefore(
+                    lastModified);
+            }
+            if (shouldProcess)
+            {
+                // discover all plugins
+                PluginDiscoverer.instance().discoverPlugins();
+                MetafacadeFactory.getInstance().initialize();
 
-                String cartridgeName = cartridge.getName();
+                Collection cartridges = PluginDiscoverer.instance()
+                    .findPlugins(Cartridge.class);
 
-                Namespace namespace = Namespaces.instance().findNamespace(
-                    cartridgeName);
-
-                boolean ignoreNamespace = false;
-                if (namespace != null)
-                {
-                    ignoreNamespace = namespace.isIgnore();
-                }
-
-                // make sure we ignore the cartridge if the namespace
-                // is set to 'ignore'
-                if ((namespace != null || defaultNamespace != null)
-                    && !ignoreNamespace)
-                {
-                    cartridge.init();
-                    cartridge.processModelElements(context);
-                    cartridge.shutdown();
-                }
-                else
+                if (cartridges.isEmpty())
                 {
                     AndroMDALogger
-                        .info("namespace for '"
-                            + cartridgeName
-                            + "' cartridge is either not defined, or has the ignore "
-                            + "attribute set to 'true' --> skipping processing");
+                        .warn("WARNING! No cartridges found, check your classpath!");
                 }
+
+                // read all models into the repository
+                for (int ctr = 0; ctr < models.length; ctr++)
+                {
+                    Model model = models[ctr];
+                    repository.readModel(model.getUrl(), model
+                        .getModuleSearchPath());
+                    modelPackages.addPackages(model.getPackages());
+                }
+
+                CodeGenerationContext context = new CodeGenerationContext(
+                    repository,
+                    modelPackages);
+
+                Namespace defaultNamespace = Namespaces.instance()
+                    .findNamespace(Namespaces.DEFAULT);
+
+                for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt
+                    .hasNext();)
+                {
+                    Cartridge cartridge = (Cartridge)cartridgeIt.next();
+                    String cartridgeName = cartridge.getName();
+                    Namespace namespace = Namespaces.instance().findNamespace(
+                        cartridgeName);
+
+                    boolean ignoreNamespace = false;
+                    if (namespace != null)
+                    {
+                        ignoreNamespace = namespace.isIgnore();
+                    }
+
+                    // make sure we ignore the cartridge if the namespace
+                    // is set to 'ignore'
+                    if ((namespace != null || defaultNamespace != null)
+                        && !ignoreNamespace)
+                    {
+                        cartridge.init();
+                        cartridge.processModelElements(context);
+                        cartridge.shutdown();
+                    }
+                    else
+                    {
+                        AndroMDALogger
+                            .info("namespace for '"
+                                + cartridgeName
+                                + "' cartridge is either not defined, or has the ignore "
+                                + "attribute set to 'true' --> skipping processing");
+                    }
+                }
+                ResourceWriter.instance().writeHistory();
             }
         }
         catch (Throwable th)

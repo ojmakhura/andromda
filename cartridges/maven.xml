@@ -44,9 +44,8 @@
                 file="${maven.src.dir}/uml"
                 type="dir" 
                 property="hasModel"/>
-            
-            <j:set var="skipProcessing" value="${skip.andromda.plugin.processing}"/>
-            <j:if test="${!empty(hasModel) and empty(skipProcessing)}">
+
+            <j:if test="${!empty(hasModel)}">
                 <j:choose>
                     <j:when test="${maven.andromda.bootstrap.mode}">
                         <attainGoal name="andromda:run-bootstrap"/>
