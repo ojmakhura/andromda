@@ -145,7 +145,7 @@ public class StrutsJspLogicImpl
             {
                 actions.add(transition);
 
-/*  todo: TEMPORARILY COMMENTED OUT -- needs verification that isCaseStart() forms are not populated, but I think they are
+/*  @todo: TEMPORARILY COMMENTED OUT -- needs verification that isCaseStart() forms are not populated, but I think they are
                 if (((StrutsAction)transition).isUseCaseStart())
                 {
                     Collection finalStates = getUseCase().getFinalStates();
