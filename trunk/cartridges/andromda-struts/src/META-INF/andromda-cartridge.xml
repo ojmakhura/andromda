@@ -1,0 +1,46 @@
+<cartridge name="struts">
+    <property name="workflow" value="struts" />
+
+    <stereotype name="StrutsAction" />
+    <stereotype name="StrutsConfig" />
+    <stereotype name="StrutsForm" />
+    <stereotype name="StrutsJSP" />
+
+    <outlet name="forms" />
+    <outlet name="actions" />
+    <outlet name="pages" />
+    <outlet name="config" />
+
+    <template
+	stereotype="StrutsForm"
+	sheet="templates/StrutsForm.vsl"
+	outputPattern="{0}/{1}.java"
+	outlet="forms"
+	overWrite="true"
+    />
+
+    <template
+	stereotype="StrutsAction"
+	sheet="templates/StrutsAction.vsl"
+	outputPattern="{0}/{1}.java"
+	outlet="actions"
+	overWrite="false"
+    />
+
+    <template
+	stereotype="StrutsJSP"
+	sheet="templates/StrutsJSP.vsl"
+	outputPattern="{1}.jsp"
+	outlet="pages"
+	overWrite="false"
+    />
+
+    <template
+	stereotype="StrutsConfig"
+	sheet="templates/StrutsConfig.vsl"
+	outputPattern="struts-config.xml"
+	outlet="config"
+	overWrite="true"
+    />
+
+</cartridge>
