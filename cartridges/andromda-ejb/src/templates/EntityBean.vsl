@@ -1,0 +1,382 @@
+#set ($packagename = $transform.findPackageName(${class.package}))
+package $packagename;
+
+import javax.ejb.CreateException;
+import javax.ejb.EntityBean;
+import javax.ejb.EntityContext;
+
+import java.util.Collection;
+import java.util.Date;
+import java.math.BigDecimal;
+
+#macro ( generateDocumentation $item $indent)
+#foreach ( $tgv in $item.taggedValues )
+#if ($tgv.tag == "documentation")
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#end
+#end
+
+#set ($primKey = $transform.getPrimaryKeyAttribute($class))
+#set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
+
+#foreach ( $assocLink in $class.associationLinks )
+    #set ($adata = $transform.getAssociationData($assocLink))
+#if ($adata.target.navigable == "true")
+    #set ($class2 = $adata.target.type)
+    #if ($class2)
+        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #if ($class2packagename != $packagename)
+import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
+import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
+        #end
+    #end
+#end
+#end
+
+#foreach ( $dep in $class.dependencies )
+    #set ($class2 = $transform.findClassById($dep.targetType))
+    #if ($class2)
+        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #if ($class2packagename != $packagename)
+import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
+import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
+        #end
+    #end
+    #if ($transform.getStereotype($dep.id) == "exception")
+        #set ($defaultException = $class2)
+    #end
+#end
+
+/**
+#generateDocumentation ($class " ")
+ *
+ * @ejb.bean name="$class.name" type="CMP" cmp-version="2.x"
+ *       local-jndi-name="${packagename}/${class.name}/LocalHome"
+ *       jndi-name="${packagename}/${class.name}/Home"
+ *       view-type="both"
+ *       primkey-field="$primKey.name"
+ * @ejb.interface generate="local,remote"
+ *        remote-class="${packagename}.${class.name}"
+ *        local-class="${packagename}.${class.name}Local"
+ * @ejb.home generate="local" local-class="${packagename}.${class.name}LocalHome"
+ * @ejb.pk generate="false" class="java.lang.String"
+ * @ejb.util generate="physical"
+ * @ejb.value-object name="$class.name" match="*" instantiation="eager"
+#foreach ( $dep in $class.dependencies )
+#if ($transform.getStereotype($dep.id) == "ejbref")
+ #set ($class2 = $transform.findClassById($dep.targetType))
+ * @ejb.ejb-ref ejb-name="${class2.name}" view-type="$transform.getEjbRefViewType(${class2})" ref-name="ejb/${class2.name}BeanRef"
+#end
+#end
+ *
+ * @ejb.persistence table-name="$class.name"
+ *
+ * @jboss.persistence
+ *     create-table="true"
+ *     remove-table="false"
+ *     tuned-updates="true"
+ *     read-only="false"
+ *
+ * @struts.form name="Edit" include-all="true"
+ *
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.tag != "documentation")
+#if ($tgv.tag == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.tag)
+#end
+ * $tag    $tgv.value
+#end
+#end
+ *
+############################# finder methods ################################### 
+#foreach ( $op in $class.operations )
+#if ($transform.getStereotype($op.id) == "FinderMethod")
+ * @ejb:finder signature="$transform.getOperationSignature($op)"
+#set($viewtype = "")
+#set($viewtype = $transform.findTagValue($op.taggedValues, "@uml2ejb.viewType"))
+#if($viewtype == "local" || $viewtype == "remote" || $viewtype == "both")
+ *     view-type="$viewtype"
+#end  
+#set($querystring = "")
+#set($querystring = $transform.findTagValue($op.taggedValues, "@uml2ejb.query"))
+#if($querystring == "")
+#set($querystring = "SELECT DISTINCT OBJECT(c) FROM $class.name AS c")
+#if($op.parameters.size() >0 )
+#set($querystring = "${querystring} WHERE")
+#foreach($prm in $op.parameters)
+#set($querystring="${querystring} c.$prm.name = ?$velocityCount")
+#if($velocityCount != $op.parameters.size())
+#set($querystring = "${querystring} AND")
+#end
+#end
+#end
+#end
+ *     query="$querystring"
+#end##if op.stereotype = "FinderMethod"
+#end##foreach operation
+ *
+ */
+public abstract class ${class.name}Bean implements EntityBean {
+
+    // --------------- attributes ---------------------
+#foreach ( $att in $class.attributes )
+#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+
+   /**
+#generateDocumentation ($att "    ")
+    *
+#if ($transform.getStereotype($att.id) == "PrimaryKey")
+    * @ejb.pk-field
+#end
+#set ($attcolumnname = $str.toDatabaseAttributeName(${att.name}, "_"))
+#set ($attjdbctype   = $transform.findAttributeJDBCType($att))
+#set ($attsqltype    = $transform.findAttributeSQLType($att))
+    * @ejb.persistence
+    *     column-name="$attcolumnname"
+    *       jdbc-type="$attjdbctype"
+    *        sql-type="$attsqltype"
+    *
+    * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
+    *
+    */
+    public abstract $atttypename get${str.upperCaseFirstLetter(${att.name})}();
+   /**
+    * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
+    */
+    public abstract void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue);
+
+#end
+
+    // ------------- relations ------------------
+
+#set ($sep = "_")
+#set ($suffix = "_FK")
+#foreach ( $assoc in $class.associationLinks )
+    #set ($adata = $transform.getAssociationData($assoc))
+    #set ($sourcetype = $adata.source.type)
+    #set ($targettype = $adata.target.type)
+    #set ($targettypename = $transform.findFullyQualifiedName($targettype))
+#if ($adata.target.navigable == "true")
+   /**
+#generateDocumentation ($adata.target.end "    ")
+##    * multiplicity:     $adata.multiplicities
+##    * source navigable: $adata.source.navigable
+##    * target navigable: $adata.target.navigable
+    *
+    * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
+    * @ejb.relation
+#if ($adata.name != "")
+    *    name="$adata.name"
+#else
+    *    name="$adata.id"
+#end
+    *    role-name="$adata.source.roleName"
+#if ($adata.isOne2Many())
+#if ($adata.source.navigable == "false")
+    *    target-ejb="$targettype.name"
+    *    target-role-name="$adata.target.roleName"
+#end
+    *
+#set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$suffix")
+#set ($foreignKeyAtt = $transform.getPrimaryKeyAttribute($sourcetype))
+    * @jboss.target-relation  related-pk-field="${foreignKeyAtt.name}"
+    *                                fk-column="${foreignKeyColumn}"
+    */
+    public abstract Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
+   /**
+    * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
+    */
+    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName});
+#end
+#if ($adata.isMany2Many())
+#if ($adata.source.navigable == "false")
+    *    target-multiple="yes"
+    *    target-ejb="$targettype.name"
+    *    target-role-name="$adata.target.roleName"
+#end
+    *
+#set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$suffix")
+#set ($foreignKeyAtt = $transform.getPrimaryKeyAttribute($targettype))
+    * @jboss.relation  related-pk-field="${foreignKeyAtt.name}"
+    *                  fk-column="${foreignKeyColumn}"
+#if ($adata.source.navigable == "false")
+    *
+#set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$suffix")
+#set ($foreignKeyAtt = $transform.getPrimaryKeyAttribute($sourcetype))
+    * @jboss.target-relation  related-pk-field="${foreignKeyAtt.name}"
+    *                                fk-column="${foreignKeyColumn}"
+#end
+    */
+    public abstract Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
+   /**
+    * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
+    */
+    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName});
+#end
+#if ($adata.isOne2One() || $adata.isMany2One())
+#if ($adata.source.navigable == "false")
+#if ($adata.isMany2One())
+    *    target-multiple="yes"
+#end
+    *    target-ejb="$targettype.name"
+    *    target-role-name="$adata.target.roleName"
+#end
+    *
+#set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$suffix")
+#set ($foreignKeyAtt = $transform.getPrimaryKeyAttribute($targettype))
+    * @jboss.relation  related-pk-field="${foreignKeyAtt.name}"
+    *                         fk-column="${foreignKeyColumn}"
+    */
+    public abstract ${targettypename}Local get${str.upperCaseFirstLetter($adata.target.roleName)}();
+   /**
+    * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
+    */
+    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(${targettypename}Local ${adata.target.roleName});
+#end
+
+
+#end
+#end
+
+   // --------------- getter/setter for value objects ------------
+
+   /**
+    * @ejb.interface-method view-type="both"
+    * @ejb.transaction      type="Required"
+    */
+#set ($qualname = $transform.findFullyQualifiedName($class))
+
+    public ${qualname}Data get${class.name}Data ()
+    {
+        ${qualname}Data result = new ${qualname}Data $transform.getAttributesAsList($class, false, true);
+        return result;
+    }
+
+   /**
+    * @ejb.interface-method view-type="both"
+    * @ejb.transaction      type="Required"
+    */
+    public void set${class.name}Data (${qualname}Data value)
+    {
+#foreach ( $att in $class.attributes)
+#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
+         set${str.upperCaseFirstLetter(${att.name})} (value.get${str.upperCaseFirstLetter(${att.name})}());
+#end
+#end
+    }
+
+    // ---------------- business methods  ----------------------
+
+#foreach ( $op in $class.operations)
+#if ($transform.getStereotype($op.id) != "FinderMethod")
+   /**
+#generateDocumentation ($op "    ")
+    *
+    * @ejb.interface-method view-type="both"
+    * @ejb.transaction      type="Required"
+    */
+#set ($msig = $transform.getOperationSignature($op))
+#if ($defaultException)
+    $op.visibility abstract ${msig}
+        throws $defaultException.name;
+#else
+    $op.visibility abstract ${msig};
+#end
+#end
+#end
+
+   // ---------------- create methods with separate attributes --------------------
+
+   /**
+    * @ejb.create-method
+    * @ejb.transaction type="Required"
+    */
+    public $primKeyTypeName ejbCreate $transform.getAttributesAsList($class, true, false)
+           throws CreateException
+    {
+#foreach ( $att in $class.attributes)
+#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
+        set${str.upperCaseFirstLetter(${att.name})} (${att.name});
+#end
+#end
+
+        String primaryKey = new java.rmi.server.UID().toString();
+        set${str.upperCaseFirstLetter(${primKey.name})} (primaryKey);
+        return null;  // should not return primaryKey for CMP: see EJB spec,
+                      // chapter 10.5.2 "Bean Provider’s entity bean instance’s view"
+    }
+
+    public void ejbPostCreate $transform.getAttributesAsList($class, true, false)
+           throws CreateException
+    {
+    }
+
+   // ---------------- create methods using value object --------------------
+
+   /**
+    * @ejb.create-method
+    * @ejb.transaction type="Required"
+    */
+    public $primKeyTypeName ejbCreate (${qualname}Data data)
+           throws CreateException
+    {
+#foreach ( $att in $class.attributes)
+#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
+        set${str.upperCaseFirstLetter(${att.name})} ( data.get${str.upperCaseFirstLetter(${att.name})}() );
+#end
+#end
+
+        String primaryKey = new java.rmi.server.UID().toString();
+        set${str.upperCaseFirstLetter(${primKey.name})} (primaryKey);
+        return null;  // should not return primaryKey for CMP: see EJB spec,
+                      // chapter 10.5.2 "Bean Provider’s entity bean instance’s view"
+    }
+
+    public void ejbPostCreate (${qualname}Data data)
+           throws CreateException
+    {
+    }
+
+    // ---------------- accessor methods for bean references ---------------
+
+#foreach ( $dep in $class.dependencies )
+#if ($transform.getStereotype($dep.id) == "ejbref")
+   #set ($referencedClass = $transform.findClassById($dep.targetType))
+   #set ($homeInterfaceName = $transform.getHomeInterfaceName($referencedClass))
+   /**
+    * This is to get the reference to the ${referencedClass.name} bean.
+    * Obtains local home interface from default initial context
+    * @return Local home interface for ${referencedClass.name}. Lookup using bean ref name.
+    */
+    protected static ${homeInterfaceName} get${homeInterfaceName}() throws NamingException
+    {
+        InitialContext initialContext = new InitialContext();
+        try {
+            // Local homes shouldn't be narrowed, as there is no RMI involved.
+            ${homeInterfaceName} home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${referencedClass.name}BeanRef");
+            return home;
+        } finally {
+            initialContext.close();
+        }
+    }
+
+#end
+#end
+}

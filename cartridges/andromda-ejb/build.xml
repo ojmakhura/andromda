@@ -1,0 +1,45 @@
+<project name="andromda-ejb" default="dist">
+
+    <!-- ============================================================= -->
+    <!--               Directory settings                              -->
+    <!-- ============================================================= -->
+
+    <property name="src.dir"     value="src" />
+    <property name="build.dir"   value="build" />
+    <property name="dist.dir"    value="dist" />
+
+
+    <!-- Setup directory structure -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- Remove directory structure structure -->
+    <target name="clean" description="Removes all generated files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dist.dir}"/>
+            <fileset dir="${build.dir}"/>
+        </delete>
+    </target>
+
+    <!-- ============================================================= -->
+    <!--               Highlevel user tasks                            -->
+    <!-- ============================================================= -->
+
+    <target name="dist" depends="build"
+            description="Builds the distribution structure">
+      <copy todir="${dist.dir}/" >
+          <fileset dir="${build.dir}" includes="*.jar" />
+      </copy>
+    </target>
+
+    <target name="build" depends="init"
+            description="Builds the objects from the sources">
+        <jar jarfile="${build.dir}/andromda-ejb.jar">
+            <fileset dir="${src.dir}" includes="**/*" />
+        </jar>
+    </target>
+
+</project>

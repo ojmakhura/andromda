@@ -1,0 +1,132 @@
+#set ($packagename = $transform.findPackageName($class.package))
+package $packagename;
+
+import javax.ejb.CreateException;
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
+
+import java.util.Collection;
+import java.util.Date;
+import java.math.BigDecimal;
+
+#if ($class.dependencies)
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+#end
+
+#macro ( generateDocumentation $item $indent)
+#foreach ( $tgv in $item.taggedValues )
+#if ($tgv.tag == "documentation")
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#end
+#end
+
+#foreach ( $dep in $class.dependencies )
+    #set ($class2 = $transform.findClassById($dep.targetType))
+    #if ($class2)
+        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #if ($class2packagename != $packagename)
+import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
+import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
+        #end
+    #end
+    #if ($transform.getStereotype($dep.id) == "exception")
+        #set ($defaultException = $class2)
+    #end
+#end
+
+/**
+#generateDocumentation ($class " ")
+ *
+ * @ejb.bean name="$class.name" type="Stateless"
+ *           jndi-name="${packagename}/${class.name}/Home"
+ * @ejb.util generate="physical"
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.tag != "documentation")
+#if ($tgv.tag == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.tag)
+#end
+ * $tag    $tgv.value
+#end
+#end
+#foreach ( $dep in $class.dependencies )
+#if ($transform.getStereotype($dep.id) == "ejbref")
+ #set ($class2 = $transform.findClassById($dep.targetType))
+ * @ejb.ejb-ref ejb-name="${class2.name}" view-type="$transform.getEjbRefViewType(${class2})" ref-name="ejb/${class2.name}BeanRef"
+#end
+#end
+ *
+ */
+public abstract class ${class.name}Bean implements SessionBean {
+
+    // ---------------- business methods  ----------------------
+
+#foreach ($op in $class.operations)
+   /**
+#generateDocumentation ($op "    ")
+    *
+    * @ejb.interface-method
+    * @ejb.transaction type="Required"
+    */
+#set ($msig = $transform.getOperationSignature($op))
+#if ($defaultException)
+    $op.visibility abstract ${msig}
+        throws $defaultException.name;
+#else
+    $op.visibility abstract ${msig};
+#end    
+#end
+
+   // ---------------- create methods -------------------------
+   
+   /**
+    * @ejb.create-method
+    * @ejb.transaction type="Required"
+    */
+    public void ejbCreate ()
+           throws CreateException
+    {
+    }
+
+    public void ejbPostCreate ()
+           throws CreateException
+    {
+    }
+    
+    // ---------------- accessor methods for bean references ---------------
+
+#foreach ( $dep in $class.dependencies )
+#if ($transform.getStereotype($dep.id) == "ejbref")
+   #set ($referencedClass = $transform.findClassById($dep.targetType))
+   #set ($homeInterfaceName = $transform.getHomeInterfaceName($referencedClass))
+   /**
+    * This is to get the reference to the ${referencedClass.name} bean.
+    * Obtains local home interface from default initial context
+    * @return Local home interface for ${referencedClass.name}. Lookup using bean ref name.
+    */
+    protected static ${homeInterfaceName} get${homeInterfaceName}() throws NamingException
+    {
+        InitialContext initialContext = new InitialContext();
+        try {
+            // Local homes shouldn't be narrowed, as there is no RMI involved.
+            ${homeInterfaceName} home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${referencedClass.name}BeanRef");
+            return home;
+        } finally {
+            initialContext.close();
+        }
+    }
+
+#end
+#end
+}
