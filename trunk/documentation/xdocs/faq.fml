@@ -29,6 +29,23 @@
 
     <part id="usage">
         <title>Using AndroMDA</title>
+  
+        <faq id="maven">
+            <question>
+                Will moving to AndroMDA 3.X mean I need to switch from Ant
+                to Maven?
+            </question>
+            <answer>
+                <p>
+                    While Maven is the build/project tool utilized by 
+                    AndroMDA, you can still just as easily use an AndroMDA
+                    project with Ant.  In fact we have an Ant tool that will 
+                    generate an Ant AndroMDA project structure for you. Please
+                    see the <a href="starting.html#starting-with-ant">Ant</a> 
+                    section of the getting started page for more details.
+                </p>
+            </answer>
+        </faq> 
         
         <faq id="jdk">
             <question>
