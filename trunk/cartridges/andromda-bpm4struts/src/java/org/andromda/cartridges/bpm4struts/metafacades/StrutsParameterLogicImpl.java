@@ -55,8 +55,8 @@ public class StrutsParameterLogicImpl
     public java.lang.String handleGetNullValue()
     {
         final ClassifierFacade type = getType();
-        final String typeName = type.getFullyQualifiedName();
-        if ("boolean".equals(typeName))
+        final String typeName = type.getFullyQualifiedName(true);
+        if (isValidatorBoolean(typeName) && type.isPrimitiveType())
             return "false";
         else if (type.isPrimitiveType())
             return "0";
@@ -72,8 +72,8 @@ public class StrutsParameterLogicImpl
     public boolean handleMustReset()
     {
         final ClassifierFacade type = getType();
-        final String typeName = type.getFullyQualifiedName();
-        return Boolean.class.getName().equals(typeName) || "boolean".equals(typeName) || type.isArrayType();
+        final String typeName = type.getFullyQualifiedName(true);
+        return isValidatorBoolean(typeName) || type.isArrayType();
     }
 
     /**
@@ -223,7 +223,7 @@ public class StrutsParameterLogicImpl
 
         if (fieldType == null)
         {
-            final String parameterType = getType().getFullyQualifiedName();
+            final String parameterType = getType().getFullyQualifiedName(true);
             if (isValidatorBoolean(parameterType)) return "checkbox";
             if (getType().isCollectionType() || getType().isArrayType()) return "select";
             return "text";
@@ -327,18 +327,22 @@ public class StrutsParameterLogicImpl
     public String handleGetResetValue()
     {
         final String name = getName();
-        final String type = getType().getFullyQualifiedName();
-        if (String.class.getName().equals(type)) return "\"" + name + "-test" + "\"";
+        final String type = getType().getFullyQualifiedName(true);
 
-        if ("boolean".equals(type)) return "false";
-        if ("float".equals(type)) return "(float)" + name.hashCode() / hashCode();
-        if ("double".equals(type)) return "(double)" + name.hashCode() / hashCode();
-        if ("short".equals(type)) return "(short)" + name.hashCode();
-        if ("long".equals(type)) return "(long)" + name.hashCode();
-        if ("byte".equals(type)) return "(byte)" + name.hashCode();
-        if ("char".equals(type)) return "(char)" + name.hashCode();
-        if ("int".equals(type)) return "(int)" + name.hashCode();
-        if (getType().isDateType()) return "new java.util.Date()";
+        if (isValidatorString(type)) return "\"" + name + "-test" + "\"";
+        if (isValidatorDate(type)) return "new java.util.Date()";
+
+        if (getType().isPrimitiveType())
+        {
+            if (isValidatorBoolean(type)) return "false";
+            if (isValidatorFloat(type)) return "(float)" + name.hashCode() / hashCode();
+            if (isValidatorDouble(type)) return "(double)" + name.hashCode() / hashCode();
+            if (isValidatorShort(type)) return "(short)" + name.hashCode();
+            if (isValidatorLong(type)) return "(long)" + name.hashCode();
+            if (isValidatorByte(type)) return "(byte)" + name.hashCode();
+            if (isValidatorChar(type)) return "(char)" + name.hashCode();
+            if (isValidatorInteger(type)) return "(int)" + name.hashCode();
+        }
 
         final String array = constructArray();
         if (getType().isArrayType()) return array;
@@ -361,7 +365,7 @@ public class StrutsParameterLogicImpl
 
     public java.util.Collection handleGetValidatorTypes()
     {
-        final String type = getType().getFullyQualifiedName();
+        final String type = getType().getFullyQualifiedName(true);
         final String format = getValidatorFormat();
         final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
 
@@ -377,7 +381,8 @@ public class StrutsParameterLogicImpl
             validatorTypesList.add("long");
         else if (isValidatorDate(type))
             validatorTypesList.add("date");
-        else if (isValidatorUrl(type) && isUrlFormat(format)) validatorTypesList.add("url");
+        else if (isValidatorUrl(type) && isUrlFormat(format))
+            validatorTypesList.add("url");
 
         if (isRangeFormat)
         {
@@ -438,7 +443,7 @@ public class StrutsParameterLogicImpl
     {
         final Collection vars = new LinkedList();
 
-        final String type = getType().getFullyQualifiedName();
+        final String type = getType().getFullyQualifiedName(true);
         final String format = getValidatorFormat();
         if (format != null)
         {
@@ -464,16 +469,16 @@ public class StrutsParameterLogicImpl
                     vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(format)}));
                 }
             }
-            else if (isValidatorDate(type))
+        }
+        if (isValidatorDate(type))
+        {
+            if (format != null && isStrictDateFormat(format))
             {
-                if (isStrictDateFormat(format))
-                {
-                    vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat(format)}));
-                }
-                else
-                {
-                    vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat(format)}));
-                }
+                vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat()}));
+            }
+            else
+            {
+                vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
             }
         }
         return vars;
@@ -519,52 +524,57 @@ public class StrutsParameterLogicImpl
     // ------------------------------------------
     private boolean isValidatorBoolean(String type)
     {
-        return "boolean".equals(type) || Boolean.class.getName().equals(type);
+        return "datatype.boolean".equals(type) || "datatype.Boolean".equals(type);
+    }
+
+    private boolean isValidatorChar(String type)
+    {
+        return "datatype.char".equals(type) || "datatype.Char".equals(type);
     }
 
     private boolean isValidatorByte(String type)
     {
-        return "byte".equals(type) || Byte.class.getName().equals(type);
+        return "datatype.byte".equals(type) || "datatype.Byte".equals(type);
     }
 
     private boolean isValidatorShort(String type)
     {
-        return "short".equals(type) || Short.class.getName().equals(type);
+        return "datatype.short".equals(type) || "datatype.Short".equals(type);
     }
 
     private boolean isValidatorInteger(String type)
     {
-        return "int".equals(type) || Integer.class.getName().equals(type);
+        return "datatype.int".equals(type) || "datatype.Integer".equals(type);
     }
 
     private boolean isValidatorLong(String type)
     {
-        return "long".equals(type) || Long.class.getName().equals(type);
+        return "datatype.long".equals(type) || "datatype.Long".equals(type);
     }
 
     private boolean isValidatorFloat(String type)
     {
-        return "float".equals(type) || Float.class.getName().equals(type);
+        return "datatype.float".equals(type) || "datatype.Float".equals(type);
     }
 
     private boolean isValidatorDouble(String type)
     {
-        return "double".equals(type) || Double.class.getName().equals(type);
+        return "datatype.double".equals(type) || "datatype.Double".equals(type);
     }
 
     private boolean isValidatorDate(String type)
     {
-        return java.util.Date.class.getName().equals(type) || java.sql.Date.class.getName().equals(type);
+        return "datatype.Date".equals(type);
     }
 
     private boolean isValidatorUrl(String type)
     {
-        return java.net.URL.class.getName().equals(type) || java.net.URI.class.getName().equals(type);
+        return "datatype.URL".equals(type);
     }
 
     private boolean isValidatorString(String type)
     {
-        return String.class.getName().equals(type);
+        return "datatype.String".equals(type);
     }
 
     private boolean isUrlFormat(String format)
