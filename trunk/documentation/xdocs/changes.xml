@@ -18,6 +18,21 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">Aug 19, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts change</td>
+                    <td valign="top" class="std">
+                        Form bean fields now have the name of their action prepended to their
+                        name (only for action parameters, page variables are unchanged).
+                        Using bpm4struts after this date will require you to update
+                        your controller implementations or a compilation error
+                        will occur.
+                        This change was needed in order to allow action parameters to
+                        have the same names in a single use-case. Without this feature
+                        the form would contain the same field name more than once, and that
+                        is not allowed in Java.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Aug 19, 2004</td>
                     <td valign="top" class="std">New Bpm4Struts feature</td>
                     <td valign="top" class="std">
                         A new namespace property has been added: 'dummyData'. You can either
