@@ -41,26 +41,18 @@ public class SpringEntityAssociationEndLogicImpl
     public boolean handleIsOne2OnePrimary()
     {
         boolean one2One = super.isOne2One();
-        System.out.println("the name: " + this.getName());
         SpringEntityAssociationEndLogicImpl otherEnd = (SpringEntityAssociationEndLogicImpl)this
             .getOtherEnd();
-        System.out.println("after firstOne2" + one2One);
         boolean otherEndForeignKeyDefined = otherEnd.foreignKeyDefined;
         if (one2One && !otherEndForeignKeyDefined)
         {
             one2One = super.isAggregation() || this.isComposition();
-            if (one2One)
-            {
-                System.out.println("is aggregation!!!: " + this.getName());
-            }
         }
         // if the flag is false delegage to the super class
         if (!one2One && !otherEndForeignKeyDefined)
         {
             one2One = super.isOne2One() && !otherEnd.isAggregation()
                 && !otherEnd.isComposition();
-            System.out.println("setting one-to-one finally!!!!!");
-            System.out.println("one2one is: " + one2One);
         }
         return one2One;
     }
