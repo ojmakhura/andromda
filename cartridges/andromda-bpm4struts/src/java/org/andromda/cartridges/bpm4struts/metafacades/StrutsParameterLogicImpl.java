@@ -733,11 +733,38 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsSelectable()
     {
-        boolean isSelectable = false;
+        boolean selectable = false;
 
         if (isActionParameter())
         {
-            isSelectable = "select".equals(getWidgetType());
+            selectable = "select".equals(getWidgetType());
+
+            if (!selectable)
+            {
+                String name = getName();
+                String type = getType().getFullyQualifiedName();
+
+                /**
+                 * if the parameter is not selectable but on a targetting page it _is_ selectable we must
+                 * allow the user to set the backing list too
+                 */
+                Collection pages = getAction().getTargetPages();
+                for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext() && !selectable;)
+                {
+                    StrutsJsp page = (StrutsJsp) pageIterator.next();
+                    Collection parameters = page.getAllActionParameters();
+                    for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext() && !selectable;)
+                    {
+                        StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
+                        String parameterName = parameter.getName();
+                        String parameterType = parameter.getType().getFullyQualifiedName();
+                        if (name.equals(parameterName) && type.equals(parameterType))
+                        {
+                            selectable = "select".equals(parameter.getWidgetType());
+                        }
+                    }
+                }
+            }
         }
         else if (isControllerOperationArgument())
         {
@@ -747,17 +774,17 @@ public class StrutsParameterLogicImpl
             {
                 StrutsAction action = (StrutsAction) actionIterator.next();
                 Collection formFields = action.getActionFormFields();
-                for (Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !isSelectable;)
+                for (Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                 {
                     StrutsParameter parameter = (StrutsParameter) fieldIterator.next();
                     if (name.equals(parameter.getName()))
                     {
-                        isSelectable = parameter.isSelectable();
+                        selectable = parameter.isSelectable();
                     }
                 }
             }
         }
-        return isSelectable;
+        return selectable;
     }
 
     protected String handleGetValueListName()
