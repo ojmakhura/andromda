@@ -3,9 +3,18 @@
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
         <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+        <author email="amartinwest@users.sourceforge.net">Martin West</author>
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0M3-SNAPSHOT" date="2004-12-06">
+            <action dev="draftdog" type="fix">
+                In bpm4struts you must now draw dependencies from the
+                <![CDATA[FrontEndController]]> to the associated
+                <![CDATA[FrontEndSessionObject]]> classes instead of simply using
+                associations.
+            </action>
+        </release>
         <release version="3.0M3-SNAPSHOT" date="2004-12-06">
             <action dev="amwest" type="add"> The <a 
                 href="andromda-hibernate-cartridge/modeling.html">AndroMDA 
