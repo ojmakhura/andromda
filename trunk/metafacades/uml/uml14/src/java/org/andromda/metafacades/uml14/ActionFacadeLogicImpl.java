@@ -1,10 +1,10 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.behavioralelements.statemachines.Transition;
-import org.omg.uml.behavioralelements.activitygraphs.ActionState;
-
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.omg.uml.behavioralelements.activitygraphs.ActionState;
+import org.omg.uml.behavioralelements.statemachines.Transition;
 
 /**
  * MetafacadeLogic implementation.

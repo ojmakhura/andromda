@@ -1,9 +1,9 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.metafacades.uml.ActionStateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.FinalStateFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
 
 /**
  * Metaclass facade implementation.
