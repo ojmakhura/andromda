@@ -19,6 +19,7 @@ public class StrutsActionLogicImpl
     private Collection actionStates = null;
     private Collection actionForwards = null;
     private Collection decisionTransitions = null;
+    private Collection transitions = null;
 
     // ---------------- constructor -------------------------------
 
@@ -32,7 +33,8 @@ public class StrutsActionLogicImpl
         actionStates = new HashSet();
         actionForwards = new HashSet();
         decisionTransitions = new HashSet();
-        collectTransitions(this, new HashSet());
+        transitions = new HashSet();
+        collectTransitions(this, transitions);
     }
 
     private void collectTransitions(TransitionFacade transition, Collection processedTransitions)
@@ -119,12 +121,6 @@ public class StrutsActionLogicImpl
         return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
-    public boolean handleIsSuccessMessagePresent()
-    {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE);
-        return isTrue(value == null ? null : value.toString());
-    }
-
     public java.lang.String handleGetActionPath()
     {
         return getActionPathRoot() + '/' + getActionClassName();
@@ -132,7 +128,7 @@ public class StrutsActionLogicImpl
 
     public String handleGetActionPathRoot()
     {
-        return '/' + StringUtilsHelper.upperCamelCaseName(getActivityGraph().getUseCase().getName());
+        return '/' + StringUtilsHelper.upperCamelCaseName(getStrutsActivityGraph().getUseCase().getName());
     }
 
     public String handleGetActionScope()
@@ -163,7 +159,7 @@ public class StrutsActionLogicImpl
                 return (useCase != null) ? useCase.getAllUsers() : Collections.EMPTY_LIST;
             }
         }
-        return getActivityGraph().getUseCase().getAllUsers();
+        return getStrutsActivityGraph().getUseCase().getAllUsers();
     }
 
     public String handleGetActionClassName()
@@ -175,7 +171,7 @@ public class StrutsActionLogicImpl
         {
             PseudostateFacade pseudostate = (PseudostateFacade) source;
             if (pseudostate.isInitialState())
-                name = getActivityGraph().getUseCase().getName();
+                name = getStrutsActivityGraph().getUseCase().getName();
         }
         else
         {
@@ -193,7 +189,7 @@ public class StrutsActionLogicImpl
 
     public String handleGetFormBeanName()
     {
-        final String useCaseName = getActivityGraph().getUseCase().getName();
+        final String useCaseName = getStrutsActivityGraph().getUseCase().getName();
         return StringUtilsHelper.lowerCamelCaseName(useCaseName) + getFormBeanClassName();
     }
 
@@ -204,19 +200,9 @@ public class StrutsActionLogicImpl
 
     public String handleGetMessageKey()
     {
-        String messageKey = getActivityGraph().getUseCase().getName() + ' ';
+        String messageKey = getStrutsActivityGraph().getUseCase().getName() + ' ';
         messageKey += (isExitingPage()) ? getInput().getName() : messageKey;
         return StringUtilsHelper.toResourceMessageKey(messageKey);
-    }
-
-    public String handleGetSuccessMessageKey()
-    {
-        return getMessageKey() + ".success";
-    }
-
-    public String handleGetSuccessMessageValue()
-    {
-        return '[' + getTrigger().getName() + "] succesfully executed on " + getInput().getTitleValue();
     }
 
     /**
@@ -225,7 +211,7 @@ public class StrutsActionLogicImpl
      */
     public String getPackageName()
     {
-        return getActivityGraph().getUseCase().getPackageName();
+        return getStrutsActivityGraph().getUseCase().getPackageName();
     }
 
     public boolean handleIsResettable()
@@ -265,7 +251,7 @@ public class StrutsActionLogicImpl
      */
     public String getPackagePath()
     {
-        return '/' + getActivityGraph().getUseCase().getPackagePath();
+        return '/' + getStrutsActivityGraph().getUseCase().getPackagePath();
     }
 
     public String handleGetFullFormBeanPath()
@@ -415,33 +401,21 @@ public class StrutsActionLogicImpl
         return input;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActivityGraph()
-     */
     protected Object handleGetActivityGraph()
     {
         return getSource().getActivityGraph();
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getController()
-     */
     protected Object handleGetController()
     {
-        return getActivityGraph().getController();
+        return getStrutsActivityGraph().getController();
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionTrigger()
-     */
     protected Object handleGetActionTrigger()
     {
         return this.getTrigger();
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionFormFields()
-     */
     protected Collection handleGetActionFormFields()
     {
         Collection formFields = new HashSet();
@@ -611,4 +585,12 @@ public class StrutsActionLogicImpl
         return preloadFields;
     }
 
+    protected Collection handleGetTransitions()
+    {
+        if (transitions == null)
+        {
+            initializeCollections();
+        }
+        return transitions;
+    }
 }
