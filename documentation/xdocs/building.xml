@@ -55,12 +55,12 @@
             <![CDATA[
                 var divArray = new Array('expertGoals','pluginGoals','cartridgeGoals','metafacadeGoals','documentationGoals');
 
-                function toggleGoals(componentId)
+                function toggleGoals(index)
                 {
                     for (var i=0; i!=divArray.length; i++)  // Jelly eats the less-than symbol
                     {
                         var element = document.getElementById(divArray[i]);
-                        element.style.display = (element.id==componentId) ? "" : "none";
+                        element.style.display = (i==index) ? "" : "none";
                     }
                 }
             ]]>
@@ -89,11 +89,11 @@
                     Click any of the buttons below to see additional goals.
                 </p>
                 <p>
-                    <input id="exportGoalsChoice" onchange="toggleGoals(divArray[0]);" type="radio" name="goals"/>Expert goals
-                    <input id="pluginGoalsChoice" onchange="toggleGoals(divArray[1]);" type="radio" name="goals"/>Plugin goals
-                    <input id="cartridgeGoalsChoice" onchange="toggleGoals(divArray[2]);" type="radio" name="goals"/>Cartridge goals
-                    <input id="metafacadeGoalsChoice" onchange="toggleGoals(divArray[3]);" type="radio" name="goals"/>Metafacade goals
-                    <input id="documentationGoalsChoice" onchange="toggleGoals(divArray[4]);" type="radio" name="goals"/>Documentation goals
+                    <input onchange="toggleGoals(0);" type="radio" name="goals"/>Expert goals
+                    <input onchange="toggleGoals(1);" type="radio" name="goals"/>Plugin goals
+                    <input onchange="toggleGoals(2);" type="radio" name="goals"/>Cartridge goals
+                    <input onchange="toggleGoals(3);" type="radio" name="goals"/>Metafacade goals
+                    <input onchange="toggleGoals(4);" type="radio" name="goals"/>Documentation goals
                 </p>
             </subsection>
             <div id="expertGoals" style="display:none;">
