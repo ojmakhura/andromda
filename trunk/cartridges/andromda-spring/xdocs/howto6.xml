@@ -24,7 +24,8 @@
                 then you might consider to use tagged values instead.
             </p>
             <p>
-                Finder methods require the <![CDATA[<<FinderMethod>>]]> stereotype, as is shown in the picture below.
+                Finder methods require the <code>query flag</code> to be set, usually operations with this flag have
+                the commercial at symbol '@' in front of their name when displayed in diagrams.
             </p>
             <p>
                 The documentation discussing the modeling of queries in UML is found here:
@@ -33,7 +34,7 @@
                 <a href="../andromda-spring-cartridge/modeling.html#@andromda_hibernate_query">@andromda.hibernate.query</a>.
             </p>
             <p>
-                <img src="resources/howto/org/andromda/test/6/uml.png"/>
+                <img src="resources/howto/org/andromda/test/6/uml.jpg"/>
             </p>
             <p>
                 <ul>
