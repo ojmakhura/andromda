@@ -817,19 +817,6 @@ public class SchemaTransformer
                         primaryUpper),
                     ChangeableKindEnum.CK_CHANGEABLE);
             primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
-
-            if (StringUtils.isNotEmpty(this.columnTaggedValue))
-            {
-                // add the tagged value for the foreign association end
-                TaggedValue taggedValue = this.createTaggedValue(
-                    corePackage,
-                    this.columnTaggedValue,
-                    fkColumnName);
-                if (taggedValue != null)
-                {
-                    primaryEnd.getTaggedValue().add(taggedValue);
-                }
-            }
             association.getConnection().add(primaryEnd);
 
             boolean required = !this.isColumnNullable(
@@ -870,6 +857,20 @@ public class SchemaTransformer
                     ChangeableKindEnum.CK_CHANGEABLE);
             foreignEnd.setParticipant((Classifier)this.classes
                 .get(foreignTableName));
+            
+            if (StringUtils.isNotEmpty(this.columnTaggedValue))
+            {
+                // add the tagged value for the foreign association end
+                TaggedValue taggedValue = this.createTaggedValue(
+                    corePackage,
+                    this.columnTaggedValue,
+                    fkColumnName);
+                if (taggedValue != null)
+                {
+                    foreignEnd.getTaggedValue().add(taggedValue);
+                }
+            }
+            
             association.getConnection().add(foreignEnd);
             associations.add(association);
 
