@@ -87,7 +87,7 @@ public class Template
         File directory)
     {
         int dotIndex = this.getPath().indexOf(".");
-        String sheetBaseName = this.getPath().substring(0, dotIndex);
+        String pathBaseName = this.getPath().substring(0, dotIndex);
 
         //clean the strings since they could be null
         inputClassName = StringUtils.trimToEmpty(inputClassName);
@@ -100,7 +100,7 @@ public class Template
             {
                 inputPackageName.replace('.', File.separatorChar),
                 inputClassName,
-                sheetBaseName
+                pathBaseName
             };
 
             String outputFileName;
