@@ -33,12 +33,12 @@ $class.getDocumentation(" * ")
  *        view-type="both"
  * @ejb.interface 
  *        generate="local,remote"
- *        remote-class="${class.packageName}.${class.name}"
- *        local-class="${class.packageName}.${class.name}Local"
+ *        remote-class="${class.fullyQualifiedName}"
+ *        local-class="${class.fullyQualifiedName}Local"
  * @ejb.home 
  *        generate="local,remote"
- *        remote-class="${class.packageName}.${class.name}Home"
- *        local-class="${class.packageName}.${class.name}LocalHome"
+ *        remote-class="${class.fullyQualifiedName}Home"
+ *        local-class="${class.fullyQualifiedName}LocalHome"
  * @ejb.util generate="physical"
 #foreach ( $serviceRef in $class.serviceReferences )
  #set ($service = $serviceRef.targetElement)
