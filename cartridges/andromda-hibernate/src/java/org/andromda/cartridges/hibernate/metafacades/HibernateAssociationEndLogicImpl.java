@@ -1,5 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import org.andromda.cartridges.hibernate.HibernateProfile;
+
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd.
@@ -28,4 +30,25 @@ public class HibernateAssociationEndLogicImpl
     {
         return AssociationLinkManagerFinder.managesRelationalLink(this);
     }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isLazy()
+     */
+    protected boolean handleIsLazy()
+    {
+        String lazyString = (String) findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        boolean lazy;
+
+        if (lazyString == null)
+        {
+            lazy = !isComposition();
+        }
+        else
+        {
+            lazy = Boolean.valueOf(lazyString).booleanValue();
+        }
+
+        return lazy;
+    }
+
 }

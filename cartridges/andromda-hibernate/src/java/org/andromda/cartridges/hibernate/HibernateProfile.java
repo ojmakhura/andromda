@@ -27,4 +27,8 @@ public class HibernateProfile extends UMLProfile
      */
     public static final String TAGGEDVALUE_EJB_VIEWTYPE = "@andromda.ejb.viewType";
 
+    /**
+     * Stores the aggregation kind (lazy/eager) of the Hibernate Session EJB.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_LAZY = "@andromda.hibernate.lazy";
 }

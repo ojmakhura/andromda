@@ -109,7 +109,7 @@ $target.getDocumentation("     * ")
 #if ($associationEnd.one2Many)
      * @hibernate.set
      *     role="$target.name"
-     *     lazy="true"
+     *     lazy="$target.lazy"
 #if ($target.child)
      *     cascade="delete"
 #end
@@ -137,7 +137,7 @@ $target.getDocumentation("     * ")
 #if ($associationEnd.many2Many)
 ##
      * @hibernate.set
-     *     lazy="true"
+     *     lazy="$associationEnd.lazy"
      *     table="$associationEnd.association.tableName"
 #if (!$associationEnd.managesRelationalLink)
      *     inverse="true"
