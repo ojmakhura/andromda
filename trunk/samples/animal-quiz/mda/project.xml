@@ -89,6 +89,8 @@
                 <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
                 <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
                 <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
+                <servicePackageNamePattern>{0}.client</servicePackageNamePattern>
+                <serviceAccessorPattern>new {0}.client.{1}ServiceLocator().get{1}()</serviceAccessorPattern>
             </properties>
         </dependency>
         <dependency>
