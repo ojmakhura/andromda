@@ -18,6 +18,7 @@
     <property reference="welcomeFileName" default="index.jsp"/>
     <property reference="breadCrumbs" default="true"/>
     <property reference="dummyData" default="true"/>
+    <property reference="onlineHelp" default="true"/>
 
     <!-- copy resources -->
     <resource
@@ -408,16 +409,14 @@
         outputPattern="layout/calendar-js.jsp"
         outlet="pages"
         overwrite="true"
-        generateEmptyFiles="false">
-    </template>
+        generateEmptyFiles="false"/>
 
     <template
         path="templates/StrutsCalendarJsp.vsl"
         outputPattern="layout/calendar.jsp"
         outlet="pages"
         overwrite="true"
-        generateEmptyFiles="false">
-    </template>
+        generateEmptyFiles="false"/>
 
     <template
         path="templates/StrutsTableDecorator.vsl"
@@ -439,15 +438,42 @@
         outputPattern="layout/breadcrumbs.jsp"
         outlet="pages"
         overwrite="true"
-        generateEmptyFiles="false">
-    </template>
+        generateEmptyFiles="false"/>
 
     <template
         path="templates/StrutsJspIncludes.vsl"
         outputPattern="taglib-imports.jspf"
         outlet="pages"
         overwrite="false"
-        generateEmptyFiles="true">
+        generateEmptyFiles="true"/>
+
+    <template
+        path="templates/StrutsJspHelp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="false"
+        generateEmptyFiles="false">
+        <modelElements variable="jsp">
+            <modelElement stereotype="FrontEndView"/>
+        </modelElements>
     </template>
+
+    <template
+        path="templates/StrutsApplicationHelp.vsl"
+        outputPattern="application-help.jsp"
+        outlet="pages"
+        overwrite="false"
+        generateEmptyFiles="false">
+        <modelElements variable="applicationUseCase">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/StrutsHelpLayoutJsp.vsl"
+        outputPattern="layout/help-layout.jsp"
+        outlet="pages"
+        overwrite="false"
+        generateEmptyFiles="false"/>
 
 </cartridge>

@@ -199,13 +199,16 @@
 #end
 #end
         <div>
+            <blockquote>
 #if ($jsp.validationRequired && ($clientValidation=='true' || $serverValidation=='true'))
-            <blockquote>
                 <bean:message key="required.fields.asterisk"/>
-            </blockquote>
 #end
-            <blockquote>
-                <bean:message key="$jsp.documentationKey"/>
+#if ($onlineHelp == "true")
+                <a href="" id="pageHelp" style="display:inline;" onclick="window.open('<html:rewrite page="${jsp.fullPath}_help.jsp"/>','onlinehelp','width=760,height=540,scrollbars=yes,resizable=yes,toolbar=no,directories=no,status=no,menubar=no,copyhistory=no,location=no'); return false;">
+                    <bean:message key="online.help.href"/>
+                </a>
+                <html:img page="/layout/help.gif" style="display:inline;"/>
+#end
             </blockquote>
         </div>
 

@@ -2,6 +2,11 @@ main.title=$applicationUseCase.name
 
 breadcrumbs.error=Error on page
 required.fields.asterisk=Fields marked with an asterisk are required
+online.help.href=Help
+online.help.close=Close
+online.help.title=Online Help:
+online.help.inputfield=Field
+online.help.description=Description
 
 #
 #   Messages for the menu
@@ -90,12 +95,15 @@ errors.url={0} is an invalid URL.
 #
 #
 $useCase.titleKey=$useCase.titleValue
+$useCase.onlineHelpKey=$useCase.onlineHelpValue
 
 #foreach ($page in $useCase.pages)
 #
 #   PAGE:       $page.titleValue
 #
 $page.titleKey=$page.titleValue
+$page.messageKey=$page.messageValue
+$page.onlineHelpKey=$page.onlineHelpValue
 $page.documentationKey=$page.documentationValue
 
 #set ($pageVariable = $page.pageVariables)
@@ -119,6 +127,7 @@ ${page.messageKey}.tab.${tab}=$page.getTabName($tabIndex)
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 #   ACTION:     $action.actionTrigger.triggerValue
+$action.onlineHelpKey=$action.onlineHelpValue
 $action.documentationKey=$action.documentationValue
 #if ($action.successMessagePresent)
 $action.successMessageKey=$action.successMessageValue
@@ -135,6 +144,8 @@ $actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllowedTitleValue
 #foreach ($field in $action.actionParameters)
 $field.messageKey=$field.messageValue
 $field.titleKey=$field.titleValue
+$field.onlineHelpKey=$field.onlineHelpValue
+$field.documentationKey=$field.documentationValue
 #if ($field.optionCount > 0)
 #set ($optionKeys = $field.optionKeys)
 #set ($optionValues = $field.optionValues)
