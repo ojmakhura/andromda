@@ -38,6 +38,8 @@ public interface RepositoryFacade
      * a file in a jar file, a file from a website, data from a database, etc... </p>
      * 
 	 * @param modelURL url of model
+     * @param moduleSearchPath a list of paths from which to search for 
+     *        module models (i.e. models that can be used from within other models).
 	 * @throws MetaDataReadException if model syntax is violated
 	 * @throws IOException if io error occurs during file read
 	 */
