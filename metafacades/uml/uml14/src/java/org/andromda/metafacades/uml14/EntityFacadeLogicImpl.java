@@ -47,7 +47,7 @@ public class EntityFacadeLogicImpl
         super.initialize();
         // if there are no identfiers on this entity,
         // create and add one.
-        if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
+        if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers() && !this.isEnumeration())
         {
             this.createIdentifier();
         }
