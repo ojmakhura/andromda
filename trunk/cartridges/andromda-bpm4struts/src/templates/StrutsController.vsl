@@ -44,10 +44,11 @@ $operation.getDocumentation("     * ")
 #else
         form.${field.setterName}($field.resetValue);
 #end
-#if ($field.backingListPresent)
-#set ($backingListName = $field.backingListName)
-#set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
-        form.set${backingListMethod}($field.backingListResetValue);
+#if ($field.selectable)
+#set ($valueListMethod = $str.upperCaseFirstLetter($field.valueListName))
+#set ($labelListMethod = $str.upperCaseFirstLetter($field.labelListName))
+        form.set${valueListMethod}($field.valueListResetValue);
+        form.set${labelListMethod}(form.get${valueListMethod}());
 #end
 #end
 #end
