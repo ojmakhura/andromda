@@ -146,7 +146,10 @@ public class Cartridge
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
             Property outletProperty = Namespaces.instance()
-                .findNamespaceProperty(this.getName(), template.getOutlet());
+                .findNamespaceProperty(
+                    this.getName(), 
+                    template.getOutlet(), 
+                    template.isRequired());
 
             if (outletProperty != null && !outletProperty.isIgnore())
             {
@@ -239,9 +242,7 @@ public class Cartridge
                                 context.getModelFacade().getPackageName(
                                     modelElement));
                         }
-
                     }
-
                 }
                 catch (Throwable th)
                 {
@@ -267,7 +268,8 @@ public class Cartridge
         ExceptionUtils.checkNull(methodName, "template", template);
         Property outletProperty = Namespaces.instance().findNamespaceProperty(
             this.getName(),
-            template.getOutlet());
+            template.getOutlet(),
+            template.isRequired());
         if (outletProperty != null && !outletProperty.isIgnore())
         {
             Map templateContext = new HashMap();
@@ -480,5 +482,4 @@ public class Cartridge
     {
         return "cartridge";
     }
-
 }

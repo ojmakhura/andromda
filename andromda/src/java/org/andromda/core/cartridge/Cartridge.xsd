@@ -77,6 +77,10 @@
                  a collection of model elements (instead of on a per model 
                  element per file basis) -->
             <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>
+			<!-- if this flag is set to false, then template outlets are not required
+				 to be defined in a namespace, and no warning will be declared,
+				 by default required is true -->
+            <xs:attribute name="required" type="xs:boolean" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="templateObject">
