@@ -156,7 +156,7 @@
 									This is the XML file that allows you to easily test your Translator/Translation
 									during development of a Translation-Library.  There should be one
 									Translator-Test-*.xml file per translation.   Take a look at its 
-									<a href="translator-test-schema.html">schema</a> for more detail.
+									<a href="translation-test-schema.html">schema</a> for more detail.
 									<ul>
 										<li>
 											<strong>NOTE:</strong> There will be a <code>TranslationTest-*.xml</code> file 
@@ -517,13 +517,13 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 						</li>
 						<li>
 							Add an OCL expression to a <a href="#constraintExpression"><![CDATA[<from/>]]></a> element 
-							in your translator test file (Add another <![CDATA[<expression/>]]> element to your test file if
+							in your translation test file (Add another <![CDATA[<expression/>]]> element to your test file if
 							you already have one being used for a different test, take a look at the 
-							<a href="translator-test-schema.html">schema</a> for what a <em>TranslationTest-*.xml</em> 
+							<a href="translation-test-schema.html">schema</a> for what a <em>TranslationTest-*.xml</em> 
 							can contain).
 						</li>
 						<li>
-							Execute the translator test with command 
+							Execute the translation test with command 
 							<a href="#executeTranslationTestWithTrace">maven translation-library:test -Dtrace=true</a>
 							and decide what parser generated method you need to override in your 
 							<a href="#constraintTranslator">Translator</a> to handle a fragment of the expression: .							
