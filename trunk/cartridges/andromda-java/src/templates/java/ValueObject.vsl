@@ -11,7 +11,9 @@ public class $class.name
 #if($class.generalization)  
 	extends ${class.generalization.fullyQualifiedName}
 #end
+#if ($serializable == 'true')
     implements java.io.Serializable
+#end
 {
 #if (!$class.properties.empty)
 

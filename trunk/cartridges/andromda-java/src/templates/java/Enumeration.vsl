@@ -11,7 +11,7 @@ $enumeration.getDocumentation(" * ")
 public class ${enumeration.name} 
 #if($enumeration.generalization)  
 	extends ${enumeration.generalization.fullyQualifiedName}
-#else
+#elseif ($serializable == 'true')
     implements java.io.Serializable 
 #end
 {
