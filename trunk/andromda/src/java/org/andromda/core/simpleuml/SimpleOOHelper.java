@@ -146,19 +146,14 @@ public class SimpleOOHelper extends UMLStaticHelper
 
     /**
      * Returns a string representing the component name
-     * for the Bean appending the 'local' suffix if the
-     * Bean is locally accessable.
+     * for the Bean. It does not append the 'local' suffix 
+     * any more (deprecated).
      * 
      * @param object
      * @return String
      */
     public String getComponentInterfaceName(Object object)
     {
-        if (getStereotypeNames(object).contains(ENTITY_BEAN))
-        {
-            return getName(object) + "Local";
-        }
-
         return getName(object);
     }
 
