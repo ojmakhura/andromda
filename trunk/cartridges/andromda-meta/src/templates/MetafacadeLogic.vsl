@@ -103,7 +103,7 @@ public abstract class ${metafacade.logicName}
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
    /**
-	* @see ${memberTypeName}#${methodName}()
+	* @see ${metafacade.fullyQualifiedName}#${methodName}()
     */
     protected abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
