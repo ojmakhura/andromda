@@ -63,7 +63,7 @@
             <html:form action="/Maintenance/MaintenanceDelete" onsubmit="return verifySelection();">
                 <display:table name="${metaDataSession.currentTableData}" id="row"
                                requestURI="${pageContext.request.requestURL}"
-                               export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
+                               export="${tableConfig.exportable}" pagesize="${tableConfig.pageSize}" sort="list">
                     <c:set var="index" value="${row_rowNum-1}"/>
                     <display:column media="html"
                         title="" autolink="false" nulls="false"
