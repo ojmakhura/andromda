@@ -43,4 +43,9 @@ public class MetafacadeProperties
      * The default suffix to use for foreign keys.
      */
     public static final String FOREIGN_KEY_SUFFIX = "foreignKeySuffix";
+    
+    /**
+     * The mask to apply to role names (lowercase, uppercase, camelcase, nospace, none).
+     */
+    public static final String ROLE_NAME_MASK = "roleNameMask";
 }

@@ -3,9 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.andromda.metafacades.uml.ActorFacade;
-import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.RoleFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -49,7 +48,7 @@ public class ServiceOperationFacadeLogicImpl
                 DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null
                     && dependency.getTargetElement() != null
-                    && ActorFacade.class.isAssignableFrom(dependency
+                    && RoleFacade.class.isAssignableFrom(dependency
                         .getTargetElement().getClass());
             }
         });

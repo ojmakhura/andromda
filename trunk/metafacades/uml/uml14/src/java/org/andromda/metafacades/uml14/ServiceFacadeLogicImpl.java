@@ -2,12 +2,12 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 
-import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.RoleFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -78,7 +78,7 @@ public class ServiceFacadeLogicImpl
                 AssociationEndFacade end = (AssociationEndFacade)object;
                 return end != null
                     && end.getOtherEnd().getType() != null
-                    && ActorFacade.class.isAssignableFrom(end.getOtherEnd()
+                    && RoleFacade.class.isAssignableFrom(end.getOtherEnd()
                         .getType().getClass());
             }
         });

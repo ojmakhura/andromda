@@ -206,4 +206,10 @@
         metafacadeClass="org.andromda.metafacades.uml14.ServiceOperationFacadeLogicImpl">
         <context>org.andromda.metafacades.uml.ServiceFacade</context>
     </metafacade>
+    <metafacade
+        metaobjectClass="org.omg.uml.behavioralelements.usecases.Actor$Impl"
+        metafacadeClass="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
+        <stereotype>Role</stereotype>
+        <property reference="roleNameMask" default="none"/>
+    </metafacade>
 </metafacades>
