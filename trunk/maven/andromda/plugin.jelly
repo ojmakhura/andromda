@@ -216,8 +216,12 @@
                 question="Please enter the URI to your mappings file:" 
                 answer="mappingsUri"/>
         </j:while>
+        
         <attainGoal name="andromda:init-classpath${bootstrap}"/>
-         <ant:java classname="org.andromda.schema2xmi.Schema2XMI"
+        <!-- add any model dependencies -->
+        <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
+        
+        <ant:java classname="org.andromda.schema2xmi.Schema2XMI"
                     fork="true">
               <ant:classpath>
                    <ant:path refid="maven.andromda.classpath"/>
