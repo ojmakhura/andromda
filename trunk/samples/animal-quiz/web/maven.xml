@@ -3,36 +3,15 @@
     xmlns:j="jelly:core">
 
     <!-- =====================================================================
-            Handle the xdoclet webdoclet generation for struts
+            Add the generated code on the classpath
          ===================================================================== -->
-    <preGoal name="war:init">
-
-        <j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
-
-        <ant:taskdef name="webdoclet"
-            classname="xdoclet.modules.web.WebDocletTask"
-            classpathref="maven.dependency.classpath"/>
-
-        <ant:webdoclet destdir="${webInfDir}"
-            force="true" verbose="true"
-            mergedir="${maven.build.src}/merge">
-            <ant:fileset dir="${maven.build.src}">
-                <ant:include name="**/*.java"/>
-            </ant:fileset>
-            <ant:strutsconfigxml version="1.1"/>
-            <ant:strutsvalidationxml/>
-            <jbosswebxml securitydomain="java:/jaas/other"/>
-        </ant:webdoclet>
-
-        <!-- add the paths of the generated source to the
-             maven compile path -->
+    <preGoal name="java:compile">
         <ant:path
             id="andromda.struts.gen.src"
             location="${maven.build.src}"/>
         <maven:addPath
             id="maven.compile.src.set"
             refid="andromda.struts.gen.src"/>
-
     </preGoal>
 
     <!-- =====================================================================
