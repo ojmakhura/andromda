@@ -11,6 +11,10 @@
 				<![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- ========================================================================= 
+     This schema defines the andromda-metafacades.xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES                             
+     ========================================================================= -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- Used for mapping contexts.  An example for a context is: An entity is a 
          context for its attributes. So, the metaclass "Attribute" would be mapped to 
@@ -28,17 +32,17 @@
     <xs:element name="metafacade">
         <xs:complexType>
             <xs:sequence>
-				<xs:choice>
+                <xs:choice>
                     <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
                     <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
-				</xs:choice>
+                </xs:choice>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="metaobjectClass" type="xs:string" use="required"/>
             <xs:attribute name="metafacadeClass" type="xs:string" use="required"/>
-			<!-- You should set the context root to 'true' when the metafacade
-				 mapping will be used as a context for other mappings -->
-			<xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
+            <!-- You should set the context root to 'true' when the metafacade
+                 mapping will be used as a context for other mappings -->
+            <xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="metafacades">
