@@ -154,7 +154,6 @@ class MetafacadeUtils
                             + "evaluating properties on metafacade '"
                             + metafacade + "', setting valid to 'false'",
                         throwable);
-                throwable.printStackTrace();
                 valid = false;
             }
             if (getLogger().isDebugEnabled())
