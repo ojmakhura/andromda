@@ -124,8 +124,7 @@ class MetafacadeUtils
                         "evaluating " + properties.size() 
                             + " property(s) on metafacade '"
                             + metafacade + "'");
-                Iterator propertyIterator = properties.iterator();
-                while (propertyIterator.hasNext())
+                for (Iterator propertyIterator = properties.iterator(); propertyIterator.hasNext();)
                 {
                     final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator
                         .next();
@@ -147,15 +146,15 @@ class MetafacadeUtils
                     }
                 }
             }
-            catch (Throwable th)
+            catch (Throwable throwable)
             {
                 if (getLogger().isDebugEnabled())
                     getLogger().debug(
                         "An error occured while "
                             + "evaluating properties on metafacade '"
                             + metafacade + "', setting valid to 'false'",
-                        th);
-                th.printStackTrace();
+                        throwable);
+                throwable.printStackTrace();
                 valid = false;
             }
             if (getLogger().isDebugEnabled())
