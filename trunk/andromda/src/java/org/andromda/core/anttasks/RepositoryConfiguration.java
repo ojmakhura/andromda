@@ -7,9 +7,18 @@ import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.ScriptHelper;
 
 /**
- * @author amowers
- *
  * 
+ * Objects of this class are instantiated when
+ * the <code>&lt;repository&gt;</code> tag occurs in the build.xml file
+ * as a nested tag within the <code>&lt;andromda&gt;</code> tag.
+ * 
+ * <p>This tag provides enables an ANT user to configure the object model 
+ * repository that ANDROMDA uses during code generation.  It also provides
+ * the ability to customize the API used by the code generation templates to
+ * access the repository.</p>
+ * 
+ * @author Anthony Mowers
+ *  
  */
 public class RepositoryConfiguration
 {

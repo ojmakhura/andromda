@@ -15,9 +15,9 @@ import org.andromda.core.common.RepositoryReadException;
 import org.andromda.core.xml.Model;
 
 /**
- *  Description of the Interface
+ *  Implements a repository for simple object oriented models using JAXB.
  *
- *@author    tony
+ *@author    Matthias Bohlen
  */
 public class JAXBRepositoryFacade
 	 implements RepositoryFacade

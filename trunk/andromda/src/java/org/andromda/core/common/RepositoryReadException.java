@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
  * This exception is thrown if an error occurs during the loading
  * or initialization of the meta data repository.
  * 
- * @author    amowers
+ * @author    Anthony Mowers
  */
 public final class RepositoryReadException extends Exception
 {

@@ -6,7 +6,8 @@ package org.andromda.core.common;
  * <p>The mappings might change based upon the database being used and
  * a set of project based peferences for the mapping.</p>
  * 
- * @author amowers
+ * @author Matthias Bohlen
+ * @author Anthony Mowers
  *
  */
 public interface DbMappingTable
