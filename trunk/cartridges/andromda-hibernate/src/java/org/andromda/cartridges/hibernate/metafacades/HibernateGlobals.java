@@ -1,5 +1,5 @@
 package org.andromda.cartridges.hibernate.metafacades;
-
+ 
 /**
  * Stores Globals specific to the Hibernate cartridge.
  * 
@@ -7,11 +7,6 @@ package org.andromda.cartridges.hibernate.metafacades;
  */
 class HibernateGlobals
 {
-    /**
-     * POJO implementation class suffix.
-     */
-    final static String IMPLEMENTATION_SUFFIX = "Impl";
-
     /**
      * EJB implementation class suffix.
      */
