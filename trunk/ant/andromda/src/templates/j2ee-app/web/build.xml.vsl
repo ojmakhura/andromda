@@ -40,6 +40,7 @@
 
     <target name="compile" description="o Compile the code">
         <mkdir dir="${basedir}/target/classes"/>
+        <mkdir dir="${basedir}/src/java"/>
         <javac destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false">
             <src path="${basedir}/target/src"/>
