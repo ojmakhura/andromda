@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class is the main class of the cartridge test suite for AndroMDA. The
  * test checks for a list of expected files that a file with the same name and
@@ -24,6 +26,8 @@ public class CartridgeTest
     extends TestCase
 {
 
+    private static final Logger logger = Logger.getLogger(CartridgeTest.class);
+    
     /**
      * Points to the directory were the expected files are stored which will be
      * compared to the generated ones.
@@ -51,12 +55,12 @@ public class CartridgeTest
         // Add the tests which compares all existing expected files against the
         // generated ones. This makes sure that for each expected an appropriate
         // files was generated.
-        int noOfTests = addTests(getDirectory(EXPECTED_DIRECTORY), suite);
+        int numberOfTests = addTests(getDirectory(EXPECTED_DIRECTORY), suite);
 
         List expectedFiles = new ArrayList();
         createListOfExpectedFiles(outputDir, expectedFiles);
 
-        if (noOfTests < expectedFiles.size())
+        if (numberOfTests <= expectedFiles.size())
         {
             // The generator has generated more files than expected do exist.
             // In order to find out which one was additionally generated
@@ -71,20 +75,22 @@ public class CartridgeTest
 
     private static int addTests(File dir, TestSuite suite)
     {
-        int noOfAddedTests = 0;
+        int numberOfAddedTests = 1;
         List expectedFiles = new ArrayList();
         createListOfExpectedFiles(dir, expectedFiles);
         Iterator iterator = expectedFiles.iterator();
         while (iterator.hasNext())
         {
             File expectedFile = (File)iterator.next();
-            File actualFile = getComplementFile(expectedFile);
+            File actualFile = getOutputFile(expectedFile);
+            logger.info(numberOfAddedTests + ") comparing expected '" 
+                + expectedFile + "' with actual '" + actualFile + "'");
             if (expectedFile.getName().endsWith(".java"))
             {
                 suite.addTest(new JavaSourceComparator(
                     "testAPIEquals",
                     expectedFile,
-                    actualFile));
+                    actualFile));  
             }
             else if (expectedFile.getName().endsWith(".xml"))
             {
@@ -93,29 +99,29 @@ public class CartridgeTest
                     expectedFile,
                     actualFile));
             }
-            noOfAddedTests++;
+            numberOfAddedTests++;
         }
-        return noOfAddedTests;
+        return numberOfAddedTests;
     }
 
-    private static File getComplementFile(File file)
+    private static File getOutputFile(File file)
     {
-        String complement;
+        String outputFile;
         String path = file.getPath();
 
         if (file.getPath().startsWith(expectedDir.getPath()))
         {
-            complement = path.substring(expectedDir.getPath().length(), path
+            outputFile = path.substring(expectedDir.getPath().length(), path
                 .length());
-            complement = outputDir + complement;
+            outputFile = outputDir + outputFile;
         }
         else
         {
-            complement = path.substring(outputDir.getPath().length(), path
+            outputFile = path.substring(outputDir.getPath().length(), path
                 .length());
-            complement = expectedDir + complement;
+            outputFile = expectedDir + outputFile;
         }
-        return new File(complement);
+        return new File(outputFile);
     }
 
     private static String getDirectoryName(String propertyKey)
