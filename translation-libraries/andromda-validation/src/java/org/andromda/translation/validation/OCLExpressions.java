@@ -52,8 +52,8 @@ public class OCLExpressions
     public static boolean equal(Object first, boolean second)
     {
         return (second)
-                ? Boolean.TRUE.equals(first) || BooleanUtils.toBoolean(String.valueOf(first))
-                : Boolean.FALSE.equals(first) || !BooleanUtils.toBoolean(String.valueOf(first));
+            ? Boolean.TRUE.equals(first) || BooleanUtils.toBoolean(String.valueOf(first))
+            : Boolean.FALSE.equals(first) || !BooleanUtils.toBoolean(String.valueOf(first));
     }
 
     public static boolean equal(boolean first, Object second)

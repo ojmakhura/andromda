@@ -96,7 +96,7 @@ public final class OCLCollections
      */
     public static boolean notEmpty(Collection collection)
     {
-        return (collection != null) && (!isEmpty(collection));
+        return (collection != null) && !isEmpty(collection);
     }
 
     /**
