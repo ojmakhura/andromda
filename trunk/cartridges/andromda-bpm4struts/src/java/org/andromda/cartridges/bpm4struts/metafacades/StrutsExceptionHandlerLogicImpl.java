@@ -44,11 +44,11 @@ public class StrutsExceptionHandlerLogicImpl
      */
     protected java.lang.String handleGetExceptionType()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_EXCEPTION_TYPE);
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_TYPE);
         String type = value==null?null:value.toString();
         if (type == null)
         {
-            type = Bpm4StrutsProfile.TAGGED_VALUE_EXCEPTION_DEFAULT_TYPE;
+            type = Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_DEFAULT_TYPE;
         }
         return type;
     }

@@ -147,12 +147,12 @@ public class StrutsForwardLogicImpl
 
     protected Map handleGetSuccessMessages()
     {
-        return getMessages(getMessageKey() + ".success.", Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE);
+        return getMessages(getMessageKey() + ".success.", Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCES_MESSAGE);
     }
 
     protected Map handleGetWarningMessages()
     {
-        return getMessages(getMessageKey() + ".warning.", Bpm4StrutsProfile.TAGGED_VALUE_ACTION_WARNING_MESSAGE);
+        return getMessages(getMessageKey() + ".warning.", Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     protected java.util.Collection handleGetForwardParameters()

@@ -153,7 +153,7 @@ public class StrutsUseCaseLogicImpl
          * In case there is a tagged value pointing to an activity graph, and this graph is found,
          * then return it.
          */
-        final Object activity = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USECASE_ACTIVITY);
+        final Object activity = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY);
         if (activity != null)
         {
             String activityName = String.valueOf(activity.toString());

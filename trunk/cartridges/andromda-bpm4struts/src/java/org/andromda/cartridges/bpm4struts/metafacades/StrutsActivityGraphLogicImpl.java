@@ -71,7 +71,7 @@ public class StrutsActivityGraphLogicImpl
                 if (obj instanceof StrutsUseCase)
                 {
                     StrutsUseCase strutsUseCase = (StrutsUseCase) obj;
-                    Object activity = strutsUseCase.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USECASE_ACTIVITY);
+                    Object activity = strutsUseCase.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY);
 
                     if (activity != null)
                     {
@@ -118,13 +118,13 @@ public class StrutsActivityGraphLogicImpl
 
                 if (element instanceof StrutsController)
                 {
-                    final Object hyperlinkModel = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
+                    final Object hyperlinkModel = element.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_HYPERLINK);
                     if (thisUseCase.equals(hyperlinkModel))
                     {
                         return element;
                     }
 
-                    final Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_CONTROLLER_USE_CASE);
+                    final Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE);
                     String taggedValue = value == null ? null : value.toString();
                     if (useCaseName.equalsIgnoreCase(taggedValue))
                     {

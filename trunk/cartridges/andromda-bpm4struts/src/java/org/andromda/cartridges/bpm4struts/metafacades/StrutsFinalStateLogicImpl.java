@@ -52,7 +52,7 @@ public class StrutsFinalStateLogicImpl
 
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
-        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_HYPERLINK);
         if (taggedValue != null)
         {
             if (taggedValue instanceof StrutsActivityGraph)
