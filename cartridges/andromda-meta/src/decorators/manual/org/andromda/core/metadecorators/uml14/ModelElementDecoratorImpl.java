@@ -57,4 +57,17 @@ public class ModelElementDecoratorImpl extends ModelElementDecorator
         return packageName;
     }
 
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.ModelElementDecorator#getFullyQualifiedName()
+     */
+    public String getFullyQualifiedName()
+    {
+        String fullName = getName();
+        String packageName = getPackageName();
+        fullName =
+            "".equals(packageName) ? fullName : packageName + "." + fullName;
+
+        return fullName;
+    }
+
 }

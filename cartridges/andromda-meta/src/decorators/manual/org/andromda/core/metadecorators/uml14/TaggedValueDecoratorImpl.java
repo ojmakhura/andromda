@@ -1,6 +1,10 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.HTMLAnalyzer;
 
 
         
@@ -24,6 +28,9 @@ public class TaggedValueDecoratorImpl extends TaggedValueDecorator
     // concrete business methods that were declared
     // abstract in class TaggedValueDecorator ...
 
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.TaggedValueDecorator#getTag()
+     */
     public java.lang.String getTag() {
         String tgvName = metaObject.getName();
             
@@ -42,6 +49,9 @@ public class TaggedValueDecoratorImpl extends TaggedValueDecorator
         return tgvName;
     }
 
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.TaggedValueDecorator#getValue()
+     */
     public java.lang.String getValue() {
         StringBuffer sb = new StringBuffer();
         for (Iterator i = metaObject.getDataValue().iterator(); i.hasNext(); )
@@ -56,6 +66,23 @@ public class TaggedValueDecoratorImpl extends TaggedValueDecorator
         }
         
         return sb.toString();
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.TaggedValueDecorator#formatHTMLStringAsParagraphs()
+     */
+    public Collection formatHTMLStringAsParagraphs()
+    {
+        try
+        {
+            return new HTMLAnalyzer().htmlToParagraphs(getValue());
+        }
+        catch (IOException e)
+        {
+            // TODO: Better exception handling!
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // ------------- relations ------------------
