@@ -45,7 +45,7 @@
                     and then they had business or custom logic hand-coded in.
                 </p>
                 <p>
-                    Each sample is made up of a combination of the modules explained here:
+                    Each sample is made up  of the modules explained here:
                     <ul>
                         <li>
                             /mda
@@ -98,17 +98,11 @@
                             </p>
                         </li>
                         <li>
-                            /hibernate
+                            /core
                             <p>
-                                Contains hibernate persistant entities and EJB services, including any
-                                required deployment descriptors.
-                            </p>
-                        </li>
-                        <li>
-                            /ejb
-                            <p>
-                                Contains EJB specific persistent entities and services, including any
-                                required deployment descriptors.
+                                Contains the persistence and business/transaction management layer.
+                                This contains generated source from either the hibernate, spring,
+                                or ejb cartridges.
                             </p>
                         </li>
                         <li>
