@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>animal-quiz</id>
+  	<artifactId>animal-quiz</artifactId>
   	<name>The Animal Quiz Sample</name>
   	<shortDescription>The Animal Quiz Sample</shortDescription>
   	<description>
@@ -25,5 +25,4 @@
 	      	</resource>
     	</resources>
   	</build>
-
 </project>
