@@ -50,8 +50,8 @@
 			          		Operation
 			          	</td>			       
 			          	<td>
-			          		Identifies an operation as a finder method.  Finder
-							method queries can be defined as an OCL body
+			          		Identifies an <strong>entity</strong> operation as a finder method.  
+                            Finder method queries can be defined as an OCL body
 							expression using the <a href="../andromda-query-library/index.html">
 							AndroMDA Query Library</a> or directly as a Hibernate QL using the 
 							<a href="#@andromda.hibernate.query">@andromda.hibernate.query</a> tagged value.
