@@ -207,7 +207,8 @@
 #end
             </display:table>
 #if ($variable.tableAction)
-#renderFormButtons($variable.tableAction "            ")
+## temporarily commented out
+##renderFormButtons($variable.tableAction "            ")
         </html:form>
 #end
 
