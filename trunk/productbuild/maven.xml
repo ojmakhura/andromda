@@ -100,7 +100,7 @@
 		<ant:delete dir="${binaryDistDir}"/>
 		<ant:mkdir dir="${binaryDistLibDir}"/>
 		
-		<!-- first add the components -->	
+		<!-- first add the components -->
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Components: "
@@ -119,12 +119,12 @@
 				</ant:fileset>				
 			</ant:copy>
 			<j:forEach var="lib" items="${reactorProject.artifacts}">
-				 <!-- don't copy 'andromda' dependencies -->
+				<!-- don't copy 'andromda' dependencies -->
 				<j:if test="${lib.dependency.artifactId.indexOf('andromda') == '-1'}">
 					<ant:copy file="${lib.file}" todir="${binaryDistLibDir}"/>
 				</j:if>
 			</j:forEach>  
-		</j:forEach>
+		</j:forEach> -->
 		
 		<!-- now add the samples -->
 	
@@ -159,14 +159,14 @@
 			</j:if> 
 		</j:forEach> 
 		
-		<!-- add docs -->
+		<!-- add docs 
 		<attainGoal name="docs"/>
 		<ant:copy todir="${binaryDistDir}">
 			<ant:fileset dir="documentation/target">
 				<ant:include name="*.zip"/>
 			</ant:fileset>
-		</ant:copy>
-				
+		</ant:copy> -->
+				 
 		<!-- zip it all up -->
         <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
 		<ant:zip zipfile="${zipFile}">
@@ -200,18 +200,13 @@
 			 one at a time).
 		 ================================================================= -->
 	<goal name="bootstrap-install">
-		<maven:reactor
-			basedir="${basedir}"
-			includes="${bootstrap.modules}"
-			goals="clean:clean,jar:jar"
-			ignoreFailures="false"
-			postProcessing="true"
-			banner="Processing Bootstrap Artifact:"/>    
+		
+		<attainGoal name="preprocess-bootstrap-modules"/>
 		
 		<echo>+-------------------------------------------------------------------+</echo>
 		<echo>|   I N S T A L L I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
 		<echo>+-------------------------------------------------------------------+</echo>
-		<j:forEach var="reactorProject" items="${reactorProjects}">			
+		<j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">		
 			<attainGoal name="initialize-bootstrap-properties"/>
 			<ant:copy				
 				file="${artifactFile}"
@@ -239,18 +234,12 @@
 		
 		<j:set var="username" value="${maven.username}"/>
 			
-		<maven:reactor
-			basedir="${basedir}"
-			includes="${bootstrap.modules}"
-			goals="clean:clean,jar:jar"
-			ignoreFailures="false"
-			postProcessing="true"
-			banner="Processing Bootstrap Artifact:"/>  	  
+		<attainGoal name="preprocess-bootstrap-modules"/>
 		
 		<echo>+-----------------------------------------------------------------+</echo>
 		<echo>|   D E P L O Y I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
 		<echo>+-----------------------------------------------------------------+</echo>
-		<j:forEach var="reactorProject" items="${reactorProjects}">		
+		<j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">		
 					
 			<attainGoal name="initialize-bootstrap-properties"/>				
 			<ant:move				
@@ -258,18 +247,18 @@
 				tofile="${bootstrapArtifactFile}"
 				overwrite="true"/>	
 							
-			<util:replace var="jarToDeploy" oldChar="\" newChar="/">${bootstrapArtifactFile}</util:replace>
+			<util:replace var="artifactToDeploy" oldChar="\" newChar="/">${bootstrapArtifactFile}</util:replace>
 			<util:replace var="forwardSlashBaseDir" oldChar="\" newChar="/" value="${basedir}"/>
 			<j:if test="${!forwardSlashBaseDir.endsWith('/')}">
 			  <j:set var="base" value="${forwardSlashBaseDir}/" />
 			</j:if>
-			<j:set var="relativePath">${jarToDeploy.substring(base.length())}</j:set>
+			<j:set var="relativePath">${artifactToDeploy.substring(base.length())}</j:set>
 		
 			<j:set var="siteAddress" value="${maven.repo.central}"/>
 			<j:set var="siteDirectory" value="${maven.repo.central.directory}"/>
 			<j:set 
 				var="resolvedDirectory" 
-				value="${siteDirectory}/${reactorProject.artifactDirectory}/jars"/>
+				value="${siteDirectory}/${bootstrapProject.artifactDirectory}/${bootstrapTypes.get(index)}s"/>
 	
 			<j:set var="copier" value="${maven.scp.executable}"/>
 			<j:set var="commander" value="${maven.ssh.executable}"/>
@@ -300,26 +289,63 @@
 		</j:forEach>
 			
 	</goal>
+	
+	<!-- =================================================================
+		 Performs preprocessing on the bootstrap modules, basically
+		 executs them and loads the modules and their types into lists.
+		 ================================================================= -->  
+	<goal name="preprocess-bootstrap-modules">
+		<util:tokenize 
+			var="bootstrapModules" 
+			delim=",">${bootstrap.modules}</util:tokenize>
+			
+		<j:set var="listType" value="java.util.ArrayList"/>
+		<j:useList var="bootstrapProjects" class="${listType}"/>
+		<j:useList var="bootstrapTypes" class="${listType}"/>
+		<j:forEach var="bootstrapModule" items="${bootstrapModules}">
+			<util:tokenize 
+				var="moduleAndType" 
+				delim=":">${bootstrapModule}</util:tokenize>	
+			<j:set var="module" value="${moduleAndType.get(0)}"/>
+			<j:set var="type" value="${moduleAndType.get(1)}"/>		
+			<maven:reactor
+				basedir="${basedir}"
+				includes="${module}"
+				goals="clean:clean,jar:jar"
+				ignoreFailures="false"
+				postProcessing="true"
+				banner="Processing Bootstrap Artifact:"/>  
+				
+			<!-- load up the bootstrapLists -->
+			<j:forEach var="reactorProject" items="${reactorProjects}">		
+				<!-- add the reactor project to the list of bootstrap projects -->	
+				<j:set var="dummy" value="${bootstrapProjects.add(reactorProject)}"/>
+				<!-- add the bootstrap type to the list of bootsrap project types -->
+				<j:set var="dummy" value="${bootstrapTypes.add(type)}"/>
+			</j:forEach>				
+						
+		</j:forEach>
+	</goal>
 		
 	<!-- =================================================================
-		 Initializes the bootstrap properties for each reactorProject
+		 Initializes the bootstrap properties for each bootstrapProject
 		 ================================================================= -->  	
 	<goal name="initialize-bootstrap-properties">
 		<j:set
 			var="repoLocation" 
-			value="${maven.repo.local}/${reactorProject.artifactDirectory}/jars"/>
+			value="${maven.repo.local}/${bootstrapProject.artifactDirectory}/${bootstrapTypes.get(index)}s"/>
 		<j:set 
 			var="artifactDirectory"
-			value="${reactorProject.file.parent}/target"/>
+			value="${bootstrapProject.file.parent}/target"/>
 		<j:set 
 			var="artifactName"
-			value="${reactorProject.artifactId}-${reactorProject.currentVersion}.jar"/>
+			value="${bootstrapProject.artifactId}-${bootstrapProject.currentVersion}.jar"/>
 		<util:file 
 			var="artifactFile" 
 			name="${artifactDirectory}/${artifactName}"/>  	
 		<j:set 
 			var="bootstrapArtifactName"
-			value="${reactorProject.artifactId}-bootstrap-${reactorProject.currentVersion}.jar"/>
+			value="${bootstrapProject.artifactId}-bootstrap-${bootstrapProject.currentVersion}.jar"/>
 		<j:set 
 			var="bootstrapArtifactFile"
 			value="${artifactDirectory}/${bootstrapArtifactName}"/>
