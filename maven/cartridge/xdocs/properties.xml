@@ -60,7 +60,19 @@
                                 <code>andromda.cartridge.test.archive</code>.
                             </p>
                         </td>
-                    </tr>  
+                    </tr> 
+                    <tr>
+                        <td>andromda.cartridge.extra.binary.file.suffixes</td>
+                        <td>
+                            No, default is <code></code>
+                        </td>
+                        <td>
+                            Specifies any additional, file suffixes which will be 
+                            compared as binary, by default <code>jpg,jpeg,gif,png,jar,zip</code>
+                            are already included.  If the file suffix is not specified
+                            the files will be compared as Strings.
+                        </td>
+                    </tr> 
                 </table>
             </subsection>
 			<subsection name="Including additional test dependencies">

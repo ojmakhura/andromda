@@ -102,8 +102,13 @@ Please define the test archive containing the expected output '${context.getVari
             scope="parent"/>
             
         <j:set 
+            var="binary.suffixes"
+            value="${andromda.cartridge.binary.file.suffixes}"
+            scope="parent"/>
+            
+        <j:set 
             var="maven.junit.sysproperties"
-            value="expected.dir actual.dir"
+            value="expected.dir actual.dir binary.suffixes"
             scope="parent"/>
             
           <attainGoal name="test:single"/>	      
