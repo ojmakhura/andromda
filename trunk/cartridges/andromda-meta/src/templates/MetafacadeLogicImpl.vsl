@@ -55,9 +55,6 @@ public class ${metafacade.logicImplName}
 #set ($ops = $metafacade.operations)
 #if (!$ops.empty)
     // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class ${metafacade.name} ...
 #foreach ( $op in $ops)
 ##
 #set ($methodName = $op.name)
