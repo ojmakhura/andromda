@@ -18,7 +18,6 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_ACTION_RESETTABLE = "@andromda.struts.action.resettable";
     public static final String TAGGED_VALUE_ACTION_SUCCES_MESSAGE = "@andromda.struts.action.success.message";
     public static final String TAGGED_VALUE_ACTION_TABINDEX = "@andromda.struts.action.tabindex";
-    public static final String TAGGED_VALUE_ACTION_TABLELINK = "@andromda.struts.action.tablelink";
 
     public static final String TAGGED_VALUE_INPUT_REQUIRED = "@andromda.struts.view.field.required";
     public static final String TAGGED_VALUE_INPUT_READONLY = "@andromda.struts.view.field.readonly";
@@ -27,6 +26,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_INPUT_VALIDWHEN = "@andromda.struts.view.field.validwhen";
     public static final String TAGGED_VALUE_INPUT_TABINDEX = "@andromda.struts.view.field.tabindex";
     public static final String TAGGED_VALUE_INPUT_CALENDAR = "@andromda.struts.view.field.calendar";
+    public static final String TAGGED_VALUE_INPUT_TABLELINK = "@andromda.struts.view.field.tablelink";
 
     public static final String TAGGED_VALUE_TABLE_COLUMNS = "@andromda.struts.view.table.columns";
     public static final String TAGGED_VALUE_TABLE_MAXROWS = "@andromda.struts.view.table.maxrows";
