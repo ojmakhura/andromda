@@ -18,16 +18,9 @@ import org.apache.log4j.Logger;
 
 
 /**
- * <p>
- *  Facade for use in the andromda-meta cartridge. It hides a
- *  Classifier that represents a
- * </p>
- * <p>
- *  > object.
- * </p>
- *
  * Metaclass facade implementation.
  *
+ * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade
  */
 public class MetafacadeFacadeLogicImpl
        extends MetafacadeFacadeLogic
