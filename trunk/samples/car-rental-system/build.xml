@@ -104,7 +104,7 @@
             description="Builds distribution structure">
       <copy todir="dist">
           <fileset dir="build/" includes="*.ear" />
-          <fileset dir="build/" includes="hibernate-schema.txt" />
+          <fileset dir="build/" includes="hibernate-schema-*.sql" />
       </copy>
     </target>
 
@@ -214,13 +214,16 @@
                 <include name="**/*.java" />
             </fileset>
 
-            <hibernate />
+            <hibernate version="2.0" />
 
             <jbossservice
                 destdir="build/hibernateservice/META-INF"
+                transactionManagerStrategy="net.sf.hibernate.transaction.JBossTransactionManagerLookup"
+                transactionStrategy="net.sf.hibernate.transaction.JTATransactionFactory"
+                userTransactionName="java:/UserTransaction"
                 jndiname="java:/hibernate/SessionFactory"
                 servicename="CarRentalSystemHibernateSessionFactory"
-                dialect="cirrus.hibernate.sql.HSQLDialect"
+                dialect="net.sf.hibernate.dialect.HSQLDialect"
                 datasource="java:/DefaultDS"
                 showSql="true"
             />
@@ -328,8 +331,8 @@
     <!-- Compile all ejb files, generated and hand-written -->
     <target name="compile-ejb" depends="init,genejbcomp">
 
-        <property name="build.class.path" refid="build.class.path"/>
-        <echo message="build.class.path = ${build.class.path}"/>
+        <property name="bcp" refid="build.class.path"/>
+        <echo message="build.class.path = ${bcp}"/>
         
         <!-- Compile EJB classes -->
         <javac destdir="build/ejbstage" includes="**/*.java"
@@ -394,10 +397,6 @@
         </copy>
 
         <!-- Copy the hibernate libraries -->
-        <copy todir="build/hibernateservice/lib/">
-            <fileset dir="${andromda-hibernate.home}/lib/" includes="hibernate.jar"/>
-        </copy>
-        <!-- Copy the hibernate libraries -->
         <copy todir="build/hibernatestage/lib/">
             <fileset dir="${andromda-hibernate.home}/lib/" includes="*.jar"/>
         </copy>
@@ -453,23 +452,44 @@
     </target>
 
     <!-- Generate the SQL database schema from the hibernate mapping files -->
-    <target name="hibernate-schema" description="Generates database schema" depends="jars-hibernate" >
-        <fileset id="hibernate.mapping.files" dir="build/hibernateservice">
-            <include name="**/*.hbm.xml"/>
-        </fileset>
-        <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
-
-        <echo message="mapping files: ${hibernate.mappings}"/>
+    <target name="hibernate-schema" description="Generates database schema" depends="jars-hibernate">
         <path id="schema.classpath">
-            <pathelement path="${build.class.path}"/>
+            <path refid="build.class.path"/>
             <pathelement location="build/earstage/car-rental-system-hibernate.jar"/>
         </path>
 
-        <java classname="cirrus.hibernate.tools.SchemaExport" fork="true">
-            <arg value="--output=build/hibernate-schema.txt"/>
+        <fileset id="hibernate.mapping.files" dir="build/hibernateservice">
+            <include name="**/*.hbm.xml"/>
+        </fileset>
+
+        <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=build/hibernate-schema-initialize.sql"/>
             <arg value="--text"/>
+            <arg value="--quiet"/>
             <arg line="${hibernate.mappings}"/>
-            <jvmarg value="-Dhibernate.dialect=cirrus.hibernate.sql.HSQLDialect"/>
+            <jvmarg value="-Dhibernate.dialect=net.sf.hibernate.dialect.HSQLDialect"/>
+            <classpath refid="schema.classpath" />
+        </java>
+
+		<copy file="build/hibernate-schema-initialize.sql"
+		      tofile="build/hibernate-schema-reinitialize.sql"
+	    />		
+        
+        <replaceregexp file="build/hibernate-schema-initialize.sql"
+                       match="^(alter table .* drop constraint|drop table)"
+                       replace="-- SKIP \1"
+                       flags="i"
+                       byline="true"/>
+
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=build/hibernate-schema-remove.sql"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg value="--drop"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=net.sf.hibernate.dialect.HSQLDialect"/>
             <classpath refid="schema.classpath" />
         </java>
     </target>

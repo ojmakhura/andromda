@@ -14,7 +14,7 @@ public class InventoryServiceBeanImpl
     // abstract in class InventoryServiceBean ...
 
     protected java.lang.String handleCreateCarType(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         org.andromda.samples.carrental.inventory.CarTypeData typeData)
         throws InventoryException
     {
@@ -35,7 +35,7 @@ public class InventoryServiceBeanImpl
     }
 
     protected java.lang.String handleCreateCar(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         org.andromda.samples.carrental.inventory.CarData carData,
         java.lang.String carTypeId)
         throws InventoryException
@@ -59,7 +59,7 @@ public class InventoryServiceBeanImpl
     }
 
     protected java.util.Collection handleSearchCarByComfortClass(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         java.lang.String comfortClass)
         throws InventoryException
     {
@@ -95,7 +95,7 @@ public class InventoryServiceBeanImpl
     }
 
     protected java.util.Collection handleSearchAllCarTypes(
-        cirrus.hibernate.Session sess)
+        net.sf.hibernate.Session sess)
         throws InventoryException
     {
         try
@@ -117,7 +117,7 @@ public class InventoryServiceBeanImpl
     }
 
     protected java.util.Collection handleSearchAllCars(
-        cirrus.hibernate.Session sess)
+        net.sf.hibernate.Session sess)
         throws InventoryException
     {
         try

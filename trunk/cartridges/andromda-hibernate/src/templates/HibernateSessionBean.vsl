@@ -7,9 +7,9 @@ import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import cirrus.hibernate.HibernateException;
-import cirrus.hibernate.Session;
-import cirrus.hibernate.SessionFactory;
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.SessionFactory;
 
 #macro ( generateDocumentation $item $indent)
 #foreach ( $tgv in $item.taggedValues )
@@ -125,9 +125,9 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 ##
 #set ($parameterList = $transform.getOperationTypedParameterList($op))
 #if ($parameterList.length() == 0)
-#set ($parameters = "cirrus.hibernate.Session sess")
+#set ($parameters = "net.sf.hibernate.Session sess")
 #else
-#set ($parameters = "cirrus.hibernate.Session sess, ${parameterList}")
+#set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
@@ -180,9 +180,9 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
            throw e;
         }
 #end
-        catch (SQLException se)
+        catch (HibernateException he)
         {
-            throw new EJBException("${class.name}Bean.${op.name}: " + se.getMessage());
+            throw new EJBException("${class.name}Bean.${op.name}: " + he.getMessage());
         }
         catch (NamingException ne)
         {
@@ -200,10 +200,6 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
                 catch (HibernateException he)
                 {
                     throw new EJBException("${class.name}Bean.${op.name}: " + he.getMessage());
-                }
-                catch (SQLException sse)
-                {
-                    throw new EJBException("${class.name}Bean.${op.name}: " + sse.getMessage());
                 }
             }
         }
@@ -272,7 +268,7 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
         return _sessionFactory;
     }
 
-    private Session getSession() throws java.sql.SQLException, NamingException
+    private Session getSession() throws HibernateException, NamingException
     {
         return getSessionFactory().openSession();
     }
