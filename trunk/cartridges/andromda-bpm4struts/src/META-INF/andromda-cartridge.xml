@@ -26,16 +26,19 @@
         outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
+        
     <resource
         path="resources/hints/*.*"
         outputPattern="layout/hints/{0}"
         outlet="pages"
         overwrite="true"/>
+        
     <resource
         path="resources/calendar/*.*"
         outputPattern="layout/calendar/{0}"
         outlet="pages"
         overwrite="true"/>
+        
     <resource
         path="resources/WEB-INF/lib/*.jar"
         outputPattern="lib/{0}"
@@ -208,80 +211,16 @@
     </template>
 
     <template
-        path="templates/StrutsXDocletMergeServletMapping.vsl"
-        outputPattern="servlet-mappings.xml"
-        outlet="xdoclet-merge"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeServlets.vsl"
-        outputPattern="servlets.xml"
-        outlet="xdoclet-merge"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeWelcomeFiles.vsl"
-        outputPattern="welcomefiles.xml"
-        outlet="xdoclet-merge"
+        path="templates/StrutsWebXml.vsl"
+        outputPattern="web.xml"
+        outlet="configuration"
         overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
-
-    <template
-        path="templates/StrutsXDocletMergeWebSecurity.vsl"
-        outputPattern="web-security.xml"
-        outlet="xdoclet-merge"
-        overwrite="true"
-        generateEmptyFiles="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeWebSecRoles.vsl"
-        outputPattern="web-sec-roles.xml"
-        outlet="xdoclet-merge"
-        overwrite="true"
-        generateEmptyFiles="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeFilters.vsl"
-        outputPattern="filters.xml"
-        outlet="xdoclet-merge"
-        overwrite="true"
-        generateEmptyFiles="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeFilterMappings.vsl"
-        outputPattern="filter-mappings.xml"
-        outlet="xdoclet-merge"
-        overwrite="true"
-        generateEmptyFiles="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
+    
     <template
         path="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
