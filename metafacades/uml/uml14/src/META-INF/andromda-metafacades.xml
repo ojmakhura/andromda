@@ -131,6 +131,12 @@
     <metafacade class="org.andromda.metafacades.uml14.ObjectFlowStateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.SubactivityStateFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.SubactivityState$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.PartitionFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.Partition$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Event$Impl"/>
     </metafacade>
