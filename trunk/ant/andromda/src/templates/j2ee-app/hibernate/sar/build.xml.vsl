@@ -132,6 +132,9 @@
                 <include name="${javadoc.bundle.name}"/>
             </fileset>
         </copy>
+        <copy todir="${app.root.dir}/${dist.dir}">
+            <fileset dir="${basedir}/../db/conf"/>
+        </copy>
     </target>
 
     <target name="get-deps" depends="init-proxy">
