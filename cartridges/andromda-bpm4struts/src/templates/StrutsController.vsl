@@ -4,6 +4,7 @@
 ##
 ##  CONSTANTS
 ##
+#set ($hash = "#")
 #set ($controllerPackageName = $controller.packageName)
 #set ($controllerClassName = $controller.name)
 #set ($useCase = $controller.useCase)
@@ -30,7 +31,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($returnType = "void")
 #end
     /**
-     * @see ${controllerPackageName}.${controllerClassName}#${operation.name}
+     * @see ${controllerPackageName}.${controllerClassName}${hash}${operation.name}
      */
     $visibility final $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
