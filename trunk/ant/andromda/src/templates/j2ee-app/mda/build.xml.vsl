@@ -104,7 +104,6 @@
                 <property name="controller-impls" value="${app.root.dir}/web/src/java"/>
                 <property name="messages" value="${app.root.dir}/web/src/properties"/>
                 <property name="configuration" value="${app.root.dir}/web/target/src/WEB-INF"/>
-                <property name="xdoclet-merge" value="${app.root.dir}/web/target/xdoclet-merge"/>
             </namespace>
 #if ($webServices == "y")
             <namespace name="webservice" ignore="false">

@@ -7,7 +7,7 @@
 ##
 #macro (renderMenuItem $item $indent)
 #set ($useCase = $item.useCase)
-#set ($childItems = $col.listEnumeration($item.children()))
+#set ($childItems = $bpmUtils.listEnumeration($item.children()))
 #if ($childItems.empty)
 $indent<Item name="$useCase.titleKey" title="$useCase.titleKey" tooltip="$useCase.onlineHelpKey" action="$useCase.actionPath">
 #else
@@ -31,7 +31,7 @@ $indent</Item>
 
     <Menus>
         <Menu name="$applicationUseCase.titleKey" title="$applicationUseCase.titleKey" tooltip="$applicationUseCase.onlineHelpKey">
-#foreach ($childItem in $col.listEnumeration($root.children()))
+#foreach ($childItem in $bpmUtils.listEnumeration($root.children()))
 #renderMenuItem($childItem "            ")
 #end
         </Menu>

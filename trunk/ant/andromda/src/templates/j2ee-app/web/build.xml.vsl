@@ -62,6 +62,7 @@
                 <include name="jstl-*.jar"/>
                 <include name="struts-*.jar"/>
                 <include name="displaytag-*.jar"/>
+                <include name="struts-menu-*.jar"/>
             </fileset>
             <fileset dir="${basedir}/target/src/WEB-INF/lib" includes="*.jar"/>
         </copy>

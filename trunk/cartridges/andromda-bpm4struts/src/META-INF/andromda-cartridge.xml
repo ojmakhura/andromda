@@ -8,7 +8,7 @@
 
     <!-- define the template objects that are made available to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
-    <templateObject name="col" className="org.andromda.core.common.CollectionUtilsHelper"/>
+    <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
 
     <!-- define template external properties -->
     <property reference="security" default="false"/>
@@ -207,37 +207,6 @@
         outputPattern="custom-resources.properties"
         outlet="messages"
         overwrite="false">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeMessageResources.vsl"
-        outputPattern="struts-message-resources.xml"
-        outlet="xdoclet-merge"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergeGlobalForwards.vsl"
-        outputPattern="global-forwards.xml"
-        outlet="xdoclet-merge"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/StrutsXDocletMergePlugins.vsl"
-        outputPattern="struts-plugins.xml"
-        outlet="xdoclet-merge"
-        overwrite="true"
-        generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
