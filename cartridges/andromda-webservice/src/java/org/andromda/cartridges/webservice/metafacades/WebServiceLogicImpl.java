@@ -392,9 +392,6 @@ public class WebServiceLogicImpl
         }
     }
 
-    /**
-     * The namespace prefix.
-     */
     static final String NAMESPACE_PREFIX = "namespacePrefix";
 
     /**
@@ -416,9 +413,6 @@ public class WebServiceLogicImpl
         return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
     }
 
-    /**
-     * The prefix to give to type names.
-     */
     static final String QNAME_LOCAL_PART_PATTERN = "qualifiedNameLocalPartPattern";
 
     /**
@@ -442,9 +436,6 @@ public class WebServiceLogicImpl
         return (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
     }
 
-    /**
-     * The pattern to use for determining the service namespace.
-     */
     static final String NAMESPACE_PATTERN = "namespacePattern";
 
     /**
@@ -468,9 +459,6 @@ public class WebServiceLogicImpl
         return (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
     }
 
-    /**
-     * The pattern to use for determining the service namespace.
-     */
     static final String REVERSE_NAMESPACE = "reverseNamespace";
 
     /**
@@ -515,10 +503,7 @@ public class WebServiceLogicImpl
         return jndiName.toString();
     }
 
-    /**
-     * The prefix to use when creating an EJB provider's JNDI name.
-     */
-    static final String EJB_JNDI_NAME_PREFIX = "ejbJndiNamePrefix";
+    private static final String EJB_JNDI_NAME_PREFIX = "ejbJndiNamePrefix";
 
     /**
      * Sets the <code>ejbJndiNamePrefix</code> for an EJB provider.
@@ -540,5 +525,77 @@ public class WebServiceLogicImpl
     protected String getEjbJndiNamePrefix()
     {
         return (String)this.getConfiguredProperty(EJB_JNDI_NAME_PREFIX);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbHomeInterface()
+     */
+    public java.lang.String handleGetEjbHomeInterface()
+    {
+        return MessageFormat.format(this.getEjbHomeInterfacePattern(), new String[]
+        {
+            StringUtils.trimToEmpty(this.getPackageName()),
+            StringUtils.trimToEmpty(this.getName())
+        });
+    }
+
+    private static final String EJB_HOME_INTERFACE_PATTERN = "ejbHomeInterfacePattern";
+
+    /**
+     * Sets the <code>ejbHomeInterfacePattern</code> for an EJB provider.
+     * 
+     * @param ejbHomeInterfacePattern the pattern to use for the Home interface
+     *        of an EJB provider.
+     */
+    public void setEjbHomeInterfacePattern(String ejbHomeInterfacePattern)
+    {
+        this.registerConfiguredProperty(EJB_HOME_INTERFACE_PATTERN, StringUtils
+            .trimToEmpty(ejbHomeInterfacePattern));
+    }
+
+    /**
+     * Gets the <code>ejbHomeInterfacePattern</code> for an EJB provider.
+     * 
+     * @return the EJB Home interface pattern
+     */
+    protected String getEjbHomeInterfacePattern()
+    {
+        return (String)this.getConfiguredProperty(EJB_HOME_INTERFACE_PATTERN);
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbInterface()
+     */
+    public java.lang.String handleGetEjbInterface()
+    {
+        return MessageFormat.format(this.getEjbInterfacePattern(), new String[]
+        {
+            StringUtils.trimToEmpty(this.getPackageName()),
+            StringUtils.trimToEmpty(this.getName())
+        });
+    }
+
+    private static final String EJB_INTERFACE_PATTERN = "ejbInterfacePattern";
+
+    /**
+     * Sets the <code>ejbInterfacePattern</code> for an EJB provider.
+     * 
+     * @param ejbInterfacePattern the pattern to use for the interface of an EJB
+     *        provider.
+     */
+    public void setEjbInterfacePattern(String ejbInterfacePattern)
+    {
+        this.registerConfiguredProperty(EJB_INTERFACE_PATTERN, StringUtils
+            .trimToEmpty(ejbInterfacePattern));
+    }
+
+    /**
+     * Gets the <code>ejbInterfacePattern</code> for an EJB provider.
+     * 
+     * @return the EJB interface pattern
+     */
+    protected String getEjbInterfacePattern()
+    {
+        return (String)this.getConfiguredProperty(EJB_INTERFACE_PATTERN);
     }
 }
