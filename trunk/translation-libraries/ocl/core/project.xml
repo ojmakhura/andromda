@@ -3,10 +3,10 @@
 <project>
     <extend>../project.xml</extend>
   	<artifactId>andromda-ocl-translation-core</artifactId>
-  	<name>AndroMDA SableCC Translation Engine</name>
-  	<shortDescription>The AndroMDA Translation Engine implemented using the SableCC parser</shortDescription>
+  	<name>AndroMDA OCL Translation Core</name>
+  	<shortDescription>AndroMDA OCL Translation Core</shortDescription>
   	<description>
-  		The AndroMDA Translation Engine implemented using the SableCC parser
+  		The AndroMDA OCL translation engine, providing the OCL translation support.
   	</description>
 	<package>org.andromda.translation.ocl</package>
   	<developers>
