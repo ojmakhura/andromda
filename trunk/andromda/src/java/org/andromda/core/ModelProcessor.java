@@ -174,6 +174,8 @@ public class ModelProcessor
             {
                 throw new ModelProcessorException("Model validation failed!");
             }
+            // cleanup any resources used by the factory
+            MetafacadeFactory.getInstance().shutdown();
         }
     }
 
