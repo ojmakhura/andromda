@@ -39,7 +39,7 @@ public class OperationDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.concretesyntax.OperationDeclaration#getName()
+     * @see org.andromda.core.translation.syntax.OperationDeclaration#getName()
      */
     public String getName()
     {
@@ -47,7 +47,7 @@ public class OperationDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.concretesyntax.OperationDeclaration#getReturnType()
+     * @see org.andromda.core.translation.syntax.OperationDeclaration#getReturnType()
      */
     public String getReturnType()
     {
@@ -55,7 +55,7 @@ public class OperationDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.concretesyntax.OperationDeclaration#getArguments()
+     * @see org.andromda.core.translation.syntax.OperationDeclaration#getArguments()
      */
     public VariableDeclaration[] getArguments()
     {
