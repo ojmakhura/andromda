@@ -31,7 +31,17 @@
                     <div><input class="login" type="text" name="j_username" title="<bean:message key="login.username"/>"/></div>
                     <div><bean:message key="login.password"/> :</div>
                     <div><input class="login" type="password" name="j_password" title="<bean:message key="login.password"/>"/></div>
-                    <br/>
+                    <c:choose>
+#set ($actionParam = "param.action")
+                        <c:when test="${${actionParam} == 'error'}">
+                            <p class="error">
+                                <bean:message key="login.error"/>
+                            </p>
+                        </c:when>   
+                        <c:otherwise>
+                            <br/>                        
+                        </c:otherwise> 
+                    </c:choose>
                     <div class="submit">
                         <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>
                         <html:reset titleKey="login.reset.title"><bean:message key="login.reset"/></html:reset>

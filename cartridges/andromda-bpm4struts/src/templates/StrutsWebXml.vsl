@@ -86,7 +86,7 @@
 #end
         <form-login-config>
             <form-login-page>/login/login-form.jsp</form-login-page>
-            <form-error-page>/login/login-error.jsp</form-error-page>
+            <form-error-page>/login/login-form.jsp?action=error</form-error-page>
         </form-login-config>
     </login-config>
 

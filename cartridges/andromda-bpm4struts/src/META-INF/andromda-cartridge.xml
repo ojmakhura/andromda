@@ -230,16 +230,6 @@
     </template>
 
     <template
-        path="templates/StrutsLoginErrorJsp.vsl"
-        outputPattern="login/login-error.jsp"
-        outlet="pages"
-        overwrite="false">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/StrutsMenuJsp.vsl"
         outputPattern="layout/menu.jsp"
         outlet="pages"
