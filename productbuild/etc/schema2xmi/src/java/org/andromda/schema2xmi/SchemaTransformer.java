@@ -282,7 +282,7 @@ public class SchemaTransformer
     {
         this.packageName = StringUtils.trimToEmpty(this.packageName);
         String[] packages = this.packageName
-            .split(Schema2XmiGlobals.PACKAGE_SEPERATOR);
+            .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
         if (packages != null && packages.length > 0)
         {
             for (int ctr = 0; ctr < packages.length; ctr++)
