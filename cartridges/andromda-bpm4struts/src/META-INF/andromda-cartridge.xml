@@ -215,9 +215,10 @@
         outputPattern="web.xml"
         outlet="configuration"
         overwrite="true"
-        generateEmptyFiles="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement stereotype="FrontEndApplication" variable="applicationUseCases"/>
+            <modelElement stereotype="FrontEndController" variable="controllers"/>
         </modelElements>
     </template>
     
