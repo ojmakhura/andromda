@@ -264,6 +264,9 @@ public class MetafacadeFactory
                     this.validationMessages.addAll(validationMessages);
                 }
             }
+            if (this.getLogger().isDebugEnabled())
+                this.getLogger().debug(
+                    "constructed metafacade >> '" + metafacade + "'");
             return metafacade;
         }
         catch (Throwable th)
