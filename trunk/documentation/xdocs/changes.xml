@@ -17,7 +17,16 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">Sep 03, 2004</td>
+                    <td valign="top" class="std">Sep 09, 2004</td>
+                    <td valign="top" class="std">new Bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        A new namespace property is available to set a default date format to use for
+                        date fields in the application, not specifying this value will use dd/MM/yyyy as the default
+                        date format.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Sep 08, 2004</td>
                     <td valign="top" class="std">Bpm4Struts fixes</td>
                     <td valign="top" class="std">
                         This change fixes some issues with the most recent updates for bpm4struts:
