@@ -47,7 +47,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -59,7 +61,9 @@
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -71,7 +75,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -134,6 +140,28 @@
         overwrite="true"
         required="false"/>
         
+    <template
+        path="templates/hibernate/HibernateEnumerationType.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true"
+        required="false"/>
+
+    <template
+        path="templates/hibernate/HibernateEnumeration.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="entities"
+        overwrite="true"
+        required="false">
+        <modelElements variable="enumeration">
+            <modelElement stereotype="ENUMERATION">
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="true"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>
