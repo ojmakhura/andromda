@@ -43,33 +43,27 @@ public class OCLIntrospector
             return getNestedProperty(element, feature);
 
         }
-        catch (OCLIntrospectorException th)
+        catch (OCLIntrospectorException throwable)
         {
             // Dont catch our own exceptions.
             // Otherwise get Exception/Cause chain which
             // can hide the original exception.
-            throw th;
+            throw throwable;
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
-            final String errMsg = "Error invoking feature '" + feature
+            final String message = "Error invoking feature '" + feature
                 + "' on element '" + element + "'";
-            Throwable cause = ExceptionUtils.getRootCause(th);
+            Throwable cause = ExceptionUtils.getRootCause(throwable);
             // If cause is an OCLIntrospector throw that exception
             // rather than creating a new one.
             if (cause instanceof OCLIntrospectorException)
             {
-                // Check to see if we are first in the chain.
-                if (th.getCause() == cause)
-                {
-                    // We are the first in the chain, print the error msg
-                    logger.error(errMsg);
-                }
                 // Wrap exception again to prevent redundant
                 // error messages as the stack unwinds.
-                throw new OCLIntrospectorException(cause);
+                throw (OCLIntrospectorException)cause;
             }
-            logger.error(errMsg, cause);
+            logger.error(message);
             throw new OCLIntrospectorException(cause);
         }
     }
@@ -95,14 +89,14 @@ public class OCLIntrospector
             }
             return invokeMethod(element, feature, arguments);
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
-            final String errMsg = "Error invoking feature '" + feature
+            final String message = "Error invoking feature '" + feature
                 + "' on element '" + element + "' with arguments '"
                 + StringUtils.join(arguments, ',') + "'";
-            th = ExceptionUtils.getRootCause(th);
-            logger.error(errMsg, th);
-            throw new OCLIntrospectorException(th);
+            throwable = ExceptionUtils.getRootCause(throwable);
+            logger.error(message);
+            throw new OCLIntrospectorException(throwable);
         }
     }
 
