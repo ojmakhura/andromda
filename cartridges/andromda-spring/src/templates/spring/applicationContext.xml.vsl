@@ -10,28 +10,28 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
     </bean>
-    
+
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
 #if ($stringUtils.isNotBlank($dataSource))
     <!-- JNDI DataSource for J2EE environments -->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName"><value>${dataSource}</value></property>
+        <property name="jndiName"><value>$dataSource</value></property>
     </bean>
 #else
     <!-- Local DataSource that works in any environment -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 #if ($stringUtils.isNotBlank($driver))
-        <property name="driverClassName"><value>${driver}</value></property>
+        <property name="driverClassName"><value>$driver</value></property>
 #end
 #if ($stringUtils.isNotBlank($username))
-        <property name="username"><value>${username}</value></property>
+        <property name="username"><value>$username</value></property>
 #end
 #if ($stringUtils.isNotBlank($password))
-        <property name="password"><value>${password}</value></property>
+        <property name="password"><value>$password</value></property>
 #end
 #if ($stringUtils.isNotBlank($connectionUrl))
-        <property name="url"><value>${connectionUrl}</value></property>
+        <property name="url"><value>$connectionUrl</value></property>
 #end
     </bean>
 #end
@@ -113,12 +113,12 @@
             </props>
         </property>
     </bean>
-    
+
     <!-- The Hibernate interceptor -->
     <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate.HibernateInterceptor">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
     </bean>
-    
+
 #if (!$ejbsEnabled)
     <!-- Transaction Manager -->
     <bean id="transactionManager" class="$transactionManager">
@@ -132,9 +132,9 @@
         <property name="transactionAttributeSource">
             <value>
 #foreach($entity in $entities)
+#if (!$entity.abstract)
                 ${entity.fullyQualifiedDaoName}.*=PROPAGATION_REQUIRED
-                ${entity.fullyQualifiedDaoName}.load*=PROPAGATION_REQUIRED
-                ${entity.fullyQualifiedDaoName}.find*=PROPAGATION_REQUIRED,readOnly
+#end
 #end
             </value>
         </property>
@@ -152,13 +152,13 @@
          <property name="interceptorNames">
              <list>
 #if (!$ejbsEnabled)
-                 <value>entityTransactionInterceptor</value> 
+                 <value>entityTransactionInterceptor</value>
 #end
                  <value>hibernateInterceptor</value>
              </list>
          </property>
-     </bean> 
-    
+     </bean>
+
     <!-- $entity.name Entity Implementation  -->
     <bean id="$entity.getBeanName(true)" class="$entity.fullyQualifiedDaoImplementationName">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
@@ -170,7 +170,7 @@
 #end
 #end
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
-    
+
 #if (!$ejbsEnabled && !$services.empty)
     <!-- Service Transactional Interceptor -->
     <bean id="serviceTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
@@ -183,7 +183,7 @@
             </value>
         </property>
     </bean>
-    
+
 #end
 #foreach($service in $services)
     <!-- $service.name Service Implementation  -->
@@ -197,7 +197,7 @@
 #end
 #end
     </bean>
-    
+
     <!-- $service.name Service Proxy  -->
     <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
          <property name="target"><ref bean="$service.getBeanName(true)"/></property>
@@ -207,14 +207,14 @@
          <property name="interceptorNames">
              <list>
 #if (!$ejbsEnabled)
-                 <value>serviceTransactionInterceptor</value> 
+                 <value>serviceTransactionInterceptor</value>
 #end
                  <value>hibernateInterceptor</value>
              </list>
          </property>
-     </bean> 
+     </bean>
 
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
-    
+
 </beans>
