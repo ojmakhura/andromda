@@ -43,35 +43,10 @@ class SpringGlobals
     final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
 
     /**
-     * Represents the hibernate <code>delete</code> cascade option.
-     */
-    static final String HIBERNATE_CASCADE_DELETE = "delete";
-
-    /**
-     * Represents the hibernate <code>all-delete-orphan</code> cascade option.
-     */
-    static final String HIBERNATE_CASCADE_ALL_DELETE_ORPHAN = "all-delete-orphan";
-
-    /**
-     * Represents the hibernate <code>save-update</code> cascade option.
-     */
-    static final String HIBERNATE_CASCADE_SAVE_UPDATE = "save-update";
-    
-    /**
-     * Represents the hibernate <code>all</code> cascade option.
-     */
-    static final String HIBERNATE_CASCADE_ALL = "all";
-
-    /**
      * The property used to specify the implementation operation name prefix (on
      * both services and DAOs).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
-    
-    /**
-     * Stores the default outerjoin setting for this association end.
-     */
-    static final String PROPERTY_ASSOCIATION_END_OUTERJOIN = "hibernateAssociationEndOuterJoin";
     
     /**
      * The pattern used to construct the DAO base name.

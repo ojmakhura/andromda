@@ -8,15 +8,15 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade
+ * @see org.andromda.cartridges.hibernate.metafacades.SpringQueryOperation
  *      Metaclass facade implementation.
  */
-public class HibernateFinderMethodLogicImpl
-    extends HibernateFinderMethodLogic
+public class SpringQueryOperationLogicImpl
+    extends SpringQueryOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateFinderMethodLogicImpl(
+    public SpringQueryOperationLogicImpl(
         Object metaObject,
         String context)
     {
@@ -55,10 +55,10 @@ public class HibernateFinderMethodLogicImpl
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
-                Collection arrguments = this.getArguments();
-                if (arrguments != null && !arrguments.isEmpty())
+                Collection arguments = this.getArguments();
+                if (arguments != null && !arguments.isEmpty())
                 {
-                    Iterator argumentIt = arrguments.iterator();
+                    Iterator argumentIt = arguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
                         ParameterFacade argument = (ParameterFacade)argumentIt
