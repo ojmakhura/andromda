@@ -24,7 +24,6 @@ public class DBMappingTest extends TestCase
         super(arg0);
     }
 
-    private Mappings fMappings;
     private DbMappingTable fMappingTable;
 
     /**
@@ -35,7 +34,7 @@ public class DBMappingTest extends TestCase
         // the current input file relative to the baseDir
         File inFile = new File("src/xml/TypeMapping.xml");
 
-        fMappingTable = new CastorDbMappingTable();
+        fMappingTable = new DigesterDbMappingTable();
         fMappingTable.read(inFile);
     }
 
@@ -85,7 +84,7 @@ public class DBMappingTest extends TestCase
      */
     protected void tearDown() throws Exception
     {
-        fMappings = null;
+        fMappingTable = null;
     }
 
 }

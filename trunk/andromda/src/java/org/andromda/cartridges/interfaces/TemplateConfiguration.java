@@ -8,7 +8,7 @@ import java.text.MessageFormat;
  * in a cartridge descriptor file.
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- *
+ * @author Anthony Mowers
  */
 public class TemplateConfiguration
 {
@@ -57,7 +57,6 @@ public class TemplateConfiguration
      * implementation. </p>
      * 
      * @see org.andromda.core.common.ScriptHelper
-     * @author Anthony Mowers
      * 
      * @param scriptHelperClassName
      */
