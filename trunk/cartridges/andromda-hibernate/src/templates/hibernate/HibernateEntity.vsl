@@ -11,7 +11,7 @@ $entity.getDocumentation(" * ")
  *    discriminator-value="$entity.name"
 #else
  * @hibernate.class
- *     table="$entity.tableName"
+ *     table="$tableNamePrefix$entity.tableName"
  * @hibernate.discriminator
  *     column="class"
 #end
@@ -104,7 +104,7 @@ $target.getDocumentation("     * ")
 ##
      * @hibernate.set
      *     lazy="true"
-     *     table="${associationEnd.association.tableName}"
+     *     table="$tableNamePrefix${associationEnd.association.tableName}"
      * @hibernate.collection-key
      *     column="$associationEnd.columnName"
      * @hibernate.collection-many-to-many

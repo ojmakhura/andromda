@@ -2,11 +2,12 @@
     
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
-    
+
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
-    
-	<!-- externalise the hibernate ID generator class see the hibernate doc for details -->
+
+    <!-- externalise the hibernate ID generator class see the hibernate doc for details -->
     <property reference="idGeneratorClass" default="uuid.hex"/>
+    <property reference="tableNamePrefix" default=""/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
@@ -16,8 +17,8 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
-            </modelElement> 
-        </modelElements>  
+            </modelElement>
+        </modelElements>
     </template>
 
     <template
@@ -28,8 +29,8 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
-            </modelElement>   
-        </modelElements>  
+            </modelElement>
+        </modelElements>
     </template>
 
     <template
@@ -40,8 +41,8 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
-            </modelElement> 
-        </modelElements> 
+            </modelElement>
+        </modelElements>
     </template>
 
     <template
@@ -52,8 +53,8 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement> 
-        </modelElements>             
+            </modelElement>
+        </modelElements>
     </template>
 
     <template
@@ -64,21 +65,21 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement> 
-        </modelElements>    
+            </modelElement>
+        </modelElements>
     </template>
 
-    <template 
-        path="templates/hibernate/HibernateByteBlobType.vsl" 
-        outputPattern="$generatedFile" 
-        outlet="entities" 
+    <template
+        path="templates/hibernate/HibernateByteBlobType.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
         overwrite="true"
         required="false"/>
-    
-    <template 
-        path="templates/hibernate/HibernateStringClobType.vsl" 
-        outputPattern="$generatedFile" 
-        outlet="entities" 
+
+    <template
+        path="templates/hibernate/HibernateStringClobType.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
         overwrite="true"
         required="false"/>
 
