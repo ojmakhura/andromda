@@ -239,6 +239,39 @@
                     <li>Sorting: you will be able to sort any column you want</li>
                 </ul>
             </p>
+            <h3>Tabbed pages</h3>
+            <p class="std">
+                It is possible to have a page split up into different tabs. This features is using
+                Javascript and will not require a call to the server.
+            </p>
+            <h3>Online help</h3>
+            <p class="std">
+                For each page an online help will be generated that is accessible from a link
+                somewhere on the page (typically at the bottom). The information is gathered
+                from the documentation entered in the UML model.
+            </p>
+            <h3>Breadcrumbs</h3>
+            <p class="std">
+                To make it easier when navigating through a use-case, breadcrumbs will be rendered on
+                screen. For each action/page traversed in the the use-case and breadcrumb will
+                be present, allowing you to go back if needed. Going back will post a copy of the
+                original request.
+            </p>
+            <h3>Dummy data</h3>
+            <p class="std">
+                We want to have your application deployed as fast as possible. In order to achieve that
+                we made it possible to have a dummy implementation generated. It will make sure that the parameters
+                used between the client and the server are populated with dummy data. This way you can check out
+                your appliacation without needing to code one single letter.
+            </p>
+            <h3>Dates and calendars</h3>
+            <p class="std">
+                It has always been a burden to properly format dates but bpm4struts makes all of this completely
+                transparent for the user. When a date is needed on screen the proper conversion will be taken into
+                account (which of course can be overridden if desired). It is even possible to have a calendar popup
+                rendered next to the JSP input field, allowing you to easily select a date from the calendar and have
+                if be properly formatted on selection.
+            </p>
         </section>
 
         <section name="Web development">
