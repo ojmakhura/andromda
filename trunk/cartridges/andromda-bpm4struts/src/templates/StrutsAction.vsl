@@ -41,48 +41,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
 $action.getDocumentation(" * ")
- *
- * @struts.action
- *        path="$action.actionPath"
- *        name="$action.actionName"
-#if ($action.useCaseStart == false)
- *       input="${action.actionPathRoot}${action.actionPathRoot}.do"
-#end
-#set ($validationDesired = ($serverValidation == 'true'))
-#if ($action.validationRequired && $validationDesired)
- *    validate="true"
-#else
- *    validate="false"
-#end
- *       scope="$action.actionScope"
- *     unknown="false"
-#if ($security)
- *       roles="$roles"
-#end
- *
-#foreach ($actionForward in $actionForwards)
- * @struts.action-forward
- *        name="$actionForward.forwardName"
- *        path="$actionForward.forwardPath"
- *    redirect="false"
- *
-#end
-#foreach ($actionException in $action.actionExceptions)
- * @struts.action-exception
- *         key="${action.messageKey}.$actionException.exceptionKey"
- *        type="$actionException.exceptionType"
- *        path="$actionException.exceptionPath"
- *       scope="request"
- *
-#end
-#if ($action.actionExceptions.empty && !$action.useCaseStart)
- * @struts.action-exception
- *         key="${action.messageKey}.exception"
- *        type="java.lang.Exception"
- *        path="${action.input.fullPath}.jsp"
- *       scope="request"
- *
-#end
  */
 public final class $action.actionClassName extends Action
 {
