@@ -4,15 +4,18 @@
 ##  CONSTANTS
 ##
 #set ($actions = $jsp.actions)
+#set ($pageVariables = $jsp.pageVariables)
 ##
 ##  START TEMPLATE
 ##
-<%@ include file="/taglib-imports.jspf" %>
-<%@ include file="${jsp.fullPath}-vars.jspf" %>
 #set ($hasTable = false)
-#foreach ($variable in $jsp.pageVariables)
+<%@ include file="/taglib-imports.jspf" %>
+#if (!$pageVariables.empty)
+<%@ include file="${jsp.fullPath}-vars.jspf" %>
+#foreach ($variable in $pageVariables)
 #if ($variable.table)
 #set ($hasTable = true)
+#end
 #end
 #end
 
@@ -113,7 +116,7 @@
             <h1><bean:message key="$jsp.titleKey"/></h1>
         </div>
 
-#foreach ($variable in $jsp.pageVariables)
+#foreach ($variable in $pageVariables)
 #if (!$variable.table)
         <c:choose>
             <c:when test="${!empty ${variable.name}}">
@@ -160,7 +163,7 @@
 #end
 #end
 #end
-#foreach ($variable in $jsp.pageVariables)
+#foreach ($variable in $pageVariables)
 #set ($targetColumns = $variable.targettedTableColumnNames)
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
