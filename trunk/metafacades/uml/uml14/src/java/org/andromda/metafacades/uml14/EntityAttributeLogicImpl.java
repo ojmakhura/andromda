@@ -1,11 +1,11 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
@@ -113,12 +113,11 @@ public class EntityAttributeLogicImpl
                 value = this.getSqlMappings().getTo(typeName);
                 if (StringUtils.isBlank(value))
                 {
-                    logger
-                        .error("ERROR! missing SQL type mapping for model type '"
+                    logger.error("ERROR! missing SQL type mapping for model type '"
                             + typeName
                             + "' --> please adjust your model or SQL type mappings '"
-                            + this.getSqlMappings().getResource()
-                            + "' accordingly");
+                            + this.getSqlMappings().getMappings()
+                                .getResource() + "' accordingly");
                 }
                 String columnLength = this.getColumnLength();
                 if (StringUtils.isNotEmpty(columnLength))
@@ -160,12 +159,11 @@ public class EntityAttributeLogicImpl
                 value = this.getJdbcMappings().getTo(typeName);
                 if (StringUtils.isBlank(value))
                 {
-                    logger
-                        .error("ERROR! missing JDBC type mapping for model type '"
+                    logger.error("ERROR! missing JDBC type mapping for model type '"
                             + typeName
                             + "' --> please adjust your model or JDBC type mappings '"
-                            + this.getJdbcMappings().getResource()
-                            + "' accordingly");
+                            + this.getJdbcMappings().getMappings()
+                                .getResource() + "' accordingly");
                 }
             }
         }
@@ -178,19 +176,17 @@ public class EntityAttributeLogicImpl
      * 
      * @return the SQL Mappings instance.
      */
-    public Mappings handleGetSqlMappings()
+    public TypeMappings handleGetSqlMappings()
     {
-        return this
-            .getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI);
+        return this.getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI);
     }
 
     /**
      * Gets the JDBC mappings.
      */
-    public Mappings handleGetJdbcMappings()
+    public TypeMappings handleGetJdbcMappings()
     {
-        return this
-            .getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI);
+        return this.getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI);
     }
 
     /**
@@ -200,17 +196,17 @@ public class EntityAttributeLogicImpl
      * @param propertyName the property name to register under.
      * @return the Mappings instance.
      */
-    private Mappings getMappingsProperty(final String propertyName)
+    private TypeMappings getMappingsProperty(final String propertyName)
     {
         Object property = this.getConfiguredProperty(propertyName);
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         String uri = null;
-        if (String.class.isAssignableFrom(property.getClass()))
+        if (property instanceof String)
         {
             uri = (String)property;
             try
             {
-                mappings = Mappings.getInstance(uri);
+                mappings = TypeMappings.getInstance(uri);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -223,7 +219,7 @@ public class EntityAttributeLogicImpl
         }
         else
         {
-            mappings = (Mappings)property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }

@@ -2,7 +2,8 @@ package org.andromda.cartridges.webservice.metafacades;
 
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
-import org.andromda.core.mapping.Mappings;
+import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -93,22 +94,34 @@ public class WSDLTypeLogicImpl
     }
 
     /**
+     * Gets the array suffix from the configured metafacade properties.
+     * 
+     * @return the array suffix.
+     */
+    private String getArraySuffix()
+    {
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+    }
+    
+    /**
      * Gets the schemaType mappings that have been set for this schema type.
      * 
-     * @return the Mappings instance.
+     * @return the TypeMappings instance.
      */
-    private Mappings getSchemaTypeMappings()
+    private TypeMappings getSchemaTypeMappings()
     {
         final String propertyName = WebServiceGlobals.SCHEMA_TYPE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         String uri = null;
-        if (String.class.isAssignableFrom(property.getClass()))
+        if (property instanceof String)
         {
             uri = (String)property;
             try
             {
-                mappings = Mappings.getInstance((String)property);
+                mappings = TypeMappings.getInstance(uri);
+                mappings.setArraySuffix(this.getArraySuffix());
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -121,7 +134,7 @@ public class WSDLTypeLogicImpl
         }
         else
         {
-            mappings = (Mappings)property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }

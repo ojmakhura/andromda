@@ -2,7 +2,7 @@ package org.andromda.cartridges.webservice.metafacades;
 
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
-import org.andromda.core.mapping.Mappings;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -137,20 +137,20 @@ public class WSDLEnumerationTypeLogicImpl
     /**
      * Gets the schemaType mappings that have been set for this schema type.
      * 
-     * @return the Mappings instance.
+     * @return the TypeMappings instance.
      */
-    private Mappings getSchemaTypeMappings()
+    private TypeMappings getSchemaTypeMappings()
     {
         final String propertyName = WebServiceGlobals.SCHEMA_TYPE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
             try
             {
-                mappings = Mappings.getInstance((String)property);
+                mappings = TypeMappings.getInstance((String)property);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -163,7 +163,7 @@ public class WSDLEnumerationTypeLogicImpl
         }
         else
         {
-            mappings = (Mappings)property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }

@@ -179,41 +179,15 @@ public class Mappings
     public String getTo(String from)
     {
         from = StringUtils.deleteWhitespace(StringUtils.trimToEmpty(from));
-        String initialFrom = from;
-
+        final String initialFrom = from;
         String to = null;
-
         // first we check to see if there's an array
         // type mapping directly defined in the mappings
         Mapping mapping = this.getMapping(from);
-        if (mapping == null)
-        {
-            // if there is no mapping, remove the array suffix and
-            // check for the mapping without the suffix.
-            // if the from has an array suffix, then strip the array off
-            // so we can find the mapping
-            boolean isArray = from.endsWith(ARRAY_SUFFIX);
-            if (isArray)
-            {
-                from = StringUtils.replace(from, ARRAY_SUFFIX, "");
-            }
-            mapping = this.getMapping(from);
-            if (mapping != null)
-            {
-                StringBuffer toBuffer = new StringBuffer(mapping.getTo());
-                if (isArray)
-                {
-                    // append the suffix back to the return value;
-                    toBuffer.append(ARRAY_SUFFIX);
-                }
-                to = toBuffer.toString();
-            }
-        }
-        else
+        if (mapping != null)
         {
             to = mapping.getTo();
         }
-
         if (to == null)
         {
             to = initialFrom;
@@ -237,7 +211,7 @@ public class Mappings
     /**
      * Returns true if the mapping contains the <code>from</code> value
      * 
-     * @param from
+     * @param from the value of the from mapping.
      * @return true if it contains <code>from</code>, false otherwise.
      */
     public boolean containsFrom(String from)

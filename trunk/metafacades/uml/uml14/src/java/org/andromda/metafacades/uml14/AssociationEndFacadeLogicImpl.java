@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
@@ -251,7 +251,7 @@ public class AssociationEndFacadeLogicImpl
         // if many, then list or collection
         if (this.isMany())
         {
-            Mappings mappings = getLanguageMappings();
+            TypeMappings mappings = this.getLanguageMappings();
             return isOrdered()
                 ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
                 : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
