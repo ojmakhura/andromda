@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
+import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -380,8 +381,9 @@ public class EJBEntityFacadeLogicImpl
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '"
                     + uri + "'";
-                logger.error(errMsg, th);
+                logger.error(errMsg);
                 // don't throw the exception
+                ExceptionRecorder.record( errMsg, th );
             }
         }
         else
