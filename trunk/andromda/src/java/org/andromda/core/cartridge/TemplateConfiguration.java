@@ -263,6 +263,31 @@ public class TemplateConfiguration
     {
         this.cartridge = cartridge;
     }
+    
+    /**
+     * Gets whether or not this template is
+     * required, so AndroMDA will NOT warn 
+     * if a outlet is <code>not</code>
+     * defined.  Otherwise AndroMDA always warns
+     * if the template isn't defined. By default
+     * templates are NOT required.
+     * 
+     * @return Returns the required.
+     */
+    public boolean isRequired()
+    {
+        return required;
+    }
+    
+    /**
+     * Sets whether or not this template is required.
+     * 
+     * @param required The required to set.
+     */
+    public void setRequired(boolean optional)
+    {
+        this.required = optional;
+    }
 
     /**
      * Just for debugging.
@@ -281,5 +306,6 @@ public class TemplateConfiguration
     private boolean overWrite;
     private boolean generateEmptyFiles;
     private boolean outputToSingleFile = false;
+    private boolean required = true;
     private Cartridge cartridge;
 }

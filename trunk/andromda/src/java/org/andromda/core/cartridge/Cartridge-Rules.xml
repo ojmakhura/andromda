@@ -119,6 +119,10 @@
 	 			<alias attr-name="outputToSingleFile" prop-name="outputToSingleFile" />
 	 		</set-properties-rule> 	 
 	 		
+			<set-properties-rule>
+	 			<alias attr-name="required" prop-name="required" />
+	 		</set-properties-rule> 	
+			
 	 		<pattern value="modelElements">
 	 		    
                 <object-create-rule 
