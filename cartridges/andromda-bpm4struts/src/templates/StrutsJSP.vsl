@@ -49,7 +49,7 @@ ${indent}</table>
 #if ($security)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
-${indent}   <bean:message key="${action.messageKey}.$triggerKey"/>
+${indent}   <bean:message key="${action.messageKey}.$triggerKey"/> <br/>
 ${indent}</logic:notPresent>
 #end
 #end
@@ -284,7 +284,8 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 #if ($actionParameters.isEmpty())
 #set ($onsubmit = "")
 #else
-#set ($onsubmit = "return ${action.formValidationMethodName}(this);")
+#set ($onsubmit = "")
+## TEMPORARILY DISABLED FOR DEVELOPMENT PURPOSES: set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #end
 #if ($firstFieldName)
         <html:form action="${action.actionPath}.do" focus="$firstFieldName" onsubmit="$onsubmit">
