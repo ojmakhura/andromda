@@ -1,21 +1,20 @@
 /*
  */
-package org.andromda.cartridges.hibernate.metafacades;
+package org.andromda.cartridges.hibernate;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.andromda.cartridges.hibernate.HibernateProfile;
+import org.andromda.cartridges.hibernate.metafacades.HibernateEntity;
+import org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * <p>
@@ -31,26 +30,22 @@ import org.apache.commons.lang.StringUtils;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> 
- * is set on the base/root class. All subclasses must then follow the same
- * strategy. NB if the strategy is changed after the initial generation, 
- * the impl classes have to be hand modified.
- * </p>
- * 
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
+ *                                 subclasses must then follow the same
+ *                                 strategy. NB if the strategy is changed after
+ *                                 the initial generation, the impl classes have
+ *                                 to be hand modified.
+ *                                 </p>
  * @author Martin West
- * @author Carlos Cuenca
  */
-public class HibernateEntityLogicImpl
-    extends HibernateEntityLogic
-    implements org.andromda.cartridges.hibernate.metafacades.HibernateEntity
+public class HibernateUtils 
 {
+    
+    private static Logger logger = Logger.getLogger( HibernateUtils.class );
 
-    public HibernateEntityLogicImpl(
-        java.lang.Object metaObject,
-        String context)
-    {
-        super(metaObject, context);
-    }
+    /** Static only class
+    private HibernateUtils()
+    {}
 
     /**
      * Value for one Table per root class
@@ -78,11 +73,11 @@ public class HibernateEntityLogicImpl
      * @return all business operations
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getAllBusinessOperations()
      */
-    protected Collection handleGetAllBusinessOperations()
+    public static Collection getAllBusinessOperations(HibernateEntity entity)
     {
-        EntityFacade superElement = (EntityFacade)this.getGeneralization();
+        EntityFacade superElement = (EntityFacade)entity.getGeneralization();
 
-        Collection result = super.getBusinessOperations();
+        Collection result = entity.getBusinessOperations();
         while (superElement != null)
         {
             result.addAll(superElement.getBusinessOperations());
@@ -98,16 +93,15 @@ public class HibernateEntityLogicImpl
      * @return true if this Entity is a root
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isRootInheritanceEntity()
      */
-    protected boolean handleIsRootInheritanceEntity()
+    protected boolean isRootInheritanceEntity( HibernateEntityLogic entity)
     {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> handleIsRootInheritanceEntity start:" + this
-                + " : " + getInheritance(this));
+        logger.info(">>> isRootInheritanceEntity start:" + entity + " : "
+            + getInheritance(entity));
         boolean result = false;
-        GeneralizableElementFacade superElement = this.getGeneralization();
+        GeneralizableElementFacade superElement = entity.getGeneralization();
         if (superElement == null)
         {
-            String inheritance = getInheritance(this);
+            String inheritance = getInheritance(entity);
             // We are a root if we are the base class and not interface
             // inheritance
             result = (inheritance == null)
@@ -116,11 +110,11 @@ public class HibernateEntityLogicImpl
         else
         {
             // We are a subclass
-            GeneralizableElementFacade root = getRootInheritanceEntity();
+            GeneralizableElementFacade root = getRootInheritanceEntity(entity);
             String inheritance = getInheritance(root);
             // Are we the subclass element
             result = root.getFullyQualifiedName().equals(
-                getFullyQualifiedName());
+                entity.getFullyQualifiedName());
             if (!result && inheritance != null
                 && inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
             {
@@ -129,8 +123,7 @@ public class HibernateEntityLogicImpl
                     root.getFullyQualifiedName());
             }
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< handleIsRootInheritanceEntity return:" + result);
+        logger.info("<<< handleIsRootInheritanceEntity return:" + result);
         return result;
     }
 
@@ -141,19 +134,17 @@ public class HibernateEntityLogicImpl
      * subclass defined Entity or the subclass of a subclass defined Entity we
      * are a root. If concrete we are a root.
      */
-    private GeneralizableElementFacade getRootInheritanceEntity()
+    private GeneralizableElementFacade getRootInheritanceEntity(HibernateEntityLogic entity)
     {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
-                + getInheritance(this));
+        logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
+            + getInheritance(entity));
         GeneralizableElementFacade result = null;
-        GeneralizableElementFacade superElement = this.getGeneralization();
+        GeneralizableElementFacade superElement = entity.getGeneralization();
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            if (logger.isDebugEnabled())
-                logger.debug("*** getSuperInheritance element:" + superElement
-                    + " : " + getInheritance(superElement));
+            logger.debug("*** getSuperInheritance element:" + superElement
+                + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
         }
@@ -186,28 +177,26 @@ public class HibernateEntityLogicImpl
         if (result == null)
         {
             // Must be all concrete, odd
-            result = this;
+            result = entity;
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< getRootInheritanceEntity return:" + result);
+        logger.debug("<<< getRootInheritanceEntity return:" + result);
         return result;
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateInheritanceStrategy()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getInheritanceStrategy()
      */
-    protected String handleGetHibernateInheritanceStrategy()
+    protected String getInheritanceStrategy(HibernateEntityLogic entity)
     {
         String result = null;
-        if (logger.isDebugEnabled())
-            logger.debug(">>> handleGetInheritanceStrategy start:" + this);
+        logger.debug(">>> getHibernateInheritance start:" + entity);
 
         try
         {
-            result = getSuperInheritance();
+            result = getSuperInheritance(entity);
             if (result == null)
             {
-                result = getInheritance(this);
+                result = getInheritance(entity);
             }
             if (result == null)
             {
@@ -217,12 +206,11 @@ public class HibernateEntityLogicImpl
         catch (Exception ex)
         {
             String errorMessage = "*** " + getClass().getName()
-                + " handleGetInheritanceStrategy exception:" + ex;
-            ExceptionRecorder.record(errorMessage, ex, "hibernate");
+            + " getInheritanceStrategy exception:" + ex;
+            ExceptionRecorder.record( errorMessage, ex, "hibernate");
             logger.error(errorMessage);
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< handleGetInheritanceStrategy return:" + result);
+        logger.debug("<<< getHibernateInheritance return:" + result);
         return result;
     }
 
@@ -233,19 +221,17 @@ public class HibernateEntityLogicImpl
      * 
      * @return the super inheritance strategy
      */
-    private String getSuperInheritance()
+    private String getSuperInheritance(HibernateEntityLogic entity )
     {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> getSuperInheritance start:" + this + " : "
-                + getInheritance(this));
+        logger.debug(">>> getSuperInheritance start:" + this + " : "
+            + getInheritance(entity));
         String rootInheritance = null;
-        GeneralizableElementFacade superElement = this.getGeneralization();
+        GeneralizableElementFacade superElement = entity.getGeneralization();
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            if (logger.isDebugEnabled())
-                logger.debug("*** getSuperInheritance element: " + superElement
-                    + " : " + getInheritance(superElement));
+            logger.debug("*** getSuperInheritance element:" + superElement
+                + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
         }
@@ -275,8 +261,8 @@ public class HibernateEntityLogicImpl
                 rootInheritance = validateInterfaceInheritance(superclasses);
             }
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< getSuperInheritance return:" + rootInheritance);
+        logger.debug("<<< getSuperInheritance return:" + rootInheritance);
+
         return rootInheritance;
     }
 
@@ -309,8 +295,6 @@ public class HibernateEntityLogicImpl
     private String validateConcreteInheritance(
         GeneralizableElementFacade[] superclasses)
     {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> validateConcreteInheritance:" + this);
         String result = null;
         String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
         // Search from root class but 1 to lowest.
@@ -347,8 +331,6 @@ public class HibernateEntityLogicImpl
                 }
             }
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< validateConcreteInheritance:" + result);
         return result;
     }
 
@@ -362,23 +344,16 @@ public class HibernateEntityLogicImpl
     private String validateInterfaceInheritance(
         GeneralizableElementFacade[] superclasses)
     {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug(">>> validateInterfaceInheritance:" + this);
-            logger.debug("*** validateInterfaceInheritance superclasses:"
-                + superclasses.length);
-        }
         String result = null;
         int rootSubclassIndex = superclasses.length - 2;
         if (rootSubclassIndex > 0)
         {
             result = getInheritance(superclasses[rootSubclassIndex]);
-            if (logger.isDebugEnabled())
-                logger.debug("*** validateInterfaceInheritance rootSubclass:"
-                    + result);
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< validateInterfaceInheritance:" + result);
+        if (result == null)
+        {
+            result = INHERITANCE_STRATEGY_CLASS;
+        }
         return result;
     }
 
@@ -401,14 +376,13 @@ public class HibernateEntityLogicImpl
      * @return String the name of the SQL id column
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getIdentifierColumn()
      */
-    protected String handleGetIdentifierColumn()
+    protected String getIdentifierColumn(HibernateEntityLogic entity, String defaultIdentifier )
     {
         EntityAttributeFacade attribute = null;
         String columnName = null;
-        Collection attributes = getAttributes();
+        Collection attributes = entity.getAttributes();
         Predicate pred = new Predicate()
         {
-            String defaultIdentifier = getDefaultIdentifier();
 
             public boolean evaluate(Object o)
             {
@@ -416,8 +390,9 @@ public class HibernateEntityLogicImpl
                 try
                 {
                     EntityAttributeFacade a = (EntityAttributeFacade)o;
-                    logger
-                        .debug("*** handleGetIdentifierColumn.evaluate check:"
+                    if ( logger.isDebugEnabled())
+                        logger.debug( 
+                            "*** getIdentifierColumn.evaluate check:"
                             + a);
                     result = a.isIdentifier();
                 }
@@ -431,162 +406,10 @@ public class HibernateEntityLogicImpl
         attribute = (EntityAttributeFacade)CollectionUtils.find(
             attributes,
             pred);
-        if (logger.isDebugEnabled())
-            logger.debug("*** handleGetIdentifierColumn return:"
-                + (attribute == null ? null : attribute.getColumnName()));
+        logger.debug("*** getIdentifierColumn return:"
+            + (attribute == null ? null : attribute.getColumnName()));
         columnName = attribute == null ? "ID" : attribute.getColumnName();
         return columnName;
     }
-
-    private String getDefaultIdentifier()
-    {
-        return (String)getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
-    }
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#toString()
-     */
-    public String toString()
-    {
-        return getClass().getName() + "[" + getFullyQualifiedName() + "]";
-    }
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceClass()
-     */
-    protected boolean handleIsHibernateInheritanceClass()
-    {
-        String strategy = getHibernateInheritanceStrategy();
-        return INHERITANCE_STRATEGY_CLASS.equals(strategy);
-    }
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceInterface()
-     */
-    protected boolean handleIsHibernateInheritanceInterface()
-    {
-        String strategy = getHibernateInheritanceStrategy();
-        return INHERITANCE_STRATEGY_INTERFACE.equals(strategy);
-    }
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceSubclass()
-     */
-    protected boolean handleIsHibernateInheritanceSubclass()
-    {
-        String strategy = getHibernateInheritanceStrategy();
-        return INHERITANCE_STRATEGY_SUBCLASS.equals(strategy);
-    }
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceConcrete()
-     */
-    protected boolean handleIsHibernateInheritanceConcrete()
-    {
-        String strategy = getHibernateInheritanceStrategy();
-        return INHERITANCE_STRATEGY_CONCRETE.equals(strategy);
-    }
-
-    /**
-     * Stores the hibernate entity cache value.
-     */
-    private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateCacheType()
-     */
-    protected String handleGetHibernateCacheType()
-    {
-        String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
-        if (cacheType == null)
-        {
-            cacheType = String.valueOf(this
-                .getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
-        }
-        return cacheType;
-    }
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetFullyQualifiedEntityName()
-     */
-    protected String handleGetFullyQualifiedEntityName()
-    {
-        return HibernateMetafacadeUtils.getFullyQualifiedName(this
-                .getPackageName(), this.getEntityName(), null);
-    }
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetFullyQualifiedImplementationEntityName()
-     */
-    protected String handleGetFullyQualifiedImplementationEntityName()
-    {
-        return HibernateMetafacadeUtils.getFullyQualifiedName(
-                this.getPackageName(),
-                this.getEntityName(),
-                HibernateGlobals.IMPLEMENTATION_SUFFIX);
-    }
-
-    /**
-     * The namespace property storing the hibernate default-cascade value for an
-     * entity.
-     */
-    private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetHibernateDefaultCascade()
-     */
-    protected String handleGetHibernateDefaultCascade()
-    {
-        return StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
-    }
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetHibernateGeneratorClass()
-     */
-    protected String handleGetHibernateGeneratorClass()
-    {
-        String hibernateGeneratorClass = (String)this
-        .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
-    if (StringUtils.isBlank(hibernateGeneratorClass))
-    {
-        hibernateGeneratorClass = (String)this
-            .getConfiguredProperty("defaultHibernateGeneratorClass");
-    }
-    return hibernateGeneratorClass;
-    }
-
-    private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetForeignHibernateGeneratorClass()
-     */
-    protected boolean handleIsForeignHibernateGeneratorClass()
-    {
-        return this.getHibernateGeneratorClass().equalsIgnoreCase(
-                HIBERNATE_GENERATOR_CLASS_FOREIGN);
-    }
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetEntityName()
-     */
-    protected String handleGetEntityName()
-    {
-        String entityNamePattern = (String)this
-        .getConfiguredProperty("entityNamePattern");
-    return MessageFormat.format(entityNamePattern, new String[]
-    {
-        StringUtils.trimToEmpty(this.getName())
-    });
-    }
-
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetEntityImplementationName()
-     */
-    protected String handleGetEntityImplementationName()
-    {
-        return this.getEntityName() + HibernateGlobals.IMPLEMENTATION_SUFFIX;
-    }
-
 
 }

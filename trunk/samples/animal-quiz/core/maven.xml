@@ -1,84 +1,24 @@
 <project xmlns:ant="jelly:ant"
   		 xmlns:maven="jelly:maven">
-  		 
-    <preGoal name="java:compile"> 
-    	
-        <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
-            <ant:classpath>
-				<ant:path refid="maven.dependency.classpath"/>
-				<ant:pathelement path="${pom.dependencyClasspath}"/>
-            </ant:classpath>
-        </ant:taskdef>
-        
-        <ejbdoclet destdir="${maven.build.src}"
-                   ejbspec="2.0"
-                   force="false">
-
-            <fileset dir="${maven.build.src}">
-                <include name="**/*Bean.java" />
-            </fileset>
-
-            <utilobject kind="logical" cacheHomes="true"/>
-
-            <remoteinterface/>
-            <homeinterface/>
-            <localinterface/>
-            <localhomeinterface/>
-
-            <deploymentdescriptor
-                destdir="${ejb.descriptor.dir}"/>
-
-            <jboss version="3.0"
-                   xmlencoding="UTF-8"
-                   destdir="${ejb.descriptor.dir}"/>
-
-        </ejbdoclet>
-        
-        <!--
-             XDoclet stores the *Bean classes into ejb-jar.xml
-             but the used andromda templates have created
-             subclasses *BeanImpl.  Replace
-             the names in the deployment descriptor so that
-             everyone is happy.
-         -->
-        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml" 
-        	token="Bean&lt;/ejb-class&gt;"
-        	value="BeanImpl&lt;/ejb-class&gt;">
-        </ant:replace>
-        
-		<!-- add the paths of the generated source to the
-		     maven compile path -->
-	 	<ant:path
-	       	id="andromda.ejb.gen.src"
-	       	location="${maven.build.src}"/>
-		<maven:addPath
-	       	id="maven.compile.src.set"
-	       	refid="andromda.ejb.gen.src"/>
-        
-    </preGoal>
-    
-    <preGoal name="java:compile"> 
-        <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
-            <ant:classpath>
-				<ant:path refid="maven.dependency.classpath"/>
-				<ant:pathelement path="${pom.dependencyClasspath}"/>
-            </ant:classpath>
-        </ant:taskdef>
-        
-        <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
-            <fileset dir="${maven.build.src}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${maven.src.dir}/java">
-                <include name="**/*.java" />
-            </fileset>
-            <hibernate version="2.0" />
-        </hibernatedoclet>    	
-    </preGoal>
-
+  	
+    <!-- =====================================================================
+            Add the generated code on the classpath
+         ===================================================================== -->
+    <!-- preGoal name="java:compile">
+        <ant:path
+            id="core.gen.src"
+            location="${maven.build.src}"/>
+        <maven:addPath
+            id="maven.compile.src.set"
+            refid="core.gen.src"/>
+        <property name="tmp.cp" refid="maven.compile.src.set"/>
+        <echo message="compile.src:${maven.compile.src.set}"/>
+    </preGoal -->
+                                                                                                                 
+	 
   	<postGoal name="ejb:ejb">
 				
-		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
+	<ant:mkdir dir="${hibernate.schema.output.dir}"/>
 		
         <ant:path id="schema.classpath">
             <ant:path refid="maven.dependency.classpath"/>
