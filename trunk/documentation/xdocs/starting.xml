@@ -54,6 +54,13 @@ C:\development\java> maven andromdapp:generate
                 Maven repository (by default, this is the .maven directory in your 
                 user home, i.e. $HOME for linux/unix, %USERPROFILE% for windows).
             </p>
+            <p class="highlight">
+                The binary distribution contains the libraries needed to build your J2EE project,
+                just go into the distribution's <code>/lib</code> subdirectory and copy the content
+                into your maven repository (most likely here:
+                <code>$USER_HOME/.maven/repository</code>). This way maven will not lose too much
+                time downloading dependencies the first time you build.
+            </p>
             <p>
                 Optionally you can go into a subdirectory to build it separately from
                 the others, this is much quicker and it will make it easy to focus on
