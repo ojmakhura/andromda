@@ -1,118 +1,118 @@
 <cartridge name="webservice">
-		
-	<!-- the templateObjects -->
-  
-    <templateObject 
-    	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>  
-    	
-    <templateObject 
-    	name="escapeUtils"
-    	className="org.apache.commons.lang.StringEscapeUtils"/>    
-		
-	<!-- The name of the application that this service will run within 
-		 (i.e. Security Services} -->
-	<property reference="applicationName"/>  
-		
-	<!-- The location of where the WSDL will reside 
-		 (i.e. "http://localhost:8080/security-service/services") -->
-	<property reference="wsdlSoapAddress"/>
-    	
-	<!-- if true, causes generation of necessary code that expects 
-		 the request to be signed -->
-	<property reference="signedRequest" default="false"/>
-	
-	<!-- if true, causes generation of necessary code to that expects
-		 the request to be encrypted -->
-	<property reference="encryptedRequest" default="false"/>
-	
-	<!-- if true, causes generation of necessary code that encrypts
-		 the response -->
-	<property reference="encryptedResponse" default="false"/>
-	
-	<!-- if true, causes generation of necessary code that signs
-		 the response -->
-	<property reference="signedResponse" default="false"/>
-	
-	<!-- Defines the crypto properties for WSS4J -->
-	<property reference="cryptoKeyStore" default=""/>
-	<property reference="cryptoKeyStoreType" default=""/>
-	<property reference="cryptoKeyStoreAlias" default=""/>
-	<property reference="cryptoAliasPassword" default=""/>
-	<property reference="cryptoKeyStorePassword" default=""/>
-	    
-    <!-- WSDL template definitions -->
-    
-	<template 
-		path="templates/webservice/wsdl/wrapped-wsdl.vsl" 
-		outputPattern="{0}/{1}.wsdl"     
-		outlet="wsdls" 
-		overwrite="true">
-		<modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
-            </modelElement>
-		</modelElements>
-	</template>     
-	
-	<!-- Java Types -->
-	
-	<template 
-		path="templates/webservice/java/ComplexWsdlType.vsl" 
-		outputPattern="{0}/{1}.java"  
-		outlet="java-types" 
-		overwrite="true">
-		<modelElements variable="class">
-            <modelElement stereotype="ValueObject"/>
-		</modelElements>
-	</template>  
-	
-	<!-- AXIS template definitions -->
-	
-	<template	
-		path="templates/webservice/axis/web.xml.vsl"
-		outputPattern="WEB-INF/web.xml" 
-		outlet="axis-configuration"
-		overwrite="true"/>
 
-	<template 
-		path="templates/webservice/axis/server-config.wsdd.vsl" 
-		outputPattern="WEB-INF/server-config.wsdd"    
-		outlet="axis-configuration" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="services">
+  <!-- the templateObjects -->
+
+    <templateObject
+      name="stringUtils"
+      className="org.apache.commons.lang.StringUtils"/>
+
+    <templateObject
+      name="escapeUtils"
+      className="org.apache.commons.lang.StringEscapeUtils"/>
+
+    <!-- The name of the application that this service will run within
+         (i.e. Security Services} -->
+    <property reference="applicationName"/>
+
+    <!-- The location of where the WSDL will reside
+         (i.e. "http://localhost:8080/security-service/services") -->
+    <property reference="wsdlSoapAddress"/>
+
+    <!-- if true, causes generation of necessary code that expects
+         the request to be signed -->
+    <property reference="signedRequest" default="false"/>
+
+    <!-- if true, causes generation of necessary code to that expects
+         the request to be encrypted -->
+    <property reference="encryptedRequest" default="false"/>
+
+    <!-- if true, causes generation of necessary code that encrypts
+         the response -->
+    <property reference="encryptedResponse" default="false"/>
+
+    <!-- if true, causes generation of necessary code that signs
+         the response -->
+    <property reference="signedResponse" default="false"/>
+
+    <!-- Defines the crypto properties for WSS4J -->
+    <property reference="cryptoKeyStore" default=""/>
+    <property reference="cryptoKeyStoreType" default=""/>
+    <property reference="cryptoKeyStoreAlias" default=""/>
+    <property reference="cryptoAliasPassword" default=""/>
+    <property reference="cryptoKeyStorePassword" default=""/>
+
+    <!-- WSDL template definitions -->
+
+    <template
+        path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+        outputPattern="{0}/{1}.wsdl"
+        outlet="wsdls"
+        overwrite="true">
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
             </modelElement>
-		</modelElements>
-	</template>
-	
-	<template	
-		path="templates/webservice/axis/wss4j/crypto.properties.vsl"
-		outputPattern="wss4j/crypto.properties" 
-		outlet="wss4j-configuration"
-		overwrite="true"
-		outputToSingleFile="true"
-		required="false">
-		<modelElements variable="services">
+        </modelElements>
+    </template>
+
+    <!-- Java Types -->
+
+    <template
+        path="templates/webservice/java/ComplexWsdlType.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="java-types"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="ValueObject"/>
+        </modelElements>
+    </template>
+
+    <!-- AXIS template definitions -->
+
+    <template
+        path="templates/webservice/axis/web.xml.vsl"
+        outputPattern="WEB-INF/web.xml"
+        outlet="axis-configuration"
+        overwrite="true"/>
+
+    <template
+        path="templates/webservice/axis/server-config.wsdd.vsl"
+        outputPattern="WEB-INF/server-config.wsdd"
+        outlet="axis-configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
             </modelElement>
-		</modelElements>
-	</template>
-	
-	<template	
-		path="templates/webservice/axis/WebServiceTest.vsl"
-		outputPattern="{0}/{1}Test.java" 
-		outlet="axis-tests"
-		overwrite="true"
-		required="false">
-		<modelElements variable="service">
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis/wss4j/crypto.properties.vsl"
+        outputPattern="wss4j/crypto.properties"
+        outlet="wss4j-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        required="false">
+        <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
             </modelElement>
-		</modelElements>
-	</template>
-		
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis/WebServiceTest.vsl"
+        outputPattern="{0}/{1}Test.java"
+        outlet="axis-tests"
+        overwrite="true"
+        required="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
 </cartridge>
