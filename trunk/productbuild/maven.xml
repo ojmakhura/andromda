@@ -109,24 +109,38 @@
 			<j:if test="${type == null || type == ''}">
 				<j:set var="type" value="jar"/>
 			</j:if>
-			<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${type}s"/>
-			<ant:mkdir dir="${toDir}"/>
-			<ant:copy todir="${toDir}">
-				<ant:fileset dir="${fromDir}">
-					<ant:include name="*.jar"/>
-				</ant:fileset>				
-			</ant:copy>
+			<j:choose>
+				<!-- we handle the andromda-ant module a little different 
+					(we don't want it bundled maven style) -->
+				<j:when test="${reactorProject.artifactId.indexOf('andromda-ant') ne '-1'}">
+			        <j:set var="toDir" value="${binaryDistDir}/ant"/>
+			   		<ant:copy todir="${toDir}">
+					    <ant:fileset dir="${fromDir}">
+						    <ant:include name="*.jar"/>
+						    <ant:include name="*.xml"/>
+					    </ant:fileset>				
+				    </ant:copy>
+				</j:when>
+				<j:otherwise>
+			        <j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${type}s"/>
+					<ant:copy todir="${toDir}">
+						<ant:fileset dir="${fromDir}">
+							<ant:include name="*.jar"/>
+						</ant:fileset>				
+					</ant:copy>			    					
+				</j:otherwise>
+			</j:choose>
 			<ant:copy todir="${toDir}/../..">
 				<ant:fileset dir="${fromDir}/..">
 					<ant:include name="LICENSE"/>
 				</ant:fileset>
 			</ant:copy>
 			<!-- don't copy the dependencies for the maven plugin -->
-			<j:if test="${reactorProject.artifactId.indexOf('maven') == '-1'}">
+			<j:if test="${reactorProject.artifactId.indexOf('maven') eq '-1'}">
 				<j:forEach var="lib" items="${reactorProject.artifacts}">
 					<!-- don't copy 'andromda' dependencies -->
 					<j:set var="dep" value="${lib.dependency}"/>
-					<j:if test="${lib.dependency.groupId.indexOf('andromda') == '-1'}">
+					<j:if test="${lib.dependency.groupId.indexOf('andromda') eq '-1'}">
 						<ant:copy todir="${binaryDistLibDir}/${dep.artifactDirectory}">
 							<ant:fileset dir="${maven.repo.local}/${dep.artifactDirectory}">
 								<ant:include name="${dep.type}s/${dep.artifactId}-${dep.version}.${dep.extension}"/>
