@@ -33,15 +33,22 @@ public class OCLIntrospector
      */
     public static Object invoke(Object element, String feature)
     {
+        Object result = null;
         try
         {
             feature = StringUtils.trimToEmpty(feature);
             if (feature.matches(OPERATION_FEATURE))
             {
-                return invoke(element, feature, null);
+                result = invoke(element, feature, null);
             }
-            return getNestedProperty(element, feature);
-
+            else
+            {
+                result = getNestedProperty(element, feature);
+            }
+        }
+        catch (NullPointerException ex)
+        {
+            // ignore (the result will just be null)
         }
         catch (OCLIntrospectorException throwable)
         {
@@ -66,6 +73,7 @@ public class OCLIntrospector
             logger.error(message);
             throw new OCLIntrospectorException(cause);
         }
+        return result;
     }
 
     /**
@@ -79,6 +87,7 @@ public class OCLIntrospector
         String feature,
         Object[] arguments)
     {
+        Object result = null;
         try
         {
             // check for parenthesis
@@ -87,7 +96,11 @@ public class OCLIntrospector
             {
                 feature = feature.substring(0, parenIndex).trim();
             }
-            return invokeMethod(element, feature, arguments);
+            result = invokeMethod(element, feature, arguments);
+        }
+        catch (NullPointerException ex)
+        {
+            // ignore (the result will just be null)
         }
         catch (Throwable throwable)
         {
@@ -98,6 +111,7 @@ public class OCLIntrospector
             logger.error(message);
             throw new OCLIntrospectorException(throwable);
         }
+        return result;
     }
 
     private static Object getNestedProperty(Object element, String propertyName)

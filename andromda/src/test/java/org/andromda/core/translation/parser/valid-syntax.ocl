@@ -104,5 +104,11 @@ context ServiceLevel
   inv: Sequence { Set { 1, 2 }, Set { 2, 3 }, Set { 4, 5, 6 } } .isEmpty()
   inv: Sequence { 2, 1, 2, 3, 5, 6, 4 } .isEmpty()
   inv: Set{1,4,7,10} - Set{4,7} = Set{1,10} 
+  
+context Customer
+  inv: age.oclIsKindOf(java::lang::Integer)
+  
+context Customer
+  inv: age.oclIsTypeOf(java::lang::Integer)
     
 endpackage
