@@ -9,7 +9,7 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  */
 #if ($entity.enumeration)
-public class $entity.entityName 
+public class $entity.entityName
     implements java.io.Serializable
 {
 #set ($identifier = $entity.identifiers.iterator().next())
@@ -40,8 +40,8 @@ public class $entity.entityName
 }
 #else
 public abstract class $entity.entityName
-#if($entity.generalization)  
-	extends ${entity.generalization.fullyQualifiedEntityName}
+#if($entity.generalization)
+    extends ${entity.generalization.fullyQualifiedEntityName}
 #else
     implements java.io.Serializable
 #end
@@ -70,7 +70,7 @@ $attribute.getDocumentation("     * ")
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
     private $target.getterSetterTypeName $target.name;
-   
+
     /**
 $target.getDocumentation("     * ")
      */
@@ -83,7 +83,7 @@ $target.getDocumentation("     * ")
     {
         this.${target.name} = ${target.name};
     }
-    
+
 #end
 #end
 #foreach ($operation in $entity.entityBusinessOperations)
