@@ -12,3 +12,6 @@ maven.andromda.bpm4struts.manual.java.dir=${maven.src.dir}/../../web/src/java
 maven.andromda.bpm4struts.manual.webapp.dir=${maven.src.dir}/../../web/src/webapp
 
 maven.andromda.java.generated.dir=${maven.src.dir}/../../common/target/src
+
+# The hibernate transaction manager to use.
+hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup

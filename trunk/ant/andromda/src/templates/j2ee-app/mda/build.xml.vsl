@@ -68,6 +68,7 @@
                 <property name="hibernateTypeMappingsUri" value="Hibernate"/>
                 <property name="dataSource" value="${datasource.jndi}"/>
 			    <property name="hibernateDialect" value="${hibernate.db.dialect}"/>
+			    <property name="hibernateTransactionManagerLookup" value="${hibernate.transaction.manager.lookup}"/>
 			    <property name="hibernateShowSql" value="true"/>
 			    <property name="hibernateJdbcBatchSize" value="0"/>
                 <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
