@@ -1,27 +1,16 @@
 package org.andromda.translation.testsuite;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.andromda.core.common.ComponentContainer;
-import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.core.translation.TranslationUtils;
-import org.andromda.core.translation.library.Library;
-import org.andromda.core.translation.library.LibraryTranslation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -33,10 +22,6 @@ import org.apache.log4j.Logger;
 public class TranslationTestProcessor extends TestCase {
 	
 	private static Logger logger = Logger.getLogger(TranslationTestProcessor.class);
-	
-	private static Map testConfigs = new HashMap();
-    
-    private static final String TEST_FILE_PREFIX = "TranslationTest-";
     
     /**
      * If this is specified as a system property, then 
@@ -65,6 +50,12 @@ public class TranslationTestProcessor extends TestCase {
                 System.getProperty("model.validation"))).booleanValue();
 	
 	private ModelAccessFacade model = null;
+    
+    /**
+     * In charge of discovering the translation tests.
+     */
+    private static final TranslationTestDiscoverer testDiscoverer = 
+        TranslationTestDiscoverer.instance();
 	
 	/**
 	 * The translation that is currently being tested.
@@ -85,13 +76,14 @@ public class TranslationTestProcessor extends TestCase {
 	public static TestSuite suite() throws Exception {	
 		XmlObjectFactory.setDefaultValidating(false);
         ExpressionTranslator.instance().initialize();
-		TranslationTestProcessor.loadTests();	
+        testDiscoverer.discoverTests();
+        Map tests = testDiscoverer.getTests();        
 		TestSuite suite = new TestSuite();
-		Iterator configIt = TranslationTestProcessor.testConfigs.keySet().iterator();
-		while (configIt.hasNext()) {
-			TranslationTestProcessor test = new TranslationTestProcessor("testTranslation");
-			test.setTestTranslation((String)configIt.next());
-			suite.addTest(test);
+		Iterator testIt = tests.keySet().iterator();
+		while (testIt.hasNext()) {
+			TranslationTestProcessor unitTest = new TranslationTestProcessor("testTranslation");
+			unitTest.setTestTranslation((String)testIt.next());
+			suite.addTest(unitTest);
 		}	
 		return suite;
 	}
@@ -151,9 +143,9 @@ public class TranslationTestProcessor extends TestCase {
     			logger.info("testing translation --> '" + translation + "'");
     		}
     		
-    		TranslationTest config = (TranslationTest)testConfigs.get(translation);
+    		TranslationTest test = testDiscoverer.getTest(translation);
     		
-    		Map expressions = config.getExpressionConfigs();
+    		Map expressions = test.getExpressionConfigs();
             
     		if(expressions != null) {
     			Iterator expressionIt = expressions.keySet().iterator();
@@ -166,7 +158,7 @@ public class TranslationTestProcessor extends TestCase {
                         if(logger.isInfoEnabled()) {
                             logger.info("No body for the 'from' element was defined "
                                 + "within translation test --> '" 
-                                + config.getUri() 
+                                + test.getUri() 
                                 + "', please define the body of this element with " 
                                 + "the expression you want to translate from");
                         }
@@ -227,100 +219,6 @@ public class TranslationTestProcessor extends TestCase {
         return StringUtils.isEmpty(this.translationName) || 
             (StringUtils.isNotEmpty(this.translationName) && 
              this.translationName.equals(translation));
-    }
-	
-	/**
-	 * Finds and loads all test configuration files found.
-	 */
-	private static void loadTests() throws IOException {
-      
-        Collection testResourceLocations = findTestResourceLocations();        
-
-		Iterator testResourceLocationIt = testResourceLocations.iterator();
-		for (int ctr = 0; testResourceLocationIt.hasNext(); ctr++) {
-		
-			File packageFile = (File)testResourceLocationIt.next();
-			
-			class XmlTestFileFilter implements FilenameFilter {
-				public boolean accept(File directory, String name) {
-					return StringUtils.trimToEmpty(name).startsWith(TEST_FILE_PREFIX);
-				}
-			}
-			
-			File[] testFiles = packageFile.listFiles(new XmlTestFileFilter());
-			
-			if(testFiles != null && testFiles.length > 0) {
-			 for (int ctr2 = 0; ctr2 < testFiles.length; ctr2++) {
-					URL testUrl = testFiles[ctr2].toURL();
-					if(logger.isInfoEnabled()) {
-						logger.info("loading Translator test --> '" + testUrl + "'");
-					}
-					TranslationTest testConfig = 
-						(TranslationTest)
-                            XmlObjectFactory.getInstance(
-                                TranslationTest.class).getObject(testUrl);
-					testConfig.setUri(testUrl);
-					testConfigs.put(testConfig.getTranslation(), testConfig);
-				}
-			} else {
-                if(logger.isDebugEnabled()) {
-                    logger.debug("No Translator test files with prefix '"
-                        + TEST_FILE_PREFIX 
-                        + "*'found in resource --> '" 
-                        + packageFile + "'");
-                }                
-            }
-		}
-		if(testConfigs.isEmpty()) {
-            logger.warn("WARNING!! No test resources found for any translation");
-		}
-	}
-    
-    /**
-     * Finds all the directories which TranslationTest should be found in.
-     * 
-     * @return Collection
-     */
-    private static Collection findTestResourceLocations() {
-        Collection libraries = 
-            ComponentContainer.instance().findComponentsOfType(Library.class);
-        
-        Collection testResourceLocationNames = new ArrayList();
-        
-        //find all library translation files and find the
-        //the directory they exist in (since translation tests will
-        //be in the same directory structure)
-        Iterator libraryIt = libraries.iterator();
-        for (int ctr = 0; libraryIt.hasNext(); ctr++) {
-            Library library = (Library)libraryIt.next();
-            Map libraryTranslations = library.getLibraryTranslations();
-            if (libraryTranslations != null) {
-                Iterator libraryTranslationIt = libraryTranslations.keySet().iterator();
-                while (libraryTranslationIt.hasNext()) {
-                    String libraryTranslationName = (String)libraryTranslationIt.next();
-                    LibraryTranslation translation = 
-                    (LibraryTranslation)libraryTranslations.get(libraryTranslationName);
-                    testResourceLocationNames.add(new File(translation.getFile()).getParent());
-                }
-            }
-        }
-        
-        Collection testResourceLocations = new ArrayList();
-        
-        Iterator testResourceLocationNameIt = testResourceLocationNames.iterator();
-        
-        //Now take all the testResourceLocationNames and get the actual locations
-        while (testResourceLocationNameIt.hasNext()) {
-            String name = (String)testResourceLocationNameIt.next();
-            URL[] resources = ResourceFinder.findResources(name);
-            if(resources != null && resources.length > 0) {
-               for (int ctr = 0; ctr < resources.length; ctr++) {
-                    testResourceLocations.add(new File(resources[ctr].getFile()));
-                }
-            }
-        }
-        
-        return testResourceLocations;
     }
 	
 	/** 
