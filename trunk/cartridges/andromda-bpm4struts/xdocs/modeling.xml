@@ -268,11 +268,13 @@
                         <tr>
                             <td>@andromda.struts.view.table.export</td>
                             <td>Same as @andromda.struts.view.table.columns</td>
-                            <td>xml csv excel</td>
+                            <td>xml csv excel pdf</td>
                             <td>Denotes the different formats into which it should be possible to export the list
                                 The tagged value may be assigned multiple values, use a combination of
-                                <code>csv</code>, <code>xml</code> and <code>excel</code>. By default it is possible
-                                to export to all known formats.
+                                <code>csv</code>, <code>xml</code>, <code>pdf</code> and <code>excel</code>.
+                                By default it is possible to export to all known formats. You may use the
+                                <code>none</code> value to disable exporting for this table, this value will take
+                                priority over any other ones if specified.
                             </td>
                         </tr>
                         <tr>
