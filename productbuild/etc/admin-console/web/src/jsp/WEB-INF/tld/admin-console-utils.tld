@@ -21,11 +21,22 @@
     </function>
 
     <function>
-        <name>getInsertWidget</name>
+        <name>renderColumnValue</name>
+        <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
+        <function-signature>
+            java.lang.Object
+                renderColumnValue(
+                    org.andromda.adminconsole.db.Column,
+                    org.andromda.adminconsole.db.RowData )
+        </function-signature>
+    </function>
+
+    <function>
+        <name>renderInsertWidget</name>
         <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
         <function-signature>
             java.lang.String
-                getInsertJsp(
+                renderInsertWidget(
                     org.andromda.adminconsole.config.AdminConsoleConfigurator,
                     org.andromda.adminconsole.db.Column,
                     java.lang.Object )
@@ -33,11 +44,11 @@
     </function>
 
     <function>
-        <name>getUpdateWidget</name>
+        <name>renderUpdateWidget</name>
         <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
         <function-signature>
             java.lang.String
-                getUpdateJsp(
+                renderUpdateWidget(
                     org.andromda.adminconsole.config.AdminConsoleConfigurator,
                     org.andromda.adminconsole.db.Column,
                     org.andromda.adminconsole.db.RowData,
