@@ -3,12 +3,15 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
+import org.omg.uml.foundation.datatypes.OrderingKind;
+import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 /**
@@ -245,5 +248,40 @@ public class AttributeFacadeLogicImpl
             value = "\"" + value + "\"";
         }
         return value;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.Attribute#isOrdered()
+     */
+    public boolean handleIsOrdered()
+    {
+        boolean ordered = false;
+
+        OrderingKind ordering = metaObject.getOrdering();
+        // no ordering is 'unordered'
+        if (ordering != null)
+        {
+            ordered = ordering.equals(OrderingKindEnum.OK_ORDERED);
+        }
+
+        return ordered;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getGetterSetterTypeName()
+     */
+    public String handleGetGetterSetterTypeName()
+    {
+        // if many, then list or collection
+        if (this.isMany())
+        {
+            Mappings mappings = getLanguageMappings();
+            return isOrdered() ? mappings
+                .getTo(UMLProfile.LIST_TYPE_NAME) : mappings
+                .getTo(UMLProfile.COLLECTION_TYPE_NAME);
+        }
+
+        // if single element, then return the type
+        return this.getType().getFullyQualifiedName();
     }
 }
