@@ -152,7 +152,7 @@ public class StrutsParameterLogicImpl
     public boolean handleIsTableSortable()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_SORTABLE);
-        return (taggedValue==null)
+        return (taggedValue == null)
                 ? Bpm4StrutsProfile.TAGGED_VALUE_TABLE_SORTABLE_DEFAULT_VALUE
                 : isTrue(String.valueOf(taggedValue));
     }
@@ -219,7 +219,7 @@ public class StrutsParameterLogicImpl
     public String handleGetWidgetType()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
-        final String fieldType = value==null?null:value.toString();
+        final String fieldType = value == null ? null : value.toString();
 
         if (fieldType == null)
         {
@@ -227,25 +227,32 @@ public class StrutsParameterLogicImpl
             if (isValidatorBoolean(parameterType)) return "checkbox";
             if (getType().isCollectionType() || getType().isArrayType()) return "select";
             return "text";
-        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
+        }
+        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
         {
             return "textarea";
-        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
+        }
+        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
         {
             return "hidden";
-        } else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_RADIO))
+        }
+        else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_RADIO))
         {
             return "radio";
-        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType))
+        }
+        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType))
         {
             return "checkbox";
-        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
+        }
+        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
         {
             return "select";
-        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
+        }
+        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
         {
             return "password";
-        } else
+        }
+        else
         {
             return (getType().isCollectionType() || getType().isArrayType()) ? "select" : "text";
         }
@@ -285,13 +292,30 @@ public class StrutsParameterLogicImpl
     public boolean handleIsRequired()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED);
-        return isTrue(value==null?null:value.toString());
+        return isTrue(value == null ? null : value.toString());
     }
 
     public boolean handleIsReadOnly()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY);
-        return isTrue(value==null?null:value.toString());
+        return isTrue(value == null ? null : value.toString());
+    }
+
+    public boolean handleIsDate()
+    {
+        return getType().isDateType();
+    }
+
+    public String handleGetDateFormat()
+    {
+        final String format = getValidatorFormat();
+        return (format == null) ? Bpm4StrutsProfile.TAGGED_VALUE_INPUT_DEFAULT_DATEFORMAT : getDateFormat(format);
+    }
+
+    public boolean handleIsStrictDateFormat()
+    {
+        final String format = getValidatorFormat();
+        return (format == null) ? false : isStrictDateFormat(format);
     }
 
     private boolean isTrue(String string)
@@ -322,10 +346,15 @@ public class StrutsParameterLogicImpl
         return "\"" + name + "-test" + "\"";
     }
 
+    public boolean handleIsValidationRequired()
+    {
+        return getValidatorTypes().isEmpty() == false;
+    }
+
     protected String getValidatorFormat()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_FORMAT);
-        final String format = value==null?null:value.toString();
+        final String format = value == null ? null : String.valueOf(value);
         return (format == null) ? null : format.trim();
     }
 
@@ -339,10 +368,14 @@ public class StrutsParameterLogicImpl
 
         if (isRequired()) validatorTypesList.add("required");
 
-        if (isValidatorByte(type)) validatorTypesList.add("byte");
-        else if (isValidatorShort(type)) validatorTypesList.add("short");
-        else if (isValidatorLong(type)) validatorTypesList.add("long");
-        else if (isValidatorDate(type)) validatorTypesList.add("date");
+        if (isValidatorByte(type))
+            validatorTypesList.add("byte");
+        else if (isValidatorShort(type))
+            validatorTypesList.add("short");
+        else if (isValidatorLong(type))
+            validatorTypesList.add("long");
+        else if (isValidatorDate(type))
+            validatorTypesList.add("date");
         else if (isValidatorUrl(type) && isUrlFormat(format)) validatorTypesList.add("url");
 
         if (isRangeFormat)
@@ -353,17 +386,23 @@ public class StrutsParameterLogicImpl
         }
         else
         {
-            if (isValidatorInteger(type)) validatorTypesList.add("integer");
-            else if (isValidatorFloat(type)) validatorTypesList.add("float");
+            if (isValidatorInteger(type))
+                validatorTypesList.add("integer");
+            else if (isValidatorFloat(type))
+                validatorTypesList.add("float");
             else if (isValidatorDouble(type)) validatorTypesList.add("double");
         }
 
         if (format != null && isValidatorString(type))
         {
-            if (isEmailFormat(format)) validatorTypesList.add("email");
-            else if (isCreditCardFormat(format)) validatorTypesList.add("creditCard");
-            else if (isMinLengthFormat(format)) validatorTypesList.add("minlength");
-            else if (isMaxLengthFormat(format)) validatorTypesList.add("maxlength");
+            if (isEmailFormat(format))
+                validatorTypesList.add("email");
+            else if (isCreditCardFormat(format))
+                validatorTypesList.add("creditCard");
+            else if (isMinLengthFormat(format))
+                validatorTypesList.add("minlength");
+            else if (isMaxLengthFormat(format))
+                validatorTypesList.add("maxlength");
             else if (isPatternFormat(format)) validatorTypesList.add("mask");
         }
         return validatorTypesList;
@@ -381,10 +420,12 @@ public class StrutsParameterLogicImpl
         {
             args.add("${var:min}");
             args.add("${var:max}");
-        } else if ("minlength".equals(validatorType))
+        }
+        else if ("minlength".equals(validatorType))
         {
             args.add("${var:minlength}");
-        } else if ("maxlength".equals(validatorType))
+        }
+        else if ("maxlength".equals(validatorType))
         {
             args.add("${var:maxlength}");
         }
@@ -406,24 +447,29 @@ public class StrutsParameterLogicImpl
             {
                 vars.add(Arrays.asList(new Object[]{"min", getRangeStart(format)}));
                 vars.add(Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
-            } else if (isValidatorString(type))
+            }
+            else if (isValidatorString(type))
             {
                 if (isMinLengthFormat(format))
                 {
                     vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(format)}));
-                } else if (isMaxLengthFormat(format))
+                }
+                else if (isMaxLengthFormat(format))
                 {
                     vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(format)}));
-                } else if (isPatternFormat(format))
+                }
+                else if (isPatternFormat(format))
                 {
                     vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(format)}));
                 }
-            } else if (isValidatorDate(type))
+            }
+            else if (isValidatorDate(type))
             {
                 if (isStrictDateFormat(format))
                 {
                     vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat(format)}));
-                } else
+                }
+                else
                 {
                     vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat(format)}));
                 }
@@ -435,7 +481,7 @@ public class StrutsParameterLogicImpl
     public java.lang.String handleGetValidWhen()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_VALIDWHEN);
-        return value==null?null:value.toString();
+        return value == null ? null : value.toString();
     }
 
     public Collection handleGetOptionKeys()
@@ -452,13 +498,14 @@ public class StrutsParameterLogicImpl
         if ("radio".equals(getWidgetType()))
         {
             Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
-            String fieldType = value==null?null:value.toString();
+            String fieldType = value == null ? null : value.toString();
             if (fieldType.length() > Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length())
             {
                 try
                 {
                     return Integer.parseInt(fieldType.substring(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length()).trim());
-                } catch (Exception exception)
+                }
+                catch (Exception exception)
                 {
                     // let the next return statement handle this
                 }
