@@ -5,6 +5,7 @@ application.author=author
 
 lib.dir=lib
 dist.dir=dist
+build.dir=target
 
 app.dir=app
 mda.dir=mda
@@ -30,6 +31,9 @@ xdoclet.merge.dir=target/xdoclet-merge
 javadoc.build.dir=target/javadoc
 java.build.dir=target/classes
 
-proxy.enabled=true
-proxy.host=proxy.goss.cat.com
+proxy.enabled=false
+proxy.host=myproxy.pany.com
 proxy.port=80
+
+# set this property if you want to precompile the jsps during development
+precompile.jsp=false
