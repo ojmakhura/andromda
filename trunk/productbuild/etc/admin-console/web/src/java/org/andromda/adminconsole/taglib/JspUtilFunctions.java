@@ -7,8 +7,15 @@ import org.andromda.adminconsole.db.Column;
 import org.andromda.adminconsole.db.Table;
 import org.andromda.adminconsole.db.RowData;
 
+import java.util.Collection;
+
 public class JspUtilFunctions
 {
+    public final static boolean contains(Collection collection, Object object)
+    {
+        return (collection == null) ? false : collection.contains(object);
+    }
+
     public final static String getInsertJsp(AdminConsoleConfigurator configurator, Column column, Object value)
     {
         return configurator.getInsertJsp(column, column.getName(), value, null);
