@@ -10,10 +10,6 @@
 ##
 package $action.formBeanPackageName;
 
-/**
- * @struts.form
- *      name="$action.formBeanName"
- */
 public class $formBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
