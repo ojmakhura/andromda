@@ -363,7 +363,7 @@ public class SchemaTransformer
         {
             this.model = modelManagementPackage.getModel().createModel();
         }
-        
+
         // create the package on the model
         org.omg.uml.modelmanagement.UmlPackage leafPackage = this
             .getOrCreatePackage(
@@ -480,11 +480,13 @@ public class SchemaTransformer
             {
                 schemaName = " '" + this.schema + "' ";
             }
-            StringBuffer warning = new StringBuffer("WARNING! No tables found in schema");
+            StringBuffer warning = new StringBuffer(
+                "WARNING! No tables found in schema");
             warning.append(schemaName);
             if (StringUtils.isNotEmpty(this.tableNamePattern))
             {
-                warning.append(" matching pattern --> '" + this.tableNamePattern + "'");
+                warning.append(" matching pattern --> '"
+                    + this.tableNamePattern + "'");
             }
             logger.warn(warning);
         }
@@ -542,7 +544,7 @@ public class SchemaTransformer
 
         if (StringUtils.isNotEmpty(this.tableTaggedValue))
         {
-            //add the tagged value for the table name
+            // add the tagged value for the table name
             TaggedValue taggedValue = this.createTaggedValue(
                 corePackage,
                 this.tableTaggedValue,
@@ -857,7 +859,7 @@ public class SchemaTransformer
                     ChangeableKindEnum.CK_CHANGEABLE);
             foreignEnd.setParticipant((Classifier)this.classes
                 .get(foreignTableName));
-            
+
             if (StringUtils.isNotEmpty(this.columnTaggedValue))
             {
                 // add the tagged value for the foreign association end
@@ -870,7 +872,7 @@ public class SchemaTransformer
                     foreignEnd.getTaggedValue().add(taggedValue);
                 }
             }
-            
+
             association.getConnection().add(foreignEnd);
             associations.add(association);
 
