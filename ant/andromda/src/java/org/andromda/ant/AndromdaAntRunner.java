@@ -146,6 +146,7 @@ public class AndromdaAntRunner
 
         final String appName = (String)context.get("applicationName");
 
+        templateMap.put("templates/j2ee-app/readme.txt.vsl", "readme.txt");
         templateMap.put("templates/j2ee-app/build.xml.vsl", "build.xml");
         templateMap.put("templates/j2ee-app/build.properties.vsl", "build.properties");
 
@@ -196,9 +197,7 @@ public class AndromdaAntRunner
         return templateMap;
     }
 
-    /**
-     * @todo: document this method
-     */
+/*
     private String getTargetName(String rootPath, File file)
     {
         String filePath = file.getPath();
@@ -210,5 +209,6 @@ public class AndromdaAntRunner
                 ? filePath.substring(rootPath.length())
                 : filePath;
     }
+*/
 }
 
