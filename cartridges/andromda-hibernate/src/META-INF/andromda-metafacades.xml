@@ -84,10 +84,4 @@
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
         <stereotype>ENUMERATION</stereotype>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityOperationLogicImpl">
-        <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
-        <property reference="implementationOperationNamePrefix" default="handle"/>
-    </metafacade>
 </metafacades>
