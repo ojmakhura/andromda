@@ -39,15 +39,7 @@ public class ColumnLogicImpl
      */
     protected java.lang.Object handleGetTable()
     {
-        Table table = null;
-        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
-        if (end != null
-            && EntityAssociationEndFacade.class.isAssignableFrom(
-                end.getOtherEnd().getClass()))
-        {
-            table = (Table)end.getOtherEnd().getType();
-        }
-        return table;
+        return this.getOwner();
     }
 
     /**
@@ -216,7 +208,15 @@ public class ColumnLogicImpl
      */
     protected Object handleGetImportedTable()
     {
-        return this.getOwner();
+        Table table = null;
+        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
+        if (end != null
+            && EntityAssociationEndFacade.class.isAssignableFrom(
+                end.getOtherEnd().getClass()))
+        {
+            table = (Table)end.getOtherEnd().getType();
+        }
+        return table;
     }
     
     /**
@@ -250,10 +250,10 @@ public class ColumnLogicImpl
                     boolean valid = false;
                     if (end != null
                         && EntityAssociationEndFacade.class.isAssignableFrom(
-                            end.getOtherEnd().getClass()))
+                            end.getClass()))
                     {
                         valid = ((EntityAssociationEndFacade)
-                            end.getOtherEnd()).isForeignIdentifier();
+                            end).isForeignIdentifier();
                     }
                     return valid;
                 }
