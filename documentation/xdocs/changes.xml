@@ -7,7 +7,16 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-27" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-03-09" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="BPM-147">
+                The bpm4struts cartridge now support <a href="http://displaytag.sourceforge.net">displaytag</a>
+                table decorators. Just use the <code>@andromda.struts.view.table.decorator=true</code>
+                tagged value on your table to have an empty decorator generated for it. By default
+                the decorator class names end with <code>Decorator</code>, but this can be changed using
+                the <code>tableDecoratorSuffix</code> namespace property. Don't forget to configure the
+                <code>decorators</code> outlet to point to a directory in your existing project. The generated
+                decorators will only be generated the first time, they will not be overwritten.
+            </action>
             <action dev="carloslcuenca" type="add" issue="HIB-20">
                 The <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now supports
                 lists, sets, maps and bags for mapping collections.
