@@ -4,7 +4,7 @@
 
     <property file="${basedir}/build.properties"/>
 
-    <target name="dist">
+    <target name="dist" description="Builds all modules in the appropriate order and bundles them into a single binary">
         <ant dir="${mda.dir}" target="mda"/>
         <ant dir="${common.dir}" target="dist"/>
 #if ($persistenceType == "hibernate")
@@ -16,7 +16,7 @@
         <ant dir="${app.dir}" target="dist"/>
     </target>
 
-    <target name="clean">
+    <target name="clean" description="Deletes the previously built binaries">
         <ant dir="${common.dir}" target="clean"/>
 #if ($persistenceType == 'hibernate')
         <ant dir="${hibernate.dir}" target="clean"/>
@@ -32,4 +32,38 @@
         <delete dir="${dist.dir}"/>
     </target>
 
+    <target name="common" description="Builds the common components into a .jar bundle">
+        <ant dir="${common.dir}" target="dist"/>
+    </target>
+
+#if ($persistenceType == 'hibernate')
+    <target name="hibernate" description="Builds the Hibernate POJO and EJB Services into a .jar bundle">
+        <ant dir="${hibernate.dir}" target="dist"/>
+    </target>
+#else
+    <target name="ejb" description="Builds the EJB Entity Beans and EJB Services into a .jar bundle">
+        <ant dir="${ejb.dir}" target="dist"/>
+    </target>
+#end
+
+    <target name="web" description="Builds the Struts web application into a .war bundle">
+        <ant dir="${web.dir}" target="dist"/>
+    </target>
+
+    <target name="app" description="Compiles all modules into a single .ear bundle">
+        <ant dir="${app.dir}" target="dist"/>
+    </target>
+
+    <target name="nomda" description="Builds everything without using AndroMDA">
+        <antcall target="common"/>
+#if ($persistenceType == 'hibernate')
+        <antcall target="hibernate"/>
+#else
+        <antcall target="ejb"/>
+#end
+        <antcall target="web"/>
+        <antcall target="app"/>
+    </target>
+
 </project>
+
