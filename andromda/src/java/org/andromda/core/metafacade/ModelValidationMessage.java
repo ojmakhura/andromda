@@ -155,9 +155,4 @@ public class ModelValidationMessage
         }
         return equals;
     }
-
-    public static void main(String args[])
-    {
-        System.out.println("edu::test::org::6yTestMe".replaceAll("\\w*::", ""));
-    }
 }
