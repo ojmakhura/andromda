@@ -332,7 +332,7 @@ public abstract class ${metafacade.logicName}
     protected void handleInvariants(java.util.Collection validationMessages)
     {
 #if ($superMetafacade)
-       super_.validateInvariants(validationMessages);
+        super_.validateInvariants(validationMessages);
 #end
 #renderTranslation ($metafacade "inv")
     }
