@@ -120,8 +120,9 @@ ${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.s
 #else
 #set ($disabled = '')
 #end
-${indent}<html:$widgetType name="form" property="${fieldName}AsArray" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
-${indent}    You must complete this multibox implementation
+${indent}<html:$widgetType name="form" property="$field.multiboxPropertyName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
+#set ($multiboxBody = "form.${fieldName}")
+${indent}    ${${multiboxBody}}
 ${indent}</html:$widgetType>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
@@ -175,5 +176,33 @@ ${indent}<html:$widgetType property="$fieldName"/>
 ${indent}<html:select property="$selectProperty" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled $multiple>
 ${indent}   <html:optionsCollection name="form" property="$field.backingListName" label="label" value="value"/>
 ${indent}</html:select>
+##
+##      L I N K     (will only work on tablelinks, this is ensured by the facade)
+##
+#elseif ($widgetType == 'link')
+#foreach ($parameter in $field.action.actionParameters)
+## Only add the parameter to the request if its been explicity set
+## as a table link
+#if ($parameter.tableLinkColumnName)
+#set ($propertyName = "row.${parameter.tableLinkColumnName}")
+#else
+#set ($propertyName = "form.${parameter.name}")
+#end
+#if ($velocityCount == 1)
+#set ($requestPath = "${field.action.actionPath}?${parameter.name}=${${propertyName}}")
+#else
+#set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
+#end
+#end
+${indent}<html:link action="${requestPath}">
+#set ($linkName = "row.${field.tableLinkColumnName}")
+${indent}    ${${linkName}}
+${indent}</html:link>
+##
+##      P L A I N T E X T
+##
+#else
+#set ($plainText = "form.${fieldName}")
+${indent}${${plainText}}
 #end
 #end
