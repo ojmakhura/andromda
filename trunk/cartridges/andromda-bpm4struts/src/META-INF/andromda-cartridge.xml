@@ -1,9 +1,9 @@
 <cartridge name="bpm4struts">
 
-	<templateEngine>
-	    <!-- library of macros used in template engine -->
-        <macrolibrary name="templates/StrutsJSP.vm" />
-        <macrolibrary name="templates/StrutsAction.vm" />
+    <templateEngine>
+        <!-- library of macros used in template engine -->
+        <macrolibrary name="templates/StrutsJSP.vm"/>
+        <macrolibrary name="templates/StrutsAction.vm"/>
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
@@ -11,7 +11,7 @@
 
     <!-- define template external properties -->
     <property reference="security" default="false"/>
-	<property reference="xhtml" default="false"/>
+    <property reference="xhtml" default="false"/>
     <property reference="securityRealm" default="other"/>
 
     <!-- copy resources -->
@@ -112,7 +112,8 @@
         path="templates/StrutsFormValidationRules.vsl"
         outputPattern="validator-rules.xml"
         outlet="configuration"
-        overwrite="true">
+        overwrite="true"
+        generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -173,7 +174,7 @@
         outputPattern="struts-plugins.xml"
         outlet="xdoclet-merge"
         overwrite="true"
-        generateEmptyFiles="true">
+        generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
