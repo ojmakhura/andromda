@@ -252,4 +252,20 @@ public class StringUtilsHelper extends StringUtils {
 
         return formattedBuffer.toString();
     }
+
+    /**
+     * Converts multiline text into a single line, normalizing whitespace in the process. This means
+     * whitespace characters will not follow eachother directly.
+     * <p>
+     * The resulting String will be trimmed.
+     * <p>
+     * If the input String is null the return value will be null too.
+     *
+     * @param multiLine A multiline String, may be null
+     * @return The argument in a single line
+     */
+    public static String toSingleLine(String multiLine)
+    {
+        return (multiLine == null) ? null : multiLine.replaceAll("[$\\s]+"," ").trim();
+    }
 }
