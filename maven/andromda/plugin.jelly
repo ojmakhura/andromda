@@ -247,7 +247,7 @@
 		</ant:copy>
         	
         <attainGoal name="andromda:generate-app-subproject"/>
-        <attainGoal name="andromda:generate-${peristenceType}-subproject"/>
+        <attainGoal name="andromda:generate-${persistenceType}-subproject"/>
         <attainGoal name="andromda:generate-common-subproject"/>
         <attainGoal name="andromda:generate-mda-subproject"/>
         <attainGoal name="andromda:generate-web-subproject"/>
@@ -277,9 +277,9 @@
 	      template="/src/uml/model.xmi.vm"/>	
 		
 	    <velocity:merge 
-	      name="${mdaDir}/project-${persistenceType}.xml"
+	      name="${mdaDir}/project.xml"
 	      basedir="${mdaTemplatesDir}"
-	      template="project.xml.vm"/>	
+	      template="project-${persistenceType}.xml.vm"/>	
 	      
 	    <velocity:merge 
 	      name="${mdaDir}/project.properties"
@@ -300,7 +300,7 @@
 	<goal name="andromda:generate-app-subproject"
 		  prereqs="andromda:genapp-init">
 		
-		<j:set var="appDir" value="${generateProjectId}/app"/>
+		<j:set var="appDir" value="${projectId}/app"/>
 		
 		<j:set var="appTemplatesDir" value="${templatesDir}/app"/>
 		
@@ -345,7 +345,7 @@
 		
 		<j:set var="hibernateDir" value="${projectId}/hibernate"/>
 		
-		<j:set var="hibernateTemplatesDir" value="${templateDir}/hibernate"/>
+		<j:set var="hibernateTemplatesDir" value="${templatesDir}/hibernate"/>
 	      
 		<!-- the base hibernate module -->
 		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}"/>
@@ -400,8 +400,8 @@
 		  prereqs="andromda:genapp-init">
 		
 		<j:set var="moduleName" value="ejb"/>
-		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
-		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
+		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
 		
 	</goal>
@@ -413,8 +413,8 @@
 		  prereqs="andromda:genapp-init">
 		
 		<j:set var="moduleName" value="web"/>
-		<j:set var="moduleTemplatesDir" value="${templateDir}/${moduleName}"/>
-		<j:set var="moduleDir" value="${templateDir}/${moduleName}"/>
+		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
 		
 	</goal>
@@ -433,19 +433,19 @@
         		question="Please enter the id for your J2EE project (i.e. animalquiz):" 
         		answer="projectId"/>
     	</j:while>
-  		<j:while test="${empty(projectId)}">
+  		<j:while test="${empty(basePackageNameId)}">
         	<i:ask 
         		question="Please enter the base package name for your J2EE project (i.e. org.andromda.samples):" 
         		answer="basePackageName"/>
     	</j:while>
-  		<j:while test="${empty(persistenceType) and 
-  			            (persistenceType ne 'hibernate' or persistenceType ne 'ejb')}">
+  		<j:while test="${empty(persistenceType) or
+  			            (persistenceType ne 'hibernate' and persistenceType ne 'ejb')}">
         	<i:ask 
         		question="Please enter the type of persistence package to use (enter 'hibernate' or 'ejb'):" 
         		answer="persistenceType"/>
     	</j:while>
     	
-    	<j:set var="packageName" value="${basePackageName}.${projectId}"/>
+    	<j:set var="projectPackage" value="${basePackageName}.${projectId}"/>
 
       	<j:new 
       		var="stringUtils" 
@@ -459,7 +459,10 @@
         	oldChar="." 
         	newChar="/"/>
         	
-         <j:set var="templatesDir" value="${plugin.resources}/andromda/templates/j2ee-app"/>
+        <!-- set the groupId so that it isn't filled by the default provided by maven -->
+		<j:set var="dummy" value="${pom.setGroupId('${pom.groupId}')}"/>
+        	
+        <j:set var="templatesDir" value="${plugin.resources}/andromda/templates/j2ee-app"/>
 	</goal>
 	
 </project>

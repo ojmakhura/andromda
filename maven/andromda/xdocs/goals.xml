@@ -5,13 +5,20 @@
     	<title>Maven AndroMDA Plug-in Goals</title>
   	</properties>
   	<body>
-	    <goals>
-	      <goal>
-	        <name>andromda:run</name>
-	        <description>	
-	        	Runs the AndroMDA processor with cartridges found on your CLASSPATH.
-	        </description>
-	      </goal>
-    	</goals>
+		<goals>
+			<goal>
+				<name>andromda:run</name>
+				<description> 
+					Runs the AndroMDA processor with cartridges found 
+					on your CLASSPATH. 
+				</description>
+			</goal>
+			<goal>
+				<name>andromda:genapp</name>
+				<description> 
+					Generates a AndroMDA Maven J2EE application.
+				</description>
+			</goal>
+		</goals>
   	</body>
 </document>
