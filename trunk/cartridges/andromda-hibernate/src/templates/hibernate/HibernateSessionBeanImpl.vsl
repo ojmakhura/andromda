@@ -11,7 +11,6 @@ public class ${class.name}BeanImpl
     // abstract in class ${class.name}Bean ...
 
 #foreach ( $operation in $class.operations)
-#set ($msig = $operation.signature)
 
 ##
 ##  Add one additional parameter to the list of parameters:
@@ -27,9 +26,11 @@ public class ${class.name}BeanImpl
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.hasExceptions())
     protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
-        throws $operation.exceptionList {
+        throws $operation.exceptionList 
+    {
 #else
-    protected $returnType handle${str.capitalize(${operation.name})} ($parameters) {
+    protected $returnType handle${str.capitalize(${operation.name})} ($parameters) 
+    {
 #end
         // TODO: put your implementation here.
 #if ("void" != $returnType)
@@ -52,23 +53,18 @@ public class ${class.name}BeanImpl
 
     public void setSessionContext(javax.ejb.SessionContext ctx)
     {
-        //Log.trace("${class.name}Bean.setSessionContext...");
         super.setSessionContext (ctx);
     }
 
     public void ejbRemove()
     {
-        //Log.trace(
-        //    "${class.name}Bean.ejbRemove...");
     }
 
     public void ejbPassivate()
     {
-        //Log.trace("${class.name}Bean.ejbPassivate...");
     }
 
     public void ejbActivate()
     {
-        //Log.trace("${class.name}Bean.ejbActivate...");
     }
 }
