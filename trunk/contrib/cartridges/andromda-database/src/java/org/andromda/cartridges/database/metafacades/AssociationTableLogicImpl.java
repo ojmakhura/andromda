@@ -72,6 +72,14 @@ public class AssociationTableLogicImpl
             buffer.toString(),
             this.getMaxSqlNameLength());
     }
+    
+    /**
+     * @see org.andromda.cartridges.database.metafacades.AssociationTable#isForeignKeyColumnsPresent()
+     */
+    protected boolean handleIsForeignKeyColumnsPresent()
+    {
+        return !this.getForeignKeyColumns().isEmpty();
+    }
 
     /**
      * Gets the maximum name length SQL names may be

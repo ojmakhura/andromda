@@ -162,7 +162,7 @@ public class TableLogicImpl
      */
     protected boolean handleIsForeignKeyColumnsPresent()
     {
-        return getForeignKeyColumns().isEmpty() == false;
+        return !this.getForeignKeyColumns().isEmpty();
     }
 
     /**
