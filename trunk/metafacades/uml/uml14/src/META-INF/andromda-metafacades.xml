@@ -11,6 +11,7 @@
     <property reference="maxSqlNameLength" default="30"/>
     <property reference="tableNamePrefix" default=""/>
     <property reference="foreignKeySuffix" default="_FK"/>
+    <property reference="constraintSuffix" default="C"/>
     <property reference="sqlNameSeparator" default="_"/>
     <property reference="roleNameMask" default="none"/>
     <property reference="enableMetafacadePropertyCaching" default="true"/>
