@@ -52,9 +52,9 @@
                         Specifies the path to the directory location of your case 
                         tool's model file(s).
                         <strong>NOTE:</strong> if this
-                        is NOT specified, you'll need to specify the
-                        <a href="#modelURL">modelURL</a>
-                        property to give the URL of a single model to load.
+                        is NOT specified, you'll need to specify one or 
+                        more nested <a href="#model"><![CDATA[<model/>]]></a>
+                        elements to give the location(s) of the model(s) to load.
                     </td>
                     <td>
                         Yes (unless modelURL is used).
