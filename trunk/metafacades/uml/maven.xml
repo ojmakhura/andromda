@@ -43,13 +43,22 @@
 					location="${andromda.metafacade.generated.dir}"/>
 				<maven:addPath
 					id="maven.compile.src.set"
-					refid="metafacade.generated.src"/>     		     
-				<ant:path
-					id="metafacade.manual.src"
-					location="${andromda.metafacade.manual.dir}"/>
-				<maven:addPath
-					id="maven.compile.src.set"
-					refid="metafacade.manual.src"/>      	
+					refid="metafacade.generated.src"/>     	
+				   
+				<j:set var="manualSourceDir" value="${andromda.metafacade.manual.dir}"/>
+				<j:if test="${manualSourceDir != null and manualSourceDir != ''}">
+					<ant:available 
+						property="manualSourcesPresent" 
+						file="${manualSourceDir}"/>   
+					<j:if test="${manualSourcesPresent}">       	     
+						<ant:path
+							id="metafacade.manual.src"
+							location="${andromda.metafacade.manual.dir}"/>
+						<maven:addPath
+							id="maven.compile.src.set"
+							refid="metafacade.manual.src"/>     
+					</j:if>   
+				</j:if>	    	
 			</j:if>
 		</j:if>
 		<j:set var="lastBuildDir" value="${currentBuildDir}"/>
