@@ -1266,8 +1266,8 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetValidWhen()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
-        return value == null ? null : value.toString();
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
+        return value == null ? null : '('+value.toString()+')';
     }
 
     /**
