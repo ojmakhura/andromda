@@ -172,7 +172,9 @@
         outlet="controllers"
         overwrite="true">
         <modelElements variable="sessionObject">
-            <modelElement stereotype="FrontEndSessionObject"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObject"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -182,7 +184,9 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="jsp">
-            <modelElement stereotype="FRONT_END_VIEW"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -192,7 +196,9 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="jsp">
-            <modelElement stereotype="FRONT_END_VIEW"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -203,7 +209,11 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -214,7 +224,11 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -230,7 +244,11 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -240,7 +258,11 @@
         outlet="messages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -250,7 +272,11 @@
         outlet="messages"
         overwrite="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -260,9 +286,12 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements>
-            <modelElement stereotype="FRONT_END_APPLICATION" variable="applicationUseCases"/>
-            <modelElement stereotype="FRONT_END_CONTROLLER" variable="controllers"/>
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -276,11 +305,7 @@
         path="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
         outlet="pages"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
-        </modelElements>
-    </template>
+        overwrite="true"/>
 
     <template
         path="templates/StrutsMenuJsp.vsl"
@@ -288,7 +313,11 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -296,21 +325,13 @@
         path="templates/StrutsMainLayoutJsp.vsl"
         outputPattern="layout/main-layout.jsp"
         outlet="pages"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
-        </modelElements>
-    </template>
+        overwrite="true"/>
 
     <template
         path="templates/StrutsTilesDefs.vsl"
         outputPattern="tiles-defs.xml"
         outlet="configuration"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
-        </modelElements>
-    </template>
+        overwrite="true"/>
 
     <template
         path="templates/StrutsConfigXml.vsl"
@@ -318,7 +339,11 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -329,7 +354,11 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 -->
@@ -340,7 +369,11 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -348,21 +381,13 @@
         path="templates/StrutsApplicationCss.vsl"
         outputPattern="layout/default-application.css"
         outlet="pages"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
-        </modelElements>
-    </template>
+        overwrite="true"/>
 
     <template
         path="templates/StrutsCss.vsl"
         outputPattern="layout/default.css"
         outlet="pages"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
-        </modelElements>
-    </template>
+        overwrite="true"/>
 
     <template
         path="templates/StrutsJspCss.vsl"
@@ -371,7 +396,9 @@
         overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="page">
-            <modelElement stereotype="FRONT_END_VIEW"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -381,7 +408,11 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -391,11 +422,7 @@
         outlet="server"
         overwrite="true"
         required="false"
-        generateEmptyFiles="false">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
-        </modelElements>
-    </template>
+        generateEmptyFiles="false"/>
 
     <template
         path="templates/StrutsRolesProperties.vsl"
@@ -405,7 +432,11 @@
         required="false"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -444,9 +475,26 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="jsp">
-            <modelElement stereotype="FRONT_END_VIEW"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
         </modelElements>
     </template>
+
+<!--
+    <template
+        path="templates/StrutsUseCaseJspHelp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="useCase">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase"/>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
 
     <template
         path="templates/StrutsApplicationHelp.vsl"
@@ -455,7 +503,11 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FRONT_END_APPLICATION"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
