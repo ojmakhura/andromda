@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 
 
 /**
@@ -108,11 +109,10 @@ public class StrutsUseCaseLogicImpl
          * In case there is a tagged value pointing to an activity graph, and this graph is found,
          * then return it.
          */
-/* @todo: commented out, MUST BE ENABLED LATER
         final Object activity = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USECASE_ACTIVITY);
         if (activity != null)
         {
-            String activityName = activity.toString();
+            String activityName = String.valueOf(activity.toString());
             Collection activityGraphs = getModel().getAllActivityGraphs();
             for (Iterator iterator = activityGraphs.iterator(); iterator.hasNext();)
             {
@@ -125,7 +125,6 @@ public class StrutsUseCaseLogicImpl
                 }
             }
         }
-*/
 
         /*
          * Otherwise just take the first one in this use-case's namespace.
