@@ -681,7 +681,7 @@
         </p>
         <p class="highlight">
             Another VERY useful application of these properties, is to determine when and when not to
-            output a file (for example you may only want output a WSDL for a web service that has <strong>at least</strong>
+            output a file (for example you may only want to output a WSDL for a web service that has <strong>at least</strong>
             one exposed operation), so in that case you'd map a nested property checking for the exposed operations like
             the example directly below:
 <source language="xml"><![CDATA[
