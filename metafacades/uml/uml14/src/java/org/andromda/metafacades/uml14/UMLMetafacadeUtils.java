@@ -412,7 +412,7 @@ public class UMLMetafacadeUtils
                 for (Iterator valueIterator = taggedValue.getDataValue()
                     .iterator(); valueIterator.hasNext() && !tagPresent;)
                 {
-                    DataValue dataValue = (DataValue)valueIterator.next();
+                    Object dataValue = valueIterator.next();
                     if (value.equals(dataValue))
                     {
                         tagPresent = true;
