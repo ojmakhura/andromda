@@ -7,12 +7,13 @@
 <taglib>
     <tlib-version>1.2</tlib-version>
     <jsp-version>2.0</jsp-version>
+    <short-name>breadcrumbs</short-name>
     <uri>http://www.andromda.org/tags-breadcrumbs</uri>
 
     <tag>
         <name>add</name>
-        <body-content>empty</body-content>
         <tag-class>org.andromda.taglibs.breadcrumbs.AddTag</tag-class>
+        <body-content>empty</body-content>
         <description>
             This tag adds a breadcrumb to the user's session. If the session would not
             yet contain breadcrumbs they will be initialized before adding this one.
@@ -31,8 +32,8 @@
 
     <tag>
         <name>define</name>
-        <body-content>empty</body-content>
         <tag-class>org.andromda.taglibs.breadcrumbs.DefineTag</tag-class>
+        <body-content>empty</body-content>
         <description>
             Defines a variable in the page context that will reference the breadcrumbs.
             Any variable in that scope with the same name will be redefined.
@@ -64,8 +65,8 @@
 
     <tag>
         <name>resize</name>
-        <body-content>empty</body-content>
         <tag-class>org.andromda.taglibs.breadcrumbs.ResizeTag</tag-class>
+        <body-content>empty</body-content>
         <description>
             This tag ensures the size of the breadcrumb collection. If the
             size would be equal to the current size this tag will do nothing.

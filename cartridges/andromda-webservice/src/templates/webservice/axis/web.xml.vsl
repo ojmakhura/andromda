@@ -39,7 +39,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
-        <url-pattern>$servicesPath*</url-pattern>
+        <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SOAPMonitorService</servlet-name>
@@ -66,12 +66,12 @@
         <extension>xsd</extension>
         <mime-type>text/xml</mime-type>
     </mime-mapping>
-    <welcome-file-list id="WelcomeFileList">
+    <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.jws</welcome-file>
     </welcome-file-list>
-#parse("templates/webservice/axis/AxisGlobals.vm")    
+#parse("templates/webservice/axis/AxisGlobals.vm")
 #if ($securityEnabled)
 #foreach ($service in $services)
 #if ($service.secured)
@@ -81,7 +81,7 @@
             <description>
                 Secures the $service.name web service.
             </description>
-            <url-pattern>${servicesPath}${service.name}</url-pattern>
+            <url-pattern>/services/${service.name}</url-pattern>
         </web-resource-collection>
         <auth-constraint>
 #foreach ($role in $service.allRoles)

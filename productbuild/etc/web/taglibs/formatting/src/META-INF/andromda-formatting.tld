@@ -7,12 +7,13 @@
 <taglib>
     <tlib-version>1.2</tlib-version>
     <jsp-version>2.0</jsp-version>
+    <short-name>formatting</short-name>
     <uri>http://www.andromda.org/tags-formatting</uri>
 
     <tag>
         <name>escape</name>
-        <body-content>JSP</body-content>
         <tag-class>org.andromda.taglibs.formatting.EscapeTag</tag-class>
+        <body-content>JSP</body-content>
         <description>
             This tag adds allows you to escape a string to a certain platform.
         </description>
