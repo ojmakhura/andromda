@@ -1,0 +1,189 @@
+main.title=$applicationUseCase.name
+
+breadcrumbs.error=Error on page
+required.fields.asterisk=Fields marked with an asterisk are required
+online.help.href=Help
+online.help.main=Overview
+online.help.close=Close
+online.help.title=Online Help:
+online.help.inputfield=Field
+online.help.description=Description
+
+#
+#   Messages for the menu
+#
+menu.usecases.title=Other links
+
+#
+#   Messages for the calendar
+#
+calendar.title=Calendar
+calendar.popup=Click here to popup a calendar to choose the date from
+calendar.error.no.target=Error calling the calendar: no target control specified
+calendar.error.no.param.target=Error calling the calendar: parameter specified is not valid target control
+calendar.next.year=next year
+calendar.next.month=next month
+calendar.previous.year=previous year
+calendar.previous.mont=previous month
+
+
+month.0=January
+month.1=February
+month.2=March
+month.3=April
+month.4=May
+month.5=June
+month.6=July
+month.7=August
+month.8=September
+month.9=October
+month.10=November
+month.11=December
+
+day.0=Mo
+day.1=Tu
+day.2=We
+day.3=Th
+day.4=Fr
+day.5=Sa
+day.6=Su
+
+#
+#   Messages for the login page
+#
+login.title=Login
+login.username=User
+login.password=Password
+login.failed=Login failed, please try again
+login.submit=Login
+login.submit.title=Click to submit these credentials
+login.reset=Reset
+login.reset.title=Click to reset these credentials
+
+login.error=Login failed, please try again or register as a new user.
+
+login.howto.title=How to login
+login.howto=If you are a registered user you simply enter your \
+user name and password and click on the submit button. \
+In case this is your first time, you should register yourself to the system.
+
+login.register.user=Register a new user
+login.login.user=Log in a registered user
+
+login.na=This feature is not available yet
+
+#
+#   Messages for the validator plugin
+#
+errors.required={0} is required.
+errors.minlength={0} can not be less than {1} characters.
+errors.maxlength={0} can not be greater than {1} characters.
+errors.invalid={0} is invalid.
+
+errors.byte={0} must be a byte.
+errors.short={0} must be a short.
+errors.integer={0} must be an integer.
+errors.long={0} must be a long.
+errors.float={0} must be a float.
+errors.double={0} must be a double.
+
+errors.date={0} is not a date.
+errors.range={0} is not in the range {1} through {2}.
+errors.creditcard={0} is an invalid credit card number.
+errors.email={0} is an invalid e-mail address.
+errors.url={0} is an invalid URL.
+
+#set ($useCases = $applicationUseCase.allUseCases)
+
+#foreach ($useCase in $useCases)
+#
+#
+#   USE-CASE:   $useCase.titleValue
+#
+#
+$useCase.titleKey=$useCase.titleValue
+$useCase.onlineHelpKey=$useCase.onlineHelpValue
+
+#foreach ($page in $useCase.pages)
+#
+#   PAGE:       $page.titleValue
+#
+$page.titleKey=$page.titleValue
+$page.messageKey=$page.messageValue
+$page.onlineHelpKey=$page.onlineHelpValue
+$page.documentationKey=$page.documentationValue
+
+#set ($pageVariable = $page.pageVariables)
+#if (!$pageVariables.empty)
+#   PAGE-VARIABLES
+#foreach ($pageVariable in $page.pageVariables)
+${page.titleKey}.${pageVariable.messageKey}=${pageVariable.messageValue}
+#if ($pageVariable.table)
+#foreach ($columnName in $pageVariable.tableColumnNames)
+${page.titleKey}.$pageVariable.getTableColumnMessageKey($columnName)=$pageVariable.getTableColumnMessageValue($columnName)
+#end
+#end
+#end
+#end
+
+#foreach ($action in $page.actions)
+#set ($messageKey = $action.messageKey)
+#set ($actionTrigger = $action.actionTrigger)
+#   ACTION:     $action.actionTrigger.triggerValue
+$action.onlineHelpKey=$action.onlineHelpValue
+$action.documentationKey=$action.documentationValue
+#foreach ($transition in $action.transitions)
+#foreach ($message in $transition.successMessages.entrySet())
+$message.key=$message.value
+#end
+#foreach ($message in $transition.warningMessages.entrySet())
+$message.key=$message.value
+#end
+#end
+$actionTrigger.triggerKey=$actionTrigger.triggerValue
+$actionTrigger.titleKey=$actionTrigger.titleValue
+$actionTrigger.notAllowedTitleKey=$actionTrigger.notAllowedTitleValue
+$actionTrigger.resetTitleKey=$actionTrigger.resetTitleValue
+$actionTrigger.resetMessageKey=$actionTrigger.resetMessageValue
+$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllowedTitleValue
+
+#set ($actionParameters = $action.actionParameters)
+#if (!$actionParameters.empty)
+#   ACTION-PARAMETERS
+#foreach ($field in $action.actionParameters)
+$field.messageKey=$field.messageValue
+$field.titleKey=$field.titleValue
+$field.onlineHelpKey=$field.onlineHelpValue
+$field.documentationKey=$field.documentationValue
+#if ($field.optionCount > 0)
+#set ($optionKeys = $field.optionKeys)
+#set ($optionValues = $field.optionValues)
+#foreach ($optionKey in $optionKeys)
+#set ($count = $velocityCount - 1)
+${optionKey}=$optionValues.get($count)
+${optionKey}.title=$optionValues.get($count)
+#end
+#end
+#end
+
+#end
+
+#set ($actionExceptions = $action.actionExceptions)
+#if (!$actionExceptions.empty)
+#   ACTION-EXCEPTIONS
+#end
+#foreach ($exception in $action.actionExceptions)
+${messageKey}.$exception.exceptionKey={0} ($exception.exceptionType)
+#end
+#if ($actionExceptions.empty && !$action.useCaseStart)
+${messageKey}.exception={0} (java.lang.Exception)
+#end
+
+#end ## for each action
+
+
+#end ## for each page
+
+
+
+#end ## for each use-case

@@ -1,0 +1,44 @@
+<%@ include file="/taglib-imports.jspf" %>
+
+#if ($xhtml == "true")
+<html:xhtml/>
+
+#end
+<div id="messages">
+    <logic:messagesPresent message="false">
+        <div class="errors">
+            <ul>
+	            <html:messages id="error" message="false">
+	                <div class="error"><li>${error}</li></div>
+	            </html:messages>
+            </ul>
+        </div>
+    </logic:messagesPresent>
+    <logic:messagesPresent name="$errorMessagesKey">
+        <div class="errors">
+            <ul>
+                <html:messages id="error" name="$errorMessagesKey" bundle="$customResourcesKey">
+                    <div class="error"><li>${error}</li></div>
+                </html:messages>
+            </ul>
+        </div>
+    </logic:messagesPresent>
+    <logic:messagesPresent name="$warningMessagesKey">
+        <div class="warnings">
+            <ul>
+                <html:messages id="warning" name="$warningMessagesKey">
+                    <div class="warning"><li>${warning}</li></div>
+                </html:messages>
+            </ul>
+        </div>
+    </logic:messagesPresent>
+    <logic:messagesPresent name="$successMessagesKey">
+        <div class="messages">
+            <ul>
+                <html:messages id="message" name="$successMessagesKey">
+                    <div class="message"><li>${message}</li></div>
+                </html:messages>
+            </ul>
+        </div>
+    </logic:messagesPresent>
+</div>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+#if ($generateWebXmlIds=="true")
+         id="webapp"
+#end
+         version="2.4">
+
+    <!-- context-param merge-point -->
+
+    <!-- filter merge-point -->
+#if ($generateWebXmlIds=="true")
+    <filter id="filter_1">
+#else
+    <filter>
+#end
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+    </filter>
+
+    <!-- filter-mapping merge-point -->
+#if ($generateWebXmlIds=="true")
+    <filter-mapping id="filter_mapping_1">
+#else
+    <filter-mapping>
+#end
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+#if ($generateWebXmlIds=="true")
+    <filter-mapping id="filter_mapping_2">
+#else
+    <filter-mapping>
+#end
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <!-- servlet merge-point -->
+#if ($generateWebXmlIds=="true")
+    <servlet id="servlet_struts">
+#else
+    <servlet>
+#end
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>3</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>3</param-value>
+        </init-param>
+        <init-param>
+            <param-name>validate</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- precompilation merge-point -->
+    <!-- servlet-mapping merge-point -->
+#if ($generateWebXmlIds=="true")
+    <servlet-mapping id="servlet_mapping_default">
+#else
+    <servlet-mapping>
+#end
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+#if ($generateWebXmlIds=="true")
+    <welcome-file-list id="welcome_file_list">
+#else
+    <welcome-file-list>
+#end
+        <!-- welcome-file-list merge-point -->
+        <welcome-file>$welcomeFileName</welcome-file>
+    </welcome-file-list>
+    
+    <!-- error-page merge-point -->
+
+#if ($security == "true")
+##
+## We don't use security-role-refs at this point, maybe in a later step
+##
+    <!-- security-constraint merge-point -->
+#set ($counter = 0)
+#foreach ($applicationUseCase in $applicationUseCases)
+#foreach ($useCase in $applicationUseCase.allUseCases)
+#if ($generateWebXmlIds=="true")
+#set ($counter = $counter + 1)
+    <security-constraint id="security_constraint_$counter">
+#else
+    <security-constraint>
+#end
+        <web-resource-collection>
+            <web-resource-name>$useCase.name resources</web-resource-name>
+            <description>
+                This collection bundles all pages and resources
+                as well as the actions called in the "$useCase.name" use-case
+            </description>
+            <url-pattern>/${useCase.packagePath}/*</url-pattern>
+            <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+#foreach ($user in $useCase.users)
+            <role-name>$user.name</role-name>
+#end
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+#end
+
+#if ($generateWebXmlIds=="true")
+    <login-config id="login_config">
+#else
+    <login-config>
+#end
+        <auth-method>FORM</auth-method>
+#if ($securityRealm)
+        <realm-name>$securityRealm</realm-name>
+#end
+        <form-login-config>
+            <form-login-page>/login/login-form.jsp</form-login-page>
+            <form-error-page>/login/login-form.jsp?action=error</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- security-role merge-point -->
+#set ($counter = 0)
+#foreach ($user in $applicationUseCase.allUsers)
+#if ($generateWebXmlIds=="true")
+#set ($counter = $counter + 1)
+    <security-role id="security_role_$counter">
+#else
+    <security-role>
+#end
+        <role-name>$user.name</role-name>
+    </security-role>
+#end
+
+#end
+#end
+</web-app>
+

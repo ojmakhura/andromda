@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="$xmlEncoding" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+    "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="main.layout" page="/layout/main-layout.jsp">
+        <put name="title" type="string" value=""/>
+        <put name="style" type="string" value=""/>
+        <put name="javascript" type="string" value=""/>
+        <put name="body" type="string" value=""/>
+        <put name="menu" type="definition" value="menu.tile"/>
+        <put name="messages" type="definition" value="messages.tile"/>
+#if ($maxBreadCrumbs != "0")
+        <put name="breadcrumbs" type="definition" value="breadcrumbs.tile"/>
+#end
+    </definition>
+
+    <definition name="login.layout" extends="main.layout">
+        <put name="messages" type="string" value=""/>
+    </definition>
+
+    <definition name="menu.tile" page="/layout/menu.jsp"/>
+
+    <definition name="messages.tile" page="/layout/messages.jsp"/>
+
+#if ($maxBreadCrumbs != "0")
+    <definition name="breadcrumbs.tile" page="/layout/breadcrumbs.jsp"/>
+
+#end
+#if ($onlineHelp == "true")
+    <definition name="help.layout" page="/layout/help-layout.jsp"/>
+
+#end
+</tiles-definitions>

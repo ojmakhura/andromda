@@ -1,0 +1,88 @@
+#parse("templates/bpm4struts/pages/page.jsp.vm")
+#set ($generatedFile = "${action.fullTilePath}.jsp")
+##
+##
+#if (!$action.useCaseStart)## we don't generate tiles for events that do not have an input page
+##
+#set ($clientValidationDesired = ($clientValidation=='true'))
+#set ($requiredness = ($clientValidationDesired || $serverValidation=='true'))
+#set ($formBeanName = $action.formBeanName)
+#set ($actionParameters = $action.actionParameters)
+#set ($hints = $hints.equalsIgnoreCase("true"))
+#set ($formBeanType = $action.formBeanType)## this will be the name of the form, as used in this page
+<%@ include file="/taglib-imports.jspf" %>
+
+#if ($xhtml == "true")
+<html:xhtml/>
+
+#end
+
+#set ($messageKey = $action.messageKey)
+#set ($actionTrigger = $action.actionTrigger)
+<div id="$action.styleId" class="action">
+    <h3><bean:message key="${actionTrigger.triggerKey}"/></h3>
+    <div class="trigger">
+#if ($action.hyperlink)
+#renderHyperlink($action "        ")
+#elseif ($action.formPost)
+#if ($clientValidationDesired && $action.validationRequired)
+#set ($onsubmit = "return ${action.formValidationMethodName}(this);")
+#else
+#set ($onsubmit = "")
+#end
+        <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
+
+#foreach ($field in $actionParameters)
+#if ($field.widgetType == "hidden")
+#renderFormField($action $field "            ")
+#end
+#end
+            <table>
+                <tbody>
+#foreach ($field in $actionParameters)
+#if (!$field.multiboxPropertyName && ($field.widgetType != "hidden"))
+## for now multibox field can only be displayed in tables
+                    <tr class="$field.name">
+                        <td class="label"><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
+</td>
+                        <td class="field">
+#renderFormField($action $field "                           ")
+                        </td>
+                    </tr>
+#end
+#end
+                    <tr>
+                        <td>
+#renderFormButtons($action "                           ")
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </html:form>
+#if ($action.calendarRequired)
+        <script type="text/javascript" language="Javascript1.1">
+#if ($xhtml == "true")
+        //<![CDATA[
+#else
+        //<!--
+#end
+#foreach ($field in $actionParameters)
+#if ($field.calendarRequired)
+           var ${action.formBeanName}_${field.name}Calendar = new calendar1(document.forms['$action.formBeanName'].elements['$field.name']);
+           ${action.formBeanName}_${field.name}Calendar.date_format = '$field.dateFormat';
+#end
+#end
+#if ($xhtml == "true")
+        //]]>
+#else
+        //-->
+#end
+        </script>
+#end
+#end
+    </div>
+
+</div>
+
+<br class="clr"/>
+#end

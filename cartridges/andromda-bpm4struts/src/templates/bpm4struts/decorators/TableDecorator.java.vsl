@@ -1,0 +1,15 @@
+#set ($generatedFile = "${table.tableDecoratorFullPath}.java")
+package $table.tableDecoratorPackageName;
+
+import org.displaytag.decorator.TableDecorator;
+
+/**
+ * This is a <a href="http://displaytag.sourceforge.net">displaytag</a> table decorator, per column you may add
+ * a getter accessor to perform additional processing.
+ */
+public class ${table.tableDecoratorClassName} extends TableDecorator
+{
+    public ${table.tableDecoratorClassName}()
+    {
+    }
+}
