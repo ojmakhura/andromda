@@ -625,7 +625,7 @@
 						<td>
 	                        If EJBs are being used, this specifies the pattern to be 
 							used when constructing the EJB package name 
-                            (this allows a Spring Service to be wrapped by this Session EJB)
+                            (this allows a Spring Service to be wrapped by a Session EJB
                             and avoids name conflicts).  The <em>{0}</em> character
 							represents the service package name.  This could be something like
 							<em>{0}.ejb</em> which would create the Spring Session EJBs in the
