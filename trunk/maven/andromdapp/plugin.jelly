@@ -335,14 +335,12 @@
         <j:set var="spring" value="${persistenceType == 'spring'}"/>
         <j:set var="webservice" value="${exposeAsWebService == 'yes'}"/>
 
-        <j:set var="projectPackage" value="${baseProjectPackage}.${projectId}"/>
-
         <j:new
           var="stringUtils"
             className="org.apache.commons.lang.StringUtils"/>
 
         <j:set var="projectId" value="${stringUtils.deleteWhitespace(projectId)}"/>
-
+        <j:set var="projectPackage" value="${baseProjectPackage}.${projectId}"/>
         <j:set var="projectNameNoWhitespace" value="${stringUtils.deleteWhitespace(projectName)}"/>
 
         <util:replace
