@@ -1,10 +1,8 @@
 package org.andromda.adminconsole.config;
 
 import org.andromda.adminconsole.config.xml.*;
-import org.andromda.adminconsole.db.*;
 
 import java.io.*;
-import java.sql.SQLException;
 import java.util.*;
 
 public class AdminConsoleConfigurator implements Serializable
@@ -12,15 +10,14 @@ public class AdminConsoleConfigurator implements Serializable
     public final static String FILE_NAME = "admin-console.cfg.xml";
     private final static String DEFAULT_CFG = "default.cfg.xml";
 
-    private AdminConsole configuration = null;
-    private final WidgetRenderer widgetRenderer = new WidgetRenderer();
+    private boolean unconfiguredTablesAvailable = false;
+    private boolean arbitraryUrlAllowed = false;
 
-    private List knownUrls = null;
-    private List knownTables = null;
+    private final List knownDatabaseUrls = new ArrayList();
+    private final List knownDatabaseTableNames = new ArrayList();
 
     private final Map tableCache = new HashMap();
     private final Map columnCache = new HashMap();
-    //private final Map jspCache = new HashMap(); // @todo: use
 
     /**
      * Constructs the configuration by first trying to load the file <code>admin-console.cfg.xml</code>
@@ -30,7 +27,7 @@ public class AdminConsoleConfigurator implements Serializable
      */
     public AdminConsoleConfigurator() throws Exception
     {
-        configuration = loadConfiguration(FILE_NAME);
+        AdminConsole configuration = loadConfiguration(FILE_NAME);
         if (configuration == null)
         {
             configuration = loadConfiguration(DEFAULT_CFG);
@@ -39,280 +36,54 @@ public class AdminConsoleConfigurator implements Serializable
         {
             throw new Exception("No configuration could be found, please put "+FILE_NAME+" on the classpath");
         }
+        initialize(configuration);
     }
 
-    /**
-     * Returns the list of URLs as configured.
-     * @return a List of String instances
-     */
+    public TableConfiguration getTableConfiguration(String tableName)
+    {
+        TableConfiguration configuration = (TableConfiguration) tableCache.get(tableName);
+        if (configuration == null)
+        {
+            configuration = new TableConfiguration();
+            configuration.setName(tableName);
+            tableCache.put(tableName, configuration);
+        }
+        return configuration;
+    }
+
+    public ColumnConfiguration getColumnConfiguration(String tableName, String columnName)
+    {
+        ColumnConfiguration configuration = (ColumnConfiguration) columnCache.get(new ColumnCacheKey(tableName, columnName));
+        if (configuration == null)
+        {
+            configuration = new ColumnConfiguration();
+            configuration.setName(columnName);
+            columnCache.put(columnName, configuration);
+        }
+        return configuration;
+    }
+
     public List getKnownDatabaseUrls()
     {
-        if (knownUrls == null)
-        {
-            knownUrls = new ArrayList();
-            ConsoleConfiguration consoleConfiguration = configuration.getConsoleConfiguration();
-            if (consoleConfiguration != null)
-            {
-                DatabaseUrls databaseUrls = consoleConfiguration.getDatabaseUrls();
-                if (databaseUrls != null)
-                {
-                    knownUrls.addAll(Arrays.asList(databaseUrls.getUrl()));
-                }
-            }
-            if (knownUrls == null)
-            {
-                knownUrls = Collections.EMPTY_LIST;
-            }
-        }
-        return knownUrls;
+        return Collections.unmodifiableList(knownDatabaseUrls);
     }
 
-    /**
-     * Returns true if tables that are not configured should also be accessible.
-     */
+    public List getKnownDatabaseTableNames()
+    {
+        return Collections.unmodifiableList(knownDatabaseTableNames);
+    }
+
     public boolean isUnconfiguredTablesAvailable()
     {
-        // path cannot throw a NullPointerException, guaranteed by the XML Schema
-        return configuration.getTables().getAllowUnconfigured();
+        return unconfiguredTablesAvailable;
     }
 
-    /**
-     * Returns true if the user is allowed to enter any arbitrary URL.
-     */
     public boolean isArbitraryUrlAllowed()
     {
-        // path cannot throw a NullPointerException, guaranteed by the XML Schema
-        return configuration.getConsoleConfiguration().getDatabaseUrls().getAllowUserSpecified();
+        return arbitraryUrlAllowed;
     }
 
-    /**
-     * Returns the list of tables names as configured.
-     *
-     * @return a List of String instances
-     */
-    public List getKnownTableNames()
-    {
-        if (knownTables == null)
-        {
-            knownTables = new ArrayList();
-            TableConfiguration[] tableConfiguration = configuration.getTables().getTableConfiguration();
-            for (int i = 0; i < tableConfiguration.length; i++)
-            {
-                TableConfiguration tableConfig = tableConfiguration[i];
-                knownTables.add(tableConfig.getName());
-            }
-        }
-        return knownTables;
-    }
-
-    /**
-     * Returns the configuration for the argument table.
-     */
-    public TableConfiguration getConfiguration(Table table)
-    {
-        TableConfiguration tableConfiguration = (TableConfiguration) tableCache.get(table);
-
-        if (tableConfiguration == null && configuration.getTables() != null)
-        {
-            final String tableName = table.getName();
-            TableConfiguration[] tableConfigurations = configuration.getTables().getTableConfiguration();
-            for (int i = 0; i < tableConfigurations.length && tableConfiguration==null; i++)
-                if (tableName.equals(tableConfigurations[i].getName()))
-                    tableConfiguration = tableConfigurations[i];
-
-            if (tableConfiguration == null)
-            {
-                tableConfiguration = new TableConfiguration();
-                tableCache.put(table, tableConfiguration);
-            }
-        }
-        return tableConfiguration;
-    }
-
-    /**
-     * Returns the configuration for the argument column.
-     */
-    public ColumnConfiguration getConfiguration(Column column)
-    {
-        ColumnConfiguration columnConfiguration = (ColumnConfiguration) columnCache.get(column);
-
-        if (columnConfiguration == null)
-        {
-            final String columnName = column.getName();
-            final Table table = column.getTable();
-            ColumnConfiguration[] columnConfigurations = getConfiguration(table).getColumnConfiguration();
-            for (int i = 0; i < columnConfigurations.length && columnConfiguration==null; i++)
-                if (columnName.equals(columnConfigurations[i].getName()))
-                    columnConfiguration = columnConfigurations[i];
-
-            // if this table has not been configured we can derive some settings from the metadata, overriding defaults
-            if (columnConfiguration == null)
-            {
-                columnConfiguration = new ColumnConfiguration();
-                columnConfiguration.setName(columnName);
-                columnConfiguration.setSize(column.getSize());
-                if (column.isNumericType()) columnConfiguration.setSize(5);
-            }
-            columnCache.put(column, columnConfiguration);
-        }
-        return columnConfiguration;
-    }
-
-    private String getJsp(Column column, String parameterName, Object value, boolean readOnly, String custom)
-    {
-        String displayJsp = null;
-
-        if (column.isBooleanType())
-        {
-            displayJsp = widgetRenderer.renderCheckbox(parameterName, value, readOnly, custom);
-        }
-        else
-        {
-            if (readOnly)
-            {
-                if (column.isForeignKeyColumn())
-                {
-                    ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) column;
-                    PrimaryKeyColumn primaryKeyColumn = foreignKeyColumn.getImportedKeyColumn();
-                    Table pkTable = primaryKeyColumn.getTable();
-                    TableConfiguration pkTableConfig = getConfiguration(pkTable);
-
-                    String displayColumnName = pkTableConfig.getDisplayColumn();
-
-                    if (displayColumnName == null)
-                    {
-                        displayJsp = String.valueOf(value);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            List rows = pkTable.findRows(Expression.equal(primaryKeyColumn, value));
-                            if (rows.isEmpty())
-                            {
-                                displayJsp = "?";
-                            }
-                            else if (rows.size() > 1)
-                            {
-                                // @todo: verify this for composite keys (I think it will not work)
-                                throw new RuntimeException("Too many rows found for foreign key");
-                            }
-                            else
-                            {
-                                RowData rowData = (RowData) rows.get(0);
-                                displayJsp = String.valueOf(rowData.get(displayColumnName));
-                            }
-                        }
-                        catch (SQLException e)
-                        {
-                            throw new RuntimeException("Unable to load primary key table rows: "+pkTable.getName());
-                        }
-                    }
-                }
-                else
-                {
-                    displayJsp = String.valueOf(value);
-                }
-            }
-            else
-            {
-                ColumnConfiguration configuration = getConfiguration(column);
-
-                if (column.isForeignKeyColumn())
-                {
-                    if (configuration.getResolveFk())
-                    {
-                        ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) column;
-                        PrimaryKeyColumn primaryKeyColumn = foreignKeyColumn.getImportedKeyColumn();
-                        String primaryKeyColumnName = primaryKeyColumn.getName();
-                        Table primaryKeyTable = primaryKeyColumn.getTable();
-
-                        TableConfiguration tableConfiguration = getConfiguration(primaryKeyTable);
-                        String displayColumnName = tableConfiguration.getDisplayColumn();
-
-                        try
-                        {
-                            final List rows = primaryKeyTable.findAllRows();
-
-                            if (displayColumnName == null)
-                            {
-                                final Object[] values = new Object[rows.size()];
-                                for (int i = 0; i < rows.size(); i++)
-                                {
-                                    RowData rowData = (RowData) rows.get(i);
-                                    values[i] = rowData.get(primaryKeyColumnName);
-                                }
-                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly, custom);
-                            }
-                            else
-                            {
-                                final Object[] values = new Object[rows.size()];
-                                final Object[] labels = new Object[rows.size()];
-                                for (int i = 0; i < rows.size(); i++)
-                                {
-                                    RowData rowData = (RowData) rows.get(i);
-                                    values[i] = rowData.get(primaryKeyColumnName);
-                                    labels[i] = rowData.get(displayColumnName);
-                                }
-                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, labels, readOnly, custom);
-                            }
-                        }
-                        catch (SQLException e)
-                        {
-                            throw new RuntimeException("Unable to resolve foreign key values to table: "+primaryKeyTable);
-                        }
-                    }
-                    else
-                    {
-                        displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly, custom);
-                    }
-                }
-                else if (configuration.getValueCount() > 0)
-                {
-                    Object[] values = configuration.getValue();
-                    displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly, custom);
-                }
-                else
-                {
-                    displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly, custom);
-                }
-            }
-        }
-        return displayJsp;
-    }
-
-    /**
-     * Returns a JSP fragment suitable for an input field for updating the argument column.
-     *
-     * @param custom A custom set of attributes that will be included in the generated fragment.
-     */
-    public String getUpdateJsp(Column column, String parameterName, RowData rowData, String custom)
-    {
-        ColumnConfiguration configuration = getConfiguration(column);
-        return getJsp(column, parameterName, rowData.get(column.getName()), !configuration.getUpdateable(), custom);
-    }
-
-    /**
-     * Returns a JSP fragment suitable for an input field for inserting the argument column.
-     *
-     * @param custom A custom set of attributes that will be included in the generated fragment.
-     */
-    public String getInsertJsp(Column column, String parameterName, String custom)
-    {
-        return getJsp(column, parameterName, "", false, custom);
-    }
-
-    /**
-     * Returns a JSP fragment suitable for an input field for updating the argument column. The value can be set.
-     *
-     * @param custom A custom set of attributes that will be included in the generated fragment.
-     */
-    public String getInsertJsp(Column column, String parameterName, Object value, String custom)
-    {
-        return getJsp(column, parameterName, (value==null)?"":value, false, custom);
-    }
-
-    private AdminConsole loadConfiguration(String fileName) throws IOException
+    private static AdminConsole loadConfiguration(String fileName) throws IOException
     {
         AdminConsole adminConsole = null;
 
@@ -353,4 +124,137 @@ public class AdminConsoleConfigurator implements Serializable
         return adminConsole;
     }
 
+    /**
+     * Argument must not be null.
+     */
+    private void initialize(AdminConsole configuration)
+    {
+        this.arbitraryUrlAllowed = readArbitraryUrlAllowed(configuration);
+        this.unconfiguredTablesAvailable = readUnconfiguredTablesAvailable(configuration);
+
+        knownDatabaseUrls.clear();
+        readKnownDatabaseUrls(knownDatabaseUrls, configuration);
+
+        knownDatabaseTableNames.clear();
+        readKnownTableNames(knownDatabaseTableNames, configuration);
+
+        tableCache.clear();
+        columnCache.clear();
+        readTableConfigurations(tableCache, columnCache, configuration);
+    }
+
+    private static void readKnownDatabaseUrls(List urls, AdminConsole configuration)
+    {
+        ConsoleConfiguration consoleConfiguration = configuration.getConsoleConfiguration();
+        if (consoleConfiguration != null)
+        {
+            DatabaseUrls databaseUrls = consoleConfiguration.getDatabaseUrls();
+            if (databaseUrls != null)
+            {
+                urls.addAll( Arrays.asList(databaseUrls.getUrl()) );
+            }
+        }
+    }
+
+    private static void readKnownTableNames(List names, AdminConsole configuration)
+    {
+        TableConfiguration[] tableConfiguration = configuration.getTables().getTableConfiguration();
+        for (int i = 0; i < tableConfiguration.length; i++)
+        {
+            TableConfiguration tableConfig = tableConfiguration[i];
+            names.add(tableConfig.getName());
+        }
+    }
+
+    private static boolean readUnconfiguredTablesAvailable(AdminConsole configuration)
+    {
+        // path cannot throw a NullPointerException, guaranteed by the XML Schema
+        return configuration.getTables().getAllowUnconfigured();
+    }
+
+    /**
+     * Returns true if the user is allowed to enter any arbitrary URL.
+     */
+    private static boolean readArbitraryUrlAllowed(AdminConsole configuration)
+    {
+        // path cannot throw a NullPointerException, guaranteed by the XML Schema
+        return configuration.getConsoleConfiguration().getDatabaseUrls().getAllowUserSpecified();
+    }
+
+    private static void readTableConfigurations(Map tableMap, Map columnMap, AdminConsole configuration)
+    {
+        Tables tables = configuration.getTables();
+
+        if (tables != null)
+        {
+            TableConfiguration[] tableConfigurations = tables.getTableConfiguration();
+
+            if (tableConfigurations != null && tableConfigurations.length>0)
+            {
+                for (int i = 0; i < tableConfigurations.length; i++)
+                {
+                    TableConfiguration tableConfiguration = tableConfigurations[i];
+                    tableMap.put(tableConfiguration.getName(), tableConfiguration);
+
+                    readColumnConfigurations(
+                            tableConfiguration.getName(), columnMap, tableConfiguration.getColumnConfiguration());
+                }
+            }
+        }
+    }
+
+    private static void readColumnConfigurations(String tableName, Map columnMap, ColumnConfiguration[] columnConfigurations)
+    {
+        if (columnConfigurations != null && columnConfigurations.length>0)
+        {
+            for (int i = 0; i < columnConfigurations.length; i++)
+            {
+                ColumnConfiguration columnConfiguration = columnConfigurations[i];
+                columnMap.put(new ColumnCacheKey(tableName, columnConfiguration.getName()), columnConfiguration);
+            }
+        }
+    }
+
+    private static class ColumnCacheKey
+    {
+        private String tableName = null;
+        private String columnName = null;
+
+        public ColumnCacheKey(String tableName, String columnName)
+        {
+            this.tableName = tableName;
+            this.columnName = columnName;
+        }
+
+        public String getTableName()
+        {
+            return tableName;
+        }
+
+        public String getColumnName()
+        {
+            return columnName;
+        }
+
+        public boolean equals(Object o)
+        {
+            if (this == o) return true;
+            if (!(o instanceof ColumnCacheKey)) return false;
+
+            final ColumnCacheKey columnCacheKey = (ColumnCacheKey) o;
+
+            if (columnName != null ? !columnName.equals(columnCacheKey.columnName) : columnCacheKey.columnName != null) return false;
+            if (tableName != null ? !tableName.equals(columnCacheKey.tableName) : columnCacheKey.tableName != null) return false;
+
+            return true;
+        }
+
+        public int hashCode()
+        {
+            int result;
+            result = (tableName != null ? tableName.hashCode() : 0);
+            result = 29 * result + (columnName != null ? columnName.hashCode() : 0);
+            return result;
+        }
+    }
 }
