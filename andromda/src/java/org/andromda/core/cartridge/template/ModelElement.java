@@ -201,7 +201,6 @@ public class ModelElement
                 }
                 catch (Throwable th)
                 {
-                    th.printStackTrace();
                     accept = false;
                 }
             }

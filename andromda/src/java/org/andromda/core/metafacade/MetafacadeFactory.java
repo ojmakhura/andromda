@@ -85,24 +85,24 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns a metafacade for a metaobject, depending on its
+     * Returns a metafacade for a metaObject, depending on its
      * <code>metaclass</code> and (optionally) its sterotype and
      * <code>contextName</code>.
      * 
-     * @param metaobject the meta model element.
+     * @param metaObject the meta model element.
      * @param contextName the name of the context the meta model element is
      *        registered under.
      * @return the new metafacade
      */
-    public MetafacadeBase createMetafacade(Object metaobject, String contextName)
+    public MetafacadeBase createMetafacade(Object metaObject, String contextName)
     {
-        return this.internalCreateMetafacade(metaobject, contextName, null);
+        return this.internalCreateMetafacade(metaObject, contextName, null);
     }
 
     /**
      * Internal helper method.
      * 
-     * @param metaobject the meta model element.
+     * @param metaObject the meta model element.
      * @param contextName the name of the context the meta model element is
      *        registered under.
      * @param metafacadeClass if not null, it contains the name of the
@@ -110,40 +110,39 @@ public class MetafacadeFactory
      * @return the new metafacade
      */
     private MetafacadeBase internalCreateMetafacade(
-        Object metaobject,
+        Object metaObject,
         String contextName,
         Class metafacadeClass)
     {
         // @todo the source code for this class looks complicated and has to be
         // refactored.
         final String methodName = "MetafacadeFactory.internalCreateMetafacade";
+        ExceptionUtils.checkNull(methodName, "metaObject", metaObject);
 
-        ExceptionUtils.checkNull(methodName, "metaobject", metaobject);
-
-        //if the metaobject ALREADY IS a metafacade
-        //return the metaobject since we don't want to try and create a
+        //if the metaObject is REALLY a metafacade, get the metaObject
+        // from the metafacade since we don't want to try and create a
         //metafacade from a metafacade.
-        if (metaobject instanceof MetafacadeBase)
+        if (MetafacadeBase.class.isAssignableFrom(metaObject.getClass()))
         {
-            return (MetafacadeBase)metaobject;
+            return (MetafacadeBase)metaObject;
         }
 
-        Class metaobjectClass = null;
+        Class metaObjectClass = null;
         try
         {
-            metaobjectClass = metaobject.getClass();
-            String metaobjectClassName = metaobjectClass.getName();
+            metaObjectClass = metaObject.getClass();
+            String metaObjectClassName = metaObjectClass.getName();
 
             MetafacadeMappings mappings = MetafacadeMappings.instance();
 
             Collection stereotypeNames = this.getModel().getStereotypeNames(
-                metaobject);
+                metaObject);
 
             if (stereotypeNames == null)
             {
                 throw new MetafacadeFactoryException(methodName
-                    + " - could not retrieve stereotypes for metaobject --> '"
-                    + metaobject + "'");
+                    + " - could not retrieve stereotypes for metaObject --> '"
+                    + metaObject + "'");
             }
 
             MetafacadeMapping mapping = null;
@@ -151,10 +150,10 @@ public class MetafacadeFactory
             if (this.internalGetLogger().isDebugEnabled())
                 this.internalGetLogger()
                     .debug(
-                        "metaobject stereotype names --> '" + stereotypeNames
+                        "metaObject stereotype names --> '" + stereotypeNames
                             + "'");
             mapping = mappings.getMetafacadeMapping(
-                metaobjectClassName,
+                metaObjectClassName,
                 stereotypeNames,
                 this.getActiveNamespace(),
                 contextName);
@@ -175,7 +174,7 @@ public class MetafacadeFactory
                             .internalGetLogger()
                             .debug(
                                 "Meta object model class '"
-                                    + metaobjectClass
+                                    + metaObjectClass
                                     + "' has no corresponding meta facade class, default is being used --> '"
                                     + metafacadeClass + "'");
                 }
@@ -186,28 +185,36 @@ public class MetafacadeFactory
                 throw new MetafacadeMappingsException(
                     methodName
                         + " metafacadeClass was not retrieved from mappings"
-                        + " or specified as an argument in this method for metaobject --> '"
-                        + metaobject + "'");
+                        + " or specified as an argument in this method for metaObject --> '"
+                        + metaObject + "'");
             }
 
-            Object metafacadeCacheKey;
+            String metafacadeCacheKey;
             if (mapping != null)
             {
                 metafacadeCacheKey = mapping.getKey();
+                // if the mapping has a context defined, add the context
+                // to the cache key
+                if (mapping.hasContext())
+                {
+                    metafacadeCacheKey = MetafacadeMappingsUtils.constructKey(
+                        metafacadeCacheKey,
+                        contextName);
+                }
             }
             else
             {
                 // if there is no mapping, then the metafacadeClass
                 // will be the default metafacade class, so use
                 // that as the cache key.
-                metafacadeCacheKey = metafacadeClass;
+                metafacadeCacheKey = metafacadeClass.getName();
             }
 
             // attempt to get the metafacade from the cache
             // since we don't want to recreate if one already
             // has been created
             MetafacadeBase metafacade = this.getFromMetafacadeCache(
-                metaobject,
+                metaObject,
                 metafacadeCacheKey);
 
             if (metafacade == null)
@@ -215,17 +222,17 @@ public class MetafacadeFactory
                 if (internalGetLogger().isDebugEnabled())
                     if (internalGetLogger().isDebugEnabled())
                         internalGetLogger().debug(
-                            "lookupFacadeClass: " + metaobjectClassName
+                            "lookupFacadeClass: " + metaObjectClassName
                                 + " -> " + metafacadeClass);
 
                 metafacade = (MetafacadeBase)ConstructorUtils
                     .invokeConstructor(metafacadeClass, new Object[]
                     {
-                        metaobject,
+                        metaObject,
                         contextName
                     }, new Class[]
                     {
-                        metaobject.getClass(),
+                        metaObject.getClass(),
                         java.lang.String.class
                     });
 
@@ -239,8 +246,8 @@ public class MetafacadeFactory
                 if (mapping != null)
                 {
                     // check to see if the metafacade has a context root
-                    // defined (if so, set the context to the interface 
-                    // of the metafacade)
+                    // defined (if so, set the context to the interface
+                    // name of the metafacade)
                     if (mapping.isContextRoot())
                     {
                         metafacade.setContext(MetafacadeImpls.instance()
@@ -249,15 +256,15 @@ public class MetafacadeFactory
                             .getName());
                     }
                 }
-                
-                // Populate the global metafacade properties 
+
+                // Populate the global metafacade properties
                 // NOTE: ordering here matters, we populate the global
                 // properties BEFORE the context properties so that the
                 // context properties can override (if duplicate properties
                 // exist)
                 this.populatePropertyReferences(metafacade, mappings
                     .getPropertyReferences(this.getActiveNamespace()));
-                
+
                 if (mapping != null)
                 {
                     // Populate any context property references (if any)
@@ -272,44 +279,43 @@ public class MetafacadeFactory
                 metafacade.validate(validationMessages);
                 this.validationMessages.addAll(validationMessages);
                 this.addToMetafacadeCache(
-                    metaobject,
+                    metaObject,
                     metafacadeCacheKey,
                     metafacade);
             }
-
             return metafacade;
         }
         catch (Throwable th)
         {
             String errMsg = "Failed to construct a meta facade of type '"
-                + metafacadeClass + "' with metaobject of type --> '"
-                + metaobjectClass + "'";
+                + metafacadeClass + "' with metaObject of type --> '"
+                + metaObjectClass + "'";
             internalGetLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
 
     /**
-     * Returns a metafacade for a metaobject, depending on its metaclass and
+     * Returns a metafacade for a metaObject, depending on its metaclass and
      * (optionally) its stereotype.
      * 
-     * @param metaobject the model element
+     * @param metaObject the model element
      * @return MetafacadeBase the facade object (not yet attached to metaclass
      *         object)
      */
-    public MetafacadeBase createMetafacade(Object metaobject)
+    public MetafacadeBase createMetafacade(Object metaObject)
     {
-        return this.internalCreateMetafacade(metaobject, null, null);
+        return this.internalCreateMetafacade(metaObject, null, null);
     }
 
     /**
-     * Create a facade implementation object for a metaobject. The facade
+     * Create a facade implementation object for a metaObject. The facade
      * implementation object must be found in a way that it implements the
      * interface <code>interfaceName</code>.
      * 
      * @param interfaceName the name of the interface that the implementation
      *        object has to implement
-     * @param metaObject the metaobject for which a facade shall be created
+     * @param metaObject the metaObject for which a facade shall be created
      * @param contextName the contextName which will be used to create other
      *        metafacades.
      * @return MetafacadeBase the metafacade
@@ -339,7 +345,7 @@ public class MetafacadeFactory
         catch (Throwable th)
         {
             String errMsg = "Failed to construct a meta facade of type '"
-                + metafacadeClass + "' with metaobject of type --> '"
+                + metafacadeClass + "' with metaObject of type --> '"
                 + metaObject.getClass().getName() + "'";
             internalGetLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
@@ -349,22 +355,22 @@ public class MetafacadeFactory
     /**
      * <p>
      * Returns the metafacade from the metafacade cache. The Metafacades are
-     * cached first by according to its <code>metaobject</code> and then
+     * cached first by according to its <code>metaObject</code> and then
      * according to the given <code>key</code> and current active namespace.
      * Metafacades must be cached in order to keep track of the state of its
      * validation. If we keep creating a new one each time, we can never tell
      * whether or not a metafacade has been previously validated.
      * </p>
      * 
-     * @param metaobject the metaobject for which to cache the metafacade.
-     * @param key the unique key for the given metaobject
+     * @param metaObject the metaObject for which to cache the metafacade.
+     * @param key the unique key for the given metaObject
      * @return MetafacadeBase stored in the cache.
      */
-    private MetafacadeBase getFromMetafacadeCache(Object metaobject, Object key)
+    private MetafacadeBase getFromMetafacadeCache(Object metaObject, Object key)
     {
         MetafacadeBase metafacade = null;
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache
-            .get(metaobject);
+            .get(metaObject);
         if (namespaceMetafacadeCache != null)
         {
             metafacade = (MetafacadeBase)namespaceMetafacadeCache.get(this
@@ -376,21 +382,21 @@ public class MetafacadeFactory
 
     /**
      * Adds the <code>metafacade</code> to the cache according to first
-     * <code>metaobject</code> and then by <code>key</code> and current
+     * <code>metaObject</code> and then by <code>key</code> and current
      * active namespace.
      * 
-     * @param metaobject the metaobject for which to cache the metafacade.
+     * @param metaObject the metaObject for which to cache the metafacade.
      * @param key the unique key by which the metafacade is cached (within the
-     *        scope of the <code>metaobject</code.
+     *        scope of the <code>metaObject</code.
      * @param metafacade the metafacade to cache.
      */
     private void addToMetafacadeCache(
-        Object metaobject,
+        Object metaObject,
         Object key,
         MetafacadeBase metafacade)
     {
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache
-            .get(metaobject);
+            .get(metaObject);
         if (namespaceMetafacadeCache == null)
         {
             namespaceMetafacadeCache = new HashMap();
@@ -398,7 +404,7 @@ public class MetafacadeFactory
         namespaceMetafacadeCache.put(
             this.getActiveNamespace() + key,
             metafacade);
-        this.metafacadeCache.put(metaobject, namespaceMetafacadeCache);
+        this.metafacadeCache.put(metaObject, namespaceMetafacadeCache);
     }
 
     /**
@@ -471,28 +477,28 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns a metafacade for each metaobject, contained within the
-     * <code>metaobjects</code> collection depending on its
+     * Returns a metafacade for each metaObject, contained within the
+     * <code>metaObjects</code> collection depending on its
      * <code>metaclass</code> and (optionally) its sterotype and
      * <code>contextName</code>.
      * 
-     * @param metaobjects the meta model element.
+     * @param metaObjects the meta model element.
      * @param contextName the name of the context the meta model element is
      *        registered under.
      * @return the Collection of newly created Metafacades.
      */
     protected Collection createMetafacades(
-        Collection metaobjects,
+        Collection metaObjects,
         String contextName)
     {
         Collection metafacades = new ArrayList();
-        if (metaobjects != null && !metaobjects.isEmpty())
+        if (metaObjects != null && !metaObjects.isEmpty())
         {
-            Iterator metaobjectIt = metaobjects.iterator();
-            while (metaobjectIt.hasNext())
+            Iterator metaObjectIt = metaObjects.iterator();
+            while (metaObjectIt.hasNext())
             {
                 metafacades.add(internalCreateMetafacade(
-                    metaobjectIt.next(),
+                    metaObjectIt.next(),
                     contextName,
                     null));
             }
@@ -501,16 +507,16 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns a metafacade for each metaobject, contained within the
-     * <code>metaobjects</code> collection depending on its
+     * Returns a metafacade for each metaObject, contained within the
+     * <code>metaObjects</code> collection depending on its
      * <code>metaclass</code>.
      * 
-     * @param metaobjects the meta model element.
+     * @param metaObjects the meta model element.
      * @return Collection of metafacades
      */
-    public Collection createMetafacades(Collection metaobjects)
+    public Collection createMetafacades(Collection metaObjects)
     {
-        return this.createMetafacades(metaobjects, null);
+        return this.createMetafacades(metaObjects, null);
     }
 
     /**
