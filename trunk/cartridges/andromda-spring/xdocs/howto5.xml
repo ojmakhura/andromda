@@ -19,7 +19,7 @@
                 Type-safe enumerations are modeled by means of a regular class, only this time you need
                 to use the <![CDATA[<<Enumeration>>]]> stereotype. All attributes on such an enumeration will
                 be known as enumeration literals, they will assume the default values you assign to the attributes,
-                or the name of the attribute in case a default value would be missing.
+                or the name of the attribute if the default value is missing.
             </p>
             <p>
                 Enumerations are persisted by the Hibernate framework used behind the scenes, so it is
