@@ -86,18 +86,19 @@
         <ant:echo message="${howtoModelAvailable}"/>
         <ant:echo message=""/>
 
-        <j:if test="${howtoModelAvailable}">
+        <!-- Comment out for the moment [MW] -->
+        <!-- j:if test="${howtoModelAvailable}">
             <j:set var="maven.andromda.model.uri" value="${howto.model.uri}"/>
             <j:set var="maven.andromda.modelValidation" value="${howto.modelValidation}" defaultValue="true"/>
             <j:set var="maven.andromda.cartridgeFilter" value="${howto.cartridgeFilter}"/>
             <j:set var="maven.andromda.modelPackage.0.name" value="${howto.modelPackage.0.name}"/>
             <j:set var="maven.andromda.modelPackage.0.shouldProcess" value="${howto.modelPackage.0.shouldProcess}"/>
-            <j:set var="${howto.property.name.1}" value="${howto.property.value.1}"/>
+            <j:set var="howto.property.name.1" value="${howto.property.value.1}"/>
             <j:set var="${howto.property.name.2}" value="${howto.property.value.2}"/>
             <j:set var="${howto.property.name.3}" value="${howto.property.value.3}"/>
             <j:set var="${howto.property.name.4}" value="${howto.property.value.4}"/>
             <attainGoal name="andromda:run"/>
-        </j:if>
+        </j:if -->
     </goal>
 
     <preGoal name="test:test">
