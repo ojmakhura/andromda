@@ -112,11 +112,4 @@
 
     </postGoal>
 
-    <!--
-        Remove the precompiled sources when cleaning up
-    -->
-    <postGoal name="clean:clean">
-        <ant:delete dir="${war.precompile.jsp}"/>
-    </postGoal>
-
 </project>
