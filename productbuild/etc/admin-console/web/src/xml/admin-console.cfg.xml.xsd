@@ -1,0 +1,87 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="admin-console">
+        <xs:annotation>
+            <xs:documentation>
+                Configuration file for the Administration Console application.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="table-configuration"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="table-configuration">
+        <xs:annotation>
+            <xs:documentation>
+                Configures the appearance of a table.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+<!--
+                <xs:element minOccurs="0" ref="documentation"/>
+-->
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column-configuration"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="pageSize" type="xs:integer" default="15"/>
+            <xs:attribute name="maxListSize" type="xs:integer" default="1000"/>
+            <xs:attribute name="export" type="xs:boolean" default="true"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="column-configuration">
+        <xs:annotation>
+            <xs:documentation>
+                Configures the appearance of a column in a table.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+<!--
+                <xs:element minOccurs="0" ref="documentation"/>
+-->
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="value"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="hide" type="xs:boolean" default="false"/>
+            <xs:attribute name="sortable" type="xs:boolean" default="true"/>
+            <xs:attribute name="exportable" type="xs:boolean" default="true"/>
+            <xs:attribute name="editable" type="xs:boolean" default="true"/>
+            <xs:attribute name="size" type="xs:integer" default="15"/>
+            <xs:attribute name="widget" default="plain">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="plain"/>
+                        <xs:enumeration value="textfield"/>
+                        <xs:enumeration value="select"/>
+                        <xs:enumeration value="checkbox"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="value">
+        <xs:annotation>
+            <xs:documentation>
+                A value to be used somewhere.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+    <xs:element name="documentation">
+        <xs:complexType>
+            <xs:simpleContent/>
+        </xs:complexType>
+    </xs:element>
+-->
+
+</xs:schema>
