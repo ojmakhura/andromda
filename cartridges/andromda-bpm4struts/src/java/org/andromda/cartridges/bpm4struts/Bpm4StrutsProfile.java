@@ -28,6 +28,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_INPUT_TABINDEX = "@andromda.struts.view.field.tabindex";
     public static final String TAGGEDVALUE_INPUT_CALENDAR = "@andromda.struts.view.field.calendar";
     public static final String TAGGEDVALUE_INPUT_TABLELINK = "@andromda.struts.view.field.tablelink";
+    public static final String TAGGEDVALUE_INPUT_RESET = "@andromda.struts.view.field.reset";
 
     public static final String TAGGEDVALUE_TABLE_COLUMNS = "@andromda.struts.view.table.columns";
     public static final String TAGGEDVALUE_TABLE_MAXROWS = "@andromda.struts.view.table.maxrows";

@@ -80,6 +80,14 @@ $field.getDocumentation("     * ")
     {
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
+    
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        $fieldName = new java.util.ArrayList();
+    }
 #elseif ($field.date)
     public void ${field.setterName}AsDate($fieldType $fieldName)
     {
@@ -149,6 +157,14 @@ $field.getDocumentation("     * ")
     {
         return ${formBeanClassName}.${fieldName}DateFormatter;
     }
+    
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        $fieldName = $field.nullValue;
+    }
 #else
     public void ${field.setterName}($fieldType $fieldName)
     {
@@ -161,6 +177,14 @@ $field.getDocumentation("     * ")
     public $fieldType ${field.getterName}()
     {
         return this.$fieldName;
+    }
+    
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        $fieldName = $field.nullValue;
     }
 #end
 

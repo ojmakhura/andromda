@@ -22,6 +22,7 @@ public interface $operation.interfaceName
     public void ${field.setterName}($fieldType $fieldName);
     public $fieldType ${field.getterName}();
 #end
+    public void ${field.resetName}();
 
 #if ($field.selectable)
 #set ($listType = "Object[]")

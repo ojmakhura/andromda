@@ -119,7 +119,8 @@
                             <td>@andromda.struts.action.resettable</td>
                             <td>Transition w/ FrontEndEvent</td>
                             <td>false</td>
-                            <td>Set this value to <code>true</code> if you want to be able
+                            <td>
+                                Set this value to <code>true</code> if you want to be able
                                 to reset forms to their initial values
                             </td>
                         </tr>
@@ -127,11 +128,22 @@
                             <td>@andromda.struts.view.field.type</td>
                             <td>Parameter</td>
                             <td>text</td>
-                            <td>Indicates the type of parameter, this information will be used when rendering the pages,
+                            <td>
+                                Indicates the type of parameter, this information will be used when rendering the pages,
                                 possible values are: link, multibox, text, textarea, checkbox, radio, select, password
                                 and hidden.
                                 One of the tables below give some more information about field formats, for a list of
-                                possible types see <a href="user-guide.html#Field_Types">this page</a></td>
+                                possible types see <a href="user-guide.html#Field_Types">this page</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.reset</td>
+                            <td>Parameter</td>
+                            <td>false</td>
+                            <td>
+                                Indicates whether or not the field should be reset (to its orginal value)
+                                after the execution of the action.
+                            </td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.view.field.required</td>
