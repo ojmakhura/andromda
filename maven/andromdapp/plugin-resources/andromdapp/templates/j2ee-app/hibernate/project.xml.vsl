@@ -152,4 +152,21 @@
         	<version>1.2</version>
     	</dependency>  
 	</dependencies>
+  	<build>
+		<resources>
+	  		<resource>
+				<directory>target/xdoclet/hibernate</directory>
+	        	<includes>
+	        		<include>**/*</include>
+	        	</includes>
+	  		</resource>
+	  		<resource>
+				<directory>${maven.build.dir}/conf</directory>
+	        	<includes>
+	        		<include>*</include>
+	        	</includes>
+	  		</resource>
+		</resources>
+    	<sourceDirectory>src/java</sourceDirectory>
+  	</build>
 </project>

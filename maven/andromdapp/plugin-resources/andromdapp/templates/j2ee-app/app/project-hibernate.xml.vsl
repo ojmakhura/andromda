@@ -10,18 +10,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-hibernate-ejb</artifactId>
+			<artifactId>${pom.groupId}-hibernate</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
-	      	<properties>
-	        	<ear.bundle>true</ear.bundle>
-	     	</properties>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-hibernate-sar</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>sar</type>
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
