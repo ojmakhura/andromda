@@ -10,6 +10,7 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -17,6 +18,8 @@ import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Parameter;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
+import org.omg.uml.foundation.datatypes.CallConcurrencyKind;
+import org.omg.uml.foundation.datatypes.CallConcurrencyKindEnum;
 
 /**
  * Metaclass facade implementation.
@@ -439,5 +442,32 @@ public class OperationFacadeLogicImpl
             }
         }
         return sb.toString();
+    }
+
+    protected String handleGetConcurrency()
+    {
+        String concurrency = null;
+
+        final CallConcurrencyKind concurrencyKind = metaObject.getConcurrency();
+        if (concurrencyKind == null || CallConcurrencyKindEnum.CCK_CONCURRENT.equals(concurrencyKind))
+        {
+            concurrency = "concurrent";
+        }
+        else if (CallConcurrencyKindEnum.CCK_GUARDED.equals(concurrencyKind))
+        {
+            concurrency = "guarded";
+        }
+        else // CallConcurrencyKindEnum.CCK_SEQUENTIAL
+        {
+            concurrency = "sequential";
+        }
+
+        final Mappings languageMappings = this.getLanguageMappings();
+        if (languageMappings != null)
+        {
+            concurrency = languageMappings.getTo(concurrency);
+        }
+
+        return concurrency;
     }
 }
