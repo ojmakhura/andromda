@@ -7,7 +7,7 @@ package $class.packageName;
 /** 
 $class.getDocumentation(" * ")
  */
-public class ${class.name} 
+public class $class.name
 #if($class.generalization)  
 	extends ${class.generalization.fullyQualifiedName}
 #end
