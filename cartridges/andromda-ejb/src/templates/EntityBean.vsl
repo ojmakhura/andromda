@@ -35,15 +35,6 @@ $class.getDocumentation(" * ")
 #if(!$class.abstract)
  * @ejb.persistence table-name="$class.tableName"
  *
-## Project specific stuff: Generate an environment entry for the
-## primary key sequence if this entity is a concrete EJB and has an IntegerIdPk
-#if ($pkclassname == "de.tivano.labdb.datalayer.IntegerIdPK")
- * @ejb.env-entry
- *     name = "PrimaryKeySequence"
- *     type = "java.lang.String"
- *     value = "${class.tableName}_SEQ"
- *
-#end
 #end
 #foreach($envEntry in $class.getEnvironmentEntries(true))
 #set ($value = $envEntry.defaultValue)
