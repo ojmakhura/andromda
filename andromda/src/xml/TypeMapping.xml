@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is a sample file for mapping Java data-types to JDBC and SQL datatypes.
+  Adjust this for your project's needs!
+  Matthias Bohlen <mbohlen@mbohlen.de>
+-->
+<mappings database="Hypersonic">
+<mapping>
+  <type>java.lang.String</type>
+  <type>String</type>
+  <jdbc-type name="VARCHAR"/>
+  <sql-type pattern="VARCHAR({0})" default-length="255"/>
+</mapping>
+<mapping>
+  <type>java.util.Date</type>
+  <type>java.sql.Date</type>
+  <type>Date</type>
+  <jdbc-type name="TIMESTAMP" />
+  <sql-type pattern="DATETIME" default-length=""/>
+</mapping>
+<mapping>
+  <type>java.sql.Time</type>
+  <jdbc-type name="TIME" />
+  <sql-type pattern="TIME" default-length=""/>
+</mapping>
+<mapping>
+  <type>java.sql.Timestamp</type>
+  <jdbc-type name="TIMESTAMP" />
+  <sql-type pattern="TIMESTAMP" default-length=""/>
+</mapping>
+<mapping>
+  <type>char</type>
+  <type>java.lang.Character</type>
+  <type>Character</type>
+  <jdbc-type name="CHAR" />
+  <sql-type pattern="CHAR" default-length=""/>
+</mapping>
+<mapping>
+  <type>byte</type>
+  <type>java.lang.Byte</type>
+  <type>Byte</type>
+  <jdbc-type name="TINYINT" />
+  <sql-type pattern="TINYINT" default-length=""/>
+</mapping>
+<mapping>
+  <type>short</type>
+  <type>java.lang.Short</type>
+  <type>Short</type>
+  <jdbc-type name="SMALLINT" />
+  <sql-type pattern="SMALLINT" default-length=""/>
+</mapping>
+<mapping>
+  <type>int</type>
+  <type>java.lang.Integer</type>
+  <type>Integer</type>
+  <jdbc-type name="INTEGER" />
+  <sql-type pattern="INTEGER({0})" default-length="9"/>
+</mapping>
+<mapping>
+  <type>long</type>
+  <type>java.lang.Long</type>
+  <type>Long</type>
+  <jdbc-type name="BIGINT" />
+  <sql-type pattern="BIGINT" default-length=""/>
+</mapping>
+<mapping>
+  <type>float</type>
+  <type>java.lang.Float</type>
+  <type>Float</type>
+  <jdbc-type name="FLOAT" />
+  <sql-type pattern="FLOAT" default-length=""/>
+</mapping>
+<mapping>
+  <type>double</type>
+  <type>java.lang.Double</type>
+  <type>Double</type>
+  <jdbc-type name="DOUBLE" />
+  <sql-type pattern="DOUBLE" default-length=""/>
+</mapping>
+<mapping>
+  <type>boolean</type>
+  <type>java.lang.Boolean</type>
+  <type>Boolean</type>
+  <jdbc-type name="BIT" />
+  <sql-type pattern="BIT" default-length=""/>
+</mapping>
+<mapping>
+  <type>java.math.BigDecimal</type>
+  <type>BigDecimal</type>
+  <jdbc-type name="DECIMAL" />
+  <sql-type pattern="DECIMAL({0})" default-length=""/>
+</mapping>
+</mappings>
