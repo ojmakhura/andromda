@@ -127,5 +127,13 @@ public class CartridgeXmlParser extends DefaultHandler
             }
             desc.addTemplateConfiguration(tc);
         }
+        else if (qName.equals("macrolibrary"))
+        {
+            desc.addMacroLibrary(attributes.getValue("name"));
+        }
+        else
+        {
+            throw new RuntimeException("Invalid xml tag in cartridge descriptor: " + qName);
+        }
     }
 }
