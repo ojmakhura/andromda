@@ -103,26 +103,42 @@
 		<j:forEach var="reactorProject" items="${reactorProjects}">			
 			<ant:echo>Adding Component: '${reactorProject}'</ant:echo>
 			<j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
-			<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/"/>
+			<j:set 
+				var="type" 
+				value="${reactorProject.context.getVariable('maven.multiproject.type')}"/>
+			<j:if test="${type == null || type == ''}">
+				<j:set var="type" value="jar"/>
+			</j:if>
+			<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${type}s"/>
 			<ant:mkdir dir="${toDir}"/>
 			<ant:copy todir="${toDir}">
 				<ant:fileset dir="${fromDir}">
 					<ant:include name="*.jar"/>
 				</ant:fileset>				
+			</ant:copy>
+			<ant:copy todir="${toDir}/../..">
 				<ant:fileset dir="${fromDir}/..">
 					<ant:include name="LICENSE"/>
 				</ant:fileset>
 			</ant:copy>
-			<j:forEach var="lib" items="${reactorProject.artifacts}">
-				<!-- don't copy 'andromda' dependencies -->
-				<j:if test="${lib.dependency.artifactId.indexOf('andromda') == '-1'}">
-					<ant:copy file="${lib.file}" todir="${binaryDistLibDir}"/>
-				</j:if>
-			</j:forEach>  
+			<!-- don't copy the dependencies for the maven plugin -->
+			<j:if test="${reactorProject.artifactId.indexOf('maven') == '-1'}">
+				<j:forEach var="lib" items="${reactorProject.artifacts}">
+					<!-- don't copy 'andromda' dependencies -->
+					<j:set var="dep" value="${lib.dependency}"/>
+					<j:if test="${lib.dependency.groupId.indexOf('andromda') == '-1'}">
+						<ant:copy todir="${binaryDistLibDir}/${dep.artifactDirectory}">
+							<ant:fileset dir="${maven.repo.local}/${dep.artifactDirectory}">
+								<ant:include name="${dep.type}s/${dep.artifactId}-${dep.version}.${dep.extension}"/>
+							</ant:fileset>
+						</ant:copy>
+					</j:if>
+				</j:forEach> 
+			</j:if> 
 		</j:forEach> 
 		
 		<!-- now add the samples -->
-		<attainGoal name="dist-samples"/>         	
+		<attainGoal name="dist-samples"/>  	
 		
 		<!-- add docs -->
 		<attainGoal name="docs"/>
@@ -131,7 +147,7 @@
 				<ant:include name="*.zip"/>
 			</ant:fileset>
 		</ant:copy>
-				 
+ 
 		<!-- zip it all up -->
         <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
 		<ant:zip zipfile="${zipFile}">
@@ -184,6 +200,27 @@
 				</ant:fileset>				
 			</ant:copy>
 		</j:forEach>  
+
+		<!-- copy all dependencies for samples -->
+		<maven:reactor
+		  basedir="${basedir}"
+		  includes="${sample.install.includes}"
+		  postProcessing="true"
+		  ignoreFailures="false"/> 
+		  		
+		<j:forEach var="project" items="${reactorProjects}">
+			<j:forEach var="lib" items="${project.artifacts}">
+				<j:set var="dep" value="${lib.dependency}"/>
+				<!-- don't copy andromda dependencies -->
+				<j:if test="${lib.dependency.groupId.indexOf('andromda') == '-1'}">
+					<ant:copy todir="${binaryDistLibDir}/${dep.artifactDirectory}">
+						<ant:fileset dir="${maven.repo.local}/${dep.artifactDirectory}">
+							<ant:include name="${dep.type}s/${dep.artifactId}-${dep.version}.${dep.extension}"/>
+						</ant:fileset>
+					</ant:copy>
+				</j:if>
+			</j:forEach> 
+		</j:forEach>
 		
 		<!-- create the distribution maven files we need for the samples -->
 		<j:set var="templatesDir" value="${basedir}/samples/templates"/>
