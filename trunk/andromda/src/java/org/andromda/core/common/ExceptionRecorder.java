@@ -32,6 +32,8 @@ public class ExceptionRecorder
     static final String RUN_SYSTEM = "Run system .....: ";
     /** Run line jdk constant */
     static final String RUN_JDK = "Run jdk ........: ";
+    /** Information not available constant */
+    static final String INFORMATION_UNAVAILABLE = " unavailable";
 
     /** The exceptions directory name:exceptions. */
     private static String exceptionDirectoryName = ".";
@@ -142,8 +144,8 @@ public class ExceptionRecorder
             catch (Exception ex)
             {
                 // ignore
-                writer.println(RUN_SYSTEM + " unavailable");
-                writer.println(RUN_JDK + " unavailable");
+                writer.println(RUN_SYSTEM + INFORMATION_UNAVAILABLE);
+                writer.println(RUN_JDK + INFORMATION_UNAVAILABLE);
             }
             writer.println("Main Exception .: " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);

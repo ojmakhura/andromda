@@ -46,7 +46,7 @@ public class ExceptionRecorderTest extends TestCase
                             sysver  = System.getProperty( "os.name") + System.getProperty( "os.version");
                         } catch (Exception e)
                         {
-                            sysver = "Not available";
+                            sysver = ExceptionRecorder.INFORMATION_UNAVAILABLE;
                         }
                         assertTrue( "Incorrect " + ExceptionRecorder.RUN_SYSTEM, inline.endsWith(sysver));
                     }
@@ -57,7 +57,7 @@ public class ExceptionRecorderTest extends TestCase
                             jdkver = System.getProperty( "java.vm.vendor") + System.getProperty( "java.vm.version");
                         } catch (Exception e)
                         {
-                            jdkver = "Not available";
+                            jdkver = ExceptionRecorder.INFORMATION_UNAVAILABLE;
                         }
                         assertTrue( "Incorrect " + ExceptionRecorder.RUN_JDK, inline.endsWith(jdkver));
                     }
