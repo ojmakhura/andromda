@@ -1,5 +1,5 @@
 <cartridge name="hibernate">
-    
+
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
 
@@ -12,28 +12,27 @@
     <property reference="driver" default=""/>
     <property reference="username" default=""/>
     <property reference="password" default=""/>
-	<property reference="connectionUrl" default=""/>
-	<property reference="dataSource" default=""/>
+    <property reference="connectionUrl" default=""/>
+    <property reference="dataSource" default=""/>
     <property reference="hibernateDefaultCascade" default="none"/>
-	<property reference="hibernatePoolSize" default=""/>
+    <property reference="hibernatePoolSize" default=""/>
     <property reference="hibernateTransactionFactoryClass" default="net.sf.hibernate.transaction.JTATransactionFactory"/>
-	<property reference="hibernateTransactionManagerStrategy" default=""/>
-	<property reference="hibernateUserTransactionName" default="UserTransaction"/>
-	<property reference="hibernateTransactionManagerStrategy" default=""/>
-	<property reference="hibernateTransactionManagerLookup" default=""/>
-	<property reference="hibernateUseOuterJoin" default=""/>
-	<property reference="hibernateShowSql" default=""/>
-	<property reference="hibernateJndiName" default=""/>
-	<property reference="hibernateDialect" default=""/>
-	<property reference="hibernateDefaultSchema" default=""/>
-	<property reference="hibernateMaxFetchDepth" default=""/>
-	<property reference="hibernateJdbcFetchSize" default=""/>
-	<property reference="hibernateJdbcBatchSize" default=""/>
-	<property reference="hibernateJdbcUseScrollableResultSet" default=""/>
-	<property reference="hibernateMaxFetchDepth" default=""/>
-	<property reference="hibernateJdbcUseStreamsForBinary" default=""/> 
-	<property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
-
+    <property reference="hibernateTransactionManagerStrategy" default=""/>
+    <property reference="hibernateUserTransactionName" default="UserTransaction"/>
+    <property reference="hibernateTransactionManagerStrategy" default=""/>
+    <property reference="hibernateTransactionManagerLookup" default=""/>
+    <property reference="hibernateUseOuterJoin" default=""/>
+    <property reference="hibernateShowSql" default=""/>
+    <property reference="hibernateJndiName" default=""/>
+    <property reference="hibernateDialect" default=""/>
+    <property reference="hibernateDefaultSchema" default=""/>
+    <property reference="hibernateMaxFetchDepth" default=""/>
+    <property reference="hibernateJdbcFetchSize" default=""/>
+    <property reference="hibernateJdbcBatchSize" default=""/>
+    <property reference="hibernateJdbcUseScrollableResultSet" default=""/>
+    <property reference="hibernateMaxFetchDepth" default=""/>
+    <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
+    <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
@@ -94,17 +93,17 @@
             </modelElement>
         </modelElements>
     </template>
-    
-	<template 
-		path="templates/hibernate/hibernate.cfg.xml.vsl" 
-		outputPattern="hibernate.cfg.xml" 
-		outlet="configuration" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="entities">
+
+    <template
+        path="templates/hibernate/hibernate.cfg.xml.vsl"
+        outputPattern="hibernate.cfg.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
             <modelElement stereotype="Entity"/>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
 
     <template
         path="templates/hibernate/HibernateByteBlobType.vsl"
