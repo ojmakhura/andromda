@@ -16,8 +16,9 @@
 	<property reference="dataSource" default=""/>
     <property reference="hibernateDefaultCascade" default="none"/>
 	<property reference="hibernatePoolSize" default=""/>
+    <property reference="hibernateTransactionFactoryClass" default="net.sf.hibernate.transaction.JTATransactionFactory"/>
 	<property reference="hibernateTransactionManagerStrategy" default=""/>
-	<property reference="hibernateUserTransactionName" default=""/>
+	<property reference="hibernateUserTransactionName" default="UserTransaction"/>
 	<property reference="hibernateTransactionManagerStrategy" default=""/>
 	<property reference="hibernateTransactionManagerLookup" default=""/>
 	<property reference="hibernateUseOuterJoin" default=""/>
@@ -32,6 +33,7 @@
 	<property reference="hibernateMaxFetchDepth" default=""/>
 	<property reference="hibernateJdbcUseStreamsForBinary" default=""/> 
 	<property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
+
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
