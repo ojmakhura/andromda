@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
@@ -288,6 +289,21 @@ public class EntityFacadeLogicImpl
             {
                 return !((ModelElementFacade)object).hasStereotype(
                     UMLProfile.STEREOTYPE_FINDER_METHOD);
+            }
+        };
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getEntityReferences()
+     */
+    public Collection handleGetEntityReferences()
+    {
+        return new FilteredCollection(this.getDependencies())
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((DependencyFacade)object)
+                    .hasStereotype(UMLProfile.STEREOTYPE_ENTITY_REF);
             }
         };
     }
