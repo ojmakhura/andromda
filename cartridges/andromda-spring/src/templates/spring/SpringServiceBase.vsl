@@ -99,7 +99,7 @@ public abstract class $service.baseName
         catch (Throwable th)
         {
             throw new ${service.fullyQualifiedDefaultExceptionName}(
-                "Error performing '${service.fullyQualifiedName}.${operation.signature}'", 
+                "Error performing '${service.fullyQualifiedName}.${operation.signature}' --> " + th, 
                 th);
         }
     }
