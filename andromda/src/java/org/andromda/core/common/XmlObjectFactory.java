@@ -121,11 +121,6 @@ public class XmlObjectFactory
             factory = new XmlObjectFactory(objectRulesXml);
             factory.objectClass = objectClass;
             factory.objectRulesXml = objectRulesXml;
-            // @todo Allow graceful way to ignore schema validation if
-            // the underlying parser doesn't support it.
-            // If the underlying parser doesn't support schema validation
-            // it fails by trying to validate against a non existent DTD (this
-            // can happen by running ant inside eclipse for example)
             factory.setValidating(defaultValidating);
             factoryCache.put(objectClass, factory);
         }
