@@ -351,6 +351,60 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
 </action-mappings>
 ]]></source>
                 </p>
+                <p>
+                    A Struts action class and associated form is generated per sequence of transitions between two
+                    <![CDATA[<<FrontEndView>>]]> action states. The form fields are determined by the parameters
+                    modeled on the transitions, for maximum usability some parameters from neighbouring actions
+                    might also be included, but we'll not get into this just yet.
+                </p>
+                <p>
+                    The action class has a <code>private</code> method for each different state it encounters, those
+                    methods might delegate control to a controller operation, this is explained
+                    <a href="howto3.html">here</a>. A code fragment taken from the online-store sample is shown below,
+                    it contains a single action state deferring control to the <code>loadItems</code> controller
+                    operation. Please notice exception handling is taken care of. Such methods start with an underscore
+                    not to cause naming conflicts with existing Struts
+                    <a href="http://struts.apache.org/api/org/apache/struts/action/Action.html">Action</a> methods.
+<source><![CDATA[
+private ActionForward _loadItemsForSale(
+        ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
+    throws Exception
+{
+    ActionForward forward = null;
+
+    final org.apache.struts.action.ActionMessages errors = this.getExceptionHandlerErrors(request);
+    try
+    {
+        if (this.errorsNotPresent(request))
+        {
+            PurchaseControllerFactory.getPurchaseControllerInstance().loadItems(
+                mapping, (EnterNameAndPasswordProceedForm)form, request, response);
+        }
+        if (this.errorsNotPresent(request))
+        {
+            forward = _promptUserWithItemList(mapping, form, request, response);
+        }
+    }
+    catch (Exception ex)
+    {
+        final String messageKey = PatternMatchingExceptionHandler.instance().handleException(ex);
+        errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(messageKey));
+    }
+    finally
+    {
+    }
+    if (!errors.isEmpty())
+    {
+        forward = mapping.getInputForward();
+    }
+    return forward;
+}
+]]></source>
+                </p>
+                <p class="highlight">
+                    Action classes and action forms, and <code>struts-config.xml</code> too for that matter, are never
+                    manually edited when using AndroMDA.
+                </p>
             </subsection>
             <subsection name="i18n">
                 <p>
