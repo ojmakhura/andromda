@@ -9,7 +9,6 @@ package org.andromda.schema2xmi;
 public class SchemaTransformerException
     extends RuntimeException
 {
-
     /**
      * Constructs a new instance of SchemaTransformerException
      * 
@@ -44,5 +43,4 @@ public class SchemaTransformerException
     {
         super(message, throwable);
     }
-
 }

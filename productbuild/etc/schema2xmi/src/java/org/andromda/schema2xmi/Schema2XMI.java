@@ -27,22 +27,22 @@ public class Schema2XMI
      * The command line argument to specify the input model file.
      */
     private static final String INPUT_MODEL = "im";
-    
+
     /**
      * The command line argument to specify the JDBC driver class
      */
     private static final String DRIVER = "dc";
-    
+
     /**
      * The command line argument to specify the schema user.
      */
     private static final String USER = "un";
-    
+
     /**
      * The command line argument to specify the schema user password.
      */
     private static final String PASSWORD = "pw";
-    
+
     /**
      * The command line argument to specify the connection URL.
      */
@@ -52,31 +52,29 @@ public class Schema2XMI
      * The command line argument to specify the transformed output file.
      */
     private static final String OUTPUT_NAME = "on";
-    
+
     /**
-     * The command line argument specifying the URI to the 
-     * type mappings file.
+     * The command line argument specifying the URI to the type mappings file.
      */
     private static final String TYPE_MAPPINGS_URI = "tmu";
-    
+
     /**
-     * The command line argument specifying the package to which 
-     * the model element will be generated.
+     * The command line argument specifying the package to which the model
+     * element will be generated.
      */
     private static final String PACKAGE = "pkg";
-    
+
     /**
-     * The command line argument specifying the tables names to 
-     * match on
+     * The command line argument specifying the tables names to match on
      */
     private static final String TABLE_NAME_PATTERN = "tnp";
-    
+
     /**
-     * The command line argument specifying whether or not
-     * to include tagged values.
+     * The command line argument specifying whether or not to include tagged
+     * values.
      */
     private static final String INCLUDE_TAGGED_VALUES = "itv";
-    
+
     /**
      * Configure the CLI options.
      */
@@ -97,41 +95,53 @@ public class Schema2XMI
         option.setLongOpt("help");
         options.addOption(option);
 
-        option = new Option(INPUT_MODEL, false, "Input model file to start with");
+        option = new Option(
+            INPUT_MODEL,
+            false,
+            "Input model file to start with");
         option.setLongOpt("input");
         options.addOption(option);
-        
+
         option = new Option(DRIVER, true, "JDBC driver class to use");
         option.setLongOpt("driver");
-        options.addOption(option);        
-        
+        options.addOption(option);
+
         option = new Option(CONNECTION_URL, true, "JDBC connection URL");
         option.setLongOpt("connectionUrl");
-        options.addOption(option);  
-        
+        options.addOption(option);
+
         option = new Option(USER, true, "JDBC schema user");
         option.setLongOpt("user");
-        options.addOption(option);  
-        
+        options.addOption(option);
+
         option = new Option(PASSWORD, true, "JDBC schema user password");
         option.setLongOpt("password");
-        options.addOption(option);  
-                
-        option = new Option(TYPE_MAPPINGS_URI, true, "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
+        options.addOption(option);
+
+        option = new Option(
+            TYPE_MAPPINGS_URI,
+            true,
+            "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
         option.setLongOpt("typeMappingsUri");
-        options.addOption(option); 
-        
-        option = new Option(TABLE_NAME_PATTERN, false, "The table name pattern of tables to process");
+        options.addOption(option);
+
+        option = new Option(
+            TABLE_NAME_PATTERN,
+            false,
+            "The table name pattern of tables to process");
         option.setLongOpt("tableNamePattern");
-        options.addOption(option); 
-        
+        options.addOption(option);
+
         option = new Option(PACKAGE, false, "The package to output classifiers");
         option.setLongOpt("package");
-        options.addOption(option); 
-        
-        option = new Option(INCLUDE_TAGGED_VALUES, false, "Whether or not to include persistence tagged values, default is true");
+        options.addOption(option);
+
+        option = new Option(
+            INCLUDE_TAGGED_VALUES,
+            false,
+            "Whether or not to include persistence tagged values, default is true");
         option.setLongOpt("includeTaggedValues");
-        options.addOption(option); 
+        options.addOption(option);
 
         option = new Option(
             OUTPUT_NAME,
@@ -182,7 +192,8 @@ public class Schema2XMI
         try
         {
             CommandLine commandLine = schema2Xmi.parseCommands(args);
-            if (commandLine.hasOption(HELP) || !commandLine.hasOption(INPUT_MODEL)
+            if (commandLine.hasOption(HELP)
+                || !commandLine.hasOption(INPUT_MODEL)
                 || !commandLine.hasOption(OUTPUT_NAME))
             {
                 Schema2XMI.displayHelp();
@@ -191,18 +202,19 @@ public class Schema2XMI
                 && (commandLine.hasOption(OUTPUT_NAME)))
             {
                 String inputModel = commandLine.getOptionValue(INPUT_MODEL);
-                SchemaTransformer transformer = 
-                    new SchemaTransformer(
-                        commandLine.getOptionValue(DRIVER),
-                        commandLine.getOptionValue(CONNECTION_URL),
-                        commandLine.getOptionValue(USER),
-                        commandLine.getOptionValue(PASSWORD));
-                
+                SchemaTransformer transformer = new SchemaTransformer(
+                    commandLine.getOptionValue(DRIVER),
+                    commandLine.getOptionValue(CONNECTION_URL),
+                    commandLine.getOptionValue(USER),
+                    commandLine.getOptionValue(PASSWORD));
+
                 // set the extra options
-                transformer.setTypeMappings(commandLine.getOptionValue(TYPE_MAPPINGS_URI));
+                transformer.setTypeMappings(commandLine
+                    .getOptionValue(TYPE_MAPPINGS_URI));
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
-                transformer.setTableNamePattern(commandLine.getOptionValue(TABLE_NAME_PATTERN));
-                
+                transformer.setTableNamePattern(commandLine
+                    .getOptionValue(TABLE_NAME_PATTERN));
+
                 String outputLocation = commandLine.getOptionValue(OUTPUT_NAME);
                 transformer.transform(inputModel, outputLocation);
             }

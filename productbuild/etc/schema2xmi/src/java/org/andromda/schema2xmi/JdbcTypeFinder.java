@@ -7,8 +7,8 @@ import java.util.Map;
 
 /**
  * <p>
- *   Provides the ability to find a <code>java.sql.Types</code> field name 
- *   based on an int value.
+ * Provides the ability to find a <code>java.sql.Types</code> field name based
+ * on an int value.
  * </p>
  * 
  * @author Chad Brandon
