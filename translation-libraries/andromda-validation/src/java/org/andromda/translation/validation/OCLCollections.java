@@ -266,11 +266,20 @@ public final class OCLCollections
     }
 
     /**
-     * todo: implement
+     * Returns <code>true</true> when the argument expression evaluates true for one and only
+     * one element in the collection. Returns <code>false</code> otherwise.
      */
-    public static Collection one(Collection collection)
+    public static boolean one(Collection collection, OCLExpression expression)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".one");
+        boolean found = false;
+        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+        {
+            if (expression.evaluate(iterator.next()))
+            {
+                if (found) return false; else found = true;
+            }
+        }
+        return found;
     }
 
     /**
