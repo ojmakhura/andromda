@@ -2,7 +2,7 @@
 #if ($table.foreignKeyColumnsPresent)
 /* ------------- $table.name foreign key contraints ------------------ */
 #foreach ( $foreignKeyColumn in $table.foreignKeyColumns )
-ALTER TABLE $foreignKeyColumn.table.tableName
+ALTER TABLE $foreignKeyColumn.tableName
     ADD  ( CONSTRAINT $foreignKeyColumn.constraintName
         FOREIGN KEY ($foreignKeyColumn.columnName)
             REFERENCES $foreignKeyColumn.importedTable.tableName

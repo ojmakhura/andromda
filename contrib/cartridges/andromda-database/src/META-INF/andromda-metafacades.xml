@@ -2,6 +2,8 @@
 
 <metafacades namespace="database">
     <property reference="primaryKeyConstraintPrefix" default="XPK"/>
+    <property reference="indexPrefix" default="IDX"/>
+    <property reference="foreignKeyConstraintPrefix" default="FK"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
