@@ -7,7 +7,7 @@
     	(i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
     	 used by this cartridge to create the generated impl package name, if
     	 left empty then the impl package will be the same as the metafacade
-    	 package -->
+    	 package (therefore we default to an empty name) -->
     <property reference="metamodelVersionPackage" default=""/>
 
     <!-- the template definitions -->
