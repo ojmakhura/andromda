@@ -101,6 +101,13 @@ public class SchemaTransformer
     private Map foreignKeys = new HashMap();
     
     /**
+     * Whether or not to include the appropriate
+     * tagged values to the generated classes, 
+     * attributes and associationEnds. 
+     */
+    private boolean includeTaggedValues = true;
+    
+    /**
      * Constructs a new instance of this SchemaTransformer.
      */
     public SchemaTransformer(
@@ -219,6 +226,14 @@ public class SchemaTransformer
     }
     
     /**
+     * @param includeTaggedValues The includeTaggedValues to set.
+     */
+    public void setIncludeTaggedValues(boolean includeTaggedValues)
+    {
+        this.includeTaggedValues = includeTaggedValues;
+    }
+    
+    /**
      * The package that is currently being processed.
      */
     private UmlPackage umlPackage;
@@ -301,7 +316,6 @@ public class SchemaTransformer
         org.omg.uml.modelmanagement.UmlPackage modelPackage)
         throws SQLException
     {
-
         DatabaseMetaData metadata = connection.getMetaData();
         ResultSet tableRs = metadata.getTables(null, null, null, new String[]
         {
@@ -385,15 +399,18 @@ public class SchemaTransformer
 	            false,
 	            false);
 
-        //add the tagged value for the table name
-        TaggedValue taggedValue = 
-            this.createTaggedValue(
-                corePackage, 
-                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                tableName);
-        if (taggedValue != null)
+        if (this.includeTaggedValues) 
         {
-            umlClass.getTaggedValue().add(taggedValue);   
+	        //add the tagged value for the table name
+	        TaggedValue taggedValue = 
+	            this.createTaggedValue(
+	                corePackage, 
+	                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+	                tableName);
+	        if (taggedValue != null)
+	        {
+	            umlClass.getTaggedValue().add(taggedValue);   
+	        }
         }
 
         if (logger.isInfoEnabled())
@@ -426,9 +443,7 @@ public class SchemaTransformer
             // do NOT add foreign key columns as attributes (since
             // they are placed on association ends)
             if (!this.hasForeignKey(tableName, columnName))
-            {  
-	            int nullableVal = columnRs.getInt("NULLABLE");
-	            
+            {   
 	            // first we try to find a mapping that mappings to the
 	            // database proprietary type
 	            String type = this.typeMappings.getTo(
@@ -443,12 +458,12 @@ public class SchemaTransformer
 	                typeClass = (Classifier)ModelElementFinder.find(this.model, type);
 	            }
 	            
-	            boolean required = false;
-	            // set whether or not the column is required
-	            if (nullableVal == DatabaseMetaData.attributeNoNulls)
-	            {
-	                required = true;
-	            }   
+	            boolean required = 
+	                !this.isColumnNullable(
+                        metadata, 
+                        tableName, 
+                        columnName);
+
 	            String attributeName = 
 	                SqlToModelNameFormatter.toAttributeName(columnName);
 	            Attribute attribute = 
@@ -466,23 +481,51 @@ public class SchemaTransformer
 	                    null);
 	            attribute.setType(typeClass);
 	            
-                // add the tagged value for the column name
-	            TaggedValue taggedValue = 
-                    this.createTaggedValue(
-                        corePackage, 
-                        UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                        columnName);
-	            if (taggedValue != null)
+	            if (this.includeTaggedValues) 
 	            {
-	                attribute.getTaggedValue().add(taggedValue);   
+	                // add the tagged value for the column name
+		            TaggedValue taggedValue = 
+	                    this.createTaggedValue(
+	                        corePackage, 
+	                        UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+	                        columnName);
+		            if (taggedValue != null)
+		            {
+		                attribute.getTaggedValue().add(taggedValue);   
+		            }
 	            }
- 
+	            
 	            attributes.add(attribute);
 	            if (logger.isInfoEnabled())
 	                logger.info("created attribute --> '" + attributeName + "'");
             }
         }
         return attributes;
+    }
+    
+    /**
+     * This method just checks to see if a column is null able 
+     * or not, if so, returns true, if not returns false.
+     * 
+     * @param metadata the DatabaseMetaData instance used to retrieve 
+     *        the column information.
+     * @param tableName the name of the table on which the column exists.
+     * @param columnName the name of the column.
+     * @param true/false on whether or not column is nullable.
+     */
+    private boolean isColumnNullable(
+        DatabaseMetaData metadata, 
+        String tableName, 
+        String columnName) throws SQLException
+    {
+        boolean nullable = true;
+        ResultSet columnRs = 
+            metadata.getColumns(null, null, tableName, columnName);
+        while (columnRs.next())
+        {
+            nullable = columnRs.getInt("NULLABLE") != DatabaseMetaData.attributeNoNulls;
+        }
+        return nullable;
     }
     
     /**
@@ -519,7 +562,7 @@ public class SchemaTransformer
                     false,
                     false,
                     false);
-            
+               
             String endName = null;
             // primary association
             AssociationEnd primaryEnd = 
@@ -531,21 +574,39 @@ public class SchemaTransformer
 	                OrderingKindEnum.OK_UNORDERED,
 	                AggregationKindEnum.AK_NONE,
 	                ScopeKindEnum.SK_INSTANCE,
-	                this.createMultiplicity(corePackage.getDataTypes(), 1, 1),
+	                this.createMultiplicity(
+	                    corePackage.getDataTypes(), 
+	                    0, 
+	                    -1),
 	                ChangeableKindEnum.CK_CHANGEABLE);
             primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
-            // add the tagged value for the foreign association end
-            TaggedValue taggedValue = 
-                this.createTaggedValue(
-                    corePackage, 
-                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                    fkColumnName);
-            if (taggedValue != null)
-            {
-                primaryEnd.getTaggedValue().add(taggedValue);   
-            }
             
+            if (this.includeTaggedValues)
+            {
+	            // add the tagged value for the foreign association end
+	            TaggedValue taggedValue = 
+	                this.createTaggedValue(
+	                    corePackage, 
+	                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+	                    fkColumnName);
+	            if (taggedValue != null)
+	            {
+	                primaryEnd.getTaggedValue().add(taggedValue);   
+	            }
+            }
             association.getConnection().add(primaryEnd); 
+            
+            boolean required = 
+                !this.isColumnNullable(
+                    metadata, 
+                    tableName, 
+                    fkColumnName);
+            
+            int foreignLower = 0;
+            if (required) 
+            {
+                foreignLower = 1;
+            }
             
             // foriegn association
             AssociationEnd foreignEnd = 
@@ -557,7 +618,7 @@ public class SchemaTransformer
 	                OrderingKindEnum.OK_UNORDERED,
 	                AggregationKindEnum.AK_NONE,
 	                ScopeKindEnum.SK_INSTANCE,
-	                this.createMultiplicity(corePackage.getDataTypes(), 1, 1),
+	                this.createMultiplicity(corePackage.getDataTypes(), foreignLower, 1),
 	                ChangeableKindEnum.CK_CHANGEABLE);
             foreignEnd.setParticipant((Classifier)this.classes.get(foreignTableName));
             association.getConnection().add(foreignEnd);
@@ -577,20 +638,20 @@ public class SchemaTransformer
         String name, 
         String value)
     {     
-        TaggedValue taggedValue = null;
-
+        Collection values = new HashSet();
+        values.add(value);
+        TaggedValue taggedValue = corePackage.getTaggedValue().createTaggedValue(
+            name,
+            VisibilityKindEnum.VK_PUBLIC,
+            false,
+            values);
+        
+        // see if we can find the tag defintion and if so add that
+        // as the type.
         Object tagDefinition = ModelElementFinder.find(this.umlPackage, name);
-
         if (tagDefinition != null &&
             TagDefinition.class.isAssignableFrom(tagDefinition.getClass()))
         {
-           Collection values = new HashSet();
-           values.add(value);
-           taggedValue = corePackage.getTaggedValue().createTaggedValue(
-               name,
-               VisibilityKindEnum.VK_PUBLIC,
-               false,
-               values);
            taggedValue.setType((TagDefinition)tagDefinition);
         }
         return taggedValue;
