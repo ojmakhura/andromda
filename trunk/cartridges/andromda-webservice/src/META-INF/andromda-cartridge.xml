@@ -9,6 +9,10 @@
     <templateObject
       name="escapeUtils"
       className="org.apache.commons.lang.StringEscapeUtils"/>
+      
+    <templateObject
+      name="webServiceUtils"
+      className="org.andromda.cartridges.webservice.WebServiceUtils"/>
 
     <!-- The name of the application that this service will run within
          (i.e. Security Services} -->
@@ -33,6 +37,8 @@
     <!-- if true, causes generation of necessary code that signs
          the response -->
     <property reference="signedResponse" default="false"/>
+    
+    <property reference="securityRealm" default=""/>
 
     <!-- Defines the crypto properties for WSS4J -->
     <property reference="cryptoKeyStore" default=""/>
@@ -72,6 +78,19 @@
     <template
         path="templates/webservice/axis/web.xml.vsl"
         outputPattern="WEB-INF/web.xml"
+        outlet="axis-configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/webservice/axis/jboss-web.xml.vsl"
+        outputPattern="WEB-INF/jboss-web.xml"
         outlet="axis-configuration"
         overwrite="true"/>
 
