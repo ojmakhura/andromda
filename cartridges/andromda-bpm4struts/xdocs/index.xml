@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - Introduction</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Abstract">
+            <p class="abstract">
+                These pages describe the 'bpm4struts' cartridge. The shorthand 'bpm4struts' stands for
+                'Business Process Modelling for Struts'. The purpose of this cartridge is to generate
+                Struts web pages from an input UML model in which the flow of the application is modelled.
+            </p>
+        </section>
+
+        <section name="Introduction">
+            <p class="std">
+                Writing a web front-end for J2EE application can become a really cumbersome and tedious task.
+                Most of the time it is very difficult to start with a good design and keep it,
+                the problem may even become more apparent when multiple developers are working on the same
+                project. In a Struts application more specifically, problems that often arise are: too
+                much data in the session, bad variable names in the pages and in the actions,
+                inconsistent programming style, improper exception handling, hard-coded constants,
+                duplicated code, and the list goes on...
+            </p>
+            <p class="std">
+                The reason these issues exist is not always because the developers are inexperienced
+                or lazy; the main reason is that it is simply very difficult to keep everything
+                consistently up-to-date. It is very easy to lose track of what is going on and before
+                you know little evil parts of code find their way in, introducing bugs and making
+                maintenance a pain.
+            </p>
+            <p class="std">
+                It is important to keep an eye on the big picture. Take a look at your application
+                from a distance, maybe you'll spot some design flaws. This brings us to the most common
+                tools for communicating application architectures: the Unified Modelling Language,
+                unfortunately not many people believe in it ... and that's understandable, it can be
+                quite a burden to keep the UML model up-to-date (*) when you are already facing the
+                many issues mentioned above; the Model Driven Architecture paradigm solves this problem
+                elegantly, read on.
+            </p>
+            <p class="std">
+                (*) This is already where it is going wrong, your model should exist before you even start coding,
+                but since development is an iterative process and changes are often applied in the code first
+                we find ourselves updating the UML model to comply with these changes.
+            </p>
+            <p class="std">
+                A second comment is that at all times a developer should spend his efforts on the core business
+                of the application, if he's writing an online web-shopping application he should not be worrying
+                about coding connection pooling or a search engine, this should be reused from elsewhere.
+                There is so much activity in the open-source community that this should not be a problem anymore.
+            </p>
+            <p class="std">
+                So, if it would be possible to quickly generate the desired code from a UML model using
+                coding templates, and to regenerate this code without losing any manually applied changes,
+                one can easily see the benefits: a constant focus on the overall design, the developer can
+                try several different approaches in a short time interval, the developer spends his time
+                on the business logic and not on the technologies used to achieve his goals.
+            </p>
+            <p class="std">
+                As you will read in this document bpm4struts addresses the majority of these items.
+            </p>
+        </section>
+
+        <section name="Goal">
+            <p class="std">
+                We aim to have a means of generating a stable and flexible Struts front-end by modelling dynamic
+                business processes from UML. The transformation from UML to Struts should be open enough to allow anybody
+                to easily update this process, for example by simply editing some templates.
+            </p>
+            <p class="std">
+                Any feature provided by Struts should also be available in the cartridge.
+            </p>
+            <p class="std">
+                The generated code should be consistent and in-line with the most common best-practices in web development.
+                It must also help the user adding the final pieces of code in order to finish the implementation. Except
+                for the business logic he will need to implement himself, the user should not need to have knowledge
+                of the rest of the generated application, although it can never hurt.
+            </p>
+            <p class="std">
+                Regeneration of code from UML should not overwrite manually written code. Classes can attain this
+                goal by using a construction such as inheritance. With JSPs we use Tiles to isolate those pieces
+                that need regeneration, anything else remains untouched.
+            </p>
+            <p class="std">
+                When a complete application has been modelled it should be possible to generate and
+                deploy the application without any further changes to the code. The application should
+                work right-away, this allows the user to test-drive and see if it is what he expected,
+                optionally updating the model where necessary.
+            </p>
+        </section>
+
+        <section name="Requirements">
+            <p class="std">
+            </p>
+            <p class="std">
+            </p>
+            <p class="std">
+            </p>
+            <p class="std">
+            </p>
+            <p class="std">
+            </p>
+        </section>
+
+        <section name="Features">
+            <p class="std">
+            The next set of features are available and easily updatable via the UML model
+            </p>
+            <h3>Generation of the complete set of required Struts files</h3>
+            <p class="std">
+                For this feature to work you will need to run XDoclet on the sources generated by this cartridge.
+                The generated files include:
+                <ul>
+                    <li>struts-config.xml</li>
+                    <li>jsp pages</li>
+                    <li>action classes</li>
+                    <li>form bean classes</li>
+                    <li>resource message properties</li>
+                    <li>web.xml</li>
+                    <li>validation.xml</li>
+                    <li>validator-rules.xml</li>
+                    <li>javascript validation routines</li>
+                    <li>a welcome file redirecting to the first use-case</li>
+                    <li>tiles-defs.xml and a default implementation</li>
+                </ul>
+            </p>
+            <h3>I18n through message resource bundles</h3>
+            <p class="std">
+                Struts will automatically load the appropriate resource bundle for
+                your localization (l10n) and internationalization (i18n) settings whenever available.
+            </p>
+            <p class="std">
+                Bpm4struts will generate a default resource bundle generated in the language used for modelling.
+                In order to port this file to another language you will need to simply:
+                <ul>
+                    <li> copy it into the same directory, suffix the filename with something as "_fr", "_nl", "_de"
+                        (see <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html">
+                        java.util.ResourceBundle</a> for more details)</li>
+                    <li> translate all the message values (leave the message keys untouched)</li>
+                </ul>
+            </p>
+            <h3>Role-based security</h3>
+            <p class="std">
+            </p>
+            <h3>Client-side validation</h3>
+            <p class="std">
+            </p>
+            <h3>Server-side validation</h3>
+            <p class="std">
+            </p>
+            <h3>Customizable exception handling</h3>
+            <p class="std">
+            </p>
+        </section>
+
+        <section name="Web development">
+            <p class="std">
+                When developing a web front-end you must be aware that it is nothing like your regular Swing/GUI
+                development, such as in a standalone application. The HTTP protocol is stateless by design,
+                while most users want to have the feeling they are in a session or context.
+            </p>
+            <p class="std">
+                There are many ways to solve these typical problems on the web front-end. Personally, I
+                choose not to make use of the session in the web container: as much as possible is done purely
+                in the scope of the requests. This has several advantages: bookmarks always work, the back
+                button will not corrupt any session data, etc... This is important to know when modelling for
+                the bpm4struts cartridge, it allows you to look at each use-case separately and treat them
+                as individual processing units. You will also notice you tend to write better code this way.
+            </p>
+            <p class="std">
+                Next, we need to consider the communication between the client and the server, what tools to
+                we have at our disposal ? Well, quite enough I must say ... we can use almost any feature
+                we can find in a rich standalone GUI client: radiobuttons, textareas, hyperlinks, tooltips,
+                and so on. So it would be nice if we can render the appropriate input elements for the
+                request parameters sent from the JSP page.
+            </p>
+        </section>
+
+        <section name="Struts">
+            <p class="std">
+                In order to adhere to the spirit of Struts web development I am trying to attain at least the same
+                strict requirements of its MVC implementation. As opposed to earlier version of this cartridge,
+                you will only need to model the Controller class, the Views and Models are implied by the dynamic processes.
+            </p>
+            <h3>Model</h3>
+            <p class="std">
+                The model corresponds to the form bean used in the request, this bean encapsulates all request
+                parameters for the use-case. No more logic should be put it there. Models are generated by looking
+                at the parameters sent between action states.
+            </p>
+            <h3>View</h3>
+            <p class="std">
+                In a Struts application you will use JSP pages to represent the view components. In the
+                application's activity graphs views are tagged with the 'FrontEndView'' stereotype.
+            </p>
+            <h3>Controller</h3>
+            <p class="std">
+                A Controller class defines the business operations performed by the actions on the front-end. Typically
+                it is the user who triggers an event by clicking on a button or an hyperlink, this event is handled
+                by an action that will defer any business operation to the controller.
+            </p>
+        </section>
+
+    </body>
+</document>

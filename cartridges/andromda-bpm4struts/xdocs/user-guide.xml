@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - User Guide</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Abstract">
+            <p class="abstract">
+                This page is a user guide to the bpm4struts cartridge, here you will find information on specific
+                modelling features. If you are looking for a place describing what you need to do with your
+                UML tool in order to model an application for bpm4struts you should read on.
+            </p>
+        </section>
+
+        <section name="Model elements">
+            <p class="std">
+                With model elements we mean the collection of all those elements that allow us to express ourselves
+                and formally describe process flow. We will use these elements to model our Struts application.
+                What follows is a list of elements and a description on how they map onto Struts specific objects.
+            </p>
+            <h3>Classes</h3>
+            <p class="std">
+                In bpm4struts classes are only used to model controllers, a controller is the component that
+                contains the logic to perform business operations. Most of the time, in J2EE applications, you
+                will want to delegate your call from the controller to a service running in the back-end.
+            </p>
+            <p class="std">
+                A class is assigned to be the context of an activity graph and it contains operations that are
+                referenced by CallEvents. A CallEvent is an event that you can model in the activity graph but
+                that allows you to create a link with the controller class. You will see what this means in
+                more detail when taking a look at the sample application.
+            </p>
+            <h3>Actors</h3>
+            <p class="std">
+                An actor represents a user in the system, typically you will model an actor for each different
+                type of user that exists in your application, this might be a 'Manager', 'Administrator',
+                'Guest', etc...
+            </p>
+            <p class="std">
+                Actors may generalize eachother, making it possible to combine several roles into a single one.
+            </p>
+            <p class="std">
+                Modelling actors will activate security in the generated application, an actor is only
+                authorized to request those pages and actions belonging to the use-case he has been associated with.
+            </p>
+            <h3>Use-Cases</h3>
+            <p class="std">
+                Each unit of processing logic is combined into a single use-case. Typical use-cases are: 'Login',
+                'Place order', 'Add new user'. No two use-cases should have the same name.
+            </p>
+            <p class="std">
+                Put your use-case in a dedicated namespace (such as a package in Java) so there is no confusion
+                on what is supposed to be happening inside.
+            </p>
+            <h3>Activity Graphs</h3>
+            <p class="std">
+                Each use-case is described in more detail using an activity graph. Such a graph allows you to
+                model the process flow from one state into another. By doing so you will determine when the
+                user is presented a page and when he will be calling actions.
+            </p>
+            <p class="std">
+                In an activity graph you will model: one initial state, action states, one or
+                more final states, transitions.
+            </p>
+            <h3>Transitions</h3>
+            <p class="std">
+                Transitions are the 'arrows' that denote a flow from the source state to the target state.
+                Every state in an activity graph has at least one outgoing transition, except for the final state,
+                no outgoing transitions are allowed on a final state.
+            </p>
+            <p class="std">
+                Optionally a transition may carry a trigger, a trigger indicates that something happened at the
+                source that triggered the application into following the path represented by the transition.
+                In bpm4struts you will use a trigger when you want to model an action such as a button-click
+                on a page, because this will trigger a specific call to an action on the server.
+            </p>
+            <p class="std">
+                In addition, triggers are also interesting because they can have parameters, so each time the
+                client and server exchange information you will want to use the trigger to specify the parameter
+                to transport in the request.
+            </p>
+            <p class="std">
+                It is also possible for a transition to carry a guard, but this is only valid when the transition
+                is coming out of a decision point (see below). The decision point represent a specific question
+                such as 'is this a new user ?' and the guards represent possible answers to that question.
+            </p>
+            <p class="std">
+                Sometimes you will want to specify the application should handle specific exceptions,
+                you can do this also using transitions. More specifically by putting them on an action state
+                and targetting a page. Such transitions should be tagged with the FrontEndException stereotype.
+            </p>
+            <p class="std">
+                For bpm4struts you must make sure that all transitions coming out of an initial state or an action
+                state marked with the FrontEndView stereotype must be marked with the FrontEndEvent stereotype.
+                This will tell the cartridge to treat what follows as the logic that is executed in a single
+                action on the server.
+            </p>
+            <h3>Initial States</h3>
+            <p class="std">
+                Only a single initial state is allowed per activity graph, for bpm4struts it is enough for it to be
+                there, you do not need to give it a name, but you may.
+            </p>
+            <h3>Action States</h3>
+            <p class="std">
+                An action state is an atomic state of the application's use-case, you typically have many
+                of them in a single use-case.
+            </p>
+            <p class="std">
+                A special type of action state is the one that has been marked using the FrontEndView
+                stereotype, because this will tell the cartridge to render a JSP page by analyzing the
+                context in which the action state is used.
+            </p>
+            <p class="std">
+                All other action states will be considered to be living on the server. Optionally those ones
+                may carry deferrable events, these events can call the operations from the controller class. The
+                cartridge will render methods for these calls into the actions.
+            </p>
+            <p class="std">
+            <h3>Final State</h3>
+            </p>
+            <p class="std">
+                A final state in an activity graph represents the end of the use-case. Because a typical web
+                application not simply stops showing pages you will need to indicate to which use-case to go next.
+            </p>
+            <p class="std">
+                You can do that by using the name of the use-case (which is unique in the scope of the application)
+                and entering it as the name of the final state. The cartridge will pick it
+                up and make the necessary links.
+            </p>
+            <p class="std">
+            <h3>Swimlanes</h3>
+            </p>
+            <p class="std">
+                This feature is completely optional, but I recommend using it on your diagrams for clarity. Divide
+                your activity graph into partitions using swimlanes, you will have one for
+                the server and one for the client.
+            </p>
+            <p class="std">
+                This way you can immediately see where you are in the use-case but also in the
+                implementation. See the samples for more details.
+            </p>
+        </section>
+
+        <section name="Stereotypes">
+            <p class="std">
+                Most of the model elements will require a stereotype to be processed correctly, below you will find
+                 a table indicating on which model element you may put what stereotype, it will also
+                 denote which effect this has on the generation process.
+            </p>
+            <p class="std">
+                <blockquote>
+                    <table cellpadding="5" rules="all">
+                        <tr>
+                            <th>Stereotype</th>
+                            <th>Model element</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>FrontEndController</td>
+                            <td>Class</td>
+                            <td>Assigns to class to be responsible of handling the business logic, it is called by the actions.</td>
+                        </tr>
+                        <tr>
+                            <td>FrontEndApplication</td>
+                            <td>UseCase</td>
+                            <td>This use-case is the application's starting point, you will also need the FrontEndUseCase here</td>
+                        </tr>
+                        <tr>
+                            <td>FrontEndUseCase</td>
+                            <td>UseCase</td>
+                            <td>A use-case that participates in the front-end processes</td>
+                        </tr>
+                        <tr>
+                            <td>FrontEndUser</td>
+                            <td>Actor</td>
+                            <td>A user that is granted access to the associated use-cases</td>
+                        </tr>
+                        <tr>
+                            <td>FrontEndView</td>
+                            <td>Action State</td>
+                            <td>Designates a JSP page</td>
+                        </tr>
+                        <tr>
+                            <td>FrontEndEvent</td>
+                            <td>Transition</td>
+                            <td>Designates an action that may occur on a JSP page, must go out of an initial state or a JSP page</td>
+                        </tr>
+                        <tr>
+                            <td>FrontEndException</td>
+                            <td>Transition</td>
+                            <td>Designates an exception occuring while processing an action, goes out of an action state and into a JSP page</td>
+                        </tr>
+                    </table>
+                </blockquote>
+            </p>
+        </section>
+
+        <section name="Tagged Values">
+            <p class="std">
+                Sometimes it happens you want to add information to the model but there is no clean way of doing it.
+                In those cases you may want to resort to tagged values, but these cases should be considered with
+                caution. A tagged value is something extra, something optional, and the application should
+                run fine without them.
+            </p>
+            <p class="std">
+                Bpm4struts allows you to add tagged values here and there but provides a default value
+                in case they are missing.
+            </p>
+            <p class="std">
+                What follows is a table indicating on which model element the tagged value applies
+                and a description of the meaning.
+            </p>
+            <p class="std">
+                <blockquote>
+                    <table cellpadding="5" rules="all">
+                        <tr>
+                            <th>Tagged value</th>
+                            <th>Model element</th>
+                            <th>Default value</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.action.type (*)</td>
+                            <td>Transition w/ FrontEndEvent</td>
+                            <td>formpost</td>
+                            <td>Indicates the type of trigger causing the action, possible values are hyperlink and form</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.type</td>
+                            <td>Parameter</td>
+                            <td>text</td>
+                            <td>Indicates the type of parameter, this information will be used when rendering the pages, possible values are: text, textarea, checkbox, radio, select, password and hidden. One of the tables below give some more information</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.required</td>
+                            <td>Parameter</td>
+                            <td>true</td>
+                            <td>Denotes whether or not this is a required field. If a field is required its type will always be checked (you cannot enter a String value when an int is expected)</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.format (**)</td>
+                            <td>Parameter</td>
+                            <td>N/A</td>
+                            <td>The format of this field's value</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.validwhen</td>
+                            <td>Parameter</td>
+                            <td>N/A</td>
+                            <td>Additional validation to be performed</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.exception.type</td>
+                            <td>Transition w/ FrontEndException</td>
+                            <td>java.lang.Exception</td>
+                            <td>Indicates which exception this handler takes care of</td>
+                        </tr>
+                    </table>
+                </blockquote>
+            </p>
+            <p class="std">
+                (*) See below for the difference between both action types
+                <br/>
+                (**) For information on how to specify field validation formats see the table below.
+            </p>
+            <p class="std">
+                <blockquote>
+                    <table cellpadding="5" rules="all">
+                        <tr>
+                            <th>Type</th>
+                            <th>Value</th>
+                            <th>Arguments</th>
+                            <th>Example</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>int, float, double, java.lang.Integer, java.lang.Float, java.lang.Double</td>
+                            <td>range</td>
+                            <td>2 of this type</td>
+                            <td>range 2 12</td>
+                            <td>Specifies in which range the value of this attribute must fall</td>
+                        </tr>
+                        <tr>
+                            <td>java.util.Date, java.sql.Date</td>
+                            <td>N/A</td>
+                            <td>[strict] (format)</td>
+                            <td>strict dd/MM/yyyy </td>
+                            <td>The format in which dates need to be specified (optionally strict) (*)</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>minlength</td>
+                            <td>an integer value</td>
+                            <td>minlength 4</td>
+                            <td>Specifies the minimum number of characters</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>maxlength</td>
+                            <td>an integer value</td>
+                            <td>maxlength 4</td>
+                            <td>Specifies the maximum number of characters</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>pattern</td>
+                            <td>a regular expression</td>
+                            <td>pattern ^[a-zA-Z]*$</td>
+                            <td>Validates format according to a regular expression (**)</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>creditcard</td>
+                            <td>N/A</td>
+                            <td>creditcard</td>
+                            <td>Validates the value to be a creditcard number, according to what is known as the Luhn check</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>email</td>
+                            <td>N/A</td>
+                            <td>email</td>
+                            <td>Checks if the specified value is a possible email address, IP addresses are also taken into account</td>
+                        </tr>
+                    </table>
+                </blockquote>
+            </p>
+            <p class="std">
+                (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please 
+                refer to the JavaDoc documentation of that class for more information, this format is case-sensitive
+                <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html">
+                SimpleDateFormat JavaDoc</a>
+                <br/>                
+                (**) The pattern expression is a Perl regular expression as you would you use in Javascript, 
+                by convention it requires the ^ and $ to denote respectively the beginning and ending of the pattern
+                <a href="http://devedge.netscape.com/library/manuals/2000/javascript/1.5/guide/regexp.html#1010689">
+                Netscape's guide to regular expressions in Javascript</a>
+            </p>
+        </section>
+
+        <section name="Action Types: Hyperlinks vs. Forms">
+            <p class="std">
+                In a typical web application one can distinguish two different types of actions: hyperlinks and
+                buttons. The difference between them is that with buttons you may additionally have a form with
+                input fields sent to the server. This means that the user can decide at run-time what will
+                exactly be sent. Hyperlinks are static in the sense that they cannot be changed by the
+                client through the page.
+            </p>
+            <p class="std">
+                This distinction can be specified by bpm4struts also, and depending on the parameters that
+                are being sent to the server more hyperlinks will be rendered.
+            </p>
+            <p class="std">
+                In short, for each action parameter tagged as a 'select' parameter (and thus having a
+                list to back it up) the cartridge will loop of the backinglist, all other parameters are
+                sent as they are found.
+            </p>
+            <p class="std">
+                Example: you have a list of items and you want a link for each item in the list, simply
+                create an action parameter 'item' and tag it as 'select' (which will always create a list
+                to backup the 'item'). If the action is a hyperlink action the JSP will be rendered as desired.
+            </p>
+            <p class="std">
+                To illustrate the difference, please take a look at the folowing images. They represent pages
+                generated from exactly the same UML model, the only difference is that one of them contains
+                an action that has been marked as being of type 'hyperlink' ... this will instruct the
+                cartridge not to render input widget, but an hyperlink with parameters instead.
+            </p>
+        </section>
+
+        <section name="Field Types">
+            <p class="std">
+                If you wish to display input fields using a special widget you can do so using the
+                @org.andromda.struts.view.field.type tagged value. Depending on that value the
+                parameter will be treated differently.
+            </p>
+            <p class="std">
+                <blockquote>
+                    <table cellpadding="5" rules="all">
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>text</td>
+                            <td>renders a textfield, this is the default widget</td>
+                        </tr>
+                        <tr>
+                            <td>textarea</td>
+                            <td>renders a widget that allows a block of text in multiple lines to be entered</td>
+                        </tr>
+                        <tr>
+                            <td>select</td>
+                            <td>This will render a listbox or combobox. If the parameter is a collection or array you will have the possiblity to select multiple values, otherwise you will have a combobox where only one value at a time can be selected</td>
+                        </tr>
+                        <tr>
+                            <td>checkbox</td>
+                            <td>renders a checkbox, if the field is a boolean value this widget will be rendered by default</td>
+                        </tr>
+                        <tr>
+                            <td>radio X</td>
+                            <td>renders radiobuttons, the X is optional and represents an integer with a default value of 3; it denotes the number of choices for this parameter: the value you enter there will determine the number of radiobuttons that will be rendered</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>renders a password field, each character typed will be rendered as an asterisk</td>
+                        </tr>
+                        <tr>
+                            <td>hidden</td>
+                            <td>does not render any widget, but the parameter will nevertheless be included in the request</td>
+                        </tr>
+                    </table>
+                </blockquote>
+            </p>
+        </section>
+
+    </body>
+</document>
