@@ -9,10 +9,12 @@ import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Contains utilities for use with EJB metafacades.
@@ -85,8 +87,9 @@ class EJBMetafacadeUtils
 
     /**
      * Gets the view type for the passed in <code>classifier</code>. Returns
-     * 'local' if the model element has the entity stereotype, returns 'remote'
-     * otherwise.
+     * 'local' if the model element has the entity stereotype, others checks
+     * there ejb tagged value and if there is no value defined, returns
+     * 'remote'.
      * 
      * @return String the view type name.
      */
@@ -94,11 +97,34 @@ class EJBMetafacadeUtils
     {
         final String methodName = "EJBMetafacadeUtils.getViewType";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
-        if (classifier.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
+        String viewType = "local";
+        if (classifier.hasStereotype(EJBProfile.STEREOTYPE_SERVICE))
         {
-            return "local";
+            String viewTypeValue = (String)classifier
+                .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE);
+            // if the view type wasn't found, search all super classes
+            if (StringUtils.isEmpty(viewTypeValue))
+            {
+                viewType = (String)CollectionUtils.find(classifier
+                    .getAllGeneralizations(), new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        return ((ModelElementFacade)object)
+                            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE) != null;
+                    }
+                });
+            }
+            if (StringUtils.isNotEmpty(viewTypeValue))
+            {
+                viewType = viewTypeValue;
+            }
+            else
+            {
+                viewType = "remote";
+            }
         }
-        return "remote";
+        return viewType;
     }
 
     /**
