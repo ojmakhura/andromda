@@ -8,6 +8,9 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-10" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="SPRING-29">
+                Eager loading of relationships is now correctly supported when using composition. 
+            </action>
             <action dev="draftdog" type="add">
                 Bpm4struts is now able to generate <code>id</code> attributes in the web.xml descriptor, just use
                 the <a href="andromda-bpm4struts-cartridge/namespace.html">generateWebXmlIds</a> namespace property.
