@@ -8,6 +8,13 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-23" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="CORE-16">
+                An external configuration file can now configure logging for AndroMDA.  
+                See <a href="anttask.html#loggingConfigurationUri">loggingConfigurationUri</a> for information
+                on how to use it with Ant.  See 
+                <a href="maven-andromda-plugin/properties.html#maven.andromda.loggingConfigurationUri">maven.andromda.loggingConfigurationUri</a>
+                for information on how to use with Maven.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-39">
                 Metafacades can now be mapped on the basis that more than one stereotype
                 is required.
