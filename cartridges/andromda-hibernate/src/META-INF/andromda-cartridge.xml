@@ -2,9 +2,9 @@
 
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
+    <!-- cartridge-templateObject merge-point-->  
 
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
-
     <!-- externalise the hibernate ID generator class see the hibernate doc for details -->
     <property reference="idGeneratorClass" default="uuid.hex"/>
 	<!-- Only generate the Impl at the leaf, useful when inheritance
@@ -36,6 +36,9 @@
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
+    <!-- cartridge-property merge-point-->  
+
+    <!-- cartridge-resource merge-point -->
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
@@ -130,5 +133,7 @@
         outlet="entities"
         overwrite="true"
         required="false"/>
+        
+    <!-- cartridge-template merge-point -->
 
 </cartridge>
