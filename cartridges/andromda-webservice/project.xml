@@ -23,13 +23,6 @@
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>UMLMetafacadeModel</artifactId>
-            <version>${pom.currentVersion}</version>
-            <type>xml.zip</type>
-            <properties/>
-        </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
