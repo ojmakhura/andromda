@@ -109,4 +109,14 @@ public class ForeignKeyColumnLogicImpl
     {
         return getImportedTable().getPrimaryKeyColumn();
     }
+    
+    /**
+     * Override to make many-to-many relations always required.
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
+     */
+    public boolean isRequired()
+    {
+        return super.isRequired() || super.isMany2Many();
+    }
 }
