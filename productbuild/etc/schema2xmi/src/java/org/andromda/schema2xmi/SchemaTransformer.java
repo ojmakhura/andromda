@@ -8,6 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ComponentContainer;
@@ -17,10 +21,13 @@ import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
+import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.UmlAssociation;
 import org.omg.uml.foundation.core.UmlClass;
+import org.omg.uml.foundation.datatypes.AggregationKindEnum;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.DataTypesPackage;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -79,6 +86,16 @@ public class SchemaTransformer
      * Stores the schema types to model type mappings.
      */
     private Mappings typeMappings = null;
+    
+    /**
+     * Stores the classes keyed by table name.
+     */
+    private Map classes = new HashMap();
+    
+    /**
+     * Stores the foreign keys for each table.
+     */
+    private Map foreignKeys = new HashMap();
     
     /**
      * Constructs a new instance of this SchemaTransformer.
@@ -199,6 +216,11 @@ public class SchemaTransformer
     }
     
     /**
+     * The package that is currently being processed.
+     */
+    private UmlPackage umlPackage;
+    
+    /**
      * The model thats currently being processed
      */
     private Model model;
@@ -209,7 +231,7 @@ public class SchemaTransformer
      */
     private Object transform(Connection connection) throws Exception
     {
-        UmlPackage umlPackage = (UmlPackage)this.repository.getModel()
+        this.umlPackage = (UmlPackage)this.repository.getModel()
             .getModel();
 
         ModelManagementPackage modelManagementPackage = umlPackage
@@ -282,29 +304,57 @@ public class SchemaTransformer
         {
             "TABLE",
         });
+        
+        // loop through and create all classes and store then
+        // in the classes Map keyed by table
         while (tableRs.next())
         {
-            String name = tableRs.getString("TABLE_NAME");
+            String tableName = tableRs.getString("TABLE_NAME");
             if (StringUtils.isNotBlank(this.tableNamePattern))
             {
-                if (name.matches(this.tableNamePattern))
+                if (tableName.matches(this.tableNamePattern))
                 {
                    UmlClass umlClass = this.createClass(
+                       modelPackage,
                        metadata, 
                        corePackage, 
-                       name);                   
-                   modelPackage.getOwnedElement().add(umlClass);
+                       tableName);        
+                   this.classes.put(tableName, umlClass);
                 }              
             }
             else 
             {
                 UmlClass umlClass = this.createClass(
+                    modelPackage,
                     metadata, 
                     corePackage, 
-                    name);  
-                modelPackage.getOwnedElement().add(umlClass);
+                    tableName);  
+                this.classes.put(tableName, umlClass);
             }
         }
+        
+        // add all attributes and associations to the modelPackage
+        Iterator tableNameIt = this.classes.keySet().iterator();
+        while (tableNameIt.hasNext())
+        {
+            String tableName = (String)tableNameIt.next();        
+            UmlClass umlClass = (UmlClass)classes.get(tableName);
+            
+            // create and add all associations to the package
+            modelPackage.getOwnedElement().addAll(      
+	            this.createAssociations(
+	                metadata, 
+	                corePackage, 
+	                tableName));
+            
+            // create and all the attributes 
+            umlClass.getOwnedElement().addAll(
+                this.createAttributes(
+                    metadata, 
+                    corePackage, 
+                    tableName));
+            modelPackage.getOwnedElement().add(umlClass);
+        }      
     }
     
     /**
@@ -314,12 +364,13 @@ public class SchemaTransformer
      * @param name the name to create the class with
      * @return the UmlClass
      */
-    private UmlClass createClass(
+    protected UmlClass createClass(
+        org.omg.uml.modelmanagement.UmlPackage modelPackage,
         DatabaseMetaData metadata,
         CorePackage corePackage, 
-        String name) throws SQLException
+        String name) 
     {
-        String className = toClassName(name);
+        String className = SqlToModelNameFormatter.toClassName(name);
         UmlClass umlClass =
             corePackage.getUmlClass().createUmlClass(
 	            className,
@@ -329,12 +380,7 @@ public class SchemaTransformer
 	            false,
 	            false,
 	            false);
-        // create and all all the attributes 
-        umlClass.getOwnedElement().addAll(
-            this.createAttributes(
-                metadata, 
-                corePackage, 
-                name));
+
         if (logger.isInfoEnabled())
             logger.info("created attribute --> '" + className + "'");
         return umlClass;
@@ -351,7 +397,7 @@ public class SchemaTransformer
      * @param tableName the tableName for which to find columns.
      * @return the collection of new attributes.
      */
-    private Collection createAttributes(
+    protected Collection createAttributes(
         DatabaseMetaData metadata, 
         CorePackage corePackage, 
         String tableName) throws SQLException
@@ -361,48 +407,176 @@ public class SchemaTransformer
         while (columnRs.next())
         {
             String columnName = columnRs.getString("COLUMN_NAME");
-            int nullableVal = columnRs.getInt("NULLABLE");
             
-            // first we try to find a mapping that mappings to the
-            // database proprietary type
-            String type = this.typeMappings.getTo(
-                columnRs.getString("TYPE_NAME"));
-            Classifier typeClass = (Classifier)ModelElementFinder.find(this.model, type);
-            if (typeClass == null)
+            // do NOT add foreign key columns as attributes (since
+            // they are placed on association ends)
+            if (!this.hasForeignKey(tableName, columnName))
             {
-                // next we see if we can find a type matching a mapping
-                // for a JDBC type
-                type = this.typeMappings.getTo(
-                    JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE")));
-                typeClass = (Classifier)ModelElementFinder.find(this.model, type);
+	            int nullableVal = columnRs.getInt("NULLABLE");
+	            
+	            // first we try to find a mapping that mappings to the
+	            // database proprietary type
+	            String type = this.typeMappings.getTo(
+	                columnRs.getString("TYPE_NAME"));
+	            Classifier typeClass = (Classifier)ModelElementFinder.find(this.model, type);
+	            if (typeClass == null)
+	            {
+	                // next we see if we can find a type matching a mapping
+	                // for a JDBC type
+	                type = this.typeMappings.getTo(
+	                    JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE")));
+	                typeClass = (Classifier)ModelElementFinder.find(this.model, type);
+	            }
+	            
+	            boolean required = false;
+	            // set whether or not the column is required
+	            if (nullableVal == DatabaseMetaData.attributeNoNulls)
+	            {
+	                required = true;
+	            }   
+	            String attributeName = 
+	                SqlToModelNameFormatter.toAttributeName(columnName);
+	            Attribute attribute = 
+	                corePackage.getAttribute().createAttribute(
+	                    attributeName,
+	                    VisibilityKindEnum.VK_PUBLIC,
+	                    false,
+	                    ScopeKindEnum.SK_INSTANCE,
+	                    this.createAttributeMultiplicity(
+	                        corePackage.getDataTypes(), 
+	                        required),
+	                    ChangeableKindEnum.CK_CHANGEABLE,
+	                    ScopeKindEnum.SK_CLASSIFIER,
+	                    OrderingKindEnum.OK_UNORDERED,
+	                    null);
+	            attribute.setType(typeClass);
+	            attributes.add(attribute);
+	            if (logger.isInfoEnabled())
+	                logger.info("created attribute --> '" + attributeName + "'");
+            } else {
+                System.out.println("columnName: '" + columnName + "', is a foreignKey on '" + tableName + "'");   
             }
-            
-            boolean required = false;
-            // set whether or not the column is required
-            if (nullableVal == DatabaseMetaData.attributeNoNulls)
-            {
-                required = true;
-            }   
-            String attributeName = this.toAttributeName(columnName);
-            Attribute attribute = 
-                corePackage.getAttribute().createAttribute(
-                    attributeName,
-                    VisibilityKindEnum.VK_PUBLIC,
-                    false,
-                    ScopeKindEnum.SK_CLASSIFIER,
-                    this.createAttributeMultiplicity(
-                        corePackage.getDataTypes(), 
-                        required),
-                    ChangeableKindEnum.CK_CHANGEABLE,
-                    ScopeKindEnum.SK_CLASSIFIER,
-                    OrderingKindEnum.OK_UNORDERED,
-                    null);
-            attribute.setType(typeClass);
-            attributes.add(attribute);
-            if (logger.isInfoEnabled())
-                logger.info("created attribute --> '" + attributeName + "'");
         }
         return attributes;
+    }
+    
+    /**
+     * Creates and returns a collection of associations by
+     * determing foreign tables to the table having
+     * the given <code>tableName</code>.
+     * 
+     * @param metadata the DatabaseMetaData from which to retrieve
+     *        the columns.
+     * @param corePackage used to create the class.
+     * @param tableName the tableName for which to find columns.
+     * @return the collection of new attributes.
+     */
+    protected Collection createAssociations(
+        DatabaseMetaData metadata, 
+        CorePackage corePackage, 
+        String tableName) throws SQLException
+    {
+        Collection associations = new ArrayList();
+        ResultSet columnRs = metadata.getImportedKeys(null, null, tableName);
+        while (columnRs.next())
+        {
+           
+            // store the foreign key in the foreignKeys Map
+            String fkColumnName = columnRs.getString("FKCOLUMN_NAME");
+            System.out.println("adding foreignkey columnName " + fkColumnName + " for table :" + tableName);
+            this.addForeignKey(tableName, fkColumnName);
+            
+            // now create the association
+            String foreignTableName = columnRs.getString("PKTABLE_NAME");
+            UmlAssociation association = 
+                corePackage.getUmlAssociation().createUmlAssociation(
+                    null,
+                    VisibilityKindEnum.VK_PUBLIC,
+                    false,
+                    false,
+                    false,
+                    false);
+            
+            String endName = null;
+            // primary association
+            AssociationEnd primaryEnd = 
+                corePackage.getAssociationEnd().createAssociationEnd(
+	                endName, 
+	                VisibilityKindEnum.VK_PUBLIC, 
+	                false,
+	                false, 
+	                OrderingKindEnum.OK_UNORDERED,
+	                AggregationKindEnum.AK_NONE,
+	                ScopeKindEnum.SK_INSTANCE,
+	                this.createMultiplicity(corePackage.getDataTypes(), 1, 1),
+	                ChangeableKindEnum.CK_CHANGEABLE);
+            primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
+            association.getConnection().add(primaryEnd); 
+            
+            // foriegn association
+            AssociationEnd foreignEnd = 
+                corePackage.getAssociationEnd().createAssociationEnd(
+	                endName, 
+	                VisibilityKindEnum.VK_PUBLIC, 
+	                false,
+	                false, 
+	                OrderingKindEnum.OK_UNORDERED,
+	                AggregationKindEnum.AK_NONE,
+	                ScopeKindEnum.SK_INSTANCE,
+	                this.createMultiplicity(corePackage.getDataTypes(), 1, 1),
+	                ChangeableKindEnum.CK_CHANGEABLE);
+            foreignEnd.setParticipant((Classifier)this.classes.get(foreignTableName));
+            association.getConnection().add(foreignEnd);
+           
+            associations.add(association);
+        }
+        return associations;
+    }
+    
+    /**
+     * Adds a foreign key column name to the <code>foreignKeys</code>
+     * Map.  The map stores a collection of foreign key names keyed
+     * by the given <code>tableName</code>
+     * @param tableName the name of the table for which to store the keys.
+     * @param columnName the name of the foreign key column name.
+     */
+    protected void addForeignKey(String tableName, String columnName)
+    {
+        if (StringUtils.isNotBlank(tableName) && 
+            StringUtils.isNotBlank(columnName))
+        {
+            Collection foreignKeys = (Collection)this.foreignKeys.get(tableName);
+            if (foreignKeys == null)
+            {
+                foreignKeys = new HashSet();
+            }
+            foreignKeys.add(columnName);
+            this.foreignKeys.put(tableName, foreignKeys);
+        }
+    }
+    
+    /**
+     * Returns true if the table with the given <code>tableName</code>
+     * has a foreign key with the specified <code>columnName</code>.
+     * 
+     * @param tableName the name of the table to check for the foreign key
+     * @param columnName the naem of the foreign key column.
+     * @return true/false dependeing on whether or not the table has
+     *         the foreign key with the given <code>columnName</code>.
+     */
+    protected boolean hasForeignKey(String tableName, String columnName)
+    {
+        boolean hasForeignKey = false;
+        if (StringUtils.isNotBlank(tableName) && 
+            StringUtils.isNotBlank(columnName))
+        {
+            Collection foreignKeys = (Collection)this.foreignKeys.get(tableName);
+            if (foreignKeys != null)
+            {
+                hasForeignKey = foreignKeys.contains(columnName); 
+            }
+        }
+        return hasForeignKey;
     }
     
     /**
@@ -450,51 +624,4 @@ public class SchemaTransformer
         mult.getRange().add(range);    
         return mult;
     }
-    
-    /**
-     * Converts a table name to an class name.
-     * 
-     * @param name the name of the table.
-     * @return the new class name.
-     */
-    private String toClassName(String name)
-    {
-        return toCamelCase(name);
-    }
-    
-    /**
-     * Converts a column name to an attribute name.
-     * 
-     * @param name the name of the column
-     * @return the new attribute name.
-     */
-    private String toAttributeName(String name)
-    {
-        return StringUtils.uncapitalize(toClassName(name));
-    }
-    
-    /**
-     * Turns a table name into a model element class name.
-     * 
-     * @param name the table name.
-     * @return the new class name.
-     */
-    private String toCamelCase(String name)
-    {
-        StringBuffer buffer = new StringBuffer();
-        String[] tokens = name.split("_");
-        if (tokens != null && tokens.length > 0)
-        {
-            for (int ctr = 0; ctr < tokens.length; ctr++)
-            {
-                buffer.append(StringUtils.capitalize(tokens[ctr].toLowerCase()));
-            }
-        } 
-        else 
-        {
-            buffer.append(StringUtils.capitalize(name.toLowerCase()));
-        }
-        return buffer.toString();    
-    }
-    
 }
