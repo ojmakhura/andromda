@@ -1,10 +1,6 @@
 package org.andromda.core.dbmapping;
 
 import java.io.File;
-import java.io.FileInputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 
 import junit.framework.TestCase;
 
@@ -37,14 +33,8 @@ public class DBMappingTest extends TestCase
         // the current input file relative to the baseDir
         File inFile = new File("simple2ejb", "TypeMapping.xml");
 
-        // let JAXB read the XML file and unmarshal it into a model tree
-        JAXBContext jc =
-            JAXBContext.newInstance("de.mbohlen.tools.uml2ejb.dbmapping");
-
-        Unmarshaller u = jc.createUnmarshaller();
-
-        fMappings = (Mappings) u.unmarshal(new FileInputStream(inFile));
-        fMappingTable = new JAXBDbMappingTable(fMappings);
+        fMappingTable = new JAXBDbMappingTable();
+        fMappingTable.read(inFile);
     }
 
     public void testUnmarshal() throws Exception

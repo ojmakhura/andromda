@@ -1,4 +1,4 @@
-andromda.home = ../andromda/dist/predist/
+andromda.home = ../
 
 java.classpath = c:/ntdev/jdk1.4/lib/tools.jar
 
@@ -23,7 +23,7 @@ junit.libs = ${junit.home}lib/junit.jar
 ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
 j2ee.libs = ${jboss.home}server/default/lib/jboss-j2ee.jar:${jboss.home}server/default/lib/javax.servlet.jar
 struts.libs = ${struts.home}lib/struts.jar
-mdr.libs = ${mdr.home}/lib/openide-lookup.jar;${mdr.home}/lib/nbmdr.jar;${mdr.home}/lib/mdrapi.jar;${mdr.home}/lib/jmi.jar;${mdr.home}/lib/jmiutils.jar;${mdr.home}/lib/jmitoolkit.jar;${mdr.home}/lib/mof.jar;${mdr.home}/lib/mdr.jar;${mdr.home}/lib/uml14.jar
+mdr.libs = ${mdr.home}lib/openide-lookup.jar;${mdr.home}lib/openide-fs.jar:${mdr.home}lib/nbmdr.jar;${mdr.home}lib/mdrapi.jar;${mdr.home}lib/jmi.jar;${mdr.home}lib/jmiutils.jar;${mdr.home}lib/jmitoolkit.jar;${mdr.home}lib/mof.jar;${mdr.home}lib/mdr.jar;${mdr.home}lib/uml14.jar
 xdoclet.libs=${xdoclet.home}/xdoclet-ejb-module.jar:${xdoclet.home}/xdoclet-java-module.jar:${xdoclet.home}/xdoclet-jboss-module.jar:${xdoclet.home}/xdoclet-web-module.jar:${xdoclet.home}/xdoclet-xdoclet-module.jar:${xdoclet.home}/xdoclet.jar:${xdoclet.home}/xjavadoc.jar:${xdoclet.home}/xdoclet-jmx-module.jar
 
 build.classpath = ${andromda.libs}:${xdoclet.libs}:${jaxb.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}

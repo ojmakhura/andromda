@@ -1,10 +1,18 @@
 package org.andromda.core.dbmapping;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 import org.andromda.core.common.DbMappingTable;
+import org.andromda.core.common.RepositoryReadException;
 
 /**
  * <p>This is a lookup table for the mapping from Java data types
@@ -21,13 +29,37 @@ public class JAXBDbMappingTable
 {
     private HashMap map = new HashMap();
 
+
+    public void read(File mappingsFile)
+        throws RepositoryReadException, IOException
+    {
+        try {
+            JAXBContext jc =
+                JAXBContext.newInstance(
+                "org.andromda.core.dbmapping");
+
+            Unmarshaller u = jc.createUnmarshaller();
+
+            Mappings xmlTypeMappings =
+                (Mappings) u.unmarshal(
+                new FileInputStream(mappingsFile));
+                
+            initialize(xmlTypeMappings);
+        }
+        catch (JAXBException jaxbe)
+        {
+            throw new RepositoryReadException(
+                "unable to read typemappings file: " + mappingsFile, jaxbe);
+        }
+           
+    }
     /**
      * Initializes the lookup table with a set of mappings
      * that have been read from an XML file.
      * 
      * @param xmlMappings the set of mappings
      */
-    public JAXBDbMappingTable(Mappings xmlMappings)
+    public void initialize(Mappings xmlMappings)
     {
         for (Iterator it = xmlMappings.getMappings().iterator(); it.hasNext();)
         {

@@ -1,0 +1,13 @@
+SIMPLE REPORT
+-------------
+#foreach ( $modelElement in $transform.modelElements )
+#if ($modelElement.name)
+ELEMENT = $modelElement.name
+#foreach ( $attribute in $transform.getAttributes($modelElement) )
+  attribute $attribute.name
+#end
+#foreach ( $operation in $transform.getOperations($modelElement) )
+  operation $operation.name
+#end
+#end   
+#end
