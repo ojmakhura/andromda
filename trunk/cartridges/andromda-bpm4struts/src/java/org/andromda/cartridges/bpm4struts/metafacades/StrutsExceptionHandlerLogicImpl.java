@@ -62,7 +62,7 @@ public class StrutsExceptionHandlerLogicImpl
         if (target instanceof StrutsJsp)
             return ((StrutsJsp) target).getFullPath() + ".jsp";
         else if (target instanceof StrutsFinalState)
-            return ((StrutsFinalState) target).getFullPath() + ".do";
+            return ((StrutsFinalState) target).getFullPath();
         else
             return "";
     }
