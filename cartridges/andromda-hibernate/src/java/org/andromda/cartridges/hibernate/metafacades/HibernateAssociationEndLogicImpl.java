@@ -58,24 +58,6 @@ public class HibernateAssociationEndLogicImpl
     private static final String PROPERTY_ASSOCIATION_END_OUTERJOIN = "hibernateAssociationEndOuterJoin";
 
     /**
-     * Defines the <code>true</code> value for the hibernate outer join
-     * option.
-     */
-    public static final String OUTER_JOIN_TRUE = "true";
-
-    /**
-     * Defines the <code>false</code> value for the hibernate outer join
-     * option.
-     */
-    public static final String OUTER_JOIN_FALSE = "false";
-
-    /**
-     * Defines the <code>auto</code> value for the hibernate outer join
-     * option.
-     */
-    public static final String OUTER_JOIN_AUTO = "auto";
-
-    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOuterJoin()
      */
     protected String handleGetOuterJoin()
@@ -87,13 +69,7 @@ public class HibernateAssociationEndLogicImpl
             value = this
                 .getConfiguredProperty(PROPERTY_ASSOCIATION_END_OUTERJOIN);
         }
-        String outerJoin = StringUtils.trimToEmpty(String.valueOf(value));
-        if (!outerJoin.equalsIgnoreCase(OUTER_JOIN_FALSE)
-            && !outerJoin.equalsIgnoreCase(OUTER_JOIN_TRUE))
-        {
-            outerJoin = OUTER_JOIN_AUTO;
-        }
-        return outerJoin;
+        return StringUtils.trimToEmpty(String.valueOf(value));
     }
 
 }

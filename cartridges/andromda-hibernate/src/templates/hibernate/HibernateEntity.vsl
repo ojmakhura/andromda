@@ -192,7 +192,7 @@ $target.getDocumentation("     * ")
 #end
 #if ($associationEnd.one2One || $associationEnd.many2One)
      * @hibernate.many-to-one
-     *     column="${target.columnName}"
+     *     column="$target.columnName"
      *     class="$targetTypeName"
 #if($target.required)
      *     not-null="true"
