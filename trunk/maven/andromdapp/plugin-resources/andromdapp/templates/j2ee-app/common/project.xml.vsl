@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>${projectId}-common</id>
+  	<artifactId>${projectId}-common</artifactId>
   	<name>${projectName} Common</name>
   	<shortDescription>${pom.name} Component</shortDescription>
   	<description>

@@ -27,6 +27,10 @@
 			basedir="${mdaTemplatesDir}"
 			template="/project-hibernate.xml.vsl"/> 	
 
+        <!-- copy over the empty model -->
+		<ant:copy 
+		    file="${model.location}" 
+		    todir="${maven.build.dest}/${pluginResourceJ2eeDir}/mda/src/uml"/>
 		<!-- copy over the db initialization scripts for hibernate -->
         <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/hibernate/db/conf">
             <ant:fileset dir="${hibernate.db.conf.location}"/>

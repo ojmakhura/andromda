@@ -54,32 +54,6 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!--
-                <dependency>
-                    <groupId>jstl</groupId>
-                    <artifactId>jstl</artifactId>
-                    <version>1.0.2</version>
-                    <properties>
-                        <war.bundle>true</war.bundle>
-                    </properties>
-                </dependency>
-                <dependency>
-                    <groupId>taglibs</groupId>
-                    <artifactId>standard</artifactId>
-                    <version>1.0.4</version>
-                    <properties>
-                        <war.bundle>true</war.bundle>
-                    </properties>
-                </dependency>
-                <dependency>
-                    <groupId>struts-menu</groupId>
-                    <artifactId>struts-menu</artifactId>
-                    <version>2.2</version>
-                    <properties>
-                        <war.bundle>true</war.bundle>
-                    </properties>
-                </dependency>
-        -->
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
@@ -152,7 +126,7 @@
         <dependency>
             <groupId>xjavadoc</groupId>
             <artifactId>xjavadoc</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
@@ -237,26 +211,6 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!--
-                <dependency>
-                    <groupId>struts-menu</groupId>
-                    <artifactId>struts</artifactId> <!- - this construction is needed to make maven include it in the war - ->
-                    <version>menu-2.2</version>
-                    <type>tld</type>
-                    <properties>
-                        <war.bundle>true</war.bundle>
-                    </properties>
-                </dependency>
-        -->
-        <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-            <version>1.0-b3</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
         <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
@@ -278,7 +232,7 @@
         <dependency>
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.6</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>commons-el</groupId>

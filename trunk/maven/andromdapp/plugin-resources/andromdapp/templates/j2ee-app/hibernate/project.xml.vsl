@@ -1,6 +1,6 @@
 <project>
   	<extend>../project.xml</extend>
-  	<id>${projectId}-hibernate</id>
+  	<artifactId>${projectId}-hibernate</artifactId>
   	<name>${projectName} Hibernate</name>
   	<shortDescription>
   		The ${pom.name} Components
@@ -38,7 +38,7 @@
   		<dependency>
      		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>
-        	<version>2.1</version>
+        	<version>3.1</version>
 			<properties>
 				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>

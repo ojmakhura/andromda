@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>${projectId}-web</id>
+  	<artifactId>${projectId}-web</artifactId>
   	<name>${projectName} Web</name>
   	<shortDescription>${pom.name} Web Component</shortDescription>
   	<description>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.0</version>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-digester</groupId>
@@ -42,29 +42,46 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.4</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.1.2dev-SNAPSHOT</version>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>servletapi</groupId>
-			<artifactId>servletapi</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts</artifactId>
-			<version>1.2dev-20040621</version>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.1.1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>servletapi</groupId>
+            <artifactId>servletapi</artifactId>
+            <version>2.4-20040521</version>
+        </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts</artifactId>
+            <version>1.2.1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.0-b3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag-all</artifactId>
+            <version>1.0-b3</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
 		<dependency>
 			<groupId>jboss</groupId>
 			<artifactId>jboss-j2ee</artifactId>
@@ -114,87 +131,78 @@
         	<version>1.2</version>
     	</dependency>
 		<!-- TLDs -->
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts-bean</artifactId>
-			<version>1.2dev-20040621</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts-html</artifactId>
-			<version>1.2dev-20040621</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts-logic</artifactId>
-			<version>1.2dev-20040621</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts-nested</artifactId>
-			<version>1.2dev-20040621</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts-tiles</artifactId>
-			<version>1.2dev-20040621</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
         <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-            <version>1.0-b3</version>
-            <type>jar</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag-all</artifactId>
-            <version>1.0-b3</version>
+            <groupId>struts</groupId>
+            <artifactId>struts-bean</artifactId>
+            <version>1.2.1</version>
             <type>tld</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!-- The next two dependencies (Jasper) are used for precompilation -->
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-html</artifactId>
+            <version>1.2.1</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-logic</artifactId>
+            <version>1.2.1</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-nested</artifactId>
+            <version>1.2.1</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-tiles</artifactId>
+            <version>1.2.1</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
             <artifactId>jasper-compiler</artifactId>
-            <version>4.0.4</version>
+            <version>5.0.18</version>
             <type>jar</type>
-            <properties>
-                <war.bundle>false</war.bundle>
-            </properties>
         </dependency>
         <dependency>
             <groupId>tomcat</groupId>
             <artifactId>jasper-runtime</artifactId>
-            <version>4.0.4</version>
+            <version>5.0.18</version>
             <type>jar</type>
-            <properties>
-                <war.bundle>false</war.bundle>
-            </properties>
+        </dependency>
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>5.0.18</version>
+        </dependency>
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-el</groupId>
+            <artifactId>commons-el</artifactId>
+            <version>1.0</version>
         </dependency>
 	</dependencies>
   	<build>

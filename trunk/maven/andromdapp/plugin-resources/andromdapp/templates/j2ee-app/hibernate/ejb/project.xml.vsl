@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>${projectId}-hibernate-ejb</id>
+  	<artifactId>${projectId}-hibernate-ejb</artifactId>
   	<name>${projectName} Hibernate EJB</name>
   	<shortDescription>The ${pom.name} Component</shortDescription>
   	<description>
