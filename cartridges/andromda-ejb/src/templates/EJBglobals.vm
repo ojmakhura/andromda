@@ -59,12 +59,12 @@
 #if ($superclass)
 #if ($superclass.hasStereotype("Entity") || $superclass.hasStereotype("Service"))
 ## Extend the implementation class if the super type is an <<Entity>> or <<Service>>
-#set ($beanparentclass = "${superclass.type.fullyQualifiedName}BeanImpl")
+#set ($beanparentclass = "${superclass.fullyQualifiedName}BeanImpl")
 #else
 #set ($beanparentclass = $superclass.fullyQualifiedName)
 #end
 #else
 #set ($beanparentclass = 'java.lang.Object')
 #end
-#set ($ejbRefName = "ejb/${class.packageName}/${class.name}")
+#set ($ejbRefName = "ejb/${class.fullyQualifiedName}")
 ##
