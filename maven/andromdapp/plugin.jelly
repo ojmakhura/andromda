@@ -36,12 +36,10 @@
         <ant:copy
             file="${templatesDir}/maven-${persistenceType}.xml"
             tofile="${projectId}/maven.xml"/>
-            
-        <ant:copy todir="${projectId}">
-            <ant:fileset dir="${templatesDir}">
-                <ant:include name="*.properties"/>
-            </ant:fileset>
-        </ant:copy>
+          
+        <ant:copy
+            file="${templatesDir}/project-${persistenceType}.properties"
+            tofile="${projectId}/project.properties"/>
             
         <attainGoal name="andromdapp:generate-app-subproject"/>
         <attainGoal name="andromdapp:generate-${persistenceType}-subproject"/>
@@ -145,41 +143,14 @@
           prereqs="andromdapp:init"
           description="private internal goal">
         
-        <j:set var="hibernateDir" value="${projectId}/hibernate"/>
-        
-        <j:set var="hibernateTemplatesDir" value="${templatesDir}/hibernate"/>
-          
-        <!-- the base hibernate module -->
-        <j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}"/>
-        <j:set var="moduleDir" value="${hibernateDir}"/>
-        <attainGoal name="andromdapp:generate-module"/>
-        
-        <j:set var="dbConfDir" value="db/conf"/>
-        <ant:copy todir="${moduleDir}/${dbConfDir}">
-            <ant:fileset dir="${moduleTemplatesDir}/${dbConfDir}">
-                <ant:include name="*"/>
-            </ant:fileset>
-        </ant:copy>
-        
-        <!-- the hibernate/ejb module -->
-        <j:set var="moduleName" value="ejb"/>
-        <j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
-        <j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
+        <j:set var="moduleName" value="hibernate"/>
+        <j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
+        <j:set var="moduleDir" value="${projectId}/${moduleName}"/>
         <attainGoal name="andromdapp:generate-module"/>
         <ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
         <!-- create an empty build directory so that maven doesn't complain
              when building the ear until model content is added -->
-        <ant:mkdir dir="${moduleDir}/target/src"/>
-    
-        <!-- the hibernate/sar module -->
-        <j:set var="moduleName" value="sar"/>
-        <j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
-        <j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
-        <attainGoal name="andromdapp:generate-module"/>
-        <ant:replace file="${moduleDir}/maven.xml" 
-            token="$${projectName}"
-            value="${projectName.replaceAll(' ', '')}">
-        </ant:replace>   
+        <ant:mkdir dir="${moduleDir}/target/src"/>	
        
     </goal>
     
