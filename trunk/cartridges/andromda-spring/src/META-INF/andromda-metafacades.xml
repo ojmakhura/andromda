@@ -79,4 +79,7 @@
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Usage$Impl"/>
+    </metafacade>
 </metafacades>
