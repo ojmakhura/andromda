@@ -16,5 +16,9 @@ public interface Column extends Refreshable
 
     public Table getTable();
 
-    public boolean isComparable();
+    public boolean isBooleanType();
+
+    public boolean isNumericType();
+
+    public boolean isStringType();
 }
