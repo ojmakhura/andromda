@@ -11,7 +11,7 @@
     	<description>
     		Translation fragments to support translation of ${translation}.
     	</description>
-    	<file>${translationSrcDir}/${translation}.vsl</file>
+    	<template>${translationSrcDir}/${translation}.vsl</template>
   	</translation>
   	</j:forEach>
   	
