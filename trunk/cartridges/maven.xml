@@ -39,7 +39,7 @@
         </j:if>	
 
         <!-- keep the generation from executing more than once -->
-        <j:if test="${(generationRequired or buildSrcAvailable eq null) and generationPerformed eq null }">
+        <j:if test="${generationRequired or buildSrcAvailable eq null}">
             <ant:available 
                 file="${maven.src.dir}/uml"
                 type="dir" 
@@ -64,8 +64,6 @@
                     id="maven.compile.src.set"
                     refid="metafacade.generated.src"/>     		         	
             </j:if>
-            <!-- set this to keep track of the fact generation was already performed -->
-            <j:set var="generationPerformed" value="true"/>
         </j:if>
     </goal>
     
