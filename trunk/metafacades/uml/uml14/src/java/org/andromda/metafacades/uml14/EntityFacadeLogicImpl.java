@@ -101,7 +101,7 @@ public class EntityFacadeLogicImpl
     public boolean handleHasIdentifiers()
     {
         return this.getIdentifiers() != null
-            && !this.getIdentifiers().isEmpty();
+            && !this.getIdentifiers(true).isEmpty();
     }
 
     /**
