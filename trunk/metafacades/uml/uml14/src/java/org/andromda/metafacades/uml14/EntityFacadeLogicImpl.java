@@ -142,7 +142,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see edu.duke.dcri.mda.model.metafacade.EntityFacade#hasIdentifiers()
+     * @see org.andromda.metafacades.uml.EntityFacade#hasIdentifiers()
      */
     public boolean handleIsIdentifiersPresent()
     {

@@ -102,7 +102,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see edu.duke.dcri.mda.model.ModelAccessFacade#findByStereotype(java.lang.String)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(java.lang.String)
      */
     public Collection findByStereotype(String stereotype)
     {
