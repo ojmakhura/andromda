@@ -11,7 +11,7 @@ public class CartridgeException
 {
 
     /**
-     * Constructor for CartridgeException.
+     * Constructor for PluginException.
      */
     public CartridgeException()
     {
@@ -19,38 +19,38 @@ public class CartridgeException
     }
 
     /**
-     * Constructor for CartridgeException.
+     * Constructor for PluginException.
      * 
-     * @param arg0
+     * @param message
      */
     public CartridgeException(
-        String arg0)
+        String message)
     {
-        super(arg0);
+        super(message);
     }
 
     /**
-     * Constructor for CartridgeException.
+     * Constructor for PluginException.
      * 
-     * @param arg0
-     * @param arg1
+     * @param message
+     * @param parent
      */
     public CartridgeException(
-        String arg0,
-        Throwable arg1)
+        String message,
+        Throwable parent)
     {
-        super(arg0, arg1);
+        super(message, parent);
     }
 
     /**
-     * Constructor for CartridgeException.
+     * Constructor for PluginException.
      * 
-     * @param arg0
+     * @param message
      */
     public CartridgeException(
-        Throwable arg0)
+        Throwable message)
     {
-        super(arg0);
+        super(message);
     }
 
 }
