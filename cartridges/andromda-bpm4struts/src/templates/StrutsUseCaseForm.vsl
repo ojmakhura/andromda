@@ -28,7 +28,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #if ($field.type.collectionType)
 #set ($collectionPresent = true)
 #end
-#if ($field.type.arrayType)
+#if ($field.type.arrayType || $field.hasBackingList())
 #set ($arrayPresent = true)
 #end
     private $field.type.fullyQualifiedName $field.name;
