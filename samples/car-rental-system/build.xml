@@ -314,17 +314,13 @@
         <!--
              XDoclet stores the *Bean classes into ejb-jar.xml
              but the used andromda templates have created
-             subclasses *BeanImpl and *BeanCMP.  Replace
+             subclasses *BeanImpl.  Replace
              the names in the deployment descriptor so that
              everyone is happy.
          -->
         <replace file="build/ejbstage/META-INF/ejb-jar.xml" >
-            <replacetoken><![CDATA[ServiceBean</ejb-class>]]></replacetoken>
-            <replacevalue><![CDATA[ServiceBeanImpl</ejb-class>]]></replacevalue>
-        </replace>
-        <replace file="build/ejbstage/META-INF/ejb-jar.xml" >
             <replacetoken><![CDATA[Bean</ejb-class>]]></replacetoken>
-            <replacevalue><![CDATA[BeanCMP</ejb-class>]]></replacevalue>
+            <replacevalue><![CDATA[BeanImpl</ejb-class>]]></replacevalue>
         </replace>
     </target>
 
