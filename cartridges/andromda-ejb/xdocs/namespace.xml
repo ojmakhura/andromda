@@ -2,10 +2,10 @@
 
 <document>
   	<properties>
-    	<title>Hibernate Cartridge Namespace</title>
+    	<title>EJB Cartridge Namespace</title>
   	</properties>
   	<body>
-    	<section name="Hibernate Cartridge Namespace Properties">
+    	<section name="EJB Cartridge Namespace Properties">
 	      	<table>
 	        	<tr>
 		          	<th>Property</th>         	
@@ -23,15 +23,27 @@
 		          	<td>
 		          		Yes
 		          	</td>		          	
-	        	</tr>		  
+	        	</tr>		
 	        	<tr>
 		          	<td>
 		          		sqlMappingsUri
 		          	</td>
 		          	<td>
 		          		URI specifying the mappings file to use for mapping from model types to SQL types 
-		          		for generated hibernate entities. 
+		          		for generated EJB entities. 
 		          		(i.e. <code>file:${basedir}/Oracle9iMappings.xml</code>). 
+		          	</td>
+		          	<td>
+		          		Yes
+		          	</td>			          	
+	        	</tr>		        	  
+	        	<tr>
+		          	<td>
+		          		jdbcMappingsUri
+		          	</td>
+		          	<td>
+		          		URI specifying the mappings file to use for mapping from model types to JDBC types 
+		          		in the generated Entity EJBs. (i.e. <code>file:${basedir}/JdbcMappings.xml</code>).  
 		          	</td>
 		          	<td>
 		          		Yes
@@ -54,10 +66,10 @@
 	        	</tr>	        	
 	        	<tr>
 		          	<td>
-		          		entities
+		          		entity-beans
 		          	</td>
 		          	<td>
-		          		The directory to which hibernate entities are generated.
+		          		The directory to which Entity EJBs are generated.
 		          	</td>
 		          	<td>
 		          		Yes (unless <code>ignore</code> is specified for this property)

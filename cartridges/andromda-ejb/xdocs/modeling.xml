@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>EJB Cartridge Modeling</title>
+  	</properties>
+  	<body>
+    	<section name="EJB Cartridge Modeling">
+    		<p>
+    			The page describes the modeling standards one must follow to in order
+    			to use the EJB Cartridge.
+    		</p>
+    		<subsection name="Supported Stereotypes">
+		      	<table>
+		        	<tr>
+			          	<th>Stereotype</th>   
+			          	<th nowrap="nowrap">Model Element</th>
+			          	<th>Description</th>      	     	
+		        	</tr>
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<Entity>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>
+			          	<td>
+			          		Produces CMP EJB entities.
+			          	</td>
+		        	</tr>	
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<Service>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>			       
+			          	<td>
+			          		Produces Session EJB facades for the CMP EJB entities.
+			          	</td>
+		        	</tr>		    				        		        	        	      	        	        		        	        	        	     	             	        	
+		        </table>
+		    </subsection>
+    	</section>
+  	</body>
+</document>

@@ -4,14 +4,14 @@
 
     <properties>
         <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
-        <title>AndroMDA - Hibernate - Introduction</title>
+        <title>AndroMDA - EJB - Introduction</title>
     </properties>
 
     <body>
 
-        <section name="AndroMDA Hibernate Cartridge">
+        <section name="AndroMDA EJB Cartridge">
             <p>
-                The purpose of this cartridge is to generate a hibernate persistence tier, fronted by
+                The purpose of this cartridge is to generate an CMP Entity EJB persistence tier, fronted by
                 Session EJB business object facades.  To learn how to use this cartridge, please see 
                 the <a href="modeling.html">Modeling</a> and <a href="namespace.html">Namespace</a> sections.
             </p>
