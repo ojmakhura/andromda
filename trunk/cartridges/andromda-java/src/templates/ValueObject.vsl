@@ -63,6 +63,16 @@ public class ${class.name} implements java.io.Serializable
 
 #foreach ( $att in $class.attributes )
 #set ($atttypename = $transform.findFullyQualifiedName($att.type))
+#if ( ($atttypename == "boolean") || ($atttypename == "java.lang.Boolean") )
+   /**
+#generateDocumentation ($att "    ")
+    *
+    */
+    public $atttypename is${str.upperCaseFirstLetter(${att.name})}()
+    {
+        return this.${att.name};
+    }
+#else
    /**
 #generateDocumentation ($att "    ")
     *
@@ -71,6 +81,7 @@ public class ${class.name} implements java.io.Serializable
     {
         return this.${att.name};
     }
+#end
 
     public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue)
     {
