@@ -1,5 +1,11 @@
 <cartridge name="bpm4struts">
 
+	<templateEngine>
+	    <!-- library of macros used in template engine -->
+        <macrolibrary name="templates/StrutsJSP.vm" />
+        <macrolibrary name="templates/StrutsAction.vm" />
+    </templateEngine>
+
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
