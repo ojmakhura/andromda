@@ -17,6 +17,7 @@
     </preGoal>
     
     <preGoal name="site:run-reports">
+    	<j:set var="docsBuild" value="true"/>
         <attainGoal name="generate-source"/>
     </preGoal>
     
@@ -38,7 +39,7 @@
 		</j:if>	
 
 		<!-- keep the generation from executing more than once -->
-		<j:if test="${generationRequired or buildSrcAvailable eq null}">
+		<j:if test="${generationRequired or buildSrcAvailable eq null or docsBuild eq null}">
 			
 			<attainGoal name="andromda:run-bootstrap"/>
 			<!-- add the paths of the generated source to the
