@@ -106,7 +106,7 @@ public class ModelElementDecoratorImpl extends ModelElementDecorator
     public String getStereotypeName()
     {
         Collection stereotypes = metaObject.getStereotype();
-        if (stereotypes == null)
+        if (stereotypes == null || stereotypes.size() == 0)
         {
             return null;
         }
