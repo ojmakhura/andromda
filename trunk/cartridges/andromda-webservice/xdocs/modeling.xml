@@ -87,6 +87,19 @@
 			          		Allows the definition of enumerated types.  These types <strong>MUST</strong>
                             define their attributes as <em>frozen</em>.
 			          	</td>
+		        	</tr>	
+		        	<tr>
+		        		<a name="Required"/>
+			          	<td>
+			          		<![CDATA[<<Required>>]]>
+			          	</td>
+						<td>
+							Parameter
+						</td>
+			          	<td>
+			          		Allows you to define whether or not operation parameters are <strong>required</strong>
+                            or non <em>nillable</em> (in WSDL terms).
+			          	</td>
 		        	</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
