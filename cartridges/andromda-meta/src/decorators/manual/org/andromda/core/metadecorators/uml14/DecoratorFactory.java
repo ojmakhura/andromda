@@ -12,6 +12,7 @@ public class DecoratorFactory
 
     private HashMap namespaces = new HashMap();
     private String activeNamespace;
+    private org.omg.uml.UmlPackage model;
 
     // just to make sure that nobody instantiates it
     private DecoratorFactory()
@@ -183,6 +184,22 @@ public class DecoratorFactory
         }
 
         return null;
+    }
+
+    /**
+     * @return the model
+     */
+    public org.omg.uml.UmlPackage getModel()
+    {
+        return model;
+    }
+
+    /**
+     * @param model the model
+     */
+    public void setModel(org.omg.uml.UmlPackage model)
+    {
+        this.model = model;
     }
 
     // ----------- these methods support unit testing --------------- 
