@@ -112,13 +112,17 @@ public class StrutsParameterLogicImpl
     public boolean handleIsTableExportable()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORTABLE);
-        return (taggedValue==null) ? true : isTrue(String.valueOf(taggedValue));
+        return (taggedValue==null)
+                ? Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORTABLE_DEFAULT_VALUE
+                : isTrue(String.valueOf(taggedValue));
     }
 
     public boolean handleIsTableSortable()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_SORTABLE);
-        return (taggedValue==null) ? true : isTrue(String.valueOf(taggedValue));
+        return (taggedValue==null)
+                ? Bpm4StrutsProfile.TAGGED_VALUE_TABLE_SORTABLE_DEFAULT_VALUE
+                : isTrue(String.valueOf(taggedValue));
     }
 
     public Collection handleGetTableColumnNames()
