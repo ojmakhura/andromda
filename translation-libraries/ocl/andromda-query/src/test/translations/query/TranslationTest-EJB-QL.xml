@@ -258,5 +258,26 @@
             ]]>
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+                context Activity::findForFollowUp(startDate : Date, endDate : String, status: String) : Collection(Activity) 
+                   body : allInstances()->select ( activity |
+                          activity.activityCase.actionRequired >= startDate and
+                          activity.activityCase.actionRequired <= endDate and
+                          activity.status <> status ) 
+          ]]>          
+        </from>
+        <to>
+            <![CDATA[
+            SELECT DISTINCT OBJECT(activity)
+            FROM Activity activity
+            WHERE activity.activityCase.actionRequired >= ?1
+            AND activity.activityCase.actionRequired <= ?2
+            AND activity.status NOT ?3
+            ]]>          
+        </to>
+    </expression>
 
 </translation-test>

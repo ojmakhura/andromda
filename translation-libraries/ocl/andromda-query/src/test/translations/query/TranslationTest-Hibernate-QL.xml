@@ -281,6 +281,26 @@
             or roleContext.contextRole.ctx.identifier in (:contexts))
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+                context Activity::findForFollowUp(startDate : Date, endDate : String, status: String) : Collection(Activity) 
+                   body : allInstances()->select ( activity |
+                          activity.activityCase.actionRequired >= startDate and
+                          activity.activityCase.actionRequired <= endDate and
+                          activity.status <> status ) 
+          ]]>          
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.Activity as activity 
+            where activity.activityCase.actionRequired >= :startDate 
+            and activity.activityCase.actionRequired <= :endDate 
+            and activity.status not :status
+            ]]>          
+        </to>
+    </expression>
 
     <!--
     <expression>
