@@ -6,8 +6,15 @@ package $packagename;
 $class.getDocumentation(" * ")
  */
 public class ${class.name} implements java.io.Serializable {
-
-    public ${class.name}(){}
+#if (!$class.properties.empty)
+    
+    /**
+     * The default constructor.
+     */
+    public ${class.name}()
+    {
+    }
+#end
 
     /**
      * Copies constructor from other ${class.name}
@@ -25,17 +32,21 @@ public class ${class.name} implements java.io.Serializable {
     /**
      * Constructor taking all properties.
      */ 
-    public ${class.name}(
+#set ($parenthesis = "(")
+#if ($class.properties.empty)
+#set ($parenthesis = "()")
+#end
+    public ${class.name}${parenthesis}
 #foreach ($property in $class.properties)
 #set ($typeName = $property.type.fullyQualifiedName)
 #if ($property.many)
 #set ($typeName = "${typeName}[]")
 #end
         $typeName ${property.name}#if($velocityCount != $class.properties.size()),#else)
-    {
 #end
 
 #end
+    {
 #foreach ($property in $class.properties)
         this.${property.name} = ${property.name};
 #end
@@ -72,7 +83,7 @@ $attribute.getDocumentation("     * ")
 #if ($connectingEnd.many)
 #set ($typeName = "${typeName}[]")
 #end
-	$connectingEnd.visibility $typeName $connectingEnd.name;
+	private $typeName $connectingEnd.name;
 
     /**
 $connectingEnd.getDocumentation("     * ")
