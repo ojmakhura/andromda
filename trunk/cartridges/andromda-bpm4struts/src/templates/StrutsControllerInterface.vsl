@@ -114,32 +114,11 @@ $operation.getDocumentation("     * ")
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
     }
 
-#if ($backendType != "")
 #foreach ($service in $controller.services)
-#set ($serviceVariable = "instance$service.name")
-#set ($serviceAccessor = "get$service.name")
-#if ($backendType == "spring")
-#set ($serviceInterface = "$service.fullyQualifiedName")
-#set ($serviceInstantiation = "new ${serviceInterface}Impl()")
-#elseif ($backendType == "ejb")
-#set ($serviceInterface = "${service.fullyQualifiedName}Bean")
-#set ($serviceInstantiation = "${service.name}Util.getHome().create()")
-#elseif ($backendType == "webservice")
-## @TODO
-#end
-    private $serviceInterface $serviceVariable = null;
-    protected final synchronized $serviceInterface $serviceAccessor ()
+#if ($str.isNotBlank($service.accessorImplementation))
+    protected final $service.fullyQualifiedName get${serviceName}()
     {
-        return ($serviceVariable == null)
-            ? $serviceVariable = $serviceAccessor (true)
-            : $serviceVariable;
-    }
-
-    protected final synchronized $serviceInterface $serviceAccessor (boolean renew)
-    {
-        return (renew)
-            ? $serviceVariable = $serviceInstantiation
-            : $serviceAccessor ();
+        return $service.accessorImplementation;
     }
 
 #end
