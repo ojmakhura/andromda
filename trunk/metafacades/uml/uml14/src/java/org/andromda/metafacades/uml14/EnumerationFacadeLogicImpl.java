@@ -1,8 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 
-
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.EnumerationFacade.

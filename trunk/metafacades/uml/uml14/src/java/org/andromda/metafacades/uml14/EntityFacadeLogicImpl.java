@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -23,6 +20,9 @@ import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Metaclass facade implementation.
  */
@@ -31,6 +31,7 @@ public class EntityFacadeLogicImpl
     implements org.andromda.metafacades.uml.EntityFacade
 {
     // ---------------- constructor -------------------------------
+//    private int initializationCount = 0;
 
     public EntityFacadeLogicImpl(
         java.lang.Object metaObject,
@@ -47,10 +48,17 @@ public class EntityFacadeLogicImpl
         super.initialize();
         // if there are no identfiers on this entity,
         // create and add one.
-        if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
+        if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers() && !this.isEnumeration() /*&& this.initializationCount==0*/)
         {
+/*
+            System.out.println("EntityFacadeLogicImpl.initialize: "+this.initializationCount);
+            System.out.println("  - getName() = " + getName());
+            System.out.println("  - getAttributes() = " + getAttributes());
+            System.out.println("");
+*/
             this.createIdentifier();
         }
+//        this.initializationCount++;
     }
 
     /**
@@ -122,20 +130,39 @@ public class EntityFacadeLogicImpl
      */
     private void createIdentifier()
     {
-        Attribute identifier = UMLMetafacadeUtils
-            .createAttribute(
-                this.getDefaultIdentifier(),
-                this.getDefaultIdentifierType(),
-                this.getDefaultIdentifierVisibility(),
-                String
-                    .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
+/*
+        Classifier metaClassifier = (Classifier)metaObject;
 
-        identifier.getStereotype().add(
-            UMLMetafacadeUtils
-                .findOrCreateStereotype(UMLProfile.STEREOTYPE_IDENTIFIER));
+        List features = metaClassifier.getFeature();
+        boolean hasId = false;
 
-        ((Classifier)this.metaObject).getFeature().add(identifier);
+        for (int i = 0; i < features.size() && hasId == false; i++)
+        {
+            Object o = features.get(i);
+            if (o instanceof Attribute)
+            {
+                hasId = getDefaultIdentifier().equals(((Attribute)o).getName());
+            }
+        }
+
+        if (hasId == false)
+        {
+*/
+            Attribute identifier = UMLMetafacadeUtils
+                .createAttribute(
+                    this.getDefaultIdentifier(),
+                    this.getDefaultIdentifierType(),
+                    this.getDefaultIdentifierVisibility(),
+                    String
+                        .valueOf(this
+                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
+
+            identifier.getStereotype().add(
+                UMLMetafacadeUtils
+                    .findOrCreateStereotype(UMLProfile.STEREOTYPE_IDENTIFIER));
+
+            ((Classifier)this.metaObject).getFeature().add(identifier);
+//        }
     }
 
     /**
