@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<translation-library name="test-translation-library">
+
+	<!-- contains the default class name (for this library) that provides the translation processing
+	     of the the translation file (it must implement org.andromda.core.translation.Translator) 
+	     (this can also be overridden on each translation element) -->
+	<translator>org.andromda.core.translation.library.TestTranslator</translator>
+	
+    <!-- define template external properties -->
+    <property reference="propertyReferenceWithDefault" default="aDefaultValue"/>
+    <property reference="propertyReferenceNoDefault"/>
+	
+	<!-- transformers -->
+    <templateObject 
+    	name="stringUtils"
+    	className="org.apache.commons.lang.StringUtils"/>   
+	
+	<translation name="TranslationOne">
+		<description>
+			A description for TranslationOne.
+		</description>
+		<template>translations/test/TranslationOne.vsl</template>
+	</translation>    
+	
+	<translation name="TranslationTwo">
+		<translator>org.andromda.core.translation.library.TestSubTranslator</translator>
+		<description>
+			A description for TranslationTwo.
+		</description>
+	</translation>
+		
+</translation-library>
