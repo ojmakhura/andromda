@@ -65,7 +65,7 @@ public class MDRXmiReferenceResolverContext
         // the suffix without it and store it in the urlMap
         String exts = "\\.jar|\\.zip";
         String suffixWithExt = suffix.replaceAll(exts, "");
-        URL modelUrl = (URL)urlMap.get(suffixWithExt);
+        URL modelUrl = null;
 
         // Several tries to construct a URL that really exists.
         if (modelUrl == null)
@@ -223,16 +223,22 @@ public class MDRXmiReferenceResolverContext
      */
     private URL getValidURL(String systemId)
     {
+        InputStream stream = null;
+        URL url = null;
         try
         {
-            URL url = new URL(systemId);
-            InputStream stream = url.openStream();
+            url = new URL(systemId);
+            stream = url.openStream();
             stream.close();
-            return url;
         }
         catch (Exception e)
         {
-            return null;
+            url = null;
         }
+        finally
+        {
+            stream = null;
+        }
+        return url;
     }
 }
