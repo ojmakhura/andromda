@@ -488,7 +488,7 @@
                 this would allow you to group model elements together and make them available to the template as collections.
                 The below example makes all model elements stereotyped with <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
                 as <em>$entityEjbs</em> and <em>$sessionEjbs</em> respectively (if you're using velocity for your
-                templating language).  It you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice 
+                templating language).  If you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice 
                 the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong> 
                 entities and services available as <code>$ejbs</code> in a velocity template (since 
                 <a href="#outputToSingleFile">outputToSingleFile</a> is set to <em>true</em>).
