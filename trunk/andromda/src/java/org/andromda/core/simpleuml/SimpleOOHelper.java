@@ -23,45 +23,51 @@ import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
  *
  * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
-public class SimpleOOHelper extends UMLStaticHelper 
+public class SimpleOOHelper extends UMLStaticHelper
 {
     private final static String PRIMARY_KEY = "PrimaryKey";
     private final static String ENTITY_BEAN = "EntityBean";
-    
+
     public Object getModel()
     {
-        return PModel.newInstance(this,this.model);
+        return PModel.newInstance(this, this.model);
     }
-    
+
     public Collection getModelElements()
     {
         Collection elements = new Vector();
-        for (Iterator i= super.getModelElements().iterator();i.hasNext();)
+        for (Iterator i = super.getModelElements().iterator();
+            i.hasNext();
+            )
         {
             Object o = i.next();
-            if (o instanceof Classifier )
+            if (o instanceof Classifier)
             {
-                o = PClassifier.newInstance(this,(Classifier)o);
+                o = PClassifier.newInstance(this, (Classifier) o);
             }
             elements.add(o);
         }
-        
+
         return elements;
     }
-    
-    
-    public org.andromda.core.uml14.DirectionalAssociationEnd getAssociationData(Object object)
+
+    public org
+        .andromda
+        .core
+        .uml14
+        .DirectionalAssociationEnd getAssociationData(
+        Object object)
     {
         if ((object == null) || !(object instanceof AssociationEnd))
         {
             return null;
         }
-        
-        AssociationEnd ae = (AssociationEnd)object;
-        
-        return new DirectionalAssociationEnd(this,ae);
+
+        AssociationEnd ae = (AssociationEnd) object;
+
+        return new DirectionalAssociationEnd(this, ae);
     }
-    
+
     /**
      * <p>Formats an HTML String as a collection of paragraphs.
      * Each paragraph has a getLines() method that returns a collection
@@ -83,7 +89,6 @@ public class SimpleOOHelper extends UMLStaticHelper
         }
     }
 
-    
     /**
      *  Gets the primaryKeyAttribute attribute of the UMLScriptHelper object
      *
@@ -105,24 +110,23 @@ public class SimpleOOHelper extends UMLStaticHelper
         return null;
     }
 
-    
-	/**
-	 * Returns a string indicating whether the Bean is
+    /**
+     * Returns a string indicating whether the Bean is
      * a local or remotely accessable bean.
      * 
-	 * @param object Bean class
-	 * @return String 'local' or 'remote'
-	 */
+     * @param object Bean class
+     * @return String 'local' or 'remote'
+     */
     public String getEjbRefViewType(Object object)
     {
         if (ENTITY_BEAN.equals(getStereotype(object)))
         {
             return "local";
         }
-        
+
         return "remote";
     }
-       
+
     /**
      * Returns a string representing the name of the
      * home interface for the Bean.
@@ -140,14 +144,14 @@ public class SimpleOOHelper extends UMLStaticHelper
         return getName(object) + "Home";
     }
 
-	/**
-	 * Returns a string representing the component name
+    /**
+     * Returns a string representing the component name
      * for the Bean appending the 'local' suffix if the
      * Bean is locally accessable.
      * 
-	 * @param object
-	 * @return String
-	 */
+     * @param object
+     * @return String
+     */
     public String getComponentInterfaceName(Object object)
     {
         if (getStereotypeNames(object).contains(ENTITY_BEAN))
@@ -157,18 +161,17 @@ public class SimpleOOHelper extends UMLStaticHelper
 
         return getName(object);
     }
-    
-    
-	/**
-	 * Returns a list of attributes for a class. The list is
+
+    /**
+     * Returns a list of attributes for a class. The list is
      * useful for generating method signatures for constructors and/or
      * generating code for calling such a constructor
      * 
-	 * @param object class object
-	 * @param withTypeNames should attribute types appear in the list
-	 * @param includePK should primary key be included in the list
-	 * @return String representation of attribute list
-	 */
+     * @param object class object
+     * @param withTypeNames should attribute types appear in the list
+     * @param includePK should primary key be included in the list
+     * @return String representation of attribute list
+     */
     public String getAttributesAsList(
         Object object,
         boolean withTypeNames,
@@ -181,7 +184,7 @@ public class SimpleOOHelper extends UMLStaticHelper
         for (Iterator it = getAttributes(object).iterator(); it.hasNext();)
         {
             Attribute a = (Attribute) it.next();
-            
+
             // check if attribute is the PK of this class
             // and include it only if includePK is true.
             if (includePK || !getStereotypeNames(a).contains(PRIMARY_KEY))
@@ -198,7 +201,8 @@ public class SimpleOOHelper extends UMLStaticHelper
                 {
                     sb.append("get");
                     sb.append(
-                        StringUtilsHelper.upperCaseFirstLetter(a.getName()));
+                        StringUtilsHelper.upperCaseFirstLetter(
+                            a.getName()));
                     sb.append("()");
                 }
                 separator = ", ";
@@ -225,18 +229,18 @@ public class SimpleOOHelper extends UMLStaticHelper
             return null;
         }
         Operation o = (Operation) object;
-        
+
         StringBuffer sb = new StringBuffer();
         sb.append(o.getName());
         sb.append("(");
 
         Iterator it = o.getParameter().iterator();
-        
+
         boolean commaNeeded = false;
         while (it.hasNext())
         {
             Parameter p = (Parameter) it.next();
-            
+
             if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
             {
                 if (commaNeeded)
@@ -245,21 +249,21 @@ public class SimpleOOHelper extends UMLStaticHelper
                 }
                 sb.append(p.getName());
                 commaNeeded = true;
-            } 
-                
+            }
+
         }
         sb.append(")");
 
         return sb.toString();
     }
 
-	/**
-	 * returns a string representation for the Java signature for
-     * a given operation
+    /**
+     * returns a string representation for the Java signature for
+     * a given operation. Note: The return type is not included (any more)!
      * 
-	 * @param model element representing the operation
-	 * @return String representation of the operation signature
-	 */
+     * @param model element representing the operation
+     * @return String representation of the operation signature
+     */
     public String getOperationSignature(Object object)
     {
         if ((object == null) || !(object instanceof Operation))
@@ -271,11 +275,10 @@ public class SimpleOOHelper extends UMLStaticHelper
         Iterator it = o.getParameter().iterator();
         if (!it.hasNext())
         {
-            return "void " + o.getName() + "()";
+            return o.getName() + "()";
         }
 
         StringBuffer sb = new StringBuffer();
-        sb.append(" ");
         sb.append(o.getName());
         sb.append("(");
 
@@ -283,19 +286,19 @@ public class SimpleOOHelper extends UMLStaticHelper
         while (it.hasNext())
         {
             Parameter p = (Parameter) it.next();
-            
-            String type;
-            if (p.getType() == null)
+
+            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
             {
-                type = "int";
-            } else {
-                type = getFullyQualifiedName(p.getType());
-            }
-            
-            if (ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
-            {
-                sb.insert(0,type);
-            } else {
+                String type;
+                if (p.getType() == null)
+                {
+                    type = "int";
+                }
+                else
+                {
+                    type = getFullyQualifiedName(p.getType());
+                }
+
                 if (commaNeeded)
                 {
                     sb.append(", ");
@@ -304,8 +307,7 @@ public class SimpleOOHelper extends UMLStaticHelper
                 sb.append(" ");
                 sb.append(p.getName());
                 commaNeeded = true;
-            } 
-                
+            }
         }
         sb.append(")");
 
@@ -334,19 +336,19 @@ public class SimpleOOHelper extends UMLStaticHelper
 
     }
 
-	/**
-	 * Returns the fully qualified name of the given
+    /**
+     * Returns the fully qualified name of the given
      * model element.  The fully qualified name includes
      * complete package qualified name of the model element.
      * 
-	 * @param object model element
-	 * @return String fully qualified name
-	 */
+     * @param object model element
+     * @return String fully qualified name
+     */
     public String findFullyQualifiedName(Object object)
     {
         return getFullyQualifiedName(object);
     }
-    
+
     /**
      * <p>Returns the JDBC type for an attribute.  It gets the type
      * from the tag <code>uml2ejb:JDBCType</code> for this.</p>
@@ -356,10 +358,11 @@ public class SimpleOOHelper extends UMLStaticHelper
      */
     public String findAttributeJDBCType(Attribute attribute)
     {
-        if (attribute == null) return null;
+        if (attribute == null)
+            return null;
 
         String value = findTagValue(attribute, "uml2ejb:JDBCType", true);
-        
+
         if (null == value)
         {
             Object type = attribute.getType();
@@ -369,27 +372,26 @@ public class SimpleOOHelper extends UMLStaticHelper
                 value = typeMappings.getJDBCType(value);
             }
         }
-        
+
         return value;
     }
-    
-    
-     /**
-     * <p>Returns the length for the SQL type of an attribute.  It
-     * gets the length from the tag
-     * <code>uml2ejb:SQLFieldLength</code>.  This might return "50"
-     * for a VARCHAR field or "12,2" for a DECIMAL field.</p>
-     *
-     * @param attribute the attribute
-     * @return String the length of the underlying SQL field
-     */
+
+    /**
+    * <p>Returns the length for the SQL type of an attribute.  It
+    * gets the length from the tag
+    * <code>uml2ejb:SQLFieldLength</code>.  This might return "50"
+    * for a VARCHAR field or "12,2" for a DECIMAL field.</p>
+    *
+    * @param attribute the attribute
+    * @return String the length of the underlying SQL field
+    */
     public String findAttributeSQLFieldLength(Attribute attribute)
     {
         // String value = findAttributeTagValue(attribute, "uml2ejb:SQLFieldLength", true);
         String value = null;
         return value;
     }
-    
+
     /**
      * <p>Returns the SQL type for an attribute.  Normally it gets the
      * type from the tag <code>uml2ejb:SQLType</code>.  If this tag
@@ -405,7 +407,7 @@ public class SimpleOOHelper extends UMLStaticHelper
     public String findAttributeSQLType(Attribute attribute)
     {
         String value = findTagValue(attribute, "uml2ejb:SQLType", true);
-        
+
         if (null == value)
         {
             Object type = attribute.getType();
@@ -414,49 +416,49 @@ public class SimpleOOHelper extends UMLStaticHelper
         }
         return value;
     }
-    
-     /**
-     * Returns the name of the package that contains the
-     * given model element.
-     *
-     *@param  object  model element
-     *@return  fully qualified name of the package
-     */
+
+    /**
+    * Returns the name of the package that contains the
+    * given model element.
+    *
+    *@param  object  model element
+    *@return  fully qualified name of the package
+    */
     public String findPackageName(Object object)
     {
         return getPackageName(object);
     }
-    
-	/**
-	 * Provided only for backward compatability with 
+
+    /**
+     * Provided only for backward compatability with 
      * UML2EJB code generation scripts.  It does nothing
      * in this implementation except return the object that is passed
      * into it.
      * 
-	 * @param object
-	 * @return Object
-	 */
+     * @param object
+     * @return Object
+     */
     public Object findClassById(Object object)
     {
         if (object instanceof Classifier)
         {
             return object;
         }
-        
+
         return null;
     }
-    
-	/**
-	 * Provided only for backward compatability with UML2EJB
+
+    /**
+     * Provided only for backward compatability with UML2EJB
      * code generation scripts.   It does not except
      * return the object that it was passed in.
      * 
-	 * @param object a model element
-	 * @return the model element that was passed
-	 */
+     * @param object a model element
+     * @return the model element that was passed
+     */
     public Object convertToType(Object object)
     {
         return object;
     }
-    
+
 }
