@@ -21,7 +21,7 @@
                 name="${maven.build.dest}/project.xml"
                 basedir="${basedir}"
                 template="/project.xml"/>
-            <!-- copy over the empty model -->
+        <!-- copy over the empty model -->
         <ant:copy
             file="${model.location}"
             todir="${maven.build.dest}/${pluginResourceJ2eeDir}/mda/src/uml"/>
