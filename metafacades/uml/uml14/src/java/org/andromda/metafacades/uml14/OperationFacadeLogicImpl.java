@@ -414,51 +414,54 @@ public class OperationFacadeLogicImpl
         boolean withArgumentNames,
         String modifier)
     {
-        StringBuffer sb = new StringBuffer();
-        Iterator it = metaObject.getParameter().iterator();
+        StringBuffer buffer = new StringBuffer();
+        Iterator parameterIterator = metaObject.getParameter().iterator();
 
         boolean commaNeeded = false;
-        while (it.hasNext())
+        while (parameterIterator.hasNext())
         {
-            Parameter p = (Parameter)it.next();
+            Parameter paramter = (Parameter)parameterIterator.next();
 
-            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(paramter.getKind()))
             {
                 String type = null;
-                if (p.getType() == null)
+                if (paramter.getType() == null)
                 {
                     this.logger
                         .error("ERROR! No type specified for parameter --> '"
-                            + p.getName() + "' on operation --> '"
+                            + paramter.getName() + "' on operation --> '"
                             + this.getName() + "', please check your model");
                 }
                 else
                 {
-                    type = ((ClassifierFacade)this.shieldedElement(p.getType()))
+                    type = ((ClassifierFacade)this.shieldedElement(paramter.getType()))
                         .getFullyQualifiedName();
                 }
 
                 if (commaNeeded)
                 {
-                    sb.append(", ");
+                    buffer.append(", ");
                 }
                 if (StringUtils.isNotBlank(modifier))
                 {
-                    sb.append(modifier);
-                    sb.append(" ");
+                    buffer.append(modifier);
+                    buffer.append(" ");
                 }
-                sb.append(type);
+                buffer.append(type);
                 if (withArgumentNames)
                 {
-                    sb.append(" ");
-                    sb.append(p.getName());
+                    buffer.append(" ");
+                    buffer.append(paramter.getName());
                 }
                 commaNeeded = true;
             }
         }
-        return sb.toString();
+        return buffer.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getConcurrency()
+     */
     protected String handleGetConcurrency()
     {
         String concurrency = null;
