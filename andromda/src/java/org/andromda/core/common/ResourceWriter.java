@@ -98,7 +98,7 @@ public class ResourceWriter
         stream.flush();
         stream.close();
         stream = null;
-        recordHistory(file);
+        this.recordHistory(file);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ResourceWriter
         stream.flush();
         stream.close();
         stream = null;
-        recordHistory(file);
+        this.recordHistory(file);
     }
 
     private StringBuffer history = new StringBuffer();
