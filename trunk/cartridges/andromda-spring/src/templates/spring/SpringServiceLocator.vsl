@@ -94,10 +94,10 @@ public class $serviceLocatorName
         return context;
     }
     
-#foreach ( $service in $services)
-	/**
+#foreach ($service in $services)
+    /**
      * Gets an instance of <code>${service.fullyQualifiedName}</code>  	
-	 */
+     */
     public final ${service.fullyQualifiedName} get${service.name}()
     {
         return (${service.fullyQualifiedName})
