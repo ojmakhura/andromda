@@ -46,6 +46,8 @@ public class MetafacadeMappingsTest
     private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
     private static final String NAMESPACE_PROPERTY_2 = "namespacePropertyTwo";
     private static final String NAMESPACE_PROPERTY_2_VALUE = "true";
+    
+    private static final String MAPPING_PROPERTY = "mappingProperty";
 
     private static final String STEREOTYPE_FINDER_METHOD = "FINDER_METHOD";
     private static final String STEREOTYPE_ENUMERATION = "ENUMERATION";
@@ -160,7 +162,6 @@ public class MetafacadeMappingsTest
             namespace,
             null);
         assertNull(mapping);
-        //assertEquals(METAFACADE_CLASS_3, mapping.getMetafacadeClass().getName());
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
@@ -178,6 +179,10 @@ public class MetafacadeMappingsTest
             METAFACADE_CLASS_3);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_2, mapping.getMetafacadeClass().getName());
+        Map mappingProperties = mapping.getMappingProperties();
+        assertNotNull(mappingProperties);
+        assertEquals(1, mappingProperties.size());
+        assertEquals("true", mappingProperties.get(MAPPING_PROPERTY));
         
         // test a mapping having a context and multiple stereotypes
         mapping = mappings.getMetafacadeMapping(
@@ -187,7 +192,10 @@ public class MetafacadeMappingsTest
             METAFACADE_CLASS_3);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
-        //assertEquals(METAFACADE_CLASS_3, mapping.getContext());
+        mappingProperties = mapping.getMappingProperties();
+        assertNotNull(mappingProperties);
+        assertEquals(1, mappingProperties.size());
+        assertEquals("true", mappingProperties.get(MAPPING_PROPERTY));
         
         // make sure we can't get the mapping that requires 2 stereotypes and one context
         // with only one of the stereotypes.
