@@ -445,17 +445,27 @@
              Copy the distribution to the server.
          ================================================================= -->  
     <goal name="deploy-distribution">
+                <!-- rsync the docs first, they should go quite quick unless there are
+                     major changes -->
+		<!-- Add -n to test, just lists out the files that would be xfr'ed -->
+		<j:set var="rsync_arg1" value="-Caz"/>
+		<j:set var="rsync_src" value="${basedir}/documentation/target/docs"/>
+		<j:set var="rsync_tgt" value="${andromda.distribution.username}@${andromda.distribution.server}:${andromda.server.directory}"/>
+		<ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_tgt}"/>
+		<ant:exec executable="rsync">
+			<ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_tgt}"/>
+		</ant:exec>
 		<!-- Add -n to test, just lists out the files that would be xfr'ed -->
 		<j:set var="rsync_arg1" value="-vCoprz"/>
 		<j:set var="rsync_arg2" value="--include='/distributions/*.zip'"/>
 		<j:set var="rsync_arg3" value="--exclude='/distributions/*'"/>
-		<j:set var="rsync_arg4" value="${distribution.dir}"/>
-		<j:set var="rsync_arg5" value="${andromda.distribution.username}@${andromda.distribution.server}:${andromda.distribution.directory}"/>
-		<ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_arg4} ${rsync_arg5}"/>
+		<j:set var="rsync_src" value="${distribution.dir}"/>
+		<j:set var="rsync_tgt" value="${andromda.distribution.username}@${andromda.distribution.server}:${andromda.server.distribution.directory}"/>
+		<ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_tgt}"/>
 		<!-- NB if you specify as individual args someone mangles the arg
 			and you get stat errors -->
 		<ant:exec executable="rsync">
-			<ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_arg4} ${rsync_arg5}"/>
+			<ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_tgt}"/>
 		</ant:exec>
     </goal>
                 
