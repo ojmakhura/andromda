@@ -233,7 +233,7 @@
         sheet="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -243,7 +243,7 @@
         sheet="templates/StrutsLoginErrorJsp.vsl"
         outputPattern="login/login-error.jsp"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -253,7 +253,7 @@
         sheet="templates/StrutsMenuJsp.vsl"
         outputPattern="layout/menu.jsp"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -263,7 +263,7 @@
         sheet="templates/StrutsMainLayoutJsp.vsl"
         outputPattern="layout/main-layout.jsp"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
