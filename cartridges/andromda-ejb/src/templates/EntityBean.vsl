@@ -102,7 +102,7 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
 ############################# finder methods ################################### 
 #foreach ( $op in $class.operations )
 #if ($transform.getStereotype($op.id) == "FinderMethod")
- * @ejb:finder signature="$transform.getOperationSignature($op)"
+ * @ejb:finder signature="${transform.findFullyQualifiedName($op.getType())} ${transform.getOperationSignature($op)}"
 #set($viewtype = "")
 #set($viewtype = $transform.findTagValue($op.taggedValues, "@uml2ejb.viewType"))
 #if($viewtype == "local" || $viewtype == "remote" || $viewtype == "both")
@@ -293,11 +293,12 @@ public abstract class ${class.name}Bean implements EntityBean {
     * @ejb.transaction      type="Required"
     */
 #set ($msig = $transform.getOperationSignature($op))
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    $op.visibility abstract ${msig}
+    $op.visibility abstract $returntype ${msig}
         throws $defaultException.name;
 #else
-    $op.visibility abstract ${msig};
+    $op.visibility abstract $returntype ${msig};
 #end
 #end
 #end
