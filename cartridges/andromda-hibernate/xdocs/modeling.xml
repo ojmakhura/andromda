@@ -169,6 +169,9 @@
                                  is set on the base/root class.
                                  All subclasses must then follow the same strategy unless
                                  interface or concrete is the predecessor strategy.
+                                 The default strategy is defined by the 
+                                 <a href="namespaces.html#hibernateInheritanceStrategy">hibernateInheritanceStrategy</a>
+                                 namespace property.
                             </p>
                         </td>
                     </tr>
