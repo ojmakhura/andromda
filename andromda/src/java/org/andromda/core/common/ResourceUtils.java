@@ -348,11 +348,11 @@ public class ResourceUtils
      */
     public static URL getResource(String resourceName, URL directory)
     {
-        URL resource = null;
+        String directoryLocation = null;
         if (directory != null)
         {
-            resource = getResource(resourceName, directory.getFile());
+            directoryLocation = directory.getFile();
         }
-        return resource;
+        return getResource(resourceName, directoryLocation);
     }
 }
