@@ -201,7 +201,7 @@ public class StrutsUseCaseLogicImpl
             Object transitionObject = iterator.next();
             if (transitionObject instanceof StrutsAction)
             {
-                Collection parameters = ((StrutsAction) transitionObject).getActionParameters();
+                Collection parameters = ((StrutsAction) transitionObject).getActionFormFields();
                 for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                 {
                     ParameterFacade parameter = (ParameterFacade) parameterIterator.next();
