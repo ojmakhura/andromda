@@ -54,7 +54,7 @@ public class OCLIntrospector
     {
         try 
         {
-            // remove the parenthesis
+            // check for parenthesis
             int parenIndex = feature.indexOf('(');
             if (parenIndex != -1) 
             {
