@@ -21,97 +21,65 @@
         will come later!).
       </p>
       <p class="std">
-        Download the distribution files  from
+        Download the distribution file andromda-bin-*.zip from
         the
         <a href="http://sourceforge.net/project/showfiles.php?group_id=73047">
           AndroMDA file list
         </a>
-        on SourceForge's web site and unzip them into the same directory of your choice.
-        You will notice that there are quite a number of them and that they all have
-        a release number at the end of the filename:
+        on SourceForge's web site and unzip it into a directory of your choice.
+        You will notice that it has a release number at the end of the filename.
+        After unzipping, you will notice the following directory structure inside:
       </p>
       <table border="1" cellpadding="2" cellspacing="2" class="std">
         <tr>
-          <td><b>File name</b></td>
+          <td><b>Directory</b></td>
           <td><b>Contents</b></td>
         </tr>
         <tr>
-          <td>
-            <code>andromda-core.zip</code>
+          <td valign="top">
+            <code>andromda-core</code>
           </td>
-          <td>
+          <td valign="top">
             Core of the generator, along with documentation and source files.
           </td>
         </tr>
         <tr>
-          <td>
-            <code>andromda-libs.zip</code>
+          <td valign="top">
+            <code>cartridges</code>
           </td>
-          <td>
-            External jar files required for the operation of AndroMDA. Among
-            others, it contains NetBeans Metadata Repository, Velocity and XDoclet.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>andromda-car-rental-system.zip</code>
-          </td>
-          <td>
-            Complete J2EE sample application (a car rental system), generated
-            with AndroMDA from a UML model that is also included.
+          <td valign="top">
+            Home of the pluggable cartridges that generate different
+            kinds of output files: EJBs, Hibernate objects, Struts applications,
+            plain Java files.
           </td>
         </tr>
         <tr>
-          <td>
-            <code>andromda-docs.zip</code>
+          <td valign="top">
+            <code>docs</code>
           </td>
-          <td>
-            This documentation.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>andromda-ejb.zip</code>
-          </td>
-          <td>
-            The EJB cartridge. When plugged into the kernel, it can generate
-            Enterprise JavaBeans.
+          <td valign="top">
+            Complete documentation as you read here.
           </td>
         </tr>
         <tr>
-          <td>
-            <code>andromda-hibernate.zip</code>
+          <td valign="top">
+            <code>samples</code>
           </td>
-          <td>
-            The Hibernate cartridge. When plugged into the kernel, it can generate
-            persistent classes for use with the O/R mapper Hibernate.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>andromda-java.zip</code>
-          </td>
-          <td>
-            The Java cartridge. When plugged into the kernel, it can generate
-            generic plain Java classes.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>andromda-model-report.zip</code>
-          </td>
-          <td>
-            A sample "application" that can generate a report of all model
-            elements contained in a given UML model.
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>andromda-struts.zip</code>
-          </td>
-          <td>
-            The Struts cartridge. When plugged into the kernel, it can generate
-            web pages, forms and action classes for use with Jakarta Struts.
+          <td valign="top">
+            Several sample applications of AndroMDA, including:
+            <ul>
+              <li class="std">
+                  a complete J2EE sample application (a car rental system), generated
+                  with AndroMDA from a UML model that is also included
+              </li>
+              <li class="std">a template for an empty project using EJB technology</li>
+              <li class="std">a template for an empty project using Hibernate technology</li>
+              <li class="std">a project that shows how to generate something using
+                  all the model information in one template.
+              </li>
+            </ul>
+            The directory also contains wizard.xml, a small script that can
+            create empty projects for you to start with (see <a href="starting.html">"Getting started"</a>).
           </td>
         </tr>
       </table>
@@ -134,12 +102,13 @@
           <li class="std">
             <code>Ant</code> - the famous build tool, made by the Apache Jakarta project.
             You can download it from
-            <a href="http://jakarta.apache.org/ant">
+            <a href="http://ant.apache.org/">
               the Apache Ant website
             </a>
-            . Unpack ant into a directory of your choice and set the property
-            <code>myant.home</code> in your file <code>build.properties</code>
-            before you run your personal Ant build script.
+            .
+            Unpack ant into a directory of your choice and set the environment
+            variable <code>ANT_HOME</code> to the name of that directory before
+            you run your personal Ant build script.
           </li>
           <li class="std">
             <code>JBoss</code> - a very popular open source application server.
@@ -151,8 +120,29 @@
             in your <code>build.properties</code> before you run your ant build scripts.
           </li>
         </ul>
-
       </p>
+
+      <p class="std">
+        <b>Recompiling AndroMDA from the source</b>
+      </p>
+      <p class="std">
+        Recompiling AndroMDA from the source is quite easy. Unpack
+        <code>andromda-src-*.zip</code> into a directory of your choice. Copy
+        <code>build.properties.sample</code> to <code>build.properties</code>
+        and edit it. Insert the directory where you installed JBoss as a value
+        for the property <code>jboss.home</code>. That's it! Run <code>ant</code>
+        and watch the contents of the "dist" subdirectory!
+      </p>
+      <p class="std">
+        The same rules apply
+        if you want to compile the CVS version. Checkout the <code>andromda-all</code>
+        module from
+        <a href="http://sourceforge.net/cvs/?group_id=73047">
+          AndroMDA CVS
+        </a>
+        instead of unzipping the released sources, then proceed as before.
+      </p>
+
     </freetext>
 
     <news name="Velocity" href="http://jakarta.apache.org/velocity/">
@@ -168,21 +158,21 @@
 
     <news name="JUnit" href="http://www.junit.org">
       <p>
-        JUnit is a regression testing framework written by 
-        Erich Gamma and Kent Beck. It is used by the developer who implements 
-        unit tests in Java. JUnit is Open Source Software, released under the 
+        JUnit is a regression testing framework written by
+        Erich Gamma and Kent Beck. It is used by the developer who implements
+        unit tests in Java. JUnit is Open Source Software, released under the
         IBM's Common Public License Version 1.0 and hosted on SourceForge.
       </p>
     </news>
-    
+
     <news name="XDoclet" href="http://www.xdoclet.org">
       <p>
-         XDoclet is a code generation engine. It enables Attribute-Oriented 
-         Programming for java. In short, this means that you can add more significance 
-         to your code by adding meta data (attributes) to your java sources. 
-         This is done in special JavaDoc tags. 
+         XDoclet is a code generation engine. It enables Attribute-Oriented
+         Programming for java. In short, this means that you can add more significance
+         to your code by adding meta data (attributes) to your java sources.
+         This is done in special JavaDoc tags.
       </p>
     </news>
-    
+
   </body>
 </document>
