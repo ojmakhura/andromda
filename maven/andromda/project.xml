@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../../project.xml</extend>
-  	<id>maven-andromda-plugin</id>
+  	<id>maven-andromda-plugin${bootstrap}</id>
   	<name>Maven AndroMDA Plugin</name>
   	<shortDescription>Maven AndroMDA Plugin</shortDescription>
   	<description>
@@ -24,19 +24,30 @@
 	<dependencies>
 		<dependency>
 	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-core</artifactId>
+	      	<artifactId>andromda-core${bootstrap}</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>	
+		<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml${bootstrap}</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>	
+		<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml14${bootstrap}</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>		
 		<dependency>
 	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-repository-mdr</artifactId>
+	      	<artifactId>andromda-repository-mdr${bootstrap}</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
 		<dependency>
 	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-templateengine-velocity</artifactId>
+	      	<artifactId>andromda-templateengine-velocity${bootstrap}</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
+        ${bootstrapMetaCartridge}
 	    <dependency>
 	    	<groupId>picocontainer</groupId>
 	    	<artifactId>picocontainer</artifactId>

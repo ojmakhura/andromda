@@ -5,16 +5,42 @@
   		 
    <preGoal name="jar:jar">
    	
-		<!-- perform the merges so we can insert the current
-		     AndroMDA version into the maven plugin each time we build -->
-	    <velocity:merge
-			name="${maven.build.dest}/project.xml"
-			basedir="${basedir}"
-			template="/project.xml"/>     
-	    <velocity:merge
+		<!-- The following builds the the bootstrap plugin. 
+			 You build the bootrap plugin, by supplying the 
+			 property 'maven.andromda.bootstrap.mode=true'-->
+		<j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
+		<j:if test="${bootstrapMode == null or bootstrapMode == ''}">
+	        <j:set var="bootstrapMode" value="false"/>
+		</j:if>
+		<j:set var="bootstrapMetaCartridge" value=""/>
+		<j:set var="bootstrap" value=""/>
+		<j:if test="${bootstrapMode}">
+			<j:set var="bootstrap" value="-bootstrap"/>		
+			<j:set var="bootstrapPluginId" value="${pom.artifactId}-bootstrap"/>
+			<j:set var="dummy" value="${pom.setArtifactId(bootstrapPluginId)}"/>
+			<!-- set the meta cartridge bootstrap dependency 
+				 into the bootstap project.xml-->
+            <j:set var="bootstrapMetaCartridge" trim="false">
+        <dependency> 
+		    <groupId>andromda-cartridges</groupId>
+		    <artifactId>andromda-meta-cartridge${bootstrap}</artifactId>
+		    <version>${pom.currentVersion}</version>
+	    </dependency>
+            </j:set>
+		</j:if>
+		<!-- Insert the correct properties (like the current version, etc) -->
+        <ant:replace file="${maven.build.dest}/plugin.jelly" 
+        	token="$${bootstrap}"
+        	value="${bootstrap}">
+        </ant:replace> 
+		<velocity:merge
 			name="${maven.build.dest}/plugin.properties"
 			basedir="${basedir}"
 			template="/plugin.properties"/> 
+		<velocity:merge
+			name="${maven.build.dest}/project.xml"
+			basedir="${basedir}"
+			template="/project.xml"/>     
 				
   		<!-- perform the below merges so we can add the 
   			 current version of AndroMDA to the mda genapp module -->
@@ -38,14 +64,24 @@
   	<!-- this is here because the plugin:install goal from the
   		 maven-plugin-plugin doesn't copy to the 
   		 '${maven.repo.local}/plugins' directory -->
-  	<goal name="plugin:install" >
-  		  		
+  	<goal name="plugin:install" >	
+  		<attainGoal name="clean:clean"/>
     	<attainGoal name="jar:jar"/>
-		<ant:copy todir="${maven.home}/plugins">
-			<ant:fileset dir="target">
-				<include name="*.jar"/>
-			</ant:fileset>
-		</ant:copy>	
+    	<!-- don't insert add bootstrap cartridge into 
+    		 the $MAVEN_HOME/plugins -->
+    	<j:if test="${!bootstrapMode}">
+            <ant:delete verbose="false" failonerror="false">
+                <ant:fileset dir="${maven.home}/plugins">
+                	<!-- first remove any old plugins -->
+                    <ant:include name="${pom.artifactId}-*.jar" />
+                </ant:fileset>
+            </ant:delete>
+			<ant:copy todir="${maven.home}/plugins">
+				<ant:fileset dir="target">
+					<include name="*.jar"/>
+				</ant:fileset>
+			</ant:copy>	
+		</j:if>
 		<artifact:install 
 			artifact="${maven.build.dir}/${maven.final.name}.jar" 
 			type="plugin" 

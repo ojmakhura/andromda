@@ -18,15 +18,6 @@
 	<dependencies>     
     	<dependency>
 	      	<groupId>andromda</groupId>
-	      	<artifactId>maven-andromda-plugin</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	      	<type>plugin</type>
-	      	<properties>
-	      		<logical.languageMappingsUri>Java</logical.languageMappingsUri>
-	      	</properties>
-	    </dependency>
-    	<dependency>
-	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-core</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>	 
@@ -36,7 +27,6 @@
      		<version>3.0</version>
     	</dependency>
 	</dependencies>
-	
   	<build>
     	<sourceDirectory>src/java</sourceDirectory>
     	<unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>

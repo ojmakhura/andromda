@@ -10,16 +10,18 @@
   		used to provide access UML meta models. 
   	</description>
 	<dependencies>
-    	<dependency> 
-    		<groupId>andromda-cartridges</groupId>
-      		<artifactId>andromda-meta-cartridge-bootstrap</artifactId>
-     		<version>${pom.currentVersion}</version>
-     		<properties>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>maven-andromda-plugin-bootstrap</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>plugin</type>
+	      	<properties>
+	      		<logical.languageMappingsUri>Java</logical.languageMappingsUri>
 	      		<facades>${basedir}/target/src/andromda/meta</facades>
 	      		<facade-logics.ignore/>
 	      		<facades-to-impls.ignore/>
 	      		<facade-logic-impls.ignore/>
-     		</properties>
-    	</dependency> 
+	      	</properties>
+	    </dependency>
     </dependencies>
 </project>

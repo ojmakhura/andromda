@@ -34,7 +34,14 @@
 			
 			<j:set var="skipProcessing" value="${skip.andromda.plugin.processing}"/>
 			<j:if test="${!empty(hasModel) and empty(skipProcessing)}">
-				<attainGoal name="andromda:run"/>
+				<j:choose>
+					<j:when test="${maven.andromda.bootstrap.mode}">
+						<attainGoal name="andromda:run-bootstrap"/>
+					</j:when>
+					<j:otherwise>
+					    <attainGoal name="andromda:run"/>						
+					</j:otherwise>
+				</j:choose>
 				<!-- add the paths of the generated source to the
 					 maven compile path -->
 				<ant:path

@@ -28,7 +28,7 @@
     	<!-- keep the generation from executing more than once -->
     	<j:if test="${lastBuildDir != currentBuildDir}">
 			
-			<attainGoal name="andromda:run"/>
+			<attainGoal name="andromda:run-bootstrap"/>
 			<!-- add the paths of the generated source to the
 				 maven compile path -->
 			<ant:path
