@@ -1,5 +1,7 @@
 package org.andromda.core.simpleuml;
 
+import java.util.Collection;
+
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 
 /**
@@ -11,5 +13,6 @@ import org.omg.uml.foundation.datatypes.VisibilityKind;
 public interface UMLOperation
 	extends UMLModelElement
 {
-	public VisibilityKind getVisibility();	
+	public VisibilityKind getVisibility();
+    public Collection getParameters();
 }
