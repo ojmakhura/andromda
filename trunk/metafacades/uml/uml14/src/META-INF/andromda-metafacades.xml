@@ -7,7 +7,8 @@
     <property reference="namespaceSeparator" default="."/>
     <property reference="validationNameSeparator" default="::"/>
     <property reference="undefinedName" default="undefined"/>
-    <property reference="arraySuffix" default="[]"/>
+    <property reference="arrayNameSuffix" default="[]"/>
+    <property reference="useArraysForMultiplicitiesOfTypeMany" default="false"/>
     <property reference="maxSqlNameLength" default="30"/>
     <property reference="tableNamePrefix" default=""/>
     <property reference="foreignKeySuffix" default="_FK"/>
@@ -194,6 +195,27 @@
     <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
             <property name="referencesPresent"/>
+        </mapping>
+    </metafacade>
+    <!-- Value Object metafacades -->
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectFacadeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectFacadeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectFacadeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectAssociationEndFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <property name="valueObjectType"/>
         </mapping>
     </metafacade>
     <!-- Entity  metafacades -->

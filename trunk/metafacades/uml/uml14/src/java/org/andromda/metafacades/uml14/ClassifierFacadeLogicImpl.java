@@ -115,7 +115,7 @@ public class ClassifierFacadeLogicImpl
     private String getArraySuffix()
     {
         return String.valueOf(this
-            .getConfiguredProperty(UMLMetafacadeProperties.ARRAY_SUFFIX));
+            .getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
 
     /**
@@ -489,5 +489,21 @@ public class ClassifierFacadeLogicImpl
                         name);
                 }
             });
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getArrayName()
+     */
+    protected String handleGetArrayName()
+    {
+        return this.getName() + this.getArraySuffix();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacade#getFullyQualifiedArrayName()
+     */
+    protected String handleGetFullyQualifiedArrayName()
+    {
+        return this.getFullyQualifiedName() + this.getArraySuffix();
     }
 }

@@ -132,9 +132,15 @@ public class UMLMetafacadeProperties
     public static final String UNDEFINED_NAME = "undefinedName";
     
     /**
-     * Stores the suffix given to array types.
+     * Stores the suffix given to array type names.
      */
-    public static final String ARRAY_SUFFIX = "arraySuffix";
+    public static final String ARRAY_NAME_SUFFIX = "arrayNameSuffix";
+    
+    /**
+     * Stores the boolean flag indicating whether or not we should use arrays
+     * instead of collections with associations of type many (where appropriate).
+     */
+    public static final String USE_ARRAYS_FOR_MULTIPLICITIES_OF_TYPE_MANY = "useArraysForMultiplicitiesOfTypeMany";
 
     /**
      * The seperator for relation names between associations.
