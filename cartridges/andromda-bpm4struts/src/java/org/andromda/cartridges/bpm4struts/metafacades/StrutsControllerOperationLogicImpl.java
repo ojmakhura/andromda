@@ -37,9 +37,14 @@ public class StrutsControllerOperationLogicImpl
         return getOwner().getPackageName();
     }
 
+    public String handleGetInterfaceType()
+    {
+        return getInterfacePackageName() + '.' + getInterfaceName();
+    }
+
     public String handleGetInterfaceFullPath()
     {
-        return '/' + getInterfacePackageName().replace('.', '/') + '/' + getInterfaceName();
+        return '/' + getInterfaceType().replace('.', '/');
     }
 
     private Collection deferringActions = null;
