@@ -11,6 +11,19 @@ import java.util.List;
 
 public final class DatabaseFactory
 {
+    /**
+     * Creates a new database instance.
+     *
+     * @param driverFQName the fully qualified name of the JDBC driver to use
+     * @param url the url to connect to
+     * @param schema the schema to read
+     * @param user the user logging in
+     * @param password the user's password
+     * @return a new database instance for the given arguments
+     * @throws Exception in case something went wrong:
+     *  the driver could not be locate, the driver could not be instantiated,
+     *  the driver is not JDBC compliant, ...
+     */
     public static Database create(String driverFQName, String url, String schema, String user, String password) throws Exception
     {
         Class driverClass = null;
@@ -50,12 +63,37 @@ public final class DatabaseFactory
 
     }
 
+    /**
+     * Creates a new database instance by trying to locate a suitable driver for the given arguments.
+     *
+     * @param url the url to connect to
+     * @param schema the schema to read
+     * @param user the user logging in
+     * @param password the user's password
+     * @return a new database instance for the given arguments
+     * @throws Exception in case something went wrong:
+     *  the driver could not be locate, the driver could not be instantiated,
+     *  the driver is not JDBC compliant, ...
+     */
     public static Database create(String url, String schema, String user, String password) throws Exception
     {
         Driver driver = locateIdealDriver(url);
         return create(driver, url, schema, user, password);
     }
 
+    /**
+     * Creates a new database instance. The given driver will be registered to the DriverManager.
+     *
+     * @param driver the JDBC driver to use
+     * @param url the url to connect to
+     * @param schema the schema to read
+     * @param user the user logging in
+     * @param password the user's password
+     * @return a new database instance for the given arguments
+     * @throws Exception in case something went wrong:
+     *  the driver could not be locate, the driver could not be instantiated,
+     *  the driver is not JDBC compliant, ...
+     */
     public static Database create(Driver driver, String url, String schema, String user, String password) throws Exception
     {
         DriverManager.registerDriver(driver);
@@ -63,6 +101,9 @@ public final class DatabaseFactory
         return new DatabaseImpl(connection.getMetaData(), null, schema);
     }
 
+    /**
+     * Given a url, tries to find the most suitable driver.
+     */ 
     private static Driver locateIdealDriver(String url) throws Exception
     {
         // find all drivers
