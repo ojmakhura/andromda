@@ -1,7 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-
 /**
  * Metaclass facade implementation.
  */
@@ -22,10 +20,5 @@ public class ActionStateFacadeLogicImpl
     protected Object handleGetEntry()
     {
         return metaObject.getEntry();
-    }
-
-    protected Collection handleGetDeferrableEvents()
-    {
-        return metaObject.getDeferrableEvent();
     }
 }

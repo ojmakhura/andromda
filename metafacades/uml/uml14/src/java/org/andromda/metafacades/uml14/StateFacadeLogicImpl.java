@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
 /**
  * Metaclass facade implementation.
  */
@@ -13,5 +15,10 @@ public class StateFacadeLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+
+    protected Collection handleGetDeferrableEvents()
+    {
+        return metaObject.getDeferrableEvent();
     }
 }
