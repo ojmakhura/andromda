@@ -80,11 +80,10 @@ public class $service.testName
 #foreach ($argument in $operation.arguments)
 #set ($packageName = $argument.type.packageName)
 #if (!$argument.type.dataType)
-#set($packageName = "${packageName}.test")
-#if (!$service.style.equalsIgnoreCase("rpc") && $argument.type.arrayType)
-#set ($argumentTypeName = "${packageName}.${argument.type.arrayName}")
+#if (!$service.rpcStyle && $argument.type.arrayType)
+#set ($argumentTypeName = "${service.testPackageName}.${argument.type.arrayName}")
 #else
-#set ($argumentTypeName = "${packageName}.${argument.type.name}")
+#set ($argumentTypeName = "${service.testPackageName}.${argument.type.name}")
 #end
 #else
 #set ($argumentTypeName = $argument.type.fullyQualifiedName)
