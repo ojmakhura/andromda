@@ -10,14 +10,7 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
     </bean>
-## We define the target bean suffix based on whether or not session-ejbs
-## have been specified, so that we can decide whether or not to define
-## transaction proxies for Spring
-#set ($targetBeanSuffix = true)
-#if ($ejbsEnabled)
-#set ($targetBeanSuffix = false)
-#end
-
+    
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
 #if ($stringUtils.isNotBlank($dataSource))
@@ -120,32 +113,54 @@
             </props>
         </property>
     </bean>
+    
+    <!-- The Hibernate interceptor -->
+    <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate.HibernateInterceptor">
+        <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+    </bean>
+    
 #if (!$ejbsEnabled)
     <!-- Transaction Manager -->
     <bean id="transactionManager" class="$transactionManager">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
 
-#end
-
-#foreach($entity in $entities)
-#if (!$ejbsEnabled)
-    <!-- $entity.name: transactional proxy  -->
-    <bean id="${entity.getBeanName(false)}" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+#if (!$ejbsEnabled && !$entities.empty)
+    <!-- Entity Transactional Interceptor -->
+    <bean id="entityTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
         <property name="transactionManager"><ref local="transactionManager"/></property>
-        <property name="target"><ref local="${entity.getBeanName(true)}"/></property>
-        <property name="transactionAttributes">
-            <props>
-                <prop key="*">PROPAGATION_REQUIRED</prop>
-                <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
-                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
-            </props>
+        <property name="transactionAttributeSource">
+            <value>
+#foreach($entity in $entities)
+                ${entity.fullyQualifiedDaoName}.*=PROPAGATION_REQUIRED
+                ${entity.fullyQualifiedDaoName}.load*=PROPAGATION_REQUIRED
+                ${entity.fullyQualifiedDaoName}.find*=PROPAGATION_REQUIRED,readOnly
+#end
+            </value>
         </property>
     </bean>
+#end
 
 #end
-    <!-- $entity.name: entity implementation  -->
-    <bean id="$entity.getBeanName($targetBeanSuffix)" class="$entity.fullyQualifiedDaoImplementationName">
+#foreach($entity in $entities)
+     <!-- $entity.name Entity Proxy -->
+     <bean id="${entity.getBeanName(false)}" class="org.springframework.aop.framework.ProxyFactoryBean">
+         <property name="target"><ref bean="$entity.getBeanName(true)"/></property>
+         <property name="proxyInterfaces">
+             <value>$entity.fullyQualifiedDaoName</value>
+         </property>
+         <property name="interceptorNames">
+             <list>
+#if (!$ejbsEnabled)
+                 <value>entityTransactionInterceptor</value> 
+#end
+                 <value>hibernateInterceptor</value>
+             </list>
+         </property>
+     </bean> 
+    
+    <!-- $entity.name Entity Implementation  -->
+    <bean id="$entity.getBeanName(true)" class="$entity.fullyQualifiedDaoImplementationName">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
 #foreach($entityRef in $entity.entityReferences)
         <property name="$entityRef.name"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
@@ -155,23 +170,24 @@
 #end
 #end
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
-
-#foreach($service in $services)
-#if (!$ejbsEnabled)
-    <!-- Transactional proxy for: $service.name -->
-    <bean id="$service.beanName" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    
+#if (!$ejbsEnabled && !$services.empty)
+    <!-- Service Transactional Interceptor -->
+    <bean id="serviceTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
         <property name="transactionManager"><ref local="transactionManager"/></property>
-        <property name="target"><ref local="$service.getBeanName(true)"/></property>
-        <property name="transactionAttributes">
-            <props>
-                <prop key="*">PROPAGATION_REQUIRED</prop>
-            </props>
+        <property name="transactionAttributeSource">
+            <value>
+#foreach ($service in $services)
+                ${service.fullyQualifiedName}.*=PROPAGATION_REQUIRED
+#end
+            </value>
         </property>
     </bean>
-
+    
 #end
-    <!-- $service.name: service implementation  -->
-    <bean id="$service.getBeanName($targetBeanSuffix)" class="$service.fullyQualifiedImplementationName">
+#foreach($service in $services)
+    <!-- $service.name Service Implementation  -->
+    <bean id="$service.getBeanName(true)" class="$service.fullyQualifiedImplementationName">
 #foreach($serviceRef in $service.serviceReferences)
         <property name="$serviceRef.name"><ref bean="$serviceRef.targetElement.beanName"/></property>
 #end
@@ -181,8 +197,24 @@
 #end
 #end
     </bean>
+    
+    <!-- $service.name Service Proxy  -->
+    <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
+         <property name="target"><ref bean="$service.getBeanName(true)"/></property>
+         <property name="proxyInterfaces">
+             <value>$service.fullyQualifiedName</value>
+         </property>
+         <property name="interceptorNames">
+             <list>
+#if (!$ejbsEnabled)
+                 <value>serviceTransactionInterceptor</value> 
+#end
+                 <value>hibernateInterceptor</value>
+             </list>
+         </property>
+     </bean> 
 
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
-
+    
 </beans>
