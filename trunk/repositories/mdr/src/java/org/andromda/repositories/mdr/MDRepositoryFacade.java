@@ -213,7 +213,6 @@ public class MDRepositoryFacade implements RepositoryFacade
                         "Could not find implementation for the component --> '" 
                         + ModelAccessFacade.class + "'");
                 }
-            	this.modelFacade.setModel(this.model);
             } 
             catch (Throwable th) 
             {
@@ -222,6 +221,7 @@ public class MDRepositoryFacade implements RepositoryFacade
                 throw new RepositoryFacadeException(errMsg, th);
             }
         }
+        this.modelFacade.setModel(this.model);
         return this.modelFacade;
     }
 
@@ -303,16 +303,10 @@ public class MDRepositoryFacade implements RepositoryFacade
         	if (logger.isDebugEnabled())
         		logger.debug("creating the new meta model");
             model = repository.createExtent(EXTENT_NAME, metaModel);
+            if (logger.isDebugEnabled()) 
+                logger.debug("created model extent");
         }
-
-        if (logger.isDebugEnabled())
-        	logger.debug("creating model extent");
         
-
-        
-        if (logger.isDebugEnabled()) 
-        	logger.debug("created model extent");
-
         XMIReader xmiReader =
         	XMIReaderFactory.getDefault().createXMIReader(
         			new MDRXmiReferenceResolver(
