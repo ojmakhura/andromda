@@ -17,14 +17,22 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Oct 08, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts update</td>
+                    <td valign="top" class="std">
+                        The Xdoclet dependency, WebDoclet to be exact, has been removed from the bpm4struts-cartridge;
+                        now the <code>struts-config.xml</code> and <code>validation.xml</code> files are generated
+                        directly by AndroMDA. The Ant-tool and the maven plugins, used to generate a default AndroMDA
+                        project, have also been updated to reflect this change.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Oct 05, 2004</td>
                     <td valign="top" class="std">Spring Cartridge graduates</td>
                     <td valign="top" class="std">
-						<p>
-							The AndroMDA Spring cartridge (a cartridge based on the <a href="http://www.springframework.org">Spring Framework</a>) 
-							has moved from the contrib module to the main andromda codebase.  To learn how to use this new cartridge,
-							please see the the documentation <a href="andromda-spring-cartridge/index.html">here</a>
-						</p>
+                        The AndroMDA Spring cartridge (a cartridge based on the <a href="http://www.springframework.org">Spring Framework</a>)
+                        has moved from the contrib module to the main andromda codebase.  To learn how to use this new cartridge,
+                        please see the the documentation <a href="andromda-spring-cartridge/index.html">here</a>
                     </td>
                 </tr>
                 <tr>
