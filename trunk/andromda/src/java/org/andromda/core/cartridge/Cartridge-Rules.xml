@@ -93,7 +93,7 @@
 		<pattern value="template">
 		
 	    	<object-create-rule 
-	      		classname="org.andromda.core.cartridge.TemplateConfiguration" />     		
+	      		classname="org.andromda.core.cartridge.Template" />     		
 
 			<set-properties-rule>
 	 			<alias attr-name="sheet" prop-name="sheet" />
@@ -112,7 +112,7 @@
 	 		</set-properties-rule> 	 			      	
 	      		      	 
 			<set-properties-rule>
-	 			<alias attr-name="overWrite" prop-name="overWrite" />
+	 			<alias attr-name="overwrite" prop-name="overwrite" />
 	 		</set-properties-rule> 	 	 	
 	 		
 			<set-properties-rule>
@@ -153,7 +153,7 @@
                 		    
 	 		</pattern>
 
-	      	<set-next-rule methodname="addTemplateConfiguration" />
+	      	<set-next-rule methodname="addTemplate" />
 		       
 	   	</pattern>
 	   	

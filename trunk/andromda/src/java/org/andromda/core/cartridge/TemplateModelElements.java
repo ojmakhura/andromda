@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
  * Defines the &lt;modelElements/&gt; element within a &lt;template/&gt; within
  * an XML cartridge descriptor.
  * 
- * @see org.andromda.core.cartridge.TemplateConfiguration
+ * @see org.andromda.core.cartridge.Template
  * @see org.andromda.core.cartridge.TemplateModelElement
  * @author Chad Brandon
  */
