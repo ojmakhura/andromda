@@ -28,13 +28,11 @@
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
             <version>1.6</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.4</version>
-            <type>jar</type>
             <properties>
                 <jar.bundle>true</jar.bundle>
                 <jar.manifest.classpath>true</jar.manifest.classpath>
@@ -44,7 +42,6 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.0</version>
-            <type>jar</type>
             <properties>
                 <jar.bundle>true</jar.bundle>
                 <jar.manifest.classpath>true</jar.manifest.classpath>
@@ -54,7 +51,6 @@
             <groupId>logkit</groupId>
             <artifactId>logkit</artifactId>
             <version>1.0.1</version>
-            <type>jar</type>
             <properties>
                 <jar.bundle>true</jar.bundle>
                 <jar.manifest.classpath>true</jar.manifest.classpath>

@@ -26,7 +26,13 @@
         <ant:copy todir="${maven.build.dest}/templates/j2ee-app/hibernate/db/conf">
             <ant:fileset dir="${hibernate.db.conf.location}"/>
         </ant:copy>
-
     </preGoal>
+    
+    <postGoal name="jar:jar">
+    	<!-- copy over the initialization build file -->
+    	<ant:copy todir="${maven.build.dir}">
+    		<ant:fileset dir="${maven.src.dir}/ant"/>
+    	</ant:copy>
+    </postGoal>
 
 </project>
