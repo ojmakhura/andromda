@@ -494,7 +494,7 @@ $op.getDocumentation("    * ")
     protected void ejbCreateImpl($transform.getAttributesAsList($allAttributes, true, true))
            throws javax.ejb.CreateException
     {
-#if(!$inheritedAttributes.isEmpty())
+#if(!$inheritedAttributes.empty)
         super.ejbCreateImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
 #end
 ##
@@ -548,7 +548,7 @@ $op.getDocumentation("    * ")
 #end
     }
 #set ($relations = $class.allEntityRelations)
-#if (!$relations.isEmpty())
+#if (!$relations.empty)
 #if (!$class.abstract && !$class.findTaggedValue("@andromda.ejb.noSyntheticCreateMethod"))
     /**
      * Create method with all CMP attribute values and CMR relations.
@@ -563,7 +563,7 @@ $op.getDocumentation("    * ")
      * @return <code>null</code> as required by the EJB specification for CMP 
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
-    public $pkclassname ejbCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.isEmpty()), #end#foreach ($rel in $relations)${rel.relationType} $rel.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
+    public $pkclassname ejbCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($rel in $relations)${rel.relationType} $rel.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
            throws javax.ejb.CreateException
     {
         // Call ejbCreate method for the CMP attributes
@@ -572,7 +572,7 @@ $op.getDocumentation("    * ")
         return null;
     }
 
-    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.isEmpty()), #end#foreach ($rel in $relations)${rel.relationType} $rel.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
+    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($rel in $relations)${rel.relationType} $rel.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
            throws javax.ejb.CreateException
     {
         // Call postCreate method for the CMP attributes
