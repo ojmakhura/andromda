@@ -4,9 +4,9 @@
          xmlns:artifact="artifact">
 
    <preGoal name="jar:jar">
-    <!-- replace the ${pom.currentVersion} in these
-         files so we don't need to maintain them between
-         different releases -->
+        <!-- replace the ${pom.currentVersion} in these
+             files so we don't need to maintain them between
+             different releases -->
         <j:set var="pluginResources" value="plugin-resources/andromdapp"/>
     <j:set
         var="pluginResourceJ2eeDir"
