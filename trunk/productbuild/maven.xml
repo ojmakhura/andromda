@@ -185,10 +185,8 @@
         <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
         <ant:zip zipfile="${zipFile}">
             <ant:zipfileset dir="${basedir}" prefix="${distName}">
-                <ant:include name="**/*" />
-                <ant:exclude name="**/*.log*" />
-                <ant:exclude name="target/**/*"/>
-                <ant:exclude name="${zipFile}" />
+                <ant:exclude name="**/*.log*"/>
+                <ant:exclude name="**/target/**"/>
             </ant:zipfileset>
         </ant:zip>			
 	</goal>
