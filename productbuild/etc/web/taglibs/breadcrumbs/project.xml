@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-breadcrumbs-taglib</artifactId>
+    <currentVersion>1.0</currentVersion>
+    <name>AndroMDA BreadCrumbs Taglib</name>
+    <shortDescription>A tag-library for maintaining breadcrumbs in web applications</shortDescription>
+    <description>
+        This tag-library can be used to maintain and display breadcrumbs in a web application.
+    </description>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/etc/web/taglibs/breadcrumbs</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/etc/web/taglibs/breadcrumbs/</url>
+    </repository>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+    </build>
+</project>
