@@ -120,7 +120,8 @@ public class TableLogicImpl
                 {
                     if (column.isForeignIdentifier())
                     {
-                        foreignKeyColumns.add(this.getIdentifierForeignKeyColumns().iterator().next());
+                        Column columntest = (Column)this.getIdentifierForeignKeyColumns().iterator().next();
+                        foreignKeyColumns.add(columntest);
                     }
                     else
                     {
@@ -233,9 +234,9 @@ public class TableLogicImpl
                     return valid;
                 }
             });
-        if (end != null && EntityAssociationEndFacade.class.isAssignableFrom(end.getOtherEnd().getClass()))
+        if (end != null && EntityAssociationEndFacade.class.isAssignableFrom(end.getClass()))
         {
-            columns = ((Table)end.getOtherEnd().getType()).getIdentifiers();
+            columns = ((Table)end.getType()).getIdentifiers();
         }
         return columns;
     }
