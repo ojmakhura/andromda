@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="andromda/src/java"/>
+	<classpathentry kind="src" path="templateengines/velocity/src/java"/>
+	<classpathentry kind="src" path="templateengines/velocity/src/test/java"/>
+	<classpathentry kind="src" path="cartridges/andromda-webservice/src/java"/>
+	<classpathentry kind="src" path="cartridges/andromda-webservice/target/src"/>
 	<classpathentry kind="src" path="translation-libraries/andromda-validation/src/java"/>
+	<classpathentry kind="src" path="translation-libraries/andromda-validation/src/test/java"/>
 	<classpathentry kind="src" path="andromda/target/src/java"/>
 	<classpathentry kind="src" path="andromda/src/test/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/target/src"/>
@@ -25,7 +30,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/log4j/jars/log4j-1.2.8.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-1.6.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/picocontainer/jars/picocontainer-1.0-RC-1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/picocontainer/jars/picocontainer-1.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-digester/jars/commons-digester-1.5.jar"/>
@@ -37,5 +42,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmiuml-1.4di.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/mof-200401240117.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmi-200401240117.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/velocity/jars/velocity-1.4.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>
