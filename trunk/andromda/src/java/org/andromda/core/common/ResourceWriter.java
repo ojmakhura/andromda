@@ -159,6 +159,22 @@ public class ResourceWriter
     }
 
     /**
+     * Stores the count of the resources written over this instance's history.
+     */
+    private long writtenCount = 0;
+
+    /**
+     * Gets the number of currently written resources over the course of this
+     * instance's history.
+     * 
+     * @return the number of written resources.
+     */
+    public long getWrittenCount()
+    {
+        return this.writtenCount;
+    }
+
+    /**
      * The location to which history is written.
      */
     private final String HISTORY_LOCATION = ".andromda/history/";
@@ -203,6 +219,7 @@ public class ResourceWriter
         {
             history.append(file + ",");
         }
+        this.writtenCount++;
     }
 
     /**
