@@ -22,7 +22,6 @@
 		outputToSingleFile="true">
 		<modelElements variable="tables">
             <modelElement stereotype="Entity"/>
-            <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
 	</template>
 
@@ -33,7 +32,6 @@
 		overwrite="true">
 		<modelElements variable="table">
             <modelElement stereotype="Entity"/>
-            <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
 	</template>
 
@@ -45,7 +43,6 @@
 		outputToSingleFile="true">
 		<modelElements variable="tables">
             <modelElement stereotype="Entity"/>
-            <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
 	</template>
 		
@@ -57,7 +54,6 @@
 		outputToSingleFile="true">
 		<modelElements variable="tables">
             <modelElement stereotype="Entity"/>
-            <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
 	</template>
 
@@ -69,7 +65,6 @@
         outputToSingleFile="true">
         <modelElements variable="tables">
             <modelElement stereotype="Entity"/>
-            <modelElement stereotype="readOnlyEntity"/>
         </modelElements>
     </template>
 
@@ -81,7 +76,6 @@
         outputToSingleFile="true">
         <modelElements variable="tables">
             <modelElement stereotype="Entity"/>
-            <modelElement stereotype="readOnlyEntity"/>
         </modelElements>
     </template>
 
