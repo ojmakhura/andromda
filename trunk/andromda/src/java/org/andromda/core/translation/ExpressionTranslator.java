@@ -49,7 +49,7 @@ public class ExpressionTranslator {
      * (i.e. a translationName like 'query.EJB-QL' would mean use the <code>EJB-QL</code> 
      * translation from the <code>query</code> library.
      * @param contextElement the element which provides the context of this expression. This
-     *        is passed from the model.
+     *        is passed from the model.  This can be null.
      * @param expression the actual expression to translate.
      * 
      * @return Expression the resulting expression instance which contains 
@@ -62,7 +62,6 @@ public class ExpressionTranslator {
             String expression) {
 		final String methodName = "ExpressionTranslator.translate";
 		ExceptionUtils.checkEmpty(methodName, "translationName", translationName);
-		ExceptionUtils.checkNull(methodName, "contextElement", contextElement);
 		ExceptionUtils.checkEmpty(methodName, "expression", expression);
 		
 		Expression translatedOcl = null;
