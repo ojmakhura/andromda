@@ -131,7 +131,7 @@ $operation.getDocumentation("     * ")
         final $entity.entityName that = ($entity.entityName)object;
 #foreach ($identifier in $identifiers)
 #set ($idType = $identifier.type)
-#if ($idType.primitiveType)
+#if ($idType.primitive)
         if (this.$identifier.name != that.$identifier.name)
         { 
             return false;
@@ -190,8 +190,8 @@ $operation.getDocumentation("     * ")
         hashCode = 29 * hashCode + (${identifier.name} ? 1 : 0);
 #elseif ($idType.arrayType)
         // arrays are not part of the hashCode calculation
-#elseif ($idType.primitiveType)
-        hashCode = 29 * hashCode + ${identifier.name};
+#elseif ($idType.primitive)
+        hashCode = 29 * hashCode + (int)${identifier.name};
 #else
         hashCode = 29 * hashCode + (${identifier.name} == null ? 0 : ${identifier.name}.hashCode());
 #end
