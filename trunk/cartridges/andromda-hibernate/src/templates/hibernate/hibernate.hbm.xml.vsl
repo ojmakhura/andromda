@@ -8,7 +8,7 @@
           "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
-    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end#if($entity.dynamicInsert) dynamic-insert="true"#end#if($entity.dynamicUpdate) dynamic-update="true"#end>
+    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate">
 #if($hibernateEnableCache == "true")
         <cache usage="$entity.hibernateCacheType" />
 #end
