@@ -17,6 +17,7 @@
         <ant:taskdef
             resource="axis-tasks.properties"
             classpathref="axis.classpath"/>
+        <ant:mkdir dir="${maven.build.src}"/>
         <ant:axis-wsdl2java
             output="${maven.build.src}"
             verbose="true"
