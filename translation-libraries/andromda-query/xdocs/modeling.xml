@@ -36,17 +36,17 @@
 					</td>
 					<td>	
 						context Project::findByProjectType(
-							aProjectTypePk:Long, 
-							aRequestStatus:String, 
-							aCompareDate:Timestamp):Collection(Project) <strong>body</strong> findByProjectType: 
-							allInstances -> select ( project | project.jobRequestType.jobRequestTypePk = aProjectTypePk
-								and project.status = aRequestStatus and project.submittedDate >= aCompareDate)
+							projectTypeId:Long, 
+							requestStatus:String, 
+							compareDate:Timestamp):Collection(Project) <strong>body</strong> findByProjectType: 
+							allInstances() -> select ( project | project.projectType.id = projectTypeId
+								and project.status = requestStatus and project.submittedDate >= compareDate )
 					</td>
 				</tr>
 				<tr>
 					<td>
 						After the context declaration, each expression must start with a
-						'<code>allInstances -> select(<![CDATA[<some expression>]]>)</code>'
+						'<code>allInstances() -> select(<![CDATA[<some expression>]]>)</code>'
 					</td>
 					<td>
 						This represents the beginning of the query and tells us that
@@ -55,7 +55,7 @@
 					</td>
 					<td>
 			  			context Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
-						body findByNameAndNumberBody: <strong>allInstances -> select( 
+						body findByNameAndNumberBody: <strong>allInstances() -> select( 
 						project | StringUtils.isLike(project.projectName, name) 
 						and StringUtils.isLike(project.projectNumber, number) )</strong>
 					</td>
@@ -73,8 +73,8 @@
 					</td>
 					<td>
 						context LegalAgreement::findByLegalPartyName(aLegalPartyName:String) 
-						<strong>body</strong> findByLegalPartyNameBody: allInstances -> select( legalAgreement |
-						legalAgreement.legalAgreementParties->includesAll(
+						<strong>body</strong> findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
+						legalAgreement.legalAgreementParties -> includesAll(
 							legalAgreement.legalAgreementParties -> select( 
 								legalAgreementParty |
 						<strong>StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName,
