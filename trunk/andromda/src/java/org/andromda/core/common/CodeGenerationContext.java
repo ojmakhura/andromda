@@ -20,7 +20,6 @@ public class CodeGenerationContext
     private DbMappingTable typeMappings = null;
     private OutletDictionary outletDictionary = null;
     private boolean lastModifiedCheck = false;
-    private VelocityEngine scriptingEngine = null;
     private Collection userProperties = null;
 
     public CodeGenerationContext(
@@ -29,7 +28,6 @@ public class CodeGenerationContext
         DbMappingTable typeMappings,
         OutletDictionary outletDictionary,
         boolean lastModifiedCheck,
-        VelocityEngine scriptingEngine,
         Collection userPropeties)
     {
         this.repository = rf;
@@ -37,7 +35,6 @@ public class CodeGenerationContext
         this.typeMappings = typeMappings;
         this.outletDictionary = outletDictionary;
         this.lastModifiedCheck = lastModifiedCheck;
-        this.scriptingEngine = scriptingEngine;
         this.userProperties = userPropeties;
     }
 
@@ -132,24 +129,6 @@ public class CodeGenerationContext
     }
 
     /**
-     * Returns the scriptingEngine.
-     * @return VelocityEngine
-     */
-    public VelocityEngine getScriptingEngine()
-    {
-        return scriptingEngine;
-    }
-
-    /**
-     * Sets the scriptingEngine.
-     * @param scriptingEngine The scriptingEngine to set
-     */
-    public void setScriptingEngine(VelocityEngine scriptingEngine)
-    {
-        this.scriptingEngine = scriptingEngine;
-    }
-
-    /**
      * Returns the userProperties.
      * @return Collection
      */
@@ -166,5 +145,4 @@ public class CodeGenerationContext
     {
         this.userProperties = userProperties;
     }
-
 }
