@@ -3,7 +3,15 @@
 <%@ page contentType="application/x-javascript" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
-/*<![CDATA[*/
+#if ($xhtml == "true")
+<![CDATA[
+#else
+<!--
+#end
 <html:javascript dynamicJavascript="false" staticJavascript="true" htmlComment="false"/>
-/*]]>*/
+#if ($xhtml == "true")
+]]>
+#else
+-->
+#end
 #end
