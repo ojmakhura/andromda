@@ -261,7 +261,7 @@
                 <h3><![CDATA[<stereotype/>]]></h3>     
                 <p>
                     Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
-                    can take one or more optional nested <em><![CDATA[<stereotype/>]]></em>
+                    can take one or more <em>optional</em> nested <em><![CDATA[<stereotype/>]]></em>
                     elements.  Having a single stereotype tells AndroMDA to match the meta model element having that 
                     stereotype.  For example this here tells AndroMDA to apply
                     <em>org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl</em>
@@ -334,7 +334,7 @@
                 <h3><![CDATA[<context/>]]></h3>     
                 <p>
                     Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
-                    can take an optional nested <em><![CDATA[<context/>]]></em>
+                    can take an <em>optional</em> nested <em><![CDATA[<context/>]]></em>
                     element.  This context allows us to specify that a metafacade
                     must be created within the <em>context</em> of another metafacade
                     in order to be mapped.  Note that <strong>you can only specify a single
@@ -377,8 +377,28 @@
                 <h3><![CDATA[<property/>]]></h3>     
                 <p>
                     Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
-                    can take one or more optional nested <em><![CDATA[<property/>]]></em>
-                    elements.                    
+                    can take one or more <em>optional</em> nested <em><![CDATA[<property/>]]></em>
+                    elements.  Properties can be used without specifying a value, or they can
+                    be used with a value.                      
+                </p> 
+                <a name="validProperty"/>
+                <p class="highlight">
+                    When mapping without a value, the property must be 
+                    considered <em>valid</em>. 
+                </p>
+                <p>
+                    A property is considered <em>valid</em> in the following cases:
+                    <ul>
+                        <li>
+                            The property is not null.
+                        </li>
+                        <li>
+                            If a collection type the property is not empty.
+                        </li>
+                        <li>
+                            If a boolean type the property is not false.
+                        </li>
+                    </ul>
                 </p>
                 <table>
                     <tr>
@@ -391,22 +411,45 @@
                             name
                         </td>
                         <td>
-                            Defines the name of the property to be evaluated. When being evaluated
-                            properties are determined to be valid when the following conditions are met:
-                            <ul>
-                                <li>
-                                    The property is not null.
-                                </li>
-                                <li>
-                                    If a collection type the property is not empty.
-                                </li>
-                                <li>
-                                    If a boolean type the property is not false.
-                                </li>
-                            </ul>
+                            Defines the name of the property to be evaluated. This must be a <a href="#validProperty">valid</a>
+                            property on the given metafacade in order to be mapped.
                         </td>
                         <td>
                             Yes
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            value
+                        </td>
+                        <td>
+                            Defines the value the property must match in order to be mapped.  For example, this here indicates
+                            the query property on the metafacade must evaluate to <em>false</em> in order to be mapped.
+                            <source><![CDATA[
+...
+<metafacade class="org.andromda.cartridges.spring.metafacades.BusinessOperationLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <property name="query" value="false"/>
+    </mapping>
+</metafacade>
+...
+                            ]]></source>
+                            <p class="highlight">
+                                Please note that you can also specify the value as the contents of the 
+                                property element, for example this below is equivalent to the previous example:
+                                <source><![CDATA[
+...
+<metafacade class="org.andromda.cartridges.spring.metafacades.BusinessOperationLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <property name="query">false</property>
+    </mapping>
+</metafacade>
+...
+                                ]]></source>
+                            </p>
+                        </td>
+                        <td>
+                            No
                         </td>
                     </tr>
                 </table>
