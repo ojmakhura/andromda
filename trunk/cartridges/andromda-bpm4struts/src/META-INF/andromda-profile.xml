@@ -42,6 +42,10 @@
         <to>@andromda.struts.action.type</to>
     </mapping>
     <mapping>
+        <from>ACTION_FORM_SCOPE</from>
+        <to>@andromda.struts.action.form.scope</to>
+    </mapping>
+    <mapping>
         <from>ACTION_RESETTABLE</from>
         <to>@andromda.struts.action.resettable</to>
     </mapping>

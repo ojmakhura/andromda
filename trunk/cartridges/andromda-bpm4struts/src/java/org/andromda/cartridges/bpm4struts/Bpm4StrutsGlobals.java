@@ -50,4 +50,9 @@ public class Bpm4StrutsGlobals
      * A space-separated list of types to which displaytag table are to be exported by default.
      */
     public static final String PROPERTY_DEFAULT_TABLE_EXPORT_TYPES = "defaultTableExportTypes";
+    
+    /**
+     * Stores the scope of the "form" attribute when executing an action.
+     */
+    public static final String PROPERTY_ACTION_FORM_SCOPE = "actionFormScope";
 }
