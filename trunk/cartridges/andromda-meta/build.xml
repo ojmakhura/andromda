@@ -98,17 +98,17 @@
         </jar>
         <copy todir="${dist.dir}" >
             <fileset dir="${build.dir}" includes="andromda-meta.jar" />
-		    <fileset dir="." includes="andromda-meta.properties" />
+            <fileset dir="." includes="andromda-meta.properties" />
         </copy>
     </target>
 
     <target name="genjava" depends="compile1">
-	    <property file="${andromda-meta.home}/andromda-meta.properties"/>
-	
-	    <path id="generate.classpath">
-	       <path refid="andromda.classpath" />
-	       <pathelement path="${andromda-meta.classpath}"/>
-	    </path>
+        <property file="${andromda-meta.home}/andromda-meta.properties"/>
+    
+        <path id="generate.classpath">
+           <path refid="andromda.classpath" />
+           <pathelement path="${andromda-meta.classpath}"/>
+        </path>
     
         <taskdef name="andromda"
                  classname="org.andromda.core.anttasks.AndroMDAGenTask"
@@ -118,7 +118,9 @@
         <property name="g.cp" refid="generate.classpath"/>
         <echo message="generate.classpath = ${g.cp}"/>
 
-        <property name="model" value="jar:file:${uml.dir}/ProfileForMetamodelDecorators.zuml!/ProfileForMetamodelDecorators.xmi"/>
+        <!--property name="model" value="jar:file:${uml.dir}/ProfileForMetamodelDecorators.zuml!/ProfileForMetamodelDecorators.xmi"/-->
+        <property name="model" value="jar:file:${uml.dir}/MetadecoratorModel.xml.zip!/MetadecoratorModel.xml"/>
+
         <andromda basedir="."
            modelURL="${model}"
            lastModifiedCheck="false"
@@ -145,16 +147,16 @@
             <fileset dir="${build.dec.dir}" includes="**/*.class" />
         </jar>
     </target>
-    
+
     <target name="test" depends="compile2">
         <mkdir dir="${build.test.classes.dir}"/>
         <mkdir dir="${build.test.reports.dir}"/>
-	    <path id="test.classpath">
-	       <path refid="generate.classpath" />
+        <path id="test.classpath">
+           <path refid="generate.classpath" />
            <pathelement location="${build.dir}/metadecorators.jar" />
-	       <pathelement location="${build.test.classes.dir}"/>
-	    </path>
-    
+           <pathelement location="${build.test.classes.dir}"/>
+        </path>
+
         <javac debug="true" destdir="${build.test.classes.dir}" includes="**/*.java" includeAntRuntime="false">
             <src path="${src.test.dir}"/>
             <classpath refid="test.classpath"/>
