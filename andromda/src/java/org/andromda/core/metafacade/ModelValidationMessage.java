@@ -73,11 +73,11 @@ public class ModelValidationMessage
                 if (StringUtils.isNotBlank(metafacade.getValidationName()))
                 {
                     String validationName = metafacade.getValidationName();
-                    //if (name.length() > 0)
                     if (metafacade.getValidationOwner() != null)
                     {
                         // remove package if we have an owner
-                        validationName.replaceAll("\\w*" + seperator, "");
+                        validationName = validationName.replaceAll("\\w*"
+                            + seperator, "");
                     }
                     if (name.length() > 0)
                     {
@@ -86,6 +86,7 @@ public class ModelValidationMessage
                     name.insert(0, validationName);
                 }
             }
+            System.out.println("the final metafacade: " + name.toString());
             this.metafacadeName = name.toString();
         }
         return metafacadeName;
