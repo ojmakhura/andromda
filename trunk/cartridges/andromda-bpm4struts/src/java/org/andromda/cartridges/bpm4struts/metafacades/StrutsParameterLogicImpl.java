@@ -5,6 +5,7 @@ import org.andromda.core.common.StringUtilsHelper;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 
@@ -101,6 +102,64 @@ public class StrutsParameterLogicImpl
     public java.lang.String handleGetTitleValue()
     {
         return getMessageValue();
+    }
+
+    public boolean handleIsTable()
+    {
+        return (getType().isCollectionType() || getType().isArrayType()) && (!getTableColumnNames().isEmpty());
+    }
+
+    public boolean handleIsTableExportable()
+    {
+        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORTABLE);
+        return (taggedValue==null) ? true : isTrue(String.valueOf(taggedValue));
+    }
+
+    public boolean handleIsTableSortable()
+    {
+        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_SORTABLE);
+        return (taggedValue==null) ? true : isTrue(String.valueOf(taggedValue));
+    }
+
+    public Collection handleGetTableColumnNames()
+    {
+        Collection columnNamesCollection = null;
+
+        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_COLUMNS);
+        if ((taggedValue == null) || (String.valueOf(taggedValue).matches("[\\W]+")))
+        {
+            columnNamesCollection = Collections.EMPTY_LIST;
+        }
+        else
+        {
+            columnNamesCollection = new LinkedList();
+            String columnNames = String.valueOf(taggedValue);
+            String[] properties = columnNames.split("[\\W]+");
+            for (int i = 0; i < properties.length; i++)
+            {
+                String property = properties[i];
+                columnNamesCollection.add(property);
+            }
+        }
+
+        return columnNamesCollection;
+    }
+
+    public int handleGetTableMaxRows()
+    {
+        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_MAXROWS);
+        int pageSize = 0;
+
+        try
+        {
+            pageSize = Integer.parseInt(String.valueOf(taggedValue));
+        }
+        catch (Exception e)
+        {
+            pageSize = Bpm4StrutsProfile.TAGGED_VALUE_TABLE_MAXROWS_DEFAULT_COUNT;
+        }
+
+        return pageSize;
     }
 
     public String handleGetWidgetType()
