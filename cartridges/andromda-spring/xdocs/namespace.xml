@@ -1,305 +1,305 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <document>
-  	<properties>
-    	<title>Spring Cartridge Namespace</title>
-  	</properties>
-  	<body>
-    	<section name="Spring Namespace Properties">
+      <properties>
+        <title>Spring Cartridge Namespace</title>
+      </properties>
+      <body>
+        <section name="Spring Namespace Properties">
             <p>
                 In addition to the applicable
                 <a href="../andromda-metafacades-uml/namespace.html">UML Metafacade</a> namespace
                 properties which may also be used, this page describes
                 namespace properties specific to this cartridge only.
             </p>
-	      	<table>
-	        	<tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required</th>	   	 
-	        	</tr>
-				<tr>
-					<td>
-						services
-					</td>
-					<td>
-						The location to which all service classes
-						will be generated.
-					</td>
-					<td>
-						Yes
-					</td>
-				</tr>
-				<tr>
-					<td>
-						service-impls
-					</td>
-					<td>
-						The location to which all service implementation classes
-						will be generated.
-					</td>
-					<td>
-						Yes
-					</td>
-				</tr>
-				<tr>
-					<a name="service-locator"/>
-					<td>
-						service-locator
-					</td>
-					<td>
-						The location to which a service locator will be generated.
-					</td>
-					<td>
-						No
-					</td>
-				</tr>
-				<tr>
-					<td>
-						daos
-					</td>
-					<td>
-						The location to which Spring DAOs, and any support classes.
-					</td>
-					<td>
-						Yes
-					</td>
-				</tr>
-				<tr>
-					<td>
-						dao-impls
-					</td>
-					<td>
-						The location to which Spring DAO implementation
-						classes will be generated (if there are any classifier scoped business
-						operations modeled on any entity).
-					</td>
-					<td>
-						Yes
-					</td>
-				</tr>
-				<tr>
-					<td>
-						spring-configuration
-					</td>
-					<td>
-						The location to which the Spring applicationContext.xml
-						will be generated.
-					</td>
-					<td>
-						Yes
-					</td>
-				</tr>
-				<tr>
-					<td>
-						springTypesPackage
-					</td>
-					<td>
-						The package to which the extra non modeled spring types
-						will be generated. (i.e. the service locator, etc).
-					</td>
-					<td>
-						No (unless <a href="#service-locator">service-locator</a>
-						has been defined).  If not specified and <code>service-locator</code>
-						has been defined, it will be generated within <strong>org.andromda.spring</strong>.
-					</td>
-				</tr>
+              <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td>
+                        services
+                    </td>
+                    <td>
+                        The location to which all service classes
+                        will be generated.
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        service-impls
+                    </td>
+                    <td>
+                        The location to which all service implementation classes
+                        will be generated.
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <a name="service-locator"/>
+                    <td>
+                        service-locator
+                    </td>
+                    <td>
+                        The location to which a service locator will be generated.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        daos
+                    </td>
+                    <td>
+                        The location to which Spring DAOs, and any support classes.
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        dao-impls
+                    </td>
+                    <td>
+                        The location to which Spring DAO implementation
+                        classes will be generated (if there are any classifier scoped business
+                        operations modeled on any entity).
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        spring-configuration
+                    </td>
+                    <td>
+                        The location to which the Spring applicationContext.xml
+                        will be generated.
+                    </td>
+                    <td>
+                        Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        springTypesPackage
+                    </td>
+                    <td>
+                        The package to which the extra non modeled spring types
+                        will be generated. (i.e. the service locator, etc).
+                    </td>
+                    <td>
+                        No (unless <a href="#service-locator">service-locator</a>
+                        has been defined).  If not specified and <code>service-locator</code>
+                        has been defined, it will be generated within <strong>org.andromda.spring</strong>.
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         principalStoreName
                     </td>
                     <td>
                         The name to give the class that stores the <code>java.security.Principal</code>
-                        that is made available to the spring POJOs. 
+                        that is made available to the spring POJOs.
                     </td>
                     <td>
                         No, default is <code>PrincipalStore</code>.
                     </td>
                 </tr>
-				<tr>
-					<td>
-						serviceLocatorName
-					</td>
-					<td>
-						The name to give to the generated service locator class.
-					</td>
-					<td>
-						No, default is <code>ServiceLocator</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						clientServiceLocatorName
-					</td>
-					<td>
-						The name to give to the generated client service locator class.
-					</td>
-					<td>
-						No, default is <code>ClientServiceLocator</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						clientServiceLocatorClassloaderSwitching
-					</td>
-					<td>
-						Whether the client service locator should switch classloaders during bean instantiation.
-						This is needed when running in Eclipse.
-					</td>
-					<td>
-						No, default is <code>off</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						clientExceptionHandlingAdviceName
-					</td>
-					<td>
-						The name to give to the one-time generated exception handling advice.
-					</td>
-					<td>
-						No, default is <code>ClientExceptionHandlingAdvice</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						daoNamePattern
-					</td>
-					<td>
-						The pattern to use when constructing the DAO name.
-						<em>{0}</em> is used to represent the entity name
-						in the model, so if you specified a value of
-						<code>{0}Dao</code> all the entities generated
-						would have a suffix of "Dao".
-					</td>
-					<td>
-						No, default is <code>{0}Dao</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						entityNamePattern
-					</td>
-					<td>
-						The pattern to use when constructing an entity name.
-						<em>{0}</em> is used to represent the entity name
-						in the model, so if you specified a value of
-						<code>{0}Entity</code> all the entities generated
-						would have a suffix of "Entity".
-					</td>
-					<td>
-						No, default is <code>{0}</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						daoBaseNamePattern
-					</td>
-					<td>
-						The pattern to use when constructing the base DAO's name.
-						<em>{0}</em> is used to represent the entity name
-						in the model, so if you specified a value of
-						<code>{0}DaoBase</code> all the entities generated
-						would have a suffix of "DaoBase".
-					</td>
-					<td>
-						No, default is <code>{0}DaoBase</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						daoImplementationNamePattern
-					</td>
-					<td>
-						The pattern to use when constructing the DAO's 
-                        implementation name. <em>{0}</em> is used to represent 
+                <tr>
+                    <td>
+                        serviceLocatorName
+                    </td>
+                    <td>
+                        The name to give to the generated service locator class.
+                    </td>
+                    <td>
+                        No, default is <code>ServiceLocator</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        clientServiceLocatorName
+                    </td>
+                    <td>
+                        The name to give to the generated client service locator class.
+                    </td>
+                    <td>
+                        No, default is <code>ClientServiceLocator</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        clientServiceLocatorClassloaderSwitching
+                    </td>
+                    <td>
+                        Whether the client service locator should switch classloaders during bean instantiation.
+                        This is needed when running in Eclipse.
+                    </td>
+                    <td>
+                        No, default is <code>off</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        clientExceptionHandlingAdviceName
+                    </td>
+                    <td>
+                        The name to give to the one-time generated exception handling advice.
+                    </td>
+                    <td>
+                        No, default is <code>ClientExceptionHandlingAdvice</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        daoNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing the DAO name.
+                        <em>{0}</em> is used to represent the entity name
+                        in the model, so if you specified a value of
+                        <code>{0}Dao</code> all the entities generated
+                        would have a suffix of "Dao".
+                    </td>
+                    <td>
+                        No, default is <code>{0}Dao</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        entityNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing an entity name.
+                        <em>{0}</em> is used to represent the entity name
+                        in the model, so if you specified a value of
+                        <code>{0}Entity</code> all the entities generated
+                        would have a suffix of "Entity".
+                    </td>
+                    <td>
+                        No, default is <code>{0}</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        daoBaseNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing the base DAO's name.
+                        <em>{0}</em> is used to represent the entity name
+                        in the model, so if you specified a value of
+                        <code>{0}DaoBase</code> all the entities generated
+                        would have a suffix of "DaoBase".
+                    </td>
+                    <td>
+                        No, default is <code>{0}DaoBase</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        daoImplementationNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing the DAO's
+                        implementation name. <em>{0}</em> is used to represent
                         the entity name in the model, so if you specified a value of
-						<code>{0}DaoImpl</code> all the entities generated
-						would have a suffix of "DaoImpl".
-					</td>
-					<td>
-						No, default is <code>{0}DaoImpl</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
+                        <code>{0}DaoImpl</code> all the entities generated
+                        would have a suffix of "DaoImpl".
+                    </td>
+                    <td>
+                        No, default is <code>{0}DaoImpl</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         driver
-					</td>
-					<td>
+                    </td>
+                    <td>
                         JDBC Driver to make database connection
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         username
-					</td>
-					<td>
+                    </td>
+                    <td>
                         The database user login name.
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         password
-					</td>
-					<td>
+                    </td>
+                    <td>
                         The database user password.
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         dataSource
-					</td>
-					<td>
+                    </td>
+                    <td>
                         JNDI name of data source to use. (would be used instead
-						of the connection properties, driver, username, password, etc).
-					</td>
-					<td>
+                        of the connection properties, driver, username, password, etc).
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         connectionUrl
-					</td>
-					<td>
+                    </td>
+                    <td>
                         URL for the JDBC Driver to make the connection to the database.
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
-						transactionManager
-					</td>
-					<td>
-						The transaction manager implementation used by Spring.
-					</td>
-					<td>
-						No, default is <a href="http://www.springframework.org/docs/api/org/springframework/orm/hibernate/HibernateTransactionManager.html">org.springframework.orm.hibernate.HibernateTransactionManager</a>
-					</td>
-				</tr> 	
-				<tr>
-					<td>
-						sessionFactory
-					</td>
-					<td>
-						FactoryBean that creates a local Hibernate SessionFactory instance
-						within Spring.
-					</td>
-					<td>
-						No, default is <a href="http://www.springframework.org/docs/api/org/springframework/orm/hibernate/LocalSessionFactoryBean.html">org.springframework.orm.hibernate.LocalSessionFactoryBean</a>
-					</td>
-				</tr>   
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        transactionManager
+                    </td>
+                    <td>
+                        The transaction manager implementation used by Spring.
+                    </td>
+                    <td>
+                        No, default is <a href="http://www.springframework.org/docs/api/org/springframework/orm/hibernate/HibernateTransactionManager.html">org.springframework.orm.hibernate.HibernateTransactionManager</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        sessionFactory
+                    </td>
+                    <td>
+                        FactoryBean that creates a local Hibernate SessionFactory instance
+                        within Spring.
+                    </td>
+                    <td>
+                        No, default is <a href="http://www.springframework.org/docs/api/org/springframework/orm/hibernate/LocalSessionFactoryBean.html">org.springframework.orm.hibernate.LocalSessionFactoryBean</a>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         applicationContext
@@ -311,7 +311,7 @@
                     <td>
                         No, default is <code>applicationContext.xml</code>
                     </td>
-                </tr> 
+                </tr>
                 <tr>
                     <td>
                         serverContext
@@ -323,7 +323,7 @@
                     <td>
                         No, default is <code>serverContext.xml</code>
                     </td>
-                </tr> 
+                </tr>
                 <tr>
                     <td>
                         clientContext
@@ -335,7 +335,7 @@
                     <td>
                         No, default is <code>clientContext.xml</code>
                     </td>
-                </tr> 
+                </tr>
                 <tr>
                     <td>
                         beanRefFactory
@@ -347,20 +347,20 @@
                     <td>
                         No, default is beanRefFactory.xml
                     </td>
-                </tr>        	  
+                </tr>
                 <tr>
                     <td>
                         beanRefFactoryId
                     </td>
                     <td>
                         The ID for the Spring bean reference factory (used
-                        to load the bean factory when using the Session EJB 
+                        to load the bean factory when using the Session EJB
                         wrappers)
                     </td>
                     <td>
                         No, default is <code>beanRefFactory</code>
                     </td>
-                </tr>     
+                </tr>
                 <tr>
                     <td>
                         implementationOperationNamePrefix
@@ -372,7 +372,7 @@
                     <td>
                         No, default is <code>handle</code>.
                     </td>
-                </tr>  
+                </tr>
                 <tr>
                     <td>
                         defaultServiceExceptions
@@ -390,7 +390,7 @@
                         defaultServiceExceptionNamePattern
                     </td>
                     <td>
-                        The pattern to use when constructing the default service exception name. 
+                        The pattern to use when constructing the default service exception name.
                         <strong>NOTE:</strong> This propety is only applicable when defaultServiceExceptions
                         is <code>true</code>.
                     </td>
@@ -403,8 +403,8 @@
                         parameterRequiredCheck
                     </td>
                     <td>
-                        Whether or not code for checking if a service or DAO operation parameter 
-                        is required is generated.  Its sometimes useful to turn this feature 
+                        Whether or not code for checking if a service or DAO operation parameter
+                        is required is generated.  Its sometimes useful to turn this feature
                         off if the tool you're using doesn't support stereotypes on parameters.
                     </td>
                     <td>
@@ -427,13 +427,13 @@
                         serviceRemotingType
                     </td>
                     <td>
-                        Determines the type of remoting to be used for Spring services. Can any one of 
+                        Determines the type of remoting to be used for Spring services. Can any one of
                         <ul>
-                        	<li>none</li>
-                        	<li>rmi</li>
-                        	<li>httpinvoker</li>
-                        	<li>burlap</li>
-                        	<li>hessian</li>
+                            <li>none</li>
+                            <li>rmi</li>
+                            <li>httpinvoker</li>
+                            <li>burlap</li>
+                            <li>hessian</li>
                         </ul>
                     </td>
                     <td>
@@ -461,7 +461,7 @@
                     <td>
                         No.
                     </td>
-                </tr>                
+                </tr>
                 <tr>
                     <td>
                         serviceRemoteServer
@@ -472,65 +472,65 @@
                     <td>
                         No, default is <code>localhost</code>
                     </td>
-                </tr>                
-			</table>
+                </tr>
+            </table>
             <subsection name="Hibernate Specific Properties">
                 <table>
-					<tr>
-						<td>
-							hibernatePoolSize
-						</td>
-						<td>
-							Hibernate connection pool size.
-						</td>
-						<td>
-							No 
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateTransactionManagerStrategy
-						</td>
-						<td>
-							Strategy for obtaining the JTA TransactionManager
-						</td>
-						<td>
-							No
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateUserTransactionName
-						</td>
-						<td>
-							The JNDI name of the JTA UserTransaction object
-						</td>
-						<td>
-							No
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateTransactionManagerLookup
-						</td>
-						<td>
-							The fully qualified class name of the Hibernate TransactionFactory implementation
-						</td>
-						<td>
-							No
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateUseOuterJoin
-						</td>
-						<td>
-							Whether or not to use outer join
-						</td>
-						<td>
-							 No, defaults to <code>false</code>.
-						</td>
-					</tr>
+                    <tr>
+                        <td>
+                            hibernatePoolSize
+                        </td>
+                        <td>
+                            Hibernate connection pool size.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateTransactionManagerStrategy
+                        </td>
+                        <td>
+                            Strategy for obtaining the JTA TransactionManager
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateUserTransactionName
+                        </td>
+                        <td>
+                            The JNDI name of the JTA UserTransaction object
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateTransactionManagerLookup
+                        </td>
+                        <td>
+                            The fully qualified class name of the Hibernate TransactionFactory implementation
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateUseOuterJoin
+                        </td>
+                        <td>
+                            Whether or not to use outer join
+                        </td>
+                        <td>
+                             No, defaults to <code>false</code>.
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             hibernateAssociationEndOuterJoin
@@ -548,142 +548,142 @@
                             No, default is <code>auto</code>.
                         </td>
                     </tr>
-					<tr>
-						<td>
-							hibernateShowSql
-						</td>
-						<td>
-							Whether or not to log SQL statements
-						</td>
-						<td>
-							No, defaults to <code>false</code>.
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateJndiName
-						</td>
-						<td>
-							JNDI name bound to the SessionFactory.
-						</td>
-						<td>
-							No
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateDialect
-						</td>
-						<td>
-							SQL dialect of the database
-						</td>
-						<td>
-							Yes
-						</td>
-					</tr>
-					<tr>
-						<td>
-							hibernateDefaultSchema 
-						</td>
-						<td>
-							Qualify unqualified tablenames with the given
-							schema/tablespace in generated SQL.
-						</td>
-						<td>
-							No
-						</td>
-					</tr> 		
-					<tr>
-						<td>
-							hibernateJdbcFetchSize
-						</td>
-						<td>
-							A non-zero value determines the JDBC fetch size
-						</td>
-						<td>
-							No
-						</td>
-					</tr> 
-					<tr>
-						<td>
-							hibernateMaxFetchDepth
-						</td>
-						<td>
-							Sets a maximum "depth" for the outer join fetch tree. 
-							eg. recommended values between 0 and 3
-						</td>
-						<td>
-							No
-						</td>
-					</tr>    
-					<tr>
-						<td>
-							hibernateJdbcBatchSize
-						</td>
-						<td>
-							A nonzero value enables use of JDBC2 batch updates by Hibernate.
-							ex: recommended values between 5 and 30
-						</td>
-						<td>
-							No
-						</td>
-					</tr>    	
-					<tr>
-						<td>
-							hibernateJdbcUseScrollableResultSet
-						</td>
-						<td>
-							Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate. 
-							This property is only necessary when using user supplied connections. 
-							Hibernate uses connection metadata otherwise.
-						</td>
-						<td>
-							No
-						</td>
-					</tr>        
-					<tr>
-						<td>
-							hibernateJdbcUseStreamsForBinary
-						</td>
-						<td>
-							Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
-						</td>
-						<td>
-							No
-						</td>
-					</tr> 
+                    <tr>
+                        <td>
+                            hibernateShowSql
+                        </td>
+                        <td>
+                            Whether or not to log SQL statements
+                        </td>
+                        <td>
+                            No, defaults to <code>false</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateJndiName
+                        </td>
+                        <td>
+                            JNDI name bound to the SessionFactory.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateDialect
+                        </td>
+                        <td>
+                            SQL dialect of the database
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateDefaultSchema
+                        </td>
+                        <td>
+                            Qualify unqualified tablenames with the given
+                            schema/tablespace in generated SQL.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateJdbcFetchSize
+                        </td>
+                        <td>
+                            A non-zero value determines the JDBC fetch size
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateMaxFetchDepth
+                        </td>
+                        <td>
+                            Sets a maximum "depth" for the outer join fetch tree.
+                            eg. recommended values between 0 and 3
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateJdbcBatchSize
+                        </td>
+                        <td>
+                            A nonzero value enables use of JDBC2 batch updates by Hibernate.
+                            ex: recommended values between 5 and 30
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateJdbcUseScrollableResultSet
+                        </td>
+                        <td>
+                            Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
+                            This property is only necessary when using user supplied connections.
+                            Hibernate uses connection metadata otherwise.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateJdbcUseStreamsForBinary
+                        </td>
+                        <td>
+                            Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             hibernateHbm2DDLAuto
                         </td>
                         <td>
-                            Automatically export schema DDL to the database when the SessionFactory 
-                            is created. With create-drop, the database schema will be dropped when 
-                            the SessionFactory is closed explicitely. Permitted values are: 
+                            Automatically export schema DDL to the database when the SessionFactory
+                            is created. With create-drop, the database schema will be dropped when
+                            the SessionFactory is closed explicitely. Permitted values are:
                             <ol>
                                 <li>update</li>
                                 <li>create</li>
                                 <li>create-drop</li>
-                            </ol>                        
+                            </ol>
                         </td>
                         <td>
                             No
                         </td>
-                    </tr>    
+                    </tr>
                     <tr>
                         <td>
                             hibernateQuerySubstitutions
                         </td>
                         <td>
                             Allows you to define new Hibernate query tokens. For example:
-                            giving this a value of <em>true=1, false=0</em>                            
-                            would cause the tokens true and false to be translated to integer 
-                            literals in the generated SQL. 
+                            giving this a value of <em>true=1, false=0</em>
+                            would cause the tokens true and false to be translated to integer
+                            literals in the generated SQL.
                         </td>
                         <td>
                             No
                         </td>
-                    </tr>  	
+                    </tr>
                 </table>
             </subsection>
             <subsection name="EJB Specific Properties">
@@ -698,71 +698,71 @@
                             if this is specified, then session EJBs will wrap Spring
                             service POJOs and transaction management will be handled
                             by the Session EJB (instead of Spring).
-                            <strong>IMPORTANT:</strong> This enables Session EJB support, 
-                            if you want your Spring service objects to be wrapped with 
+                            <strong>IMPORTANT:</strong> This enables Session EJB support,
+                            if you want your Spring service objects to be wrapped with
                             Session EJBs then you need to specify this property.
                         </td>
                         <td>
                             No
                         </td>
                     </tr>
-					<tr>
-						<td>
-							ejbJndiNamePrefix
-						</td>
-						<td>
-						    The prefix to give to the Session EJB JNDI names (this allows 
-							the same Session EJB to be deployed multiple times in the same 
-							container)
-						</td>
-						<td>
-							No
-						</td>
-					</tr>     	
-					<tr>
-						<td>
-							ejbPackageNamePattern
-						</td>
-						<td>
-	                        If EJBs are being used, this specifies the pattern to be 
-							used when constructing the EJB package name 
+                    <tr>
+                        <td>
+                            ejbJndiNamePrefix
+                        </td>
+                        <td>
+                            The prefix to give to the Session EJB JNDI names (this allows
+                            the same Session EJB to be deployed multiple times in the same
+                            container)
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ejbPackageNamePattern
+                        </td>
+                        <td>
+                            If EJBs are being used, this specifies the pattern to be
+                            used when constructing the EJB package name
                             (this allows a Spring Service to be wrapped by a Session EJB
                             and avoids name conflicts).  The <em>{0}</em> character
-							represents the service package name.  This could be something like
-							<em>{0}.ejb</em> which would create the Spring Session EJBs in the
-							package ending in the <em>ejb</em> package.					
-						</td>
-						<td>
-							No, default is <code>{0}.ejb</code>
-						</td>
-					</tr>       
-					<tr>
-						<td>
-							ejbViewType
-						</td>
-						<td>
-							If EJBs are being used, this specifies the view type
-							for the EJB interfaces.  Can be either <em>local</em>
-							or <code>remote</code>.
-						</td>
-						<td>
-							No, default is <code>local</code>.
-						</td>
-					</tr> 	
-					<tr>
-						<td>
-							securityRealm
-						</td>
-						<td>
-						    The name of the security realm (i.e. animal-quiz, 
+                            represents the service package name.  This could be something like
+                            <em>{0}.ejb</em> which would create the Spring Session EJBs in the
+                            package ending in the <em>ejb</em> package.
+                        </td>
+                        <td>
+                            No, default is <code>{0}.ejb</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ejbViewType
+                        </td>
+                        <td>
+                            If EJBs are being used, this specifies the view type
+                            for the EJB interfaces.  Can be either <em>local</em>
+                            or <code>remote</code>.
+                        </td>
+                        <td>
+                            No, default is <code>local</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            securityRealm
+                        </td>
+                        <td>
+                            The name of the security realm (i.e. animal-quiz,
                             other, etc).  <strong>NOTE:</strong>This enables EJB security if specified.
-						</td>
-						<td>
-							No
-						</td>
-					</tr>   
-				</table>
-			</subsection>
-    	</section>
-  	</body>
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
+        </section>
+      </body>
 </document>
