@@ -1,0 +1,252 @@
+<%@ page contentType="application/x-javascript" %>
+<%@ taglib uri="struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+#if ($xhtml == "true")
+<![CDATA[
+#else
+<!--
+#end
+// Title: Tigra Calendar
+// URL: http://www.softcomplex.com/products/tigra_calendar/
+// Version: 3.2 (European date format)
+// Date: 10/14/2002 (mm/dd/yyyy)
+// Note: Permission given to use this script in ANY kind of applications if
+//    header lines are left unchanged.
+// Note: Script consists of two files: calendar?.js and calendar.html
+
+// if two digit year input dates after this year considered 20 century.
+var NUM_CENTYEAR = 30;
+// is time input control required by default
+var BUL_TIMECOMPONENT = false;
+// are year scrolling buttons required by default
+var BUL_YEARSCROLL = true;
+
+var FORMAT = 'dd/MM/yyyy';
+
+var calendars = [];
+
+function calendar1(obj_target) {
+
+	// assigning methods
+	this.gen_date = formatDateTime;
+	this.prs_date = parseDateTime;
+	this.popup    = cal_popup1;
+
+	// validate input parameters
+	if (!obj_target)
+		return cal_error("Error calling the calendar: no target control specified");
+	if (obj_target.value == null)
+		return cal_error("Error calling the calendar: parameter specified is not valid target control");
+	this.target = obj_target;
+	this.time_comp = BUL_TIMECOMPONENT;
+	this.year_scroll = BUL_YEARSCROLL;
+	this.date_format = FORMAT;
+
+	// register in global collections
+	this.id = calendars.length;
+	calendars[this.id] = this;
+}
+
+function cal_popup1 (str_datetime) {
+	this.dt_current = this.prs_date(str_datetime ? str_datetime : this.target.value);
+	if (!this.dt_current) return;
+
+	var obj_calwindow = window.open(
+		'<html:rewrite page="/layout/calendar.jsp"/>?datetime=' + this.dt_current.valueOf()+ '&id=' + this.id,
+		'<bean:message key="calendar.title"/>', 'width=200,height='+(this.time_comp ? 215 : 190)+
+		',status=no,resizable=no,top=200,left=200,dependent=yes,alwaysRaised=yes'
+	);
+	obj_calwindow.opener = window;
+	obj_calwindow.focus();
+}
+
+function cal_error (str_message) {
+	alert (str_message);
+	return null;
+}
+
+
+function parseDateTime(value)
+{
+    if (value == null || value.length==0) return new Date();
+
+    var format = String(this.date_format);
+
+    var yearRegExp = new RegExp('y+');
+    var yearFormat = String(yearRegExp.exec(format));
+    var yearIndex = format.indexOf(yearFormat);
+    if (yearFormat != null && yearFormat.length>0) format = format.replace(yearRegExp, '\\d{1,4}');
+
+    var monthRegExp = new RegExp('M+');
+    var monthFormat = String(monthRegExp.exec(format));
+    var monthIndex = format.indexOf(monthFormat);
+    if (monthFormat != null && monthFormat.length>0)
+        format = format.replace(monthRegExp, (monthFormat.length > 2) ? '\\w{3,}' : '\\d{1,2}');
+
+    var dayRegExp = new RegExp('d+');
+    var dayFormat = String(dayRegExp.exec(format));
+    var dayIndex = format.indexOf(dayFormat);
+    if (dayFormat != null && dayFormat.length>0) format = format.replace(dayRegExp, '\\d{1,2}');
+
+    var hourRegExp = new RegExp('h+','i');
+    var hourFormat = String(hourRegExp.exec(format));
+    var hourIndex = format.indexOf(hourFormat);
+    if (hourFormat != null && hourFormat.length>0) format = format.replace(hourRegExp, '\\d{1,2}');
+
+    var minuteRegExp = new RegExp('m+');
+    var minuteFormat = String(minuteRegExp.exec(format));
+    var minuteIndex = format.indexOf(minuteFormat);
+    if (minuteFormat != null && minuteFormat.length>0) format = format.replace(minuteRegExp, '\\d{1,2}');
+
+    var secondRegExp = new RegExp('s+');
+    var secondFormat = String(secondRegExp.exec(format));
+    var secondIndex = format.indexOf(secondFormat);
+    if (secondFormat != null && secondFormat.length>0) format = format.replace(secondRegExp, '\\d{1,2}');
+
+    var millisRegExp = new RegExp('S+');
+    var millisFormat = String(millisRegExp.exec(format));
+    var millisIndex = format.indexOf(millisFormat);
+    if (millisFormat != null && millisFormat.length>0)
+        format = format.replace(millisRegExp, '\\d{1,'+((millisFormat.length>1)?millisFormat.length:'')+'}');
+
+    var matchArray = value.match(new RegExp(format));
+
+    var ordering = new Array(yearIndex, monthIndex, dayIndex, hourIndex, minuteIndex, secondIndex, millisIndex);
+
+    var date = new Date();
+
+    for (var i=0; i<matchArray.length; i++)
+    {
+        var minIndex = findAndFlagLowestPositiveIndex(ordering, -1);
+        switch (minIndex)
+        {
+            case 0 : date.setFullYear(parseInt(matchArray[i])); break;
+            case 1 : date.setMonth(parseInt(matchArray[i])-1); break;
+            case 2 : date.setDate(parseInt(matchArray[i])); break;
+            case 3 : date.setHours(parseInt(matchArray[i])); break;
+            case 4 : date.setMinutes(parseInt(matchArray[i])); break;
+            case 5 : date.setSeconds(parseInt(matchArray[i])); break;
+            case 6 : date.setMilliseconds(parseInt(matchArray[i])); break;
+            default : ;
+        }
+    }
+
+    return date;
+}
+
+function findAndFlagLowestPositiveIndex(indices, flag)
+{
+    var minIndex = 0;
+    var minValue = indices[0];
+    for (var i=1; i<indices.length; i++)
+    {
+        if ( (indices[i]>-1) && (indices[i]<minValue) )
+        {
+            minIndex = i;
+            minValue = indices[i];
+        }
+    }
+    indices[minIndex] = flag;
+    return minIndex;
+}
+
+function formatDateTime(dateTime)
+{
+    var dayRegExp = new RegExp('d+');
+    var monthRegExp = new RegExp('M+');
+    var yearRegExp = new RegExp('y+');
+    var hourRegExp = new RegExp('h+','i');
+    var minuteRegExp = new RegExp('m+');
+    var secondRegExp = new RegExp('s+');
+    var millisRegExp = new RegExp('S+');
+
+    var dayFormat = String(dayRegExp.exec(this.date_format));
+    var monthFormat = String(monthRegExp.exec(this.date_format));
+    var yearFormat = String(yearRegExp.exec(this.date_format));
+    var hourFormat = String(hourRegExp.exec(this.date_format));
+    var minuteFormat = String(minuteRegExp.exec(this.date_format));
+    var secondFormat = String(secondRegExp.exec(this.date_format));
+    var millisFormat = String(millisRegExp.exec(this.date_format));
+
+    var dayValue = '';
+    var monthValue = '';
+    var yearValue = '';
+    var hourValue = '';
+    var minuteValue = '';
+    var secondValue = '';
+    var millisValue = '';
+
+    if (dayFormat != null && dayFormat.length > 0)
+    {
+        var day = dateTime.getDate();
+        dayValue = '' + ((dayFormat.length==1) ? day : ((day<10) ? '0'+day : day));
+    }
+
+    if (monthFormat != null && monthFormat.length > 0)
+    {
+        var month = dateTime.getMonth()+1;
+        switch (monthFormat.length)
+        {
+            case 1:
+                monthValue = ''+month;
+                break;
+            case 2 :
+                monthValue = ((month<10) ? '0' : '') + month;
+                break;
+            case 3 :
+                monthValue = ARR_MONTHS[month-1].substring(0,3);
+                break;
+            default :
+                monthValue = ARR_MONTHS[month-1];
+        }
+    }
+
+    if (yearFormat != null && yearFormat.length > 0)
+    {
+        var year = dateTime.getFullYear();
+        yearValue = (yearFormat.length < 3) ? (String(year)).substr(2) : String(year);
+    }
+
+    if (hourFormat != null && hourFormat.length>0)
+    {
+        var hours = dateTime.getHours();
+        hourValue = '' + ( (hourFormat.length==1) ? hours : ((hours<10)?'0':'')+hours);
+    }
+
+    if (minuteFormat != null && minuteFormat.length>0)
+    {
+        var minutes = dateTime.getMinutes();
+        minuteValue = '' + ( (minuteFormat.length==1) ?  minutes : ((minutes<10)?'0':'')+minutes);
+    }
+
+    if (secondFormat != null && secondFormat.length>0)
+    {
+        var seconds = dateTime.getSeconds();
+        secondValue = '' + ( (secondFormat.length==1) ? seconds : ((seconds<10)?'0':'')+seconds);
+    }
+
+    if (millisFormat != null && millisFormat.length>0)
+    {
+        var millis = dateTime.getMilliseconds();
+        millisValue = '' + millis;
+        millisValue = millisValue.substring(0,millisValue.length);
+    }
+
+    var format = String(this.date_format);
+    format = format.replace(dayRegExp, dayValue);
+    format = format.replace(monthRegExp, monthValue);
+    format = format.replace(yearRegExp, yearValue);
+    format = format.replace(hourRegExp, hourValue);
+    format = format.replace(minuteRegExp, minuteValue);
+    format = format.replace(secondRegExp, secondValue);
+    format = format.replace(millisRegExp, millisValue);
+
+    return format;
+}
+
+
+#if ($xhtml == "true")
+]]>
+#else
+-->
+#end
