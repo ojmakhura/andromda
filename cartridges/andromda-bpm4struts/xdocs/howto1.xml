@@ -34,6 +34,28 @@
                 <img src="resources/howto/org/andromda/test/use-cases.jpg"/>
             </p>
         </section>
+        <section name="Nice to know">
+            <p>
+                Use-cases split up the application in distinct parts, the generated code will reflect this by
+                emitting files related to a specific use-case in a single package.
+            </p>
+            <subsection name="struts-config.xml">
+                <p>
+                    Per use-case the generated <code>struts-config.xml</code> will contain a
+                    <code>global-forward</code>, like this:
+<source><![CDATA[
+<global-forwards>
+    ...
+    <forward
+        name="purchase.items"
+        path="/PurchaseItems/PurchaseItems.do"
+        redirect="false" />
+    ...
+</global-forwards>
+]]></source>
+                </p>
+            </subsection>
+        </section>
         <section name="Next">
             <p>
                 The next step is to specify in detail how our application's presentation layer
