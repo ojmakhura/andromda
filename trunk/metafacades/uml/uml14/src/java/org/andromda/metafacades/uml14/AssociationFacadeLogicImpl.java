@@ -53,7 +53,7 @@ public class AssociationFacadeLogicImpl
         Iterator endIt = ends.iterator();
         AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
         AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
-        String relationName = MetafacadeUtils.toRelationName(firstEnd.getName(), secondEnd.getName(), "-");
+        String relationName = MetafacadeUtils.toRelationName(firstEnd.getName(), secondEnd.getName(), "2");
         return relationName;
     }
 
