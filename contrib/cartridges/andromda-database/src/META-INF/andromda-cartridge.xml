@@ -74,8 +74,8 @@
     </template>
 
     <template
-        path="templates/database/create-initial-load.vsl"
-        outputPattern="create-initial-load.sql"
+        path="templates/database/create-dummy-load.vsl"
+        outputPattern="create-dummy-load.sql"
         outlet="scripts"
         overwrite="true"
         outputToSingleFile="true">
