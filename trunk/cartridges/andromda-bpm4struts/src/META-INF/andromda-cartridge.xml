@@ -300,6 +300,17 @@
     </template>
 
     <template
+        path="templates/StrutsJspCss.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="true">
+        <modelElements variable="page">
+            <modelElement stereotype="FrontEndView"/>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/StrutsMessagesJsp.vsl"
         outputPattern="layout/messages.jsp"
         outlet="pages"
