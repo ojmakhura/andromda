@@ -8,6 +8,17 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-11" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="update" issue="SPRING-33">
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and 
+                <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now generate child
+                cascade's correctly based on whether or not the default-cascade for the entity is set to 
+                <code>all</code> or <code>save-update</code>.
+            </action>
+            <action dev="cwbrandon" type="update">
+                The <a href="andromda-meta-cartridge/index.html">Meta Cartridge</a> now generates real 
+                inheritance (not delegated) when the super metafacade class is in the same package.  
+                Delegated inheritance is now only generated when the super metafacade's package is different.
+            </action>
             <action dev="draftdog" type="update">
                 All usages of <code>@andromda.struts.view.field.type=radio</code> must now omit any trailing
                 parameters, so specifying "radio 4" or "radio a,b,c" is no longer allowed. The trailing parameters
