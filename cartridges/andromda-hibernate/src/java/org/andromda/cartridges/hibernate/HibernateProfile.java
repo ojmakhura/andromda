@@ -55,10 +55,12 @@ public class HibernateProfile
      * Defines outer join fetching on many to one and one to one associations
      */
     public static final String TAGGEDVALUE_HIBERNATE_OUTER_JOIN = profile.get("HIBERNATE_OUTER_JOIN");
+    
     /**
      * Defines if a query within a finder method should use the cache
      */
     public static final String TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE = profile.get("HIBERNATE_USE_QUERY_CACHE");
+    
     /**
      * Defines the cache type for the Entity
      */
