@@ -1,111 +1,29 @@
-# ATTENTION: this is an example file how to overwrite settings in this
-# project.  Please rename it to "build.properties" and adjust the
-# settings to your needs.
+andromda.home = ../andromda/dist/predist/
 
-#
-# Only the two properties
-#
-#   * andromda.home
-#   * build.classpath
-#
-# are used by build.xml.
-#
-# The remaining ones are just for easier maintenance of the data.
-#
-# The new andromda version has packaged almost all of the required
-# jars into the "lib" directory.
-#
-# "JAXB" from SUN and "ant" from Jakarta are not included.
-#
-# The properties here assume that you have downloaded them
-# and unpacked them into the directory ${tools.base.dir}
-#
+java.classpath = c:/ntdev/jdk1.4/lib/tools.jar
 
-#
-# Set the path to the root directory of the andromda distribution (see
-# http://andromda.sourceforge.net/)
-#
-# We are in the sub-directory "sample" of the andromda distribution.
-# Just one directory up is all we need.
-#
-andromda.home=../andromda/
+thirdparty.home = c:/cygwin/home/tony/projects/timetowork/thirdparty/
+myant.home = ${thirdparty.home}jakarta-ant-1.5.1/
+jaxb.home = ${thirdparty.home}jaxb-1.0-beta/
 
-#
-# All required packages are assumed to be unpacked into this dir
-#
-tools.base.dir=c:/cygwin/home/tony/timetowork/thirdparty
-#
-# Set the path to the root directory of the JAXB distribution (see
-# http://java.sun.com/xml/jaxb/)
-#
-jaxb.home=${tools.base.dir}jaxb-1.0-beta/
-#
-# Set the path to the root directory of the Velocity distribution (see
-# http://jakarta.apache.org/velocity/)
-#
-# Velocity 1.2 comes packaged in the lib directory of andromda by default
-#
-velocity.home=${andromda.home}lib/
-#
-# Set the path to the root directory of the Xdoclet distribution (see
-# http://xdoclet.sourceforge.net/)
-#
-# XDoclet comes packaged in the lib directory of andromda by default
-#
-xdoclet.home=${andromda.home}lib/
-#
-# Set the path to the root directory of the log4j distribution (see
-# http://jakarta.apache.org/log4j/)
-#
-# Log4j and Jakarta commons logging come packaged in the lib directory of andromda by default
-#
-log4j.home=${andromda.home}lib/
-commons.logging.home=${andromda.home}lib/
-#
-# Set the path to the root directory of the ant distribution (see
-# http://jakarta.apache.org/ant/)
-#
-myant.home=${tools.base.dir}jakarta-ant-1.5/
-#
-# Set the path to the root directory of the Jboss distribution (see
-# http://www.jboss.org/)
-#
-jboss.home=/usr/local/jboss/
-#
-# Set the path to the root directory of the J2EE SDK distribution (see
-# http://java.sun.com/j2ee/)
-#
-j2ee.home=${tools.base.dir}j2sdkee/
-#
-# Set the path to the root directory of the Struts distribution (see
-# http://jakarta.apache.org/struts/)
-#
-# Struts comes packaged in the lib directory of andromda by default
-#
-struts.home=${andromda.home}lib/
+jboss.home = c:/ntdev/jboss-3.0.4/
+velocity.home = ${andromda.home}
+struts.home = ${andromda.home}
+xdoclet.home = ${andromda.home}
+log4j.home = ${andromda.home}
+junit.home = ${andromda.home}
+mdr.home = ${andromda.home}
+xdoclet.home = ${andromda.home}/lib/
 
-#
-# The exact libraries used.  Change these values if you're using
-# different versions.  If there are multiple jars for one project,
-# one can separate them with the usual classpath separators ':' or ';'.
-#
-andromda.libs=${andromda.home}andromda.jar:${andromda.home}jaxbfix
-#
-jaxb.libs=${jaxb.home}lib/jaxb-api.jar:${jaxb.home}lib/jaxb-libs.jar:${jaxb.home}lib/jaxb-ri.jar:${jaxb.home}lib/jaxb-xjc.jar:${jaxb.home}lib/jax-qname.jar
-#
-velocity.libs=${velocity.home}velocity-dep-1.2.jar
-#
+andromda.libs = ${andromda.home}andromda.jar:${andromda.home}jaxbfix
+jaxb.libs = ${jaxb.home}lib/jaxb-api.jar:${jaxb.home}lib/jaxb-libs.jar:${jaxb.home}lib/jaxb-ri.jar:${jaxb.home}lib/jaxb-xjc.jar:${jaxb.home}lib/jax-qname.jar
+log4j.libs = ${log4j.home}lib/commons-logging.jar
+velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
+junit.libs = ${junit.home}lib/junit.jar
+ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
+j2ee.libs = ${jboss.home}server/default/lib/jboss-j2ee.jar:${jboss.home}server/default/lib/javax.servlet.jar
+struts.libs = ${struts.home}lib/struts.jar
+mdr.libs = ${mdr.home}/lib/openide-lookup.jar;${mdr.home}/lib/nbmdr.jar;${mdr.home}/lib/mdrapi.jar;${mdr.home}/lib/jmi.jar;${mdr.home}/lib/jmiutils.jar;${mdr.home}/lib/jmitoolkit.jar;${mdr.home}/lib/mof.jar;${mdr.home}/lib/mdr.jar;${mdr.home}/lib/uml14.jar
 xdoclet.libs=${xdoclet.home}/xdoclet-ejb-module.jar:${xdoclet.home}/xdoclet-java-module.jar:${xdoclet.home}/xdoclet-jboss-module.jar:${xdoclet.home}/xdoclet-web-module.jar:${xdoclet.home}/xdoclet-xdoclet-module.jar:${xdoclet.home}/xdoclet.jar:${xdoclet.home}/xjavadoc.jar:${xdoclet.home}/xdoclet-jmx-module.jar
-#
-log4j.libs=${log4j.home}/log4j.jar:${commons.logging.home}commons-logging.jar:${commons.logging.home}commons-logging-api.jar
-#
-ant.libs=${myant.home}lib/ant.jar
-#
-j2ee.libs=${jboss.home}server/default/lib/jboss-j2ee.jar:${j2ee.home}/lib/j2ee.jar
-#
-struts.libs=${struts.home}struts.jar
 
-#
-# This property is used in build.xml to define the build classpath
-#
-build.classpath=${andromda.libs}:${jaxb.libs}:${velocity.libs}:${xdoclet.libs}:${ant.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}
+build.classpath = ${andromda.libs}:${xdoclet.libs}:${jaxb.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
