@@ -1,6 +1,6 @@
 #macro (formatCosts $costPosition $indent)
-${costPosition.price}$indent$costPostion.name
+$costPosition.price$indent$costPosition.name
 #foreach ($subpos in $costPosition.subPositions)
-#formatCosts($subpos $indent+"    ")
+#formatCosts(${subpos} "${indent}    ")
 #end
 #end
