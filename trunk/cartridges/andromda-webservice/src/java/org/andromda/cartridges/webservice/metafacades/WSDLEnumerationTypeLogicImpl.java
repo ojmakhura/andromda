@@ -30,15 +30,7 @@ public class WSDLEnumerationTypeLogicImpl
      */
     protected java.lang.String handleGetSchemaType()
     {
-        StringBuffer schemaType = new StringBuffer();
-        if (this.getSchemaTypeMappings() != null)
-        {
-            schemaType.append(WebServiceGlobals.XSD_NAMESPACE_PREFIX);
-            schemaType.append(":");
-            schemaType.append(this.getSchemaTypeMappings().getTo(
-                this.getFullyQualifiedName(true)));
-        }
-        return schemaType.toString();
+        return this.getSchemaType(true, true);
     }
 
     /**
