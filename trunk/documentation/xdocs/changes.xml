@@ -383,7 +383,7 @@
             <action dev="draftdog" type="add">
                 Bpm4Struts now supports file uploads, just use the pre-defined
                 <code>datatype.File</code> from the profile (or create it yourself)
-                on an action parameter.
+                on an event parameter.
             </action>
             <action dev="cwbrandon" type="add">
                 Added new tagged value to BPM4Struts called <code>@andromda.struts.view.field.reset</code>
@@ -429,13 +429,13 @@
                 A change was needed due to a missing feature: "multibox". In order to properly fix it
                 some other changes were required too.
                 <ol>
-                    <li>You can now put any widget in a table, you can do that by simply linking an action
+                    <li>You can now put any widget in a table, you can do that by simply linking an event
                         parameter using the <code>@andromda.struts.view.field.tablelink</code>
                         tagged value to an incoming table collection. You must of course link to an existing
                         table column.
                     </li>
                     <li>Previously performing this step would simply create a hyperlink, now you would need to
-                        set the action parameter's <code>@andromda.struts.view.field.type</code>
+                        set the event parameter's <code>@andromda.struts.view.field.type</code>
                         tagged value to 'link' in order to achieve that.
                     </li>
                     <li>Due to HTML limitations you can only make links to the same table from a single
@@ -448,7 +448,7 @@
                         feature you need first to model a collection or
                         array page-variable that contains the values against which to match. Next you create
                         a table link, thereby selecting the table column. Finally you set the field type of the
-                        action parameter to something like this (assuming the multibox collection is
+                        event parameter to something like this (assuming the multibox collection is
                         called 'myValues')
                         <code>@andromda.struts.view.field.type = multibox:myValues</code>
                     </li>
@@ -527,7 +527,7 @@
                     </li>
                     <li>currently it is also needed to specify the table columns (just as you
                         would on a collection-type page variable) in case the argument
-                        maps onto an action parameter which is displayed in tabular format, but this
+                        maps onto an event parameter which is displayed in tabular format, but this
                         will be solved soon</li>
                 </ol>
                 <p class="highlight">
@@ -673,7 +673,7 @@
                 override this by setting the 'onlineHelp' property to
                 'false' in your bpm4struts namespace.
                 It currently supports documentation on use-cases, action
-                transitions, action parameters and pages.
+                transitions, event parameters and pages.
             </action>
             <action dev="draftdog" type="update">
                 Tooltips are now handled in JavaScript. We had to remove
@@ -696,11 +696,11 @@
             </action>
             <action dev="draftdog" type="update">
                 Form bean fields now have the name of their action prepended to their
-                name (only for action parameters, page variables are unchanged).
+                name (only for event parameters, page variables are unchanged).
                 Using bpm4struts after this date will require you to update
                 your controller implementations or a compilation error
                 will occur.
-                This change was needed in order to allow action parameters to
+                This change was needed in order to allow event parameters to
                 have the same names in a single use-case. Without this feature
                 the form would contain the same field name more than once, and that
                 is not allowed in Java.

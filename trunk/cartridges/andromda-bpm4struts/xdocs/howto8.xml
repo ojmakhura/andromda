@@ -37,18 +37,18 @@
                     associating one of the table columns to one of the exiting actions on the same page.
                 </p>
                 <p>
-                    In order to model this correctly you basically need to model a regular action with parameters,
-                    as you have seen <a href="howto2.html#Action_Parameters">here</a>. Next it is sufficient to add
-                    a tagged value to one of one of these action parameters and have it point to the desired table
+                    In order to model this correctly you basically need to model a regular event with parameters,
+                    as you have seen <a href="howto2.html#Event_Parameters">here</a>. Next it is sufficient to add
+                    a tagged value to one of one of these event parameters and have it point to the desired table
                     (since there can be more than one). What will happen is that the action will be rendered into
-                    each row of the table, the selected column depends on the name of the action parameter
+                    each row of the table, the selected column depends on the name of the event parameter
                     but this can be overridden, as you will see in the next paragraph.
-                    Any remaining action parameters will be included in the request query.
+                    Any remaining event parameters will be included in the request query.
                 </p>
                 <p>
                     Use the <code>@andromda.struts.view.field.tablelink</code> tagged value, specify the name of the
-                    table page variable followed by a dot and the name of the column, this action parameter will
-                    assume it's value. If you do not specify the dot and the column name the name name of the action
+                    table page variable followed by a dot and the name of the column, this event parameter will
+                    assume it's value. If you do not specify the dot and the column name the name name of the event
                     parameter will be assumed. Here's an example:
                 </p>
 <source><![CDATA[
@@ -80,7 +80,7 @@
                 <p>
                     Not only hyperlinks can be rednered into a table, basically any kind of widget is allowed,
                     just change the <code>@andromda.struts.view.field.type</code> tag to any of the known values.
-                    The <code>author</code> column (which is controlled by the <code>test</code> action parameter)
+                    The <code>author</code> column (which is controlled by the <code>test</code> event parameter)
                     has these tagged values specified:
                 </p>
 <source><![CDATA[

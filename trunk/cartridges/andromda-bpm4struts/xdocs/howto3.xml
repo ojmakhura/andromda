@@ -45,7 +45,7 @@
             <subsection name="Operation parameters">
                 <p>
                     So what exactly happens with the parameters you model inside the controller operations ? Well,
-                    by specifying the name and type of a parameter you can gain access to an action-parameter or
+                    by specifying the name and type of a parameter you can gain access to an event parameter or
                     page-variable defined in another part of the application. Just make sure the name and type
                     perfectly match.
                 </p>
@@ -68,7 +68,7 @@
                 </p>
                 <p>
                     Not only page-variables can be controlled like this, it would also work for any existing
-                    action parameters (not shown in the image), as long as you include them as a controller operation
+                    event parameters (not shown in the image), as long as you include them as a controller operation
                     argument you will have access.
                 </p>
                 <p>
@@ -80,7 +80,7 @@
                 </p>
                 <p>
                     It is not needed to add tagged values on controller operation parameters, any tagged
-                    values will be fetched from the actual page-variables or action-parameters.
+                    values will be fetched from the actual page-variables or event parameters.
                 </p>
             </subsection>
         </section>
