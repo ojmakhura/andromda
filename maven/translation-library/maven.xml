@@ -15,7 +15,7 @@
             name="${maven.build.dest}/project.xml"
             basedir="${basedir}"
             template="/project.xml"/>
-            <!-- copy over the mappings -->
+        <!-- copy over the mappings -->
         <ant:copy todir="${maven.build.dest}/plugin-resources/mappings">
             <ant:fileset dir="${mappings.location}"/>
         </ant:copy>
