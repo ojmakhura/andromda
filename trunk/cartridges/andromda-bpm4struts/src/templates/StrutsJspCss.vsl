@@ -1,8 +1,10 @@
 #set ($generatedFile = "${page.cssFileName}")
+## constants
+#set ($hash = "#")
 ## start template
 #foreach ($action in $page.actions)
 #if ($action.useCaseStart == false)
-$action.styleClass {}
+${hash}div.$action.styleId {}
 
 #end
 #end
