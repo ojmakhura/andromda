@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Java Cartridge Modeling</title>
+  	</properties>
+  	<body>
+    	<section name="Java Cartridge Modeling">
+    		<p>
+    			The page describes the modeling standards one must follow to in order
+    			to use the Java Cartridge.
+    		</p>
+    		<subsection name="Supported Stereotypes">
+		      	<table>
+		        	<tr>
+			          	<th>Stereotype</th>   
+			          	<th>Model Element</th>
+			          	<th>Description</th>    	     	
+		        	</tr>
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<ValueObject>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>
+			          	<td>
+			          		Produces Java value objects.
+			          	</td>
+		        	</tr>	
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<Enumeration>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>			       
+			          	<td>
+			          		Produces Java enumeration objects.
+			          	</td>
+		        	</tr>		
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<Exception>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>			          	
+			          	<td>
+			          		Produces java checked exception objects. This will 
+			          		produce the same thing as a classifier stereotyped 
+			          		with <em><![CDATA[<<ApplicationException>>]]></em>.
+			          	</td>
+		        	</tr>
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<ApplicationException>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>			          	
+			          	<td>
+			          		Produces java application exception objects.  Application exceptions
+			          		are exceptions that are checked exceptions.  These are exceptions
+			          		that client should be able to catch in order to decide whether or
+			          		not to take some special action.
+			          	</td>
+		        	</tr>
+		        	<tr>
+			          	<td>
+			          		<strong><![CDATA[<<UnexpectedException>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Classifier
+			          	</td>				          	
+			          	<td>
+			          		Produces java unexpected exception objects.  Unexpected exceptions
+			          		are unchecked runtime exceptions.  These are exceptions
+			          		that clients shouldn't worry about catching but are thrown 
+			          		when some "unexpected" error in the application flow occurs.
+			          	</td>
+		        	</tr>			        				        		        	        	      	        	        		        	        	        	     	             	        	
+		        </table>
+		    </subsection>
+    	</section>
+  	</body>
+</document>

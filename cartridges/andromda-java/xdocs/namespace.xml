@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Java Cartridge Namespace</title>
+  	</properties>
+  	<body>
+    	<section name="Java Cartridge Namespace Properties">
+	      	<table>
+	        	<tr>
+		          	<th>Property</th>         	
+		          	<th>Description</th>       	
+		          	<th>Required?</th>	   	 
+	        	</tr>
+	        	<tr>
+		          	<td>
+		          		value-objects
+		          	</td>
+		          	<td>
+		          		The directory to which value objects are generated.
+		          	</td>
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+	        	</tr>	
+	        	<tr>
+		          	<td>
+		          		exceptions
+		          	</td>
+		          	<td>
+		          		The directory to which exceptions are generated.
+		          	</td>
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+	        	</tr>		  
+	        	<tr>
+		          	<td>
+		          		enumerations
+		          	</td>
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+		          	<td>
+		          		The directory to which enumerations are generated. 
+		          	</td>
+	        	</tr>			        	   	      	        	        		        	        	        	     	             	        	
+	        </table>
+    	</section>
+  	</body>
+</document>
