@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <name>Car Rental System MDA</name>
+    <artifactId>car-rental-system-mda</artifactId>
+    <shortDescription>${pom.name} Component</shortDescription>
+    <description>Contains the ${pom.name} module</description>
+    <dependencies>
+        <!-- dependency>
+            <groupId>andromda-patches</groupId>
+            <artifactId>classcast-diag</artifactId>
+            <version>${andromda}</version>
+        </dependency -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${andromda}</version>
+            <type>xml.zip</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+             <artifactId>maven-andromda-plugin</artifactId>
+             <version>${andromda}</version>
+             <type>plugin</type>
+             <properties>
+                 <languageMappingsUri>Java</languageMappingsUri>
+                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
+                 <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
+                 <jdbcMappingsUri>JDBC</jdbcMappingsUri>
+                 <maxSqlNameLength>30</maxSqlNameLength>
+                 <foreignKeySuffix>_FK</foreignKeySuffix>
+                 <ejbJndiNamePrefix>${application.id}</ejbJndiNamePrefix>
+             </properties>
+        </dependency>
+        <!-- Specify and configure our cartridges -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ejb-cartridge</artifactId>
+            <version>${andromda}</version>
+            <properties>
+                <entity-beans>${maven.andromda.core.generated.dir}</entity-beans>
+                <session-beans>${maven.andromda.core.generated.dir}</session-beans>
+                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
+                <session-impls>${maven.andromda.core.manual.dir}</session-impls>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${andromda}</version>
+            <properties>
+                <enumerations>${maven.andromda.common.generated.dir}</enumerations>
+                <exceptions>${maven.andromda.common.generated.dir}</exceptions>
+                <value-objects>${maven.andromda.common.generated.dir}</value-objects>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${andromda}</version>
+            <properties>
+                 <forms>${maven.andromda.web.generated.dir}</forms>
+                 <pages>${maven.andromda.web.generated.dir}</pages>
+                 <actions>${maven.andromda.web.generated.dir}</actions>
+                 <controllers>${maven.andromda.web.generated.dir}</controllers>
+                 <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
+                 <messages>${maven.andromda.web.generated.dir}</messages>
+                 <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
+                 <securityEnabled>false</securityEnabled>
+                 <securityRealm>other</securityRealm>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${andromda}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-query-library</artifactId>
+            <version>${andromda}</version>
+        </dependency>
+    </dependencies>
+</project>
