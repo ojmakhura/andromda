@@ -4,6 +4,7 @@ import java.io.StringWriter;
 
 import junit.framework.TestCase;
 
+import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
@@ -11,9 +12,9 @@ import org.apache.velocity.app.VelocityEngine;
  * Tests the direct interpretation of a string by VelocityTemplateEngine.
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  */
-public class VelocityScriptTest extends TestCase
+public class VelocityTemplateEngineTest extends TestCase
 {
-    public VelocityScriptTest(String arg0)
+    public VelocityTemplateEngineTest(String arg0)
     {
         super(arg0);
     }
