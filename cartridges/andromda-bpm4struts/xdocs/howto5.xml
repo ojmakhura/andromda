@@ -41,7 +41,7 @@
 <source><![CDATA[
 protected final LoginSession getLoginSession(HttpServletRequest request)
 {
-    LoginSessiob object = null;
+    LoginSession object = null;
     HttpSession session = request.getSession(true);
 
     Object attribute = session.getAttribute(LoginSession.SESSION_KEY);
