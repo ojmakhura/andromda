@@ -1,0 +1,77 @@
+<project name="andromda-bpm4struts" default="dist">
+
+   <!-- ============================================================= -->
+   <!--               Directory settings                              -->
+   <!-- ============================================================= -->
+
+   <property name="src.dir" value="src"/>
+   <property name="java.dir" value="src/java"/>
+   <property name="lib.dir" value="lib"/>
+   <property name="build.dir" value="build"/>
+   <property name="classes.dir" value="build/classes"/>
+   <property name="dist.dir" value="dist"/>
+   <property name="andromda.dir" value="../../andromda"/>
+
+   <!-- Define our class path -->
+   <path id="build.class.path">
+      <pathelement location="${lib.dir}/struts.jar"/>
+      <pathelement location="${andromda.dir}/lib/uml14.jar"/>
+      <pathelement location="${andromda.dir}/lib/jmi.jar"/>
+      <pathelement location="${andromda.dir}/build/classes"/>
+   </path>
+
+   <!-- Setup directory structure -->
+   <target name="init">
+      <tstamp/>
+      <mkdir dir="${dist.dir}"/>
+      <mkdir dir="${build.dir}"/>
+      <mkdir dir="${classes.dir}"/>
+   </target>
+
+   <!-- Remove directory structure structure -->
+   <target name="clean" description="Removes all generated files">
+      <delete includeEmptyDirs="true" quiet="true">
+         <fileset dir="${dist.dir}"/>
+         <fileset dir="${classes.dir}"/>
+         <fileset dir="${build.dir}"/>
+      </delete>
+   </target>
+
+   <!-- compile java files -->
+   <target name="compile" depends="init">
+      <javac destdir="${classes.dir}" includes="**/*.java"
+         includeAntRuntime="false">
+         <src path="${java.dir}"/>
+         <classpath refid="build.class.path"/>
+      </javac>
+   </target>
+
+   <!-- ============================================================= -->
+   <!--               Highlevel user tasks                            -->
+   <!-- ============================================================= -->
+
+   <!-- build distribution zip file -->
+   <target name="dist" depends="clean,build"
+      description="Builds the distribution structure">
+      <copy todir="${dist.dir}/">
+         <fileset dir="${build.dir}" includes="*.jar"/>
+         <fileset dir="." includes="andromda-bpm4struts.properties"/>
+      </copy>
+      <copy todir="${dist.dir}/lib">
+         <fileset dir="${lib.dir}" includes="**/*"/>
+      </copy>
+   </target>
+
+   <!-- build cartridge jar file only -->
+   <target name="build" depends="compile"
+      description="Builds the objects from the sources">
+      <jar jarfile="${build.dir}/andromda-bpm4struts.jar">
+         <fileset dir="${src.dir}">
+            <include name="templates/*"/>
+            <include name="META-INF/*"/>
+         </fileset>
+         <fileset dir="${classes.dir}" includes="**/*"/>
+      </jar>
+   </target>
+
+</project>
