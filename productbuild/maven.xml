@@ -48,9 +48,6 @@
         <j:set var="maven.multiproject.includes"
                value="${component.install.includes},${sample.install.includes}"/>
         <attainGoal name="multiproject:clean"/>
-        <maven:maven 
-            descriptor="${basedir}/documentation/project.xml"
-            goals="clean:clean"/> 
         <attainGoal name="clean:clean"/>
         <!-- get rid of all the log files -->
         <ant:delete>
