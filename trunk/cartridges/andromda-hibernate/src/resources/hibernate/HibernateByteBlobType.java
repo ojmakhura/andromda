@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.UserType;
 
 /**
@@ -53,8 +52,7 @@ public class HibernateByteBlobType
      *      java.lang.String[], java.lang.Object)
      */
     public Object nullSafeGet(ResultSet rs, String[] names, Object owner)
-        throws HibernateException,
-            SQLException
+        throws SQLException
     {
         Blob blob = rs.getBlob(names[0]);
         return blob.getBytes(1, (int)blob.length());
@@ -65,8 +63,7 @@ public class HibernateByteBlobType
      *      java.lang.Object, int)
      */
     public void nullSafeSet(PreparedStatement st, Object value, int index)
-        throws HibernateException,
-            SQLException
+        throws SQLException
     {
         byte[] b = (byte[])value;
         st.setBinaryStream(index, new ByteArrayInputStream(b), b.length);
