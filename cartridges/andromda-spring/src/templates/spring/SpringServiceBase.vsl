@@ -111,6 +111,7 @@ public abstract class $service.baseName
       */
     $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature 
         throws java.lang.Exception;
+        
 #end
 #if ($ejbsEnabled)
     private javax.ejb.SessionContext sessionContext;
