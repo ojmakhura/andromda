@@ -18,16 +18,9 @@ public class $formBeanClassName
         , $operation.interfaceName
 #end
 {
-#set ($collectionPresent = false)
-#set ($arrayPresent = false)
-#set ($hasSelectableField = false)
+    private final static Object[] EMPTY_ARRAY = new Object[0];
+
 #foreach ($field in $fields)
-#if ($field.type.collectionType)
-#set ($collectionPresent = true)
-#end
-#if ($field.type.arrayType || $field.selectable)
-#set ($arrayPresent = true)
-#end
 #if ($field.file)
     private org.apache.struts.upload.FormFile $field.name = null;
 #elseif($field.type.mapType)
@@ -292,69 +285,26 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.nullValue;
 #if ($field.selectable && $field.multiple)
 ## multi-select fields need to be reset to an empty array (http://struts.apache.org/userGuide/struts-html.html#select)
-        this.$field.valueListName = new Object[0];
-        this.$field.labelListName = new Object[0];
+        this.$field.valueListName = EMPTY_ARRAY;
+        this.$field.labelListName = EMPTY_ARRAY;
 #end
 #end
 #end
     }
 
-#if ($fields.empty == false)
-#set ($separator = '')
-    /**
-     * Returns a String instance representing the contents of this form, nested collections will also
-     * have their elements printed (one level).
-     */
     public String toString()
     {
-        final StringBuffer buffer = new StringBuffer().append("[");
-
+        org.apache.commons.lang.builder.ToStringBuilder builder =
+            new org.apache.commons.lang.builder.ToStringBuilder(this);
 #foreach ($field in $fields)
-#if ($field.type.arrayType || $field.type.collectionType)
-        buffer.append("${separator}${field.name}=");
-        buffer.append(toString(this.${field.getterName}()));
+#if ($field.password)
+        builder.append("$field.name", "***");
 #else
-        buffer.append("${separator}${field.name}=");
-        buffer.append(String.valueOf(this.${field.getterName}()));
+        builder.append("$field.name", this.$field.name);
 #end
-#set ($separator = ',')
 #end
-
-        return buffer.append("]").toString();
+        return builder.toString();
     }
-#end
-
-#if ($collectionPresent)
-    /**
-     * Helper method to convert a collection to a String.
-     */
-    private final static String toString(java.util.Collection objects)
-    {
-        return (objects==null) ? null : toString(objects.toArray());
-    }
-
-#end
-#if ($arrayPresent || $collectionPresent)
-    /**
-     * Helper method to convert an array to a String.
-     */
-    private final static String toString(Object[] objects)
-    {
-        if (objects == null)
-        {
-            return null;
-        }
-        final StringBuffer buffer = new StringBuffer("[");
-        String prefix = "";
-        for (int i=0; i<objects.length; i++)
-        {
-            buffer.append(prefix);
-            buffer.append(objects[i]);
-            prefix = ",";
-        }
-        return buffer.append("]").toString();
-    }
-#end
 
     /**
      * Allows you to clean all values from this form. Objects will be set to <code>null</code>, numeric values will be
