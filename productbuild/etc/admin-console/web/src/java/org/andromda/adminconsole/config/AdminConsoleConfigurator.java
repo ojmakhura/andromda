@@ -1,26 +1,21 @@
 package org.andromda.adminconsole.config;
 
-import org.andromda.adminconsole.config.xml.AdminConsole;
-import org.andromda.adminconsole.config.xml.ColumnConfiguration;
-import org.andromda.adminconsole.config.xml.TableConfiguration;
+import org.andromda.adminconsole.config.xml.*;
 import org.andromda.adminconsole.db.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class AdminConsoleConfigurator
+public class AdminConsoleConfigurator implements Serializable
 {
     public final static String FILE_NAME = "admin-console.cfg.xml";
     private final static String DEFAULT_CFG = "default.cfg.xml";
 
     private AdminConsole configuration = null;
     private final WidgetRenderer widgetRenderer = new WidgetRenderer();
+
+    private List knownUrls = null;
 
     private final Map tableCache = new HashMap();
     private final Map columnCache = new HashMap();
@@ -37,6 +32,23 @@ public class AdminConsoleConfigurator
         {
             throw new Exception("No configuration could be found, please put "+FILE_NAME+" on the classpath");
         }
+    }
+
+    public List getKnownDatabaseUrls()
+    {
+        if (knownUrls == null)
+        {
+            ConsoleConfiguration consoleConfiguration = configuration.getConsoleConfiguration();
+            if (consoleConfiguration != null)
+            {
+                DatabaseUrls databaseUrls = consoleConfiguration.getDatabaseUrls();
+                if (databaseUrls != null)
+                {
+                    knownUrls = Arrays.asList(databaseUrls.getUrl());
+                }
+            }
+        }
+        return knownUrls;
     }
 
     public TableConfiguration getConfiguration(Table table)
