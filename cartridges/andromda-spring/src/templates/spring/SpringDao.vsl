@@ -108,12 +108,28 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType $operation.signature;
 #end
 #if ($operation.query)
+
+    /**
+     * <p>
+     *   Does the same thing as {@link #${operation.getSignature(false)}} with an
+     *   additional argument called <code>queryString</code>, this <code>queryString</code>
+     *   argument allows you to override the query string defined in {@link #${operation.getSignature(false)}}. 
+     * </p>
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+
 #if ($operation.query && !$operation.returnType.collectionType)
 #set ($returnType = "Object")
 #end
+
     /**
      * <p>
-     *   Does the same thing as {@link #${operation.getSignature(false)}) with an
+     *   Does the same thing as {@link #${operation.getSignature(false)}} with an
      *   additional flag called <code>transform</code> if this flag is set to <code>false</code> then
      *   finder results will not be transformed during retrieval.  If this flag is <code>true</code>
      *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
@@ -126,6 +142,20 @@ $operation.getDocumentation("     * ")
         throws $operation.exceptionList;
 #else
     $operation.visibility $returnType ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+
+    /**
+     * <p>
+     *   Does the same thing as {@link #${operation.name}(boolean#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     *   additional argument called <code>queryString</code>, this <code>queryString</code>
+     *   argument allows you to override the query string defined in {@link #${operation.name}(boolean, ${operation.argumentTypeNames})}. 
+     * </p>
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(boolean transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(boolean transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #end
 
