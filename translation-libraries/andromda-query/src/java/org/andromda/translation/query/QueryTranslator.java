@@ -67,9 +67,9 @@ public class QueryTranslator
     }
 
     /**
-     * Returns true if the name is one of the arguments.
+     * Indicates whether or not the <code>name</code> is one of the arguments.
      * 
-     * @return boolean true if its an argument
+     * @return true if its an argument
      */
     protected boolean isArgument(String name)
     {
@@ -91,7 +91,7 @@ public class QueryTranslator
         super.inAOperationContextDeclaration(declaration);
         VariableDeclaration[] variableDeclarations = ConcreteSyntaxUtils
             .getVariableDeclarations(declaration.getOperation());
-        //set the argument names in a List so that we can retieve them later
+        // set the argument names in a List so that we can retieve them later
         this.argumentNames = ConcreteSyntaxUtils
             .getArgumentNames(variableDeclarations);
     }
@@ -112,16 +112,16 @@ public class QueryTranslator
         String declaratorName = ConcreteSyntaxUtils
             .getVariableDeclarations(declarator)[0].getName();
 
-        //by default we'll assume we're replacing the {1} arg.
+        // by default we'll assume we're replacing the {1} arg.
         short replacement = 1;
         if (this.isInitialDeclarator())
         {
-            //handle differently if its the initial declarator, replacement is
+            // handle differently if its the initial declarator, replacement is
             // {0}
             replacement = 0;
         }
 
-        //now replace {1} reference
+        // now replace {1} reference
         temp = TranslationUtils.replacePattern(temp, String
             .valueOf(replacement), declaratorName);
         this.selectClause = new StringBuffer(temp);
@@ -171,11 +171,14 @@ public class QueryTranslator
     {
         fragment = StringUtils.trimToEmpty(fragment);
         replacement = StringUtils.trimToEmpty(replacement);
-        //if 'replacement' is an argument use that for the replacement
-        //in the fragment
+        // if 'replacement' is an argument use that for the replacement
+        // in the fragment
         if (this.isArgument(replacement))
         {
+            final String argument = replacement;
             replacement = this.getTranslationFragment("argument");
+            replacement = TranslationUtils.replacePattern(replacement, String
+                .valueOf(0), argument);
         }
         fragment = TranslationUtils.replacePattern(fragment, String
             .valueOf(index), replacement);
@@ -188,7 +191,7 @@ public class QueryTranslator
     protected void postProcess()
     {
         super.postProcess();
-        //create the final translated expression
+        // create the final translated expression
         String selectClauseTail = this
             .getTranslationFragment("selectClauseTail");
         String existingExpression = StringUtils.trimToEmpty(this
@@ -219,8 +222,8 @@ public class QueryTranslator
         String primaryExpression = ConcreteSyntaxUtils
             .getPrimaryExpression(propertyCallExpression);
 
-        //set the association which the 'includesAll' indicates (which
-        //is the first feature call from the list of feature calls)
+        // set the association which the 'includesAll' indicates (which
+        // is the first feature call from the list of feature calls)
         translation = this.replaceFragment(translation, TranslationUtils
             .trimToEmpty(primaryExpression), 0);
 

@@ -13,8 +13,9 @@ public class ${entity.entityImplementationName}
 #set ($superEntity = $entity.generalization)
 #if($superEntity)  
 	extends $superEntity.fullyQualifiedEntityImplementationName
-#end
+#else
     extends $entity.fullyQualifiedEntityName
+#end
 {
 #foreach ($operation in $entity.entityBusinessOperations)
 #set ($returnType = $operation.returnType)

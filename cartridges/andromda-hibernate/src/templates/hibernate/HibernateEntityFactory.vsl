@@ -86,7 +86,11 @@ $finder.getDocumentation("     * ")
 ##
 #foreach($argument in $finder.arguments)
 #set ($index = $velocityCount - 1)
+#if ($finder.useNamedParameters)
+		query.${argument.queryArgumentNameSetter}("${argument.name}", ${argument.name});
+#else
 		query.${argument.queryArgumentNameSetter}(${index}, ${argument.name});
+#end
 #end
 ##
         return query.list();

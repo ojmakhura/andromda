@@ -32,6 +32,7 @@
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl"
         contextRoot="true">
         <stereotype>FinderMethod</stereotype>
+        <property reference="hibernateQueryUseNamedParameters" default="false"/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
