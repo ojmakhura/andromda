@@ -38,4 +38,21 @@ public class StrutsPackageLogicImpl
         return useCases;
     }
 
+    public java.util.Collection handleGetStrutsControllers()
+    {
+        Collection useCases = new ArrayList();
+
+        Collection ownedElements = getOwnedElements();
+        for (Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
+        {
+            Object object = elementIterator.next();
+            if (object instanceof StrutsController)
+            {
+                useCases.add(object);
+            }
+        }
+
+        return useCases;
+    }
+
 }
