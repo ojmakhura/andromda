@@ -1,21 +1,16 @@
 <project xmlns:j="jelly:core"
-  		 xmlns:ant="jelly:ant">
+  		 xmlns:ant="jelly:ant"
+  		 xmlns:artifact="artifact">
   	
   	<!-- this is here because the plugin:install goal from the
   		 maven-plugin-plugin doesn't copy to the 
   		 '${maven.repo.local}/plugins' directory -->
   	<goal name="plugin:install" >
-  		<attainGoal name="jar:jar"/> 
-		<ant:copy todir="${maven.home}/plugins">
-			<ant:fileset dir="target">
-				<include name="*.jar"/>
-			</ant:fileset>
-		</ant:copy>	
-		<ant:copy todir="${maven.repo.local}/${pom.groupId}/plugins">
-			<ant:fileset dir="target">
-				<include name="*.jar"/>
-			</ant:fileset>
-		</ant:copy>	
+    	<attainGoal name="jar:jar"/>
+		<artifact:install 
+			artifact="${maven.build.dir}/${maven.final.name}.jar" 
+			type="plugin" 
+			project="${pom}"/>	
   	</goal>
 
 </project>
