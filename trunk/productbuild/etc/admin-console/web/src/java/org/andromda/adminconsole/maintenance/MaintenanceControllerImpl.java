@@ -33,8 +33,6 @@ public class MaintenanceControllerImpl extends MaintenanceController
 
         metadataSession.setCurrentTable( table );
         metadataSession.setCurrentTableData( table.findAllRows() );
-
-        form.setNameValueList( getMetaDataSession(request).getTableNames().toArray() );
     }
 
     /**
@@ -43,18 +41,25 @@ public class MaintenanceControllerImpl extends MaintenanceController
     public final void loadTables(ActionMapping mapping, org.andromda.adminconsole.maintenance.LoadTablesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         DatabaseLoginSession loginSession = getDatabaseLoginSession(request);
+        AdminConsoleConfigurator configurator = loginSession.getConfigurator();
 
         Database database = DatabaseFactory.create(
                 loginSession.getUrl(), loginSession.getSchema(),
                 loginSession.getUser(), loginSession.getPassword());
-        
+
+        boolean allowUnconfiguredTables = configurator.isUnconfiguredTablesAvailable();
+        List knownTableNames = loginSession.getConfigurator().getKnownTableNames();
+
         Table[] tables = database.getTables(new TableType[]{TableType.TABLE});
 
         Map tableMap = new LinkedHashMap();
         for (int i = 0; i < tables.length; i++)
         {
             Table table = tables[i];
-            tableMap.put(table.getName(), table);
+            if (allowUnconfiguredTables || knownTableNames.contains(table.getName()))
+            {
+                tableMap.put(table.getName(), table);
+            }
         }
 
         Object[] tableNames = tableMap.keySet().toArray();
@@ -64,9 +69,9 @@ public class MaintenanceControllerImpl extends MaintenanceController
         metadataSession.setTables( tableMap );
         metadataSession.setTableNames( Arrays.asList(tableNames) );
 
-        if (tables.length > 0)
+        if (tableMap.size() > 0)
         {
-            metadataSession.setCurrentTable( tables[0] );
+            metadataSession.setCurrentTable( (Table)tableMap.values().iterator().next() );
         }
         else
         {
