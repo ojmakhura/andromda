@@ -16,6 +16,8 @@
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="displaytag-all.tld" prefix="display" %>
 
+<html:xhtml/>
+
 <tiles:insert definition="main.layout">
 
 ##
