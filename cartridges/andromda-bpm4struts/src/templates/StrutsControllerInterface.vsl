@@ -119,8 +119,8 @@ $operation.getDocumentation("     * ")
 
 #end
     /**
-     * Stores a warning message in the request, if any other warning messages would exist this one
-     * would simply be added.
+     * Stores a warning message in the request, if any other warning messages exist, this one
+     * is simply be added.
      */
     protected final void saveWarningMessage(HttpServletRequest request, String message)
     {
@@ -134,8 +134,8 @@ $operation.getDocumentation("     * ")
     }
 
     /**
-     * Stores a success message in the request, if any other success messages would exist this one
-     * would simply be added.
+     * Stores a success message in the request, if any other success messages exist, this one
+     * is simply be added.
      */
     protected final void saveSuccessMessage(HttpServletRequest request, String message)
     {
@@ -144,6 +144,21 @@ $operation.getDocumentation("     * ")
         {
             messages = new ActionMessages();
             request.setAttribute("$successMessagesKey", messages);
+        }
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
+    }
+    
+    /**
+     * Stores a error message in the request, if any other error messages exist, this one
+     * is simply be added.
+     */
+    protected final void saveErrorMessage(HttpServletRequest request, String message)
+    {
+        ActionMessages messages = (ActionMessages)request.getAttribute("$errorMessagesKey");
+        if (messages == null)
+        {
+            messages = new ActionMessages();
+            request.setAttribute("$errorMessagesKey", messages);
         }
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
     }

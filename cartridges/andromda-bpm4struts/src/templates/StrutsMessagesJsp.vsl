@@ -14,10 +14,10 @@
             </ul>
         </div>
     </logic:messagesPresent>
-    <logic:messagesPresent name="$exceptionHandlerMessagesKey">
+    <logic:messagesPresent name="$errorMessagesKey">
         <div class="errors">
             <ul>
-                <html:messages id="error" name="$exceptionHandlerMessagesKey" bundle="$customResourcesKey">
+                <html:messages id="error" name="$errorMessagesKey" bundle="$customResourcesKey">
                     <div class="error"><li>${error}</li></div>
                 </html:messages>
             </ul>

@@ -139,11 +139,11 @@ $decisionTransition.getDocumentation("     * ")
     {
         org.apache.struts.action.ActionMessages errors = 
             (org.apache.struts.action.ActionMessages)request.getAttribute(
-                "$exceptionHandlerMessagesKey");
+                "$errorMessagesKey");
         if (errors == null)
         {
             errors = new org.apache.struts.action.ActionMessages();
-            request.setAttribute("$exceptionHandlerMessagesKey", errors);
+            request.setAttribute("$errorMessagesKey", errors);
         }
         return errors;
     }
