@@ -44,7 +44,6 @@
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
 		</dependency>
-    	<!-- Hibernate dependencies -->
   		<dependency>
      		<groupId>commons-beanutils</groupId>
       		<artifactId>commons-beanutils</artifactId>
@@ -52,7 +51,8 @@
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
-    	</dependency>   
+    	</dependency>  
+    	<!-- Hibernate dependencies --> 
   		<dependency>
      		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>

@@ -35,6 +35,14 @@
 				<ear.appxml.war.context-root>/${projectId}</ear.appxml.war.context-root>
 	     	</properties>
 		</dependency>
+  		<dependency>
+     		<groupId>commons-beanutils</groupId>
+      		<artifactId>commons-beanutils</artifactId>
+        	<version>1.6.1</version>
+	      	<properties>
+	        	<ear.bundle>true</ear.bundle>
+	     	</properties>
+    	</dependency>  
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>

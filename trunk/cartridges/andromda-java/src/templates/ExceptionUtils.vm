@@ -1,0 +1,43 @@
+## Contains exception utilities used within the exception templates
+	/**
+	 * Finds the root cause of the parent exception
+	 * by traveling up the exception tree
+	 */
+    private static Throwable findRootCause(Throwable th) {
+    	if (th != null) {
+            final String methodName = "${class.name}.findRootCause";
+            if (th == null) {
+                throw new IllegalArgumentException(methodName + 
+                    " 'throwable can not be null"); 
+            }
+            
+            // Lets reflectively get any JMX or EJB exception causes.
+            try {
+                Throwable targetException = null;
+                //java.lang.reflect.InvocationTargetException 
+                //or javax.management.ReflectionException
+                String exceptionProperty = "targetException";
+                if (PropertyUtils.isReadable(th, exceptionProperty)) {
+                    targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                } else {
+                	exceptionProperty = "causedByException";
+                    //javax.ejb.EJBException
+                    if (PropertyUtils.isReadable(th, exceptionProperty)) {
+                    	targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                    }
+                }
+                if (targetException != null) {
+                	th = targetException;
+                }
+            } catch (Exception ex) {
+            	// just print the exception and continue
+                ex.printStackTrace();
+            }
+            
+            if (th.getCause() != null) {
+                th = th.getCause();
+                th = findRootCause(th);
+            }
+        }
+        return th;
+	}

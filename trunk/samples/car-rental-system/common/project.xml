@@ -15,6 +15,14 @@
 			<version>${pom.currentVersion}</version>
 			<type>pom</type>
 		</dependency>
+  		<dependency>
+     		<groupId>commons-beanutils</groupId>
+      		<artifactId>commons-beanutils</artifactId>
+        	<version>1.6.1</version>
+	      	<properties>
+	        	<ear.bundle>true</ear.bundle>
+	     	</properties>
+    	</dependency>  
 	</dependencies>
 	
   	<build>

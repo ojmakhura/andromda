@@ -8,15 +8,6 @@
 		The AndroMDA Animal Quiz Sample featuring BPM4Struts.
 	</shortDescription>
 	<dependencies>
-		<!-- we need this dependency because the default maven-ear-plugin
-		     that comes with the current distribution is version 1.2
-		     which doesn't do everything we need -->
-		<dependency>
-			<groupId>maven</groupId>
-			<artifactId>maven-ear-plugin</artifactId>
-			<version>1.4</version>
-			<type>plugin</type>
-		</dependency>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-hibernate-ejb</artifactId>
@@ -53,7 +44,6 @@
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
 		</dependency>
-    	<!-- Hibernate dependencies -->
   		<dependency>
      		<groupId>commons-beanutils</groupId>
       		<artifactId>commons-beanutils</artifactId>
@@ -61,7 +51,8 @@
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
-    	</dependency>   
+    	</dependency>  
+    	<!-- Hibernate dependencies --> 
   		<dependency>
      		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>

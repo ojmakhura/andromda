@@ -263,15 +263,32 @@ public class OperationFacadeLogicImpl
     {
         Collection exceptions = new HashSet();
         
+        // finds both exceptions and exception references
         final class ExceptionFilter implements Predicate 
         {
             public boolean evaluate(Object object) 
             {
-                return ((ModelElementFacade)object).hasStereotype(
-                    UMLProfile.STEREOTYPE_EXCEPTION);
+                DependencyFacade dependency =
+                    (DependencyFacade)object;
+                // first check for exception references
+                boolean hasException =
+                    dependency.hasStereotype(
+                        UMLProfile.STEREOTYPE_EXCEPTION_REF);
+                
+                // if there wasn't any exception reference
+                // now check for actual exceptions
+                if (!hasException) {
+                    ModelElementFacade targetElement = 
+                        dependency.getTargetElement();;
+                    hasException = 
+                        targetElement != null && 
+                        targetElement.hasStereotype(
+                            UMLProfile.STEREOTYPE_EXCEPTION);
+                }
+                return hasException;
             }        
         }
-                
+     
         // first get any dependencies on this operation's
         // owner (because these will represent the default exception(s))
         Collection ownerDependencies = this.getOwner().getDependencies();
