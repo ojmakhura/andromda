@@ -18,8 +18,8 @@ import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Used to translated OCL collection expressions
- * to their corresponding Java collection expressions.
+ * Used to translated OCL collection expressions to their corresponding Java
+ * collection expressions.
  */
 public final class OCLCollections
 {
@@ -348,11 +348,42 @@ public final class OCLCollections
 
     /**
      * Returns the last element in the collection.
+     * 
+     * @param object the collection or single instance which will be converted
+     *        to a collection.
+     * @return the last object of the collection or the object itself if the
+     *         object is not a collection instance (or null if the object is
+     *         null or an empty collection).
      */
-    public static Object last(List collection)
+    public static Object last(Object object)
     {
-        return (collection.isEmpty()) ? null : collection
-            .get(collection.size() - 1);
+        Object last = null;
+        final List list = objectToList(object);
+        if (!list.isEmpty())
+        {
+            last = list.get(list.size() - 1);
+        }
+        return last;
+    }
+
+    /**
+     * Returns the first element in the collection.
+     * 
+     * @param object the collection or single instance which will be converted
+     *        to a collection.
+     * @return the first object of the collection or the object itself if the
+     *         object is not a collection instance (or null if the object is
+     *         null or an empty collection).
+     */
+    public static Object first(Object object)
+    {
+        Object first = null;
+        final List list = objectToList(object);
+        if (!list.isEmpty())
+        {
+            first = list.get(0);
+        }
+        return first;
     }
 
     /**
@@ -601,5 +632,36 @@ public final class OCLCollections
     {
         throw new UnsupportedOperationException(OCLCollections.class.getName()
             + ".sortedBy");
+    }
+
+    /**
+     * Converts the given object to a java.util.List implementation. If the
+     * object is not a collection type, then the object is placed within a
+     * collection as the only element.
+     * 
+     * @param object the object to convert.
+     * @return the new List.
+     */
+    private static List objectToList(Object object)
+    {
+        List list = null;
+        if (object instanceof Collection)
+        {
+            Collection collection = (Collection)object;
+            if (!collection.isEmpty())
+            {
+                if (!(object instanceof List))
+                {
+                    object = new ArrayList(collection);
+                }
+                list = (List)collection;
+            }
+        }
+        else
+        {
+            list = new ArrayList();
+            list.add(object);
+        }
+        return list;
     }
 }
