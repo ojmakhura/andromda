@@ -1,0 +1,82 @@
+<!ELEMENT archive ( #PCDATA ) >
+
+<!ELEMENT artifactId ( #PCDATA ) >
+
+<!ELEMENT build EMPTY >
+
+<!ELEMENT connection ( #PCDATA ) >
+
+<!ELEMENT contributor ( name, email, roles ) >
+
+<!ELEMENT contributors ( contributor ) >
+
+<!ELEMENT currentVersion ( #PCDATA ) >
+
+<!ELEMENT description ( #PCDATA ) >
+
+<!ELEMENT developer ( name, id, email, roles, timezone? ) >
+
+<!ELEMENT developerConnection ( #PCDATA ) >
+
+<!ELEMENT developers ( developer+ ) >
+
+<!ELEMENT distributionDirectory ( #PCDATA ) >
+
+<!ELEMENT email ( #PCDATA ) >
+
+<!ELEMENT groupId ( #PCDATA ) >
+
+<!ELEMENT id ( #PCDATA ) >
+
+<!ELEMENT inceptionYear ( #PCDATA ) >
+
+<!ELEMENT issueTrackingUrl ( #PCDATA ) >
+
+<!ELEMENT logo ( #PCDATA ) >
+
+<!ELEMENT mailingList ( name, subscribe, unsubscribe, archive ) >
+
+<!ELEMENT mailingLists ( mailingList+ ) >
+
+<!ELEMENT name ( #PCDATA ) >
+
+<!ELEMENT organization ( name, url, logo ) >
+
+<!ELEMENT package ( #PCDATA ) >
+
+<!ELEMENT pomVersion ( #PCDATA ) >
+
+<!ELEMENT project ( pomVersion, artifactId, name, groupId, currentVersion, organization, inceptionYear, package, logo, description, shortDescription, url, issueTrackingUrl, siteAddress, siteDirectory, distributionDirectory, repository, versions, mailingLists, developers, contributors, build, reports, properties ) >
+
+<!ELEMENT properties EMPTY >
+
+<!ELEMENT report ( #PCDATA ) >
+
+<!ELEMENT reports ( report+ ) >
+
+<!ELEMENT repository ( connection, developerConnection, url ) >
+
+<!ELEMENT role ( #PCDATA ) >
+
+<!ELEMENT roles ( role* ) >
+
+<!ELEMENT shortDescription ( #PCDATA ) >
+
+<!ELEMENT siteAddress ( #PCDATA ) >
+
+<!ELEMENT siteDirectory ( #PCDATA ) >
+
+<!ELEMENT subscribe ( #PCDATA ) >
+
+<!ELEMENT tag ( #PCDATA ) >
+
+<!ELEMENT timezone ( #PCDATA ) >
+
+<!ELEMENT unsubscribe ( #PCDATA ) >
+
+<!ELEMENT url ( #PCDATA ) >
+
+<!ELEMENT version ( id, name, tag ) >
+
+<!ELEMENT versions ( version+ ) >
+
