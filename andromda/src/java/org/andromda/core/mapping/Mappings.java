@@ -14,12 +14,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 /**
- * An object responsible for mapping types in the object model to other language identifiers/types.
- * (For example, Java, SQL, Jdbc, etc).  The public constructor should NOT be used to 
- * construct this instance.  An instance of this object should be retrieved
- * through the method getInstance(java.net.URL). 
+ * <p>
+ *   An object responsible for mapping types in the object model to other language identifiers/types.
+ *   (For example, Java, SQL, Jdbc, etc).  The public constructor should NOT be used to 
+ *   construct this instance.  An instance of this object should be retrieved
+ *   through the method getInstance(java.net.URL). 
+ * </p>
  * 
- * <p> The mappings will change based upon the language, database, etc being used. <p>
+ * <p> 
+ *   The mappings will change based upon the language, database, etc being used. 
+ * <p>
  * 
  * @see org.andromda.core.common.XmlObjectFactory
  * 
