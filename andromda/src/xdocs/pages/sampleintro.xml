@@ -23,15 +23,15 @@
       </p>
       <p class="std">
         The model and the source code of the sample are located
-        in the subdirectory <code>sample</code> of the AndroMDA distribution package.
+        in the subdirectory <code>sample/car-rental-system/</code> of the AndroMDA distribution package.
         You will notice that it does <b>not</b> contain all the classes because
         most of them are generated automatically. So, please run AndroMDA
-        using <code>ant -f launchbuild.xml</code> to see the whole thing!
+        using <code>ant -f build.xml</code> to see the whole thing!
         The source code in the distribution contains only the hand-written
         classes.
       </p>
       <p class="std">
-        I have designed the model using the CASE tool Poseidon - you will find
+        We have designed the model using the CASE tool Poseidon - you will find
         the model inside the file <code>CarRentalSystem.zargo</code>. You can open this
         file with the Poseidon tool if you want. You will find a free community edition (called "CE")
         of the tool on <a href="http://www.gentleware.com">Gentleware's web site</a>.
