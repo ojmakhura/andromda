@@ -112,7 +112,6 @@ public class ServiceFacadeLogicImpl
                 }
             }
         });
-
         return roles;
     }
 }
