@@ -5,45 +5,29 @@ package org.andromda.maven;
  * error occurs within the MavenPluginUtils. 
  *
  * @author Chad Brandon
- *
  */
 public class MavenPluginUtilsException extends RuntimeException
 {  
 
     /**
      * Constructor for MavenPluginUtilsException.
+     * 
+     * @param message the exception message.
      */
-    public MavenPluginUtilsException()
+    public MavenPluginUtilsException(String message)
     {
-        super();
+        super(message);
     }
 
     /**
      * Constructor for MavenPluginUtilsException.
-     * @param arg0
+     * 
+     * @param message the exception message
+     * @param parent the parent throwable.
      */
-    public MavenPluginUtilsException(String arg0)
+    public MavenPluginUtilsException(String message, Throwable parent)
     {
-        super(arg0);
-    }
-
-    /**
-     * Constructor for MavenPluginUtilsException.
-     * @param arg0
-     * @param arg1
-     */
-    public MavenPluginUtilsException(String arg0, Throwable arg1)
-    {
-        super(arg0, arg1);
-    }
-
-    /**
-     * Constructor for MavenPluginUtilsException.
-     * @param arg0
-     */
-    public MavenPluginUtilsException(Throwable arg0)
-    {
-        super(arg0);
+        super(message, parent);
     }
 
 }
