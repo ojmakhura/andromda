@@ -38,22 +38,26 @@
 usage: org.andromda.schema2xmi.Schema2XMI [options] ...]]
 
 Options:
- -P,--package <arg>         The package to output classifiers
- -c,--connectionUrl <arg>   JDBC connection URL
- -d,--driver <arg>          JDBC driver class
- -h,--help                  Display help information
- -i,--input <arg>           Input model file (to which model elements will
-                            be added)
- -m,--mappings <arg>        The type mappings URI (i.e.
-                            file:${basedir}/DataypeMappings.xml)
- -o,--output <arg>          Set output name to which the result of the
-                            transformation will be written
- -p,--password <arg>        Schema user password
- -t,--tablePattern <arg>    The table name pattern of tables to process
-                            (regular expression)
- -u,--user <arg>            Schema user name
- -v,--taggedValues <arg>    Whether or not to include persistence tagged
-                            values, default is true
+ -C,--classStereotypes <arg>        Comma seperated list of stereotype
+                                    names to add to the created class
+ -I,--identifierStereotypes <arg>   Comma seperated list of stereotype
+                                    names to add to any class identifiers
+ -P,--package <arg>                 The package to output classifiers
+ -c,--connectionUrl <arg>           JDBC connection URL
+ -d,--driver <arg>                  JDBC driver class
+ -h,--help                          Display help information
+ -i,--input <arg>                   Input model file (to which model
+                                    elements will be added)
+ -m,--mappings <arg>                The type mappings URI (i.e.
+                                    file:${basedir}/DataypeMappings.xml)
+ -o,--output <arg>                  Set output name to which the result of
+                                    the transformation will be written
+ -p,--password <arg>                Schema user password
+ -t,--tablePattern <arg>            The table name pattern of tables to
+                                    process (regular expression)
+ -u,--user <arg>                    Schema user name
+ -v,--taggedValues <arg>            Whether or not to include persistence
+                                    tagged values, default is true
 ]]></source>
 		</subsection>
     </section>
