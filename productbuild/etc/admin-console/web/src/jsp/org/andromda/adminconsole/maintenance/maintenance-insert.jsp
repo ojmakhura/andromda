@@ -8,20 +8,21 @@
     <div class="trigger">
         <html:form action="/Maintenance/MaintenanceInsert" onsubmit="">
             <table>
-                <c:forEach items="${metaDataSession.currentTable.columns}" var="column">
+                <c:set var="currentTable" value="${metaDataSession.currentTable}" scope="page"/>
+                <c:forEach items="${currentTable.columns}" var="column">
                     <bean:parameter id="value" name="${column.name}" value=""/>
                     <tr>
                         <td>${column.name}</td>
                         <td>${acf:getInsertWidget(databaseLoginSession.configurator,column,value)}</td>
                         <td>
                             <c:if test="${column.foreignKeyColumn}">
-                                <c:set var="foreignTable" value="${column.importedKeyColumn.table}" scope="page"/>
-                                <c:if test="${column.table.name != foreignTable.name}"> <%-- don't render link to yourself --%>
-                                    <c:if test="${acf:contains(metaDataSession.tableNames,foreignTable.name)}"> <%-- only render allowed tables --%>
+                                <c:set var="foreignTableName" value="${column.importedTableName}" scope="page"/>
+                                <c:if test="${currentTable.name != foreignTableName}"> <%-- don't render link to yourself --%>
+                                    <c:if test="${acf:contains(metaDataSession.tableNames,foreignTableName)}"> <%-- only render allowed tables --%>
                                         <bean:message key="show.table" bundle="custom"/>
                                         <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
-                                            paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
-                                            ${foreignTable.name}
+                                            paramId="name" paramName="foreignTableName" paramScope="page">
+                                            ${foreignTableName}
                                         </html:link>
                                     </c:if>
                                 </c:if>
