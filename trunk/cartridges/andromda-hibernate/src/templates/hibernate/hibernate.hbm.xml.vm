@@ -20,7 +20,11 @@
 #macro (renderPropertiesAndAssociations $entity)
 #foreach ($attribute in $entity.attributes)
 #if (!$attribute.identifier)
-        <property name="$attribute.name" type="$attribute.type.fullyQualifiedHibernateType">
+#set ($fullyQualifiedPropertyType = $attribute.type.fullyQualifiedHibernateType)
+#if ($attribute.type.enumeration)
+#set ($fullyQualifiedPropertyType = $attribute.type.fullyQualifiedHibernateEnumerationType)
+#end
+        <property name="$attribute.name" type="$fullyQualifiedPropertyType">
             <column name="$attribute.columnName" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"#if($attribute.columnIndex) index="$attribute.columnIndex"#end/>
         </property>
 #end
