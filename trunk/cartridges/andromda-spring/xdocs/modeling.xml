@@ -251,12 +251,13 @@
                               @andromda.role.name
                           </td>
                         <td>
-                            <a href="#Role"><![CDATA[<<Role>>]]></a>
-                        </td>
-                        <td>
                             An actor with a dependency to a 
                             <a href="Service"><![CDATA[<<Service>>]]></a> or
                             a <a href="Service"><![CDATA[<<Service>>]]></a> operation.
+                        </td>
+                        <td>
+                            Provides the ability to specify the name to be used
+                            (if different than the actual name of the actor).
                         </td>
                     </tr>
                     <tr>
