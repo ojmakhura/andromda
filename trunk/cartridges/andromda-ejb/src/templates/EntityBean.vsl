@@ -60,7 +60,7 @@ $class.getDocumentation(" * ")
 #foreach ( $dep in $class.dependencies )
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
 #set ($superclass = $dep.targetElement)
-#set ($viewtype = $class.findTaggedValue("@andromda.ejb.viewType"))
+#set ($viewtype = $class.findTaggedValue("@ejb.viewType"))
 // $viewtype
 // $superclass.viewType
 #if (!$viewtype || $viewtype == "")
@@ -74,8 +74,8 @@ $class.getDocumentation(" * ")
 #end
 #if ($dep.hasStereotype("ResourceRef"))
 #set ($superclass = $dep.targetElement)
-#set ($jndiRef = $dep.findTaggedValue("@andromda.ejb.resource-ref.jndi-name"))
-#set ($resAuth = $dep.findTaggedValue("@andromda.ejb.resource-ref.res-auth"))
+#set ($jndiRef = $dep.findTaggedValue("@ejb.resource-ref.jndi-name"))
+#set ($resAuth = $dep.findTaggedValue("@ejb.resource-ref.res-auth"))
 #if (!$resAuth)
 #set ($resAuth = "Container")
 #end
@@ -97,7 +97,7 @@ $class.getDocumentation(" * ")
 #end
 #end
 #foreach ( $finder in $class.getFinders(true))
-#if($finder.findTaggedValue("@andromda.ejb.query.dialect") == "JBossQL")
+#if($finder.findTaggedValue("@ejb.query.dialect") == "JBossQL")
  *
  * @ejb.finder signature="$finder.type.fullyQualifiedName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
@@ -109,7 +109,7 @@ $class.getDocumentation(" * ")
  *             query="$finder.query"
 #end
 #end##operation.finders
-#copyTaggedValues($class " " [ "@andromda.ejb.viewType", "@andromda.ejb.transactionType",  "@andromda.ejb.noSyntheticCreateMethod" ])
+#copyTaggedValues($class " " [ "@ejb.viewType", "@ejb.transactionType",  "@ejb.noSyntheticCreateMethod" ])
  *
  */
 public abstract class ${entityname}Bean 
@@ -204,7 +204,7 @@ $constant.getDocumentation("     * ")
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes)
 #set($attType = $att.type.fullyQualifiedName)    
-#set ($transactionType = $att.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($transactionType = $att.findTaggedValue("@ejb.transactionType", true))
 #set ($visibility = $att.visibility.toString())
     /**
      * Get the ${att.name} property
@@ -252,7 +252,7 @@ $att.getDocumentation("     * ")
 #if ($class.abstract)
 #foreach ( $assoc in $class.entityRelations) )
 #set ($target = $assoc.otherEnd)
-#if(!($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
+#if(!($assoc.association.findTaggedValue("@ejb.generateCMR") == "false"))
 #set ($assocname = $assoc.association.name)
 #set ($targetRoleName = $assoc.otherEnd.name)
 #set ($targetTypeName = $assoc.relationType)
@@ -279,9 +279,9 @@ $assoc.otherEnd.getDocumentation("    * ")
 #foreach ( $assoc in $class.allEntityRelations )
 #set ($target = $assoc.otherEnd)
 ## relations not flagged as CMR are generated below under business methods
-#if(!($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
+#if(!($assoc.association.findTaggedValue("@ejb.generateCMR") == "false"))
 #set ($assocname = $assoc.association.name)
-#set ($transactionType = $assoc.association.findTaggedValue("@andromda.ejb.transactionType"))
+#set ($transactionType = $assoc.association.findTaggedValue("@ejb.transactionType"))
 #set ($targetTypeName = $assoc.relationType)
 
    /**
@@ -303,7 +303,7 @@ $assoc.otherEnd.getDocumentation("    * ")
     * @ejb.transaction type="$transactionType"
 #end
     *
-#if ($assoc.one2Many || $assoc.many2Many || $assoc.otherEnd.findTaggedValue("@andromda.jboss.autoKeyFields") == "true")
+#if ($assoc.one2Many || $assoc.many2Many || $assoc.otherEnd.findTaggedValue("@jboss.autoKeyFields") == "true")
     * @jboss.auto-key-fields
 #else
 #set ($identifiers = $assoc.otherEnd.type.identifiers)
@@ -341,8 +341,8 @@ $assoc.otherEnd.getDocumentation("    * ")
 ## is abstract. That way, we can implement them in the base class
 #foreach ( $assoc in $class.entityRelations)
 #set ($target = $assoc.otherEnd)
-#if($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false")
-#set ($transactionType = $assoc.association.findTaggedValue("@andromda.ejb.transactionType"))
+#if($assoc.association.findTaggedValue("@ejb.generateCMR") == "false")
+#set ($transactionType = $assoc.association.findTaggedValue("@ejb.transactionType"))
 #set ($targetTypeName = $assoc.relationType))
 
    /**
@@ -369,7 +369,7 @@ $assoc.otherEnd.getDocumentation("     * ")
 
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod") && !$op.hasStereotype("CreateMethod") && !$op.hasStereotype("SelectMethod"))
-#set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($transactionType = $op.findTaggedValue("@ejb.transactionType", true))
 #set ($msig = $op.signature)
 #set ($interfaceType = "interface")
 #set ($visibility = $op.visibility.toString())
@@ -400,7 +400,7 @@ $op.getDocumentation("    * ")
 #end
 #if ($op.hasStereotype("SelectMethod"))
 #set($querystring = "")
-#set($querystring = $op.findTaggedValue("@andromda.ejb.query"))
+#set($querystring = $op.findTaggedValue("@ejb.query"))
 #if($querystring == "")
 #set($querystring = "SELECT DISTINCT OBJECT(c) FROM $class.name AS c")
 #if($op.arguments.size() >0 )
@@ -431,7 +431,7 @@ $op.getDocumentation("    * ")
 ## we generate an abstract ejbCreateImpl() and delegate the implementation to 
 ## the user.
 #foreach ( $op in $class.createMethods(false))
-#set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($transactionType = $op.findTaggedValue("@ejb.transactionType", true))
 
     /**
 #if (!$class.abstract)
@@ -517,7 +517,7 @@ $op.getDocumentation("    * ")
 
 ## Only generate create methods with all CMP and CMR fields for concrete EJBs, 
 ## and only if it is not explicitly switched off
-#if (!$class.abstract && !$class.findTaggedValue("@andromda.ejb.noSyntheticCreateMethod"))
+#if (!$class.abstract && !$class.findTaggedValue("@ejb.noSyntheticCreateMethod"))
     /**
      * Create method with all CMP attribute values.
 #foreach($att in $allAttributes)
@@ -546,7 +546,7 @@ $op.getDocumentation("    * ")
     }
 #set ($relations = $class.allEntityRelations)
 #if (!$relations.empty)
-#if (!$class.abstract && !$class.findTaggedValue("@andromda.ejb.noSyntheticCreateMethod"))
+#if (!$class.abstract && !$class.findTaggedValue("@ejb.noSyntheticCreateMethod"))
     /**
      * Create method with all CMP attribute values and CMR relations.
 #foreach($att in $allAttributes)
@@ -587,7 +587,7 @@ $op.getDocumentation("    * ")
 #set ($viewtype = "")
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
 #set ($referencedClass = $dep.targetElement)
-#set ($viewtype = $referencedClass.findTaggedValue("@andromda.ejb.viewType"))
+#set ($viewtype = $referencedClass.findTaggedValue("@ejb.viewType"))
 #if ($viewtype == "")
 #set ($viewtype = $referencedClass.viewType)
 #end

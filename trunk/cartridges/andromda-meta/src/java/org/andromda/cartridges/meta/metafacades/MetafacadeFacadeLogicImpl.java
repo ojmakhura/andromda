@@ -38,48 +38,6 @@ public class MetafacadeFacadeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class MetafacadeFacade ...
-
-    public java.lang.String handleGetImplSuperclassName()
-    {
-        Object taggedValue = findTaggedValueUpstairs(MetaProfile.TAGGEDVALUE_METAFACADE_BASECLASS);
-        return (taggedValue != null) ? taggedValue.toString() : this
-            .getLanguageMappings().getTo("datatype.Object");
-    }
-
-    /**
-     * Finds a tagged value on the current element or on a package in the
-     * hierarchy above it.
-     * 
-     * @param taggedValueName the name of the tagged value
-     * @return the value of the tagged value
-     */
-    private Object findTaggedValueUpstairs(String taggedValueName)
-    {
-        Object taggedValue = null;
-        ModelElementFacade modelElement = this;
-        do
-        {
-            // try to find this tagged value
-            taggedValue = modelElement.findTaggedValue(taggedValueName);
-            if (taggedValue != null)
-            {
-                // return if found
-                return taggedValue;
-            }
-
-            // if not found, walk up in the package hierarchy
-            modelElement = modelElement.getPackage();
-        }
-        while (modelElement != null);
-        return null; // not found
-    }
-
-    // ------------- relations ------------------
-
     /**
      * Returns the class tagged with &lt;&lt;metaclass&gt;&gt;&gt; that is
      * connected to the metaobject via a dependency. If no metaclass is directly

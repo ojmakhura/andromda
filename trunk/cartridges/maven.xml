@@ -49,7 +49,7 @@
 			<j:if test="${!empty(hasModel) and empty(skipProcessing)}">
 				<j:choose>
 					<j:when test="${maven.andromda.bootstrap.mode}">
-						<attainGoal name="andromda:run-bootstrap"/>
+					    <attainGoal name="andromda:run-bootstrap"/>
 					</j:when>
 					<j:otherwise>
 						<attainGoal name="andromda:run"/>						

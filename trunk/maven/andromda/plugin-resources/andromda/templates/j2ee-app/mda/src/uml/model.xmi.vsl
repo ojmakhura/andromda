@@ -82,7 +82,7 @@
 						<UML:Stereotype xmi.id='_d860307_1079709642412_102506_37' name='FinderMethod' isRoot='false' isLeaf='false' isAbstract='false'>
 							<UML:Stereotype.baseClass>Operation</UML:Stereotype.baseClass>
 							<UML:Stereotype.definedTag>
-								<UML:TagDefinition xmi.id='_d860307_1079709791036_381129_62' name='@andromda.hibernate.query' tagType='String' owner='_d860307_1079709642412_102506_37'>
+								<UML:TagDefinition xmi.id='_d860307_1079709791036_381129_62' name='@hibernate.query' tagType='String' owner='_d860307_1079709642412_102506_37'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_d860307_1079709884640_927827_63'>
 											<UML:Multiplicity.range>
@@ -102,7 +102,7 @@
 						<UML:Stereotype xmi.id='_d860307_1079856005482_427605_186' name='ServiceRef' isRoot='false' isLeaf='false' isAbstract='false'>
 							<UML:Stereotype.baseClass>Dependency</UML:Stereotype.baseClass>
 						</UML:Stereotype>
-						<UML:TagDefinition xmi.id='_8a70287_1079894053764_804885_24' name='@andromda.struts.view.field.required' tagType='String'>
+						<UML:TagDefinition xmi.id='_8a70287_1079894053764_804885_24' name='@struts.view.field.required' tagType='String'>
 							<UML:TagDefinition.multiplicity>
 								<UML:Multiplicity xmi.id='_8a70287_1079894187847_804040_26'>
 									<UML:Multiplicity.range>
@@ -115,7 +115,7 @@
 								<TagDefinition.createTaggedValue xmi.value='false'/>
 							</XMI.extension>
 						</UML:TagDefinition>
-						<UML:TagDefinition xmi.id='_8a70287_1079894132728_865469_25' name='@andromda.struts.view.field.format' tagType='String'>
+						<UML:TagDefinition xmi.id='_8a70287_1079894132728_865469_25' name='@struts.view.field.format' tagType='String'>
 							<UML:TagDefinition.multiplicity>
 								<UML:Multiplicity xmi.id='_8a70287_1079894187847_726481_28'>
 									<UML:Multiplicity.range>
@@ -128,7 +128,7 @@
 								<TagDefinition.createTaggedValue xmi.value='false'/>
 							</XMI.extension>
 						</UML:TagDefinition>
-						<UML:TagDefinition xmi.id='_8a70287_1079894353215_529474_32' name='@andromda.struts.action.success.message' tagType='String'>
+						<UML:TagDefinition xmi.id='_8a70287_1079894353215_529474_32' name='@struts.action.success.message' tagType='String'>
 							<UML:TagDefinition.multiplicity>
 								<UML:Multiplicity xmi.id='_8a70287_1079894365272_517601_33'>
 									<UML:Multiplicity.range>

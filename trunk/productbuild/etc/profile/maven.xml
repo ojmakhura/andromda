@@ -1,15 +1,13 @@
-<project default="install"
-         xmlns:ant="jelly:ant"
+<project xmlns:ant="jelly:ant"
          xmlns:j="jelly:core"
          xmlns:artifact="artifact">
-
-   <j:set var="maven.xml.zip.final.name" 
-          value="${maven.build.dir}/${maven.final.name}"/>
 
     <!-- ===================================================================
          Install the model into the repository
          =================================================================== -->
   	<goal name="xml.zip:install">
+	   <j:set var="maven.xml.zip.final.name" 
+	          value="${maven.build.dir}/${maven.final.name}"/>
   	    <j:set var="modelXml" value="andromda-profile.xml"/>
 		<ant:unzip 
 		    src="${maven.src.dir}/uml/${modelXml}.zip" 

@@ -21,8 +21,8 @@ public class EJBProfile extends UMLProfile {
 	
 	/* ----------------- Tagged Values -------------------- */
 
-	public static final String TAGGEDVALUE_GENERATE_CMR = "@andromda.ejb.generateCMR";
+	public static final String TAGGEDVALUE_GENERATE_CMR = "@ejb.generateCMR";
 	
-	public static final String TAGGEDVALUE_EJB_QUERY = "@andromda.ejb.query";	
+	public static final String TAGGEDVALUE_EJB_QUERY = "@ejb.query";	
 	
 }

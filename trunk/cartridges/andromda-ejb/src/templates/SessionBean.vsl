@@ -2,7 +2,7 @@
 ## Include global definitions. ##
 #parse("templates/EJBglobals.vm")
 ##
-#set ($viewtype = $class.findTaggedValue("@andromda.ejb.viewType"))
+#set ($viewtype = $class.findTaggedValue("@ejb.viewType"))
 #if (!$viewtype)
 #set ($viewtype = "both")
 #end
@@ -50,7 +50,7 @@ $class.getDocumentation(" * ")
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
 #set ($superclass = $dep.targetElement)
 #set ($viewtype = "")
-#set ($viewtype = $superclass.findTaggedValue("@andromda.ejb.viewType"))
+#set ($viewtype = $superclass.findTaggedValue("@ejb.viewType"))
 #if ($viewtype == "")
 #set ($viewtype = ${superclass.viewType})
 #end
@@ -62,8 +62,8 @@ $class.getDocumentation(" * ")
 #end
 #if ($dep.hasStereotype("ResourceRef"))
 #set ($superclass = $dep.targetElement)
-#set ($jndiRef = $dep.findTaggedValue("@andromda.ejb.resource-ref.jndi-name"))
-#set ($resAuth = $dep.findTaggedValue("@andromda.ejb.resource-ref.res-auth"))
+#set ($jndiRef = $dep.findTaggedValue("@ejb.resource-ref.jndi-name"))
+#set ($resAuth = $dep.findTaggedValue("@ejb.resource-ref.res-auth"))
 #if (!$resAuth)
 #set ($resAuth = "Container")
 #end
@@ -84,7 +84,7 @@ $class.getDocumentation(" * ")
 #end
 #end
 #end
-#copyTaggedValues($class " " [ "@andromda.ejb.viewType", "@andromda.ejb.transactionType" ])
+#copyTaggedValues($class " " [ "@ejb.viewType", "@ejb.transactionType" ])
  *
  */
 public abstract class ${servicename}Bean 
@@ -168,7 +168,7 @@ $constant.getDocumentation("     * ")
     // --------------- attributes ---------------------
 #foreach ( $att in $instanceAttributes)
 #set($attType = $att.type.fullyQualifiedName)    
-#set ($transactionType = $att.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($transactionType = $att.findTaggedValue("@ejb.transactionType", true))
 #set ($visibility = $att.visibility)
     /** The ${att.name} property */
     private ${attType} $att.name;
@@ -214,7 +214,7 @@ $att.getDocumentation("     * ")
 
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("CreateMethod"))
-#set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($transactionType = $op.findTaggedValue("@ejb.transactionType", true))
 #set ($msig = $op.signature)
 #set ($visibility = $op.visibility)
    /**
@@ -243,7 +243,7 @@ $op.getDocumentation("    * ")
 ## what the user intended to do with the arbitrary parameters to these methods,
 ## we generate an abstract ejbCreate() and delegate the implementation to the user.
 #foreach ( $op in $class.getCreateMethods(false))
-#set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($transactionType = $op.findTaggedValue("@ejb.transactionType", true))
 
     /**
 $op.getDocumentation("    * ")
@@ -316,7 +316,7 @@ $op.getDocumentation("    * ")
 #set ($viewtype = "")
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
 #set ($referencedClass = $dep.targetElement)
-#set ($viewtype = $superclass.findTaggedValue("@andromda.ejb.viewType"))
+#set ($viewtype = $superclass.findTaggedValue("@ejb.viewType"))
 #if ($viewtype == "")
 #set ($viewtype = ${referencedClass.viewType})
 #end

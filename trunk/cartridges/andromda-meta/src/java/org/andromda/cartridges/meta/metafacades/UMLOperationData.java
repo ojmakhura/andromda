@@ -22,7 +22,7 @@ public class UMLOperationData extends MethodData
     {
         super(
             metafacadeName,
-            op.getVisibility().toString(),
+            op.getVisibility(),
             op.isAbstract(),
             op.getType().getFullyQualifiedName(),
             op.getName(),

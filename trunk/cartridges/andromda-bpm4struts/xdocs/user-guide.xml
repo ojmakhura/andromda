@@ -180,49 +180,49 @@
                             <th>Description</th>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.action.type (*)</td>
+                            <td>@struts.action.type (*)</td>
                             <td>Transition w/ FrontEndEvent</td>
                             <td>form</td>
                             <td>Indicates the type of trigger causing the action, possible values are hyperlink and form</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.view.field.type</td>
+                            <td>@struts.view.field.type</td>
                             <td>Parameter</td>
                             <td>text</td>
                             <td>Indicates the type of parameter, this information will be used when rendering the pages, possible values are: text, textarea, checkbox, radio, select, password and hidden. One of the tables below give some more information</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.view.field.required</td>
+                            <td>@struts.view.field.required</td>
                             <td>Parameter</td>
                             <td>true</td>
                             <td>Denotes whether or not this is a required field. If a field is required its type will always be checked (you cannot enter a String value when an int is expected)</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.view.field.format (**)</td>
+                            <td>@struts.view.field.format (**)</td>
                             <td>Parameter</td>
                             <td>N/A</td>
                             <td>The format of this field's value</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.view.field.validwhen</td>
+                            <td>@struts.view.field.validwhen</td>
                             <td>Parameter</td>
                             <td>N/A</td>
                             <td>Additional validation to be performed</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.view.field.readonly</td>
+                            <td>@struts.view.field.readonly</td>
                             <td>Parameter</td>
                             <td>false</td>
                             <td>Indicated the parameter is read only, it's value cannot be entered by the user</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.exception.type</td>
+                            <td>@struts.exception.type</td>
                             <td>Transition w/ FrontEndException</td>
                             <td>java.lang.Exception</td>
                             <td>Indicates which exception this handler takes care of</td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.controller.usecase</td>
+                            <td>@struts.controller.usecase</td>
                             <td>A class with the &lt;&lt;FrontEndController&gt;&gt; stereotype</td>
                             <td>N/A</td>
                             <td>The value should correspond to the use-case holding the activity graph
