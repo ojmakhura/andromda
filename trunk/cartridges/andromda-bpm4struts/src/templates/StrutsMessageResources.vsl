@@ -79,9 +79,9 @@ ${page.titleKey}.${pageVariable.messageKey}=${pageVariable.messageValue}
 #if ($page.tabbed)
 #   PAGE-TABS
 #set ($tabMap = $page.tabMap)
-#foreach ($tabKey in $tabMap.keySet())
+#foreach ($tab in $tabMap.keySet())
 #set ($tabIndex = $velocityCount - 1)
-${page.messageKey}.tab.${tabKey}=$page.getTabName($tabIndex)
+${page.messageKey}.tab.${tab}=$page.getTabName($tabIndex)
 #end
 #end
 
