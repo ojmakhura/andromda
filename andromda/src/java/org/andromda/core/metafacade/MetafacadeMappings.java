@@ -80,6 +80,11 @@ public class MetafacadeMappings
     private Class defaultMetafacadeClass = null;
 
     /**
+     * Whether or not these mappings are shared across all namespaces.
+     */
+    private boolean shared = false;
+
+    /**
      * Gets the shared instance.
      * 
      * @return MetafacadeMappings
@@ -126,6 +131,29 @@ public class MetafacadeMappings
     public void setNamespace(String namespace)
     {
         this.namespace = StringUtils.trimToEmpty(namespace);
+    }
+
+    /**
+     * Gets whether or not this set of <code>metafacade</code> mappings is
+     * shared across all namespaces. By default mappings are <strong>NOT
+     * </strong> shared.
+     * 
+     * @return Returns the shared.
+     */
+    public boolean isShared()
+    {
+        return shared;
+    }
+
+    /**
+     * Sets whether or not this set of <code>metafacade</code> mappings is
+     * shared across all namespaces.
+     * 
+     * @param shared The shared to set.
+     */
+    public void setShared(boolean shared)
+    {
+        this.shared = shared;
     }
 
     /**
@@ -186,7 +214,8 @@ public class MetafacadeMappings
     {
         final String methodName = "MetafacadeMappings.copyMappings";
         ExceptionUtils.checkNull(methodName, "mappings", mappings);
-        this.setNamespace(mappings.getNamespace());
+        // the namespace is always the default namespace
+        this.setNamespace(Namespaces.DEFAULT);
         Iterator keyIt = mappings.mappings.keySet().iterator();
         while (keyIt.hasNext())
         {
@@ -476,8 +505,8 @@ public class MetafacadeMappings
                     .isAssignableFrom(metafacadeInterface))
                 {
                     mapping.addPropertyReferences(defaultPropertyReferences);
-                    // add the namespace property references back so 
-                    // that the default ones don't override the 
+                    // add the namespace property references back so
+                    // that the default ones don't override the
                     // namespace specific ones.
                     mapping.addPropertyReferences(propertyReferences);
                 }
@@ -560,10 +589,10 @@ public class MetafacadeMappings
                                 + " no 'namespace' has been set for metafacades --> '"
                                 + mappings.getResource() + "'");
                     }
-                    AndroMDALogger.info("found metafacades --> '"
-                        + mappings.getNamespace() + "'");
 
-                    if (Namespaces.DEFAULT.equals(namespace))
+                    // 'shared' mappings are copied
+                    // to this shared mappings instance.
+                    if (mappings.isShared())
                     {
                         // copy over any 'shared' mappings
                         this.copyMappings(mappings);
@@ -576,6 +605,21 @@ public class MetafacadeMappings
                             mappings);
                         namespaces.add(mappings.getNamespace());
                     }
+                    // construct the found informational based
+                    // on whether or not the mappings are shared.
+                    StringBuffer foundMessage = new StringBuffer("found");
+                    if (mappings.isShared())
+                    {
+                        foundMessage.append(" shared");
+                    }
+                    foundMessage.append(" metafacades --> '"
+                        + mappings.getNamespace() + "'");
+                    if (mappings.isShared())
+                    {
+                        foundMessage.append(" adding to '" + Namespaces.DEFAULT
+                            + "' namespace");
+                    }
+                    AndroMDALogger.info(foundMessage);
                 }
             }
             catch (Throwable th)

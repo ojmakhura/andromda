@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-
 <!-- contains the default metafacade mappings -->
-<metafacades namespace="default">
+<metafacades namespace="uml" 
+             shared="true">
 	<property reference="languageMappingsUri" />
 	<default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
 	<metafacade 
@@ -52,8 +52,7 @@
 	<metafacade
 		metaobjectClass="org.omg.uml.foundation.core.Constraint$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.ConstraintFacadeLogicImpl"/>
-
-    <!-- Behavioral element facades -->
+    <!-- Behavioral element metafacades -->
 	<metafacade
 		metaobjectClass="org.omg.uml.behavioralelements.commonbehavior.Argument$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.ArgumentFacadeLogicImpl"/>
@@ -84,7 +83,6 @@
 	<metafacade
 		metaobjectClass="org.omg.uml.behavioralelements.commonbehavior.CallAction$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.CallActionFacadeLogicImpl"/>
-
 	<metafacade
 		metaobjectClass="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.ActionStateFacadeLogicImpl"/>
@@ -94,7 +92,6 @@
 	<metafacade
 		metaobjectClass="org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.ObjectFlowStateFacadeLogicImpl"/>
-
 	<metafacade
 		metaobjectClass="org.omg.uml.behavioralelements.statemachines.Event$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.EventFacadeLogicImpl"/>
@@ -203,12 +200,10 @@
 		metafacadeClass="org.andromda.metafacades.uml14.EntityAssociationFacadeLogicImpl">
 		<context>org.andromda.metafacades.uml.EntityFacade</context>
 	</metafacade>
-
 	<!-- Service  metafacades -->
 	<metafacade
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.ServiceFacadeLogicImpl">
 		<stereotype>Service</stereotype>
 	</metafacade>
-
 </metafacades>
