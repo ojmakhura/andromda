@@ -20,8 +20,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 /**
- * The Metafacade mapping class. Used to map meta facade objects to meta model
- * objects.
+ * The Metafacade mapping class. Used to map <code>metafacade</code> objects
+ * to <code>metamodel</code> objects.
  * 
  * @see MetafacadeMapping
  * @see org.andromda.core.common.XmlObjectFactory
@@ -360,8 +360,8 @@ public class MetafacadeMappings
 
     /**
      * Returns all property references for this MetafacadeMappings by
-     * <code>namespace</code> (these include all default mapping references
-     * also).
+     * <code>namespace</code> (these include all default mapping references as
+     * well).
      * 
      * @param namespace the namespace to search
      */
@@ -398,7 +398,7 @@ public class MetafacadeMappings
     /**
      * Gets all the child MetafacadeMapping instances for this
      * MetafacadeMappings by <code>namespace</code> (these include all child
-     * mappings from the <code>default</code> mapping reference also).
+     * mappings from the <code>default</code> mapping reference as well).
      * 
      * @param namespace the namespace of the mappings to retrieve.
      * @return Map the child mappings (MetafacadeMapping instances)
@@ -443,7 +443,6 @@ public class MetafacadeMappings
                 + namespace + "' and context '" + context + "'");
 
         MetafacadeMappings mappings = this.getNamespaceMappings(namespace);
-        Class metafacadeClass = null;
         MetafacadeMapping mapping = null;
 
         // first try the namespace mappings
@@ -451,14 +450,42 @@ public class MetafacadeMappings
         {
             mapping = mappings
                 .getMapping(metaobjectClass, stereotypes, context);
-            if (mapping != null)
+        }
+
+        // if we've found a namespace mapping, try to get any shared mappings
+        // that this namespace mapping may extend and copy over any property
+        // references from the shared mapping to the namespace mapping.
+        if (mapping != null)
+        {
+            Map propertyReferences = mapping.getPropertyReferences();
+            MetafacadeMapping defaultMapping = this.getMapping(
+                metaobjectClass,
+                stereotypes,
+                context);
+            if (defaultMapping != null)
             {
-                metafacadeClass = mapping.getMetafacadeClass();
+                Map defaultPropertyReferences = defaultMapping
+                    .getPropertyReferences();
+                MetafacadeImpls metafacadeClasses = MetafacadeImpls.instance();
+                Class metafacadeInterface = metafacadeClasses
+                    .getMetafacadeClass(mapping.getMetafacadeClass().getName());
+                Class defaultMetafacadeInterface = metafacadeClasses
+                    .getMetafacadeClass(defaultMapping.getMetafacadeClass()
+                        .getName());
+                if (defaultMetafacadeInterface
+                    .isAssignableFrom(metafacadeInterface))
+                {
+                    mapping.addPropertyReferences(defaultPropertyReferences);
+                    // add the namespace property references back so 
+                    // that the default ones don't override the 
+                    // namespace specific ones.
+                    mapping.addPropertyReferences(propertyReferences);
+                }
             }
         }
 
         // if the namespace mappings weren't found, try the default
-        if (metafacadeClass == null)
+        if (mapping == null)
         {
             if (logger.isDebugEnabled())
                 logger.debug("namespace mapping not found --> finding default");
@@ -467,7 +494,8 @@ public class MetafacadeMappings
 
         if (logger.isDebugEnabled())
             logger.debug("found mapping --> '" + mapping
-                + "' with metafacadeClass --> '" + metafacadeClass + "'");
+                + "' with metafacadeClass --> '" + mapping.getMetafacadeClass()
+                + "'");
 
         return mapping;
     }
@@ -486,7 +514,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * Adds another MetafacadeMappings instance to the namespace meta facade
+     * Adds another MetafacadeMappings instance to the namespace metafacade
      * mappings of this instance.
      * 
      * @param namespace the namespace name to which the <code>mappings</code>
@@ -518,6 +546,8 @@ public class MetafacadeMappings
         {
             try
             {
+                // will store all namespaces (other than default)
+                Collection namespaces = new ArrayList();
                 for (int ctr = 0; ctr < uris.length; ctr++)
                 {
                     MetafacadeMappings mappings = MetafacadeMappings
@@ -535,7 +565,7 @@ public class MetafacadeMappings
 
                     if (Namespaces.DEFAULT.equals(namespace))
                     {
-                        // set the shared instance to the default mappings.
+                        // copy over any 'shared' mappings
                         this.copyMappings(mappings);
                     }
                     else
@@ -544,6 +574,7 @@ public class MetafacadeMappings
                         this.addNamespaceMappings(
                             mappings.getNamespace(),
                             mappings);
+                        namespaces.add(mappings.getNamespace());
                     }
                 }
             }

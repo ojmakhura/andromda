@@ -12,19 +12,12 @@
 		metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogicImpl">
 		<stereotype>PrimaryKey</stereotype>
-		<property reference="sqlMappingsUri"/>
-		<property reference="jdbcMappingsUri"/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl"
 		contextRoot="true">
 		<stereotype>Entity</stereotype>
-		<property reference="maxSqlNameLength"/>
-        <property reference="allowDefaultIdentifiers" default="true"/>
-        <property reference="defaultIdentifier" default="id"/>
-        <property reference="defaultIdentifierType" default="datatype.Long"/>
-	    <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="jndiNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
@@ -32,11 +25,6 @@
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl"
         contextRoot="true">
 		<stereotype>Entity</stereotype>
-		<property reference="maxSqlNameLength"/>
-        <property reference="allowDefaultIdentifiers" default="true"/>
-        <property reference="defaultIdentifier" default="id"/>
-        <property reference="defaultIdentifierType" default="datatype.Long"/>
-	    <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="jndiNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
@@ -44,14 +32,7 @@
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">
 		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
 		<property reference="foreignKeySuffix"/>
-	</metafacade>			
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
-		metafacadeClass="org.andromda.metafacades.uml14.EntityAttributeFacadeLogicImpl">
-		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
-		<property reference="sqlMappingsUri"/>
-		<property reference="jdbcMappingsUri"/>
-	</metafacade>		
+	</metafacade>				
 	<!-- Session EJB Metafacades -->
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"

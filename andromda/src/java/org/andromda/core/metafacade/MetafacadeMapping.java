@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeMapping
 {
-
     private static Logger logger = Logger.getLogger(MetafacadeMapping.class);
 
     /**
@@ -274,5 +273,4 @@ public class MetafacadeMapping
         return MetafacadeMappingsUtils.appendContext(super.toString(), this
             .getKey());
     }
-
 }
