@@ -10,7 +10,9 @@
         outlet="entity-beans"
         overwrite="true">
         <modelElements variable="entity">
-            <modelElement stereotype="Entity"/>    
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>    
         </modelElements>
     </template>
 
@@ -20,7 +22,9 @@
         outlet="entity-beans"
         overwrite="true">
         <modelElements variable="entity">
-            <modelElement stereotype="Entity"/>    
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>  
         </modelElements>
     </template>
 
@@ -30,7 +34,9 @@
         outlet="entity-beans"
         overwrite="true">
         <modelElements variable="entity">
-            <modelElement stereotype="Entity"/>    
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
     
@@ -40,7 +46,9 @@
         outlet="entity-impls"
         overwrite="false">
         <modelElements variable="entity">
-            <modelElement stereotype="Entity"/>  
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
         </modelElements>  
     </template>
     
@@ -58,7 +66,9 @@
         outlet="session-beans"
         overwrite="true">
         <modelElements variable="service">
-            <modelElement stereotype="Service"/>   
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
         </modelElements> 
     </template>
     
@@ -69,7 +79,9 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="service">        
-            <modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
         </modelElements>       
     </template>
 
@@ -80,7 +92,9 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="service">            
-            <modelElement stereotype="Service"/>  
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
         </modelElements> 
     </template>
 
@@ -91,7 +105,9 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="service">           
-            <modelElement stereotype="Service"/> 
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
         </modelElements>   
     </template>
 
@@ -102,7 +118,9 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="service">               
-            <modelElement stereotype="Service"/>  
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
         </modelElements>  
     </template>
 
@@ -112,7 +130,9 @@
         outlet="session-impls"
         overwrite="false">
         <modelElements variable="service">          
-            <modelElement stereotype="Service"/>   
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
         </modelElements> 
     </template>
     
