@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>Modeling for AndroMDA</h1>
+    <section name="Modeling for AndroMDA">
+
       <p class="std">
         AndroMDA is an automatic tool with a medium amount of intelligence
         built into it. Such a tool always has to rely upon some
@@ -169,7 +169,7 @@
         A small model, tagged with this kind of stereotypes,
         can be seen in this picture:
       </p>
-      <img src="images/CarRentalCustomers.gif" width="624" height="590" />
+      <img src="../images/CarRentalCustomers.gif" width="624" height="590" />
       <p class="std">
         <b>Rule 2: Primary keys of entity beans must be Strings!</b>
       </p>
@@ -212,7 +212,7 @@
         So, if you do not like what happens here, customize the templates
         to your needs. After all, AndroMDA is not a fixed, shrink-wrapped package!
       </p>
-    </freetext>
+    </section>
 
     <news name="Stereotype" href="http://www.cetus-links.org/oo_uml.html">
       <p>

@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>Recompiling the AndroMDA package</h1>
+    <section name="Recompiling the AndroMDA package">
+
       <p class="std">
         Recompiling AndroMDA from the source is quite easy. Unpack
         <code>andromda-src-*.zip</code> into a directory of your choice. Copy
@@ -29,7 +29,7 @@
         </a>
         instead of unzipping the released sources, then proceed as before.
       </p>
-    </freetext>
+    </section>
 
   </body>
 </document>

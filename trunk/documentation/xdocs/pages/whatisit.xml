@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>What is AndroMDA?</h1>
+    <section name="What is AndroMDA?">
+
       <p class="std">
         In short, AndroMDA is a code generator framework - it takes a Unified
         Modeling Language (UML) model from a CASE-tool in XMI format and
@@ -63,7 +63,7 @@
         You want to see what AndroMDA looks like?
         Proceed <a href="lookandfeel.html">here</a>.
       </p>
-    </freetext>
+    </section>
 
     <news name="What is XDoclet?" href="http://xdoclet.sourceforge.net">
       <p>

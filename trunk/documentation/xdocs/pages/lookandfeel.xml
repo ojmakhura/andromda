@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>The Look and Feel and How it Works</h1>
+    <section name="The Look and Feel and How it Works">
+
           <p class="std">
             AndroMDA for itself does not have a "look", the look begins when
             you start a CASE tool and draw the packages, classes,
@@ -35,7 +35,7 @@
             One class diagram from a UML model of this system might
             look like this:
           </p>
-          <img src="images/CarRentalCustomers.gif" width="624" height="590" />
+          <img src="../images/CarRentalCustomers.gif" width="624" height="590" />
           <p class="std">
             Save the model to an XMI-formatted file. Some CASE tools will
             call this an "export", others will not, as it is their native
@@ -184,7 +184,7 @@
                andromda-user
             </a>mailing list.
           </p>
-    </freetext>
+    </section>
 
     <news name="XMI" href="http://www.omg.org/technology/documents/formal/xmi.htm">
       <p>
