@@ -228,24 +228,33 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetVisibility()
     {
-        StringBuffer visibility = new StringBuffer();
-        VisibilityKind visibilityKind = metaObject.getVisibility();
+        String visibility = null;
 
-        if (visibilityKind == null)
+        final VisibilityKind visibilityKind = metaObject.getVisibility();
+        if (visibilityKind == null || VisibilityKindEnum.VK_PRIVATE.equals(visibilityKind))
         {
-            visibilityKind = VisibilityKindEnum.VK_PRIVATE;
+            visibility = "private";
+        }
+        else if (VisibilityKindEnum.VK_PROTECTED.equals(visibilityKind))
+        {
+            visibility = "protected";
+        }
+        else if (VisibilityKindEnum.VK_PUBLIC.equals(visibilityKind))
+        {
+            visibility = "public";
+        }
+        else // VisibilityKindEnum.VK_PACKAGE
+        {
+            visibility = "package";
         }
 
-        String visibilityString = visibilityKind.toString();
-        visibility.append(visibilityString.substring(3, visibilityString
-            .length()));
-        if (this.getLanguageMappings() != null)
+        final Mappings languageMappings = this.getLanguageMappings();
+        if (languageMappings != null)
         {
-            visibility = new StringBuffer(this.getLanguageMappings().getTo(
-                visibility.toString()));
+            visibility = languageMappings.getTo(visibility);
         }
 
-        return visibility.toString();
+        return visibility;
     }
 
     /**
