@@ -220,7 +220,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                                 Simply add the <code>@andromda.struts.view.field.type=multibox</code> tagged value to
                                 the action parameter. An additional tagged value must be set:
                                 <code>@andromda.struts.view.field.multibox</code>, the value must match a variable
-                                which holds a list or array of booleans.
+                                which holds a collection or array.
                             </p>
                             <p class="highlight">
                                 Using this tagged value only makes sense when used in a table, go
