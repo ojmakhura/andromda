@@ -177,7 +177,7 @@ public class MetafacadeMappings
         final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
 
-        String metaobjectClassName = mapping.getMetaobjectClassName();
+        String metaobjectClassName = mapping.getMappingClassName();
         ExceptionUtils.checkEmpty(
             methodName,
             "mapping.metaobjectClassName",
@@ -188,7 +188,7 @@ public class MetafacadeMappings
         mapping.setMetafacadeMappings(this);
 
         String key = mapping.getKey();
-        if (mapping.hasStereotype())
+        if (mapping.hasStereotypes())
         {
             // If the mapping has a stereotype we just add it directly to the
             // mappings Map of this MetafacadeMappings instance.

@@ -1,5 +1,7 @@
 package org.andromda.core.metafacade;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,48 +17,12 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MetafacadeMapping
 {
+
     /**
      * The meta facade for which this mapping applies.
      */
     private Class metafacadeClass = null;
-
-    /**
-     * The meta model class to for which this mapping applies. The
-     * <code>stereotypes</code> and this variable make up the identifying key
-     * for this mappping.
-     */
-    private String metaobjectClassName = null;
-
-    /**
-     * Whether or not this mapping represents a <code>contextRoot</code>.
-     */
-    private boolean contextRoot = false;
-
-    /**
-     * The stereotype to which this mapping applies.
-     */
-    private String stereotype = null;
-
-    /**
-     * Used to hold references to language mapping classes.
-     */
-    private Map propertyReferences = new HashMap();
-
-    /**
-     * The parent mappings instance that owns this mapping.
-     */
-    private MetafacadeMappings mappings;
-
-    /**
-     * The key used to uniquely identify this mapping.
-     */
-    private String key;
-
-    /**
-     * The context to which this mapping applies.
-     */
-    private String context;
-
+    
     /**
      * Gets the metafacadeClass for this mapping.
      * 
@@ -85,28 +51,35 @@ public class MetafacadeMapping
             throw new MetafacadeMappingsException(errMsg, th);
         }
     }
+    
+    /**
+     * The mapping class for which this mapping applies. The
+     * <code>stereotypes</code> and this variable make up the identifying key
+     * for this mappping.
+     */
+    private String mappingClassName = null;
 
     /**
      * Gets the name of the metaobject class used for this mapping.
      * 
-     * @return Returns the metaobjectClass.
+     * @return Returns the mappingClassName.
      */
-    protected String getMetaobjectClassName()
+    protected String getMappingClassName()
     {
-        return this.metaobjectClassName;
+        return this.mappingClassName;
     }
 
     /**
      * The name of the metaobject class to use for this mapping.
      * 
-     * @param metaobjectClassName The metaobjectClassName to set.
+     * @param mappingClassName The mappingClassName to set.
      */
-    public void setMetaobjectClassName(String metaobjectClassName)
+    public void setMappingClassName(String mappingClassName)
     {
         try
         {
-            this.metaobjectClassName = StringUtils
-                .trimToEmpty(metaobjectClassName);
+            this.mappingClassName = StringUtils
+                .trimToEmpty(mappingClassName);
         }
         catch (Throwable th)
         {
@@ -115,6 +88,11 @@ public class MetafacadeMapping
         }
     }
 
+    /**
+     * Whether or not this mapping represents a <code>contextRoot</code>.
+     */
+    private boolean contextRoot = false;
+    
     /**
      * <p>
      * Gets whether or not this mapping represents a <code>contextRoot</code>,
@@ -142,14 +120,14 @@ public class MetafacadeMapping
     }
 
     /**
-     * Returns <code>true</code> if this mapping has a stereotype defined,
+     * Returns <code>true</code> if this mapping has any stereotypes defined,
      * <code>false</code> otherwise.
      * 
      * @return true/false
      */
-    boolean hasStereotype()
+    boolean hasStereotypes()
     {
-        return StringUtils.isNotEmpty(this.stereotype);
+        return !this.stereotypes.isEmpty();
     }
 
     /**
@@ -162,6 +140,12 @@ public class MetafacadeMapping
     {
         return StringUtils.isNotEmpty(this.context);
     }
+    
+    /**
+     * The stereotypes to which this mapping applies (all stereotypes must
+     * be present for this mapping to apply).
+     */
+    private final Collection stereotypes = new ArrayList();
 
     /**
      * Adds a <code>stereotype</code> to the stereotypes for which the
@@ -169,19 +153,25 @@ public class MetafacadeMapping
      * 
      * @param stereotype
      */
-    public void setStereotype(String stereotype)
+    public void addStereotype(String stereotype)
     {
-        this.stereotype = StringUtils.trimToEmpty(Profile.instance().get(
+        this.stereotypes.add(Profile.instance().get(
             stereotype));
     }
+    
+    /**
+     * Used to hold references to language mapping classes.
+     */
+    private final Map propertyReferences = new HashMap();
 
     /**
-     * Adds a mapping reference. This are used to populate metafacade impl
-     * classes with mapping files, etc. If its added here as opposed to each
-     * child MetafacadeMapping, then the reference will apply to all mappings.
+     * Adds a mapping property reference. These are used to populate metafacade impl
+     * classes with mapping files, etc. The property reference applies to the given 
+     * mapping.
      * 
      * @param reference the name of the reference.
      * @param defaultValue the default value of the property reference.
+     * @see (MetafacadeMappings#
      */
     public void addPropertyReference(String reference, String defaultValue)
     {
@@ -194,6 +184,35 @@ public class MetafacadeMapping
     public Map getPropertyReferences()
     {
         return this.propertyReferences;
+    }
+    
+    /**
+     * Used to hold the properties that should apply
+     * to the mapping element.
+     */
+    private final Map mappingProperties = new HashMap();
+
+    /**
+     * Adds a mapping property. This are used to narrow the metafacade
+     * to which the mapping can apply.  The properties must exist
+     * and must evaluate to the specified value if given for the 
+     * mapping to match.
+     * 
+     * @param reference the name of the reference.
+     * @param defaultValue the default value of the property reference.
+     */
+    public void addMappingProperty(String name, String value)
+    {
+        System.out.println("adding mapping property: " + name + " with value '" + value + "'");
+        this.mappingProperties.put(name, value);
+    }
+
+    /**
+     * Returns all mapping properties for this MetafacadeMapping instance.
+     */
+    public Map getMappingProperties()
+    {
+        return this.mappingProperties;
     }
 
     /**
@@ -209,6 +228,11 @@ public class MetafacadeMapping
             this.propertyReferences.putAll(propertyReferences);
         }
     }
+    
+    /**
+     * The parent mappings instance that owns this mapping.
+     */
+    private MetafacadeMappings mappings;
 
     /**
      * Sets the MetafacadeMappings to which this MetafacadeMapping belongs.
@@ -229,6 +253,11 @@ public class MetafacadeMapping
     {
         return this.mappings;
     }
+    
+    /**
+     * The key used to uniquely identify this mapping.
+     */
+    private String key;
 
     /**
      * Gets the unique key that identifies this mapping
@@ -237,19 +266,24 @@ public class MetafacadeMapping
     {
         if (StringUtils.isEmpty(this.key))
         {
-            if (this.hasStereotype())
+            if (this.hasStereotypes())
             {
                 key = MetafacadeMappingsUtils.constructKey(
-                    this.metaobjectClassName,
-                    this.stereotype);
+                    this.mappingClassName,
+                    this.stereotypes);
             }
             else
             {
-                key = this.metaobjectClassName;
+                key = this.mappingClassName;
             }
         }
         return key;
     }
+    
+    /**
+     * The context to which this mapping applies.
+     */
+    private String context;
 
     /**
      * Sets the context to which this mapping applies.
@@ -278,7 +312,7 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return MetafacadeMappingsUtils.appendContext(super.toString(), this
+        return MetafacadeMappingsUtils.constructKey(super.toString(), this
             .getKey())
             + ":" + this.getMetafacadeClass();
     }
