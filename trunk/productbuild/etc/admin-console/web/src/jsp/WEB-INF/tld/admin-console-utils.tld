@@ -17,7 +17,6 @@
                 getInsertJsp(
                     org.andromda.adminconsole.config.AdminConsoleConfigurator,
                     org.andromda.adminconsole.db.Column,
-                    java.lang.String,
                     org.andromda.adminconsole.db.RowData )
         </function-signature>
     </function>
@@ -30,8 +29,8 @@
                 getUpdateJsp(
                     org.andromda.adminconsole.config.AdminConsoleConfigurator,
                     org.andromda.adminconsole.db.Column,
-                    java.lang.String,
-                    org.andromda.adminconsole.db.RowData )
+                    org.andromda.adminconsole.db.RowData,
+                    java.lang.Integer )
         </function-signature>
     </function>
 
