@@ -53,19 +53,25 @@
 #renderFormField($action $field "            ")
 #end
 #end
-
+            <table>
 #foreach ($field in $actionParameters)
 #if ($field.widgetType != "hidden")
-            <p>
-                <bean:message key="${messageKey}.$field.messageKey"/> &nbsp;&nbsp;
-#renderFormField($action $field "                ")
-            </p>
+                <tr>
+                    <td>
+                        <bean:message key="${messageKey}.$field.messageKey"/>
+                    </td>
+                    <td>
+#renderFormField($action $field "                        ")
+                    </td>
+                </tr>
 #end
 #end
-            <p class="spacer"/>
-            <p>
-#renderFormButtons($action "                    ")
-            </p>
+                <tr>
+                    <td>
+#renderFormButtons($action "                        ")
+                    </td>
+                </tr>
+            </table>
         </html:form>
 #end
     </div>
