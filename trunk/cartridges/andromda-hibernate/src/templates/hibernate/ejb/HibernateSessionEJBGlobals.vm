@@ -1,4 +1,3 @@
-#parse("templates/hibernate/HibernateGlobals.vm")
 #set ($ejbRemoteView = $ejbViewType.equalsIgnoreCase('remote'))
 #set ($ejbInterface = "javax.ejb.EJBLocalObject")
 #set ($ejbHomeInterface = "javax.ejb.EJBLocalHome")

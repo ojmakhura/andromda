@@ -90,18 +90,6 @@
             </modelElement>
 		</modelElements>
 	</template>
-	
-    <template
-        path="templates/hibernate/HibernateEntityFactory.vsl"
-        outputPattern="{0}/{1}Factory.java"
-        outlet="entities"
-        overwrite="true">
-        <modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
 
 	<template 
 		path="templates/hibernate/hibernate.hbm.xml.vsl" 
@@ -131,13 +119,6 @@
 
     <template
         path="templates/hibernate/HibernateByteBlobType.vsl"
-        outputPattern="$generatedFile"
-        outlet="entities"
-        overwrite="true"
-        required="false"/>
-
-    <template
-        path="templates/hibernate/HibernateUtils.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
         overwrite="true"
@@ -253,6 +234,26 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/hibernate/ejb/HibernateUtils.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true"
+        required="false"/>
+        
+    <template
+        path="templates/hibernate/ejb/HibernateEntityFactory.vsl"
+        outputPattern="{0}/{1}Factory.java"
+        outlet="session-beans"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
