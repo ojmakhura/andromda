@@ -72,7 +72,7 @@
         <welcome-file>index.jws</welcome-file>
         <!-- welcome-file merge-point -->
     </welcome-file-list>
-#parse("templates/webservice/axis/AxisGlobals.vm")    
+#parse("templates/webservice/axis/AxisGlobals.vm")
 #if ($securityEnabled)
 #foreach ($service in $services)
 #if ($service.secured)
