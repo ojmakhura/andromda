@@ -18,8 +18,8 @@
 	            the hibernate SessionFactory object.
 	            </p>
 	            <p class="std">Currently, the cartridge architecture creates one Session object from the SessionFactory object for each method that is called at 
-	            the EJB?s Services. This means that cache will be only used if one method is accessing the same object in the same method call. 
-	            This can be improved activating the second level cache features that Hibernate Provides.
+	            the EJB's Services. This means that cache will be only used if one method is accessing the same object in the same method call. 
+	            This can be improved activating the second level cache features that Hibernate provides.
 	            </p>
 	            <p class="std">
 	            To achieve this task, the cartridge includes support for generating the Hibernate descriptor files will all the possible cache settings included in hibernate specification.
@@ -31,7 +31,7 @@
 			</subsection>
 			<subsection name="EHCache">
             <p class="std">
-            Currently Andromda fully supports EhCache to provide the second level cache features to the cartridge. When enabled, the cartridge will create caches on queries, the hibernate descriptor files,
+            Currently Andromda fully supports <a href="http://ehcache.sourceforge.net">EhCache</a> to provide the second level cache features to the cartridge. When enabled, the cartridge will create caches on queries, the hibernate descriptor files,
              and the <code>EhCache.xml</code> file with the specific configuration.
             </p>
         </subsection>
@@ -102,7 +102,7 @@
                 </ul>
                 Tagged value:
                 <ul>
-                    <li><a href="modeling.html# @andromda.hibernate.association.cache">@andromda.hibernate.association.cache</a></li>
+                    <li><a href="modeling.html#@andromda.hibernate.association.cache">@andromda.hibernate.association.cache</a></li>
                 </ul>
             </p>            
             </subsection>
