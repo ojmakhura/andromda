@@ -19,10 +19,10 @@ public class ${class.name}BeanImpl
 #set ($msig = $transform.getOperationSignature($op))
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    $op.visibility $returntype ${msig}
+    protected $returntype handle${str.upperCaseFirstLetter(${msig})}
         throws $defaultException.name {
 #else
-    $op.visibility $returntype ${msig} {
+    protected $returntype handle${str.upperCaseFirstLetter(${msig})} {
 #end
         // TODO: put your implementation here.
 #if ("void" != $returntype)

@@ -1,14 +1,16 @@
 #set ($packagename = $transform.findPackageName($class.package))
 package $packagename;
 
-import javax.rmi.PortableRemoteObject;
-import java.rmi.RemoteException;
-import javax.naming.NamingException;
-import javax.naming.InitialContext;
+import java.sql.SQLException;
 
-import cirrus.hibernate.SessionFactory;
+import javax.ejb.EJBException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.rmi.PortableRemoteObject;
+
+import cirrus.hibernate.HibernateException;
 import cirrus.hibernate.Session;
-import cirrus.hibernate.LockMode;
+import cirrus.hibernate.SessionFactory;
 
 #macro ( generateDocumentation $item $indent)
 #foreach ( $tgv in $item.taggedValues )
@@ -105,10 +107,10 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 #set ($msig = $transform.getOperationSignature($op))
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    $op.visibility abstract $returntype handle${str.upperCaseFirstLetter(${msig})}
+    protected abstract $returntype handle${str.upperCaseFirstLetter(${msig})}
         throws $defaultException.name;
 #else
-    $op.visibility abstract $returntype handle${str.upperCaseFirstLetter(${msig})};
+    protected abstract $returntype handle${str.upperCaseFirstLetter(${msig})};
 #end
 
    /**
@@ -142,13 +144,32 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
            throw e;
         }
 #end
+        catch (SQLException se)
+        {
+            throw new EJBException("${class.name}Bean.${op.name}: " + se.getMessage());
+        }
+        catch (NamingException ne)
+        {
+            throw new EJBException("${class.name}Bean.${op.name}: " + ne.getMessage());
+        }
         finally
         {
-           if (sess != null)
-           {
-               sess.flush();
-               sess.close();
-           }
+            if (sess != null)
+            {
+                try
+                {
+                    sess.flush();
+                    sess.close();
+                }
+                catch (HibernateException he)
+                {
+                    throw new EJBException("${class.name}Bean.${op.name}: " + he.getMessage());
+                }
+                catch (SQLException sse)
+                {
+                    throw new EJBException("${class.name}Bean.${op.name}: " + sse.getMessage());
+                }
+            }
         }
     }
 #end
