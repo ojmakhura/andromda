@@ -248,10 +248,6 @@ public class $formBeanClassName
         buffer.append(String.valueOf(this.${field.getterName}()));
 #end
 #set ($separator = ',')
-#if ($field.backingListPresent)
-        buffer.append("${separator}${field.backingListName}=");
-        buffer.append(toString(this.get${backingListMethod}()));
-#end
 #end
 
         return buffer.append("]").toString();
@@ -295,9 +291,6 @@ public class $formBeanClassName
 #end
 #else
         this.$field.name = null;
-#end
-#if ($field.backingListPresent)
-        this.$field.backingListName = null;
 #end
 #end
     }
