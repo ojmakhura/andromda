@@ -30,6 +30,11 @@ public class ExceptionRecorder
     
     /** File header constant */
     static final String FILE_HEADER = "------- AndroMDA Exception Recording -------";
+    
+    /** Run line system constant */
+    static final String RUN_SYSTEM = "Run system .....: ";
+    /** Run line jdk constant */
+    static final String RUN_JDK = "Run jdk ........: ";
 
     /** The exceptions directory name:exceptions. */
     private static String exceptionDirectoryName = ".";
@@ -123,6 +128,17 @@ public class ExceptionRecorder
             writer.println("Build system ...: " + BuildInformation.getBUILD_SYSTEM());
             writer.println("Build jdk ......: " + BuildInformation.getBUILD_JDK());
             writer.println("Build builder ..: " + BuildInformation.getBUILD_BUILDER());
+            // Place in try/catch in case system is protected.
+            try
+            {
+                writer.println(RUN_SYSTEM + System.getProperty( "os.name") + System.getProperty( "os.version"));
+                writer.println(RUN_JDK + System.getProperty( "java.vm.vendor") + System.getProperty( "java.vm.version"));
+            } catch (Exception e)
+            {
+                // ignore
+                writer.println(RUN_SYSTEM + "Not available");
+                writer.println(RUN_JDK + "Not available");
+            }
             writer.println("Main Exception .: " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);
             if (cause == null)
