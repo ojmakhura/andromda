@@ -1,256 +1,252 @@
 <project name="andromda" default="build">
 
-	<!-- This script compiles and jars the AndroMDA code generator. -->
+    <!-- This script compiles and jars the AndroMDA code generator. -->
 
-	<!-- Load user environment parameters -->
-	<!-- This should define build classpath -->
-	<property file="build.properties" />
+    <!-- Load user environment parameters -->
+    <!-- This should define build classpath -->
+    <property file="build.properties" />
 
-	<property name="version" value="2.0.1" />
-	<property name="version.suffix" value="201alpha" />
+    <!-- ============================================================= -->
+    <!--                      Define the directory layout              -->
+    <!-- ============================================================= -->
 
+    <!-- Source directories -->
+    <property name="src.dir" value="src/" />
+    <property name="java.src.dir" value="${src.dir}/java/" />
+    <property name="template.src.dir" value="${src.dir}/templates/" />
+    <property name="license.src.dir" value="./" />
+    <property name="test.src.dir" value="${src.dir}/test/" />
 
-	<!-- ============================================================= -->
-	<!--                      Define the directory layout              -->
-	<!-- ============================================================= -->
+    <!-- Build directories -->
+    <property name="build.dir" value="build/" />
+    <property name="build.classes.dir" value="${build.dir}classes/" />
+    <property name="build.doc.dir" value="${build.dir}doc/" />
+    <property name="build.jar.dir" value="${build.dir}" />
+    <property name="build.test.dir" value="${build.dir}test/" />
+    <property name="build.test.classes.dir" value="${build.test.dir}classes/" />
+    <property name="build.test.reports.dir" value="${build.test.dir}reports/" />
 
-	<!-- Source directories -->
-	<property name="src.dir" value="src/" />
-	<property name="java.src.dir" value="${src.dir}/java/" />
-	<property name="template.src.dir" value="${src.dir}/templates/" />
-	<property name="license.src.dir" value="./" />
-	<property name="test.src.dir" value="${src.dir}/test/" />
-
-	<!-- Build directories -->
-	<property name="build.dir" value="build/" />
-	<property name="build.classes.dir" value="${build.dir}classes/" />
-	<property name="build.doc.dir" value="${build.dir}doc/" />
-	<property name="build.jar.dir" value="${build.dir}" />
-	<property name="build.test.dir" value="${build.dir}test/" />
-	<property name="build.test.classes.dir" value="${build.test.dir}classes/" />
-	<property name="build.test.reports.dir" value="${build.test.dir}reports/" />
-
-	<!-- Distribution directories -->
-	<property name="dist.dir" value="dist/" />
-	<property name="dist.stage.dir" value="${dist.dir}predist/" />
+    <!-- Distribution directories -->
+    <property name="dist.dir" value="dist/" />
+    <property name="dist.stage.dir" value="${dist.dir}predist/" />
 
 
-	<path id="build.class.path">
-		<pathelement location="${build.classes.dir}" />
-		<pathelement path="${build.classpath}"/>
-	</path>
+    <path id="build.class.path">
+        <pathelement location="${build.classes.dir}" />
+        <pathelement path="${build.classpath}"/>
+    </path>
 
-	<path id="test.class.path">
-		<pathelement location="${build.test.classes.dir}" />
-		<path refid="build.class.path"/>
-	</path>
+    <path id="test.class.path">
+        <pathelement location="${build.test.classes.dir}" />
+        <path refid="build.class.path"/>
+    </path>
 
-	<path id="src.path.list">
-		<pathelement location="${java.src.dir}"/>
-	</path>
+    <path id="src.path.list">
+        <pathelement location="${java.src.dir}"/>
+    </path>
 
-	<path id="test.path.list">
-		<pathelement location="${test.src.dir}"/>
-	</path>
-
-
-	<!-- ============================================================= -->
-	<!--                       Highlevel user tasks                    -->
-	<!-- ============================================================= -->
-
-	<target name="build" depends="jar,javadoc"
-	        description="Builds the andromda jar plus accompanying javadoc" />
-
-	<target name="clean" description="Delete all built files">
-		<delete includeEmptyDirs="true" quiet="true">
-			<fileset dir="${build.dir}"/>
-			<fileset dir="${dist.dir}"/>
-		</delete>
-	</target>
-
-	<!--
-		 Clean up everything, so the distribution has a clear start.
-		 Compile all Java classes, make JAR file and ZIP everything
-		 to make a distribution unit.
-		 This is mostly intended to be run from a CVS checkout and
-		 let Matthias make a new release.
-	-->
-
-	<target name="dist" depends="clean,build"
-	        description="Deletes old built files and prepares a staging structure for the distribution zip">
-		<!-- create the distribution directory structure -->
-		<mkdir dir="${dist.dir}"/>
-		<mkdir dir="${dist.stage.dir}"/>
-		<mkdir dir="${dist.stage.dir}doc/"/>
-		<mkdir dir="${dist.stage.dir}doc/javadoc/"/>
-		<mkdir dir="${dist.stage.dir}lib/"/>
-		<mkdir dir="${dist.stage.dir}src"/>
-
-		<!-- copy everything into the stage dir -->
-		<copy todir="${dist.stage.dir}">
-			<fileset dir="." includes="build.xml"/>
-			<fileset dir="." includes="build.properties.sample"/>
-			<fileset dir="${build.jar.dir}" includes="andromda.jar"/>
-			<fileset dir="${license.src.dir}" includes="LICENSE"/>
-		</copy>
-
-		<copy todir="${dist.stage.dir}src/">
-			<fileset dir="${src.dir}">
-				<exclude name="sample/**" />
-				<exclude name="xdocs/**" />
-				<!-- do not include GPL'ed software because our license is BSD! -->
-				<exclude name="bin/java2html.jar" />
-			</fileset>
-		</copy>
-
-		<copy todir="${dist.stage.dir}doc/javadoc">
-			<fileset dir="${build.doc.dir}javadoc">
-			</fileset>
-		</copy>
-
-		<!-- do not zip from source tree, but ... -->
-		<!-- keep dist.stage.dir an exact copy of the two zips -->
-		<copy todir="${dist.stage.dir}lib/">
-			<fileset dir="lib" includes="*"/>
-		</copy>
-
-		<!-- zip everything into the release archives -->
-		<zip zipfile="${dist.dir}andromda_${version.suffix}.zip">
-			<fileset dir="${dist.stage.dir}">
-				<exclude name="lib/**" />
-			</fileset>
-		</zip>
-		<zip zipfile="${dist.dir}andromda_libs_${version.suffix}.zip">
-			<fileset dir="${dist.stage.dir}" includes="lib/*" />
-		</zip>
-	</target>
+    <path id="test.path.list">
+        <pathelement location="${test.src.dir}"/>
+    </path>
 
 
-	<!-- ============================================================= -->
-	<!--                       Internal subtasks                       -->
-	<!-- ============================================================= -->
+    <!-- ============================================================= -->
+    <!--                       Highlevel user tasks                    -->
+    <!-- ============================================================= -->
 
-	<target name="compile" depends="init">
-		<property name="classpath" refid="build.class.path"/>
-		<echo message=" path=${classpath}"/>
-		<javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
-			<src refid="src.path.list"/>
-			<classpath refid="build.class.path"/>
-		</javac>
-	</target>
+    <target name="build" depends="jar,javadoc"
+            description="Builds the andromda jar plus accompanying javadoc" />
+
+    <target name="clean" description="Delete all built files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${build.dir}"/>
+            <fileset dir="${dist.dir}"/>
+        </delete>
+    </target>
+
+    <!--
+         Clean up everything, so the distribution has a clear start.
+         Compile all Java classes, make JAR file and ZIP everything
+         to make a distribution unit.
+         This is mostly intended to be run from a CVS checkout and
+         let Matthias make a new release.
+    -->
+
+    <target name="dist" depends="clean,build"
+            description="Deletes old built files and prepares a staging structure for the distribution zip">
+        <!-- create the distribution directory structure -->
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.stage.dir}"/>
+        <mkdir dir="${dist.stage.dir}doc/"/>
+        <mkdir dir="${dist.stage.dir}doc/javadoc/"/>
+        <mkdir dir="${dist.stage.dir}lib/"/>
+        <mkdir dir="${dist.stage.dir}src"/>
+
+        <!-- copy everything into the stage dir -->
+        <copy todir="${dist.stage.dir}">
+            <fileset dir="." includes="build.xml"/>
+            <fileset dir="." includes="build.properties.sample"/>
+            <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
+            <fileset dir="${license.src.dir}" includes="LICENSE"/>
+        </copy>
+
+        <copy todir="${dist.stage.dir}src/">
+            <fileset dir="${src.dir}">
+                <exclude name="sample/**" />
+                <exclude name="xdocs/**" />
+                <!-- do not include GPL'ed software because our license is BSD! -->
+                <exclude name="bin/java2html.jar" />
+            </fileset>
+        </copy>
+
+        <copy todir="${dist.stage.dir}doc/javadoc">
+            <fileset dir="${build.doc.dir}javadoc">
+            </fileset>
+        </copy>
+
+        <!-- do not zip from source tree, but ... -->
+        <!-- keep dist.stage.dir an exact copy of the two zips -->
+        <copy todir="${dist.stage.dir}lib/">
+            <fileset dir="lib" includes="*"/>
+        </copy>
+
+        <!-- zip everything into the release archives -->
+        <zip zipfile="${dist.dir}andromda-core.zip">
+            <zipfileset dir="${dist.stage.dir}" prefix="andromda-core">
+                <exclude name="lib/**" />
+            </zipfileset>
+        </zip>
+        <zip zipfile="${dist.dir}andromda-libs.zip">
+            <zipfileset dir="${dist.stage.dir}" includes="lib/*" prefix="andromda-core" />
+        </zip>
+    </target>
 
 
-	<target name="jar" depends="compile">
-		<jar jarfile="${build.jar.dir}andromda.jar">
-			<fileset dir="${build.classes.dir}" includes="**/*.class" />
-		</jar>
-	</target>
+    <!-- ============================================================= -->
+    <!--                       Internal subtasks                       -->
+    <!-- ============================================================= -->
+
+    <target name="compile" depends="init">
+        <property name="classpath" refid="build.class.path"/>
+        <echo message=" path=${classpath}"/>
+        <javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
+            <src refid="src.path.list"/>
+            <classpath refid="build.class.path"/>
+        </javac>
+    </target>
 
 
-	<target name="javadoc" depends="compile">
-		<javadoc
-			destdir="${build.doc.dir}javadoc"
-			access="public" use="true" notree="false" nonavbar="false"
-			noindex="false" splitindex="true" author="true"
-			version="true" nodeprecatedlist="false" nodeprecated="false"
-			classpathref="build.class.path">
+    <target name="jar" depends="compile">
+        <jar jarfile="${build.jar.dir}andromda.jar">
+            <fileset dir="${build.classes.dir}" includes="**/*.class" />
+        </jar>
+    </target>
 
-			<fileset dir="${java.src.dir}"/>
 
-		</javadoc>
-	</target>
+    <target name="javadoc" depends="compile">
+        <javadoc
+            destdir="${build.doc.dir}javadoc"
+            access="public" use="true" notree="false" nonavbar="false"
+            noindex="false" splitindex="true" author="true"
+            version="true" nodeprecatedlist="false" nodeprecated="false"
+            classpathref="build.class.path">
 
-	<target name="test" depends="init,compile">
-		<mkdir dir="${build.test.classes.dir}"/>
-		<mkdir dir="${build.test.reports.dir}"/>
-		<javac debug="true" destdir="${build.test.classes.dir}" includes="**/*.java" includeAntRuntime="false">
-			<src refid="test.path.list"/>
-			<classpath refid="test.class.path"/>
-		</javac>
-		<junit printsummary="yes" haltonfailure="false">
-			<classpath>
-				<path refid="test.class.path"/>
-			</classpath>
+            <fileset dir="${java.src.dir}"/>
 
-			<formatter type="plain"/>
+        </javadoc>
+    </target>
 
-			<batchtest fork="yes" todir="${build.test.reports.dir}">
-				<fileset dir="${test.src.dir}">
-					<include name="**/*Test.java"/>
-				</fileset>
-			</batchtest>
-		</junit>
-	</target>
+    <target name="test" depends="init,compile">
+        <mkdir dir="${build.test.classes.dir}"/>
+        <mkdir dir="${build.test.reports.dir}"/>
+        <javac debug="true" destdir="${build.test.classes.dir}" includes="**/*.java" includeAntRuntime="false">
+            <src refid="test.path.list"/>
+            <classpath refid="test.class.path"/>
+        </javac>
+        <junit printsummary="yes" haltonfailure="false">
+            <classpath>
+                <path refid="test.class.path"/>
+            </classpath>
 
-	<target name="init" depends="check-environment">
-		<tstamp/>
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${build.classes.dir}"/>
-	</target>
+            <formatter type="plain"/>
 
-	<target name="check-environment">
-		<antcall target="check-buildclasspath"/>
+            <batchtest fork="yes" todir="${build.test.reports.dir}">
+                <fileset dir="${test.src.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
-		<available property="mdr.present"
-			   classname="org.netbeans.mdr.NBMDRepositoryImpl"
-			   classpathref="build.class.path"/>
-		<antcall target="wrong-mdr"/>
+    <target name="init" depends="check-environment">
+        <tstamp/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.classes.dir}"/>
+    </target>
 
-		<available property="velocity.present"
-			   classname="org.apache.velocity.context.Context"
-			   classpathref="build.class.path" />
-		<antcall target="wrong-velocity"/>
+    <target name="check-environment">
+        <antcall target="check-buildclasspath"/>
 
-		<available property="junit.present"
-			   classname="junit.framework.TestCase"
-			   classpathref="build.class.path" />
-		<antcall target="wrong-junit"/>
+        <available property="mdr.present"
+               classname="org.netbeans.mdr.NBMDRepositoryImpl"
+               classpathref="build.class.path"/>
+        <antcall target="wrong-mdr"/>
 
-		<available property="ant.present"
-			   classname="org.apache.tools.ant.Project"
-			   classpathref="build.class.path" />
-		<antcall target="wrong-ant"/>
+        <available property="velocity.present"
+               classname="org.apache.velocity.context.Context"
+               classpathref="build.class.path" />
+        <antcall target="wrong-velocity"/>
 
-	</target>
+        <available property="junit.present"
+               classname="junit.framework.TestCase"
+               classpathref="build.class.path" />
+        <antcall target="wrong-junit"/>
 
-	<target name="check-buildclasspath" unless="build.classpath">
-		<fail>
-			Property "build.classpath" is not set. Please use the file
-			"build.properties" in the directory ${basedir} to set
-			this property. It must list all external jars required
-			for the build to succeed.  "build.properties.sample"
-			provides an example on how to set it up.
-		</fail>
-	</target>
+        <available property="ant.present"
+               classname="org.apache.tools.ant.Project"
+               classpathref="build.class.path" />
+        <antcall target="wrong-ant"/>
 
-	<target name="wrong-velocity" unless="velocity.present">
-		<fail>
-			Property "build.classpath" is set but it doesn't seem
-			to contain the Velocity jar.
-		</fail>
-	</target>
+    </target>
 
-	<target name="wrong-mdr" unless="mdr.present">
-		<fail>
-			Property "build.classpath" is set but it doesn't seem
-			to contain the necessary MDR jars such as
-			mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
-			uml14.jar, openide-lookup.jar, openide-fs.jar
-		</fail>
-	</target>
+    <target name="check-buildclasspath" unless="build.classpath">
+        <fail>
+            Property "build.classpath" is not set. Please use the file
+            "build.properties" in the directory ${basedir} to set
+            this property. It must list all external jars required
+            for the build to succeed.  "build.properties.sample"
+            provides an example on how to set it up.
+        </fail>
+    </target>
 
-	<target name="wrong-junit" unless="junit.present">
-		<fail>
-			Property "build.classpath" is set but it doesn't seem
-			to contain the JUnit jar.
-		</fail>
-	</target>
+    <target name="wrong-velocity" unless="velocity.present">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the Velocity jar.
+        </fail>
+    </target>
 
-	<target name="wrong-ant" unless="ant.present">
-		<fail>
-			Property "build.classpath" is set but it doesn't seem
-			to contain the ant jar.
-		</fail>
-	</target>
+    <target name="wrong-mdr" unless="mdr.present">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the necessary MDR jars such as
+            mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
+            uml14.jar, openide-lookup.jar, openide-fs.jar
+        </fail>
+    </target>
+
+    <target name="wrong-junit" unless="junit.present">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the JUnit jar.
+        </fail>
+    </target>
+
+    <target name="wrong-ant" unless="ant.present">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the ant jar.
+        </fail>
+    </target>
 
 </project>

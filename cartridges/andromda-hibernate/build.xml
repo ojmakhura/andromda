@@ -40,12 +40,18 @@
             description="Builds the distribution structure">
       <copy todir="${dist.stage.dir}/" >
           <fileset dir="${build.dir}" includes="*.jar" />
+          <fileset dir="." includes="build.xml" />
+          <fileset dir="." includes=".classpath" />
+          <fileset dir="." includes=".project" />
       </copy>
       <copy todir="${dist.stage.dir}/lib" >
           <fileset dir="${lib.dir}" includes="**/*" />
       </copy>
+      <copy todir="${dist.stage.dir}/src" >
+          <fileset dir="${src.dir}" includes="**/*" />
+      </copy>
       <zip zipfile="${dist.dir}/andromda-hibernate.zip">
-          <fileset dir="${dist.stage.dir}" includes="**/*" />
+          <zipfileset dir="${dist.stage.dir}" includes="**/*" prefix="andromda-hibernate" />
       </zip>
     </target>
 
