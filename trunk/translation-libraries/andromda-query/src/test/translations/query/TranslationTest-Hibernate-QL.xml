@@ -121,5 +121,26 @@
             where legalAgreement.legalAgreementPk in (:legalAgreementPks)
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate) 
+            body findInvalidByPerson : 
+                allInstances() -> select( certificate | 
+                   certificate.person.id = personId 
+                   and (certificate.validityStart > date or certificate.validityEnd < date)
+                   or (certificate.validityStart = certificate.validityEnd)) 
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.contracts.MedicalCertificate as certificate 
+            where certificate.person.id = :personId 
+            and (certificate.validityStart > :date or certificate.validityEnd < :date)  
+            or (certificate.validityStart = certificate.validityEnd)        
+            ]]>          
+        </to> 
+    </expression>
 
 </translation-test>
