@@ -4,7 +4,7 @@
   		     Run the translation tests                                                    
   		 ================================================================== -->
   	<postGoal name="test:test">  		
-       <!-- <attainGoal name="androdev:test-translation"/> -->
+        <attainGoal name="androdev:test-translation"/>
   	</postGoal> 
   	  	
 </project>
