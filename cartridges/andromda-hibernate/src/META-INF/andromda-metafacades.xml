@@ -30,17 +30,18 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
         <property reference="hibernateAssociationEndOuterJoin" default="auto"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context> 
             <stereotype>FINDER_METHOD</stereotype>
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>

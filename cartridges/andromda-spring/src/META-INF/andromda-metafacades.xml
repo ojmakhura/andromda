@@ -4,6 +4,7 @@
 <metafacades namespace="spring">
     <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>   
             <stereotype>FINDER_METHOD</stereotype>              
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>

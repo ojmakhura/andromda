@@ -5,5 +5,5 @@ package org.andromda.core.metafacade;
  * 
  * @author Chad Brandon
  */
-public class Metafacade1
+public interface Metafacade1
 {}
