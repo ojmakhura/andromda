@@ -2,7 +2,7 @@
  * Attention: Generated source! Do not modify by hand!
  */
 package $entity.packageName;
-#set ($thisInheritance = $entity.inheritanceStrategy)
+#set ($thisInheritance = $entity.hibernateInheritanceStrategy)
 #set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
 
 /**
@@ -15,7 +15,7 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedName
  */
 public abstract class ${entity.name}Factory {
-#if (($generateImpl && ( !$entity.abstract && !$entity.hibInheritanceInterface)) )
+#if (($generateImpl && ( !$entity.abstract && !$entity.hibernateInheritanceInterface)) )
    // ---------------- create method --------------------
 
    /**

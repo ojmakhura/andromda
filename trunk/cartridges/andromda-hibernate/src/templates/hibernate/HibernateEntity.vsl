@@ -20,23 +20,23 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  *
 #if($generalization)
-#if($generalization.hibInheritanceClass)
+#if($generalization.hibernateInheritanceClass)
  * @hibernate.subclass
  *    discriminator-value="$entity.name"
-#elseif ($generalization.hibInheritanceSubclass)
+#elseif ($generalization.hibernateInheritanceSubclass)
  * @hibernate.joined-subclass
  *     table="$entity.tableName"
  * @hibernate.joined-subclass-key
  *     column="$entity.identifierColumn"
  *    
-#elseif ($generalization.hibInheritanceConcrete)
+#elseif ($generalization.hibernateInheritanceConcrete)
  * @hibernate.class
  *     table="$entity.tableName"
  *
-#elseif ($generalization.hibInheritanceInterface)
+#elseif ($generalization.hibernateInheritanceInterface)
  * @hibernate.class
  *    table="$entity.tableName"
-#if ( $entity.hibInheritanceClass )
+#if ( $entity.hibernateInheritanceClass )
  * @hibernate.discriminator
  *     column="class"
  *     discriminator-value="$entity.name"
@@ -45,14 +45,14 @@ $entity.getDocumentation(" * ")
 #end
 #else
 ## No generalization, we are root
-#if ($entity.hibInheritanceInterface )
+#if ($entity.hibernateInheritanceInterface )
  *
  * No hibernate persistance, inheritance = interface
  *
 #else
  * @hibernate.class
  *     table="$entity.tableName"
-#if($entity.hibInheritanceClass)
+#if($entity.hibernateInheritanceClass)
  * @hibernate.discriminator
  *     column="class"
  *     discriminator-value="$entity.name"
@@ -74,10 +74,10 @@ $entity.getDocumentation(" * ")
 ## the entity has specializations.
 #set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
  */
-#if (!$entity.hibInheritanceInterface)
+#if (!$entity.hibernateInheritanceInterface)
 public abstract class $entity.name
 #if($generalization)
-#if($generalization.hibInheritanceInterface )
+#if($generalization.hibernateInheritanceInterface )
  	implements ${generalization.fullyQualifiedName}
 #else
 ## If leafImpl we always extend the superclass not the Impl.
@@ -91,7 +91,7 @@ public abstract class $entity.name
 {
 
 #if ( $generalization)
-#if ( $generalization.hibInheritanceInterface)
+#if ( $generalization.hibernateInheritanceInterface)
     // --------------- super attributes ---------------------
 #foreach ( $attribute in $generalization.attributes )
     private $attribute.type.fullyQualifiedName $attribute.name;

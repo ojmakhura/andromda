@@ -7,15 +7,15 @@ package $entity.packageName;
 /**
 #set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
 #if ( $generateImpl )
-#if ($entity.hibInheritanceClass)
+#if ($entity.hibernateInheritanceClass)
  * @hibernate.subclass
  *    discriminator-value="${entity.name}Impl"
-#elseif ($entity.hibInheritanceSubclass)
+#elseif ($entity.hibernateInheritanceSubclass)
  * @hibernate.joined-subclass
  *     table="$entity.tableName"
  * @hibernate.joined-subclass-key
  *     column="$entity.identifierColumn"
-#elseif ($entity.hibInheritanceInterface)
+#elseif ($entity.hibernateInheritanceInterface)
  * @deprecated by subclass=interface.
 #else
  * @hibernate.class
@@ -30,7 +30,7 @@ public abstract class ${entity.name}Impl
 #else
 public class ${entity.name}Impl
 #end
-#if ($entity.hibInheritanceInterface )
+#if ($entity.hibernateInheritanceInterface )
     implements ${entity.name}
 #else
     extends ${entity.name}
