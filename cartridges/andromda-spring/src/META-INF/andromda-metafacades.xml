@@ -5,14 +5,14 @@
     <property reference="daoNamePattern" default="{0}Dao"/>
     <property reference="daoBaseNamePattern" default="{0}DaoBase"/>
     <property reference="daoImplementationNamePattern" default="{0}DaoImpl"/>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
             <stereotype>FINDER_METHOD</stereotype>
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
             <property name="query"/>
@@ -79,20 +79,5 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
     </metafacade>
 </metafacades>

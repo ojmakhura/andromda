@@ -190,17 +190,17 @@
                     </tr>
                     <tr>
                         <a name="@andromda.hibernate.query"/>
-                          <td>
-                              @andromda.hibernate.query
-                          </td>
                         <td>
-                            <a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
+                            @andromda.hibernate.query
                         </td>
-                          <td>
-                              Defines a hibernate query expression.  Note that you
-                            can model your finder method body in OCL as well
-                            (to keep your model more PIM like).
-                          </td>
+                        <td>
+                            An Entity operation marked as a <code>query</code>.
+                        </td>
+                        <td>
+                            Defines a hibernate query expression.  Note that it's encouraged
+                            to model your query body as an OCL constraint (instead of using
+                            this tagged value).
+                        </td>
                     </tr>
                     <tr>
                         <a name="@andromda.hibernate.generator.class"/>
