@@ -23,19 +23,13 @@
 #end
             </generator>
         </id>
-#if (!$entity.specializations.empty)
-#if ($entity.hibernateInheritanceClass)
-        <discriminator
-            column="$entity.hibernateDiscriminatorColumn"
-            type="$entity.hibernateDiscriminatorType"/>
-#end ## 
-#end ## 
+#if (!$entity.specializations.empty && $entity.hibernateInheritanceClass)
+        <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
+#end 
 ## If super inheritance == interface, render super properties etc
 #set ( $generalization = $entity.generalization )
 #if($generalization && $generalization.hibernateInheritanceInterface)
-<!-- Start superclass properties and assocations -->
 #renderPropertiesAndAssociations($generalization)
-<!-- End superclass properties and assocations -->
 #end
 ## render the properties and associations (if any)
 #renderPropertiesAndAssociations($entity)
