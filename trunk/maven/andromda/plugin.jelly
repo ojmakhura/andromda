@@ -226,14 +226,19 @@
         	tofile="${projectId}/project.properties"/>
 	      
 	    <velocity:merge 
-	      name="${projectId}/.project"
-	      basedir="${templatesDir}"
-	      template="/.project.vm"/>
+			name="${projectId}/.project"
+			basedir="${templatesDir}"
+			template="/.project.vm"/>
+	      
+	    <velocity:merge
+			name="${projectId}/.classpath"
+			basedir="${templatesDir}"
+			template="/.classpath.vm"/>
 	      
 	    <velocity:merge 
-	      name="${projectId}/project.xml"
-	      basedir="${templatesDir}"
-	      template="/project.xml.vm"/>
+	        name="${projectId}/project.xml"
+	        basedir="${templatesDir}"
+	        template="/project.xml.vm"/>
 	      
 	    <ant:copy
 	    	file="${templatesDir}/maven-${persistenceType}.xml"
@@ -242,7 +247,6 @@
 		<ant:copy todir="${projectId}">
 			<ant:fileset dir="${templatesDir}">
 				<ant:include name="*.properties"/>
-				<ant:include name="*.classpath"/>
 			</ant:fileset>
 		</ant:copy>
         	
@@ -332,7 +336,7 @@
 				
 		<j:set var="moduleName" value="common"/>
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
-		<j:set var="moduleDir" value="${commonDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
 		
 	</goal>
@@ -433,10 +437,10 @@
         		question="Please enter the id for your J2EE project (i.e. animalquiz):" 
         		answer="projectId"/>
     	</j:while>
-  		<j:while test="${empty(basePackageNameId)}">
+  		<j:while test="${empty(baseProjectPackage)}">
         	<i:ask 
         		question="Please enter the base package name for your J2EE project (i.e. org.andromda.samples):" 
-        		answer="basePackageName"/>
+        		answer="baseProjectPackage"/>
     	</j:while>
   		<j:while test="${empty(persistenceType) or
   			            (persistenceType ne 'hibernate' and persistenceType ne 'ejb')}">
@@ -445,7 +449,7 @@
         		answer="persistenceType"/>
     	</j:while>
     	
-    	<j:set var="projectPackage" value="${basePackageName}.${projectId}"/>
+    	<j:set var="projectPackage" value="${baseProjectPackage}.${projectId}"/>
 
       	<j:new 
       		var="stringUtils" 
