@@ -15,7 +15,20 @@ public abstract class $entity.entityName
     implements java.io.Serializable
 #end
 {
+#if ($stringUtils.isNotBlank($versionProperty))
+#set ($versionPropertyCapitalized = $stringUtils.capitalize($versionProperty))
+    private int $versionProperty;
 
+    public int get$versionPropertyCapitalized()
+    {
+        return this.$versionProperty;
+    }
+
+    public void set$versionPropertyCapitalized (int $versionProperty)
+    {
+        this.$versionProperty=$versionProperty;
+    }
+#end
 #foreach ( $attribute in $entity.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
     private $typeName $attribute.name;
