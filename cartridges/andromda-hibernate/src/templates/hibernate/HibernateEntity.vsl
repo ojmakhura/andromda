@@ -110,6 +110,10 @@ $target.getDocumentation("     * ")
      * @hibernate.set
      *     role="$target.name"
      *     lazy="true"
+#if ($targetType.child)
+     *     cascade="delete"
+     *     inverse="true"
+#end
      * @hibernate.collection-key
      *     column="$associationEnd.columnName"
      * @hibernate.collection-one-to-many
@@ -154,8 +158,11 @@ $target.getDocumentation("     * ")
 #end
 #if ($associationEnd.one2One || $associationEnd.many2One)
      * @hibernate.many-to-one
-     *     column="${target.columnName}"
+     *     column="$target.columnName"
      *     class="$targetTypeName"
+#if ($targetType.child)
+     *     cascade="delete"
+#end
 #if($target.required)
      *     not-null="true"
 #end
