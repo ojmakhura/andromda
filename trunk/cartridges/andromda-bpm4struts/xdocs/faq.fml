@@ -224,32 +224,6 @@
             </answer>
         </faq>
 
-        <faq id="displaytag-export">
-            <question>Exporting tabular data to Excel, CSV or XML is not working, why is it throwing an exception ?</question>
-            <answer>
-                There are currently two problems in the latest displaytag release (which is rc1):
-                <ol>
-                    <li>Exceptions are not being chained, so sometimes it happens the real cause for the exception
-                        is being swallowed in a catch statement. This is the case here, instead of simply reading
-                        <code>IOException while writing data</code> the real message would read
-                        <code>Cannot flush within a custom tag</code>, this brings us to the second point:
-                    </li>
-                    <li>The displaytag tag-library flushes the outputstream after writing the export data,
-                        the unfortunate result of this is that in combination with another custom tag-library
-                        such as Struts-Tiles the JSP container will throw an exception saying that flushing is not
-                        allowed in nested custom tags.
-                    </li>
-                </ol>
-                <p>
-                    A solution would be to have the displaytag developers factor out the flushing to a boolean
-                    attribute or a configuration option. I have proposed this on their mailing-list; in case they
-                    decide the problem can be solved this way we will simply wait until they release the next time,
-                    otherwise I will post a patched version of their code to the AndroMDA team server. Bpm4struts users
-                    will then need to use this library instead.
-                </p>
-            </answer>
-        </faq>
-
         <faq id="inter-usecase-data">
             <question>
                 The session-scoped forms are cleaned on each subsequent entry of that same
@@ -268,21 +242,21 @@
                     The solution is in fact very simple: do not use the forms when transporting values
                     to another use-case. In fact it is a better idea to simple use
                     <code>HttpServletRequest.setAttribute(String,Object)</code>, this will put the value
-                    as a request scope variable that is available in the target use-case. 
+                    as a request scope variable that is available in the target use-case.
                 </p>
             </answer>
         </faq>
         <faq id="controller-generation">
-			<question>
+            <question>
 				I've noticed that sometimes my Controller implementation is generated and 
 				sometimes not, what's going on?
-			</question>
-			<answer>
-				<p>
+            </question>
+            <answer>
+                <p>
 					Controllers are not generated (the implementation that is) until you
 				    give it at least one operation (since it would be pointless otherwise).
-				</p>
-			</answer>
+                </p>
+            </answer>
         </faq>
     </part>
 
@@ -347,34 +321,34 @@
                     Using maven you will need to open up /your-project/mda/project.xml and in the bpm4struts
                     namespace set 'security' to true.
                     <source>
-&lt;properties&gt;
-    &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
-    &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
-    &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
-    &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
-    &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
-    &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
-    &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
-    &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
-    &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
-    &lt;securityRealm&gt;other&lt;/securityRealm&gt;
-&lt;/properties&gt;
+                        &lt;properties&gt;
+                        &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
+                        &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
+                        &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
+                        &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
+                        &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
+                        &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
+                        &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
+                        &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
+                        &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
+                        &lt;securityRealm&gt;other&lt;/securityRealm&gt;
+                        &lt;/properties&gt;
                     </source>
                 </p>
                 <p>
                     Using the Ant build it is a property in the
                     MDA build.xml script.
                     <source>
-    &lt;property name="security" value="false"/&gt;    &lt;---- set to true to enable security
-    &lt;property name="securityRealm" value="other"/&gt;
-    &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
-    &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-    &lt;property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-    &lt;property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-    &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
-    &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
-    &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-    &lt;property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/&gt;
+                        &lt;property name="security" value="false"/&gt;    &lt;---- set to true to enable security
+                        &lt;property name="securityRealm" value="other"/&gt;
+                        &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
+                        &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
+                        &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
+                        &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/&gt;
                     </source>
                 </p>
                 <p>
