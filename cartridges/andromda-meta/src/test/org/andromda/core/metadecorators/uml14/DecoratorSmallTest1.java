@@ -35,7 +35,7 @@ public class DecoratorSmallTest1 extends TestCase implements TestModel
             modelURL = new URL(TestModel.XMI_FILE_URL);
             repository = new MDRepositoryFacade();
             repository.readModel(modelURL);
-            model = (UmlPackage) repository.getModel();
+            model = (UmlPackage) repository.getModel().getModel();
             DecoratorFactory df = DecoratorFactory.getInstance();
             df.setModel(model);
             df.setActiveNamespace("core");
@@ -52,7 +52,7 @@ public class DecoratorSmallTest1 extends TestCase implements TestModel
         DecoratorFactory df = DecoratorFactory.getInstance();
         ModelDecorator md =
             (ModelDecorator) df.createDecoratorObject(model);
-        Collection packages = md.getRootPackage().getSubPackages();
+        Collection packages = ((PackageDecorator)md.getRootPackage()).getSubPackages();
         assertEquals(5, packages.size());
         ArrayList expectedResults = new ArrayList();
         expectedResults.add("org");
@@ -81,7 +81,7 @@ public class DecoratorSmallTest1 extends TestCase implements TestModel
         DecoratorFactory df = DecoratorFactory.getInstance();
         ModelDecorator md =
             (ModelDecorator) df.createDecoratorObject(model);
-        Collection packages = md.getRootPackage().getSubPackages();
+        Collection packages = ((PackageDecorator)md.getRootPackage()).getSubPackages();
 
         HashMap expectedResults = new HashMap();
         expectedResults.put("ClassAA", "associations");
