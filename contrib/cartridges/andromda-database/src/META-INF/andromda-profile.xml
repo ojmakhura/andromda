@@ -2,7 +2,7 @@
 <!--
   The default Database profile mappings.
 -->
-<mappings name="database"> 
+<mappings name="database">
     <mapping>
         <from>DATABASE_DUMMYLOAD_SIZE</from>
         <to>@andromda.persistence.dummyload.size</to>

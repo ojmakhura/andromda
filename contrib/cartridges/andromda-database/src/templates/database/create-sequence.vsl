@@ -2,13 +2,13 @@
 ## Include the property definition
 /* ------------ $table.name sequence ---------------- */
 #set($sequenceName = "${table.tableName}_SEQ")
-CREATE SEQUENCE $sequenceName                                              
-INCREMENT BY 1                                                                  
-START WITH 1                                                                    
-MINVALUE 1                                                                      
-MAXVALUE 999999999999                                                           
-NOCYCLE                                                                         
-NOORDER                                                                         
-NOCACHE;  
+CREATE SEQUENCE $sequenceName
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 999999999999
+NOCYCLE
+NOORDER
+NOCACHE;
 #end
 

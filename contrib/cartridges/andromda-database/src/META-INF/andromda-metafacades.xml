@@ -7,9 +7,9 @@
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
     </metafacade>
-	<metafacade
-		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-		metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+        metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
     </metafacade>
@@ -18,9 +18,9 @@
         metafacadeClass="org.andromda.cartridges.database.metafacades.NonForeignKeyColumnLogicImpl">
         <context>org.andromda.cartridges.database.metafacades.Table</context>
     </metafacade>
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
-		metafacadeClass="org.andromda.cartridges.database.metafacades.ForeignKeyColumnLogicImpl">
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
+        metafacadeClass="org.andromda.cartridges.database.metafacades.ForeignKeyColumnLogicImpl">
         <context>org.andromda.cartridges.database.metafacades.Table</context>
     </metafacade>
 </metafacades>
