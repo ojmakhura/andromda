@@ -21,7 +21,7 @@ public class SubactivityStateFacadeLogicImpl
      */
     protected java.lang.Object handleGetSubmachine()
     {
-        return metaObject.getStateMachine();
+        return metaObject.getSubmachine();
     }
 
     /**
