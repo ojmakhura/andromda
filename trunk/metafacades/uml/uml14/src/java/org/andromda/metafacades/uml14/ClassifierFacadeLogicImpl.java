@@ -18,10 +18,7 @@ import org.omg.uml.foundation.core.Operation;
 
 
 /**
- *
- *
  * Metaclass facade implementation.
- *
  */
 public class ClassifierFacadeLogicImpl
        extends ClassifierFacadeLogic
@@ -34,15 +31,8 @@ public class ClassifierFacadeLogicImpl
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class ClassifierFacade ...
-
-    // ------------- relations ------------------
-
     /**
-     *
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetOperations()
      */
     public java.util.Collection handleGetOperations()
     {
@@ -55,10 +45,8 @@ public class ClassifierFacadeLogicImpl
         };
     }
 
-    // ------------------------------------------------------------
-
     /**
-     *
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetAttributes()
      */
     public java.util.Collection handleGetAttributes()
     {
@@ -72,7 +60,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     *
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetAssociationEnds()
      */
     public java.util.Collection handleGetAssociationEnds()
     {
@@ -100,6 +88,9 @@ public class ClassifierFacadeLogicImpl
                 || "boolean".equals(name));
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isArrayType()
+     */
     public boolean isArrayType()
     {
         try
@@ -112,13 +103,15 @@ public class ClassifierFacadeLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isCollectionType()
+     */
     public boolean isCollectionType()
     {
         try
         {
-            Class parameterClass = Class.forName(getFullyQualifiedName());
-            Class collectionClass = Class.forName(Collection.class.getName());
-            return collectionClass.isAssignableFrom(parameterClass);
+            return Collection.class.isAssignableFrom(
+                Class.forName(getFullyQualifiedName()));
         }
         catch(Exception exception)
         {

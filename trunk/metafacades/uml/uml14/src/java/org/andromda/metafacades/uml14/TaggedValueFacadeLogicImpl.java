@@ -24,23 +24,22 @@ public class TaggedValueFacadeLogicImpl
     {
         super (metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class TaggedValueDecorator ...
-
-    /* (non-Javadoc)
+    
+    /**
      * @see org.andromda.core.metadecorators.uml14.ModelElement#getName()
      */
-    public String getName() {
+    public String getName() 
+    {
         String name = super.getName();
-        if (StringUtils.isEmpty(name)) {
+        if (StringUtils.isEmpty(name)) 
+        {
             TagDefinition type = this.metaObject.getType();
-            if (type != null) {
+            if (type != null) 
+            {
                 name = type.getName();
                 // sometimes it is the TagType
-                if (StringUtils.isEmpty(name)) {
+                if (StringUtils.isEmpty(name)) 
+                {
                     name = type.getTagType();
                 }
             }
@@ -48,21 +47,25 @@ public class TaggedValueFacadeLogicImpl
         return name;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.TaggedValueFacade#getValues()
+     */
     public Collection getValues()
     {
         return metaObject.getDataValue();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.TaggedValueDecorator#getValue()
+    /**
+     * @see org.andromda.metafacades.uml.TaggedValueFacade#getValue()
      */
-    public java.lang.Object getValue() {
+    public java.lang.Object getValue() 
+    {
         Collection values = getValues();
         return (values.isEmpty()) ? null : values.iterator().next();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.TaggedValueDecorator#formatHTMLStringAsParagraphs()
+    /**
+     * @see org.andromda.metafacades.uml.TaggedValueFacade#formatHTMLStringAsParagraphs()
      */
     public Collection formatHTMLStringAsParagraphs()
     {
@@ -76,7 +79,5 @@ public class TaggedValueFacadeLogicImpl
             return null;
         }
     }
-
-    // ------------- relations ------------------
-
+    
 }
