@@ -27,7 +27,6 @@ import org.netbeans.lib.jmi.xmi.XmiContext;
 public class MDRXmiReferenceResolverContext
     extends XmiContext
 {
-
     private String[] moduleSearchPath;
 
     private static Logger logger = Logger
@@ -65,7 +64,7 @@ public class MDRXmiReferenceResolverContext
         // the suffix without it and store it in the urlMap
         String exts = "\\.jar|\\.zip";
         String suffixWithExt = suffix.replaceAll(exts, "");
-        URL modelUrl = null;
+        URL modelUrl = (URL)urlMap.get(suffixWithExt);
 
         // Several tries to construct a URL that really exists.
         if (modelUrl == null)
