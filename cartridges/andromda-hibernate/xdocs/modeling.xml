@@ -139,9 +139,9 @@
 						</td>
 					</tr>				        	        	      	        	        		        	        	        	     	             	        	
 					<tr>
-						<a name="@andromda.hibernate.inheritance"/>
+						<a name="@andromda.hibernate.strategy"/>
 						<td>
-	                        @andromda.hibernate.inheritance
+	                        @andromda.inheritance.strategy
 						</td>
 						<td>
 							Attribute
@@ -209,6 +209,26 @@
                                 relationships and defaults to <code>true</code> for the other kinds.
                             </td>
                       </tr>
+                      <tr>
+						<a name="@andromda.transaction.type"/>
+			          	<td>
+			          		@andromda.transaction.type
+			          	</td>
+						<td>
+							Service Method
+						</td>
+			          	<td>
+			          		Defines a transaction type for the method. Permitted values are:
+							<ol>
+								<li>NotSupported</li>
+								<li>Supports</li>
+								<li>Required</li>
+								<li>RequiresNew</li>
+                                <li>Mandatory</li>
+                                <li>Never</li>
+							</ol>
+			          	</td>
+					</tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">

@@ -178,4 +178,9 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_ROLE_NAME = umlProfile
         .getString("TAGGEDVALUE_ROLE_NAME");
+    /**
+     * Stores the service method transaction typ
+     */
+    public static final String TAGGEDVALUE_TRANSACTION_TYPE = umlProfile
+        .getString("TAGGEDVALUE_TRANSACTION_TYPE");
 }
