@@ -5,7 +5,7 @@ distribution is a maven plugin, you can use this
 plugin to generate your own application having the 
 same structure as these samples.  To run it, just install
 the plugin into your $MAVEN_HOME/plugins directory and 
-type 'andromda:genapp'.  
+type 'andromdapp:generate'.  
 
 It's also possible to build an Ant based project with AndroMDA by 
 using the <andromda> ant task (although its currently not shown in the
