@@ -8,21 +8,21 @@ package $class.packageName;
 $class.getDocumentation(" * ")
  */
 public class ${class.name}
-#if($class.generalization)  
-	extends ${class.generalization.fullyQualifiedName}
+#if($class.generalization)
+    extends ${class.generalization.fullyQualifiedName}
 #end
-    implements java.io.Serializable 
+    implements java.io.Serializable
 {
 #if (!$class.properties.empty)
 
-    public ${class.name}() 
+    public ${class.name}()
     {
     }
 #end
 
     /**
      * Constructor taking all properties.
-     */ 
+     */
 #set ($parenthesis = "(")
 #if ($class.properties.empty)
 #set ($parenthesis = "()")
@@ -45,10 +45,10 @@ public class ${class.name}
 
     /**
      * Copies constructor from other ${class.name}
-     */ 
-    public ${class.name}(${class.name} otherBean) 
+     */
+    public ${class.name}(${class.name} otherBean)
     {
-        if (otherBean != null) 
+        if (otherBean != null)
         {
 #foreach ( $property in $class.properties)
             this.${property.name} = otherBean.${property.getterName}();
@@ -63,12 +63,12 @@ public class ${class.name}
     /**
 $attribute.getDocumentation("     * ")
      */
-    $attribute.visibility $typeName ${attribute.getterName}() 
+    $attribute.visibility $typeName ${attribute.getterName}()
     {
         return this.${attribute.name};
     }
 
-    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name) 
+    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name)
     {
         this.${attribute.name} = $attribute.name;
     }
@@ -84,12 +84,12 @@ $attribute.getDocumentation("     * ")
 #set($targetTypeFQName = "java.util.Collection")
 #end
     private $targetTypeFQName $target.name;
-   
+
     /**
      * Get the ${target.name}.
 $target.getDocumentation("     * ")
      */
-    public $targetTypeFQName ${target.getterName}() 
+    public $targetTypeFQName ${target.getterName}()
     {
         return this.${target.name};
     }
@@ -97,7 +97,7 @@ $target.getDocumentation("     * ")
     /**
      * Set the ${target.name}.
      */
-    public void ${target.setterName}($targetTypeFQName ${target.name}) 
+    public void ${target.setterName}($targetTypeFQName ${target.name})
     {
         this.${target.name} = ${target.name};
     }

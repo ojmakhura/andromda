@@ -14,9 +14,9 @@ $entity.getDocumentation(" * ")
  */
 public abstract class ${entity.name}BeanImpl extends ${entity.name}Bean {
     //private static Logger log = Logger.getLogger(${entity.name}BeanImpl.class);
-	private EntityContext ctx;
-	
-	public void setEntityContext(EntityContext ctx) {
+    private EntityContext ctx;
+
+    public void setEntityContext(EntityContext ctx) {
         //if(log.isDebugEnabled()) log.debug("${entity.name}Bean.setEntityContext...");
         this.ctx = ctx;
     }
@@ -46,8 +46,7 @@ public abstract class ${entity.name}BeanImpl extends ${entity.name}Bean {
         //if(log.isDebugEnabled()) log.debug("${entity.name}Bean.ejbActivate...");
     }
 
-#foreach ( $operation in $entity.operations)
-#if (!$operation.hasStereotype("FinderMethod"))
+#foreach ($operation in $entity.businessOperations)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #set ($signature = $operation.signature)
 #set ($visibility = $operation.visibility)
@@ -75,22 +74,21 @@ $operation.getDocumentation("     * ")
     }
 
 #end
-#end
 ## Handle explicitly defined create methods.
 #foreach ( $op in $class.getCreateMethods(true))
-	
+
     /**
 $op.getDocumentation("     * ")
      */
     public void ejbCreateImpl(${op.typedArgumentList}) throws javax.ejb.CreateException {
-	
-	}
-	
-	/**
+
+    }
+
+    /**
 $op.getDocumentation("     * ")
      */
      public void ejbPostCreate(${op.typedArgumentList}) {
-		
-	 }
-#end  
+
+     }
+#end
 }

@@ -47,6 +47,14 @@
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
         <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context> 
+            <property name="query"/>
+        </mapping>
+        <property reference="hibernateQueryUseNamedParameters" default="false"/>
+        <property reference="hibernateUseQueryCache" default="false"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>

@@ -8,11 +8,11 @@ package $service.packageName;
 $service.getDocumentation(" * ")
  */
 public interface ${service.name}Local
-#if($service.generalization)  
-	extends ${service.generalization.fullyQualifiedName}Local
+#if($service.generalization)
+    extends ${service.generalization.fullyQualifiedName}Local
 #else
     extends javax.ejb.EJBLocalObject
-#end 
+#end
 {
     // -- accessors for environment entries --
 #foreach($envEntry in $service.getEnvironmentEntries(true))
