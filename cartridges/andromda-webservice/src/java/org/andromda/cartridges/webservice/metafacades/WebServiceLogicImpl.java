@@ -17,8 +17,10 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ServiceOperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -604,5 +606,29 @@ public class WebServiceLogicImpl
     {
         Collection roles = this.getAllRoles();
         return roles != null && !roles.isEmpty();
+    }
+    
+    /**
+     * Overridden to only allow the exposed operations in the 
+     * returned roles collection.
+     * 
+     * @see org.andromda.metafacades.uml.ServiceFacade#getAllRoles()
+     */
+    public Collection getAllRoles()
+    {
+        final Collection roles = new HashSet(this.getRoles());
+        CollectionUtils.forAllDo(this.getAllowedOperations(), new Closure()
+        {
+            public void execute(Object object)
+            {
+                if (object != null
+                    && ServiceOperationFacade.class.isAssignableFrom(object
+                        .getClass()))
+                {
+                    roles.addAll(((ServiceOperationFacade)object).getRoles());
+                }
+            }
+        });
+        return roles;
     }
 }
