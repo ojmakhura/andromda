@@ -111,8 +111,8 @@ public class AttributeFacadeLogicImpl
 	/**
 	 * Returns the lower range of the multiplicty for the 
 	 * passed in associationEnd
-	 * @return int the lower range of the multiplicty or null if
-	 *         it can't be retrieved
+	 * @return int the lower range of the multiplicty or 1 if
+	 *         it isn't defined.
 	 */
 	private int getMultiplicityRangeLower() {
 		int lower = 1;
