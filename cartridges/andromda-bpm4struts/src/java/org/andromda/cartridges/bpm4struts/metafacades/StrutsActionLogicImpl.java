@@ -418,10 +418,7 @@ public class StrutsActionLogicImpl
 
     protected Collection handleGetActionFormFields()
     {
-        Collection formFields = new HashSet();
-
-        // add all action parameters
-        formFields.addAll(getActionParameters());
+        Map formFieldMap = new HashMap();
 
         // add page variables for all pages targetted
         // also add the fields of the target page's actions (for preloading)
@@ -433,12 +430,30 @@ public class StrutsActionLogicImpl
             if (target instanceof StrutsJsp)
             {
                 StrutsJsp jsp = (StrutsJsp) target;
-                formFields.addAll(jsp.getPageVariables());
-                formFields.addAll(jsp.getAllActionParameters());
+                Collection pageVariables = jsp.getPageVariables();
+                for (Iterator pageVariableIterator = pageVariables.iterator(); pageVariableIterator.hasNext();)
+                {
+                    ModelElementFacade facade = (ModelElementFacade) pageVariableIterator.next();
+                    formFieldMap.put(facade.getName(), facade);
+                }
+                Collection allActionParameters = jsp.getAllActionParameters();
+                for (Iterator actionParameterIterator = allActionParameters.iterator(); actionParameterIterator.hasNext();)
+                {
+                    ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
+                    formFieldMap.put(facade.getName(), facade);
+                }
             }
         }
 
-        return formFields;
+        // we do the action parameters in the end because they are allowed to overwrite existing properties
+        Collection actionParameters = getActionParameters();
+        for (Iterator actionParameterIterator = actionParameters.iterator(); actionParameterIterator.hasNext();)
+        {
+            ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
+            formFieldMap.put(facade.getName(), facade);
+        }
+
+        return formFieldMap.values();
     }
 
     private Collection deferredOperations = null;
@@ -592,5 +607,11 @@ public class StrutsActionLogicImpl
             initializeCollections();
         }
         return transitions;
+    }
+
+    protected Collection handleGetTabs()
+    {
+        // @todo: implement
+        return Collections.EMPTY_LIST;
     }
 }
