@@ -120,7 +120,7 @@ ${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.s
 #else
 #set ($disabled = '')
 #end
-${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
+${indent}<html:$widgetType property="${fieldName}AsArray" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
 ${indent}    You must complete this multibox implementation
 ${indent}</html:$widgetType>
 ##
