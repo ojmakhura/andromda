@@ -109,18 +109,6 @@ public class UMLProfile
     public static final String STEREOTYPE_EXCEPTION_REF = umlProfile
         .getString("STEREOTYPE_EXCEPTION_REF");
 
-    /**
-     * Represents a reference to an entity.
-     */
-    public static final String STEREOTYPE_ENTITY_REF = umlProfile
-        .getString("STEREOTYPE_ENTITY_REF");
-
-    /**
-     * Represents a reference to an service.
-     */
-    public static final String STEREOTYPE_SERVICE_REF = umlProfile
-        .getString("STEREOTYPE_SERVICE_REF");
-
     /* ----------------- Tagged Values -------------------- */
 
     /**
