@@ -15,4 +15,8 @@
         <from>HIBERNATE_LAZY</from>
         <to>@andromda.hibernate.lazy</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_INHERITANCE</from>
+        <to>@andromda.hibernate.inheritance</to>
+    </mapping>
 </mappings>
