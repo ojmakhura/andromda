@@ -98,7 +98,7 @@
     <!-- ===================================================================
          These is necessary since there isn't any downloadable
          maven-sar-plugin (when there is, the below goals should be removed).
-         This goals are used by the sample modules.                     
+         These goals are used by the sample modules.                     
          =================================================================== -->
     <goal name="sar:install">
     	<attainGoal name="jar:jar"/>
