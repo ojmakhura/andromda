@@ -3,7 +3,6 @@ package org.andromda.core.templateengine;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 
 /**
@@ -23,10 +22,8 @@ public interface TemplateEngine {
      *        template engine implementation likes.  For example, 
      *        it can help determine the  name of the log file 
      *        to which output is logged.
-	 * @param properties any initialization properties
-	 *        to pass to the TemplateEngine. 
 	 */
-	public void init(String cartridgeName, Properties properties) throws Exception;
+	public void init(String cartridgeName) throws Exception;
 	
 	/**
 	 * Processes a template.
