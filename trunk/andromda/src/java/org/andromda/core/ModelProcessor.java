@@ -118,10 +118,11 @@ public class ModelProcessor
                     }
                     AndroMDALogger.reset();
                 }
-                AndroMDALogger.info("completed model processing, TIME --> "
+                AndroMDALogger.info("completed model processing, TIME: "
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
-                    + "[s], " + ResourceWriter.instance().getWrittenCount()
-                    + " RESOURCES WRITTEN" + totalMessagesMessage);
+                    + "[s], RESOURCES WRITTEN: " 
+                    + ResourceWriter.instance().getWrittenCount()
+                    + totalMessagesMessage);
                 if (failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelProcessorException(
