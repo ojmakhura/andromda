@@ -1,5 +1,8 @@
 package org.andromda.core.common;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Maps java types to JDBC and SQL data types.
  * 
@@ -13,6 +16,9 @@ package org.andromda.core.common;
 public interface DbMappingTable
 {
    
+    public void read(File mappingConfig)
+        throws RepositoryReadException, IOException;
+    
 	/**
 	* Returns the JDBC type for the given Java type.
     *

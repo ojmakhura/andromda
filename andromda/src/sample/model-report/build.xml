@@ -1,0 +1,51 @@
+<project name="model-query" default="report">
+
+   <property file="build.properties" />
+   
+   <target name="clean">
+     <delete dir="build"/>
+   </target>
+   
+   <target name="init">
+     <mkdir dir="build/output"/>
+     <mkdir dir="build/model/unzipped" />
+   </target>
+   
+   <path id="classpath">
+   	  <pathelement path="${build.classpath}"/>
+   </path>
+
+   <target name="report" depends="init">
+   
+   		<echo message="build.classpath =${build.classpath}" />
+   		
+        <taskdef name="andromda"
+                 classname="org.andromda.core.anttasks.AndroMDAGenTask"
+                 classpathref="classpath"/>
+
+        <unzip src="${model.file}" dest="build/model/unzipped" />
+
+        <andromda basedir="build/model/unzipped"
+                 ejbDestdir="."
+                 implDestdir="."
+                 includes="*.xmi"
+                 lastModifiedCheck="false"
+                 templatePath="templates"
+                 useDefaultTemplateConfig="false"
+        >
+        	<repository
+        		classname="org.andromda.core.mdr.MDRepositoryFacade"
+        		transformClassname="org.andromda.core.uml14.UMLScriptHelper"/>
+        		
+            <template
+                stereotype="StrutsConfig"
+                sheet="report.vsl"
+                outputPattern="{1}-{2}.txt"
+                outputDir="build/output"
+                overWrite="true"/>
+
+        </andromda>
+        
+    </target>
+    
+</project>

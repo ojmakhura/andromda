@@ -13,17 +13,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Properties;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
 import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.RepositoryReadException;
 import org.andromda.core.common.ScriptHelper;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.core.dbmapping.JAXBDbMappingTable;
-import org.andromda.core.dbmapping.Mappings;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
@@ -47,6 +41,9 @@ import org.apache.velocity.runtime.RuntimeConstants;
  */
 public class AndroMDAGenTask extends MatchingTask
 {
+	private static final String DEFAULT_DBMAPPING_TABLE_CLASSNAME =
+		"org.andromda.core.dbmapping.JAXBDbMappingTable";
+
 	/**
 	 *  the destination directory
 	 */
@@ -90,7 +87,7 @@ public class AndroMDAGenTask extends MatchingTask
 	 *  whether to use the default template configuration or not
 	 */
 	private boolean useDefaultTemplateConfig = true;
-	
+
 	/**
 	 *  All templates that will be used
 	 */
@@ -101,9 +98,8 @@ public class AndroMDAGenTask extends MatchingTask
 	 */
 	private ArrayList userProperties = new ArrayList();
 
-
 	private RepositoryConfiguration repositoryConfiguration = null;
-	
+
 	/**
 	 *  <p>
 	 *
@@ -143,7 +139,6 @@ public class AndroMDAGenTask extends MatchingTask
 		 */
 		public final static int IMPLDEST = 2;
 
-
 		/**
 		 *  Constructor for the TemplateDesc object
 		 *
@@ -168,63 +163,62 @@ public class AndroMDAGenTask extends MatchingTask
 		}
 	}
 
-
 	/**
 	 *  the default template configuration
 	 */
 	private TemplateDesc[] defaultTemplateConfig =
 		{
-		new TemplateDesc(
-		"EntityBean",
-		"EntityBean.vsl",
-		"{0}/{1}Bean.java",
-		TemplateDesc.EJBDEST,
-		true),
-		new TemplateDesc(
-		"EntityBean",
-		"EntityBeanImpl.vsl",
-		"{0}/{1}BeanImpl.java",
-		TemplateDesc.IMPLDEST,
-		false),
-		new TemplateDesc(
-		"EntityBean",
-		"EntityBeanCMP.vsl",
-		"{0}/{1}BeanCMP.java",
-		TemplateDesc.EJBDEST,
-		true),
-		new TemplateDesc(
-		"StatelessSessionBean",
-		"StatelessSessionBean.vsl",
-		"{0}/{1}Bean.java",
-		TemplateDesc.EJBDEST,
-		true),
-		new TemplateDesc(
-		"StatelessSessionBean",
-		"StatelessSessionBeanImpl.vsl",
-		"{0}/{1}BeanImpl.java",
-		TemplateDesc.IMPLDEST,
-		false),
-		new TemplateDesc(
-		"StatefulSessionBean",
-		"StatefulSessionBean.vsl",
-		"{0}/{1}Bean.java",
-		TemplateDesc.EJBDEST,
-		true),
-		new TemplateDesc(
-		"StatefulSessionBean",
-		"StatefulSessionBeanImpl.vsl",
-		"{0}/{1}BeanImpl.java",
-		TemplateDesc.IMPLDEST,
-		false)};
-
+			new TemplateDesc(
+				"EntityBean",
+				"EntityBean.vsl",
+				"{0}/{1}Bean.java",
+				TemplateDesc.EJBDEST,
+				true),
+			new TemplateDesc(
+				"EntityBean",
+				"EntityBeanImpl.vsl",
+				"{0}/{1}BeanImpl.java",
+				TemplateDesc.IMPLDEST,
+				false),
+			new TemplateDesc(
+				"EntityBean",
+				"EntityBeanCMP.vsl",
+				"{0}/{1}BeanCMP.java",
+				TemplateDesc.EJBDEST,
+				true),
+			new TemplateDesc(
+				"StatelessSessionBean",
+				"StatelessSessionBean.vsl",
+				"{0}/{1}Bean.java",
+				TemplateDesc.EJBDEST,
+				true),
+			new TemplateDesc(
+				"StatelessSessionBean",
+				"StatelessSessionBeanImpl.vsl",
+				"{0}/{1}BeanImpl.java",
+				TemplateDesc.IMPLDEST,
+				false),
+			new TemplateDesc(
+				"StatefulSessionBean",
+				"StatefulSessionBean.vsl",
+				"{0}/{1}Bean.java",
+				TemplateDesc.EJBDEST,
+				true),
+			new TemplateDesc(
+				"StatefulSessionBean",
+				"StatefulSessionBeanImpl.vsl",
+				"{0}/{1}BeanImpl.java",
+				TemplateDesc.IMPLDEST,
+				false)};
 
 	/**
 	 *  <p>
 	 *
 	 *  Creates a new <code>AndroMDAGenTask</code> instance.</p>
 	 */
-	public AndroMDAGenTask() { }
-
+	public AndroMDAGenTask()
+	{
+	}
 
 	/**
 	 *  <p>
@@ -238,7 +232,6 @@ public class AndroMDAGenTask extends MatchingTask
 	{
 		baseDir = dir;
 	}
-
 
 	/**
 	 *  <p>
@@ -254,7 +247,6 @@ public class AndroMDAGenTask extends MatchingTask
 		ejbDestDir = dir;
 	}
 
-
 	/**
 	 *  <p>
 	 *
@@ -268,7 +260,6 @@ public class AndroMDAGenTask extends MatchingTask
 	{
 		implDestDir = dir;
 	}
-
 
 	/**
 	 *  <p>
@@ -295,7 +286,6 @@ public class AndroMDAGenTask extends MatchingTask
 		}
 	}
 
-
 	/**
 	 *  <p>
 	 *
@@ -309,35 +299,33 @@ public class AndroMDAGenTask extends MatchingTask
 	{
 		try
 		{
-			// let JAXB read the XML file and unmarshal it into a model tree
+			Class mappingClass =
+				this.getClass().forName(DEFAULT_DBMAPPING_TABLE_CLASSNAME);
+			typeMappings = (DbMappingTable) mappingClass.newInstance();
 
-			JAXBContext jc =
-				JAXBContext.newInstance(
-				"org.andromda.core.dbmapping");
-
-			Unmarshaller u = jc.createUnmarshaller();
-
-			Mappings xmlTypeMappings =
-				(Mappings) u.unmarshal(
-				new FileInputStream(dbMappingConfig));
-
-			this.typeMappings = new JAXBDbMappingTable(xmlTypeMappings);
-			log(
-				"File with JDBC type mappings: "
-				 + dbMappingConfig.getAbsolutePath(),
-				Project.MSG_INFO);
-
+			typeMappings.read(dbMappingConfig);
 		}
-		catch (FileNotFoundException fnfe)
+		catch (IllegalAccessException iae)
 		{
-			throw new BuildException(fnfe);
+			throw new BuildException(iae);
 		}
-		catch (JAXBException jbe)
+		catch (ClassNotFoundException cnfe)
 		{
-			throw new BuildException(jbe);
+			throw new BuildException(cnfe);
+		}
+		catch (RepositoryReadException rre)
+		{
+			throw new BuildException(rre);
+		}
+		catch (IOException ioe)
+		{
+			throw new BuildException(ioe);
+		}
+		catch (InstantiationException ie)
+		{
+			throw new BuildException(ie);
 		}
 	}
-
 
 	/**
 	 *  <p>
@@ -374,7 +362,6 @@ public class AndroMDAGenTask extends MatchingTask
 		this.lastModifiedCheck = lastmod;
 	}
 
-
 	/**
 	 *  <p>
 	 *
@@ -389,7 +376,6 @@ public class AndroMDAGenTask extends MatchingTask
 		templates.add(t);
 	}
 
-
 	/**
 	 *  <p>
 	 *
@@ -401,7 +387,6 @@ public class AndroMDAGenTask extends MatchingTask
 	{
 		userProperties.add(up);
 	}
-
 
 	/**
 	 *  <p>
@@ -416,7 +401,6 @@ public class AndroMDAGenTask extends MatchingTask
 		this.useDefaultTemplateConfig = useDefaultTemplateConfig;
 	}
 
-
 	/**
 	 *  <p>
 	 *
@@ -424,35 +408,33 @@ public class AndroMDAGenTask extends MatchingTask
 	 *
 	 *@throws  BuildException  if a required output directory is not specified
 	 */
-	private void initDefaultTemplateConfig()
-		throws BuildException
+	private void initDefaultTemplateConfig() throws BuildException
 	{
 		for (int i = 0; i < defaultTemplateConfig.length; i++)
 		{
 			TemplateDesc td = defaultTemplateConfig[i];
 			File destDir =
 				(td.whichDest == TemplateDesc.EJBDEST)
-				 ? ejbDestDir
-				 : implDestDir;
+					? ejbDestDir
+					: implDestDir;
 			if (null == destDir)
 			{
 				throw new BuildException(
 					((td.whichDest == TemplateDesc.EJBDEST)
-					 ? "EJB"
-					 : "Implementation")
-					 + " destination directory is not defined.");
+						? "EJB"
+						: "Implementation")
+						+ " destination directory is not defined.");
 			}
 
 			templates.add(
 				new TemplateConfiguration(
-				td.stereotype,
-				td.stylesheetName,
-				td.outFileNamePattern,
-				destDir,
-				td.overWriteOutFile));
+					td.stereotype,
+					td.stylesheetName,
+					td.outFileNamePattern,
+					destDir,
+					td.overWriteOutFile));
 		}
 	}
-
 
 	/**
 	 *  <p>
@@ -470,7 +452,7 @@ public class AndroMDAGenTask extends MatchingTask
 		String separator = "";
 		StringBuffer result = new StringBuffer();
 
-		for (Iterator it = templates.iterator(); it.hasNext(); )
+		for (Iterator it = templates.iterator(); it.hasNext();)
 		{
 			TemplateConfiguration tc = (TemplateConfiguration) it.next();
 			String path = tc.getTemplatePath();
@@ -487,25 +469,21 @@ public class AndroMDAGenTask extends MatchingTask
 			result.append(basePath);
 		}
 
-		log(
-			"Assembled template path: " + result.toString(),
-			Project.MSG_INFO);
+		log("Assembled template path: " + result.toString(), Project.MSG_INFO);
 		return result.toString();
 	}
-
 
 	/**
 	 *  <p>
 	 *
 	 *  Starts the generation of source code from an object model. 
-     * 
-     *  This is the main entry point of the application. It is called by ant whenever 
-     *  the surrounding task is executed (which could be multiple times).</p>
+	 * 
+	 *  This is the main entry point of the application. It is called by ant whenever 
+	 *  the surrounding task is executed (which could be multiple times).</p>
 	 *
 	 *@throws  BuildException  if something goes wrong
 	 */
-	public void execute()
-		throws BuildException
+	public void execute() throws BuildException
 	{
 		DirectoryScanner scanner;
 		String[] list;
@@ -525,12 +503,14 @@ public class AndroMDAGenTask extends MatchingTask
 		{
 			initDefaultTemplateConfig();
 		}
-
-		if (typeMappings == null)
-		{
-			throw new BuildException("The typeMappings attribute of <uml2ejb> has not been set - it is needed for entity bean field to database column mapping.");
-		}
-
+		/*
+		 * AMOWERS: Comment this so that we do not absolutely need the JAXB libraries
+         * PENDING: We should enable this check somehow
+				if (typeMappings == null)
+				{
+					throw new BuildException("The typeMappings attribute of <uml2ejb> has not been set - it is needed for entity bean field to database column mapping.");
+				}
+		*/
 		if (velocityPropertiesFile == null)
 		{
 			// We directly change the user variable, because it
@@ -574,8 +554,7 @@ public class AndroMDAGenTask extends MatchingTask
 
 		// Get the base path from velocity.properties
 		baseTemplatePath =
-			properties.getProperty(
-			RuntimeConstants.FILE_RESOURCE_LOADER_PATH);
+			properties.getProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH);
 		if (null != templatePath && !"".equals(templatePath))
 		{
 			// Override with the user specified one
@@ -600,11 +579,11 @@ public class AndroMDAGenTask extends MatchingTask
 		// If all our efforts result in no template path, throw a
 		// build exception.
 		if (!hasProperties
-			 && (null == baseTemplatePath || "".equals(baseTemplatePath)))
+			&& (null == baseTemplatePath || "".equals(baseTemplatePath)))
 		{
 			throw new BuildException(
 				"No velocity template path specified."
-				 + " Please use the attributes templatePath or velocityPropertiesFile.");
+					+ " Please use the attributes templatePath or velocityPropertiesFile.");
 		}
 
 		properties.setProperty(
@@ -637,7 +616,6 @@ public class AndroMDAGenTask extends MatchingTask
 		}
 	}
 
-
 	/**
 	 *  <p>Creates a meta-data repository and gives a file,
 	 * which contains an object model, to the repository to read.
@@ -648,14 +626,13 @@ public class AndroMDAGenTask extends MatchingTask
 	 *@param  xmlFile          the model file
 	 *@throws  BuildException  if something goes wrong
 	 */
-	private void process(File baseDir, String xmlFile)
-		throws BuildException
+	private void process(File baseDir, String xmlFile) throws BuildException
 	{
 		File inFile = new File(baseDir, xmlFile);
 		// the current input file relative to the baseDir
 
 		Context context = new Context();
-		
+
 		try
 		{
 			//-- command line status
@@ -664,14 +641,14 @@ public class AndroMDAGenTask extends MatchingTask
 			// configure repository
 			context.repository = createRepository().createRepository();
 			context.repository.readModel(inFile.toURL());
-			
+
 			// configure script helper
 			context.scriptHelper = createRepository().createTransform();
 			context.scriptHelper.setModel(context.repository.getModel());
 			context.scriptHelper.setTypeMappings(typeMappings);
-			
+
 		}
-		catch (FileNotFoundException fnfe )
+		catch (FileNotFoundException fnfe)
 		{
 			throw new BuildException(
 				"Model file not found: " + inFile.getAbsolutePath());
@@ -679,24 +656,22 @@ public class AndroMDAGenTask extends MatchingTask
 		catch (IOException ioe)
 		{
 			throw new BuildException(
-				"Exception encountered while processing: " +
-				inFile.getAbsolutePath());
+				"Exception encountered while processing: "
+					+ inFile.getAbsolutePath());
 		}
 		catch (RepositoryReadException mdre)
 		{
 			throw new BuildException(mdre);
 		}
 
-		
 		// process all model elements
 		Collection elements = context.scriptHelper.getModelElements();
-		for (Iterator it = elements.iterator(); it.hasNext(); )
+		for (Iterator it = elements.iterator(); it.hasNext();)
 		{
 			processModelElement(context, it.next());
 		}
 
 	}
-
 
 	/**
 	 *  <p>
@@ -708,23 +683,24 @@ public class AndroMDAGenTask extends MatchingTask
 	 *@param  modelElement     Description of the Parameter
 	 *@throws  BuildException  if something goes wrong
 	 */
-	private void processModelElement(
-		Context context,
-		Object modelElement)
+	private void processModelElement(Context context, Object modelElement)
 		throws BuildException
 	{
 		String name = context.scriptHelper.getName(modelElement);
-		Collection stereotypeNames = context.scriptHelper.getStereotypeNames(modelElement);
+		Collection stereotypeNames =
+			context.scriptHelper.getStereotypeNames(modelElement);
 
-		for (Iterator i = stereotypeNames.iterator(); i.hasNext(); )
+		for (Iterator i = stereotypeNames.iterator(); i.hasNext();)
 		{
 			String stereotypeName = (String) i.next();
 
-			processModelElementStereotype(context, modelElement, stereotypeName);
+			processModelElementStereotype(
+				context,
+				modelElement,
+				stereotypeName);
 		}
 
 	}
-
 
 	/**
 	 *  Description of the Method
@@ -744,20 +720,22 @@ public class AndroMDAGenTask extends MatchingTask
 		String packageName = context.scriptHelper.getPackageName(modelElement);
 		long modelLastModified = context.repository.getLastModified();
 
-		for (Iterator it = templates.iterator(); it.hasNext(); )
+		for (Iterator it = templates.iterator(); it.hasNext();)
 		{
 			TemplateConfiguration tc = (TemplateConfiguration) it.next();
 			if (tc.getStereotype().equals(stereotypeName))
 			{
 				ScriptHelper scriptHelper = context.scriptHelper;
-				
-				if (tc.getTransformClassname() != null)
+
+				if (tc.getTransformClass() != null)
 				{
 					// template has its own custom script helper
-					try {
-						context.scriptHelper = 
-							(ScriptHelper)tc.getTransformClassname().newInstance();
-						context.scriptHelper.setModel(context.repository.getModel());
+					try
+					{
+						context.scriptHelper =
+							(ScriptHelper) tc.getTransformClass().newInstance();
+						context.scriptHelper.setModel(
+							context.repository.getModel());
 						context.scriptHelper.setTypeMappings(typeMappings);
 					}
 					catch (IllegalAccessException iae)
@@ -769,11 +747,9 @@ public class AndroMDAGenTask extends MatchingTask
 						throw new BuildException(ie);
 					}
 				}
-			
-				Collection singleTemplates = tc.getTemplateFiles();	
-				for (Iterator it2 = singleTemplates.iterator();
-					it2.hasNext();
-					)
+
+				Collection singleTemplates = tc.getTemplateFiles();
+				for (Iterator it2 = singleTemplates.iterator(); it2.hasNext();)
 				{
 					TemplateConfiguration.TemplateSingleConfig tsc =
 						(TemplateConfiguration.TemplateSingleConfig) it2.next();
@@ -782,7 +758,7 @@ public class AndroMDAGenTask extends MatchingTask
 						tsc.getFullyQualifiedOutputFile(name, packageName);
 
 					try
-					{	
+					{
 						// do not overwrite already generated file,
 						// if that is a file that the user wants to edit.
 						boolean writeOutputFile =
@@ -790,9 +766,9 @@ public class AndroMDAGenTask extends MatchingTask
 
 						// only process files that have changed
 						if (writeOutputFile
-							 && (lastModifiedCheck == false
-							 || modelLastModified > outFile.lastModified()
-						/*
+							&& (lastModifiedCheck == false
+								|| modelLastModified > outFile.lastModified()
+							/*
 						 *  || styleSheetLastModified > outFile.lastModified()
 						 */
 							))
@@ -810,16 +786,15 @@ public class AndroMDAGenTask extends MatchingTask
 						throw new BuildException(e);
 					}
 				}
-				
+
 				// restore original script helper in case we were
 				// using a custom template script helper
-				context.scriptHelper = scriptHelper;				
+				context.scriptHelper = scriptHelper;
 
 			}
 
 		}
 	}
-
 
 	/**
 	 *  <p>
@@ -848,9 +823,9 @@ public class AndroMDAGenTask extends MatchingTask
 		{
 			writer =
 				new BufferedWriter(
-				new OutputStreamWriter(
-				new FileOutputStream(outFile),
-				encoding));
+					new OutputStreamWriter(
+						new FileOutputStream(outFile),
+						encoding));
 		}
 		catch (Exception e)
 		{
@@ -865,7 +840,7 @@ public class AndroMDAGenTask extends MatchingTask
 
 			// Shove things into the Context
 			velocityContext.put("model", context.repository.getModel());
-			velocityContext.put("transform", context.scriptHelper );
+			velocityContext.put("transform", context.scriptHelper);
 			velocityContext.put("str", new StringUtilsHelper());
 			velocityContext.put("class", modelElement);
 			velocityContext.put("date", new java.util.Date());
@@ -904,7 +879,6 @@ public class AndroMDAGenTask extends MatchingTask
 		log("Output: " + outFile, Project.MSG_INFO);
 	}
 
-
 	/**
 	 *  Takes all the UserProperty values that were defined in the ant build.xml
 	 *  file and adds them to the Velocity context.
@@ -913,13 +887,12 @@ public class AndroMDAGenTask extends MatchingTask
 	 */
 	private void addUserPropertiesToContext(VelocityContext context)
 	{
-		for (Iterator it = userProperties.iterator(); it.hasNext(); )
+		for (Iterator it = userProperties.iterator(); it.hasNext();)
 		{
 			UserProperty up = (UserProperty) it.next();
 			context.put(up.getName(), up.getValue());
 		}
 	}
-
 
 	/**
 	 *  Gets the templateEncoding attribute of the AndroMDAGenTask object
@@ -935,37 +908,34 @@ public class AndroMDAGenTask extends MatchingTask
 		String encoding =
 			(String) ve.getProperty(RuntimeConstants.OUTPUT_ENCODING);
 		if (encoding == null
-			 || encoding.length() == 0
-			 || encoding.equals("8859-1")
-			 || encoding.equals("8859_1"))
+			|| encoding.length() == 0
+			|| encoding.equals("8859-1")
+			|| encoding.equals("8859_1"))
 		{
 			encoding = "ISO-8859-1";
 		}
 		return encoding;
 	}
 
-    
 	/**
 	 * Creates and returns a repsository configuration object.  
-     * 
-     * This enables an ANT build script to use the &lt;repository&gt; ant subtask
-     * to configure the model repository used by ANDROMDA during code
-     * generation.
-     * 
+	 * 
+	 * This enables an ANT build script to use the &lt;repository&gt; ant subtask
+	 * to configure the model repository used by ANDROMDA during code
+	 * generation.
+	 * 
 	 * @return RepositoryConfiguration
 	 * @throws BuildException
 	 */
-	public RepositoryConfiguration createRepository()
-		throws BuildException
+	public RepositoryConfiguration createRepository() throws BuildException
 	{
 		if (repositoryConfiguration == null)
 		{
 			repositoryConfiguration = new RepositoryConfiguration();
 		}
-		
+
 		return repositoryConfiguration;
 	}
-
 
 	/**
 	 *  <p>
@@ -976,8 +946,7 @@ public class AndroMDAGenTask extends MatchingTask
 	 *      to exist
 	 *@exception  BuildException  if the parent directories couldn't be created
 	 */
-	private void ensureDirectoryFor(File targetFile)
-		throws BuildException
+	private void ensureDirectoryFor(File targetFile) throws BuildException
 	{
 		File directory = new File(targetFile.getParent());
 		if (!directory.exists())
@@ -986,21 +955,18 @@ public class AndroMDAGenTask extends MatchingTask
 			{
 				throw new BuildException(
 					"Unable to create directory: "
-					 + directory.getAbsolutePath());
+						+ directory.getAbsolutePath());
 			}
 		}
 	}
-	
-    /**
-     * Context used for doing code generation
-     */
+
+	/**
+	 * Context used for doing code generation
+	 */
 	private static class Context
 	{
 		RepositoryFacade repository = null;
 		ScriptHelper scriptHelper = null;
 	}
-		
-		
 
 }
-

@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
@@ -46,7 +47,7 @@ public class TemplateConfiguration
         this.outputPattern = outputPattern;
         this.outputDir = outputDir;
         this.overwrite = overwrite;
-        this.transformClassname = null;
+        this.transformClass = null;
     }
 
     /**
@@ -60,14 +61,22 @@ public class TemplateConfiguration
         this.project = p;
     }
     
-    public void setTransformClassname(Class transformClassname)
+   
+    public void setTransformClassname(String scriptHelperClassName)
     {
-    	this.transformClassname = transformClassname;
+         try {
+            transformClass = getClass().forName(scriptHelperClassName);
+        }
+        catch (ClassNotFoundException cnfe)
+        {
+            new BuildException(cnfe);
+        }
     }
 
-	public Class getTransformClassname()
+
+	public Class getTransformClass()
     {
-    	return transformClassname;
+    	return transformClass;
     }
      
      /**
@@ -302,5 +311,5 @@ public class TemplateConfiguration
     private File outputDir;
     private boolean overwrite;
     private Project project;
-    private Class transformClassname;
+    private Class transformClass;
 }

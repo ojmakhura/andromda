@@ -2,8 +2,6 @@ package org.andromda.core.anttasks;
 
 import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.ScriptHelper;
-import org.andromda.core.simpleoo.JAXBRepositoryFacade;
-import org.andromda.core.simpleoo.JAXBScriptHelper;
 import org.apache.tools.ant.BuildException;
 
 /**
@@ -12,7 +10,7 @@ import org.apache.tools.ant.BuildException;
  * the <code>&lt;repository&gt;</code> tag occurs in the build.xml file
  * as a nested tag within the <code>&lt;andromda&gt;</code> tag.
  * 
- * <p>This tag provides enables an ANT user to configure the object model 
+ * <p>This tag enables an ANT user to configure the object model 
  * repository that ANDROMDA uses during code generation.  It also provides
  * the ability to customize the API used by the code generation templates to
  * access the repository.</p>
@@ -22,13 +20,39 @@ import org.apache.tools.ant.BuildException;
  */
 public class RepositoryConfiguration
 {
-	private Class repositoryClass = JAXBRepositoryFacade.class;
-    private Class scriptHelperClass = JAXBScriptHelper.class;
+	private static final String DEFAULT_REPOSITORY_CLASSNAME =
+		"org.andromda.core.simpleoo.JAXBRepositoryFacade";
+    private static final String DEFAULT_SCRIPT_HELPER_CLASSNAME =
+        "org.andromda.core.simpleoo.JAXBScriptHelper";
+	private Class repositoryClass = null;
+	private Class scriptHelperClass = null;
 
-	public void setClassname(Class repositoryClass)
+
+	public void setClassname(String repositoryClassName)
 	{
-		this.repositoryClass = repositoryClass;
+		try
+		{
+			repositoryClass = getClass().forName(repositoryClassName);
+		}
+		catch (ClassNotFoundException cnfe)
+		{
+			new BuildException(cnfe);
+		}
+
 	}
+    
+    public void setTransformClassname(String scriptHelperClassName)
+    {
+        try
+        {
+       
+            scriptHelperClass = getClass().forName(scriptHelperClassName);
+        }
+        catch (ClassNotFoundException cnfe)
+        {
+            new BuildException(cnfe);
+        }
+    }
 
 	public RepositoryFacade createRepository()
 	{
@@ -36,7 +60,19 @@ public class RepositoryConfiguration
 
 		try
 		{
+			if (repositoryClass == null)
+			{
+				// use the default repository implementation
+				repositoryClass =
+					getClass().forName(DEFAULT_REPOSITORY_CLASSNAME);
+			}
 			instance = (RepositoryFacade) repositoryClass.newInstance();
+		}
+		catch (ClassNotFoundException cnfe)
+		{
+			throw new BuildException(
+				DEFAULT_REPOSITORY_CLASSNAME + " class could not be found",
+				cnfe);
 		}
 		catch (InstantiationException ie)
 		{
@@ -50,16 +86,11 @@ public class RepositoryConfiguration
 					+ repositoryClass
 					+ "()");
 		}
-		
+
 		return instance;
 	}
-	
 
 
-	public void setTransformClassname(Class scriptHelperClass)
-	{
-		this.scriptHelperClass = scriptHelperClass;
-	}
 
 	public ScriptHelper createTransform()
 	{
@@ -67,12 +98,24 @@ public class RepositoryConfiguration
 
 		try
 		{
-			instance = (ScriptHelper)scriptHelperClass.newInstance();
+            if (scriptHelperClass == null)
+            {
+                // use the default script helper implementation
+                scriptHelperClass =
+                    getClass().forName(DEFAULT_SCRIPT_HELPER_CLASSNAME);
+            }
+			instance = (ScriptHelper) scriptHelperClass.newInstance();
 		}
+        catch (ClassNotFoundException cnfe)
+        {
+            throw new BuildException(
+                DEFAULT_SCRIPT_HELPER_CLASSNAME + " class could not be found",
+                cnfe);
+        }
 		catch (InstantiationException ie)
 		{
 			throw new BuildException(
-				"could not instantiate repository " + scriptHelperClass);
+				"could not instantiate transform " + scriptHelperClass);
 		}
 		catch (IllegalAccessException iae)
 		{
@@ -81,9 +124,8 @@ public class RepositoryConfiguration
 					+ scriptHelperClass
 					+ "()");
 		}
-		
+
 		return instance;
 	}
-	
-	
+
 }
