@@ -121,6 +121,23 @@
                 </p>
             </answer>
         </faq>
+        <faq id="speed">
+            <question>
+                I have a large model and it takes a while for AndroMDA to process everything,
+                is there anyway to speed things (i.e. selecting only certain cartridges to 
+                run against my model)?
+            </question>
+            <answer>
+                <p>
+                    Yes, you can <em>filter</em> the cartridges you want to run against your model by
+                    using the 
+                    <a href="maven-andromda-plugin/properties.html#maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a> 
+                    property (when using the <a href="maven-andromda-plugin/index.html">AndroMDA Maven Plugin</a>) 
+                    or the <a href="anttask.html#cartridgeFilter">cartridgeFilter</a> attribute (when 
+                    using the <a href="anttask.html">AndroMDA Ant task</a>).
+                </p>
+            </answer>
+        </faq>
     </part>
 
     <part id="development">
