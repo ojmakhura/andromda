@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -279,11 +279,14 @@ public class SpringEntityLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object)
-                    .getTargetElement();
-                return targetElement != null
-                    && targetElement
-                        .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT);
+                boolean valid = false;
+                Object targetElement = ((DependencyFacade)object).getTargetElement();
+                if (targetElement instanceof ClassifierFacade)
+                {
+                    ClassifierFacade element = (ClassifierFacade)targetElement;
+                    valid = element.isDataType() || element instanceof ValueObject;
+                }
+                return valid;
             }
         };
     }
