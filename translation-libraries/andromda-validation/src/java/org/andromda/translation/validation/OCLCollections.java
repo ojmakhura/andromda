@@ -1,11 +1,17 @@
 package org.andromda.translation.validation;
 
-import org.apache.commons.collections.Bag;
-import org.apache.commons.collections.SetUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.bag.HashBag;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
-import java.util.*;
+import org.apache.commons.collections.Bag;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.SetUtils;
+import org.apache.commons.collections.bag.HashBag;
 
 public final class OCLCollections
 {
