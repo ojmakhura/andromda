@@ -157,7 +157,7 @@ public class ModelProcessor
             {
                 totalMessagesMessage.append(" - ");
                 totalMessagesMessage.append(messages.size());
-                totalMessagesMessage.append(" VALIDATION ERRORS");
+                totalMessagesMessage.append(" VALIDATION ERROR(S)");
                 messages = this.sortValidationMessages(messages);
                 AndroMDALogger.setSuffix("VALIDATION:ERROR");
                 Iterator messageIt = messages.iterator();
