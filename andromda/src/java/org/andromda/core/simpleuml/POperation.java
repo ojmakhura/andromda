@@ -7,7 +7,8 @@ import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
 /**
- *  Description of the Class
+ * dynamic proxy for an Operation: dynamically supports the UMLOperation, 
+ * and org.omg.uml.foundation.core.Operation interfaces.
  *
  *@author    Anthony Mowers
  */

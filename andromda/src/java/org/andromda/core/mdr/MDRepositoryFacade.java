@@ -19,9 +19,10 @@ import org.netbeans.api.xmi.XMIReader;
 import org.netbeans.api.xmi.XMIReaderFactory;
 
 /**
- *  Implements a repository, for models, using the NetBeans MDR (MetaDataRepository).
+ * Implements an AndroMDA object model repository by using the 
+ * <a href="http://mdr.netbeans.org">NetBeans MetaDataRepository</a>.
  *
- *@author    Anthony Mowers
+ * @author    Anthony Mowers
  */
 public class MDRepositoryFacade implements RepositoryFacade
 {
@@ -54,10 +55,10 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
     
 	/**
-	 * Starts a transaction before reading any models.
+	 * Opens the reposistory and prepares it to read in models.
 	 * 
-	 * Doing the model file reads within the context of a transaction seems to
-	 * speed up processing.
+	 * <p> All the file reads are done within the context of a transaction 
+     * this seems to speed up the processing. </p>
 	 * 
 	 * @see org.andromda.core.common.RepositoryFacade#open()
 	 */
@@ -67,10 +68,10 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
     
 	/**
-	 * Closes a transactions.
+	 * Closes the repository and reclaims all resources.
 	 * 
-	 * This can be called after all the models have been read and all querys 
-	 * have completed.
+	 * <p> This should only be called after all the models has been read and all querys 
+	 * have completed. </p>
 	 * 
 	 * @see org.andromda.core.common.RepositoryFacade#close()
 	 */
@@ -94,7 +95,6 @@ public class MDRepositoryFacade implements RepositoryFacade
 
 		try
 		{
-			repository.beginTrans(true);
 			MofPackage metaModel = loadMetaModel(metaModelURL, repository);
 
 			this.model = loadModel(modelURL, metaModel, repository);
@@ -116,9 +116,7 @@ public class MDRepositoryFacade implements RepositoryFacade
 	}
 
     /**
-     *  Gets the lastModified attribute of the UMLTest object
-     *
-     *@return    The lastModified value
+     * @see org.andromda.core.common.RepositoryFacade#getLastModified()
      */
     public long getLastModified()
     {
@@ -142,9 +140,7 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
 
     /**
-     *  Gets the model attribute of the UMLTest object
-     *
-     *@return    The model value
+     * @see org.andromda.core.common.RepositoryFacade#getModel()
      */
     public Object getModel()
     {
@@ -152,13 +148,14 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
 
 	/**
-	 *  Description of the Method
+	 * Loads a metamodel into the repository.
 	 *
-	 *@param  repository                   Description of the Parameter
-	 *@return                              Description of the Return Value
-	 *@exception  CreationFailedException  Description of the Exception
-	 *@exception  IOException              Description of the Exception
-	 *@exception  MalformedXMIException    Description of the Exception
+	 *@param  repository   MetaDataRepository
+	 *@return MofPackage for newly loaded metamodel
+     * 
+	 *@exception  CreationFailedException  
+	 *@exception  IOException              
+	 *@exception  MalformedXMIException
 	 */
 	private static MofPackage loadMetaModel(
 		URL metaModelURL,
@@ -179,8 +176,9 @@ public class MDRepositoryFacade implements RepositoryFacade
 					metaModelURL.toExternalForm());
 		}
 
-		MofPackage metaModelPackage =
-			findPackage(META_PACKAGE, metaModelExtent);
+		MofPackage metaModelPackage = 
+            findPackage(META_PACKAGE, metaModelExtent);
+            
 		if (metaModelPackage == null)
 		{
 			XMIReader xmiReader =
@@ -197,12 +195,14 @@ public class MDRepositoryFacade implements RepositoryFacade
 	}
 
 	/**
-	 *  Description of the Method
+	 * Loads a model into the repository and validates the model against
+     * the given metaModel.
 	 *
 	 *@param  modelURL                     url of model
 	 *@param  repository                   netbeans MDR
 	 *@param  metaModel                    meta model of model
-	 *@return  populate model
+	 *@return  populated model
+     * 
 	 *@exception  CreationFailedException unable to create model in repository
 	 *@exception  IOException  unable to read model
 	 *@exception  MalformedXMIException model violates metamodel
@@ -245,17 +245,17 @@ public class MDRepositoryFacade implements RepositoryFacade
 	}
 
 	/**
-	 *  Description of the Method
+	 * Searches a meta model for the specified package.
 	 *
-	 *@param  packageName  Description of the Parameter
-	 *@param  model        Description of the Parameter
-	 *@return              Description of the Return Value
+	 *@param  packageName name of package for which to search
+	 *@param  metaModel   meta model to search
+	 *@return MofPackage
 	 */
 	private static MofPackage findPackage(
 		String packageName,
-		ModelPackage model)
+		ModelPackage metaModel)
 	{
-		for (Iterator it = model.getMofPackage().refAllOfClass().iterator();
+		for (Iterator it = metaModel.getMofPackage().refAllOfClass().iterator();
 			it.hasNext();
 			)
 		{
@@ -272,7 +272,8 @@ public class MDRepositoryFacade implements RepositoryFacade
 	}
 
 	
-	// a method for logging that is stubbed out now
+	// A method used to do logging.
+    // Currently stubbed out until a logging technology is selected.
 	static private void log(Object object)
 	{
         

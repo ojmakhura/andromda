@@ -9,7 +9,10 @@ import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.UmlPackage;
 
 /**
- * @author amowers
+ * dynamic proxy for a Model: dynamically supports the UMLModel, 
+ * and org.omg.uml.UmlPackage interfaces.
+ * 
+ * @author Anthony Mowers
  *.
  */
 public class PModel 

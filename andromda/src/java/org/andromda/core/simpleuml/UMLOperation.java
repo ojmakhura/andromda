@@ -3,9 +3,10 @@ package org.andromda.core.simpleuml;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 
 /**
- * @author amowers
- *
+ * defines those methods missing from the Operation in the UML 1.4 schema that are 
+ * needed by the UML2EJB based code generation scripts.
  * 
+ * @author Anthony Mowers
  */
 public interface UMLOperation
 	extends UMLModelElement

@@ -5,8 +5,8 @@ import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Classifier;
 
 /**
- * @author amowers
- *
+ * dynamic proxy for an AssociationEnd: dynamically supports the UMLAssociationEnd, 
+ * and org.omg.uml.foundation.core.AssociationEnd interfaces.
  * 
  */
 public class PAssociationEnd

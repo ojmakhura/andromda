@@ -5,9 +5,10 @@ import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.AssociationEnd;
 
 /**
- * @author Anthony Mowers
- *
+ * Implements operations for querying an assocation from the perspective
+ * of one of the assocation ends.
  * 
+ * @author Anthony Mowers
  */
 public class DirectionalAssociationEnd
     extends org.andromda.core.uml14.DirectionalAssociationEnd

@@ -32,7 +32,7 @@ public interface RepositoryFacade
 	public void close();
 	
 	/**
-	 * read the object model into the repository from the given URL
+	 * read the object model into the repository from the given URL.
      * 
      * <p> An URLs can be used to point to files on the filesystem, 
      * a file in a jar file, a file from a website, data from a database, etc... </p>

@@ -14,12 +14,12 @@ import org.omg.uml.foundation.core.Parameter;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
 /**
- * @author Anthony Mowers
- *
  * This script helper simulates the old-style UML2EJB SimpleOO based
- * script helper.  It will be deprecated as soon as a new script helper API
- * is designed.
- * 
+ * script helper, and is provided mostly for backward compatability
+ * with the UML2EJB code generation scripts - it would be nice to 
+ * deprecate it at some point, but at present there is no plan to do so.
+ *
+ * @author Anthony Mowers 
  */
 public class SimpleOOHelper extends UMLStaticHelper 
 {

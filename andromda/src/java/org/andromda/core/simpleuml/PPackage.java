@@ -10,8 +10,10 @@ import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.modelmanagement.UmlPackage;
 
 /**
+ * dynamic proxy for a Package: dynamically supports the UMLPackage, 
+ * and org.omg.uml.modelmanagement.UmlPackage interfaces.
+ * 
  * @author Anthony Mowers
- *
  */
 public class PPackage 
     extends PModelElement 
