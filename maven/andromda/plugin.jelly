@@ -8,7 +8,8 @@
     <!-- ===================================================================
          Call AndroMDA to generate code from the model                             
          =================================================================== -->
-    <goal name="andromda:run${bootstrap}">
+    <goal name="andromda:run${bootstrap}"
+    	  description="Runs AndroMDA with cartridges defined as dependencies with your POM">
     	
     	<j:choose>
     		<j:when test="${maven.andromda.bootstrap.mode}">
@@ -137,7 +138,8 @@
   			Creates an empty deployable application ear project                
   		==================================================================-->
 	<goal name="andromda:genapp"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="Generates an AndroMDA application base structure">
  
         <ant:echo>+---------------------------------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G   A n d r o M D A   J 2 E E   P R O J E C T   |</ant:echo>
@@ -188,7 +190,8 @@
   			Creates the mda subproject directory.              
   		==================================================================-->
 	<goal name="andromda:generate-mda-subproject"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="private internal goal">
 		
 		<j:set var="mdaDir" value="${projectId}/mda"/>
 		
@@ -226,7 +229,8 @@
   			Creates the app subproject directory.              
   		==================================================================-->
 	<goal name="andromda:generate-app-subproject"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="private internal goal">
 		
 		<j:set var="appDir" value="${projectId}/app"/>
 		
@@ -256,7 +260,8 @@
   			Creates the common subproject directory.              
   		==================================================================-->
 	<goal name="andromda:generate-common-subproject"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="private internal goal">
 				
 		
 		<j:set var="moduleName" value="common"/>
@@ -271,7 +276,8 @@
   			Creates the hibernate subproject directory.              
   		==================================================================-->
 	<goal name="andromda:generate-hibernate-subproject"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="private internal goal">
 		
 		<j:set var="hibernateDir" value="${projectId}/hibernate"/>
 		
@@ -308,7 +314,8 @@
   			A generic generate module goal. It expects: 
   			${moduleTemplatesDir} and ${moduleDir} to be specified.          
   		==================================================================-->
-	<goal name="andromda:generate-module">
+	<goal name="andromda:generate-module"
+		  description="private internal goal">
       	<maven:param-check value="${moduleTemplatesDir}" fail="true">
 				Property "moduleTemplatesDir" is not set, please define before running 'andromda:generate-module'
 		</maven:param-check>
@@ -335,7 +342,8 @@
   			Creates the ejb subproject directory.              
   		==================================================================-->
 	<goal name="andromda:generate-ejb-subproject"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="private internal goal">
 		  	
 		<j:set var="moduleName" value="ejb"/>
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
@@ -349,7 +357,8 @@
   			Creates the web subproject directory.              
   		==================================================================-->
 	<goal name="andromda:generate-web-subproject"
-		  prereqs="andromda:genapp-init">
+		  prereqs="andromda:genapp-init"
+		  description="private internal goal">
 		
 		<j:set var="moduleName" value="web"/>
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
@@ -362,7 +371,8 @@
   	<!--==================================================================
   			Asks the generate questions to get the required input.              
   		==================================================================-->
-	<goal name="andromda:genapp-init">
+	<goal name="andromda:genapp-init"
+		  description="private internal goal">
   		<j:while test="${empty(projectCreator)}">
         	<i:ask 
         		question="Please enter your first and last name (i.e. Chad Brandon):" 
