@@ -166,14 +166,7 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetNullValue()
     {
-        final ClassifierFacade type = getType();
-        final String typeName = type.getFullyQualifiedName(true);
-        if (isValidatorBoolean(typeName) && type.isPrimitiveType())
-            return "false";
-        else if (type.isPrimitiveType())
-            return "0";
-        else
-            return "null";
+        return getType().getJavaNullString();
     }
 
     /**

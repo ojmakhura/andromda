@@ -391,4 +391,26 @@ public class ClassifierFacadeLogicImpl
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
     }
+
+    public String handleGetJavaNullString()
+    {
+        String javaNullString = null;
+        final String typeName = getFullyQualifiedName(false);
+        if (isPrimitiveType())
+        {
+            if ("boolean".equals(typeName) || "java.lang.Boolean".equals(typeName))
+            {
+                javaNullString = "false";
+            }
+            else
+            {
+                javaNullString = "0";
+            }
+        }
+        else
+        {
+            javaNullString = "null";
+        }
+        return javaNullString;
+    }
 }
