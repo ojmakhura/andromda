@@ -233,7 +233,7 @@
             %>
                 <html:link action="${link.action.actionPath}" paramName="${mapName}" paramScope="page">
 #elseif ($parameters.size() == 1)
-                <html:link action="${link.action.actionPath}" paramName="form" paramProperty="$parameters.iterator().next().name" paramScope="page">
+                <html:link action="${link.action.actionPath}" paramName="row" paramProperty="${link.tableLinkColumnName}" paramId="$parameters.iterator().next().name" paramScope="page">
 #end
 #set ($linkName = "row.${link.tableLinkColumnName}")
                     ${${linkName}}
