@@ -11,9 +11,6 @@
 #foreach ($constraint in $modelElement.getConstraints($constraintKind))
 #set ($constraintTranslation = $constraint.getTranslation("validation.Java"))
 #set ($constraintDocumentation = $constraint.getDocumentation("",9999,false))
-#if (!$constraintDocumentation || $constraintDocumentation.trim().length()==0)
-#set ($constraintDocumentation = "An undocumented constraint was violated")
-#end
         {
             $constraintTranslation
             if (!constraintValid)
