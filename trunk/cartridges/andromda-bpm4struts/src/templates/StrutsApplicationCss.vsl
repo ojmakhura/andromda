@@ -2,6 +2,7 @@
 ## CONSTANTS
 ##
 #set ($hints = $hints.equalsIgnoreCase("true"))
+#set ($onlineHelp = $onlineHelp.equalsIgnoreCase("true"))
 
 ##
 ##  The top level layer, everything is contained within this one
@@ -241,7 +242,7 @@ div.login div.submit { margin: 1.5em 0 0.5em 0; }
 div.login input.login { width: 90%; }
 div.login p.error { width: 90%; padding: 0.5em; font-weight: bold; color: red;}
 
-#if ($onlineHelp == "true")
+#if ($onlineHelp)
 div.help
 {
     padding: 0 20px 20px 20px;
@@ -318,91 +319,37 @@ span.xml { background-image: url(xml.gif); background-repeat: no-repeat; }
 
 table.list { width: 100%; padding-right: 25px; }
 
-table 
-{
-	width: 80%;
-	margin: 20px 0 20px 0;
-}
+table#row th { margin: 6px; }
+table#row td { padding: 0 14px 0 14px; }
 
-th, td 
-{
-	padding: 2px 4px 2px 4px;
-	text-align: left;
-	vertical-align: top;
-}
+table#row th a { margin-right: 14px;}
 
-thead tr 
-{
-  background-color: #eee;
-}
+tr.odd { background-color: #eeeeff; padding: 2px; }
+tr.even { background-color: #fffffd; padding: 2px; }
+th.sorted { background-color: #fff; font-weight: bold; }
+th.sorted, th.sortable { background-position: center right; }
+th.sortable { background: url(none.gif) no-repeat center right; }
+th.order1 { background: url(descending.gif) no-repeat center right; }
+th.order2 { background: url(ascending.gif) no-repeat center right; }
 
-th.sorted 
-{
-    background-color: #eee;
-}
-
-th a, th a:visited 
-{
-  color: black;
-}
-
-th a:hover 
-{
-  text-decoration: underline;
-  color: black;
-}
-
-th.sorted a, th.sortable a 
-{
-	background-position: right;
-	display: block;
-}
-
-th.sortable a 
-{
-	background-image: url(none.gif); background-repeat: no-repeat;
-}
-
-th.order1 a 
-{
-	background-image: url(descending.gif);  background-repeat: no-repeat;
-}
-
-th.order2 a 
-{
-	background-image: url(ascending.gif); background-repeat: no-repeat;
-}
-
-tr.odd 
-{
-    background-color: #eeeeff;
-}
-
-tr.tableRowEven, tr.even 
-{
-    background-color: #fffffd
-}
-
-span.pagebanner 
+span.pagebanner
 {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
-	margin-top: 10px;
-	display:block;
+	margin: 10px 25px 0 0;
+	display: block;
 	border-bottom: none;
 }
 
-span.pagelinks 
+span.pagelinks
 {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
-	display:block;
+	display: block;
 	border-top: none;
-	margin-bottom: -5px;
+	margin: 0 25px 10px 0;
 }
 
 /* styles related to tabbed panels */
