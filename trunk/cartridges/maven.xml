@@ -96,7 +96,7 @@
         </j:if>
     </goal>
 
-    <preGoal name="test:test">
+    <postGoal name="test:test">
         <!-- only process the cartridge tests if we have a test cartridge model defined AND
              the docs are NOT being built -->
         <j:if test="${context.getVariable('andromda.cartridge.test.model.uri') != null and docsBuild eq null}">
@@ -109,7 +109,7 @@
                 </j:otherwise>
             </j:choose>
         </j:if>
-    </preGoal>
+    </postGoal>
     
     <!-- ===================================================================
          Intercept the 'site' goal so that we can fake out the reports 
