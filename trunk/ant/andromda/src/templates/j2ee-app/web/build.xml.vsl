@@ -94,7 +94,7 @@
         </copy>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF">
             <fileset refid="xdoclet-generated-configuration-sources"/>
-            <fileset dir="${basedir}/target/src" includes="*.xml"/>
+            <fileset dir="${basedir}/target/src/WEB-INF" includes="*.xml"/>
         </copy>
         <antcall target="-precompile"/>
         <war destfile="${basedir}/target/${jar.bundle.name}" webxml="${basedir}/${bundle.dir}/WEB-INF/web.xml">
