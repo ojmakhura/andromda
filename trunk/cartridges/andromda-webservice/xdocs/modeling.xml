@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Web Service Cartridge Modeling</title>
+  	</properties>
+  	<body>
+    	<section name="Web Service Cartridge Modeling">
+    		<p>
+    			The page describes the modeling standards one must follow to in order
+    			to use the Web Service Cartridge.
+    		</p>   	
+    		<subsection name="Supported Stereotypes">
+		      	<table>
+		        	<tr>
+			          	<th>Stereotype</th>   
+			          	<th nowrap="nowrap">Model Element</th>
+			          	<th>Description</th>    	     	
+		        	</tr>
+		        	<tr>
+		        		<a name="Service"/>
+			          	<td>
+			          		<![CDATA[<<Service>>]]>
+			          	</td>
+						<td>
+							Classifier
+						</td>
+			          	<td>
+			          		Creates a WSDD file for each model element with
+			          		this stereotype.  Each method to be exposed, must be
+			          		stereotyped with the <![CDATA[<<WebServiceOperation>>]]> stereotype.
+			          	</td>
+		        	</tr>	
+		        	<tr>
+		        		<a name="WebService"/>
+			          	<td>
+			          		<![CDATA[<<WebService>>]]>
+			          	</td>
+						<td>
+							Classifier
+						</td>
+			          	<td>
+			          		Creates a WSDD service fragment and exposes ALL methods of the element 
+							as a web service.
+			          	</td>
+		        	</tr>	
+		        	<tr>
+			          	<td>
+			          		<![CDATA[<<WebServiceOperation>>]]>
+			          	</td>
+						<td>
+							Operation
+						</td>
+			          	<td>
+			          		This is used in conjunction with the <a href="#Service"><![CDATA[<<Service>>]]></a> stereotype.  
+			          		Adds the method to the list of allowed methods
+			          		which will be exposed as a web service.  You <strong>MUST</strong>
+			          		place this stereotype on an operation if you want it exposed
+			          		as a web service (unless you add the
+			          		<a href="#WebService"><![CDATA[<<WebService>>]]></a> stereotype to your class).
+			          	</td>
+		        	</tr>			        	        	      	        	        		        	        	        	     	             	        	
+		        </table>
+    		</subsection>
+    		<subsection name="Supported Tagged Values">
+		      	<table>
+		        	<tr>
+			          	<th>Tagged Value</th>  
+						<th>Used With</th> 
+			          	<th>Description</th>    	     	
+		        	</tr>
+		        	<tr>
+			          	<td>
+			          		webService.style
+			          	</td>
+						<td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>, 
+							<a href="#WebService"><![CDATA[<<WebService>>]]></a>
+						</td>
+			          	<td>
+			          		Defines the style of the web service to be generated 
+							(i.e. wrapped, document, rpc).
+			          	</td>
+		        	</tr>	
+		        	<tr>
+			          	<td>
+			          		webService.use
+			          	</td>
+						<td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>, 
+							<a href="#WebService"><![CDATA[<<WebService>>]]></a>
+						</td>
+			          	<td>
+			          		The use of the service to be generated (i.e. literal, encoded).
+			          	</td>
+		        	</tr>
+		        	<tr>
+			          	<td>
+			          		webService.provider
+			          	</td>
+						<td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>, 
+							<a href="#WebService"><![CDATA[<<WebService>>]]></a>
+						</td>
+			          	<td>
+			          		The provider to use for the service, by default its <code>RPC</code>
+							which will use a plain java object as the provider.  Another value
+							that can be specified is <code>EJB</code>, if this is specified,
+							then its expected that either the EJB or Hibernate cartridge
+							is being used with this cartridge.
+			          	</td>
+		        	</tr>				        	        	      	        	        		        	        	        	     	             	        	
+		        </table>
+    		</subsection>	
+    	</section>
+  	</body>
+</document>

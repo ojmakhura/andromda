@@ -1,0 +1,94 @@
+<project>
+    <extend>../project.xml</extend>
+    <pomVersion>1</pomVersion>
+    <name>WebService Cartridge</name>
+    <artifactId>andromda-webservice-cartridge</artifactId>
+    <description>
+		Produces Apache Axis WSDD (Web Service Deployment Descriptors and WSDLs) 
+		used in conjunction with Session EJBs generated from 'Service'
+		stereotypes (or just plain POJOs) defined within a model. 
+  	</description>
+    <shortDescription>WebService Cartridge</shortDescription>
+    <developers>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+            </roles>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>UMLMetafacadeModel</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>xml.zip</type>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties>
+                <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
+                <facades-to-impls>${basedir}/target/src</facades-to-impls>
+                <logical.languageMappingsUri>Java</logical.languageMappingsUri>
+                <facade-logics>${basedir}/target/src</facade-logics>
+                <facades>${basedir}/target/src</facades>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda-cartridges</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda-translation-libraries</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.0</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.6.1</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties/>
+        </dependency>
+    </dependencies>
+    <properties/>
+</project>

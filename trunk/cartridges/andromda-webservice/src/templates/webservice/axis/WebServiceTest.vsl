@@ -1,0 +1,105 @@
+package ${service.packageName};
+
+#set($testPackageName = "${service.packageName}.test")
+
+#set($completeClassName = "${testPackageName}.${service.name}")
+import ${testPackageName}.${service.name}ServiceLocator;
+import ${testPackageName}.${service.name};
+import ${testPackageName}.${service.name}SoapBindingStub;
+
+import javax.xml.rpc.ServiceException;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+#set($testClassName = "${service.name}Test")
+
+/**
+ * JUnit test for web service '${service.fullyQualifiedName}'.
+ *
+ * @see ${service.fullyQualifiedName}
+ */
+public class ${testClassName} extends TestCase {
+
+	private ${service.name} service = null;
+
+	/**
+	 * Constructor for ${service.name}Test.
+	 *
+	 * @param testName name of the test.
+	 */
+	public ${testClassName}(String testName) {
+		super(testName);
+	}
+	
+	/**
+	 * Sets up the ${service.name} client.
+	 */
+	public void setUp() {
+		try {
+			${service.name}ServiceLocator locator = 
+				new ${service.name}ServiceLocator();
+			this.service = locator.get${service.name}();
+			${service.name}SoapBindingStub stub = 
+				(${service.name}SoapBindingStub)this.service;	
+		} catch (ServiceException ex) {
+			TestCase.fail(ex.toString());
+		}
+	}
+	
+	/**
+	 * Allows the ${testClassName} to be run by JUnit as a suite.
+	 */
+	public static Test suite() {
+   		return new TestSuite(${testClassName}.class);
+	}
+
+	/**
+	 * Runs the ${testClassName} test case.
+	 */
+	public static void main(String[] args) {
+    	junit.textui.TestRunner.main(new String[] {${testClassName}.class.getName()});
+	}
+	
+	/* ------------------ Actual Tests -------------------- */
+	
+#foreach ($operation in $service.allowedOperations)
+	/**
+	 * Tests: ${service.fullyQualifiedName}.${operation.signature}
+	 *
+	 * @see ${service.fullyQualifiedName}#${operation.signature}()
+     */ 
+	$operation.visibility void test${stringUtils.capitalize($operation.name)}() {
+#foreach ($argument in $operation.arguments)
+#set ($packageName = $argument.type.packageName)
+#if (!$argument.type.datatype)
+#set($packageName = "${packageName}.test")
+#if (!$service.style.equalsIgnoreCase("rpc") && $argument.arrayType)
+#set ($argumentTypeName = "${packageName}.ArrayOf${argument.type.nonArray.name}")
+#else
+#set ($argumentTypeName = "${packageName}.${argument.type.name}")
+#end
+#else
+#set ($argumentTypeName = $argument.type.fullyQualifiedName)
+#end
+#set ($instanceDef = "$argumentTypeName $argument.name")
+#if(!$argument.type.primitive)
+        $instanceDef = null;
+#elseif ("boolean" == $argumentTypeName)
+        $instanceDef = false;
+#else
+        $instanceDef = ($argumentTypeName)0;
+#end
+#end
+		try {
+			this.service.${operation.name}(${operation.argumentNames});
+		} catch (Throwable th) {
+			TestCase.fail(th.toString());
+		}
+		//TODO: implement ${testClassName}.test${stringUtils.capitalize($operation.name)}()  
+	}
+	
+#end
+
+}

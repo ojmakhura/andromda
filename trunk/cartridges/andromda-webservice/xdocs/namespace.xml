@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Web Service Cartridge Namespace</title>
+  	</properties>
+  	<body>
+    	<section name="Web Service Namespace Properties">
+	      	<table>
+	        	<tr>
+		          	<th>Property</th>         	
+		          	<th>Description</th>       	
+		          	<th>Required?</th>	   	 
+	        	</tr>
+	        	<tr>
+		          	<td>
+		          		schemaTypeMappingsUri
+		          	</td>
+		          	<td>
+		          		URI specifying the specific mappings from model types to WSDL Schema types. 
+		          		(i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
+		          	</td>
+		          	<td>
+		          		Yes
+		          	</td>
+	        	</tr>	
+				<tr>
+					<td>
+						wsdlSoapAddress
+					</td>
+					<td>
+				        Defines the location of the WSDL once the application is deployed 
+						(i.e. <code>http://localhost:8080/security-service/services</code>).  The 
+						service name will be appended to the location to create the complete URL. 
+						For example if you have a service named SecurityService within your model, 
+						the entire URL to that service in the generated WSDL would be 
+						<code><![CDATA[<wsdlsoap:address location="http://localhost:8080/security-service/services/SecurityService"/>]]></code>
+						within the <code><![CDATA[<wsdl:service/>]]></code> element.
+					</td>
+					<td>
+						Yes
+					</td>
+				</tr>
+	        	<tr>
+		          	<td>
+		          		schemaTypeMappingsUri
+		          	</td>
+		          	<td>
+		          		URI specifying the specific mappings from model types to WSDL Schema types. 
+		          		(i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
+		          	</td>
+		          	<td>
+		          		Yes (unless ignore is specified as <code>true</code>)
+		          	</td>
+	        	</tr>	
+	        	<tr>
+		          	<td>
+		          		webservice-wsdl-outlet
+		          	</td>
+		          	<td>
+		          		Specifies the directory to which generated WSDL's will be placed.
+		          	</td>
+		          	<td>
+		          		Yes (unless ignore is specified as <code>true</code>)
+		          	</td>
+	        	</tr>		
+				<tr>
+					<td>
+						webservice-java-outlet
+					</td>
+					<td>
+						The directory to which any non implementation Java files will be generated.
+					</td>
+					<td>
+						Yes (unless ignore is specified as <code>true</code>)
+					</td>
+				</tr>    
+				<tr>
+					<td>
+						webservice-axis-outlet
+					</td>
+					<td>
+						The directory to which any AXIS specific files are generated (such
+						as the WSDD files, etc).
+					</td>
+					<td>
+						Yes (unless ignore is specified as <code>true</code>)
+					</td>
+				</tr>   
+				<tr>
+					<td nowrap="nowrap">
+						webservice-axis-test-outlet
+					</td>
+					<td>
+						The directory to which AXIS specific tests are generated.
+					</td>
+					<td>
+						Yes (unless ignore is specified as <code>true</code>)
+					</td>
+				</tr> 	      	        	        		        	        	        	     	             	        	
+	        </table>
+    	</section>
+  	</body>
+</document>

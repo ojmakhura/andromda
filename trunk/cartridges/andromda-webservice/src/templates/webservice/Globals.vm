@@ -1,0 +1,18 @@
+#set ($operations = $service.operations)
+## The name of the service we are working with
+#set ($serviceName = $service.name)
+## The service package
+#set ($packageName = ${service.packageName})
+## The complete service name (including package)
+#set ($completeClassName = $service.fullyQualifiedName)
+#if ($stringUtils.isEmpty(${packageName}))
+#set ($completeClassName = ${serviceName})
+#end
+## Define the encoding style
+#set ($encodingStyle = "")
+#if ($service.use.equalsIgnoreCase('encoded'))
+#set ($encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/")
+#end
+## The namespace to use
+#set ($namespace = "$service.namespace")
+

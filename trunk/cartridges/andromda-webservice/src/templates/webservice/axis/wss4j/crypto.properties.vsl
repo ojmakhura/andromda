@@ -1,0 +1,9 @@
+#if ($signedRequest == 'true' || $encryptedRequest == 'true' || $signedResponse == 'true' || $encryptedResponse == 'true')
+<!-- define the WSS4J security handler -->
+org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
+org.apache.ws.security.crypto.merlin.keystore.type=${crypto.keystore.type}
+org.apache.ws.security.crypto.merlin.keystore.password=${crypto.keystore.password}
+org.apache.ws.security.crypto.merlin.file=${crypto.keystore.file}
+org.apache.ws.security.crypto.merlin.keystore.alias=${crypto.keystore.alias}
+org.apache.ws.security.crypto.merlin.alias.password=${crypto.alias.password}
+#end

@@ -1,0 +1,8 @@
+## The complete service name with the ejb package included 
+#set ($completeEjbClassName = "$service.fullyQualifiedName")
+#set ($ejbRefName = "ejb/${class.packageName}/${class.name}")
+#set ($ejbJndiName = "${application.name}/ejb/${completeEjbClassName}")
+#set ($ejbHomeInterfaceName = "${completeEjbClassName}Home")
+#set ($ejbRemoteInterfaceName = "${completeEjbClassName}")
+#set ($ejbJndiUrl = "jnp://localhost:1099")
+#set ($ejbNamingContextFactory = "org.jnp.interfaces.NamingContextFactory")
