@@ -8,7 +8,14 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-03-29" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-03-30" description="Second release candidate for version 3.0">
+            <action dev="cwbrandon" type="update">
+                When generating value objects for webservices, the webservice cartridge no longer generates its own
+                value objects but instead uses the ones generated from the java cartridge, it's just required
+                to set the <a href="andromda-metafacades-uml/namespace.html#useArraysForMultiplicitiesOfTypeMany">useArraysForMultiplicitiesOfTypeMany</a>
+                namespace property to true (so that arrays are generated for association ends with multiplicities
+                of type many).
+            </action>
             <action dev="draftdog" type="fix" issue="HIB-82">
                 Many-to-many relationships, where only a single table is involved, are not causing the Hibernate
                 SchemaExport tool to choke anymore. This bug was related to the generated foreign key constraint names.
