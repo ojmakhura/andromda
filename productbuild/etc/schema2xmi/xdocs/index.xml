@@ -55,6 +55,8 @@ Options:
  -o,--output <arg>                  Set output name to which the result of
                                     the transformation will be written
  -p,--password <arg>                Schema user password
+ -s,--schema <arg>                  The name of the schema where the
+                                    tables can be found
  -t,--tablePattern <arg>            The table name pattern of tables to
                                     process (regular expression)
  -u,--user <arg>                    Schema user name

@@ -64,6 +64,12 @@ public class Schema2XMI
      * element will be generated.
      */
     private static final String PACKAGE = "P";
+    
+    /**
+     * The command line argument specifying the name of the
+     * schema where the table resides.
+     */
+    private static final String SCHEMA = "s";
 
     /**
      * The command line argument specifying the tables names to match on
@@ -145,6 +151,13 @@ public class Schema2XMI
             true,
             "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
         option.setLongOpt("mappings");
+        options.addOption(option);
+        
+        option = new Option(
+            SCHEMA,
+            true,
+            "The name of the schema where the tables can be found");
+        option.setLongOpt("schema");
         options.addOption(option);
 
         option = new Option(
@@ -258,6 +271,8 @@ public class Schema2XMI
                 transformer.setTypeMappings(commandLine
                     .getOptionValue(MAPPINGS));
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
+                transformer.setSchema(
+                    commandLine.getOptionValue(SCHEMA));
                 transformer.setTableNamePattern(commandLine
                     .getOptionValue(TABLE_PATTERN));
                 transformer.setClassStereotypes(
