@@ -30,8 +30,13 @@ public class StrutsFinalStateLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && fullPath != null) return fullPath;
 
-        final String name = getName();
+        StrutsUseCase useCase = getTargetUseCase();
+        return (useCase != null) ? useCase.getActionPath() : "";
+    }
 
+    protected Object handleGetTargetUseCase()
+    {
+        final String name = getName();
         if (name != null)
         {
             final Collection useCases = getModel().getAllUseCases();
@@ -40,13 +45,11 @@ public class StrutsFinalStateLogicImpl
                 UseCaseFacade useCase = (UseCaseFacade) iterator.next();
                 if (useCase instanceof StrutsUseCase)
                 {
-                    StrutsUseCase strutsUseCase = (StrutsUseCase) useCase;
-                    if (name.equalsIgnoreCase(strutsUseCase.getName()))
-                        return fullPath = ((StrutsUseCase) useCase).getActionPath();
+                    if (name.equalsIgnoreCase(useCase.getName()))
+                        return useCase;
                 }
             }
         }
-
-        return fullPath = "";
+        return null;
     }
 }
