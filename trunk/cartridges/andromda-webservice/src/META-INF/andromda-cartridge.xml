@@ -25,6 +25,8 @@
     <property reference="xmlSchemaNamespace" default="http://www.w3.org/2001/XMLSchema"/>
     <property reference="wsdlNamespace" default="http://schemas.xmlsoap.org/wsdl/"/>
     <property reference="documentStyleTransportNamespace" default="http://schemas.xmlsoap.org/soap/http"/>
+    <!-- encoding for xml documents -->
+    <property reference="xmlEncoding" default="UTF-8"/>
 
     <!-- if true, causes generation of necessary code that expects
          the request to be signed -->
