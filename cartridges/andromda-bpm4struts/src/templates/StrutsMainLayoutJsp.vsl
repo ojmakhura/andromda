@@ -1,0 +1,32 @@
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
+
+<html:html locale="true">
+
+    <head>
+        <html:base/>
+        <title>
+            <tiles:insert attribute="title" flush="true"/>
+        </title>
+        <tiles:insert attribute="javascript" flush="true"/>
+    </head>
+
+    <body>
+        <table rules="all" cellpadding="10">
+            <tr>
+                <td colspan="2">
+                    <tiles:insert attribute="header" flush="true"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <tiles:insert attribute="menu" flush="true"/>
+                </td>
+                <td>
+                    <tiles:insert attribute="body" flush="true"/>
+                </td>
+            </tr>
+        </table>
+    </body>
+
+</html:html>

@@ -1,0 +1,25 @@
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+
+#set ($useCases = $class.allUseCases)
+<table>
+#foreach ($useCase in $useCases)
+#set ($roles = $useCase.actionRoles)
+    <tr>
+        <td>
+#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#if ($security)
+            <logic:present role="$roles">
+#end
+                <html:link action="$useCase.actionPath" titleKey="$useCase.titleKey">
+                    $useCase.name
+                </html:link>
+#if ($security)
+            </logic:present>
+            <logic:notPresent role="$roles">
+                <i><font color="#808080">$useCase.name</font></i>
+            </logic:notPresent>
+#end
+        </td>
+    </tr>
+#end
+</table>
