@@ -4,11 +4,13 @@
         <!-- library of macros used in template engine -->
         <macrolibrary name="templates/StrutsJSP.vm"/>
         <macrolibrary name="templates/StrutsAction.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
+    <!-- cartridge-templateObject merge-point-->
 
     <!-- define template external properties -->
     <property reference="security" default="false"/>
@@ -28,6 +30,7 @@
     <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
     <property reference="customResourcesKey" default="custom"/>
+    <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
     <resource
@@ -53,6 +56,8 @@
         outputPattern="lib/{0}"
         outlet="configuration"
         overwrite="true"/>
+     
+    <!-- cartridge-resource merge-point -->
 
     <!-- process templates on model elements -->
     <template
@@ -450,5 +455,7 @@
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"/>
+        
+     <!-- cartridge-template merge-point -->
 
 </cartridge>
