@@ -266,7 +266,7 @@ public class MetafacadeFacadeLogicImpl
                         fullyQualifiedName,
                         "public",
                         false,
-                        ae.getGetterSetterTypeName(),
+                        ae.getOtherEnd().getGetterSetterTypeName(),
                         otherEnd.getGetterName(),
                         otherEnd.getDocumentation("    * "));
                     map.put(md.buildCharacteristicKey(), md);

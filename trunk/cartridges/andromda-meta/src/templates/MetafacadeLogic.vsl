@@ -190,7 +190,11 @@ public abstract class ${metafacade.logicName}
 #foreach ( $associationEnd in $metafacade.associationEnds )
 #if ($associationEnd.otherEnd.navigable)
 ##
-#set ($memberTypeName = $associationEnd.getterSetterTypeName)
+#set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
+#set ($shieldedElementsCast = "")
+#if ($associationEnd.otherEnd.many && $associationEnd.otherEnd.ordered)
+#set ($shieldedElementsCast = "(java.util.List)")
+#end
 #set ($methodName = $associationEnd.otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.capitalize($methodName)")
@@ -220,7 +224,7 @@ public abstract class ${metafacade.logicName}
         {
             ${handleMethodPreCondition};
 #if ($associationEnd.otherEnd.many)
-            this.__$memberName = shieldedElements(${handleMethodName}($typedArgumentList));
+            this.__$memberName = ${shieldedElementsCast}shieldedElements(${handleMethodName}($typedArgumentList));
 #else
             this.__$memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
 #end
@@ -231,7 +235,7 @@ public abstract class ${metafacade.logicName}
 #else
         ${handleMethodPreCondition};
 #if ($associationEnd.otherEnd.many)
-        $memberTypeName $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
+        $memberTypeName $memberName = ${shieldedElementsCast}shieldedElements(${handleMethodName}($typedArgumentList));
 #else
         $memberTypeName $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
 #end
