@@ -12,11 +12,11 @@ import java.util.TreeSet;
 import org.andromda.cartridges.webservice.WebServiceProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -244,7 +244,8 @@ public class WebServiceLogicImpl
                 {
                     this.checkedTypes.add(modelElement);
                     ClassifierFacade nonArrayType = type;
-                    if (type.isArrayType())
+                    if (type.isArrayType()
+                        || this.isAssociation(modelElement.getClass()))
                     {
                         // convert to non-array type since we
                         // check if that one has the stereotype
@@ -259,10 +260,8 @@ public class WebServiceLogicImpl
                     {
                         if (nonArrayType
                             .hasStereotype(WebServiceProfile.STEREOTYPE_VALUE_OBJECT)
-                            || nonArrayType
-                                .hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION))
+                            || nonArrayType.isEnumeration())
                         {
-                            types.add(modelElement);
                             // we add the type when its a non array and has
                             // the correct stereotype (even if we have added
                             // the array type above) since we need to define
@@ -280,8 +279,9 @@ public class WebServiceLogicImpl
                             Iterator propertyIt = properties.iterator();
                             while (propertyIt.hasNext())
                             {
-                                this.loadTypes((ModelElementFacade)propertyIt
-                                    .next(), types, nonArrayTypes);
+                                ModelElementFacade property = (ModelElementFacade)propertyIt
+                                    .next();
+                                this.loadTypes(property, types, nonArrayTypes);
                             }
                         }
                     }
@@ -294,6 +294,19 @@ public class WebServiceLogicImpl
             logger.error(errMsg, th);
             throw new MetafacadeException(errMsg, th);
         }
+    }
+
+    /**
+     * Returns true/false depending on whether or not this class represents an
+     * association class.
+     * 
+     * @param modelElementClass the model element class to check.
+     * @return true/false
+     */
+    private boolean isAssociation(Class modelElementClass)
+    {
+        return modelElementClass != null
+            && AssociationEndFacade.class.isAssignableFrom(modelElementClass);
     }
 
     /**

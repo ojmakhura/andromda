@@ -79,11 +79,11 @@ $service.getDocumentation("            ", 64, false)
 $type.getDocumentation("            ", 64, false)
             </documentation>
         </typeMapping> 
-## Handle any type mappings that happen to be associationEnds 	
+## Handle any type mappings that happen to be associationEnds 
 #if ($typeMapping.many)
         <typeMapping 
             type="java:${type.fullyQualifiedName}[]" 
-            xmlns:ns${velocityCount}="${type.namespace}"
+            xmlns:ns${velocityCount}="$type.namespace"
             qname="ns${velocityCount}:${type.arrayName}" 
             serializer="org.apache.axis.encoding.ser.ArraySerializerFactory"
             deserializer="org.apache.axis.encoding.ser.ArrayDeserializerFactory"
