@@ -55,7 +55,7 @@ public class StrutsActionLogicImpl
     private String fullTilePath = null;
 
     // ---------------- constructor -------------------------------
-    
+
     public StrutsActionLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -212,7 +212,8 @@ public class StrutsActionLogicImpl
     public String getFormBeanName()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && formBeanName != null) return formBeanName;
-        return (formBeanName = StringUtilsHelper.lowerCaseFirstLetter(getFormBeanClassName()));
+        final String useCaseName = getActivityGraph().getUseCase().getName();
+        return (formBeanName =  StringUtilsHelper.lowerCaseFirstLetter(useCaseName + getFormBeanClassName()));
     }
 
     public String getFormValidationMethodName()
