@@ -31,7 +31,7 @@ public class EntityAssociationEndFacadeLogicImpl
     /**
      * @see edu.duke.dcri.mda.model.metafacade.EntityAssociationEndFacade#getColumnName()()
      */
-    public java.lang.String getColumnName() {
+    public java.lang.String handleGetColumnName() {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             this, 
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
@@ -50,14 +50,14 @@ public class EntityAssociationEndFacadeLogicImpl
      * @param foreignKeySuffix the suffix for foreign keys 
      * (i.e. '_FK').
      */
-    public void setForeignKeySuffix(String foreignKeySuffix) {
+    public void handleSetForeignKeySuffix(String foreignKeySuffix) {
     	this.registerConfiguredProperty(FOREIGN_KEY_SUFFIX, foreignKeySuffix);
     }
     
     /**
      * Gets the maximum name length SQL names may be 
      */
-    public String getForeignKeySuffix() {
+    public String handleGetForeignKeySuffix() {
         return (String)this.getConfiguredProperty(FOREIGN_KEY_SUFFIX);
     }
     

@@ -3,9 +3,12 @@
 
 -- BODY
 
+context LoyaltyAccount::getCustomerName() : String
+    body: Membership.card.owner.name
+
 context org::Bookpart::findAllParts() : Collection (Bookpart)
-body thisIsUnique :
-	self.allInstances() -> select(la : Bookpart, la2 : SomeType, la3 : AnotherType | la.title = 'test' and la2.title = 'test')
+    body thisIsUnique :
+	    self.allInstances() -> select(la : Bookpart, la2 : SomeType, la3 : AnotherType | la.title = 'test' and la2.title = 'test')
 	
 -- INV
 	
@@ -13,8 +16,8 @@ context Person
 inv: Person::allInstances()->isUnique(socSecNr)
 
 context ProgramPartner
-inv totalPoints:
-deliveredServices.transactions.points->sum() < 10000
+    inv totalPoints:
+        deliveredServices.transactions.points->sum() < 10000
     
 /* 
     The following invariant states that the maximum number of points
@@ -47,9 +50,15 @@ context Person::getMortgage(security : House)
 context Person::getMortgage(security : House)
     pre: security.value >= security.mortgages.principal -> sum()
         
-context LoyaltyAccount::isAccountEmpty() : Boolean
+context LoyaltyAccount::isEmpty() : Boolean
     post: result = (points = 0)
         
 context LoyaltyProgram::enroll(c : Customer)
     pre : c.name <> ''
     post: participants = participants@pre->including( c )
+    
+context Service::upgradePointsEarned(amount: Integer)
+    post: calcPoints() = calcPoints@pre() + amount
+    
+context Subject::hasChanged()
+    post: observer^update(12, 14)

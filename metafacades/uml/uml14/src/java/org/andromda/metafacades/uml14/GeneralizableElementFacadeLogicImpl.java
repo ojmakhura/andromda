@@ -32,7 +32,7 @@ public class GeneralizableElementFacadeLogicImpl
 	/**
 	 * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getAllGeneralizations()()
 	 */
-    public java.util.Collection getAllGeneralizations() 
+    public java.util.Collection handleGetAllGeneralizations() 
     {
     	Collection generalizations = new ArrayList();
         for (GeneralizableElementFacade element = this.getGeneralization();

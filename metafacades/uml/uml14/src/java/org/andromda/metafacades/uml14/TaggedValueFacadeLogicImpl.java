@@ -50,7 +50,7 @@ public class TaggedValueFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValues()
      */
-    public Collection getValues()
+    public Collection handleGetValues()
     {
         return metaObject.getDataValue();
     }
@@ -58,7 +58,7 @@ public class TaggedValueFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValue()
      */
-    public java.lang.Object getValue() 
+    public java.lang.Object handleGetValue() 
     {
         Collection values = getValues();
         return (values.isEmpty()) ? null : values.iterator().next();
@@ -67,7 +67,7 @@ public class TaggedValueFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.TaggedValueFacade#formatHTMLStringAsParagraphs()
      */
-    public Collection formatHTMLStringAsParagraphs()
+    public Collection handleFormatHTMLStringAsParagraphs()
     {
         try
         {

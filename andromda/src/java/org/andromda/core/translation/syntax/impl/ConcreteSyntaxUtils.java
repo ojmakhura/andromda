@@ -8,9 +8,8 @@ import java.util.List;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AActualParameterList;
-import org.andromda.core.translation.node.AArrowFeatureCall;
 import org.andromda.core.translation.node.ACommaExpression;
-import org.andromda.core.translation.node.ADotFeatureCall;
+import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.AFeatureCallParameters;
 import org.andromda.core.translation.node.AOperation;
 import org.andromda.core.translation.node.APropertyCallExpression;
@@ -196,26 +195,13 @@ public class ConcreteSyntaxUtils {
 	 * @return List the list containing any parameters retrieved, or
      *         an empty array if none could be retrieved
 	 */
-	public static List getParameters(ADotFeatureCall featureCall) {
+	public static List getParameters(AFeatureCall featureCall) {
         List parameters = new ArrayList();
         if (featureCall != null) {
              parameters = getParameters(featureCall.getFeatureCallParameters());
         }
         return parameters;
 	}
-
-    /**
-     * Gets all the parameters from the <code>featureCall</code> 
-     * instance as a comma seperated String.
-     *
-     * @param featureCall the featureCall for which to retrieve the parameters
-     * @return String the comma seperated String
-     */
-    public static String getParametersAsString(ADotFeatureCall featureCall) {
-        return StringUtils.join(
-            ConcreteSyntaxUtils.getParameters(
-                featureCall).iterator(), ",");
-    }
     
     /**
      * Gets all the parameters from the <code>featureCall</code> 
@@ -224,7 +210,7 @@ public class ConcreteSyntaxUtils {
      * @param featureCall the featureCall for which to retrieve the parameters
      * @return String the comma seperated String
      */
-    public static String getParametersAsString(AArrowFeatureCall featureCall) {
+    public static String getParametersAsString(AFeatureCall featureCall) {
         return StringUtils.join(
             ConcreteSyntaxUtils.getParameters(
                 featureCall).iterator(), ",");
@@ -264,21 +250,6 @@ public class ConcreteSyntaxUtils {
                     }
                 }
             }
-        }
-        return parameters;
-    }
-    
-    /**
-     * Gets all the parameters from the <code>featureCall</code> instance.
-     *
-     * @param featureCall the featureCall for which to retrieve the parameters
-     * @return List the list containing any parameters retrieved, or
-     *         an empty array if none could be retrieved
-     */
-    public static List getParameters(AArrowFeatureCall featureCall) {
-        List parameters = new ArrayList();
-        if (featureCall != null) {
-             parameters = getParameters(featureCall.getFeatureCallParameters());
         }
         return parameters;
     }
@@ -378,16 +349,10 @@ public class ConcreteSyntaxUtils {
         	List tails = expression.getPropertyCallExpressionTail();
             if (tails != null && !tails.isEmpty()) {
             	for (int ctr = 0; ctr < tails.size(); ctr++) {
-                    Object tail = tails.get(ctr);
-                    String featureCall = "dotFeatureCall";
-                    // if the tail isn't a dotFeatureCall it must be an
-                    // arrowFeatureCall                 
-                    if (!TranslationUtils.hasProperty(tail, featureCall)) {
-                        featureCall = "arrowFeatureCall";
-                    }
                     featureCalls.add(
-                        TranslationUtils.getProperty(tail,
-                        featureCall));
+                        TranslationUtils.getProperty(
+                            tails.get(ctr),
+                            "featureCall"));
                 }
             }
         }

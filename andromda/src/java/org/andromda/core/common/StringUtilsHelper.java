@@ -65,7 +65,7 @@ public class StringUtilsHelper extends StringUtils {
      */
     public static String toJavaClassName(String string)
     {
-        if ( (string == null) ||  (string.trim().length() == 0) )
+        if (StringUtils.isEmpty(string))
             return string;
 
         final String[] parts = splitAtCapitalization(string);

@@ -37,17 +37,18 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the parameter name will result in uncompilable Java code.
+     * This method is overridden to make sure the parameter name 
+     * will result in uncompilable Java code.
      */
     public String getName()
     {
-        return StringUtilsHelper.toJavaMethodName(super.getName());
+        return StringUtils.deleteWhitespace(super.getName());
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature()
      */
-    public String getSignature()
+    public String handleGetSignature()
     {
         return this.getSignature(true);
     }
@@ -55,7 +56,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature(boolean)
      */
-    public String getSignature(boolean withArgumentNames)
+    public String handleGetSignature(boolean withArgumentNames)
     {
         StringBuffer signature = new StringBuffer(this.getName());
         signature.append("(");
@@ -67,7 +68,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList()
      */
-    public String getTypedArgumentList() {
+    public String handleGetTypedArgumentList() {
         return this.getTypedArgumentList(true);
     }
 
@@ -113,7 +114,7 @@ public class OperationFacadeLogicImpl
         return sb.toString();
     }
 
-    public String getCall()
+    public String handleGetCall()
     {
         StringBuffer sb = new StringBuffer();
         sb.append(metaObject.getName());
@@ -124,7 +125,7 @@ public class OperationFacadeLogicImpl
         return sb.toString();
     }
 
-    public String getArgumentNames()
+    public String handleGetArgumentNames()
     {
         StringBuffer sb = new StringBuffer();
 
@@ -148,7 +149,7 @@ public class OperationFacadeLogicImpl
         return sb.toString();
     }
 
-    public String getArgumentTypeNames()
+    public String handleGetArgumentTypeNames()
     {
         StringBuffer sb = new StringBuffer();
 
@@ -188,7 +189,7 @@ public class OperationFacadeLogicImpl
         return null;
     }
 
-    public Collection getArguments()
+    public Collection handleGetArguments()
     {
         Collection arguments = new ArrayList(metaObject.getParameter());
 
@@ -213,7 +214,7 @@ public class OperationFacadeLogicImpl
         return metaObject.getParameter();
     }
 
-    public Object findTaggedValue(String name, boolean follow)
+    public Object handleFindTaggedValue(String name, boolean follow)
     {
         name = StringUtils.trimToEmpty(name);
         Object value = findTaggedValue(name);
@@ -227,12 +228,12 @@ public class OperationFacadeLogicImpl
         return value;
     }
 
-    public boolean isStatic()
+    public boolean handleIsStatic()
     {
         return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject.getOwnerScope());
     }
 
-    public boolean isAbstract()
+    public boolean handleIsAbstract()
     {
         return metaObject.isAbstract();
     }
@@ -240,7 +241,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasExceptions()
      */
-    public boolean hasExceptions()
+    public boolean handleHasExceptions()
     {
         return !this.getExceptions().isEmpty();
     }
@@ -248,7 +249,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptions()
      */
-    public Collection getExceptions()
+    public Collection handleGetExceptions()
     {
         Collection exceptions = new HashSet();
 
@@ -311,14 +312,14 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList()
      */
-    public String getExceptionList() {
+    public String handleGetExceptionList() {
         return this.getExceptionList(null);
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasReturnType()
      */
-    public boolean hasReturnType() {
+    public boolean handleHasReturnType() {
         boolean hasReturnType = true;
         if (this.getType() != null) {
             hasReturnType =
@@ -331,7 +332,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList(java.lang.String)
      */
-    public String getExceptionList(String initialExceptions) {
+    public String handleGetExceptionList(String initialExceptions) {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
         StringBuffer exceptionList = new StringBuffer(initialExceptions);
         Collection exceptions = this.getExceptions();

@@ -86,45 +86,6 @@ Tokens
   	inv = 'inv';
   	body = 'body';
 
-  	is_empty = 'isEmpty';
-  	not_empty = 'notEmpty';
-  	size = 'size';
-  	sum = 'sum';
-  	as_bag = 'asBag';
-  	as_ordered_set = 'asOrderedSet';
-  	as_sequence = 'asSequence';
-  	as_set = 'asSet';
-  	flatten = 'flatten';
-  	last = 'last';
-  	at = 'at';
-  	count = 'count';
-  	excludes= 'excludes';
-  	excludes_all = 'excludesAll';
-  	includes = 'includes';
-  	includes_all = 'includesAll';
-  	append = 'append';
-  	excluding = 'excluding';
-  	including = 'including';
-  	index_of = 'indexOf';
-  	intersection = 'intersection';
-  	prepend = 'prepend';
-  	symmetric_difference = 'symmetricDifference';
-  	union = 'union';
-  	any = 'any';
-  	collect = 'collect';
-  	collect_nested = 'collectNested';
-  	exists = 'exists';
-  	for_all = 'forAll';
-  	is_unique = 'isUnique';
-  	one = 'one';
-  	reject = 'reject';
-  	select = 'select';
-  	sorted_by = 'sortedBy';
-    insert_at = 'insertAt';
-    sub_ordered_set= 'subOrderedSet';
-    sub_sequence = 'subSequence';
-    iterate = 'iterate';
-
     ocl_is_new = 'oclIsNew';
     ocl_as_type = 'oclAsType';
     ocl_in_state = 'oclInState';
@@ -302,8 +263,8 @@ Productions
     	primary_expression property_call_expression_tail* ;
 
  	property_call_expression_tail =
-     	 {dot} dot dot_feature_call |
-     	 {arrow} arrow arrow_feature_call ;
+     	 {dot} dot feature_call |
+     	 {arrow} arrow feature_call ;
 
   	primary_expression =
     	{literal} literal |
@@ -367,53 +328,9 @@ Productions
     	{list} comma_expression+ |
     	{range} range expression ;
 
-  	dot_feature_call =
+  	feature_call =
     	path_name is_marked_pre? qualifiers? feature_call_parameters? ;
-
-    arrow_feature_call = 
-        arrow_feature feature_call_parameters ;
-        
-    // todo: what to do with iterate(...) ?
-
-    arrow_feature =
-  	    {is_empty} is_empty |
-  	    {not_empty} not_empty |
-  	    {size} size |
-  	    {sum} sum |
-  	    {as_bag} as_bag |
-  	    {as_ordered_set} as_ordered_set |
-  	    {as_sequence} as_sequence |
-  	    {as_set} as_set |
-  	    {flatten} flatten |
-  	    {last} last |
-  	    {at} at |
-  	    {count} count |
-  	    {excludes} excludes |
-  	    {excludes_all} excludes_all |
-  	    {includes} includes |
-  	    {includes_all} includes_all |
-  	    {append} append |
-  	    {excluding} excluding |
-  	    {including} including |
-    	{index_of} index_of |
-    	{intersection} intersection |
-    	{prepend} prepend |
-    	{symmetric_difference} symmetric_difference |
-    	{union} union |
-    	{any} any |
-    	{collect} collect |
-    	{collect_nested} collect_nested |
-    	{exists} exists |
-    	{for_all} for_all |
-    	{is_unique} is_unique |
-    	{one} one |
-    	{reject} reject |
-    	{select} select |
-    	{sorted_by} sorted_by |
-        {insert_at} insert_at |
-        {sub_ordered_set} sub_ordered_set |
-        {sub_sequence} sub_sequence ;
-
+    
  	qualifiers =
     	l_bracket actual_parameter_list r_bracket ;
 

@@ -104,6 +104,7 @@ public class LibraryTranslation {
 	 */
 	public void setTranslator(String translatorClass) {
         this.translatorClass = translatorClass;
+        ComponentContainer.instance().unregisterComponent(translatorClass);
         ComponentContainer.instance().registerComponentType(translatorClass);
 	}
 

@@ -37,14 +37,14 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getFinders
      */
-    public java.util.Collection getFinders() {
+    public java.util.Collection handleGetFinders() {
         return this.getFinders(false);
     }   
     
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getFinders(boolean)
      */
-    public java.util.Collection getFinders(boolean follow) {
+    public java.util.Collection handleGetFinders(boolean follow) {
         Collection finders = this.getOperations();
         
         MetafacadeUtils.filterByStereotype(
@@ -65,14 +65,14 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers()
      */
-    public java.util.Collection getIdentifiers() {
+    public java.util.Collection handleGetIdentifiers() {
         return this.getIdentifiers(false);
     }
     
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers(boolean)
      */
-    public java.util.Collection getIdentifiers(boolean follow) {
+    public java.util.Collection handleGetIdentifiers(boolean follow) {
         
         Collection attributes = this.getAttributes();       
         MetafacadeUtils.filterByStereotype(
@@ -94,14 +94,14 @@ public class EntityFacadeLogicImpl
     /**
      * @see edu.duke.dcri.mda.model.metafacade.EntityFacade#hasIdentifiers()
      */
-    public boolean hasIdentifiers() {
+    public boolean handleHasIdentifiers() {
         return this.getIdentifiers() != null && !this.getIdentifiers().isEmpty();
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getTableName()
      */
-    public String getTableName() {
+    public String handleGetTableName() {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                 this, 
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
@@ -111,14 +111,14 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getAttributesAsList(boolean, boolean)
      */
-    public String getAttributesAsList(boolean withTypeNames, boolean withIdentifiers) {
+    public String handleGetAttributesAsList(boolean withTypeNames, boolean withIdentifiers) {
         return this.getAttributesAsList(withTypeNames, withIdentifiers, false);
     }
     
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getAttributesAsList(boolean, boolean, boolean)
      */
-    public String getAttributesAsList(
+    public String handleGetAttributesAsList(
         boolean withTypeNames, 
         boolean withIdentifiers, 
         boolean follow) {
@@ -180,7 +180,7 @@ public class EntityFacadeLogicImpl
     /**
      * Gets the maximum name length SQL names may be 
      */
-    public Short getMaxSqlNameLength() {
+    public Short handleGetMaxSqlNameLength() {
         return (Short)this.getConfiguredProperty(MAX_SQL_NAME_LENGTH);
     }
 
