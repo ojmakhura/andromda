@@ -60,11 +60,11 @@
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$otherEnd.columnName" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
             <key>
-                <column name="$otherEnd.columnName"/>
+                <column name="$sourceEnd.columnName"/>
             </key>
-            <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
+            <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" column="$otherEnd.columnName"/>
         </set>
 #end
 #end
