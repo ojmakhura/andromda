@@ -107,10 +107,14 @@ public class StrutsControllerLogicImpl
         final Collection useCases = getModel().getAllUseCases();
         for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase==null;)
         {
-            StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
-            if (this.equals(strutsUseCase.getController()))
+            Object useCaseObject = iterator.next();
+            if (useCaseObject instanceof StrutsUseCase)
             {
-                useCase = strutsUseCase;
+                StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
+                if (this.equals(strutsUseCase.getController()))
+                {
+                    useCase = strutsUseCase;
+                }
             }
         }
 

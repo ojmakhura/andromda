@@ -135,20 +135,41 @@ public class StrutsForwardLogicImpl
 
     protected String handleGetMessageKey()
     {
-        String messageKey = getStrutsActivityGraph().getUseCase().getName();
-        return StringUtilsHelper.toResourceMessageKey(messageKey);
+        String messageKey = null;
+
+        StrutsUseCase useCase = getUseCase();
+        if (useCase != null)
+        {
+            messageKey = useCase.getName();
+        }
+        return messageKey;
     }
 
-    private Map getMessages(String messageKey, String taggedValue)
+    private Map getMessages(String messageType, String messageKey, String taggedValue)
     {
+        Map messages = null;
+
         Collection taggedValues = findTaggedValues(taggedValue);
-
-        Map messages = new LinkedHashMap();
-
-        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        if (taggedValues.isEmpty())
         {
-            String value = (String) iterator.next();
-            messages.put(messageKey + value.hashCode(), value);
+            messages = Collections.EMPTY_MAP;
+        }
+        else
+        {
+            messages = new LinkedHashMap(); // we want to keep the order
+
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(StringUtilsHelper.toResourceMessageKey(messageKey));
+            buffer.append('.');
+            buffer.append(messageType);
+            buffer.append('.');
+
+            String prefix = buffer.toString();
+            for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                String value = (String) iterator.next();
+                messages.put(prefix + value.hashCode(), value);
+            }
         }
 
         return messages;
@@ -156,12 +177,26 @@ public class StrutsForwardLogicImpl
 
     protected Map handleGetSuccessMessages()
     {
-        return getMessages(getMessageKey() + ".success.", Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCES_MESSAGE);
+        Map messages = null;
+
+        String messageKey = getMessageKey();
+        if (messageKey != null)
+        {
+            messages = getMessages("success", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCES_MESSAGE);
+        }
+        return messages;
     }
 
     protected Map handleGetWarningMessages()
     {
-        return getMessages(getMessageKey() + ".warning.", Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        Map messages = null;
+
+        String messageKey = getMessageKey();
+        if (messageKey != null)
+        {
+            messages = getMessages("warning", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        }
+        return messages;
     }
 
     protected java.util.Collection handleGetForwardParameters()
@@ -226,5 +261,18 @@ public class StrutsForwardLogicImpl
                 }
             }
         }
+    }
+
+    protected Object handleGetUseCase()
+    {
+        StrutsUseCase useCase = null;
+
+        StrutsActivityGraph graph = getStrutsActivityGraph();
+        if (graph != null)
+        {
+            useCase = graph.getUseCase();
+        }
+
+        return useCase;
     }
 }

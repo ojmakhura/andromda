@@ -30,15 +30,30 @@ public class StrutsJspLogicImpl
     // from org.andromda.metafacades.uml.ModelElementFacade
     public String getPackageName()
     {
+        String packageName = null;
+
         ActivityGraphFacade graph = getActivityGraph();
-        return (graph instanceof StrutsActivityGraph)
-                ? ((StrutsActivityGraph) graph).getUseCase().getPackageName()
-                : graph.getPackageName();
+        if (graph instanceof StrutsActivityGraph)
+        {
+            StrutsUseCase useCase = ((StrutsActivityGraph) graph).getUseCase();
+            if (useCase != null)
+            {
+                packageName = useCase.getPackageName();
+            }
+        }
+        return packageName;
     }
 
     protected String handleGetMessageKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName());
+        String messageKey = null;
+
+        StrutsUseCase useCase = getUseCase();
+        if (useCase != null)
+        {
+            messageKey = StringUtilsHelper.toResourceMessageKey(useCase.getName() + ' ' + getName());
+        }
+        return messageKey;
     }
 
     protected String handleGetMessageValue()
@@ -354,7 +369,7 @@ public class StrutsJspLogicImpl
 /*  @todo: TEMPORARILY COMMENTED OUT -- needs verification that isCaseStart() forms are not populated, but I think they are
                 if (((StrutsAction)transition).isUseCaseStart())
                 {
-                    Collection finalStates = getUseCase().getFinalStates();
+                    Collection finalStates = getUseCase().getFinalStates();// todo: test usecase for null
                     for (Iterator iterator = finalStates.iterator(); iterator.hasNext();)
                     {
                         FinalStateFacade finalState = (FinalStateFacade) iterator.next();

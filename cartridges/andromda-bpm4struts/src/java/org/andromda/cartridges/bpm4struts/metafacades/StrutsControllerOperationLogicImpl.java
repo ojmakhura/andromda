@@ -47,56 +47,47 @@ public class StrutsControllerOperationLogicImpl
         return '/' + getInterfaceType().replace('.', '/');
     }
 
-    private Collection deferringActions = null;
-
     protected java.util.Collection handleGetDeferringActions()
     {
-        if (this.deferringActions == null)
+        Collection deferringActions = new HashSet();
+
+        StrutsActivityGraph graph = getActivityGraph();
+        if (graph != null)
         {
-            Collection deferringActions = new HashSet();
-
-            ClassifierFacade owner = getOwner();
-            if (owner instanceof StrutsController)
+            Collection actionStates = graph.getActionStates();
+            for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
-                StrutsController controller = (StrutsController) owner;
-                StrutsActivityGraph graph = controller.getUseCase().getActivityGraph();
-
-                Collection actionStates = graph.getActionStates();
-                for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+                StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
+                Collection controllerCalls = actionState.getControllerCalls();
+                for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
                 {
-                    StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
-                    Collection controllerCalls = actionState.getControllerCalls();
-                    for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+                    OperationFacade operation = (OperationFacade) controllerCallIterator.next();
+                    if (this.equals(operation))
                     {
-                        OperationFacade operation = (OperationFacade) controllerCallIterator.next();
-                        if (this.equals(operation))
-                        {
-                            deferringActions.addAll(actionState.getContainerActions());
-                        }
+                        deferringActions.addAll(actionState.getContainerActions());
                     }
                 }
+            }
 
-                Collection transitions = graph.getTransitions();
-                for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+            Collection transitions = graph.getTransitions();
+            for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+            {
+                StrutsForward transition = (StrutsForward) transitionIterator.next();
+                EventFacade event = transition.getTrigger();
+                if (event instanceof StrutsTrigger)
                 {
-                    StrutsForward transition = (StrutsForward) transitionIterator.next();
-                    EventFacade event = transition.getTrigger();
-                    if (event instanceof StrutsTrigger)
+                    StrutsTrigger trigger = (StrutsTrigger) event;
+                    StrutsControllerOperation operation = trigger.getControllerCall();
+                    if (this.equals(operation))
                     {
-                        StrutsTrigger trigger = (StrutsTrigger) event;
-                        StrutsControllerOperation operation = trigger.getControllerCall();
-                        if (this.equals(operation))
+                        StateVertexFacade source = transition.getSource();
+                        if (source instanceof StrutsActionState)
                         {
-                            StateVertexFacade source = transition.getSource();
-                            if (source instanceof StrutsActionState)
-                            {
-                                deferringActions.addAll(((StrutsActionState) source).getContainerActions());
-                            }
+                            deferringActions.addAll(((StrutsActionState) source).getContainerActions());
                         }
                     }
                 }
             }
-            this.deferringActions = deferringActions;
         }
         return deferringActions;
     }
@@ -144,5 +135,25 @@ public class StrutsControllerOperationLogicImpl
             allArgumentsHaveFormFields = !actionMissingField;
         }
         return allArgumentsHaveFormFields;
+    }
+
+    protected Object handleGetActivityGraph()
+    {
+        Object graph = null;
+
+        ClassifierFacade owner = getOwner();
+        if (owner instanceof StrutsController)
+        {
+            StrutsController controller = (StrutsController) owner;
+            if (controller != null)
+            {
+                StrutsUseCase useCase = controller.getUseCase();
+                if (useCase != null)
+                {
+                    graph = useCase.getActivityGraph();
+                }
+            }
+        }
+        return graph;
     }
 }
