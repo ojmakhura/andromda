@@ -1,6 +1,7 @@
 ##
 ##  This macro will render any <subclass/> elements for the given $entity.
 ##
+#set ($indent = "	    ")    
 #macro (renderSubClass $entity)
 	    <subclass
 		    name="$entity.fullyQualifiedEntityImplementationName"
@@ -29,12 +30,12 @@
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($sourceEnd.one2One)
-#if ($associationEnd.child && $entity.foreignHibernateGeneratorClass)
+#if (($associationEnd.child && $entity.foreignHibernateGeneratorClass) || $otherEnd.type.foreignHibernateGeneratorClass)
 		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$cascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true" #if ($otherEnd.child) cascade="$cascade"#end>
-            <column name="$otherEnd.columnName"/>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true"#if ($otherEnd.child) cascade="$cascade"#end>
+            <column name="$otherEnd.columnName"/>             
         </many-to-one>
 #else
         <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" property-ref="$sourceEnd.name"/>
@@ -43,7 +44,7 @@
 #end
 #if ($sourceEnd.one2Many)
 		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
-        	<key>
+            <key>
             	<column name="$sourceEnd.columnName"/>
             </key>
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>

@@ -1,9 +1,8 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for
@@ -45,7 +44,7 @@ public class SpringEntityAssociationEndLogicImpl
         }
         return primaryOne2One;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
@@ -54,15 +53,17 @@ public class SpringEntityAssociationEndLogicImpl
         String getterSetterTypeName = super.getGetterSetterTypeName();
         if (!this.isMany())
         {
-	        ClassifierFacade type = this.getType();
-	        if (type != null && SpringEntity.class.isAssignableFrom(type.getClass()))
-	        {
-	            String typeName = ((SpringEntity)type).getFullyQualifiedEntityName();
-	            if (StringUtils.isNotEmpty(typeName))
-	            {
-	                getterSetterTypeName = typeName;  
-	            }
-	        }
+            ClassifierFacade type = this.getType();
+            if (type != null
+                && SpringEntity.class.isAssignableFrom(type.getClass()))
+            {
+                String typeName = ((SpringEntity)type)
+                    .getFullyQualifiedEntityName();
+                if (StringUtils.isNotEmpty(typeName))
+                {
+                    getterSetterTypeName = typeName;
+                }
+            }
         }
         return getterSetterTypeName;
     }
@@ -72,7 +73,7 @@ public class SpringEntityAssociationEndLogicImpl
      */
     protected boolean handleIsLazy()
     {
-        String lazyString = (String) findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        String lazyString = (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_LAZY);
         boolean lazy;
 
         if (lazyString == null)
