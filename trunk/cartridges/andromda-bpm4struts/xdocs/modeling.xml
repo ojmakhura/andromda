@@ -59,11 +59,6 @@
                         <td>Designates a JSP page</td>
                     </tr>
                     <tr>
-                        <td>FrontEndEvent</td>
-                        <td>Transition</td>
-                        <td>Designates an action that may occur on a JSP page, must go out of an initial state or a JSP page</td>
-                    </tr>
-                    <tr>
                         <td>FrontEndException</td>
                         <td>Transition</td>
                         <td>Designates an exception occuring while processing an action, goes out of an action state and into a JSP page</td>
@@ -96,31 +91,31 @@
                         </tr>
                         <tr>
                             <td>@andromda.struts.action.type (*)</td>
-                            <td>Transition w/ FrontEndEvent</td>
+                            <td>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</td>
                             <td>form</td>
                             <td>Indicates the type of trigger causing the action, possible values are hyperlink and form</td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.action.redirect</td>
-                            <td>Transition w/ FrontEndEvent</td>
+                            <td>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</td>
                             <td>false</td>
                             <td>Indicates whether or not HTTP redirection should occur when forwarded on to the next action</td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.action.success.message</td>
-                            <td>Transition w/ FrontEndEvent</td>
+                            <td>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</td>
                             <td>false</td>
                             <td>On action completion will have a success message rendered on screen</td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.action.warning.message</td>
-                            <td>Transition w/ FrontEndEvent</td>
+                            <td>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</td>
                             <td>false</td>
                             <td>On action completion will have a warning message rendered on screen</td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.action.resettable</td>
-                            <td>Transition w/ FrontEndEvent</td>
+                            <td>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</td>
                             <td>false</td>
                             <td>
                                 Set this value to <code>true</code> if you want to be able
@@ -277,7 +272,7 @@
                         </tr>
                         <tr>
                             <td>@andromda.struts.view.field.tablelink</td>
-                            <td>Action parameter (so on a FrontEndEvent transition)</td>
+                            <td>Action parameter</td>
                             <td>N/A</td>
                             <td>The value is of the format
                                 <code>table.column</code>
