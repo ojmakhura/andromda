@@ -14,11 +14,22 @@ public class OCLIntrospectorException
      * Constructs an instance of OCLIntrospectorException
      * taking the <code>parent</code> Throwable.
      * 
-     * @param parent
+     * @param parent the cause of the exception
      */
     public OCLIntrospectorException(Throwable parent)
     {
         super(parent);
+    }
+    
+    /**
+     * Constructs an instance of OCLIntrospectorException
+     * taking the <code>message</code> String.
+     * 
+     * @param message the message to include in the exception.
+     */
+    public OCLIntrospectorException(String message)
+    {
+        super(message);
     }
      
 }
