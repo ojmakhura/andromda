@@ -66,6 +66,9 @@
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
+                <xhtml>false</xhtml>
+                <security>false</security>
+                <securityRealm>other</securityRealm>
                 <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
                 <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
                 <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
