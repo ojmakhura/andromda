@@ -42,7 +42,7 @@
 #end
 #end
 #if ($sourceEnd.one2Many)
-		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
+		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
         	<key>
             	<column name="$sourceEnd.columnName"/>
             </key>
@@ -53,7 +53,7 @@
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
+        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="$otherEnd.lazy" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
             <key>
                 <column name="$otherEnd.columnName"/>
             </key>
