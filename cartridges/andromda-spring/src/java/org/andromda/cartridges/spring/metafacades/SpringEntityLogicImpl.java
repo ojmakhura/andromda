@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
@@ -32,6 +31,15 @@ public class SpringEntityLogicImpl
     extends SpringEntityLogic
     implements org.andromda.cartridges.spring.metafacades.SpringEntity
 {
+    // ---------------- constructor -------------------------------
+
+    public SpringEntityLogicImpl(
+        Object metaObject,
+        String context)
+    {
+        super(metaObject, context);
+    }
+    
     /**
      * Value for one Table per root class
      */
@@ -51,14 +59,18 @@ public class SpringEntityLogicImpl
      * Value make Entity an interface, delegate attributes to subclasses.
      */
     private static final String INHERITANCE_STRATEGY_INTERFACE = "interface";
-
-    // ---------------- constructor -------------------------------
-
-    public SpringEntityLogicImpl(
-        Object metaObject,
-        String context)
+    
+    /**
+     * Stores the valid inheritance strategies.
+     */
+    private static final Collection inheritanceStrategies = new ArrayList();
+    
+    static
     {
-        super(metaObject, context);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_CLASS);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_SUBCLASS);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_CONCRETE);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_INTERFACE);
     }
 
     /**
@@ -177,7 +189,7 @@ public class SpringEntityLogicImpl
     {
         String hibernateGeneratorClass;
         // if the entity is using a foreign identifier, then
-        // we automatically set the identifier generator 
+        // we automatically set the identifier generator
         // class to be foreign
         if (this.isUsingForeignIdentifier())
         {
@@ -247,9 +259,9 @@ public class SpringEntityLogicImpl
     {
         // check to see if the entity is using a foreign identifier
         // OR if the actual hibernate generator class is set to foreign
-        return this.isUsingForeignIdentifier() || 
-             this.getHibernateGeneratorClass().equalsIgnoreCase(
-            HIBERNATE_GENERATOR_CLASS_FOREIGN);
+        return this.isUsingForeignIdentifier()
+            || this.getHibernateGeneratorClass().equalsIgnoreCase(
+                HIBERNATE_GENERATOR_CLASS_FOREIGN);
     }
 
     private static final String HIBERNATE_GENERATOR_CLASS_SEQUENCE = "sequence";
@@ -381,13 +393,6 @@ public class SpringEntityLogicImpl
      */
     protected boolean checkHibInheritance(String inheritance)
     {
-        if (logger.isDebugEnabled())
-        {
-            boolean result = inheritance.equals(this.getHibernateInheritanceStrategy());
-            logger.debug("<<< checkHibInheritance[" + this + "]: "
-                + inheritance + " = " + result);
-            return result;
-        }
         return inheritance.equals(getHibernateInheritanceStrategy());
     }
 
@@ -452,38 +457,31 @@ public class SpringEntityLogicImpl
     protected boolean handleIsRootInheritanceEntity()
     {
         boolean result = false;
-        try
+        GeneralizableElementFacade superElement = this.getGeneralization();
+        if (superElement == null)
         {
-
-            if (logger.isDebugEnabled())
-                logger.debug(">>> handleIsRootInheritanceEntity start:" + this
-                    + " : " + "\"" + getInheritance(this) + "\"");
-
-            GeneralizableElementFacade superElement = this.getGeneralization();
-            if (superElement == null)
+            String inheritance = this.getInheritance(this);
+            // We are a root if we are the base class and not interface
+            // inheritance
+            result = (inheritance == null)
+                || !inheritance.equals(INHERITANCE_STRATEGY_INTERFACE);
+        }
+        else
+        {
+            // We are a subclass
+            GeneralizableElementFacade root = getRootInheritanceEntity();
+            String inheritance = getInheritance(root);
+            // Are we the subclass element
+            result = root.getFullyQualifiedName().equals(
+                getFullyQualifiedName());
+            if (!result && inheritance != null
+                && inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
             {
-                String inheritance = getInheritance(this);
-                // We are a root if we are the base class and not interface
-                // inheritance
-                result = (inheritance == null)
-                    || !inheritance.equals(INHERITANCE_STRATEGY_INTERFACE);
-            }
-            else
-            {
-                // We are a subclass
-                GeneralizableElementFacade root = getRootInheritanceEntity();
-                result = root.getFullyQualifiedName().equals(
-                    getFullyQualifiedName());
+                // If not check if we are a subclass
+                result = superElement.getFullyQualifiedName().equals(
+                    root.getFullyQualifiedName());
             }
         }
-        catch (Exception e)
-        {
-            ExceptionRecorder.record("handleIsRootInheritanceEntity", e);
-            throw new RuntimeException(e.getMessage(), e);
-        }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< handleIsRootInheritanceEntity[" + this + "]:"
-                + result);
         return result;
     }
 
@@ -493,9 +491,6 @@ public class SpringEntityLogicImpl
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            if (logger.isDebugEnabled())
-                logger.debug("*** getRootInheritanceEntity element:"
-                    + superElement + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
         }
@@ -519,13 +514,19 @@ public class SpringEntityLogicImpl
             logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
                 + getInheritance(this));
         GeneralizableElementFacade result = null;
-        // The root of the hierarchy is the last element added.
-        GeneralizableElementFacade[] superclasses;
-        superclasses = getSuperClassList();
-        int rootIndex = superclasses.length - 1;
-        // Search down from the root looking for an inheritance
-        // specification.
+        GeneralizableElementFacade superElement = this.getGeneralization();
+        ArrayList hierarchy = new ArrayList();
+        while (superElement != null)
+        {
+            hierarchy.add(superElement);
+            superElement = superElement.getGeneralization();
+        }
         String inheritance;
+        GeneralizableElementFacade[] superclasses;
+        superclasses = new GeneralizableElementFacade[hierarchy.size()];
+        superclasses = (GeneralizableElementFacade[])hierarchy
+            .toArray(superclasses);
+        int rootIndex = hierarchy.size() - 1;
         for (int ctr = rootIndex; ctr > -1; ctr--)
         {
             inheritance = getInheritance(superclasses[ctr]);
@@ -556,42 +557,21 @@ public class SpringEntityLogicImpl
         return result;
     }
 
-    private String hibernateInheritanceStrategy;
-
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getInheritanceStrategy()
      */
     protected String handleGetHibernateInheritanceStrategy()
     {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> handleGetInheritanceStrategy start:" + this);
-
-        if (hibernateInheritanceStrategy == null)
+        String result = this.getSuperInheritance();
+        if (!inheritanceStrategies.contains(result))
         {
-            try
-            {
-                hibernateInheritanceStrategy = getSuperInheritance();
-                if (hibernateInheritanceStrategy == null)
-                {
-                    hibernateInheritanceStrategy = getInheritance(this);
-                }
-                if (hibernateInheritanceStrategy == null)
-                {
-                    hibernateInheritanceStrategy = INHERITANCE_STRATEGY_CLASS;
-                }
-            }
-            catch (Exception ex)
-            {
-                String errorMessage = "*** " + getClass().getName()
-                    + " handleGetInheritanceStrategy exception:" + ex;
-                ExceptionRecorder.record(errorMessage, ex, "hibernate");
-                logger.error(errorMessage);
-            }
+            result = this.getInheritance(this);
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< handleGetInheritanceStrategy return:"
-                + hibernateInheritanceStrategy);
-        return hibernateInheritanceStrategy;
+        if (!inheritanceStrategies.contains(result))
+        {
+            result = INHERITANCE_STRATEGY_CLASS;
+        }
+        return result;
     }
 
     /**
@@ -609,8 +589,8 @@ public class SpringEntityLogicImpl
         String rootInheritance = null;
         GeneralizableElementFacade root = this.getRootInheritanceEntity();
         GeneralizableElementFacade[] superclasses;
-        superclasses = getSuperClassList();
-        rootInheritance = getInheritance(root);
+        superclasses = this.getSuperClassList();
+        rootInheritance = this.getInheritance(root);
         if (rootInheritance == null
             || rootInheritance.equals(INHERITANCE_STRATEGY_CLASS))
         {
@@ -622,11 +602,11 @@ public class SpringEntityLogicImpl
         }
         else if (rootInheritance.equals(INHERITANCE_STRATEGY_CONCRETE))
         {
-            rootInheritance = validateConcreteInheritance(superclasses);
+            rootInheritance = this.validateConcreteInheritance(superclasses);
         }
         else if (rootInheritance.equals(INHERITANCE_STRATEGY_INTERFACE))
         {
-            rootInheritance = validateInterfaceInheritance(superclasses);
+            rootInheritance = this.validateInterfaceInheritance(superclasses);
         }
         if (logger.isDebugEnabled())
             logger.debug("<<< getSuperInheritance return:" + rootInheritance);
@@ -642,18 +622,18 @@ public class SpringEntityLogicImpl
         GeneralizableElementFacade[] superclasses,
         GeneralizableElementFacade root)
     {
-        for (int i = 0; i < superclasses.length - 1; i++)
+        for (int ctr = 0; ctr < superclasses.length - 1; ctr++)
         {
             // Scan until the logical root in hibernate terms
-            if (root == superclasses[i])
+            if (root == superclasses[ctr])
             {
                 break;
             }
-            String inheritance = getInheritance(superclasses[i]);
+            String inheritance = getInheritance(superclasses[ctr]);
             if (inheritance != null)
             {
                 AndroMDALogger.warn("Inheritance tagged value:" + inheritance
-                    + " on " + superclasses[i] + " ignored.");
+                    + " on " + superclasses[ctr] + " ignored.");
             }
         }
     }
@@ -674,9 +654,9 @@ public class SpringEntityLogicImpl
         String result = null;
         String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
         // Search from root class but 1 to lowest.
-        for (int i = superclasses.length - 1; i > -1; i--)
+        for (int ctr = superclasses.length - 1; ctr > -1; ctr--)
         {
-            String inheritance = getInheritance(superclasses[i]);
+            String inheritance = getInheritance(superclasses[ctr]);
             if (inheritance != null)
             {
                 if (result == null)
@@ -697,7 +677,7 @@ public class SpringEntityLogicImpl
                                     + " with "
                                     + inheritance
                                     + " on "
-                                    + superclasses[i] + " ignored.");
+                                    + superclasses[ctr] + " ignored.");
                         }
                         else
                         {
@@ -750,9 +730,17 @@ public class SpringEntityLogicImpl
      */
     private String getInheritance(GeneralizableElementFacade facade)
     {
-        return (facade==null)
-                ? null
-                : String.valueOf(facade.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE));
+        String inheritance = null;
+        if (facade != null)
+        {
+            Object value = facade
+            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+            if (value != null)
+            {
+                inheritance = String.valueOf(value);
+            }
+        }
+        return inheritance;
     }
 
     /**
@@ -794,7 +782,8 @@ public class SpringEntityLogicImpl
         if (logger.isDebugEnabled())
             logger.debug("*** handleGetIdentifierColumn return:"
                 + (attribute == null ? null : attribute.getColumnName()));
-        columnName = attribute == null ? getDefaultIdentifier() : attribute.getColumnName();
+        columnName = attribute == null ? getDefaultIdentifier() : attribute
+            .getColumnName();
         return columnName;
     }
 
@@ -826,7 +815,7 @@ public class SpringEntityLogicImpl
     {
         return 1;
     }
-    
+
     /**
      * Stores the hibernate entity cache value.
      */
