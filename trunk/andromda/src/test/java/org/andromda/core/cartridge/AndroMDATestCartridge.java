@@ -1,6 +1,6 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
-import org.andromda.cartridges.interfaces.DefaultAndroMDACartridge;
+import org.andromda.core.cartridge.DefaultAndroMDACartridge;
 
 /**
  * This is a sample AndroMDA test cartridge. It implements the interface so

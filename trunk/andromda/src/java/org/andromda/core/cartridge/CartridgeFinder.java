@@ -1,14 +1,10 @@
-package org.andromda.cartridges.mgmt;
+package org.andromda.core.cartridge;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.andromda.cartridges.interfaces.CartridgeDescriptor;
-import org.andromda.cartridges.interfaces.DefaultAndroMDACartridge;
-import org.andromda.cartridges.interfaces.DefaultCartridgeDescriptor;
-import org.andromda.cartridges.interfaces.AndroMDACartridge;
 import org.andromda.core.common.ResourceFinder;
 import org.apache.log4j.Logger;
 
@@ -19,7 +15,7 @@ import org.apache.log4j.Logger;
  * @author    <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author    Chad Brandon
  * @since     April 1, 2003
- * @version   $Revision: 1.4 $
+ * @version   $Revision: 1.1 $
  */
 public class CartridgeFinder
 {

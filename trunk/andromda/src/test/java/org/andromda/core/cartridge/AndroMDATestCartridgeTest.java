@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import org.andromda.core.common.XmlObjectFactory;
 
@@ -8,7 +8,7 @@ import junit.framework.TestCase;
  * Tests a sample cartridge implementation just to see if the cartridge
  * interface classes work OK.
  * 
- * @see org.andromda.cartridges.interfaces.AndroMDATestCartridge
+ * @see org.andromda.core.cartridge.AndroMDATestCartridge
  * @since 01.04.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
 

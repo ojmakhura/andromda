@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.text.MessageFormat;
@@ -181,7 +181,7 @@ public class TemplateConfiguration
      * @return TemplateModelElements all the model elements that
      *         should be processed by thsi template
      * 
-     * @see org.andromda.cartridges.interfaces.TemplateModelElements
+     * @see org.andromda.core.cartridge.TemplateModelElements
      */
     public TemplateModelElements getSupportedModeElements()
     {
@@ -198,7 +198,7 @@ public class TemplateConfiguration
      * 
      * @param modelElements the TemplateModelElements instance
      * 
-     * @see org.andromda.cartridges.interfaces.TemplateModelElements
+     * @see org.andromda.core.cartridge.TemplateModelElements
      */
     public void setSupportedModelElements(TemplateModelElements supportedModelElements) 
     {

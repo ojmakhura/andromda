@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import java.net.URL;
 import java.util.Collection;

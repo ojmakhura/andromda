@@ -12,8 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.andromda.cartridges.interfaces.AndroMDACartridge;
-import org.andromda.cartridges.mgmt.CartridgeFinder;
+import org.andromda.core.cartridge.AndroMDACartridge;
+import org.andromda.core.cartridge.CartridgeFinder;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;

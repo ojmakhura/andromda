@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * A default implementation of the CartridgeDescriptor interface.
  * 
- * @see org.andromda.cartridges.interfaces.CartridgeDescriptor
+ * @see org.andromda.core.cartridge.CartridgeDescriptor
  * @see org.andromda.common.XmlObjectFactory
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
@@ -72,7 +72,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
 
 
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getCartridgeName()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getCartridgeName()
      */
     public String getCartridgeName()
     {
@@ -80,7 +80,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
 
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getProperties()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getProperties()
      */
     public Map getProperties()
     {
@@ -88,7 +88,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
 
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getTemplateConfigurations()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getTemplateConfigurations()
      */
     public List getTemplateConfigurations()
     {
@@ -108,7 +108,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
     
     /** 
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getPropertyReferences()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getPropertyReferences()
      */
     public Collection getPropertyReferences() 
     {
@@ -149,14 +149,14 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getDefinitionURL()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getDefinitionURL()
      */
     public URL getDefinitionURL()
     {
         return this.definitionURL;
     }
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#setDefinitionURL(java.net.URL)
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#setDefinitionURL(java.net.URL)
      */
     public void setDefinitionURL(URL url)
     {
@@ -209,7 +209,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getTemplateObjects()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getTemplateObjects()
      */
     public Map getTemplateObjects() 
     {
@@ -226,7 +226,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getTemplateEngine()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getTemplateEngine()
      */
     public TemplateEngine getTemplateEngine() {
         return (TemplateEngine)ComponentContainer.instance().findComponent(
