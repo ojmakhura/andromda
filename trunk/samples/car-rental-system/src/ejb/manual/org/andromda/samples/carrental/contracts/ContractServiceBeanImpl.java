@@ -89,7 +89,7 @@ public class ContractServiceBeanImpl
 
             ReservationLocalHome rlh = getReservationLocalHome();
             Collection reservations =
-                rlh.findByComfortClasseAndDate(comfortClass, reservationDate);
+                rlh.findByComfortClassAndDate(comfortClass, reservationDate);
 
             if (comfortableCars.size() <= reservations.size())
             {
