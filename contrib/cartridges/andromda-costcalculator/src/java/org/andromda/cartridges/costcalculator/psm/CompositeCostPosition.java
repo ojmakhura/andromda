@@ -9,14 +9,10 @@ import java.util.List;
  * @since 21.03.2005
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  */
-public class CompositeCostPosition implements CostPosition
+public class CompositeCostPosition extends AbstractCostPosition implements CostPosition
 {
-
-    private String name;
-
-    private double price;
-
     private ArrayList subPositions = new ArrayList();
+    private double initialPrice;
 
     /**
      * Constructor.
@@ -29,18 +25,8 @@ public class CompositeCostPosition implements CostPosition
      */
     public CompositeCostPosition(String name, double initialPrice)
     {
-        this.name = name;
-        this.price = initialPrice;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.andromda.cartridges.costcalculator.psm.CostPosition#getName()
-     */
-    public String getName()
-    {
-        return name;
+        super (name);
+        this.initialPrice = initialPrice;
     }
 
     /*
@@ -50,7 +36,7 @@ public class CompositeCostPosition implements CostPosition
      */
     public double getPrice()
     {
-        double total = this.price;
+        double total = this.initialPrice;
         for (Iterator iter = this.subPositions.iterator(); iter.hasNext();)
         {
             CostPosition element = (CostPosition) iter.next();

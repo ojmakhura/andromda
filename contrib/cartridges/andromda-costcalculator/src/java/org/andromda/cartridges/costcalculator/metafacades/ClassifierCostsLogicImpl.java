@@ -53,24 +53,15 @@ public class ClassifierCostsLogicImpl extends ClassifierCostsLogic
 
         // TODO: BUG-BUG-BUG this code will count each association twice!
         Collection associationEnds = this.getAssociationEnds();
-        for (Iterator iter = operations.iterator(); iter.hasNext();)
+        for (Iterator iter = associationEnds.iterator(); iter.hasNext();)
         {
-            Object o = iter.next();
-            if (!(o instanceof AssociationEndFacade))
-            {
-                this.logger.log(Priority.ERROR,
-                        "ClassifierCostsLogicImpl: cannot cast type '"
-                                + o.getClass().getName()
-                                + "' to AssociationEndFacade");
-            }
-
-            AssociationEndFacade aef = (AssociationEndFacade) o;
+            AssociationEndFacade aef = (AssociationEndFacade) iter.next();
             AssociationCosts element = (AssociationCosts) aef.getAssociation();
             result.addSubPosition(element.getCosts());
         }
 
         Collection dependencies = this.getSourceDependencies();
-        for (Iterator iter = operations.iterator(); iter.hasNext();)
+        for (Iterator iter = dependencies.iterator(); iter.hasNext();)
         {
             DependencyCosts element = (DependencyCosts) iter.next();
             result.addSubPosition(element.getCosts());

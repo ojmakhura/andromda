@@ -47,17 +47,8 @@ public class PackageCostsLogicImpl extends PackageCostsLogic
                     .getFullyQualifiedName(), packagePrice);
             for (Iterator iter = classes.iterator(); iter.hasNext();)
             {
-                Object o = iter.next();
-                if (!(o instanceof ClassifierCosts))
-                {
-                    this.logger.log(Priority.ERROR, "cannot cast "
-                            + o.getClass().getName() + " to ClassifierCosts!");
-                }
-                else
-                {
-                    ClassifierCosts element = (ClassifierCosts) o;
+                    ClassifierCosts element = (ClassifierCosts) iter.next();
                     result.addSubPosition(element.getCosts());
-                }
             }
 
             return result;
