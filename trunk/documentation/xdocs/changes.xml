@@ -7,9 +7,15 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-10" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-11" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="update">
+                All usages of <code>@andromda.struts.view.field.type=radio</code> must now omit any trailing
+                parameters, so specifying "radio 4" or "radio a,b,c" is no longer allowed. The trailing parameters
+                go into a new tagged value called <code>@andromda.struts.view.field.radio</code> and can only
+                be used if the field type specified is of type <code>radio</code>.
+            </action>
             <action dev="cwbrandon" type="add" issue="SPRING-29">
-                Eager loading of relationships is now correctly supported when using composition. 
+                Eager loading of relationships is now correctly supported when using composition.
             </action>
             <action dev="draftdog" type="add">
                 Bpm4struts is now able to generate <code>id</code> attributes in the web.xml descriptor, just use
