@@ -4,25 +4,14 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 
-/**
- * This controller manages the operations of the 'Purchase' use-case. It is not implemented, this is what is generated
- * by AndroMDA.
- *
- * @author <a href="mailto:draftdog@users.sourceforge.net">Wouter Zoons</a>
- */
 class PurchaseController implements PurchaseControllerInterface
 {
-    private final List dummyItemList = new LinkedList();
-
     /**
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void addItemsToBasket(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public final void addItemsToBasket(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 
         /*
@@ -38,7 +27,7 @@ class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void closeUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public final void closeUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 
         /*
@@ -54,7 +43,7 @@ class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void loadItems(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public final void loadItems(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 
         /*
@@ -70,7 +59,7 @@ class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void openUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public final void openUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 
         /*
@@ -86,7 +75,7 @@ class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void prepareForShipping(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public final void prepareForShipping(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 
         /*
@@ -103,48 +92,42 @@ class PurchaseController implements PurchaseControllerInterface
      * This method exists solely to make the application work at runtime by populating
      * the complete form with default values.
      * <p/>
-     * You may remove this method if you want.
+     * You may remove everything under here, including this comment. Simply make sure
+     * you properly populate the form when implementing the operations.
      */
     private void populateForm(PurchaseItemsForm form)
     {
         form.setPassword("password-test");
-        form.setAge(96511);
+        form.setAge((int) 96511);
         form.setEmail("email-test");
-        form.setCreditCard("<change-me>");
-        form.setName("Name-test");
+        form.setItemList(itemListDummyList);
+        form.setCreditCard("creditCard-test");
+        form.setName("NameTest");
         form.setConfirmedLicence(false);
         form.setSelectedItems(java.util.Arrays.asList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"}));
         form.setSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
-
-        form.setItemList(dummyItemList);
     }
 
-    public final class DummyItem implements Serializable
+    private final static java.util.Collection itemListDummyList =
+            java.util.Arrays.asList(new Object[]{
+                new ItemListDummyItem("id-1", "name-1", "address-1"),
+                new ItemListDummyItem("id-2", "name-2", "address-2"),
+                new ItemListDummyItem("id-3", "name-3", "address-3"),
+                new ItemListDummyItem("id-4", "name-4", "address-4"),
+                new ItemListDummyItem("id-5", "name-5", "address-5")
+            });
+
+    public final static class ItemListDummyItem implements java.io.Serializable
     {
         private String id = null;
         private String name = null;
         private String address = null;
 
-        public DummyItem(String address, String id, String name)
+        public ItemListDummyItem(String id, String name, String address)
         {
-            this.address = address;
             this.id = id;
             this.name = name;
-        }
-
-        public String getAddress()
-        {
-            return address;
-        }
-
-        public void setAddress(String address)
-        {
             this.address = address;
-        }
-
-        public String getId()
-        {
-            return id;
         }
 
         public void setId(String id)
@@ -152,15 +135,30 @@ class PurchaseController implements PurchaseControllerInterface
             this.id = id;
         }
 
-        public String getName()
+        public String getId()
         {
-            return name;
+            return this.id;
         }
 
         public void setName(String name)
         {
             this.name = name;
         }
-    }
-}
 
+        public String getName()
+        {
+            return this.name;
+        }
+
+        public void setAddress(String address)
+        {
+            this.address = address;
+        }
+
+        public String getAddress()
+        {
+            return this.address;
+        }
+    }
+
+}
