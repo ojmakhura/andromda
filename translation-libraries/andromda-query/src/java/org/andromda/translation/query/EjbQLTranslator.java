@@ -24,7 +24,7 @@ public class EjbQLTranslator
     private static final String ARG_COUNTER = "counter";
 
     /**
-     * Used to represent an incrementing argument numbers.
+     * Keeps track of an incrementing argument number.
      */
     private short argCounter;
 
@@ -81,8 +81,8 @@ public class EjbQLTranslator
     {
         if (this.isArgument(replacement))
         {
-            //get the used argument and if it exists, use that for the
-            //replacement, otherwise use a new one.
+            // get the used argument and if it exists, use that for the
+            // replacement, otherwise use a new one.
             String usedArgument = (String)this.usedArguments.get(replacement);
             if (StringUtils.isEmpty(usedArgument))
             {

@@ -7,10 +7,13 @@ import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.ALogicalExpressionTail;
 import org.andromda.core.translation.node.AOperationContextDeclaration;
+import org.andromda.core.translation.node.AParenthesesPrimaryExpression;
 import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.node.ARelationalExpressionTail;
 import org.andromda.core.translation.node.AStandardDeclarator;
 import org.andromda.core.translation.node.PRelationalExpression;
+import org.andromda.core.translation.node.TLParen;
+import org.andromda.core.translation.node.TRParen;
 import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
 import org.apache.commons.lang.StringUtils;
@@ -116,8 +119,8 @@ public class QueryTranslator
         short replacement = 1;
         if (this.isInitialDeclarator())
         {
-            // handle differently if its the initial declarator, replacement is
-            // {0}
+            // handle differently if its the initial declarator,
+            // replacement is {0}
             replacement = 0;
         }
 
@@ -129,7 +132,9 @@ public class QueryTranslator
 
     /**
      * Override to handle any propertyCall expressions ( i.e. exists(
-     * <expression>), select( <expression>, etc.)
+     * <expression>), select( <expression>), etc.)
+     * 
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inAPropertyCallExpression(org.andromda.core.translation.node.APropertyCallExpression)
      */
     public void inAPropertyCallExpression(APropertyCallExpression expression)
     {
@@ -138,6 +143,8 @@ public class QueryTranslator
 
     /**
      * Override to deal with logical 'and, 'or', 'xor, ... expressions.
+     * 
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inALogicalExpressionTail(org.andromda.core.translation.node.ALogicalExpressionTail)
      */
     public void inALogicalExpressionTail(
         ALogicalExpressionTail logicalExpressionTail)
@@ -147,11 +154,56 @@ public class QueryTranslator
 
     /**
      * Override to deal with relational ' <, '>', '=', ... expressions.
+     * 
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inARelationalExpressionTail(org.andromda.core.translation.node.ARelationalExpressionTail)
      */
     public void inARelationalExpressionTail(
         ARelationalExpressionTail relationalExpressionTail)
     {
         this.handleTranslationFragment(relationalExpressionTail);
+    }
+
+    /**
+     * A flag indicating whether or not we're in a parenthesis primary
+     * expression. Allows us to keep track of whether or not the translated
+     * expression requires left and right parenthesis.
+     */
+    private boolean parenthesis = false;
+
+    /**
+     * Override to deal with parenthesis expressions '( <expression>)'.
+     * 
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#outAParenthesesPrimaryExpression(org.andromda.core.translation.node.AParenthesesPrimaryExpression)
+     */
+    public void inAParenthesesPrimaryExpression(
+        AParenthesesPrimaryExpression expression)
+    {
+        parenthesis = true;
+    }
+
+    /**
+     * @see org.andromda.core.translation.analysis.Analysis#caseTLParen(org.andromda.core.translation.node.TLParen)
+     */
+    public void caseTLParen(TLParen left)
+    {
+        if (this.parenthesis)
+        {
+            this.getExpression().appendSpaceToTranslatedExpression();
+            this.getExpression().appendToTranslatedExpression(left);
+        }
+    }
+
+    /**
+     * @see org.andromda.core.translation.analysis.Analysis#caseTRParen(org.andromda.core.translation.node.TRParen)
+     */
+    public void caseTRParen(TRParen right)
+    {
+        if (this.parenthesis)
+        {
+            this.getExpression().appendSpaceToTranslatedExpression();
+            this.getExpression().appendToTranslatedExpression(right);
+            this.parenthesis = false;
+        }
     }
 
     /**
@@ -208,6 +260,10 @@ public class QueryTranslator
         this.getExpression().insertInTranslatedExpression(
             0,
             selectClause.toString());
+
+        // remove any extra space from parenthesis
+        this.getExpression().replaceInTranslatedExpression("\\(\\s*", "\\(");
+        this.getExpression().replaceInTranslatedExpression("\\s*\\)", "\\)");
     }
 
     /*------------------------- Handler methods ---------------------------------------*/
@@ -216,7 +272,6 @@ public class QueryTranslator
 
     public void handleSubSelect(String translation, Object node)
     {
-
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
 
         String primaryExpression = ConcreteSyntaxUtils
@@ -233,7 +288,6 @@ public class QueryTranslator
 
     public void handleIsLike(String translation, Object node)
     {
-
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils
             .getFeatureCalls(propertyCallExpression);
@@ -252,7 +306,6 @@ public class QueryTranslator
             this.getExpression().appendSpaceToTranslatedExpression();
         }
         this.getExpression().appendToTranslatedExpression(translation);
-
     }
 
     public void handleSelect(String translation, Object node)
@@ -262,7 +315,6 @@ public class QueryTranslator
 
     public void handleExists(String translation, Object node)
     {
-
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils
             .getFeatureCalls(propertyCallExpression);
@@ -275,11 +327,6 @@ public class QueryTranslator
         String primaryExpression = ConcreteSyntaxUtils
             .getPrimaryExpression(propertyCallExpression);
 
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("primaryExpression --> '" + primaryExpression + "'");
-        }
-
         translation = this.replaceFragment(translation, primaryExpression, 1);
         translation = this.replaceFragment(translation, parameters, 0);
 
@@ -289,21 +336,15 @@ public class QueryTranslator
 
     public void handleIsEmpty(String translation, Object node)
     {
-
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
 
         String primaryExpression = ConcreteSyntaxUtils
             .getPrimaryExpression(propertyCallExpression);
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("primaryExpression --> '" + primaryExpression + "'");
-        }
 
         translation = this.replaceFragment(translation, primaryExpression, 0);
 
         this.getExpression().appendSpaceToTranslatedExpression();
         this.getExpression().appendToTranslatedExpression(translation);
-
     }
 
     /*------------------------- Logical Expression Handler (and, or, xor, etc.) ----------------------*/
@@ -318,7 +359,6 @@ public class QueryTranslator
 
     public void handleRelationalExpression(String translation, Object node)
     {
-
         ARelationalExpressionTail relationalExpressionTail = (ARelationalExpressionTail)node;
 
         String[] leftAndRightExpressions = ConcreteSyntaxUtils
@@ -335,7 +375,5 @@ public class QueryTranslator
 
         this.getExpression().appendSpaceToTranslatedExpression();
         this.getExpression().appendToTranslatedExpression(translation);
-
     }
-
 }
