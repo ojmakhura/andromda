@@ -56,7 +56,11 @@
 	        <method>
 	            <description><![CDATA[Creates the $service.name Session EJB]]></description>
 	            <ejb-name>$service.name</ejb-name>
-	            <method-intf>Home</method-intf>
+#set ($homeInterface = "LocalHome")
+#if ($ejbRemoteView)
+#set ($homeInterface = "Home")
+#end	            
+	            <method-intf>$homeInterface</method-intf>
 	            <method-name>create</method-name>
 	        </method>
         </method-permission>
@@ -74,11 +78,11 @@
            <method>
 	           <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
                <ejb-name>$service.name</ejb-name>
-#set ($view = "Local")
+#set ($interface = "Local")
 #if ($ejbRemoteView)
-#set ($view = "Remote")
+#set ($interface = "Remote")
 #end
-               <method-intf>$view</method-intf>
+               <method-intf>$interface</method-intf>
                <method-name>$operation.name</method-name>
 #if (!$operation.arguments.empty)
                <method-params>
