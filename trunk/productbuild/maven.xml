@@ -143,9 +143,10 @@
 			<!-- don't copy the dependencies for the maven plugin -->
 			<j:if test="${reactorProject.artifactId.indexOf('maven') eq '-1'}">
 				<j:forEach var="lib" items="${reactorProject.artifacts}">
-					<!-- don't copy 'andromda' dependencies -->
+					<!-- don't copy 'andromda' or 'jelly' dependencies -->
 					<j:set var="dep" value="${lib.dependency}"/>
-					<j:if test="${lib.dependency.groupId.indexOf('andromda') eq '-1'}">
+                    <j:set var="groupId" value="${lib.dependency.groupId}"/>
+					<j:if test="${groupId.indexOf('andromda') eq '-1' and groupId.indexOf('jelly') eq '-1'}">
 						<ant:copy todir="${binaryDistLibDir}/${dep.artifactDirectory}">
 							<ant:fileset dir="${maven.repo.local}/${dep.artifactDirectory}">
 								<ant:include name="${dep.type}s/${dep.artifactId}-${dep.version}.${dep.extension}"/>
