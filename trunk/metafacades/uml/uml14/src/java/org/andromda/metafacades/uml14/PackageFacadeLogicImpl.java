@@ -6,7 +6,6 @@ import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.UmlClass;
 
