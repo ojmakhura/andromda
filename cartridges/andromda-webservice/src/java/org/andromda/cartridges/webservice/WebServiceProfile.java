@@ -66,20 +66,20 @@ public class WebServiceProfile {
      *  wrapped, etc.)
      * </p>   
     */
-   public static final java.lang.String TAGGEDVALUE_WEBSERVICE_STYLE = "webService.style";
+   public static final java.lang.String TAGGEDVALUE_WEBSERVICE_STYLE = "@webService.style";
    
    /**
      * <p>
      *  The use of the service to be generated (i.e. literal, encoded).
      * </p>   
     */
-   public static final java.lang.String TAGGEDVALUE_WEBSERVICE_USE = "webService.use";
+   public static final java.lang.String TAGGEDVALUE_WEBSERVICE_USE = "@webService.use";
    
    /**
      * <p>
      *  Stores the provider of the service (i.e. RPC, EJB, etc)
      * </p>   
     */
-   public static final java.lang.String TAGGEDVALUE_WEBSERVICE_PROVIDER = "webService.provider";
+   public static final java.lang.String TAGGEDVALUE_WEBSERVICE_PROVIDER = "@webService.provider";
    
 }
