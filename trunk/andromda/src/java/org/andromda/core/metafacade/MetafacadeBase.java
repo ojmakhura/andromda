@@ -15,11 +15,13 @@ import java.util.Collection;
  */
 public class MetafacadeBase
 {
-    private   Object metaObject;
+    private Object metaObject;
     protected Logger logger;
     private boolean hasBeenValidated = false;
 
-    public MetafacadeBase(Object metaObject, String context)
+    public MetafacadeBase(
+        Object metaObject,
+        String context)
     {
         this.metaObject = metaObject;
         this.context = context;
@@ -63,42 +65,37 @@ public class MetafacadeBase
         if (!this.hasBeenValidated)
         {
             this.hasBeenValidated = true;
-            this.handleInvariants(validationMessages);
+            this.validateInvariants(validationMessages);
         }
     }
 
     /**
      * <p>
-     *   The logic of modeled OCL invariants from derived metafacades
-     *   will be generated into this method and validation messages
-     *   created and collected into the <code>messages</code> collection.  
-     *   This method is called by validate #validate().
+     * The logic of modeled OCL invariants from derived metafacades will be
+     * generated into this method and validation messages created and collected
+     * into the <code>messages</code> collection. This method is called by
+     * validate #validate().
      * <p>
-     * 
      * <p>
-     *   By default this method is empty.
+     * By default this method is empty.
      * </p>
      */
-    protected void handleInvariants(Collection messages)
-    {
-    }
+    public void validateInvariants(Collection messages)
+    {}
 
     /**
-     * A lifecycle method, providing the ability for 
-     * sub classes to take any action after the factory has 
-     * completely initialized a metafacade, but before it has
-     * been validated for completeness.
+     * A lifecycle method, providing the ability for sub classes to take any
+     * action after the factory has completely initialized a metafacade, but
+     * before it has been validated for completeness.
      */
-    protected void preValidation()
-    {
-    }
-    
+    public void initialize()
+    {}
+
     /**
-     * Returns a collection of facades for a collection
-     * of metaobjects. Contacts the MetafacadeFactory to manufacture
-     * the proper facades.
+     * Returns a collection of facades for a collection of metaobjects. Contacts
+     * the MetafacadeFactory to manufacture the proper facades.
+     * 
      * @see MetafacadeFactory
-     *
      * @param metaobjects the objects to decorate
      * @return Collection of MetafacadeBase-derived objects
      */
@@ -106,56 +103,60 @@ public class MetafacadeBase
     {
         if (metaobjects == null)
         {
-            return null;   // a decorated null is still a null! :-)
+            return null; // a decorated null is still a null! :-)
         }
-		Collection metafacades = MetafacadeFactory.getInstance().createMetafacades(
-				metaobjects,
-				this.getContext());
-        if (StringUtils.isNotEmpty(this.context)) {
-    		class MetafacadeContextTransformer implements Transformer {
-    			public Object transform(Object object) {
-    				MetafacadeBase metafacade = (MetafacadeBase)object;
-    				// keep passing the context along from the
-    				// very first one (i.e. the first metafacade)
+        Collection metafacades = MetafacadeFactory.getInstance()
+            .createMetafacades(metaobjects, this.getContext());
+        if (StringUtils.isNotEmpty(this.context))
+        {
+            class MetafacadeContextTransformer
+                implements Transformer
+            {
+                public Object transform(Object object)
+                {
+                    MetafacadeBase metafacade = (MetafacadeBase)object;
+                    // keep passing the context along from the
+                    // very first one (i.e. the first metafacade)
 
-				    metafacade.setContext(getContext());
-    				if (logger.isDebugEnabled())
-    					logger.debug("set context as --> '"
-    						+ metafacade.getContext()
-    						+ "'");
+                    metafacade.setContext(getContext());
+                    if (logger.isDebugEnabled())
+                        logger.debug("set context as --> '"
+                            + metafacade.getContext() + "'");
 
-    				return metafacade;
-    			}
-    		}
-    		CollectionUtils.transform(
-    			metafacades,
-    			new MetafacadeContextTransformer());
+                    return metafacade;
+                }
+            }
+            CollectionUtils.transform(
+                metafacades,
+                new MetafacadeContextTransformer());
         }
-		return metafacades;
+        return metafacades;
     }
 
-	/**
-	 * Stores the context for this metafacade
-	 */
-	private String context = null;
+    /**
+     * Stores the context for this metafacade
+     */
+    private String context = null;
 
-	/**
-	 * Gets the context for this metafacade.
-	 *
-	 * @return the context name.
-	 */
-	String getContext() {
-		return this.context;
-	}
+    /**
+     * Gets the context for this metafacade.
+     * 
+     * @return the context name.
+     */
+    String getContext()
+    {
+        return this.context;
+    }
 
-	/**
-	 * Sets the <code>context<code> for this metafacade
-	 *
-	 * @param context the context class to set
-	 */
-	private void setContext(String context) {
-		this.context = StringUtils.trimToEmpty(context);
-	}
+    /**
+     * Sets the <code>context<code> for this metafacade
+     *
+     * @param context the context class to set
+     */
+    private void setContext(String context)
+    {
+        this.context = StringUtils.trimToEmpty(context);
+    }
 
     /**
      * Stores the property context for this Metafacade
@@ -163,62 +164,67 @@ public class MetafacadeBase
     private String propertyNamespace = null;
 
     /**
-     * Gets the current property context for this metafacade.
-     * This is the context in which properties for this metafacade
-     * are stored.
-     *
+     * Gets the current property context for this metafacade. This is the
+     * context in which properties for this metafacade are stored.
+     * 
      * @return String
      */
-    protected String getPropertyNamespace() {
-    	if (StringUtils.isEmpty(this.propertyNamespace)) {
-    		this.propertyNamespace = this.getContext() + ":property";
-    	}
-    	return this.propertyNamespace;
+    protected String getPropertyNamespace()
+    {
+        if (StringUtils.isEmpty(this.propertyNamespace))
+        {
+            this.propertyNamespace = this.getContext() + ":property";
+        }
+        return this.propertyNamespace;
     }
 
-	/**
-	 * Stores the namespace for this metafacade
-	 */
-	private String namespace = null;
-
-	/**
-	 * Gets the current namespace for this metafacade
-	 *
-	 * @return String
-	 */
-	String getNamespace() {
-		return this.namespace;
-	}
-
-	/**
-	 * Sets the namespace for this metafacade.
-	 *
-	 * @param namespace
-	 */
-	void setNamespace(String namespace) {
-		this.namespace = namespace;
-	}
+    /**
+     * Stores the namespace for this metafacade
+     */
+    private String namespace = null;
 
     /**
-     * Gets a configured property from the container.  Note
-     * that the configured property must be registered first.
-     *
+     * Gets the current namespace for this metafacade
+     * 
+     * @return String
+     */
+    String getNamespace()
+    {
+        return this.namespace;
+    }
+
+    /**
+     * Sets the namespace for this metafacade.
+     * 
+     * @param namespace
+     */
+    void setNamespace(String namespace)
+    {
+        this.namespace = namespace;
+    }
+
+    /**
+     * Gets a configured property from the container. Note that the configured
+     * property must be registered first.
+     * 
      * @param property the property name
      * @return Object the configured property instance (mappings, etc)
      */
-    protected Object getConfiguredProperty(String property) {
+    protected Object getConfiguredProperty(String property)
+    {
         return MetafacadeFactory.getInstance().getRegisteredProperty(
-                this.getPropertyNamespace(),
-                property);
+            this.getPropertyNamespace(),
+            property);
     }
 
     /**
      * Registers a configured property with the container.
-     *
+     * 
      * @param property the name of the property.
      * @param value the value of the configured instance.
      */
-    protected void registerConfiguredProperty(String property, Object value) {
+    protected void registerConfiguredProperty(String property, Object value)
+    {
         MetafacadeFactory.getInstance().registerProperty(
             this.getPropertyNamespace(),
             property,
@@ -226,9 +232,9 @@ public class MetafacadeBase
     }
 
     /**
-     * Returns one facade for a particular metaobject. Contacts
-     * the MetafacadeFactory to manufacture the proper facade.
-     *
+     * Returns one facade for a particular metaobject. Contacts the
+     * MetafacadeFactory to manufacture the proper facade.
+     * 
      * @see MetafacadeFactory
      * @param metaObject the object to decorate
      * @return MetafacadeBase the facade
@@ -239,61 +245,55 @@ public class MetafacadeBase
         {
             return (MetafacadeBase)metaObject;
         }
-		MetafacadeBase metafacade = null;
-		if (metaObject != null) {
-			metafacade =
-				MetafacadeFactory.getInstance().createMetafacade(
-					metaObject,
-					this.getContext());
-			// keep passing the context along from the
-			// very first one (i.e. the first metafacade)
-			if (StringUtils.isNotEmpty(this.context)) {
-				metafacade.setContext(this.getContext());
-				if (logger.isDebugEnabled())
-					logger.debug("set context as --> '"
-						+ metafacade.getContext()
-						+ "'");
-			}
-		}
-		return metafacade;
+        MetafacadeBase metafacade = null;
+        if (metaObject != null)
+        {
+            metafacade = MetafacadeFactory.getInstance().createMetafacade(
+                metaObject,
+                this.getContext());
+            // keep passing the context along from the
+            // very first one (i.e. the first metafacade)
+            if (StringUtils.isNotEmpty(this.context))
+            {
+                metafacade.setContext(this.getContext());
+                if (logger.isDebugEnabled())
+                    logger.debug("set context as --> '"
+                        + metafacade.getContext() + "'");
+            }
+        }
+        return metafacade;
     }
 
     /**
-     * Attempts to set the property with <code>name</code>
-     * having the specified <code>value</code>
-     * on this metafacade.
+     * Attempts to set the property with <code>name</code> having the
+     * specified <code>value</code> on this metafacade.
      */
-    protected void setProperty(String name, Object value) {
+    protected void setProperty(String name, Object value)
+    {
         final String methodName = "MetafacadeBase.setProperty";
         ExceptionUtils.checkEmpty(methodName, "name", name);
 
         try
         {
-            if (PropertyUtils.isWriteable(this, name)) {
-                BeanUtils.setProperty(
-                        this,
-                        name,
-                        value);
-             }
+            if (PropertyUtils.isWriteable(this, name))
+            {
+                BeanUtils.setProperty(this, name, value);
+            }
         }
         catch (Exception ex)
         {
-            String errMsg =
-                "Error setting property '"
-                    + name
-                    + "' with value '"
-                    + value
-                    + "' on metafacade --> '"
-                    + this
-                    + "'";
+            String errMsg = "Error setting property '" + name
+                + "' with value '" + value + "' on metafacade --> '" + this
+                + "'";
             this.logger.error(errMsg, ex);
             //don't throw the exception
         }
     }
 
     /**
-     * Package-local setter, called by facade factory.
-     * Sets the logger to use inside the facade's code.
+     * Package-local setter, called by facade factory. Sets the logger to use
+     * inside the facade's code.
+     * 
      * @param l the logger to set
      */
     void setLogger(Logger l)

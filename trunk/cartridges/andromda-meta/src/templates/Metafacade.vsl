@@ -17,6 +17,22 @@ public interface $metafacade.name
        extends $superMetafacade.fullyQualifiedName
 #end
 {
+#if (!$superMetafacade)
+    /**
+     * Provides any required initialization of the metafacade.
+     */
+    void initialize();
+    
+    /**
+     * Performs validation of any invariants found on this model element 
+     * and stores the messages within the <code>validationMessages</code>
+     * collection.
+     *
+     * @param validationMessages the collection of messages which additional
+     *        validation messages will be added if invariants are broken.
+     */
+    void validateInvariants(java.util.Collection validationMessages);
+#end
 #foreach ( $method in $metafacade.getMethodDataForPSM(false) )
 
    /**

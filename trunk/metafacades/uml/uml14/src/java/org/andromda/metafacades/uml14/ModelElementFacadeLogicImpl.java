@@ -548,14 +548,6 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#handleInvariants(java.util.Collection)
-     */
-    public void handleValidateInvariants(Collection validationMessages)
-    {
-        super.handleInvariants(validationMessages);
-    }
-
-    /**
      * @see java.lang.Object#toString()
      */
     public String toString()

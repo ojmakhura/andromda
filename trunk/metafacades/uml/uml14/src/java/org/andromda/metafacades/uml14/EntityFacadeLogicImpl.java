@@ -29,11 +29,11 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#preValidation()
+     * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
      */
-    protected void preValidation()
+    public void initialize()
     {
-        super.preValidation();
+        super.initialize();
         // if there are no identfiers on this entity,
         // create and add one.
         if (!this.hasIdentifiers() && this.isAllowDefaultIdentifiers())
