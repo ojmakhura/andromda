@@ -18,6 +18,7 @@
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 <div class="action">
+  <div id="$action.styleId">
     <h3><bean:message key="${actionTrigger.triggerKey}"/></h3>
     <div class="trigger">
 #if ($action.hyperlink)
@@ -154,6 +155,7 @@
         </script>
 #end
 
+  </div>
 </div>
 
 <br class="clr"/>
