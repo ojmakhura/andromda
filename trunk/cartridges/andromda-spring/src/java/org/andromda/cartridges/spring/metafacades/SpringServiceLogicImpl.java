@@ -333,7 +333,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleIsAllowDefaultServiceException()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#handleIsAllowDefaultServiceException()
      */
     protected boolean handleIsAllowDefaultServiceException()
     {
@@ -344,7 +344,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeRmi()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeRmi()
      */
     protected boolean handleIsRemotingTypeRmi()
     {
@@ -352,7 +352,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeBurlap()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeBurlap()
      */
     protected boolean handleIsRemotingTypeBurlap()
     {
@@ -360,7 +360,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeHessian()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeHessian()
      */
     protected boolean handleIsRemotingTypeHessian()
     {
@@ -368,7 +368,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeHttpInvoker()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeHttpInvoker()
      */
     protected boolean handleIsRemotingTypeHttpInvoker()
     {
@@ -376,11 +376,28 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeNone()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeNone()
      */
     protected boolean handleIsRemotingTypeNone()
     {
         return this.getRemotingType().equalsIgnoreCase("none");
+    }
+
+    /**
+     * Stores the namespace property indicating whether or not the hibernate
+     * interceptor is enabled for this service.
+     */
+    private static final String HIBERNATE_INTERCEPTOR_ENABLED = "serviceHibernateInterceptorEnabled";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#IsHibernateInterceptorEnabled()
+     */
+    protected boolean handleIsHibernateInterceptorEnabled()
+    {
+        return Boolean.valueOf(
+            String.valueOf(this
+                .getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED)))
+            .booleanValue();
     }
 
 }

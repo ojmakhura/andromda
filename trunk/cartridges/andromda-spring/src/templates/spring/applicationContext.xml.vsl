@@ -91,10 +91,12 @@
         </property>
     </bean>
 
+#if ($daosEnabled)
     <!-- The Hibernate interceptor -->
     <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate.HibernateInterceptor">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
     </bean>
+#end
 
 #if (!$ejbsEnabled)
     <!-- Transaction Manager -->
@@ -190,7 +192,9 @@
 #if (!$ejbsEnabled)
                  <value>serviceTransactionInterceptor</value>
 #end
+#if ($daosEnabled && $service.hibernateInterceptorEnabled)
                  <value>hibernateInterceptor</value>
+#end
              </list>
          </property>
      </bean>
