@@ -9,14 +9,19 @@
 
     <!-- destination directories -->
     <property name="dist.dir"         value="dist"   />
+    <property name="andromda.home" location="${dist.dir}" />
 
     <!-- ============================================================= -->
     <!--               Internal targets                                -->
     <!-- ============================================================= -->
 
     <target name="buildComponent">
-    	<echo message="cleanComponent ${component.name}"/>
-        <ant inheritAll="false" dir="${component.name}" target="dist" />
+    	<echo message="buildComponent ${component.name} ${prefix}"/>
+        <ant inheritAll="false" dir="${component.name}" target="dist" >
+          <property name="dist.stage.dir" location="${dist.dir}/${prefix}/"/>
+          <property name="andromda.home" location="${andromda.home}"/>
+          <property file="build.properties" />
+        </ant>
         <move taskname="${component.name}" todir="${dist.dir}">
           <fileset dir="${component.name}/dist">
             <include name="*.*"/>
@@ -42,9 +47,7 @@
 
     <!-- Remove directory structure -->
     <target name="clean" description="Removes all generated files">
-        <delete includeEmptyDirs="true" quiet="true">
-            <fileset dir="${dist.dir}"/>
-        </delete>
+        <delete dir="${dist.dir}"/>
         
         <antcall target="cleanComponent">
           <param name="component.name" value="andromda"/>
@@ -68,18 +71,22 @@
 
         <antcall target="buildComponent">
           <param name="component.name" value="andromda"/>
+          <param name="prefix" value="andromda-core"/>
         </antcall>
 
         <antcall target="buildComponent">
           <param name="component.name" value="cartridges"/>
+          <param name="prefix" value=""/>
         </antcall>
 
         <antcall target="buildComponent">
           <param name="component.name" value="samples"/>
+          <param name="prefix" value="samples"/>
         </antcall>
 
         <antcall target="buildComponent">
           <param name="component.name" value="documentation"/>
+          <param name="prefix" value="docs"/>
         </antcall>
 
     </target>

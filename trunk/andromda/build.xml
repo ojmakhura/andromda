@@ -87,10 +87,10 @@
         <!-- create the distribution directory structure -->
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${dist.stage.dir}"/>
-        <mkdir dir="${dist.stage.dir}doc/"/>
-        <mkdir dir="${dist.stage.dir}doc/javadoc/"/>
-        <mkdir dir="${dist.stage.dir}lib/"/>
-        <mkdir dir="${dist.stage.dir}src"/>
+        <mkdir dir="${dist.stage.dir}/doc/"/>
+        <mkdir dir="${dist.stage.dir}/doc/javadoc/"/>
+        <mkdir dir="${dist.stage.dir}/lib/"/>
+        <mkdir dir="${dist.stage.dir}/src"/>
 
         <!-- copy everything into the stage dir -->
         <copy todir="${dist.stage.dir}">
@@ -101,7 +101,7 @@
             <fileset dir="${license.src.dir}" includes="LICENSE"/>
         </copy>
 
-        <copy todir="${dist.stage.dir}src/">
+        <copy todir="${dist.stage.dir}/src/">
             <fileset dir="${src.dir}">
                 <exclude name="sample/**" />
                 <exclude name="xdocs/**" />
@@ -110,14 +110,14 @@
             </fileset>
         </copy>
 
-        <copy todir="${dist.stage.dir}doc/javadoc">
-            <fileset dir="${build.doc.dir}javadoc">
+        <copy todir="${dist.stage.dir}/doc/javadoc">
+            <fileset dir="${build.doc.dir}/javadoc">
             </fileset>
         </copy>
 
         <!-- do not zip from source tree, but ... -->
         <!-- keep dist.stage.dir an exact copy of the two zips -->
-        <copy todir="${dist.stage.dir}lib/">
+        <copy todir="${dist.stage.dir}/lib/">
             <fileset dir="lib" includes="*"/>
         </copy>
 

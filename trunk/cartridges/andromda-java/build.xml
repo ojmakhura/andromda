@@ -21,7 +21,6 @@
     <!-- Remove directory structure structure -->
     <target name="clean" description="Removes all generated files">
         <delete includeEmptyDirs="true" quiet="true">
-            <fileset dir="${dist.stage.dir}"/>
             <fileset dir="${dist.dir}"/>
             <fileset dir="${build.dir}"/>
         </delete>

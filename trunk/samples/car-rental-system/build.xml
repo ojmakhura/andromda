@@ -3,6 +3,12 @@
     <!-- Load user environment parameters -->
     <!-- This should define the properties andromda-core.home and build.classpath -->
     <property file="build.properties" />
+    <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
+    <property name="andromda-java.home" location="${andromda.home}/andromda-java"/>
+    <property name="andromda-ejb.home" location="${andromda.home}/andromda-ejb"/>
+    <property name="andromda-hibernate.home" location="${andromda.home}/andromda-hibernate"/>
+    <property name="andromda-struts.home" location="${andromda.home}/andromda-struts"/>
+    
     <property file="${andromda-core.home}/andromda-core.properties"/>
     <property file="${andromda-core.home}/xdoclet.properties"/>
     <property file="${andromda-java.home}/andromda-java.properties"/>
@@ -19,12 +25,17 @@
        <pathelement path="${andromda-hibernate.classpath}"/>
        <pathelement path="${andromda-struts.classpath}"/>
 	</path>
-		
+	
+	<path id="j2ee.classpath">
+	  <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
+	  <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
+	</path>
+	
     <!-- Define our class path -->
     <path id="build.class.path">
         <path refid="andromda.classpath"/>
         <pathelement path="${xdoclet.classpath}"/>
-        <pathelement path="${j2ee.classpath}"/>
+        <path refid="j2ee.classpath"/>
     </path>
 
 

@@ -6,13 +6,18 @@
 
     <!-- destination directories -->
     <property name="dist.dir"         value="dist"   />
+    <property file="build.properties" />
 
     <!-- ============================================================= -->
     <!--               Internal targets                                -->
     <!-- ============================================================= -->
 
     <target name="buildComponent">
-        <ant inheritAll="false" dir="${basedir}/${component.name}" target="dist" />
+        <ant inheritAll="false" dir="${basedir}/${component.name}" target="dist">
+          <property name="dist.stage.dir" location="${dist.dir}/samples/${component.name}"/>
+          <property name="andromda.home" location="${andromda.home}" />
+          <property name="jboss.home" location="${jboss.home}" />
+        </ant>
         <move taskname="${component.name}" todir="${dist.dir}">
           <fileset dir="${basedir}/${component.name}/dist">
             <include name="*.*"/>
