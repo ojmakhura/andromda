@@ -3,6 +3,7 @@
 <document> 
 	<properties>
     	<title>Configuring metafacades</title> 
+        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
     </properties>
   	<body> 
 
@@ -16,7 +17,7 @@
   			<subsection name="Steps to configure your own metafacades">
   				<ol>
   					<li>
-  						Write your andromda-metafacades.xml file.
+  						<a href="#Writing_the_Metafacades_Descriptor">Write your andromda-metafacades.xml file.</a>
   					</li>
   				</ol>
   			</subsection>
@@ -26,12 +27,107 @@
 		  			Each metafacades descriptor must comply with the following 
 		  			<a href="descriptor-schema.html">XSD Schema</a>.
 		  		</p>
+            </subsection>
+		  	<subsection name="Writing the Metafacades Descriptor">
                 <p>
-                    To be continued...
+                    First of all you'll need to write a file that <strong>MUST</strong>
+                    be named andromda-metafacades.xml and be placed in the META-INF directory
+                    of your cartridge (or shared metafacades library). The following 
+                    describes each element/attribute within the andromda-metafacades.xml file and 
+                    what effect it has on the metafacade configuration process:
+                </p>       
+                <h3><![CDATA[<metafacades/>]]></h3>     
+                <p>
+                  The <em><![CDATA[<metafacades/>]]></em> element is the root of the andromda-metafacades.xml
+                  file.  This root contains the rest of the metafacade configuration information. 
                 </p>
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>namespace</td>
+                        <td>
+                            Specifies the name of the namespace to which this set of metafacades applies.  For example:
+                            <em><![CDATA[<metafacades namespace="spring">]]></em> tells us to apply the set of metafacades to the
+                            <em>spring</em> namespace. Note that most of the time the namespace will match the name of a
+                            cartridge.
+                        </td>
+                        <td >Yes</td>
+                    </tr>
+                </table>
+                <h3><![CDATA[<metafacade/>]]></h3>     
+                <p>
+                  The <em><![CDATA[<metafacade/>]]></em> element allows us to configure
+                  a mapping (and any applicable namespace properties) to a metafacade class. 
+                  The <code><![CDATA[<metafacade/>]]></code> is nested directly under the root
+                  <code><![CDATA[<metafacades/>]]></code> element:
+<source><![CDATA[
+<metafacades namespace="spring">
+    ...    
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
+       ...
+    </metafacade>    
+    ...
+</metafacades>
+]]></source>
+                </p>
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>class</td>
+                        <td>
+                            Specifies the metafacade implementation class that should be instantiated
+                            when this mapping is matched.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                </table>
+                <h3><![CDATA[<mapping/>]]></h3>     
+                <p>
+                    The <em><![CDATA[<mapping/>]]></em> is the element containing the nested
+                    elements that telling AndroMDA how exactly a meta model object should be mapped
+                    to a specific metafacade. 
+                    <ul>
+                        This <em><![CDATA[<mapping/>]]></em> element allows metafacades to be mapped
+                        by the following attributes:
+                        <li>
+                            Stereotypes - each meta model element can be mapped by one or more stereotypes
+                            (we'll talk more about this later).
+                        </li>
+                        <li>
+                            Context - each meta model element can be mapped by one context.  A context is
+                            is a metafacade interface name, the context must be the context under which the
+                            metafacade is created (we'll talk more about this later).
+                        </li>
+                        <li>
+                            Properties - each meta model element can be mapped by one or more properties that
+                            apply to it (again will talk more about this later).
+                        </li>
+                    </ul>
+                </p>
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>class</td>
+                        <td>
+                            Specifies the metafacade implementation class that should be instantiated
+                            when this mapping is matched.
+                        </td>
+                        <td >Yes</td>
+                    </tr>
+                </table>
 		  	</subsection>
 		</section>
-
-
   	</body> 
 </document>
