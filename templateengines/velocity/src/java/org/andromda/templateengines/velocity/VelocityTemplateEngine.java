@@ -52,8 +52,8 @@ public class VelocityTemplateEngine implements TemplateEngine {
     private static final String PROPERTIES_SUFFIX = "-velocity.properties";
     
     /**
-     * Stores additional properties specified within the cartridge
-     * within the file META-INF/'cartridge name'-velocity.properties
+     * Stores additional properties specified within the plugin
+     * within the file META-INF/'plugin name'-velocity.properties
      */
     private Properties properties = null;
 	
@@ -72,9 +72,9 @@ public class VelocityTemplateEngine implements TemplateEngine {
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
      */
-	public void init(String cartridgeName) throws Exception {
+	public void init(String pluginName) throws Exception {
     
-        this.initLogger(cartridgeName);
+        this.initLogger(pluginName);
                 
         // perform only this initialization only once
         if (this.velocityEngine == null) {     
@@ -86,16 +86,16 @@ public class VelocityTemplateEngine implements TemplateEngine {
 	        // classpath when searching for templates            
 	        velocityEngine.addProperty(
 	            VelocityEngine.RESOURCE_LOADER,
-	            "andromda.cartridges,file");
+	            "andromda.plugins,file");
 	
 	        ep.setProperty(
-	            "andromda.cartridges."
+	            "andromda.plugins."
 	                + VelocityEngine.RESOURCE_LOADER
 	                + ".class",
 	            ClasspathResourceLoader.class.getName());
 	
 	        // Tell VelocityTemplateEngine not to use its own logger but to use the logger
-	        // of this cartridge.
+	        // of this plugin.
 	        ep.setProperty(
 	            VelocityEngine.RUNTIME_LOG_LOGSYSTEM,
 	            new VelocityLoggingReceiver());
@@ -111,24 +111,24 @@ public class VelocityTemplateEngine implements TemplateEngine {
 	        velocityEngine.init();
         }
        
-        this.addProperties(cartridgeName);
+        this.addProperties(pluginName);
        
 	}
         
 	/**
 	 * Adds any properties found within
-	 * META-INF/'cartridge name'-velocity.properties
+	 * META-INF/'plugin name'-velocity.properties
 	 */
-    private void addProperties(String cartridgeName) throws IOException {
+    private void addProperties(String pluginName) throws IOException {
         
         //reset any properties from previous processing
         this.properties = null;
         
         // see if the velocity properties exist for the current
-        // cartridge
+        // plugin
         URL propertiesUri = ResourceUtils.getResource(
             PROPERTIES_DIR 
-            	+ StringUtils.trimToEmpty(cartridgeName) 
+            	+ StringUtils.trimToEmpty(pluginName) 
             	+ PROPERTIES_SUFFIX);
 
         if (propertiesUri != null) {
@@ -153,7 +153,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     
     /**
      * Clears all properties loaded
-     * from META-INF/'cartridge-name'-velocity.properties
+     * from META-INF/'plugin-name'-velocity.properties
      * during initialization.
      */
     private void removeProperties() {
@@ -174,10 +174,9 @@ public class VelocityTemplateEngine implements TemplateEngine {
 	public void processTemplate(
 		String templateFile,
 		Map templateObjects, 
-		StringWriter output)
-		throws Exception {
+		StringWriter output) throws Exception {
         
-		final String methodName = "processTemplate";
+		final String methodName = "VelocityTemplateEngine.processTemplate";
 		ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
 		ExceptionUtils.checkNull(methodName, "output", output);
 		if (logger.isDebugEnabled())
@@ -232,7 +231,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     }
     
     /**
-     * @see org.andromda.core.cartridge.CartridgeDescriptor#getMacroLibraries()
+     * @see org.andromda.core.templateengine.TemplateEngine#getMacroLibraries()
      */
     public List getMacroLibraries()
     {
@@ -240,7 +239,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     }
     
     /**
-     * @see org.andromda.core.cartridge.CartridgeDescriptor#addMacroLibrary(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(java.lang.String)
      */
     public void addMacroLibrary(String libraryName)
     {
@@ -255,7 +254,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
      * <p>This avoids creation of one large VelocityTemplateEngine log file
      * where errors are difficult to find and track.</p>
      * 
-     * <p>Error messages can now be traced to cartridge activities.</p>
+     * <p>Error messages can now be traced to plugin activities.</p>
      */
     private class VelocityLoggingReceiver implements LogSystem
     {
@@ -302,17 +301,17 @@ public class VelocityTemplateEngine implements TemplateEngine {
     }
 
     /**
-     * Opens a log file for this cartridge.
+     * Opens a log file for this plugin.
      * @throws IOException if the file cannot be opened
      */
-    private void initLogger(String cartridgeName) throws IOException
+    private void initLogger(String pluginName) throws IOException
     {
         logger =
-            Logger.getLogger("org.andromda.cartridges." + cartridgeName);
+            Logger.getLogger("org.andromda.plugins." + pluginName);
         logger.setAdditivity(false);
         logger.setLevel(Level.ALL);
 
-        String logfile = "andromda-" + cartridgeName + ".log";
+        String logfile = "andromda-" + pluginName + ".log";
         FileAppender appender =
             new FileAppender(new PatternLayout("%d - %m%n"), logfile, true);
         logger.addAppender(appender);
