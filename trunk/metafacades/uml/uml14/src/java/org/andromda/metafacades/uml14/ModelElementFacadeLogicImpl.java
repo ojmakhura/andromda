@@ -316,14 +316,8 @@ public class ModelElementFacadeLogicImpl
         // if there still isn't anything, try a tagged value
         if (StringUtils.isEmpty(documentation.toString()))
         {
-            try
-            {
-                documentation.append(StringUtils.trimToEmpty((String)this
-                    .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
-            }catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
+            documentation.append(StringUtils.trimToEmpty((String)this
+                .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
         try
         {
