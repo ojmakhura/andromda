@@ -34,7 +34,7 @@ $operation.getDocumentation("     * ")
 #set ($parameter = $parameters.iterator().next())
      * <p/>
      * This method receives the "$parameter.name" parameter,
-     * it is of type <code>$parameter.type.name</code> and is available
+     * it is of type <code>$parameter.type.fullyQualifiedName</code> and is available
      * through the argument form bean.
 #else
      * <p/>
@@ -49,7 +49,7 @@ $operation.getDocumentation("     * ")
 #foreach ($parameter in $parameters)
      *    <tr>
      *       <td>$parameter.name</td>
-     *       <td>$parameter.type.name</td>
+     *       <td>$parameter.type.fullyQualifiedName</td>
      *    </tr>
 #end
      * </table>
@@ -58,7 +58,7 @@ $operation.getDocumentation("     * ")
     $visibility final $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #foreach ($parameter in $parameters)
-        final $parameter.type.name $parameter.name = form.${parameter.getterName}();
+        final $parameter.type.fullyQualifiedName $parameter.name = form.${parameter.getterName}();
 #end
 
         /*
