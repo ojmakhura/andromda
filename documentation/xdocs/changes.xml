@@ -7,10 +7,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-01" description="First release candidate for version 3.0">
-            <action dev="draftdog" type="update" issue="SITE-14">
-                The <a href="jmi-uml1.4/index.html" target="_blank">JMI 1.4 API</a> has been published on the
-                AndroMDA website, you can find it in the navigation menu under the "developers" section.
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-02" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="BPM-96">
+                Bpm4Struts now supports final states pointing to locations or resources outside
+                of the scope of the UML model. This is achieved by giving the final state a name
+                starting with either <code>/</code> or <code>http://</code>, alternatively you can make use of
+                the "hyperlink" feature as available in some UML tools, just make sure to hyperlink to a
+                web page (sometimes UML tools distinguish between different types of hyperlinks).
             </action>
             <action dev="cwbrandon" type="update">
                 The tagged value @andromda.ejb.transactionType has been renamed to @andromda.transaction.type
