@@ -3,18 +3,64 @@
  */
 package $entity.packageName;
 
+##
+## Template variables used
+##
+## idGeneratorClass - the hibernate id generator class to use.
+## leafImpl         - whether or not to generate the Impls
+##                    When using subclass inheritance strategy dont want to 
+##                    generate a table for every Impl.
+##                    also means have to support business methods on a facade,
+##                    or maybe have some merge architecture to include business
+##                    logic on the generated Entity.
+##                    Actually general design good practice says to only have
+##                    concrete classes at the leafs.
+#set ($generalization = $entity.generalization)
+#set ($thisInheritance = $entity.inheritanceStrategy)
 /**
 $entity.getDocumentation(" * ")
  *
-#if($entity.generalization)
+#if($generalization)
+#set ($superInheritance = $generalization.inheritanceStrategy)
+#if($superInheritance == "class")
  * @hibernate.subclass
  *    discriminator-value="$entity.name"
+#elseif ($superInheritance == "subclass")
+ * @hibernate.joined-subclass
+ *     table="$entity.tableName"
+ * @hibernate.joined-subclass-key
+ *     column="$entity.identifierColumn"
+ *    
+#elseif ($superInheritance == "concrete")
+ * @hibernate.class
+ *     table="$entity.tableName"
+ *
+#elseif ($superInheritance == "interface")
+ * @hibernate.class
+ *    table="$entity.tableName"
+#if ( $thisInheritance == "class" )
+ * @hibernate.discriminator
+ *     column="class"
+ *     discriminator-value="$entity.name"
+ *
+#end
+#end
+#else
+## No generalization, we are root
+#if ($thisInheritance == "interface" )
+ *
+ * No hibernate persistance, inheritance = interface
+ *
 #else
  * @hibernate.class
  *     table="$entity.tableName"
+#if($thisInheritance == "class")
  * @hibernate.discriminator
  *     column="class"
+ *     discriminator-value="$entity.name"
 #end
+#end ## end if thisInheritance == interface
+#end ## end if generalization
  *
 #foreach ( $tgv in $entity.taggedValues )
 #if ($tgv.name != "documentation")
@@ -26,12 +72,150 @@ $entity.getDocumentation(" * ")
  * $tag    $tgv.value
 #end
 #end
+## Dont generate the Impl if leafImpl is true and
+## the entity has specializations.
+#set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
  */
+#if ($thisInheritance != "interface" )
 public abstract class $entity.name
-#if($entity.generalization)
-	extends ${entity.generalization.fullyQualifiedName}Impl
-#end
+#if($generalization)
+#if($superInheritance == "interface" )
+ 	implements ${generalization.fullyQualifiedName}
+#else
+## If leafImpl we always extend the superclass not the Impl.
+#if ($leafImpl == "true")
+ 	extends ${generalization.fullyQualifiedName}
+#else
+ 	extends ${generalization.fullyQualifiedName}Impl
+#end ## end if leafImpl == true
+#end ## end if superInheritance == interface
+#end ## end if generalization
 {
+
+#if ( $generalization)
+#if ( $superInheritance == "interface" )
+    // --------------- super attributes ---------------------
+#foreach ( $attribute in $generalization.attributes )
+    private $attribute.type.fullyQualifiedName $attribute.name;
+
+    /**
+$attribute.getDocumentation("     * ")
+     *
+#if ($attribute.identifier)
+#set ($idDone = "true")
+     * @hibernate.id
+     *     generator-class="$idGeneratorClass"
+#else
+     * @hibernate.property
+#end
+     *     column="$attribute.columnName"
+     *     type="$attribute.type.fullyQualifiedHibernateType"
+     *
+     * @hibernate.column
+     *     name="$attribute.columnName"
+     *     sql-type="$attribute.sqlType"
+     */
+    public $attribute.type.fullyQualifiedName ${attribute.getterName}()
+    {
+        return this.$attribute.name;
+    }
+
+    public void ${attribute.setterName}($attribute.type.fullyQualifiedName $attribute.name)
+    {
+        this.${attribute.name} = $attribute.name;
+    }
+
+#end  ##end foreach
+
+    // ------------- super relations ------------------
+
+#foreach ( $associationEnd in $generalization.associationEnds )
+	#set ($target = $associationEnd.otherEnd)
+    #set ($sourceType = $associationEnd.type)
+    #set ($targetType = $target.type)
+    #set ($targetTypeName = $targetType.fullyQualifiedName)
+#if ($target.navigable)
+    /**
+$target.getDocumentation("     * ")
+     *
+#if ($associationEnd.one2Many)
+     * @hibernate.set
+     *     role="$target.name"
+     *     lazy="$target.lazy"
+#if (!$associationEnd.managesRelationalLink)
+     *     inverse="true"
+#end
+     * @hibernate.collection-key
+     *     column="$associationEnd.columnName"
+     * @hibernate.collection-one-to-many
+     *     class="$targetTypeName"
+     */
+    public java.util.Collection ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    public void ${target.setterName}(java.util.Collection $target.name)
+    {
+        this.$target.name = $target.name;
+    }
+
+    private java.util.Collection $target.name;
+
+#end
+#if ($associationEnd.many2Many)
+##
+     * @hibernate.set
+     *     lazy="$associationEnd.lazy"
+     *     table="${associationEnd.association.tableName}"
+#if (!$associationEnd.managesRelationalLink)
+     *     inverse="true"
+#end
+     * @hibernate.collection-key
+     *     column="$associationEnd.columnName"
+     * @hibernate.collection-many-to-many
+     *     column="$target.columnName"
+     *     class="$targetTypeName"
+     */
+    public java.util.Collection ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    public void ${target.setterName}(java.util.Collection $target.name)
+    {
+        this.$target.name = $target.name;
+    }
+
+    private java.util.Collection $target.name;
+
+#end
+#if ($associationEnd.one2One || $associationEnd.many2One)
+     * @hibernate.many-to-one
+     *     column="${target.columnName}"
+     *     class="$targetTypeName"
+#if($target.required)
+     *     not-null="true"
+#end
+     */
+    public ${targetTypeName} ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    public void ${target.setterName}(${targetTypeName} $target.name)
+    {
+        this.$target.name = $target.name;
+    }
+
+    private $targetTypeName $target.name;
+
+#end ## end one2One || many2One
+#end ## end if target navigable
+#end ## end foreach
+#end ## end if superInheritance == interface
+#end ## end if generalization
+
     // --------------- attributes ---------------------
 #if ($str.isNotBlank($versionProperty))
 #set ($versionPropertyCapitalized = $str.capitalize($versionProperty))
@@ -190,7 +374,60 @@ $target.getDocumentation("     * ")
 #end
 #end
 #end
+#else ## if thisInheritance = interface
+ public interface $entity.name {
 
+    // --------------- attributes ---------------------
+#set ($idDone = "false")
+#foreach ( $attribute in $entity.attributes )
+
+    /**
+$attribute.getDocumentation("     * ")
+     *
+#if ($attribute.identifier)
+     * identifier attribute skipped.
+     */
+#else
+     */
+    public $attribute.type.fullyQualifiedName ${attribute.getterName}();
+
+    public void ${attribute.setterName}($attribute.type.fullyQualifiedName $attribute.name);
+#end
+
+#end
+    // ------------- relations ------------------
+
+#foreach ( $associationEnd in $entity.associationEnds )
+	#set ($target = $associationEnd.otherEnd)
+    #set ($sourceType = $associationEnd.type)
+    #set ($targetType = $target.type)
+    #set ($targetTypeName = $targetType.fullyQualifiedName)
+#if ($target.navigable)
+    /**
+$target.getDocumentation("     * ")
+     *
+#if ($associationEnd.one2Many)
+     */
+    public java.util.Collection ${target.getterName}();
+
+    public void ${target.setterName}(java.util.Collection $target.name);
+
+#elseif ($associationEnd.many2Many)
+     */
+    public java.util.Collection ${target.getterName}();
+
+    public void ${target.setterName}(java.util.Collection $target.name);
+
+#elseif ($associationEnd.one2One || $associationEnd.many2One)
+     */
+    public ${targetTypeName} ${target.getterName}();
+
+    public void ${target.setterName}(${targetTypeName} $target.name);
+
+#end
+#end ## end if navigable
+#end ## end foreach
+#end ## end thisInheritance != interface
     // ---------------- business methods  ----------------------
 
 #foreach ( $operation in $entity.businessOperations)
@@ -204,6 +441,6 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility abstract $returnType ${operation.signature};
 #end
-#end
+#end ## end foreach
 
 }
