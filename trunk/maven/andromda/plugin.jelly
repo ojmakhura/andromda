@@ -359,8 +359,7 @@
 		<ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
 	    <!-- create an empty build directory so that maven doesn't complain
 	         when building the ear until model content is added -->
-	    <ant:mkdir dir="${moduleDir}/target/src"/>
-	    		
+	    <ant:mkdir dir="${moduleDir}/target/src"/>		
 	</goal>
 	
   	<!--==================================================================
@@ -373,8 +372,21 @@
 		<j:set var="moduleName" value="web"/>
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
-	    <attainGoal name="andromda:generate-module"/>
+		
 		<ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
+
+	    <velocity:merge 
+	      name="${moduleDir}/project.xml"
+	      basedir="${moduleTemplatesDir}"
+	      template="project-${persistenceType}.xml.vsl"/>	
+		
+		<ant:copy todir="${moduleDir}">
+			<ant:fileset dir="${moduleTemplatesDir}">
+				<ant:include name="*.xml"/>
+				<ant:include name="*.properties"/>
+			</ant:fileset>
+		</ant:copy>
+		
 	    <!-- create an empty build directory so that maven doesn't complain
 	         when building the ear until model content is added -->
 	    <ant:mkdir dir="${moduleDir}/target/src"/>
