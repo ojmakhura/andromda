@@ -251,9 +251,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>exceptionHandlerMessagesKey</td>
+                    <td>errorMessagesKey</td>
                     <td>
-                        The key to lookup error handler messages from within the request scope, the value will be an 
+                        The key to lookup additional error handler messages from within the request scope, the value will be an 
                         <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
                         ActionMessages</a> instance
                     </td>
