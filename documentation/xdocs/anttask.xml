@@ -507,6 +507,10 @@
                 <a href="http://ant.apache.org/manual/using.html#path">Path-like Structures</a>
                 for more information on how to define these paths.
             </p>
+            <p class="highlight">
+                Please Note: The logical name is the value of the <em>name</em> attribute within an the actual mappings
+                file on the <em><![CDATA[<mappings/>]]></em> element.
+            </p>
             <h3>Example</h3>
             <p>
                 We want to define the location of the mapping files so that we
