@@ -102,12 +102,11 @@
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
         </dependency>
-        <dependency>
-            <groupId>xjavadoc</groupId>
-            <artifactId>xjavadoc</artifactId>
-            <version>1.0.2</version>
-            <properties/>
-        </dependency>
+    	<dependency>
+    		<groupId>xjavadoc</groupId>
+    		<artifactId>xjavadoc</artifactId>
+        	<version>1.0.3</version>
+    	</dependency> 
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
