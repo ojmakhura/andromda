@@ -117,42 +117,38 @@ public class Cartridge
         // handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            Iterator templateModelElementIt = templateModelElements
-                .getModelElements().iterator();
-            while (templateModelElementIt.hasNext())
+            for (Iterator templateModelElementIt = templateModelElements
+                .getModelElements().iterator(); templateModelElementIt
+                .hasNext();)
             {
                 ModelElement templateModelElement = (ModelElement)templateModelElementIt
                     .next();
                 Collection modelElements = null;
-                if (modelElements == null)
+                // if the template model element has a stereotype
+                // defined, then we filter the model elements based
+                // on that stereotype, otherwise we get all model elements
+                // and let the modelElement perform filtering on the
+                // metafacades by type and properties
+                if (templateModelElement.hasStereotype())
                 {
-                    // if the template model element has a stereotype
-                    // defined, then we filter the model elements based
-                    // on that stereotype, otherwise we get all model elements
-                    // and let the modelElement perform filtering on the
-                    // metafacades by type and properties
-                    if (templateModelElement.hasStereotype())
-                    {
-                        modelElements = context.getModelFacade()
-                            .findByStereotype(
-                                templateModelElement.getStereotype());
-                    }
-                    else if (templateModelElement.hasTypes())
-                    {
-                        modelElements = context.getModelFacade()
-                            .getModelElements();
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    modelElements = this.context.getModelFacade()
+                        .findByStereotype(templateModelElement.getStereotype());
+                }
+                else if (templateModelElement.hasTypes())
+                {
+                    modelElements = this.context.getModelFacade()
+                        .getModelElements();
+                }
+                else
+                {
+                    return;
                 }
                 Collection metafacades = MetafacadeFactory.getInstance()
                     .createMetafacades(modelElements);
                 this.filterModelPackages(metafacades);
                 templateModelElement.setMetafacades(metafacades);
+                this.processTemplateWithModelElements(template, context);
             }
-            this.processTemplateWithModelElements(template, context);
         }
         else
         {
