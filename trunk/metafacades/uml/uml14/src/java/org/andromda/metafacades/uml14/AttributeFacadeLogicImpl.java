@@ -115,6 +115,45 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isMany()
+     */
+    public boolean handleIsMany()
+    {
+        boolean isMany = false;
+        Multiplicity multiplicity = this.metaObject.getMultiplicity();
+        // assume no multiplicity is 1
+        if (multiplicity != null)
+        {
+            Collection ranges = multiplicity.getRange();
+            if (ranges != null && !ranges.isEmpty())
+            {
+                Iterator rangeIt = ranges.iterator();
+                while (rangeIt.hasNext())
+                {
+                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt
+                        .next();
+                    int upper = multiplicityRange.getUpper();
+                    int lower = multiplicityRange.getLower();
+                    int rangeSize = upper - lower;
+                    if (upper > 1)
+                    {
+                        isMany = true;
+                    }
+                    else if (rangeSize < 0)
+                    {
+                        isMany = true;
+                    }
+                    else
+                    {
+                        isMany = false;
+                    }
+                }
+            }
+        }
+        return isMany;
+    }
+
+    /**
      * Returns the lower range of the multiplicty for the passed in
      * associationEnd
      * 
