@@ -274,9 +274,16 @@
 		
 		<ant:mkdir dir="${mdaModelDir}"/>
 
+    	<j:invokeStatic 
+    		var="modelName" 
+    		className="org.apache.commons.lang.StringUtils"
+    		method="deleteWhitespace">
+    		<j:arg value="${projectName}"/>
+    	</j:invokeStatic>
+
 		<!-- process the model file -->
 	    <velocity:merge 
-	      name="${mdaModelDir}/${projectId}-model.xmi"
+	      name="${mdaModelDir}/${modelName}.xmi"
 	      basedir="${mdaTemplatesDir}"
 	      template="/src/uml/model.xmi.vm"/>	
 		
