@@ -1,0 +1,16 @@
+<cartridge name="mycartridge">
+
+    <property name="report" value="simple" />
+    
+    <stereotype name="StrutsConfig" />
+    <outlet name="report"/>
+
+    <template
+        stereotype="StrutsConfig"
+        sheet="templates/report.vsl"
+        outputPattern="report.txt"
+        outlet="model"
+        overWrite="true"
+    />
+    
+</cartridge>

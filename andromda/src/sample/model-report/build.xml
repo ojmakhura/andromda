@@ -8,11 +8,11 @@
    
    <target name="init">
      <mkdir dir="build/output"/>
-     <mkdir dir="build/model/unzipped" />
    </target>
    
    <path id="classpath">
    	  <pathelement path="${build.classpath}"/>
+   	  <pathelement location="src/andromda-cartridge"/>
    </path>
 
    <target name="report" depends="init">
@@ -24,25 +24,12 @@
                  classpathref="classpath"/>
 
         <andromda basedir="."
-                 genDestdir="."
-                 implDestdir="."
                  modelURL="${model.url}"
                  lastModifiedCheck="false"
-                 templatePath="templates"
-                 useDefaultTemplateConfig="false"
-                 typeMappings="${andromda.home}/src/xml/TypeMapping.xml"
-        >
-        	<repository
-        		classname="org.andromda.core.mdr.MDRepositoryFacade"
-        		transformClassname="org.andromda.core.uml14.UMLStaticHelper"/>
-        				
-            <template
-                stereotype="StrutsConfig"
-                sheet="report.vsl"
-                outputPattern="Report.txt"
-                outputDir="build/output"
-                overWrite="true"/>
-
+                 typeMappings="${andromda.home}/src/xml/TypeMapping.xml">
+                 
+          <outlet cartridge="mycartridge" outlet="model" dir="build/output" />
+          
         </andromda>
         
     </target>
