@@ -26,7 +26,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_INPUT_TABINDEX = "@andromda.struts.view.field.tabindex";
     public static final String TAGGED_VALUE_TABLE_COLUMNS = "@andromda.struts.view.table.columns";
     public static final String TAGGED_VALUE_TABLE_MAXROWS = "@andromda.struts.view.table.maxrows";
-    public static final String TAGGED_VALUE_TABLE_EXPORTABLE = "@andromda.struts.view.table.exportable";
+    public static final String TAGGED_VALUE_TABLE_EXPORT = "@andromda.struts.view.table.export";
     public static final String TAGGED_VALUE_TABLE_SORTABLE = "@andromda.struts.view.table.sortable";
     public static final String TAGGED_VALUE_EXCEPTION_TYPE = "@andromda.struts.exception.type";
     public static final String TAGGED_VALUE_CONTROLLER_USE_CASE = "@andromda.struts.controller.usecase";
