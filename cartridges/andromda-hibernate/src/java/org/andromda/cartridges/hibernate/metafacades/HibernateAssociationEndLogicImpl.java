@@ -55,7 +55,7 @@ public class HibernateAssociationEndLogicImpl
     /**
      * Stores the default outerjoin setting for this association end.
      */
-    private static final String PROPERTY_ASSOCIATION_OUTERJOIN = "hibernateAssociationEndOuterJoin";
+    private static final String PROPERTY_ASSOCIATION_END_OUTERJOIN = "hibernateAssociationEndOuterJoin";
 
     /**
      * Defines the <code>true</code> value for the hibernate outer join
@@ -84,14 +84,14 @@ public class HibernateAssociationEndLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_OUTER_JOIN);
         if (value == null)
         {
-            value = this.getConfiguredProperty(PROPERTY_ASSOCIATION_OUTERJOIN);
+            value = this
+                .getConfiguredProperty(PROPERTY_ASSOCIATION_END_OUTERJOIN);
         }
         String outerJoin = StringUtils.trimToEmpty(String.valueOf(value));
-        if (!outerJoin.equalsIgnoreCase(OUTER_JOIN_AUTO)
-            && !outerJoin.equalsIgnoreCase(OUTER_JOIN_FALSE)
+        if (!outerJoin.equalsIgnoreCase(OUTER_JOIN_FALSE)
             && !outerJoin.equalsIgnoreCase(OUTER_JOIN_TRUE))
         {
-            outerJoin = null;
+            outerJoin = OUTER_JOIN_AUTO;
         }
         return outerJoin;
     }
