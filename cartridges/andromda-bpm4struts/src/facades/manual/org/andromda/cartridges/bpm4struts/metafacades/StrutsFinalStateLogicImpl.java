@@ -1,12 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.core.metafacade.MetafacadeBase;
-
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
