@@ -95,6 +95,20 @@ public class StrutsActionLogicImpl
         return !isHyperlink();
     }
 
+    public boolean handleIsTableLinkPresent()
+    {
+        final Collection parameters = getActionParameters();
+        for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            if (parameter.isTableLink())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean handleIsHyperlink()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE);
