@@ -1,0 +1,56 @@
+<project>
+    <pomVersion>3</pomVersion>
+    <artifactId>andromda-contrib</artifactId>
+    <name>AndroMDA Contributions</name>
+    <groupId>andromda</groupId>
+    <organization/>
+    <description>This module stores all those contributions to AndroMDA that have not yet been moved to the AndroMDA distribution (but could at some point).</description>
+    <shortDescription>AndroMDA Contributions</shortDescription>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:contrib</connection>
+        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:contrib</developerConnection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/contrib/</url>
+    </repository>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <include>**/Test*.java</include>
+            </includes>
+        </unitTest>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>target/src/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>java/**/*.java</exclude>
+                    <exclude>uml/**/*</exclude>
+                    <exclude>test/**/*</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+    </reports>
+    <properties/>
+</project>

@@ -1,0 +1,23 @@
+<cartridge name="xmlschema">
+
+	<!-- the templateObjects -->
+    <templateObject 
+    	name="stringUtils"
+    	className="org.apache.commons.lang.StringUtils"/>   
+		
+    <!-- The name of the namespace -->
+	<property reference="namespace"/>
+
+	<!-- template definitions -->
+	<template 
+		path="templates/xmlschema/XmlSchema.vsl" 
+		outputPattern="xmlSchema.xsd"  
+		outlet="xmlschema-outlet" 
+		overwrite="true"
+		outputToSingleFile="true">
+		<modelElements variable="types">
+            <modelElement stereotype="XmlSchemaType"/>
+		</modelElements>
+	</template>
+			
+</cartridge>

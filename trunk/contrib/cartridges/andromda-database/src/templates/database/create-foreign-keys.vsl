@@ -1,0 +1,14 @@
+#foreach ( $entity in $entities )
+#if ($entity.hasForeignKeyConstraints())
+/* ------------- $entity.name foreign key contraints ------------------ */
+#foreach ( $associationEnd in $entity.foreignKeyConstraintAssociationEnds )
+ALTER TABLE $associationEnd.foreignKeyConstraintTableName
+	ADD  ( CONSTRAINT $associationEnd.foreignKeyConstraintName
+    	FOREIGN KEY ($associationEnd.foreignKeyConstraintColumnName)
+        	REFERENCES ${associationEnd.foreignKeyConstraintReferencedTableName} 
+            	#if($associationEnd.cascadeDelete) ON DELETE CASCADE #end ) ;
+            	
+#end
+#end
+#end
+

@@ -1,0 +1,60 @@
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-spring-cartridge</artifactId>
+    <name>AndroMDA Spring Cartridge</name>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
+    <package>org.andromda.cartridges.spring</package>
+    <description>
+        Generates spring with Hibernate
+  	</description>
+    <shortDescription>AndroMDA Spring Cartridge</shortDescription>
+    <developers>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
+            <roles/>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
+            <properties>
+                <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
+                <facades-to-impls>${basedir}/target/src/java</facades-to-impls>
+                <languageMappingsUri>Java</languageMappingsUri>
+                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
+                <facade-logics>${basedir}/target/src/java</facade-logics>
+                <facades>${basedir}/target/src/java</facades>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${andromda.version}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${andromda.version}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
+    </dependencies>
+    <properties/>
+</project>

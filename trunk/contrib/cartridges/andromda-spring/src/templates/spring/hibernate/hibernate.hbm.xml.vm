@@ -1,0 +1,55 @@
+##
+##  This macro will render any <subclass/> elements for the given $entity.
+##
+#macro (renderSubClass $entity)
+	    <subclass
+		    name="${entity.fullyQualifiedEntityImplementationName}"
+		    discriminator-value="${entity.entityImplementationName}">
+#renderPropertiesAndAssociations($entity)		
+#foreach ($entity in $entity.specializations)
+#renderSubClass($entity)
+#end
+	    </subclass>
+	
+#end
+##
+##  This macro will render any properties and associations 
+##  for the given $entity.
+##
+#macro (renderPropertiesAndAssociations $entity)
+#foreach ($attribute in $entity.attributes)
+#if (!$attribute.identifier)
+		<property name="$attribute.name" column="$attribute.columnName" type="$attribute.type.fullyQualifiedHibernateType" not-null="$attribute.required" />
+
+#end
+#end
+#foreach ($associationEnd in $entity.associationEnds)
+#set ($sourceEnd = $associationEnd)
+#set ($otherEnd = $associationEnd.otherEnd)
+#if ($otherEnd.navigable)
+#if ($sourceEnd.one2One)
+		<one-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}" cascade="all" constrained="false"/>
+#end
+#if ($sourceEnd.one2Many)
+		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true" cascade="all">
+        	<key>
+            	<column name="${sourceEnd.columnName}"/>
+            </key>
+            <one-to-many class="${otherEnd.type.fullyQualifiedEntityImplementationName}"/>
+        </set>    
+#elseif ($sourceEnd.many2One)
+        <many-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}" not-null="true">
+            <column name="$otherEnd.columnName"/>
+        </many-to-one>
+#elseif ($sourceEnd.many2Many)
+        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="true" inverse="true" cascade="all">
+            <key>
+                <column name="$otherEnd.columnName"/>
+            </key>
+            <many-to-many class="${otherEnd.type.fullyQualifiedEntityImplementationName}"/>
+        </set>    
+#end
+#end
+#end
+
+#end
