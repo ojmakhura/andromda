@@ -9,9 +9,6 @@ fi
 # Get absolute directory
 dirname=`pwd`
 
-# Set the JDK to use
-# Valid values are IBMJava142, SUNJava142, SUNJava150
-export JDK=IBMJava142
 source set-env.sh
 
 me=`whoami`
@@ -34,7 +31,7 @@ fi
 
 mkdir -p ../logs/andromda-all                                                                    
 
-nohup cruisecontrol.sh -configfile $dirname/cruisecontrol.xml &
+nohup nice cruisecontrol.sh -configfile $dirname/cruisecontrol.xml &
 pid=$!
 echo $pid >$dirname/pid
 echo Done $0
