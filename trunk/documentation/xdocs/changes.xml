@@ -17,6 +17,17 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Sep 03, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts improvement</td>
+                    <td valign="top" class="std">
+                        Controllers and their implementation have changed names. The abstract parent
+                        classes now no longer have the 'Interface' suffix, the descendants have
+                        the 'Impl' suffix. This has been done for consistency with other cartridges
+                        and because it is cleaner not to have any suffix on the interface or
+                        abstract parents.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Sep 02, 2004</td>
                     <td valign="top" class="std">Bpm4Struts improvement</td>
                     <td valign="top" class="std">
