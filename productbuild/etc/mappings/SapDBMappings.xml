@@ -69,4 +69,8 @@
 		<from>datatype.Clob</from>
 		<to>LONG UNICODE</to>
 	</mapping>
+	<mapping>
+        <from>datatype.Blob</from>
+        <to>LONG BYTE</to>
+    </mapping>
 </mappings>
