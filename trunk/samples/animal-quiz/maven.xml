@@ -28,9 +28,9 @@
 			goals="war:install"/>
 	</goal>	
 	
-	<goal name="hibernate">
+	<goal name="core">
 		<maven:maven
-			descriptor="${basedir}/hibernate/project.xml"
+			descriptor="${basedir}/core/project.xml"
 			goals="ejb:install"/>
 	</goal>	
 	
