@@ -122,11 +122,7 @@
   	</developers>
   	<!-- restrict the reports generated -->
   	<reports>
-  		<report>maven-jxr-plugin</report>
-  		<report>maven-javadoc-plugin</report>
-  	    <report>maven-simian-plugin</report>
-  	    <report>maven-pmd-plugin</report>
-  	    <report>maven-jdepend-plugin</report>
   		<report>maven-faq-plugin</report>
+  		<report>maven-multiproject-plugin</report>
   	</reports>
 </project>
