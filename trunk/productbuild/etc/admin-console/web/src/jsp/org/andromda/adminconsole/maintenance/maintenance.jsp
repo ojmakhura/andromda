@@ -60,7 +60,7 @@
 <%--
         <div id="applyChanges" class="action">
 --%>
-            <html:form action="/Maintenance/MaintenanceApplyChanges">
+            <html:form action="/Maintenance/MaintenanceDelete" onsubmit="return verifySelection();">
                 <display:table name="${metaDataSession.currentTableData}" id="row"
                                requestURI="${pageContext.request.requestURL}"
                                export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
@@ -84,8 +84,12 @@
                         </display:column>
                     </c:forEach>
                 </display:table>
-                <input type="submit" name="kind" value="delete"/>
-                <input type="submit" name="kind" value="update"/>
+                <input type="submit" onmouseover="hints.show('delete')" onmouseout="hints.hide()"
+                       onclick="this.form.name='maintenanceMaintenanceDeleteForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceDelete"/>';"
+                       value="<bean:message key="maintenance.delete"/>"/>
+                <input type="submit" onmouseover="hints.show('update')" onmouseout="hints.hide()"
+                       onclick="this.form.name='maintenanceMaintenanceUpdateForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceUpdate"/>';"
+                       value="<bean:message key="maintenance.update"/>"/>
             </html:form>
 <%--
         </div>
@@ -98,3 +102,33 @@
     </tiles:put>
 
 </tiles:insert>
+
+<script type="text/javascript" language="Javascript1.1">
+//<!--
+    function verifySelection()
+    {
+        var valid = false;
+        var checkboxes = document.getElementsByName('selectedRowsAsArray');
+
+        if ( (checkboxes == null) || (checkboxes.length==0) )
+        {
+            alert('<bean:message key="no.rows.to.operate.on" bundle="custom"/>');
+        }
+        else
+        {
+            for (var i=0; (i<checkboxes.length) && (valid==false); i++)
+            {
+                valid = checkboxes[i].checked;
+            }
+            if (valid == false)
+            {
+                alert('<bean:message key="at.least.one.record.must.be.selected" bundle="custom"/>');
+            }
+        }
+
+
+        return valid;
+    }
+//-->
+</script>
+
