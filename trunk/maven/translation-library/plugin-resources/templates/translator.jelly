@@ -17,7 +17,9 @@ package ${andromda.translationlibrary.translator.package};
  *
  * @author ${maven.username}
  */
-public class ${translatorShortName} <j:if test="${!empty translatorSuperClass}">extends ${translatorSuperClass}</j:if> {
+public class ${translatorShortName} 
+<j:if test="${!empty translatorSuperClass}">    extends ${translatorSuperClass}</j:if> 
+{
 
     /*-------------------------  all handler methods go below here -------------------------*/
 
