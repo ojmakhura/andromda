@@ -18,6 +18,25 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">Sep 03, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts fixes</td>
+                    <td valign="top" class="std">
+                        This change fixes some issues with the most recent updates for bpm4struts:
+                        <ol>
+                            <li>We no longer have the controller operation interfaces the forms were implementing</li>
+                            <li>Instead we have a controller operation for each different action that defers to them,
+                                this means you sometimes have the same operation more than once with only a different
+                                argument type for the form. This seems to be the most optimal and realistic
+                                implementation, forms cannot be shared using interfaces aggregating the fields
+                                because field names carry the action name as a prefix and this cannot be changed
+                                because in that case validation rules would be impossible to determine for fields
+                                that have the same name and type over different page actions.
+                            </li>
+                            <li>It should now be possible to easily send parameters between use-cases</li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Sep 03, 2004</td>
                     <td valign="top" class="std">Bpm4Struts improvement</td>
                     <td valign="top" class="std">
                         Controllers and their implementation have changed names. The abstract parent
@@ -76,8 +95,10 @@
                     <td valign="top" class="std">Aug 29, 2004</td>
                     <td valign="top" class="std">Core change</td>
                     <td valign="top" class="std">
-                        The <code>validating</code> flag has been renamed to the more
-                        appropriate <code>xmlValidation</code>.  At the same time a new
+                        The
+                        <code>validating</code> flag has been renamed to the more
+                        appropriate
+                        <code>xmlValidation</code>.  At the same time a new
                         <code>modelValidation</code> flag has been added that allows us
                         to turn on/off model validation during processing.   By default
                         model validation occurs, however its sometimes nice to turn it
