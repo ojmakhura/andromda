@@ -1,0 +1,53 @@
+<project name="AndroMDASamples" default="dist">
+
+    <!-- ============================================================= -->
+    <!--               Directory settings                              -->
+    <!-- ============================================================= -->
+
+    <!-- destination directories -->
+    <property name="dist.dir"         value="dist"   />
+
+    <!-- ============================================================= -->
+    <!--               Internal targets                                -->
+    <!-- ============================================================= -->
+
+    <target name="buildComponent">
+        <ant inheritAll="false" dir="${basedir}/${component.name}" target="dist" />
+        <move taskname="${component.name}" todir="${dist.dir}">
+          <fileset dir="${basedir}/${component.name}/dist">
+            <include name="*.*"/>
+          </fileset>
+        </move>
+    </target>
+
+    <!-- ============================================================= -->
+    <!--               Highlevel user tasks                            -->
+    <!-- ============================================================= -->
+
+    <!-- Setup directory structure -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Remove directory structure -->
+    <target name="clean" description="Removes all generated files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dist.dir}"/>
+        </delete>
+    </target>
+
+    <target name="dist" depends="clean,init"
+            description="Builds all samples">
+
+        <antcall target="buildComponent">
+          <param name="component.name" value="car-rental-system"/>
+        </antcall>
+
+        <antcall target="buildComponent">
+          <param name="component.name" value="model-report"/>
+        </antcall>
+
+    </target>
+
+</project>

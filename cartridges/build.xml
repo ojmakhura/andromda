@@ -1,0 +1,52 @@
+<project name="AndroMDACartridges" default="dist">
+
+    <!-- ============================================================= -->
+    <!--               Directory settings                              -->
+    <!-- ============================================================= -->
+
+    <!-- destination directories -->
+    <property name="dist.dir"         value="dist"   />
+
+    <!-- Setup directory structure -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Remove directory structure -->
+    <target name="clean" description="Removes all generated files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dist.dir}"/>
+        </delete>
+    </target>
+
+    <!-- ============================================================= -->
+    <!--               Highlevel user tasks                            -->
+    <!-- ============================================================= -->
+
+    <target name="buildCartridge">
+        <ant inheritAll="false" dir="./${cartridge.name}" />
+        <copy taskname="${cartridge.name}" todir="${dist.dir}">
+          <fileset dir="./${cartridge.name}/dist">
+            <include name="*.*"/>
+          </fileset>
+        </copy>
+    </target>
+
+
+    <target name="dist" depends="clean,init"
+            description="Builds core, cartridges, samples and website">
+
+        <antcall target="buildCartridge">
+          <param name="cartridge.name" value="andromda-ejb"/>
+        </antcall>
+        <antcall target="buildCartridge">
+          <param name="cartridge.name" value="andromda-hibernate"/>
+        </antcall>
+        <antcall target="buildCartridge">
+          <param name="cartridge.name" value="andromda-struts"/>
+        </antcall>
+
+    </target>
+
+</project>
