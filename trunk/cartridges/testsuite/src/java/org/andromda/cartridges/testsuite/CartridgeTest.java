@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -74,16 +75,21 @@ public class CartridgeTest
      */
     private static void addTests(TestSuite suite)
     {
-        List actualFiles = new ArrayList();
-        getAllFiles(actualDir, actualFiles);
-        Iterator iterator = actualFiles.iterator();
-        logger.info(" --- Testing " + actualFiles.size()
+        List expectedFiles = new ArrayList();
+        getAllFiles(expectedDir, expectedFiles);
+        Iterator iterator = expectedFiles.iterator();
+        logger.info(" --- Expecting " + expectedFiles.size()
             + " Generated Files --- ");
         logger.info("binary suffixes --> " + binarySuffixes);
+        final List missingFiles = new ArrayList();
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
-            File actualFile = (File)iterator.next();
-            File expectedFile = getExpectedFile(actualFile);
+            File expectedFile = (File)iterator.next();
+            File actualFile = getActualFile(expectedFile);
+            if (!actualFile.exists())
+            {
+                missingFiles.add(actualFile);
+            }
             boolean binary = isBinary(actualFile);
             StringBuffer header = new StringBuffer(ctr + ") binary = " + binary);
             logger.debug(header);
@@ -95,6 +101,27 @@ public class CartridgeTest
                 actualFile,
                 binary));
         }
+        if (!missingFiles.isEmpty())
+        {
+            Collections.sort(missingFiles);
+            StringBuffer failureMessage = new StringBuffer(
+                "\n--- The following ");
+            failureMessage.append(missingFiles.size());
+            failureMessage.append(" expected files do not exist ----\n");
+            Iterator missingFileIterator = missingFiles.iterator();
+            for (int ctr = 1; missingFileIterator.hasNext(); ctr++)
+            {
+                failureMessage.append(ctr);
+                failureMessage.append(")");
+                failureMessage.append(" ");
+                failureMessage.append(missingFileIterator.next());
+                if (missingFileIterator.hasNext())
+                {
+                    failureMessage.append("\n");
+                }
+            }
+            TestCase.fail(failureMessage.toString());
+        }
     }
 
     /**
@@ -104,24 +131,24 @@ public class CartridgeTest
      * @param actualFile the actual generated file
      * @return the new expected file.
      */
-    private static File getExpectedFile(File actualFile)
+    private static File getActualFile(File expectedFile)
     {
-        String expectedFile;
-        String path = actualFile.getPath();
+        String actualFile;
+        String path = expectedFile.getPath();
 
-        if (actualFile.getPath().startsWith(expectedDir.getPath()))
+        if (expectedFile.getPath().startsWith(actualDir.getPath()))
         {
-            expectedFile = path.substring(expectedDir.getPath().length(), path
+            actualFile = path.substring(actualDir.getPath().length(), path
                 .length());
-            expectedFile = actualDir + expectedFile;
+            actualFile = expectedDir + expectedFile.toString();
         }
         else
         {
-            expectedFile = path.substring(actualDir.getPath().length(), path
+            actualFile = path.substring(expectedDir.getPath().length(), path
                 .length());
-            expectedFile = expectedDir + expectedFile;
+            actualFile = actualDir + actualFile;
         }
-        return new File(expectedFile);
+        return new File(actualFile);
     }
 
     /**
