@@ -68,16 +68,16 @@
 #end
             var HINTS_ITEMS = {
 #foreach ($parameter in $jsp.allActionParameters)
-                '$parameter.name':'<bean:message key="$parameter.titleKey"/>',
+                '$parameter.name':'<formatting:escape language="javascript"><bean:message key="$parameter.titleKey"/></formatting:escape>',
 #end
 #foreach ($action in $jsp.actions)
 #set ($trigger = $action.actionTrigger)
-                '${trigger.name}':'<bean:message key="$trigger.titleKey"/>',
-                '${trigger.name}_no':'<bean:message key="$trigger.notAllowedTitleKey"/>',
-                '${trigger.name}_reset':'<bean:message key="$trigger.resetTitleKey"/>',
-                '${trigger.name}_noreset':'<bean:message key="$trigger.resetNotAllowedTitleKey"/>',
+                '${trigger.name}':'<formatting:escape language="javascript"><bean:message key="$trigger.titleKey"/></formatting:escape>',
+                '${trigger.name}_no':'<formatting:escape language="javascript"><bean:message key="$trigger.notAllowedTitleKey"/></formatting:escape>',
+                '${trigger.name}_reset':'<formatting:escape language="javascript"><bean:message key="$trigger.resetTitleKey"/></formatting:escape>',
+                '${trigger.name}_noreset':'<formatting:escape language="javascript"><bean:message key="$trigger.resetNotAllowedTitleKey"/></formatting:escape>',
 #end
-                'calendar.popup':'<bean:message key="calendar.popup"/>'
+                'calendar.popup':'<formatting:escape language="javascript"><bean:message key="calendar.popup"/></formatting:escape>'
             };
 
             var hints = new THints (HINTS_CFG, HINTS_ITEMS);
