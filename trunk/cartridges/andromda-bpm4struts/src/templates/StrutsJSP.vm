@@ -47,22 +47,22 @@ ${indent}</logic:notPresent>
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
-${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
+${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end styleId="form_submit">
 ${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()"#end>
+${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()"#end styleId="form_reset">
 ${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
 #if ($securityEnabled)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
-${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="true">
+${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="true" styleId="form_submit">
 ${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()"#end disabled="true">
+${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()"#end disabled="true" styleId="form_reset">
 ${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
@@ -186,7 +186,7 @@ ${indent}</html:link>
 ##      F I L E
 ##
 #elseif ($widgetType == 'file')
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()" $disabled#end/>
+${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled/>
 ##
 ##      P L A I N T E X T
 ##
