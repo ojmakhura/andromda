@@ -18,6 +18,8 @@
         <stereotype>Service</stereotype>
 	    <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
+        <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
+        <property reference="defaultServiceExceptions" default="true"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
@@ -25,6 +27,8 @@
         <stereotype>Service</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
+        <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
+        <property reference="defaultServiceExceptions" default="true"/>
     </metafacade>	
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
@@ -51,6 +55,6 @@
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
-        <property reference="implementationOperationNamePrefix" default="handle"/>
+        <property reference="implementationOperationNamePrefix" default="handle"/>>
     </metafacade>		
 </metafacades>
