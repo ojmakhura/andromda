@@ -38,7 +38,7 @@
         <ant dir="${basedir}/hibernate" target="dist"/>
     </target>
 #else
-    <target name="ejb" description="Builds the EJB Services & Entities">
+    <target name="ejb" description="Builds the EJB Services and Entities">
         <ant dir="${basedir}/ejb" target="dist"/>
     </target>
 #end
