@@ -3,8 +3,11 @@ package org.andromda.core.profile;
 import org.andromda.core.common.NamespaceProperties;
 
 /**
- * Is able to load and retrieve the mapped stereotypes.
- * 
+ * <p>
+ * Used to load and retrieve stereotype mapping values.  
+ * Alows us to decouple the stereotype names form the code,
+ * so that its very easy to override default stereotype names.
+ * </p>
  * @author Chad Brandon
  */
 public class Stereotypes
