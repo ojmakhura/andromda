@@ -2,7 +2,7 @@ package org.andromda.core.cartridge.template;
 
 /**
  * Wraps any unexpected exception when using a Template instance.
- *
+ * 
  * @see org.andromda.core.cartridge.template.Template
  */
 public class TemplateException
@@ -10,7 +10,7 @@ public class TemplateException
 {
     /**
      * Constructs an instance of TemplateException.
-     *
+     * 
      * @param th
      */
     public TemplateException(
@@ -21,7 +21,7 @@ public class TemplateException
 
     /**
      * Constructs an instance of TemplateException.
-     *
+     * 
      * @param message the exception message
      */
     public TemplateException(
@@ -32,7 +32,7 @@ public class TemplateException
 
     /**
      * Constructs an instance of TemplateException.
-     *
+     * 
      * @param message the exception message
      * @param th the parent exception
      */

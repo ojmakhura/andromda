@@ -254,8 +254,8 @@ public class MetafacadeFactory
             {
                 if (internalGetLogger().isDebugEnabled())
                     internalGetLogger().debug(
-                        "lookupFacadeClass: " + metaObjectClassName
-                            + " -> " + metafacadeClass);
+                        "lookupFacadeClass: " + metaObjectClassName + " -> "
+                            + metafacadeClass);
 
                 metafacade = (MetafacadeBase)ConstructorUtils
                     .invokeConstructor(metafacadeClass, new Object[]
@@ -604,8 +604,7 @@ public class MetafacadeFactory
     private Logger internalGetLogger()
     {
         if (!"default".equals(activeNamespace))
-            return Logger.getLogger("org.andromda.plugins."
-                + activeNamespace);
+            return Logger.getLogger("org.andromda.plugins." + activeNamespace);
         return Logger.getRootLogger();
     }
 

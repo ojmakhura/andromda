@@ -32,7 +32,7 @@ import org.apache.tools.ant.types.Path;
  * 
  * @see org.andromda.core.ModelProcessor
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
- * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
+ * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
  */
 public class AndroMDAGenTask
@@ -320,17 +320,20 @@ public class AndroMDAGenTask
     {
         XmlObjectFactory.setDefaultValidating(xmlValidation);
     }
-    
+
     /**
-     * Sets <code>failOnModelValidationErrors</code> to be true/false. This defines whether
-     * processing should fail if model validation errors are present, default is <code>true</code>.
+     * Sets <code>failOnModelValidationErrors</code> to be true/false. This
+     * defines whether processing should fail if model validation errors are
+     * present, default is <code>true</code>.
      * 
-     * @param failOnModelValidationErrors true/false on whether AndroMDA should fail when model validation
-     *        errors occurr.
+     * @param failOnModelValidationErrors true/false on whether AndroMDA should
+     *        fail when model validation errors occurr.
      */
-    public void setFailOnModelValidationErrors(boolean failOnModelValidationErrors)
+    public void setFailOnModelValidationErrors(
+        boolean failOnModelValidationErrors)
     {
-        ModelProcessor.instance().setFailOnValidationErrors(failOnModelValidationErrors);
+        ModelProcessor.instance().setFailOnValidationErrors(
+            failOnModelValidationErrors);
     }
 
     /**
