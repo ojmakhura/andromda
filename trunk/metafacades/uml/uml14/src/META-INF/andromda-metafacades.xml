@@ -225,6 +225,12 @@
             <stereotype>FINDER_METHOD</stereotype>   
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.metafacades.uml.EntityFacade</context>   
+            <property name="query"/>   
+        </mapping>
+    </metafacade>
     <!-- Service  metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ServiceFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">

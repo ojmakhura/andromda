@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.EntityAssociationEndFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.EntityQueryOperationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -69,15 +70,15 @@ public class EntityFacadeLogicImpl
     {
         Collection queryOperations = this.getOperations();
 
-        MetafacadeUtils.filterByStereotype(
+        MetafacadeUtils.filterByType(
             queryOperations,
-            UMLProfile.STEREOTYPE_FINDER_METHOD);
+            EntityQueryOperationFacade.class);
 
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
             && follow; superClass = (ClassifierFacade)superClass
             .getGeneralization())
         {
-            if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
+            if (EntityFacade.class.isAssignableFrom(superClass.getClass()))
             {
                 EntityFacade entity = (EntityFacade)superClass;
                 queryOperations.addAll(entity.getQueryOperations(follow));
@@ -203,7 +204,7 @@ public class EntityFacadeLogicImpl
             && follow; superClass = (ClassifierFacade)superClass
             .getGeneralization())
         {
-            if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
+            if (EntityFacade.class.isAssignableFrom(superClass.getClass()))
             {
                 EntityFacade entity = (EntityFacade)superClass;
                 attributes.addAll(entity.getAttributes());
@@ -403,14 +404,11 @@ public class EntityFacadeLogicImpl
      */
     public Collection handleGetBusinessOperations()
     {
-        return new FilteredCollection(this.getOperations())
-        {
-            public boolean evaluate(Object object)
-            {
-                return !((ModelElementFacade)object)
-                    .hasStereotype(UMLProfile.STEREOTYPE_FINDER_METHOD);
-            }
-        };
+        final Collection businessOperations = this.getOperations();
+        MetafacadeUtils.filterByNotType(
+            businessOperations, 
+            EntityQueryOperationFacade.class);
+        return businessOperations;
     }
 
     /**
