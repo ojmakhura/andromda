@@ -59,8 +59,8 @@
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="dist"/>
             <fileset dir="build"/>
-            <fileset dir="${src.ejb.dir}/**/generated"/>
-            <fileset dir="${src.hibernate.dir}/**/generated"/>
+            <fileset dir="${andromda.ejb.generated.dir}"/>
+            <fileset dir="${andromda.hibernate.generated.dir}"/>
             <fileset dir="${src.servlet.dir}/generated"/>
             <fileset dir="${src.webconfig.dir}/generated"/>
         </delete>
