@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml;
 import java.util.Collection;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
