@@ -14,6 +14,22 @@
                 <a href="maven-andromdapp-plugin/download.html">AndroMDApp Maven Plugin</a>
                 installed.
             </p>
+            <p class="highlight">
+                It is very important your Maven installation knows how to download dependencies and its own plugins,
+                in order to achieve that you should create a file called <code>build.properties</code>
+                in your home directory (for example <code>C:\Documents and Settings\Wouter</code> on Windows),
+                this file should be a plain text file and should contain this line:
+                <source>
+maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven
+                </source>
+                Once you have done that you will be able to succesfully execute the following command that will
+                install the AndroMDA Maven plugin to generate AndroMDA projects:
+                <source>
+maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.0M3-SNAPSHOT
+                </source>
+                For more information you can also read the
+                <a href="http://maven.apache.org/reference/user-guide.html#Properties_Processing">Maven user guide</a>.
+            </p>
             <p>
                 Go into a directory in which you want to create your working directory.
                 For example, suppose you want to work in C:\development\java\my-project, then
