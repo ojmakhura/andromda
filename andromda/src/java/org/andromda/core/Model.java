@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackages;
 
 /**
@@ -30,20 +31,19 @@ public class Model
         boolean lastModifiedCheck,
         String[] moduleSearchPath)
     {
+        final String constructorName = "Model.Model";
+        ExceptionUtils.checkNull(constructorName, "url", url);
         this.lastModifiedCheck = lastModifiedCheck;
         this.url = url;
-        if (url != null)
+        try
         {
-            try
-            {
-                // Get around the fact URL won't be released until the JVM
-                // has been terminated, when using the 'jar' url protocol.
-                url.openConnection().setDefaultUseCaches(false);
-            }
-            catch (IOException ex)
-            {
-                // ignore the exception
-            }
+            // Get around the fact URL won't be released until the JVM
+            // has been terminated, when using the 'jar' url protocol.
+            url.openConnection().setDefaultUseCaches(false);
+        }
+        catch (IOException ex)
+        {
+            // ignore the exception
         }
         this.packages = packages;
         this.moduleSearchPath = moduleSearchPath;
