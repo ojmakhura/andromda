@@ -58,7 +58,7 @@ public class Schema2XMI
     /**
      * The command line argument to specify the transformed output file.
      */
-    private static final String OUTPUT_NAME = "o";
+    private static final String OUTPUT_MODEL = "o";
 
     /**
      * The command line argument specifying the URI to the type mappings file.
@@ -213,7 +213,7 @@ public class Schema2XMI
         options.addOption(option);
                 
         option = new Option(
-            OUTPUT_NAME,
+            OUTPUT_MODEL,
             true,
             "Set output name to which the result of the transformation will be written");
         option.setLongOpt("output");
@@ -263,7 +263,7 @@ public class Schema2XMI
             CommandLine commandLine = schema2Xmi.parseCommands(args);
             if (commandLine.hasOption(HELP)
                 || !(commandLine.hasOption(INPUT_MODEL)
-                &&   commandLine.hasOption(OUTPUT_NAME)
+                &&   commandLine.hasOption(OUTPUT_MODEL)
                 &&   commandLine.hasOption(DRIVER)
                 &&   commandLine.hasOption(CONNECTION_URL)
                 &&   commandLine.hasOption(USER)
@@ -299,7 +299,7 @@ public class Schema2XMI
                 transformer.setColumnTaggedValue(
                     commandLine.getOptionValue(COLUMN_TAGGEDVALUE));
                 
-                String outputLocation = commandLine.getOptionValue(OUTPUT_NAME);
+                String outputLocation = commandLine.getOptionValue(OUTPUT_MODEL);
                 transformer.transform(inputModel, outputLocation);
             }
         }

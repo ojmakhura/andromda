@@ -220,7 +220,9 @@ public class SchemaTransformer
             repository.close();
         }
         logger.info("Completed adding " + this.classes.size()
-            + " classes, TIME --> "
+            + " classes, writing model to --> '" 
+            + outputLocation 
+            + "', TIME --> "
             + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]");
     }
 
