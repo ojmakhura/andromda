@@ -129,7 +129,7 @@
         path="templates/StrutsSessionObject.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="sessionObject">
             <modelElement stereotype="FrontEndSessionObject"/>
         </modelElements>
