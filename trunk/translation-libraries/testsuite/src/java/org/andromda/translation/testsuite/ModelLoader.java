@@ -31,7 +31,12 @@ public class ModelLoader
     /**
      * Specifies the location of the model xmi which to load
      */
-    private final String MODEL_XMI = "model.xmi";
+    private static final String MODEL_XMI = "model.xmi";
+
+    /**
+     * Specifies the location of any modules referenced by the model.
+     */
+    private static final String MODULE_SEARCH_PATH = "module.search.path";
 
     private ModelAccessFacade model = null;
 
@@ -45,7 +50,17 @@ public class ModelLoader
             this.repository = getRepository();
             this.repository.open();
             URL modelUrl = getModelResource();
-            this.repository.readModel(modelUrl, null);
+            final String moduleSearchPath = System
+                .getProperty(MODULE_SEARCH_PATH);
+            String[] moduleSearchPaths = null;
+            if (StringUtils.isNotBlank(moduleSearchPath))
+            {
+                moduleSearchPaths = new String[]
+                {
+                    moduleSearchPath
+                };
+            }
+            this.repository.readModel(modelUrl, moduleSearchPaths);
         }
         catch (Exception ex)
         {
@@ -75,9 +90,9 @@ public class ModelLoader
                         + "' set, finding model file --> '" + modelXmiProperty
                         + "'");
                 }
-                //first look for the model as a resource
+                // first look for the model as a resource
                 modelXmiResource = ResourceUtils.getResource(modelXmiProperty);
-                //if the model wasn't found, then we'll try it as a literal
+                // if the model wasn't found, then we'll try it as a literal
                 // string
                 if (modelXmiResource == null)
                 {
@@ -152,10 +167,10 @@ public class ModelLoader
     }
 
     /**
-     * Initializes the default namespace with the required properties. 
+     * Initializes the default namespace with the required properties.
      * 
-     * @todo This needs to be handled in a more graceful 
-     * way since properties can change depending on metafacades.
+     * @todo This needs to be handled in a more graceful way since properties
+     *       can change depending on metafacades.
      */
     private void intializeDefaultNamespace()
     {

@@ -55,7 +55,17 @@
                                 Default value is <code>true</code>.
                             </p>
                         </td>
-                    </tr>    	  		
+                    </tr>  
+                    <tr>
+                        <td>andromda.translationlibrary.test.moduleSearchPath</td>
+                        <td>No</td>
+                        <td>
+                            <p>
+                                Specifies the path on which to find any modules referenced by the model.
+                                For example (../../etc/profile/src/uml).
+                            </p>
+                        </td>
+                    </tr>  	  		
                 </table>
             </subsection>
             <subsection name="translationlibrary:generate">
