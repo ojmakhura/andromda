@@ -183,7 +183,7 @@
                         </tr>
                         <tr>
                             <td>@andromda.struts.controller.usecase</td>
-                            <td>A class with the &lt;&lt;FrontEndController&gt;&gt; stereotype</td>
+                            <td>A controller class</td>
                             <td>N/A</td>
                             <td>The value should correspond to the use-case holding the activity graph
                                 which has this controller as its context. This is used when deferring operations to
@@ -285,7 +285,7 @@
                         <tr>
                             <a name="@andromda.role.name"/>
                             <td>@andromda.role.name</td>
-                            <td><![CDATA[<<Role>>]]></td>
+                            <td>A user (indirectly) associated with a <![CDATA[<<StrutsUseCase>>]]></td>
                             <td>N/A</td>
                             <td>
                                 Optionally allows you to define the name of the role (if it needs
