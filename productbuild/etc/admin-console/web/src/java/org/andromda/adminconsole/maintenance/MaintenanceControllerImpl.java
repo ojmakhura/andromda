@@ -68,7 +68,7 @@ public class MaintenanceControllerImpl extends MaintenanceController
         boolean allowUnconfiguredTables = configurator.isUnconfiguredTablesAvailable();
         List knownTableNames = loginSession.getConfigurator().getKnownTableNames();
 
-        Table[] tables = database.getTables(new TableType[]{TableType.TABLE});
+        Table[] tables = database.getTables();
 
         Map tableMap = new LinkedHashMap();
         for (int i = 0; i < tables.length; i++)
@@ -284,8 +284,8 @@ public class MaintenanceControllerImpl extends MaintenanceController
         {
             Map.Entry parameterPair = (Map.Entry) iterator.next();
             String parameterName = (String)parameterPair.getKey();
-            Object[] parameterValues = (Object[])parameterPair.getValue();
-            rowData.put(parameterName, parameterValues[0]);  // minimum array length is 1
+            String[] parameterValues = (String[])parameterPair.getValue();
+            rowData.put(parameterName, StringUtils.trimToNull(parameterValues[0]));  // minimum array length is 1
         }
 
         Table table = getMetaDataSession(request).getCurrentTable();
