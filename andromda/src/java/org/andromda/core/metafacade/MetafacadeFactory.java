@@ -390,7 +390,7 @@ public class MetafacadeFactory
     }
 
     /**
-     * Adds the <code>metafacade</code> to the cache accorinding to first
+     * Adds the <code>metafacade</code> to the cache according to first
      * <code>metaobject</code> and then by <code>key</code> and current
      * active namespace.
      * 

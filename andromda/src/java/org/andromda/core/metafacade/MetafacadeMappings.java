@@ -1,9 +1,11 @@
 package org.andromda.core.metafacade;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.AndroMDALogger;
@@ -12,6 +14,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.XmlObjectFactory;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
@@ -20,6 +23,7 @@ import org.apache.log4j.Logger;
  * The Metafacade mapping class. Used to map meta facade objects to meta model
  * objects.
  * 
+ * @see MetafacadeMapping
  * @see org.andromda.core.common.XmlObjectFactory
  * @author Chad Brandon
  */
@@ -125,7 +129,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * Adds a MetafacadeMapping object to the set of current mappings.
+     * Adds a MetafacadeMapping instance to the set of current mappings.
      * 
      * @param mapping the MetafacadeMapping instance.
      */
@@ -143,14 +147,40 @@ public class MetafacadeMappings
             .getMetafacadeClass());
 
         mapping.setMetafacadeMappings(this);
-        this.mappings.put(mapping.getKey(), mapping);
+        
+        String key = mapping.getKey();
+        if (mapping.hasStereotype())
+        {
+            // If the mapping has a stereotype we just add it directly to the 
+            // mappings Map of this MetafacadeMappings instance. 
+            this.mappings.put(key, mapping);
+        }
+        else 
+        {
+            // Otherwise we place each mapping in another Map
+            // keyed by context (if it has a context) or keyed by null, (if
+            // it has no context). We then place this new Map in the mappings
+            // Map of this MetafacadeMappings instance.
+            Object object = this.mappings.get(key);
+            Map mappingMap = null;
+            if (object != null)
+            {
+                mappingMap = (Map)object;
+            }
+            else
+            {
+                mappingMap = new HashMap();
+            }
+            mappingMap.put(mapping.getContext(), mapping);
+            this.mappings.put(key, mappingMap);   
+        }
     }
 
     /**
      * Copies all data from <code>mappings<code> to this
      * instance.
      * 
-     * @param mappings
+     * @param mappings the mappings to add
      */
     private void copyMappings(MetafacadeMappings mappings)
     {
@@ -160,9 +190,17 @@ public class MetafacadeMappings
         Iterator keyIt = mappings.mappings.keySet().iterator();
         while (keyIt.hasNext())
         {
-            String metaobjectClass = (String)keyIt.next();
-            this.addMapping((MetafacadeMapping)mappings.mappings
-                .get(metaobjectClass));
+            String key = (String)keyIt.next();
+
+            Object object = mappings.mappings.get(key);
+            if (Map.class.isAssignableFrom(object.getClass()))
+            {
+                this.mappings.put(key, object);
+            }
+            else
+            {
+                this.addMapping((MetafacadeMapping)object);
+            }
         }
         Map propertyRefs = mappings.propertyReferences;
         if (propertyRefs != null && !propertyRefs.isEmpty())
@@ -170,7 +208,6 @@ public class MetafacadeMappings
             this.propertyReferences.putAll(propertyRefs);
         }
         this.defaultMetafacadeClass = mappings.defaultMetafacadeClass;
-
     }
 
     /**
@@ -189,7 +226,6 @@ public class MetafacadeMappings
         Collection stereotypes,
         String context)
     {
-
         MetafacadeMapping mapping = null;
         String key = null;
         // loop through stereotypes and if we find a mapping
@@ -218,16 +254,85 @@ public class MetafacadeMappings
         if (mapping == null && StringUtils.isNotEmpty(context))
         {
             // try constructing key that has the context
-            key = MetafacadeMappingsUtils
-                .constructKey(metaobjectClass, context);
-            mapping = (MetafacadeMapping)this.mappings.get(key);
+            key = metaobjectClass;
+            Object object = this.mappings.get(key);
+            if (object != null && Map.class.isAssignableFrom(object.getClass()))
+            {
+                Map mappingMap = (Map)object;
+                mapping = this.getInheritedContextMapping(
+                    mappingMap,
+                    context);
+            }
+            else
+            {
+                mapping = (MetafacadeMapping)object;
+            }
         }
         if (mapping == null)
         {
             if (logger.isDebugEnabled())
                 logger.debug("could not find mapping for '" + key
                     + "' find default --> '" + metaobjectClass + "'");
-            mapping = (MetafacadeMapping)this.mappings.get(metaobjectClass);
+            Map mappingMap = (Map)this.mappings.get(metaobjectClass);
+            if (mappingMap != null)
+            {
+                mapping = (MetafacadeMapping)mappingMap.get(null);
+            }
+        }
+        return mapping;
+    }
+
+    /**
+     * <p>
+     * Allows us to get the correct inherited context mapping from
+     * the given <code>context</code> contained in the given 
+     * <code>mappings</code>. 
+     * </p>
+     * <p> 
+     * For example: a Spring cartridge may have a <code>SpringEntity</code> which
+     * extends the basic metafacades' <code>EntityFacade</code>.  Within the basic
+     * metafacades descriptor (i.e. <code>andromda-metafacades.xml</code>), 
+     * EntityFacade could be defined as the context for an 
+     * <code>EntityFacadeAttribute</code> mapping. This method allows us to 
+     * discover the fact that the <code>SpringEntity</code> context inherits 
+     * from the <code>EntityFacade</code> context, thereby inheriting any 
+     * properties of the mapping having the <code>EntityFacade</code>
+     * as its context.
+     * </p>
+     *  
+     * @param mappings the Map of MetafacadeMapping instances keyed
+     *        by context.
+     * @param context the <code>context</code> to begin with.
+     * @return The MetafacadeMapping found having the 
+     *         correct <code>context</code>.
+     */
+    private MetafacadeMapping getInheritedContextMapping(
+        Map mappings,
+        String context)
+    {
+        MetafacadeMapping mapping = null;
+        // save the property references from the orginal mapping so that
+        // they aren't overridden by super contexts
+        Class contextClass = ClassUtils.loadClass(context);
+        List interfaces = new ArrayList(ClassUtils.getAllInterfaces(contextClass));
+        interfaces.add(0, contextClass);
+        if (interfaces != null && !interfaces.isEmpty())
+        {
+            Class[] interfaceArray = (Class[])interfaces.toArray(new Class[0]);
+            CollectionUtils.reverseArray(interfaceArray);
+            for (int ctr = 0; ctr < interfaceArray.length; ctr++)
+            {
+                contextClass = interfaceArray[ctr];
+                MetafacadeMapping contextMapping = (MetafacadeMapping)mappings
+                    .get(contextClass.getName());
+                if (contextMapping != null)
+                {
+                    // Set the mapping to the latest contextMapping
+                    mapping = contextMapping;
+                    mapping.addPropertyReferences(contextMapping
+                        .getPropertyReferences());
+                }
+            }
         }
         return mapping;
     }
@@ -313,12 +418,13 @@ public class MetafacadeMappings
     }
 
     /**
+     * <p>
      * Attempts to get the MetafacadeMapping identified by the given
-     * <code>metaobjectClass</code> and <code>stereotypes<code> 
-     * from the mappings for the given <code>namespace</code> within
-     * the specified <code>context</code>. 
-     * If it can not be found, it will search the default mappings 
-     * and return that instead.
+     * <code>metaobjectClass</code> and <code>stereotypes<code>, 
+     * from the mappings for the given <code>namespace</code> within the 
+     * specified <code>context</code>. If it can <strong>not</strong> 
+     * be found, it will search the default mappings and return that instead.
+     * </p>
      * 
      * @param metaobjectClass the class name of the meta object for the mapping
      *        we are trying to find.
@@ -359,7 +465,7 @@ public class MetafacadeMappings
         if (metafacadeClass == null)
         {
             if (logger.isDebugEnabled())
-                logger.debug("namespace mapping not found finding default");
+                logger.debug("namespace mapping not found --> finding default");
             mapping = this.getMapping(metaobjectClass, stereotypes, context);
         }
 
