@@ -191,8 +191,8 @@ public class TranslationTestProcessor
                     {
                         translated = TraceTranslator.getInstance().translate(
                             translation,
-                            null,
-                            fromExpression);
+                            fromExpression,
+                            null);
                     }
                     else
                     {
