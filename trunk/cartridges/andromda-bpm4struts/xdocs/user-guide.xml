@@ -215,6 +215,19 @@
                             <td>java.lang.Exception</td>
                             <td>Indicates which exception this handler takes care of</td>
                         </tr>
+                        <tr>
+                            <td>@andromda.struts.controller.usecase</td>
+                            <td>A class with the &lt;&lt;FrontEndController&gt;&gt; stereotype</td>
+                            <td>N/A</td>
+                            <td>The value should correspond to the use-case holding the activity graph
+                                which has this controller as its context. This is used when deferring operations to
+                                the controller. Please note that if your CASE tool supports setting the context of an
+                                activity graph you will not need to explicitely set this tagged value. This feature
+                                has been provided to support tool such as Poseidon that have only limited UML support.
+                                If you are a MagicDraw user you will not need to use this tagged value, instead
+                                assign the controller by right clicking on it and selecting "Assign...".
+                            </td>
+                        </tr>
                     </table>
                 </blockquote>
             </p>
