@@ -195,7 +195,7 @@
                     title="$str.toPhrase($columnName)"
                     sortable="$sortable" autolink="false" nulls="false"
                     paramId="$columnName" >
-#renderFormField($action $link "                    ")
+#renderFormField($variable.tableAction $link "                    ")
                 </display:column>
 #else
                 <display:column
