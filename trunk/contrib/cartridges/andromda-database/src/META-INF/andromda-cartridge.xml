@@ -71,9 +71,10 @@
     <template
         path="templates/database/create-dummy-load.vsl"
         outputPattern="create-dummy-load.sql"
-        outlet="scripts"
+        outlet="dummy-data-script"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        required="false">
         <modelElements variable="tables">
             <modelElement stereotype="Entity"/>
         </modelElements>
