@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -170,7 +171,7 @@ public class ComponentContainer {
                 return match;
             }
         }
-        Collection components = this.container.getComponentInstances();
+        Collection components = new ArrayList(this.container.getComponentInstances());
         CollectionUtils.filter(
             components, 
             new ClassMatcher());        
