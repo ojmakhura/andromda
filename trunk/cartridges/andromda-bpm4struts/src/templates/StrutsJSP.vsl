@@ -172,9 +172,12 @@
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
 #set ($collectionVariableName = "form.${variable.name}")
-        <display:table name="${${collectionVariableName}}" id="row"
-                       requestURI="${pageContext.request.requestURL}"
-                       export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
+#if ($variable.tableAction)
+        <html:form action="$variable.tableAction.actionPath">
+#end
+            <display:table name="${${collectionVariableName}}" id="row"
+                           requestURI="${pageContext.request.requestURL}"
+                           export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
 #if ($targetColumns.contains($columnName))
@@ -184,42 +187,29 @@
 #set ($link = $tableLink)
 #end
 #end
-            <display:column media="xml excel csv"
-                property="$columnName" title="$str.toPhrase($columnName)"
-                sortable="$sortable" autolink="true" nulls="false"
-                paramId="$columnName" />
-            <display:column media="html"
-                title="$str.toPhrase($columnName)"
-                sortable="$sortable" autolink="false" nulls="false"
-                paramId="$columnName" >
-#foreach ($parameter in $link.action.actionParameters)
-## Only add the parameter to the request if its been explicity set
-## as a table link
-#if (${parameter.tableLinkColumnName})
-#set ($propertyName = "row.${parameter.tableLinkColumnName}")
+                <display:column media="xml excel csv"
+                    property="$columnName" title="$str.toPhrase($columnName)"
+                    sortable="$sortable" autolink="true" nulls="false"
+                    paramId="$columnName" />
+                <display:column media="html"
+                    title="$str.toPhrase($columnName)"
+                    sortable="$sortable" autolink="false" nulls="false"
+                    paramId="$columnName" >
+#renderFormField($action $link "                    ")
+                </display:column>
 #else
-#set ($propertyName = "form.${parameter.name}")
-#end
-#if ($velocityCount == 1)
-#set ($requestPath = "${link.action.actionPath}?${parameter.name}=${${propertyName}}")
-#else
-#set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
-#end
-#end
-                <html:link action="${requestPath}">
-#set ($linkName = "row.${link.tableLinkColumnName}")
-                    ${${linkName}}
-                </html:link>
-            </display:column>
-#else
-            <display:column
-                property="$columnName" title="$str.toPhrase($columnName)"
-                sortable="$sortable" autolink="true" nulls="false"
-                paramId="$columnName" />
+                <display:column
+                    property="$columnName" title="$str.toPhrase($columnName)"
+                    sortable="$sortable" autolink="true" nulls="false"
+                    paramId="$columnName" />
 #end
 #end
 #end
-        </display:table>
+            </display:table>
+#if ($variable.tableAction)
+#renderFormButtons($variable.tableAction "            ")
+        </html:form>
+#end
 
 #end
 #end
