@@ -28,7 +28,7 @@
     <!--               Highlevel user tasks                            -->
     <!-- ============================================================= -->
 
-    <target name="dist" depends="build"
+    <target name="dist" depends="clean,build"
             description="Builds the distribution structure">
       <copy todir="${dist.dir}/" >
           <fileset dir="${build.dir}" includes="*.jar" />
