@@ -201,16 +201,24 @@
                         sortable="$sortable" autolink="true" nulls="false"
                         paramId="$columnName" />
                     <display:column media="html"
+                        headerClass="${columnName}"
                         title="$str.toPhrase($columnName)"
                         sortable="$sortable" autolink="false" nulls="false"
                         paramId="$columnName" >
-#renderFormField($variable.tableAction $link "                        ")
+                        <div class="$columnName">
+#renderFormField($variable.tableAction $link "                            ")
+                        </div>
                     </display:column>
 #else
                     <display:column
-                        property="$columnName" title="$str.toPhrase($columnName)"
+                        headerClass="${columnName}"
+                        title="$str.toPhrase($columnName)"
                         sortable="$sortable" autolink="true" nulls="false"
-                        paramId="$columnName" />
+                        paramId="$columnName" >
+                        <div class="${columnName}">
+                            <bean:write name="row" property="$columnName" scope="page"/>
+                        </div>
+                    </display:column>
 #end
 #end
 #end

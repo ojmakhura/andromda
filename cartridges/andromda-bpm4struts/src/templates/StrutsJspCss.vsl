@@ -12,9 +12,15 @@ ${hash}${action.styleId}.action
 #end
 #foreach ($variable in $page.pageVariables)
 #if ($variable.table)
-${hash}${variable.name}.table
-{
-}
+${hash}${variable.name}.table {}
+${hash}${variable.name}.table th {}
+${hash}${variable.name}.table td div {}
+
+#foreach ($columnName in $variable.tableColumnNames)
+${hash}${variable.name}.table th.${columnName} {}
+${hash}${variable.name}.table td div.${columnName} {}
+
+#end
 
 #end
 #end
