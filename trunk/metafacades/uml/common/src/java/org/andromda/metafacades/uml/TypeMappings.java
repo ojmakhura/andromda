@@ -52,8 +52,6 @@ public class TypeMappings
      * 
      * @param mappings the Mappings instance.
      * @return TypeMappings the configured TypeMappings instance.
-     * @throws MalformedURLException when the mappingsUri is invalid (not a
-     *         valid URL).
      */
     public static TypeMappings getInstance(Mappings mappings)
     {
