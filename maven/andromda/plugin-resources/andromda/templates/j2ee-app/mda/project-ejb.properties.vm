@@ -1,0 +1,13 @@
+maven.multiproject.type=pom
+
+maven.andromda.model.uri=jar:file:${maven.src.dir}/uml/${projectId}-model.xmi
+
+# Define the output locations for the cartridge dependencies in the project.xml
+maven.andromda.${persistenceType}.generated.dir=${basedir}/../${persistenceType}/target/src
+maven.andromda.${persistenceType}.manual.dir=${basedir}/../${persistenceType}/src/java
+
+maven.andromda.bpm4struts.generated.dir=${basedir}/../web/target/src
+maven.andromda.bpm4struts.manual.java.dir=${basedir}/../web/src/java
+maven.andromda.bpm4struts.manual.webapp.dir=${basedir}/../web/src/webapp
+
+maven.andromda.java.generated.dir=${basedir}/../common/target/src

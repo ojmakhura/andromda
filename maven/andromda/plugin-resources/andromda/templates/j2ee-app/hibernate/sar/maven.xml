@@ -95,7 +95,7 @@
         
         <!-- copy the db scripts over to the app target directory -->
         <ant:copy todir="${hibernate.schema.output.dir}">
-        	<ant:fileset dir="../db/src"/>
+        	<ant:fileset dir="../db/conf"/>
         </ant:copy>
 
   	</postGoal>

@@ -1,17 +1,22 @@
 <project xmlns:ant="jelly:ant"
-         xmlns:maven="jelly:maven">
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core">
 	
   	<preGoal name="java:compile">
   		
-  		<!-- add the paths of the generated source to the
-  		     maven compile path -->
-	 	<ant:path
-	       	id="andromda.java.gen.src"
-	       	location="${maven.build.src}"/>
-		<maven:addPath
-	       	id="maven.compile.src.set"
-	       	refid="andromda.java.gen.src"/>
-
+  		<!-- only attempt to add the generated source if it exists -->
+  		<j:set var="generatedSrc" value="${maven.build.dir}"/>
+  		<j:if test="${generatedSrc != null and generatedSrc != ''}">
+			<!-- add the paths of the generated source to the
+				 maven compile path -->
+			<ant:path
+				id="andromda.java.gen.src"
+				location="${generatedSrc}"/>
+			<maven:addPath
+				id="maven.compile.src.set"
+				refid="andromda.java.gen.src"/>
+        </j:if>
+        
   	</preGoal>
-  		 
+  	
 </project>
