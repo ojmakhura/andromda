@@ -5,11 +5,12 @@ import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -293,6 +294,9 @@ public class SpringEntityLogicImpl
         };
     }
 
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getValueObjectReferences()
+     */
     protected Collection handleGetValueObjectReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
@@ -302,19 +306,26 @@ public class SpringEntityLogicImpl
                 ModelElementFacade targetElement = ((DependencyFacade)object)
                     .getTargetElement();
                 return targetElement != null
-                    && targetElement.hasStereotype("ValueObject");
+                    && targetElement
+                        .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT);
             }
         };
     }
 
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isDaoImplementationRequired()
+     */
     protected boolean handleIsDaoImplementationRequired()
     {
-        return getValueObjectReferences().size() > 0
-                || getDaoBusinessOperations().size() > 0;
+        return !getValueObjectReferences().isEmpty()
+            || !getDaoBusinessOperations().isEmpty();
     }
 
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoNoTransformationConstantName()
+     */
     protected String handleGetDaoNoTransformationConstantName()
     {
-        return "TRANSFORMATION_NONE";
+        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX + "NONE";
     }
 }
