@@ -81,7 +81,7 @@ public class EJBEntityFacadeLogicImpl
 
             EJBEntityFacade entity = (EJBEntityFacade)classifier;
             result.add(entity.getEntityRelations());
-            classifier = (ClassifierFacade)this.getGeneralization();
+            classifier = (ClassifierFacade)classifier.getGeneralization();
         }
         return result;
     }
