@@ -130,6 +130,16 @@
       		<artifactId>openide-util</artifactId>
      		<version>200401141900</version>
     	</dependency>  
+        <dependency>
+            <groupId>xjavadoc</groupId>
+            <artifactId>xjavadoc</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.0</version>
+        </dependency>
     	<dependency>
       		<groupId>commons-jelly</groupId>
       		<artifactId>commons-jelly-tags-velocity</artifactId>
