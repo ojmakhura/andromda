@@ -15,8 +15,8 @@
 			<xs:attribute name="name" type="xs:string" use="required"/>
 			
 			<!-- the optional name of the 'handler' method, this is the method
-			     that will handle translation of the fragment if the name is found.  
-			     The handler method belongs on your Translator implementation -->
+				 that will handle translation of the fragment if the name is found.  
+				 The handler method belongs on your Translator implementation -->
 			<xs:attribute name="handlerMethod" type="xs:string"/>
 			
 		</xs:complexType>
@@ -31,7 +31,7 @@
 	</xs:element>
 	
 	<!-- the kind or type of the expression being translated by the 
-	     translation fragment -->
+		 translation fragment -->
 	<xs:element name="kind">
 		<xs:complexType>
 			<xs:simpleContent>
@@ -69,11 +69,11 @@
 			<xs:sequence>
 			
 				<!-- These can be specified to indicate which patterns should be validated
-			         against the model -->
+					 against the model -->
 				<xs:element ref="validate" minOccurs="0" maxOccurs="unbounded" />
 				
 				<!-- These can be specified so that any pattern not matching in a handler can will be ignored,
-				     if these aren't specified any patterns not matching give errors -->
+					 if these aren't specified any patterns not matching give errors -->
 				<xs:element ref="ignore" minOccurs="0" maxOccurs="unbounded" />
 				
 			</xs:sequence>
