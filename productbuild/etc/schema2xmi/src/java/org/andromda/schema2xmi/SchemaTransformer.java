@@ -26,6 +26,7 @@ import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Stereotype;
 import org.omg.uml.foundation.core.TagDefinition;
 import org.omg.uml.foundation.core.TaggedValue;
@@ -44,6 +45,10 @@ import org.omg.uml.modelmanagement.ModelManagementPackage;
 
 /**
  * Performs the transformation of database schema to XMI.
+ *
+ * @todo This class really should have the functionality 
+ *       it uses (writing model elements) moved to the metafacades.
+ * @todo This class should be refactored into smaller classes.
  * 
  * @author Chad Brandon
  */
@@ -349,7 +354,10 @@ public class SchemaTransformer
 
         // create the package on the model
         org.omg.uml.modelmanagement.UmlPackage leafPackage = this
-            .createPackage(umlPackage.getModelManagement(), model);
+            .getOrCreatePackage(
+                umlPackage.getModelManagement(),
+                model,
+                this.packageName);
         this.createClasses(connection, umlPackage.getModelManagement()
             .getCore(), leafPackage);
 
@@ -357,37 +365,43 @@ public class SchemaTransformer
     }
 
     /**
-     * Creates the actual model package from the class <code>packageName</code>
-     * using the given <code>modelManagementPackage</code> and places it on
-     * the <code>model</code> and returns the last leaf package.
+     * Gets or creates a package having the specified <code>packageName</code>
+     * using the given <code>modelManagementPackage</code>, places it on the
+     * <code>model</code> and returns the last leaf package.
      * 
      * @param modelManagementPackage from which we retrieve the UmlPackageClass
      *        to create a UmlPackage.
      * @param modelPackage the root UmlPackage
      */
-    protected org.omg.uml.modelmanagement.UmlPackage createPackage(
+    protected org.omg.uml.modelmanagement.UmlPackage getOrCreatePackage(
         ModelManagementPackage modelManagementPackage,
-        org.omg.uml.modelmanagement.UmlPackage modelPackage)
+        org.omg.uml.modelmanagement.UmlPackage modelPackage,
+        String packageName)
     {
-        this.packageName = StringUtils.trimToEmpty(this.packageName);
+        packageName = StringUtils.trimToEmpty(packageName);
         if (StringUtils.isNotEmpty(packageName))
         {
-            String[] packages = this.packageName
+            String[] packages = packageName
                 .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
             if (packages != null && packages.length > 0)
             {
                 for (int ctr = 0; ctr < packages.length; ctr++)
                 {
-                    org.omg.uml.modelmanagement.UmlPackage umlPackage = modelManagementPackage
-                        .getUmlPackage().createUmlPackage(
-                            packages[ctr],
-                            VisibilityKindEnum.VK_PUBLIC,
-                            false,
-                            false,
-                            false,
-                            false);
-                    modelPackage.getOwnedElement().add(umlPackage);
-                    modelPackage = umlPackage;
+                    Object umlPackage = ModelElementFinder.find(modelPackage, packages[ctr]);
+                    
+                    if (umlPackage == null)
+                    {
+                        umlPackage = modelManagementPackage
+	                        .getUmlPackage().createUmlPackage(
+	                            packages[ctr],
+	                            VisibilityKindEnum.VK_PUBLIC,
+	                            false,
+	                            false,
+	                            false,
+	                            false);
+                        modelPackage.getOwnedElement().add(umlPackage);
+                    }
+                    modelPackage = (org.omg.uml.modelmanagement.UmlPackage)umlPackage;
                 }
             }
         }
@@ -554,24 +568,23 @@ public class SchemaTransformer
             // they are placed on association ends)
             if (!this.hasForeignKey(tableName, columnName))
             {
+                Classifier typeClass = null;
                 // first we try to find a mapping that mappings to the
                 // database proprietary type
-                String type = this.typeMappings.getTo(columnRs
-                    .getString("TYPE_NAME"));
-                Classifier typeClass = (Classifier)ModelElementFinder.find(
-                    this.model,
-                    type);
-                if (typeClass == null)
+                String type = columnRs.getString("TYPE_NAME");
+                if (typeMappings.containsFrom(type))
                 {
-                    // next we see if we can find a type matching a mapping
-                    // for a JDBC type
-                    type = this.typeMappings.getTo(JdbcTypeFinder.find(columnRs
-                        .getInt("DATA_TYPE")));
-                    typeClass = (Classifier)ModelElementFinder.find(
-                        this.model,
-                        type);
+                    typeClass = this.getOrCreateDataType(corePackage, type);
+                } 
+                
+                // next we see if we can find a type matching a mapping
+                // for a JDBC type
+                type = JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE"));
+                if (typeClass == null && typeMappings.containsFrom(type))
+                {
+                    typeClass = this.getOrCreateDataType(corePackage, type);
                 }
-
+                
                 boolean required = !this.isColumnNullable(
                     metadata,
                     tableName,
@@ -623,6 +636,52 @@ public class SchemaTransformer
     }
 
     /**
+     * Gets or creates a new data type instance having the given fully qualified
+     * <code>type</code> name.
+     * 
+     * @param corePackage the core package
+     * @param type the fully qualified type name.
+     * @return the DataType
+     */
+    protected DataType getOrCreateDataType(CorePackage corePackage, String type)
+    {
+        type = this.typeMappings.getTo(type);
+        Object datatype = ModelElementFinder.find(this.model, type);
+        if (datatype == null
+            || !DataType.class.isAssignableFrom(datatype.getClass()))
+        {
+            String[] names = type.split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
+            if (names != null && names.length > 0)
+            {
+                // the last name is the type name
+                String typeName = names[names.length - 1];
+                names[names.length - 1] = null;
+                String packageName = StringUtils.join(
+                    names,
+                    Schema2XMIGlobals.PACKAGE_SEPERATOR);
+                org.omg.uml.modelmanagement.UmlPackage umlPackage = 
+                    this.getOrCreatePackage(
+	                    this.umlPackage.getModelManagement(),
+	                    this.model,
+	                    packageName);
+                if (umlPackage != null)
+                {
+                    datatype = 
+                        corePackage.getDataType().createDataType(
+	                        typeName,
+	                        VisibilityKindEnum.VK_PUBLIC,
+	                        false,
+	                        false,
+	                        false,
+	                        false);
+                    umlPackage.getOwnedElement().add(datatype);
+                }
+            }
+        }
+        return (DataType)datatype;
+    }
+
+    /**
      * This method just checks to see if a column is null able or not, if so,
      * returns true, if not returns false.
      * 
@@ -632,7 +691,7 @@ public class SchemaTransformer
      * @param columnName the name of the column.
      * @param true/false on whether or not column is nullable.
      */
-    private boolean isColumnNullable(
+    protected boolean isColumnNullable(
         DatabaseMetaData metadata,
         String tableName,
         String columnName) throws SQLException
@@ -659,7 +718,7 @@ public class SchemaTransformer
      * @param tableName
      * @return collection of primary key names.
      */
-    private Collection getPrimaryKeyColumns(
+    protected Collection getPrimaryKeyColumns(
         DatabaseMetaData metadata,
         String tableName) throws SQLException
     {
