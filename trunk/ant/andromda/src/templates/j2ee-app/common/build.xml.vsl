@@ -18,18 +18,11 @@
         <fileset refid="libraries"/>
     </path>
 
-    <condition property="useProxy">
-        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
-    </condition>
-    <target name="init-proxy">
-        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
-    </target>
-
     <target name="clean" description="o Clean up the generated directories">
         <delete dir="${basedir}/target"/>
     </target>
 
-    <target name="compile" description="o Compile the code" depends="get-deps">
+    <target name="compile" description="o Compile the code">
         <mkdir dir="${basedir}/${java.src.dir}"/>
         <mkdir dir="${basedir}/${java.build.dir}"/>
         <javac srcdir="${basedir}/${java.src.dir}" destdir="${basedir}/${java.build.dir}" classpathref="classpath"
@@ -75,12 +68,5 @@
             </fileset>
         </copy>
     </target>
-
-    <target name="get-deps" depends="init-proxy">
-        <mkdir dir="${app.root.dir}/${lib.dir}"/>
-        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"/>
-    </target>
-
+    
 </project>

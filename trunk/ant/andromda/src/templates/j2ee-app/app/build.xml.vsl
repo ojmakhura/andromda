@@ -64,20 +64,4 @@
         </copy>
     </target>
 
-    <target name="get-deps">
-#if ($persistenceType == 'hibernate')
-        <mkdir dir="${app.root.dir}/${lib.dir}"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/hibernate-2.1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hibernate/jars/hibernate-2.1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/cglib-2.0-rc2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/cglib/jars/cglib-2.0-rc2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/dom4j-1.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/odmg-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/odmg/jars/odmg-3.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ehcache-0.7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ehcache/jars/ehcache-0.7.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/asm-1.4.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/asm/jars/asm-1.4.1.jar"/>
-#end
-    </target>
-
 </project>

@@ -24,18 +24,11 @@
         <pathelement path="${basedir}/${java.build.dir}"/>
     </path>
 
-    <condition property="useProxy">
-        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
-    </condition>
-    <target name="init-proxy">
-        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
-    </target>
-
     <target name="clean" description="o Clean up the generated directories">
         <delete dir="${basedir}/target"/>
     </target>
 
-    <target name="xdoclet" description="o Run XDoclet WEB" depends="get-deps">
+    <target name="xdoclet" description="o Run XDoclet WEB">
         <mkdir dir="${basedir}/${java.src.dir}"/>
         <mkdir dir="${basedir}/${mda.build.dir}"/>
         <mkdir dir="${basedir}/${java.build.dir}"/>
@@ -133,32 +126,5 @@
             </fileset>
         </copy>
     </target>
-
-    <target name="get-deps" depends="init-proxy">
-        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-digester-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-1.5.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-validator-1.1.2dev-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/commons-validator/jars/commons-validator-1.1.2dev-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/servletapi-2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/servletapi/jars/servletapi-2.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/struts-1.2dev-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/struts/jars/struts-1.2dev-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jboss-j2ee-3.2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jboss/jars/jboss-j2ee-3.2.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xjavadoc-1.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xjavadoc/jars/xjavadoc-1.0.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-xdoclet-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-xdoclet-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jboss-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jboss-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-ejb-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-ejb-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jmx-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jmx-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-apache-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-apache-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-web-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-web-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/struts-bean-1.2dev-SNAPSHOT.tld" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/struts/tlds/struts-bean-1.2dev-SNAPSHOT.tld"/>
-        <get dest="${app.root.dir}/${lib.dir}/struts-html-1.2dev-SNAPSHOT.tld" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/struts/tlds/struts-html-1.2dev-SNAPSHOT.tld"/>
-        <get dest="${app.root.dir}/${lib.dir}/struts-logic-1.2dev-SNAPSHOT.tld" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/struts/tlds/struts-logic-1.2dev-SNAPSHOT.tld"/>
-        <get dest="${app.root.dir}/${lib.dir}/struts-nested-1.2dev-SNAPSHOT.tld" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/struts/tlds/struts-nested-1.2dev-SNAPSHOT.tld"/>
-        <get dest="${app.root.dir}/${lib.dir}/struts-tiles-1.2dev-SNAPSHOT.tld" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/struts/tlds/struts-tiles-1.2dev-SNAPSHOT.tld"/>
-        <get dest="${app.root.dir}/${lib.dir}/jasper-compiler-4.0.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/tomcat/jars/jasper-compiler-4.0.4.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jasper-runtime-4.0.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/tomcat/jars/jasper-runtime-4.0.4.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"/>
-    </target>
+    
 </project>

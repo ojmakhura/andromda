@@ -8,19 +8,21 @@
     <property file="${app.root.dir}/build.properties"/>
 
     <mkdir dir="${app.root.dir}/${lib.dir}"/>
-    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
+
     <path id="classpath">
-        <fileset refid="libraries"/>
+        <fileset id="libraries" dir="${app.root.dir}/${lib.dir}">
+            <include name="*.jar"/>
+            <exclude name="andromda-meta-cartridge*"/>
+            <exclude name="andromda-struts-cartridge*"/>  
+#if ($persistenceType == 'hibernate')
+            <exclude name="andromda-ejb-cartridge*"/>
+#else
+            <exclude name="andromda-hibernate-cartridge*"/>
+#end
+        </fileset>
     </path>
 
-    <condition property="useProxy">
-        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
-    </condition>
-    <target name="init-proxy">
-        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
-    </target>
-
-    <target name="mda" depends="get-deps">
+    <target name="mda">
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
         <andromda modelURL="file:${basedir}/${uml.model.path}">
             <namespace name="default" ignore="false">
@@ -72,41 +74,6 @@
                 <property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/>
             </namespace>
         </andromda>
-    </target>
-
-    <target name="get-deps" depends="init-proxy">
-#if ($persistenceType == "hibernate")
-        <get dest="${app.root.dir}/${lib.dir}/andromda-hibernate-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-hibernate-cartridge-3.0M1-SNAPSHOT.jar"/>
-#else
-        <get dest="${app.root.dir}/${lib.dir}/andromda-ejb-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-ejb-cartridge-3.0M1-SNAPSHOT.jar"/>
-#end
-        <get dest="${app.root.dir}/${lib.dir}/maven-andromda-plugin-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/plugins/maven-andromda-plugin-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-core-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-core-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-java-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-java-cartridge-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-bpm4struts-cartridge-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda-cartridges/jars/andromda-bpm4struts-cartridge-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-templateengine-velocity-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-templateengine-velocity-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-repository-mdr-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-repository-mdr-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-metafacades-uml-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-metafacades-uml-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/andromda-metafacades-uml14-3.0M1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/andromda/jars/andromda-metafacades-uml14-3.0M1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/log4j-1.2.8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/log4j/jars/log4j-1.2.8.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-digester-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-1.5.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/picocontainer-1.0-RC-1-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/picocontainer/jars/picocontainer-1.0-RC-1-SNAPSHOT.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/velocity-1.4-rc1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/velocity/jars/velocity-1.4-rc1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jmi-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/jmi/jars/jmi-200401240117.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jmiuml-1.4di.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/jmi/jars/jmiuml-1.4di.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/mof-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/jmi/jars/mof-200401240117.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jmiutils-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/jmiutils-200401240117.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/mdrapi-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/mdrapi-200401240117.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/openide-util-200401141900.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/openide-util-200401141900.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jmitoolkit-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/jmitoolkit-200401240117.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/nbmdr-200401240117.jar" usetimestamp="true" ignoreerrors="true" src="http://team.andromda.org/maven/mdr/jars/nbmdr-200401240117.jar"/>
     </target>
 
 </project>
