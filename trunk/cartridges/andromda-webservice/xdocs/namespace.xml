@@ -392,8 +392,8 @@
                         The security realm to use for securing your web service(s). 
                         <strong>NOTE:</strong> this must be set in order to have
                         <strong>ANY</strong> of your web services secured.  A web service
-                        will be secured if it has <strong>any</strong> roles associated 
-                        to it.
+                        will be secured if it has <strong>any</strong> roles (i.e. Actors) 
+                        associated to it.
                     </td>
                     <td>
                         No, by default it is not set.

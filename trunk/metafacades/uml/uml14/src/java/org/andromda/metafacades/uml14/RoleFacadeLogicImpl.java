@@ -95,9 +95,9 @@ public class RoleFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.RoleFacade#isEnabled()
+     * @see org.andromda.metafacades.uml.RoleFacade#isServiceReferencesPresent()
      */
-    protected boolean handleIsEnabled()
+    protected boolean handleIsServiceReferencesPresent()
     {
         return CollectionUtils.find(
             this.getSourceDependencies(),
@@ -106,11 +106,25 @@ public class RoleFacadeLogicImpl
                 public boolean evaluate(Object object)
                 {
                     DependencyFacade dependency = (DependencyFacade)object;
-                    Object target = dependency.getTargetElement();
-                    return target instanceof ServiceFacade
-                        || target instanceof ServiceOperationFacade;
+                    return dependency.getTargetElement() instanceof ServiceFacade;
                 }
             }) != null;
+    }
 
+    /**
+     * @see org.andromda.metafacades.uml.RoleFacade#isServiceOperationReferencesPresent()
+     */
+    protected boolean handleIsServiceOperationReferencesPresent()
+    {
+        return CollectionUtils.find(
+            this.getSourceDependencies(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    return dependency.getTargetElement() instanceof ServiceOperationFacade;
+                }
+            }) != null;
     }
 }
