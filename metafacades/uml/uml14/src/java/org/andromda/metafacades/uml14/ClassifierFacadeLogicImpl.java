@@ -1,8 +1,6 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -10,12 +8,14 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Operation;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -37,7 +37,7 @@ public class ClassifierFacadeLogicImpl
      */
     public String getName()
     {
-        return StringUtils.deleteWhitespace(super.getName());
+        return StringUtilsHelper.toJavaClassName(super.getName());
     }
 
     /**
