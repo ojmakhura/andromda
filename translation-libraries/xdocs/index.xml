@@ -121,7 +121,7 @@
             this.translateConstraints(ExpressionKinds.BODY, "query.EJB-QL");
         String query = null;
         // we just get the first body constraint found (since there should
-        // only be one
+        // only be one)
         if (translatedExpressions != null && translatedExpressions.length > 0) {
             query = translatedExpressions[0];
         }
