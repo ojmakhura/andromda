@@ -1,11 +1,22 @@
 package org.andromda.translation.validation;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.collections.Bag;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.SetUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
 
 public final class OCLCollections
 {
@@ -431,45 +442,27 @@ public final class OCLCollections
         Collection filteredCollection = null;
         if (unique)
         {
-            final String property = StringUtils.trimToEmpty(expression);
+            final String feature = StringUtils.trimToEmpty(expression);
             for (Iterator iterator = collection.iterator(); iterator.hasNext();)
             {
                 filteredCollection = new ArrayList(collection);
-                Object element = iterator.next();
-                if (PropertyUtils.isReadable(element, property))
+                final Object value = OCLIntrospector.invoke(iterator.next(), feature);
+                CollectionUtils.filter(filteredCollection, new Predicate()
                 {
-                    final Object value;
-                    try
+                    public boolean evaluate(Object object)
                     {
-                        value = PropertyUtils.getProperty(element, property);
-                    }
-                    catch (Throwable th)
-                    {
-                        throw new OCLIntrospectorException(th);
-                    }
-                    CollectionUtils.filter(filteredCollection, new Predicate()
-                    {
-                        public boolean evaluate(Object object)
+                        boolean valid = object != null;
+                        if (valid)
                         {
-                            boolean valid = object != null;
-                            if (PropertyUtils.isReadable(object, property))
-                            {
-                                try
-                                {
-                                    Object loopValue = PropertyUtils
-                                        .getProperty(object, property);
-                                    valid = loopValue != null
-                                        && loopValue.equals(value);
-                                }
-                                catch (Throwable th)
-                                {
-                                    throw new OCLIntrospectorException(th);
-                                }
-                            }
-                            return valid;
+                            Object loopValue = OCLIntrospector.invoke(
+                                object,
+                                feature);
+                            valid = loopValue != null
+                                && loopValue.equals(value);
                         }
-                    });
-                }
+                        return valid;
+                    }
+                });
             }
         }
         return filteredCollection.size() <= 1;
@@ -511,7 +504,10 @@ public final class OCLCollections
             if (predicate.evaluate(iterator.next()))
             {
                 if (found)
-                    return false;
+                {
+                    found = false;
+                    break;
+                }
                 found = true;
             }
         }
