@@ -119,9 +119,9 @@
             <subsection name="Supported Tagged Values">
                   <table>
                     <tr>
-                          <th>Tagged Value</th>
-                        <th>Used With</th>
-                          <th>Description</th>
+						<th>Tagged Value</th>
+						<th>Used With</th>
+						<th>Description</th>
                     </tr>
                     <tr>
                         <td>
@@ -272,6 +272,40 @@
                               Optionally allows you to define the name of the role (if it needs
                             to be different than the name of the actor that defines the role).
                           </td>
+                    </tr>
+                    <tr>
+						<a name="@andromda.spring.service.remoting.type"/>
+						<td>
+							@andromda.spring.service.remoting.type
+						</td>
+                        <td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>
+                        </td>
+						<td>
+							Services marked with this stereotype will be exported using Spring's remoting
+							architecture. You can choose among the following remoting protocols:
+	                        <ul>
+	                        	<li>none</li>
+	                        	<li>rmi</li>
+	                        	<li>httpinvoker</li>
+	                        	<li>burlap</li>
+	                        	<li>hessian</li>
+	                        </ul>
+	                        by setting the namespace property <code>serviceRemotingType</code>.
+						</td>
+                    </tr>
+                    <tr>
+						<a name="@andromda.spring.service.remote.port"/>
+						<td>
+							@andromda.spring.service.remote.port
+						</td>
+                        <td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>
+                        </td>
+						<td>
+							Sets the port this service will be exported on. You must also tag the
+							service using <a href="#@andromda.spring.service.remote.port">@andromda.spring.service.remote.port</a>.
+						</td>
                     </tr>
                 </table>
             </subsection>

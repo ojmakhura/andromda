@@ -11,10 +11,13 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.spring.metafacades.SpringService.
  * 
+ * @author Chad Brandon
+ * @author Peter Friese
  * @see org.andromda.cartridges.spring.metafacades.SpringService
  */
 public class SpringServiceLogicImpl
     extends SpringServiceLogic
+    implements org.andromda.cartridges.spring.metafacades.SpringService
 {
     // ---------------- constructor -------------------------------
 
@@ -195,6 +198,100 @@ public class SpringServiceLogicImpl
     protected boolean handleIsWebService()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotable()
+     */
+    protected boolean handleIsServiceRemotable()
+    {
+        String serviceRemotingType = this.getServiceRemotingType();
+        if (serviceRemotingType != null)
+        {
+            boolean result = !serviceRemotingType.equalsIgnoreCase("none");
+            return result;
+        }
+        return false;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemotingType()
+     */
+    protected String handleGetServiceRemotingType()
+    {
+        String serviceRemotingType = StringUtils.trimToEmpty(String
+            .valueOf(this.getConfiguredProperty("serviceRemotingType")));
+        String result = SpringMetafacadeUtils.getServiceRemotingType(
+            this,
+            serviceRemotingType);
+        return result;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemoteServicePort()
+     */
+    protected String handleGetServiceRemotePort()
+    {
+        String serviceRemotePort = StringUtils.trimToEmpty(String.valueOf(this
+            .getConfiguredProperty("serviceRemotePort")));
+        return SpringMetafacadeUtils.getServiceRemotePort(
+            this,
+            serviceRemotePort);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemoteServiceUrl()
+     */
+    protected String handleGetServiceRemoteUrl()
+    {
+        String serviceRemoteServer = StringUtils.trimToEmpty(String
+            .valueOf(this.getConfiguredProperty("serviceRemoteServer")));
+
+        String serviceRemoteContext = StringUtils.trimToEmpty(String
+            .valueOf(this.getConfiguredProperty("serviceRemoteContext")));
+
+        String serviceRemotePort = this.getServiceRemotePort();
+
+        String serviceRemotingType = this.getServiceRemotingType();
+
+        String result = "";
+
+        if ("none".equalsIgnoreCase(serviceRemotingType))
+        {
+            // nothing
+        }
+        else if ("httpinvoker".equalsIgnoreCase(serviceRemotingType)
+            || "hessian".equalsIgnoreCase(serviceRemotingType)
+            || "burlap".equalsIgnoreCase(serviceRemotingType))
+        {
+            // server
+            result = "http://" + serviceRemoteServer;
+            // port
+            if (serviceRemotePort.length() > 1)
+            {
+                result += ":" + serviceRemotePort;
+            }
+            // context
+            if (serviceRemoteContext.length() > 1)
+            {
+                result += "/" + serviceRemoteContext;
+            }
+            // service name
+            result += "/" + getName();
+        }
+        else if ("rmi".equalsIgnoreCase(serviceRemotingType))
+        {
+            // server
+            result = "rmi://" + serviceRemoteServer;
+            // port
+            if (serviceRemotePort.length() > 1)
+            {
+                result += ":" + serviceRemotePort;
+            }
+            // service name
+            result += "/" + getName();
+        }
+        return result;
     }
 
     /**
