@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.core.cartridge.CartridgeHelper;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -40,7 +41,7 @@ public class AttributeFacadeLogicImpl
         }
 
         return StringUtils.trimToEmpty(prefix)
-            + StringUtils.capitalize(this.getName());
+            + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
     }
 
     /**
@@ -48,7 +49,7 @@ public class AttributeFacadeLogicImpl
      */
     public java.lang.String handleGetSetterName()
     {
-        return "set" + StringUtils.capitalize(metaObject.getName());
+        return "set" + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
     }
 
     /**
@@ -90,36 +91,23 @@ public class AttributeFacadeLogicImpl
         return metaObject.getType();
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml.AssociationEndFacade#getOwner()
-     */
     public Object handleGetOwner()
     {
         return this.metaObject.getOwner();
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml.AssociationEndFacade#isReadOnly()
-     */
     public boolean handleIsReadOnly()
     {
         return ChangeableKindEnum.CK_FROZEN.equals(metaObject
             .getChangeability());
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml.AttributeFacade#isStatic()
-     */
     public boolean handleIsStatic()
     {
         return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject
             .getOwnerScope());
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml.AttributeFacade#findTaggedValue(java.lang.String,
-     *      boolean)
-     */
     public Object handleFindTaggedValue(String name, boolean follow)
     {
         name = StringUtils.trimToEmpty(name);

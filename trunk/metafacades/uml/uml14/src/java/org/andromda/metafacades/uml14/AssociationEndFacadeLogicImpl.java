@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.core.cartridge.CartridgeHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
@@ -206,7 +207,7 @@ public class AssociationEndFacadeLogicImpl
      */
     public java.lang.String handleGetGetterName()
     {
-        return "get" + StringUtils.capitalize(this.getName());
+        return "get" + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
     }
 
     /**
@@ -214,7 +215,7 @@ public class AssociationEndFacadeLogicImpl
      */
     public java.lang.String handleGetSetterName()
     {
-        return "set" + StringUtils.capitalize(this.getName());
+        return "set" + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
     }
 
     /**
