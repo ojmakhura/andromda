@@ -623,6 +623,7 @@ public class SchemaTransformer
         CorePackage corePackage,
         String tableName) throws SQLException
     {
+        Collection primaryKeys = this.getPrimaryKeyColumns(metadata, tableName);
         Collection associations = new ArrayList();
         ResultSet columnRs = metadata.getImportedKeys(null, null, tableName);
         while (columnRs.next())
@@ -641,6 +642,16 @@ public class SchemaTransformer
                     false,
                     false,
                     false);
+            
+            // we set the upper range to 1 if the 
+            // they primary key of this table is the
+            // foreign key of another table (by default
+            // its set to a many multiplicity)
+            int primaryUpper = -1;
+            if (primaryKeys.contains(fkColumnName))
+            {
+                primaryUpper = 1;
+            }
 
             String endName = null;
             // primary association
@@ -653,7 +664,7 @@ public class SchemaTransformer
                     OrderingKindEnum.OK_UNORDERED,
                     AggregationKindEnum.AK_NONE,
                     ScopeKindEnum.SK_INSTANCE,
-                    this.createMultiplicity(corePackage.getDataTypes(), 0, -1),
+                    this.createMultiplicity(corePackage.getDataTypes(), 0, primaryUpper),
                     ChangeableKindEnum.CK_CHANGEABLE);
             primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
 
