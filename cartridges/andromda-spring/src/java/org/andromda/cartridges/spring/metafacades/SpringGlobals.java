@@ -55,7 +55,7 @@ class SpringGlobals
     /**
      * Defines the prefix given to the transformation constants.
      */
-    final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORMATION_";
+    final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
 
     /**
      * Represents the hibernate <code>delete</code> cascade option.
