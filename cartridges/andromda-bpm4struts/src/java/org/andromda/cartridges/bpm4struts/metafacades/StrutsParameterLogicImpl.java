@@ -197,7 +197,7 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetMessageKey()
     {
-        String messageKey = StringUtilsHelper.toResourceMessageKey(getName());
+        String messageKey = "param." + StringUtilsHelper.toResourceMessageKey(getName());
         StrutsAction action = getAction();
         return (action == null) ? messageKey : action.getMessageKey() + '.' + messageKey;
     }
