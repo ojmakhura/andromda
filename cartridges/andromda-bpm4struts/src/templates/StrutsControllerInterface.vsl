@@ -54,7 +54,7 @@ public abstract class ${controller.name} implements java.io.Serializable
     protected final $sessionObject.fullyQualifiedName get${accessorSuffix}(HttpServletRequest request)
     {
         $sessionObject.fullyQualifiedName object = null;
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session != null)
         {
             Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
@@ -68,7 +68,12 @@ public abstract class ${controller.name} implements java.io.Serializable
 
     protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object)
     {
-        HttpSession session = request.getSession();
+        set${accessorSuffix}(request, object, true);
+    }
+
+    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object, boolean createSession)
+    {
+        HttpSession session = request.getSession(createSession);
         if (session != null)
         {
             session.setAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY, object);
@@ -77,7 +82,7 @@ public abstract class ${controller.name} implements java.io.Serializable
 
     protected final void remove${accessorSuffix}(HttpServletRequest request)
     {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session != null)
         {
             session.removeAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
