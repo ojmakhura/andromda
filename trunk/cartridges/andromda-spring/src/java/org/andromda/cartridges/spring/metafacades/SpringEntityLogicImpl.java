@@ -188,14 +188,14 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getRoot()
      */
-    protected SpringEntity handleGetRoot()
+    protected Object handleGetRoot()
     {
         GeneralizableElementFacade generalization = this;
         for (; generalization.getGeneralization() != null
             && SpringEntity.class.isAssignableFrom(generalization
                 .getGeneralization().getClass()); generalization = generalization
             .getGeneralization());
-        return (SpringEntity)generalization;
+        return generalization;
     }
 
     /**
@@ -369,42 +369,42 @@ public class SpringEntityLogicImpl
     {
         if (logger.isDebugEnabled())
         {
-            boolean result = inheritance.equals(getInheritanceStrategy());
+            boolean result = inheritance.equals(this.getHibernateInheritanceStrategy());
             logger.debug("<<< checkHibInheritance[" + this + "]: "
                 + inheritance + " = " + result);
             return result;
         }
-        return inheritance.equals(getInheritanceStrategy());
+        return inheritance.equals(getHibernateInheritanceStrategy());
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceClass()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceClass()
      */
-    protected boolean handleIsHibInheritanceClass()
+    protected boolean handleIsHibernateInheritanceClass()
     {
         return checkHibInheritance(INHERITANCE_STRATEGY_CLASS);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceInterface()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceInterface()
      */
-    protected boolean handleIsHibInheritanceInterface()
+    protected boolean handleIsHibernateInheritanceInterface()
     {
         return checkHibInheritance(INHERITANCE_STRATEGY_INTERFACE);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceSubclass()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceSubclass()
      */
-    protected boolean handleIsHibInheritanceSubclass()
+    protected boolean handleIsHibernateInheritanceSubclass()
     {
         return checkHibInheritance(INHERITANCE_STRATEGY_SUBCLASS);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceConcrete()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceConcrete()
      */
-    protected boolean handleIsHibInheritanceConcrete()
+    protected boolean handleIsHibernateInheritanceConcrete()
     {
         return checkHibInheritance(INHERITANCE_STRATEGY_CONCRETE);
     }
@@ -547,7 +547,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getInheritanceStrategy()
      */
-    protected String handleGetInheritanceStrategy()
+    protected String handleGetHibernateInheritanceStrategy()
     {
         if (logger.isDebugEnabled())
             logger.debug(">>> handleGetInheritanceStrategy start:" + this);

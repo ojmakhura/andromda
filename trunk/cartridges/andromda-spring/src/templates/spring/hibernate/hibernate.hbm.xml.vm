@@ -3,7 +3,7 @@
 ##
 #macro (renderSubClass $entity)
 ## Should only get get invoked for inheritance class or subclass.
-#if ($entity.hibInheritanceClass)
+#if ($entity.hibernateInheritanceClass)
 	    <subclass
 		    name="$entity.fullyQualifiedEntityImplementationName"
 		    discriminator-value="$entity.entityImplementationName">

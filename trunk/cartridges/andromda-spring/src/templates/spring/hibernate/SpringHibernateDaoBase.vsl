@@ -326,10 +326,14 @@ public abstract class $entity.daoBaseName
 #if($argument.type.primitive)
 #set ($argumentName = "new ${argument.type.wrapperName}(${argument.name})")
 #end
+#set ($setParameterOperation = "setParameter")
+#if ($argument.type.collectionType)
+#set ($setParameterOperation = "${setParameterOperation}List")
+#end
 #if ($finder.useNamedParameters)
-                queryObject.setParameter("$argumentName", $argumentName);
+                queryObject.${setParameterOperation}("$argumentName", $argumentName);
 #else
-                queryObject.setParameter($count, $argumentName);
+                queryObject.${setParameterOperation}($count, $argumentName);
 #end
 #end
        
