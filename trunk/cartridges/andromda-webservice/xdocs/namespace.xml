@@ -261,6 +261,29 @@
 						No, default is <code>no prefix</code>.
 					</td>
 				</tr>    
+                <tr>
+                    <td>
+                        ejbJndiUrl
+                    </td>
+                    <td>
+                        The JNDI url to use when using EJB as your web service provider.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ejbNamingContextFactory
+                    </td>
+                    <td>
+                        The JNDI context factory to use when using EJB as your
+                        web service provider.
+                    </td>
+                    <td>
+                        No, default is <code></code>
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						ejbInterfacePattern
