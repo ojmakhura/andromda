@@ -3,7 +3,6 @@
  * Attention: Generated source! Do not modify by hand!
  */
 package $entity.packageName;
-#set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
 
 /**
  * <p>
@@ -16,7 +15,7 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedName
  */
 public abstract class ${entity.name}Factory {
-#if (($generateImpl && ( !$entity.abstract && !$entity.hibernateInheritanceInterface)) )
+#if (!$entity.abstract && !$entity.hibernateInheritanceInterface)
    // ---------------- create method --------------------
 
    /**
@@ -57,11 +56,7 @@ public abstract class ${entity.name}Factory {
     public static $entity.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws net.sf.hibernate.HibernateException
     {
-#if ( $generateImpl )
         ${entity.name} object = (${entity.name}) session.load(${entity.name}Impl.class, ${primaryKey.name});
-#else
-        ${entity.name} object = (${entity.name}) session.load(${entity.name}.class, ${primaryKey.name});
-#end
         return object;
     }
 
