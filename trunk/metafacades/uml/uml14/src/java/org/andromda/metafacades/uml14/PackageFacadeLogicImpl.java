@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -67,15 +68,16 @@ public class PackageFacadeLogicImpl
     public ModelElementFacade handleFindModelElement(
         final String fullyQualifiedName)
     {
-        return (ModelElementFacade)this
-            .shieldedElement(UMLMetafacadeUtils
-                .findByFullyQualifiedName(
-                    fullyQualifiedName,
-                    String
-                        .valueOf(this
-                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR))));
+        return (ModelElementFacade)this.shieldedElement(
+            UMLMetafacadeUtils.findByFullyQualifiedName(
+                fullyQualifiedName,
+                String.valueOf(this.getConfiguredProperty(
+                    MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR))));
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.PackageFacadeLogic#getOwnedElements()
+     */
     protected Collection handleGetOwnedElements()
     {
         return metaObject.getOwnedElement();

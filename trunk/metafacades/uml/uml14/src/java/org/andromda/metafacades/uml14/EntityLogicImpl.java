@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -153,9 +154,7 @@ public class EntityLogicImpl
                     name,
                     type,
                     visibility,
-                    String
-                        .valueOf(this
-                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
+                    String.valueOf(this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR)));
 
             identifier.getStereotype().add(
                 UMLMetafacadeUtils

@@ -91,7 +91,6 @@ public class WebServiceUtils
         if (schemaTypeMappings != null)
         {
             namespacePrefix = namespacePrefix + ':';
-
             String mappedValue = schemaTypeMappings.getTo(modelName);
             if (!mappedValue.equals(modelName))
             {
@@ -108,16 +107,13 @@ public class WebServiceUtils
                     ClassifierFacade nonArray = type.getNonArray();
                     if (nonArray != null)
                     {
-                        if (WSDLType.class
-                            .isAssignableFrom(nonArray.getClass()))
+                        if (nonArray instanceof WSDLType)
                         {
                             schemaType.append(((WSDLType)nonArray).getQName());
                         }
-                        else if (WSDLEnumerationType.class
-                            .isAssignableFrom(nonArray.getClass()))
+                        else if (nonArray instanceof WSDLEnumerationType)
                         {
-                            schemaType.append(((WSDLEnumerationType)nonArray)
-                                .getQName());
+                            schemaType.append(((WSDLEnumerationType)nonArray).getQName());
                         }
                     }
                 }
@@ -127,9 +123,7 @@ public class WebServiceUtils
                 }
             }
             // remove any array '[]' suffix
-            schemaType = new StringBuffer(schemaType.toString().replaceAll(
-                "\\[\\]",
-                ""));
+            schemaType = new StringBuffer(schemaType.toString().replaceAll("\\[\\]", ""));
             if (preserveArray && type.isArrayType())
             {
                 int insertIndex = namespacePrefix.length();
