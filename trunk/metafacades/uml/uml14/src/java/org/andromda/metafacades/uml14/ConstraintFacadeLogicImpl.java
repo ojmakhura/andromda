@@ -77,7 +77,6 @@ public class ConstraintFacadeLogicImpl
 
     public String handleGetTranslation(String language)
     {
-        logger.info("context element: "+getContextElement());
         return ExpressionTranslator.instance().translate(
                 language, getContextElement(), getBody()).getTranslatedExpression();
     }
