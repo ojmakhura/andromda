@@ -404,12 +404,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.transaction.type"/>
+                        <a name="andromda.ejb.transaction.type"/>
                         <td>
-                            @andromda.transaction.type
+                            @andromda.ejb.transaction.type
                         </td>
                         <td>
-                            Service Method
+                            Service Operation
                         </td>
                         <td>
                             Defines a transaction type for the method.

@@ -388,6 +388,41 @@
                             </ul>
                         </td>
                     </tr>
+                    <tr>
+                        <a name="andromda.spring.transaction.type"/>
+                        <td>
+                            @andromda.spring.transaction.type
+                        </td>
+                        <td>
+                            Service Operation
+                        </td>
+                        <td>
+                            Defines an EJB transaction type for the service operation (when wrapped
+                            by EJBs).
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="andromda.ejb.transaction.type"/>
+                        <td>
+                            @andromda.ejb.transaction.type
+                        </td>
+                        <td>
+                            Service Operation
+                        </td>
+                        <td>
+                            Defines an EJB transaction type for the service operation (when wrapped
+                            by EJBs)
+                            <ul>
+                                Permitted values are:
+                                <li>NotSupported</li>
+                                <li>Supports</li>
+                                <li>Required</li>
+                                <li>RequiresNew</li>
+                                <li>Mandatory</li>
+                                <li>Never</li>
+                            </ul>
+                        </td>
+                    </tr>
                 </table>
             </subsection>
             <subsection name="Additional Remarks">

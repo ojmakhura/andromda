@@ -3,6 +3,8 @@ package org.andromda.cartridges.ejb.metafacades;
 import java.util.Collection;
 import java.util.List;
 
+import org.andromda.cartridges.ejb.EJBGlobals;
+import org.andromda.cartridges.ejb.EJBProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -161,5 +163,20 @@ public class EJBSessionFacadeLogicImpl
             }
         });
         return operations;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getTransactionType()
+     */
+    protected java.lang.String handleGetTransactionType()
+    {
+        String transactionType = (String)this
+            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = transactionType = String.valueOf(this
+                .getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+        }
+        return transactionType;
     }
 }

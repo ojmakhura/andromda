@@ -12,6 +12,10 @@
         <to>@andromda.ejb.viewType</to>
     </mapping>
     <mapping>
+        <from>EJB_TRANSACTION_TYPE</from>
+        <to>@andromda.ejb.transaction.type</to>
+    </mapping>
+    <mapping>
         <from>HIBERNATE_LAZY</from>
         <to>@andromda.hibernate.lazy</to>
     </mapping>

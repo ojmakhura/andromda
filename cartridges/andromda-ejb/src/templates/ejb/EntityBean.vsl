@@ -40,12 +40,7 @@ $entity.getDocumentation(" * ")
  * @ejb.home generate="false" local-class="${entity.fullyQualifiedName}LocalHome"
  * @ejb.pk generate="false" class="$identifier.type.fullyQualifiedName"
  *
-#set ($classTransaction = $entity.findTaggedValue("@andromda.transaction.type"))
-#if (!$classTransaction || $classTransaction == "")
- * @ejb.transaction type="Supports" //default transaction type
-#else
- * @ejb.transaction type="$classTransaction" //custom transaction type set by @andromda.transaction.type
-#end
+ * @ejb.transaction.type type="$entity.transactionType"
  *
 ## Only generate persistence tags for concrete EJBs.
 #if(!$entity.abstract)
@@ -109,9 +104,8 @@ $entity.getDocumentation(" * ")
  * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #end
-#set ($finderTransaction = $finder.findTaggedValue("@andromda.transaction.type",false))
-#if ($finderTransaction)
- *			   transaction-type="$finderTransaction"
+#if ($finder.transactionType)
+ *			   transaction-type="$finder.transactionType"
 #end
 #set ($wlQuery = $finder.findTaggedValue("@andromda.ejb.query.weblogic", false))
 #if	($wlQuery)

@@ -109,10 +109,6 @@
         <from>ROLE_NAME</from>
         <to>@andromda.role.name</to>
     </mapping>
-    <mapping>
-        <from>TRANSACTION_TYPE</from>
-        <to>@andromda.transaction.type</to>
-    </mapping>
     <!-- datatypes -->
     <mapping>
         <from>COLLECTION_TYPE</from>

@@ -174,11 +174,6 @@ public class UMLProfile
     public static final String TAGGEDVALUE_ROLE_NAME = profile.get("ROLE_NAME");
 
     /**
-     * Stores the service method transaction type.
-     */
-    public static final String TAGGEDVALUE_TRANSACTION_TYPE = profile.get("TRANSACTION_TYPE");
-
-    /**
      * Used to identify collection types in the model, any other type that will
      * be identified as a collection must specialize this type.
      */

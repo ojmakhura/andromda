@@ -4,6 +4,14 @@
 -->
 <mappings name="spring">
     <mapping>
+        <from>EJB_TRANSACTION_TYPE</from>
+        <to>@andromda.ejb.transaction.type</to>
+    </mapping>
+    <mapping>
+        <from>TRANSACTION_TYPE</from>
+        <to>@andromda.spring.transaction.type</to>
+    </mapping>
+    <mapping>
         <from>HIBERNATE_QUERY</from>
         <to>@andromda.hibernate.query</to>
     </mapping>

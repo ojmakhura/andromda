@@ -6,15 +6,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -382,7 +383,7 @@ public class EJBEntityFacadeLogicImpl
                     + uri + "'";
                 logger.error(errMsg);
                 // don't throw the exception
-                ExceptionRecorder.instance().record( errMsg, th );
+                ExceptionRecorder.instance().record(errMsg, th);
             }
         }
         else
@@ -404,5 +405,20 @@ public class EJBEntityFacadeLogicImpl
             mpSql = "ORACLE";
         }
         return mpSql;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getTransactionType()
+     */
+    protected java.lang.String handleGetTransactionType()
+    {
+        String transactionType = (String)this
+            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = transactionType = String.valueOf(this
+                .getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+        }
+        return transactionType;
     }
 }

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.RoleFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -73,16 +72,6 @@ public class ServiceOperationFacadeLogicImpl
             }
         });
         return allRoles;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ServiceOperationFacade#getTransactionType()
-     */
-    public String handleGetTransactionType()
-    {
-        Object value = this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_TRANSACTION_TYPE);
-        return (String)value;
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
@@ -70,39 +71,41 @@ public class SpringServiceOperationLogicImpl
     }
 
     /**
-     * The transation type for Spring service.
+     * The transation type for Spring service operations.
      */
-    private static final String TRANSACTION_TYPE = "transactionType";
+    private static final String SERVICE_OPERATION_TRANSACTION_TYPE = "serviceOperationTransactionType";
 
     /**
      * @see org.andromda.metafacades.uml.ServiceOperationFacade#getTransactionType()
      */
-    public String getTransactionType()
+    public String handleGetTransactionType()
     {
-        String transactionType = super.getTransactionType();
+        String transactionType = (String)this
+            .findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
             transactionType = String.valueOf(this
-                .getConfiguredProperty(TRANSACTION_TYPE));
+                .getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
         }
         return transactionType;
     }
 
     /**
-     * The transaction type for EJB wrapped services.
+     * The transaction type for EJB wrapped service operations..
      */
-    private static final String EJB_TRANSACTION_TYPE = "ejbTransactionType";
+    private static final String EJB_SERVICE_OPERATION_TRANSACTION_TYPE = "ejbServiceOperationTransactionType";
 
     /**
      * @see org.andromda.metafacades.uml.ServiceOperationFacade#getEjbTransactionType()
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType = super.getTransactionType();
+        String transactionType = (String)this
+            .findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
             transactionType = String.valueOf(this
-                .getConfiguredProperty(EJB_TRANSACTION_TYPE));
+                .getConfiguredProperty(EJB_SERVICE_OPERATION_TRANSACTION_TYPE));
         }
         return transactionType;
     }

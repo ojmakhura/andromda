@@ -37,6 +37,11 @@ public class HibernateProfile
      * Stores the viewtype of the Hibernate Session EJB.
      */
     public static final String TAGGEDVALUE_EJB_VIEWTYPE = profile.get("EJB_VIEWTYPE");
+    
+    /**
+     * Stores the EJB service transaction type.
+     */
+    public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = profile.get("EJB_TRANSACTION_TYPE");
 
     /**
      * Stores the aggregation kind (lazy/eager) of the Hibernate Session EJB.
