@@ -9,4 +9,17 @@
   		The common UML metafacades.  This is the set of core UML metafacades
   		used to provide access UML meta models. 
   	</description>
+	<dependencies>
+    	<dependency> 
+    		<groupId>andromda-cartridges</groupId>
+      		<artifactId>andromda-meta-cartridge-bootstrap</artifactId>
+     		<version>3.0-SNAPSHOT</version>
+     		<properties>
+	      		<facades>${basedir}/target/src/andromda/meta</facades>
+	      		<facade-logics.ignore/>
+	      		<facades-to-impls.ignore/>
+	      		<facade-logic-impls.ignore/>
+     		</properties>
+    	</dependency> 
+    </dependencies>
 </project>
