@@ -36,7 +36,7 @@
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.1.2dev-SNAPSHOT</version>
+            <version>1.1.1</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -54,6 +54,32 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
+        <!--
+                <dependency>
+                    <groupId>jstl</groupId>
+                    <artifactId>jstl</artifactId>
+                    <version>1.0.2</version>
+                    <properties>
+                        <war.bundle>true</war.bundle>
+                    </properties>
+                </dependency>
+                <dependency>
+                    <groupId>taglibs</groupId>
+                    <artifactId>standard</artifactId>
+                    <version>1.0.4</version>
+                    <properties>
+                        <war.bundle>true</war.bundle>
+                    </properties>
+                </dependency>
+                <dependency>
+                    <groupId>struts-menu</groupId>
+                    <artifactId>struts-menu</artifactId>
+                    <version>2.2</version>
+                    <properties>
+                        <war.bundle>true</war.bundle>
+                    </properties>
+                </dependency>
+        -->
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
@@ -131,17 +157,17 @@
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-xdoclet-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jboss-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
@@ -152,18 +178,18 @@
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jmx-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <!-- ejbdoclet depends on this module for some reason -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-apache-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-web-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <!-- TLDs -->
         <dependency>
@@ -211,6 +237,17 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
+        <!--
+                <dependency>
+                    <groupId>struts-menu</groupId>
+                    <artifactId>struts</artifactId> <!- - this construction is needed to make maven include it in the war - ->
+                    <version>menu-2.2</version>
+                    <type>tld</type>
+                    <properties>
+                        <war.bundle>true</war.bundle>
+                    </properties>
+                </dependency>
+        -->
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
