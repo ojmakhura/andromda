@@ -7,6 +7,12 @@
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>xml.zip</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
             <artifactId>maven-andromda-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
