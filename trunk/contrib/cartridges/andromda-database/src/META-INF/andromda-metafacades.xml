@@ -23,6 +23,15 @@
         metafacadeClass="org.andromda.cartridges.database.metafacades.ForeignKeyColumnLogicImpl">
         <context>org.andromda.cartridges.database.metafacades.Table</context>
     </metafacade>
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
+        metafacadeClass="org.andromda.cartridges.database.metafacades.ForeignKeyColumnLogicImpl">
+        <context>org.andromda.cartridges.database.metafacades.AssociationTable</context>
+    </metafacade>
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl"
+        metafacadeClass="org.andromda.cartridges.database.metafacades.AssociationTableLogicImpl"
+        contextRoot="true"/>
 </metafacades>
 
 

@@ -11,6 +11,9 @@
     <templateObject
         name="stringUtils"
         className="org.andromda.core.common.StringUtilsHelper"/>
+        
+    <property reference="sequenceSuffix" default="_SEQ"/>
+    <!-- cartridge-property merge-point -->
 
     <!-- template definitions -->
 
@@ -24,6 +27,11 @@
             <modelElement>
                 <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.AssociationTable">
+                    <property name="many2Many"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -35,6 +43,11 @@
         <modelElements variable="table">
             <modelElement>
                 <type name="org.andromda.cartridges.database.metafacades.Table"/>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.AssociationTable">
+                    <property name="many2Many"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -49,12 +62,30 @@
             <modelElement>
                 <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.AssociationTable">
+                    <property name="many2Many"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
     <template
-        path="templates/database/create-sequence.vsl"
+        path="templates/database/create-sequences.vsl"
         outputPattern="create-sequences.sql"
+        outlet="scripts"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="tables">
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/database/drop-sequences.vsl"
+        outputPattern="drop-sequences.sql"
         outlet="scripts"
         overwrite="true"
         outputToSingleFile="true">
@@ -75,6 +106,11 @@
             <modelElement>
                 <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.AssociationTable">
+                    <property name="many2Many"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -88,6 +124,11 @@
         <modelElements variable="tables">
             <modelElement>
                 <type name="org.andromda.cartridges.database.metafacades.Table"/>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.AssociationTable">
+                    <property name="many2Many"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
