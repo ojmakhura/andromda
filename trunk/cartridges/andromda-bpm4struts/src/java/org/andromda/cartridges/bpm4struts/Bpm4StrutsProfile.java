@@ -57,6 +57,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_INPUT_TYPE_PASSWORD = "password";
     public static final String TAGGEDVALUE_INPUT_TYPE_MULTIBOX = "multibox";
     public static final String TAGGEDVALUE_INPUT_TYPE_LINK = "link";
+    public static final String TAGGEDVALUE_INPUT_TYPE_FILE = "file";
     public static final int TAGGEDVALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT = 3;
     public static final String TAGGEDVALUE_INPUT_DEFAULT_DATEFORMAT = "dd/MM/yyyy";
 

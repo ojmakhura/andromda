@@ -1,18 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.*;
 
 
 /**
@@ -38,7 +33,7 @@ public class StrutsParameterLogicImpl
         Object action = null;
 
         final Collection transitions = getModel().getAllTransitions();
-        for (Iterator iterator = transitions.iterator(); iterator.hasNext() && action==null;)
+        for (Iterator iterator = transitions.iterator(); iterator.hasNext() && action == null;)
         {
             Object transitionObject = iterator.next();
             if (transitionObject instanceof StrutsAction)
@@ -62,7 +57,7 @@ public class StrutsParameterLogicImpl
         if (action == null)
         {
             Collection actionStates = getModel().getAllActionStates();
-            for (Iterator iterator = actionStates.iterator(); iterator.hasNext() && jsp==null;)
+            for (Iterator iterator = actionStates.iterator(); iterator.hasNext() && jsp == null;)
             {
                 Object stateObject = iterator.next();
                 if (stateObject instanceof StrutsJsp)
@@ -92,7 +87,7 @@ public class StrutsParameterLogicImpl
         {
             OperationFacade operation = (OperationFacade) operationIterator.next();
             Collection arguments = operation.getArguments();
-            for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext() && controllerOperation==null;)
+            for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext() && controllerOperation == null;)
             {
                 StrutsParameter parameter = (StrutsParameter) argumentIterator.next();
                 if (this.equals(parameter))
@@ -356,7 +351,7 @@ public class StrutsParameterLogicImpl
         if (validWhen != null)
         {
             buffer.append("This field is only valid under specific conditions, more concretely the following " +
-                    "expression must evaluate true: "+validWhen);
+                    "expression must evaluate true: " + validWhen);
             buffer.append(crlf);
         }
 
@@ -494,16 +489,16 @@ public class StrutsParameterLogicImpl
             Object actionState = actionstateIterator.next();
             if (actionState instanceof StrutsJsp)
             {
-                StrutsJsp jsp = (StrutsJsp)actionState;
+                StrutsJsp jsp = (StrutsJsp) actionState;
                 if (jsp.getPageVariables().contains(this))
                 {
                     // find the first action referencing this table
                     Collection actions = jsp.getActions();
-                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext() && tableAction==null;)
+                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext() && tableAction == null;)
                     {
                         StrutsAction pageAction = (StrutsAction) actionIterator.next();
                         Collection actionParameters = pageAction.getActionParameters();
-                        for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext() && tableAction==null;)
+                        for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext() && tableAction == null;)
                         {
                             StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
                             if (parameter.isTableLink() && name.equals(parameter.getTableLinkTableName()))
@@ -742,9 +737,12 @@ public class StrutsParameterLogicImpl
 
                 if (!isTableLink())
                 {
-                    if (isValidatorBoolean(parameterType)) widgetType = "checkbox";
-                    else if (isMultiple()) widgetType = "select";
-                         else widgetType = "text";
+                    if (isValidatorBoolean(parameterType))
+                        widgetType = "checkbox";
+                    else if (isMultiple())
+                        widgetType = "select";
+                    else
+                        widgetType = "text";
                 }
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT.equalsIgnoreCase(fieldType))
@@ -775,6 +773,10 @@ public class StrutsParameterLogicImpl
             {
                 widgetType = "password";
             }
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "file";
+            }
             else if (isTableLink())
             {
                 if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_LINK.equalsIgnoreCase(fieldType))
@@ -792,6 +794,11 @@ public class StrutsParameterLogicImpl
             }
         }
         return widgetType;
+    }
+
+    protected boolean handleIsFile()
+    {
+        return getType().isFileType();
     }
 
     protected boolean handleIsMultiple()
@@ -1163,11 +1170,11 @@ public class StrutsParameterLogicImpl
         if (fieldType != null)
         {
             int colonIndex = fieldType.indexOf(':');
-            if (colonIndex>=0 && Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType.substring(0,colonIndex)))
+            if (colonIndex >= 0 && Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType.substring(0, colonIndex)))
             {
-                if (colonIndex < fieldType.length()-1)
+                if (colonIndex < fieldType.length() - 1)
                 {
-                    multiboxPropertyName = fieldType.substring(colonIndex+1);
+                    multiboxPropertyName = fieldType.substring(colonIndex + 1);
                 }
             }
         }
@@ -1234,7 +1241,7 @@ public class StrutsParameterLogicImpl
     {
         return getOptionValues().size();
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isShouldReset()
      */
@@ -1242,14 +1249,14 @@ public class StrutsParameterLogicImpl
     {
         boolean shouldReset = false;
         Object value = this
-            .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
+                .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
         if (value != null)
         {
-            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String)value)).booleanValue();
+            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String) value)).booleanValue();
         }
         return shouldReset;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetName()
      */
@@ -1258,8 +1265,8 @@ public class StrutsParameterLogicImpl
         return "reset" + StringUtils.capitalize(StringUtils.trimToEmpty(this.getName()));
     }
 
-    // ------------------------------------------
-    
+// ------------------------------------------
+
     private boolean isValidatorBoolean(String type)
     {
         return "datatype.boolean".equals(type) || "datatype.Boolean".equals(type);

@@ -29,7 +29,7 @@
 #else
 #set ($onsubmit = "")
 #end
-        <html:form action="${action.actionPath}" onsubmit="$onsubmit">
+        <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
 
 #if ($action.tabbed)
 #set ($tabSwitchFunction = "select${actionTrigger.name}FieldTab")
