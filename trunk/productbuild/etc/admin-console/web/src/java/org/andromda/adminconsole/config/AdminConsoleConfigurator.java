@@ -3,13 +3,12 @@ package org.andromda.adminconsole.config;
 import org.andromda.adminconsole.config.xml.AdminConsole;
 import org.andromda.adminconsole.config.xml.ColumnConfiguration;
 import org.andromda.adminconsole.config.xml.TableConfiguration;
-import org.andromda.adminconsole.config.xml.Value;
-import org.andromda.adminconsole.config.xml.types.ColumnConfigurationWidgetType;
-import org.andromda.adminconsole.db.Column;
-import org.andromda.adminconsole.db.Table;
+import org.andromda.adminconsole.db.*;
 
 import java.io.Reader;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdminConsoleConfigurator
@@ -17,9 +16,11 @@ public class AdminConsoleConfigurator
     public final static String FILE_NAME = "admin-console.cfg.xml";
 
     private AdminConsole configuration = null;
+    private final WidgetRenderer widgetRenderer = new WidgetRenderer();
+
     private final Map tableCache = new HashMap();
     private final Map columnCache = new HashMap();
-    private final Map jspCache = new HashMap();
+    private final Map jspCache = new HashMap(); // @todo: use
 
     public AdminConsoleConfigurator(Reader reader) throws Exception
     {
@@ -73,92 +74,111 @@ public class AdminConsoleConfigurator
                 columnConfiguration = new ColumnConfiguration();
                 columnConfiguration.setName(columnName);
                 columnConfiguration.setSize(column.getSize());
-                if (column.isBooleanType()) columnConfiguration.setWidget(ColumnConfigurationWidgetType.CHECKBOX);
-                else if (column.isNumericType()) columnConfiguration.setSize(5);
+                if (column.isNumericType()) columnConfiguration.setSize(5);
             }
             columnCache.put(column, columnConfiguration);
         }
         return columnConfiguration;
     }
 
-    public String getJsp(Column column, Object value)
+    private String getJsp(Column column, String parameterName, Object value, boolean readOnly)
     {
-        String jsp = null;//= (String) jspCache.get(column);
+        String displayJsp = null;
 
-        if (jsp == null)
+        if (column.isBooleanType())
         {
-            ColumnConfiguration config = getConfiguration(column);
-
-            StringBuffer buffer = new StringBuffer();
-
-            ColumnConfigurationWidgetType widget = config.getWidget();
-            if (ColumnConfigurationWidgetType.PLAIN.equals(widget))
+            displayJsp = widgetRenderer.renderCheckbox(parameterName, value, readOnly);
+        }
+        else
+        {
+            if (readOnly)
             {
-                buffer.append(value);
+                displayJsp = String.valueOf(value);
             }
-            else if (ColumnConfigurationWidgetType.CHECKBOX.equals(widget))
+            else
             {
-                buffer.append("<input type=\"checkbox\" name=\"");
-                buffer.append(column.getName());
-                buffer.append('\"');
-                if ( (value instanceof Boolean && ((Boolean)value).booleanValue()) || value!=null )
+                ColumnConfiguration configuration = getConfiguration(column);
+
+                if (column instanceof ForeignKeyColumn)
                 {
-                    buffer.append(" checked");
-                }
-                if (config.getEditable() == false) buffer.append(" disabled");
-                buffer.append("\"/>");
-            }
-            else if (ColumnConfigurationWidgetType.TEXTFIELD.equals(widget))
-            {
-                buffer.append("<input type=\"text\" name=\"");
-                buffer.append(column.getName());
-                buffer.append("\" value=\"");
-                buffer.append(value);
-                buffer.append("\" size=\"");
-                buffer.append(config.getSize());
-                buffer.append('\"');
-                if (config.getEditable() == false) buffer.append(" readonly");
-                buffer.append("\"/>");
-            }
-            else if (ColumnConfigurationWidgetType.SELECT.equals(widget))
-            {
-                buffer.append("<select name=\"");
-                buffer.append(column.getName());
-                buffer.append('\"');
-                if (config.getEditable() == false) buffer.append(" disabled");
-                buffer.append("\">");
+                    boolean resolveForeignKeys = this.configuration.getConsoleConfiguration().getResolveForeignKeys();
 
-                boolean valueListed = false;
-                Value[] values = config.getValue();
-                for (int i = 0; i < values.length; i++)
-                {
-                    Value optionValue = values[i];
-                    if (!valueListed && optionValue.getName().equals(value))
+                    if (resolveForeignKeys)
                     {
-                        valueListed = true;
-                        buffer.append("<option selected value=\"");
+                        ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) column;
+                        PrimaryKeyColumn primaryKeyColumn = foreignKeyColumn.getImportedKeyColumn();
+                        String primaryKeyColumnName = primaryKeyColumn.getName();
+                        Table primaryKeyTable = primaryKeyColumn.getTable();
+
+                        TableConfiguration tableConfiguration = getConfiguration(primaryKeyTable);
+                        String displayColumnName = tableConfiguration.getDisplayColumn();
+
+                        try
+                        {
+                            final List rows = primaryKeyTable.findAllRows();
+
+                            if (displayColumnName == null)
+                            {
+                                final Object[] values = new Object[rows.size()];
+                                for (int i = 0; i < rows.size(); i++)
+                                {
+                                    RowData rowData = (RowData) rows.get(i);
+                                    values[i] = rowData.get(primaryKeyColumnName);
+                                }
+                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly);
+                            }
+                            else
+                            {
+                                final Object[] values = new Object[rows.size()];
+                                final Object[] labels = new Object[rows.size()];
+                                for (int i = 0; i < rows.size(); i++)
+                                {
+                                    RowData rowData = (RowData) rows.get(i);
+                                    values[i] = rowData.get(primaryKeyColumnName);
+                                    labels[i] = rowData.get(displayColumnName);
+                                }
+                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, labels, readOnly);
+                            }
+                        }
+                        catch (SQLException e)
+                        {
+                            throw new RuntimeException("Unable to resolve foreign key values to table: "+primaryKeyTable);
+                        }
                     }
                     else
                     {
-                        buffer.append("<option value=\"");
+                        displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly);
                     }
-                    buffer.append(optionValue.getName());
-                    buffer.append("\">");
-                    buffer.append(optionValue.getName());
-                    buffer.append("</option>");
                 }
-                if (valueListed == false)
+                else if (configuration.getValueCount() > 0)
                 {
-                    buffer.append("<option value=\"");
-                    buffer.append(value);
-                    buffer.append("\">");
-                    buffer.append(value);
-                    buffer.append("</option>");
+                    Object[] values = configuration.getValue();
+                    displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly);
                 }
-                buffer.append("</html:select>");
+                else
+                {
+                    displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly);
+                }
             }
-            jsp = buffer.toString();
         }
-        return jsp;
+        return displayJsp;
+    }
+
+    public String getUpdateJsp(Column column, String parameterName, RowData rowData)
+    {
+        ColumnConfiguration configuration = getConfiguration(column);
+        return getJsp(column, parameterName, rowData.get(column.getName()), !configuration.getUpdateable());
+    }
+
+    public String getInsertJsp(Column column, String parameterName)
+    {
+        ColumnConfiguration configuration = getConfiguration(column);
+        return getJsp(column, parameterName, null, !configuration.getInsertable());
+    }
+
+    public String getInsertJsp(Column column, String parameterName, RowData rowData)
+    {
+        ColumnConfiguration configuration = getConfiguration(column);
+        return getJsp(column, parameterName, (rowData==null)?null:rowData.get(column.getName()), !configuration.getInsertable());
     }
 }
