@@ -15,10 +15,10 @@
                 express which groups of people have permission to access a specific use-case.
             </p>
             <p>
-                Again UML elegantly allows us to model this: just associate actors to you use-cases. When an actor
+                Again UML elegantly allows us to model this: just associate actors to your use-cases. When an actor
                 is associated to a use-case it means that all users represented by that actor are allowed to call
-                that use-case's actions: Hyperlinks will be enabled and  the server will allow access to the
-                resources in the use-case' package.
+                that use-case's actions: hyperlinks will be enabled and the server will allow access to the
+                resources in the use-case's package.
             </p>
             <p>
                 When a user is not permitted access to a specific use-case he will find that the hyperlinks to that
