@@ -9,7 +9,6 @@ log4j.home = ${andromda.home}
 junit.home = ${andromda.home}
 mdr.home = ${andromda.home}
 xdoclet.home = ${andromda.home}/lib/
-castor.home = ${andromda.home}
 commons.home = ${andromda.home}
 
 ejb-cartridge.home = ../../cartridges/andromda-ejb/dist/
@@ -20,7 +19,6 @@ ejb-cartridge.libs=${ejb-cartridge.home}andromda-ejb.jar
 hibernate-cartridge.libs=${hibernate-cartridge.home}andromda-hibernate.jar
 struts-cartridge.libs=${struts-cartridge.home}andromda-struts.jar:${struts-cartridge.home}lib/struts.jar
 
-castor.libs = ${andromda.home}lib/castor-0.9.4.3.jar
 andromda.libs = ${andromda.home}andromda.jar
 commons.libs = ${commons.home}lib/commons-digester.jar:${commons.home}lib/commons-beanutils.jar:${commons.home}lib/commons-collections.jar:${commons.home}lib/commons-logging.jar
 log4j.libs = ${log4j.home}lib/commons-logging.jar;${log4j.home}lib/log4j.jar
