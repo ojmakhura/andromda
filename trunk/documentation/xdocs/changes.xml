@@ -8,6 +8,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2004-12-27" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="update" issue="BPM-112">
+                Bpm4Struts now properly supports <code>datatype.File</code> in controller operations too, this was
+                still missing since the form interfaces where not properly exposing the file member. This fix is
+                only interesting to you in case you're making use of the file-upload support.
+            </action>
             <action dev="draftdog" type="update">
                 The Spring cartridge has been updated with an improvement that will make it easier to transform
                 entities into other objects such as value objects. Simply draw a dependency from an entity to a value
