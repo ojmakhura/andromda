@@ -2,9 +2,9 @@
 ## The complete element name (including package)
 #set ($completeElementName = "$element.owner.fullyQualifiedName")
 #set ($lowerCaseElementName = $stringUtils.uncapitalize(${elementName}))
-    
 
-## Setup the globally used regular expressions 
+
+## Setup the globally used regular expressions
 #set ($digit = "[0-9]")
 #set ($letter = "[a-zA-Z]")
 #set ($number = "${digit}+")
