@@ -30,6 +30,15 @@
                     Bpm4Struts is now the preferred cartridge to use. The other one
                     should be considered deprecated.
                 </p>
+                <p>
+                    Bpm4struts is able to generate MUCH more for you and it uses activity
+                    graphs, which are more intuitive
+                </p>
+                <p>
+                    The previous struts cartridge simply used classes and would generate only
+                    skeleton code: you would not be able to deploy the webapp directly
+                    without adding code yourself, but with bpm4struts you can.
+                </p>
             </answer>
         </faq>
 
@@ -112,7 +121,7 @@
                     Did you make sure your action states all have names ? in magicdraw you really need to click
                     'open specification...' in order to e   nter the name, if you typed the name in the diagram
                     directly you have not entered the name, rather a label. So click 'open specification...'
-                    (right-click --&gt; context menu) on all your action states to make sure their names are not-empty.                 
+                    (right-click --&gt; context menu) on all your action states to make sure their names are not-empty.
                 </p>
             </answer>
         </faq>
