@@ -21,13 +21,12 @@ ${indent}* </p>
 #end
 #end
 #end
-##
+
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
     #if ($class2)
         #set ($class2packagename = $transform.findPackageName(${class2.package}))
         #if ($class2packagename != $packagename)
-import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
 import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
         #end
     #end
