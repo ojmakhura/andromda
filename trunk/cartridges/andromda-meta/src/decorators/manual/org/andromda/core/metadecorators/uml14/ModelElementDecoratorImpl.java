@@ -1,6 +1,9 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.util.Iterator;
+
 import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.TaggedValue;
 import org.omg.uml.modelmanagement.Model;
 
 /**
@@ -65,9 +68,35 @@ public class ModelElementDecoratorImpl extends ModelElementDecorator
         String fullName = getName();
         String packageName = getPackageName();
         fullName =
-            "".equals(packageName) ? fullName : packageName + "." + fullName;
+            "".equals(packageName)
+                ? fullName
+                : packageName + "." + fullName;
 
         return fullName;
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.ModelElementDecorator#findTaggedValue(java.lang.String)
+     */
+    public String findTaggedValue(String tagName)
+    {
+        for (Iterator iter = metaObject.getTaggedValue().iterator();
+            iter.hasNext();
+            )
+        {
+            TaggedValue element = (TaggedValue) iter.next();
+            if (element.getName().equals(tagName))
+            {
+                return (
+                    (TaggedValueDecorator) DecoratorFactory
+                        .getInstance()
+                        .createDecoratorObject(
+                        element))
+                    .getValue();
+            }
+
+        }
+        return null;
     }
 
 }
