@@ -224,6 +224,31 @@
             </answer>
         </faq>
 
+        <faq id="displaytag-export">
+            <question>Exporting tabular data to Excel, CSV or XML is not working, why is it throwing an exception ?</question>
+            <answer>
+                There are currently two problems in the latest displaytag release (which is rc1):
+                <ol>
+                    <li>Exceptions are not being chained, so sometimes it happens the real cause for the exception
+                        is being swallowed in a catch statement. This is the case here, instead of simply reading
+                        <code>IOException while writing data</code> the real message would read
+                        <code>Cannot flush within a custom tag</code>, this brings us to the second point:
+                    </li>
+                    <li>The displaytag tag-library flushes the outputstream after writing the export data,
+                        the unfortunate result of this is that in combination with another custom tag-library
+                        such as Struts-Tiles the JSP container will throw an exception saying that flushing is not
+                        allowed in nested custom tags.
+                    </li>
+                </ol>
+                <p>
+                    A solution would be to have the displaytag developer factor out the flushing to a boolean
+                    attribute or a configuration option. I have proposed this on their mailing-list, in case they
+                    decide the problem can be solved this way we will simply wait until they release the next time;
+                    otherwise I will post a patched version of their code to the AndroMDA team server, bpm4struts users
+                    will then need to use this library instead.
+                </p>
+            </answer>
+        </faq>
     </part>
 
     <part id="tuning">
