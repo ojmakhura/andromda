@@ -142,30 +142,4 @@ public class StrutsControllerLogicImpl
 
         return allArguments;
     }
-
-/* @todo: delete or use
-    protected boolean handleIsUniqueOperationNames()
-    {
-        boolean unique = true;
-
-        Collection operations = getOperations();
-        HashSet names = new HashSet();
-
-        for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext() && unique;)
-        {
-            StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
-            String name = operation.getName();
-
-            if (names.contains(name))
-            {
-                unique = false;
-            }
-            else
-            {
-                names.add(name);
-            }
-        }
-        return unique;
-    }
-*/
 }
