@@ -149,8 +149,8 @@ public class MetafacadeFactory
      * @return the new metafacade
      */
     private MetafacadeBase createMetafacade(
-        Object mappingObject,
-        String context,
+        final Object mappingObject,
+        final String context,
         Class metafacadeClass)
     {
         final String methodName = "MetafacadeFactory.createMetafacade";
@@ -164,14 +164,12 @@ public class MetafacadeFactory
             return (MetafacadeBase)mappingObject;
         }
 
-        Class mappingObjectClass = null;
+        final Class mappingObjectClass = mappingObject.getClass();
         try
         {
-            mappingObjectClass = mappingObject.getClass();
+            final MetafacadeMappings mappings = MetafacadeMappings.instance();
 
-            MetafacadeMappings mappings = MetafacadeMappings.instance();
-
-            Collection stereotypes = this.getModel().getStereotypeNames(
+            final Collection stereotypes = this.getModel().getStereotypeNames(
                 mappingObject);
 
             MetafacadeMapping mapping = null;
