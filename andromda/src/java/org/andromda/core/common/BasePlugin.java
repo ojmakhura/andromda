@@ -1,7 +1,9 @@
 package org.andromda.core.common;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -277,32 +279,67 @@ public abstract class BasePlugin
             }
         }
     }
-    
+
     /**
      * Stores the contents of the plugin.
      */
     private List contents = null;
-    
+
     /**
+     * @todo get contents needs to work with directories 
+     *       the same as with archives,
      * @see org.andromda.core.common.Plugin#getContents()
      */
-    public List getContents() 
+    public List getContents()
     {
         if (contents == null)
         {
             this.contents = new ArrayList();
-            ZipFile archive = this.getArchive();
-            if (archive != null)
+            if (this.isArchive())
             {
-                Enumeration entries = archive.entries();
-                while (entries.hasMoreElements())
+	            ZipFile archive = this.getArchive();
+	            if (archive != null)
+	            {
+	                Enumeration entries = archive.entries();
+	                while (entries.hasMoreElements())
+	                {
+	                    ZipEntry entry = (ZipEntry)entries.nextElement();
+	                    contents.add(entry.getName());
+	                }
+	            }
+            }
+            else if (this.getResource() != null)
+            {
+                URL resourceUrl = this.getResource();
+                File fileResource = new File(resourceUrl.getFile());
+                // we go two levels since descriptors reside in META-INF
+                // and we want the parent of the META-INF directory
+                String[] contentArray = 
+                    fileResource.getParentFile().getParentFile().list();
+                if (contentArray != null)
                 {
-                    ZipEntry entry = (ZipEntry)entries.nextElement();
-                    contents.add(entry.getName());  
-                }                
+                    contents.addAll(Arrays.asList(contentArray)); 
+                }            
             }
         }
         return contents;
+    }
+
+    /**
+     * All archive files start with this prefix.
+     */
+    private static final String ARCHIVE_PREFIX = "jar:file:";
+
+    /**
+     * Returns true/false on whether or not this plugin is an archive
+     * or not.  If its not an archive, its a directory.
+     * 
+     * @return true if its an archive, false otherwise.
+     */
+    private boolean isArchive()
+    {
+        return this.getResource() != null
+            && this.getResource().toString().startsWith(ARCHIVE_PREFIX);
     }
 
     /**
@@ -321,9 +358,9 @@ public abstract class BasePlugin
             if (resource != null)
             {
                 String resourceUrl = resource.toString();
-                final String jarPrefix = "jar:file:";
-                resourceUrl = resourceUrl.replaceFirst(jarPrefix + '/', "");
-                resourceUrl = resourceUrl.replaceFirst(jarPrefix, "");
+                resourceUrl = resourceUrl
+                    .replaceFirst(ARCHIVE_PREFIX + '/', "");
+                resourceUrl = resourceUrl.replaceFirst(ARCHIVE_PREFIX, "");
                 int entryPrefixIndex = resourceUrl.indexOf('!');
                 if (entryPrefixIndex != -1)
                 {
