@@ -400,4 +400,12 @@ public class ModelElementFacadeLogicImpl
     {
         return MetafacadeFactory.getInstance().getModel().getModel();
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetConstraints()
+     */
+    protected Collection handleGetConstraints() 
+    {
+        return this.metaObject.getConstraint();    
+    }
 }
