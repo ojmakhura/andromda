@@ -149,6 +149,11 @@ public class ActivityGraphFacadeLogicImpl
         return stateMachineUseCase;
     }
 
+    protected Collection handleGetPartitions()
+    {
+        return metaObject.getPartition();
+    }
+
     public Object getValidationOwner()
     {
         Object validationOwner = getUseCase();
