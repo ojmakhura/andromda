@@ -20,9 +20,9 @@
         </title>
         <html:base/>
 #if ($xhtml == "true")
-        <meta http-equiv="Content-Type" content="application/xhtml+xml" />
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset:utf-8" />
 #else
-        <meta http-equiv="Content-Type" content="text/html" />
+        <meta http-equiv="Content-Type" content="text/html; charset:utf-8" />
 #end
 <%-- uncomment this to enable the browser 'favorites' icons
         <link rel="shortcut icon" href="my-custom-image.ico"></link>
