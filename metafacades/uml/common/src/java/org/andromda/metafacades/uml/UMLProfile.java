@@ -87,19 +87,19 @@ public class UMLProfile
         .getString("TAGGEDVALUE_DOCUMENTATION");
 
     /**
-     * Represents a SQL table name for entity persistence.
+     * Represents a relational table name for entity persistence.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_TABLE = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_TABLE");
 
     /**
-     * Represents a SQL table column name for entity persistence.
+     * Represents a relational table column name for entity persistence.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN");
 
     /**
-     * Represents a SQL table column length
+     * Represents a relational table column length
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH");
