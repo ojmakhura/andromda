@@ -130,7 +130,7 @@
                 cartridge will render methods for these calls into the actions.
             </p>
             <p class="std">
-            <h3>Final State</h3>
+                <h3>Final State</h3>
             </p>
             <p class="std">
                 A final state in an activity graph represents the end of the use-case. Because a typical web
@@ -142,7 +142,11 @@
                 up and make the necessary links.
             </p>
             <p class="std">
-            <h3>Swimlanes</h3>
+                Alternatively, if your CASE tool supports it (such as is the case with MagicDraw), you may put a
+                hyperlink on the final state and make it point to the use-case. 
+            </p>
+            <p class="std">
+                <h3>Swimlanes</h3>
             </p>
             <p class="std">
                 This feature is completely optional, but I recommend using it on your diagrams for clarity. Divide
