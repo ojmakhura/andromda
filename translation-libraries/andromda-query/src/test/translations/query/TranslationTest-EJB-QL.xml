@@ -7,15 +7,15 @@
 	<expression>
 		<from>
 			context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String) : Collection (LegalAgreement)
-			body findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
-			legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( legalAgreementParty |
-			StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName,
+			body findByLegalPartyNameBody: allInstances() -> select( la |
+			la.legalAgreementParties->includesAll(la.legalAgreementParties->select( party |
+			StringUtils.isLike(party.legalParty.legalPartyName,
 			legalPartyName))))
 		</from>   
 		<to>
-			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement ,
-			IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
-			WHERE LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?1
+			SELECT DISTINCT OBJECT(la) FROM LegalAgreement la ,
+			IN (la.legalAgreementParties) AS party
+			WHERE LCASE(party.legalParty.legalPartyName) LIKE ?1
 		</to>
 	</expression>
 	
@@ -23,11 +23,11 @@
 		<from>
 			context org::andromda::contracts::LegalParty::findByLegalPartyName(name:String) : Collection(LegalParty) 
 			body findByLegalPartyNameBody: allInstances()->select( 
-			legalParty | StringUtils.isLike(legalParty.legalPartyName , name))
+			party | StringUtils.isLike(party.legalPartyName , name))
 		</from>
 		<to>
-			SELECT DISTINCT OBJECT(legalParty) FROM LegalParty legalParty
-			WHERE LCASE(legalParty.legalPartyName) LIKE ?1
+			SELECT DISTINCT OBJECT(party) FROM LegalParty party
+			WHERE LCASE(party.legalPartyName) LIKE ?1
 		</to>
 	</expression>
 	

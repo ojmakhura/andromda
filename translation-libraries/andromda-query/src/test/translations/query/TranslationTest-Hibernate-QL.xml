@@ -7,14 +7,14 @@
     <expression>
         <from>
             context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement)
-            body findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
-            legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( lap |
+            body findByLegalPartyNameBody: allInstances() -> select ( la |
+            la.legalAgreementParties->includesAll(la.legalAgreementParties->select( lap |
             StringUtils.isLike(lap.legalParty.legalPartyName,
             legalPartyName))))
         </from>
         <to>
-            from org.andromda.contracts.LegalAgreement as legalAgreement
-            join fetch legalAgreement.legalAgreementParties as lap
+            from org.andromda.contracts.LegalAgreement as la
+            join fetch la.legalAgreementParties as lap
             where lower(lap.legalParty.legalPartyName) like :legalPartyName
         </to>
     </expression>
@@ -23,12 +23,12 @@
         <from>
               context org::andromda::contracts::Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
             body findByNameAndNumberBody: allInstances()->select(
-            project | StringUtils.isLike(project.projectName, name)
-            and StringUtils.isLike(project.projectNumber, number) )
+            p | StringUtils.isLike(p.projectName, name)
+            and StringUtils.isLike(p.projectNumber, number) )
         </from>
         <to>
-            from org.andromda.contracts.Project as project
-            where lower(project.projectName) like :name and lower(project.projectNumber) like :number
+            from org.andromda.contracts.Project as p
+            where lower(p.projectName) like :name and lower(p.projectNumber) like :number
         </to>
     </expression>
 
