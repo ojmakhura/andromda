@@ -102,6 +102,30 @@ for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
                     </p>
                 </li>
                 <li>
+                    <strong>Class Variables:</strong> Class variables should not have any 
+                    prefix and must be referenced using the <em>this </em>object. Example : 
+                    <source>
+public class SomeClass
+{
+    private String someString;
+[...]
+    public void someMethod()
+    {
+        logger.debug("Value = " + this.someString);
+    }
+}
+                   </source>		
+                </li>
+                <li>
+                    <strong>Parameter Names:</strong> Method parameters should not have any 
+                    prefix. For example :
+                    <source>
+public void someMethod(String className)
+{
+}                        
+                    </source>	
+                </li>
+                <li>
                     <p>
                         <strong>Strings:</strong> Avoid hardcoding values, Strings as well as 
                         numbers, etc should go into a properties file or a class holding constants. 
