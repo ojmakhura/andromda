@@ -3,12 +3,11 @@
 ##
 ##
 #set ($action = $class)
-#if (!$action.isUseCaseStart())## we don't generate tiles for events that do not have an input page
+#if (!$action.useCaseStart)## we don't generate tiles for events that do not have an input page
 ##
 #set ($useCase = $action.input.useCase)
 #set ($formBeanName = $useCase.formBeanName)
 #set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
-#set ($isFocusSet = false)## only one field per JSP page can have focus
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
@@ -37,6 +36,7 @@
         <html:form action="${action.actionPath}" onsubmit="$onsubmit">
 
 #if ($action.tabbed)
+#set ($tabSwitchFunction = "select${actionTrigger.name}FieldTab")
 #set ($tabMap = $action.tabMap)
         <div class="tabs">
 #foreach ($tab in $tabMap.keySet())
@@ -46,7 +46,7 @@
 #if ($tab == $tabTitle)
                     <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
 #else
-                    <div class="unselected-tab"><a href="javascript:selectFieldTab(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
+                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
 #end
 #end
                 </div>
@@ -118,20 +118,21 @@
 #else
         //<!--
 #end
-            var fieldTab = new Array($action.tabCount);
+#set ($tabSwitchArray = "${actionTrigger.name}FieldTab")
+            var ${tabSwitchArray} = new Array($action.tabCount);
 #set ($tabMap = $action.tabMap)
 #foreach ($tab in $tabMap.keySet())
 #set ($tabIndex = $velocityCount - 1)
-            fieldTab[$tabIndex] = getDiv('fieldtab.$tab');
+            ${tabSwitchArray}[$tabIndex] = getDiv('fieldtab.$tab');
 #end
 
-            function selectFieldTab(tabIndex)
+            function ${tabSwitchFunction}(tabIndex)
             {
-                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=fieldTab.length) return;
-                for (var i=0; i<fieldTab.length; i++) fieldTab[i].style.display = 'none';
-                fieldTab[tabIndex].style.display = 'block';
+                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=${tabSwitchArray}.length) return;
+                for (var i=0; i<${tabSwitchArray}.length; i++) ${tabSwitchArray}[i].style.display = 'none';
+                ${tabSwitchArray}[tabIndex].style.display = 'block';
             }
-            this.selectFieldTab(0);
+            this.${tabSwitchFunction}(0);
 #if ($xhtml == "true")
         //]]>
 #else
