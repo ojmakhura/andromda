@@ -3,12 +3,13 @@ package org.andromda.cartridges.database;
 import org.andromda.cartridges.database.metafacades.ForeignKeyColumn;
 import org.andromda.cartridges.database.metafacades.Table;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.HashSet;
-import java.util.ArrayList;
+import java.util.Set;
 
 public class DatabaseUtils
 {
@@ -65,8 +66,15 @@ public class DatabaseUtils
             // if no table has been processed in the previous cycle it means we won't in this cycle neither
             if (tableProcessed == false)
             {
-                // we're in an unresolvable situation
-                throw new RuntimeException("Cyclic table relationships detected between: "+tables);
+                // we're in an unresolvable situation, list the problematic tables
+                final Set tableNames = new HashSet();
+                for (Iterator tableIterator = tables.iterator(); tableIterator.hasNext();)
+                {
+                    Table table = (Table) tableIterator.next();
+                    tableNames.add(table.getName());
+                }
+
+                throw new RuntimeException("Cyclic table relationships detected between: "+tableNames);
             }
 
             tableProcessed = collectInsertableTables(tables, orderedTableMap);
