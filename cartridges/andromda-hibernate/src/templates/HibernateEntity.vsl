@@ -111,7 +111,7 @@ $target.getDocumentation("    * ")
 ##
     * @hibernate.set
     *     lazy="true"
-    *     table="HIB_${associationEnd.association.relationName}"
+    *     table="HIB_${associationEnd.association.tableName}"
     * @hibernate.collection-key
     *     column="$associationEnd.columnName"
     * @hibernate.collection-many-to-many

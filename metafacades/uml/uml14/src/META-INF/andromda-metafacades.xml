@@ -168,6 +168,11 @@
 		<context>org.andromda.metafacades.uml.EntityFacade</context>
 		<property reference="foreignKeySuffix"/>
 	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl"
+		metafacadeClass="org.andromda.metafacades.uml14.EntityAssociationFacadeLogicImpl">
+		<context>org.andromda.metafacades.uml.EntityFacade</context>
+	</metafacade>
 
 	<!-- Service  metafacades -->
 	<metafacade

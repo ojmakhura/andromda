@@ -3,24 +3,23 @@ package org.andromda.metafacades.uml14;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * <p>
- *  Represents an association end of an entity.
+ * Represents an association end of an entity.
  * </p>
- *
  * Metaclass facade implementation.
- *
  */
 public class EntityAssociationEndFacadeLogicImpl
-       extends EntityAssociationEndFacadeLogic
-       implements org.andromda.metafacades.uml.EntityAssociationEndFacade
+    extends EntityAssociationEndFacadeLogic
+    implements org.andromda.metafacades.uml.EntityAssociationEndFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public EntityAssociationEndFacadeLogicImpl (java.lang.Object metaObject, String context)
+
+    public EntityAssociationEndFacadeLogicImpl(
+        java.lang.Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     // -------------------- business methods ----------------------
@@ -31,36 +30,37 @@ public class EntityAssociationEndFacadeLogicImpl
     /**
      * @see edu.duke.dcri.mda.model.metafacade.EntityAssociationEndFacade#getColumnName()()
      */
-    public java.lang.String handleGetColumnName() {
+    public java.lang.String handleGetColumnName()
+    {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            this, 
+            this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
             ((EntityFacade)this.getType()).getMaxSqlNameLength(),
             this.getForeignKeySuffix());
-    }   
+    }
 
     /**
      * The foreign key suffix.
      */
     private final static String FOREIGN_KEY_SUFFIX = "foreignKeySuffix";
-    
+
     /**
      * Sets the suffix for foreign keys.
      * 
-     * @param foreignKeySuffix the suffix for foreign keys 
-     * (i.e. '_FK').
+     * @param foreignKeySuffix the suffix for foreign keys (i.e. '_FK').
      */
-    public void handleSetForeignKeySuffix(String foreignKeySuffix) {
-    	this.registerConfiguredProperty(FOREIGN_KEY_SUFFIX, foreignKeySuffix);
+    public void handleSetForeignKeySuffix(String foreignKeySuffix)
+    {
+        this.registerConfiguredProperty(FOREIGN_KEY_SUFFIX, foreignKeySuffix);
     }
-    
+
     /**
-     * Gets the maximum name length SQL names may be 
+     * Gets the maximum name length SQL names may be
      */
-    public String handleGetForeignKeySuffix() {
+    public String handleGetForeignKeySuffix()
+    {
         return (String)this.getConfiguredProperty(FOREIGN_KEY_SUFFIX);
     }
-    
 
     // ------------- relations ------------------
 

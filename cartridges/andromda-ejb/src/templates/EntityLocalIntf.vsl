@@ -84,7 +84,7 @@ $att.getDocumentation("     * ")
 
 #foreach ( $assoc in $class.entityRelations)
 #set ($target = $assoc.otherEnd)
-#set ($assocname = $assoc.association.relationName)
+#set ($assocname = $assoc.association.name)
 #set ($targetTypeName = $assoc.relationType)
 
    /**

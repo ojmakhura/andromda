@@ -251,7 +251,7 @@ $att.getDocumentation("     * ")
 #foreach ( $assoc in $class.entityRelations) )
 #set ($target = $assoc.otherEnd)
 #if(!($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
-#set ($assocname = $assoc.association.relationName)
+#set ($assocname = $assoc.association.name)
 #set ($targetRoleName = $assoc.otherEnd.name)
 #set ($targetTypeName = $assoc.relationType)
 
@@ -278,7 +278,7 @@ $assoc.otherEnd.getDocumentation("    * ")
 #set ($target = $assoc.otherEnd)
 ## relations not flagged as CMR are generated below under business methods
 #if(!($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
-#set ($assocname = $assoc.association.relationName)
+#set ($assocname = $assoc.association.name)
 #set ($transactionType = $assoc.association.findTaggedValue("@andromda.ejb.transactionType"))
 #set ($targetTypeName = $assoc.relationType)
 

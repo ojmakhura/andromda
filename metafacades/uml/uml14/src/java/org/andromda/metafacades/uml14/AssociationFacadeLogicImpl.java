@@ -46,7 +46,6 @@ public class AssociationFacadeLogicImpl
     }
     
     /**
-     * 
      * @see org.andromda.metafacades.uml14.AssociationFacadeLogic#getRelationName()
      */
     public String handleGetRelationName() {
