@@ -462,7 +462,7 @@
         overwrite="true">
         <modelElements variable="operation">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation">
                     <property name="controller"/>
                 </type>
             </modelElement>
