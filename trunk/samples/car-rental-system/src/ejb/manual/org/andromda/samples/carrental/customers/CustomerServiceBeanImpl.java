@@ -30,7 +30,8 @@ public class CustomerServiceBeanImpl
         try
         {
             CustomerLocalHome clh = getCustomerLocalHome();
-            Customer cl = clh.create(name, customerNo, password);
+            // TODO: omit primary key parameter in EJB cartridge template
+            Customer cl = clh.create(null, name, customerNo, password);
             return cl.getId();
         }
         catch (NamingException e)

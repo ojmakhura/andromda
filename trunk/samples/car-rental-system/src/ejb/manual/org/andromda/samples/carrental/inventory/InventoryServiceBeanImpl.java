@@ -27,8 +27,10 @@ public class InventoryServiceBeanImpl
         try
         {
             CarTypeLocalHome cth = getCarTypeLocalHome();
+            // TODO: omit primary key parameter in EJB cartridge template
             return cth
                 .create(
+                    null,
                     typeData.getManufacturer(),
                     typeData.getIdentifier(),
                     typeData.getOrderNo(),
@@ -59,7 +61,8 @@ public class InventoryServiceBeanImpl
             CarType ctl = ctlh.findByPrimaryKey(carTypeId);
 
             CarLocalHome clh = getCarLocalHome();
-            Car cl = clh.create(carData.getRegistrationNo(), carData.getInventoryNo());
+            // TODO: omit primary key parameter in EJB cartridge template
+            Car cl = clh.create(null, carData.getRegistrationNo(), carData.getInventoryNo());
 
             cl.setType(ctl);
             return cl.getId();
