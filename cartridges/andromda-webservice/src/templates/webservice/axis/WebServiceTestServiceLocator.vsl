@@ -11,7 +11,8 @@ package $testServiceLocatorPackage;
 #end
 
 /**
- * Locates and provides all available application services.
+ * Locates and provides all available application services in order
+ * to run the web service tests using AXIS wsdl2java.
  */
 public class $testServiceLocatorName
 {   
