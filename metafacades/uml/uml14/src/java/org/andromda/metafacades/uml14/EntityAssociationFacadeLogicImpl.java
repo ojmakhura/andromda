@@ -55,7 +55,8 @@ public class EntityAssociationFacadeLogicImpl
                             tableNamePrefix,
                             this,
                             UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                            ((EntityFacade)end.getType()).getMaxSqlNameLength());
+                            ((EntityFacade)end.getType()).getMaxSqlNameLength(),
+                            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
                 }
             }
         }

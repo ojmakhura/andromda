@@ -95,4 +95,9 @@ public class UMLMetafacadeProperties
      * The seperator for relation names between associations.
      */
     public static final String RELATION_NAME_SEPARATOR = "relationNameSeparator";
+    
+    /**
+     * The seperator to use when constructing SQL names.
+     */
+    public static final String SQL_NAME_SEPARATOR = "sqlNameSeparator";
 }

@@ -32,7 +32,8 @@ public class EntityAttributeFacadeLogicImpl
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            ((EntityFacade)this.getOwner()).getMaxSqlNameLength());
+            ((EntityFacade)this.getOwner()).getMaxSqlNameLength(),
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**

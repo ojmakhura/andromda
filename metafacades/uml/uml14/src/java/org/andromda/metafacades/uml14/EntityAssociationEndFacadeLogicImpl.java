@@ -37,7 +37,8 @@ public class EntityAssociationEndFacadeLogicImpl
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                 ((EntityFacade)this.getType()).getMaxSqlNameLength(),
-                this.getForeignKeySuffix());
+                this.getForeignKeySuffix(),
+                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
     }
