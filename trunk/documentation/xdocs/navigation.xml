@@ -4,26 +4,32 @@
     <title>AndroMDA Model Driven Architecture Framework</title>
 
     <body>
-    	
+
     	<links>
       		<item name="MDA" href="http://www.omg.org/mda/"/>
       		<item name="UML" href="http://www.cetus-links.org/oo_uml.html"/>
       		<item name="OCL" href="http://www.klasse.nl/ocl/index.html"/>
       		<item name="XMI" href="http://www.omg.org/technology/documents/formal/xmi.htm"/>
     	</links>
-    	
+
         <menu name="Overview">
-            <item name="What is AndroMDA?" href="whatisit.html"/>
-            <item name="Look and feel" href="lookandfeel.html"/>
-            <item name="Installation" href="install.html"/>
-            <item name="Getting Started" href="starting.html"/>
-            <item name="FAQ" href="faq.html"/>
-            <item name="Modeling" href="modeling.html"/>
-            <item name="Code generation" href="codegen.html"/>
-            <item name="Ant Task" href="anttask.html"/>
+            <item name="What is AndroMDA?" href="/whatisit.html"/>
+            <item name="Look and feel" href="/lookandfeel.html"/>
+            <item name="Installation" href="/install.html" collapse="true">
+                <item name="AndroMDA 2.x" href="/install-v2.html"/>
+                <item name="AndroMDA 3.x" href="/install-v3.html"/>
+            </item>
+            <item name="Getting Started" href="/starting.html" collapse="true">
+                <item name="AndroMDA 2.x" href="/starting-v2.html"/>
+                <item name="AndroMDA 3.x" href="/starting-v3.html"/>
+            </item>
+            <item name="FAQ" href="/faq.html"/>
+            <item name="Modeling" href="/modeling.html"/>
+            <item name="Code generation" href="/codegen.html"/>
+            <item name="Ant Task" href="/anttask.html"/>
             <item name="Maven Plugin" href="/maven-andromda-plugin/index.html"/>
             <item name="AndroMDA Wiki" href="http://team.andromda.org/tiki"/>
-            <item name="Building AndroMDA" href="building.html"/>
+            <item name="Building AndroMDA" href="/building.html"/>
         </menu>
 
 		<menu name="Components">
@@ -35,18 +41,19 @@
 		</menu>
 
         <menu name="The sample app">
-            <item name="Intro" href="sampleintro.html"/>
+            <item name="Intro" href="/sampleintro.html"/>
             <item name="UML model" href="/umldoc/index.html"/>
         </menu>
-        
-		 <menu name="Downloads" href="releases.html" collapse="true">
-			 <item name="Releases" href="releases.html"/>
+
+		 <menu name="Downloads" href="/releases.html" collapse="true">
+			 <item name="Releases" href="/releases.html"/>
 			 <item name="Nightly Builds" href="http://team.andromda.org/maven/andromda/distributions"/>
 		</menu>
 
         <menu name="Professional services">
-            <item name="Consulting" href="consulting.html"/>
+            <item name="Consulting" href="/consulting.html"/>
         </menu>
 
     </body>
 </project>
+
