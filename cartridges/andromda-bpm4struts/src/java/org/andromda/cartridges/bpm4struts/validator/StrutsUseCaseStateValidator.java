@@ -87,7 +87,7 @@ public class StrutsUseCaseStateValidator
 
             UseCase nextUseCase = helper.findNextUseCaseInWorkflow(useCase, state.getName());
             if (nextUseCase == null)
-                validationMessages.add(new ValidationError(useCase, "FinalState name should reflect workflow transition trigger"));
+                validationMessages.add(new ValidationError(useCase, "FinalState name should reflect workflow transition trigger name: "+state.getName()));
         }
         else if (dynamicHelper.isObjectFlowState(state))
         {

@@ -2,7 +2,6 @@ package org.andromda.cartridges.bpm4struts.validator;
 
 import org.andromda.cartridges.bpm4struts.StrutsScriptHelper;
 import org.andromda.core.uml14.UMLDynamicHelper;
-import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.behavioralelements.statemachines.Transition;
@@ -86,9 +85,11 @@ public class StrutsUseCasePseudostateValidator
             int outgoingCount = pseudostate.getOutgoing().size();
 
             if (incomingCount > 0)
-                validationMessages.add(new ValidationWarning(useCase, "Initial state has incoming transitions"));
-            if (outgoingCount != 1)
-                validationMessages.add(new ValidationWarning(useCase, "Initial state must have only one outgoing transition"));
+                validationMessages.add(new ValidationWarning(useCase, "Initial state has incoming transitions: "+pseudostate.getName()));
+            if (outgoingCount == 0)
+                validationMessages.add(new ValidationWarning(useCase, "Initial state must have at least one outgoing transition: "+pseudostate.getName()));
+            if (outgoingCount > 1)
+                validationMessages.add(new ValidationWarning(useCase, "Initial state cannot have more than one outgoing transition: "+pseudostate.getName()));
         }
         else if (dynamicHelper.isMergePoint(pseudostate))
         {
@@ -129,7 +130,7 @@ public class StrutsUseCasePseudostateValidator
         }
         else
         {
-            validationMessages.add(new ValidationError(useCase, "Invalid pseudostate, must be one of: InitialState, DecisionPoint (one-to-many), MergePoint (many-to-one)"));
+            validationMessages.add(new ValidationError(useCase, "Invalid pseudostate, must be one of: InitialState, DecisionPoint (one-to-many), MergePoint (many-to-one), found ("+pseudostate.getName()+"): "+pseudostate));
         }
     }
 }
