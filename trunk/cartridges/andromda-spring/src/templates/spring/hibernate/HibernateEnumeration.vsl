@@ -4,11 +4,6 @@
 //
 package $enumeration.packageName;
 
-import net.sf.hibernate.Hibernate;
-import net.sf.hibernate.UserType;
-
-import java.io.Serializable;
-
 /**
 $enumeration.getDocumentation(" * ")
  */
@@ -21,10 +16,8 @@ public final class $enumeration.name
 
     static
     {
-#set ($comma = "")
 #foreach ($literal in $enumeration.literals)
-        ${comma}INSTANCES.put("${literal.name}", ${literal.name})
-#set ($comma = ", ")
+        INSTANCES.put("${literal.name}", ${literal.name});
 #end
     }
 
@@ -46,7 +39,7 @@ public final class $enumeration.name
 
     public static $enumeration.name fromString(String enumCode)
     {
-        return ($enumeration.name)super.internalFromString(enumCode);
+        return ($enumeration.name)internalFromString(enumCode);
     }
 
     /**
