@@ -1,18 +1,19 @@
 package org.andromda.core.metadecorators.uml14;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.common.RepositoryReadException;
 import org.andromda.core.mdr.MDRepositoryFacade;
 import org.omg.uml.UmlPackage;
 
 public class DecoratorSmallTest1 extends TestCase
 {
+    private UmlPackage model;
     private URL modelURL = null;
     private MDRepositoryFacade repository = null;
 
@@ -35,6 +36,11 @@ public class DecoratorSmallTest1 extends TestCase
         {
             modelURL = new URL(TestModel.XMI_FILE_URL);
             repository = new MDRepositoryFacade();
+            repository.readModel(modelURL);
+            model = (UmlPackage) repository.getModel();
+            DecoratorFactory df = DecoratorFactory.getInstance();
+            df.setModel(model);
+            df.setActiveNamespace("core");
         }
     }
 
@@ -43,33 +49,68 @@ public class DecoratorSmallTest1 extends TestCase
      * 
      * @throws Exception
      */
-    public void testTransformModel() throws Exception
+    public void testFindModelAndPackages() throws Exception
     {
-        try
+        DecoratorFactory df = DecoratorFactory.getInstance();
+        ModelDecorator md =
+            (ModelDecorator) df.createDecoratorObject(model);
+        Collection packages = md.getRootPackage().getPackages();
+        assertEquals(4, packages.size());
+        ArrayList expectedResults = new ArrayList();
+        expectedResults.add("org");
+        expectedResults.add("java");
+        expectedResults.add("features");
+        expectedResults.add("associations");
+
+        for (Iterator iter = packages.iterator(); iter.hasNext();)
         {
-            repository.readModel(modelURL);
-            UmlPackage model = (UmlPackage) repository.getModel();
-            DecoratorFactory df = DecoratorFactory.getInstance();
-            df.setModel(model);
-            df.setActiveNamespace("core");
-            ModelDecorator md =
-                (ModelDecorator) df.createDecoratorObject(model);
-            Collection packages = md.getRootPackage().getPackages();
-            assertEquals(4, packages.size());
-            for (Iterator iter = packages.iterator(); iter.hasNext();)
+            PackageDecorator element = (PackageDecorator) iter.next();
+            assertNotNull("package decorator is null", element);
+            assertTrue(
+                "expected package not found",
+                expectedResults.contains(element.getName()));
+            System.out.println("package: " + element.getName());
+        }
+    }
+
+    /**
+     * Tests ClassifierDecorators.
+     * @throws Exception
+     */
+    public void testFindClasses() throws Exception
+    {
+        DecoratorFactory df = DecoratorFactory.getInstance();
+        ModelDecorator md =
+            (ModelDecorator) df.createDecoratorObject(model);
+        Collection packages = md.getRootPackage().getPackages();
+
+        HashMap expectedResults = new HashMap();
+        expectedResults.put("ClassAA", "associations");
+        expectedResults.put("ClassAB", "associations");
+        expectedResults.put("ClassAC", "associations");
+        expectedResults.put("ClassAD", "associations");
+        expectedResults.put("ClassAE", "associations");
+        expectedResults.put("ClassAF", "associations");
+        expectedResults.put("ClassAssociations", "associations");
+        expectedResults.put("ClassFeatures", "features");
+
+        for (Iterator iter = packages.iterator(); iter.hasNext();)
+        {
+            PackageDecorator pakkage = (PackageDecorator) iter.next();
+            assertNotNull("package decorator is null", pakkage);
+            System.out.println("package: " + pakkage.getName());
+            for (Iterator iter2 = pakkage.getClasses().iterator();
+                iter2.hasNext();
+                )
             {
-                PackageDecorator element = (PackageDecorator) iter.next();
-                assertNotNull(element);
-                System.out.println("package: " + element.getName());
+                ClassifierDecorator clazz =
+                    (ClassifierDecorator) iter2.next();
+                assertNotNull(clazz);
+                assertTrue(
+                    "expected class " + clazz.getName() + " not found",
+                    expectedResults.get(clazz.getName()).equals(
+                        pakkage.getName()));
             }
-        }
-        catch (IOException ioe)
-        {
-            assertNull(ioe.getMessage(), ioe);
-        }
-        catch (RepositoryReadException rre)
-        {
-            assertNull(rre.getMessage(), rre);
         }
     }
 
