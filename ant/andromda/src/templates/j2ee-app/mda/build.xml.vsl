@@ -13,7 +13,7 @@
         <fileset id="libraries" dir="${app.root.dir}/${lib.dir}">
             <include name="*.jar"/>
             <exclude name="andromda-meta-cartridge*"/>
-            <exclude name="andromda-struts-cartridge*"/>  
+            <exclude name="andromda-struts-cartridge*"/>
 #if ($persistenceType == 'hibernate')
             <exclude name="andromda-ejb-cartridge*"/>
 #else
@@ -24,7 +24,7 @@
 
     <target name="mda">
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
-        <andromda modelURL="file:${basedir}/${uml.model.path}"
+        <andromda modelURL="${uml.model.path}"
                   lastModifiedCheck="false">
             <namespace name="default" ignore="false">
                 <property name="languageMappingsUri" value="file:${basedir}/${mappings.src.dir}/JavaMappings.xml"/>

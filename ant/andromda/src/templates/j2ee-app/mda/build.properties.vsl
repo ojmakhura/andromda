@@ -1,4 +1,4 @@
 
 base.package=org.company
 
-uml.model.path=src/uml/${applicationName}.xmi
+uml.model.path=jar:file:${basedir}/src/uml/${applicationName}.xml.zip!/${applicationName}.xml
