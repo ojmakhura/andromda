@@ -1,17 +1,12 @@
 package org.andromda.core.common;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.templateengine.TemplateEngine;
@@ -286,94 +281,29 @@ public abstract class BasePlugin
     private List contents = null;
 
     /**
-     * @todo get contents needs to work with directories the same as with
-     *       archives.
      * @see org.andromda.core.common.Plugin#getContents()
      */
     public List getContents()
     {
-        if (contents == null)
+        if (this.contents == null)
         {
-            this.contents = new ArrayList();
-            if (this.isArchive())
+            if (ResourceUtils.isArchive(this.getResource()))
             {
-                ZipFile archive = this.getArchive();
-                if (archive != null)
-                {
-                    Enumeration entries = archive.entries();
-                    while (entries.hasMoreElements())
-                    {
-                        ZipEntry entry = (ZipEntry)entries.nextElement();
-                        contents.add(entry.getName());
-                    }
-                }
+                this.contents = ResourceUtils.getClassPathArchiveContents(this
+                    .getResource());
             }
-            else if (this.getResource() != null)
+            else
             {
-                URL resourceUrl = this.getResource();
-                File fileResource = new File(resourceUrl.getFile());
-                // we go two levels since descriptors reside in META-INF
-                // and we want the parent of the META-INF directory
-                String[] contentArray = fileResource.getParentFile()
-                    .getParentFile().list();
-                if (contentArray != null)
-                {
-                    contents.addAll(Arrays.asList(contentArray));
-                }
+                // we step down 1 level if its a directory (instead of an
+                // archive since we get the contents relative to the plugin
+                // resource
+                // which is in the META-INF directory
+                this.contents = ResourceUtils.getDirectoryContents(this
+                    .getResource(), 2);
             }
+
         }
         return contents;
-    }
-
-    /**
-     * All archive files start with this prefix.
-     */
-    private static final String ARCHIVE_PREFIX = "jar:";
-
-    /**
-     * Returns true/false on whether or not this plugin is an archive or not. If
-     * its not an archive, its a directory.
-     * 
-     * @return true if its an archive, false otherwise.
-     */
-    private boolean isArchive()
-    {
-        return this.getResource() != null
-            && this.getResource().toString().startsWith(ARCHIVE_PREFIX);
-    }
-
-    /**
-     * If this plugin's <code>resource</code> is found within a archive file,
-     * this method gets the archive to which it belongs.
-     * 
-     * @return the archive as a ZipFile
-     */
-    protected ZipFile getArchive()
-    {
-        final String methodName = "BasePlugin.getArchive";
-        try
-        {
-            ZipFile archive = null;
-            URL resource = this.getResource();
-            if (resource != null)
-            {
-                String resourceUrl = resource.toString();
-                resourceUrl = resourceUrl.replaceFirst(ARCHIVE_PREFIX, "");
-                int entryPrefixIndex = resourceUrl.indexOf('!');
-                if (entryPrefixIndex != -1)
-                {
-                    resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
-                }
-                archive = new ZipFile(new URL(resourceUrl).getFile());
-            }
-            return archive;
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
-            throw new PluginException(errMsg, th);
-        }
     }
 
     /**
