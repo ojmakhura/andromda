@@ -7,7 +7,18 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-26" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-27" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="BPM-127">
+                Bpm4Struts now correctly exports to all known displaytag support formats, there was a bug where
+                simple properties were being exported with surrounding HTML tags.
+                <p class="highlight">
+                    Caution: the use of
+                    <code>@andromda.struts.view.table.export</code> has changed! It is no longer recommended to specify
+                    a space separated combination of formats, instead it is now best to specify multiple values
+                    (MagicDraw allows you to add values from a combobox). 
+                    The previous way is still supported but this might change in the future.
+                </p>
+            </action>
             <action dev="draftdog" type="add" issue="BPM-110">
                 Added a new <a href="andromda-bpm4struts-cartridge/modeling.html">tagged value</a>
                 for bpm4struts: <code>@andromda.struts.view.field.validators</code>. It allows you to specify your
