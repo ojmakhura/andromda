@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-06" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="SPRING-18">
+                The Spring cartridge is now able to correctly auto-detect when the inverse flag should
+                be true/false on associations within the hibernate cfg.xml files.
+            </action>
             <action dev="draftdog" type="fix">
                 Fixed a *critical* bug in bpm4struts: when an action state would defer to more than one controller 
                 operation the action state's forward would be called after each operation call. This is very dangerous
