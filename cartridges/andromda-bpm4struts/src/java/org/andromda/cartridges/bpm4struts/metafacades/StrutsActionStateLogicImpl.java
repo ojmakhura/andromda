@@ -35,12 +35,9 @@ public class StrutsActionStateLogicImpl
     // concrete business methods that were declared
     // abstract in class StrutsActionState ...
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState#getActionMethodName()()
-     */
     public java.lang.String handleGetActionMethodName()
     {
-        return StringUtilsHelper.lowerCamelCaseName(getName());
+        return '_' + StringUtilsHelper.lowerCamelCaseName(getName());
     }
 
     // ------------- relations ------------------
@@ -92,9 +89,6 @@ public class StrutsActionStateLogicImpl
         return controllerCallsList;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState#getForward()
-     */
     protected java.lang.Object handleGetForward()
     {
         final Collection outgoing = getOutgoing();
@@ -107,9 +101,6 @@ public class StrutsActionStateLogicImpl
         return null;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState#getExceptions()
-     */
     protected java.util.Collection handleGetExceptions()
     {
         final Map exceptionsMap = new HashMap();
