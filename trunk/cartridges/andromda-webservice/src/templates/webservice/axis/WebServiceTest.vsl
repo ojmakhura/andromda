@@ -98,7 +98,7 @@ public class ${testClassName} extends TestCase {
 		} catch (Throwable th) {
 			TestCase.fail(th.toString());
 		}
-		//TODO: implement ${testClassName}.test${stringUtils.capitalize($operation.name)}()  
+		//@todo implement ${testClassName}.test${stringUtils.capitalize($operation.name)}()  
 	}
 	
 #end
