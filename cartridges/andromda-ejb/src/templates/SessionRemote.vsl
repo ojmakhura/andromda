@@ -12,7 +12,8 @@ public interface ${service.name}
     extends $service.fullyQualifiedName
 #else
     extends javax.ejb.EJBObject
-#end {
+#end 
+{
     // -- accessors for environment entries --
 #foreach($envEntry in $service.getEnvironmentEntries(true))
 #if($visibility == "public")
