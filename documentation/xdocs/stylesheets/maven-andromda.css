@@ -7,6 +7,9 @@ body
 #bodyColumn a:visited {	color: #2277D9;	border-bottom: 1px dotted #3D7DC7; text-decoration: none; }
 #bodyColumn a:hover { color: #51A2FF; border-bottom: 1px solid #2C8AF7;	text-decoration: none; }
 
+#search { text-align: center; }
+#search input { font-size: 90%; margin: 0 3px 0 0; }
+
 #banner
 {
     background-image: url(images/banner.png);
@@ -73,7 +76,7 @@ body
     left: 215px;
     right: 0;
     background-color: #fff;
-    padding: 25px 25px 25px 10px;
+    padding: 0 25px 25px 10px;
     margin: 0;
 }
 
