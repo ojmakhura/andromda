@@ -3,12 +3,9 @@ package org.andromda.core.common;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.jar.JarFile;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.andromda.core.cartridge.Cartridge;
@@ -287,10 +284,10 @@ public abstract class BasePlugin
      */
     protected ZipFile getArchive() 
     {
-        final String methodName = "BasePlugin.getZipFile";
+        final String methodName = "BasePlugin.getArchive";
         try 
         {
-	        ZipFile zipFile = null;
+	        ZipFile archive = null;
 	        URL resource = this.getResource();
 	        if (resource != null)
 	        {
@@ -303,9 +300,9 @@ public abstract class BasePlugin
 	            {
 	                resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
 	            }
-	            zipFile = new ZipFile(resourceUrl);
+	            archive = new ZipFile(resourceUrl);
 	        }
-	        return zipFile;
+	        return archive;
         } 
         catch (Throwable th)
         {
@@ -339,34 +336,5 @@ public abstract class BasePlugin
     public String toString()
     {
         return ToStringBuilder.reflectionToString(this);
-    }
- 
-    public static void main(String args[]) 
-    {
-        args = new String[] {"c:/andromda-ant-3.0M1.jar"};
-        if (args.length == 0)
-        {
-            System.out.println("Please specify a jarfile as "
-                + "the argument to this application");
-        }
- 
-        try
-        {
-            JarFile jarFile = new JarFile(args[0]);
- 
-            Enumeration entries = jarFile.entries();
-            while (entries.hasMoreElements())
-            {
-                ZipEntry zipEntry = (ZipEntry) entries.nextElement();
-                System.out.println("zipEntry.getName() = " 
-                    + zipEntry.getName());
-            }
- 
-        }
-        catch (Exception e)
-        {
-            System.out.println("Error reading from jarfile: "+e);
-        }
-    }   
-    
+    } 
 }
