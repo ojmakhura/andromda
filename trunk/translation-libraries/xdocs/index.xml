@@ -3,14 +3,21 @@
 <document> 
 	<properties>
     	<title>AndroMDA Translation-Libraries</title> 
+    	<author email="chdbrandon@yahoo.com">Chad Brandon</author>
     </properties>
   	<body> 
   		<section name="What's a Translation-Library?">
+  		    <p>
+               Translation libraries are multiple translations that make up
+  			   a library (or jar file to be exact).  For example the query 
+  			   translation-library, currently consists of two translations: 
+  			   EJB-QL and Hibernate-QL.  
+  		    </p>
   			<p>
   				Translation libraries are used to translate <a href="http://www.klasse.nl/ocl/index.html">OCL</a> 
   				expressions into other languages.  For example, a translation-library could be used to 
   				translate an OCL body expression into a Hibernate-QL query, or EJB-QL query like you see 
-  				below.   
+  				below. 
   		    </p>
   		    <table>
   		    	<tr>
@@ -80,7 +87,47 @@
   				used and discovered by the AndroMDA framework.  This means that
   				just like <a href="../andromda-cartridges/index.html">Cartridges</a>
   				they will be found and made available to the framework by placing
-  				them on your project's classpath.
+  				them on your project's classpath.  
+  			</p>
+  			<p>
+                The major differences between a cartridge and translation-library 
+                is that translation-libraries are used <strong>with</strong> cartridges
+                whereas cartridges can be used alone.  For example: the EJB and 
+                Hibernate cartridges each have their own finder metafacade that 
+                extends the 
+                <a href="../andromda-metafacades-uml/apidocs/org/andromda/uml/EntityFacade.html">EntityFinderMethodFacade</a>
+                to provide its own implementation of the getQuery method.  
+            </p>
+            <p>
+                Previously each getQuery method would look up the tagged value that would store
+                the query for either Hibernate-QL (for the Hibernate cartridge) or EJB-QL
+                (for the EJB cartridge) and just return back the value from the stored
+                tagged value.  Using an OCL translation-library (the 
+                <a href="../andromda-query-library/index.html">Query Translation-Library</a>
+                more specifically) you can define the query as OCL and store it as a contraint
+                within your entity's finder method operation.  Then using a translateConstraint
+                method from the <a href="../andromda-metafacades-uml/apidocs/org/andromda/uml/ModelElementFacade.html">ModelElementFacade</a> 
+                you can translate the OCL into Hibernate-QL or EJB-QL (or anything for that matter
+                as long as the translation library supports it). Take a look at this code
+                snippet that shows how you'd look up and translate an OCL query into EJB-QL
+                assuming you had the query translation-library on your classpath:
+                <source>
+<![CDATA[
+    public java.lang.String handleGetQuery() 
+    {
+        // this tells us to translate all "body" constraints using
+        // the "EJB-QL" translation from the "query" library
+        String[] translatedExpressions = 
+            this.translateConstraints(ExpressionKinds.BODY, "query.EJB-QL");
+        String query = null;
+        // we just get the first body constraint found (since there should
+        // only be one
+        if (translatedExpressions != null && translatedExpressions.length > 0) {
+            query = translatedExpressions[0];
+        }
+        return query;
+    }]]>
+                </source>
   			</p>
   		</section>
   	</body> 
