@@ -1,21 +1,16 @@
 package org.andromda.core.translation.syntax.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AActualParameterList;
 import org.andromda.core.translation.node.ACommaExpression;
-import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.AFeatureCallParameters;
 import org.andromda.core.translation.node.AOperation;
 import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.node.ARelationalExpression;
 import org.andromda.core.translation.node.ARelationalExpressionTail;
 import org.andromda.core.translation.node.AStandardDeclarator;
+import org.andromda.core.translation.node.AStandardFeatureCall;
 import org.andromda.core.translation.node.ATypeDeclaration;
 import org.andromda.core.translation.node.AVariableDeclaration;
 import org.andromda.core.translation.node.AVariableDeclarationList;
@@ -33,6 +28,11 @@ import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Contains some utilities for concrete syntax value retrieval.
@@ -227,7 +227,7 @@ public class ConcreteSyntaxUtils
      * @return List the list containing any parameters retrieved, or an empty
      *         array if none could be retrieved
      */
-    public static List getParameters(AFeatureCall featureCall)
+    public static List getParameters(AStandardFeatureCall featureCall)
     {
         List parameters = new ArrayList();
         if (featureCall != null)
@@ -244,7 +244,7 @@ public class ConcreteSyntaxUtils
      * @param featureCall the featureCall for which to retrieve the parameters
      * @return String the comma seperated String
      */
-    public static String getParametersAsString(AFeatureCall featureCall)
+    public static String getParametersAsString(AStandardFeatureCall featureCall)
     {
         return StringUtils.join(ConcreteSyntaxUtils.getParameters(featureCall)
             .iterator(), ",");
