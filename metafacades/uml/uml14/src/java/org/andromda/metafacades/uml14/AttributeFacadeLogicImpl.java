@@ -26,14 +26,11 @@ public class AttributeFacadeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class AttributeFacade ...
-
     public java.lang.String handleGetGetterName()
     {
-        return "get" + StringUtils.capitalize(metaObject.getName());
+        String datatype = getType().getFullyQualifiedName(true);
+        String prefix = ("datatype.boolean".equals(datatype) || "datatype.Boolean".equals(datatype)) ? "is" : "get";
+        return prefix + StringUtils.capitalize(metaObject.getName());
     }
 
     public java.lang.String handleGetSetterName()
@@ -49,6 +46,21 @@ public class AttributeFacadeLogicImpl
             defaultValue = this.metaObject.getInitialValue().getBody();
         }
         return defaultValue;
+    }
+
+    public boolean handleIsFrozen()
+    {
+        return ChangeableKindEnum.CK_FROZEN.equals(metaObject.getChangeability());
+    }
+
+    public boolean handleIsChangeable()
+    {
+        return ChangeableKindEnum.CK_CHANGEABLE.equals(metaObject.getChangeability());
+    }
+
+    public boolean handleIsAddOnly()
+    {
+        return ChangeableKindEnum.CK_ADD_ONLY.equals(metaObject.getChangeability());
     }
 
     /**

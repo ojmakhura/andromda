@@ -21,7 +21,7 @@ public class ${entity.name}Impl
 #foreach ( $operation in $entity.businessOperations)
 #set ($msig = $operation.signature)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
-#if ($operation.hasException())
+#if ($operation.exceptionsPresent)
 #set ($throws = " throws $operation.exceptionList")
 #else
 #set ($throws = "")

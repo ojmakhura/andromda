@@ -136,7 +136,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#allowSyntheticCreateMethod()
      */
-    public boolean handleAllowSyntheticCreateMethod()
+    public boolean handleIsSyntheticCreateMethodAllowed()
     {
         return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
     }

@@ -22,7 +22,7 @@ public class ${service.name}Impl
 	/**
 	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
 	 */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $operation.visibility $returnType.fullyQualifiedName $signature 
     	throws $operation.exceptionList 
 #else
@@ -31,7 +31,7 @@ public class ${service.name}Impl
     {
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
-#if ($operation.hasReturnType())
+#if ($operation.returnTypePresent)
 #if (!$operation.type.primitive)
         return null;
 #elseif ("boolean" == $returnTypeName)

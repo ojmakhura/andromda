@@ -45,7 +45,7 @@ public class ${service.name}BeanImpl extends ${service.name}Bean {
     /**
 $operation.getDocumentation("     * ")
      */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $visibility $returnType $signature throws $operation.exceptionList {
 #else
     $visibility $returnType $signature {

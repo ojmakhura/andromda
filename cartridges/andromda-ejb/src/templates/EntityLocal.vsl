@@ -88,7 +88,7 @@ $relation.otherEnd.getDocumentation("    * ")
     /**
 $operation.getDocumentation("    * ")
      */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     public $operation.returnType.fullyQualifiedName $operation.signature 
         throws $operation.exceptionList;
 #else

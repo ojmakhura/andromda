@@ -17,6 +17,16 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Oct 11, 2004</td>
+                    <td valign="top" class="std">Metafacades major update</td>
+                    <td valign="top" class="std">
+                        The metafacades now have their properties no longer modeled as operations but as attributes,
+                        wherever possible. This has no effect for current generated code. In addition boolean accessor
+                        method now have their name properly rendered according to the Java Bean specification
+                        (getXXX becomes isXXX).
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Oct 08, 2004</td>
                     <td valign="top" class="std">Bpm4Struts update</td>
                     <td valign="top" class="std">

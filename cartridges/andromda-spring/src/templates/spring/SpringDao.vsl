@@ -86,7 +86,7 @@ public interface $entity.daoName
     /**
 $operation.getDocumentation("     * ")
      */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $operation.visibility $returnType $operation.signature
         throws $operation.exceptionList;
 #else
@@ -103,7 +103,7 @@ $operation.getDocumentation("     * ")
      *   does not occur.
      * </p>
      */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else

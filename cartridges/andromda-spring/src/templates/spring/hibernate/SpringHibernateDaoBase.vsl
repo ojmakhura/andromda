@@ -207,7 +207,7 @@ public ${abstractModifier}class $entity.daoBaseName
      * @see ${entity.fullyQualifiedName}#${finder.name}(false#if(!$finder.arguments.empty), ${finder.argumentNames}#end)
      */
     $finder.visibility $returnType ${finder.name}(boolean transform#if(!$finder.arguments.empty), ${finder.typedArgumentList}#end)
-#if ($finder.hasExceptions())
+#if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
     {
@@ -257,7 +257,7 @@ public ${abstractModifier}class $entity.daoBaseName
      * @see ${entity.fullyQualifiedName}#$finder.getSignature(false)
      */
     $finder.visibility $returnType $finder.signature
-#if ($finder.hasExceptions())
+#if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
     {
@@ -289,7 +289,7 @@ public ${abstractModifier}class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
      */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $operation.visibility abstract $returnType.fullyQualifiedName $signature
         throws $operation.exceptionList;
 #else

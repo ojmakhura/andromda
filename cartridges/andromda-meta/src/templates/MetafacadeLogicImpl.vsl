@@ -70,7 +70,7 @@ public class ${metafacade.logicImplName}
     {
 #end
         // TODO: put your implementation here.
-#if ($operation.hasReturnType())
+#if ($operation.returnTypePresent)
 
         // Dummy return value, just that the file compiles
 #if (!$operation.returnType.primitiveType)

@@ -220,7 +220,7 @@ public class EJBEntityFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#allowSyntheticCreateMethod()
      */
-    public boolean handleAllowSyntheticCreateMethod()
+    public boolean handleIsSyntheticCreateMethodAllowed()
     {
         return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
     }
@@ -270,7 +270,7 @@ public class EJBEntityFacadeLogicImpl
 	/* (non-Javadoc)
 	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsIdentifier(java.lang.String)
 	 */
-	public boolean handleContainsIdentifier(String identifier) {
+	public boolean handleIsIdentifierPresent(String identifier) {
 		Collection collIdentifier = this.getIdentifiers(true);
 		Iterator it = collIdentifier.iterator();
 		while(it.hasNext()) {
@@ -285,7 +285,7 @@ public class EJBEntityFacadeLogicImpl
 	/* (non-Javadoc)
 	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsAttribute(java.lang.String)
 	 */
-	public boolean handleContainsAttribute(String strAttr) {
+	public boolean handleIsAttributePresent(String strAttr) {
 		Collection collAttrib = this.getAttributes(true);
 		Iterator it = collAttrib.iterator();
 		while(it.hasNext()) {
@@ -300,7 +300,7 @@ public class EJBEntityFacadeLogicImpl
 	/* (non-Javadoc)
 	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsOperation(java.lang.String)
 	 */
-	public boolean handleContainsOperation(String op) {
+	public boolean handleIsOperationPresent(String op) {
 		Collection collOps = this.getOperations();
 		Iterator it = collOps.iterator();
 		while(it.hasNext()) {

@@ -63,14 +63,14 @@ public class ${service.ejbImplementationName}
 	/**
 	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
 	 */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $operation.visibility $returnType.fullyQualifiedName $signature 
     	throws $operation.exceptionList {
 #else
     $operation.visibility $returnType.fullyQualifiedName $signature {
 #end
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
-#if ($operation.hasReturnType())
+#if ($operation.returnTypePresent)
 		return this.${businessObject}.${operation.call};    
 #else
         this.${businessObject}.${operation.call}; 

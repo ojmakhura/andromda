@@ -90,19 +90,22 @@ public abstract class ${metafacade.logicName}
 #foreach ( $attribute in $metafacade.attributes )
 ##
 #set ($memberTypeName = $attribute.type.fullyQualifiedName)
-#set ($methodName = $attribute.getterName)
+##set ($methodName = $attribute.getterName)
+#set ($fqname = $attribute.type.getFullyQualifiedName(true))
+#if ($fqname == "datatype.boolean")
+#set ($methodName = "is$str.capitalize($attribute.name)")
+#else
+#set ($methodName = "get$str.capitalize($attribute.name)")
+#end
 #set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
-##
    /**
 	* @see ${memberTypeName}#${methodName}()
     */
     public abstract $memberTypeName ${handleMethodName}($typedArgumentList);
-
-    private $memberTypeName $memberName;
 
     private void $handleMethodPreCondition
     {
@@ -114,17 +117,33 @@ public abstract class ${metafacade.logicName}
 #renderTranslation ($attribute "post")
     }
 
+#if ($attribute.frozen)
+    private $memberTypeName __$memberName;
+    private boolean __${memberName}Set = false;
+
+#end
     public final $memberTypeName ${methodName}()
     {
+#if ($attribute.frozen)
+        if (!__${memberName}Set)
+        {
+            ${handleMethodPreCondition};
+            this.__$memberName = ${handleMethodName}($typedArgumentList);
+            ${handleMethodPostCondition};
+            __${memberName}Set = true;
+        }
+        return this.__$memberName;
+#else
         ${handleMethodPreCondition};
-        $memberName = ${handleMethodName}($typedArgumentList);
+        $memberTypeName $memberName = ${handleMethodName}($typedArgumentList);
         ${handleMethodPostCondition};
         return $memberName;
+#end
     }
 
 #end
 #end
-#if (!$$metafacade.operations.empty)
+#if (!$metafacade.operations.empty)
     // ---------------- business methods ----------------------
 
 #foreach ($operation in $metafacade.operations)
@@ -151,13 +170,13 @@ public abstract class ${metafacade.logicName}
     public final $memberTypeName ${methodName}($typedArgumentList)
     {
         $handleMethodPreCondition;
-#if($operation.hasReturnType())
+#if($operation.returnTypePresent)
         $memberTypeName returnValue = ${handleMethodName}($operation.argumentNames);
 #else
         ${handleMethodName}($operation.argumentNames);
 #end
         ${handleMethodPostCondition};
-#if($operation.hasReturnType())
+#if($operation.returnTypePresent)
         return returnValue;
 #end
     }
@@ -219,11 +238,7 @@ public abstract class ${metafacade.logicName}
     // from ${method.metafacadeName}
 	${method.buildMethodDeclaration(true)}
 	{
-#if ($method.hasReturnType())
         return super_.${method.buildMethodCall()};
-#else
-        super_.${method.buildMethodCall()};
-#end
 	}
 	
 #end
