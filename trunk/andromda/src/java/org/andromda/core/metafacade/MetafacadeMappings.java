@@ -334,7 +334,7 @@ public class MetafacadeMappings
                     }
                 });
         }
-        // check for context and super metafacade properties
+        // check for context and metafacade properties
         if (mapping == null && context != null)
         {
             mapping = (MetafacadeMapping)CollectionUtils.find(
@@ -427,7 +427,7 @@ public class MetafacadeMappings
                     }
                 });
         }
-        // now check for only super metafacade properties
+        // now check for metafacade properties
         if (mapping == null)
         {
             mapping = (MetafacadeMapping)CollectionUtils.find(

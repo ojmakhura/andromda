@@ -2,6 +2,7 @@ package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,6 @@ public class MetafacadeMappingsTest
     private static final String METAFACADE_IMPL_4 = "org.andromda.core.metafacade.Metafacade4Impl";
     private static final Object MAPPING_OBJECT_4 = new MappingObject4();
 
-    
     private static final String METAFACADE_5 = "org.andromda.core.metafacade.Metafacade5";
     private static final String METAFACADE_IMPL_5 = "org.andromda.core.metafacade.Metafacade5Impl";
     private static final Object MAPPING_OBJECT_5 = new MappingObject5();
@@ -53,6 +53,12 @@ public class MetafacadeMappingsTest
     private static final Object MAPPING_OBJECT_6 = new MappingObject6();
     
     private static final Object MAPPING_OBJECT_7 = new MappingObject7();
+
+    private static final String METAFACADE_IMPL_8 = "org.andromda.core.metafacade.Metafacade8Impl";
+    private static final Object MAPPING_OBJECT_8 = new MappingObject8();
+
+    private static final Object MAPPING_OBJECT_9 = new MappingObject9();
+    
     
     private static final String NAMESPACE_PROPERTY_1 = "namespacePropertyOne";
     private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
@@ -60,6 +66,8 @@ public class MetafacadeMappingsTest
     private static final String NAMESPACE_PROPERTY_2_VALUE = "true";
     
     private static final String MAPPING_PROPERTY = "mappingProperty";
+    private static final String PROPERTY_ONE = "propertyOne";
+    private static final String PROPERTY_TWO = "propertyTwo";
 
     private static final String STEREOTYPE_FINDER_METHOD = "FINDER_METHOD";
     private static final String STEREOTYPE_ENUMERATION = "ENUMERATION";
@@ -290,5 +298,31 @@ public class MetafacadeMappingsTest
         assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
         assertEquals("", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
         
+        // attempt to get a mapping that has 2 properties with one being invalid
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_OBJECT_8,
+            namespace,
+            null,
+            null);
+        assertNull(mapping);        
+        
+        // attempt to get a mapping that has 2 properties with both being valid
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_OBJECT_9,
+            namespace,
+            null,
+            null);
+        assertNotNull(mapping);      
+        assertEquals(METAFACADE_IMPL_8, mapping.getMetafacadeClass().getName());
+        mappingProperties = mapping.getMappingProperties();
+        assertNotNull(mappingProperties);
+        assertEquals(2, mappingProperties.size());
+        Iterator propertyIterator = mappingProperties.iterator();
+        MetafacadeMapping.Property propertyOne = (MetafacadeMapping.Property)propertyIterator.next();
+        assertEquals(PROPERTY_ONE, propertyOne.getName());
+        assertEquals("", propertyOne.getValue());      
+        MetafacadeMapping.Property propertyTwo = (MetafacadeMapping.Property)propertyIterator.next();
+        assertEquals(PROPERTY_TWO, propertyTwo.getName());
+        assertEquals("SomeValue", propertyTwo.getValue());   
     }
 }

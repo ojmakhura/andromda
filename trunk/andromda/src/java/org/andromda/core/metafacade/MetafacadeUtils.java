@@ -138,7 +138,7 @@ class MetafacadeUtils
                                 + "', with value '" + property.getValue()
                                 + "' on metafacade '" + metafacade
                                 + "', evaluated to --> '" + valid + "'");
-                    // if any of the properties is invalid, we break out
+                    // if the property is invalid, we break out
                     // of the loop
                     if (!valid)
                     {
