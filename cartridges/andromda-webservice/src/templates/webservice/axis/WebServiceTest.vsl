@@ -85,7 +85,7 @@ public class ${testClassName} extends TestCase {
 #set ($argumentTypeName = $argument.type.fullyQualifiedName)
 #end
 #set ($instanceDef = "$argumentTypeName $argument.name")
-#if(!$argument.type.primitive)
+#if(!$argument.type.primitiveType)
         $instanceDef = null;
 #elseif ("boolean" == $argumentTypeName)
         $instanceDef = false;
