@@ -284,7 +284,7 @@ public class StrutsParameterLogicImpl
         Collection columnNamesCollection = null;
 
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_COLUMNS);
-        if ((taggedValue == null) || (String.valueOf(taggedValue).matches("[\\W]+")))
+        if ((taggedValue == null) || (String.valueOf(taggedValue).matches(",")))
         {
             columnNamesCollection = Collections.EMPTY_LIST;
         }
@@ -292,11 +292,11 @@ public class StrutsParameterLogicImpl
         {
             columnNamesCollection = new LinkedList();
             String columnNames = String.valueOf(taggedValue);
-            String[] properties = columnNames.split("[\\W]+");
+            String[] properties = columnNames.split(",");
             for (int i = 0; i < properties.length; i++)
             {
                 String property = properties[i];
-                columnNamesCollection.add(property);
+                columnNamesCollection.add(StringUtils.trimToEmpty(property));
             }
         }
         return columnNamesCollection;
