@@ -133,13 +133,5 @@
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
-        <resources>
-            <resource>  
-                <directory>${maven.build.dir}</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
     </build>
 </project>
