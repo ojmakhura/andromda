@@ -7,7 +7,6 @@ package org.andromda.core.translation.syntax;
  */
 public interface OperationDeclaration
 {
-
     /**
      * The declared operation name
      * 
@@ -29,5 +28,4 @@ public interface OperationDeclaration
      * @return VariableDeclaration[] an array containing the declared arguments.
      */
     public VariableDeclaration[] getArguments();
-
 }
