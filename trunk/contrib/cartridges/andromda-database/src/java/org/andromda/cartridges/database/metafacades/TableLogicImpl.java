@@ -3,10 +3,13 @@ package org.andromda.cartridges.database.metafacades;
 import org.andromda.cartridges.database.DatabaseGlobals;
 import org.andromda.cartridges.database.DatabaseProfile;
 import org.andromda.core.metafacade.MetafacadeFactoryException;
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.log4j.Priority;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -249,5 +252,114 @@ public class TableLogicImpl
             columns = ((Table)end.getType()).getIdentifiers();
         }
         return columns;
+    }
+
+    protected String handleGetConsoleDisplayName()
+    {
+        String displayName = null;
+
+        Object displayNameObject = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_DISPLAYNAME);
+        if (displayNameObject == null)
+        {
+            displayName = StringUtilsHelper.toPhrase(getName());
+        }
+        else
+        {
+            displayName = String.valueOf(displayNameObject);
+        }
+
+        return displayName;
+    }
+
+    protected String handleGetConsoleDisplayColumn()
+    {
+        String displayColumn = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SIZE);
+        if (taggedValue != null)
+        {
+            displayColumn = String.valueOf(taggedValue);
+        }
+
+        return displayColumn;
+    }
+
+    protected Integer handleGetConsolePageSize()
+    {
+        Integer pageSize = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_PAGESIZE);
+        if (taggedValue != null)
+        {
+            try
+            {
+                pageSize = new Integer(String.valueOf(taggedValue));
+            }
+            catch (NumberFormatException e)
+            {
+                if (logger.isEnabledFor(Priority.WARN))
+                {
+                    logger.warn(
+                            "Invalid " + DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_PAGESIZE +
+                            " value on table "+getFullyQualifiedName()+", ignoring: not an integer", e);
+                }
+                pageSize = null;
+            }
+        }
+
+        return pageSize;
+    }
+
+    protected Integer handleGetConsoleMaxListSize()
+    {
+        Integer maxListSize = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_MAXLISTSIZE);
+        if (taggedValue != null)
+        {
+            try
+            {
+                maxListSize = new Integer(String.valueOf(taggedValue));
+            }
+            catch (NumberFormatException e)
+            {
+                if (logger.isEnabledFor(Priority.WARN))
+                {
+                    logger.warn(
+                            "Invalid " + DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_MAXLISTSIZE +
+                            " value on table "+getFullyQualifiedName()+", ignoring: not an integer", e);
+                }
+                maxListSize = null;
+            }
+        }
+
+        return maxListSize;
+    }
+
+    protected Boolean handleGetConsoleExportable()
+    {
+        Boolean exportable = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_EXPORTABLE);
+        if (taggedValue != null)
+            exportable = Boolean.valueOf(String.valueOf(taggedValue));
+
+        return exportable;
+    }
+
+    protected Boolean handleGetConsoleInsertable()
+    {
+        Boolean insertable = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_TABLE_INSERTABLE);
+        if (taggedValue != null)
+            insertable = Boolean.valueOf(String.valueOf(taggedValue));
+
+        return insertable;
+    }
+
+    protected boolean handleIsConsoleAllowed()
+    {
+        return hasExactStereotype(UMLProfile.STEREOTYPE_MANAGEABLE);
     }
 }

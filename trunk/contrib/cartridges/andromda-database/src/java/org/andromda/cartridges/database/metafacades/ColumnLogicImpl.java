@@ -1,14 +1,17 @@
 package org.andromda.cartridges.database.metafacades;
 
 import org.andromda.cartridges.database.DatabaseGlobals;
+import org.andromda.cartridges.database.DatabaseProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAssociationEndFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.log4j.Priority;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -289,5 +292,100 @@ public class ColumnLogicImpl
                 }
             });
         return end;
+    }
+
+    protected Boolean handleGetConsoleHide()
+    {
+        Boolean hide = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_HIDE);
+        if (taggedValue != null)
+            hide = Boolean.valueOf(String.valueOf(taggedValue));
+
+        return hide;
+    }
+
+    protected Boolean handleGetConsoleSortable()
+    {
+        Boolean sortable = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SORTABLE);
+        if (taggedValue != null)
+            sortable = Boolean.valueOf(String.valueOf(taggedValue));
+
+        return sortable;
+    }
+
+    protected Boolean handleGetConsoleExportable()
+    {
+        Boolean exportable = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_EXPORTABLE);
+        if (taggedValue != null)
+            exportable = Boolean.valueOf(String.valueOf(taggedValue));
+
+        return exportable;
+    }
+
+    protected Integer handleGetConsoleSize()
+    {
+        Integer updateable = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SIZE);
+        if (taggedValue != null)
+        {
+            try
+            {
+                updateable = new Integer(String.valueOf(taggedValue));
+            }
+            catch (NumberFormatException e)
+            {
+                if (logger.isEnabledFor(Priority.WARN))
+                {
+                    logger.warn(
+                            "Invalid " + DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SIZE +
+                            " value on column "+getFullyQualifiedName()+", ignoring: not an integer", e);
+                }
+                updateable = null;
+            }
+        }
+
+        return updateable;
+    }
+
+    protected Boolean handleGetConsoleUpdateable()
+    {
+        Boolean updateable = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_UPDATEABLE);
+        if (taggedValue != null)
+            updateable = Boolean.valueOf(String.valueOf(taggedValue));
+
+        return updateable;
+    }
+
+    /**
+     * @todo: implement
+     */ 
+    protected String[] handleGetConsoleValues()
+    {
+        return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    protected String handleGetConsoleDisplayName()
+    {
+        String displayName = null;
+
+        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_DISPLAYNAME);
+        if (taggedValue == null)
+        {
+            displayName = StringUtilsHelper.toPhrase(getName());
+        }
+        else
+        {
+            displayName = String.valueOf(taggedValue);
+        }
+
+        return displayName;
     }
 }
