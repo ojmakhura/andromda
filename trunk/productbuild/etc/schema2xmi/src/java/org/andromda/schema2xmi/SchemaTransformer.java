@@ -521,7 +521,7 @@ public class SchemaTransformer
             this.getOrCreateStereotypes(
                 corePackage,
                 this.classStereotypes,
-                "Class"));
+                "Classifier"));
 
         if (StringUtils.isNotEmpty(this.tableTaggedValue))
         {
