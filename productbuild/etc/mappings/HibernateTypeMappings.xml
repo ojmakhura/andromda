@@ -5,11 +5,11 @@
 -->
 <mappings name="Hibernate">
     <mapping>
-        <from>datatype.Blob</from>
+        <from>datatype::Blob</from>
         <to>org.andromda.persistence.hibernate.HibernateByteBlobType</to>
     </mapping>
     <mapping>
-        <from>datatype.Clob</from>
+        <from>datatype::Clob</from>
         <to>org.andromda.persistence.hibernate.HibernateStringClobType</to>
     </mapping>
 </mappings>

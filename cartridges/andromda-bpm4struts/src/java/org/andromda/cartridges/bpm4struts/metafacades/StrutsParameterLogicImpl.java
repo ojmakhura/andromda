@@ -1401,61 +1401,59 @@ public class StrutsParameterLogicImpl
         return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
     }
 
-// ------------------------------------------
-
     private boolean isValidatorBoolean(String type)
     {
-        return "datatype.boolean".equals(type) || "datatype.Boolean".equals(type);
+        return "datatype::boolean".equals(type) || "datatype::Boolean".equals(type);
     }
 
     private boolean isValidatorChar(String type)
     {
-        return "datatype.char".equals(type) || "datatype.Char".equals(type);
+        return "datatype::char".equals(type) || "datatype::Char".equals(type);
     }
 
     private boolean isValidatorByte(String type)
     {
-        return "datatype.byte".equals(type) || "datatype.Byte".equals(type);
+        return "datatype::byte".equals(type) || "datatype::Byte".equals(type);
     }
 
     private boolean isValidatorShort(String type)
     {
-        return "datatype.short".equals(type) || "datatype.Short".equals(type);
+        return "datatype::short".equals(type) || "datatype::Short".equals(type);
     }
 
     private boolean isValidatorInteger(String type)
     {
-        return "datatype.int".equals(type) || "datatype.Integer".equals(type);
+        return "datatype::int".equals(type) || "datatype::Integer".equals(type);
     }
 
     private boolean isValidatorLong(String type)
     {
-        return "datatype.long".equals(type) || "datatype.Long".equals(type);
+        return "datatype::long".equals(type) || "datatype::Long".equals(type);
     }
 
     private boolean isValidatorFloat(String type)
     {
-        return "datatype.float".equals(type) || "datatype.Float".equals(type);
+        return "datatype::float".equals(type) || "datatype::Float".equals(type);
     }
 
     private boolean isValidatorDouble(String type)
     {
-        return "datatype.double".equals(type) || "datatype.Double".equals(type);
+        return "datatype::double".equals(type) || "datatype::Double".equals(type);
     }
 
     private boolean isValidatorDate(String type)
     {
-        return "datatype.Date".equals(type);
+        return "datatype::Date".equals(type);
     }
 
     private boolean isValidatorUrl(String type)
     {
-        return "datatype.URL".equals(type);
+        return "datatype::URL".equals(type);
     }
 
     private boolean isValidatorString(String type)
     {
-        return "datatype.String".equals(type);
+        return "datatype::String".equals(type);
     }
 
     private boolean isEmailFormat(String format)

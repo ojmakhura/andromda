@@ -64,7 +64,7 @@
                 The class we have modeled does not have any properties, however, we notice it having an 'id'
                 attribute, where is that coming from ? Well, by default AndroMDA configures the Spring cartridge
                 to generate an identifier when none have been modeled by the user, this identifier is called
-                <code>id</code>, and it is of type <code>datatype.Long</code>. It is possible to override these
+                <code>id</code>, and it is of type <code>datatype::Long</code>. It is possible to override these
                 settings in the
                 <a href="../maven-andromda-plugin/properties.html#Defining_Namespace_Properties">namespace
                 properties for Maven</a> or the

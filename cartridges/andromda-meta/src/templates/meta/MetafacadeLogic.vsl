@@ -75,17 +75,11 @@ public abstract class $metafacade.logicName
 #if (!$metafacade.attributes.empty)
     // --------------- attributes ---------------------
 
-#foreach ( $attribute in $metafacade.attributes )
+#foreach ($attribute in $metafacade.attributes)
 ##
 #set ($memberTypeName = $attribute.type.fullyQualifiedName)
 #set ($memberType = $attribute.type)
-##set ($methodName = $attribute.getterName)
-#set ($fqname = $attribute.type.getFullyQualifiedName(true))
-#if ($fqname == "datatype.boolean")
-#set ($methodName = "is$stringUtils.capitalize($attribute.name)")
-#else
-#set ($methodName = "get$stringUtils.capitalize($attribute.name)")
-#end
+#set ($methodName = $attribute.getterName)
 #set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")

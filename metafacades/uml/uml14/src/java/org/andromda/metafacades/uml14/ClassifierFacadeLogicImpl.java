@@ -372,8 +372,7 @@ public class ClassifierFacadeLogicImpl
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(this.getArraySuffix()) != -1)
         {
-            nonArrayType = (ClassifierFacade)this.getRootPackage()
-                .findModelElement(
+            nonArrayType = (ClassifierFacade)this.getRootPackage().findModelElement(
                     StringUtils.replace(this.getFullyQualifiedName(true), this
                         .getArraySuffix(), ""));
         }

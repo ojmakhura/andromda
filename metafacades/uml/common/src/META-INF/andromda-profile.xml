@@ -112,34 +112,34 @@
     <!-- datatypes -->
     <mapping>
         <from>COLLECTION_TYPE</from>
-        <to>datatype.Collection</to>
+        <to>datatype::Collection</to>
     </mapping>
     <mapping>
         <from>LIST_TYPE</from>
-        <to>datatype.List</to>
+        <to>datatype::List</to>
     </mapping>
     <mapping>
         <from>SET_TYPE</from>
-        <to>datatype.Set</to>
+        <to>datatype::Set</to>
     </mapping>
     <mapping>
         <from>DATE_TYPE</from>
-        <to>datatype.Date</to>
+        <to>datatype::Date</to>
     </mapping>
     <mapping>
         <from>BOOLEAN_TYPE</from>
-        <to>datatype.boolean</to>
+        <to>datatype::boolean</to>
     </mapping>
     <mapping>
         <from>FILE_TYPE</from>
-        <to>datatype.File</to>
+        <to>datatype::File</to>
     </mapping>
     <mapping>
         <from>MAP_TYPE</from>
-        <to>datatype.Map</to>
+        <to>datatype::Map</to>
     </mapping>
     <mapping>
         <from>STRING_TYPE</from>
-        <to>datatype.String</to>
+        <to>datatype::String</to>
     </mapping>
 </mappings>

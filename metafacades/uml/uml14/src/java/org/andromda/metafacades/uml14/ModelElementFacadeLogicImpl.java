@@ -63,38 +63,56 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName(boolean modelName)
     {
-        String seperatorProperty = MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR;
-        if (!modelName)
-        {
-            seperatorProperty = UMLMetafacadeProperties.NAMESPACE_SEPARATOR;
-        }
         return UMLMetafacadeUtils.getPackageName(this.metaObject,
-            String.valueOf(this.getConfiguredProperty(seperatorProperty)));
+            String.valueOf(this.getConfiguredProperty(this.getNamespaceScopeProperty(modelName))));
     }
-
+    
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
     public java.lang.String handleGetFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
-        final String packageName = this.getPackageName();
+        final String packageName = this.getPackageName(true);
+        final String metafacadeNamespaceScopeOperator =  String.valueOf(
+            this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
         if (StringUtils.isNotBlank(packageName))
         {
             fullName = packageName
-                + this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)
+                + metafacadeNamespaceScopeOperator
                 + fullName;
         }
-
         if (!modelName)
         {
             if (this.getLanguageMappings() != null)
             {
                 fullName = StringUtils.deleteWhitespace(this
                     .getLanguageMappings().getTo(fullName));
+                // now replace the metafacade scope operators
+                // with the mapped scope operators
+                final String namespaceScopeOperator = String.valueOf(
+                    this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
+                fullName = StringUtils.replace(fullName, metafacadeNamespaceScopeOperator, namespaceScopeOperator);
             }
         }
         return fullName;
+    }
+    
+    /**
+     * Gets the appropriate namespace property for retrieve the namespace
+     * scope operation (dependng on the given <code>modelName</code> flag.
+     * @param modelName whether or not the scope operation for the model should be
+     *        retrieved as oppposed to the mapped scope operator.
+     * @return the scope operator.
+     */
+    private String getNamespaceScopeProperty(boolean modelName)
+    {
+        String namespaceScopeProperty = MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR;
+        if (!modelName)
+        {
+            namespaceScopeProperty = UMLMetafacadeProperties.NAMESPACE_SEPARATOR;
+        }
+        return namespaceScopeProperty;
     }
 
     /**

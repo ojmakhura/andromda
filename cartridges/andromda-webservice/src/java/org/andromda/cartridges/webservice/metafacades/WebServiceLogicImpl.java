@@ -21,6 +21,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ServiceOperation;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Closure;
@@ -425,7 +426,9 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetWsdlFile()
     {
-        return '/' + this.getFullyQualifiedName(true).replace('.', '/')
+        return '/' + StringUtils.replace(
+            this.getFullyQualifiedName(), 
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/")
             + ".wsdl";
     }
 
