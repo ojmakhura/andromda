@@ -27,9 +27,8 @@ final class GuessControllerImpl extends GuessController
     {
         DecisionService decisionService = this.getService();
         VODecisionItem vodi = decisionService.getFirstQuestion();
-
         form.setQuestion(vodi.getPrompt());
-
+        
         // Keep the decision item in the session so that
         // the next step can process it.
         getGuessSessionState(request).setLastDecisionItem(vodi);

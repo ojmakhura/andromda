@@ -6,18 +6,9 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-hibernate-ejb</artifactId>
+            <artifactId>animal-quiz-hibernate</artifactId>
             <version>${pom.currentVersion}</version>
             <type>ejb</type>
-            <properties>
-                <ear.bundle>true</ear.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-hibernate-sar</artifactId>
-            <version>${pom.currentVersion}</version>
-            <type>sar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>

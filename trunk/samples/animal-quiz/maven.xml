@@ -28,16 +28,10 @@
 			goals="war:install"/>
 	</goal>	
 	
-	<goal name="hibernate-ejb">
+	<goal name="hibernate">
 		<maven:maven
-			descriptor="${basedir}/hibernate/ejb/project.xml"
+			descriptor="${basedir}/hibernate/project.xml"
 			goals="ejb:install"/>
-	</goal>	
-	
-	<goal name="hibernate-sar">
-		<maven:maven
-			descriptor="${basedir}/hibernate/sar/project.xml"
-			goals="jar:install"/>
 	</goal>	
 	
 	<goal name="common">
