@@ -90,7 +90,7 @@ $target.getDocumentation("    * ")
     *     role="$target.name"
     *     lazy="true"
     * @hibernate.collection-key
-    *     column="$target.columnName"
+    *     column="$associationEnd.columnName"
     * @hibernate.collection-one-to-many
     *     class="$targetTypeName"
     */
