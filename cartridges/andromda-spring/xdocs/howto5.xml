@@ -60,6 +60,31 @@
                     <li class="gen"><a href="resources/howto/org/andromda/test/5/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
                 </ul>
             </p>
+            <subsection name="Literals">
+                <p>
+                    Note that in this example the enumeration attributes have been specified using a regular variable
+                    names in Java notation, the <em>initial value</em> has been specified using capitals
+                    (actually you would do this only when you want to have the value different from the attribute name):
+<source><![CDATA[
+sedan : String = SEDAN
+liftback : String = LIFTBACK
+stationWagon : String = STATION_WAGON
+]]></source>
+                    The following is perfectly equivalent, and shorter in use, it specifies the attribute name using
+                    capitals and omits the initial value:
+<source><![CDATA[
+SEDAN : String
+LIFTBACK : String
+STATION_WAGON : String
+]]></source>
+                </p>
+                <p class="highlight">
+                    The latter is recommended for Java applications where it preferred to have literal names matching
+                    the persisted values: the enumeration literals will be constants
+                    and therefore a capitalized name is desired, and since the name is exacly what will be persisted
+                    it is very easy in use too.
+                </p>
+            </subsection>
         </section>
         <section name="Next">
             <p>
