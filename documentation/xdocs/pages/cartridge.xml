@@ -118,7 +118,7 @@
   &lt;template
     stereotype="Service"
     sheet="templates/SessionRemoteHome.vsl"
-    outputPattern="{0}/{1}Bean.java"
+    outputPattern="{0}/{1}Home.java"
     outlet="session-beans"
     overWrite="true"
     generateEmptyFiles="false"
@@ -127,7 +127,7 @@
   &lt;template
     stereotype="Service"
     sheet="templates/SessionLocalHome.vsl"
-    outputPattern="{0}/{1}Bean.java"
+    outputPattern="{0}/{1}LocalHome.java"
     outlet="session-beans"
     overWrite="true"
     generateEmptyFiles="false"
