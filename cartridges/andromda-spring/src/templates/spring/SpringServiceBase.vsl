@@ -72,7 +72,7 @@ public abstract class $service.baseName
 #end
     {
 #foreach ($argument in $operation.arguments)
-#if (!$argument.type.primitive)
+#if ($argument.required && !$argument.type.primitive)
         if ($argument.name == null) 
         {
             throw new IllegalArgumentException(
