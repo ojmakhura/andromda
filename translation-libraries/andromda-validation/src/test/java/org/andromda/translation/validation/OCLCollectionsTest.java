@@ -3,9 +3,9 @@ package org.andromda.translation.validation;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.commons.collections.Transformer;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.collections.Transformer;
 
 /**
  * Tests the OCLCollections
