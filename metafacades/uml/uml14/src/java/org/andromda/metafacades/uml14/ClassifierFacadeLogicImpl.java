@@ -1,8 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -76,11 +79,10 @@ public class ClassifierFacadeLogicImpl
     public boolean handleIsPrimitiveType()
     {
         String name = this.getFullyQualifiedName();
-        return ("void".equals(name) || "char".equals(name)
-            || "byte".equals(name) || "short".equals(name)
-            || "int".equals(name) || "long".equals(name)
-            || "float".equals(name) || "double".equals(name) || "boolean"
-            .equals(name));
+        return ("char".equals(name) || "byte".equals(name)
+            || "short".equals(name) || "int".equals(name)
+            || "long".equals(name) || "float".equals(name)
+            || "double".equals(name) || "boolean".equals(name));
     }
 
     /**
@@ -94,6 +96,43 @@ public class ClassifierFacadeLogicImpl
     public boolean handleIsArrayType()
     {
         return this.getFullyQualifiedName(true).endsWith(ARRAY_SUFFIX);
+    }
+
+    /**
+     * The location on the classpath of where to find the wrapper types.
+     */
+    private static final String WRAPPER_NAMES_LOCATION = "META-INF/wrapper-names.xml";
+
+    /**
+     * Stores the type mappings for mapping primitive types to wrapper types.
+     */
+    private Mappings wrapperMappings = null;
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getWrapperName()
+     */
+    public String handleGetWrapperName()
+    {
+        String wrapperName = this.getName();
+        if (wrapperMappings == null)
+        {
+            URL mappingsUri = ResourceUtils.getResource(WRAPPER_NAMES_LOCATION);
+            if (mappingsUri == null)
+            {
+                logger.warn("Wrapper names --> '" + WRAPPER_NAMES_LOCATION
+                    + "' could not be found, not "
+                    + "attempting to retrieve wrapper name");
+            }
+            else
+            {
+                this.wrapperMappings = Mappings.getInstance(mappingsUri);
+            }
+        }
+        if (this.wrapperMappings != null)
+        {
+            wrapperName = this.wrapperMappings.getTo(wrapperName);
+        }
+        return wrapperName;
     }
 
     /**
@@ -280,7 +319,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacade#addAttribute(java.lang.String,
+     * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String,
      *      java.lang.String, java.lang.String)
      */
     public void handleAddAttribute(
@@ -295,9 +334,9 @@ public class ClassifierFacadeLogicImpl
             .getVisibilityKind(visibility));
         this.metaObject.getFeature().add(attribute);
     }
-    
+
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacade#isEnumeration()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isEnumeration()
      */
     public boolean handleIsEnumeration()
     {

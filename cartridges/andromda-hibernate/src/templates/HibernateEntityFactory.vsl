@@ -94,7 +94,7 @@ $finder.getDocumentation("     * ")
 ##
 #foreach($prm in $finder.arguments)
 #set ($index = $velocityCount - 1)
-		query.set${prm.type.name} (${index}, ${prm.name});
+		query.set${prm.type.wrapperName} (${index}, ${prm.name});
 #end
 ##
         return query.list();
