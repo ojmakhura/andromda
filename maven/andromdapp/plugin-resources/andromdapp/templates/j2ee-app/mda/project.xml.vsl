@@ -26,6 +26,17 @@
                  <maxSqlNameLength>30</maxSqlNameLength>
                  <foreignKeySuffix>_FK</foreignKeySuffix>
                  <ejbJndiNamePrefix>${pom.groupId}</ejbJndiNamePrefix>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                 <classifierNameMask>none</classifierNameMask>
+                 <classifierPropertyNameMask>none</classifierPropertyNameMask>
+                 <operationNameMask>none</operationNameMask>
+                 <roleNameMask>none</roleNameMask>
+                 <enumerationNameMask>none</enumerationNameMask>
+                 <enumerationLiteralNameMask>none</enumerationLiteralNameMask>
+                 <entityNameMask>none</entityNameMask>
+                 <entityPropertyNameMask>none</entityPropertyNameMask>
+                 <parameterNameMask>none</parameterNameMask>
              </properties>
         </dependency>
 #if ($ejb)
