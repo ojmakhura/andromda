@@ -332,6 +332,7 @@ public class ValidationJavaTranslator
             AFeatureCall featureCall = (AFeatureCall)node.getFeatureCall();
             String featureCallExpression = TranslationUtils.trimToEmpty(node
                 .getFeatureCall());
+            logger.error("the feature call!!!!: " + featureCallExpression);
             if (featureCallExpression.matches(OCLFeatures.OCL_IS_KIND_OF))
             {
                 this.handleOclIsKindOf(featureCall);
@@ -339,6 +340,10 @@ public class ValidationJavaTranslator
             else if (featureCallExpression.matches(OCLFeatures.OCL_IS_TYPE_OF))
             {
                 this.handleOclIsTypeOf(featureCall);
+            }
+            else if (featureCallExpression.matches(OCLFeatures.CONCAT))
+            {
+                this.handleConcat(featureCall);
             }
             else
             {
@@ -367,6 +372,20 @@ public class ValidationJavaTranslator
         write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
             .replaceAll("\\s*::\\s*", "."));
         write(".class.getName())");
+    }
+
+    /**
+     * contact(string) is a special feature defined by OCL on all objects.
+     */
+    private void handleConcat(AFeatureCall featureCall)
+    {
+        write(" + \"\" + ");
+        write("org.andromda.translation.validation.OCLIntrospector.invoke(");
+        write(CONTEXT_ELEMENT_NAME);
+        write(",\"");
+        write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
+            .replaceAll("\\s*", ""));
+        write("\")");
     }
 
     /**
