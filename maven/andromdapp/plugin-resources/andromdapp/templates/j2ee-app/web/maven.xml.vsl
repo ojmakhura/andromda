@@ -82,7 +82,7 @@
         <ant:loadfile property="jsp.servlets.text" srcFile="${jsp.precompilation.servlets}"/>
         <ant:replace file="${jsp.precompilation.webapp}/WEB-INF/web.xml"
             value="${jsp.servlets.text}"
-            token="&lt;![CDATA[ precompilation merge-point ]]&gt;"/>
+            token="&lt;!-- precompilation merge-point --&gt;"/>
 
         <!-- removing the JSPs files -->
         <ant:echo message="Deleting JSPs files (all except the welcome page)"/>
@@ -100,6 +100,36 @@
             basedir="${jsp.precompilation.webapp}"
             update="false"/>
 
+    </postGoal>
+    
+    <!--
+        | This is where merge points within the web.xml can be replaced, just add content
+        | to the 'j:set' body for the merge point you want to use (or add additional ones from the 
+        | web.xml), and remove the 'ignore::' prefix
+    -->
+    <postGoal name="ignore::war:webapp">
+        <!-- insert merge points -->
+        <j:set var="contextParams" encode="false">  
+            <![CDATA[
+            <context-param>
+                <param-name>some-context-param</param-name>
+                <param-value>some-context-param-value</param-value>
+            </context-param>   
+            ]]>      
+        </j:set>
+        <ant:replace file="${maven.war.webapp.dir}/WEB-INF/web.xml"
+            value="${contextParams}"
+            token="&lt;!-- context-params merge-point --&gt;"/>
+        <j:set var="contextParams" encode="false">
+        </j:set>
+        <ant:replace file="${maven.war.webapp.dir}/WEB-INF/web.xml"
+            value="${filters}"
+            token="&lt;!-- filter merge-point --&gt;"/>
+        <j:set var="filterMappings" encode="false">    
+        </j:set>
+        <ant:replace file="${maven.war.webapp.dir}/WEB-INF/web.xml"
+            value="${filterMappings}"
+            token="&lt;!-- filter-mapping merge-point --&gt;"/>
     </postGoal>
 
 </project>
