@@ -6,12 +6,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-17">
+        <release version="3.0M3-SNAPSHOT" date="2004-11-18">
             <action dev="cwbrandon" type="add">
                 Added new tagged value to BPM4Struts called <code>@andromda.struts.view.field.reset</code>
                 which allows one to specify specific fields that should be reset on a transition.  This
                 is useful when you want certain fields to be reset after action execution but you don't
-                want the entire for to be reset.
+                want the entire form to be reset.
             </action>
         </release>
         <release version="3.0M3-SNAPSHOT" date="2004-11-17">
