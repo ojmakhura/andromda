@@ -1,5 +1,7 @@
 package org.andromda.translation.validation;
 
+import org.apache.commons.lang.BooleanUtils;
+
 public class OCLExpressions
 {
     public static boolean equal(Object first, Object second)
@@ -47,6 +49,18 @@ public class OCLExpressions
         return first == second;
     }
 
+    public static boolean equal(Object first, boolean second)
+    {
+        return (second)
+                ? Boolean.TRUE.equals(first) || BooleanUtils.toBoolean(String.valueOf(first))
+                : Boolean.FALSE.equals(first) || !BooleanUtils.toBoolean(String.valueOf(first));
+    }
+
+    public static boolean equal(boolean first, Object second)
+    {
+        return equal(second, first);
+    }
+
     public static boolean notEqual(Object first, Object second)
     {
         return (first == null) ? (second != null) : !first.equals(second);
@@ -90,6 +104,16 @@ public class OCLExpressions
     public static boolean notEqual(long first, long second)
     {
         return first != second;
+    }
+
+    public static boolean notEqual(Object first, boolean second)
+    {
+        return !equal(first, second);
+    }
+
+    public static boolean notEqual(boolean first, Object second)
+    {
+        return notEqual(second, first);
     }
 
     public static boolean less(Comparable first, Comparable second)
