@@ -536,11 +536,14 @@ public class StrutsActionLogicImpl
         {
             StrutsActionState actionState = (StrutsActionState) iterator.next();
             StrutsForward forward = actionState.getForward();
-            Collection forwardParameters = forward.getForwardParameters();
-            for (Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+            if (forward != null)
             {
-                StrutsParameter forwardParameter = (StrutsParameter) parameterIterator.next();
-                formFieldMap.put(forwardParameter.getName(), forwardParameter);
+	            Collection forwardParameters = forward.getForwardParameters();
+	            for (Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+	            {
+	                StrutsParameter forwardParameter = (StrutsParameter) parameterIterator.next();
+	                formFieldMap.put(forwardParameter.getName(), forwardParameter);
+	            }
             }
         }
 
