@@ -6,646 +6,504 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <section name="Latest changes">
-            <p class="std">
-			  This section describes the most recent changes to the AndroMDA codebase.
-            </p>
-            <table border="1" cellpadding="2" cellspacing="0">
-                <tr>
-                    <th class="std">Date</th>
-                    <th class="std">Description</th>
-                    <th class="std">Details</th>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 22, 2004</td>
-                    <td valign="top" class="std">Final bpm4struts update before the 3.0 release</td>
-                    <td valign="top" class="std">
-                        This update is the last one that will impact the way users model their Struts application.
-                        A change was needed due to a missing feature: "multibox". In order to properly fix it
-                        some other changes were required too.
-                        <ol>
-                            <li>You can now put any widget in a table, you can do that by simply linking an action
-                                parameter using the <code>@andromda.struts.view.field.tablelink</code>
-                                tagged value to an incoming table collection. You must of course link to an existing
-                                table column.
-                            </li>
-                            <li>Previously performing this step would simply create a hyperlink, now you would need to
-                                set the action parameter's <code>@andromda.struts.view.field.type</code>
-                                tagged value to 'link' in order to achieve that.
-                            </li>
-                            <li>Due to HTML limitations you can only make links to the same table from a single
-                                action. The reason is that there can be only one form around the table. If you still
-                                want to have multiple actions working on the same table you will need to patch in
-                                manually using JavaScript (setting the target action URL).
-                            </li>
-                            <li>If you want to use the
-                                <a href="http://struts.apache.org/userGuide/struts-html.html#multibox">multibox</a>
-                                feature you need first to model a collection or
-                                array page-variable that contains the values against which to match. Next you create
-                                a table link, thereby selecting the table column. Finally you set the field type of the
-                                action parameter to something like this (assuming the multibox collection is
-                                called 'myValues')
-                                <code>@andromda.struts.view.field.type = multibox:myValues</code>
-                            </li>
-                            <li>The online store has been extended with an example of this, just open the model
-                                and check out the 'buy this item' action. The 'test' and 'available' parameters
-                                are rendered as widgets in the table, the 'available' column is a multibox.
-                                Please also note how the multibox collection (called 'availableItems') is preloaded
-                                by the 'loadItems' controller operations.
-                            </li>
-                        </ol>
-                        <p class="highlight">
-                            I strongly recommend not relying too much on the widgets-in-table feature
-                            yet, it is experimental and is likely to change in the future. The reason it has
-                            been put in is to see whether or not it is usable. A restriction currently
-                            is that you will not have any way to submit the changes you make in the table,
-                            for that to work we would need to apply some updates to the rendered rows so a submit button
-                            could properly trigger the sending of the form.
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 19, 2004</td>
-                    <td valign="top" class="std">AndroMDApp Maven Plugin improvement</td>
-                    <td valign="top" class="std">
-                        The AndroMDApp Maven plugin has been improved to include Spring
-                        and the WebService cartridges as options when generating an AndroMDA
-                        powered Maven application.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 15, 2004</td>
-                    <td valign="top" class="std">Entity Relationships update</td>
-                    <td valign="top" class="std">
-                        AndroMDA now automatically assigns a suitable name to association ends with a
-			            'many' cardinality and an empty name. Before only the name of the target classifier
-			            was taken into account, now it is analyzed and a proper (English) name is constructed
-			            (word:words, key:keys, property:properties).
-			            If your code relies on such unlabeled association ends it might be possible that an
-			            AndroMDA run on your UMl model will result in code that is uncompilable in combination
-			            with your existing implementation classes, a simple rename will be sufficient.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 11, 2004</td>
-                    <td valign="top" class="std">Metafacades major update</td>
-                    <td valign="top" class="std">
-                        The metafacades now have their properties no longer modeled as operations but as attributes,
-                        wherever possible. This has no effect on code already generated. In addition boolean accessor
-                        methods now have their names properly rendered according to the Java Bean specification
-                        (getXXX becomes isXXX).
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 08, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts update</td>
-                    <td valign="top" class="std">
-                        The Xdoclet dependency, WebDoclet to be exact, has been removed from the bpm4struts-cartridge;
-                        now the
-                        <code>struts-config.xml</code> and
-                        <code>validation.xml</code> files are generated
-                        directly by AndroMDA. The Ant-tool and the maven plugins, used to generate a default AndroMDA
-                        project, have also been updated to reflect this change.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 05, 2004</td>
-                    <td valign="top" class="std">Spring Cartridge graduates</td>
-                    <td valign="top" class="std">
-                        The AndroMDA Spring cartridge (a cartridge based on the
-                        <a href="http://www.springframework.org">Spring Framework</a>)
-                        has moved from the contrib module to the main andromda codebase.  To learn how to use this new cartridge,
-                        please see the the documentation
-                        <a href="andromda-spring-cartridge/index.html">here</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 05, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts update</td>
-                    <td valign="top" class="std">
-                        The latest major update has been improved: it is now no longer needed to
-                        add tagged values onto controller operation arguments. The cartridge will
-                        auto-detect the appropriate value. In addition more validation constraints
-                        have been added to inform the user of any cartridge modeling errors.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Oct 01, 2004</td>
-                    <td valign="top" class="std">Major Bpm4Struts update</td>
-                    <td valign="top" class="std">
-                        The latest major bpm4struts update did not prove to be a very elegant solution,
-                        this led us to revise
-                        the implementation and come up with an alternative one. Here's a list of what has changed:
-                        <ol>
-                            <li>parameters with the same name and in the same use-case are required to also
-                                be of the same type</li>
-                            <li>form fields do no longer have their name prefixed with the name of the action</li>
-                            <li>forms now implement an interface for each controller operation they defer to</li>
-                            <li>it is now needed to put arguments in the controller operations, these arguments
-                                will be available in the form interface that is accessible programmatically</li>
-                            <li>these arguments will need to have the
-                                <code>
-                                @andromda.struts.view.field.type</code> tagged value set to 'select' in case
-                                you want to prepopulate a list of entries (see samples)
-                            </li>
-                            <li>currently it is also needed to specify the table columns (just as you
-                                would on a collection-type page variable) in case the argument
-                                maps onto an action parameter which is displayed in tabular format, but this
-                                will be solved soon</li>
-                        </ol>
-                        <p class="highlight">
-                            All of this means this will break the compilation of your current
-                            codebase using one of the previous AndroMDA versions.
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 29, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts update</td>
-                    <td valign="top" class="std">
-                        Overloaded a controller method for accessing the session objects, the new
-                        method allows to choose whether ot not to create the session in case it does
-                        not exist yet (default is
-                        <code>true</code>). Also implemented some
-                        improvements in handling the session objects and the session itself.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 28, 2004</td>
-                    <td valign="top" class="std">New AndroMDA task attribute</td>
-                    <td valign="top" class="std">
-                        The andromda task and maven plugin, now support an attribute called
-                        <code>failOnModelValidationErrors</code> which allows us to
-                        turn on/off whether or not model processing should fail/stop
-                        if
-                        <strong>ANY</strong> model validation errors occur.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 27, 2004</td>
-                    <td valign="top" class="std">Hibernate cartridges improvements</td>
-                    <td valign="top" class="std">
-                        The hibernate cartridge now generates its own hibernate.cfg.xml which
-                        means the jboss-service.xml generated by xdoclet is no longer needed.
-                        With this change, multiple new namespace properties were added 
-                        for configuring this configuration file.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 25, 2004</td>
-                    <td valign="top" class="std">bpm4struts new tagged value</td>
-                    <td valign="top" class="std">
-                        Just like you can use success messages on action transitions we now have
-                        the possibility to use warning messages, simply add the tagged value
-                        <code>@andromda.struts.action.warning.message</code> to the action
-                        transition and set its value to the message you want to have displayed (will be i18n'ed).
-                        Warning messages will be rendered in yellowish.
-                        In addition all messages are now supported on
-                        <strong>any</strong> transition, and you may have
-                        more than one message on such a transition (unlimited).
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 23, 2004</td>
-                    <td valign="top" class="std">bpm4struts update</td>
-                    <td valign="top" class="std">
-                        The controllers associated to session objects have different methods to
-                        access those objects. The 'clearXXX' method has been renamed to 'removeXXX'.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 19, 2004</td>
-                    <td valign="top" class="std">new Hibernate feature</td>
-                    <td valign="top" class="std">
-                        A new namespace property 'versionProperty' has been added, it is used
-                        to determine which property/attribute name to use for versioning entities.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 10, 2004</td>
-                    <td valign="top" class="std">site update</td>
-                    <td valign="top" class="std">
-                        There is a new link in the download section (menu), it is called 'resources' and it
-                        will contain resources on AndroMDA such as tutorials and slides.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 09, 2004</td>
-                    <td valign="top" class="std">new Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        A new namespace property is available to set a default date format to use for
-                        date fields in the application, not specifying this value will use dd/MM/yyyy as the default
-                        date format.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 08, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts fixes</td>
-                    <td valign="top" class="std">
-                        This change fixes some issues with the most recent updates for bpm4struts:
-                        <ol>
-                            <li>We no longer have the controller operation interfaces the forms were implementing</li>
-                            <li>Instead we have a controller operation for each different action that defers to them,
-                                this means you sometimes have the same operation more than once with only a different
-                                argument type for the form. This seems to be the most optimal and realistic
-                                implementation, forms cannot be shared using interfaces aggregating the fields
-                                because field names carry the action name as a prefix and this cannot be changed
-                                because in that case validation rules would be impossible to determine for fields
-                                that have the same name and type over different page actions.
-                            </li>
-                            <li>It should now be possible to easily send parameters between use-cases</li>
-                        </ol>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 03, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts improvement</td>
-                    <td valign="top" class="std">
-                        Controllers and their implementation have changed names. The abstract parent
-                        classes now no longer have the 'Interface' suffix, the descendants have
-                        the 'Impl' suffix. This has been done for consistency with other cartridges
-                        and because it is cleaner not to have any suffix on the interface or
-                        abstract parents.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 02, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts improvement</td>
-                    <td valign="top" class="std">
-                        It is now possible to specify labels and values differently
-                        for selectable parameters such as in comboboxes and lists.
-                        The form containing such a parameter will have two new properties:
-                        'valueList' and 'labelList'. If you do not specify the 'labelList'
-                        property it will assume the values of the 'valueList'.
-                        The backing list has been made readonly
-                        because it will construct a special array to be handled by the Struts tags.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 02, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts major change</td>
-                    <td valign="top" class="std">
-                        Controller implementation do not get form types passed in the argument, instead
-                        there is an interface aggregating common form properties, this way forms
-                        of several different types implementing this interface can be passed in.
-                        This elegantly allows a single controller operation to be called from different
-                        actions (which each have their own form).
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Sep 02, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts major change</td>
-                    <td valign="top" class="std">
-                        A major change has been incorporated into the cartridge, you will have to
-                        be very careful when migrating to a version after this date.
-                        ActionForms are back into the request scope so their properties will not be
-                        persisted into the session as was the case before. Bpm4Struts now is
-                        intelligent enough to determine which properties should be available in which
-                        ActionForm (even in ambiguous cases such as cyclic processes or when
-                        multiple actions target multiple pages without a 1-to-1 mapping.
-                        The reason for this drastic change was a possible bug in the server-side
-                        validation framework. It would happen that forms were not properly recognized on
-                        the server while the client could parse them fine.
-                        In order to properly migrate you should at least need to fix the controller
-                        implementations (you will have compilation errors otherwise), unfortunately
-                        you will need to update all JSP pages. The changes are minimal so you might
-                        consider looking at the differences manually (we are back at using the Struts HTML
-                        tag library instead of the plain old HTML tags directly).
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 29, 2004</td>
-                    <td valign="top" class="std">Core change</td>
-                    <td valign="top" class="std">
-                        The
-                        <code>validating</code> flag has been renamed to the more
-                        appropriate
-                        <code>xmlValidation</code>.  At the same time a new
-                        <code>modelValidation</code> flag has been added that allows us
-                        to turn on/off model validation during processing.   By default
-                        model validation occurs, however its sometimes nice to turn it
-                        off for performance reasons (i.e. you have a really big model).
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 28, 2004</td>
-                    <td valign="top" class="std">New bpm4struts feature</td>
-                    <td valign="top" class="std">
-                        We now have session objects, these instances can be handled
-                        through protected controller methods. Controller interfaces
-                        are abstract classes now, so make sure you use 'extends'
-                        instead of 'implements' when using the cartridge after
-                        this date.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 28, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts changes</td>
-                    <td valign="top" class="std">
-                        The namespace property 'breadCrumbs' (boolean) has been replaced by the property
-                        'maxBreadCrumbs' (integer). To disable breadcrumbs specify zero.
-                        Additionally the tabledecorator has been removed, it was only used to render
-                        specific HTML code but a more elegant solution has been put in place.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 23, 2004</td>
-                    <td valign="top" class="std">New Core feature</td>
-                    <td valign="top" class="std">
-                        A new namespace property has been added that can be used for
-                        <em>any</em> cartridge, its called
-                        <code>mergeLocation</code>, for
-                        more information see
-                        <a href="andromda-cartridges/index.html#mergeLocation">Overriding cartridge resources</a>.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 22, 2004</td>
-                    <td valign="top" class="std">New bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        For those who want it online help will be generated
-                        for your application, by default it is enabled. You can
-                        override this by setting the 'onlineHelp' property to
-                        'false' in your bpm4struts namespace.
-                        It currently supports documentation on use-cases, action
-                        transitions, action parameters and pages.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 21, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts change</td>
-                    <td valign="top" class="std">
-                        Tooltips are now handled in JavaScript. We had to remove
-                        the doctypes for that to work properly in Firefox and Mozilla.
-                        It will be improved in the future.
-                        The reason we have these JS tooltips is that now it can also
-                        support images and text of arbitrary length.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 20, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts change</td>
-                    <td valign="top" class="std">
-                        Pattern masks for input field validation must not include
-                        the leading '^' and trailing '$' anymore. Some CASE tools
-                        such as MagicDraw don't handle them well.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 19, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts change</td>
-                    <td valign="top" class="std">
-                        The table link tagged value changed name:
-                        <code>@andromda.struts.action.tablelink</code> is now
-                        <code>@andromda.struts.view.field.tablelink</code>, the reason is that
-                        the location for this tagged value is the parameter and not the
-                        transition (as in the very beginning).
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 19, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts change</td>
-                    <td valign="top" class="std">
-                        Form bean fields now have the name of their action prepended to their
-                        name (only for action parameters, page variables are unchanged).
-                        Using bpm4struts after this date will require you to update
-                        your controller implementations or a compilation error
-                        will occur.
-                        This change was needed in order to allow action parameters to
-                        have the same names in a single use-case. Without this feature
-                        the form would contain the same field name more than once, and that
-                        is not allowed in Java.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 19, 2004</td>
-                    <td valign="top" class="std">New Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        A new namespace property has been added: 'dummyData'. You can either
-                        give it a 'true' or 'false' value. The default is 'true'. If the
-                        value is 'true' a 'dummy data' will be rendered in places like the
-                        controller, if set to 'false' this dummy data will not be generated.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 19, 2004</td>
-                    <td valign="top" class="std">Core API change</td>
-                    <td valign="top" class="std">
-                        toJavaClassName and toJavaMethodName in StringUtilsHelper have been
-                        renamed to more language generic "upperCamelCaseName"
-                        and "lowerCamelCaseName".
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 16, 2004</td>
-                    <td valign="top" class="std">New Hibernate feature</td>
-                    <td valign="top" class="std">
-                        A new namespace property has been added: 'tableNamePrefix'.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 15, 2004</td>
-                    <td valign="top" class="std">New Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        A new namespace property has been added: 'breadCrumbs'. You can either
-                        give it a 'true' or 'false' value. The default is 'true'. If the
-                        value is 'true' a 'history' is rendered at the top of each page,
-                        also known as breadcrumbs: it allows you to navigate back and forth
-                        between the pages already visited. The scope of the breadcrumbs is
-                        restricted to the context use-case.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 15, 2004</td>
-                    <td valign="top" class="std">New Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        Required fields now have an asterisk rendered next to their
-                        label. (Only if validation has been enabled)
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 13, 2004</td>
-                    <td valign="top" class="std">New Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        Added the following tagged value:
-                        <code>@andromda.struts.view.field.tablelink</code>.
-                        You can use it to create hyperlinks to actions in the columns of a table.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 10, 2004</td>
-                    <td valign="top" class="std">New Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        Date input field now have a popup calendar to choose the date from
-                        and have it automaitcally rendered into the appropriate format.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 08, 2004</td>
-                    <td valign="top" class="std">New Core Feature</td>
-                    <td valign="top" class="std">
-                        Cartridges now allow generation based on metafacade
-                        type (and optionally its properties), in addition to stereotypes.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 06, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts improvement</td>
-                    <td valign="top" class="std">
-                        It is now possible to create a hyperlink from a final state to a use-case
-                        and have the cartridge interpret it as the next use-case to navigate to.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">Aug 03, 2004</td>
-                    <td valign="top" class="std">build update</td>
-                    <td valign="top" class="std">
-                        The maven build has been changed
-                        <ul>
-                            <li>
-                                All artifacts now reside in the 'andromda' groupId of the maven
-                                repository.  This means for those using Maven for their projects,
-                                they'll need to specify 'andromda' as the groupId (for dependencies)
-                                instead of the old 'andromda-cartridges' for cartridges and
-                                'andromda-translation-libraries' for translation-libraries.
-                            </li>
-                            <li>
-                               Bootstrap dependencies are now stored in CVS. They are renamed
-                               to the current version and copied to the remote repository during the build (
-                               they used to be stored remotely).
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 26, 2004</td>
-                    <td valign="top" class="std">andromda Ant task update</td>
-                    <td valign="top" class="std">
-                        The <![CDATA[<andromda/>]]> Ant task was changed to
-						allow multiple models to be specified using a URL.
-						This included adding a new <![CDATA[<model/>]]> element
-						and eliminating the modelURL attribute from the <![CDATA[<andromda/>]]>
-						task.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 21, 2004</td>
-                    <td valign="top" class="std">new Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        Enabled support for tools that do not allow putting graphs inside use-cases. It is now
-                        sufficient to put the
-                        <code>@andromda.struts.usecase.activity</code>
-                        tagged value on the use-case and assign it the name of an activity graph.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 21, 2004</td>
-                    <td valign="top" class="std">new Bpm4Struts feature</td>
-                    <td valign="top" class="std">
-                        Enabled support for tools that do not allow assigning model elements to classifiers.
-                        It is now possible to put a
-                        <code>@andromda.struts.controller.usecase</code> tagged value
-                        on the controller and assigning it the name of a use-case.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 11, 2004</td>
-                    <td valign="top" class="std">andromda-cartridge.xml update</td>
-                    <td valign="top" class="std">
-                        Tagged value prefix of "@andromda" was added back to
-						all tagged values.  It was causing naming conflicts
-						with XDoclet tags when it was just "@".
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 04, 2004</td>
-                    <td valign="top" class="std">andromda-cartridge.xml update</td>
-                    <td valign="top" class="std">
-                        Added new resource element to the andromda-cartridge.xml
-						that allows non template resources (like images, jars, etc) 
-						to be included and output from a cartridge.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 04, 2004</td>
-                    <td valign="top" class="std">bpm4struts moved to XHTML mode</td>
-                    <td valign="top" class="std">
-                        All JSPs have been updated to render XHTML 1.0 compatible content,
-                        the content-type declaration has been updated and any HTML
-                        comment has been changed to comply to the XHTML standard.
-                        You will need an XHTML compatible browser to properly
-                        view the pages.
-                        By default bpm4struts generates HTML 4.0 compliant JSPs but
-                        by setting the 'xhtml' namespace property to 'true' it will
-                        render XHTML.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 03, 2004</td>
-                    <td valign="top" class="std">andromda-cartridge.xml update</td>
-                    <td valign="top" class="std">
-                        The 'sheet' attribute in the template element has been
-                        renamed to 'path'.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 03, 2004</td>
-                    <td valign="top" class="std">bpm4struts andromda-cartridge.xml update</td>
-                    <td valign="top" class="std">
-                        In bpm4struts there is a new namesapce property: xhtml. The property
-                        'securityEnabled' has been renamed to 'security'.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 03, 2004</td>
-                    <td valign="top" class="std">andromda-cartridge.xml update</td>
-                    <td valign="top" class="std">
-                        The 'overWrite' attribute in the template element has been
-                        renamed to 'overwrite'.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">July 01, 2004</td>
-                    <td valign="top" class="std">schema2xmi</td>
-                    <td valign="top" class="std">
-                        A new feature has been added that will allow users to import legacy database
-                        schemas and have an XMI file generated from them. This will make it easier to port
-                        development of legacy systems to AndroMDA.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">June, 2004</td>
-                    <td valign="top" class="std">web-services cartridge</td>
-                    <td valign="top" class="std">
-                        A new cartridge is available for publishing services
-                        as web-services, this cartridge is to be used in
-                        combination with either the EJB, Hibernate,
-						or Java cartridge.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">June, 2004</td>
-                    <td valign="top" class="std">bpm4struts supports displaytag</td>
-                    <td valign="top" class="std">
-                        Tabular data can now automatically be displayed using paging,
-                        sorting and exporting features, the displaytag tag-library is
-                        used.
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="std">May, 2004</td>
-                    <td valign="top" class="std">OCL support</td>
-                    <td valign="top" class="std">
-                        OCL support provides the following features:
-                        <ul>
-                            <li>Metamodels will now have their constraints
-                                validated during code generation.</li>
-                            <li>Finder queries for persisted entities
-                                can now be expressed using OCL.</li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </section>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-22">
+            <action dev="draftdog" type="update" issue="BPM-83">
+                This update is the last one that will impact the way users model their Struts application.
+                A change was needed due to a missing feature: "multibox". In order to properly fix it
+                some other changes were required too.
+                <ol>
+                    <li>You can now put any widget in a table, you can do that by simply linking an action
+                        parameter using the <code>@andromda.struts.view.field.tablelink</code>
+                        tagged value to an incoming table collection. You must of course link to an existing
+                        table column.
+                    </li>
+                    <li>Previously performing this step would simply create a hyperlink, now you would need to
+                        set the action parameter's <code>@andromda.struts.view.field.type</code>
+                        tagged value to 'link' in order to achieve that.
+                    </li>
+                    <li>Due to HTML limitations you can only make links to the same table from a single
+                        action. The reason is that there can be only one form around the table. If you still
+                        want to have multiple actions working on the same table you will need to patch in
+                        manually using JavaScript (setting the target action URL).
+                    </li>
+                    <li>If you want to use the
+                        <a href="http://struts.apache.org/userGuide/struts-html.html#multibox">multibox</a>
+                        feature you need first to model a collection or
+                        array page-variable that contains the values against which to match. Next you create
+                        a table link, thereby selecting the table column. Finally you set the field type of the
+                        action parameter to something like this (assuming the multibox collection is
+                        called 'myValues')
+                        <code>@andromda.struts.view.field.type = multibox:myValues</code>
+                    </li>
+                    <li>The online store has been extended with an example of this, just open the model
+                        and check out the 'buy this item' action. The 'test' and 'available' parameters
+                        are rendered as widgets in the table, the 'available' column is a multibox.
+                        Please also note how the multibox collection (called 'availableItems') is preloaded
+                        by the 'loadItems' controller operations.
+                    </li>
+                </ol>
+                <p class="highlight">
+                    I strongly recommend not relying too much on the widgets-in-table feature
+                    yet, it is experimental and is likely to change in the future. The reason it has
+                    been put in is to see whether or not it is usable. A restriction currently
+                    is that you will not have any way to submit the changes you make in the table,
+                    for that to work we would need to apply some updates to the rendered rows so a submit button
+                    could properly trigger the sending of the form.
+                </p>
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-19">
+            <action dev="chdbrandon" type="add">
+                The AndroMDApp Maven plugin has been improved to include Spring
+                and the WebService cartridges as options when generating an AndroMDA
+                powered Maven application.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-15">
+            <action dev="draftdog" type="fix">
+                AndroMDA now automatically assigns a suitable name to association ends with a
+                'many' cardinality and an empty name. Before only the name of the target classifier
+                was taken into account, now it is analyzed and a proper (English) name is constructed
+                (word:words, key:keys, property:properties).
+                If your code relies on such unlabeled association ends it might be possible that an
+                AndroMDA run on your UMl model will result in code that is uncompilable in combination
+                with your existing implementation classes, a simple rename will be sufficient.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-11">
+            <action dev="draftdog" type="update" issue="UMLMETA-3">
+                The metafacades now have their properties no longer modeled as operations but as attributes,
+                wherever possible. This has no effect on code already generated. In addition boolean accessor
+                methods now have their names properly rendered according to the Java Bean specification
+                (getXXX becomes isXXX).
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-08">
+            <action dev="draftdog" type="update">
+                The Xdoclet dependency, WebDoclet to be exact, has been removed from the bpm4struts-cartridge;
+                now the
+                <code>struts-config.xml</code> and
+                <code>validation.xml</code> files are generated
+                directly by AndroMDA. The Ant-tool and the maven plugins, used to generate a default AndroMDA
+                project, have also been updated to reflect this change.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-05">
+            <action dev="chdbrandon" type="add">
+                The AndroMDA Spring cartridge (a cartridge based on the
+                <a href="http://www.springframework.org">Spring Framework</a>)
+                has moved from the contrib module to the main andromda codebase.  To learn how to use this new cartridge,
+                please see the the documentation
+                <a href="andromda-spring-cartridge/index.html">here</a>
+            </action>
+            <action dev="draftdog" type="update" issue="BPM-72">
+                The latest major update has been improved: it is now no longer needed to
+                add tagged values onto controller operation arguments. The cartridge will
+                auto-detect the appropriate value. In addition more validation constraints
+                have been added to inform the user of any cartridge modeling errors.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-10-01">
+            <action dev="draftdog" type="update" issue="BPM-71">
+                The latest major bpm4struts update did not prove to be a very elegant solution,
+                this led us to revise
+                the implementation and come up with an alternative one. Here's a list of what has changed:
+                <ol>
+                    <li>parameters with the same name and in the same use-case are required to also
+                        be of the same type</li>
+                    <li>form fields do no longer have their name prefixed with the name of the action</li>
+                    <li>forms now implement an interface for each controller operation they defer to</li>
+                    <li>it is now needed to put arguments in the controller operations, these arguments
+                        will be available in the form interface that is accessible programmatically</li>
+                    <li>these arguments will need to have the
+                        <code>
+                        @andromda.struts.view.field.type</code> tagged value set to 'select' in case
+                        you want to prepopulate a list of entries (see samples)
+                    </li>
+                    <li>currently it is also needed to specify the table columns (just as you
+                        would on a collection-type page variable) in case the argument
+                        maps onto an action parameter which is displayed in tabular format, but this
+                        will be solved soon</li>
+                </ol>
+                <p class="highlight">
+                    All of this means this will break the compilation of your current
+                    codebase using one of the previous AndroMDA versions.
+                </p>
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-29">
+            <action dev="draftdog" type="update" issue="BPM-32">
+                Overloaded a controller method for accessing the session objects, the new
+                method allows to choose whether or not to create the session in case it does
+                not exist yet (default is
+                <code>true</code>). Also implemented some
+                improvements in handling the session objects and the session itself.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-28">
+            <action dev="chdbrandon" type="add">
+                The andromda task and maven plugin, now support an attribute called
+                <code>failOnModelValidationErrors</code> which allows us to
+                turn on/off whether or not model processing should fail/stop
+                if
+                <strong>ANY</strong> model validation errors occur.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-27">
+            <action dev="chdbrandon" type="update">
+                The hibernate cartridge now generates its own hibernate.cfg.xml which
+                means the jboss-service.xml generated by xdoclet is no longer needed.
+                With this change, multiple new namespace properties were added
+                for configuring this configuration file.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-25">
+            <action dev="draftdog" type="add" issue="BPM-69">
+                Just like you can use success messages on action transitions we now have
+                the possibility to use warning messages, simply add the tagged value
+                <code>@andromda.struts.action.warning.message</code> to the action
+                transition and set its value to the message you want to have displayed (will be i18n'ed).
+                Warning messages will be rendered in yellowish.
+                In addition all messages are now supported on
+                <strong>any</strong> transition, and you may have
+                more than one message on such a transition (unlimited).
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-23">
+            <action dev="draftdog" type="update" issue="BPM-32">
+                The controllers associated to session objects have different methods to
+                access those objects. The 'clearXXX' method has been renamed to 'removeXXX'.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-19">
+            <action dev="chdbrandon" type="add">
+                A new namespace property 'versionProperty' has been added, it is used
+                to determine which property/attribute name to use for versioning entities.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-10">
+            <action dev="draftdog" type="add">
+                There is a new link in the download section (menu), it is called 'resources' and it
+                will contain resources on AndroMDA such as tutorials and slides.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-09">
+            <action dev="draftdog" type="add">
+                A new namespace property is available to set a default date format to use for
+                date fields in your bpm4struts, not specifying this value will use dd/MM/yyyy as the default
+                date format.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-08">
+            <action dev="draftdog" type="fix">
+                This change fixes some issues with the most recent updates for bpm4struts:
+                <ol>
+                    <li>We no longer have the controller operation interfaces the forms were implementing</li>
+                    <li>Instead we have a controller operation for each different action that defers to them,
+                        this means you sometimes have the same operation more than once with only a different
+                        argument type for the form. This seems to be the most optimal and realistic
+                        implementation, forms cannot be shared using interfaces aggregating the fields
+                        because field names carry the action name as a prefix and this cannot be changed
+                        because in that case validation rules would be impossible to determine for fields
+                        that have the same name and type over different page actions.
+                    </li>
+                    <li>It should now be possible to easily send parameters between use-cases</li>
+                </ol>
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-03">
+            <action dev="draftdog" type="update">
+                Controllers and their implementation have changed names. The abstract parent
+                classes now no longer have the 'Interface' suffix, the descendants have
+                the 'Impl' suffix. This has been done for consistency with other cartridges
+                and because it is cleaner not to have any suffix on the interface or
+                abstract parents.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-09-02">
+            <action dev="draftdog" type="update" issue="BPM-44">
+                It is now possible to specify labels and values differently
+                for selectable parameters such as in comboboxes and lists.
+                The form containing such a parameter will have two new properties:
+                'valueList' and 'labelList'. If you do not specify the 'labelList'
+                property it will assume the values of the 'valueList'.
+                The backing list has been made readonly
+                because it will construct a special array to be handled by the Struts tags.
+            </action>
+            <action dev="draftdog" type="update">
+                Controller implementation do not get form types passed in the argument, instead
+                there is an interface aggregating common form properties, this way forms
+                of several different types implementing this interface can be passed in.
+                This elegantly allows a single controller operation to be called from different
+                actions (which each have their own form).
+            </action>
+            <action dev="draftdog" type="update">
+                A major change has been incorporated into the cartridge, you will have to
+                be very careful when migrating to a version after this date.
+                ActionForms are back into the request scope so their properties will not be
+                persisted into the session as was the case before. Bpm4Struts now is
+                intelligent enough to determine which properties should be available in which
+                ActionForm (even in ambiguous cases such as cyclic processes or when
+                multiple actions target multiple pages without a 1-to-1 mapping.
+                The reason for this drastic change was a possible bug in the server-side
+                validation framework. It would happen that forms were not properly recognized on
+                the server while the client could parse them fine.
+                In order to properly migrate you should at least need to fix the controller
+                implementations (you will have compilation errors otherwise), unfortunately
+                you will need to update all JSP pages. The changes are minimal so you might
+                consider looking at the differences manually (we are back at using the Struts HTML
+                tag library instead of the plain old HTML tags directly).
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-29">
+            <action dev="chdbrandon" type="update">
+                The
+                <code>validating</code> flag has been renamed to the more
+                appropriate
+                <code>xmlValidation</code>.  At the same time a new
+                <code>modelValidation</code> flag has been added that allows us
+                to turn on/off model validation during processing.   By default
+                model validation occurs, however its sometimes nice to turn it
+                off for performance reasons (i.e. you have a really big model).
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-28">
+            <action dev="draftdog" type="add" issue="BPM-32">
+                We now have session objects, these instances can be handled
+                through protected controller methods. Controller interfaces
+                are abstract classes now, so make sure you use 'extends'
+                instead of 'implements' when using the cartridge after
+                this date.
+            </action>
+            <action dev="draftdog" type="update" issue="BPM-36">
+                The namespace property 'breadCrumbs' (boolean) has been replaced by the property
+                'maxBreadCrumbs' (integer). To disable breadcrumbs specify zero.
+                Additionally the tabledecorator has been removed, it was only used to render
+                specific HTML code but a more elegant solution has been put in place.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-23">
+            <action dev="chdbrandon" type="update">
+                A new namespace property has been added that can be used for
+                <em>any</em> cartridge, its called
+                <code>mergeLocation</code>, for
+                more information see
+                <a href="andromda-cartridges/index.html#mergeLocation">Overriding cartridge resources</a>.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-22">
+            <action dev="draftdog" type="add" issue="BPM-48">
+                For those who want it online help will be generated
+                for your application, by default it is enabled. You can
+                override this by setting the 'onlineHelp' property to
+                'false' in your bpm4struts namespace.
+                It currently supports documentation on use-cases, action
+                transitions, action parameters and pages.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-21">
+            <action dev="draftdog" type="update">
+                Tooltips are now handled in JavaScript. We had to remove
+                the doctypes for that to work properly in Firefox and Mozilla.
+                It will be improved in the future.
+                The reason we have these JS tooltips is that now it can also
+                support images and text of arbitrary length.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-20">
+            <action dev="draftdog" type="update">
+                Pattern masks for input field validation must not include
+                the leading '^' and trailing '$' anymore. Some CASE tools
+                such as MagicDraw don't handle them well.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-19">
+            <action dev="draftdog" type="update">
+                The table link tagged value changed name:
+                <code>@andromda.struts.action.tablelink</code> is now
+                <code>@andromda.struts.view.field.tablelink</code>, the reason is that
+                the location for this tagged value is the parameter and not the
+                transition (as in the very beginning).
+            </action>
+            <action dev="draftdog" type="update">
+                Form bean fields now have the name of their action prepended to their
+                name (only for action parameters, page variables are unchanged).
+                Using bpm4struts after this date will require you to update
+                your controller implementations or a compilation error
+                will occur.
+                This change was needed in order to allow action parameters to
+                have the same names in a single use-case. Without this feature
+                the form would contain the same field name more than once, and that
+                is not allowed in Java.
+            </action>
+            <action dev="draftdog" type="add">
+                A new namespace property has been added: 'dummyData'. You can either
+                give it a 'true' or 'false' value. The default is 'true'. If the
+                value is 'true' a 'dummy data' will be rendered in places like the
+                controller, if set to 'false' this dummy data will not be generated.
+            </action>
+            <action dev="chdbrandon" type="update">
+                toJavaClassName and toJavaMethodName in StringUtilsHelper have been
+                renamed to more language generic "upperCamelCaseName"
+                and "lowerCamelCaseName".
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-16">
+            <action dev="chdbrandon" type="add">
+                A new namespace property has been added: 'tableNamePrefix'.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-15">
+            <action dev="draftdog" type="add" issue="BPM-36">
+                A new namespace property has been added: 'breadCrumbs'. You can either
+                give it a 'true' or 'false' value. The default is 'true'. If the
+                value is 'true' a 'history' is rendered at the top of each page,
+                also known as breadcrumbs: it allows you to navigate back and forth
+                between the pages already visited. The scope of the breadcrumbs is
+                restricted to the context use-case.
+            </action>
+            <action dev="draftdog" type="add" issue="BPM-39">
+                Required fields now have an asterisk rendered next to their
+                label. (Only if validation has been enabled)
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-13">
+            <action dev="draftdog" type="add" issue="BPM-45">
+                Added the following tagged value:
+                <code>@andromda.struts.view.field.tablelink</code>.
+                You can use it to create hyperlinks to actions in the columns of a table.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-08-10">
+            <action dev="draftdog" type="add" issue="BPM-23">
+                Date input field now have a popup calendar to choose the date from
+                and have it automaitcally rendered into the appropriate format.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-08-08">
+            <action dev="chdbrandon" type="add">
+                Cartridges now allow generation based on metafacade
+                type (and optionally its properties), in addition to stereotypes.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-08-06">
+            <action dev="draftdog" type="add" issue="BPM-14">
+                It is now possible to create a hyperlink from a final state to a use-case
+                and have the cartridge interpret it as the next use-case to navigate to.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-08-03">
+            <action dev="chdbrandon" type="update">
+                The maven build has been changed
+                <ul>
+                    <li>
+                        All artifacts now reside in the 'andromda' groupId of the maven
+                        repository.  This means for those using Maven for their projects,
+                        they'll need to specify 'andromda' as the groupId (for dependencies)
+                        instead of the old 'andromda-cartridges' for cartridges and
+                        'andromda-translation-libraries' for translation-libraries.
+                    </li>
+                    <li>
+                       Bootstrap dependencies are now stored in CVS. They are renamed
+                       to the current version and copied to the remote repository during the build (
+                       they used to be stored remotely).
+                    </li>
+                </ul>
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-07-26">
+            <action dev="chdbrandon" type="update">
+                The <![CDATA[<andromda/>]]> Ant task was changed to
+                allow multiple models to be specified using a URL.
+                This included adding a new <![CDATA[<model/>]]> element
+                and eliminating the modelURL attribute from the <![CDATA[<andromda/>]]>
+                task.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-07-21">
+            <action dev="draftdog" type="add">
+                Enabled support for tools that do not allow putting graphs inside use-cases. It is now
+                sufficient to put the
+                <code>@andromda.struts.usecase.activity</code>
+                tagged value on the use-case and assign it the name of an activity graph.
+            </action>
+            <action dev="draftdog" type="add">
+                Enabled support for tools that do not allow assigning model elements to classifiers.
+                It is now possible to put a
+                <code>@andromda.struts.controller.usecase</code> tagged value
+                on the controller and assigning it the name of a use-case.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-07-11">
+            <action dev="chdbrandon" type="add">
+                Tagged value prefix of "@andromda" was added back to
+                all tagged values.  It was causing naming conflicts
+                with XDoclet tags when it was just "@".
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-07-04">
+            <action dev="chdbrandon" type="add">
+                Added new resource element to the andromda-cartridge.xml
+                that allows non template resources (like images, jars, etc)
+                to be included and output from a cartridge.
+            </action>
+            <action dev="draftdog" type="update">
+                All JSPs have been updated to render XHTML 1.0 compatible content,
+                the content-type declaration has been updated and any HTML
+                comment has been changed to comply to the XHTML standard.
+                You will need an XHTML compatible browser to properly
+                view the pages.
+                By default bpm4struts generates HTML 4.0 compliant JSPs but
+                by setting the 'xhtml' namespace property to 'true' it will
+                render XHTML.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-07-03">
+            <action dev="chdbrandon" type="update">
+                The 'sheet' attribute in the template element has been
+                renamed to 'path'.
+            </action>
+            <action dev="draftdog" type="add">
+                In bpm4struts there is a new namespace property: xhtml. The property
+                'securityEnabled' has been renamed to 'security'.
+            </action>
+            <action dev="chdbrandon" type="update">
+                The 'overWrite' attribute in the template element has been
+                renamed to 'overwrite'.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-07-01">
+            <action dev="chdbrandon" type="add">
+                A new feature has been added that will allow users to import legacy database
+                schemas and have an XMI file generated from them. This will make it easier to port
+                development of legacy systems to AndroMDA.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-06-24">
+            <action dev="chdbrandon" type="add">
+                A new cartridge is available for publishing services
+                as web-services, this cartridge is to be used in
+                combination with either the EJB, Hibernate,
+                or Java cartridge.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-06-20">
+            <action dev="draftdog" type="add">
+                Tabular data can now automatically be displayed using paging,
+                sorting and exporting features, the displaytag tag-library is
+                used.
+            </action>
+        </release>
+        <release version="3.0M2-SNAPSHOT" date="2004-06-18">
+            <action dev="chdbrandon" type="add">
+                OCL support provides the following features:
+                <ul>
+                    <li>Metamodels will now have their constraints
+                        validated during code generation.</li>
+                    <li>Finder queries for persisted entities
+                        can now be expressed using OCL.</li>
+                </ul>
+            </action>
+        </release>
     </body>
 </document>
