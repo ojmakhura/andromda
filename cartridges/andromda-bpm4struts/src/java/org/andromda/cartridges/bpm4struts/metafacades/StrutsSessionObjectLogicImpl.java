@@ -14,7 +14,7 @@ public class StrutsSessionObjectLogicImpl
 
     public java.lang.String handleGetSessionKey()
     {
-        return "andromda.bpm4struts." + StringUtilsHelper.toResourceMessageKey(getName());
+        return "andromda.bpm4struts." + StringUtilsHelper.toResourceMessageKey(getFullyQualifiedName());
     }
 
     public java.lang.String handleGetFullPath()
