@@ -71,7 +71,7 @@ public class ModelValidationMessage
         toString.append("[");
         toString.append(modelElementName);
         toString.append("]");
-        toString.append(" :");
+        toString.append(":");
         toString.append(this.message);
         return toString.toString();
     }
