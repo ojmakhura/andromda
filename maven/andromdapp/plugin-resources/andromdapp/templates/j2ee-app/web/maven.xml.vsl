@@ -41,13 +41,12 @@
     <postGoal name="ignore::war:war">
 
         <!-- setting up the directories to work with -->
-        <ant:property name="jsp.precompilation.java" value="${war.precompile.jsp}/jsp-java"/>
-        <ant:property name="jsp.precompilation.classes" value="${war.precompile.jsp}/jsp-classes"/>
-        <ant:property name="jsp.precompilation.servlets" value="${war.precompile.jsp}/jsp-servlets.xml"/>
-        <ant:property name="jsp.precompilation.webapp" value="${maven.war.webapp.dir}"/>
+        <ant:property name="jsp.precompilation.java" location="${war.precompile.jsp}/jsp-java"/>
+        <ant:property name="jsp.precompilation.classes" location="${war.precompile.jsp}/jsp-classes"/>
+        <ant:property name="jsp.precompilation.servlets" location="${war.precompile.jsp}/jsp-servlets.xml"/>
+        <ant:property name="jsp.precompilation.webapp" location="${maven.war.webapp.dir}"/>
 
         <!-- clearing old garbage from the target directories -->
-        <ant:delete dir="${war.precompile.jsp}"/>
         <ant:mkdir dir="${jsp.precompilation.java}"/>
         <ant:mkdir dir="${jsp.precompilation.classes}"/>
 
@@ -62,12 +61,14 @@
         <!-- generating java code from the JSPs -->
         <ant:echo message="Generating Java sources from JSPs"/>
         <ant:java classname="org.apache.jasper.JspC" fork="true" classpathref="jsp.precompilation.classpath">
+            <ant:arg value="-webapp"/>
+            <ant:arg value="${jsp.precompilation.webapp}"/>
             <ant:arg value="-d"/>
             <ant:arg value="${jsp.precompilation.java}"/>
             <ant:arg value="-webinc"/>
             <ant:arg value="${jsp.precompilation.servlets}"/>
-            <ant:arg value="-webapp"/>
-            <ant:arg value="${jsp.precompilation.webapp}"/>
+            <ant:arg value="-p"/>
+            <ant:arg value="a"/> <!-- to shorten the package name JspC uses to prefix the compiled jsps -->
         </ant:java>
 
         <!-- Compiling the sources generated from the JSPs -->
@@ -84,21 +85,15 @@
             value="${jsp.servlets.text}"
             token="&lt;!-- precompilation merge-point --&gt;"/>
 
-        <!-- removing the JSPs files -->
-        <ant:echo message="Deleting JSPs files (all except the welcome page)"/>
-        <ant:delete includeEmptyDirs="true">
-            <ant:fileset dir="${jsp.precompilation.webapp}">
-                <ant:include name="**/*.jsp"/>
-                <ant:exclude name="*.jsp"/>
-            </ant:fileset>
-        </ant:delete>
-
         <!-- storing this bundle into a new WAR archive -->
         <ant:echo message="Reconstructing web application WAR bundle"/>
         <ant:war destfile="${maven.war.build.dir}/${maven.war.final.name}"
             webxml="${jsp.precompilation.webapp}/WEB-INF/web.xml"
-            basedir="${jsp.precompilation.webapp}"
-            update="false"/>
+            update="false">
+            <ant:fileset dir="${jsp.precompilation.webapp}">
+                <ant:exclude name="*/**/*.jsp*"/> <!-- we don't want the jsp files except for the welcome file -->
+            </ant:fileset>
+        </ant:war>
 
     </postGoal>
 
