@@ -151,7 +151,7 @@ $target.getDocumentation("     * ")
      *     column="$associationEnd.columnName"
      * @hibernate.collection-one-to-many
      *     class="$targetTypeName"
-#if($associationEnd.association.hibernateCacheType!="")
+#if($associationEnd.association.hibernateCacheType.length() != 0)
 	 * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
 #end
      */
@@ -172,7 +172,7 @@ $target.getDocumentation("     * ")
 ##
      * @hibernate.set
      *     lazy="$associationEnd.lazy"
-     *     table="${associationEnd.association.tableName}"
+     *     table="$associationEnd.association.tableName"
 #if (!$associationEnd.managesRelationalLink)
      *     inverse="true"
 #end
@@ -310,7 +310,7 @@ $target.getDocumentation("     * ")
      *     column="$associationEnd.columnName"
      * @hibernate.collection-one-to-many
      *     class="$targetTypeName"
-#if($associationEnd.association.hibernateCacheType!="")
+#if($associationEnd.association.hibernateCacheType.length() != 0)
 	 * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
 #end
      */
@@ -368,9 +368,9 @@ $target.getDocumentation("     * ")
      *     not-null="true"
 #end
 #if (!$associationEnd.outerJoin)
-     *     outer-join="${hibernateAssociationOuterJoin}"
+     *     outer-join="$hibernateAssociationOuterJoin"
 #else
-     *     outer-join="${associationEnd.outerJoin}"
+     *     outer-join="$associationEnd.outerJoin"
 #end
      */
     public ${targetTypeName} ${target.getterName}()
