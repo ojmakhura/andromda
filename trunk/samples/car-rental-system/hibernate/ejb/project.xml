@@ -19,6 +19,9 @@
 			<groupId>andromda-samples</groupId>
 			<artifactId>car-rental-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>
 		<!-- EJB dependencies -->
   		<dependency>
@@ -75,15 +78,15 @@
       		<artifactId>commons-beanutils</artifactId>
         	<version>1.6.1</version>
 			<properties>
-				<ejb.bundle>true</ejb.bundle>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>
     	</dependency>   
   		<dependency>
      		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>
-        	<version>3.0</version>
+        	<version>2.1</version>
 			<properties>
-				<ejb.bundle>true</ejb.bundle>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>
     	</dependency>  
   		<dependency>
@@ -91,7 +94,7 @@
       		<artifactId>commons-lang</artifactId>
         	<version>2.0</version>
 			<properties>
-				<ejb.bundle>true</ejb.bundle>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>
     	</dependency> 
   		<dependency>
@@ -99,48 +102,56 @@
       		<artifactId>commons-logging</artifactId>
         	<version>1.0.3</version>
 			<properties>
-				<ejb.bundle>true</ejb.bundle>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>
-    	</dependency>  
+    	</dependency> 
   		<dependency>
      		<groupId>hibernate</groupId>
       		<artifactId>hibernate</artifactId>
-        	<version>2.0.3</version>
+        	<version>2.1.2</version>
 			<properties>
-				<ejb.bundle>true</ejb.bundle>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>
-    	</dependency>    	 	
+    	</dependency>     	
 		<dependency>
 			<groupId>cglib</groupId>
-			<artifactId>cglib-asm</artifactId>
-			<version>1.0</version>
-	      	<properties>
-				<ejb.bundle>true</ejb.bundle>
-	     	</properties>
+			<artifactId>cglib</artifactId>
+			<version>2.0-rc2</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.4</version>
-	      	<properties>
-				<ejb.bundle>true</ejb.bundle>
-	     	</properties>
-		</dependency>
-		<dependency>
-			<groupId>jcs</groupId>
-			<artifactId>jcs</artifactId>
-			<version>1.0-dev</version>
-	      	<properties>
-				<ejb.bundle>true</ejb.bundle>
-	     	</properties>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>
 		<dependency>
 			<groupId>odmg</groupId>
 			<artifactId>odmg</artifactId>
 			<version>3.0</version>
-	      	<properties>
-				<ejb.bundle>true</ejb.bundle>
-	     	</properties>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
+		</dependency>
+		<dependency>
+			<groupId>ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>0.7</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>1.4.1</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>
 	</dependencies>
   	<build>
