@@ -1,0 +1,15 @@
+<cartridge name="mycartridge">
+
+    <property name="report" value="simple" />
+    <stereotype name="model" />
+    
+    <outlet name="report"/>
+
+    <template
+        stereotype="model"
+        sheet="templates/report.vsl"
+        outputPattern="report.txt"
+        outlet="report"
+        overWrite="true"/>
+    
+</cartridge>
