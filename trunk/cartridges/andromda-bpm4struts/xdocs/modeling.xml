@@ -140,6 +140,15 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>@andromda.struts.usecase.activity</td>
+                                <td>A use-case with the &lt;&lt;FrontEndUseCase&gt;&gt; stereotype</td>
+                                <td>N/A</td>
+                                <td>For tools that do not allow the placement of activity graphs inside of a use-case
+                                    you can use this tagged value to point to an activity graph, this will link them and
+                                    denotes that the graphs specifies this use-case.
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>@andromda.struts.view.table.columns</td>
                                 <td>A signal trigger parameter on a transition incoming to a FrontEndView action state,
                                     the type of the parameter must either be an array or a java.util.Collection
