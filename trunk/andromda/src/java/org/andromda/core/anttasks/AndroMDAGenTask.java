@@ -89,6 +89,11 @@ public class AndroMDAGenTask extends MatchingTask
         StdoutLogger.configure();
     }
 
+    /**
+     * Sets the URL to the model to process.
+     * 
+     * @param modelURL the URL of the model to process.
+     */
     public void setModelURL(URL modelURL)
     {
         this.modelURL = modelURL;
