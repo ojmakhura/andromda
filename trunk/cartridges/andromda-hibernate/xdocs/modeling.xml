@@ -260,12 +260,13 @@
 							association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
 						</td>
 			          	<td>
-			          		Defines if Hibernate will use a outer join for fetching the association end on a Many to One and One to One associations. Permited values are:
-			          		<ol>
+			          		Defines if Hibernate will use a outer join for fetching the given assocation end. 
+			          		<ul>
+                                Permited values are:
 								<li>auto</li>
 								<li>true</li>
 								<li>false</li>
-							</ol>
+							</ul>
 			          	</td>
 					</tr>
 					<tr>
