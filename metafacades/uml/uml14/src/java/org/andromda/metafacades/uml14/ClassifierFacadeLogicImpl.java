@@ -94,20 +94,18 @@ public class ClassifierFacadeLogicImpl
             || "float".equals(name) || "double".equals(name) || "boolean"
             .equals(name));
     }
+    
+    /**
+     * The suffix of an array type.
+     */
+    private static String ARRAY_SUFFIX = "[]";
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isArrayType()
      */
     public boolean handleIsArrayType()
     {
-        try
-        {
-            return Class.forName(getFullyQualifiedName()).isArray();
-        }
-        catch (Exception exception)
-        {
-            return false;
-        }
+        return this.getFullyQualifiedName().endsWith(ARRAY_SUFFIX);
     }
 
     /**
@@ -275,11 +273,6 @@ public class ClassifierFacadeLogicImpl
     {
         return DataType.class.isAssignableFrom(this.metaObject.getClass());
     }
-
-    /**
-     * The suffix of an array type.
-     */
-    private static String ARRAY_SUFFIX = "[]";
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
