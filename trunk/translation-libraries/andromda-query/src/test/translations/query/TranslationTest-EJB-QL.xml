@@ -225,7 +225,8 @@
             context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate) 
             body : 
                 allInstances() -> select( certificate | 
-                   certificate.code.toUpper() = code )
+                   certificate.code.toUpper() = code 
+                   and certificate.code.size() > 0 )
             ]]>
         </from>
         <to>
@@ -233,6 +234,7 @@
             SELECT DISTINCT OBJECT(certificate) 
             FROM MedicalCertificate certificate 
             WHERE UPPER(certificate.code) = ?1
+            AND LENGTH(certificate.code) > 0
             ]]>          
         </to> 
     </expression>

@@ -81,6 +81,14 @@
                 UPPER({0})
             </kind>
         </fragment>
+        
+        <!-- This is what is appended when 'string.size()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*size${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                LENGTH({0})
+            </kind>
+        </fragment>
 
         <!-- the '{0}' represents the first argument in the 'isLike(<expression>,<expression>)' operation -->
         <fragment name="\s*StringUtils\s*.\s*isLike\s*\(.*,.*\)\s*"
