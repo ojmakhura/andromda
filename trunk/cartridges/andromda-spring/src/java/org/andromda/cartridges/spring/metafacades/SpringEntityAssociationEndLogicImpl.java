@@ -138,6 +138,35 @@ public class SpringEntityAssociationEndLogicImpl
      */
     protected boolean handleIsHibernateInverse()
     {
-        return true;
+        // inverse can only be true if the relation is bidirectional
+        boolean inverse = this.isNavigable()
+            && this.getOtherEnd().isNavigable();
+        if (inverse)
+        {
+            inverse = this.isMany2One();
+            // for many-to-many we just put the flag on the side that 
+            // has the lexically longer fully qualified name for 
+            // it's type
+            if (this.isMany2Many() && !inverse)
+            {
+                String endTypeName = StringUtils.trimToEmpty(this.getType()
+                    .getFullyQualifiedName(true));
+                String otherEndTypeName = StringUtils.trimToEmpty(this
+                    .getOtherEnd().getType().getFullyQualifiedName(true));
+                int compareTo = endTypeName.compareTo(otherEndTypeName);
+                // if for some reason the fully qualified names are equal,
+                // compare
+                // the names.
+                if (compareTo == 0)
+                {
+                    String endName = StringUtils.trimToEmpty(this.getName());
+                    String otherEndName = StringUtils.trimToEmpty(this
+                        .getOtherEnd().getName());
+                    compareTo = endName.compareTo(otherEndName);
+                }
+                inverse = compareTo < 0;
+            }
+        }
+        return inverse;
     }
 }
