@@ -12,16 +12,13 @@
             <p>
                 A common strategy to shield the presentation tier from the persistence tier is to model
                 the services in between, they will be used to implement the business logic in the application tier.
-                The technology behind is of little interest to the developer (that's one o the good points of MDA right!), 
+                The technology behind is of little interest to the developer (that's one of the good points of MDA right!), 
                 but it's good to know Spring POJOs are being used (optionally wrapped with EJBs: more specifically 
                 EJB Session Beans).
             </p>
             <p>
                 In order to model such services you would just create another class, but this time you will give
-                this class the <![CDATA[<<Service>>]]> stereotype. As with the <![CDATA[<<Entity>>]]> classes
-                you can give these classes attribute but it is recommended to only do this in cases where there
-                is no appropriate alternative available. Attributes will make the session bean stateful, whereas
-                the absence of attributes make the session bean stateless (which is known to scale much better).
+                this class the <![CDATA[<<Service>>]]> stereotype. 
             </p>
             <p>
                 Generally speaking it is sufficient to only model operations in these services, they represent
