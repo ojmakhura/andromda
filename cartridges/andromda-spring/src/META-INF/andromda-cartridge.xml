@@ -385,14 +385,14 @@
     <template
         path="templates/spring/hibernate/HibernateEnumerationType.vsl"
         outputPattern="$generatedFile"
-        outlet="entities"
+        outlet="daos"
         overwrite="true"
         required="false"/>
 
     <template
         path="templates/spring/hibernate/HibernateEnumeration.vsl"
         outputPattern="{0}/{1}.java"
-        outlet="entities"
+        outlet="daos"
         overwrite="true"
         required="false">
         <modelElements variable="enumeration">
