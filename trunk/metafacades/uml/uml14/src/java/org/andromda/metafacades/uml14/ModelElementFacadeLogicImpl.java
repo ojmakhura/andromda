@@ -69,9 +69,9 @@ public class ModelElementFacadeLogicImpl
     public java.lang.String handleGetFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
-        String packageName = getPackageName();
+        String packageName = this.getPackageName();
 
-        if (StringUtils.isNotEmpty(packageName))
+        if (StringUtils.isNotBlank(packageName))
         {
             fullName = packageName
                 + this
