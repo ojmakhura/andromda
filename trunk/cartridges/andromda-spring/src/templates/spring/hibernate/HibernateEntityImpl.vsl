@@ -12,9 +12,8 @@ public class ${entity.entityImplementationName}
 #set ($superEntity = $entity.generalization)
 #if($superEntity)  
 	extends ${superEntity.fullyQualifiedEntityImplementationName}
-#else
-    implements $entity.fullyQualifiedEntityName
 #end
+    implements $entity.fullyQualifiedEntityName
 {
 #if (!$entity.properties.empty)
 
