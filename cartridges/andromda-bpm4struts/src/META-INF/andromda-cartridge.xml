@@ -13,6 +13,9 @@
     <property reference="security" default="false"/>
     <property reference="xhtml" default="false"/>
     <property reference="securityRealm" default="other"/>
+    <property reference="clientValidation" default="true"/>
+    <property reference="serverValidation" default="true"/>
+    <property reference="welcomeFileName" default="index.jsp"/>
 
     <!-- copy resources -->
     <resource
@@ -112,7 +115,8 @@
         path="templates/StrutsFormValidationStaticJavascript.vsl"
         outputPattern="form-validation.jsp"
         outlet="pages"
-        overwrite="true">
+        overwrite="true"
+        generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -131,7 +135,7 @@
 
     <template
         path="templates/StrutsIndexJsp.vsl"
-        outputPattern="index.jsp"
+        outputPattern="$welcomeFileName"
         outlet="pages"
         overwrite="true">
         <modelElements variable="class">
