@@ -563,7 +563,7 @@ public class MetafacadeFactory
      * @param name
      * @return boolean
      */
-    protected boolean isPropertyRegistered(String namespace, String name)
+    boolean isPropertyRegistered(String namespace, String name)
     {
         boolean registered = false;
         Map propertyNamespace = (Map)this.registeredProperties.get(namespace);
@@ -582,7 +582,7 @@ public class MetafacadeFactory
      * @param name the name of the property to check.
      * @return boolean
      */
-    protected Object getRegisteredProperty(String namespace, String name)
+    Object getRegisteredProperty(String namespace, String name)
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
         Object registeredProperty = null;
