@@ -106,7 +106,7 @@
                 </tbody>
             </table>
         </form>
-#if ($action.dateFieldPresent)
+#if ($action.calendarRequired)
         <script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")
         //<![CDATA[
@@ -114,9 +114,9 @@
         //<!--
 #end
 #foreach ($field in $action.actionParameters)
-#if ($field.date)
-           var ${action.formBeanName}${field.name}Calendar = new calendar1(document.forms['$action.formBeanName'].elements['$field.name']);
-           ${action.formBeanName}${field.name}Calendar.date_format = '$field.dateFormat';
+#if ($field.calendarRequired)
+           var ${action.formBeanName}_${field.name}Calendar = new calendar1(document.forms['$action.formBeanName'].elements['$field.name']);
+           ${action.formBeanName}_${field.name}Calendar.date_format = '$field.dateFormat';
 #end
 #end
 #if ($xhtml == "true")
