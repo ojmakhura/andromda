@@ -450,10 +450,8 @@ public class AndroMDAGenTask
             {
                 try
                 {
-                    Mappings
-                        .addLogicalMappings(Mappings
-                            .getInstance(((File)mappingsLocationIt.next())
-                                .toURL()));
+                    Mappings.addLogicalMappings(Mappings.getInstance(
+                        ((File)mappingsLocationIt.next()).toURL()));
                 }
                 catch (Throwable th)
                 {
