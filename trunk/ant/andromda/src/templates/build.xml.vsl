@@ -39,6 +39,7 @@
         		<exclude name="**maven**"/>
         	</fileset>
         	<fileset dir="../andromda-cartridges"/>
+        	<fileset dir="../andromda-translation-libraries"/>
     	</copy>    	
         <java classname="org.andromda.ant.AndromdaAntRunner">
             <classpath>
