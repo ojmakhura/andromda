@@ -9,8 +9,8 @@
 			<goal>
 				<name>andromda:run</name>
 				<description> 
-					Runs the AndroMDA processor with cartridges found 
-					on your CLASSPATH. 
+					Runs the AndroMDA processor with AndroMDA plugins (i.e. cartridges
+					and translation-libraries) found on your CLASSPATH. 
 				</description>
 			</goal>
 			<goal>
