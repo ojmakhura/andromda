@@ -35,7 +35,7 @@ $class.getDocumentation(" * ")
  * @struts.action
  *        path="$class.actionPath"
  *        name="$class.actionName"
-#if ($class.isUseCaseStart() == false)
+#if ($class.useCaseStart == false)
  *       input="${class.input.fullPath}.jsp"
 #end
 #set ($validationDesired = ($serverValidation == 'true'))
