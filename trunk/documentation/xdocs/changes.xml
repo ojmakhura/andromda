@@ -54,6 +54,14 @@
                                 by the 'loadItems' controller operations.
                             </li>
                         </ol>
+                        <p class="highlight">
+                            I strongly recommend not relying too much on the widgets-in-table feature
+                            yet, it is experimental and is likely to change in the future. The reason it has
+                            been put in is to see whether or not it is usable. A restriction currently
+                            is that you will not have any way to submit the changes you make in the table,
+                            for that to work we would need to apply some updates to he rendered rows so a submit button
+                            could properly trigger the sending of the form.
+                        </p>
                     </td>
                 </tr>
                 <tr>
