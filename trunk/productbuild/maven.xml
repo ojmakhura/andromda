@@ -5,7 +5,7 @@
          xmlns:util="jelly:util">
 
   	<!-- ==================================================================
-  			 Installs all libraries in the local repository                                                    
+  			 Installs all libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install">
  		<j:set 
@@ -18,7 +18,7 @@
   	</goal> 
  
   	<!-- ==================================================================
-  			 Installs all libraries in the remote repository                                                    
+  			 Installs all libraries into the remote repository                                                    
   		 ================================================================== --> 	
   	<goal name="deploy">
  		<j:set 
@@ -87,8 +87,8 @@
   	         IMPORTANT: Normally the Maven deploy plugin would
   	         be used, but it isn't possible to use it the way its currently
   	         implemented as it expects each artifact to be deployed 
-  	         after its built.  This allows us to deploy them all after
-  	         they are all built.
+  	         after its built.  This allows us to deploy them all at
+  	         the same time after they've all been built.
   	     ================================================================= -->
   	<goal name="bootstrap-deploy"
   		  description="Deploys a bootstrap jar to the remote repository">
