@@ -49,6 +49,14 @@
             <modelElement stereotype="Entity"/>  
         </modelElements>  
     </template>
+    
+<!--
+     The following definitions map services to session beans.
+     The templates map a service to a session bean
+     and the template itself decides to generate a stateless or stateful
+     session bean, based on the fact that the UML class contains attributes or not.
+     (Matthias Bohlen)
+-->
 
     <template
         sheet="templates/SessionBean.vsl"
