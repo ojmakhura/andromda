@@ -4,24 +4,47 @@
 
 <beans>
 
+    <!-- ========================= Start of INTERCEPTOR DEFINITIONS ==================== -->
+
+#set ($exceptionHandlingAdviceName = "$clientExceptionHandlingAdviceName")
+#if($stringUtils.isNotEmpty($springTypesPackage))
+#set ($exceptionHandlingAdviceName = "$springTypesPackage.$exceptionHandlingAdviceName")
+#end
+    <!-- Custom exception handling interceptor -->
+    <bean id="exceptionHandlingAdvice" class="$exceptionHandlingAdviceName" />
+
+    <!-- ========================= End of INTERCEPTOR DEFINITIONS ======================= -->
+
+
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
 #foreach($service in $services)
 #if($service.remotable)
     <!-- $service.name Remote Service invoker  -->
 #if($service.remotingTypeHttpInvoker)
-    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 #elseif($service.remotingTypeHessian)
-    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">	
+    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
 #elseif($service.remotingTypeBurlap)
-    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">		
+    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">
 #elseif($service.remotingTypeRmi)
-    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
 #end
         <property name="serviceUrl"><value>$service.remoteUrl</value></property>
         <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
-    </bean>	
-	
+    </bean>
+
+    <!-- $service.name Remote Service Local Proxy -->
+    <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces"><value>$service.fullyQualifiedName</value></property>
+        <property name="target"><ref local="$service.getBeanName(true)"/></property>
+        <property name="interceptorNames">
+            <list>
+                <value>exceptionHandlingAdvice</value>
+            </list>
+        </property>
+    </bean>
+
 #end
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->

@@ -55,6 +55,14 @@
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <!-- the name to give the client service locator class -->
     <property reference="clientServiceLocatorName" default="ClientServiceLocator"/>
+
+    <!-- whether the client service locator should switch the thread context class loader during
+         retrieval of the client application context xml file -->
+    <property reference="clientServiceLocatorClassloaderSwitching" default="off"/>
+
+    <!-- the name for the client side exception handling advice -->
+    <property reference="clientExceptionHandlingAdviceName" default="ClientExceptionHandlingAdvice"/>
+
     <!-- the name to give the principal store class -->
     <property reference="principalStoreName" default="PrincipalStore"/>
     <property reference="ejbViewType" default="local"/>
@@ -93,6 +101,22 @@
         outputPattern="$generatedFile"
         outlet="services"
         overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="remotable"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringClientExceptionHandlingAdvice.vsl"
+        outputPattern="$generatedFile"
+        outlet="advice-impls"
+        overwrite="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
