@@ -10,7 +10,7 @@ import java.util.Date;
  * <p>This class helps to convert values from Struts form beans
  * from their display representation to their internal representation.</p>
  * 
- * <p>UML2EJB automatically inserts calls to the member functions
+ * <p>AndroMDA automatically inserts calls to the member functions
  * of this class into special getters and setters of the generated
  * form bean classes.</p>
  * 
