@@ -602,7 +602,7 @@ public class EntityFacadeLogicImpl
     protected String handleGetEnumerationName()
     {
         return (isEnumeration())
-                ? getName() + getConfiguredProperty(UMLMetafacadeProperties.PERSISTENT_ENUMERATION_NAME_SUFFIX)
+                ? getName() + getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_SUFFIX)
                 : null;
     }
 
