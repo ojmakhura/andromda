@@ -16,7 +16,7 @@
         </ant:tstamp>
         <ant:filter token="build.date" value="${build.timestamp}" />
         <ant:filter token="build.system" value="${os.name}-${os.version}" />
-        <ant:filter token="build.jdk" value="${java.vm.version}" />
+        <ant:filter token="build.jdk" value="${java.vm.vendor}-${java.vm.version}" />
         <ant:filter token="build.builder" value="${user.name}" />
         <ant:filter filtersfile="${maven.src.dir}/META-INF/andromda-build.properties" />
     </preGoal>
