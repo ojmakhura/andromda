@@ -22,14 +22,10 @@ import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.RepositoryReadException;
 import org.andromda.core.common.ScriptHelper;
-import org.apache.commons.collections.ExtendedProperties;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.MatchingTask;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
  * This class represents the <code>&lt;andromda&gt;</code> custom task which can
@@ -66,11 +62,6 @@ public class AndroMDAGenTask extends MatchingTask
      *  the file to get the velocity properties file
      */
     private File velocityPropertiesFile = null;
-
-    /**
-     *  the VelocityEngine instance to use
-     */
-    private VelocityEngine ve;
 
     /**
      *  User properties that were specified by nested tags in the ant script.
@@ -260,8 +251,8 @@ public class AndroMDAGenTask extends MatchingTask
         }
 
         initOutletDictionary();
+        initVelocityProperties();
         initCartridges();
-        initVelocityPropertiesAndEngine();
 
         // log("Transforming into: " + destDir.getAbsolutePath(), Project.MSG_INFO);
 
@@ -309,16 +300,14 @@ public class AndroMDAGenTask extends MatchingTask
     }
 
     /**
-     * Initializes the Velocity properties and the Velocity engine itself. Tells
+     * Initializes the Velocity properties. This will tell
      * Velocity that the AndroMDA templates can be found using the classpath.
      * 
      * @see org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
      * @throws BuildException
      */
-    private void initVelocityPropertiesAndEngine() throws BuildException
+    private void initVelocityProperties() throws BuildException
     {
-        ve = new VelocityEngine();
-
         boolean hasProperties = false;
         velocityProperties = new Properties();
 
@@ -361,38 +350,6 @@ public class AndroMDAGenTask extends MatchingTask
                     // Not much that can be done
                 }
             }
-        }
-
-        try
-        {
-            // Tell Velocity it should also use the classpath when searching for templates
-            ExtendedProperties ep =
-                ExtendedProperties.convertProperties(velocityProperties);
-
-            ep.addProperty(
-                RuntimeConstants.RESOURCE_LOADER,
-                "andromda.cartridges,file");
-
-            ep.setProperty(
-                "andromda.cartridges."
-                    + RuntimeConstants.RESOURCE_LOADER
-                    + ".class",
-                ClasspathResourceLoader.class.getName());
-
-            // This is important - Torsten Juergeleit
-            // reported that Velocity does not re-load the macros from the template
-            // file and sometimes uses a macro from one template file when
-            // processing another template file that contains a macro with the
-            // same name. This setting forces inline macros to be local, not global.
-            ep.setProperty(RuntimeConstants.VM_PERM_INLINE_LOCAL, "true");
-
-            ve.setExtendedProperties(ep);
-            ve.init();
-        }
-        catch (Exception e)
-        {
-            log("Error: " + e.toString(), Project.MSG_INFO);
-            throw new BuildException(e);
         }
     }
 
@@ -441,6 +398,9 @@ public class AndroMDAGenTask extends MatchingTask
                 {
                     IAndroMDACartridge cartridge =
                         (IAndroMDACartridge) cartridgeIterator.next();
+                    
+                    cartridge.init(velocityProperties);
+                    
                     List stereotypes =
                         cartridge.getDescriptor().getSupportedStereotypes();
                     for (Iterator stereotypeIterator =
@@ -455,6 +415,10 @@ public class AndroMDAGenTask extends MatchingTask
             }
         }
         catch (IOException e)
+        {
+            throw new BuildException(e);
+        }
+        catch (Exception e)
         {
             throw new BuildException(e);
         }
@@ -490,7 +454,6 @@ public class AndroMDAGenTask extends MatchingTask
                     typeMappings,
                     outletDictionary,
                     lastModifiedCheck,
-                    ve,
                     userProperties);
         }
         catch (FileNotFoundException fnfe)
