@@ -15,7 +15,6 @@ public abstract class $entity.entityName
     implements java.io.Serializable
 #end
 {
-
 #foreach ( $attribute in $entity.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
     private $typeName $attribute.name;
@@ -69,4 +68,17 @@ $operation.getDocumentation("     * ")
 #end
 
 #end
+    /**
+     * Constructs new instances of {@link ${entity.fullyQualifiedName}}.
+     */
+    public static final class Factory
+    {
+        /**
+         * Constructs a new instance of {@link ${entity.fullyQualifiedName}}.
+         */ 
+        public static final $entity.fullyQualifiedName newInstance()
+        {
+            return new ${entity.fullyQualifiedEntityImplementationName}();
+        }
+    }
 }
