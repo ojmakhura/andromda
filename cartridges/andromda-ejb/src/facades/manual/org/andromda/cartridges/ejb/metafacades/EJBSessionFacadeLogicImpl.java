@@ -1,5 +1,6 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -59,4 +60,18 @@ public class EJBSessionFacadeLogicImpl
         return EJBMetafacadeUtils.getAllInstanceAttributes(this);  
     }    
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
+     */
+    public Collection getEnvironmentEntries(boolean follow) {
+        return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getConstants(boolean)
+     */
+    public Collection getConstants(boolean follow) {
+        return EJBMetafacadeUtils.getConstants(this, follow);
+    }
+    
 }

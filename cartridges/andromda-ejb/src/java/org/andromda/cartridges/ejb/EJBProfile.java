@@ -17,6 +17,8 @@ public class EJBProfile extends UMLProfile {
 	
 	public static final String STEREOTYPE_SELECT_METHOD = "SelectMethod";
 	
+	public static final String STEREOTYPE_ENV_ENTRY = "EnvEntry";
+	
 	/* ----------------- Tagged Values -------------------- */
 
 	public static final String TAGGEDVALUE_GENERATE_CMR = "@andromda.ejb.generateCMR";

@@ -45,21 +45,17 @@ $class.getDocumentation(" * ")
  *
 #end
 #end
-## Generate environment entries for all static, readonly attributes stereotyped
-## as <<EnvEntry>>
-#foreach($att in $class.staticAttributes)
-#if ($att.hasStereotype("EnvEntry"))
-#set ($value = $att.defaultValue.body)
+#foreach($envEntry in $class.getEnvironmentEntries(true))
+#set ($value = $envEntry.defaultValue)
 ## Add string delimiters if they are not already present
 #if (!$value.startsWith('"') || !$value.endsWith('"'))
 #set ($value = "$value")
 #end
  * @ejb.env-entry 
- *     name = "$att.name"
- *     type = "$att.type.fullyQualifiedName"
+ *     name = "$envEntry.name"
+ *     type = "$envEntry.type.fullyQualifiedName"
  *     value = $value
  *
-#end
 #end
 #foreach ( $dep in $class.dependencies )
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
@@ -118,43 +114,30 @@ public abstract class ${entityname}Bean
        extends $beanparentclass
        implements javax.ejb.EntityBean
 {
-    // ----------- constant definitions --------------------
-#foreach($att in $class.staticAttributes)
-#if (!$att.hasStereotype("EnvEntry"))
-#set ($attType = $att.type.fullyQualifiedName)
-#set ($ATT_NAME = $att.columnName)
-    private static final $attType $ATT_NAME = $att.initialValue.body;
-#end
+    // ----------- constant definitions -----------
+#foreach($constant in $class.getConstants(true))
+    private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #end
     
-    // -- accessors for environment entries and constants --
-#foreach($att in $class.staticAttributes)
-#set($attType = $att.type.fullyQualifiedName)
-#set ($visibility = $att.visibility.toString() )
-
+    // -- accessors for environment entries --
+#foreach($envEntry in $class.getEnvironmentEntries(true))
     /**
-#if($att.hasStereotype("EnvEntry"))
-     * Get <em>${att.name}</em> environment entry
-#else
-#set ($ATT_NAME = $att.columnName)
-     * Get ${att} the <code>$ATT_NAME</code> constant
-#end
-$att.getDocumentation("     * ")
+     * Get <em>${envEntry.name}</em> environment entry.
+$envEntry.getDocumentation("     * ")
      *
 ## Only expose the method to the component interface if it is public.
-#if($visibility == "public")
+#if($envEntry.visibility == "public")
      * @ejb.interface-method
 #end
      */
-    $visibility $attType ${att.getterName}(){
-#if($att.hasStereotype("EnvEntry"))
+    $envEntry.visibility $envEntry.type.fullyQualifiedName ${constant.getterName}(){
         javax.naming.InitialContext initialContext = null;
         try {
             initialContext = new javax.naming.InitialContext();
-            return (${attType}) initialContext.lookup("java:comp/env/$att.name");
+            return (${attType}) initialContext.lookup("java:comp/env/$envEntry.name");
         } catch (javax.naming.NamingException cause) {
             RuntimeException ex = new IllegalStateException(
-                "Cannot access environment entry \"$att.name\".");
+                "Cannot access environment entry \"$envEntry.name\".");
             // In order to set the exception cause on JDK 1.4
             // and stay JDK 1.3 compatible nonetheless, we need
             // a bit of reflection magic here...
@@ -174,20 +157,44 @@ $att.getDocumentation("     * ")
                 // Silently ignore naming exceptions at cleanup time
             }
         }
-#else
-        return $ATT_NAME;
-#end
-    }
-## If the attribute is public, expose it to the home interface as well
-#if($visibility == "public")
+        
+## If the env-entry is public, expose it to the home interface as well
+#if($envEntry.visibility == "public")
 
     /**
      * Home interface method for accessing {@link #${att.getterName}}.
      * @ejb.home-method
-     * @see #${att.getterName}
+     * @see #${envEntry.getterName}
      */
-     public $attType ejbHomeGet${att.name}() {
-         return ${att.getterName};
+     public $envEntry.type.fullyQualifiedName ejbHomeGet${envEntry.name}() {
+         return ${envEntry.getterName};
+     }
+#end
+#end
+
+    // -- accessors for constants --
+#foreach($constant in $class.getConstants(true))
+    /**
+     * Get the <code>$constant.name</code> constant
+$constant.getDocumentation("     * ")
+#if ($constant.visibility == "public")
+     *
+     * @ejb.interface-method
+#end
+    $constant.visibility $constant.type.fullyQualifiedName ${constant.getterName}(){
+        return $constant.name;
+    }
+    
+## If the constant is public, expose it to the home interface as well
+#if($constant.visibility == "public")
+
+    /**
+     * Home interface method for accessing {@link #${att.getterName}}.
+     * @ejb.home-method
+     * @see #${constant.getterName}
+     */
+     public $constant.type.fullyQualifiedName ejbHomeGet${constant.name}() {
+         return ${constant.getterName};
      }
 #end
 #end
