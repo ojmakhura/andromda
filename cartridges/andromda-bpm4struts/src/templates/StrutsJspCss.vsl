@@ -4,9 +4,18 @@
 ## start template
 #foreach ($action in $page.actions)
 #if ($action.useCaseStart == false)
-${hash}div.$action.styleId {}
+${hash}${action.styleId}.action
+{
+}
 
 #end
 #end
+#foreach ($variable in $page.pageVariables)
+#if ($variable.table)
+${hash}${variable.name}.table
+{
+}
 
+#end
+#end
 
