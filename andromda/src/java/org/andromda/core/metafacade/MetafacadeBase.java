@@ -1,9 +1,10 @@
 package org.andromda.core.metafacade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -25,29 +26,6 @@ public class MetafacadeBase
     {
         this.metaObject = metaObject;
         this.context = context;
-    }
-
-    // ---------------- essential overrides -----------------------
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof MetafacadeBase)
-        {
-            MetafacadeBase that = (MetafacadeBase)obj;
-            return this.metaObject.equals(that.metaObject);
-        }
-        return false;
-    }
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode()
-    {
-        return metaObject.hashCode();
     }
 
     /**
@@ -151,7 +129,7 @@ public class MetafacadeBase
      *        created for each.
      * @return MetafacadeBase the facade
      */
-    public MetafacadeBase shieldedElement(Object metaObject)
+    protected MetafacadeBase shieldedElement(Object metaObject)
     {
         MetafacadeBase metafacade = null;
         if (metaObject != null)
@@ -161,7 +139,7 @@ public class MetafacadeBase
                 this.getContext());
             // pass the context on to the metafacade created within this
             // metafacade
-            metafacade.setContext(this.getContext());
+            metafacade.setMetafacadeContext(this.getContext());
         }
         return metafacade;
     }
@@ -174,20 +152,17 @@ public class MetafacadeBase
      * @param metaobjects the objects to decorate
      * @return Collection of MetafacadeBase-derived objects
      */
-    public Collection shieldedElements(Collection metaobjects)
+    protected Collection shieldedElements(Collection metaobjects)
     {
-        Collection metafacades = null;
+        Collection metafacades = new ArrayList();
         if (metaobjects != null)
         {
-            metafacades = MetafacadeFactory.getInstance().createMetafacades(
-                metaobjects,
-                this.getContext());
-            // pass the context on to all metafacades created by this metafacade
-            CollectionUtils.forAllDo(metafacades, new Closure()
+            metafacades.addAll(metaobjects);
+            CollectionUtils.transform(metafacades, new Transformer()
             {
-                public void execute(Object object)
+                public Object transform(Object object)
                 {
-                    ((MetafacadeBase)object).setContext(getContext());
+                    return MetafacadeBase.this.shieldedElement(object);
                 }
             });
         }
@@ -212,13 +187,14 @@ public class MetafacadeBase
     /**
      * Sets the <code>context<code> for this metafacade.
      * This is used by the {@link MetafacadeFactory} to set the context 
+     * (which is another metafacade's interface)
      * during metafacade creation when a metafacade represents 
      * a <code>contextRoot</code>.
      * @param context the context class to set
      * @see MetafacadeMapping#isContextRoot()
      * @see MetafacadeFactory#internalCreateMetafacade(Object, String, Class)
      */
-    void setContext(String context)
+    public void setMetafacadeContext(String context)
     {
         this.context = StringUtils.trimToEmpty(context);
     }
@@ -347,5 +323,60 @@ public class MetafacadeBase
     void setLogger(Logger logger)
     {
         this.logger = logger;
+    }
+
+    private boolean contextRoot = false;
+
+    /**
+     * Sets whether or not this metafacade represents a contextRoot. If it does
+     * represent a context root, then {@link #getMetafacadeContext()}returns
+     * the metafacade interface for this metafacade, otherwise the regular
+     * <code>context</code> is returned.
+     * 
+     * @param contextRoot
+     */
+    void setContextRoot(boolean contextRoot)
+    {
+        this.contextRoot = contextRoot;
+    }
+
+    /**
+     * Gets the <code>context</code> for this metafacade. This is either the
+     * <code>contextRoot</code> (if one exists), or the regular
+     * <code>context</code>.
+     * 
+     * @return the metafacade's context.
+     * @see #setContextRoot(String)
+     */
+    public String getMetafacadeContext()
+    {
+        String metafacadeContext = this.context;
+        if (this.contextRoot)
+        {
+            metafacadeContext = MetafacadeImpls.instance().getMetafacadeClass(
+                this.getClass().getName()).getName();
+        }
+        return metafacadeContext;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object object)
+    {
+        if (object instanceof MetafacadeBase)
+        {
+            MetafacadeBase that = (MetafacadeBase)object;
+            return this.metaObject.equals(that.metaObject);
+        }
+        return false;
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode()
+    {
+        return metaObject.hashCode();
     }
 }

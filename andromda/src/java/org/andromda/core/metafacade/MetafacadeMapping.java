@@ -277,11 +277,14 @@ public class MetafacadeMapping
         // we keep constructing the key until the parent MetafacadeMappings
         // instance is fully initialized becaues we don't know if this
         // instance is fully initialized until that point.
-        if (this.key == null && parent != null && !parent.isInitialized()
-            && this.mappingClassName != null)
+        if ((this.key == null && this.mappingClassName != null)
+            || parent == null || !parent.isInitialized())
         {
             key = MetafacadeUtils.constructKey(
                 this.mappingClassName,
+                this.mappings.getNamespace());
+            key = MetafacadeUtils.constructKey(
+                key,
                 this.context,
                 this.stereotypes);
             if (this.hasMappingProperties())
