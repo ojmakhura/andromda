@@ -10,8 +10,8 @@ import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Defines the &lt;&lt;modelElements/&ltl&lt;
- * element within a &lt;&lt;template/&ltl&lt; 
+ * Defines the &lt;&lt;modelElements/&gt;&gt;
+ * element within a &lt;&lt;template/&gt;&gt; 
  * within an XML cartridge descriptor.
  * 
  * @see org.andromda.core.cartridge.TemplateConfiguration
