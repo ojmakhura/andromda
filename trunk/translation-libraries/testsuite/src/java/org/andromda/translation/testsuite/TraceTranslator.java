@@ -41,6 +41,7 @@ public class TraceTranslator extends BaseTranslator {
 
 	private static final String INA_PREFIX = "inA";
 	private static final String OUTA_PREFIX = "outA";
+    private static final String CASE_PREFIX = "case";
     
     private Map methods = new HashMap();
 	
@@ -158,12 +159,15 @@ public class TraceTranslator extends BaseTranslator {
 				String methodName = method.getName();
 				
 				if (methodName.startsWith(INA_PREFIX)) {
-					//add the new overriden "inA" methods  
-                    this.methods.put(method, getInAMethodBody(method));                        
+					// add the new overriden "inA" methods  
+                    this.methods.put(method, this.getInAMethodBody(method));                        
 				} else if (methodName.startsWith(OUTA_PREFIX)) {
-					//add the new overriden "outA" methods
-                    this.methods.put(method, getOutAMethodBody(method));
-				}
+					// add the new overriden "outA" methods
+                    this.methods.put(method, this.getOutAMethodBody(method));
+				} else if(methodName.startsWith(CASE_PREFIX)) {
+                    // add the new overridden "case" methods
+                    this.methods.put(method, this.getCaseMethodBody(method));
+                }
 			}
             
             //now add all the methods to the class
@@ -243,6 +247,25 @@ public class TraceTranslator extends BaseTranslator {
 		}
 		return dir;
 	}
+    
+    /**
+     * Creates and returns the method body for each "caseA" method
+     * @param method
+     * @return String
+     */
+    protected String getCaseMethodBody(CtMethod method) {
+        final String methodDebugName = "TraceTranslator.getCaseAMethodBody";
+        ExceptionUtils.checkNull(methodDebugName, "method", method);
+        StringBuffer methodBody = new StringBuffer("{");
+        String methodName = method.getName();
+        methodBody.append("String methodName = \"" + methodName + "\";");
+        methodBody.append(this.getMethodTrace(method));
+        //add the call of the super class method, so that any methods in sub classes
+        //can provide functionality
+        methodBody.append("super." + methodName + "($1);");
+        methodBody.append("}");
+        return methodBody.toString();
+    }
 
 	/**
 	 * Creates and returns the method body for each "inA" method
