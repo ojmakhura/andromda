@@ -15,10 +15,16 @@ public interface IAndroMDACartridge
 {
     /**
      * Initializes the cartridge.
-     * @param velocityExtendedProperties the properties to use when initializing the Velocity engine
+     * @param velocityProperties the properties to use when initializing the Velocity engine
      */
     public void init (Properties velocityProperties)
         throws Exception;
+
+    /**
+     * Shuts down the cartridge. The meaning of this is defined
+     * by the cartridge itself. At least, it should close any logfiles.
+     */
+    public void shutdown();
     
     /**
      * Returns the descriptor data of this particular cartridge.

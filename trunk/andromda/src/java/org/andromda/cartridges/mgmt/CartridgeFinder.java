@@ -26,13 +26,13 @@ import org.apache.tools.ant.AntClassLoader;
  *
  * @author    <a href="mailto:aslak.hellesoy@netcom.no">Aslak Hellesøy</a>
  * @author    <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- * @since   April 1, 2003
- * @todo      Use reflection to call AntClassLoader.getClasspath to remove dependency to Ant. This package should be Ant
- *      independent
- * @version   $Revision: 1.2 $
+ * @since     April 1, 2003
+ * @version   $Revision: 1.3 $
  */
 public class CartridgeFinder
 {
+    //TODO: Use reflection to call AntClassLoader.getClasspath to remove dependency to Ant. This package should be Ant independent.
+    
     private final static String resourceName =
         "META-INF/andromda-cartridge.xml";
 
