@@ -120,7 +120,9 @@ public class ModelProcessor
                 }
                 AndroMDALogger.info("completed model processing, TIME --> "
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
-                    + "[s]" + totalMessagesMessage);
+                    + "[s]" + totalMessagesMessage + " : "
+                    + ResourceWriter.instance().getWrittenCount()
+                    + " resources written");
                 if (failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelProcessorException(
