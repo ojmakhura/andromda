@@ -1,9 +1,30 @@
 <project default="install"
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven">
+         
+  	<!-- ==================================================================
+  			 Builds everything and installs it into the local Maven repository                                                   
+  		 ================================================================== -->
+  	<goal name="install">
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
+  	
+  	<!-- ==================================================================
+  			 Cleans Everything                                                 
+  		 ================================================================== -->
+  	<goal name="clean">  		
+		<attainGoal name="multiproject:clean"/>
+		<!-- get rid of all the log files -->
+		<ant:delete>
+			<ant:fileset dir=".">
+				<ant:include name="**/*.log*"/>
+				<ant:exclude name="maven.log"/>
+			</ant:fileset>
+		</ant:delete>
+  	</goal> 
 
    	<!-- ==================================================================
-			Deploy/Undeploy the Application                                                  
+			Deploy the Application                                                  
   		 ================================================================== --> 	 
 	<goal name="deploy-app">
 		<maven:maven
@@ -11,30 +32,45 @@
 			goals="deploy"/>
 	</goal>
 	
+   	<!-- ==================================================================
+			Undeploy the Application                                                  
+  		 ================================================================== --> 
 	<goal name="undeploy-app">
 		<maven:maven
 			descriptor="${basedir}/app/project.xml"
 			goals="undeploy"/>
 	</goal>  	  	  
 	
+   	<!-- ==================================================================
+			Builds the Web component                                                  
+  		 ================================================================== --> 
 	<goal name="web">
 		<maven:maven
 			descriptor="${basedir}/web/project.xml"
 			goals="war:install"/>
 	</goal>	
 	
+   	<!-- ==================================================================
+			Builds the EJB component                                                  
+  		 ================================================================== --> 
 	<goal name="ejb">
 		<maven:maven
 			descriptor="${basedir}/ejb/project.xml"
 			goals="ejb:install"/>
 	</goal>	
 	
+   	<!-- ==================================================================
+			Builds the Common component                                                  
+  		 ================================================================== --> 
 	<goal name="common">
 		<maven:maven
 			descriptor="${basedir}/common/project.xml"
 			goals="jar:install"/>
 	</goal>	
 	
+   	<!-- ==================================================================
+			Runs the MDA component                                                  
+  		 ================================================================== --> 
 	<goal name="mda">
 		<maven:maven
 			descriptor="${basedir}/mda/project.xml"

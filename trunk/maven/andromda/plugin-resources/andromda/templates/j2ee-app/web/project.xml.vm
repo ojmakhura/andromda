@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>${pom.groupId}-web</id>
+  	<id>${projectId}-web</id>
   	<name>${projectName} Web</name>
   	<shortDescription>${pom.name} Web Component</shortDescription>
   	<description>

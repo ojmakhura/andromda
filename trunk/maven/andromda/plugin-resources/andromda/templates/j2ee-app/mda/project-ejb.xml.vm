@@ -2,8 +2,8 @@
 
 <project>
   	<extend>../project.xml</extend>
-	<name>Car Rental Sample MDA</name>
-	<id>car-rental-sample-mda</id>
+	<name>${projectName} MDA</name>
+	<id>${projectId}-mda</id>
   	<dependencies> 	
 		<dependency> 
 			<groupId>andromda</groupId>

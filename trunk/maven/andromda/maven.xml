@@ -1,11 +1,32 @@
 <project xmlns:j="jelly:core"
   		 xmlns:ant="jelly:ant"
-  		 xmlns:artifact="artifact">
+  		 xmlns:artifact="artifact"
+  		 xmlns:velocity="jelly:velocity">
+  		 
+   <preGoal name="jar:jar">
+		<j:set 
+			var="mdaResourcesDir" 
+			value="plugin-resources/andromda/templates/j2ee-app/mda"/>
+		<j:set 
+			var="mdaTemplatesDir" 
+			value="${basedir}/${mdaResourcesDir}"/>
+  		<!-- we perform the merges so we can add the 
+  			 current version of AndroMDA to the mda genapp module -->
+	    <velocity:merge
+			name="${maven.build.dest}/${mdaResourcesDir}/project-ejb.xml.vm"
+			basedir="${mdaTemplatesDir}"
+			template="/project-ejb.xml.vm"/>  
+	    <velocity:merge
+			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vm"
+			basedir="${mdaTemplatesDir}"
+			template="/project-hibernate.xml.vm"/> 			
+   </preGoal>
   	
   	<!-- this is here because the plugin:install goal from the
   		 maven-plugin-plugin doesn't copy to the 
   		 '${maven.repo.local}/plugins' directory -->
   	<goal name="plugin:install" >
+  		  		
     	<attainGoal name="jar:jar"/>
 		<ant:copy todir="${maven.home}/plugins">
 			<ant:fileset dir="target">
