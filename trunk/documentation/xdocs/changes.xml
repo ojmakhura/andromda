@@ -7,10 +7,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-13" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-14" description="First release candidate for version 3.0">
             <action dev="draftdog" type="update" issue="BPM-34">
-                The bpm4struts cartridge no longer requires you to model the <![CDATA[<<FrontEndEvent>>]]> stereotype.
-                This stereotype can be implied by the model and is therefore considered redundant. This
+                The bpm4struts cartridge no longer requires you to model the <![CDATA[<<FrontEndEvent>>]]>,
+                <![CDATA[<<FrontEndController>>]]> and <![CDATA[<<Role>>]]> stereotypes.
+                These stereotypes can be implied by the model and therefore are considered redundant. This
                 has only been made possible by the recent metafacade mapping changes which allow the mapping
                 based on the target metafacade's properties.
             </action>
