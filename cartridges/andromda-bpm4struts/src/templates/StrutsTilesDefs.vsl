@@ -8,6 +8,7 @@
 
     <definition name="main.layout" page="/layout/main-layout.jsp">
         <put name="title" type="string" value=""/>
+        <put name="style" type="string" value=""/>
         <put name="javascript" type="string" value=""/>
         <put name="body" type="string" value=""/>
         <put name="menu" type="definition" value="menu.tile"/>

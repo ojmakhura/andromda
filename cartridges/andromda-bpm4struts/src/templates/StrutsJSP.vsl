@@ -37,6 +37,13 @@
     </tiles:put>
 
 ##
+##  SET PAGE STYLES
+##
+    <tiles:put name="style" type="string">
+        <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="${jsp.fullPath}.css"/>"></link>
+    </tiles:put>
+
+##
 ##  SETS THE JAVASCRIPT CONTENT
 ##
     <tiles:put name="javascript" type="string">
