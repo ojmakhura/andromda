@@ -129,7 +129,7 @@ public class EntityFacadeLogicImpl
                 this.getDefaultIdentifierVisibility(),
                 String
                     .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
 
         identifier.getStereotype().add(
             UMLMetafacadeUtils

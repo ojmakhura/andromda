@@ -76,10 +76,10 @@ public class UMLMetafacadeProperties
     public static final String DEFAULT_IDENTIFIER_VISIBILITY = "defaultIdentifierVisibility";
     
     /**
-     * The seperator used for packages and element names when constructing
+     * The separator used for packages and element names when constructing
      * fully qualified names.
      */
-    public static final String NAMESPACE_SEPERATOR = "namespaceSeperator";
+    public static final String NAMESPACE_SEPARATOR = "namespaceSeparator";
     
     /**
      * The name given to model elements without a name.
@@ -94,5 +94,5 @@ public class UMLMetafacadeProperties
     /**
      * The seperator for relation names between associations.
      */
-    public static final String RELATION_NAME_SEPERATOR = "relationNameSeperator";
+    public static final String RELATION_NAME_SEPARATOR = "relationNameSeparator";
 }

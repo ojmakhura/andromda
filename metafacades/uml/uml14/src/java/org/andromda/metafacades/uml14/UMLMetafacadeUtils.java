@@ -49,13 +49,13 @@ public class UMLMetafacadeUtils
      * 
      * @param fullyQualifiedName the fully qualified name of the element to
      *        search for.
-     * @param seperator the seperator used for qualifying the name (example
+     * @param separator the separator used for qualifying the name (example
      *        '::').
      * @return the found model element
      */
     static Object findByFullyQualifiedName(
         final String fullyQualifiedName,
-        final String seperator)
+        final String separator)
     {
         Object modelElement = null;
         Collection elements = ((org.omg.uml.UmlPackage)MetafacadeFactory
@@ -68,11 +68,11 @@ public class UMLMetafacadeUtils
                 ModelElement element = (ModelElement)object;
                 StringBuffer fullName = new StringBuffer(getPackageName(
                     element,
-                    seperator));
+                    separator));
                 String name = element.getName();
                 if (StringUtils.isNotBlank(name))
                 {
-                    fullName.append(seperator);
+                    fullName.append(separator);
                     fullName.append(name);
                 }
                 return fullName.toString().equals(fullyQualifiedName);
@@ -83,12 +83,12 @@ public class UMLMetafacadeUtils
 
     /**
      * Constructs the package name for the given <code>metaObject</code>,
-     * seperating the package name by the given <code>seperator</code>.
+     * seperating the package name by the given <code>separator</code>.
      * 
      * @param metaObject the Model Element
      * @return
      */
-    static String getPackageName(ModelElement metaObject, String seperator)
+    static String getPackageName(ModelElement metaObject, String separator)
     {
         String packageName = "";
         for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage)
@@ -97,7 +97,7 @@ public class UMLMetafacadeUtils
         {
             packageName = packageName.equals("")
                 ? namespace.getName()
-                : namespace.getName() + seperator + packageName;
+                : namespace.getName() + separator + packageName;
         }
         return packageName;
     }
@@ -217,14 +217,14 @@ public class UMLMetafacadeUtils
      * @param name the new name
      * @param fullyQualifiedTypeName the name of the fully qualified type
      * @param visibility the visibility name
-     * @param the seperator used for qualifying the name.
+     * @param the separator used for qualifying the name.
      * @return the new Attribute.
      */
     static Attribute createAttribute(
         String name,
         String fullyQualifiedTypeName,
         String visibility,
-        String seperator)
+        String separator)
     {
         Attribute attribute = UMLMetafacadeUtils.getCorePackage()
             .getAttribute().createAttribute();
@@ -233,7 +233,7 @@ public class UMLMetafacadeUtils
             .getVisibilityKind(visibility));
         Object type = UMLMetafacadeUtils.findByFullyQualifiedName(
             fullyQualifiedTypeName,
-            seperator);
+            separator);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
         {
             attribute.setType((Classifier)type);

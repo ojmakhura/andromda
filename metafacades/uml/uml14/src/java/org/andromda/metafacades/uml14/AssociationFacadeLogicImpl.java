@@ -60,7 +60,7 @@ public class AssociationFacadeLogicImpl
             secondEnd.getName(),
             String.valueOf(
                 this.getConfiguredProperty(
-                    UMLMetafacadeProperties.RELATION_NAME_SEPERATOR)));
+                    UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
         return relationName;
     }
 
