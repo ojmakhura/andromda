@@ -16,6 +16,14 @@
         <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/metafacades</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/metafacades/</url>
     </repository>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+    </dependencies>
     <!-- restrict the reports generated -->
     <reports>
         <report>maven-jxr-plugin</report>

@@ -21,7 +21,7 @@
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
         <dependency>
-            <groupId>andromda-bootstrap</groupId>
+            <groupId>${pom.groupId}-bootstrap</groupId>
             <artifactId>andromda-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>	 

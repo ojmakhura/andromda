@@ -5,4 +5,12 @@
 	<name>AndroMDA Documentation</name>
 	<package>org.andromda</package>
 	<description>The top level module for all AndroMDA documentation</description>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+    </dependencies>
 </project>

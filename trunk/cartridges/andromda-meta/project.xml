@@ -29,7 +29,7 @@
     </developers>
     <dependencies>
         <dependency>
-            <groupId>andromda-bootstrap</groupId>
+            <groupId>${pom.groupId}-bootstrap</groupId>
             <artifactId>maven-andromda-bootstrap-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>

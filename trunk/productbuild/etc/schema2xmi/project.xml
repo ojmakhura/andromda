@@ -138,6 +138,12 @@
       		<artifactId>openide-util</artifactId>
      		<version>20040826</version>
     	</dependency>  
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
 	</dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
