@@ -40,23 +40,7 @@ public class StrutsForwardLogicImpl
         return (guard == null) ? null : guard.getName();
     }
 
-    protected boolean handleIsTargettingActionState()
-    {
-        return getTarget() instanceof StrutsActionState;
-    }
-
-    protected boolean handleIsTargettingFinalState()
-    {
-        return getTarget() instanceof StrutsFinalState;
-    }
-
-    protected boolean handleIsTargettingDecisionPoint()
-    {
-        final StateVertexFacade target = getTarget();
-        return target instanceof PseudostateFacade && ((PseudostateFacade) target).isDecisionPoint();
-    }
-
-    protected boolean handleIsTargettingPage()
+    protected boolean handleIsEnteringPage()
     {
         return getTarget() instanceof StrutsJsp;
     }
@@ -69,11 +53,11 @@ public class StrutsForwardLogicImpl
     protected java.lang.String handleGetForwardPath()
     {
         final StateVertexFacade target = getTarget();
-        if (isTargettingPage())
+        if (isEnteringPage())
         {
             return ((StrutsJsp) target).getFullPath() + ".jsp";
         }
-        else if (isTargettingFinalState())
+        else if (isEnteringFinalState())
         {
             return ((StrutsFinalState) target).getFullPath() + ".do";
         }
@@ -88,11 +72,11 @@ public class StrutsForwardLogicImpl
 
     protected String handleGetTargetNameKey()
     {
-        if (isTargettingPage())
+        if (isEnteringPage())
         {
             return ((StrutsJsp) getTarget()).getTitleKey();
         }
-        else if (isTargettingFinalState())
+        else if (isEnteringFinalState())
         {
             return ((StrutsFinalState) getTarget()).getTargetUseCase().getTitleKey();
         }
@@ -213,7 +197,7 @@ public class StrutsForwardLogicImpl
 
     protected Object handleGetDecisionTrigger()
     {
-        return (isTargettingDecisionPoint()) ? getTrigger() : null;
+        return (isEnteringDecisionPoint()) ? getTrigger() : null;
     }
 
     protected Object handleGetStrutsActivityGraph()
@@ -284,5 +268,19 @@ public class StrutsForwardLogicImpl
         }
 
         return useCase;
+    }
+
+    protected Object handleGetOperationCall()
+    {
+        StrutsControllerOperation operation = null;
+
+        EventFacade triggerEvent = getTrigger();
+        if (triggerEvent instanceof StrutsTrigger)
+        {
+            StrutsTrigger trigger = (StrutsTrigger) triggerEvent;
+            operation = trigger.getControllerCall();
+        }
+
+        return operation;
     }
 }

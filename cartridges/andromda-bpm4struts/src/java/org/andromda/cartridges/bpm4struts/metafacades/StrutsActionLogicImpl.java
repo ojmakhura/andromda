@@ -723,7 +723,7 @@ public class StrutsActionLogicImpl
         for (Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
         {
             StrutsForward forward = (StrutsForward) forwardIterator.next();
-            if (forward.isTargettingPage())
+            if (forward.isEnteringPage())
             {
                 targetPages.add(forward.getTarget());
             }
@@ -779,7 +779,6 @@ public class StrutsActionLogicImpl
         if (trigger != null)
         {
             String triggerName = trigger.getName();
-            triggerName = StringUtilsHelper.lowerCamelCaseName(triggerName);
             styleId = StringUtilsHelper.lowerCamelCaseName(triggerName);
         }
         return styleId;
