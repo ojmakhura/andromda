@@ -150,9 +150,16 @@ ${indent}<html:$widgetType name="$formBeanName" property="$fieldName"/>
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<html:select name="$formBeanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled $multiple>
-${indent}   <html:optionsCollection name="$formBeanName" property="$field.backingListName" label="label" value="value"/>
-${indent}</html:select>
+${indent}<c:choose>
+${indent}    <c:when test="${!empty ${formBeanName}.${field.backingListName}}">
+${indent}       <html:select name="$formBeanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled $multiple>
+${indent}           <html:optionsCollection name="$formBeanName" property="$field.backingListName" label="label" value="value"/>
+${indent}       </html:select>
+${indent}    </c:when>
+${indent}    <c:otherwise>
+${indent}        <html:text name="$formBeanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end readonly="true"/>
+${indent}    </c:otherwise>
+${indent}</c:choose>
 ##
 ##      L I N K     (will only work on tablelinks, this is ensured by the facade)
 ##
