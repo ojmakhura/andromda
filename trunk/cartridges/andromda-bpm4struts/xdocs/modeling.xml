@@ -171,27 +171,29 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>@andromda.struts.view.table.exportable</td>
+                                <td>@andromda.struts.view.table.export</td>
                                 <td>Same as @andromda.struts.view.table.columns</td>
                                 <td>true</td>
-                                <td>Indicates whether or not it should be possible to export the complete list
-                                    into either XML, CSV or Excel format.
+                                <td>Denotes the different formats into which it should be possible to export the list
+                                    The value may contain the following
+                                    strings: "all", "csv", "html", "xml" and "excel". In case of absence "all" will
+                                    be the default. If you don't want to make use of the export feature then simply
+                                    leaving this value blank is sufficient.
                                 </td>
                             </tr>
                             <tr>
-                                <td>@andromda.struts.view.tabindex</td>
-                                <td>SignalEvent (such as a trigger), must be located on a transition
-                                    with the FrontEndEvent stereotype that is coming out of an action state
-                                    with the FrontEndView stereotype (a page).</td>
+                                <td>@andromda.struts.action.tabindex</td>
+                                <td>Action Transition</td>
                                 <td>N/A</td>
-                                <td>Denotes that the action containing the trigger is to be displayed
-                                    into a tabular panel. The value should be a non-negative integer.
-                                    By having the same value for different triggers many action-sections
-                                    will be rendered in the same tab. The minimum value is zero, the maximum
-                                    value will denote the number of tabs plus one (so if for a page you have
-                                    an action-trigger with a value of 7 for this tagged value and no other
-                                    action-trigger has a higher value, you will have 8 tabs rendered.
-                                </td>
+                                <td>Denotes the tab index of the specific action. Must be a non-negative integer.</td>
+                            </tr>
+                            <tr>
+                                <td>@andromda.struts.view.field.tabindex</td>
+                                <td>Action parameter</td>
+                                <td>N/A</td>
+                                <td>Denotes the tab index of the specific action-parameter.
+                                    Must be a non-negative integer. This feature allows splitting a form
+                                    over several different tabs.</td>
                             </tr>
                         </table>
                     </blockquote>
