@@ -142,7 +142,20 @@
 					<td>
 						No, default is <code>public</code>.
 					</td>
-				</tr> 	       	   	      	        	        		        	        	        	     	             	        	
+				</tr> 	       	
+					<tr>
+						<td>
+							ejbJndiNamePrefix
+						</td>
+						<td>
+						    The prefix to give to the Session EJB JNDI names (this allows 
+							the same Session EJB to be deployed multiple times in the same 
+							container)
+						</td>
+						<td>
+							No
+						</td>
+					</tr>     	      	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
