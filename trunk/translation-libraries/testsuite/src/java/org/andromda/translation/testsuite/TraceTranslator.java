@@ -251,7 +251,7 @@ public class TraceTranslator extends BaseTranslator {
     /**
      * Creates and returns the method body for each "caseA" method
      * @param method
-     * @return String
+     * @return String the <code>case</code> method body
      */
     protected String getCaseMethodBody(CtMethod method) {
         final String methodDebugName = "TraceTranslator.getCaseAMethodBody";
@@ -270,7 +270,7 @@ public class TraceTranslator extends BaseTranslator {
 	/**
 	 * Creates and returns the method body for each "inA" method
 	 * @param method
-	 * @return String
+	 * @return String the <code>inA</code> method body
 	 */
 	protected String getInAMethodBody(CtMethod method) {
 		final String methodDebugName = "TraceTranslator.getInAMethodBody";
@@ -289,7 +289,7 @@ public class TraceTranslator extends BaseTranslator {
 	/**
 	 * Creates and returns the method body for each "inA" method
 	 * @param method
-	 * @return String
+	 * @return String the <code>outA</code> method body.
 	 */
 	protected String getOutAMethodBody(CtMethod method) {
 		final String methodDebugName = "TraceTranslator.getOutAMethodBody";
