@@ -172,7 +172,7 @@ ${indent}<html:$widgetType name="$formBeanName" property="$field.name" />
 #else
 #set ($disabled = '')
 #end
-#if ($field.isCollection())
+#if ($field.isCollectionType())
 #set ($selectProperty = "${field.name}AsArray")
 #else
 #set ($selectProperty = "$field.name")
