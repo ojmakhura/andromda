@@ -459,4 +459,19 @@ public class ClassifierFacadeLogicImpl
             }
         };
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#findAttribute()
+     */
+    protected AttributeFacade handleFindAttribute(final String name)
+    {
+       return (AttributeFacade)CollectionUtils.find(this
+               .getAttributes(), new Predicate()
+       {
+           public boolean evaluate(Object object)
+           {
+               return ((AttributeFacade)object).getName().equals(name);
+           }
+       });
+    }
 }
