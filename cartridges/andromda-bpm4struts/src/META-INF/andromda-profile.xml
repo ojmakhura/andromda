@@ -78,6 +78,10 @@
         <to>@andromda.struts.view.field.validwhen</to>
     </mapping>
     <mapping>
+        <from>INPUT_VALIDATORS</from>
+        <to>@andromda.struts.view.field.validators</to>
+    </mapping>
+    <mapping>
         <from>INPUT_CALENDAR</from>
         <to>@andromda.struts.view.field.calendar</to>
     </mapping>

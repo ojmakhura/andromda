@@ -1090,6 +1090,16 @@ public class StrutsParameterLogicImpl
             }
         }
 
+        // custom (paramterized) validators are allowed here
+        Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = (String) iterator.next();
+            int endIndex = StringUtils.trimToEmpty(validator).indexOf(' ');
+            // only add the validator name, ignore the parameters (if any)
+            validatorTypesList.add( (endIndex == -1) ? validator : validator.substring(0,endIndex));
+        }
+
         return validatorTypesList;
     }
 
@@ -1119,6 +1129,22 @@ public class StrutsParameterLogicImpl
         else if ("maxlength".equals(validatorType))
         {
             args.add("${var:maxlength}");
+        }
+        else
+        {
+            // custom (paramterized) validators are allowed here
+            Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+            for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                String validator = (String) iterator.next();
+
+                int endIndex = StringUtils.trimToEmpty(validator).indexOf(' ');
+                if (endIndex > -1 && validator.substring(0,endIndex).equals(validatorType))
+                {
+                    String[] arguments = validator.substring(endIndex+1).split("[\\s]+");
+                    args.addAll(Arrays.asList(arguments));
+                }
+            }
         }
         return args;
     }
