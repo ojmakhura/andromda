@@ -52,12 +52,19 @@ $class.getDocumentation(" * ")
  *    redirect="false"
  *
 #end
- *
 #foreach ($actionException in $class.actionExceptions)
  * @struts.action-exception
  *         key="${class.messageKey}.$actionException.exceptionKey"
  *        type="$actionException.exceptionType"
  *        path="$actionException.exceptionPath"
+ *       scope="request"
+ *
+#end
+#if ($class.actionExceptions.isEmpty() && !$class.isUseCaseStart())
+ * @struts.action-exception
+ *         key="${class.messageKey}.exception"
+ *        type="java.lang.Exception"
+ *        path="${class.input.fullPath}.jsp"
  *       scope="request"
  *
 #end
