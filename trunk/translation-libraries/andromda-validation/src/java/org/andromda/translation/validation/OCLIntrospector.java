@@ -46,7 +46,7 @@ public class OCLIntrospector
         {
             final String errMsg = "Error invoking feature '" + feature
                 + "' on element '" + element + "'";
-            th = ExceptionUtils.getCause(th);
+            th = ExceptionUtils.getRootCause(th);
             logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
@@ -78,7 +78,7 @@ public class OCLIntrospector
             final String errMsg = "Error invoking feature '" + feature
                 + "' on element '" + element + "' with arguments '"
                 + StringUtils.join(arguments, ',') + "'";
-            th = ExceptionUtils.getCause(th);
+            th = ExceptionUtils.getRootCause(th);
             logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
