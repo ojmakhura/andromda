@@ -1,10 +1,10 @@
 <project default="xdoc"
          xmlns:ant="jelly:ant"
-         xmlns:util="jelly:util"
          xmlns:j="jelly:core">
 
     <!--
-            unzip all howto files so users can browse their content online
+            1. unzip all howto files so users can browse their content online
+            2. run andromda on the howto model
     -->
     <preGoal name="xdoc:generate-from-pom">
         <ant:fileScanner var="howtos">
@@ -15,6 +15,16 @@
         <j:forEach var="howto" items="${howtos.iterator()}">
             <ant:unzip src="${howto}" dest="${maven.docs.dest}"/>
         </j:forEach>
+        <attainGoal name="andromda:run"/>
+    </preGoal>
+
+    <preGoal name="generate-source">
+        <j:set var="maven.andromda.model.uri" value="${metafacade.model.uri}"/>
+        <j:set var="maven.andromda.modelValidation" value="${metafacade.modelValidation}" defaultValue="true"/>
+        <j:set var="maven.andromda.cartridgeFilter" value="${metafacade.cartridgeFilter}"/>
+        <j:set var="maven.andromda.modelPackage.0.name" value="${metafacade.modelPackage.0.name}"/>
+        <j:set var="maven.andromda.modelPackage.0.shouldProcess" value="${metafacade.modelPackage.0.shouldProcess}"/>
     </preGoal>
 
 </project>
+

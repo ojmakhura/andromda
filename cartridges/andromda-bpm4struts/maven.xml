@@ -1,4 +1,5 @@
-<project xmlns:ant="jelly:ant">
+<project xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
 
     <!-- ==================================================================
              Generator the PDF documentation
@@ -21,6 +22,14 @@
         <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-formatting-taglib-${pom.currentVersion}.jar"
             tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-formatting-taglib.jar"/>
     </postGoal>
+
+    <preGoal name="generate-source">
+        <j:set var="maven.andromda.model.uri" value="${metafacade.model.uri}"/>
+        <j:set var="maven.andromda.modelValidation" value="${metafacade.modelValidation}" defaultValue="true"/>
+        <j:set var="maven.andromda.cartridgeFilter" value="${metafacade.cartridgeFilter}"/>
+        <j:set var="maven.andromda.modelPackage.0.name" value="${metafacade.modelPackage.0.name}"/>
+        <j:set var="maven.andromda.modelPackage.0.shouldProcess" value="${metafacade.modelPackage.0.shouldProcess}"/>
+    </preGoal>
 
 </project>
 

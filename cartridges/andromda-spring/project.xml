@@ -48,6 +48,13 @@
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
+        <!-- added for the generation of 'howto' code files -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-validation-library</artifactId>
