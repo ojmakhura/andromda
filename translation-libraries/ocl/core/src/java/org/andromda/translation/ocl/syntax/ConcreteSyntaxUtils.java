@@ -375,12 +375,11 @@ public class ConcreteSyntaxUtils
                 {
                     Object tail = expressionTailIt.next();
                     String tailAsString = TranslationUtils.trimToEmpty(tail);
-                    // we don't attempt to keep appending if its an arrow
-                    // feature call or operation.
-                    if (tailAsString.indexOf("->") != -1
-                        && TranslationUtils.trimToEmpty(tail).indexOf('(') != -1)
+                    // we ignore tails that have arrows or are operations
+                    if (tailAsString.indexOf("->") == -1
+                        && TranslationUtils.trimToEmpty(tail).indexOf('(') == -1)
                     {
-                        break;
+                        primaryExpression.append(tailAsString);
                     }
                 }
             }
