@@ -25,11 +25,11 @@ public class ModelElementFinder
      * @param fullyQualifiedName the fully qualified name to find.
      * @return the found model element.
      */
-    public static ModelElement find(
+    public static Object find(
         Model model,
         String fullyQualifiedName)
     {
-        ModelElement modelElement = null;
+        Object modelElement = null;
         if (model != null) 
         {
             String[] names = fullyQualifiedName.split("\\.");
@@ -44,12 +44,35 @@ public class ModelElementFinder
                         element = getElement(
                             ((UmlPackage)element).getOwnedElement(), name);  
                     }
-                    modelElement = (ModelElement)element;
+                    modelElement = element;
                 }
             }
         }
         return modelElement;
     }  
+    
+    /**
+     * Finds and returns the first model element having the given 
+     * <code>name</code> in the <code>modelPackage</code>, 
+     * returns <code>null</code> if not found.
+     * 
+     * @param model The model to search
+     * @param fullyQualifiedName the fully qualified name to find.
+     * @return the found model element.
+     */
+    public static Object find(org.omg.uml.UmlPackage modelPackage, final String name)
+    {
+        return CollectionUtils.find(
+            modelPackage.getCore().getModelElement().refAllOfType(),
+            new Predicate() 
+            {
+                public boolean evaluate(Object object)
+                {
+                    return StringUtils.trimToEmpty(
+                        ((ModelElement)object).getName()).equals(name);
+                }
+            });
+    }
     
     /**
      * Finds the model element having the <code>name</code> contained
