@@ -12,8 +12,10 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
  * ExceptionRecorder provides a function to record an exception to a file along
  * with the trace data if active.
+ * </p>
  * 
  * @author Martin West
  */
@@ -41,26 +43,28 @@ public class ExceptionRecorder
     {}
 
     /**
-     * record writes out the exception to a file along with trace data if
-     * active. The file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS
-     * is the timestamp <_nn>is an ascending sequence number when multiple
-     * exceptions occur in the same second. Returns the filename of the
-     * generated exception report.
+     * <p>
+     * Writes out the exception to a file along with trace data if active. The
+     * file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS is the
+     * timestamp <_nn>is an ascending sequence number when multiple exceptions
+     * occur in the same second. Returns the filename of the generated exception
+     * report.
+     * </p>
      * 
      * @param Exception to record.
      */
-    public static String record(Throwable th)
+    public static String record(Throwable throwable)
     {
-        return record("", th, "S");
+        return record("", throwable, "S");
     }
 
     /**
      * <p>
-     * Record writes out the exception to a file along with trace data if
-     * active. The file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS
-     * is the timestamp <_nn>is an ascending sequence number when multiple
-     * exceptions occur in the same second. Returns the filename of the
-     * generated exception report.
+     * Writes out the exception to a file along with trace data if active. The
+     * file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS is the
+     * timestamp <_nn>is an ascending sequence number when multiple exceptions
+     * occur in the same second. Returns the filename of the generated exception
+     * report.
      * </p>
      * 
      * @param errorMessage to log with the exception report.
@@ -72,10 +76,12 @@ public class ExceptionRecorder
     }
 
     /**
-     * Record writes out the exception to a file along with trace data if
-     * active. The file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS
-     * is the timestamp <_nn>is an ascending sequence number when multiple
-     * exceptions occur in the same second.
+     * <p>
+     * Writes out the exception to a file along with trace data if active. The
+     * file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS is the
+     * timestamp <_nn>is an ascending sequence number when multiple exceptions
+     * occur in the same second.
+     * </p>
      * 
      * @param message diagnostic message
      * @param throwable exception to record.
@@ -119,16 +125,23 @@ public class ExceptionRecorder
         return result;
     } // end of method record
 
-    /** Get a unique file name. */
+    /**
+     * The suffix to give the recorded exception files.
+     */
+    private static final String SUFFIX = ".exc";
+
+    /**
+     * Gets a unique file name.
+     */
     protected static synchronized String getUniqueName(String prefix)
     {
-        String tempName = prefix + cvDateFormat.format(new Date()) + ".exc";
+        String tempName = prefix + cvDateFormat.format(new Date()) + SUFFIX;
         int suffix = 0;
         File exceptionFile = new File(exceptionDirectory, tempName);
         while (exceptionFile.exists())
         {
             tempName = prefix + cvDateFormat.format(new Date()) + "_"
-                + suffix++ + ".exc";
+                + suffix++ + SUFFIX;
             exceptionFile = new File(exceptionDirectory, tempName);
             // Give another user an opportunity to
             // grab a file name. Use a random delay to
@@ -171,7 +184,7 @@ public class ExceptionRecorder
                 exceptionDirectory.mkdir();
             }
         }
-        catch (Throwable e)
+        catch (Throwable th)
         {}
         finally
         {
