@@ -442,4 +442,12 @@
         generateEmptyFiles="false">
     </template>
 
+    <template
+        path="templates/StrutsJspIncludes.vsl"
+        outputPattern="taglib-imports.jspf"
+        outlet="pages"
+        overwrite="false"
+        generateEmptyFiles="true">
+    </template>
+
 </cartridge>
