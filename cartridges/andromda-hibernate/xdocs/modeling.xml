@@ -152,6 +152,12 @@
 					</tr>     		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>	
+            <subsection name="Additional Remarks">
+                Dependencies can be used between Services and Entities, they
+                won't need any stereotype assigned to them. These dependencies
+                are used to reference an entity from another entity or service,
+                or to reference a service from an entity or another service.
+            </subsection>
     	</section>
   	</body>
 </document>

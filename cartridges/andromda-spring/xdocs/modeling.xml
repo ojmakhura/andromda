@@ -43,32 +43,6 @@
 							and Spring Data Access Objects.
 			          	</td>
 		        	</tr>	
-					<tr>
-						<td>
-							<strong><![CDATA[<<EntityRef>>]]></strong>
-						</td>
-						<td>
-							Dependency
-						</td>
-						<td>
-							Produces entity references (from a entity or service)
-							in the Spring applicationContext.xml and within
-							the Spring base classes (i.e. DaoBase and ServiceBase).
-						</td>
-					</tr>	
-					<tr>
-						<td>
-							<strong><![CDATA[<<ServiceRef>>]]></strong>
-						</td>
-						<td>
-							Dependency
-						</td>
-						<td>
-							Produces service references (from another service)
-							in the Spring applicationContext.xml and within
-							the ServiceBase classes.
-						</td>
-					</tr>		      
 		        	<tr>
 			          	<td>
 							<a name="FinderMethod"/>
@@ -180,6 +154,16 @@
 		        	</tr>					        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>	
+            <subsection name="Additional Remarks">
+                Dependencies can be used between Services and Entities, they
+                won't need any stereotype assigned to them. These dependencies
+                are used to produce entity references (from a entity or service)
+                in the Spring applicationContext.xml and within
+                the Spring base classes (i.e. DaoBase and ServiceBase),
+                or to produce service references (from another service)
+                in the Spring applicationContext.xml and within
+                the ServiceBase classes.
+            </subsection>
     	</section>
   	</body>
 </document>
