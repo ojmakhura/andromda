@@ -1,6 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.cartridges.spring.SpringProfile;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -66,4 +67,23 @@ public class SpringEntityAssociationEndLogicImpl
         return getterSetterTypeName;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
+     */
+    protected boolean handleIsLazy()
+    {
+        String lazyString = (String) findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        boolean lazy;
+
+        if (lazyString == null)
+        {
+            lazy = !isComposition();
+        }
+        else
+        {
+            lazy = Boolean.valueOf(lazyString).booleanValue();
+        }
+
+        return lazy;
+    }
 }
