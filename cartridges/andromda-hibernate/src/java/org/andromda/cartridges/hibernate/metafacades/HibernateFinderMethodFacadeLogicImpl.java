@@ -29,14 +29,15 @@ public class HibernateFinderMethodFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery()
      */
     public String getQuery() {
+ 
+        // first see if we can retrieve the query from the super class as an OCL
+        // translation
+        String queryString = super.getQuery("query.Hibernate-QL");
         
-        // first see if we can retrieve the query from the super class.
-        String queryString = super.getQuery();
-        
-        // now see if there is a query stored as a tagged value
+        // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
             queryString = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-        }
+        }        
 
         //if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString)) {
