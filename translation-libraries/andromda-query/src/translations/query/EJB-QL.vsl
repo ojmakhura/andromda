@@ -60,9 +60,25 @@
 
         <!-- This is what is append when '-> isEmpty()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*->\s*isEmpty${emptyParentheses}"
-                  handlerMethod="handleIsEmpty">
+                  handlerMethod="handleDotOperation">
             <kind name="body">
                 {0} IS EMPTY
+            </kind>
+        </fragment>
+        
+        <!-- This is what is appended when 'string.toLower()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*toLower${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                LOWER({0})
+            </kind>
+        </fragment>
+        
+        <!-- This is what is appended when 'string.toUpper()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*toUpper${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                UPPER({0})
             </kind>
         </fragment>
 

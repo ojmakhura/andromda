@@ -201,4 +201,40 @@
         </to>
     </expression>
     
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate) 
+            body : 
+                allInstances() -> select( certificate | 
+                   certificate.code.toLower() = code )
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            SELECT DISTINCT OBJECT(certificate) 
+            FROM MedicalCertificate certificate 
+            WHERE LOWER(certificate.code) = ?1
+            ]]>          
+        </to> 
+    </expression>
+    
+     <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate) 
+            body : 
+                allInstances() -> select( certificate | 
+                   certificate.code.toUpper() = code )
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            SELECT DISTINCT OBJECT(certificate) 
+            FROM MedicalCertificate certificate 
+            WHERE UPPER(certificate.code) = ?1
+            ]]>          
+        </to> 
+    </expression>
+    
 </translation-test>

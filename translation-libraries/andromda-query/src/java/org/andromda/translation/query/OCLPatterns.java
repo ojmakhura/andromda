@@ -15,10 +15,10 @@ public class OCLPatterns
     /**
      * Matches on a feature call
      */
-    public static final String ARROW_FEATURE_CALL = ".*\\s*->\\s*\\w*\\(.*\\)";
+    public static final String OPERATION_FEATURE_CALL = ".*\\s*(->|\\.)\\s*\\w*\\(.*\\)";
     
     public static void main(String args[])
     {
-        System.out.println("matches: " + "certificate.validityStart -> select()".matches(ARROW_FEATURE_CALL));
+        System.out.println("matches: " + "cartridge.code.toLower()".matches(OPERATION_FEATURE_CALL));
     }
 }
