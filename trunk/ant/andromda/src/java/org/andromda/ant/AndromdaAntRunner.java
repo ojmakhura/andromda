@@ -16,7 +16,6 @@ import java.util.zip.ZipFile;
 
 /**
  * @todo: document this class
- * @todo: the way templates are read and written can be more generic, without hardcoding their names
  */
 public class AndromdaAntRunner
 {
