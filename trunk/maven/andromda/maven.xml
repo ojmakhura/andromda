@@ -4,14 +4,26 @@
   		 xmlns:velocity="jelly:velocity">
   		 
    <preGoal name="jar:jar">
+   	
+		<!-- perform the merges so we can insert the current
+		     AndroMDA version into the maven plugin each time we build -->
+	    <velocity:merge
+			name="${maven.build.dest}/project.xml"
+			basedir="${basedir}"
+			template="/project.xml"/>     
+	    <velocity:merge
+			name="${maven.build.dest}/plugin.properties"
+			basedir="${basedir}"
+			template="/plugin.properties"/> 
+				
+  		<!-- perform the below merges so we can add the 
+  			 current version of AndroMDA to the mda genapp module -->
 		<j:set 
 			var="mdaResourcesDir" 
 			value="plugin-resources/andromda/templates/j2ee-app/mda"/>
 		<j:set 
 			var="mdaTemplatesDir" 
 			value="${basedir}/${mdaResourcesDir}"/>
-  		<!-- we perform the merges so we can add the 
-  			 current version of AndroMDA to the mda genapp module -->
 	    <velocity:merge
 			name="${maven.build.dest}/${mdaResourcesDir}/project-ejb.xml.vm"
 			basedir="${mdaTemplatesDir}"
@@ -19,7 +31,8 @@
 	    <velocity:merge
 			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vm"
 			basedir="${mdaTemplatesDir}"
-			template="/project-hibernate.xml.vm"/> 			
+			template="/project-hibernate.xml.vm"/> 	
+					
    </preGoal>
   	
   	<!-- this is here because the plugin:install goal from the
