@@ -57,7 +57,7 @@
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
-            <version>1.2dev-20040621</version>
+            <version>1.2.1</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -71,50 +71,50 @@
         <dependency>
             <groupId>xjavadoc</groupId>
             <artifactId>xjavadoc</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-xdoclet-module</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jboss-module</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-ejb-module</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <!-- This one is needed because jboss-module depends on it -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jmx-module</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <!-- ejbdoclet depends on this module for some reason -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-apache-module</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-web-module</artifactId>
-            <version>1.2</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
         <!-- TLDs -->
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts-bean</artifactId>
-            <version>1.2dev-20040621</version>
+            <version>1.2.1</version>
             <type>tld</type>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -123,7 +123,7 @@
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts-html</artifactId>
-            <version>1.2dev-20040621</version>
+            <version>1.2.1</version>
             <type>tld</type>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -132,7 +132,7 @@
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts-logic</artifactId>
-            <version>1.2dev-20040621</version>
+            <version>1.2.1</version>
             <type>tld</type>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -141,7 +141,7 @@
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts-nested</artifactId>
-            <version>1.2dev-20040621</version>
+            <version>1.2.1</version>
             <type>tld</type>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -150,7 +150,7 @@
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts-tiles</artifactId>
-            <version>1.2dev-20040621</version>
+            <version>1.2.1</version>
             <type>tld</type>
             <properties>
                 <war.bundle>true</war.bundle>
