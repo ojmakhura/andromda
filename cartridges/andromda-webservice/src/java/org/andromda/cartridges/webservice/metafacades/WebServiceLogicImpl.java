@@ -17,6 +17,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ServiceOperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -219,13 +220,15 @@ public class WebServiceLogicImpl
     }
 
     /**
+     * <p>
      * Loads all <code>types</code> and <code>nonArrayTypes</code> for the
      * specified <code>type</code>. For each array type we collect the
      * <code>nonArrayType</code>. Non array types are loaded seperately so
      * that they are added at the end at the type collecting process. Since the
-     * types collection are a set (by the fullyQualifiedName) we don't want any
+     * types collection is a set (by the fullyQualifiedName) we don't want any
      * non array types to override things such as association ends in the
      * <code>types</code> collection.
+     * </p>
      * 
      * @param type the type
      * @param types the collection to load.
@@ -249,34 +252,36 @@ public class WebServiceLogicImpl
                 if (type != null)
                 {
                     this.checkedTypes.add(modelElement);
-                    ClassifierFacade nonArrayType = type;
-                    if (type.isArrayType()
-                        || this.isAssociation(modelElement.getClass()))
+                    if (!this.containsManyType(types, modelElement))
                     {
-                        // convert to non-array type since we
-                        // check if that one has the stereotype
-                        nonArrayType = type.getNonArray();
-                        types.add(modelElement);
-                        // set the type to the non array type since
-                        // that will have the attributes
-                        type = nonArrayType;
-                    }
-
-                    if (nonArrayType != null)
-                    {
-                        if (nonArrayType
-                            .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
-                            || nonArrayType.isEnumeration())
+                        ClassifierFacade nonArrayType = type;
+                        if (type.isArrayType()
+                            || this.isAssociation(modelElement.getClass()))
                         {
-                            // we add the type when its a non array and has
-                            // the correct stereotype (even if we have added
-                            // the array type above) since we need to define
-                            // both an array and non array in the WSDL if
-                            // we are defining an array.
-                            nonArrayTypes.add(nonArrayType);
+                            // convert to non-array type since we
+                            // check if that one has the stereotype
+                            nonArrayType = type.getNonArray();
+                            types.add(modelElement);
+                            // set the type to the non array type since
+                            // that will have the attributes
+                            type = nonArrayType;
+                        }
+
+                        if (nonArrayType != null)
+                        {
+                            if (nonArrayType
+                                .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
+                                || nonArrayType.isEnumeration())
+                            {
+                                // we add the type when its a non array and has
+                                // the correct stereotype (even if we have added
+                                // the array type above) since we need to define
+                                // both an array and non array in the WSDL if
+                                // we are defining an array.
+                                nonArrayTypes.add(nonArrayType);
+                            }
                         }
                     }
-
                     if (type != null)
                     {
                         Collection properties = type.getProperties();
@@ -300,6 +305,100 @@ public class WebServiceLogicImpl
             logger.error(errMsg, th);
             throw new MetafacadeException(errMsg, th);
         }
+    }
+
+    /**
+     * <p>
+     * Checks to see if the <code>types</code> collection contains the
+     * <code>modelElement</code>. It does this by checking to see if the
+     * model element is either an association end or some type of model element
+     * that has a type that's an array. If it's either an array <strong>OR
+     * </strong> an association end, then we check to see if the type is stored
+     * within the <code>types</code> collection. If so, we return true,
+     * otherwise we return false.
+     * </p>
+     * 
+     * @param types the previously collected types.
+     * @param modelElement the model element to check to see if it represents a
+     *        <code>many</code> type
+     * @return true/false depending on whether or not the model element is a
+     *         many type.
+     */
+    private boolean containsManyType(
+        final Collection types,
+        final Object modelElement)
+    {
+        ClassifierFacade classifier = null;
+        if (AssociationEndFacade.class
+            .isAssignableFrom(modelElement.getClass()))
+        {
+            AssociationEndFacade end = (AssociationEndFacade)modelElement;
+            if (end.isMany())
+            {
+                classifier = ((AssociationEndFacade)modelElement).getType();
+            }
+        }
+        else if (ClassifierFacade.class.isAssignableFrom(modelElement
+            .getClass()))
+        {
+            classifier = (ClassifierFacade)modelElement;
+        }
+        else if (ParameterFacade.class
+            .isAssignableFrom(modelElement.getClass()))
+        {
+            classifier = ((ParameterFacade)modelElement).getType();
+        }
+        if (classifier != null)
+        {
+            if (classifier.isArrayType())
+            {
+                classifier = classifier.getNonArray();
+            }
+        }
+        final ClassifierFacade compareType = classifier;
+        boolean containsManyType = false;
+        if (compareType != null)
+        {
+            containsManyType = CollectionUtils.find(types, new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = false;
+                    if (object != null)
+                    {
+                        ClassifierFacade type = null;
+                        if (AssociationEndFacade.class.isAssignableFrom(object
+                            .getClass()))
+                        {
+                            AssociationEndFacade end = (AssociationEndFacade)object;
+                            if (end.isMany())
+                            {
+                                type = ((AssociationEndFacade)object).getType();
+                            }
+                        }
+                        else if (ClassifierFacade.class.isAssignableFrom(object
+                            .getClass()))
+                        {
+                            type = (ClassifierFacade)object;
+                            if (type.isArrayType())
+                            {
+                                type = type.getNonArray();
+                            }
+                            else
+                            {
+                                type = null;
+                            }
+                        }
+                        if (type != null)
+                        {
+                            valid = type.equals(compareType);
+                        }
+                    }
+                    return valid;
+                }
+            }) != null;
+        }
+        return containsManyType;
     }
 
     /**
