@@ -139,6 +139,7 @@
 #else
                  <serviceAccessorPattern>{0}.{1}Util.getHome().create()</serviceAccessorPattern>
 #end
+                 <mergeMappingsUri>file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</mergeMappingsUri>
             </properties>
         </dependency>
 #end
