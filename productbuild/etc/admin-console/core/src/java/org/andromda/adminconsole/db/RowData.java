@@ -2,10 +2,21 @@ package org.andromda.adminconsole.db;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class RowData extends LinkedHashMap implements Serializable
 {
     private Object[] cells = null;
+
+    public RowData()
+    {
+        cells = new Object[0];
+    }
+
+    public RowData(Map cellMap)
+    {
+        super(cellMap);
+    }
 
     public RowData(Table table, Object[] cells)
     {
