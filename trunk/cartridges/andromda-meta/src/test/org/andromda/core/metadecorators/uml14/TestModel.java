@@ -20,4 +20,6 @@ public interface TestModel
     public static final String ONE2MANY= "one2many";
     public static final String MANY2MANY = "many2many";
     public static final String MANY2ONE = "many2one";
+    public static final String AGGREGATION = "aggregation";
+    public static final String COMPOSITION = "composition";
 }

@@ -10,17 +10,15 @@ import junit.framework.TestCase;
 
 import org.andromda.core.mdr.MDRepositoryFacade;
 import org.omg.uml.UmlPackage;
+import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.Namespace;
 
-public class DecoratorSmallTest1 extends TestCase
+public class DecoratorSmallTest1 extends TestCase implements TestModel
 {
     private UmlPackage model;
     private URL modelURL = null;
     private MDRepositoryFacade repository = null;
 
-    /**
-     * Constructor for MDRepositoryTransformationTest.
-     * @param arg0
-     */
     public DecoratorSmallTest1(String arg0)
     {
         super(arg0);
@@ -55,12 +53,13 @@ public class DecoratorSmallTest1 extends TestCase
         ModelDecorator md =
             (ModelDecorator) df.createDecoratorObject(model);
         Collection packages = md.getRootPackage().getPackages();
-        assertEquals(4, packages.size());
+        assertEquals(5, packages.size());
         ArrayList expectedResults = new ArrayList();
         expectedResults.add("org");
         expectedResults.add("java");
         expectedResults.add("features");
         expectedResults.add("associations");
+        expectedResults.add("dependencies");
 
         for (Iterator iter = packages.iterator(); iter.hasNext();)
         {
@@ -93,6 +92,11 @@ public class DecoratorSmallTest1 extends TestCase
         expectedResults.put("ClassAF", "associations");
         expectedResults.put("ClassAssociations", "associations");
         expectedResults.put("ClassFeatures", "features");
+        expectedResults.put("ClassDependencies", "dependencies");
+        expectedResults.put("Class_2", "dependencies");
+        expectedResults.put("Class_3", "dependencies");
+        expectedResults.put("Class_4", "dependencies");
+        expectedResults.put("SuperClass", "dependencies");
 
         for (Iterator iter = packages.iterator(); iter.hasNext();)
         {
@@ -112,6 +116,141 @@ public class DecoratorSmallTest1 extends TestCase
                         pakkage.getName()));
             }
         }
+    }
+
+    /**
+     * Tests the capabilities of an AssociationDecorator.
+     * @throws Exception when something goes wrong
+     */
+    public void testAssociations() throws Exception
+    {
+        DecoratorFactory df = DecoratorFactory.getInstance();
+        ModelDecorator md =
+            (ModelDecorator) df.createDecoratorObject(model);
+        ModelElement assClass =
+            getModelElement(
+                md.getRootPackage(),
+                new String[] { "associations", "ClassAssociations" },
+                0);
+        assertNotNull(assClass);
+        ClassifierDecorator clazz =
+            (ClassifierDecorator) df.createDecoratorObject(assClass);
+        for (Iterator i3 = clazz.getAssociationEnds().iterator();
+            i3.hasNext();
+            )
+        {
+            AssociationEndDecorator aed =
+                (AssociationEndDecorator) i3.next();
+            assertNotNull(aed);
+            aed = aed.getOtherEnd();
+            assertNotNull(aed);
+            String role = aed.getRoleName();
+            if (role.equals(ONE2ONE))
+            {
+                assertTrue(aed.isOne2One());
+            }
+            else if (role.equals(ONE2MANY))
+            {
+                assertTrue(aed.isOne2Many());
+            }
+            else if (role.equals(MANY2ONE))
+            {
+                assertTrue(aed.isMany2One());
+            }
+            else if (role.equals(MANY2MANY))
+            {
+                assertTrue(aed.isMany2Many());
+            }
+            else if (role.equals("aggregation"))
+            {
+                assertTrue(aed.isAggregation());
+            }
+            else if (role.equals("composition"))
+            {
+                assertTrue(aed.isComposition());
+            }
+        }
+    }
+
+    /**
+     * Tests the capabilities of a DependencyDecorator.
+     * @throws Exception when something goes wrong
+     */
+    public void testDependencies() throws Exception
+    {
+        DecoratorFactory df = DecoratorFactory.getInstance();
+        ModelDecorator md =
+            (ModelDecorator) df.createDecoratorObject(model);
+        ModelElement depClass =
+            getModelElement(
+                md.getRootPackage(),
+                new String[] { "dependencies", "ClassDependencies" },
+                0);
+        assertNotNull(depClass);
+        ClassifierDecorator clazz =
+            (ClassifierDecorator) df.createDecoratorObject(depClass);
+        Collection dependencies = clazz.getDependencies();
+        assertNotNull(dependencies);
+        assertEquals(3, dependencies.size());
+        HashMap expectedResults = new HashMap();
+        expectedResults.put("Class_2", "ok");
+        expectedResults.put("Class_3", "ok");
+        expectedResults.put("Class_4", "ok");
+        for (Iterator i3 = dependencies.iterator(); i3.hasNext();)
+        {
+            DependencyDecorator dd = (DependencyDecorator) i3.next();
+            assertNotNull(dd);
+            String targetName = dd.getTargetType().getName();
+            assertNotNull(
+                "Unexpected class name: " + targetName,
+                expectedResults.get(targetName));
+        }
+    }
+
+    private static ModelElement getModelElement(
+        Namespace namespace,
+        String[] fqn,
+        int pos)
+    {
+
+        if ((namespace == null) || (fqn == null) || (pos > fqn.length))
+        {
+            return null;
+        }
+
+        if (pos == fqn.length)
+        {
+            return namespace;
+        }
+
+        Collection elements = namespace.getOwnedElement();
+        for (Iterator i = elements.iterator(); i.hasNext();)
+        {
+            ModelElement element = (ModelElement) i.next();
+            assertNotNull(element);
+            if (element.getName() != null
+                && element.getName().equals(fqn[pos]))
+            {
+                int nextPos = pos + 1;
+
+                if (nextPos == fqn.length)
+                {
+                    return element;
+                }
+
+                if (element instanceof Namespace)
+                {
+                    return getModelElement(
+                        (Namespace) element,
+                        fqn,
+                        nextPos);
+                }
+
+                return null;
+            }
+        }
+
+        return null;
     }
 
     /*
