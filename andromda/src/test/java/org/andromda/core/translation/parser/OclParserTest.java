@@ -17,7 +17,7 @@ import org.andromda.core.translation.node.Start;
 
 /**
  * Implements the JUnit test suite for
- * org.andromda.core.translation.parser.OclParser
+ * {@link org.andromda.core.translation.parser.OclParser}
  * 
  * @author Chad Brandon
  */
