@@ -26,13 +26,37 @@
 	        	</tr>	
 	        	<tr>
 		          	<td>
+		          		services
+		          	</td>
+		          	<td>
+		          		The directory to which POJO service interfaces
+						are generated.
+		          	</td>
+		          	<td>
+		          		No
+		          	</td>
+	        	</tr>	
+	        	<tr>
+		          	<td>
+		          		service-impls
+		          	</td>
+		          	<td>
+		          		The directory to which POJO service implementation 
+						classes are generated.
+		          	</td>
+		          	<td>
+		          		No
+		          	</td>
+	        	</tr>	
+	        	<tr>
+		          	<td>
 		          		value-objects
 		          	</td>
 		          	<td>
 		          		The directory to which value objects are generated.
 		          	</td>
 		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
+		          		No
 		          	</td>
 	        	</tr>	
 	        	<tr>
@@ -43,7 +67,7 @@
 		          		The directory to which exceptions are generated.
 		          	</td>
 		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
+		          		No
 		          	</td>
 	        	</tr>		  
 	        	<tr>
@@ -54,7 +78,7 @@
 		          		The directory to which enumerations are generated. 
 		          	</td>
 		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
+		          		No
 		          	</td>		          	
 	        	</tr>			        	   	      	        	        		        	        	        	     	             	        	
 	        </table>
