@@ -144,11 +144,8 @@
         overwrite="true"
         required="false">
         <modelElements variable="enumeration">
-            <!-- this implies the <<Entity>> and <<Enumeration>> stereotypes -->
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade">
-                    <property name="enumeration" value="true"/>
-                </type>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
             </modelElement>
         </modelElements>
     </template>

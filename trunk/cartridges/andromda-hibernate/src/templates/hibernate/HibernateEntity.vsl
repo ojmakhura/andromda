@@ -15,70 +15,6 @@ package $entity.packageName;
 ##                    logic on the generated Entity.
 ##                    Actually general design good practice says to only have
 ##                    concrete classes at the leafs.
-#if ($entity.enumeration)
-/**
-$entity.getDocumentation(" * ")
- *
- * @hibernate.class
- *      table="$entity.tableName"
- *      mutable="false"
- */
-public class $entity.name implements java.io.Serializable
-{
-#set ($identifier = $entity.identifiers.iterator().next())
-    private $identifier.type.fullyQualifiedName $identifier.name;
-
-    /**
-$identifier.getDocumentation("     * ")
-     *
-     * @hibernate.id
-     *     generator-class="$idGeneratorClass"
-     *     column="$identifier.columnName"
-     *     type="$identifier.type.fullyQualifiedHibernateType"
-     *
-     * @hibernate.column
-     *     name="$identifier.columnName"
-     *     sql-type="$identifier.sqlType"
-     */
-    public $identifier.type.fullyQualifiedName ${identifier.getterName}()
-    {
-        return this.$identifier.name;
-    }
-
-    public void ${identifier.setterName}($identifier.type.fullyQualifiedName $identifier.name)
-    {
-        this.${identifier.name} = $identifier.name;
-    }
-
-#set ($enumType = "${entity.packageName}.${entity.enumerationName}")
-    private $enumType value;
-
-    /**
-     * This value holds the enumeration value for this entity.
-     *
-     * @hibernate.property
-     *     name="value"
-     *     column="VALUE"
-     *     type="$enumType"
-     *     insert="false"
-     *     update="false"
-     *     unique="true"
-     *
-     * @hibernate.column
-     *     name="VALUE"
-     *     non-null="true"
-     */
-    public $enumType getValue()
-    {
-        return this.value;
-    }
-
-    public void setValue($enumType value)
-    {
-        this.value = value;
-    }
-}
-#else
 #set ($generalization = $entity.generalization)
 /**
 $entity.getDocumentation(" * ")
@@ -516,4 +452,3 @@ $operation.getDocumentation("     * ")
 #end ## end foreach
 
 }
-#end
