@@ -83,7 +83,7 @@ public class $testClassName
 	{
 #foreach ($argument in $operation.arguments)
 #set ($packageName = $argument.type.packageName)
-#if (!$argument.type.datatype)
+#if (!$argument.type.dataType)
 #set($packageName = "${packageName}.test")
 #if (!$service.style.equalsIgnoreCase("rpc") && $argument.type.arrayType)
 #set ($argumentTypeName = "${packageName}.${argument.type.arrayName}")
