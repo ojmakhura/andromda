@@ -307,7 +307,6 @@ public class Cartridge
                 catch (Throwable th)
                 {
                     String errMsg = "Error performing " + methodName;
-                    logger.error(errMsg, th);
                     throw new CartridgeException(errMsg, th);
                 }
             }
@@ -445,7 +444,6 @@ public class Cartridge
                 + " with template '" + template.getPath()
                 + "', template context '" + templateContext
                 + "' and cartridge '" + this.getName() + "'";
-            logger.error(errMsg, th);
             throw new CartridgeException(errMsg, th);
         }
     }
@@ -554,7 +552,6 @@ public class Cartridge
                 this.logger.info("Removed: '" + outFile + "'");
             }
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new CartridgeException(errMsg, th);
         }
     }

@@ -190,7 +190,7 @@ public class OclParser
             int parameterOptionNum = parameterOptions.length;
 
             // check if the parameterOptions (after the first two)
-            //  are instances of either ACommaFeatureCallParameter
+            // are instances of either ACommaFeatureCallParameter
             // (so we can retrieve something like ', name') or
             // ColonFeatureCallParameterOption (so we can retrieve
             // something like ': type') and valid to false if this
@@ -302,9 +302,9 @@ public class OclParser
          */
         public void inAPathName(APathName name)
         {
-            //we only want to add the first name (since the other
-            //names will all be comma seperated and stored within
-            //the inACommaFeatureCallParameterOption() method)
+            // we only want to add the first name (since the other
+            // names will all be comma seperated and stored within
+            // the inACommaFeatureCallParameterOption() method)
             if (this.namesAndTypes.isEmpty())
             {
                 TName initialVariableName = name.getName();

@@ -245,15 +245,20 @@ public class AndroMDAGenTask
 
             // pass the loaded model(s) to the ModelProcessor
             ModelProcessor.instance().process(models);
-        } catch( ModelProcessorException th ) {
+        }
+        catch (ModelProcessorException th)
+        {
             // This is "recognised" problem and will have been
             // recorded. So just throw a new build exception.
-            throw new BuildException( th.getMessage() );
-        } catch( Throwable th ) {
-            logger.error( "Unexpected exception caught by AndroMDAGenTask.execute:" + th );
-            String exceptionFilename = ExceptionRecorder.record( "Unexpected Exception", th, "AndroMDAGenTask" );
-            logger.error( "Exception recorded in:" + exceptionFilename );
-            throw new BuildException( th.getMessage() );
+            throw new BuildException(th.getMessage());
+        }
+        catch (Throwable th)
+        {
+            ExceptionRecorder.record(
+                "Unexpected Exception",
+                th,
+                "AndroMDAGenTask");
+            throw new BuildException(th.getMessage());
         }
         finally
         {

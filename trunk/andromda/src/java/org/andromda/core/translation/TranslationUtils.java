@@ -5,7 +5,6 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * Contains translation utilities.
@@ -14,8 +13,6 @@ import org.apache.log4j.Logger;
  */
 public class TranslationUtils
 {
-
-    private static Logger logger = Logger.getLogger(TranslationUtils.class);
 
     /**
      * <p>
@@ -181,7 +178,6 @@ public class TranslationUtils
         {
             String errMsg = "Error performing " + methodName + " with bean '"
                 + bean + "' and property '" + property + "'";
-            logger.error(errMsg, ex);
             throw new TranslatorException(errMsg, ex);
         }
     }

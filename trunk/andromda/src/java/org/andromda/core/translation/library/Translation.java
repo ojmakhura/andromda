@@ -52,7 +52,7 @@ public class Translation
     protected LibraryTranslation getLibraryTranslation()
     {
         final String methodName = "Translation.getLibraryTranslation";
-        //should never happen, but it doesn't hurt to be safe
+        // should never happen, but it doesn't hurt to be safe
         if (this.libraryTranslation == null)
         {
             throw new LibraryException(methodName
@@ -83,8 +83,8 @@ public class Translation
     {
         Fragment fragment = null;
         Iterator names = fragments.keySet().iterator();
-        //search through the names and the first name that matches
-        //one of the names return the value of that name.
+        // search through the names and the first name that matches
+        // one of the names return the value of that name.
         while (names.hasNext())
         {
             String nextName = (String)names.next();
@@ -93,8 +93,8 @@ public class Translation
                 fragment = (Fragment)fragments.get(nextName);
             }
         }
-        //if the fragment is null, and the name isn't in an ignorePattern
-        //element, then give an error
+        // if the fragment is null, and the name isn't in an ignorePattern
+        // element, then give an error
         if (fragment == null && !this.isIgnorePattern(name))
         {
             // TODO: make this work correctly with unsupported functions.
@@ -175,8 +175,8 @@ public class Translation
         boolean isIgnorePattern = false;
         pattern = StringUtils.trimToEmpty(pattern);
         Iterator ignorePatterns = this.ignorePatterns.iterator();
-        //search through the ignorePatterns and see if one
-        //of them matches the passed in pattern.
+        // search through the ignorePatterns and see if one
+        // of them matches the passed in pattern.
         while (ignorePatterns.hasNext())
         {
             String nextIgnorePattern = StringUtils
@@ -206,7 +206,7 @@ public class Translation
             logger.debug("performing " + methodName + " with name '" + name
                 + "' and kind '" + kind + "'");
 
-        //clean the strings first
+        // clean the strings first
         name = StringUtils.trimToEmpty(name);
         kind = StringUtils.trimToEmpty(kind);
 

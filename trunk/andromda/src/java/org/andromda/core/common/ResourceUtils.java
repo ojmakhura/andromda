@@ -56,17 +56,16 @@ public class ResourceUtils
         final String methodName = "ResourceUtils.getContents";
         try
         {
-	        return getContents(resource != null ? new InputStreamReader(
-	                    resource.openStream()) : null);
+            return getContents(resource != null ? new InputStreamReader(
+                resource.openStream()) : null);
         }
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new RuntimeException(errMsg, th);
         }
     }
-    
+
     /**
      * Loads the resource and returns the contents as a String.
      * 

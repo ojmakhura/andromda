@@ -57,7 +57,6 @@ public class ResourceFinder
         catch (Exception ex)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, ex);
             throw new ResourceFinderException(errMsg, ex);
         }
 

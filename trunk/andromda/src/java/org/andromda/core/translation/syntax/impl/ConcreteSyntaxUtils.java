@@ -1,5 +1,10 @@
 package org.andromda.core.translation.syntax.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AActualParameterList;
@@ -28,11 +33,6 @@ import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Contains some utilities for concrete syntax value retrieval.
@@ -194,12 +194,12 @@ public class ConcreteSyntaxUtils
 
             if (variables != null)
             {
-                //add the first one
+                // add the first one
                 declarations.add(ConcreteSyntaxUtils.newVariableDeclaration(
                     variables.getVariableDeclaration(),
                     variables.getVariableDeclarationValue()));
 
-                //add the rest
+                // add the rest
                 List variableTails = variables.getVariableDeclarationListTail();
                 if (variableTails != null)
                 {
@@ -269,7 +269,7 @@ public class ConcreteSyntaxUtils
             {
                 AActualParameterList params = (AActualParameterList)parameterList;
 
-                //add the first param if it exists
+                // add the first param if it exists
                 String firstParam = TranslationUtils.trimToEmpty(params
                     .getExpression());
                 if (StringUtils.isNotEmpty(firstParam))
@@ -277,7 +277,7 @@ public class ConcreteSyntaxUtils
                     parameters.add(firstParam);
                 }
 
-                //now add the rest of the params which are contained in the
+                // now add the rest of the params which are contained in the
                 // tail
                 List restOfParams = params.getCommaExpression();
                 if (restOfParams != null && !restOfParams.isEmpty())
@@ -310,14 +310,14 @@ public class ConcreteSyntaxUtils
         String[] expressions = new String[2];
         ARelationalExpression expression = (ARelationalExpression)relationalExpression;
 
-        //set the left expression
+        // set the left expression
         expressions[0] = TranslationUtils.trimToEmpty(expression
             .getAdditiveExpression());
 
         ARelationalExpressionTail expressionTail = (ARelationalExpressionTail)expression
             .getRelationalExpressionTail();
 
-        //set the right expression
+        // set the right expression
         expressions[1] = TranslationUtils.trimToEmpty(expressionTail
             .getAdditiveExpression());
 
@@ -352,7 +352,7 @@ public class ConcreteSyntaxUtils
         StringBuffer primaryExpression = new StringBuffer();
         if (expression != null)
         {
-            //append the first part of the primary expression
+            // append the first part of the primary expression
             primaryExpression.append(TranslationUtils.trimToEmpty(expression
                 .getPrimaryExpression()));
             List expressionTail = expression.getPropertyCallExpressionTail();

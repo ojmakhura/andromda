@@ -83,7 +83,6 @@ public class Mappings
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new MappingsException(errMsg, th);
         }
     }
@@ -251,14 +250,13 @@ public class Mappings
     public Collection getMappings()
     {
         Collection mappingsSet = new ArrayList(this.mappings.entrySet());
-        CollectionUtils.transform(mappingsSet,
-            new Transformer()
+        CollectionUtils.transform(mappingsSet, new Transformer()
+        {
+            public Object transform(Object object)
             {
-                public Object transform(Object object)
-                {
-                    return ((Map.Entry)object).getValue();
-                }
-            });
+                return ((Map.Entry)object).getValue();
+            }
+        });
         return mappingsSet;
     }
 

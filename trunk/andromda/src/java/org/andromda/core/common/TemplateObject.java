@@ -77,7 +77,6 @@ public class TemplateObject
         catch (Exception ex)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, ex);
             throw new TemplateObjectException(errMsg, ex);
         }
         return templateObject;
@@ -117,7 +116,7 @@ public class TemplateObject
                     String errMsg = "Error setting property '" + reference
                         + "' with '" + property.getValue()
                         + "' on templateObject --> '" + templateObject + "'";
-                    logger.error(errMsg, ex);
+                    logger.warn(errMsg, ex);
                     // don't throw the exception
                 }
             }

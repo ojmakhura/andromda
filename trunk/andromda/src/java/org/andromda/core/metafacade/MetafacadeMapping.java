@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * A meta facade mapping class. This class is a child of
@@ -15,8 +14,6 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeMapping
 {
-    private static Logger logger = Logger.getLogger(MetafacadeMapping.class);
-
     /**
      * The meta facade for which this mapping applies.
      */
@@ -84,7 +81,6 @@ public class MetafacadeMapping
         catch (Throwable th)
         {
             String errMsg = "Error performing setMetafacadeClassName";
-            logger.error(errMsg, th);
             throw new MetafacadeMappingsException(errMsg, th);
         }
     }
@@ -114,7 +110,6 @@ public class MetafacadeMapping
         catch (Throwable th)
         {
             String errMsg = "Error performing setMetafacadeClass";
-            logger.error(errMsg, th);
             throw new MetafacadeMappingsException(errMsg, th);
         }
     }

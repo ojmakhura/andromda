@@ -145,13 +145,15 @@ public abstract class BaseTranslator
      * <pre>
      * 
      *  
-     *          &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
-     *                       handlerMethod=&quot;handleAllInstances&quot;&gt;
-     *              &lt;kind name=&quot;body&quot;&gt;
-     *                  from $completeElementName as $lowerCaseElementName 
-     *              &lt;/kind&gt;
-     *          &lt;/fragment&gt;
-     *          
+     *   
+     *           &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
+     *                        handlerMethod=&quot;handleAllInstances&quot;&gt;
+     *               &lt;kind name=&quot;body&quot;&gt;
+     *                   from $completeElementName as $lowerCaseElementName 
+     *               &lt;/kind&gt;
+     *           &lt;/fragment&gt;
+     *           
+     *   
      *  
      * </pre>
      * 
@@ -271,10 +273,10 @@ public abstract class BaseTranslator
         ExceptionUtils.checkEmpty(methodName, "expression", expression);
         try
         {
-            //pre processing
+            // pre processing
             this.preProcess();
-            //set the context element so translators extending this have the
-            //context element available
+            // set the context element so translators extending this have the
+            // context element available
             this.setContextElement(contextElement);
             Map templateObjects = new HashMap();
             templateObjects.put(Translator.CONTEXT_ELEMENT, contextElement);
@@ -287,7 +289,7 @@ public abstract class BaseTranslator
                 this.process(expression);
                 libraryTranslation.getLibrary().shutdown();
             }
-            //post processing
+            // post processing
             this.postProcess();
         }
         catch (Exception ex)
@@ -297,12 +299,11 @@ public abstract class BaseTranslator
                 + "', contextElement '" + contextElement
                 + "' and expression --> '" + expression + "'";
 
-            //if the exception is something other than a parser
-            //error wrap in a TranslatorException, otherwise
-            //just print the error so its more user friendly.
+            // if the exception is something other than a parser
+            // error wrap in a TranslatorException, otherwise
+            // just print the error so its more user friendly.
             if (!OclParserException.class.isAssignableFrom(ex.getClass()))
             {
-                logger.error(errMsg, ex);
                 throw new TranslatorException(errMsg, ex);
             }
             logger.error(errMsg + "\n MESSAGE --> '" + ex.getMessage() + "'");
@@ -345,8 +346,8 @@ public abstract class BaseTranslator
      */
     protected void postProcess()
     {
-        //currently does nothing --> sub classes should override to perform
-        //final processing
+    // currently does nothing --> sub classes should override to perform
+    // final processing
     }
 
     /** The Following Are Overriden Parser Generated Methods * */
@@ -415,11 +416,11 @@ public abstract class BaseTranslator
 
         if (this.translatedExpression != null)
         {
-            //sets the name of the expression
+            // sets the name of the expression
             this.translatedExpression.setName(TranslationUtils
                 .getPropertyAsString(operationExpressionBody, "name"));
 
-            //sets the kind of the expression (body, post, or pre)
+            // sets the kind of the expression (body, post, or pre)
             this.translatedExpression.setKind(TranslationUtils
                 .getPropertyAsString(
                     operationExpressionBody,

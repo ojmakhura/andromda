@@ -46,7 +46,6 @@ public class PluginDiscoverer {
         catch (Throwable th) 
         {
             String errMsg = "Error loading --> '" + ANDROMDA_PLUGINS + "'";
-            logger.error(errMsg, th);
             throw new PluginDiscovererException(errMsg, th);
         }
     }

@@ -150,9 +150,9 @@ public class MetafacadeFactory
         final String methodName = "MetafacadeFactory.internalCreateMetafacade";
         ExceptionUtils.checkNull(methodName, "metaObject", metaObject);
 
-        //if the metaObject is REALLY a metafacade, get the metaObject
+        // if the metaObject is REALLY a metafacade, get the metaObject
         // from the metafacade since we don't want to try and create a
-        //metafacade from a metafacade.
+        // metafacade from a metafacade.
         if (MetafacadeBase.class.isAssignableFrom(metaObject.getClass()))
         {
             return (MetafacadeBase)metaObject;

@@ -32,7 +32,6 @@ public class ClassUtils
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ClassUtilsException(errMsg, th);
         }
     }
@@ -76,7 +75,6 @@ public class ClassUtils
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ClassUtilsException(errMsg, th);
         }
         return loadedClass;

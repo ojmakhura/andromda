@@ -67,9 +67,9 @@ public class Template
         File directory)
     {
         File file = null;
-        //if singleFileOutput is set to true, then
-        //just use the output pattern as the file to
-        //output to, otherwise we replace using message format.
+        // if singleFileOutput is set to true, then
+        // just use the output pattern as the file to
+        // output to, otherwise we replace using message format.
         if (this.isOutputToSingleFile())
         {
             file = super.getOutputLocation(new String[]
