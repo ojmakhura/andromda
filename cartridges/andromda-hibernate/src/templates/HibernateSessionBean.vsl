@@ -39,7 +39,7 @@ $class.getDocumentation(" * ")
  *       type="Stateless"
 #end
  *       local-jndi-name="${class.packageName}/${class.name}/LocalHome"
- *           jndi-name="${class.packageName}/${class.name}/Home"
+ *       jndi-name="${class.packageName}/${class.name}/Home"
  *       view-type="both"
  * @ejb.interface generate="local,remote"
  *        remote-class="${class.packageName}.${class.name}"
@@ -111,25 +111,24 @@ $att.getDocumentation("     * ")
 #set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
-#set ($returntype = $op.type.fullyQualifiedName)
 #if ($defaultException)
-    protected abstract $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
+    protected abstract $op.type.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $defaultException.name;
 #else
-    protected abstract $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
+    protected abstract $op.type.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
 #end
 
-   /**
+    /**
 $op.getDocumentation("     * ")
-    *
-    * @ejb.interface-method view-type="both"
-    * @ejb.transaction type="Required"
-    */
+     *
+     * @ejb.interface-method view-type="both"
+     * @ejb.transaction type="Required"
+     */
 #if ($defaultException)
-    $op.visibility $returntype $msig
+    $op.visibility $op.type.fullyQualifiedName $msig
         throws $defaultException.name
 #else
-    $op.visibility $returntype $msig
+    $op.visibility $op.type.fullyQualifiedName $msig
 #end
     {
         Session sess = null;
@@ -147,8 +146,7 @@ $op.getDocumentation("     * ")
 #set ($parameters = "sess, ${parameterList}")
 #end
 ##
-#set ($returntype = $op.type.fullyQualifiedName)
-#if ("void" != $returntype)
+#if ("void" != $op.type.fullyQualifiedName)
             return handle${str.upperCaseFirstLetter($op.name)}($parameters);
 #else
             handle${str.upperCaseFirstLetter($op.name)}($parameters);
