@@ -137,7 +137,7 @@
   	<!--==================================================================
   			Creates an empty deployable application ear project                
   		==================================================================-->
-	<goal name="andromda:genapp"
+	<goal name="andromda:genapp${bootstrap}"
 		  prereqs="andromda:genapp-init"
 		  description="Generates an AndroMDA application base structure">
  
