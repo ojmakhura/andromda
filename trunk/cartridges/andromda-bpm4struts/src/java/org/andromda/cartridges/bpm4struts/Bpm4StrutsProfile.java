@@ -22,6 +22,10 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_INPUT_FORMAT = "@struts.view.field.format";
     public static final String TAGGED_VALUE_INPUT_TYPE = "@struts.view.field.type";
     public static final String TAGGED_VALUE_INPUT_VALIDWHEN = "@struts.view.field.validwhen";
+    public static final String TAGGED_VALUE_TABLE_COLUMNS = "@struts.view.table.columns";
+    public static final String TAGGED_VALUE_TABLE_MAXROWS = "@struts.view.table.maxrows";
+    public static final String TAGGED_VALUE_TABLE_EXPORTABLE = "@struts.view.table.exportable";
+    public static final String TAGGED_VALUE_TABLE_SORTABLE = "@struts.view.table.sortable";
     public static final String TAGGED_VALUE_EXCEPTION_TYPE = "@struts.exception.type";
     public static final String TAGGED_VALUE_CONTROLLER_USE_CASE = "@struts.controller.usecase";
     public static final String TAGGED_VALUE_USECASE_ACTIVITY = "@struts.usecase.activity";
@@ -42,6 +46,9 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_INPUT_TYPE_SELECT = "select";
     public static final String TAGGED_VALUE_INPUT_TYPE_PASSWORD = "password";
     public static final int TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT = 3;
+
+    public static final int TAGGED_VALUE_TABLE_MAXROWS_DEFAULT_COUNT = 15;
+    public static final boolean TAGGED_VALUE_TABLE_SORTING_DEFAULT_VALUE = true;
 
     /* --------------- Runtime properties ---------------- */
     public static final boolean ENABLE_CACHE = true;
