@@ -196,10 +196,10 @@ public class Mappings
 
         return StringUtils.trimToEmpty(to);
     }
-    
+
     /**
-     * Adds all available <code>mappings</code>
-     * from the 
+     * Adds all available <code>mappings</code> from the
+     * 
      * @param mappings
      */
     public void addMappings(Mappings mappings)

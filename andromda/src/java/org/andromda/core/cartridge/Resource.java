@@ -41,10 +41,9 @@ public class Resource
      * Stores the cartridge that owns this resource.
      */
     private Cartridge cartridge;
-    
+
     /**
-     * Stores the output pattern for which the resource(s)
-     * should be written.
+     * Stores the output pattern for which the resource(s) should be written.
      */
     private String outputPattern;
 
@@ -69,24 +68,21 @@ public class Resource
     {
         this.outlet = outlet;
     }
-    
+
     /**
-     * Returns the fully qualified name of the resource
-     * output to be written, this means:
-     * 
+     * Returns the fully qualified name of the resource output to be written,
+     * this means:
      * <ul>
      * <li>the output pattern has been translated</li>
      * <li>the output directory name has been prepended</li>
      * </ul>
      * 
-     * @param argument any arguments to be inserted into the 
-     *        MessageFormat style messages.
+     * @param argument any arguments to be inserted into the MessageFormat style
+     *        messages.
      * @param directory the directory to which output will be written.
      * @return File absolute directory.
      */
-    public File getOutputLocation(
-        String[] arguments,
-        File directory)
+    public File getOutputLocation(String[] arguments, File directory)
     {
         File file = null;
         // clean any whitespace off the arguments
@@ -96,8 +92,8 @@ public class Resource
             {
                 arguments[ctr] = StringUtils.trimToEmpty(arguments[ctr]);
             }
-            String outputFileName = 
-                MessageFormat.format(this.getOutputPattern(), arguments);
+            String outputFileName = MessageFormat.format(this
+                .getOutputPattern(), arguments);
 
             file = new File(directory, outputFileName);
         }
@@ -192,8 +188,7 @@ public class Resource
     }
 
     /**
-     * Sets the Cartridge parent to which this 
-     * Resource belongs.
+     * Sets the Cartridge parent to which this Resource belongs.
      * 
      * @param cartridge the parent Cartridge to set.
      */
@@ -201,7 +196,7 @@ public class Resource
     {
         this.cartridge = cartridge;
     }
-    
+
     /**
      * Sets the pattern that is used to build the name of the output file.
      * 

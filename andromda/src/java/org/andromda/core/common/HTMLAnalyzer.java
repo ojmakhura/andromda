@@ -1,4 +1,5 @@
 package org.andromda.core.common;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -10,16 +11,15 @@ import javax.swing.text.html.HTMLEditorKit.ParserCallback;
 import javax.swing.text.html.parser.ParserDelegator;
 
 import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * A utility object useful for reading an HTML string (originating from the
  * contents of an XMI documentation element) and for translating that string
  * into an HTML paragraph.
- * 
  * <p>
- * The list of paragraphs can be used in a VelocityTemplateEngine template to generate
- * JavaDoc documentation for a class, an attribute or a method.
+ * The list of paragraphs can be used in a VelocityTemplateEngine template to
+ * generate JavaDoc documentation for a class, an attribute or a method.
  * </p>
- * 
  * <p>
  * This is a very simple HTML analyzer class that builds upon the Swing
  * HTMLEditor toolkit.
@@ -27,41 +27,41 @@ import org.apache.commons.lang.StringEscapeUtils;
  * 
  * @author Matthias Bohlen
  * @author Chad Brandon
- *  
  */
 public class HTMLAnalyzer
 {
-    
+
     /**
      * Specifes the line width to enforce.
      */
     private int lineLength;
-    
+
     /**
      * The default line width used, if none is specified.
      */
     private static final int DEFAULT_LINE_WIDTH = 66;
-    
+
     /**
-     * Constructs a new instance of this HTMLAnalyzer
-     * using the default line width.
+     * Constructs a new instance of this HTMLAnalyzer using the default line
+     * width.
      */
-    public HTMLAnalyzer() 
+    public HTMLAnalyzer()
     {
-        this(DEFAULT_LINE_WIDTH);    
+        this(DEFAULT_LINE_WIDTH);
     }
-    
+
     /**
-     * Constructs a new instance of this HTMLAnalyzer
-     * specifying the <code>lineLength</code> to enforce.
+     * Constructs a new instance of this HTMLAnalyzer specifying the
+     * <code>lineLength</code> to enforce.
      * 
      * @param lineLength the width of the lines before they are wrapped.
      */
-    public HTMLAnalyzer(int lineLength) 
+    public HTMLAnalyzer(
+        int lineLength)
     {
         this.lineLength = lineLength;
     }
-    
+
     /**
      * <p>
      * Translates an HTML string into a list of HTMLParagraphs.
@@ -78,38 +78,46 @@ public class HTMLAnalyzer
         pd.parse(new StringReader(html), new MyParserCallback(), true);
         return paragraphs;
     }
-    
+
     private ArrayList paragraphs = new ArrayList();
-    
-    private class MyParserCallback extends ParserCallback
+
+    private class MyParserCallback
+        extends ParserCallback
     {
         private HTMLParagraph currentParagraph = null;
         private HTMLParagraph nonHtmlParagraph = null;
-        
+
         /**
-         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleSimpleTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet, int)
+         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleSimpleTag(javax.swing.text.html.HTML.Tag,
+         *      javax.swing.text.MutableAttributeSet, int)
          */
-        public void handleSimpleTag(Tag tag, MutableAttributeSet attribs, int pos)
+        public void handleSimpleTag(
+            Tag tag,
+            MutableAttributeSet attribs,
+            int pos)
         {
             appendWord("<" + tag + ">");
         }
-        
+
         /**
-         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet, int)
+         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleStartTag(javax.swing.text.html.HTML.Tag,
+         *      javax.swing.text.MutableAttributeSet, int)
          */
         public void handleStartTag(Tag tag, MutableAttributeSet attribs, int pos)
         {
             if (tag.equals(Tag.P))
             {
                 currentParagraph = new HTMLParagraph(lineLength);
-            } else
+            }
+            else
             {
                 appendWord("<" + tag + ">");
             }
         }
-        
+
         /**
-         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleEndTag(javax.swing.text.html.HTML.Tag, int)
+         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleEndTag(javax.swing.text.html.HTML.Tag,
+         *      int)
          */
         public void handleEndTag(Tag tag, int pos)
         {
@@ -117,14 +125,16 @@ public class HTMLAnalyzer
             {
                 paragraphs.add(currentParagraph);
                 currentParagraph = null;
-            } else
+            }
+            else
             {
                 appendWord("</" + tag + ">");
             }
         }
-        
+
         /**
-         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleText(char[], int)
+         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleText(char[],
+         *      int)
          */
         public void handleText(char[] text, int pos)
         {
@@ -134,12 +144,13 @@ public class HTMLAnalyzer
                 nonHtmlParagraph = new HTMLParagraph(lineLength);
                 nonHtmlParagraph.appendText(new String(text));
                 paragraphs.add(nonHtmlParagraph);
-            } else
+            }
+            else
             {
                 appendText(text);
             }
         }
-        
+
         private void appendWord(String string)
         {
             if (currentParagraph != null)
@@ -147,7 +158,7 @@ public class HTMLAnalyzer
                 currentParagraph.appendWord(string);
             }
         }
-        
+
         private void appendText(char[] text)
         {
             if (currentParagraph != null)
@@ -156,5 +167,5 @@ public class HTMLAnalyzer
             }
         }
     }
-    
+
 }

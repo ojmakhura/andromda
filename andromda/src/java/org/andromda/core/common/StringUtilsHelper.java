@@ -219,7 +219,8 @@ public class StringUtilsHelper
     private static String[] splitAtCapitalization(String string)
     {
         Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
-        Matcher matcher = capitalSequencePattern.matcher(StringUtils.trimToEmpty(string));
+        Matcher matcher = capitalSequencePattern.matcher(StringUtils
+            .trimToEmpty(string));
         StringBuffer sb = new StringBuffer();
         while (matcher.find())
         {

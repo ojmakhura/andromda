@@ -72,8 +72,8 @@ public class PluginDiscoverer {
      * current classpath. If the plugin with the given name is already
      * registered in the ComponentContainer, it will not be registered again.
      * 
-     * @param showPlugins if true then the plugin found will be logged, otherwise
-     *        nothing will be shown.
+     * @param showPlugins if true then the plugin found will be logged,
+     *        otherwise nothing will be shown.
      */
 	public void discoverPlugins(boolean showPlugins) 
     {

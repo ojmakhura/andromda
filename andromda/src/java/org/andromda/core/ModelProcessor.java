@@ -35,8 +35,8 @@ import org.apache.log4j.Logger;
  * a single or multiple <code>MOF</code> models.
  * </p>
  * 
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
  */
 public class ModelProcessor
@@ -138,7 +138,7 @@ public class ModelProcessor
 
             if (models != null && cartridges != null)
             {
-                repository.open();   
+                repository.open();
                 process(repository, models, cartridges);
                 repository.close();
                 repository = null;
@@ -188,28 +188,30 @@ public class ModelProcessor
         final String methodName = "ModelProcessor.process";
         try
         {
-	        boolean lastModifiedCheck = true;
+            boolean lastModifiedCheck = true;
             long lastModified = 0;
-	        ModelPackages modelPackages = new ModelPackages();
-	 
-	        for (int ctr = 0; ctr < models.length; ctr++)
-	        {
-	            Model model = models[ctr];
-	            AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
-	            // read the model into the repository
-	            repository.readModel(model.getUrl(), model.getModuleSearchPath());       
-	            // @todo lastModifiedDate needs to be handled correctly for multiple
-	            // models currently if one is set to false, all will be false
-	            lastModifiedCheck = model.isLastModifiedCheck()
-	                && lastModifiedCheck;
+            ModelPackages modelPackages = new ModelPackages();
+
+            for (int ctr = 0; ctr < models.length; ctr++)
+            {
+                Model model = models[ctr];
+                AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
+                // read the model into the repository
+                repository.readModel(model.getUrl(), model
+                    .getModuleSearchPath());
+                // @todo lastModifiedDate needs to be handled correctly for
+                // multiple
+                // models currently if one is set to false, all will be false
+                lastModifiedCheck = model.isLastModifiedCheck()
+                    && lastModifiedCheck;
                 // we go off the model that was most recently modified.
                 if (model.getLastModified() > lastModified)
                 {
                     lastModified = model.getLastModified();
                 }
-	            modelPackages.addPackages(model.getPackages());
-	        }
-	        
+                modelPackages.addPackages(model.getPackages());
+            }
+
             CodeGenerationContext context = new CodeGenerationContext(
                 repository,
                 lastModified,

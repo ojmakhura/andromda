@@ -40,22 +40,16 @@ public class OclParserException
         if (errorLine != -1)
         {
             String msg = "line: " + errorLine + " ";
-            detailMessage.insert(
-                0,
-                msg);
+            detailMessage.insert(0, msg);
             position = msg.length();
         }
         if (errorCol != -1)
         {
             String msg = "column: " + errorCol + " ";
-            detailMessage.insert(
-                position,
-                msg);
+            detailMessage.insert(position, msg);
             position = position + msg.length();
         }
-        detailMessage.insert(
-            position,
-            "--> ");
+        detailMessage.insert(position, "--> ");
         return detailMessage.toString();
     }
 
@@ -82,7 +76,6 @@ public class OclParserException
     /**
      * Extract error position from detail message, if possible. Assumes SableCC
      * detail message format: "[" <line>"," <col>"]" <error message>
-     * 
      * <p>
      * Error line and column are stored in {@link #errorLine}and
      * {@link #errorCol}so that they can be retrieved using
@@ -92,25 +85,22 @@ public class OclParserException
      * 
      * @param sDetailMessage
      */
-    private void extractErrorPosition(
-        String sDetailMessage)
+    private void extractErrorPosition(String sDetailMessage)
     {
         detailMessage = new StringBuffer();
         if (sDetailMessage.charAt(0) == '[')
         {
             // Positional data seems to be available
-            StringTokenizer st = new StringTokenizer(
-                sDetailMessage.substring(1),
-                ",]");
+            StringTokenizer st = new StringTokenizer(sDetailMessage
+                .substring(1), ",]");
 
             try
             {
                 errorLine = Integer.parseInt(st.nextToken());
                 errorCol = Integer.parseInt(st.nextToken());
 
-                detailMessage.append(st.nextToken(
-                    "").substring(
-                    2)); // skip "] "
+                detailMessage.append(st.nextToken("").substring(2)); // skip "]
+                                                                     // "
             }
             catch (NumberFormatException nfe)
             {
