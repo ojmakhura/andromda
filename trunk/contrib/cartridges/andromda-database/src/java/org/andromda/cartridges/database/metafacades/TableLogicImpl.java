@@ -2,10 +2,12 @@ package org.andromda.cartridges.database.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.EntityAssociationEndFacade;
 
 /**
  * MetafacadeLogic implementation for
@@ -72,4 +74,35 @@ public class TableLogicImpl
         return hasForeignKeyConstraints;
     }
 
+    protected Collection handleGetPrimaryKeyColumns()
+    {
+        return getIdentifiers();
+    }
+
+    protected Collection handleGetForeignKeyColumns()
+    {
+        Collection foreignKeyColumns = new ArrayList();
+
+        Collection associationEnds = getAssociationEnds();
+        for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+        {
+            EntityAssociationEndFacade sourceEnd = (EntityAssociationEndFacade) iterator.next();
+            if (sourceEnd.isMany2One()) // @todo what about many2many ?
+            {
+                foreignKeyColumns.add(sourceEnd.getOtherEnd());
+            }
+        }
+
+        return foreignKeyColumns;
+    }
+
+    protected Collection handleGetNonForeignKeyColumns()
+    {
+        return getAttributes();
+    }
+
+    protected Collection handleGetForeignKeyConstraintsAssociationEnds()
+    {
+        return getAssociationEnds();
+    }
 }
