@@ -32,7 +32,7 @@ public class RepositoryConfiguration
 	{
 		try
 		{
-			repositoryClass = getClass().forName(repositoryClassName);
+			repositoryClass = Class.forName(repositoryClassName);
 		}
 		catch (ClassNotFoundException cnfe)
 		{
@@ -46,7 +46,7 @@ public class RepositoryConfiguration
         try
         {
        
-            scriptHelperClass = getClass().forName(scriptHelperClassName);
+            scriptHelperClass = Class.forName(scriptHelperClassName);
         }
         catch (ClassNotFoundException cnfe)
         {
@@ -64,7 +64,7 @@ public class RepositoryConfiguration
 			{
 				// use the default repository implementation
 				repositoryClass =
-					getClass().forName(DEFAULT_REPOSITORY_CLASSNAME);
+					Class.forName(DEFAULT_REPOSITORY_CLASSNAME);
 			}
 			instance = (RepositoryFacade) repositoryClass.newInstance();
 		}
@@ -102,7 +102,7 @@ public class RepositoryConfiguration
             {
                 // use the default script helper implementation
                 scriptHelperClass =
-                    getClass().forName(DEFAULT_SCRIPT_HELPER_CLASSNAME);
+                    Class.forName(DEFAULT_SCRIPT_HELPER_CLASSNAME);
             }
 			instance = (ScriptHelper) scriptHelperClass.newInstance();
 		}

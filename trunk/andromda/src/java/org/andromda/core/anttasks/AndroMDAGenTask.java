@@ -300,7 +300,7 @@ public class AndroMDAGenTask extends MatchingTask
 		try
 		{
 			Class mappingClass =
-				this.getClass().forName(DEFAULT_DBMAPPING_TABLE_CLASSNAME);
+				Class.forName(DEFAULT_DBMAPPING_TABLE_CLASSNAME);
 			typeMappings = (DbMappingTable) mappingClass.newInstance();
 
 			typeMappings.read(dbMappingConfig);

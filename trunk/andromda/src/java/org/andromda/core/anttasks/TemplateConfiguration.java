@@ -65,7 +65,7 @@ public class TemplateConfiguration
     public void setTransformClassname(String scriptHelperClassName)
     {
          try {
-            transformClass = getClass().forName(scriptHelperClassName);
+            transformClass = Class.forName(scriptHelperClassName);
         }
         catch (ClassNotFoundException cnfe)
         {
