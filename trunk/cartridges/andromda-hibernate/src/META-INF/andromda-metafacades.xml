@@ -23,13 +23,17 @@
 		contextRoot="true">
 		<stereotype>ENTITY</stereotype>
 		<property reference="hibernateEntityCache" default=""/>
-	</metafacade>	
-		
+	</metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
         <context>org.andromda.metafacades.uml.EntityFacade</context>
         <property reference="hibernateAssociationEndOuterJoin" default="auto"/>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl" 
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
+        <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"

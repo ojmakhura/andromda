@@ -297,6 +297,23 @@
 			          		Defines is caching is enabled  for this query.
 			          	</td>
 					</tr>
+					<tr>
+					     <a name="@andromda.hibernate.association.cache"/>
+						<td>
+	                        @andromda.hibernate.association.cache
+						</td>
+						<td>
+							 Association between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+						</td>
+						<td>
+							Defines the cache strategy for the Association. Permited values are:
+							<ol>
+								<li>read-write</li>
+								<li>nonstrict-read-write</li>
+								<li>read-only</li>
+							</ol>
+						</td>
+					</tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
