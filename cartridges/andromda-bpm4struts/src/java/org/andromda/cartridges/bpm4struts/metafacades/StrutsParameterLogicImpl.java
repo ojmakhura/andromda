@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -688,7 +689,21 @@ public class StrutsParameterLogicImpl
     public String handleGetDateFormat()
     {
         final String format = getValidatorFormat();
-        return (format == null) ? Bpm4StrutsProfile.TAGGED_VALUE_INPUT_DEFAULT_DATEFORMAT : getDateFormat(format);
+        return (format == null) ? getDefaultDateFormat() : getDateFormat(format);
+    }
+
+    private String getDefaultDateFormat()
+    {
+        String defaultDateFormat = null;
+        try
+        {
+            defaultDateFormat = (String) getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+        }
+        catch (Exception e)
+        {
+            defaultDateFormat = Bpm4StrutsProfile.TAGGED_VALUE_INPUT_DEFAULT_DATEFORMAT;
+        }
+        return defaultDateFormat;
     }
 
     public boolean handleIsStrictDateFormat()
