@@ -89,7 +89,7 @@ public class HibernateEntityLogicImpl
     protected Collection handleGetAllBusinessOperations()
     {
         EntityFacade superElement = (EntityFacade)this.getGeneralization();
-        Collection result = super.getBusinessOperations();
+        Collection result = this.getBusinessOperations();
         while (superElement != null)
         {
             result.addAll(superElement.getBusinessOperations());
@@ -368,30 +368,29 @@ public class HibernateEntityLogicImpl
     {
         return 1;
     }
-
+    
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityBusinessOperations()
+     * Override so that we retrieve only the operations that are classifier
+     * scope (i.e. static).
+     * 
+     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
      */
-    protected Collection handleGetEntityBusinessOperations()
+    public Collection getBusinessOperations()
     {
-        // operations that are not finders and not static
-        Collection finders = this.getQueryOperations();
-        Collection operations = this.getOperations();
-
-        Collection nonFinders = CollectionUtils.subtract(operations, finders);
-        return new FilteredCollection(nonFinders)
+        Collection businessOperations = new FilteredCollection(super.getBusinessOperations())
         {
             public boolean evaluate(Object object)
             {
                 return !((OperationFacade)object).isStatic();
             }
         };
+        return businessOperations;
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEntityBusinessOperationsPresent()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isBusinessOperationsPresent()
      */
-    protected boolean handleIsEntityBusinessOperationsPresent()
+    protected boolean handleIsBusinessOperationsPresent()
     {
         final Collection allBusinessOperations = this
             .getAllBusinessOperations();

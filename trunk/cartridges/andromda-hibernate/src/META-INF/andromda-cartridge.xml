@@ -76,7 +76,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="entityBusinessOperationsPresent">false</property>
+                    <property name="businessOperationsPresent">false</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -90,7 +90,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="entityBusinessOperationsPresent"/>
+                    <property name="businessOperationsPresent"/>
                 </type>
             </modelElement>
         </modelElements>

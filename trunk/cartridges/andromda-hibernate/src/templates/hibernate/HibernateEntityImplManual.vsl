@@ -11,7 +11,7 @@ package $entity.packageName;
 public class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
-#foreach ($operation in $entity.entityBusinessOperations)
+#foreach ($operation in $entity.businessOperations)
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.signature)
