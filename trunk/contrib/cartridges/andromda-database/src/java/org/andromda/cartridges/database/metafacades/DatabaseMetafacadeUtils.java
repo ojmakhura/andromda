@@ -56,5 +56,4 @@ public class DatabaseMetafacadeUtils
     {
         return toSqlIdentifierName(prefix, table, null, maxLength);
     }
-
 }

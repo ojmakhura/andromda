@@ -23,7 +23,13 @@ CREATE TABLE $table.tableName
 ##
 ##
 #foreach ($foreignKeyColumn in $table.foreignKeyColumns)
+## If the foreignKeyColumn doesn't have an importedPrimaryKeyColumn
+## then it means this entity is using a foreign identifier: so
+## therefore won't add the foreign key to the table (since it
+## already exits as the primary key)
+#if ($foreignKeyColumn.importedPrimaryKeyColumn)
     $foreignKeyColumn.columnName $foreignKeyColumn.importedPrimaryKeyColumn.sqlType#if($foreignKeyColumn.required) NOT#end NULL,
+#end
 #end
 );
 #end
@@ -32,10 +38,15 @@ CREATE TABLE $table.tableName
 $stringUtils.removeLastOccurrence("#tableColumns()", ",")
 /* ------------- relation indexes ------------------ */
 #foreach ($foreignKeyColumn in $table.foreignKeyColumns)
+## If the foreignKeyColumn doesn't have an importedPrimaryKeyColumn
+## then it means this entity is using a foreign identifier: so
+## therefore we don't create an index
+#if ($foreignKeyColumn.importedPrimaryKeyColumn)
 CREATE INDEX $foreignKeyColumn.indexName ON $table.tableName
 (
        $foreignKeyColumn.columnName
 );
+#end
 
 #end
 
