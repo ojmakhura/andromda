@@ -213,6 +213,23 @@
         </to> 
     </expression>
     
+     <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate) 
+            body : 
+                allInstances() -> select( certificate | 
+                   code.concat(type) = certificate.code )
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.contracts.MedicalCertificate as certificate 
+            where :code || :type = certificate.code
+            ]]>          
+        </to> 
+    </expression>
+    
     <!--
     <expression>
         <from>
