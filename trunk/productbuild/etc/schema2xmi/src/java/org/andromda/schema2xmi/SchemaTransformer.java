@@ -19,6 +19,9 @@ import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
+import org.omg.uml.foundation.datatypes.DataTypesPackage;
+import org.omg.uml.foundation.datatypes.Multiplicity;
+import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
@@ -32,7 +35,6 @@ import org.omg.uml.modelmanagement.ModelManagementPackage;
  */
 public class SchemaTransformer
 {
-
     private final static Logger logger = Logger
         .getLogger(SchemaTransformer.class);
 
@@ -328,6 +330,14 @@ public class SchemaTransformer
         while (columnRs.next())
         {
             String columnName = columnRs.getString("COLUMN_NAME");
+            int nullableVal = columnRs.getInt("NULLABLE");
+            boolean required = false;
+            // set whether or not the column is required
+            if (nullableVal == DatabaseMetaData.attributeNoNulls)
+            {
+                required = true;
+            }
+            
             String attributeName = this.toAttributeName(columnName);
             attributes.add(
                 corePackage.getAttribute().createAttribute(
@@ -335,15 +345,46 @@ public class SchemaTransformer
                     VisibilityKindEnum.VK_PUBLIC,
                     false,
                     ScopeKindEnum.SK_CLASSIFIER,
-                    null,
+                    this.createAttributeMultiplicity(
+                        corePackage.getDataTypes(), 
+                        required),
                     ChangeableKindEnum.CK_CHANGEABLE,
                     ScopeKindEnum.SK_CLASSIFIER,
                     OrderingKindEnum.OK_UNORDERED,
                     null));
+            
             if (logger.isInfoEnabled())
                 logger.info("created attribute --> '" + attributeName + "'");
         }
         return attributes;
+    }
+    
+    /**
+     * Creates an attributes multiplicity, if <code>required</code>
+     * is true, then multiplicity is set to 1, if <code>required</code>
+     * is false, then multiplicity is set to 0..1.
+     * @param dataTypePa used to create the Multiplicity
+     * @param required whether or not the attribute is required therefore
+     *        determining the multiplicity value created.
+     * @return the new Multiplicity
+     */
+    protected Multiplicity createAttributeMultiplicity(
+        DataTypesPackage dataTypes, 
+        boolean required)
+    { 
+        Multiplicity mult = 
+            dataTypes.getMultiplicity().createMultiplicity();
+        MultiplicityRange range = null;
+        if (required)
+        {
+            range = dataTypes.getMultiplicityRange().createMultiplicityRange(1,1);
+        }
+        else 
+        {
+            range = dataTypes.getMultiplicityRange().createMultiplicityRange(0,1);
+        }
+        mult.getRange().add(range);    
+        return mult;
     }
     
     /**
