@@ -39,6 +39,7 @@ public class StrutsActionLogicImpl
     private Boolean isHyperlink = null;
     private Boolean isResettable = null;
     private Boolean isUseCaseStart = null;
+    private Boolean requiresValidation = null;
 
     private Object input = null;
     private Object activityGraph = null;
@@ -275,6 +276,20 @@ public class StrutsActionLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && fullFormBeanPath != null) return fullFormBeanPath;
         return (fullFormBeanPath = '/' + (getPackageName() + '/' + getFormBeanClassName()).replace('.', '/'));
+    }
+
+    public boolean requiresValidation()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && requiresValidation != null) return requiresValidation.booleanValue();
+
+        final Collection actionParameters = getActionParameters();
+        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            if (!parameter.getValidatorTypes().isEmpty())
+                return (requiresValidation = Boolean.TRUE).booleanValue();
+        }
+        return (requiresValidation = Boolean.FALSE).booleanValue();
     }
 
     // ------------- relations ------------------
