@@ -46,7 +46,7 @@
   		 ================================================================== -->
   	<goal name="clean">  		
         <j:set var="maven.multiproject.includes"
-        	   value="**/project.xml"/>
+        	   value="${component.install.includes},${sample.install.includes}"/>
         <j:set var="maven.multiproject.excludes"
         	   value="project.xml,**/target/**"/>
 		<attainGoal name="multiproject:clean"/>
