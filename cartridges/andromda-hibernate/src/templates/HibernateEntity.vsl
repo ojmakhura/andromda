@@ -135,14 +135,19 @@ public abstract class ${class.name} {
 #end
 #if ($adata.isMany2Many())
 ##
-#set ($sourceKeyAtt  = ${transform.getPrimaryKeyAttribute($sourcetype).name})
-#set ($sourceColumn  = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$sep$sourceKeyAtt")
-#set ($targetKeyAtt  = ${transform.getPrimaryKeyAttribute($targettype).name})
-#set ($targetColumn  = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$sep$targetKeyAtt")
+#set ($sourceKeyAtt  = $str.upperCaseFirstLetter(${transform.getPrimaryKeyAttribute($sourcetype).name}))
+#set ($sourceColumn  = "${adata.source.roleName}$sourceKeyAtt")
+#set ($sourceColumn  = ${str.toDatabaseAttributeName($sourceColumn, $sep)})
+##
+#set ($targetKeyAtt  = $str.upperCaseFirstLetter(${transform.getPrimaryKeyAttribute($targettype).name}))
+#set ($targetColumn  = "${adata.target.roleName}$targetKeyAtt")
+#set ($targetColumn  = ${str.toDatabaseAttributeName($targetColumn, $sep)})
+##
 #set ($joinTableName = ${str.toRelationName($sourceColumn, $targetColumn, $sep)})
+##
     * @hibernate.set
     *     lazy="true"
-    *     table="$joinTableName"
+    *     table="HIB_${joinTableName}"
     * @hibernate.collection-key
     *     column="$sourceColumn"
     * @hibernate.collection-many-to-many
