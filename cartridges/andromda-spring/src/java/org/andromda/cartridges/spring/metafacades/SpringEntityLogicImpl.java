@@ -3,6 +3,7 @@ package org.andromda.cartridges.spring.metafacades;
 import java.text.MessageFormat;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -146,5 +147,18 @@ public class SpringEntityLogicImpl
                 .getConfiguredProperty("defaultHibernateGeneratorClass");
         }
         return hibernateGeneratorClass;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getRoot()
+     */
+    protected SpringEntity handleGetRoot()
+    {
+        GeneralizableElementFacade generalization = this;
+        for (; generalization.getGeneralization() != null
+            && SpringEntity.class.isAssignableFrom(generalization
+                .getGeneralization().getClass()); generalization = generalization
+            .getGeneralization());
+        return (SpringEntity)generalization;
     }
 }
