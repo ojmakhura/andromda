@@ -24,6 +24,7 @@ public class CodeGenerationContext
         ModelPackages modelPackages)
     {
         this.repository = repository;
+        this.lastModified = lastModified;
         this.lastModifiedCheck = lastModifiedCheck;
         this.modelPackages = modelPackages;
     }
