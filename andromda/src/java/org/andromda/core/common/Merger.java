@@ -58,7 +58,7 @@ public class Merger
      * </p>
      * 
      * @param string the String to be replaced
-     * @param This namespace is searched when attempting to find the
+     * @param namespace This namespace is searched when attempting to find the
      *        {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
      * @return the replaced String.
      */
