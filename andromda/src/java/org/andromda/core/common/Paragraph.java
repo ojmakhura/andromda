@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
-public class HTMLParagraph
+public class Paragraph
 {
     private ArrayList lines = new ArrayList();
     private StringBuffer currentLine = new StringBuffer();
@@ -29,7 +29,7 @@ public class HTMLParagraph
      * 
      * @param lineLength maximum line length
      */
-    public HTMLParagraph(
+    public Paragraph(
         int lineLength)
     {
         this.maxLineWidth = lineLength;
