@@ -82,9 +82,7 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(methodName, "context", context);
-
         this.context = context;
-
         Collection resources = this.getResources();
 
         if (resources != null && !resources.isEmpty())
@@ -409,7 +407,6 @@ public class Cartridge
                     template,
                     outletProperty.getValue());
             }
-
             if (outFile != null)
             {
                 // do not overWrite already generated file,
@@ -427,9 +424,9 @@ public class Cartridge
                     String outputString = output.toString();
 
                     AndroMDALogger.setSuffix(this.getName());
-                    //check to see if generateEmptyFiles is true and if
-                    // outString (when CLEANED) isn't empty.
-                    if (StringUtils.trimToEmpty(outputString).length() > 0
+                    // check to see if generateEmptyFiles is true and if
+                    // outString is not blank
+                    if (StringUtils.isNotBlank(outputString)
                         || template.isGenerateEmptyFiles())
                     {
                         OutputUtils.writeStringToFile(outputString, outFile);
@@ -510,7 +507,7 @@ public class Cartridge
 
     /**
      * Writes the contents of <code>resourceUrl</code> to the outlet specified
-     * by the <code>resource</code>.
+     * by <code>resource</code>.
      * 
      * @param resource contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
