@@ -56,6 +56,10 @@
                     <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/6/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
                     <li class="impl"><a href="resources/howto/org/andromda/test/6/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="resources/howto/org/andromda/test/6/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/6/CarSearchCriteria.java"><code>CarSearchCriteria.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/spring/CriteriaSearch.java"><code>CriteriaSearch.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/spring/CriteriaSearchParameter.java"><code>CriteriaSearchParameter.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/spring/CriteriaSearchConfiguration.java"><code>CriteriaSearchConfiguration.java</code></a></li>
                     <li class="gen"><a href="resources/howto/org/andromda/test/6/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
                     <li class="gen"><a href="resources/howto/org/andromda/test/6/Person.java"><code>Person.java</code></a></li>
                     <li class="gen"><a href="resources/howto/org/andromda/test/6/PersonImpl.java"><code>PersonImpl.java</code></a></li>
@@ -69,6 +73,19 @@
                     <li class="gen"><a href="resources/howto/org/andromda/test/6/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
                     <li class="gen"><a href="resources/howto/org/andromda/test/6/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
                 </ul>
+            </p>
+        </section>
+        <section name="Criteria Queries">
+            <p>
+                Notice how one of the value objects has been labeled <![CDATA[<<Criteria>>]]> and used in one
+                of the queries. This will yield a specific piece of code allowing a search on any combination
+                of the properties defined in the value object.
+            </p>
+            <p>
+                Tagged values may be added to the attributes of such a value object class. This is interesting to
+                wire the attributes to specific properties of the underlying persistence framework. You can
+                also set the comparator for the criteria search (equal, like, less, ...). For more details on these
+                tagged value go here: <a href="modeling.html#Supported_Tagged_Values">Tagged Values</a>.
             </p>
         </section>
         <section name="Nice to know">
