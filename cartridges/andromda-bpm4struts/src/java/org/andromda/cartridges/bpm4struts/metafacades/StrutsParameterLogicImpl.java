@@ -648,24 +648,32 @@ public class StrutsParameterLogicImpl
     {
         String exportTypes = null;
 
-        Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT);
+        Collection taggedValues = new HashSet(findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT));
         if (taggedValues.isEmpty())
         {
-            exportTypes = "xml csv excel pdf";
+            exportTypes = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES);
         }
         else
         {
-            StringBuffer buffer = new StringBuffer();
-            for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            if (taggedValues.contains("none"))
             {
-                String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                if (exportType != null)
-                {
-                    buffer.append(exportType);
-                    buffer.append(' ');
-                }
+                exportTypes = "none";
             }
-            exportTypes = buffer.toString().trim();
+            else
+            {
+                StringBuffer buffer = new StringBuffer();
+                for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                {
+                    final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    if ("csv".equalsIgnoreCase(exportType) || "pdf".equalsIgnoreCase(exportType) ||
+                        "xml".equalsIgnoreCase(exportType) || "excel".equalsIgnoreCase(exportType) )
+                    {
+                        buffer.append(exportType);
+                        buffer.append(' ');
+                    }
+                }
+                exportTypes = buffer.toString().trim();
+            }
         }
 
         return exportTypes;
@@ -673,7 +681,7 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsTableExportable()
     {
-        return StringUtils.isNotBlank(getTableExportTypes());
+        return getTableExportTypes().indexOf("none") == -1;
     }
 
     protected boolean handleIsTableSortable()
