@@ -63,7 +63,7 @@ public class Cartridge
 
         this.context = context;
 
-        Collection templates = this.getTemplateConfigurations();
+        Collection templates = this.getTemplates();
 
         if (templates != null && !templates.isEmpty())
         {
@@ -77,7 +77,7 @@ public class Cartridge
             Iterator templateIt = templates.iterator();
             while (templateIt.hasNext())
             {
-                TemplateConfiguration template = (TemplateConfiguration)templateIt
+                Template template = (Template)templateIt
                     .next();
                 TemplateModelElements templateModelElements = template
                     .getSupportedModeElements();
@@ -125,11 +125,11 @@ public class Cartridge
     /**
      * Processes all <code>modelElements</code> for this template.
      * 
-     * @param template the TemplateConfiguration object from which we process.
+     * @param template the Template object from which we process.
      * @param context the context for the cartridge
      */
     protected void processWithModelElements(
-        TemplateConfiguration template,
+        Template template,
         CodeGenerationContext context)
     {
         final String methodName = "Cartridge.processModelElements";
@@ -262,7 +262,7 @@ public class Cartridge
      * 
      * @param template the template to process.
      */
-    protected void processWithoutModelElements(TemplateConfiguration template)
+    protected void processWithoutModelElements(Template template)
     {
         final String methodName = "Cartridge.processWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -287,7 +287,7 @@ public class Cartridge
      * Perform processing with the <code>template</code>.
      * </p>
      * 
-     * @param template the TemplateConfiguration containing the template sheet
+     * @param template the Template containing the template sheet
      *        to process.
      * @param templateContext the context to which variables are added and made
      *        available to the template engine for processing. This will contain
@@ -302,7 +302,7 @@ public class Cartridge
      *        a single model element, otherwise this will be ignored).
      */
     private void processWithTemplate(
-        TemplateConfiguration template,
+        Template template,
         Map templateContext,
         Property outletProperty,
         String modelElementName,
@@ -325,7 +325,7 @@ public class Cartridge
 
             // process the template with the set TemplateEngine
             this.getTemplateEngine().processTemplate(
-                template.getSheet(),
+                template.getPath(),
                 templateContext,
                 output);
 
@@ -349,7 +349,7 @@ public class Cartridge
                 // do not overWrite already generated file,
                 // if that is a file that the user needs to edit
                 boolean writeOutputFile = !outFile.exists()
-                    || template.isOverWrite();
+                    || template.isOverwrite();
 
                 long modelLastModified = context.getRepository()
                     .getLastModified();
@@ -388,9 +388,8 @@ public class Cartridge
                 outFile.delete();
                 this.logger.info("Removed --> '" + outFile + "'");
             }
-
             String errMsg = "Error performing " + methodName
-                + " with template '" + template.getSheet()
+                + " with template '" + template.getPath()
                 + "', template context '" + templateContext
                 + "' and cartridge '" + this.getName() + "'";
             logger.error(errMsg, th);
@@ -410,7 +409,7 @@ public class Cartridge
     private File outputFileFromTemplateConfig(
         String modelElementName,
         String packageName,
-        TemplateConfiguration tc,
+        Template tc,
         String outputLocation)
     {
         return tc.getOutputLocation(modelElementName, packageName, new File(
@@ -424,7 +423,7 @@ public class Cartridge
      * @return outputLocation the location to which the file will be output.
      */
     private File outputFileFromTemplateEngineContext(
-        TemplateConfiguration template,
+        Template template,
         String outputLocation)
     {
         String fileName = this.getTemplateEngine().getEvaluatedExpression(
@@ -455,7 +454,7 @@ public class Cartridge
      * 
      * @return List the template list.
      */
-    public List getTemplateConfigurations()
+    public List getTemplates()
     {
         return templates;
     }
@@ -465,10 +464,10 @@ public class Cartridge
      * 
      * @param template the new configuration to add
      */
-    public void addTemplateConfiguration(TemplateConfiguration template)
+    public void addTemplate(Template template)
     {
         ExceptionUtils.checkNull(
-            "Cartridge.addTemplateConfiguration",
+            "Cartridge.addTemplate",
             "template",
             template);
         template.setCartridge(this);
