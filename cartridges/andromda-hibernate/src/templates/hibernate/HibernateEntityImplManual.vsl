@@ -15,20 +15,19 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
 #foreach ($operation in $entity.businessOperations)
-#set ($signature = $operation.signature)
     /**
      * @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
      */
-    $operation.visibility $operation.returnType.fullyQualifiedName $signature
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #end
     {
-        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $signature
+        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else
-        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${signature} Not implemented!");
+        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
 #end
     }
 
