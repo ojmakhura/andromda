@@ -145,7 +145,21 @@ public class StrutsActionLogicImpl
         StrutsUseCase useCase = getUseCase();
         if (useCase != null)
         {
-            actionPathRoot = '/' + StringUtilsHelper.upperCamelCaseName(useCase.getName());
+            StringBuffer buffer = new StringBuffer();
+
+            String prefix = String.valueOf(getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX));
+
+            ModelElementFacade useCasePackage = useCase.getPackage();
+            if (useCasePackage != null)
+            {
+                prefix = prefix.replaceAll("\\{0\\}", useCasePackage.getPackagePath());
+            }
+
+            buffer.append(prefix);
+            buffer.append('/');
+            buffer.append( StringUtilsHelper.upperCamelCaseName(useCase.getName()) );
+
+            actionPathRoot = buffer.toString();
         }
         return actionPathRoot;
     }

@@ -5,7 +5,9 @@
     
     <property reference="defaultDateFormat" default="dd/MM/yyyy"/>
     <property reference="defaultActionRedirect" default="false"/>
-    
+    <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
+    <property reference="actionPathPrefix" default=""/>
+
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>            
