@@ -25,4 +25,9 @@
 # can be useful for creating a module that consists of many directories
 # spread out over the entire source repository.
 andromda   andromda
+cartridges cartridges
+documentation documentation
+productbuild productbuild
+samples samples
+andromda-all &andromda &cartridges &documentation &samples &productbuild
 
