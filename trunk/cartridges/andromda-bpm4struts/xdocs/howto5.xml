@@ -32,6 +32,107 @@
                 <img src="resources/howto/org/andromda/test/session-objects.jpg"/>
             </p>
         </section>
+        <section name="Nice to know">
+            <subsection name="Controller Code">
+                <p>
+                    Taking the example from the image above you will see it is very easy to access the object in the
+                    session from within the controller, this is what is generated in the controller's abtract parent
+                    (generated JavaDoc information removed to improve readability):
+<source><![CDATA[
+protected final LoginSession getLoginSession(HttpServletRequest request)
+{
+    LoginSessiob object = null;
+    HttpSession session = request.getSession(true);
+
+    Object attribute = session.getAttribute(LoginSession.SESSION_KEY);
+    if (attribute instanceof LoginSession)
+    {
+        object = (LoginSession)attribute;
+    }
+    else if (attribute == null)
+    {
+        object = new LoginSession();
+        setLoginSession(request, object);
+    }
+
+    return object;
+}
+
+protected final void setLoginSession(HttpServletRequest request, LoginSession object)
+{
+    setLoginSession(request, object, true);
+}
+
+protected final void setLoginSession(HttpServletRequest request, LoginSession object, boolean createSession)
+{
+    HttpSession session = request.getSession(createSession);
+    if (session != null)
+    {
+        session.setAttribute(LoginSession.SESSION_KEY, object);
+    }
+}
+
+protected final void removeLoginSession(HttpServletRequest request)
+{
+    HttpSession session = request.getSession(false);
+    if (session != null)
+    {
+        Object attribute = session.getAttribute(LoginSession.SESSION_KEY);
+        if (attribute instanceof LoginSession)
+        {
+            session.removeAttribute(LoginSession.SESSION_KEY);
+        }
+    }
+}
+]]></source>
+                </p>
+                <p>
+                    The <code>LoginSession</code> will be a typical value-object but you will not need to worry about
+                    instantiating it and putting it in the session yourself, most of the time you will just want to
+                    <em>get</em> it from the session and store some attributes into it. Making sure the session
+                    no longer has any reference to the object is easy too: just call the corresponding
+                    <code>remove</code> method.
+                </p>
+            </subsection>
+            <subsection name="JSP Code">
+                <p>
+                    It is very easy to access the session object from within the JSP code, in our example
+                    it would be possible to simply do this: <code>${loginSession}</code>. This will lookup
+                    an attribute in any scope, just remember the session object is stored using a name following
+                    the Java naming convention for variables (<code>LoginSession.SESSION_KEY</code>):
+                </p>
+<source><![CDATA[
+public class LoginSession implements Serializable
+{
+    public final static String SESSION_KEY = "loginSession";
+
+    private java.lang.String preferredLanguage;
+
+    public java.lang.String getPreferredLanguage()
+    {
+        return this.preferredLanguage;
+    }
+
+    public void setPreferredLanguage(java.lang.String preferredLanguage)
+    {
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    private int attemptCount;
+
+    public int getAttemptCount()
+    {
+        return this.attemptCount;
+    }
+
+    public void setAttemptCount(int attemptCount)
+    {
+        this.attemptCount = attemptCount;
+    }
+}
+]]></source>
+            </subsection>
+        </section>
         <section name="Next">
             <p>
                 Next section: <a href="howto6.html">Security</a>.
