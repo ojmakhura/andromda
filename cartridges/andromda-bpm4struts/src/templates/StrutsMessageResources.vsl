@@ -1,6 +1,11 @@
 main.title=$class.name
 
 #
+#   Messages for the menu
+#
+menu.title=Other links
+
+#
 #   Messages for the login page
 #
 login.username=User
@@ -31,9 +36,6 @@ errors.range={0} is not in the range {1} through {2}.
 errors.creditcard={0} is an invalid credit card number.
 errors.email={0} is an invalid e-mail address.
 
-#foreach ($user in $class.users)
-$user.messageKey=$user.messageValue
-#end
 
 #set ($useCases = $class.allUseCases)
 
@@ -50,14 +52,16 @@ $useCase.titleKey=$useCase.titleValue
 #   PAGE:       $page.titleValue
 #
 $page.titleKey=$page.titleValue
+$page.documentationKey=$page.documentationValue
 
 #foreach ($action in $page.actions)
+#set ($messageKey = $action.messageKey)
+#set ($actionTrigger = $action.actionTrigger)
 #   ACTION:     $action.actionTrigger.triggerValue
+$action.documentationKey=$action.documentationValue
 #if ($action.hasSuccessMessage())
 $action.successMessageKey=$action.successMessageValue
 #end
-#set ($messageKey = $action.messageKey)
-#set ($actionTrigger = $action.actionTrigger)
 ${messageKey}.$actionTrigger.triggerKey=$actionTrigger.triggerValue
 ${messageKey}.$actionTrigger.titleKey=$actionTrigger.titleValue
 ${messageKey}.$actionTrigger.notAllowedTitleKey=$actionTrigger.notAllowedTitleValue
