@@ -6,15 +6,17 @@
 package $packagename;
 
 #parse("templates/java/ExceptionUtilsImports.vm")
-#set ($superclass = $class.generalization)
-#set ($beanparentclass = "${superclass.packageName}.${superclass.name}")
-#if ($beanparentclass == '${superclass.packageName}.${superclass.name}')
-#set ($beanparentclass = 'Exception')
-#end
+
 /** 
 $class.getDocumentation(" * ")
  */
-public class ${class.name} extends $beanparentclass {
+public class ${class.name} 
+#if($class.generalization)  
+	extends ${class.generalization.fullyQualifiedName}
+#else
+    extends java.lang.Exception
+#end
+{
     /**
      * The default constructor.
      */
