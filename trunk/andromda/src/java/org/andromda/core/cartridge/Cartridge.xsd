@@ -59,20 +59,20 @@
             <xs:attribute name="variable" use="optional"/>
         </xs:complexType>
     </xs:element>
-	<xs:complexType name="resourceType">
-		<!-- the resource to process -->
-		<xs:attribute name="path" type="xs:string" use="required"/>
+    <xs:complexType name="resourceType">
+        <!-- the resource to process -->
+        <xs:attribute name="path" type="xs:string" use="required"/>
         <!-- the pattern to use for defining output -->
         <xs:attribute name="outputPattern" type="xs:string" use="required"/>
-		<xs:attribute name="outlet" type="xs:string" use="required"/>
-		<!-- true/false on whether we should overwrite results of previous run -->
-		<xs:attribute name="overwrite" type="xs:boolean" use="required"/>
-		<!-- if this flag is set to false, then template outlets are not required
-			 to be defined in a namespace, and no warning will be declared,
-			 by default required is true -->
-		<xs:attribute name="required" type="xs:boolean" use="optional"/>
-	</xs:complexType>
-	<xs:element name="resource" type="resourceType"/>
+        <xs:attribute name="outlet" type="xs:string" use="required"/>
+        <!-- true/false on whether we should overwrite results of previous run -->
+        <xs:attribute name="overwrite" type="xs:boolean" use="required"/>
+        <!-- if this flag is set to false, then template outlets are not required
+             to be defined in a namespace, and no warning will be declared,
+             by default required is true -->
+        <xs:attribute name="required" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+    <xs:element name="resource" type="resourceType"/>
     <xs:element name="template">		
         <xs:complexType>
             <xs:complexContent>
