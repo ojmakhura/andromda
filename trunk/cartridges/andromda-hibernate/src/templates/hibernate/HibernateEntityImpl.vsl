@@ -6,17 +6,16 @@ package $entity.packageName;
 
 /**
 #set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
-#set ($inheritance = $entity.inheritanceStrategy)
 #if ( $generateImpl )
-#if ($inheritance == "class" )
+#if ($entity.hibInheritanceClass)
  * @hibernate.subclass
  *    discriminator-value="${entity.name}Impl"
-#elseif ($inheritance == "subclass")
+#elseif ($entity.hibInheritanceSubclass)
  * @hibernate.joined-subclass
  *     table="$entity.tableName"
  * @hibernate.joined-subclass-key
  *     column="$entity.identifierColumn"
-#elseif ($inheritance == "interface")
+#elseif ($entity.hibInheritanceInterface)
  * @deprecated by subclass=interface.
 #else
  * @hibernate.class
@@ -31,7 +30,7 @@ public abstract class ${entity.name}Impl
 #else
 public class ${entity.name}Impl
 #end
-#if ($inheritance == "interface" )
+#if ($entity.hibInheritanceInterface )
     implements ${entity.name}
 #else
     extends ${entity.name}
@@ -42,10 +41,10 @@ public class ${entity.name}Impl
     // abstract in class ${entity.name} ...
 #if ( $leafImpl == "true" ) 
     // and its superclasses ...
-#end
 #set ( $businessOperations = $entity.allBusinessOperations )
 #else
 #set ( $businessOperations = $entity.businessOperations )
+#end
 #end
 ##
 #foreach ( $operation in $businessOperations)

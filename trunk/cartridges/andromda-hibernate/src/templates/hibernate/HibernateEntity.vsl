@@ -16,29 +16,27 @@ package $entity.packageName;
 ##                    Actually general design good practice says to only have
 ##                    concrete classes at the leafs.
 #set ($generalization = $entity.generalization)
-#set ($thisInheritance = $entity.inheritanceStrategy)
 /**
 $entity.getDocumentation(" * ")
  *
 #if($generalization)
-#set ($superInheritance = $generalization.inheritanceStrategy)
-#if($superInheritance == "class")
+#if($generalization.hibInheritanceClass)
  * @hibernate.subclass
  *    discriminator-value="$entity.name"
-#elseif ($superInheritance == "subclass")
+#elseif ($generalization.hibInheritanceSubclass)
  * @hibernate.joined-subclass
  *     table="$entity.tableName"
  * @hibernate.joined-subclass-key
  *     column="$entity.identifierColumn"
  *    
-#elseif ($superInheritance == "concrete")
+#elseif ($generalization.hibInheritanceConcrete)
  * @hibernate.class
  *     table="$entity.tableName"
  *
-#elseif ($superInheritance == "interface")
+#elseif ($generalization.hibInheritanceInterface)
  * @hibernate.class
  *    table="$entity.tableName"
-#if ( $thisInheritance == "class" )
+#if ( $entity.hibInheritanceClass )
  * @hibernate.discriminator
  *     column="class"
  *     discriminator-value="$entity.name"
@@ -47,14 +45,14 @@ $entity.getDocumentation(" * ")
 #end
 #else
 ## No generalization, we are root
-#if ($thisInheritance == "interface" )
+#if ($entity.hibInheritanceInterface )
  *
  * No hibernate persistance, inheritance = interface
  *
 #else
  * @hibernate.class
  *     table="$entity.tableName"
-#if($thisInheritance == "class")
+#if($entity.hibInheritanceClass)
  * @hibernate.discriminator
  *     column="class"
  *     discriminator-value="$entity.name"
@@ -76,10 +74,10 @@ $entity.getDocumentation(" * ")
 ## the entity has specializations.
 #set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
  */
-#if ($thisInheritance != "interface" )
+#if (!$entity.hibInheritanceInterface)
 public abstract class $entity.name
 #if($generalization)
-#if($superInheritance == "interface" )
+#if($generalization.hibInheritanceInterface )
  	implements ${generalization.fullyQualifiedName}
 #else
 ## If leafImpl we always extend the superclass not the Impl.
@@ -93,7 +91,7 @@ public abstract class $entity.name
 {
 
 #if ( $generalization)
-#if ( $superInheritance == "interface" )
+#if ( $generalization.hibInheritanceInterface)
     // --------------- super attributes ---------------------
 #foreach ( $attribute in $generalization.attributes )
     private $attribute.type.fullyQualifiedName $attribute.name;

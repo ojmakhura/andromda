@@ -15,7 +15,7 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedName
  */
 public abstract class ${entity.name}Factory {
-#if (($generateImpl && ( !$entity.abstract && $thisInheritance != "interface")) )
+#if (($generateImpl && ( !$entity.abstract && !$entity.hibInheritanceInterface)) )
    // ---------------- create method --------------------
 
    /**

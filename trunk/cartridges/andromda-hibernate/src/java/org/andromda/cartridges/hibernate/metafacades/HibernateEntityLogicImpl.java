@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
@@ -206,8 +207,10 @@ public class HibernateEntityLogicImpl
         }
         catch (Exception ex)
         {
-            logger.error("*** " + getClass().getName()
-                + " handleGetInheritanceStrategy exception:" + ex);
+            String errorMessage = "*** " + getClass().getName()
+            + " handleGetInheritanceStrategy exception:" + ex;
+            ExceptionRecorder.record( errorMessage, ex, "hibernate");
+            logger.error(errorMessage);
         }
         logger.debug("<<< handleGetHibernateInheritance return:" + result);
         return result;
@@ -422,6 +425,42 @@ public class HibernateEntityLogicImpl
     public String toString()
     {
         return getClass().getName() + "[" + getFullyQualifiedName() + "]";
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleIsHibInheritanceClass()
+     */
+    protected boolean handleIsHibInheritanceClass()
+    {
+        String strategy = getInheritanceStrategy();
+        return INHERITANCE_STRATEGY_CLASS.equals( strategy );
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleIsHibInheritanceInterface()
+     */
+    protected boolean handleIsHibInheritanceInterface()
+    {
+        String strategy = getInheritanceStrategy();
+        return INHERITANCE_STRATEGY_INTERFACE.equals( strategy );
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleIsHibInheritanceSubclass()
+     */
+    protected boolean handleIsHibInheritanceSubclass()
+    {
+        String strategy = getInheritanceStrategy();
+        return INHERITANCE_STRATEGY_SUBCLASS.equals( strategy );
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleIsHibInheritanceConcrete()
+     */
+    protected boolean handleIsHibInheritanceConcrete()
+    {
+        String strategy = getInheritanceStrategy();
+        return INHERITANCE_STRATEGY_CONCRETE.equals( strategy );
     }
 
 }
