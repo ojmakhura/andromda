@@ -65,10 +65,7 @@
         <property name="bundle.dir" value="target/war-bundle"/>
         <mkdir dir="${basedir}/${bundle.dir}"/>
         <copy todir="${basedir}/${bundle.dir}">
-            <fileset dir="${basedir}/src/jsp">
-                <include name="**/*.jsp"/>
-                <include name="**/*.css"/>
-            </fileset>
+            <fileset dir="${basedir}/src/jsp"/>
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/tld"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/tld">
@@ -77,10 +74,10 @@
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/lib"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/lib">
             <fileset dir="${app.root.dir}/lib">
-                <include name="commons-digester-1.5.jar"/>
-                <include name="commons-validator-1.1.2dev-SNAPSHOT.jar"/>
-                <include name="struts-1.2dev-20040621.jar"/>
-                <include name="displaytag-1.0-b3.jar"/>
+                <include name="commons-digester-*.jar"/>
+                <include name="commons-validator-*.jar"/>
+                <include name="struts-*.jar"/>
+                <include name="displaytag-*.jar"/>
             </fileset>
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/classes"/>
