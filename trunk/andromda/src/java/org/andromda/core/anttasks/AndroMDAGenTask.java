@@ -246,6 +246,10 @@ public class AndroMDAGenTask extends MatchingTask
                     repository,
                     lastModifiedCheck,
                     packages);
+            
+            Namespace defaultNamespace = 
+            	Namespaces.instance().findNamespace(Namespaces.DEFAULT);
+            
             for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt.hasNext();) 
             {
                 AndroMDACartridge cartridge = (AndroMDACartridge)cartridgeIt.next();
@@ -258,7 +262,7 @@ public class AndroMDAGenTask extends MatchingTask
                 
                 // make sure we ignore the cartridge if the namespace
                 // is set to 'ignore'
-                if (namespace != null && !namespace.isIgnore()) 
+                if (defaultNamespace != null || (namespace != null && !namespace.isIgnore())) 
                 {
                     cartridge.init();
                     cartridge.processModelElements(context);
