@@ -410,8 +410,8 @@
         This goal processes each .xml.zip it can find and performs a token replacement
         on the content of the XMI file contained inside.
 
-        This goal takes two arguments, in case any of them would be missing or blank this goal
-        will do nothing.
+        This goal takes two arguments, if either of them is missing or blank this goal
+        does nothing.
 
             - xmiToken = the token to replace
             - xmiValue = the value by which to replace the tokens found
@@ -435,7 +435,8 @@
                     <ant:include name="${xmiName}"/>
                 </ant:replace>
                 <!-- zip it up again, only updating the XMI inside the zip, this allows us not to touch
-                    the file when nothing is changed, and it will not remove any other files present in the zip -->
+                     the file when nothing is changed, and it will not remove any other files present 
+                     in the zip -->
                 <ant:zip destfile="${model}" update="true">
                     <ant:fileset dir="${workingDir}">
                         <ant:include name="${xmiName}"/>
