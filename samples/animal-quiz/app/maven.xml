@@ -13,5 +13,12 @@
   		<ant:delete 
   			file="${env.JBOSS_HOME}/server/${jboss.config}/deploy/${maven.final.name}.ear"/>
   	</goal> 
+  	
+  	<postGoal name="ear:install">
+        <!-- copy the db scripts over to the target directory -->
+        <ant:copy todir="${maven.build.dir}">
+        	<ant:fileset dir="${hibernate.db.conf.location}"/>
+        </ant:copy>
+  	</postGoal>
   	  	
 </project>
