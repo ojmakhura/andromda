@@ -383,7 +383,9 @@ public abstract class ${entityname}Bean
     * @ejb.transaction type="$transactionType"
 #end
     *
-#if ($assoc.isMany2One() || $assoc.isOne2One())
+#if ($assoc.isOne2Many() || $assoc.isMany2Many() || $transform.findTagValue($assoc.target, "@andromda.jboss.autoKeyFields") == "true")
+    * @jboss.auto-key-fields
+#else
 #set ($pkfields = $transform.findPkFields($assoc.target.participant))
 #set ($pkfieldCount = $pkfields.size())
 #if (!$pkfields.isEmpty())
@@ -397,11 +399,7 @@ public abstract class ${entityname}Bean
     *     fk-column = "${str.toDatabaseAttributeName($fkName, "_")}"
     *     related-pk-field = "$pkfield.name"
 #end
-#else
-    * @jboss.auto-key-fields
 #end
-#else
-    * @jboss.auto-key-fields
 #end
     */
     public abstract $targetTypeName get$TargetRoleName();
