@@ -111,6 +111,8 @@ public class ${class.name} extends ActionForm
     {
 #if ($attfqtypename == "java.lang.String")
         return this.${att.name};
+#elseif ($attfqtypename == "java.lang.int" || $attfqtypename == "int")
+        return (this.${att.name} == null) ? 0 : FormFieldMapper.mapToInt(this.${att.name});
 #else
         return (this.${att.name} == null) ? null : FormFieldMapper.mapTo${atttypename}(this.${att.name});
 #end
@@ -120,6 +122,8 @@ public class ${class.name} extends ActionForm
     {
 #if ($attfqtypename == "java.lang.String")
         this.${att.name} = newValue;
+#elseif ($attfqtypename == "java.lang.int" || $attfqtypename == "int")
+        this.${att.name} = FormFieldMapper.mapFromInt(newValue);
 #else
         this.${att.name} = (newValue == null) ? null : FormFieldMapper.mapFrom${atttypename}(newValue);
 #end
