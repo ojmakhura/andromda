@@ -20,7 +20,7 @@ public interface $class.name
 #foreach ( $method in $class.getMethodDataForPSM(false) )
 
    /**
-$method.getDocumentation("    * ")
+$method.documentation
     */
     ${method.buildMethodDeclaration(true)};
 #end
