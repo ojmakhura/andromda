@@ -32,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
  * subclass mode.
  * </p>
  * 
+ * @author Chad Brandon
  * @author Martin West
  * @author Carlos Cuenca
  */
@@ -450,15 +451,7 @@ public class HibernateEntityLogicImpl
         return String
             .valueOf(getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER));
     }
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#toString()
-     */
-    public String toString()
-    {
-        return getClass().getName() + "[" + getFullyQualifiedName() + "]";
-    }
-
+    
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceClass()
      */
@@ -576,16 +569,30 @@ public class HibernateEntityLogicImpl
     }
 
     private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
-
+    
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getForeignHibernateGeneratorClass()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isForeignHibernateGeneratorClass()
      */
     protected boolean handleIsForeignHibernateGeneratorClass()
     {
-        return this.getHibernateGeneratorClass().equalsIgnoreCase(
-            HIBERNATE_GENERATOR_CLASS_FOREIGN);
+        // check to see if the entity is using a foreign identifier
+        // OR if the actual hibernate generator class is set to foreign
+        return this.isUsingForeignIdentifier()
+            || this.getHibernateGeneratorClass().equalsIgnoreCase(
+                HIBERNATE_GENERATOR_CLASS_FOREIGN);
     }
 
+    private static final String HIBERNATE_GENERATOR_CLASS_SEQUENCE = "sequence";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isSequenceHibernateGeneratorClass()
+     */
+    protected boolean handleIsSequenceHibernateGeneratorClass()
+    {
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(
+            HIBERNATE_GENERATOR_CLASS_SEQUENCE);
+    }
+    
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
