@@ -139,7 +139,7 @@ public class ExceptionRecorder
                 writer.println(RUN_JDK + System.getProperty("java.vm.vendor")
                     + System.getProperty("java.vm.version"));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 // ignore
                 writer.println(RUN_SYSTEM + " unavailable");
@@ -201,12 +201,12 @@ public class ExceptionRecorder
         // a different VM could get the same file name.
         try
         {
-            RandomAccessFile tmpfile;
-            tmpfile = new RandomAccessFile(exceptionFile, "rw");
-            tmpfile.writeChar('t');
-            tmpfile.close();
+            RandomAccessFile file;
+            file = new RandomAccessFile(exceptionFile, "rw");
+            file.writeChar('t');
+            file.close();
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
             // ignore
         }
