@@ -8,10 +8,14 @@
     	
     <templateObject 
     	name="escapeUtils"
-    	className="org.apache.commons.lang.StringEscapeUtils"/>      
+    	className="org.apache.commons.lang.StringEscapeUtils"/>    
+		
+	<!-- The name of the application that this service will run within 
+		 (i.e. Security Services} -->
+	<property reference="applicationName"/>  
 		
 	<!-- The location of where the WSDL will reside 
-		 (i.e. "http://localhost:8080/AnimalQuiz/services") -->
+		 (i.e. "http://localhost:8080/security-service/services") -->
 	<property reference="wsdlSoapAddress"/>
     	
 	<!-- if true, causes generation of necessary code that expects 
@@ -56,6 +60,12 @@
 	
 	<!-- AXIS template definitions -->
 	
+	<template	
+		sheet="templates/webservice/axis/web.xml.vsl"
+		outputPattern="WEB-INF/web.xml" 
+		outlet="webservice-axis-outlet"
+		overWrite="true"/>
+
 	<template 
 		sheet="templates/webservice/axis/server-config.wsdd.vsl" 
 		outputPattern="WEB-INF/server-config.wsdd"    
