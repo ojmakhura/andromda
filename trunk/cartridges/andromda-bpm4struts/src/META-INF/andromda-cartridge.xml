@@ -6,7 +6,7 @@
         <macrolibrary name="templates/StrutsAction.vm" />
     </templateEngine>
 
-    <!-- define the template objects that are made availble to the template -->
+    <!-- define the template objects that are made available to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
     <!-- define template external properties -->
