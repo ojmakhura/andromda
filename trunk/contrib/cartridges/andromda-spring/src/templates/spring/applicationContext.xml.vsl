@@ -23,7 +23,7 @@
 #if ($stringUtils.isNotBlank($dataSource))
     <!-- JNDI DataSource for J2EE environments -->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName"><value>${datasource}</value></property>
+        <property name="jndiName"><value>${dataSource}</value></property>
     </bean>
 #else
     <!-- Local DataSource that works in any environment -->
