@@ -238,14 +238,23 @@ public abstract class ${metafacade.logicName}
     public String toString()
     {
         return super_.toString();
-    }
+    }   
 #end
-##
 
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#handleInvariants(java.util.Collection)
+     * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
      */
-    protected void handleInvariants(java.util.Collection validationMessages)
+    public void initialize()
+    {
+#if ($superMetafacade)
+        super_.initialize();
+#end 
+    }
+    
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#validateInvariants(java.util.Collection)
+     */
+    public void validateInvariants(java.util.Collection validationMessages)
     {
 #if ($superMetafacade)
         super_.validateInvariants(validationMessages);
