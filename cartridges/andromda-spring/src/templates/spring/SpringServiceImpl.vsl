@@ -27,9 +27,9 @@ public class $service.implementationName
     {
 #end
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
-#set ($returnTypeName = $operation.type.fullyQualifiedName)
+#set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($operation.returnTypePresent)
-#if (!$operation.type.primitive)
+#if (!$operation.returnType.primitive)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;
