@@ -13,8 +13,8 @@
         <section name="Modeling example">
             <p class="std">
                 We want to get you kick-started so that you can get productive with this cartridge as soon as
-                possible. For this reason this section describes a very small example that has been written especially
-                for this wiki-page, this allows me to show more features with less application complexity.
+                possible. For this reason this section describes a very small example that will allow
+                me to show more features with less application complexity.
             </p>
             <p class="std">
                 The application resembles an online store, the customer logs in, selects some items
@@ -136,6 +136,19 @@
                 manually update you JSPs you can directly use them (you don't need manual updates to run
                 the application, but you'll probably want to add layout and style ... this is not modeled in
                 UML of course, we only model business processes here)
+            </p>
+            <p class="std">
+                The item list collection parameter sent by the server to the client can optionally have a
+                tagged value assigned to it: <code>@andromda.struts.view.table.columns</code>; the value
+                is a list of bean property-names separated using commas. So if the objects in the collection
+                are of a custom type you might have something like this:
+                <pre>
+                    @andromda.struts.view.table.columns=id,name,price,itemsInStock
+                </pre>
+                This will display these properties in columns (in the order they are specified by you), the columns
+                will be sortable and the result set is pageable (by default max. 15 items per page). At the risk
+                of sounding redundant: each and every bean in the collection must expose all the properties
+                listed, otherwise a runtime exception will occur.
             </p>
             <p class="std">
                 <div>
