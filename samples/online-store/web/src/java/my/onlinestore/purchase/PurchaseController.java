@@ -108,7 +108,7 @@ class PurchaseController implements PurchaseControllerInterface
     private void populateForm(PurchaseItemsForm form)
     {
         form.setPassword("password-test");
-        form.setAge((int) 96511);
+        form.setAge(96511);
         form.setEmail("email-test");
         form.setCreditCard("<change-me>");
         form.setName("Name-test");
@@ -117,7 +117,7 @@ class PurchaseController implements PurchaseControllerInterface
         form.setSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
 
         form.setItemList(dummyItemList);
-        form.setItemListBackingList(dummyItemList.toArray());
+        form.setItemListAsArray(dummyItemList.toArray());
     }
 
     public final class DummyItem implements Serializable
