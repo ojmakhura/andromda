@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>${projectId}-ejb</id>
+  	<artifactId>${projectId}-ejb</artifactId>
   	<name>${projectName} EJB</name>
   	<shortDescription>The ${pom.name} component</shortDescription>
   	<description>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.0</version>
+			<version>3.1</version>
 			<properties>
 				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>

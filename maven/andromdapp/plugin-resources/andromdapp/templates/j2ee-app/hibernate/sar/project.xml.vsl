@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>${projectId}-hibernate-sar</id>
+  	<artifactId>${projectId}-hibernate-sar</artifactId>
   	<name>${projectName} Hibernate Sar</name>
   	<shortDescription>The ${pom.name} Component</shortDescription>
   	<description>
