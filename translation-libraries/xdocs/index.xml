@@ -2,13 +2,85 @@
 
 <document> 
 	<properties>
-    	<title>Translation-Libraries</title> 
+    	<title>AndroMDA Translation-Libraries</title> 
     </properties>
   	<body> 
   		<section name="What's a Translation-Library?">
   			<p>
   				Translation libraries are used to translate <a href="http://www.klasse.nl/ocl/index.html">OCL</a> 
-  				expressions to some target language.
+  				expressions into other languages.  For example, a translation-library could be used to 
+  				translate an OCL body expression into a Hibernate-QL query, or EJB-QL query like you see 
+  				below.   
+  		    </p>
+  		    <table>
+  		    	<tr>
+  		    		<th>
+  		    		   This OCL query
+  		    		</th>
+  		    	</tr>
+  		    	<tr>
+  		    		<td>
+						context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
+							type:String,
+							status:String, 
+							wentCurrentDate:Date):Collection (Project) body findByProjectType : 
+							allInstances() -> select ( 
+								project | 
+							        project.type = type 
+							and project.status = status
+							and project.wentCurrentDate >= wentCurrentDate )	    			
+  		    		</td>
+  		        </tr>
+  		        <tr>
+                   <th>
+                     	could be translated to: Hibernate-QL
+                   </th>		         	
+  		        </tr>
+  		        <tr>
+  		            <td>
+					    from org.andromda.contracts.Project as project
+					    where project.type = ? 
+					    and project.status = ?
+					    and project.wentCurrentDate >= ? 			
+  		            </td>
+  		        </tr>
+  		        <tr>
+  		        	<th>
+  		        		or: EJB-QL
+  		        	</th>
+  		        </tr>
+				<tr>
+  		    		<td>
+			            SELECT DISTINCT OBJECT(project) 
+			            FROM Project project
+				        WHERE project.type = ?1 
+				        AND project.status = ?2 
+				        AND project.wentCurrentDate >= ?3  		    			
+  		    		</td>
+  		    	</tr>
+  		    </table>
+  		    <p>
+                If you take a look at the 
+  			    <a href="../andromda-query-library/index.html">Query Translation-Library</a>, 
+  			    you'll see it does just what I describe above.
+  		    </p>
+  		    <p>
+  				In addition to translating OCL query bodies, you could also translate
+  				things like constraints (i.e. OCL -> Java, OCL -> SQL, etc).  OCL was orginally designed as a way of describing constraints
+  				in your model that weren't possible to express with UML drawings alone.  
+  				OCL 2.0 has expanded on the constraint abilities (i.e. <strong>pre</strong>,
+  				<strong>post</strong>, <strong>inv</strong>) of OCL and have made 
+  				OCL a fully fledged object expression language (which means it probably should
+  				be renamed to something like Object Expession Language).
+  			</p>
+  		</section>
+  		<section name="How are Translation-Libraries Used?">
+  			<p>
+  				Translation libraries are another type of <strong>plugin</strong>
+  				used and discovered by the AndroMDA framework.  This means that
+  				just like <a href="../andromda-cartridges/index.html">Cartridges</a>
+  				they will be found and made available to the framework by placing
+  				them on your project's classpath.
   			</p>
   		</section>
   	</body> 
