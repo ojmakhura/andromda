@@ -22,11 +22,11 @@
             </kind>
         </fragment>
 
-        <!-- The beginning of a query that finds allInstances (independant allInstances query) -->
-        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?"
+        <!-- The beginning of a query that finds allInstances (independent allInstances() query) -->
+        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?(\s*->.*)?"
                   handlerMethod="handleSelect">
             <kind name="body">
-                SELECT DISTINCT OBJECT(${lowerCaseElementName}) FROM $elementName ${lowerCaseElementName}
+                SELECT DISTINCT OBJECT($lowerCaseElementName) FROM $elementName $lowerCaseElementName
             </kind>
         </fragment>
 
@@ -44,6 +44,17 @@
                   handlerMethod="handleExists">
             <kind name="body">
                 {0} MEMBER OF {1}
+            </kind>
+        </fragment>
+        
+        <!-- Maps the '-> sortedBy(<some expression>)' to the correct handler method -->
+        <fragment name="sortedBy${nonEmptyParentheses}"
+                  handlerMethod="handleSortedBy"/>
+
+        <!-- this fragment is appended to the beginning of the in the translated query's sortedBy clause -->
+        <fragment name="sortedByClauseHead">
+            <kind name="body">
+                ORDER BY
             </kind>
         </fragment>
 
