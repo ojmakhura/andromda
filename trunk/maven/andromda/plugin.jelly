@@ -25,10 +25,6 @@
     	
         <j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
  
-	    <ant:path id="maven.andromda.classpath">
-		    <ant:pathelement path="${plugin.dependencyClasspath}"/>   		
-		    <ant:path refid="maven.dependency.classpath"/> 
-	    </ant:path>
         <!-- add any model dependencies -->
         <attainGoal name="andromda:add-model-dependencies"/>
 
