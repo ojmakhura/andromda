@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the default metafacade mappings -->
-<metafacades namespace="uml" 
+<metafacades namespace="uml-1.4" 
              shared="true">
 	<property reference="languageMappingsUri" />
 	<default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
