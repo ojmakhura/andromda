@@ -500,10 +500,9 @@ $op.getDocumentation("    * ")
 ## breaking usability of the PIM with the Hibernate cartridge.
 ## (Matthias Bohlen)
 ##
-##if (!$transform.hasComplexPrimaryKey($class))
 #if (!$primaryKeyAttribute.complex)
 #set ($primKey = $primaryKeyAttribute)
-#if ($primKey.type == "java.lang.String")
+#if ($pkclassname == "java.lang.String")
         if ($primKey.name == null) {
             $primKey.name = new java.rmi.server.UID().toString();
         }
