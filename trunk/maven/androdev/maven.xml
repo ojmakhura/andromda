@@ -3,7 +3,6 @@
   		 xmlns:velocity="jelly:velocity">
   		 
     <preGoal name="jar:jar">
-        <j:set var="pluginResources" value="plugin-resources/andromda"/>
     	<!-- replace the ${pom.currentVersion} in these
     		 files so we don't need to maintain them between
     		 different releases -->
