@@ -1,36 +1,38 @@
 package org.andromda.cartridges.bpm4struts;
 
+import org.andromda.core.common.CollectionFilter;
+import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.RepositoryReadException;
 import org.andromda.core.common.ScriptHelper;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.mdr.MDRepositoryFacade;
 import org.andromda.core.uml14.DirectionalAssociationEnd;
 import org.andromda.core.uml14.UMLDynamicHelper;
 import org.andromda.core.uml14.UMLStaticHelper;
-import org.omg.uml.UmlPackage;
-import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.activitygraphs.ClassifierInState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
-import org.omg.uml.behavioralelements.statemachines.FinalState;
+import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.statemachines.State;
+import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.behavioralelements.statemachines.StateVertex;
 import org.omg.uml.behavioralelements.statemachines.Transition;
+import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.ModelElement;
-import org.omg.uml.foundation.core.Namespace;
+import org.omg.uml.foundation.core.Stereotype;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.modelmanagement.Model;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -48,6 +50,12 @@ import java.util.Set;
  */
 public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
 {
+    public final static String ASPECT_FRONT_END_VIEW = "FrontEndView";
+    public final static String ASPECT_FRONT_END_USE_CASE = "FrontEndUseCase";
+    public final static String ASPECT_FRONT_END_WORKFLOW = "FrontEndWorkflow";
+    public final static String ASPECT_FRONT_END_PRESENTATION = "FrontEndPresentation";
+    public final static String ASPECT_CONTROLLER_CLASS = "ControllerClass";
+
     /**
      * The meta-data repository implementation used by this script helper.
      */
@@ -64,13 +72,50 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     private final UMLDynamicHelper dynamicHelper = new UMLDynamicHelper();
 
     /**
-     * Returns a reference to the UML model.
-     *
-     * @return the UMLPackage instance that represents the UML model
+     * This map serves as a cache for quickly finding classes in the UML model.
+     * This is to avoid iterating the list of classes for each lookup.
+     * <p>
+     * This is a performance improvement since in most UML model you will have
+     * at least 20 classes. Iterating over them can quickly lead to O(n²) performance loss.
+     * <p>
+     * The keys are fully qualified class names, while the values are the corresponding
+     * <code>org.omg.uml.foundation.core.UmlClass</code> instances.
+     * <p>
+     * CAUTION! this map needs to be invalidated and rebuilt whenever the model changes,
+     * the contract is that when the value is <code>null</code> it needs to be rebuilt,
+     * any other value denotes a map built from the current model.
      */
-    private UmlPackage getUMLModel()
+    private HashMap qualifiedNameToClassMap = null;
+
+    /**
+     * This map serves as a cache for quickly finding use-cases in the UML model.
+     * This is to avoid iterating the list of use-cases for each lookup.
+     * <p>
+     * CAUTION! this map needs to be invalidated and rebuilt whenever the model changes,
+     * the contract is that when the value is <code>null</code> it needs to be rebuilt,
+     * any other value denotes a map built from the current model.
+     *
+     * @see #qualifiedNameToClassMap
+     */
+    private HashMap qualifiedNameToUseCaseMap = null;
+    /**
+     * Returns the static UML helper delegate.
+     *
+     * @return The UML helper for the static part of the UML model.
+     */
+    public UMLStaticHelper getStaticHelper()
     {
-        return (UmlPackage)staticHelper.getModel();
+        return staticHelper;
+    }
+
+    /**
+     * Returns the dynamic UML helper delegate.
+     *
+     * @return The UML helper for the dynamic part of the UML model.
+     */
+    public UMLDynamicHelper getDynamicHelper()
+    {
+        return dynamicHelper;
     }
 
     /**
@@ -81,12 +126,12 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * <code>ControllerClass=org.project.web.actions.MyController</code>.
      *
      * @param useCase the graph which controller model element to return
-     * @return the UMLClass that is the controller or <code>null</code> if the
+     * @return the UmlClass that is the controller or <code>null</code> if the
      *    tagged value is not present
      */
     public UmlClass getControllerClass(UseCase useCase)
     {
-        String tagValue = findTagValue(useCase, "ControllerClass");
+        String tagValue = staticHelper.findTagValue(useCase, ASPECT_CONTROLLER_CLASS);
         return findClassByName(tagValue);
     }
 
@@ -102,7 +147,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * In any other case this method returns <code>null</code>.
      *
      * @param useCase the graph which form model element to return, may not be <code>null</code>
-     * @return the UMLClass that is the form, or <code>null</code> if there
+     * @return the UmlClass that is the form, or <code>null</code> if there
      *    is no form
      * @see #getControllerClass(UseCase useCase)
      */
@@ -117,7 +162,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
                 AssociationEnd associationEnd = (AssociationEnd) iterator.next();
                 DirectionalAssociationEnd directionalAssociationEnd = staticHelper.getAssociationData(associationEnd);
                 Classifier participant = directionalAssociationEnd.getTarget().getParticipant();
-                if (staticHelper.getStereotypeNames(participant).contains("FrontEndPresentation"))
+                if (staticHelper.getStereotypeNames(participant).contains(ASPECT_FRONT_END_PRESENTATION))
                 {
                     return (UmlClass) participant;
                 }
@@ -128,55 +173,23 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Returns a collection of all the UMLClass instances that have the
-     * 'FrontEndPresentation' stereotype found in the UML model.
-     *
-     * @return A Collection of UMLClass instances that have the
-     *  'FrontEndPresentation' stereotype, never <code>null</code>
-     */
-    public Collection getAllControllerForms()
-    {
-        final Set controllerForms = new LinkedHashSet();
-        Collection classes = getUMLModel().getCore().getClassifier().refAllOfType();
-        for (Iterator iterator = classes.iterator(); iterator.hasNext();)
-        {
-            Classifier classifier = (Classifier) iterator.next();
-            if (staticHelper.getStereotypeNames(classifier).contains("FrontEndPresentation"))
-            {
-                controllerForms.add(classifier);
-            }
-        }
-        return controllerForms;
-    }
-
-    /**
      * Returns the use-case that holds the argument activity graph.
      *
      * @param activityGraph an activity graph, may not be <code>null</code>
      * @return the use-case of which this activity graph is a part,
      *  or <code>null</code> in case there is none
      */
-    public UseCase getParentUseCase(ActivityGraph activityGraph)
+    public UseCase getUseCaseContext(ActivityGraph activityGraph)
     {
-        Namespace parentNamespace = activityGraph.getNamespace();
-        if (parentNamespace instanceof UseCase)
+        ModelElement modelElement = activityGraph.getContext();
+        if (modelElement instanceof UseCase)
         {
-            return (UseCase) parentNamespace;
+            return (UseCase) modelElement;
         }
         else
         {
             return null;
         }
-    }
-
-    /**
-     * Delegates to UMLStaticHelper.
-     *
-     * @see org.andromda.core.uml14.UMLStaticHelper
-     */
-    public String findTagValue(ModelElement modelElement, String tagName)
-    {
-        return staticHelper.findTagValue(modelElement, tagName);
     }
 
     /**
@@ -191,6 +204,13 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         return (State) stateObject;
     }
 
+    /**
+     * Gets the set of types for the ObjectFlowStates in the argument
+     * activity graph.
+     *
+     * @param activityGraph an activity graph
+     * @return a set of object flow state types (no doubles)
+     */
     public Set getObjectFlowStateTypes(ActivityGraph activityGraph)
     {
         Set types = new LinkedHashSet();
@@ -203,22 +223,29 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         return types;
     }
 
-    protected Set toSet(Collection firstElements, Collection secondElements)
+    /**
+     * Returns the elements in the argument collection as a set.
+     *
+     * @param elements the collection containing the elements
+     * @return a subset of the argument, filtered from any doubles
+     */
+    public Set toSet(Collection elements)
+    {
+        return new LinkedHashSet(elements);
+    }
+
+    /**
+     * Merges both collection into a set, ignoring any duplicate entries.
+     *
+     * @param firstElements the first collection
+     * @param secondElements the second collection
+     * @return both collections, filtered from any doubles
+     */
+    public Set toSet(Collection firstElements, Collection secondElements)
     {
         Set set = new LinkedHashSet(firstElements);
         set.addAll(secondElements);
         return set;
-    }
-
-
-    /**
-     * Delegates to UMLStaticHelper.
-     *
-     * @see org.andromda.core.uml14.UMLStaticHelper
-     */
-    public Collection getAttributes(Classifier classifier)
-    {
-        return staticHelper.getAttributes(classifier);
     }
 
 
@@ -231,7 +258,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public Collection getModelElements()
     {
-        Collection modelElements = getModelElements();
+        Collection modelElements = staticHelper.getModelElements();
         Collection allActivityGraphs = dynamicHelper.getAllActivityGraphs();
         return toSet(modelElements, allActivityGraphs);
     }
@@ -247,51 +274,45 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * <p>
      * <i>Note: This method will be called in order to determine a model element's package name.</i>
      *
-     * @param object A model element
+     * @param object A model element, should be an instance of
+     *  <code>org.omg.uml.foundation.core.ModelElement</code>
      * @return The package name of the model element, as a Java fully qualified name, never <code>null>/code>
      */
     public String getPackageName(Object object)
     {
-        if (!(object instanceof ModelElement))
+        // only model elements, different from the root UML model may continue
+        if ((!(object instanceof ModelElement)) || (object instanceof Model))
         {
             return "";
         }
 
-        // action states never belong to any package directly
-        if (dynamicHelper.isActionState(object))
+        // states never belong to any package directly
+        if (dynamicHelper.isStateVertex(object))
         {
-            return getPackageName(dynamicHelper.getStateMachine((ActionState) object));
+            return getPackageName(dynamicHelper.getStateMachineContext((StateVertex) object));
         }
 
-        if (dynamicHelper.isFinalState(object))
+        // state machines pass on their context
+        if (dynamicHelper.isStateMachine(object))
         {
-            return getPackageName(dynamicHelper.getStateMachine((FinalState) object));
+            return getPackageName( ((StateMachine)object).getContext() );
         }
 
-        if (dynamicHelper.isInitialState(object))
+        // only packages will be considered
+        if (staticHelper.isPackage(object))
         {
-            return getPackageName(dynamicHelper.getStateMachine((Pseudostate) object));
-        }
+            org.omg.uml.modelmanagement.UmlPackage umlPackage = (org.omg.uml.modelmanagement.UmlPackage)object;
+            String parentPackageName = getPackageName(umlPackage.getNamespace());
 
-        ModelElement modelElement = (ModelElement) object;
-        Namespace namespace = modelElement.getNamespace();
-
-        String packageName = "";
-
-        while ((namespace instanceof ModelElement) && !(namespace instanceof Model))
-        {
-            if (namespace instanceof UmlPackage)
+            if ( (parentPackageName != null) && (!"".equals(parentPackageName)) )
             {
-                String namespaceName = namespace.getName().trim();
-                if (!"".equals(namespaceName))
-                {
-                    packageName = ("".equals(packageName)) ? namespaceName : namespaceName + '.' + packageName;
-                }
+                parentPackageName = parentPackageName + '.';
             }
-            namespace = namespace.getNamespace();
+
+            return (parentPackageName + umlPackage.getName()).toLowerCase();
         }
 
-        return packageName.toLowerCase();
+        return getPackageName( ((ModelElement)object).getNamespace() );
     }
 
 
@@ -372,7 +393,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
 
 
     /**
-     * Returns the collection of Pseudostate instances of kind 'initial' found in the argument use-case.
+     * Returns the collection of Pseudostate instances of kind 'initial' found in the argument use-cases.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.statemachines.Pseudostate</code>
@@ -401,6 +422,57 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
+     * Returns the initial state in the given activity graph.
+     * <p>
+     * UML allows more than one initial state, but here we allow only one since it represents the
+     * entry-point for the context use-case.
+     * <p>
+     * The returned Pseudostate is always of kind 'choice', in case there is no initial state for the given
+     * graph this method will return <code>null</code>.
+     * <p>
+     * Should there be more than one initial state in the argument activity graph then
+     * this method will return the first one it finds.
+     *
+     * @param activityGraph an activity graph, may not be <code>null</code>
+     * @return a Pseudostate of kind 'choice', or <code>null</code>
+     * @see org.andromda.core.uml14.UMLDynamicHelper#getInitialStates(ActivityGraph activityGraph)
+     */
+    public Pseudostate getInitialState(ActivityGraph activityGraph)
+    {
+        Iterator iterator = dynamicHelper.getInitialStates(activityGraph).iterator();
+        if (iterator.hasNext())
+        {
+            return (Pseudostate)iterator.next();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Given an activity graph, this method will return the first action state encountered when traversing starting
+     * from the initial state and following the transitions.
+     * <p>
+     * If no such action state is found this method returns <code>null</code>.
+     *
+     * @param activityGraph an activity graph, may not be <code>null</code>
+     * @return the first action state in the graph, or <code>null</code> if there is none
+     */
+    public ActionState getFirstActionState(ActivityGraph activityGraph)
+    {
+        StateVertex stateVertex = dynamicHelper.getLastTransitionState(getInitialState(activityGraph));
+        if (dynamicHelper.isActionState(stateVertex))
+        {
+            return (ActionState)stateVertex;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
      * Returns a Collection containing all Transition instances that are going
      * out of a Pseudostate of kind 'choice'.
      * <p>
@@ -411,7 +483,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * @return the collection of the Transition instances going out of 'choice'
      *    Pseudostates found in the argument activity graph.
      */
-    public Collection getActivityGraphChoiceTransitions(ActivityGraph activityGraph)
+    public Collection getChoiceTransitions(ActivityGraph activityGraph)
     {
         Set transitions = new HashSet();
 
@@ -432,7 +504,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * @param useCase a use-case, may not be <code>null</code>
      * @return the collection of the Transition instances going out of 'choice'
      *    Pseudostates found for each activity graph in the argument use-case
-     * @see #getActivityGraphChoiceTransitions(ActivityGraph activityGraph)
+     * @see #getChoiceTransitions(ActivityGraph activityGraph)
      */
     public Collection getUseCaseChoiceTransitions(UseCase useCase)
     {
@@ -441,7 +513,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         for (Iterator iterator = activityGraphs.iterator(); iterator.hasNext();)
         {
             ActivityGraph activityGraph = (ActivityGraph) iterator.next();
-            choiceTransitions.addAll(getActivityGraphChoiceTransitions(activityGraph));
+            choiceTransitions.addAll(getChoiceTransitions(activityGraph));
         }
         return choiceTransitions;
     }
@@ -618,7 +690,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     {
         if (modelElement instanceof Transition)
         {
-            return toForwardName(getLastTransitionTarget(((Transition) modelElement).getTarget()));
+            return toForwardName(dynamicHelper.getLastTransitionTarget(((Transition) modelElement).getTarget()));
         }
         else
         {
@@ -667,111 +739,60 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Returns the first outgoing transition.
-     */
-    public Transition getNextStateTransition(StateVertex stateVertex)
-    {
-        return (Transition) stateVertex.getOutgoing().iterator().next();
-    }
-
-    /**
-     * Basically the same as
-     * <code>getNextStateTransition(StateVertex stateVertex)</code>, but ignores
-     * any Pseudostates of kind 'join'.
-     * <p>
-     * This way you can more easily get the actual Pseudostate.Choice, FinalState
-     * or ActionState.
-     * <p>
-     * This is actually a workaround for the fact that there is no support for recursion
-     * in VTL: any number of joins may be connected like this.
-     *
-     * @param stateVertex A state with only one outgoing transition,
-     * @return the last state reached starting from the argument state
-     */
-    public StateVertex getLastTransitionTarget(StateVertex stateVertex)
-    {
-        if (dynamicHelper.isPseudostate(stateVertex) || dynamicHelper.isObjectFlowState(stateVertex))
-        {
-            return getLastTransitionTarget(getNextStateTransition(stateVertex).getTarget());
-        }
-        else
-        {
-            return stateVertex;
-        }
-    }
-
-    /**
-     * Basically the same as <code>getLastTransitionTarget()</code>, but this method will only stop when it meets
-     * either an action state or a final state.
-     *
-     * @param stateVertex A state with only one outgoing transition,
-     * @return the last action state or final state reached starting from the argument state
-     * @see #getLastTransitionTarget(StateVertex stateVertex)
-     */
-    public StateVertex getLastTransitionState(StateVertex stateVertex)
-    {
-        StateVertex end = getLastTransitionTarget(stateVertex);
-
-        if (dynamicHelper.isActionState(end) || dynamicHelper.isFinalState(end))
-        {
-            return end;
-        }
-        else
-        {
-            return getLastTransitionState(end);
-        }
-    }
-
-    /**
      * Looks for a class in the UML model that corresponds to the
      * argument qualified class name.
      * <p>
      * Returns <code>null</code> if no such class would exist.
      *
      * @param qualifiedName a fully qualified class name such as
-     *    <code>org.andromda.test.MyTest</code>, may not be <code>null</code>
+     *    <code>org.andromda.test.MyTestClass</code>, may not be <code>null</code>
      * @return the UML class corresponding with the argument class name,
      *    or <code>null</code> if there is none
      */
     public UmlClass findClassByName(String qualifiedName)
     {
-        Collection umlClasses = getUMLModel().getCore().getUmlClass().refAllOfType();
-        for (Iterator iterator = umlClasses.iterator(); iterator.hasNext();)
+        // build cache if necessary
+        if (qualifiedNameToClassMap == null)
         {
-            UmlClass umlClass = (UmlClass) iterator.next();
-            String elementName = getFullyQualifiedName(umlClass);
-            if (qualifiedName.equals(elementName))
+            qualifiedNameToClassMap = new HashMap();
+            Collection umlClasses = staticHelper.getAllClasses();
+            for (Iterator iterator = umlClasses.iterator(); iterator.hasNext();)
             {
-                return umlClass;
+                UmlClass umlClass = (UmlClass) iterator.next();
+                String qualifiedElementName = getFullyQualifiedName(umlClass);
+                qualifiedNameToClassMap.put(qualifiedElementName, umlClass);
             }
         }
-        return null;
+
+        return (UmlClass)qualifiedNameToClassMap.get(qualifiedName);
     }
 
     /**
-     * Looks for a use case in the UML model that corresponds to the
-     * argument qualified use case name.
+     * Looks for a use-case in the UML model that corresponds to the
+     * argument qualified use-case name.
      * <p>
-     * Returns <code>null</code> if no such use case would exist.
+     * Returns <code>null</code> if no such use-case would exist.
      *
-     * @param qualifiedName a fully qualified use case name such as
-     *    <code>org.andromda.test.TestUseCase</code>, may not be <code>null</code>
-     * @return the UML class corresponding with the argument class name,
+     * @param qualifiedName a fully qualified use-case name such as
+     *    <code>org.andromda.test.MyTestUseCase</code>, may not be <code>null</code>
+     * @return the UML UseCase corresponding with the argument use-case name,
      *    or <code>null</code> if there is none
      */
     public UseCase findUseCaseByName(String qualifiedName)
     {
-        Collection useCases = getUMLModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        if (qualifiedNameToUseCaseMap == null)
         {
-            UseCase useCase = (UseCase) iterator.next();
-            String elementName = getFullyQualifiedName(useCase);
-            if (qualifiedName.equals(elementName))
+            qualifiedNameToUseCaseMap = new HashMap();
+            Collection useCases = dynamicHelper.getAllUseCases();
+            for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
             {
-                return useCase;
+                UseCase useCase = (UseCase) iterator.next();
+                String qualifiedElementName = getFullyQualifiedName(useCase);
+                qualifiedNameToUseCaseMap.put(qualifiedElementName, useCase);
             }
         }
-        return null;
+
+        return (UseCase)qualifiedNameToUseCaseMap.get(qualifiedName);
     }
 
     /**
@@ -779,14 +800,14 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * name of the package that contains it. If the model element
      * is a primitive type it will return the primitive type itself.
      *
-     *@param object model element
-     *@return fully qualifed name
+     *@param object model element, may not be <code>null</code>
+     *@return fully qualifed name, never <code>null</code>
      */
     public String getFullyQualifiedName(Object object)
     {
         if (!(object instanceof ModelElement))
         {
-            return null;
+            return "";
         }
 
         ModelElement modelElement = (ModelElement) object;
@@ -799,16 +820,14 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         }
 
         String packageName = getPackageName(modelElement);
-        fullName =
-            "".equals(packageName) ? fullName : packageName + "." + fullName;
-
+        fullName = "".equals(packageName) ? fullName : packageName + "." + fullName;
         return fullName;
     }
 
     /**
      * Delegates to an MDRepositoryFacade.
      *
-     * @see org.andromda.core.mdr.MDRepositoryFacade#open
+     * @see org.andromda.core.mdr.MDRepositoryFacade#open()
      */
     public void open()
     {
@@ -818,7 +837,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     /**
      * Delegates to an MDRepositoryFacade.
      *
-     * @see org.andromda.core.mdr.MDRepositoryFacade#close
+     * @see org.andromda.core.mdr.MDRepositoryFacade#close()
      */
     public void close()
     {
@@ -828,7 +847,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     /**
      * Delegates to an MDRepositoryFacade.
      *
-     * @see org.andromda.core.mdr.MDRepositoryFacade#readModel
+     * @see org.andromda.core.mdr.MDRepositoryFacade#readModel(URL modelURL)
      */
     public void readModel(URL modelURL) throws RepositoryReadException, IOException
     {
@@ -838,7 +857,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     /**
      * Delegates to an MDRepositoryFacade.
      *
-     * @see org.andromda.core.mdr.MDRepositoryFacade#getLastModified
+     * @see org.andromda.core.mdr.MDRepositoryFacade#getLastModified()
      */
     public long getLastModified()
     {
@@ -846,19 +865,22 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Delegates to UMLStaticHelper.
+     * Delegates to UMLStaticHelper and UMLDynamicHelper.
      *
-     * @see org.andromda.core.uml14.UMLStaticHelper
+     * @see org.andromda.core.uml14.UMLStaticHelper#setModel(Object model)
+     * @see org.andromda.core.uml14.UMLDynamicHelper#setModel(Object model)
      */
     public void setModel(Object model)
     {
+        qualifiedNameToClassMap = null; // invalidate the cache
         staticHelper.setModel(model);
+        dynamicHelper.setModel(model);
     }
 
     /**
      * Delegates to UMLStaticHelper.
      *
-     * @see org.andromda.core.uml14.UMLStaticHelper
+     * @see org.andromda.core.uml14.UMLStaticHelper#getModel()
      */
     public Object getModel()
     {
@@ -866,23 +888,258 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Delegates to UMLStaticHelper.
+     * Delegates to UMLStaticHelper and UMLDynamicHelper.
      *
-     * @see org.andromda.core.uml14.UMLStaticHelper
+     * @see org.andromda.core.uml14.UMLStaticHelper#setTypeMappings(DbMappingTable mappings)
+     * @see org.andromda.core.uml14.UMLDynamicHelper#setTypeMappings(DbMappingTable mappings)
      */
     public void setTypeMappings(DbMappingTable mappings)
     {
         staticHelper.setTypeMappings(mappings);
+        dynamicHelper.setTypeMappings(mappings);
     }
 
     /**
      * Delegates to UMLStaticHelper.
      *
-     * @see org.andromda.core.uml14.UMLStaticHelper
+     * @see org.andromda.core.uml14.UMLStaticHelper#getStereotypeNames(Object modelElement)
      */
     public Collection getStereotypeNames(Object modelElement)
     {
         return staticHelper.getStereotypeNames(modelElement);
+    }
+
+    /**
+     * Filters the argument non-null collection from all objects that are no ModelElement instances that do not have
+     * a stereotype with the argument stereotype name.
+     *
+     * @param collection A collection of objects that will be filtered, any Object may be found inside, even
+     *  <code>null</code>.
+     * @param stereotypeName The name of the stereotype on which to filter the collection
+     * @return A Collection of that is a subset of the argument collection, all elements are guarantueed
+     *  to be ModelElement instances that have at least one Stereotype with the specified name.
+     */
+    public Collection filterWithStereotypeName(Collection collection, final String stereotypeName)
+    {
+        final CollectionFilter stereotypeFilter =
+            new CollectionFilter()
+            {
+                public boolean accept(Object object)
+                {
+                    return hasStereotypeWithName(object, stereotypeName);
+                }
+            };
+        return dynamicHelper.filter(collection, stereotypeFilter);
+    }
+
+    /**
+     * Returns <code>true</code> if and only if the argument object is a ModelElement instance with at least
+     * one stereotype with the specified name associated to it.
+     *
+     * @param object the object to search for stereotypes
+     * @param stereotypeName the stereotype to look for, may not be <code>null</code>
+     * @return <code>true</code> if the argument object is a ModelElement with the specified stereotype,
+     *  <code>false</code> in any other case.
+     */
+    public boolean hasStereotypeWithName(Object object, String stereotypeName)
+    {
+        if ((object instanceof ModelElement) && (stereotypeName != null))
+        {
+            ModelElement modelElement = (ModelElement) object;
+            Collection stereotypes = modelElement.getStereotype();
+
+            for (Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+            {
+                Stereotype stereotype = (Stereotype) iterator.next();
+                if (stereotypeName.equals(stereotype.getName()))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the activity graph associated with the argument use-case. If there is more than one graph this method
+     * will return the first one it finds.
+     * <p>
+     * If the use-case has no activity graphs associated to it this method will return <code>null<code>.
+     *
+     * @param useCase a use-case
+     * @return the activity graph associated to the use-case, or <code>null</code> if none is found
+     */
+    public ActivityGraph getActivityGraph(UseCase useCase)
+    {
+        Iterator iterator = dynamicHelper.getActivityGraphs(useCase).iterator();
+        if (iterator.hasNext())
+        {
+            return (ActivityGraph)iterator.next();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Given the name of a use-case in the UML model, this method will try to find that use-case and return
+     * the fully qualified name (this means the package will be prefixed to the argument name).
+     * <p>
+     * In case the use-case cannot be found, this method will return <code>null</code>
+     * <p>
+     * Alternatively you may pass an already fully qualified use-case name, if it corresponds to a
+     * use-case in the UML model, than the argument itself will be returned, otherwise <code>null</code>
+     *
+     * @param useCaseName the name of a use-case in the UML model, may not be <code>null</code>
+     * @return the fully qualified name of the use-case identified with the argument name, or <code>null</code> in
+     *  if there is no such use-case
+     */
+    public String findFullyQualifiedUseCaseName(String useCaseName)
+    {
+        Collection useCases = dynamicHelper.getAllUseCases();
+        for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        {
+            UseCase useCase = (UseCase) iterator.next();
+            String fullyQualifiedName = getFullyQualifiedName(useCase);
+
+            if ( (useCaseName.equals(useCase.getName())) || (useCaseName.equals(fullyQualifiedName)) )
+            {
+                return fullyQualifiedName;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Recursively traverses through each workflow to eventually find a use-case, this one will be returned.
+     * <p>
+     * A workflow is a <code>UseCase</code> with the <code>ASPECT_FRONT_END_WORKFLOW</code> stereotype, a use-case is a
+     * <code>UseCase</code> with the <code>ASPECT_FRONT_END_USE_CASE</code> stereotype.
+     * <p>
+     * For each workflow the first action state will be interpreted as the name of an existing use-case (the name
+     * may be either fully qualified or not) or another workflow.
+     * <p>
+     * This method returns <code>null</code> in case one of the UseCase instances would be neither workflow neither
+     * use-case.
+     *
+     * @param useCase a workflow or use-case, may not be <code>null</code>
+     * @return The first use-case found (depth first), or <code>null</code>
+     */
+    public UseCase getFirstFrontEndUseCase(UseCase useCase)
+    {
+        Collection stereotypeNames = staticHelper.getStereotypeNames(useCase);
+
+        if (stereotypeNames.contains(ASPECT_FRONT_END_USE_CASE))
+        {
+            return useCase;
+        }
+        else if (stereotypeNames.contains(ASPECT_FRONT_END_WORKFLOW))
+        {
+            String firstUseCaseName = getFirstActionState(getActivityGraph(useCase)).getName();
+            UseCase nextUseCase = findUseCaseByName(findFullyQualifiedUseCaseName(firstUseCaseName));
+            return getFirstFrontEndUseCase(nextUseCase);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * This method will lookup the given use-case's workflow, namely the activity graph in which it is being
+     * denoted as an action state. Having this workflow it is easy to determine what the next use-case will be
+     * after this one has finished.
+     * <p>
+     * It is possible that a use-case has more than one outgoing transition, each of those transitions are considered
+     * to be uniquely defined by their triggers.
+     * <p>
+     * You may choose to not specifiy any trigger name here, in that case
+     * this method will follow the first outgoing transition, disregarding any
+     * triggers.
+     *
+     * @param useCase the source use-case to start from, may not be <code>null</code>
+     * @param triggerName the next trigger to follow
+     * @return the next use-case, as defined in the parent workflow, or <code>null</code> in case
+     *  <ul>
+     *    <li>the source use-case has no name
+     *    <li>the target is not a valid use-case action state
+     *  </ul>
+     * @see #getTriggerTarget(StateVertex stateVertex, String triggerName)
+     */
+    public UseCase findNextUseCaseInWorkflow(UseCase useCase, String triggerName)
+    {
+        final String useCaseName = useCase.getName();
+
+        if (useCaseName != null)
+        {
+            Collection actionStates = dynamicHelper.getAllActionStates();
+            for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+            {
+                ActionState actionState = (ActionState) iterator.next();
+                if (useCaseName.equals(actionState.getName()))
+                {
+                    // this means we found the action state for this use-case
+                    // now lookup the next action state's use-case and return it
+                    StateVertex stateVertex = getTriggerTarget(actionState, triggerName);
+                    if (dynamicHelper.isActionState(stateVertex))
+                    {
+                        String qualifiedName = findFullyQualifiedUseCaseName(stateVertex.getName());
+                        return findUseCaseByName(qualifiedName);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the next target specified by the outgoing transition marked with the argument trigger name.
+     * <p>
+     * Simply put, this method returns the next state vertex following the desired transition.
+     * <p>
+     * Omitting the trigger name will result in the first outgoing transition being followed.
+     *
+     * @param stateVertex the source of the outgoing transitions, may not be <code>null</code>
+     * @param triggerName the trigger to follow
+     * @return the next state vertex after following the trigger from the source vertex, is <code>null</code> if
+     *  <ul>
+     *    <li>there are no outgoing transitions from the argument state vertex
+     *    <li>the argument trigger name is not <code>null</code> but is not found in any of the
+     *        outgoing transitions
+     *  </ul>
+     * @see org.andromda.core.uml14.UMLDynamicHelper#getLastTransitionTarget(StateVertex stateVertex)
+     */
+    public StateVertex getTriggerTarget(StateVertex stateVertex, String triggerName)
+    {
+        Collection outgoing = stateVertex.getOutgoing();
+        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        {
+            Transition transition = (Transition) iterator.next();
+            if ( (triggerName == null) || (triggerName.equals(getTriggerName(transition))) )
+            {
+                return dynamicHelper.getLastTransitionTarget(transition.getTarget());
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the name of the trigger for the argument transition.
+     *
+     * @param transition a transition, may not be <code>null</code>
+     * @return the name of the transition's trigger, is <code>null</code> if there is no trigger, or the trigger
+     *  is anonymous.
+     */
+    public String getTriggerName(Transition transition)
+    {
+        Event trigger = transition.getTrigger();
+        return (trigger == null) ? null : trigger.getName();
     }
 }
 
