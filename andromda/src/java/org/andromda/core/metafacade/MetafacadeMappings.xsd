@@ -14,7 +14,7 @@
          defined for an element this will be used instead) -->
     <xs:element name="default">
         <xs:complexType>
-            <xs:attribute name="className" type="xs:string" use="required"/>
+            <xs:attribute name="class" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="metafacade">
