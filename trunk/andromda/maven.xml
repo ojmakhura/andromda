@@ -5,7 +5,7 @@
 
     <j:set var="parser.src.dir" value="${maven.src.dir}/parser"/>
     <j:set var="parser.src.generated.dir" value="${maven.build.src}/java"/>
-    <j:set var="parser.grammer.file" value="ocl.grammar"/>
+    <j:set var="parser.grammar.file" value="ocl.grammar"/>
 
     <preGoal name="java:jar-resources">
         <ant:tstamp>
@@ -33,8 +33,7 @@
 
     <preGoal name="java:compile" >
         <attainGoal name="build-parser"/>
-        <!-- add the path of the generated source to the
-             maven compile path -->
+        <!-- add the path of the generated source to the maven compile path -->
         <ant:path id="parser.gen.src" location="${parser.src.generated.dir}"/>
         <maven:addPath id="maven.compile.src.set" refid="parser.gen.src"/>
         <ant:property name="path" refid="maven.dependency.classpath"/>
@@ -46,7 +45,7 @@
     <goal name="check-parser-required">
         <ant:uptodate property="parser.generation.required"
             targetfile="${parser.src.generated.dir}/org/andromda/core/translation/parser/parser.dat" >
-            <ant:srcfiles dir="${parser.src.dir}" includes="${parser.grammer.file}" />
+            <ant:srcfiles dir="${parser.src.dir}" includes="${parser.grammar.file}" />
         </ant:uptodate>
     </goal>
 
@@ -57,14 +56,14 @@
           <ant:mkdir dir="${parser.src.generated.dir}"/>
           <j:choose>
               <j:when test="${parser.generation.required}">
-                  <ant:echo>Parser grammer has not changed since last generation.</ant:echo>
+                  <ant:echo>Parser grammar has not changed since last generation.</ant:echo>
               </j:when>
               <j:otherwise>
                 <ant:taskdef name="sablecc"
                      classname="org.sablecc.ant.taskdef.Sablecc"
                      classpathref="maven.dependency.classpath"/>
                 <ant:sablecc outputdirectory="${parser.src.generated.dir}" src="${parser.src.dir}">
-                      <ant:include name="${parser.grammer.file}" />
+                      <ant:include name="${parser.grammar.file}" />
                 </ant:sablecc>
               </j:otherwise>
           </j:choose>
