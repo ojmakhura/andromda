@@ -14,6 +14,8 @@ html body
     text-align: center;
 }
 
+td { padding: 3px; text-align: left; }
+
 ##
 ##  Hyperlinks
 ##
@@ -48,6 +50,7 @@ a:link.nol, a:visited.nol, a:hover.nol
 ##  A form is always a little indented to the right
 ##
 form { margin: 0 0 0 10px; }
+form input { font-size: 82%; }
 form input.text { font-size: 100%; background: #fff; border: 1px solid #ccc; border-color: #ccc; }
 form textarea.text { background: #fff; border: 1px solid #ccc; color: #444; }
 
