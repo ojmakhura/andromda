@@ -122,7 +122,8 @@
                             <td>Parameter</td>
                             <td>text</td>
                             <td>Indicates the type of parameter, this information will be used when rendering the pages,
-                                possible values are: text, textarea, checkbox, radio, select, password and hidden.
+                                possible values are: link, multibox, text, textarea, checkbox, radio, select, password
+                                and hidden.
                                 One of the tables below give some more information about field formats, for a list of
                                 possible types see <a href="user-guide.html#Field_Types">this page</a></td>
                         </tr>
@@ -249,9 +250,12 @@
                                 The result will be that the specified table column will contain
                                 a hyperlink reference to the action on which this parameter
                                 resides, this is useful to eg. display a list of persons and view
-                                their details by simply clicking on their names in the table.
+                                their details by simply clicking on their names in the table
+                                (for that to work this parameter's type should be 'link', use the
+                                <code>@andromda.struts.view.field.type=link</code> tagged value for that).
                                 The column name is optional, if you do not specify it the name
                                 of the parameter will be assumed.
+                                By setting the parameter type you can have any widget rendered into the table.
                             </td>
                         </tr>
                     </table>
