@@ -422,7 +422,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * Handles an <strong>dot </strong> feature call. Its expected that this
+     * Handles a <strong>dot </strong> feature call. Its expected that this
      * <code>featureCall</code>'s parent is a ADotPropertyCallExpressionTail.
      * This is here because dot feature calls must be handled differently than
      * <code>arrow<code> feature calls.
