@@ -28,9 +28,7 @@ public interface Table extends Refreshable
 
     public String[] getForeignKeyColumnNames();
 
-    public int insertRow(Map values) throws SQLException;
-
-    public int insertRow(Object[] parameters) throws SQLException;
+    public int insertRow(RowData rowData) throws SQLException;
 
     public List findAllRows() throws SQLException;
 

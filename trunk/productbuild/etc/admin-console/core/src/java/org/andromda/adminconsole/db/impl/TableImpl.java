@@ -224,22 +224,18 @@ public class TableImpl extends DatabaseObject implements Table
         return executeUpdate(queryBuffer.toString(), columnNames, parameters);
     }
 
-    public int insertRow(Object[] parameters) throws SQLException
+    public int insertRow(RowData rowData) throws SQLException
     {
-        return insertRow(getColumnNames(), parameters);
-    }
-
-    public int insertRow(Map values) throws SQLException
-    {
-        String[] columnNames = new String[values.size()];
-        Object[] parameters = new Object[values.size()];
+        String[] columnNames = new String[rowData.size()];
+        Object[] parameters = new Object[rowData.size()];
 
         int index = 0;
-        for (Iterator iterator=values.entrySet().iterator(); iterator.hasNext();)
+        for (Iterator iterator=rowData.entrySet().iterator(); iterator.hasNext();)
         {
             Map.Entry entry = (Map.Entry)iterator.next();
             columnNames[index] = String.valueOf(entry.getKey());
             parameters[index] = entry.getValue();
+            index++;
         }
         return insertRow(columnNames, parameters);
     }
