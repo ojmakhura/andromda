@@ -44,6 +44,8 @@
     <xs:element name="property">
         <xs:complexType>
             <xs:attribute name="reference" type="xs:string" use="required"/>
+            <!-- defines the default value of the property if the property isn't supplied -->
+            <xs:attribute name="default" use="optional"/>     
         </xs:complexType>
     </xs:element>
     <xs:element name="stereotype" type="xs:string"/>
