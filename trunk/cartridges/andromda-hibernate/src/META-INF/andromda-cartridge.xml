@@ -95,7 +95,7 @@
         outputPattern="$generatedFile"
         outlet="entities"
         overwrite="true"
-        required="false">
+        required="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
