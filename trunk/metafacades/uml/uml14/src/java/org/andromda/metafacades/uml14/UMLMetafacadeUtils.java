@@ -18,7 +18,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
-import org.omg.uml.behavioralelements.commonbehavior.DataValue;
 import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.usecases.UseCase;
