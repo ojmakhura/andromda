@@ -8,6 +8,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-23" description="First release candidate for version 3.0">
+            <action dev="carloslcuenca" type="add" >
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and 
+                <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now supports EhCache as the second level cache manager.
+                Configuration can be specify for properties, associations and querries.
+            </action>
             <action dev="carloslcuenca" type="add" issue="HIB-61">
                 The cartridge now supports dynamic-insert and dynamic-update hibernate properties for entities. 
             </action>
