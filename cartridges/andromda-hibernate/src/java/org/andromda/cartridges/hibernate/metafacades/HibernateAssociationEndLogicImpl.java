@@ -1,13 +1,13 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd.
  * 
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd
- * 
  */
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
@@ -37,7 +37,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsLazy()
     {
-        String lazyString = (String) findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        String lazyString = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
         boolean lazy;
 
         if (lazyString == null)
@@ -53,25 +53,47 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
+     * Stores the default outerjoin setting for this association end.
+     */
+    private static final String PROPERTY_ASSOCIATION_OUTERJOIN = "hibernateAssociationEndOuterJoin";
+
+    /**
+     * Defines the <code>true</code> value for the hibernate outer join
+     * option.
+     */
+    public static final String OUTER_JOIN_TRUE = "true";
+
+    /**
+     * Defines the <code>false</code> value for the hibernate outer join
+     * option.
+     */
+    public static final String OUTER_JOIN_FALSE = "false";
+
+    /**
+     * Defines the <code>auto</code> value for the hibernate outer join
+     * option.
+     */
+    public static final String OUTER_JOIN_AUTO = "auto";
+
+    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOuterJoin()
      */
-    protected String handleGetOuterJoin() 
+    protected String handleGetOuterJoin()
     {
-        String outerJoin=null;
-     
         Object value = this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_OUTER_JOIN);
-        outerJoin= (String)value;
-        if ((outerJoin != null) &&    
-            ((outerJoin.equalsIgnoreCase("true")) || (outerJoin.equalsIgnoreCase("false")) 
-                || (outerJoin.equalsIgnoreCase("auto"))))
+        if (value == null)
         {
-            return outerJoin;   
+            value = this.getConfiguredProperty(PROPERTY_ASSOCIATION_OUTERJOIN);
         }
-        else
+        String outerJoin = StringUtils.trimToEmpty(String.valueOf(value));
+        if (!outerJoin.equalsIgnoreCase(OUTER_JOIN_AUTO)
+            && !outerJoin.equalsIgnoreCase(OUTER_JOIN_FALSE)
+            && !outerJoin.equalsIgnoreCase(OUTER_JOIN_TRUE))
         {
-             return null;
+            outerJoin = null;
         }
+        return outerJoin;
     }
 
 }
