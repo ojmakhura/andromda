@@ -82,8 +82,8 @@
  ...
 ]]></source>
         <p>
-            This way the cartridge will try to load resources (templates, images, etc.) from /opt/custom
-            prior to loading them from the cartridge-jar.
+            This way the cartridge will try to load resources (templates, images, etc.) from
+            <code>/opt/custom</code> prior to loading them from the cartridge-jar.
         </p>
         <p class="highlight">
            When loading resources from the merge location you will need to respect the same directory structure
