@@ -29,7 +29,7 @@ public class StrutsActionLogicImpl
     extends StrutsActionLogic
 {
     private Collection actionStates = null;
-    private Collection actionForwards = null;
+    private Map actionForwards = null;
     private Collection decisionTransitions = null;
     private Collection transitions = null;
 
@@ -43,7 +43,7 @@ public class StrutsActionLogicImpl
     private void initializeCollections()
     {
         actionStates = new HashSet();
-        actionForwards = new HashSet();
+        actionForwards = new HashMap();
         decisionTransitions = new HashSet();
         transitions = new HashSet();
         collectTransitions(this, transitions);
@@ -60,12 +60,15 @@ public class StrutsActionLogicImpl
         final StateVertexFacade target = transition.getTarget();
         if ((target instanceof StrutsJsp) || (target instanceof StrutsFinalState))
         {
-            actionForwards.add(transition);
+            if (!actionForwards.containsKey(transition.getTarget()))
+            {
+                actionForwards.put(transition.getTarget(), transition);
+            }
         }
         else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
-            Collection outcomes = target.getOutgoing();
+            final Collection outcomes = target.getOutgoing();
             for (Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
                 TransitionFacade outcome = (TransitionFacade) iterator.next();
@@ -75,7 +78,7 @@ public class StrutsActionLogicImpl
         else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
-            StrutsForward forward = ((StrutsActionState) target).getForward();
+            final StrutsForward forward = ((StrutsActionState) target).getForward();
             if (forward != null)
             {
                 collectTransitions(forward, processedTransitions);
@@ -83,7 +86,7 @@ public class StrutsActionLogicImpl
         }
         else    // all the rest is ignored but outgoing transitions are further processed
         {
-            Collection outcomes = target.getOutgoing();
+            final Collection outcomes = target.getOutgoing();
             for (Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
                 TransitionFacade outcome = (TransitionFacade) iterator.next();
@@ -441,7 +444,7 @@ public class StrutsActionLogicImpl
     protected Collection handleGetActionForwards()
     {
         if (actionForwards == null) initializeCollections();
-        return actionForwards;
+        return actionForwards.values();
     }
 
     protected Collection handleGetDecisionTransitions()
@@ -506,7 +509,7 @@ public class StrutsActionLogicImpl
 
     protected Collection handleGetActionFormFields()
     {
-        Map formFieldMap = new HashMap();
+        final Map formFieldMap = new HashMap();
 
         /**
          * for useCaseStart actions we need to detect all usecases forwarding to the one belonging to this action
@@ -584,7 +587,7 @@ public class StrutsActionLogicImpl
                 for (Iterator forwardParameterIterator = forwardParameters.iterator(); forwardParameterIterator.hasNext();)
                 {
                     ModelElementFacade facade = (ModelElementFacade) forwardParameterIterator.next();
-                    if (formFieldMap.containsKey(facade.getName()) == false)
+                    if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(facade.getName(), facade);
                     }
