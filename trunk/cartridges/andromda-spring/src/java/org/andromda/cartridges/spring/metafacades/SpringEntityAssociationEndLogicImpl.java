@@ -155,8 +155,7 @@ public class SpringEntityAssociationEndLogicImpl
                     .getOtherEnd().getType().getFullyQualifiedName(true));
                 int compareTo = endTypeName.compareTo(otherEndTypeName);
                 // if for some reason the fully qualified names are equal,
-                // compare
-                // the names.
+                // compare the names.
                 if (compareTo == 0)
                 {
                     String endName = StringUtils.trimToEmpty(this.getName());
