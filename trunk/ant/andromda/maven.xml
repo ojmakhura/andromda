@@ -16,7 +16,7 @@
     </preGoal>
     
     <postGoal name="jar:jar">
-    	<!-- create over the initialization build file -->
+    	<!-- merge over the initialization build file -->
 	    <velocity:merge
 			name="${maven.build.dir}/build.xml"
 			basedir="${maven.src.dir}/templates"
