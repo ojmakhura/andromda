@@ -121,7 +121,10 @@
                             <td>@andromda.struts.view.field.type</td>
                             <td>Parameter</td>
                             <td>text</td>
-                            <td>Indicates the type of parameter, this information will be used when rendering the pages, possible values are: text, textarea, checkbox, radio, select, password and hidden. One of the tables below give some more information</td>
+                            <td>Indicates the type of parameter, this information will be used when rendering the pages,
+                                possible values are: text, textarea, checkbox, radio, select, password and hidden.
+                                One of the tables below give some more information about field formats, for a list of
+                                possible types see <a href="user-guide.html#Field_Types">this page</a></td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.view.field.required</td>
