@@ -23,7 +23,7 @@ var BUL_YEARSCROLL = true;
 
 var FORMAT = 'dd/MM/yyyy';
 
-var calendars = [];
+var calendars = new Array();
 
 function calendar1(obj_target) {
 
@@ -40,7 +40,7 @@ function calendar1(obj_target) {
 	this.target = obj_target;
 	this.time_comp = BUL_TIMECOMPONENT;
 	this.year_scroll = BUL_YEARSCROLL;
-	this.date_format = FORMAT;
+	this.date_format = String(FORMAT);
 
 	// register in global collections
 	this.id = calendars.length;
@@ -70,7 +70,7 @@ function parseDateTime(value)
 {
     if (value == null || value.length==0) return new Date();
 
-    var format = String(this.date_format);
+    var format = this.date_format;
 
     var yearRegExp = new RegExp('y+');
     var yearFormat = String(yearRegExp.exec(format));
@@ -232,7 +232,7 @@ function formatDateTime(dateTime)
         millisValue = millisValue.substring(0,millisValue.length);
     }
 
-    var format = String(this.date_format);
+    var format = this.date_format;
     format = format.replace(dayRegExp, dayValue);
     format = format.replace(monthRegExp, monthValue);
     format = format.replace(yearRegExp, yearValue);
