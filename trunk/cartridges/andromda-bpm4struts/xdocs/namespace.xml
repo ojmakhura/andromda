@@ -68,6 +68,8 @@
                     <td>decorators</td>
                     <td>
                         The location where the displaytag table decorators will be generated (if any).
+                        Files generated into this outlet will not be overwritten upon regeneration, they
+                        are meant to be edited by hand.
                     </td>
                     <td>No</td>
                 </tr>
