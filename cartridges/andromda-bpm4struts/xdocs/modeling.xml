@@ -246,20 +246,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>@andromda.struts.action.tabindex</td>
-                            <td>Action Transition</td>
-                            <td>N/A</td>
-                            <td>Denotes the tab index of the specific action. Must be a non-negative integer.</td>
-                        </tr>
-                        <tr>
-                            <td>@andromda.struts.view.field.tabindex</td>
-                            <td>Action parameter</td>
-                            <td>N/A</td>
-                            <td>Denotes the tab index of the specific action-parameter.
-                                Must be a non-negative integer. This feature allows splitting a form
-                                over several different tabs.</td>
-                        </tr>
-                        <tr>
                             <td>@andromda.struts.view.field.tablelink</td>
                             <td>Action parameter</td>
                             <td>N/A</td>
@@ -285,7 +271,7 @@
                         <tr>
                             <a name="@andromda.role.name"/>
                             <td>@andromda.role.name</td>
-                            <td>A user (indirectly) associated with a <![CDATA[<<StrutsUseCase>>]]></td>
+                            <td>A user (indirectly) associated with a <![CDATA[<<FrontEndUseCase>>]]></td>
                             <td>N/A</td>
                             <td>
                                 Optionally allows you to define the name of the role (if it needs
