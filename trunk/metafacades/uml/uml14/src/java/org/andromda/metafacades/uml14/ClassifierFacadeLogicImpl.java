@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
