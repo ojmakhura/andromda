@@ -99,7 +99,8 @@ public class ContractServiceBeanImpl
             }
 
             // Reservation is legal, so let's do it!
-            Reservation res = rlh.create(reservationDate, comfortClass);
+            // TODO: omit primary key parameter in EJB cartridge template
+            Reservation res = rlh.create(null, reservationDate, comfortClass);
             res.setCustomer(customer);
 
             // Service-Bean not used any more
