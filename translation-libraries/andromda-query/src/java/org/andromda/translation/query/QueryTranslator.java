@@ -48,6 +48,7 @@ public class QueryTranslator
     {
         super.preProcess();
         this.selectClause = new StringBuffer();
+        this.sortedByClause = new StringBuffer();
         this.declaratorCtr = 0;
     }
 
@@ -139,6 +140,23 @@ public class QueryTranslator
     public void inAPropertyCallExpression(APropertyCallExpression expression)
     {
         this.handleTranslationFragment(expression);
+    }
+
+    /**
+     * Override to handle any featureCall expressions ( i.e. sortedBy(
+     * <expression>), etc.)
+     * 
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inAFeatureCallExpression(org.andromda.core.translation.node.APropertyCallExpression)
+     */
+    public void inAFeatureCall(AFeatureCall expression)
+    {
+        // don't handl all instances here, since it's handled
+        // in the property call expression.
+        if (!TranslationUtils.trimToEmpty(expression).matches(
+            OCLFeatures.ALL_INSTANCES))
+        {
+            this.handleTranslationFragment(expression);
+        }
     }
 
     /**
@@ -238,6 +256,17 @@ public class QueryTranslator
     }
 
     /**
+     * Stores the name of the fragment that maps the tail of the select clause.
+     */
+    private static final String SELECT_CLAUSE_TAIL = "selectClauseTail";
+
+    /**
+     * Stores the name of the fragment that maps to the head of the sortedBy
+     * clause.
+     */
+    private static final String SORTED_BY_CLAUSE_HEAD = "sortedByClauseHead";
+
+    /**
      * Handles any final processing.
      */
     protected void postProcess()
@@ -245,7 +274,7 @@ public class QueryTranslator
         super.postProcess();
         // create the final translated expression
         String selectClauseTail = this
-            .getTranslationFragment("selectClauseTail");
+            .getTranslationFragment(SELECT_CLAUSE_TAIL);
         String existingExpression = StringUtils.trimToEmpty(this
             .getExpression().getTranslatedExpression());
 
@@ -260,6 +289,16 @@ public class QueryTranslator
         this.getExpression().insertInTranslatedExpression(
             0,
             selectClause.toString());
+
+        if (this.sortedByClause.length() > 0)
+        {
+            this.getExpression().appendSpaceToTranslatedExpression();
+            this.getExpression().appendToTranslatedExpression(
+                this.getTranslationFragment(SORTED_BY_CLAUSE_HEAD));
+            this.getExpression().appendSpaceToTranslatedExpression();
+            this.getExpression().appendToTranslatedExpression(
+                this.sortedByClause);
+        }
 
         // remove any extra space from parenthesis
         this.getExpression().replaceInTranslatedExpression("\\(\\s*", "(");
@@ -345,6 +384,19 @@ public class QueryTranslator
 
         this.getExpression().appendSpaceToTranslatedExpression();
         this.getExpression().appendToTranslatedExpression(translation);
+    }
+
+    private StringBuffer sortedByClause;
+
+    public void handleSortedBy(String translation, Object node)
+    {
+        if (this.sortedByClause.length() > 0)
+        {
+            this.sortedByClause.append(", ");
+        }
+        this.sortedByClause.append(TranslationUtils
+            .deleteWhitespace(ConcreteSyntaxUtils
+                .getParametersAsString((AFeatureCall)node)));
     }
 
     /*------------------------- Logical Expression Handler (and, or, xor, etc.) ----------------------*/
