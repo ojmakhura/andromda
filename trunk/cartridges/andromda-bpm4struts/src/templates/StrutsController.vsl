@@ -72,6 +72,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($returnType = false)
 
 #end
+#if ($allowDummyData)
 ## here we populate tabular data with dummy values
 #set ($quote = '"')
 #foreach ($field in $useCase.pageVariables)
@@ -135,6 +136,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
     }
 #end
 
+#end
 #end
 }
 #end
