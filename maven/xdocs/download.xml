@@ -14,7 +14,11 @@
 		      	its available cartridges.  
 	      	</p>
 	      	<p>
-	      		To download and install the plugin into your maven plugin repository, type:
+	      		To download and install the plugin into your maven plugin repository, first
+	      		make sure you are pointing to the AndroMDA team server in your
+	      		 <code>maven.repo.remote</code> property
+	      		(i.e. maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven).
+	      		Then type:
 	 			<source>	
 	maven plugin:download -DgroupId=andromda -DartifactId=maven-andromda-plugin -Dversion=3.0-SNAPSHOT
 	 			</source>     	
