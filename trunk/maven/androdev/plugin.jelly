@@ -10,6 +10,15 @@
          =================================================================== -->
     <goal name="androdev:test-translation" 
     	  description="Runs the translation tests for any translator test XML files beginning with 'Translation-Test'">
+       
+        <j:set var="modelValidation" value="${maven.androdev.translation.test.model.validation}"/>
+     
+        <j:if test="${modelValidation}">
+			<j:set var="modelUri" value="${maven.androdev.model.uri}"/>
+			<maven:param-check value="${modelUri}" fail="true">
+Please define the location of your model by setting a value for property "maven.androdev.model.uri".
+			</maven:param-check> 
+		</j:if>
         <ant:echo>+-------------------------------------------+</ant:echo>
         <ant:echo>|   T E S T I N G   T R A N S L A T I O N   |</ant:echo>
         <ant:echo>+-------------------------------------------+</ant:echo> 
@@ -72,7 +81,7 @@
 		
 		<j:set
 			var="model.validation"
-			value="${maven.androdev.translation.test.model.validation}"
+			value="${modelValidation}"
 			scope="parent"/>
 			
 		<j:set 
