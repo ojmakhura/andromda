@@ -6,7 +6,6 @@
 //
 package $entity.packageName;
 
-#set ($superEntity = $entity.generalization)
 #set ($valueObjectReferences = $entity.valueObjectReferences)
 /**
  * <p>
@@ -17,8 +16,8 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedEntityName
  */
 public abstract class $entity.daoBaseName
-#if($superEntity)
-    extends $superEntity.fullyQualifiedDaoBaseName
+#if($entity.generalization)
+    extends $entity.generalization.fullyQualifiedDaoImplementationName
 #else
     extends org.springframework.orm.hibernate.support.HibernateDaoSupport
 #end

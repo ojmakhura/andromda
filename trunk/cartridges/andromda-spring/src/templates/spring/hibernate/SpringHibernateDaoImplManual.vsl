@@ -10,11 +10,7 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedName
  */
 public class $entity.daoImplementationName
-#if($superclass)
-    extends $superclass.fullyQualifiedDaoImplementationName
-#else
     extends $entity.fullyQualifiedDaoBaseName
-#end
 {
 #foreach ($operation in $entity.daoBusinessOperations)
 #set ($returnType = $operation.returnType)
