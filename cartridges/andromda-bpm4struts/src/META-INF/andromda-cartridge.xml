@@ -16,7 +16,8 @@
     <!-- copy resources -->
     <resource
         path="resources/*.png"
-        outlet="pages/layout"
+		outputPattern="layout/{0}"
+        outlet="pages"
         overwrite="true"/>
 
     <!-- process templates on model elements -->

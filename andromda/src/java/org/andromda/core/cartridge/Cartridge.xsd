@@ -62,6 +62,8 @@
 	<xs:complexType name="resourceType">
 		<!-- the resource to process -->
 		<xs:attribute name="path" type="xs:string" use="required"/>
+        <!-- the pattern to use for defining output -->
+        <xs:attribute name="outputPattern" type="xs:string" use="required"/>
 		<xs:attribute name="outlet" type="xs:string" use="required"/>
 		<!-- true/false on whether we should overwrite results of previous run -->
 		<xs:attribute name="overwrite" type="xs:boolean" use="required"/>
@@ -80,9 +82,6 @@
                     <xs:sequence>
                        <xs:element ref="modelElements" minOccurs="0" maxOccurs="1"/>
                     </xs:sequence>
-                    <!-- the pattern to output {0} - represents the package, {1}, 
-                         represents the class name -->
-                    <xs:attribute name="outputPattern" type="xs:string" use="required"/>
                     <!-- true/false on whether we should allow generation of empty files-->
                     <xs:attribute name="generateEmptyFiles" type="xs:boolean"/>
                     <!-- if this flag is set to true, then all model elments

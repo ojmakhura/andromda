@@ -429,7 +429,7 @@ public class Cartridge
         if (resourceUrl == null)
         {
             // if the resourceUrl is null, the path is probably a regular
-            // expression pattern so we'll see if we can match it against 
+            // expression pattern so we'll see if we can match it against
             // the contents of the plugin and write any contents that do
             List contents = this.getContents();
             if (contents != null)
@@ -440,9 +440,10 @@ public class Cartridge
                     String content = (String)contentIt.next();
                     if (StringUtils.isNotEmpty(content))
                     {
-                        if (PathMatcher.wildcardMatch(content, resource.getPath()))
+                        if (PathMatcher.wildcardMatch(content, resource
+                            .getPath()))
                         {
-                            resourceUrl = ResourceUtils.getResource(content); 
+                            resourceUrl = ResourceUtils.getResource(content);
                             this.writeResource(resource, resourceUrl);
                         }
                     }
@@ -451,13 +452,13 @@ public class Cartridge
         }
         else
         {
-            this.writeResource(resource, resourceUrl);   
+            this.writeResource(resource, resourceUrl);
         }
     }
 
     /**
-     * Writes the contents of <code>resourceUrl</code> 
-     * to the outlet specified by the <code>resource</code>.
+     * Writes the contents of <code>resourceUrl</code> to the outlet specified
+     * by the <code>resource</code>.
      * 
      * @param resource contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
@@ -488,7 +489,10 @@ public class Cartridge
                     // remove the extra slash
                     outletLocation = outletLocation.replaceFirst(slash, "");
                 }
-                outFile = new File(outletLocation, uriSuffix);
+                outFile = resource.getOutputLocation(new String[]
+                {
+                    uriSuffix
+                }, new File(outletLocation));
                 OutputUtils.writeUrlToFile(resourceUrl, new File(
                     outletLocation,
                     uriSuffix).toString());
@@ -507,24 +511,26 @@ public class Cartridge
             throw new CartridgeException(errMsg, th);
         }
     }
-    
+
     /**
      * Creates a File object from an output pattern in the template
      * configuration.
      * 
      * @param modelElementName the name of the model element
      * @param packageName the name of the package
-     * @param tc the template configuration
+     * @param template the template.
      * @return File the output file
      */
     private File outputFileFromTemplateConfig(
         String modelElementName,
         String packageName,
-        Template tc,
+        Template template,
         String outputLocation)
     {
-        return tc.getOutputLocation(modelElementName, packageName, new File(
-            outputLocation));
+        return template.getOutputLocation(
+            modelElementName,
+            packageName,
+            new File(outputLocation));
     }
 
     /**

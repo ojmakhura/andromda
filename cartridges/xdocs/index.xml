@@ -283,16 +283,23 @@
             <td align="center"><b>Required?</b></td>
           </tr>
           <tr>
-            <td>path</td>
+            <td>
+				path
+			</td>
             <td>
                 Specifies the path (relative to the cartridge root)
                 for a template (*.vsl) file to use for code generation.
             </td>
-            <td >Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
-            <td>outputPattern</td>
-            <td>Specifies a pattern in
+            <td>
+				outputPattern
+			</td>
+            <td>
+				Specifies a pattern in
                  <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
                    java.text.MessageFormat</a> syntax.
                  You can use this pattern to tell AndroMDA how to construct
@@ -303,28 +310,40 @@
                  <code>{1}</code> stands for the class name.<br />
                  See example above.
             </td>
-            <td>Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
-            <td>outlet</td>
             <td>
-                   Specifies the logical name of the outlet
+				outlet
+			</td>
+            <td>
+                 Specifies the logical name of the outlet
                  where the cartridge will write the output files
                  caused by this template.
             </td>
-            <td>Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
-            <td>overwrite</td>
+            <td>
+				overwrite
+			</td>
             <td>
                 Specifies whether the files already specified by the
                 <code>outlet</code> attribute should be overwritten
                 when AndroMDA runs the next time.
             </td>
-            <td>Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
-            <td>generateEmptyFiles</td>
+            <td>
+				generateEmptyFiles
+			</td>
             <td>
                 Specifies whether files should be generated even if the template did not produce
                 any output. This can be used by the cartridge developer to decide if a certain file should be generated
@@ -381,7 +400,9 @@
             <td align="center"><b>Required?</b></td>
           </tr>
           <tr>
-            <td>path</td>
+            <td>
+				path
+			</td>
             <td>
                 Specifies the path (relative to the cartridge root)
                 for a resource file to be copied to an outlet. You can use the asterisk wilcard
@@ -389,23 +410,53 @@
                 The matching will start relatively to the root of the cartridge, similar to the values
                 used in the path attribute of the <![CDATA[<template/>]]> tag.
             </td>
-            <td >Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
-            <td>outlet</td>
+            <td>
+				outputPattern
+			</td>
+            <td>
+				Specifies a pattern in
+                 <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
+                   java.text.MessageFormat</a> syntax.
+                 You can use this pattern to tell AndroMDA how to construct
+                 the resource output file names. The pattern can consist of any ordinary
+                 printable characters as well as some predefined placeholders
+                 for things that AndroMDA already knows about: <br/>
+                 <code>{0}</code> stands for the name of the resource 
+				 file contained within your cartridge.<br/>
+                 See example below.
+            </td>
+            <td>
+				Yes.
+			</td>
+          </tr>
+          <tr>
+            <td>
+				outlet
+			</td>
             <td>
                  Specifies the logical name of the outlet where the cartridge will copy this resource.
             </td>
-            <td>Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
-            <td>overwrite</td>
+            <td>
+				overwrite
+			</td>
             <td>
                 Specifies whether the files already specified by the
                 <code>outlet</code> attribute should be overwritten
                 when AndroMDA runs the next time.
             </td>
-            <td>Yes.</td>
+            <td>
+				Yes
+			</td>
           </tr>
           <tr>
               <td>
@@ -420,19 +471,21 @@
                   define a property matching the outlet name.
               </td>
               <td>
-                  No, default is <code>true</code>.
+                  No, default is <code>true</code>
               </td>
           </tr>
         </table>
 		<p>
-		    This example would copy all <code>.jar</code> files to the 
-			location defined by the <em>libs</em> outlet.
+            This example would copy all <code>.jar</code> files to the 
+            location defined by the <em>resource</em> outlet within
+            the <code>lib</code> directory.
 		</p>
 		<source>
 <![CDATA[
 <resource
     path="**/*.jar"
-    outlet="libs"
+    outputPattern="lib/{0}"
+    outlet="resources"
     overwrite="false"/> 
      ]]></source>
     </section>

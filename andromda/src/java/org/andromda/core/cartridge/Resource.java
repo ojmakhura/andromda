@@ -1,7 +1,11 @@
 package org.andromda.core.cartridge;
 
+import java.io.File;
+import java.text.MessageFormat;
+
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>
@@ -37,6 +41,12 @@ public class Resource
      * Stores the cartridge that owns this resource.
      */
     private Cartridge cartridge;
+    
+    /**
+     * Stores the output pattern for which the resource(s)
+     * should be written.
+     */
+    private String outputPattern;
 
     /**
      * Gets the logical location to which output from this resource will be
@@ -58,6 +68,40 @@ public class Resource
     public void setOutlet(String outlet)
     {
         this.outlet = outlet;
+    }
+    
+    /**
+     * Returns the fully qualified name of the resource
+     * output to be written, this means:
+     * 
+     * <ul>
+     * <li>the output pattern has been translated</li>
+     * <li>the output directory name has been prepended</li>
+     * </ul>
+     * 
+     * @param argument any arguments to be inserted into the 
+     *        MessageFormat style messages.
+     * @param directory the directory to which output will be written.
+     * @return File absolute directory.
+     */
+    public File getOutputLocation(
+        String[] arguments,
+        File directory)
+    {
+        File file = null;
+        // clean any whitespace off the arguments
+        if (directory != null && arguments != null && arguments.length > 0)
+        {
+            for (int ctr = 0; ctr < arguments.length; ctr++)
+            {
+                arguments[ctr] = StringUtils.trimToEmpty(arguments[ctr]);
+            }
+            String outputFileName = 
+                MessageFormat.format(this.getOutputPattern(), arguments);
+
+            file = new File(directory, outputFileName);
+        }
+        return file;
     }
 
     /**
@@ -153,5 +197,25 @@ public class Resource
     public void setCartridge(Cartridge cartridge)
     {
         this.cartridge = cartridge;
+    }
+    
+    /**
+     * Sets the pattern that is used to build the name of the output file.
+     * 
+     * @param outputPattern the pattern in java.text.MessageFormat syntax
+     */
+    public void setOutputPattern(String outputPattern)
+    {
+        this.outputPattern = outputPattern;
+    }
+
+    /**
+     * Gets the pattern that is used to build the name of the output file.
+     * 
+     * @return String the pattern in java.text.MessageFormat syntax
+     */
+    public String getOutputPattern()
+    {
+        return StringUtils.trimToEmpty(this.outputPattern);
     }
 }
