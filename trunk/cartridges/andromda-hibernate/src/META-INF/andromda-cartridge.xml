@@ -28,7 +28,6 @@
     <property reference="hibernateTransactionFactoryClass" default="net.sf.hibernate.transaction.JTATransactionFactory"/>
     <property reference="hibernateTransactionManagerStrategy" default=""/>
     <property reference="hibernateUserTransactionName" default="UserTransaction"/>
-    <property reference="hibernateTransactionManagerStrategy" default=""/>
     <property reference="hibernateTransactionManagerLookup" default=""/>
     <property reference="hibernateUseOuterJoin" default=""/>
     <property reference="hibernateShowSql" default=""/>
