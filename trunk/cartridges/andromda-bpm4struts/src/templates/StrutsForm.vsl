@@ -34,7 +34,6 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
 #foreach ($validatorType in $validatorTypes)
      * @struts.validator
      *          type="$validatorType"
-     *  arg0resource="${messageKey}.$field.validatorMsgKey"
 #foreach ($validatorArg in $field.getValidatorArgs($validatorType))
      *     arg${velocityCount}value="$validatorArg"
 #end
@@ -44,12 +43,17 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
      * @struts.validator-var
      *          name="$validatorVar.get(0)"
      *         value="$validatorVar.get(1)"
+     *
 #end
 #if ($field.validWhen)
      * @struts.validator-var
      *          name="test"
      *         value="$field.validWhen"
+     *
 #end
+     * @struts.validator-args
+     *  arg0resource="${messageKey}.$field.validatorMsgKey"
+     *
      */
 #end
     public void ${field.setterName}($fieldType $fieldName)
