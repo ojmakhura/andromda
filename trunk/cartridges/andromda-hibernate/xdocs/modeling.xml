@@ -150,6 +150,20 @@
 			          		The name of an index to create on an entity attribute/column.
 			          	</td>
 					</tr>     		        	        	      	        	        		        	        	        	     	             	        	
+                      <tr>
+                          <a name="@andromda.hibernate.lazy"/>
+                            <td>
+                              @andromda.hibernate.lazy
+                            </td>
+                          <td>
+                              association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                          </td>
+                            <td>
+                                Used to denote how a relationship must be loaded: <code>true</code> for <code>lazy</code>,
+                                <code>false</code> for <code>eager</code>. Defaults to <code>false</code> for composite
+                                relationships and defaults to <code>true</code> for the other kinds.
+                            </td>
+                      </tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
