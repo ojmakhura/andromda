@@ -32,12 +32,12 @@
         <dependency>
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.6.2</version>
+            <version>${ant}</version>
         </dependency>
         <dependency>
             <groupId>velocity</groupId>
             <artifactId>velocity</artifactId>
-            <version>1.4</version>
+            <version>${velocity}</version>
             <properties>
                 <jar.bundle>true</jar.bundle>
                 <jar.manifest.classpath>true</jar.manifest.classpath>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.1</version>
+     		<version>${commonsCollections}</version>
             <properties>
                 <jar.bundle>true</jar.bundle>
                 <jar.manifest.classpath>true</jar.manifest.classpath>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.0</version>
+            <version>${commonsIo}</version>
             <properties>
                 <jar.bundle>true</jar.bundle>
                 <jar.manifest.classpath>true</jar.manifest.classpath>

@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>maven-andromdapp-plugin</id>
+  	<artifactId>maven-andromdapp-plugin</artifactId>
   	<name>AndroMDApp Maven Plugin</name>
   	<shortDescription>AndroMDApp Maven Plugin</shortDescription>
   	<description>
@@ -23,7 +23,7 @@
 	    <dependency>
 	      	<groupId>velocity</groupId>
 	      	<artifactId>velocity</artifactId>
-	      	<version>1.4</version>
+	      	<version>${velocity}</version>
 	    </dependency>
 	    <dependency>
 	      	<groupId>commons-jelly</groupId>

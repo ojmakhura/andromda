@@ -17,11 +17,7 @@
         <ant:echo>+---------------------------------------------------------------------+</ant:echo> 
                 
         <ant:mkdir dir="${projectId}"/>
-        
-        <ant:copy 
-            file="${templatesDir}/project.properties" 
-            tofile="${projectId}/project.properties"/>
-          
+                  
         <velocity:merge 
             name="${projectId}/.project"
             basedir="${templatesDir}"

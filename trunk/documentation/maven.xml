@@ -9,8 +9,11 @@
     <goal name="build">
         <attainGoal name="multiproject:site"/>
         <attainGoal name="add-style"/>
+        <j:set var="samples.dir" value="${basedir}/../samples"/>
         <!-- copy the animal-quiz model into the resources directory -->
-        <ant:copy file="../samples/animal-quiz/mda/src/uml/AnimalQuiz.xml.zip" todir="${maven.docs.dest}/resources"/>
+        <ant:copy file="${samples.dir}/animal-quiz/mda/src/uml/AnimalQuiz.xml.zip" todir="${maven.docs.dest}/resources"/>
+        <!-- copy the car-rental-system model into the resources directory -->
+        <ant:copy file="${samples.dir}/car-rental-system/mda/src/uml/CarRentalSample.zargo" todir="${maven.docs.dest}/resources"/>
         <!-- unpack the UmlDoc coming with the car-rental-sample so users can browse it -->
         <ant:unzip src="${maven.docs.dest}/resources/car-rental-umldoc.zip" dest="${maven.docs.dest}"/>
         <!-- zip it all up -->

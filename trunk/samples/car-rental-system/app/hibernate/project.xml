@@ -48,7 +48,7 @@
   		<dependency>
      		<groupId>commons-beanutils</groupId>
       		<artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
+            <version>${commonsBeanutils}</version>
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
@@ -57,7 +57,7 @@
   		<dependency>
      		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>
-            <version>3.1</version>
+     		<version>${commonsCollections}</version>
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
@@ -65,7 +65,7 @@
   		<dependency>
      		<groupId>commons-lang</groupId>
       		<artifactId>commons-lang</artifactId>
-        	<version>2.0</version>
+        	<version>${commonsLang}</version>
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
@@ -73,7 +73,7 @@
   		<dependency>
      		<groupId>hibernate</groupId>
       		<artifactId>hibernate</artifactId>
-        	<version>2.1.2</version>
+        	<version>${hibernate}</version>
 			<properties>
 				<ear.bundle>true</ear.bundle>
 			</properties>
@@ -81,7 +81,7 @@
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>2.0-rc2</version>
+			<version>${cglib}</version>
 			<properties>
 				<ear.bundle>true</ear.bundle>
 			</properties>
@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
-			<version>1.4</version>
+			<version>${dom4j}</version>
 			<properties>
 				<ear.bundle>true</ear.bundle>
 			</properties>
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>odmg</groupId>
 			<artifactId>odmg</artifactId>
-			<version>3.0</version>
+			<version>${odmg}</version>
 			<properties>
 				<ear.bundle>true</ear.bundle>
 			</properties>
@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-			<version>0.7</version>
+			<version>${ehcache}</version>
 			<properties>
 				<ear.bundle>true</ear.bundle>
 			</properties>
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
-			<version>1.4.1</version>
+			<version>${asm}</version>
 			<properties>
 				<ear.bundle>true</ear.bundle>
 			</properties>
