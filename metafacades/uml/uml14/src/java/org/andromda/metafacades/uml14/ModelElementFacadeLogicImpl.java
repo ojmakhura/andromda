@@ -26,10 +26,7 @@ import org.omg.uml.modelmanagement.Model;
 
 
 /**
- *
- *
  * Metaclass facade implementation.
- *
  */
 public class ModelElementFacadeLogicImpl
        extends ModelElementFacadeLogic
