@@ -39,7 +39,7 @@ public class $serviceLocatorName
     }
 
     /**
-     * The shared instance of this ${serviceLocatorName}.
+     * The shared instance of this $serviceLocatorName.
      */
     private final static $serviceLocatorName instance = new $serviceLocatorName();
 
@@ -85,7 +85,7 @@ public class $serviceLocatorName
 
 #foreach ($service in $services)
     /**
-     * Gets an instance of <code>${service.fullyQualifiedName}</code>
+     * Gets an instance of {@link $service.fullyQualifiedName}
      */
     public final ${service.fullyQualifiedName} get${service.name}()
     {
