@@ -77,7 +77,7 @@ public class MDRXmiReferenceResolverContext
                 String modelUrlAsString = findModuleURL(suffix);
                 if (StringUtils.isNotBlank(modelUrlAsString))
                 {
-                    modelUrl = getValidURL(modelUrlAsString);
+                    modelUrl = this.getValidURL(modelUrlAsString);
                 }
                 if (modelUrl == null)
                 {
@@ -86,8 +86,15 @@ public class MDRXmiReferenceResolverContext
                 }
                 if (modelUrl == null)
                 {
+                    //check the directory on the same level
+                    System.out.println("suffixWithExtension: " + systemId);
+                    modelUrl = this.getValidURL(systemId);
+                }
+                if (modelUrl == null)
+                {
                     // Give up and let superclass deal with it.
-                    modelUrl = super.toURL(systemId);
+                    modelUrl = super.toURL("jar:file:" + suffix + "!/" + suffixWithExt);
+                    System.out.println("gett the model url!!!!: " +"jar:file:" + suffix + "!/" + suffixWithExt);
                 }
             }
             // if we've found the module model, log it
@@ -96,6 +103,7 @@ public class MDRXmiReferenceResolverContext
             if (modelUrl != null)
             {
                 AndroMDALogger.info("Referenced model --> '" + modelUrl + "'");
+                System.out.println("referenced model: " + modelUrl);
                 urlMap.put(suffixWithExt, modelUrl);
             }
         }

@@ -17,10 +17,8 @@
 #set ($identifier = $entity.identifiers.iterator().next())
 		<id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
 #if ($entity.child)
-#set ($parent = $entity.parent)
-#set ($parentPropertyName = $stringUtils.uncapitalize($parent.name))
 			<generator class="foreign">
-			     <param name="property">$parentPropertyName</param>
+			     <param name="property">$entity.parentEnd.name</param>
 			</generator>
 #else
 			<generator class="$entity.hibernateGeneratorClass">

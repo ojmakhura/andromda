@@ -1,14 +1,18 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.cartridge.CartridgeHelper;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
 
 
 /**
@@ -137,8 +141,7 @@ public class StrutsParameterLogicImpl
     protected java.lang.String handleGetGetterName()
     {
         String prefix = isValidatorBoolean(getFullyQualifiedName(true)) ? "is" : "get";
-        return StringUtils.trimToEmpty(prefix)
-            + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
+        return StringUtils.trimToEmpty(prefix) + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**
@@ -146,7 +149,7 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetSetterName()
     {
-        return "set" + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
+        return "set" + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**

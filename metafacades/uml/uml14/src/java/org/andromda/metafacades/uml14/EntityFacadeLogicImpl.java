@@ -314,12 +314,12 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getParent()
+     * @see org.andromda.metafacades.uml.EntityFacade#getParentEnd()
      */
-    public Object handleGetParent()
+    public Object handleGetParentEnd()
     {
-        Object parent = null;
-        AssociationEndFacade parentEnd = (AssociationEndFacade)CollectionUtils
+        Object parentEnd = null;
+        AssociationEndFacade end = (AssociationEndFacade)CollectionUtils
             .find(this.getAssociationEnds(), new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -328,19 +328,19 @@ public class EntityFacadeLogicImpl
                         .isComposition();
                 }
             });
-        if (parentEnd != null)
+        if (end != null)
         {
-            parent = parentEnd.getOtherEnd().getType();
+            parentEnd = end.getOtherEnd();
         }
-        return parent;
+        return parentEnd;
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getChildren()
      */
-    public Collection handleGetChildren()
+    public Collection handleGetChildEnds()
     {
-        Collection parentEnds = new FilteredCollection(this
+        Collection childEnds = new FilteredCollection(this
             .getAssociationEnds())
         {
             public boolean evaluate(Object object)
@@ -348,14 +348,14 @@ public class EntityFacadeLogicImpl
                 return ((AssociationEndFacade)object).isComposition();
             }
         };
-        CollectionUtils.transform(parentEnds, new Transformer()
+        CollectionUtils.transform(childEnds, new Transformer()
         {
             public Object transform(Object object)
             {
                 return ((AssociationEndFacade)object).getOtherEnd();
             }
         });
-        return parentEnds;
+        return childEnds;
     }
     
     /**
