@@ -405,7 +405,7 @@ public class HibernateAssociationEndLogicImpl
                 && HibernateEntity.class.isAssignableFrom(type.getClass()))
             {
              HibernateEntity entity = (HibernateEntity)type;
-             indexName=entity.findAttribute(indexName).getFullyQualifiedName();
+             indexName=entity.findAttribute(indexName).getType().getFullyQualifiedName();
             }
         return indexName;
     }
