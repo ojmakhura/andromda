@@ -548,12 +548,23 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetHibernateGeneratorClass()
     {
-        String hibernateGeneratorClass = (String)this
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
-        if (StringUtils.isBlank(hibernateGeneratorClass))
+        String hibernateGeneratorClass;
+        // if the entity is using a foreign identifier, then
+        // we automatically set the identifier generator 
+        // class to be foreign
+        if (this.isUsingForeignIdentifier())
+        {
+            hibernateGeneratorClass = HIBERNATE_GENERATOR_CLASS_FOREIGN;
+        }
+        else
         {
             hibernateGeneratorClass = (String)this
-                .getConfiguredProperty("defaultHibernateGeneratorClass");
+                .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
+            if (StringUtils.isBlank(hibernateGeneratorClass))
+            {
+                hibernateGeneratorClass = (String)this
+                    .getConfiguredProperty("defaultHibernateGeneratorClass");
+            }
         }
         return hibernateGeneratorClass;
     }
