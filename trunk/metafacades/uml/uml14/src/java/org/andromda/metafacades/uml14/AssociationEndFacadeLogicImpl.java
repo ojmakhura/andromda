@@ -219,9 +219,7 @@ public class AssociationEndFacadeLogicImpl
         return metaObject.getAssociation();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     public String handleGetGetterSetterTypeName()
