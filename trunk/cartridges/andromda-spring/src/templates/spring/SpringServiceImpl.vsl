@@ -10,16 +10,16 @@ package $service.packageName;
  * @see $service.fullyQualifiedName
  */
 public class $service.implementationName
-	extends $service.fullyQualifiedBaseName
+    extends $service.fullyQualifiedBaseName
 {
-    
+
 #foreach ( $operation in $service.operations )
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.implementationSignature)
-	/**
-	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
-	 */
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
     protected $returnType.fullyQualifiedName $signature
         throws java.lang.Exception
     {
@@ -35,8 +35,8 @@ public class $service.implementationName
 #end
 #else
         throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${signature} Not implemented!");
-#end 
+#end
     }
-	
+
 #end
 }

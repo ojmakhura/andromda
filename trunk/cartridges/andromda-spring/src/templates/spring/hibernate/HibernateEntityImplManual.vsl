@@ -11,8 +11,8 @@ package $entity.packageName;
  */
 public class ${entity.entityImplementationName}
 #set ($superEntity = $entity.generalization)
-#if($superEntity)  
-	extends $superEntity.fullyQualifiedEntityImplementationName
+#if($superEntity)
+    extends $superEntity.fullyQualifiedEntityImplementationName
 #else
     extends $entity.fullyQualifiedEntityName
 #end
@@ -21,12 +21,12 @@ public class ${entity.entityImplementationName}
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.signature)
-	/**
-	 * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
-	 */
-    $operation.visibility $returnType.fullyQualifiedName $signature 
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
+     */
+    $operation.visibility $returnType.fullyQualifiedName $signature
 #if ($operation.exceptionsPresent)
-    	throws $operation.exceptionList
+        throws $operation.exceptionList
 #end
     {
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
@@ -41,9 +41,9 @@ public class ${entity.entityImplementationName}
 #end
 #else
         throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${signature} Not implemented!");
-#end 
+#end
     }
-	
+
 #end
 }
 #end

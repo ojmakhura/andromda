@@ -79,23 +79,23 @@ public abstract class $entity.daoBaseName
                     return transformEntity(transform, ($entity.fullyQualifiedName)entity);
                 }
             };
-	        entity = this.getHibernateTemplate().execute(callback);
-	    }
-	    catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
-	    {
+            entity = this.getHibernateTemplate().execute(callback);
+        }
+        catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
+        {
             // ignore since we just want null returned if no
             // object can be found
-	    }
-	    return entity;
+        }
+        return entity;
     }
 
-     /**
-      * @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
-      */
-     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
-     {
-         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
-     }
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
+     */
+    public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
+    }
 
 #if (!$entity.enumeration)
     /**
@@ -105,7 +105,7 @@ public abstract class $entity.daoBaseName
     {
         return ($entity.fullyQualifiedEntityName)this.create($entity.daoNoTransformationConstantName, $argumentName);
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(int transform, $entity.fullyQualifiedEntityName)
      */
@@ -140,7 +140,7 @@ public abstract class $entity.daoBaseName
     {
         return ($entity.root.fullyQualifiedEntityName)this.create($entity.daoNoTransformationConstantName, ${entity.getAttributeNameList(true,false)});
     }
-    
+
     /**
      * @see ${entity.root.fullyQualifiedDaoName}#create(boolean, ${entity.getAttributeTypeList(true, false)})
      */
@@ -171,7 +171,7 @@ public abstract class $entity.daoBaseName
     {
         return ($entity.root.fullyQualifiedEntityName)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredAttributeNameList(true,false)});
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(boolean, ${entity.getRequiredAttributeTypeList(true, false)})
      */
@@ -216,12 +216,12 @@ public abstract class $entity.daoBaseName
         }
         this.getHibernateTemplate().delete($argumentName);
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedDaoName}#remove($identifier.type.fullyQualifiedName)
      */
-	public void remove($identifier.type.fullyQualifiedName $identifier.name)
-	{
+    public void remove($identifier.type.fullyQualifiedName $identifier.name)
+    {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
 #set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
@@ -230,7 +230,7 @@ public abstract class $entity.daoBaseName
         {
             throw new IllegalArgumentException(
                 "${entity.name}.remove - '$identifier.name' can not be null");
-        } 
+        }
 #end
 #set ($loadCall = "this.load($identifier.name)")
 #if ($entity.generalization)
@@ -241,7 +241,7 @@ public abstract class $entity.daoBaseName
         {
             this.remove(entity);
         }
-	}
+    }
 
     /**
      * @see ${entity.fullyQualifiedDaoName}#remove(java.util.Collection)
@@ -275,7 +275,7 @@ public abstract class $entity.daoBaseName
 #end
         return $finderCall
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedName}#${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
@@ -302,9 +302,9 @@ public abstract class $entity.daoBaseName
         throws $finder.exceptionList
 #end
     {
-        return this.${finder.name}(transform, "$finder.query"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);  
+        return this.${finder.name}(transform, "$finder.query"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedName}#${finder.name}(int, java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
@@ -315,12 +315,12 @@ public abstract class $entity.daoBaseName
     {
         org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
         {
-            public Object doInHibernate(net.sf.hibernate.Session session) 
+            public Object doInHibernate(net.sf.hibernate.Session session)
                 throws net.sf.hibernate.HibernateException
-            {  
-                net.sf.hibernate.Query queryObject = 
+            {
+                net.sf.hibernate.Query queryObject =
                     getHibernateTemplate().createQuery(
-                        session, 
+                        session,
                         queryString);
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
@@ -338,7 +338,7 @@ public abstract class $entity.daoBaseName
                 queryObject.${setParameterOperation}($count, $argumentName);
 #end
 #end
-       
+
                 java.util.Collection results = queryObject.list();
 #if (!$finder.returnType.collectionType)
                 Object result = null;
@@ -347,8 +347,8 @@ public abstract class $entity.daoBaseName
                     if (results.size() > 1)
                     {
                         throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
-                            "More than one instance of '" 
-                                + ${finder.returnType.fullyQualifiedName}.class.getName() 
+                            "More than one instance of '"
+                                + ${finder.returnType.fullyQualifiedName}.class.getName()
                                 + "' was found when executing query --> '" + queryString + "'");
 
                     }
@@ -369,9 +369,9 @@ public abstract class $entity.daoBaseName
 #if ($finder.returnType.collectionType)
 #set ($returnStatement = "($returnType)$returnStatement")
 #end
-        return $returnStatement 
+        return $returnStatement
     }
-    
+
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #set ($returnType = $operation.returnType)
@@ -398,9 +398,9 @@ public abstract class $entity.daoBaseName
         final $entity.fullyQualifiedDaoBaseName dao = this;
         org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
         {
-            public Object doInHibernate(net.sf.hibernate.Session session) 
+            public Object doInHibernate(net.sf.hibernate.Session session)
                 throws net.sf.hibernate.HibernateException
-            {  
+            {
                 try
                 {
 #set ($call = "dao.${operation.implementationCall};")
@@ -416,23 +416,23 @@ public abstract class $entity.daoBaseName
                     throw new net.sf.hibernate.HibernateException(
                     "Error performing '${entity.fullyQualifiedDaoName}.${operation.signature}' --> " + th,
                     th);
-                }                
+                }
             }
         };
 #set ($exit = "this.getHibernateTemplate().execute(callback);")
 #if ($operation.returnTypePresent)
-        return ($returnType.fullyQualifiedName)$exit 
+        return ($returnType.fullyQualifiedName)$exit
 #else
         $exit
 #end
     }
-    
+
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
-        throws java.lang.Exception; 
-           
+        throws java.lang.Exception;
+
 #end
     /**
      * Allows transformation of entities into value objects

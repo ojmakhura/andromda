@@ -9,14 +9,14 @@ package $service.packageName;
 $service.getDocumentation(" * ")
  */
 public interface $service.name
-#if($superclass)  
-	extends $superclass.fullyQualifiedName
+#if($superclass)
+    extends $superclass.fullyQualifiedName
 #end
 {
 
 #foreach ( $operation in $service.operations )
     /**
-$operation.getDocumentation("    * ")  	
+$operation.getDocumentation("    * ")
      */
 #if ($operation.exceptionsPresent)
 #set ($exceptionList = $operation.exceptionList)
@@ -25,8 +25,8 @@ $operation.getDocumentation("    * ")
 #if ($ejbViewType.equalsIgnoreCase("remote"))
 #set ($exceptionList = $operation.getExceptionList("java.rmi.RemoteException"))
 #end
-	$operation.visibility $operation.returnType.fullyQualifiedName $operation.signature 
-    	throws $exceptionList;
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        throws $exceptionList;
 #else
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
 #end

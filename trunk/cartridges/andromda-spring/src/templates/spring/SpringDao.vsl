@@ -23,6 +23,7 @@ public interface $entity.daoName
      * This specific flag denotes no transformation will occur.
      */
     public final static int $entity.daoNoTransformationConstantName = 0;
+    
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
@@ -70,14 +71,14 @@ public interface $entity.daoName
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
      */
     public $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName);
-    
+
     /**
      * <p>
      *   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
-     *   transform the entity (into a value object for example).  By default, transformation does 
+     *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
      */
@@ -151,7 +152,7 @@ public interface $entity.daoName
 #end
     /**
      * Updates the <code>$argumentName</code> instance in the persistent store.
-     */ 
+     */
     public void update($entity.fullyQualifiedEntityName $argumentName);
 
     /**
@@ -187,7 +188,7 @@ $operation.getDocumentation("     * ")
      * <p>
      *   Does the same thing as {@link #${operation.getSignature(false)}} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #${operation.getSignature(false)}}. 
+     *   argument allows you to override the query string defined in {@link #${operation.getSignature(false)}}.
      * </p>
      */
 #if ($operation.exceptionsPresent)
@@ -206,8 +207,8 @@ $operation.getDocumentation("     * ")
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
      *   finder results will <strong>NOT</strong> be transformed during retrieval.
      *   If this flag is any of the other constants defined here
-     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
-     *   transform the entities (into value objects for example).  By default, transformation does 
+     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   transform the entities (into value objects for example).  By default, transformation does
      *   not occur.
      * </p>
      */

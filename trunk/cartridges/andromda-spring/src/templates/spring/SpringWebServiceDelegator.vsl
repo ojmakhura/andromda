@@ -9,10 +9,10 @@ package $service.packageName;
  */
 public class $service.webServiceDelegatorName
 {
-    
-	/**
-     * Gets an instance of <code>$service.fullyQualifiedName</code>  	
-	 */
+
+    /**
+     * Gets an instance of <code>$service.fullyQualifiedName</code>
+     */
 #set ($serviceGetter = "get${service.name}()")
     private final ${service.fullyQualifiedName} $serviceGetter
     {
@@ -25,20 +25,20 @@ public class $service.webServiceDelegatorName
 #end
 #foreach ($operation in $operations)
     /**
-	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
-	 */
-	$operation.visibility $operation.returnType.fullyQualifiedName $operation.signature 	 
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList 
+        throws $operation.exceptionList
 #end
     {
 #if (!$operation.returnTypePresent)
-		${serviceGetter}.${operation.name}(${operation.argumentNames});
+        ${serviceGetter}.${operation.name}(${operation.argumentNames});
 #else
-		return ${serviceGetter}.${operation.name}($operation.argumentNames);
+        return ${serviceGetter}.${operation.name}($operation.argumentNames);
 #end
-	}
-	
+    }
+
 #end
 }
 #end

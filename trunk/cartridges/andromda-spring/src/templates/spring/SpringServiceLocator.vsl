@@ -22,37 +22,37 @@ public class $serviceLocatorName
      * The default application context location.
      */
     private final String DEFAULT_CONTEXT_LOCATION = "$applicationContext";
-    
+
     /**
      * The spring application context shared instance.
      */
     private ClassPathXmlApplicationContext context = null;
-    
+
     /**
      * The application context location.
      */
     private String contextLocation;
-    
+
     private $serviceLocatorName()
     {
         // shouldn't be instantiated
     }
-    
+
     /**
      * The shared instance of this ${serviceLocatorName}.
      */
     private final static $serviceLocatorName instance = new $serviceLocatorName();
-    
+
     /**
      * Gets the shared instance of this Class
      *
      * @return the shared service locator instance.
      */
-    public static final $serviceLocatorName instance() 
+    public static final $serviceLocatorName instance()
     {
         return instance;
     }
-    
+
     /**
      * Initializes the Spring application context from
      * the given <code>applicationContextLocation</code>.  If <code>null</code>
@@ -61,12 +61,12 @@ public class $serviceLocatorName
      *
      * @param contextLocation the location of the context
      */
-    public final synchronized void init(String applicationContextLocation) 
+    public final synchronized void init(String applicationContextLocation)
     {
         contextLocation = applicationContextLocation;
         context = null;
     }
-    
+
     /**
      * Builds the Spring application context.
      */
@@ -74,14 +74,14 @@ public class $serviceLocatorName
     {
         if (context == null)
         {
-	        if (contextLocation == null)
-	        {
-	            contextLocation = DEFAULT_CONTEXT_LOCATION;
-	        }
-	        context = new ClassPathXmlApplicationContext(contextLocation);     
-	    }
+            if (contextLocation == null)
+            {
+                contextLocation = DEFAULT_CONTEXT_LOCATION;
+            }
+            context = new ClassPathXmlApplicationContext(contextLocation);
+        }
     }
-      
+
     /**
      * Gets the ApplicationContext.
      */
@@ -89,14 +89,14 @@ public class $serviceLocatorName
     {
         if (context == null)
         {
-            buildContext(); 
+            buildContext();
         }
         return context;
     }
-    
+
 #foreach ($service in $services)
     /**
-     * Gets an instance of <code>${service.fullyQualifiedName}</code>  	
+     * Gets an instance of <code>${service.fullyQualifiedName}</code>
      */
     public final ${service.fullyQualifiedName} get${service.name}()
     {

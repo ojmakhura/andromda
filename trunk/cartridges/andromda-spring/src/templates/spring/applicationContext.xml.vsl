@@ -8,7 +8,7 @@
 
     <!-- Message source for this context, loaded from localized "messages_xx" files -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename"><value>messages</value></property>										
+        <property name="basename"><value>messages</value></property>
     </bean>
 ## We define the target bean suffix based on whether or not session-ejbs
 ## have been specified, so that we can decide whether or not to define
@@ -42,7 +42,7 @@
 #end
     </bean>
 #end
-	
+
     <!-- Hibernate SessionFactory -->
     <bean id="sessionFactory" class="${sessionFactory}">
         <property name="dataSource"><ref local="dataSource"/></property>
@@ -125,9 +125,9 @@
     <bean id="transactionManager" class="$transactionManager">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
-	
+
 #end
-	
+
 #foreach($entity in $entities)
 #if (!$ejbsEnabled)
     <!-- $entity.name: transactional proxy  -->
@@ -142,7 +142,7 @@
             </props>
         </property>
     </bean>
-	
+
 #end
     <!-- $entity.name: entity implementation  -->
     <bean id="$entity.getBeanName($targetBeanSuffix)" class="$entity.fullyQualifiedDaoImplementationName">
@@ -151,11 +151,11 @@
         <property name="$entityRef.name"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
     </bean>
-	
+
 #end
 #end
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
-		
+
 #foreach($service in $services)
 #if (!$ejbsEnabled)
     <!-- Transactional proxy for: $service.name -->
@@ -164,11 +164,11 @@
         <property name="target"><ref local="$service.getBeanName(true)"/></property>
         <property name="transactionAttributes">
             <props>
-			    <prop key="*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
             </props>
         </property>
     </bean>
-	
+
 #end
     <!-- $service.name: service implementation  -->
     <bean id="$service.getBeanName($targetBeanSuffix)" class="$service.fullyQualifiedImplementationName">
@@ -181,8 +181,8 @@
 #end
 #end
     </bean>
-	
+
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
-	
+
 </beans>
