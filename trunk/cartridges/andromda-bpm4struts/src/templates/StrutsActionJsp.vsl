@@ -14,11 +14,11 @@
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
-        <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+<bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
 
-        <div class="action">
-            <h3>$action.actionTrigger.name</h3>
-            <div class="trigger">
+<div class="action">
+    <h3>$action.actionTrigger.name</h3>
+    <div class="trigger">
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 #if ($action.isHyperlink())
@@ -43,42 +43,34 @@
 #set ($onsubmit = "")
 #end
 #if ($firstFieldName)
-                <html:form action="${action.actionPath}" focus="$firstFieldName" onsubmit="$onsubmit">
+        <html:form action="${action.actionPath}" focus="$firstFieldName" onsubmit="$onsubmit">
 #else
-                <html:form action="${action.actionPath}" onsubmit="$onsubmit">
+        <html:form action="${action.actionPath}" onsubmit="$onsubmit">
 #end
 
 #foreach ($field in $actionParameters)
 #if ($field.widgetType == "hidden")
-#renderFormField($action $field "                        ")
+#renderFormField($action $field "            ")
 #end
 #end
 
-                <table cellpadding="5" cellspacing="5" border="0">
 #foreach ($field in $actionParameters)
 #if ($field.widgetType != "hidden")
-                <tr>
-                    <td><bean:message key="${messageKey}.$field.messageKey"/></td>
-                    <td>
-#renderFormField($action $field "                        ")
-                    </td>
-                </tr>
+            <p><bean:message key="${messageKey}.$field.messageKey"/></p>
+#renderFormField($action $field "                ")
 #end
 #end
-                <tr>
-                    <td>
-#renderFormButtons($action "                        ")
-                    </td>
-                </tr>
-                </table>
-                </html:form>
+            <p>
+#renderFormButtons($action "                    ")
+            </p>
+        </html:form>
 #end
-            </div>
-            <div class="triggerdoc">
-                <bean:message key="$action.documentationKey"/>
-            </div>
-        </div>
+    </div>
+    <div class="triggerdoc">
+        <bean:message key="$action.documentationKey"/>
+    </div>
+</div>
 
-        <hr class="hide"/>
-        <br class="clr"/>
+<hr class="hide"/>
+<br class="clr"/>
 #end
