@@ -3,6 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.omg.uml.behavioralelements.statemachines.SignalEvent;
 import org.omg.uml.foundation.core.Operation;
@@ -23,6 +25,18 @@ public class ParameterFacadeLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+    
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**

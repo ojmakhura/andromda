@@ -4,6 +4,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +22,18 @@ public class EntityAttributeFacadeLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+    
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**

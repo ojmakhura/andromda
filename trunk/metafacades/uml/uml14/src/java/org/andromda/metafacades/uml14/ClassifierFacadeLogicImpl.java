@@ -8,6 +8,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -37,6 +38,18 @@ public class ClassifierFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
+    }
+    
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getOperations()
      */

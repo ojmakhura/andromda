@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.EntityQueryOperationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
@@ -52,6 +53,18 @@ public class EntityFacadeLogicImpl
         {
             this.createIdentifier();
         }
+    }
+    
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**
@@ -174,8 +187,7 @@ public class EntityFacadeLogicImpl
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
                 this.getMaxSqlNameLength(),
-                this
-                    .getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**

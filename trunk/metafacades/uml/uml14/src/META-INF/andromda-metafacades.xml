@@ -13,7 +13,14 @@
     <property reference="foreignKeySuffix" default="_FK"/>
     <property reference="constraintSuffix" default="C"/>
     <property reference="sqlNameSeparator" default="_"/>
+    <property reference="classifierNameMask" default="none"/>
+    <property reference="operationNameMask" default="none"/>
+    <property reference="classifierPropertyNameMask" default="none"/>
     <property reference="roleNameMask" default="none"/>
+    <property reference="enumerationNameMask" default="none"/>
+    <property reference="entityNameMask" default="none"/>
+    <property reference="entityPropertyNameMask" default="none"/>
+    <property reference="parameterNameMask" default="none"/>
     <property reference="enableMetafacadePropertyCaching" default="true"/>
     <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">

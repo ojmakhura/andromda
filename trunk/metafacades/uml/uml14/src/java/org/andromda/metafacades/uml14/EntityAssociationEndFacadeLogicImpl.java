@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 
@@ -23,6 +24,18 @@ public class EntityAssociationEndFacadeLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
+    }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#getColumnName()()
@@ -31,7 +44,7 @@ public class EntityAssociationEndFacadeLogicImpl
     {
         String columnName = null;
         // prevent ClassCastException if the association isn't an EntityFacade
-        if (EntityFacade.class.isAssignableFrom(this.getType().getClass()))
+        if (this.getType() instanceof EntityFacade)
         {
             columnName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                 this,
