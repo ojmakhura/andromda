@@ -29,11 +29,12 @@
 #elseif ($action.isFormPost())
 #set ($nonTabbedActionParameters = $action.nonTabbedActionParameters)
 #if ($action.requiresValidation())
-#set ($onsubmit = "this.name='$action.formBeanName'; return ${action.formValidationMethodName}(this);")
+#set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #else
 #set ($onsubmit = "")
 #end
-        <html:form action="${action.actionPath}" onsubmit="$onsubmit">
+        <form name="${action.formBeanName}" action="<html:rewrite action="${action.actionPath}"/>"
+              method="post" onsubmit="$onsubmit">
 
 #if ($action.tabbed)
 #set ($tabSwitchFunction = "select${actionTrigger.name}FieldTab")
@@ -104,7 +105,7 @@
                     </tr>
                 </tbody>
             </table>
-        </html:form>
+        </form>
 #end
     </div>
     <div class="triggerdoc">
