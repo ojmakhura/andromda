@@ -32,17 +32,6 @@
 		</dependency>
 		<dependency> 
 			<groupId>andromda-cartridges</groupId>
-	  		<artifactId>andromda-hibernate-cartridge</artifactId>
-	 		<version>${pom.currentVersion}</version>
-	 		<properties>
-	 			<entities>${maven.andromda.hibernate.generated.dir}</entities>
-	 			<entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
-	 			<session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
-	 			<session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>	
-	 		</properties>
-		</dependency>
-		<dependency> 
-			<groupId>andromda-cartridges</groupId>
 	  		<artifactId>andromda-java-cartridge</artifactId>
 	 		<version>${pom.currentVersion}</version>
 	 		<properties> 		
