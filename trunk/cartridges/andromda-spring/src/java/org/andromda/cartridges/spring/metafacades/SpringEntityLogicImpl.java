@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.andromda.cartridges.spring.HibernateProfile;
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionRecorder;
@@ -738,7 +737,7 @@ public class SpringEntityLogicImpl
     private String getInheritance(GeneralizableElementFacade facade)
     {
         return (String)facade
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
     }
 
     /**
@@ -755,7 +754,6 @@ public class SpringEntityLogicImpl
         Collection attributes = getAttributes();
         Predicate pred = new Predicate()
         {
-            String defaultIdentifier = getDefaultIdentifier();
 
             public boolean evaluate(Object object)
             {
@@ -781,7 +779,7 @@ public class SpringEntityLogicImpl
         if (logger.isDebugEnabled())
             logger.debug("*** handleGetIdentifierColumn return:"
                 + (attribute == null ? null : attribute.getColumnName()));
-        columnName = attribute == null ? "ID" : attribute.getColumnName();
+        columnName = attribute == null ? getDefaultIdentifier() : attribute.getColumnName();
         return columnName;
     }
 
