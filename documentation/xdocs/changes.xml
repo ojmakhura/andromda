@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2004-12-27" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix">
+                Fix minor Spring cartridge bug (released with 3.0M3), operations on the service
+                base class now have the correct protected access. 
+            </action>
             <action dev="draftdog" type="update" issue="BPM-112">
                 Bpm4Struts now properly supports <code>datatype.File</code> in controller operations too, this was
                 still missing since the form interfaces where not properly exposing the file member. This fix is
