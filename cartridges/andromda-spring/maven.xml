@@ -12,6 +12,15 @@
     <preGoal name="xdoc:transform">
         <ant:unzip src="${howto.pictures.zip}" dest="${howto.output.dir}"/>
     </preGoal>
-    
+
+    <!-- ==================================================================
+             Generate the PDF documentation
+         ================================================================== -->
+    <postGoal name="xdoc">
+        <!-- we want to generate a pdf from the documentation -->
+        <attainGoal name="fo:fo"/>
+        <attainGoal name="pdf:pdf"/>
+    </postGoal>
+
 </project>
 
