@@ -87,4 +87,26 @@ public class SpringEntityAssociationEndLogicImpl
 
         return lazy;
     }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#isOne2OneSecondary()
+     */
+    protected boolean handleIsOne2OneSecondary()
+    {
+        boolean secondary = false;
+        Object type = this.getType();
+        Object otherType = this.getOtherEnd().getType();
+        if (type != null && SpringEntity.class.isAssignableFrom(type.getClass()) &&
+            otherType != null && SpringEntity.class.isAssignableFrom(otherType.getClass()))
+        {
+            SpringEntity entity = (SpringEntity)type;
+            SpringEntity otherEntity = (SpringEntity)otherType;
+            secondary = (this.isChild() && entity.isForeignHibernateGeneratorClass()) ||
+                otherEntity.isForeignHibernateGeneratorClass() ||
+                (!this.isNavigable() && this.getOtherEnd().isNavigable() && !this.isOne2OnePrimary());
+        }
+        return secondary;
+    }
+    
+    //($sourceEnd.child && $entity.foreignHibernateGeneratorClass) || $otherEnd.type.foreignHibernateGeneratorClass || (!$sourceEnd.navigable && $otherEnd.navigable && !$sourceEnd.one2OnePrimary)
 }
