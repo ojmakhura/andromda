@@ -34,6 +34,10 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     private CodeGenerationContext context;
 
     private Logger logger = null;
+    
+    public DefaultAndroMDACartridge() {
+    	this.resetLogger();
+    }
 
     /**
      * Cache for saving previous found model elements.
