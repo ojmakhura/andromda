@@ -469,7 +469,7 @@ public class WebServiceLogicImpl
      * 
      * @param modelElement the model element we'll retrieve the type of.
      */
-    private ClassifierFacade getType(Object modelElement)
+    protected ClassifierFacade getType(Object modelElement)
     {
         try
         {
