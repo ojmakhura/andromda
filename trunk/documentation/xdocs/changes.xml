@@ -6,6 +6,30 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0M3-SNAPSHOT" date="2004-12-05">
+            <action dev="cwbrandon" type="add">
+                The <a href="andromda-spring-cartridge/modeling.html">AndroMDA Spring</a> 
+                cartridge can now model (and have generated) full role 
+                based security for the optional Session EJB wrappers.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-12-05">
+            <action dev="cwbrandon" type="add">
+                The ModelElementFacades association to DependencyFacade has been renamed from
+                <code>dependencies</code> to <code>targetDependencies</code>.
+                This was necessary due to the fact the dependencies returned were 
+                target dependencies only and did not include source dependencies.  
+                A new association was added to DependencyFacade called 
+                <code>sourceDependencies</code> which can retrieve all source dependencies 
+                for a model element.
+            </action>
+        </release>
+        <release version="3.0M3-SNAPSHOT" date="2004-12-04">
+            <action dev="cwbrandon" type="add">
+                The <a href="andromda-webservice-cartridge/modeling.html">AndroMDA Web Service</a> 
+                cartridge can now have web services secured through modeling.
+            </action>
+        </release>
         <release version="3.0M3-SNAPSHOT" date="2004-12-04">
             <action dev="draftdog" type="add">
                 The bpm4struts generated <code>web.xml</code> file now contains some merge points, similar to
