@@ -79,21 +79,21 @@
                 Now, why don't we simply write a class <code>EntityClass</code> that 
                 extends the class <code>UMLClass</code>? Just like this:
             </p> 
-<source>
+<source language="java"><!--
 public class EntityClass extends UMLClass {
     public void validate() throws ... {
         // throw exception here if PrimaryKey not found...
     }
 }
-</source>
+--></source>
                 <p>Another example:</p>
-<source>
+<source language="java"><!--
 public class SpecialAttribute extends Attribute {
     public String getGetterName() {
         return "get" + uppercaseFirstLetter(getName());
     }
 }
-</source>
+--></source>
             <p> 
                 We could then use the class <code>SpecialAttribute</code> 
                 instead of the class <code>Attribute</code> and write
@@ -198,7 +198,7 @@ public class SpecialAttribute extends Attribute {
                 bean class - I omit a lot of complexity here and reduce it
                 to the essence of method generation:
             </p>
-<source>            
+<source language="velocity"><!--
 #foreach ( $operation in $class.operations)
 #set ($visibility = $operation.visibility)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
@@ -208,7 +208,7 @@ public class SpecialAttribute extends Attribute {
 #else
     $visibility abstract $returnType $operation.signature;
 #end
-</source>
+--></source>
             <p>
                 In this template code sample, you can see that the variable <code>$op</code>
                 iterates over a collection called <code>$class.operations</code>. When the
@@ -231,9 +231,9 @@ public class SpecialAttribute extends Attribute {
                 Last example: The most interesting statement in the code snippet
                 above is:
             </p>
-<source>            
+<source language="velocity"><!--
 #set ($returnType = $op.returnType.fullyQualifiedName)
-</source>
+--></source>
             <p>
                 This template engine invokes two methods, here:
                 <code>OperationFacade.getReturnType()</code> and
