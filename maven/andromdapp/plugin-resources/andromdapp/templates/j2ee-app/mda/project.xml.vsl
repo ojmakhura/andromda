@@ -25,7 +25,7 @@
                  <jdbcMappingsUri>JDBC</jdbcMappingsUri>
                  <maxSqlNameLength>30</maxSqlNameLength>
                  <foreignKeySuffix>_FK</foreignKeySuffix>
-                 <ejbJndiNamePrefix>${application.id}</ejbJndiNamePrefix>
+                 <ejbJndiNamePrefix>${pom.groupId}</ejbJndiNamePrefix>
              </properties>
         </dependency>
 #if ($ejb)
@@ -95,7 +95,7 @@
             <properties>
                 <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
                 <defaultProvider>${default.provider}</defaultProvider>
-                <applicationName>${application.id}</applicationName>
+                <applicationName>${pom.groupId}</applicationName>
                 <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
 #if ($spring)
                 <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>

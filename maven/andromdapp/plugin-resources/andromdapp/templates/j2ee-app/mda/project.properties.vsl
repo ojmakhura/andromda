@@ -35,5 +35,5 @@ hibernate.generatorClass=native
 default.provider=EJB
 
 # The address of the port type in the generated WSDL
-wsdl.soap.address=http://${service.host}:${service.port}/${application.id}-ws/services
+wsdl.soap.address=http://${service.host}:${service.port}/${pom.groupId}-ws/services
 #end
