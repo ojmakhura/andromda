@@ -8,6 +8,8 @@ public interface Column extends Refreshable
 
     public Class getType();
 
+    public int getSqlType();
+
     public int getSize();
 
     public String getRemarks();
@@ -21,4 +23,8 @@ public interface Column extends Refreshable
     public boolean isNumericType();
 
     public boolean isStringType();
+
+    public boolean isForeignKeyColumn();
+
+    public boolean isPrimaryKeyColumn();
 }

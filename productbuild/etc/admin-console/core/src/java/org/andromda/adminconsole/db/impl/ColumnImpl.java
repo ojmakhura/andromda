@@ -2,6 +2,8 @@ package org.andromda.adminconsole.db.impl;
 
 import org.andromda.adminconsole.db.Column;
 import org.andromda.adminconsole.db.Table;
+import org.andromda.adminconsole.db.ForeignKeyColumn;
+import org.andromda.adminconsole.db.PrimaryKeyColumn;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -13,16 +15,18 @@ public class ColumnImpl extends DatabaseObject implements Column
     private String name = null;
     private boolean nullable = false;
     private Class type = null;
+    private int sqlType = 0;
     private int size = 0;
     private String remarks = null;
     private int ordinalPosition = 0;
 
     private Table table = null;
 
-    public ColumnImpl(Table table, String name)
+    public ColumnImpl(Table table, String name, int sqlType)
     {
         this.table = table;
         this.name = name;
+        this.sqlType = sqlType;
         this.doRefresh();
     }
 
@@ -61,6 +65,11 @@ public class ColumnImpl extends DatabaseObject implements Column
         return type;
     }
 
+    public int getSqlType()
+    {
+        return sqlType;
+    }
+
     public int getSize()
     {
         return size;
@@ -94,6 +103,16 @@ public class ColumnImpl extends DatabaseObject implements Column
     public boolean isStringType()
     {
         return String.class.isAssignableFrom(getType());
+    }
+
+    public boolean isForeignKeyColumn()
+    {
+        return this instanceof ForeignKeyColumn;
+    }
+
+    public boolean isPrimaryKeyColumn()
+    {
+        return this instanceof PrimaryKeyColumn;
     }
 
     public void refresh()
@@ -234,8 +253,8 @@ public class ColumnImpl extends DatabaseObject implements Column
 
         final ColumnImpl column = (ColumnImpl) o;
 
-        if (name != null ? !name.equals(column.name) : column.name != null) return false;
-        if (table != null ? !table.equals(column.table) : column.table != null) return false;
+        if (!name.equals(column.name)) return false;
+        if (!table.equals(column.table)) return false;
 
         return true;
     }
@@ -243,8 +262,8 @@ public class ColumnImpl extends DatabaseObject implements Column
     public int hashCode()
     {
         int result;
-        result = (name != null ? name.hashCode() : 0);
-        result = 29 * result + (table != null ? table.hashCode() : 0);
+        result = name.hashCode();
+        result = 29 * result + table.hashCode();
         return result;
     }
 }
