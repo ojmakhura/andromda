@@ -3,8 +3,8 @@
          xmlns:j="jelly:core">
 
 	<ant:property environment="env"/>
-	
-  	<goal name="deploy">
+
+  	<goal name="deploy" prereqs="ear:ear">
   		<ant:copy file="${maven.build.dir}/${maven.final.name}.ear"
   			todir="${env.JBOSS_HOME}/server/${jboss.config}/deploy"/>
   	</goal> 

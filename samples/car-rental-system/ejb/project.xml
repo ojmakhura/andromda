@@ -19,16 +19,25 @@
 			<groupId>andromda-samples</groupId>
 			<artifactId>car-rental-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 			<version>3.0</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>	
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.3</version>
+			<properties>
+				<ejb.manifest.classpath>true</ejb.manifest.classpath>
+			</properties>
 		</dependency>		
 		<!-- EJB dependencies -->
   		<dependency>
