@@ -1,6 +1,7 @@
 package org.andromda.core;
 
 import java.net.URL;
+import java.net.URLConnection;
 
 import org.andromda.core.common.ModelPackages;
 
@@ -11,27 +12,6 @@ import org.andromda.core.common.ModelPackages;
  */
 public class Model
 {
-    /**
-     * The URL of the model.
-     */
-    private URL url;
-
-    /**
-     * Stores the information about what packages should/shouldn't be processed.
-     */
-    private ModelPackages packages = new ModelPackages();
-
-    /**
-     * Whether or not to perform a last modified check on the model.
-     */
-    private boolean lastModifiedCheck = false;
-
-    /**
-     * The path to search for the model's <em>modules</em> (i.e. models that
-     * are referenced as HREF <code>modules</code> from within this model)
-     */
-    private String[] moduleSearchPath;
-
     /**
      * Constructs a new instance of this Model
      * 
@@ -55,7 +35,11 @@ public class Model
         this.moduleSearchPath = moduleSearchPath;
     }
 
+    private boolean lastModifiedCheck = false;
+
     /**
+     * Whether or not to perform a last modified check on the model.
+     * 
      * @return Returns the lastModifiedCheck.
      */
     public boolean isLastModifiedCheck()
@@ -63,7 +47,11 @@ public class Model
         return lastModifiedCheck;
     }
 
+    private ModelPackages packages = new ModelPackages();
+
     /**
+     * Stores the information about what packages should/shouldn't be processed.
+     * 
      * @return Returns the packages.
      */
     public ModelPackages getPackages()
@@ -71,13 +59,19 @@ public class Model
         return packages;
     }
 
+    private URL url;
+
     /**
+     * The URL of the model.
+     * 
      * @return Returns the url.
      */
     public URL getUrl()
     {
         return url;
     }
+
+    private String[] moduleSearchPath;
 
     /**
      * Gets the path to search for the model's <em>modules</em> (i.e. models
@@ -90,7 +84,28 @@ public class Model
     {
         return moduleSearchPath;
     }
-    
+
+    /**
+     * Gets the time as a <code>long</code> when this model was last modified.
+     * If it can not be determined <code>0</code> is returned.
+     * 
+     * @return the time this model was last modified
+     */
+    public long getLastModified()
+    {
+        long lastModified;
+        try
+        {
+            URLConnection urlConnection = url.openConnection();
+            lastModified = urlConnection.getLastModified();
+        }
+        catch (Exception ex)
+        {
+            lastModified = 0;
+        }
+        return lastModified;
+    }
+
     /**
      * @see java.lang.Object#toString()
      */

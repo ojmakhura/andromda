@@ -381,8 +381,7 @@ public class Cartridge
                 boolean writeOutputFile = !outFile.exists()
                     || template.isOverwrite();
 
-                long modelLastModified = context.getRepository()
-                    .getLastModified();
+                long modelLastModified = context.getLastModified();
 
                 // only process files that have changed
                 if (writeOutputFile

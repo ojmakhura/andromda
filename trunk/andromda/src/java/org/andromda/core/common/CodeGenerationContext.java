@@ -15,35 +15,29 @@ import org.andromda.core.repository.RepositoryFacade;
 public class CodeGenerationContext
 {
     private RepositoryFacade repository = null;
+    long lastModified;
     private boolean lastModifiedCheck = false;
     private ModelPackages modelPackages;
 
     public CodeGenerationContext(
-        RepositoryFacade rf,
+        RepositoryFacade repository,
+        long lastModified,
         boolean lastModifiedCheck,
 		ModelPackages modelPackages)
     {
-        this.repository = rf;
+        this.repository = repository;
         this.lastModifiedCheck = lastModifiedCheck;
         this.modelPackages = modelPackages;
     }
-
+    
     /**
-     * Returns the repository.
+     * Gets <code>lastModified</code>
+     * for this context.
      * @return RepositoryFacade
      */
-    public RepositoryFacade getRepository()
+    public long getLastModified()
     {
-        return repository;
-    }
-
-    /**
-     * Sets the repository.
-     * @param repository The repository to set
-     */
-    public void setRepository(RepositoryFacade repository)
-    {
-        this.repository = repository;
+        return this.lastModified;
     }
 
     /**
@@ -52,7 +46,7 @@ public class CodeGenerationContext
      */
     public ModelAccessFacade getModelFacade()
     {
-        return this.getRepository().getModel();
+        return this.repository.getModel();
     }
 
     /**
@@ -62,15 +56,6 @@ public class CodeGenerationContext
     public boolean isLastModifiedCheck()
     {
         return lastModifiedCheck;
-    }
-
-    /**
-     * Sets the lastModifiedCheck.
-     * @param lastModifiedCheck The lastModifiedCheck to set
-     */
-    public void setLastModifiedCheck(boolean lastModifiedCheck)
-    {
-        this.lastModifiedCheck = lastModifiedCheck;
     }
     
 	/**
@@ -83,15 +68,4 @@ public class CodeGenerationContext
 	{
 		return this.modelPackages;
 	}
-
-	/**
-	 * Sets modelPackages.
-	 * 
-	 * @param modelPackages The modelPackages to set.
-	 */
-	public void setModelPackages(ModelPackages modelPackages) 
-	{
-		this.modelPackages = modelPackages;
-	}
-
 }

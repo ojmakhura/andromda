@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Iterator;
 
 import javax.jmi.model.ModelPackage;
@@ -42,7 +41,8 @@ public class MDRepositoryFacade implements RepositoryFacade
     
     private ModelAccessFacade modelFacade = null;
 
-    static {
+    static 
+    {
         // configure MDR to use an in-memory storage implementation
         System.setProperty(
             "org.netbeans.mdr.storagemodel.StorageFactoryClassName",
@@ -52,8 +52,7 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
 
     protected URL metaModelURL;
-    protected URL modelURL;
-    protected RefPackage model;
+    protected RefPackage model = null;
 
     /**
      * Constructs a Facade around a netbeans MDR (MetaDataRepository).
@@ -69,15 +68,12 @@ public class MDRepositoryFacade implements RepositoryFacade
             throw new RepositoryFacadeException("Could not find meta model --> ' " 
                 + metamodelUri + "'");   
         }
-        
-        modelURL = null;
-        model = null;
     }
 
     /**
      * Opens the repository and prepares it to read in models.
      * <p>
-     * All the file reads are done within the context of a transaction this
+     * All the file reads are done within the context of a transaction: this
      * seems to speed up the processing.
      * </p>
      * 
@@ -85,14 +81,13 @@ public class MDRepositoryFacade implements RepositoryFacade
      */
     public void open()
     {
-        MDRManager.getDefault().getDefaultRepository().beginTrans(true);
+         MDRManager.getDefault().getDefaultRepository().beginTrans(true);
     }
 
     /**
      * Closes the repository and reclaims all resources.
      * <p>
-     * This should only be called after all the models has been read and all
-     * querys have completed.
+     * This should only be called after all model processing has been completed.
      * </p>
      * 
      * @see org.andromda.core.repository.RepositoryFacade#close()
@@ -109,7 +104,7 @@ public class MDRepositoryFacade implements RepositoryFacade
         }
         this.model = null;
     }
-
+    
     /**
      * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL,
      *      java.lang.String[])
@@ -121,8 +116,6 @@ public class MDRepositoryFacade implements RepositoryFacade
         
     	if (logger.isDebugEnabled())
     		logger.debug("creating repository");
-
-        this.modelURL = modelURL;
 
         MDRepository repository =
             MDRManager.getDefault().getDefaultRepository();
@@ -191,7 +184,7 @@ public class MDRepositoryFacade implements RepositoryFacade
             }
 	        FileOutputStream outputStream = new FileOutputStream(file);
 	        XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
-	        xmiWriter.getConfiguration().setEncoding("UTF-8");	        
+	        xmiWriter.getConfiguration().setEncoding(encoding);	        
 	        xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion); 
         }
         catch (Throwable th)
@@ -200,27 +193,6 @@ public class MDRepositoryFacade implements RepositoryFacade
             logger.error(errMsg, th);
             throw new RepositoryFacadeException(errMsg, th);
         }
-    }
-
-    /**
-     * @see org.andromda.core.repository.RepositoryFacade#getLastModified()
-     */
-    public long getLastModified()
-    {
-        long lastModified = 0;
-
-        try
-        {
-            URLConnection urlConnection = modelURL.openConnection();
-            lastModified = urlConnection.getLastModified();
-        }
-        catch (IOException ioe)
-        {
-            // log and then eat the exception
-            logger.error(ioe);
-        }
-
-        return lastModified;
     }
 
     /**

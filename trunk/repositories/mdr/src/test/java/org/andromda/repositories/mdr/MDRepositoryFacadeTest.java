@@ -26,12 +26,12 @@ public class MDRepositoryFacadeTest
     /**
      * Constructor for MDRepositoryFacadeTest.
      * 
-     * @param arg0
+     * @param name the test name
      */
     public MDRepositoryFacadeTest(
-        String arg0)
+        String name)
     {
-        super(arg0);
+        super(name);
     }
 
     /**
@@ -49,13 +49,6 @@ public class MDRepositoryFacadeTest
             repository.open();
         }
 
-    }
-
-    public void testGetLastModified() throws Exception
-    {
-        repository.readModel(modelURL, null);
-        assertEquals(modelURL.openConnection().getLastModified(), repository
-            .getLastModified());
     }
 
     public void testGetModel()
