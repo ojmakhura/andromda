@@ -1,9 +1,7 @@
-#set ($generatedFile = "${controller.fullPath}Interface.java")
+#set ($generatedFile = "${controller.fullPath}.java")
 ##
 ##  CONSTANTS
 ##
-#set ($useCase = $controller.useCase)
-#set ($formBeanClassName = $useCase.formBeanClassName)
 #set ($sessionObjects = $controller.sessionObjects)
 ##
 ##  START TEMPLATE
@@ -38,8 +36,7 @@ $controller.getDocumentation(" * ")
  *
 #end
  */
-public abstract class ${controller.name}Interface
-    implements java.io.Serializable
+public abstract class ${controller.name} implements java.io.Serializable
 {
 #foreach ($operation in $controller.operations)
 #set ($parameters = $operation.arguments)
