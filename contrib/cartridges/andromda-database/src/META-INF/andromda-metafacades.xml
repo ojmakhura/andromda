@@ -4,6 +4,7 @@
     <property reference="primaryKeyConstraintPrefix" default="XPK"/>
     <property reference="indexPrefix" default="IDX"/>
     <property reference="foreignKeyConstraintPrefix" default="FK"/>
+    <property reference="dummyLoadMultiplier" default="1"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
@@ -15,7 +16,6 @@
         metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
-        <property reference="dummyLoadMultiplier" default="1"/> 
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
