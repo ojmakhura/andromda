@@ -192,6 +192,187 @@ public class StrutsParameterLogicImpl
                 : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
+    public String handleGetDocumentationKey()
+    {
+        return getMessageKey() + ".documentation";
+    }
+
+    public String handleGetDocumentationValue()
+    {
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        return (value == null) ? "" : value;
+    }
+
+    public String handleGetOnlineHelpKey()
+    {
+        return getMessageKey() + ".online.help";
+    }
+
+    public String handleGetOnlineHelpValue()
+    {
+        final String crlf = "<br/>";
+        final String format = getValidatorFormat();
+        StringBuffer buffer = new StringBuffer();
+
+        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        buffer.append((value == null) ? "No field documentation has been specified" : value);
+        buffer.append(crlf);
+        buffer.append(crlf);
+
+        buffer.append(isRequired() ? "This field is required" : "This field is optional");
+        buffer.append(crlf);
+
+        if ("password".equals(getWidgetType()))
+        {
+            buffer.append("This is a password field, it will not show the data you enter, " +
+                    "each character will be masked using an asterisk");
+            buffer.append(crlf);
+        }
+
+        if (isCreditCardFormat(format))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\">creditcard</a> ");
+            buffer.append(crlf);
+        }
+
+        if (isDate())
+        {
+            String dateFormat = getDateFormat();
+            buffer.append("This field represents a date and should be formatted like this " +
+                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
+                    "target=\"_jdk\">");
+            buffer.append(dateFormat + "</a> ");
+
+            if (isStrictDateFormat())
+            {
+                buffer.append("This format is strict in the sense that the parser will not use any heuristics in " +
+                        "order to guess the intended date in case the input would not perfectly match the format");
+            }
+            else
+            {
+                buffer.append("This format is lenient in the sense that the parser will attempt to use heuristics in " +
+                        "order to guess the intended date in case the input would not perfectly match the format");
+            }
+            buffer.append(crlf);
+            buffer.append("A calendar has been foreseen to select a date from, it will automatically convert the date " +
+                    "to the appropriate format.");
+            buffer.append(crlf);
+        }
+
+        if (isEmailFormat(format))
+        {
+            buffer.append("The value of this field should reflect an email address");
+            buffer.append(crlf);
+        }
+
+        if (isMaxLengthFormat(format))
+        {
+            buffer.append("This field should not contain more than ");
+            buffer.append(getMaxLengthValue(format));
+            buffer.append(" characters");
+            buffer.append(crlf);
+        }
+
+        if (isMinLengthFormat(format))
+        {
+            buffer.append("This field should contain at least ");
+            buffer.append(getMinLengthValue(format));
+            buffer.append(" characters");
+            buffer.append(crlf);
+        }
+
+        if (isPatternFormat(format))
+        {
+            buffer.append("The value should match this ");
+            buffer.append("<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html\" target=\"_jdk\">");
+            buffer.append("regular expression</a>: ");
+            buffer.append(getPatternValue(format));
+            buffer.append(crlf);
+        }
+
+        if (isRangeFormat(format))
+        {
+            buffer.append("The value of this field should be in the range of ");
+            buffer.append(getRangeStart(format));
+            buffer.append(" to ");
+            buffer.append(getRangeEnd(format));
+            buffer.append(crlf);
+        }
+
+        if (isReadOnly())
+        {
+            buffer.append("The value of this field cannot be changed, it is read-only");
+            buffer.append(crlf);
+        }
+
+        if (isUrlFormat(format))
+        {
+            buffer.append("The value of this field should reflect a URL");
+            buffer.append(crlf);
+        }
+
+        String datatype = getFullyQualifiedName(true);
+        if (isValidatorBoolean(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">boolean</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorByte(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">byte</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorChar(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">character</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorDouble(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">double precision integer</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorFloat(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">floating point</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorInteger(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">integer</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorLong(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">long integer</a> value");
+            buffer.append(crlf);
+        }
+        else if (isValidatorShort(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                    "target=\"_jdk\">short integer</a> value");
+            buffer.append(crlf);
+        }
+
+        return StringUtilsHelper.toResourceMessage(buffer.toString());
+    }
+
     public boolean handleIsCalendarRequired()
     {
         return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_CALENDAR)).equals("true");
@@ -838,7 +1019,9 @@ public class StrutsParameterLogicImpl
 
     private String getToken(String string, int index, int limit)
     {
-        String[] tokens = string.split("[\\s]", limit);
+        if (string == null) return null;
+
+        String[] tokens = string.split("[\\s]+", limit);
         return (index >= tokens.length) ? null : tokens[index];
     }
 
