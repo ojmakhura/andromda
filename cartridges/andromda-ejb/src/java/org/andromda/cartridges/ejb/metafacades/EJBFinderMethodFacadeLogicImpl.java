@@ -46,9 +46,9 @@ public class EJBFinderMethodFacadeLogicImpl
                 "SELECT DISTINCT OBJECT(c) FROM "
                     + this.getOwner().getName()
                     + " as c";
-            if (this.getParameters().size() > 0) {
+            if (this.getArguments().size() > 0) {
                 queryString = queryString + " WHERE";
-                Collection parameters = this.getParameters();
+                Collection parameters = this.getArguments();
                 if (parameters != null && !parameters.isEmpty()) {
                     Iterator parameterIt = parameters.iterator();
                     for (int ctr = 1; parameterIt.hasNext(); ctr++) {

@@ -106,7 +106,7 @@ $op.getDocumentation("    * ")
 $op.getDocumentation("    * ")
      *
      */
-    public ${entityname} create${op.typedParameterList}
+    public ${entityname} create${op.typedArgumentList}
            throws javax.ejb.CreateException;
 #end
 

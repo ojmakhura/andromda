@@ -20,9 +20,6 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 
 /**
- * <p>
- *  Returns true/false if the operation is declared static.
- * </p>
  *
  * Metaclass facade implementation.
  *
@@ -43,25 +40,30 @@ public class OperationFacadeLogicImpl
      */
     public String getSignature()
     {
-        Iterator it = metaObject.getParameter().iterator();
-        if (!it.hasNext())
-        {
-            return metaObject.getName() + "()";
-        }
-
-        StringBuffer sb = new StringBuffer();
-        sb.append(metaObject.getName());
-        sb.append("(");
-        sb.append(getTypedParameterList());
-        sb.append(")");
-
-        return sb.toString();
+        return this.getSignature(true);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getSignature(boolean)
+     */
+    public String getSignature(boolean withArgumentNames) 
+    {
+        StringBuffer signature = new StringBuffer(this.getName());
+        signature.append("(");
+        signature.append(this.getTypedArgumentList(withArgumentNames));
+        signature.append(")");  
+        return signature.toString();        
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#getTypedParameterList()
+     * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList()
      */
-    public String getTypedParameterList()
+    public String getTypedArgumentList() {
+        return this.getTypedArgumentList(true);  
+    }
+
+
+    private String getTypedArgumentList(boolean withArgumentNames)
     {
         StringBuffer sb = new StringBuffer();
         Iterator it = metaObject.getParameter().iterator();
@@ -92,8 +94,10 @@ public class OperationFacadeLogicImpl
                     sb.append(", ");
                 }
                 sb.append(type);
-                sb.append(" ");
-                sb.append(p.getName());
+                if (withArgumentNames) {
+                    sb.append(" ");
+                    sb.append(p.getName());
+                }
                 commaNeeded = true;
             }
         }
@@ -108,16 +112,16 @@ public class OperationFacadeLogicImpl
         StringBuffer sb = new StringBuffer();
         sb.append(metaObject.getName());
         sb.append("(");
-        sb.append(getParameterNames());
+        sb.append(getArgumentNames());
         sb.append(")");
 
         return sb.toString();
     }
 
     /**
-     * @see org.andromda.core.metadecorators.uml14.OperationFacade#getParameterNames()
+     * @see org.andromda.core.metadecorators.uml14.OperationFacade#getArgumentNames()
      */
-    public String getParameterNames()
+    public String getArgumentNames()
     {
         StringBuffer sb = new StringBuffer();
 
@@ -142,9 +146,9 @@ public class OperationFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.core.metadecorators.uml14.OperationFacade#getParameterTypeNames()
+     * @see org.andromda.core.metadecorators.uml14.OperationFacade#getArgumentTypeNames()
      */
-    public String getParameterTypeNames()
+    public String getArgumentTypeNames()
     {
         StringBuffer sb = new StringBuffer();
         
@@ -186,6 +190,24 @@ public class OperationFacadeLogicImpl
 
         return null;
     }
+    
+    /**
+     * @see org.andromda.core.metadecorators.uml14.OperationFacade#getArguments()
+     */
+    public Collection getArguments()
+    {
+        Collection arguments = new ArrayList(metaObject.getParameter());
+        
+        CollectionUtils.filter(
+            arguments,
+            new Predicate() {
+                public boolean evaluate(Object object) {
+                    return !ParameterDirectionKindEnum.PDK_RETURN.equals(
+                        ((Parameter)object).getKind());  
+                }
+            });
+       return this.shieldedElements(arguments);
+    }
    
     /**
      * @see org.andromda.core.metadecorators.uml14.OperationFacade#handleGetOwner()
@@ -200,20 +222,7 @@ public class OperationFacadeLogicImpl
      */
     protected Collection handleGetParameters()
     {
-        ArrayList ret = new ArrayList();
-
-        for (Iterator i = metaObject.getParameter().iterator();
-            i.hasNext();
-            )
-        {
-            Parameter p = (Parameter) i.next();
-            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
-            {
-                ret.add(p);
-            }
-        }
-
-        return ret;
+        return metaObject.getParameter();
     }
     
     /**
@@ -252,7 +261,8 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasExceptions()
      */
-    public boolean hasExceptions() {
+    public boolean hasExceptions() 
+    {
         return !this.getExceptions().isEmpty();
     }
     
@@ -324,6 +334,19 @@ public class OperationFacadeLogicImpl
      */
     public String getExceptionList() {
         return this.getExceptionList(null);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#hasReturnType()
+     */
+    public boolean hasReturnType() {
+        boolean hasReturnType = true;
+        if (this.getType() != null) {
+            hasReturnType = 
+                !StringUtils.trimToEmpty(
+                    this.getType().getFullyQualifiedName()).equals("void");
+        }
+        return hasReturnType;
     }
     
     /**

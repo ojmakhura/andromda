@@ -253,9 +253,9 @@ $op.getDocumentation("    * ")
      * @ejb.transaction type="$transactionType"
 #end
      */
-    public abstract void ejbCreate($op.typedParameterList);
+    public abstract void ejbCreate($op.typedArgumentList);
     
-    public void ejbPostCreate($op.typedParameterList) {
+    public void ejbPostCreate($op.typedArgumentList) {
     }
 #end
 ## Default create method with no arguments.

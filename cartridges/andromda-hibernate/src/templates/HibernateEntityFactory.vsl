@@ -74,7 +74,7 @@ public abstract class ${class.name}Factory {
 #foreach ( $finder in $class.getFinders(true))
 #set ($returntype = $finder.type.fullyQualifiedName)
 ##
-#set ($parameterList = $finder.typedParameterList)
+#set ($parameterList = $finder.typedArgumentList)
 #if ($parameterList.length() == 0)
 #set ($parameters = "net.sf.hibernate.Session sess")
 #else
@@ -92,7 +92,7 @@ $finder.getDocumentation("     * ")
     {
         net.sf.hibernate.Query q = sess.createQuery("$finder.query");
 ##
-#foreach($prm in $finder.parameters)
+#foreach($prm in $finder.arguments)
 #set ($index = $velocityCount - 1) 
 		q.set${prm.type.name} (${index}, ${prm.name});
 #end
