@@ -93,6 +93,19 @@
                             information.
                         </li>
                         <li>
+                            <strong>Specify visibility where visibiliy counts.</strong> 
+                            Attributes on generated output are <strong>ALWAYS</strong>
+                            private, however, the accessor and mutator of each attribute will
+                            have the visibilty that you define in the model.  For example:
+                            if you define the <em>name</em> attribute on your <em>Person</em>
+                            element to have a visibility of <strong>public</strong>, 
+                            then the accessor and mutator for that element will be 
+                            <strong>public</strong> as well, if you define the <em>name</em> 
+                            attribute's visibility as <strong>private</strong>, then the 
+                            accessor and mutator for attribute will be generated with a
+                           <strong>private</strong> visibility.
+                        </li>
+                        <li>
                             <strong>Specify the multiplicities of both ends of ALL associations</strong>. 
                             Cartridges use and require all multiplicity information.
                         </li>
