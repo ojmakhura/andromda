@@ -52,9 +52,8 @@ public class Cartridge
      * Processes all model elements with relevant stereotypes by retrieving the
      * model elements from the model facade contained within the context.
      * 
-     * @param context
-     *            the context containing the RepositoryFacade (among other
-     *            things).
+     * @param context the context containing the RepositoryFacade (among other
+     *        things).
      */
     public void processModelElements(CodeGenerationContext context)
     {
@@ -66,46 +65,46 @@ public class Cartridge
         Collection templates = this.getTemplateConfigurations();
 
         if (templates != null && !templates.isEmpty())
-        {         
+        {
             MetafacadeFactory factory = MetafacadeFactory.getInstance();
-    
+
             factory.setModel(context.getModelFacade());
-    
+
             String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
-    
+
             Iterator templateIt = templates.iterator();
             while (templateIt.hasNext())
             {
-                TemplateConfiguration template = 
-                    (TemplateConfiguration)templateIt.next();
-                TemplateModelElements templateModelElements = 
-                    template.getSupportedModeElements();
+                TemplateConfiguration template = (TemplateConfiguration)templateIt
+                    .next();
+                TemplateModelElements templateModelElements = template
+                    .getSupportedModeElements();
                 if (templateModelElements != null
                     && !templateModelElements.isEmpty())
                 {
-                    Iterator stereotypeIt = templateModelElements.stereotypeNames();
+                    Iterator stereotypeIt = templateModelElements
+                        .stereotypeNames();
                     while (stereotypeIt.hasNext())
                     {
                         String stereotypeName = (String)stereotypeIt.next();
-                        Collection modelElements = 
-                            (Collection)this.elementCache.get(stereotypeName);
+                        Collection modelElements = (Collection)this.elementCache
+                            .get(stereotypeName);
                         if (modelElements == null)
                         {
-                            modelElements = 
-                                context.getModelFacade().findByStereotype(
-                                    stereotypeName);
+                            modelElements = context.getModelFacade()
+                                .findByStereotype(stereotypeName);
                             elementCache.put(stereotypeName, modelElements);
                         }
-    
+
                         TemplateModelElement templateModelElement = templateModelElements
                             .getModelElement(stereotypeName);
-    
-                        Collection metafacades = 
-                            MetafacadeFactory.getInstance().createMetafacades(modelElements);
-    
+
+                        Collection metafacades = MetafacadeFactory
+                            .getInstance().createMetafacades(modelElements);
+
                         this.filterModelPackages(metafacades);
-    
+
                         templateModelElement.setModelElements(metafacades);
                     }
                     processModelElements(template, context);
@@ -119,10 +118,8 @@ public class Cartridge
     /**
      * Processes all <code>modelElements</code> for this template.
      * 
-     * @param template
-     *            the TemplateConfiguration object from which we process.
-     * @param context
-     *            the context for the cartridge
+     * @param template the TemplateConfiguration object from which we process.
+     * @param context the context for the cartridge
      */
     protected void processModelElements(
         TemplateConfiguration template,
@@ -136,20 +133,20 @@ public class Cartridge
             logger.debug("performing " + methodName + " with template '"
                 + template + "' and context ' " + context + "'");
 
-        TemplateModelElements templateModelElements = 
-            template.getSupportedModeElements();
+        TemplateModelElements templateModelElements = template
+            .getSupportedModeElements();
 
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            Property outletProperty = 
-                Namespaces.instance().findNamespaceProperty(this.getName(), template.getOutlet());
+            Property outletProperty = Namespaces.instance()
+                .findNamespaceProperty(this.getName(), template.getOutlet());
 
             if (outletProperty != null && !outletProperty.isIgnore())
             {
                 try
                 {
-                    Collection allModelElements = 
-                        templateModelElements.getAllModelElements();
+                    Collection allModelElements = templateModelElements
+                        .getAllModelElements();
 
                     // if isOutputToSingleFile flag is true, then
                     // we get the collections of templateModelElements and
@@ -172,31 +169,32 @@ public class Cartridge
                         // now place the collections of stereotyped elements
                         // by the given variable names. (skip it the variable
                         // was NOT defined
-                        Iterator stereotypeNames = 
-                            templateModelElements.stereotypeNames();
+                        Iterator stereotypeNames = templateModelElements
+                            .stereotypeNames();
                         while (stereotypeNames.hasNext())
                         {
                             String name = (String)stereotypeNames.next();
-                            TemplateModelElement templateModelElement = 
-                                templateModelElements.getModelElement(name);
-                            String variable = templateModelElement.getVariable();
+                            TemplateModelElement templateModelElement = templateModelElements
+                                .getModelElement(name);
+                            String variable = templateModelElement
+                                .getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
                                 // if a stereotype has the same variable defined
                                 // more than one time, then get the existing
                                 // model elements added from the last iteration
                                 // and add the new ones to the collection
-                                Collection modelElements = 
-                                    (Collection)templateContext.get(variable);
+                                Collection modelElements = (Collection)templateContext
+                                    .get(variable);
                                 if (modelElements != null)
                                 {
-                                    modelElements.addAll(
-                                        templateModelElement.getModelElements());
+                                    modelElements.addAll(templateModelElement
+                                        .getModelElements());
                                 }
                                 else
                                 {
-                                    modelElements = 
-                                        templateModelElement.getModelElements();
+                                    modelElements = templateModelElement
+                                        .getModelElements();
                                 }
                                 templateContext.put(variable, new HashSet(
                                     modelElements));
@@ -253,22 +251,18 @@ public class Cartridge
      * Perform processing with the <code>template</code>.
      * </p>
      * 
-     * @param template
-     *            the TemplateConfiguration containing the template sheet to
-     *            process.
-     * @param templateContext
-     *            the context to which variables are added and made avaialbe to
-     *            the template engine for processing. This will contain any
-     *            model elements being made avaiable to the template(s).
-     * @param outletProperty
-     *            the property defining the outlet to which output will be
-     *            written.
-     * @param modelElementName
-     *            the name of the model element (if we are processing a single
-     *            model element, otherwise this will be ignored).
-     * @param modelElementPackage
-     *            the name of the package (if we are processing a single model
-     *            element, otherwise this will be ignored).
+     * @param template the TemplateConfiguration containing the template sheet
+     *        to process.
+     * @param templateContext the context to which variables are added and made
+     *        avaialbe to the template engine for processing. This will contain
+     *        any model elements being made avaiable to the template(s).
+     * @param outletProperty the property defining the outlet to which output
+     *        will be written.
+     * @param modelElementName the name of the model element (if we are
+     *        processing a single model element, otherwise this will be
+     *        ignored).
+     * @param modelElementPackage the name of the package (if we are processing
+     *        a single model element, otherwise this will be ignored).
      */
     private void processWithTemplate(
         TemplateConfiguration template,
@@ -279,7 +273,8 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
-        ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
+        ExceptionUtils
+            .checkNull(methodName, "templateContext", templateContext);
         ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
 
         File outFile = null;
@@ -336,10 +331,7 @@ public class Cartridge
                     if (StringUtils.trimToEmpty(outputString).length() > 0
                         || template.isGenerateEmptyFiles())
                     {
-                        OutputUtils.writeStringToFile(
-                            outputString,
-                            outFile,
-                            true);
+                        OutputUtils.writeStringToFile(outputString, outFile);
                         this.logger.info("Output: '" + outFile.toURI() + "'");
                     }
                     else
@@ -372,12 +364,9 @@ public class Cartridge
      * Creates a File object from an output pattern in the template
      * configuration.
      * 
-     * @param modelElementName
-     *            the name of the model element
-     * @param packageName
-     *            the name of the package
-     * @param tc
-     *            the template configuration
+     * @param modelElementName the name of the model element
+     * @param packageName the name of the package
+     * @param tc the template configuration
      * @return File the output file
      */
     private File outputFileFromTemplateConfig(
@@ -393,8 +382,7 @@ public class Cartridge
     /**
      * Creates a File object from a variable in a TemplateEngine context.
      * 
-     * @param template
-     *            the template configuration
+     * @param template the template configuration
      * @return outputLocation the location to which the file will be output.
      */
     private File outputFileFromTemplateEngineContext(
@@ -410,8 +398,7 @@ public class Cartridge
      * Filters out those model elements which <strong>should </strong> be
      * processed and returns the filtered collection
      * 
-     * @param modelElements
-     *            the Collection of modelElements.
+     * @param modelElements the Collection of modelElements.
      */
     protected void filterModelPackages(Collection modelElements)
     {
@@ -428,8 +415,7 @@ public class Cartridge
     /**
      * Returns the list of templates configured in this cartridge.
      * 
-     * @param List
-     *            the template list.
+     * @param List the template list.
      */
     public List getTemplateConfigurations()
     {
@@ -439,8 +425,7 @@ public class Cartridge
     /**
      * Adds an item to the list of defined template configurations.
      * 
-     * @param template
-     *            the new configuration to add
+     * @param template the new configuration to add
      */
     public void addTemplateConfiguration(TemplateConfiguration template)
     {
