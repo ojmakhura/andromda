@@ -100,13 +100,13 @@ $connectingEnd.getDocumentation("     * ")
      */
     $connectingEnd.visibility $typeName ${connectingEnd.getterName}()
     {
-        return this.${connectingEnd.name};
+        return this.$connectingEnd.name;
     }
 
 #if (!$connectingEnd.readOnly)
     $connectingEnd.visibility void ${connectingEnd.setterName}($typeName $connectingEnd.name)
     {
-        this.${connectingEnd.name} = $connectingEnd.name;
+        this.$connectingEnd.name = $connectingEnd.name;
     }
 
 #end
