@@ -21,7 +21,6 @@
     <property reference="password" default=""/>
 	<property reference="connectionUrl" default=""/>
 	<property reference="dataSource" default=""/>
-    <property reference="hibernateDefaultCascade" default="none"/>
 	<property reference="hibernatePoolSize" default=""/>
 	<property reference="hibernateTransactionManagerStrategy" default=""/>
 	<property reference="hibernateUserTransactionName" default=""/>

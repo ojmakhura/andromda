@@ -108,5 +108,28 @@ public class SpringEntityAssociationEndLogicImpl
         return secondary;
     }
     
-    //($sourceEnd.child && $entity.foreignHibernateGeneratorClass) || $otherEnd.type.foreignHibernateGeneratorClass || (!$sourceEnd.navigable && $otherEnd.navigable && !$sourceEnd.one2OnePrimary)
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#getHibernateCascade()
+     */
+    protected String handleGetHibernateCascade()
+    {
+        String cascade = SpringGlobals.HIBERNATE_CASCADE_DELETE;
+        Object type = this.getType();
+        if (type != null && SpringEntity.class.isAssignableFrom(type.getClass()))
+        {
+            SpringEntity entity = (SpringEntity)type;
+            if (entity.getHibernateDefaultCascade().equalsIgnoreCase(SpringGlobals.HIBERNATE_CASCADE_SAVE_UPDATE) &&
+                this.getOtherEnd().isMany())
+            {
+                cascade = SpringGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;                    
+            }           
+        }
+        return cascade;
+    }
+    
+    /*
+#set ($cascade = "delete")
+#if ($hibernateDefaultCascade.equalsIgnoreCase("save-update"))
+#set ($cascade = "all-${cascade}-orphan")
+     */
 }
