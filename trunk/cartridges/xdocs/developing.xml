@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<document> 
+	<properties>
+    	<title>Developing a Cartridge</title> 
+    </properties>
+  	<body> 
+  		<section name="Developing a Cartridge">
+  			<subsection name="Steps To Building Your Own Cartridge">
+  				<ol>
+  					<li>
+  						Write your cartridge.xml file.
+  					</li>
+  				</ol>
+  			</subsection>
+	  		<subsection name="Cartridge Descriptor">
+		  		<a name="descriptor"/>
+		  		<p> 
+		  			Each cartridge descriptor must comply with the following 
+		  			<a href="descriptor-schema.html">XSD Schema</a>.
+		  		</p>
+		  	</subsection>
+		</section>
+  	</body> 
+</document>

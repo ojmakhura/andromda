@@ -13,24 +13,27 @@
     	</links>
     	
         <menu name="Introduction">
-            <item name="What is AndroMDA?"   href="/pages/whatisit.html"/>
+            <item name="What is AndroMDA?"  href="/pages/whatisit.html"/>
             <item name="Look and feel"      href="/pages/lookandfeel.html"/>
         </menu>
 
-        <menu name="For users">
+        <menu name="Using">
             <item name="Installation"       href="/pages/install.html"/>
             <item name="Getting Started"    href="/pages/starting.html"/>
             <item name="Modeling"           href="/pages/modeling.html"/>
             <item name="Code generation"    href="/pages/codegen.html"/>
             <item name="Writing build.xml"  href="/pages/buildtags.html"/>
-            <item name="Cartridges"         href="/pages/cartridge.html"/>
+            <item name="Maven Plugin"       href="/maven-andromda-plugin/index.html"/>
+            <item name="Cartridges"         href="/andromda-cartridges/index.html"/>
+            <!-- <item name="Cartridges"         href="/pages/cartridge.html"/> -->
             <item name="Writing templates"  href="/pages/tempwriting.html"/>
         </menu>
 
         <menu name="For developers">
-            <item name="Javadoc files"      href="/javadoc/index.html"/>
-            <item name="Recompiling it"     href="/pages/recompiling.html"/>
-            <item name="Extending it"       href="/pages/extending.html"/>
+        	<item name="Cartridge Development" href="/andromda-cartridges/index.html"/>
+            <item name="Javadoc files"         href="/javadoc/index.html"/>
+            <item name="Recompiling it"        href="/pages/recompiling.html"/>
+            <item name="Extending it"          href="/pages/extending.html"/>
         </menu>
 
         <menu name="The sample app">
