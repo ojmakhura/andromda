@@ -26,21 +26,21 @@ public class MetafacadeMappingsTest
     }
 
     private static final String METAFACADE_CLASS_1 = "org.andromda.core.metafacade.Metafacade1";
-    private static final String MAPPING_CLASS_1 = "org.omg.uml.foundation.core.Operation$Impl";
+    private static final Object MAPPING_OBJECT_1 = new MappingObject1();
     private static final List STEREOTYPES_1;
 
     private static final String METAFACADE_CLASS_2 = "org.andromda.core.metafacade.Metafacade2";
-    private static final String MAPPING_CLASS_2 = "org.omg.uml.foundation.core.UmlClass$Impl";
+    private static final Object MAPPING_OBJECT_2 = new MappingObject2();
     private static final List STEREOTYPES_2;
 
     private static final String METAFACADE_CLASS_3 = "org.andromda.core.metafacade.Metafacade3";
-    private static final String MAPPING_CLASS_3 = "org.omg.uml.foundation.core.UmlClass$Impl";
+    private static final Object MAPPING_OBJECT_3 = new MappingObject2();
     private static final List STEREOTYPES_3;
 
     private static final String METAFACADE_CLASS_4 = "org.andromda.core.metafacade.Metafacade4";
-    private static final String MAPPING_CLASS_4 = "org.omg.uml.foundation.core.UmlClass$Impl";
+    private static final Object MAPPING_OBJECT_4 = new MappingObject2();
     
-    private static final String DEFAULT_MAPPING_CLASS = "org.omg.uml.foundation.core.UmlTest$Impl";
+    private static final Object DEFAULT_MAPPING_OBJECT = new MappingObject3();
 
     private static final String NAMESPACE_PROPERTY_1 = "namespacePropertyOne";
     private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
@@ -90,7 +90,7 @@ public class MetafacadeMappingsTest
 
         // test a mapping having a single stereotype with property references
         MetafacadeMapping mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_1,
+            MAPPING_OBJECT_1,
             namespace,
             null,
             STEREOTYPES_1);
@@ -110,7 +110,7 @@ public class MetafacadeMappingsTest
         List stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_QUERY_METHOD);
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_1,
+            MAPPING_OBJECT_1,
             namespace,
             null,
             STEREOTYPES_1);
@@ -121,7 +121,7 @@ public class MetafacadeMappingsTest
 
         // test a mapping having a context
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_4,
+            MAPPING_OBJECT_4,
             namespace,
             METAFACADE_CLASS_1,
             null);
@@ -133,7 +133,7 @@ public class MetafacadeMappingsTest
         
         // test a mapping having a context (with using an inherited context)
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_4,
+            MAPPING_OBJECT_4,
             namespace,
             METAFACADE_CLASS_2,
             null);
@@ -143,7 +143,7 @@ public class MetafacadeMappingsTest
 
         // test a mapping having 2 required stereotypes
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_3,
+            MAPPING_OBJECT_3,
             namespace,
             null,
             STEREOTYPES_3);
@@ -157,7 +157,7 @@ public class MetafacadeMappingsTest
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_UNEXPECTED_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_3,
+            MAPPING_OBJECT_3,
             namespace,
             null,
             stereotypes);
@@ -165,7 +165,7 @@ public class MetafacadeMappingsTest
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_3,
+            MAPPING_OBJECT_3,
             namespace,
             null,
             stereotypes);
@@ -173,7 +173,7 @@ public class MetafacadeMappingsTest
         
         // test a mapping having a context AND a stereotype
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_2,
+            MAPPING_OBJECT_2,
             namespace,
             METAFACADE_CLASS_3,
             STEREOTYPES_2);
@@ -186,7 +186,7 @@ public class MetafacadeMappingsTest
         
         // test a mapping having a context and multiple stereotypes
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_4,
+            MAPPING_OBJECT_4,
             namespace,
             METAFACADE_CLASS_3,
             STEREOTYPES_3);
@@ -202,7 +202,7 @@ public class MetafacadeMappingsTest
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_CLASS_4,
+            MAPPING_OBJECT_4,
             namespace,
             METAFACADE_CLASS_3,
             stereotypes);
@@ -210,7 +210,7 @@ public class MetafacadeMappingsTest
         
         // try a plain mapping (no contexts or stereotypes)
         mapping = mappings.getMetafacadeMapping(
-            DEFAULT_MAPPING_CLASS, 
+            DEFAULT_MAPPING_OBJECT, 
             namespace, 
             null, 
             null);

@@ -168,33 +168,25 @@ public class MetafacadeFactory
         try
         {
             mappingObjectClass = mappingObject.getClass();
-            String mappingObjectClassName = mappingObjectClass.getName();
 
             MetafacadeMappings mappings = MetafacadeMappings.instance();
 
-            Collection stereotypeNames = this.getModel().getStereotypeNames(
+            Collection stereotypes = this.getModel().getStereotypeNames(
                 mappingObject);
-
-            if (stereotypeNames == null)
-            {
-                throw new MetafacadeFactoryException(methodName
-                    + " - could not retrieve stereotypes for mappingObject --> '"
-                    + mappingObject + "'");
-            }
 
             MetafacadeMapping mapping = null;
 
             if (this.getLogger().isDebugEnabled())
                 this.getLogger()
                     .debug(
-                        "mappingObject stereotype names --> '" + stereotypeNames
+                        "mappingObject stereotypes --> '" + stereotypes
                             + "'");
 
             mapping = mappings.getMetafacadeMapping(
-                mappingObjectClassName,
+                mappingObject,
                 this.getActiveNamespace(),
                 context,
-                stereotypeNames);
+                stereotypes);
 
             if (metafacadeClass == null)
             {
@@ -252,7 +244,7 @@ public class MetafacadeFactory
             {
                 if (getLogger().isDebugEnabled())
                     getLogger().debug(
-                        "looking up metafacade class: " + mappingObjectClassName + " --> "
+                        "looking up metafacade class: " + mappingObjectClass.getName() + " --> "
                             + metafacadeClass);
 
                 metafacade = (MetafacadeBase)ConstructorUtils
