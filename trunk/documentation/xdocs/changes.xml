@@ -2,6 +2,7 @@
 <document>
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+		<author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
         <title>Recent AndroMDA changes</title>
         <gennews>no</gennews>
     </properties>
@@ -15,6 +16,17 @@
                     <th class="std">Date</th>
                     <th class="std">Description</th>
                     <th class="std">Details</th>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July 26, 2004</td>
+                    <td valign="top" class="std">andromda Ant task update</td>
+                    <td valign="top" class="std">
+                        The <![CDATA[<andromda/>]]> Ant task was changed to 
+						allow multiple models to be specified using a URL.
+						This included adding a new <![CDATA[<model/>]]> element
+						and eliminating the modelURL attribute from the <![CDATA[<andromda/>]]>
+						task.
+                    </td>
                 </tr>
                 <tr>
                     <td valign="top" class="std">July 11, 2004</td>

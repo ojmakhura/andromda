@@ -45,6 +45,23 @@
             <!-- set the maximum number of packages that may be set, 
                  this can always be increased later, but not sure we would ever need to -->
             <j:set var="maximum" value="30"/>
+            
+            <!-- set the models -->  
+            <j:set var="index" value="0"/>
+            <j:forEach begin="0" end="${maximum}" indexVar="index">
+                <j:set var="indexVarName" value="maven.andromda.model.uri.${index}"/>
+                <j:if test="${context.getVariable(indexVarName) != null and context.getVariable(indexVarName) != ''}">
+                    <ant:model>
+                    
+                        <!-- set the name -->
+                        <ant:setProperty 
+                            name="url" 
+                            value="${context.getVariable(indexVarName)}"/>    
+                                           
+                    </ant:model>
+                    
+                </j:if>
+            </j:forEach>   
 
             <!-- set the modelPackages -->  
             <j:set var="index" value="0"/>
@@ -130,29 +147,6 @@
         </ant:andromda>
       	
 	</goal>
-	
-	<!-- ================================================================
-	       Installs a model into the local repository.
-	     ================================================================ 
-	<goal name="andromda:install-model"
-	      description="Installs a xml.zip model into the local repository">
-	   <j:set var="maven.xml.zip.final.name" 
-	          value="${maven.build.dir}/${maven.final.name}"/>
-  	    <j:set var="modelXml" value="andromda-profile.xml"/>
-		<ant:unzip 
-		    src="${maven.src.dir}/uml/${modelXml}.zip" 
-		    dest="${maven.build.dir}"/>
-		<ant:move
-		    file="${maven.build.dir}/${modelXml}"
-		    tofile="${maven.xml.zip.final.name}.xml"/>
-	    <ant:zip destfile="${maven.xml.zip.final.name}.xml.zip"
-	             basedir="${maven.build.dir}"
-	             includes="*.xml"/>	 	
-	    <artifact:install
-	        artifact="${maven.xml.zip.final.name}.xml.zip"
-	        type="xml.zip"
-	        project="${pom}"/> 	
-	</goal> -->
 	
 	<!-- ================================================================
 	       Adds model dependencies (since they aren't added by Maven)
