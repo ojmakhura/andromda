@@ -284,7 +284,7 @@ public class MetafacadeFactory
      *        <code>mapping</code> instance belongs.
      * @param mapping (the optional MetafacadeMapping instance from which the
      *        metafacade is mapped).
-     * @return the new metafacade.
+     * @return the new (or cached) metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
     private MetafacadeBase getMetafacade(
