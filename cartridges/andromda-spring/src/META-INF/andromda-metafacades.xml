@@ -7,6 +7,7 @@
         metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
         <stereotype>FINDER_METHOD</stereotype>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
+        <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
@@ -40,6 +41,7 @@
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="entityBusinessOperationLocation" default="entity"/>
+        <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
@@ -50,6 +52,7 @@
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="entityBusinessOperationLocation" default="entity"/>
+        <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
@@ -60,6 +63,7 @@
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="entityBusinessOperationLocation" default="entity"/>
+        <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
