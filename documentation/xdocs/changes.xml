@@ -8,6 +8,9 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-03-15" description="First release candidate for version 3.0">
+            <action dev="freter" type="add" issue="SPRING-47">
+                The spring cartridge now supports nullable attributes in criteria finders.
+            </action>
             <action dev="cwbrandon" type="fix" issue="OCL-9">
                 A bug in the OCL query translation library was causing some relational operations (such as 
                 <![CDATA['<>' and '<=') to be incorrectly translated to '>']]>, this has been fixed.

@@ -1,6 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -79,7 +80,7 @@ public class SpringCriteriaAttributeLogicImpl
             else if (comparator
                 .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL))
             {
-                comparatorConstant = "EQUALS_COMPARATOR";
+                comparatorConstant = "EQUAL_COMPARATOR";
             }
             else if (comparator
                 .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL))
@@ -103,6 +104,19 @@ public class SpringCriteriaAttributeLogicImpl
             }
         }
         return comparatorConstant;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsNullable()
+     */
+    protected boolean handleIsNullable() {
+        boolean result = false;
+        String value = StringUtils.trimToEmpty((String) findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
+        if (!StringUtils.isEmpty(value))
+        {
+            result = BooleanUtils.toBoolean(value);
+        }
+        return result;
     }
 
 }
