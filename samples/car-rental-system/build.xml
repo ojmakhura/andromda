@@ -110,7 +110,7 @@
         "ant deploy-hibernate" will deploy the *.ear file into JBoss's
         default server configuration.
     -->
-    <target name="deploy-hibernate"
+    <target name="deploy-hibernate" depends="dist"
             description="Deploys generated Hibernate ear in JBoss">
       <copy todir="${jboss.home}/server/default/deploy" >
           <fileset dir="build/" includes="*hibernate.ear" />
@@ -208,11 +208,18 @@
                 showSql="true"
             />
         </hibernatedoclet>
+        <!--
+             hibernatedoclet has a bug under Windows: It generates
+             resource references in jboss-service.xml, using "\\"
+             instead of "/" as a package path separator.
 
+             Let's compensate for this using the following "replace" task.
+         -->
         <replace file="build/hibernateservice/META-INF/jboss-service.xml" >
             <replacetoken><![CDATA[\]]></replacetoken>
             <replacevalue><![CDATA[/]]></replacevalue>
         </replace>
+
 
         <taskdef name="ejbdoclet"
                  classname="xdoclet.modules.ejb.EjbDocletTask"
