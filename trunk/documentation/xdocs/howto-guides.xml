@@ -5,7 +5,6 @@
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
         <title>AndroMDA - How-to Guides</title>
-        <gennews>no</gennews>
     </properties>
 
     <body>
@@ -31,10 +30,10 @@
                     </li>
                     <li>
                         <a href="andromda-spring-cartridge/howto.html">Spring Cartridge</a><br/>
-                        The Spring cartridge is used to generate your application's back end, it generates Spring
-                        code wrapping Hibernate POJOs and Stateless Session Beans. This guide includes
-                        seven pages of documentation including screenshots and examples of generate code.
-                        The spring-catridge's features are listed and described.
+                        The Spring cartridge is used to generate your application's back end, it generates Spring services
+                        (optionally wrapped by Session EJBs) using Hibernate POJOs for persistence.
+                        This guide includes seven pages of documentation including screenshots and examples of 
+                        generate code.  The spring-cartridge's features are listed and described.
                     </li>
                 </ul>
             </p>
