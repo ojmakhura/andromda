@@ -23,14 +23,14 @@
             tofile="${projectId}/project.properties"/>
           
         <velocity:merge 
-            name="${projectId}/.project"
+            name="${projectId}/project"
             basedir="${templatesDir}"
-            template="/.project.vsl"/>
+            template="/eclipse-project.vsl"/>
           
         <velocity:merge
             name="${projectId}/.classpath"
             basedir="${templatesDir}"
-            template="/.classpath-${persistenceType}.vsl"/>
+            template="/eclipse-classpath-${persistenceType}.vsl"/>
           
         <velocity:merge 
             name="${projectId}/project.xml"
