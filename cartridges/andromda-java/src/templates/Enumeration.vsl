@@ -44,19 +44,15 @@ $attribute.getDocumentation("     * ")
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public boolean equals(Object object) {
-		boolean equals = object != null;
-		if (equals) {
-			// first check if its an actual instance of this
-			// enumeration
-			super.equals(object);
-			
-			// if it isn't an instance of this enumeration,
-			// check if the toString() equals
-			if (!equals) {
-				this.toString().equals(object.toString());
-			}
-		} 
-		return equals;
-	}
+    public boolean equals(Object object) {
+        return object == this;
+    }
+    
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode() { 
+        return toString().hashCode();
+    }	
+    
 }
