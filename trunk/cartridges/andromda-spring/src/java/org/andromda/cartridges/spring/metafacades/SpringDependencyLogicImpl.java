@@ -1,5 +1,11 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import java.util.Collection;
+
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -50,5 +56,33 @@ public class SpringDependencyLogicImpl
     protected String handleGetTransformationAnonymousName()
     {
         return getName().toUpperCase() + TRANSFORMATION_ANONYMOUS_NAME_SUFFIX;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#isCircularReference()
+     */
+    protected boolean handleIsCircularReference()
+    {
+        boolean circularReference = false;
+        final ModelElementFacade sourceElement = this.getSourceElement();
+        final ModelElementFacade targetElement = this.getTargetElement();
+        final Collection sourceDependencies = targetElement
+            .getSourceDependencies();
+        if (sourceDependencies != null && !sourceDependencies.isEmpty())
+        {
+            circularReference = CollectionUtils.find(
+                sourceDependencies,
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        DependencyFacade dependency = (DependencyFacade)object;
+                        return dependency != null
+                            && dependency.getTargetElement().equals(
+                                sourceElement);
+                    }
+                }) != null;
+        }
+        return circularReference;
     }
 }

@@ -162,9 +162,20 @@
     <!-- $entity.name Entity Implementation  -->
     <bean id="$entity.getBeanName(true)" class="$entity.fullyQualifiedDaoImplementationName">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
+## Because of a bug in Spring with circular references (and using AOP proxies), 
+## we need to use the lookup-method as a work-a-round for dependencies
+## which represent circular references
 #foreach($entityRef in $entity.entityReferences)
 #set ($daoReferenceName = $entityRef.targetElement.getBeanName(false))
+#if (!$entityRef.circularReference)
         <property name="$daoReferenceName"><ref bean="$daoReferenceName"/></property>
+#end
+#end
+#foreach($entityRef in $entity.entityReferences)
+#set ($daoReferenceName = $entityRef.targetElement.getBeanName(false))
+#if ($entityRef.circularReference)
+        <lookup-method name="get${entityRef.targetElement.daoName}" bean="$daoReferenceName"/>
+#end
 #end
     </bean>
 
