@@ -4,6 +4,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -23,7 +24,7 @@ public class EntityAttributeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Overridden to provide name masking.
      * 
@@ -31,8 +32,9 @@ public class EntityAttributeLogicImpl
      */
     protected String handleGetName()
     {
-        final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
+        final String nameMask = String
+            .valueOf(this
+                .getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -41,11 +43,13 @@ public class EntityAttributeLogicImpl
      */
     public String handleGetColumnName()
     {
-        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            this,
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            ((Entity)this.getOwner()).getMaxSqlNameLength(),
-            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+        return EntityMetafacadeUtils
+            .getSqlNameFromTaggedValue(
+                this,
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                ((Entity)this.getOwner()).getMaxSqlNameLength(),
+                this
+                    .getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
@@ -95,11 +99,17 @@ public class EntityAttributeLogicImpl
             ClassifierFacade type = this.getType();
             if (type != null)
             {
-                // wouter: yeah I know, Chad is going to support enums of all types
-                // so a proper implementation will probably come with that improvement
-                String typeName = (type.isEnumeration())
-                        ? UMLProfile.STRING_TYPE_NAME
-                        : type.getFullyQualifiedName(true);
+                String typeName = type.getFullyQualifiedName(true);
+                // if its an enumeration, the sql type is the literal type
+                if (type.isEnumeration())
+                {
+                    ClassifierFacade literalType = ((EnumerationFacade)type)
+                        .getLiteralType();
+                    if (literalType != null)
+                    {
+                        typeName = literalType.getFullyQualifiedName(true);
+                    }
+                }
                 value = this.getSqlMappings().getTo(typeName);
                 if (StringUtils.isBlank(value))
                 {
