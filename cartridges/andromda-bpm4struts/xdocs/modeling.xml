@@ -170,6 +170,17 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>@andromda.struts.view.field.validators</td>
+                            <td>Parameter</td>
+                            <td>N/A</td>
+                            <td>Custom validation to be performed, you can add one or more of your own validators here,
+                                parameters would simply need to be separated using spaces. Make sure you add your
+                                validator definitions in <code>validator-rules.xml</code>, there is a
+                                <a href="../andromda-cartridges/index.html#mergeMappingsUri">merge point</a> that can
+                                be used to have them automatically inserted.
+                            </td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.view.field.readonly</td>
                             <td>Parameter</td>
                             <td>false</td>
