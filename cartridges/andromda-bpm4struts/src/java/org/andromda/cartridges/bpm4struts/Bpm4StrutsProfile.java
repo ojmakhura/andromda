@@ -18,16 +18,21 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_ACTION_RESETTABLE = "@andromda.struts.action.resettable";
     public static final String TAGGED_VALUE_ACTION_SUCCES_MESSAGE = "@andromda.struts.action.success.message";
     public static final String TAGGED_VALUE_ACTION_TABINDEX = "@andromda.struts.action.tabindex";
+    public static final String TAGGED_VALUE_ACTION_TABLELINK = "@andromda.struts.action.tablelink";
+
     public static final String TAGGED_VALUE_INPUT_REQUIRED = "@andromda.struts.view.field.required";
     public static final String TAGGED_VALUE_INPUT_READONLY = "@andromda.struts.view.field.readonly";
     public static final String TAGGED_VALUE_INPUT_FORMAT = "@andromda.struts.view.field.format";
     public static final String TAGGED_VALUE_INPUT_TYPE = "@andromda.struts.view.field.type";
     public static final String TAGGED_VALUE_INPUT_VALIDWHEN = "@andromda.struts.view.field.validwhen";
     public static final String TAGGED_VALUE_INPUT_TABINDEX = "@andromda.struts.view.field.tabindex";
+    public static final String TAGGED_VALUE_INPUT_CALENDAR = "@andromda.struts.view.field.calendar";
+
     public static final String TAGGED_VALUE_TABLE_COLUMNS = "@andromda.struts.view.table.columns";
     public static final String TAGGED_VALUE_TABLE_MAXROWS = "@andromda.struts.view.table.maxrows";
     public static final String TAGGED_VALUE_TABLE_EXPORT = "@andromda.struts.view.table.export";
     public static final String TAGGED_VALUE_TABLE_SORTABLE = "@andromda.struts.view.table.sortable";
+
     public static final String TAGGED_VALUE_EXCEPTION_TYPE = "@andromda.struts.exception.type";
     public static final String TAGGED_VALUE_CONTROLLER_USE_CASE = "@andromda.struts.controller.usecase";
     public static final String TAGGED_VALUE_USECASE_ACTIVITY = "@andromda.struts.usecase.activity";
