@@ -66,17 +66,16 @@ public class MetafacadeBase
     }
 
     /**
-     * Derived classes that want to implement validation routines should
-     * override this method.
      * <p>
-     * By default this method is empty.
-     *
-     * @deprecated use handleInvariants() instead
+     *   The logic of modeled OCL invariants from derived metafacades
+     *   will be generated into this method which is then called by 
+     *   #validate().
+     * <p>
+     * 
+     * <p>
+     *   By default this method is empty.
+     * </p>
      */
-    protected void performValidation()
-    {
-    }
-
     protected void __handleInvariants()
     {
     }

@@ -379,15 +379,4 @@ public class StrutsActionLogicImpl
             fieldMap.put(parameter.getName(), parameter);
         }
     }
-
-    protected void performValidation() throws ModelValidationException
-    {
-        super.performValidation();
-/*
-
-        final StrutsTrigger actionTrigger = getActionTrigger();
-        if (actionTrigger == null)
-            validationError("Each action must have a trigger");
-*/
-    }
 }
