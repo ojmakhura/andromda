@@ -96,11 +96,10 @@ public class ModelProcessor
     }
 
     /**
-     * Processes all <code>models</code> with the given
-     * <code>cartridges</code>.
+     * Processes all <code>models</code> with the 
+     * the discovered plugins.
      * 
      * @param models an array of URLs to models.
-     * @param cartridges the Cartridge instances to process with.
      */
     public void process(Model[] models)
     {
