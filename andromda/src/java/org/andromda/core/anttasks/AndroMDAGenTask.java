@@ -41,13 +41,11 @@ public class AndroMDAGenTask
     extends MatchingTask
 {
     /**
-     * Set the context class loader so that any classes using it (the
-     * contextClassLoader) have access to the correct loader.
+     * Initialize the context class loader.
      */
     static
     {
-        Thread.currentThread().setContextClassLoader(
-            AndroMDAGenTask.class.getClassLoader());
+        initializeContextClassLoader();
     }
 
     private static final Logger logger = Logger
@@ -168,6 +166,9 @@ public class AndroMDAGenTask
      */
     public void execute() throws BuildException
     {
+        // initialize before the execute as well in case people
+        // want to execute more than once
+        initializeContextClassLoader();
         try
         {
             this.initializeMappings();
@@ -265,10 +266,20 @@ public class AndroMDAGenTask
             // Set the context class loader back ot its system class loaders
             // so that any processes running after (i.e. XDoclet, etc) won't be
             // trying to use
-            // the ClassLoader for this class.
+            // the ContextClassLoader for this class.
             Thread.currentThread().setContextClassLoader(
                 ClassLoader.getSystemClassLoader());
         }
+    }
+    
+    /**
+     * Set the context class loader so that any classes using it (the
+     * contextContextClassLoader) have access to the correct loader.
+     */
+    private static void initializeContextClassLoader()
+    {
+        Thread.currentThread().setContextClassLoader(
+            AndroMDAGenTask.class.getClassLoader());
     }
 
     /**
