@@ -17,6 +17,7 @@ import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.OutputUtils;
+import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.Property;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -439,7 +440,7 @@ public class Cartridge
                     String content = (String)contentIt.next();
                     if (StringUtils.isNotEmpty(content))
                     {
-                        if (content.matches(resource.getPath()))
+                        if (PathMatcher.wildcardMatch(content, resource.getPath()))
                         {
                             resourceUrl = ResourceUtils.getResource(content); 
                             this.writeResource(resource, resourceUrl);

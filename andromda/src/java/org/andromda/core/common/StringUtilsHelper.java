@@ -8,60 +8,83 @@ import java.util.regex.Pattern;
 /**
  * A utility object for doing string manipulation operations that are commonly
  * needed by the code generation templates.
- *
+ * 
  * @author Matthias Bohlen
  * @author Chris Shaw
  * @author Chad Brandon
  */
-public class StringUtilsHelper extends StringUtils {
+public class StringUtilsHelper
+    extends StringUtils
+{
 
     /**
-    * <p>Capitalizes a string. That is, it returns "HamburgerStall"
-    * when receiving a "hamburgerStall".</p>
-    *
-    * @param s the input string
-    * @return String the output string.
-    */
-    public static String upperCaseFirstLetter(String s) {
-       return capitalize(s);
+     * <p>
+     * Capitalizes a string. That is, it returns "HamburgerStall" when receiving
+     * a "hamburgerStall".
+     * </p>
+     * 
+     * @param s the input string
+     * @return String the output string.
+     */
+    public static String upperCaseFirstLetter(String s)
+    {
+        return capitalize(s);
     }
 
     /**
-    * <p>Removes the capitalization of a string. That is, it returns
-    * "hamburgerStall" when receiving a "HamburgerStall".</p>
-    *
-    * @param s the input string
-    * @return String the output string.
-    */
-    public static String lowerCaseFirstLetter(String s) {
-    	return uncapitalize(s);
+     * <p>
+     * Removes the capitalization of a string. That is, it returns
+     * "hamburgerStall" when receiving a "HamburgerStall".
+     * </p>
+     * 
+     * @param s the input string
+     * @return String the output string.
+     */
+    public static String lowerCaseFirstLetter(String s)
+    {
+        return uncapitalize(s);
     }
 
     /**
-     * <p>Replaces a given suffix of the source string with a new one.
-     * If the suffix isn't present, the string is returned
-     * unmodified.</p>
-     *
-     * @param src the <code>String</code> for which the suffix should be replaced
-     * @param suffixOld a <code>String</code> with the suffix that should be replaced
+     * <p>
+     * Replaces a given suffix of the source string with a new one. If the
+     * suffix isn't present, the string is returned unmodified.
+     * </p>
+     * 
+     * @param src the <code>String</code> for which the suffix should be
+     *        replaced
+     * @param suffixOld a <code>String</code> with the suffix that should be
+     *        replaced
      * @param suffixNew a <code>String</code> with the new suffix
      * @return a <code>String</code> with the given suffix replaced or
      *         unmodified if the suffix isn't present
      */
-    public static String replaceSuffix(String src, String suffixOld, String suffixNew) {
-        if (src.endsWith(suffixOld)) {
-            return src.substring(0, src.length()-suffixOld.length())+suffixNew;
+    public static String replaceSuffix(
+        String src,
+        String suffixOld,
+        String suffixNew)
+    {
+        if (src.endsWith(suffixOld))
+        {
+            return src.substring(0, src.length() - suffixOld.length())
+                + suffixNew;
         }
-
         return src;
     }
 
     /**
-     * <p>Returns the argument string as a Java class name according the Sun coding conventions.</p>
-     * <p>Non word characters be removed and the letter following such a character will be uppercased.</p>
-     *
+     * <p>
+     * Returns the argument string as a Java class name according the Sun coding
+     * conventions.
+     * </p>
+     * <p>
+     * Non word characters be removed and the letter following such a character
+     * will be uppercased.
+     * </p>
+     * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a Java class
+     * @return the string converted to a value that would be well-suited for a
+     *         Java class
      */
     public static String toJavaClassName(String string)
     {
@@ -78,7 +101,7 @@ public class StringUtilsHelper extends StringUtils {
             }
             else
             {
-                conversionBuffer.append(parts[i].substring(0,1).toUpperCase());
+                conversionBuffer.append(parts[i].substring(0, 1).toUpperCase());
                 conversionBuffer.append(parts[i].substring(1));
             }
         }
@@ -86,11 +109,18 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * <p>Returns the argument string as a Java method name according the Sun coding conventions.</p>
-     * <p>Non word characters be removed and the letter following such a character will be uppercased.</p>
-     *
+     * <p>
+     * Returns the argument string as a Java method name according the Sun
+     * coding conventions.
+     * </p>
+     * <p>
+     * Non word characters be removed and the letter following such a character
+     * will be uppercased.
+     * </p>
+     * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a Java method
+     * @return the string converted to a value that would be well-suited for a
+     *         Java method
      */
     public static String toJavaMethodName(String string)
     {
@@ -100,9 +130,10 @@ public class StringUtilsHelper extends StringUtils {
     /**
      * Converts the argument into a web file name, this means: all lowercase
      * characters and words are separated with dashes.
-     *
+     * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a web file name
+     * @return the string converted to a value that would be well-suited for a
+     *         web file name
      */
     public static String toWebFileName(String string)
     {
@@ -112,9 +143,10 @@ public class StringUtilsHelper extends StringUtils {
     /**
      * Converts the argument into a message key in a properties resource bundle,
      * all lowercase characters, words are separated by dots.
-     *
+     * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a message key
+     * @return the string converted to a value that would be well-suited for a
+     *         message key
      */
     public static String toResourceMessageKey(String string)
     {
@@ -122,12 +154,13 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * Converts into a string suitable as a human readable phrase,
-     * First character is uppercase (the rest is left unchanged), words are separated
+     * Converts into a string suitable as a human readable phrase, First
+     * character is uppercase (the rest is left unchanged), words are separated
      * by a space.
-     *
+     * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a human readable phrase
+     * @return the string converted to a value that would be well-suited for a
+     *         human readable phrase
      */
     public static String toPhrase(String string)
     {
@@ -135,12 +168,12 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * Converts the argument to lowercase, removes all non-word characters, and replaces each of those
-     * sequences by a hyphen '-'.
+     * Converts the argument to lowercase, removes all non-word characters, and
+     * replaces each of those sequences by a hyphen '-'.
      */
     public static String separate(String string, String separator)
     {
-        if ( (string == null) ||  (string.trim().length() == 0) )
+        if ((string == null) || (string.trim().length() == 0))
             return string;
 
         final String[] parts = splitAtCapitalization(string);
@@ -155,9 +188,8 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * Splits at each sequence of non-word characters.
-     * <p/>
-     * Sequences of capitals will be left untouched.
+     * Splits at each sequence of non-word characters. <p/>Sequences of capitals
+     * will be left untouched.
      */
     private static String[] splitAtCapitalization(String string)
     {
@@ -176,10 +208,11 @@ public class StringUtilsHelper extends StringUtils {
 
     /**
      * Suffixes each line with the argument suffix.
-     *
+     * 
      * @param multiLines A String, optionally containing many lines
      * @param suffix The suffix to append to the end of each line
-     * @return String The input String with the suffix appended at the end of each line
+     * @return String The input String with the suffix appended at the end of
+     *         each line
      */
     public static String suffixLines(String multiLines, String suffix)
     {
@@ -196,11 +229,12 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * Converts any multi-line String into a version that is suitable to be included as-is in
-     * properties resource bundle.
-     *
+     * Converts any multi-line String into a version that is suitable to be
+     * included as-is in properties resource bundle.
+     * 
      * @param multiLines A String, optionally containing many lines
-     * @return String The input String with a backslash appended at the end of each line
+     * @return String The input String with a backslash appended at the end of
+     *         each line
      */
     public static String toResourceMessage(String multiLines)
     {
@@ -212,7 +246,9 @@ public class StringUtilsHelper extends StringUtils {
             multiLines = suffixLines(multiLines, ' ' + suffix).trim();
             while (multiLines.endsWith(suffix))
             {
-                multiLines = multiLines.substring(0, multiLines.lastIndexOf(suffix)).trim();
+                multiLines = multiLines.substring(
+                    0,
+                    multiLines.lastIndexOf(suffix)).trim();
             }
             resourceMessage = multiLines;
         }
@@ -221,15 +257,17 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * Takes an english word as input and prefixes it with 'a ' or 'an ' depending on the first character of the
-     * argument String.
+     * Takes an english word as input and prefixes it with 'a ' or 'an '
+     * depending on the first character of the argument String.
      * <p>
-     * The characters 'a', 'e', 'i' and 'o' will yield the 'an' predicate while all the others will yield the
-     * 'a' predicate.
-     *
+     * The characters 'a', 'e', 'i' and 'o' will yield the 'an' predicate while
+     * all the others will yield the 'a' predicate.
+     * </p>
+     * 
      * @param word the word needing the predicate
      * @return the argument prefixed with the predicate
-     * @todo: this method could be implemented with better logic, for example to support 'an r' and 'a rattlesnake'
+     * @todo: this method could be implemented with better logic, for example to
+     *        support 'an r' and 'a rattlesnake'
      */
     public static String prefixWithAPredicate(String word)
     {
@@ -241,31 +279,35 @@ public class StringUtilsHelper extends StringUtils {
         char firstChar = word.charAt(0);
         switch (firstChar)
         {
-            case 'a':   // fall-through
-            case 'e':   // fall-through
-            case 'i':   // fall-through
-            case 'o':
+            case 'a' : // fall-through
+            case 'e' : // fall-through
+            case 'i' : // fall-through
+            case 'o' :
                 formattedBuffer.insert(1, 'n');
                 break;
-            default:
+            default :
         }
 
         return formattedBuffer.toString();
     }
 
     /**
-     * Converts multiline text into a single line, normalizing whitespace in the process. This means
-     * whitespace characters will not follow each other directly.
+     * Converts multiline text into a single line, normalizing whitespace in the
+     * process. This means whitespace characters will not follow each other
+     * directly.
      * <p>
      * The resulting String will be trimmed.
      * <p>
+     * <p>
      * If the input String is null the return value will be null too.
-     *
+     * </p>
+     * 
      * @param multiLine A multiline String, may be null
      * @return The argument in a single line
      */
     public static String toSingleLine(String multiLine)
     {
-        return (multiLine == null) ? null : multiLine.replaceAll("[$\\s]+"," ").trim();
+        return (multiLine == null) ? null : multiLine
+            .replaceAll("[$\\s]+", " ").trim();
     }
 }
