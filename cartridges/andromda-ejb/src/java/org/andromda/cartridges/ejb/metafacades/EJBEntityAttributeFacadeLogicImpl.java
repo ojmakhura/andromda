@@ -34,6 +34,13 @@ public class EJBEntityAttributeFacadeLogicImpl
 
     public java.lang.String getGetterName()
     {
+        // we don't use CartridgeHelper.getPropertyAccessorSuffix here
         return "get" + StringUtils.capitalize(super.getName());
+    }
+
+    public java.lang.String getSetterName()
+    {
+        // we don't use CartridgeHelper.getPropertyAccessorSuffix here
+        return "set" + StringUtils.capitalize(super.getName());
     }
 }

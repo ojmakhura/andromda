@@ -346,10 +346,10 @@ public class StringUtilsHelper
             {
                 switch (secondToLastChar)
                 {
-                    case 'a' :
-                    case 'e' :
-                    case 'i' :
-                    case 'o' :
+                    case 'a' : // fall-through
+                    case 'e' : // fall-through
+                    case 'i' : // fall-through
+                    case 'o' : // fall-through
                     case 'u' :
                         pluralNoun = pluralNoun + 's';
                         break;
