@@ -345,4 +345,26 @@
         </modelElements>
     </template>
 
+    <template
+        path="templates/StrutsUserProperties.vsl"
+        outputPattern="user.properties"
+        outlet="server"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/StrutsRolesProperties.vsl"
+        outputPattern="roles.properties"
+        outlet="server"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
 </cartridge>
