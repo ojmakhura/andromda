@@ -1,9 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Collections;
-
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -22,6 +18,10 @@ import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -408,6 +408,11 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsEnumeration()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
+    }
+
+    protected String handleGetEnumerationType()
+    {
+        return (isEnumeration()) ? getFullyQualifiedName() + "Enum" : null;
     }
 
     /**
