@@ -69,7 +69,7 @@ public class SpringEntityAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#isLazy()
      */
     protected boolean handleIsLazy()
     {
@@ -77,7 +77,7 @@ public class SpringEntityAssociationEndLogicImpl
         boolean lazy;
         if (lazyString == null)
         {
-            lazy = !isComposition();
+            lazy = !this.getOtherEnd().isComposition();
         }
         else
         {
