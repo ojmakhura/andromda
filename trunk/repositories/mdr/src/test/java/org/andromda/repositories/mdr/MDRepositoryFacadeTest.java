@@ -50,11 +50,6 @@ public class MDRepositoryFacadeTest
 
     }
 
-    public void testReadModel()
-    {
-        repository.readModel(modelURL, null);
-    }
-
     public void testGetLastModified() throws Exception
     {
         repository.readModel(modelURL, null);
@@ -64,6 +59,7 @@ public class MDRepositoryFacadeTest
 
     public void testGetModel()
     {
+        repository.readModel(modelURL, null);
         assertNotNull(repository.getModel());
         assertNotNull(repository.getModel().getModel());
         assertTrue(repository.getModel().getModel() instanceof UmlPackage);
