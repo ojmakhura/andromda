@@ -44,11 +44,6 @@ public class MetafacadeMappings
     private Map mappings = new HashMap();
 
     /**
-     * The namespace to which this MetafacadeMappings instance applies.
-     */
-    private String namespace = null;
-
-    /**
      * Holds the namespace MetafacadeMappings. This are child MetafacadeMappings
      * keyed by namespace name.
      */
@@ -80,11 +75,6 @@ public class MetafacadeMappings
      * The default meta facade to use when there isn't a mapping found.
      */
     private Class defaultMetafacadeClass = null;
-
-    /**
-     * Whether or not these mappings are shared across all namespaces.
-     */
-    private boolean shared = false;
 
     /**
      * Gets the shared instance.
@@ -127,6 +117,11 @@ public class MetafacadeMappings
     }
 
     /**
+     * The namespace to which this MetafacadeMappings instance applies.
+     */
+    private String namespace = null;
+
+    /**
      * @return Returns the namespace.
      */
     public String getNamespace()
@@ -143,6 +138,11 @@ public class MetafacadeMappings
     {
         this.namespace = StringUtils.trimToEmpty(namespace);
     }
+
+    /**
+     * Whether or not these mappings are shared across all namespaces.
+     */
+    private boolean shared = false;
 
     /**
      * Gets whether or not this set of <code>metafacade</code> mappings is
@@ -177,11 +177,11 @@ public class MetafacadeMappings
         final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
 
-        String metaobjectClassName = mapping.getMappingClassName();
+        String mappingClassName = mapping.getMappingClassName();
         ExceptionUtils.checkEmpty(
             methodName,
-            "mapping.metaobjectClassName",
-            metaobjectClassName);
+            "mapping.mappingClassName",
+            mappingClassName);
         ExceptionUtils.checkNull(methodName, "mapping.metafacadeClass", mapping
             .getMetafacadeClass());
 
@@ -252,18 +252,18 @@ public class MetafacadeMappings
 
     /**
      * Retrieves the MetafacadeMapping belonging to the unique <code>key</code>
-     * created from the <code>metaobjectClass</code> and given
-     * <code>stereotypes</code>.  This allows us to retrieve mappings based on 
+     * created from the <code>mappingClass</code> and given
+     * <code>stereotypes</code>. This allows us to retrieve mappings based on
      * single stereotypes or mappings having multiple stereotypes.
      * 
-     * @param metaobjectClass the class name of the meta model object.
+     * @param mappingClass the class name of the meta model object.
      * @param stereotypes the stereotypes to check.
      * @param context the context within the namespace for which the mapping
      *        applies
      * @return MetafacadeMapping
      */
     protected MetafacadeMapping getMapping(
-        String metaobjectClass,
+        String mappingClass,
         Collection stereotypes,
         String context)
     {
@@ -285,7 +285,7 @@ public class MetafacadeMappings
                 // first check for a mapping that contains the single stereotype
                 // (this gives us the 'OR' feature of matching on stereotypes)
                 key = MetafacadeMappingsUtils.constructKey(
-                    metaobjectClass,
+                    mappingClass,
                     stereotype);
                 mapping = (MetafacadeMapping)this.mappings.get(key);
                 if (mapping != null)
@@ -297,7 +297,7 @@ public class MetafacadeMappings
                 // (this gives us the 'AND' feature of matching on stereotypes)
                 verifiedStereotypes.add(stereotype);
                 key = MetafacadeMappingsUtils.constructKey(
-                    metaobjectClass,
+                    mappingClass,
                     verifiedStereotypes);
                 mapping = (MetafacadeMapping)this.mappings.get(key);
                 if (mapping != null)
@@ -312,7 +312,7 @@ public class MetafacadeMappings
         if (mapping == null && StringUtils.isNotEmpty(context))
         {
             // try constructing key that has the context
-            key = metaobjectClass;
+            key = mappingClass;
             Object object = this.mappings.get(key);
             if (object != null && Map.class.isAssignableFrom(object.getClass()))
             {
@@ -328,8 +328,8 @@ public class MetafacadeMappings
         {
             if (logger.isDebugEnabled())
                 logger.debug("could not find mapping for '" + key
-                    + "' find default --> '" + metaobjectClass + "'");
-            Map mappingMap = (Map)this.mappings.get(metaobjectClass);
+                    + "' find default --> '" + mappingClass + "'");
+            Map mappingMap = (Map)this.mappings.get(mappingClass);
             if (mappingMap != null)
             {
                 // retrieve default mapping
@@ -475,31 +475,31 @@ public class MetafacadeMappings
     /**
      * <p>
      * Attempts to get the MetafacadeMapping identified by the given
-     * <code>metaobjectClass</code> and <code>stereotypes<code>, 
+     * <code>mappingClass</code> and <code>stereotypes<code>, 
      * from the mappings for the given <code>namespace</code> within the 
      * specified <code>context</code>. If it can <strong>not</strong> 
      * be found, it will search the default mappings and return that instead.
      * </p>
      * 
-     * @param metaobjectClass the class name of the meta object for the mapping
+     * @param mappingClass the class name of the meta object for the mapping
      *        we are trying to find.
      * @param stereotypes collection of sterotype names.  We'll check to see if 
-     *        the mapping for the given <code>metaobjectClass</code> is defined for it.
+     *        the mapping for the given <code>mappingClass</code> is defined for it.
      * @param namespace the namespace (i.e. a cartridge, name, etc.)
      * @param context the within the namespace
      */
     public MetafacadeMapping getMetafacadeMapping(
-        String metaobjectClass,
+        String mappingClass,
         Collection stereotypes,
         String namespace,
         String context)
     {
         final String methodName = "MetafacadeMappings.getMetafacadeMapping";
         if (logger.isDebugEnabled())
-            logger.debug("performing '" + methodName
-                + "' with metaobjectClass '" + metaobjectClass
-                + "', stereotypes '" + stereotypes + "', namespace '"
-                + namespace + "' and context '" + context + "'");
+            logger.debug("performing '" + methodName + "' with mappingClass '"
+                + mappingClass + "', stereotypes '" + stereotypes
+                + "', namespace '" + namespace + "' and context '" + context
+                + "'");
 
         MetafacadeMappings mappings = this.getNamespaceMappings(namespace);
         MetafacadeMapping mapping = null;
@@ -507,8 +507,7 @@ public class MetafacadeMappings
         // first try the namespace mappings
         if (mappings != null)
         {
-            mapping = mappings
-                .getMapping(metaobjectClass, stereotypes, context);
+            mapping = mappings.getMapping(mappingClass, stereotypes, context);
         }
 
         // if we've found a namespace mapping, try to get any shared mappings
@@ -518,7 +517,7 @@ public class MetafacadeMappings
         {
             Map propertyReferences = mapping.getPropertyReferences();
             MetafacadeMapping defaultMapping = this.getMapping(
-                metaobjectClass,
+                mappingClass,
                 stereotypes,
                 context);
             if (defaultMapping != null)
@@ -548,12 +547,11 @@ public class MetafacadeMappings
         {
             if (logger.isDebugEnabled())
                 logger.debug("namespace mapping not found --> finding default");
-            mapping = this.getMapping(metaobjectClass, stereotypes, context);
+            mapping = this.getMapping(mappingClass, stereotypes, context);
         }
 
         if (logger.isDebugEnabled())
             logger.debug("found mapping --> '" + mapping + "'");
-
         return mapping;
     }
 
@@ -659,8 +657,9 @@ public class MetafacadeMappings
             }
             if (StringUtils.isEmpty(this.namespace))
             {
-                String errMsg = "No '" + Namespaces.DEFAULT + "' metafacades "
-                    + "found, please check your classpath";
+                String errMsg = "No shared metafacades "
+                    + "found, please check your classpath, at least "
+                    + "one set of metafacades must be marked as 'shared'";
                 throw new MetafacadeMappingsException(errMsg);
             }
         }
