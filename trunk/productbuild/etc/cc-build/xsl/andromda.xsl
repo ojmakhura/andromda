@@ -64,12 +64,14 @@
 
         <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
 
+            <xsl:variable name="build.messages" select="/cruisecontrol/build/message"/>
             <xsl:if test="cruisecontrol/build/@error">
                 <tr><td class="header-title">BUILD FAILED</td></tr>
                 <tr><td class="header-data">
                     <span class="header-label">Ant Error Message:&#160;</span>
                     <xsl:value-of select="cruisecontrol/build/@error"/>
                 </td></tr>
+                <xsl:apply-templates select="$build.messages"/>
             </xsl:if>
 
             <xsl:if test="not (cruisecontrol/build/@error)">
@@ -213,25 +215,31 @@
     </xsl:template>
 
     <xsl:template match="message[@priority='info']">
+		
        <xsl:variable name="infoTest" select="string()" />
         <xsl:choose>
+	    <xsl:when test="parent::build">
+		  <tr><td>
+          <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  </td></tr>
+		</xsl:when>
         <xsl:when test="starts-with($infoTest,'Deploying:')">
-      <span class="compile-data">
-        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
-      </span>
+          <span class="compile-data">
+          <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+          </span>
         </xsl:when>
         <xsl:when test="contains($infoTest,'rsync')">
-      <span class="compile-data">
-        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
-      </span>
+          <span class="compile-data">
+          <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+          </span>
         </xsl:when>
-        <xsl:when test="contains($infoTest,'[exec]')">
-      <span class="compile-data">
-        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
-      </span>
+          <xsl:when test="contains($infoTest,'[exec]')">
+          <span class="compile-data">
+          <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+          </span>
         </xsl:when>
         <xsl:otherwise>
-         </xsl:otherwise>
+        </xsl:otherwise>
        </xsl:choose>
     </xsl:template>
 
