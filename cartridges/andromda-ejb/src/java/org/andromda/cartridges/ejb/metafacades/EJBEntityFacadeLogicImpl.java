@@ -12,6 +12,8 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -186,14 +188,15 @@ public class EJBEntityFacadeLogicImpl
     {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntity#getJndiName()
      */
     public java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this
+            .getJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -220,5 +223,28 @@ public class EJBEntityFacadeLogicImpl
     public boolean handleAllowSyntheticCreateMethod()
     {
         return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
-    }   
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     */
+    public Collection getBusinessOperations()
+    {
+        Collection operations = super.getBusinessOperations();
+        CollectionUtils.filter(operations, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                boolean businessOperation = false;
+                if (EJBOperationFacade.class
+                    .isAssignableFrom(object.getClass()))
+                {
+                    businessOperation = ((EJBOperationFacade)object)
+                        .isBusinessOperation();
+                }
+                return businessOperation;
+            }
+        });
+        return operations;
+    }
 }

@@ -3,6 +3,8 @@ package org.andromda.cartridges.ejb.metafacades;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -79,7 +81,8 @@ public class EJBSessionFacadeLogicImpl
     public java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this
+            .getJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -113,8 +116,8 @@ public class EJBSessionFacadeLogicImpl
      */
     public boolean handleIsStateless()
     {
-        return this.getAllInstanceAttributes() == null || 
-            this.getAllInstanceAttributes().isEmpty();
+        return this.getAllInstanceAttributes() == null
+            || this.getAllInstanceAttributes().isEmpty();
     }
 
     /**
@@ -136,5 +139,28 @@ public class EJBSessionFacadeLogicImpl
     public boolean handleAllowSyntheticCreateMethod()
     {
         return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     */
+    public Collection handleGetBusinessOperations()
+    {
+        Collection operations = super.getOperations();
+        CollectionUtils.filter(operations, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                boolean businessOperation = false;
+                if (EJBOperationFacade.class
+                    .isAssignableFrom(object.getClass()))
+                {
+                    businessOperation = ((EJBOperationFacade)object)
+                        .isBusinessOperation();
+                }
+                return businessOperation;
+            }
+        });
+        return operations;
     }
 }

@@ -57,8 +57,7 @@ $attribute.getDocumentation("     * ")
 #end
 
     // ---------------- business methods  ----------------------
-#foreach ( $operation in $service.operations)
-#if (!$operation.hasStereotype("CreateMethod"))
+#foreach ( $operation in $service.businessOperations)
 ## Only expose public methods
 #if ($operation.visibility == "public")
 
@@ -72,7 +71,6 @@ $operation.getDocumentation("    * ")
 #else
     public $returnType $operation.signature 
         throws java.rmi.RemoteException;
-#end
 #end
 #end
 #end
