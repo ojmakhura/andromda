@@ -1,4 +1,4 @@
 # Attention: generated code (by MetafacadesToImpls.vsl) - do not modify!
 #foreach ( $metafacade in $metafacades )
-${metafacade.fullyQualifiedInterfaceName}=${metafacade.fullyQualifiedName}LogicImpl
+${metafacade.fullyQualifiedName}=${metafacade.getFullyQualifiedLogicImplName(${metamodelVersionPackage})}
 #end

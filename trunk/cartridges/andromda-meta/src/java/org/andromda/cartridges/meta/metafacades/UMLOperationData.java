@@ -15,13 +15,13 @@ public class UMLOperationData extends MethodData
     /**
      * Constructs a MethodData object from an OperationFacade.
      * 
-     * @param interfaceName the name of the parent class
+     * @param metafacadeName the name of the parent class
      * @param op the operation facade
      */
-    public UMLOperationData(String interfaceName, OperationFacade op)
+    public UMLOperationData(String metafacadeName, OperationFacade op)
     {
         super(
-            interfaceName,
+            metafacadeName,
             op.getVisibility().toString(),
             op.isAbstract(),
             op.getType().getFullyQualifiedName(),

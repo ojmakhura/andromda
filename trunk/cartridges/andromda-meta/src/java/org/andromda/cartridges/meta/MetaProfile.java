@@ -17,7 +17,6 @@ public class MetaProfile extends UMLProfile
 
     /* ----------------- Tagged Values -------------------- */
 
-    public static final String TAGGEDVALUE_METAFACADE_INTERFACEPACKAGE = "@andromda.metafacade.interfacepackage";
     public static final String TAGGEDVALUE_METAFACADE_BASECLASS        = "@andromda.metafacade.baseclassname";
 
 }

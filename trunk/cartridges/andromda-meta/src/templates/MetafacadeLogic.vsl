@@ -1,41 +1,44 @@
 //
 // Attention: generated code (by MetafacadeLogic.vsl) - do not modify!
 //
-#set ($packagename = $class.package.fullyQualifiedName)
-package $packagename;
+#set ($generatedFile = $metafacade.getLogicFile($metamodelVersionPackage))
+#set ($packageName = $metafacade.getLogicPackageName($metamodelVersionPackage))
+#if ($packageName)
+package $packageName;
+#end
 
-## calculate metaclass and superclass
-#if ($class.metaclassDirectDependency)
-#set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
+## calculate metaclass and superMetafacade
+#if ($metafacade.metaclassDirectDependency)
+#set ($shieldedMetaclassTypeName = $metafacade.metaclass.fullyQualifiedName)
 #else
-#set ($shieldedMetaclassTypeName = "java.lang.Object")
+#set ($shieldedMetaclassTypeName = "Object")
 #end
 ##
-#set ($superclass = $class.generalization)
+#set ($superMetafacade = $metafacade.generalization)
 ##
 /**
- * MetafacadeLogic for $class.fullyQualifiedInterfaceName
+ * MetafacadeLogic for $metafacade.fullyQualifiedName
  *
- * @see $class.fullyQualifiedInterfaceName
+ * @see $metafacade.fullyQualifiedName
  */
-public abstract class ${class.name}Logic
+public abstract class ${metafacade.logicName}
        extends        org.andromda.core.metafacade.MetafacadeBase
-       implements     $class.fullyQualifiedInterfaceName
+       implements     $metafacade.fullyQualifiedName
 {
     protected $shieldedMetaclassTypeName metaObject;
-#if ($superclass)
-    private $superclass.fullyQualifiedInterfaceName super_;
+#if ($superMetafacade)
+    private $superMetafacade.fullyQualifiedName super_;
 #end
 
-    public ${class.name}Logic ($shieldedMetaclassTypeName metaObject, java.lang.String context) {
+    public $metafacade.logicName ($shieldedMetaclassTypeName metaObject, String context) {
         super (metaObject, getContext(context));
-#if ($superclass)
+#if ($superMetafacade)
         this.super_ =
-           (${superclass.fullyQualifiedInterfaceName})
+           (${superMetafacade.fullyQualifiedName})
             org.andromda.core.metafacade.MetafacadeFactory
                 .getInstance()
                 .createFacadeImpl(
-                    "${superclass.fullyQualifiedInterfaceName}",
+                    "${superMetafacade.fullyQualifiedName}",
                     metaObject,
                     getContext(context));
 #end
@@ -47,14 +50,14 @@ public abstract class ${class.name}Logic
      */
     private static String getContext(String context) {
     	if (context == null) {
-            context = "${class.fullyQualifiedInterfaceName}";
+            context = "${metafacade.fullyQualifiedName}";
         }
         return context;
     }
 
 ##
 
-#set ($atts = $class.attributes)
+#set ($atts = $metafacade.attributes)
 #if (!$atts.empty)
     // --------------- attributes ---------------------
 #foreach ( $att in $atts )
@@ -95,7 +98,7 @@ public abstract class ${class.name}Logic
 
 #end
 #end
-#set ($ops = $class.operations)
+#set ($ops = $metafacade.operations)
 #if (!$ops.empty)
     // ---------------- real business methods ----------------------
 
@@ -214,7 +217,7 @@ public abstract class ${class.name}Logic
 #end
 #end
 ##
-#set ($assocEnds = $class.associationEnds)
+#set ($assocEnds = $metafacade.associationEnds)
 #if (!$assocEnds.empty)
     // ------------- relations ------------------
 
@@ -264,11 +267,11 @@ public abstract class ${class.name}Logic
 #end
 #end
 ##
-#if ($superclass)
-    // ----------- delegates to "superclass" ------------
+#if ($superMetafacade)
+    // ----------- delegates to "superMetafacade" ------------
 
-#foreach ( $method in $superclass.getMethodDataForPSM(true) )
-    // from ${method.interfaceName}
+#foreach ( $method in $superMetafacade.getMethodDataForPSM(true) )
+    // from ${method.metafacadeName}
 	${method.buildMethodDeclaration(true)} {
 #if ($method.hasReturnType())
         return super_.${method.buildMethodCall()};

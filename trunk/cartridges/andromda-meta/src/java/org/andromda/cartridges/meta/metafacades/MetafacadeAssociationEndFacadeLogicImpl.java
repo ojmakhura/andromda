@@ -48,7 +48,7 @@ public class MetafacadeAssociationEndFacadeLogicImpl
         MetafacadeFacade otherMetafacade =
             (MetafacadeFacade) getOtherEnd().getType();
 
-        return otherMetafacade.getFullyQualifiedInterfaceName();
+        return otherMetafacade.getFullyQualifiedName();
     }
 
     // ------------- relations ------------------

@@ -1,28 +1,31 @@
-#set ($packagename = $class.package.fullyQualifiedName)
-package $packagename;
+#set ($generatedFile = $metafacade.getLogicImplFile($metamodelVersionPackage))
+#set ($packageName = $metafacade.getLogicPackageName($metamodelVersionPackage))
+#if ($packageName)
+package $packageName;
+#end
 
-#if ($class.metaclassDirectDependency)
-#set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
+#if ($metafacade.metaclassDirectDependency)
+#set ($shieldedMetaclassTypeName = $metafacade.metaclass.fullyQualifiedName)
 #else
-#set ($shieldedMetaclassTypeName = "java.lang.Object")
+#set ($shieldedMetaclassTypeName = "Object")
 #end
 
 /**
- * MetafacadeLogic implementation for $class.fullyQualifiedInterfaceName.
+ * MetafacadeLogic implementation for $metafacade.fullyQualifiedName.
  *
- * @see $class.fullyQualifiedInterfaceName
+ * @see $metafacade.fullyQualifiedName
  */
-public class ${class.name}LogicImpl
-       extends ${class.name}Logic
-       implements ${class.fullyQualifiedInterfaceName}
+public class ${metafacade.logicImplName}
+       extends ${metafacade.name}Logic
+       implements ${metafacade.fullyQualifiedName}
 {
     // ---------------- constructor -------------------------------
 
-    public ${class.name}LogicImpl ($shieldedMetaclassTypeName metaObject, java.lang.String context)
+    public ${metafacade.logicImplName} ($shieldedMetaclassTypeName metaObject, String context)
     {
         super (metaObject, context);
     }
-#set ($atts = $class.attributes)
+#set ($atts = $metafacade.attributes)
 #if (!$atts.empty)
 
     // --------------- attributes ---------------------
@@ -49,12 +52,12 @@ public class ${class.name}LogicImpl
 #end
 #end
 ##
-#set ($ops = $class.operations)
+#set ($ops = $metafacade.operations)
 #if (!$ops.empty)
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
-    // abstract in class ${class.name} ...
+    // abstract in class ${metafacade.name} ...
 #foreach ( $op in $ops)
 ##
 #set ($methodName = $op.name)
@@ -68,7 +71,7 @@ public class ${class.name}LogicImpl
         throws $defaultException.name {
 #else
     /**
-     * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
+     * @see ${metafacade.fullyQualifiedName}#${op.name}(${op.argumentTypeNames})
      */
     $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList) {
 #end
@@ -89,7 +92,7 @@ public class ${class.name}LogicImpl
 #end
 #end
 ##
-#set ($assocEnds = $class.associationEnds)
+#set ($assocEnds = $metafacade.associationEnds)
 #if (!$assocEnds.empty)
     // ------------- relations ------------------
 

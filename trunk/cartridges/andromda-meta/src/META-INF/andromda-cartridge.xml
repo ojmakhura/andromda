@@ -3,33 +3,40 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
+    <!-- this defines the metamodel version package name 
+    	(i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
+    	 used by this cartridge to create the generated impl package name, if
+    	 left empty then the impl package will be the same as the metafacade
+    	 package -->
+    <property reference="metamodelVersionPackage" default=""/>
+
     <!-- the template definitions -->
     <template
         sheet="templates/MetafacadeLogic.vsl"
-        outputPattern="{0}/{1}Logic.java"
+        outputPattern="$generatedFile"
         outlet="facade-logics"
         overWrite="true">
-        <modelElements variable="class">
+        <modelElements variable="metafacade">
             <modelElement stereotype="metafacade"/>  
         </modelElements>  
     </template>
 
     <template
         sheet="templates/MetafacadeLogicImpl.vsl"
-        outputPattern="{0}/{1}LogicImpl.java"
+        outputPattern="$generatedFile"
         outlet="facade-logic-impls"
         overWrite="false">
-        <modelElements variable="class">
+        <modelElements variable="metafacade">
             <modelElement stereotype="metafacade"/>  
         </modelElements>  
     </template>
 
     <template
         sheet="templates/Metafacade.vsl"
-        outputPattern="$myOutputFile"
+        outputPattern="{0}/{1}.java"
         outlet="facades"
         overWrite="true">
-        <modelElements variable="class">
+        <modelElements variable="metafacade">
             <modelElement stereotype="metafacade"/>  
         </modelElements>  
     </template>

@@ -8,10 +8,11 @@ import java.util.Iterator;
  *
  * @since 10.12.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author Chad Brandon
  */
 public class MethodData implements Comparable
 {
-    private String interfaceName;
+    private String metafacadeName;
     private String visibility;
     private boolean abstract_;
     private String name;
@@ -21,14 +22,14 @@ public class MethodData implements Comparable
     private String documentation;
 
     public MethodData(
-        String interfaceName,
+        String metafacadeName,
         String visibility,
         boolean isAbstract,
         String returnTypeName,
         String name,
         String documentation)
     {
-        this.interfaceName = interfaceName;
+        this.metafacadeName = metafacadeName;
         this.visibility = visibility;
         this.abstract_ = isAbstract;
         this.name = name;
@@ -64,9 +65,9 @@ public class MethodData implements Comparable
     /**
      * @return
      */
-    public String getInterfaceName()
+    public String getMetafacadeName()
     {
-        return interfaceName;
+        return metafacadeName;
     }
 
     /**
@@ -228,7 +229,7 @@ public class MethodData implements Comparable
     public int compareTo(Object o)
     {
         MethodData otherMd = (MethodData) o;
-        int result = getInterfaceName().compareTo(otherMd.getInterfaceName());
+        int result = getMetafacadeName().compareTo(otherMd.getMetafacadeName());
         return result != 0 ? result : getName().compareTo(otherMd.getName());
     }
 
