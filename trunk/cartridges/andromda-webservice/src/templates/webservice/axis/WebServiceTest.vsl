@@ -56,7 +56,7 @@ public abstract class $service.testName
 	 */
 	public static Test suite() 
 	{
-   		return new TestSuite(${service.testName}.class);
+   		return new TestSuite(${service.testImplementationName}.class);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public abstract class $service.testName
 	 */
 	public static void main(String[] args) 
 	{
-    	junit.textui.TestRunner.main(new String[] {${service.testName}.class.getName()});
+    	junit.textui.TestRunner.main(new String[] {${service.testImplementationName}.class.getName()});
 	}
 	
 #foreach ($operation in $service.allowedOperations)
