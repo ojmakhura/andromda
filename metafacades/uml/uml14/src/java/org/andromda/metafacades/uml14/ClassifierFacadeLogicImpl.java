@@ -196,8 +196,8 @@ public class ClassifierFacadeLogicImpl
         final String type = StringUtils.trimToEmpty(typeName);
         String name = StringUtils.trimToEmpty(this.getFullyQualifiedName(true));
         boolean isType = name.equals(type);
-        // if this isn't a collection type, see if we can find any
-        // types that inherit from the collection type.
+        // if this isn't a type defined by typeName, see if we can find any
+        // types that inherit from the type.
         if (!isType)
         {
             isType = CollectionUtils.find(
