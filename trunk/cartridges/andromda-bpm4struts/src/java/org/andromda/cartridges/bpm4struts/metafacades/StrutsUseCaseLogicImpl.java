@@ -55,12 +55,34 @@ public class StrutsUseCaseLogicImpl
 
     public String handleGetActionPath()
     {
-        return getActivityGraph().getFirstAction().getActionPath();
+        String actionPath = null;
+
+        final StrutsActivityGraph graph = getActivityGraph();
+        if (graph != null)
+        {
+            final StrutsAction action = graph.getFirstAction();
+            if (action != null)
+            {
+                actionPath = action.getActionPath();
+            }
+        }
+        return actionPath;
     }
 
     public String handleGetActionPathRoot()
     {
-        return getActivityGraph().getFirstAction().getActionPathRoot();
+        String actionPathRoot = null;
+
+        final StrutsActivityGraph graph = getActivityGraph();
+        if (graph != null)
+        {
+            final StrutsAction action = graph.getFirstAction();
+            if (action != null)
+            {
+                actionPathRoot = action.getActionPathRoot();
+            }
+        }
+        return actionPathRoot;
     }
 
     public String handleGetFullFormBeanPath()
@@ -205,13 +227,16 @@ public class StrutsUseCaseLogicImpl
     protected Collection handleGetPages()
     {
         final Collection pagesList = new ArrayList();
-        final Collection allActionStates = getActivityGraph().getActionStates();
-
-        for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
+        StrutsActivityGraph graph = getActivityGraph();
+        if (graph != null)
         {
-            Object actionState = shieldedElement(actionStateIterator.next());
-            if (actionState instanceof StrutsJsp)
-                pagesList.add(actionState);
+            final Collection allActionStates = graph.getActionStates();
+            for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
+            {
+                Object actionState = actionStateIterator.next();
+                if (actionState instanceof StrutsJsp)
+                    pagesList.add(actionState);
+            }
         }
         return pagesList;
     }
@@ -245,7 +270,8 @@ public class StrutsUseCaseLogicImpl
 
     protected Object handleGetController()
     {
-        return getActivityGraph().getController();
+        StrutsActivityGraph graph = getActivityGraph();
+        return (graph == null) ? null :graph.getController();
     }
 
     protected Collection handleGetFormFields()
