@@ -15,13 +15,6 @@
                 has only been made possible by the recent metafacade mapping changes which allow the mapping
                 based on the target metafacade's properties.
             </action>
-            <action dev="draftdog" type="update" issue="BPM-34">
-                The bpm4struts cartridge no longer requires you to model the <![CDATA[<<FrontEndEvent>>]]>,
-                <![CDATA[<<FrontEndController>>]]> and <![CDATA[<<Role>>]]> stereotypes.
-                These stereotypes can be implied by the model and therefore are considered redundant. This
-                has only been made possible by the recent metafacade mapping changes which allow the mapping
-                based on the target metafacade's properties.
-            </action>
             <action dev="cwbrandon" type="add" issue="CORE-6">
                 Metafacades can now be mapped to meta model objects based on their properties.  This allows us to
                 define metafacades for things that can be inferred by certain conditions of the model instead of
