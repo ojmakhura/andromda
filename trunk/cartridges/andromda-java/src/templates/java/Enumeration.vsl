@@ -13,7 +13,7 @@ public class ${class.name} implements java.io.Serializable {
     private static java.util.Collection values = new java.util.ArrayList();
 
 #foreach ( $attribute in $class.attributes )
-#set ($attributeTypeName = $attribute.type.fullyQualifiedName)
+#set ($attributeType = $attribute.type)
 #set ($fromMethodName = "from${stringUtils.capitalize($attribute.type.name)}")
 	/**
 $attribute.getDocumentation("     * ") 
@@ -21,11 +21,16 @@ $attribute.getDocumentation("     * ")
     public static final $class.name ${attribute.name} = new ${class.name}(${attribute.defaultValue});
    
 #end
-	private $attributeTypeName value;
+	private $attributeType.fullyQualifiedName value;
 	
-	private ${class.name}(${attributeTypeName} value) {
-        if (!values.contains(value)) {
-            values.add(value);
+	private ${class.name}(${attributeType.fullyQualifiedName} value) {   
+#set ($valueTypeDef = "${attributeType.fullyQualifiedName} valueType = value;")
+#if($attributeType.primitiveType)
+#set ($valueTypeDef = "${attributeType.wrapperName} valueType = new ${attributeType.wrapperName}(value);")
+#end
+        $valueTypeDef
+        if (!values.contains(valueType)) {
+            values.add(valueType);
         }
 		this.value = value;
 	}
@@ -42,7 +47,7 @@ $attribute.getDocumentation("     * ")
 	 *
 	 * @param value the value to create the ${class.name} from. 
 	 */
-	public static $class.name ${fromMethodName}($attributeTypeName value) {
+	public static $class.name ${fromMethodName}($attributeType.fullyQualifiedName value) {
         if (!values.contains(value)) {
             throw new IllegalArgumentException(
                 "invalid value, possible values are: " + values);   
