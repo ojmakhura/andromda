@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.CorePackage;
@@ -88,16 +89,22 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * The suffix of an array type.
-     */
-    private static String ARRAY_SUFFIX = "[]";
-
-    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isArrayType()
      */
     protected boolean handleIsArrayType()
     {
-        return this.getFullyQualifiedName(true).endsWith(ARRAY_SUFFIX);
+        return this.getFullyQualifiedName(true).endsWith(this.getArraySuffix());
+    }
+
+    /**
+     * Gets the array suffix from the configured metafacade properties.
+     * 
+     * @return the array suffix.
+     */
+    private String getArraySuffix()
+    {
+        return String.valueOf(this
+            .getConfiguredProperty(UMLMetafacadeProperties.ARRAY_SUFFIX));
     }
 
     /**
@@ -144,7 +151,7 @@ public class ClassifierFacadeLogicImpl
                 String errMsg = "Error getting '" + propertyName + "' --> '"
                     + uri + "'";
                 logger.error(errMsg, th);
-                //don't throw the exception
+                // don't throw the exception
             }
         }
         else
@@ -203,7 +210,7 @@ public class ClassifierFacadeLogicImpl
             this,
             MetafacadeDataTypes.FILE_TYPE_NAME);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isMapType()
      */
@@ -356,11 +363,12 @@ public class ClassifierFacadeLogicImpl
     protected Object handleGetNonArray()
     {
         ClassifierFacade nonArrayType = this;
-        if (this.getFullyQualifiedName().indexOf(ARRAY_SUFFIX) != -1)
+        if (this.getFullyQualifiedName().indexOf(this.getArraySuffix()) != -1)
         {
             nonArrayType = (ClassifierFacade)this.getRootPackage()
                 .findModelElement(
-                    this.getFullyQualifiedName(true).replaceAll("\\[\\]", ""));
+                    StringUtils.replace(this.getFullyQualifiedName(true), this
+                        .getArraySuffix(), ""));
         }
         return nonArrayType;
     }
@@ -372,9 +380,9 @@ public class ClassifierFacadeLogicImpl
     {
         ClassifierFacade arrayType = this;
         String name = this.getFullyQualifiedName(true);
-        if (name.indexOf(ARRAY_SUFFIX) == -1)
+        if (name.indexOf(this.getArraySuffix()) == -1)
         {
-            name = name + ARRAY_SUFFIX;
+            name = name + this.getArraySuffix();
             arrayType = (ClassifierFacade)this.getRootPackage()
                 .findModelElement(name);
         }

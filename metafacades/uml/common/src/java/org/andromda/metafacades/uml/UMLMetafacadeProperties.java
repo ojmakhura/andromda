@@ -82,7 +82,12 @@ public class UMLMetafacadeProperties
     public static final String NAMESPACE_SEPERATOR = "namespaceSeperator";
     
     /**
-     * Used to seperate the names when constructing the fully qualified validation name.
+     * The name given to model elements without a name.
      */
     public static final String UNDEFINED_NAME = "undefinedName";
+    
+    /**
+     * Stores the suffix given to array types.
+     */
+    public static final String ARRAY_SUFFIX = "arraySuffix";
 }
