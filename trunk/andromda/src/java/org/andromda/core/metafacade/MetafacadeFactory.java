@@ -309,13 +309,17 @@ public class MetafacadeFactory
             }
             cache.add(mappingObject, metafacade);
         }
-        // assign the logger and active namespace
-        metafacade.setLogger(this.getLogger());
-        metafacade.setNamespace(this.getActiveNamespace());
-        // we need to populate the properties each time (whether or not
-        // the metafacade is new (since the same metafacade could have
-        // difference property values per namespace)
-        this.populateMetafacadeProperties(metafacade, mappings, mapping);
+        // we need to set some things each time
+        // we change a metafacade's namespace
+        final String metafacadeNamespace = metafacade.getNamespace();
+        if (metafacadeNamespace == null
+            || !metafacadeNamespace.equals(this.getActiveNamespace()))
+        {
+            // assign the logger and active namespace
+            metafacade.setLogger(this.getLogger());
+            metafacade.setNamespace(this.getActiveNamespace());
+            this.populateMetafacadeProperties(metafacade, mappings, mapping);
+        }
         return metafacade;
     }
 
