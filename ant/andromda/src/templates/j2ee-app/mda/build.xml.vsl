@@ -30,9 +30,9 @@
                 <property name="languageMappingsUri" value="file:${basedir}/${mappings.src.dir}/JavaMappings.xml"/>
             </namespace>
             <namespace name="java" ignore="false">
-                <property name="exceptions" value="${app.root.dir}/common/${java.src.dir}"/>
-                <property name="enumerations" value="${app.root.dir}/common/${java.src.dir}"/>
-                <property name="value-objects" value="${app.root.dir}/common/${java.src.dir}"/>
+                <property name="exceptions" value="${app.root.dir}/common/${mda.build.dir}"/>
+                <property name="enumerations" value="${app.root.dir}/common/${mda.build.dir}"/>
+                <property name="value-objects" value="${app.root.dir}/common/${mda.build.dir}"/>
             </namespace>
 #if ($persistenceType == 'hibernate')
             <namespace name="hibernate" ignore="false">
