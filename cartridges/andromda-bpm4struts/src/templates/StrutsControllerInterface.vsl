@@ -9,6 +9,7 @@
 ##
 package $class.packageName;
 
+import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +74,7 @@ $operation.getDocumentation("     * ")
      * </table>
 #end
      */
-    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    $visibility $returnType ${operation.name}(Action action, ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #set ($returnType = false)
 #end
