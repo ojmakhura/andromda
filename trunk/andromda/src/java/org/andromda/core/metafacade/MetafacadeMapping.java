@@ -291,6 +291,36 @@ public class MetafacadeMapping
     {
         return StringUtils.isNotEmpty(this.context);
     }
+    
+    /**
+     * The "parent" metafacade mappings;
+     */
+    private MetafacadeMappings mappings;
+    
+    /**
+     * Sets the metafacade mappings instance to which this
+     * particular mapping belongs. (i.e. the parent)
+     * Note, that this is populated during the call to 
+     * {@link MetafacadeMappings#addMapping(MetafacadeMapping)}.
+     * 
+     * @param mappings the MetacadeMappings instance to which 
+     *        this mapping belongs.
+     */
+    void setMetafacadeMappings(MetafacadeMappings mappings)
+    {
+        this.mappings = mappings;
+    }
+    
+    /**
+     * Gets the "parent" MetafacadeMappings
+     * instance to which this mapping belongs.
+     * 
+     * @return the parent metafacade mappings instance.
+     */
+    MetafacadeMappings getMetafacadeMappings()
+    {
+        return this.mappings;
+    }
 
     /**
      * @see java.lang.Object#toString()

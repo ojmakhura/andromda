@@ -82,6 +82,26 @@ public class MetafacadeBase
         return null;
     }
 
+    private boolean initialized = false;
+
+    /**
+     * Sets the flag indicating this metafacade has been initlized.
+     */
+    void setInitialized()
+    {
+        this.initialized = true;
+    }
+
+    /**
+     * Indicates if this metafacade has been initialized.
+     * 
+     * @return true/false
+     */
+    boolean isInitialized()
+    {
+        return this.initialized;
+    }
+
     /**
      * Validates that this facade's meta object is in a valid state.
      * <p>

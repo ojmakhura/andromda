@@ -261,14 +261,17 @@ public class MetafacadeMappingsTest
         assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
         assertEquals("true", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
         
-        // make sure we can't get the metafacade if we have the mappings with the properties
-        // defined but we have no super class to evaluate
+        // get a metafacade that has no ancestors
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_3, 
             namespace, 
             null, 
             null);
-        assertNull(mapping);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_IMPL_5, mapping.getMetafacadeClass().getName());
+        assertEquals(1, mappingProperties.size());
+        assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
+        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
                 
         // get a mapping by context and property
         mapping = mappings.getMetafacadeMapping(

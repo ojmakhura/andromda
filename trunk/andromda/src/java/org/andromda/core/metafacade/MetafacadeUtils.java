@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PropertyUtils;
+import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -131,5 +132,32 @@ class MetafacadeUtils
             valid = false;
         }
         return valid;
+    }
+
+    /**
+     * Constructs a new <code>metafacade</code> from the given
+     * <code>metafacadeClass</code> and <code>mappingObject</code>.
+     * 
+     * @param metafacadeClass the metafacade class.
+     * @param mappingObject the object to which the metafacade is mapped.
+     * @return the new metafacade.
+     * @throws Exception if any error occurs during metafacade creation
+     */
+    static MetafacadeBase constructMetafacade(
+        final Class metafacadeClass,
+        final Object mappingObject,
+        final String context) throws Exception
+    {
+        MetafacadeBase metafacade = (MetafacadeBase)ConstructorUtils
+            .invokeConstructor(metafacadeClass, new Object[]
+            {
+                mappingObject,
+                context
+            }, new Class[]
+            {
+                mappingObject.getClass(),
+                java.lang.String.class
+            });
+        return metafacade;
     }
 }

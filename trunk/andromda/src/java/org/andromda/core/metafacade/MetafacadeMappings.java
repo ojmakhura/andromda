@@ -181,6 +181,7 @@ public class MetafacadeMappings
         ExceptionUtils.checkNull(methodName, "mapping.metafacadeClass", mapping
             .getMetafacadeClass());
    
+        mapping.setMetafacadeMappings(this);
         this.mappings.add(mapping);
         mappingsByMetafacadeClass.put(this.getMetafacadeInterface(mapping
             .getMetafacadeClass()), mapping);
@@ -279,8 +280,8 @@ public class MetafacadeMappings
      * <ul>
      * <li>A single stereotype no context</li>
      * <li>A single stereotype with a context</li>
-     * <li>super metafacade properties no context</li>
-     * <li>super metafacade properties with a context</code>
+     * <li>metafacade properties no context</li>
+     * <li>metafacade properties with a context</code>
      * <li>multiple stereotypes no context</li>
      * <li>multiple stereotypes with a context</li>
      * </ul>
@@ -357,15 +358,16 @@ public class MetafacadeMappings
                                     mapping.getContext()))
                                 {
                                     inProcessMappings.add(mapping);
-                                    MetafacadeBase metafacade = MetafacadeFactory.getInstance().createMetafacade(
-                                        mappingObject, context);
+                                    MetafacadeBase metafacade = MetafacadeFactory
+                                        .getInstance().createMetafacade(
+                                            mappingObject,
+                                            mapping);
                                     inProcessMetafacades.add(metafacade);
                                     // reset the "in process" mappings
                                     inProcessMappings.clear();
-                                    valid = MetafacadeUtils
-                                            .propertiesValid(
-                                                metafacade,
-                                                mapping);
+                                    valid = MetafacadeUtils.propertiesValid(
+                                        metafacade,
+                                        mapping);
                                 }
                             }
                         }
@@ -449,7 +451,7 @@ public class MetafacadeMappings
                                 MetafacadeBase metafacade = MetafacadeFactory
                                     .getInstance().createMetafacade(
                                         mappingObject,
-                                        context);
+                                        mapping);
                                 inProcessMetafacades.add(metafacade);
                                 // reset the "in process" mappings
                                 inProcessMappings.clear();

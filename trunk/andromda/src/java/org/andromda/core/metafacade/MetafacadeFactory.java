@@ -11,7 +11,6 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
-import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -44,7 +43,7 @@ public class MetafacadeFactory
      * Caches the registered properties used within metafacades.
      */
     private final Map registeredProperties = new HashMap();
-    
+
     /**
      * The shared instance of this factory.
      */
@@ -52,7 +51,7 @@ public class MetafacadeFactory
 
     private MetafacadeFactory()
     {
-        //make sure that nobody instantiates it
+    // make sure that nobody instantiates it
     }
 
     /**
@@ -191,11 +190,13 @@ public class MetafacadeFactory
                     metafacadeClass = mappings
                         .getDefaultMetafacadeClass(this.activeNamespace);
                     if (this.getLogger().isDebugEnabled())
-                        this.getLogger().debug(
-                            "Meta object model class '"
-                                + mappingObjectClass
-                                + "' has no corresponding meta facade class, default is being used --> '"
-                                + metafacadeClass + "'");
+                        this
+                            .getLogger()
+                            .debug(
+                                "Meta object model class '"
+                                    + mappingObjectClass
+                                    + "' has no corresponding meta facade class, default is being used --> '"
+                                    + metafacadeClass + "'");
                 }
             }
 
@@ -222,7 +223,7 @@ public class MetafacadeFactory
             }
 
             final MetafacadeCache cache = MetafacadeCache.instance();
-            
+
             // attempt to get the metafacade from the cache
             // since we don't want to recreate if one already
             // has been created
@@ -239,47 +240,24 @@ public class MetafacadeFactory
                             + mappingObjectClass.getName() + " --> "
                             + metafacadeClass);
 
-                metafacade = (MetafacadeBase)ConstructorUtils
-                    .invokeConstructor(metafacadeClass, new Object[]
-                    {
-                        mappingObject,
-                        context
-                    }, new Class[]
-                    {
-                        mappingObject.getClass(),
-                        java.lang.String.class
-                    });
-
-                // make sure that the facade has a proper logger associated
-                // with it.
-                metafacade.setLogger(this.getLogger());
-
-                // set the metafacade's namespace to the active namespace
-                metafacade.setNamespace(this.getActiveNamespace());
-
-                if (mapping != null)
-                {
-                    // check to see if the metafacade has a context root
-                    // defined (if so, set the context to the interface
-                    // name of the metafacade)
-                    if (mapping.isContextRoot())
-                    {
-                        metafacade.setContext(MetafacadeImpls.instance()
-                            .getMetafacadeClass(
-                                mapping.getMetafacadeClass().getName())
-                            .getName());
-                    }
-                }
+                metafacade = this.constructMetafacade(
+                    metafacadeClass,
+                    mappingObject,
+                    context,
+                    mappings,
+                    mapping);
 
                 // IMPORTANT: we must add the metafacade to the cache
                 // before validate and initialize are called below, (so ordering
                 // matters here) do NOT call validate or initialize methods
                 // before adding the metafacade to the cache, this will cause
                 // endless loops
-                cache.add(
-                    mappingObject,
-                    metafacadeCacheKey,
-                    metafacade);
+                cache.add(mappingObject, metafacadeCacheKey, metafacade);
+            }
+            // initialize each metafacade ONLY once
+            if (metafacade != null && !metafacade.isInitialized())
+            {
+                metafacade.setInitialized();
                 metafacade.initialize();
                 if (this.modelValidation)
                 {
@@ -287,21 +265,6 @@ public class MetafacadeFactory
                     Collection validationMessages = new ArrayList();
                     metafacade.validate(validationMessages);
                     this.validationMessages.addAll(validationMessages);
-                }
-                
-                // Populate the global metafacade properties
-                // NOTE: ordering here matters, we populate the global
-                // properties BEFORE the context properties so that the
-                // context properties can override (if duplicate properties
-                // exist)
-                this.populatePropertyReferences(metafacade, mappings
-                    .getPropertyReferences(this.getActiveNamespace()));
-
-                if (mapping != null)
-                {
-                    // Populate any context property references (if any)
-                    this.populatePropertyReferences(metafacade, mapping
-                        .getPropertyReferences());
                 }
             }
             return metafacade;
@@ -313,6 +276,112 @@ public class MetafacadeFactory
                 + mappingObjectClass + "'";
             getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
+        }
+    }
+
+    /**
+     * Creates a metacade from the passed in <code>mappingObject</code>, and
+     * <code>mapping</code> instance.
+     * 
+     * @param mappingObject the mapping object for which to create the
+     *        metafacade.
+     * @param mapping the mapping from which to create the metafacade
+     * @return the metafacade, or null if it can't be created.
+     */
+    protected MetafacadeBase createMetafacade(
+        final Object mappingObject,
+        final MetafacadeMapping mapping)
+    {
+        final Class metafacadeClass = mapping.getMetafacadeClass();
+        try
+        {
+            return this.constructMetafacade(
+                mapping.getMetafacadeClass(),
+                mappingObject,
+                mapping.getContext(),
+                mapping.getMetafacadeMappings(),
+                mapping);
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Failed to construct a meta facade of type '"
+                + metafacadeClass + "' with mappingObject of type --> '"
+                + mapping.getMappingClassName() + "'";
+            getLogger().error(errMsg);
+            throw new MetafacadeFactoryException(errMsg, th);
+        }
+    }
+
+    /**
+     * Constructs a new <code>metafacade</code> from the given
+     * <code>metafacadeClass</code> and <code>mappingObject</code>.
+     * 
+     * @param metafacadeClass the metafacade class.
+     * @param mappingObject the object to which the metafacade is mapped.
+     * @param context the context to which the metafacade applies
+     * @param mappings the MetafacadeMappings instance to which the optional
+     *        <code>mapping</code> instance belongs.
+     * @param mapping (the optional MetafacadeMapping instance from which the
+     *        metafacade is mapped).
+     * @return the new metafacade.
+     * @throws Exception if any error occurs during metafacade creation
+     */
+    private MetafacadeBase constructMetafacade(
+        final Class metafacadeClass,
+        final Object mappingObject,
+        final String context,
+        final MetafacadeMappings mappings,
+        final MetafacadeMapping mapping) throws Exception
+    {
+        MetafacadeBase metafacade = MetafacadeUtils.constructMetafacade(
+            metafacadeClass,
+            mappingObject,
+            context);
+        // assign the logger and active namespace
+        metafacade.setLogger(this.getLogger());
+        metafacade.setNamespace(this.getActiveNamespace());
+        if (mapping != null)
+        {
+            // check to see if the metafacade has a context root
+            // defined (if so, set the context to the interface
+            // name of the metafacade)
+            if (mapping.isContextRoot())
+            {
+                metafacade.setContext(MetafacadeImpls.instance()
+                    .getMetafacadeClass(mapping.getMetafacadeClass().getName())
+                    .getName());
+            }
+        }
+        this.populateMetafacadeProperties(metafacade, mappings, mapping);
+        return metafacade;
+    }
+
+    /**
+     * Populates the given <code>metafacade</code> with the properties from
+     * the given <code>mapping</code> as well as the properties from the
+     * {@link MetafacadeMappings}instance to which the <code>mapping</code>
+     * belongs.
+     * 
+     * @param metafacade
+     * @param mapping
+     */
+    private void populateMetafacadeProperties(
+        MetafacadeBase metafacade,
+        MetafacadeMappings mappings,
+        MetafacadeMapping mapping)
+    {
+        // Populate the global metafacade properties
+        // NOTE: ordering here matters, we populate the global
+        // properties BEFORE the context properties so that the
+        // context properties can override (if duplicate properties
+        // exist)
+        this.populatePropertyReferences(metafacade, mappings
+            .getPropertyReferences(this.getActiveNamespace()));
+        if (mapping != null)
+        {
+            // Populate any context property references (if any)
+            this.populatePropertyReferences(metafacade, mapping
+                .getPropertyReferences());
         }
     }
 
