@@ -430,8 +430,8 @@ public class Cartridge
                     else
                     {
                         if (this.logger.isDebugEnabled())
-	                        this.logger.debug("Empty Output: '" + outFile.toURI()
-	                            + "' --> not writing");
+                            this.logger.debug("Empty Output: '"
+                                + outFile.toURI() + "' --> not writing");
                     }
                     AndroMDALogger.reset();
                 }
