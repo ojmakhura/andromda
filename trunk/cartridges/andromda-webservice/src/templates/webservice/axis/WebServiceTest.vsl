@@ -94,7 +94,7 @@ public class $testClassName
 #set ($argumentTypeName = $argument.type.fullyQualifiedName)
 #end
 #set ($instanceDef = "$argumentTypeName $argument.name")
-#if(!$argument.type.primitiveType)
+#if(!$argument.type.primitive)
         $instanceDef = null;
 #elseif ($argumentTypeName.equals("boolean"))
         $instanceDef = false;

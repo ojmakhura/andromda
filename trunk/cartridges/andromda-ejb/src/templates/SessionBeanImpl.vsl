@@ -54,7 +54,7 @@ $operation.getDocumentation("     * ")
 #if ("void" != $returntype)
 
         // Dummy return value, just that the file compiles
-#if (!$operation.returnType.primitiveType)
+#if (!$operation.returnType.primitive)
         return null;
 #elseif ("boolean" == $returnType)
         return false;

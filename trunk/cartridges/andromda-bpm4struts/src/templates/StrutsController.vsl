@@ -58,7 +58,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #if ($returnType != "void")
 #if ($returnType=="boolean")
         return false;
-#elseif ($operation.returnType.primitiveType)
+#elseif ($operation.returnType.primitive)
         return 0;
 #else
         return null;
