@@ -220,6 +220,18 @@
 						No, default is <code>RPC</code>
 					</td>
 				</tr> 
+				<tr>
+					<td>
+						wsdlOperationSortMode
+					</td>
+					<td>
+						Specifies how operations should be sorted within the WSDL.
+                        Current options are <strong>none</strong> and <strong>name</strong>.
+					</td>
+					<td>
+						No, default is <code>name</code>
+					</td>
+				</tr> 
 			</table>
 			<subsection name="WS-Security Specific Properties">
 				<table>
