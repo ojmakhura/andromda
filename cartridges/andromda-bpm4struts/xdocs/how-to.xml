@@ -28,7 +28,7 @@
                 The application we are about to model consists of three pages:
                 <ul>
                     <li>the first page expects the user to enter his name and password, his name must be
-                        at least 3 characters and start with a capital, the password needs to be 6 characters
+                        at least 3 alphabetical characters, the password needs to be 6 characters
                         or more and consists of alphanumerical characters (both uppercase and lowercase), when
                         the user clicks on 'proceed' we go to the second page</li>
                     <li>the second page lists items that can be purchased, the user can select an arbitrary number of
@@ -63,7 +63,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/create-usecase.jpg"/>
+                    <img src="images/create-usecase.jpg"/>
                 </div>
             </p>
             <p class="std">
@@ -79,7 +79,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/add-activity-graph.jpg"/>
+                    <img src="images/add-activity-graph.jpg"/>
                 </div>
             </p>
             <h4>The Initial State</h4>
@@ -107,7 +107,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-action-states.jpg"/>
+                    <img src="images/model-action-states.jpg"/>
                 </div>
             </p>
             <h4>Transitions and Parameters</h4>
@@ -123,11 +123,11 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/add-parameter-edit.jpg"/>
+                    <img src="images/add-parameter-edit.jpg"/>
                 </div>
                 <br/>
                 <div>
-                  <img src="images/add-parameter-add.jpg"/>
+                    <img src="images/add-parameter-add.jpg"/>
                 </div>
             </p>
             <p class="std">
@@ -139,7 +139,8 @@
             </p>
             <p class="std">
                 The item list collection parameter sent by the server to the client can optionally have a
-                tagged value assigned to it: <code>@andromda.struts.view.table.columns</code>; the value
+                tagged value assigned to it:
+                <code>@andromda.struts.view.table.columns</code>; the value
                 is a list of bean property-names separated using commas. So if the objects in the collection
                 are of a custom type you might have something like this:
                 <pre>
@@ -152,7 +153,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-parameters-0.jpg"/>
+                    <img src="images/model-parameters-0.jpg"/>
                 </div>
             </p>
             <p class="std">
@@ -163,7 +164,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-parameters-1.jpg"/>
+                    <img src="images/model-parameters-1.jpg"/>
                 </div>
             </p>
                 Once you have reached this point it is time to add stereotypes, you will need to tag the
@@ -172,7 +173,7 @@
                 carry the FrontEndEvent stereotype.
             <p class="std">
                 <div>
-                  <img src="images/add-stereotypes-1.jpg"/>
+                    <img src="images/add-stereotypes-1.jpg"/>
                 </div>
             </p>
             <h4>Decision Points</h4>
@@ -224,15 +225,15 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-controller.jpg"/>
+                    <img src="images/model-controller.jpg"/>
                 </div>
                 <br/>
                 <div>
-                  <img src="images/assign-controller-1.jpg"/>
+                    <img src="images/assign-controller-1.jpg"/>
                 </div>
                 <br/>
                 <div>
-                  <img src="images/assign-controller-2.jpg"/>
+                    <img src="images/assign-controller-2.jpg"/>
                 </div>
             </p>
             <p class="std">
@@ -281,7 +282,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-usecases.jpg"/>
+                    <img src="images/model-usecases.jpg"/>
                 </div>
             </p>
         </section>
