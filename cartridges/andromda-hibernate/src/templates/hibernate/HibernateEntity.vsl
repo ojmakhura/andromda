@@ -94,17 +94,25 @@ public abstract class $entity.name
 #end ## end if generalization
 {
 
+#set ($idDone = "false")
 #if ( $generalization)
 #if ( $generalization.hibernateInheritanceInterface)
     // --------------- super attributes ---------------------
 #foreach ( $attribute in $generalization.attributes )
+##  truth table
+##         identifier done
+##            true     true        false
+##            true     false       true
+##            false    true        true
+##            false    true        true
+#if (!$attribute.identifier || $idDone != "true" )
     private $attribute.type.fullyQualifiedName $attribute.name;
 
     /**
 $attribute.getDocumentation("     * ")
-     *
 #if ($attribute.identifier)
 #set ($idDone = "true")
+     *
      * @hibernate.id
      *     generator-class="$idGeneratorClass"
 #else
@@ -126,13 +134,13 @@ $attribute.getDocumentation("     * ")
     {
         this.${attribute.name} = $attribute.name;
     }
-
+#end  ##end if id done
 #end  ##end foreach
 
     // ------------- super relations ------------------
 
 #foreach ( $associationEnd in $generalization.associationEnds )
-    #set ($target = $associationEnd.otherEnd)
+	#set ($target = $associationEnd.otherEnd)
     #set ($sourceType = $associationEnd.type)
     #set ($targetType = $target.type)
     #set ($targetTypeName = $targetType.fullyQualifiedName)
@@ -245,6 +253,7 @@ $target.getDocumentation("     * ")
 
 #end
 #foreach ( $attribute in $entity.attributes )
+#if (!$attribute.identifier || $idDone != "true" )
     private $attribute.type.fullyQualifiedName $attribute.name;
 
     /**
@@ -283,8 +292,8 @@ $attribute.getDocumentation("     * ")
     {
         this.${attribute.name} = $attribute.name;
     }
-
-#end
+#end ## !identifier and !idDone
+#end ## end foreach
     // ------------- relations ------------------
 
 #foreach ( $associationEnd in $entity.associationEnds )
