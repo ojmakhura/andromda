@@ -23,7 +23,8 @@
       </currentbuildstatuspublisher>
       <htmlemail logdir="/work/andromda/logs/andromda-all" 
            mailhost="localhost" 
-		   spamwhilebroken="true"
+           buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all"
+	   spamwhilebroken="true"
            subjectprefix="[BUILD]" 
            returnaddress="cwbrandon@users.sourceforge.net" 
            defaultsuffix="@users.sourceforge.net" 
