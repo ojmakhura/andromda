@@ -8,7 +8,9 @@
         <attainGoal name="clean:clean"/>
     </goal>   
          
-    <!-- Unzip the howto images -->
+    <!-- ==================================================================
+             Unzip the howto images
+         ================================================================== -->
     <preGoal name="xdoc:transform">
         <ant:unzip src="${howto.pictures.zip}" dest="${howto.output.dir}"/>
     </preGoal>
