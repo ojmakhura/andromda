@@ -55,8 +55,21 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName()
     {
+        return this.getPackageName(false);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName(boolean)
+     */
+    public String handleGetPackageName(boolean modelName)
+    {
+        String seperatorProperty = MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR;
+        if (!modelName)
+        {
+            seperatorProperty = UMLMetafacadeProperties.NAMESPACE_SEPARATOR;
+        }
         return UMLMetafacadeUtils.getPackageName(this.metaObject,
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
+            String.valueOf(this.getConfiguredProperty(seperatorProperty)));
     }
 
     /**
@@ -65,8 +78,7 @@ public class ModelElementFacadeLogicImpl
     public java.lang.String handleGetFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
-        String packageName = this.getPackageName();
-
+        final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
             fullName = packageName
@@ -98,8 +110,7 @@ public class ModelElementFacadeLogicImpl
      */
     public Collection handleFindTaggedValues(String name)
     {
-        Collection values = new ArrayList();
-
+        final Collection values = new ArrayList();
         // only search a tagged value when it actually has a name
         if (StringUtils.isNotBlank(name))
         {
