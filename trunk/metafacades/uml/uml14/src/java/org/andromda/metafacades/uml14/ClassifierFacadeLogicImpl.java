@@ -34,8 +34,10 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the class name will result in
-     * uncompilable Java code.
+     * This method is overridden to make sure the name 
+     * will <strong>not</strong> result in uncompilable Java code.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String getName()
     {

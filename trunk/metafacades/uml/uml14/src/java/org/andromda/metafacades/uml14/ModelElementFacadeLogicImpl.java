@@ -1,5 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
@@ -19,10 +23,6 @@ import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
@@ -93,7 +93,6 @@ public class ModelElementFacadeLogicImpl
                         this.getLanguageMappings().getTo(fullName));
             }
         }
-
         return fullName;
     }
 
@@ -294,7 +293,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacade#getName()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String handleGetName()
     {

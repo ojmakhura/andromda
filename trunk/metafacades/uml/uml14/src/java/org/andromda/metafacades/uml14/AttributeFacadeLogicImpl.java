@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
@@ -29,12 +30,14 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the parameter 
-     * name will result in uncompilable Java code.
+     * This method is overridden to make sure the name 
+     * will <strong>not</strong> result in uncompilable Java code.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
-    public String handleGetName()
+    public String getName()
     {
-        return StringUtils.deleteWhitespace(super.getName());
+        return StringUtilsHelper.toJavaMethodName(super.getName());
     }
 
     // -------------------- business methods ----------------------
