@@ -12,7 +12,9 @@ public class Metafacade3Impl
      * @param metaObject
      * @param context
      */
-    public Metafacade3Impl(Object metaObject, String context)
+    public Metafacade3Impl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }

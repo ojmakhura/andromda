@@ -1,11 +1,12 @@
 package org.andromda.core.metafacade;
 
 /**
+ * Fake metafacade number 8 (just used for testing the MetafacadeMappings).
  * 
  * @author Chad Brandon
  */
 public class Metafacade8Impl
-extends MetafacadeBase
+    extends MetafacadeBase
 {
     /**
      * @param metaObject
@@ -17,16 +18,16 @@ extends MetafacadeBase
     {
         super(metaObject, context);
     }
-    
+
     private boolean propertyOne = true;
-    
+
     public boolean getPropertyOne()
     {
         return propertyOne;
     }
-    
+
     private String propertyTwo = "SomeValue";
-    
+
     public String getPropertyTwo()
     {
         return propertyTwo;

@@ -18,16 +18,16 @@ public class Metafacade7Impl
     {
         super(metaObject, context);
     }
-    
+
     private boolean propertyOne = false;
-    
+
     public boolean getPropertyOne()
     {
         return propertyOne;
     }
-    
+
     private boolean propertyTwo = true;
-    
+
     public boolean getPropertyTwo()
     {
         return propertyTwo;

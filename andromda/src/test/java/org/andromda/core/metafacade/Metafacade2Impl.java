@@ -12,15 +12,17 @@ public class Metafacade2Impl
      * @param metaObject
      * @param context
      */
-    public Metafacade2Impl(Object metaObject, String context)
+    public Metafacade2Impl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
-    
+
     private boolean mappingProperty = true;
-    
+
     public boolean isMappingProperty()
     {
-        return mappingProperty;   
+        return mappingProperty;
     }
 }

@@ -87,4 +87,28 @@
             <property name="propertyTwo">SomeValue</property>
         </mapping>
     </metafacade>
+    <!-- test with two mappings using two different properties mapping to 
+         the same metafacade -->
+    <metafacade class="org.andromda.core.metafacade.Metafacade9Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject10">
+            <property name="propertyOne"/>
+        </mapping>
+    </metafacade>    
+    <metafacade class="org.andromda.core.metafacade.Metafacade9Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject10">
+            <property name="propertyTwo"/>
+        </mapping>
+    </metafacade> 
+    <!-- test with two mappings using two multually exclusive properties mapping to 
+         the same metafacade -->
+    <metafacade class="org.andromda.core.metafacade.Metafacade10Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject11">
+            <property name="propertyTwo"/>
+        </mapping>
+    </metafacade>   
+    <metafacade class="org.andromda.core.metafacade.Metafacade10Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject11">
+            <property name="propertyOne"/>
+        </mapping>
+    </metafacade>      
 </metafacades>
