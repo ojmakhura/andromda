@@ -92,7 +92,7 @@ public class StrutsUseCaseLogicImpl
 
     public String handleGetFormBeanName()
     {
-        return StringUtilsHelper.lowerCaseFirstLetter(getFormBeanClassName());
+        return StringUtilsHelper.uncapitalize(getFormBeanClassName());
     }
 
     public String handleGetFormBeanClassName()
