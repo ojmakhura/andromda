@@ -17,6 +17,18 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 22, 2004</td>
+                    <td valign="top" class="std">New bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        For those who want it online help will be generated
+                        for your application, by default it is enabled. You can
+                        override this by setting the 'onlineHelp' property to
+                        'false' in your bpm4struts namespace.
+                        It currently supports documentation on use-cases, action
+                        transitions, action parameters and pages.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 21, 2004</td>
                     <td valign="top" class="std">Bpm4Struts change</td>
                     <td valign="top" class="std">
