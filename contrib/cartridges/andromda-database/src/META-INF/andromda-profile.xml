@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  The default Database profile mappings.
+-->
+<mappings name="database"> 
+    <mapping>
+        <from>DATABASE_DUMMYLOAD_SIZE</from>
+        <to>@andromda.persistence.dummyload.size</to>
+    </mapping>
+</mappings>
