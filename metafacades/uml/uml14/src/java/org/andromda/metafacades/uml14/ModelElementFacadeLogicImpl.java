@@ -542,12 +542,13 @@ public class ModelElementFacadeLogicImpl
             {
                 ConstraintFacade constraint = (ConstraintFacade)object;
                 return StringUtils.trimToEmpty(constraint.getBody()).matches(
-                    ".*\\s" + kind + "\\s*.*:.*");
+                    UMLMetafacadeGlobals.CONSTRAINT_KIND_PREFIX_PATTERN 
+                        + kind + UMLMetafacadeGlobals.CONSTRAINT_KIND_SUFFIX_PATTERN);
             }
         });
         return this.translateConstraints(constraints, translation);
     }
-
+    
     /**
      * @see java.lang.Object#toString()
      */
