@@ -212,15 +212,13 @@
             </p>
             <h3>Ant</h3>
             <p class="std">
-                Download the application that will generate a J2EE development
-                environment <a href="http://team.andromda.org/maven/andromda/jars">here</a>.
-                You will need the andromda-ant binary.
+                Download the AndroMDA 3.0 binary distribution from the AndroMDA SourceForge.net
+                <a href="http://sourceforge.net/project/showfiles.php?group_id=73047" target="_blank">files</a>
+                page.
             </p>
             <p class="std">
-                You will simply need to start it like this (file name may differ):
-                <source>
-                    java -jar andromda-ant.jar
-                </source>
+                Unzip into any location and go into the 'ant' subdirectory. Type 'ant' there to invoke
+                the Ant build process. (You will need to have Ant installed of course)
             </p>
             <p class="std">
                 Answer the questions, a little later you will have your environment
@@ -228,7 +226,7 @@
                 corresponding property files.
             </p>
             <p class="std">
-                Running 'ant' in the root is sufficient to build a distribution.
+                Running 'ant' in the root of the generated structure is sufficient to build a distribution.
                 It is also possible to build each submodule (represented in each
                 subdirectory) separately.
             </p>
@@ -241,7 +239,7 @@
                         after generating code using AndroMDA
                     </li>
                     <li>
-                        Library dependencies are downloaded automatically, 
+                        Library dependencies are downloaded automatically,
                         however, in case you have no online connection or are behind
                         a firewall, it is possible to download a separate bundle
                         containing only the libraries. These can then be copied
