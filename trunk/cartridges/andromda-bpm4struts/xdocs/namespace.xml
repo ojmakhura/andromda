@@ -239,7 +239,7 @@
                 <tr>
                     <td>exceptionHandlerPattern</td>
                     <td>
-                        Used to define the pattern used for retriving message resource keys
+                        Used to define the pattern used for retrieving message resource keys
                         from exceptions.  This is useful when exceptions are thrown from the business
                         tier and you want to map these to messages in your presentation. 
                         Normally you won't need to change this pattern, however you may want to 
