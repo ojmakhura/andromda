@@ -241,9 +241,9 @@ span.export
 	display: inline;
 	cursor: pointer;
 }
-span.excel { background-image: url(excel-file.png); background-repeat: no-repeat; }
-span.csv { background-image: url(csv-file.png); background-repeat: no-repeat; }
-span.xml { background-image: url(xml-file.png); background-repeat: no-repeat; }
+span.excel { background-image: url(excel.gif); background-repeat: no-repeat; }
+span.csv { background-image: url(csv.gif); background-repeat: no-repeat; }
+span.xml { background-image: url(xml.gif); background-repeat: no-repeat; }
 
 table.list { width: 100%; padding-right: 25px; }
 
@@ -251,9 +251,9 @@ tr.odd { background-color: #eef; padding: 2px; }
 tr.even { background-color: #fff; padding: 2px; }
 th.sorted { background-color: #fff; font-weight: bold; }
 th.sorted a, th.sortable a { background-position: right; display: block; }
-th.sortable a { background-image: url(sort-none.png); background-repeat: no-repeat; }
-th.order1 a { background-image: url(sort-descending.png); background-repeat: no-repeat; }
-th.order2 a { background-image: url(sort-ascending.png); background-repeat: no-repeat; }
+th.sortable a { background-image: url(none.gif); background-repeat: no-repeat; }
+th.order1 a { background-image: url(descending.gif); background-repeat: no-repeat; }
+th.order2 a { background-image: url(ascending.gif); background-repeat: no-repeat; }
 
 span.pagebanner
 {

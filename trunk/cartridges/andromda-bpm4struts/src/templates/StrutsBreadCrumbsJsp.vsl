@@ -10,7 +10,7 @@
         <bean:size id="size" name="org.andromda.bpm4struts.breadcrumbs" scope="session"/>
         <logic:iterate id="crumb" indexId="count" name="org.andromda.bpm4struts.breadcrumbs" scope="session">
             <logic:greaterThan name="count" value="0">
-                <html:img page="/layout/breadcrumb.png" alt="&gt;"/>
+                <html:img page="/layout/breadcrumb.gif" alt="&gt;"/>
             </logic:greaterThan>
             <logic:notEqual name="count" value="<%=String.valueOf(size.intValue()-1)%>">
                 <a href="<bean:write name="crumb" property="value"/>">
