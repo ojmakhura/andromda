@@ -188,7 +188,7 @@ public class ModelProcessor
     private void process(RepositoryFacade repository, Model[] models)
     {
         final String methodName = "ModelProcessor.process";
-        String cartridgeName = "andromda";
+        String cartridgeName = null;
         try
         {
             boolean lastModifiedCheck = true;
