@@ -38,7 +38,6 @@ import org.andromda.core.translation.node.TName;
 public class OclParser
     extends Parser
 {
-
     protected Node oclNode;
 
     /**
@@ -283,7 +282,6 @@ public class OclParser
     private class VariableDeclarationListFinder
         extends DepthFirstAdapter
     {
-
         /**
          * Stores the variable names in an ordered fashion so that we can
          * retrieve them from the namesAndTypes map in the order they were
@@ -378,7 +376,6 @@ public class OclParser
                 variableDeclarationListTails);
             return list;
         }
-
     }
 
     /**
@@ -387,7 +384,6 @@ public class OclParser
     private class NameFinder
         extends DepthFirstAdapter
     {
-
         private TName foundName;
 
         /**
