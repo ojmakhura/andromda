@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ${controller.name}Impl extends ${controller.name}
+public class ${controller.name}Impl extends ${controller.name} implements java.io.Serializable
 {
 #foreach ($operation in $controller.operations)
 #set ($visibility = $operation.visibility)
