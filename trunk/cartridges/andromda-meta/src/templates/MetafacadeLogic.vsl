@@ -98,8 +98,8 @@ public abstract class ${metafacade.logicName}
 #set ($memberName = "${att.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
-#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
-#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
+#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
 ##
    /**
 	* @see ${memberTypeName}#${methodName}()
@@ -139,8 +139,8 @@ public abstract class ${metafacade.logicName}
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = $op.typedArgumentList)
-#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
-#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
+#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
 
     $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
@@ -183,8 +183,8 @@ public abstract class ${metafacade.logicName}
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
-#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
-#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
+#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
 ##
     private $memberTypeName $memberName;
 
