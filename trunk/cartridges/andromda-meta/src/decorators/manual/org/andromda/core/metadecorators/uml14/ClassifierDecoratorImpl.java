@@ -1,5 +1,6 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.omg.uml.foundation.core.Abstraction;
@@ -99,7 +100,12 @@ public class ClassifierDecoratorImpl extends ClassifierDecorator
      */
     protected ModelElement handleGetSuperclass()
     {
-        Iterator i = getGeneralization().iterator();
+        Collection generalizations = metaObject.getGeneralization();
+        if (generalizations == null)
+        {
+            return null;
+        }
+        Iterator i = generalizations.iterator();
 
         if (i.hasNext())
         {
