@@ -151,7 +151,7 @@
         outlet="entity-beans"
         overwrite="true">
     </resource>
-
+	
     <template
         path="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -427,6 +427,17 @@
               </td>
           </tr>
         </table>
+		<p>
+		    This example would copy all <code>.jar</code> files to the 
+			location defined by the <em>libs</em> outlet.
+		</p>
+		<source>
+<![CDATA[
+<resource
+    path=".*\.jar"
+    outlet="libs"
+    overwrite="false"/> 
+     ]]></source>
     </section>
   </body>
 </document>
