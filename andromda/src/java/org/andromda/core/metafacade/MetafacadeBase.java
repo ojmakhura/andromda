@@ -87,7 +87,7 @@ public class MetafacadeBase
      * lifecycle of a metafacade it is validated only once, this is enforced by
      * the caching within the metafacade factory.
      * 
-     * @see MetafacadeFactory#internalCreateMetafacade(Object, String, Class)
+     * @see MetafacadeFactory#createMetafacade(Object, String, Class)
      * @param validationMessages any messages generated during validation.
      */
     public final void validate(Collection validationMessages)
@@ -197,7 +197,7 @@ public class MetafacadeBase
      * 
      * @param context the metafacade interface name representing the context.
      * @see MetafacadeMapping#isContextRoot()
-     * @see MetafacadeFactory#internalCreateMetafacade(Object, String, Class)
+     * @see MetafacadeFactory#createMetafacade(Object, String, Class)
      */
     public void setMetafacadeContext(String context)
     {
