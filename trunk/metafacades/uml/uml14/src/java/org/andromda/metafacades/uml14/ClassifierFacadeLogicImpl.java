@@ -39,7 +39,9 @@ public class ClassifierFacadeLogicImpl
      */
     public String getName()
     {
-        return StringUtilsHelper.toJavaClassName(super.getName());
+        return (isPrimitiveType())
+            ? super.getName()
+            : StringUtilsHelper.toJavaClassName(super.getName());
     }
 
     /**
