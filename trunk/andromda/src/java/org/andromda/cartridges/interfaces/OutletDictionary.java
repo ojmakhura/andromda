@@ -48,16 +48,24 @@ public class OutletDictionary
      */
     public File lookupOutlet(String cartridgeName, String outletName)
     {
+        File result = null;
         HashMap outlets = (HashMap) dict.get(cartridgeName);
-        if (outlets == null)
+
+        if (outlets != null)
+        {
+            result = (File) outlets.get(outletName);
+        }
+
+        if (result == null)
         {
             // @todo: better logging!
             System.err.println(
-                "lookupOutlet: Could not find cartridge \""
+                "lookupOutlet: No mapping defined for outlet \""
+                    + outletName
+                    + "\" of cartridge \""
                     + cartridgeName
                     + "\"");
-            return null;
         }
-        return (File) outlets.get(outletName);
+        return result;
     }
 }
