@@ -30,7 +30,7 @@ public final class $enumeration.name
      * A map holding all the enumeration instances, mapped by their value.
      */
     private static final Map INSTANCES = new HashMap();
-    private static List LITERALS = null;
+    private static List literals = null;
 
 #foreach ($literal in $enumeration.literals)
     /**
@@ -45,7 +45,12 @@ $literal.getDocumentation("     * ")
 #foreach ($literal in $enumeration.literals)
         INSTANCES.put(${literal.name}.enumCode, ${literal.name});
 #end
-        LITERALS = Collections.unmodifiableList(new ArrayList(INSTANCES.values()));
+
+        literals = new ArrayList();
+#foreach ($literal in $enumeration.literals)
+        literals.add(${literal.name});
+#end
+        literals = Collections.unmodifiableList(literals);
     }
 
     private static final int[] SQL_TYPES = {Types.VARCHAR};
@@ -159,6 +164,6 @@ $literal.getDocumentation("     * ")
      */
     public static List literals()
     {
-        return LITERALS;
+        return literals;
     }
 }
