@@ -354,7 +354,7 @@ public class MetafacadeBase
      * <code>context</code>.
      * 
      * @return the metafacade's context.
-     * @see #setContextRoot(String)
+     * @see #setContextRoot(boolean)
      */
     public String getMetafacadeContext()
     {
