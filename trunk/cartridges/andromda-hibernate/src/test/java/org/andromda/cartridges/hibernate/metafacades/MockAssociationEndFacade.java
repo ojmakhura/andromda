@@ -3,13 +3,7 @@ package org.andromda.cartridges.hibernate.metafacades;
 import java.util.Collection;
 
 import org.andromda.core.mapping.Mappings;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.AssociationFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ModelFacade;
-import org.andromda.metafacades.uml.NamespaceFacade;
-import org.andromda.metafacades.uml.PackageFacade;
+import org.andromda.metafacades.uml.*;
 
 /**
  * Mock facade, used as a test data holder for AssociationLinkManagerFinderTest.
@@ -538,4 +532,11 @@ public class MockAssociationEndFacade implements AssociationEndFacade {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getActivityGraphContext()
+     */
+    public ActivityGraphFacade getActivityGraphContext() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

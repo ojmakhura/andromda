@@ -24,6 +24,7 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 
 /**
  * Metaclass facade implementation.
@@ -592,7 +593,7 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String,
      *      java.lang.String)
      */
-    public java.lang.String[] handleTranslateConstraints(
+    protected java.lang.String[] handleTranslateConstraints(
         final String kind,
         String translation)
     {
@@ -608,5 +609,23 @@ public class ModelElementFacadeLogicImpl
             }
         });
         return this.translateConstraints(constraints, translation);
+    }
+
+    protected Object handleGetActivityGraphContext()
+    {
+        ActivityGraph graphContext = null;
+
+        Collection graphs = UMLMetafacadeUtils.getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext();)
+        {
+            ActivityGraph graph = (ActivityGraph) graphIterator.next();
+            ModelElement contextElement = graph.getContext();
+            if (metaObject.equals(contextElement))
+            {
+                graphContext = graph;
+            }
+        }
+
+        return graphContext;
     }
 }

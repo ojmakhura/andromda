@@ -8,10 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.CallEventFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.*;
 
 
 /**
@@ -54,13 +51,18 @@ public class StrutsActionStateLogicImpl
             if (activityGraphFacade instanceof StrutsActivityGraph)
             {
                 StrutsActivityGraph activityGraph = (StrutsActivityGraph) activityGraphFacade;
-                Collection actions = activityGraph.getUseCase().getActions();
-                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                UseCaseFacade useCase = activityGraph.getUseCase();
+
+                if (useCase instanceof StrutsUseCase)
                 {
-                    StrutsAction action = (StrutsAction) actionIterator.next();
-                    if (action.getActionStates().contains(this))
+                    Collection actions = ((StrutsUseCase)useCase).getActions();
+                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                     {
-                        actionSet.add(action);
+                        StrutsAction action = (StrutsAction) actionIterator.next();
+                        if (action.getActionStates().contains(this))
+                        {
+                            actionSet.add(action);
+                        }
                     }
                 }
             }

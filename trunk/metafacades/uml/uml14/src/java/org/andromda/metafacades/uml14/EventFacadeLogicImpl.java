@@ -1,6 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.behavioralelements.statemachines.Transition;
+
 import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -19,8 +22,25 @@ public class EventFacadeLogicImpl
         super (metaObject, context);
     }
 
-    public Collection handleGetParameters()
+    protected Collection handleGetParameters()
     {
         return metaObject.getParameter();
+    }
+
+    protected Object handleGetTransition()
+    {
+        Transition eventTransition = null;
+
+        Collection allTransitions = UMLMetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
+        for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition==null;)
+        {
+            Transition transition = (Transition) iterator.next();
+            if (metaObject.equals(transition.getTrigger()))
+            {
+                eventTransition = transition;
+            }
+        }
+
+        return eventTransition;
     }
 }

@@ -98,7 +98,7 @@ public class StrutsControllerLogicImpl
     {
         UseCaseFacade useCase = null;
 
-        ActivityGraphFacade graphContext = getModel().getActivityGraphContext(this);
+        ActivityGraphFacade graphContext = getActivityGraphContext();
 
         if (graphContext == null)
         {
@@ -112,7 +112,7 @@ public class StrutsControllerLogicImpl
         }
         else
         {
-            useCase = getModel().getUseCase(graphContext);
+            useCase = graphContext.getUseCase();
         }
 
         return useCase;

@@ -145,7 +145,7 @@ public class StrutsTriggerLogicImpl
     {
         StrutsAction triggerAction = null;
 
-        TransitionFacade transition = getModel().getEventTransition(this);
+        TransitionFacade transition = getTransition();
         if (transition instanceof StrutsAction)
         {
             triggerAction = (StrutsAction)transition;

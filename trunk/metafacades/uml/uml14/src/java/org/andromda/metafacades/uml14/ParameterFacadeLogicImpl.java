@@ -4,6 +4,11 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.omg.uml.foundation.datatypes.Expression;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
+import org.omg.uml.foundation.core.Operation;
+import org.omg.uml.behavioralelements.statemachines.SignalEvent;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -59,4 +64,37 @@ public class ParameterFacadeLogicImpl
 
     // ------------------------------------------------------------
 
+    protected Object handleGetOperation()
+    {
+        Operation parameterOperation = null;
+
+        Collection allOperations = UMLMetafacadeUtils.getModel().getCore().getOperation().refAllOfType();
+        for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation==null;)
+        {
+            Operation operation = (Operation) iterator.next();
+            if (operation.getParameter().contains(metaObject))
+            {
+                parameterOperation = operation;
+            }
+        }
+
+        return parameterOperation;
+    }
+
+    protected Object handleGetEvent()
+    {
+        SignalEvent parameterSignalEvent = null;
+
+        Collection allSignalEvents = UMLMetafacadeUtils.getModel().getStateMachines().getSignalEvent().refAllOfType();
+        for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent==null;)
+        {
+            SignalEvent signalEvent = (SignalEvent) iterator.next();
+            if (signalEvent.getParameter().contains(metaObject))
+            {
+                parameterSignalEvent = signalEvent;
+            }
+        }
+
+        return parameterSignalEvent;
+    }
 }
