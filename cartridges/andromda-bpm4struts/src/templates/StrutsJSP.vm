@@ -186,7 +186,7 @@ ${indent}</html:link>
 ##      F I L E
 ##
 #elseif ($widgetType == 'file')
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end></html:file> 
+${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()" $disabled#end/>
 ##
 ##      P L A I N T E X T
 ##
