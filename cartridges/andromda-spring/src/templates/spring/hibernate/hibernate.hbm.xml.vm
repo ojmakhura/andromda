@@ -33,7 +33,7 @@
 		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="delete"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="delete"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true" #if ($otherEnd.child) cascade="delete"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #else
