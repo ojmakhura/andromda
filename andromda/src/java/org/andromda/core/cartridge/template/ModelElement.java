@@ -182,19 +182,20 @@ public class ModelElement
                         {
                             ModelElementType.Property property = (ModelElementType.Property)properties
                                 .next();
-                            accept = PropertyUtils.isReadable(
-                                metafacade,
-                                property.getName());
-                            // if accept is still true, and the property
-                            // has a value defined
-                            if (accept && property.hasValue())
+                            if (PropertyUtils.isReadable(metafacade, property
+                                .getName()))
                             {
                                 Object value = PropertyUtils.getProperty(
                                     metafacade,
                                     property.getName());
-                                accept = (value != null)
-                                    && String.valueOf(value).equals(
+                                accept = value != null;
+                                // if accept is still true, and the property
+                                // has a value defined
+                                if (accept && property.hasValue())
+                                {
+                                    accept = String.valueOf(value).equals(
                                         property.getValue());
+                                }
                             }
                         }
                     }
