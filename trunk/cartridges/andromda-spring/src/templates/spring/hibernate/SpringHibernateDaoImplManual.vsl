@@ -4,7 +4,9 @@
  * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
  */
+#if ($entity.packageName)
 package $entity.packageName;
+#end
 
 #set ($superclass = $entity.generalization)
 /**

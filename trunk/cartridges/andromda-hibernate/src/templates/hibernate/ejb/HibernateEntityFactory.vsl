@@ -2,7 +2,9 @@
 /**
  * Attention: Generated source! Do not modify by hand!
  */
+#if ($entity.packageName)
 package $entity.packageName;
+#end
 
 /**
  * <p>

@@ -1,5 +1,7 @@
 // license-header java merge-point
+#if ($service.packageName)
 package $service.packageName;
+#end
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedWebServiceDelegatorName,'.','/')}.java")
 
 /**
