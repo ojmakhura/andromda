@@ -108,7 +108,7 @@ for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
 public class SomeClass
 {
     private String someString;
-[...]
+    ...
     public void someMethod()
     {
         logger.debug("Value = " + this.someString);
