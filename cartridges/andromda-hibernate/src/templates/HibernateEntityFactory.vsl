@@ -1,0 +1,138 @@
+/**
+ * Attention: Generated source! Do not modify by hand!
+ */
+#set ($packagename = $transform.findPackageName(${class.package}))
+package $packagename;
+##
+#macro ( generateDocumentation $item $indent)
+#foreach ( $tgv in $item.taggedValues )
+#if ($tgv.tag == "documentation")
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#end
+#end
+##
+
+/**
+ * <p>
+ * Factory class.
+ * Is able to find and create objects of type ${class.name}.
+ * Those can be described as follows:
+ * </p>
+#generateDocumentation ($class " ")
+#set ($tablename = $str.toDatabaseAttributeName(${class.name}, "_"))
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.tag != "documentation")
+#if ($tgv.tag == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.tag)
+#end
+ * $tag    $tgv.value
+#end
+#end
+ *
+ */
+public abstract class ${class.name}Factory {
+
+   // ---------------- create method --------------------
+
+   /**
+    * Creates a(n) ${class.name} object.
+    *
+#foreach ( $att in $class.attributes)
+#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
+    * @param ${att.name}
+#end
+#end
+    * @return ${class.name} the created object
+    */
+    public static ${class.name} create $transform.getAttributesAsList($class, true, false)
+    {
+        ${class.name} object = new ${class.name}Impl();
+        
+#foreach ( $att in $class.attributes)
+#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
+        object.set${str.upperCaseFirstLetter(${att.name})} (${att.name});
+#end
+#end
+
+        return object;
+    }
+
+
+    // ---------------- finder methods  ----------------------
+
+#set ($primKey = $transform.getPrimaryKeyAttribute($class))
+#set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
+    /**
+     *
+     * Finds ${class.name} object by its primary key.
+     * In Hibernate, this is just a call to load().
+     *
+     */
+    public static $class.name findByPrimaryKey (cirrus.hibernate.Session sess, $primKeyTypeName ${primKey.name})
+        throws java.sql.SQLException, cirrus.hibernate.HibernateException
+    {
+        ${class.name} object = (${class.name}) sess.load(${class.name}Impl.class, ${primKey.name});
+        return object;
+    }
+
+#foreach ( $op in $class.operations)
+#if ($transform.getStereotype($op.id) == "FinderMethod")
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+##
+#set ($parameterList = $transform.getOperationTypedParameterList($op))
+#if ($parameterList.length() == 0)
+#set ($parameters = "cirrus.hibernate.Session sess")
+#else
+#set ($parameters = "cirrus.hibernate.Session sess, ${parameterList}")
+#end
+##
+    /**
+#generateDocumentation ($op "    ")
+     *
+     * Finds ${class.name} object(s) using a query.
+     *
+     */
+    $op.visibility static $returntype ${op.name} ($parameters)
+        throws java.sql.SQLException, cirrus.hibernate.HibernateException
+    {
+##
+#set($querystring = "")
+#set($querystring = $transform.findTagValue($op.taggedValues, "@andromda.hibernate.query"))
+#if($querystring == "")
+#set($querystring = "from c in class ${transform.findFullyQualifiedName($class)}")
+#if($op.parameters.size() > 0)
+#set($querystring = "${querystring} where")
+#foreach($prm in $op.parameters)
+#set($querystring="${querystring} c.$prm.name=?")
+#if($velocityCount != $op.parameters.size())
+#set($querystring = "${querystring} and")
+#end
+#end
+#end
+#end
+##
+        cirrus.hibernate.Query q = sess.createQuery("$querystring");
+##
+#foreach($prm in $op.parameters)
+#set ($index = $velocityCount - 1) 
+		q.set${prm.type.name} (${index}, ${prm.name});
+#end
+##    
+        return q.list();
+    }
+
+#end##if stereotype=="FinderMethod"
+#end##foreach operation
+
+}
