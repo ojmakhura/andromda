@@ -269,6 +269,7 @@ span.export
 span.excel { background-image: url(excel.gif); background-repeat: no-repeat; }
 span.csv { background-image: url(csv.gif); background-repeat: no-repeat; }
 span.xml { background-image: url(xml.gif); background-repeat: no-repeat; }
+span.pdf { background-image: url(pdf.gif); background-repeat: no-repeat; }
 
 table.list { width: 100%; padding-right: 25px; }
 
@@ -303,60 +304,6 @@ span.pagelinks
 	display: block;
 	border-top: none;
 	margin: 0 25px 10px 0;
-}
-
-/* styles related to tabbed panels */
-
-div.tabs
-{
-	width: 550px;
-    display: block;
-    background-color: #fff;
-}
-
-div.tabs div.tab
-{
-    position: relative;
-    background-color: #fff;
-    border: 1px solid #fff;
- }
-
-div.tabs div.tab div.tab-header
-{
-    padding-left: 10px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #333;
-}
-
-div.tabs div.tab div.tab-header div.selected-tab
-{
-    display: inline;
-	padding: 1px 0.5em 1px 0.5em;
-    font-weight: bolder;
-	background-color: #fff;
-	border: 1px solid #333;
-	border-bottom: 1px solid #fff;
-	margin: 0px 1px 0px 2px;
-}
-
-div.tabs div.tab div.tab-header div.unselected-tab
-{
-    display: inline;
-	padding: 1px 0.5em 1px 0.5em;
-	background-color: #e0e0e0;
-	border: 1px solid #333;
-	margin: 0px 1px 0px 2px;
-}
-
-div.tabs div.tab div.tab-header div.unselected-tab a
-{
-    border: 0px;
-    padding: 0px;
-    margin: 0px;
-}
-
-div.tabs div.tab div.tab-body
-{
 }
 
 #if ($maxBreadCrumbs != "0")
