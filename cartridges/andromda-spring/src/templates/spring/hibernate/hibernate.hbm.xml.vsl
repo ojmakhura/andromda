@@ -16,7 +16,7 @@
 
 #set ($identifier = $entity.identifiers.iterator().next())
 		<id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
-#if ($entity.child)
+#if ($entity.child && $entity.parentEnd.one2One)
 			<generator class="foreign">
 			     <param name="property">$entity.parentEnd.name</param>
 			</generator>
