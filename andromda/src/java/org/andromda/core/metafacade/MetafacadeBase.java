@@ -1,12 +1,12 @@
 package org.andromda.core.metafacade;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Base class for all metafacades.
@@ -387,4 +387,24 @@ public class MetafacadeBase
     {
         return metaObject.hashCode();
     }
+
+    /**
+     * A check to verify whether or not to make use of metafacade property caching. This method check if the
+     * <code>UMLMetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING</code> namespace property has been set,
+     * if this is not the case then the caching will be enabled by default.
+     */
+    public boolean isMetafacadePropertyCachingEnabled()
+    {
+        if (metafacadePropertyCachingEnabled == null)
+        {
+            Object enableCache = getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
+            metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache.toString().trim());
+        }
+        return metafacadePropertyCachingEnabled.booleanValue();
+    }
+
+    /**
+     * In order to speed up the check for this property (which will happen many times), we cache it :-)
+     */
+    private Boolean metafacadePropertyCachingEnabled = null;
 }

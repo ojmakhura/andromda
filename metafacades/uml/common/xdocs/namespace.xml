@@ -291,22 +291,38 @@
                         No, the default is <code>2</code>.
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        undefinedName
-                    </td>
-                    <td>
-                        When a model element name is unspecified this is
-                        the name used (instead of null).
-                    </td>
-                    <td>
-                        Configures undefined model element names in model validation
-                        messages.
-                    </td>
-                    <td>
-                        No, the default is <code>undefined</code>.
-                    </td>
-                </tr>
+                  <tr>
+                      <td>
+                          undefinedName
+                      </td>
+                      <td>
+                          When a model element name is unspecified this is
+                          the name used (instead of null).
+                      </td>
+                      <td>
+                          Configures undefined model element names in model validation
+                          messages.
+                      </td>
+                      <td>
+                          No, the default is <code>undefined</code>.
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          enableMetafacadePropertyCaching
+                      </td>
+                      <td>
+                          Used for performance reasons, caching a metafacade's properties
+                          significantly speeds up the code generation process. Can be disabled when debugging.
+                          This feature can be set on a per cartridge basis.
+                      </td>
+                      <td>
+                          Whether or not to use the caching of metafacade properties.
+                      </td>
+                      <td>
+                          No, the default is <code>true</code>.
+                      </td>
+                  </tr>
             </table>
     	</section>
   	</body>

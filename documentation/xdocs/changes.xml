@@ -8,7 +8,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-03-15" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-03-19" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add">
+                The caching of metafacade properties can now be disabled (even on a per cartridge basis), just use
+                the <code>enableMetafacadePropertyCaching</code> namespace property. Most properties are being cached
+                now for reasons of performance.
+            </action>
             <action dev="freter" type="add" issue="SPRING-47">
                 The spring cartridge now supports nullable attributes in criteria finders.
             </action>

@@ -12,4 +12,14 @@ public class MetafacadeProperties
      * Used to separate the namespaces between a validation name.
      */
     public static final String VALIDATION_NAME_SEPARATOR = "validationNameSeparator";
+
+    /**
+     * Are we making use of the caching of metafacade properties (true/false).
+     */
+    public static final String ENABLE_METAFACADE_PROPERTY_CACHING = "enableMetafacadePropertyCaching";
+
+    /**
+     * The default value for ENABLE_METAFACADE_PROPERTY_CACHING.
+     */
+    public static final Boolean ENABLE_METAFACADE_PROPERTY_CACHING_DEFAULT = Boolean.TRUE;
 }
