@@ -13,6 +13,10 @@ import junit.framework.TestSuite;
 
 /**
  * JUnit test for web service {@link ${service.fullyQualifiedName}}.
+ * <p>
+ *   NOTE: You must generate the client stubs for the $service.fullyQualifiedName WSDL 
+ *   using axis's java2wsdl tool in order to run these tests. 
+ * </p>
  *
  * @see $service.fullyQualifiedName
  */
