@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Getting Started</title>
+        <gennews>yes</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Getting Started with AndroMDA 3.x">
+            <h3>Maven</h3>
+            <p class="std">
+                Make sure you have Maven installed
+            </p>
+            <p class="std">
+                Go into a directory in which you want to create your working directory.
+                For example, suppose you want to work in C:\development\java\my-project, then
+                simple go into C:\development\java\
+            </p>
+            <p class="std">
+                At the console type:
+                <source>
+                    C:\development\java> maven andromda:genapp
+                </source>
+            </p>
+            <p class="std">
+                Answer the questions you are prompted to answer
+            </p>
+            <p class="std">
+                Giving your project the id 'my-project' will create a subdirectory
+                with the same name, so you'll have C:\development\java\my-project.
+            </p>
+            <p class="std">
+                C:\development\java\my-project\mda\src\uml will contain an empty XMI
+                document, you can use it to get started modelling your application
+            </p>
+            <p class="std">
+                Simply typing 'maven' in C:\development\java\my-project will build your
+                application and it will put all the binaries into the local
+                Maven repository (most probably this is the .maven directory in your home
+                directory)
+            </p>
+            <p class="std">
+                Optionally you can go into a subdirectory to build it separately from
+                the others, this is much quicker and it will make it easy to focus on
+                only a part of your application.
+            </p>
+            <p class="std">
+                If your application 'my-project' has been built succesfully you can find
+                the binaries here: %USERPROFILE%\.maven\repository\my-project\
+                (for *nix users: $USER_HOME\.maven\repository\my-project\)
+            </p>
+            <p class="std">
+                By default the application will generate an EJB backend (optionally with a
+                Hibernate persistence layer) and a Struts front-end.
+            </p>
+            <h3>Ant</h3>
+            <p class="std">
+                Under construction
+            </p>
+        </section>
+
+    </body>
+
+</document>
+
+

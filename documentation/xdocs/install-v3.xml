@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Installation</title>
+        <gennews>yes</gennews>
+    </properties>
+
+    <body>
+
+        <section name="How to install AndroMDA 3.x">
+            <h3>Maven</h3>
+            <p class="std">
+                You just have to make sure you have Maven installed. There is
+                an AndroMDA plugin for maven which will setup a working
+                environment for you.
+            </p>
+            <p class="std">
+                Download Maven <a href="http://maven.apache.org">here</a>.
+            </p>
+            <h3>Ant</h3>
+            <p class="std">
+                Ant users can download the binary distribution which contains
+                all the binaries required to build applications using AndroMDA.
+            </p>
+            <p class="std">
+                Download it <a href="http://team.andromda.org/maven/andromda/distributions">here</a>.
+            </p>
+        </section>
+
+    </body>
+
+</document>
