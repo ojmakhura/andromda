@@ -1,4 +1,4 @@
-package org.andromda.core.cartridge;
+package org.andromda.core.translation.library;
 
 import java.util.Collection;
 import java.util.Map;
@@ -10,24 +10,21 @@ import org.andromda.core.common.XmlObjectFactory;
 
 /**
  * Implements the JUnit test suit for 
- * <code>org.andromda.core.cartridge.Cartridge</code>
+ * <code>org.andromda.core.translation.library.Library</code>
  * 
- * @see org.andromda.core.cartridge.Cartridge
- * 
- * @since 01.04.2003
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @see org.andromda.core.library.LibraryTest
  * @author Chad Brandon
 
  */
-public class CartridgeTest extends TestCase
+public class LibraryTest extends TestCase
 {
-    private Cartridge cartridge;
+    private Library library;
 
     /**
-     * Constructor for AndroMDATestCartridgeTest.
+     * Constructor for AndroMDATestLibraryTest.
      * @param arg0
      */
-    public CartridgeTest(String arg0)
+    public LibraryTest(String arg0)
     {
         super(arg0);
     }
@@ -41,11 +38,11 @@ public class CartridgeTest extends TestCase
         // doesn't seem to support schema validation
         XmlObjectFactory.setDefaultValidating(false);
         PluginDiscoverer.instance().discoverPlugins();
-        Collection cartridges = 
+        Collection librarys = 
             PluginDiscoverer.instance().findPlugins(
-                Cartridge.class);
-        assertNotNull(cartridges);
-        this.cartridge = (Cartridge)cartridges.iterator().next();
+                Library.class);
+        assertNotNull(librarys);
+        this.library = (Library)librarys.iterator().next();
     }
 
     /**
@@ -53,23 +50,23 @@ public class CartridgeTest extends TestCase
      */
     protected void tearDown() throws Exception
     {
-        this.cartridge = null;
+        this.library = null;
     }
     
     public void testGetName() 
     {
-        assertEquals("andromda-test-cartridge", this.cartridge.getName());
+        assertEquals("test-translation-library", this.library.getName());
     }
     
-    public void testGetTemplates() 
+    public void testGetLibraryTranslations() 
     {
-        assertNotNull(this.cartridge.getTemplateConfigurations());
-        assertEquals(2, this.cartridge.getTemplateConfigurations().size());
+        assertNotNull(this.library.getLibraryTranslations());
+        assertEquals(2, this.library.getLibraryTranslations().size());
     }
 
     public void testGetPropertyReferences() 
     {
-        Map propertyRefs = this.cartridge.getPropertyReferences();
+        Map propertyRefs = this.library.getPropertyReferences();
         assertNotNull(propertyRefs);
         assertEquals(2, propertyRefs.size());
         
@@ -90,13 +87,13 @@ public class CartridgeTest extends TestCase
     
     public void testGetType() 
     {
-        assertNotNull(this.cartridge.getType());
-        assertEquals("cartridge", this.cartridge.getType());
+        assertNotNull(this.library.getType());
+        assertEquals("translation-library", this.library.getType());
     }
     
     public void testGetTemplateObjects() 
     {
-        assertNotNull(this.cartridge.getTemplateObjects());
-        assertEquals(1, this.cartridge.getTemplateObjects().size());
+        assertNotNull(this.library.getTemplateObjects());
+        assertEquals(1, this.library.getTemplateObjects().size());
     }
 }
