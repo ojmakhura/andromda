@@ -15,9 +15,6 @@
         <menu name="Overview">
             <item name="What is AndroMDA?" href="whatisit.html"/>
             <item name="Look and feel" href="lookandfeel.html"/>
-        </menu>
-
-        <menu name="Using">
             <item name="Installation" href="install.html"/>
             <item name="Getting Started" href="starting.html"/>
             <item name="FAQ" href="faq.html"/>
@@ -25,16 +22,17 @@
             <item name="Code generation" href="codegen.html"/>
             <item name="Ant Task" href="anttask.html"/>
             <item name="Maven Plugin" href="/maven-andromda-plugin/index.html"/>
-            <item name="Cartridges" href="/andromda-cartridges/index.html"/>
             <item name="AndroMDA Wiki" href="http://team.andromda.org/tiki"/>
+            <item name="Building AndroMDA" href="building.html"/>
         </menu>
 
-        <menu name="Developing">
-        	<item name="Cartridge Development" href="/andromda-cartridges/developing.html"/>
-            <item name="Javadocs" href="/javadoc/index.html"/>
-            <item name="Recompiling it" href="recompiling.html"/>
-            <item name="Extending it" href="extending.html"/>
-        </menu>
+		<menu name="Components">
+			<item name="Core" href="/andromda-core/index.html"/>
+			<item name="Cartridges" href="/andromda-cartridges/index.html"/>
+			<item name="Metafacades" href="/andromda-metafacades/index.html"/>
+			<item name="Repositories" href="/andromda-repositories/index.html"/>
+			<item name="Template Engines" href="/andromda-templateengines/index.html"/>
+		</menu>
 
         <menu name="The sample app">
             <item name="Intro" href="sampleintro.html"/>
