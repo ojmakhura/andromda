@@ -75,9 +75,10 @@ public class $className extends $parentClassName
 ## manually
 ##
 #foreach ($objectFlowState in $objectFlowStates)
+#set ($objectFlowStateName = $transform.toJavaClassName($objectFlowState))
 #set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState.type))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
-#set ($methodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
+#set ($methodName = "set$objectFlowStateName$transform.toJavaClassName($objectFlowStateState)")
     /**
      * This method changes the state of the object with name '$objectFlowState.name' to '$objectFlowStateState.name'. The
      * type of this object is <code>'$transform.toFullyQualifiedJavaClassName($objectFlowState.type)'</code>.
