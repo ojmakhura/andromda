@@ -85,23 +85,23 @@ public class StrutsActionLogicImpl
     // concrete business methods that were declared
     // abstract in class StrutsAction ...
 
-    public String handleGetActionName()
+    protected String handleGetActionName()
     {
         return getFormBeanName();
     }
 
-    public String handleGetActionInput()
+    protected String handleGetActionInput()
     {
         final StateVertexFacade source = getSource();
         return (source instanceof StrutsJsp) ? ((StrutsJsp) source).getFullPath() : "";
     }
 
-    public boolean handleIsFormPost()
+    protected boolean handleIsFormPost()
     {
         return !isHyperlink();
     }
 
-    public boolean handleIsTableLinkPresent()
+    protected boolean handleIsTableLinkPresent()
     {
         final Collection parameters = getActionParameters();
         for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
@@ -115,28 +115,28 @@ public class StrutsActionLogicImpl
         return false;
     }
 
-    public boolean handleIsHyperlink()
+    protected boolean handleIsHyperlink()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE);
         return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
-    public java.lang.String handleGetActionPath()
+    protected java.lang.String handleGetActionPath()
     {
         return getActionPathRoot() + '/' + getActionClassName();
     }
 
-    public String handleGetActionPathRoot()
+    protected String handleGetActionPathRoot()
     {
         return '/' + StringUtilsHelper.upperCamelCaseName(getStrutsActivityGraph().getUseCase().getName());
     }
 
-    public String handleGetActionScope()
+    protected String handleGetActionScope()
     {
         return "request";
     }
 
-    public java.lang.String handleGetActionRoles()
+    protected java.lang.String handleGetActionRoles()
     {
         final Collection users = getRoleUsers();
         StringBuffer rolesBuffer = new StringBuffer();
@@ -162,7 +162,7 @@ public class StrutsActionLogicImpl
         return getStrutsActivityGraph().getUseCase().getAllUsers();
     }
 
-    public String handleGetActionClassName()
+    protected String handleGetActionClassName()
     {
         String name = null;
         final StateVertexFacade source = getSource();
@@ -182,28 +182,28 @@ public class StrutsActionLogicImpl
         return StringUtilsHelper.upperCamelCaseName(name);
     }
 
-    public String handleGetActionType()
+    protected String handleGetActionType()
     {
         return getPackageName() + '.' + getActionClassName();    
     }
 
-    public String handleGetFormBeanClassName()
+    protected String handleGetFormBeanClassName()
     {
         return getActionClassName() + "Form";
     }
 
-    public String handleGetFormBeanName()
+    protected String handleGetFormBeanName()
     {
         final String useCaseName = getStrutsActivityGraph().getUseCase().getName();
         return StringUtilsHelper.lowerCamelCaseName(useCaseName) + getFormBeanClassName();
     }
 
-    public String handleGetFormValidationMethodName()
+    protected String handleGetFormValidationMethodName()
     {
         return "validate" + getFormBeanClassName();
     }
 
-    public String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
         String messageKey = getStrutsActivityGraph().getUseCase().getName() + ' ';
         messageKey += (isExitingPage()) ? getInput().getName() : messageKey;
@@ -211,7 +211,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
-     * Overwrites the method defined in the facade parent of StrutsAction, this is done
+     * Overrides the method defined in the facade parent of StrutsAction, this is done
      * because actions (transitions) are not directly contained in a UML namespace.
      */
     public String getPackageName()
@@ -219,7 +219,7 @@ public class StrutsActionLogicImpl
         return getStrutsActivityGraph().getUseCase().getPackageName();
     }
 
-    public boolean handleIsResettable()
+    protected boolean handleIsResettable()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE);
         return isTrue(value == null ? null : value.toString());
@@ -231,18 +231,18 @@ public class StrutsActionLogicImpl
                 "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
     }
 
-    public boolean handleIsUseCaseStart()
+    protected boolean handleIsUseCaseStart()
     {
         StateVertexFacade source = getSource();
         return source instanceof PseudostateFacade && ((PseudostateFacade) source).isInitialState();
     }
 
-    public String handleGetFullActionPath()
+    protected String handleGetFullActionPath()
     {
         return getPackagePath() + '/' + getActionClassName();
     }
 
-    public String handleGetFullTilePath()
+    protected String handleGetFullTilePath()
     {
         return isUseCaseStart()
                 ? "empty-file"
@@ -259,12 +259,12 @@ public class StrutsActionLogicImpl
         return '/' + getStrutsActivityGraph().getUseCase().getPackagePath();
     }
 
-    public String handleGetFullFormBeanPath()
+    protected String handleGetFullFormBeanPath()
     {
         return '/' + (getPackageName() + '/' + getFormBeanClassName()).replace('.', '/');
     }
 
-    public boolean handleIsValidationRequired()
+    protected boolean handleIsValidationRequired()
     {
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
@@ -278,7 +278,7 @@ public class StrutsActionLogicImpl
         return false;
     }
 
-    public boolean handleIsDateFieldPresent()
+    protected boolean handleIsDateFieldPresent()
     {
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
@@ -292,7 +292,7 @@ public class StrutsActionLogicImpl
         return false;
     }
 
-    public boolean handleIsCalendarRequired()
+    protected boolean handleIsCalendarRequired()
     {
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
@@ -306,17 +306,17 @@ public class StrutsActionLogicImpl
         return false;
     }
 
-    public String handleGetFormBeanPackageName()
+    protected String handleGetFormBeanPackageName()
     {
         return getPackageName();
     }
 
-    public String handleGetFormBeanType()
+    protected String handleGetFormBeanType()
     {
         return getFormBeanPackageName() + '.' + getFormBeanClassName();
     }
 
-    public String handleGetDocumentationKey()
+    protected String handleGetDocumentationKey()
     {
         StrutsTrigger trigger = getActionTrigger();
         return ((trigger == null)
@@ -324,13 +324,13 @@ public class StrutsActionLogicImpl
                 : getActionTrigger().getTriggerKey()) + ".documentation";
     }
 
-    public String handleGetDocumentationValue()
+    protected String handleGetDocumentationValue()
     {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         return (value == null) ? "" : value;
     }
 
-    public String handleGetOnlineHelpKey()
+    protected String handleGetOnlineHelpKey()
     {
         StrutsTrigger trigger = getActionTrigger();
         return ((trigger == null)
@@ -338,7 +338,7 @@ public class StrutsActionLogicImpl
                 : getActionTrigger().getTriggerKey()) + ".online.help";
     }
 
-    public String handleGetOnlineHelpValue()
+    protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
         StringBuffer buffer = new StringBuffer();
@@ -425,6 +425,31 @@ public class StrutsActionLogicImpl
     {
         Map formFieldMap = new HashMap();
 
+        /**
+         * for useCaseStart actions we need to detect all usecases forwarding to the one belonging to this action
+         * if there are any parameters in those requests we need to have them included in this action's form
+         */
+        if (isUseCaseStart())
+        {
+            StrutsUseCase useCase = getStrutsActivityGraph().getUseCase();
+            Collection finalStates = useCase.getReferencingFinalStates();
+            for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
+            {
+                StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
+                Collection actions = finalState.getActions();
+                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                {
+                    StrutsAction action = (StrutsAction) actionIterator.next();
+                    Collection parameters = action.getActionParameters();
+                    for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                    {
+                        StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
+                        formFieldMap.put(parameter.getName(), parameter);
+                    }
+                }
+            }
+        }
+
         // add page variables for all pages targetted
         // also add the fields of the target page's actions (for preloading)
         Collection forwards = getActionForwards();
@@ -508,7 +533,7 @@ public class StrutsActionLogicImpl
         return nonTabbedParameters;
     }
 
-    public boolean handleIsTabbed()
+    protected boolean handleIsTabbed()
     {
         Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
@@ -522,17 +547,17 @@ public class StrutsActionLogicImpl
         return false;
     }
 
-    public int handleGetTabCount()
+    protected int handleGetTabCount()
     {
         return (isTabbed()) ? getTabMap().keySet().size() : 0;
     }
 
-    public String handleGetTabName(int tabIndex)
+    protected String handleGetTabName(int tabIndex)
     {
         return String.valueOf(tabIndex + 1);
     }
 
-    public int handleGetTabIndex()
+    protected int handleGetTabIndex()
     {
         final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABINDEX));
 
@@ -546,7 +571,7 @@ public class StrutsActionLogicImpl
         }
     }
 
-    public Map handleGetTabMap()
+    protected Map handleGetTabMap()
     {
         Map tabMap = new LinkedHashMap();
         Collection actionParameters = getActionParameters();
