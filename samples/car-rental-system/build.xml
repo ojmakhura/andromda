@@ -39,8 +39,6 @@
     <property name="andromda.web.page.dir"    value="${src.webpages.dir}" />
     <property name="andromda.web.config.dir"  value="${src.webconfig.dir}/generated" />
 
-    <property name="ejbdoclet.output.dir"    value="${src.ejb.dir}/generated" />
-
     <!-- Setup directory structure -->
     <target name="init" depends="check-environment">
         <tstamp/>
@@ -157,6 +155,8 @@
         >
             <userProperty name="foreignKeySuffix" value="_FK" />
 
+            <outlet cartridge="java"      outlet="value-objects"  dir="${andromda.hibernate.generated.dir}" />
+
             <outlet cartridge="hibernate" outlet="entities"       dir="${andromda.hibernate.generated.dir}" />
             <outlet cartridge="hibernate" outlet="entity-impls"   dir="${andromda.hibernate.manual.dir}" />
             <outlet cartridge="hibernate" outlet="session-beans"  dir="${andromda.hibernate.generated.dir}" />
@@ -183,6 +183,50 @@
 
             <hibernate />
         </hibernatedoclet>
+
+        <taskdef name="ejbdoclet"
+                 classname="xdoclet.modules.ejb.EjbDocletTask"
+                 classpathref="build.class.path"
+        />
+
+        <ejbdoclet destdir="${andromda.hibernate.generated.dir}"
+                   ejbspec="2.0"
+                   force="false">
+
+            <fileset dir="${andromda.hibernate.generated.dir}">
+                <include name="**/*Bean.java" />
+            </fileset>
+
+            <utilobject/>
+
+            <remoteinterface/>
+            <homeinterface/>
+            <localinterface/>
+            <localhomeinterface/>
+
+            <deploymentdescriptor
+                destdir="build/hibernatestage/META-INF/"/>
+
+            <jboss version="3.0"
+                   xmlencoding="UTF-8"
+                   typemapping="Hypersonic SQL"
+                   datasource="java:/DefaultDS"
+                   destdir="build/hibernatestage/META-INF/"/>
+
+        </ejbdoclet>
+
+        <!--
+             XDoclet stores the *Bean classes into ejb-jar.xml
+             but the used andromda templates have created
+             subclasses *BeanImpl.  Replace
+             the names in the deployment descriptor so that
+             everyone is happy.
+         -->
+        <replace file="build/hibernatestage/META-INF/ejb-jar.xml" >
+            <replacetoken><![CDATA[ServiceBean</ejb-class>]]></replacetoken>
+            <replacevalue><![CDATA[ServiceBeanImpl</ejb-class>]]></replacevalue>
+        </replace>
+
     </target>
 
     <!-- Let XDoclet generate all remaining EJB sources from the beans -->
@@ -192,7 +236,7 @@
                  classpathref="build.class.path"
         />
 
-        <ejbdoclet destdir="${ejbdoclet.output.dir}"
+        <ejbdoclet destdir="${andromda.ejb.generated.dir}"
                    ejbspec="2.0"
                    force="false">
 
@@ -245,7 +289,7 @@
             <src path="${src.common.dir}" />
             <src path="${andromda.ejb.generated.dir}" />
             <src path="${andromda.ejb.manual.dir}" />
-            <src path="${ejbdoclet.output.dir}"  />
+            <src path="${andromda.ejb.generated.dir}"  />
             <classpath refid="build.class.path"/>
         </javac>
 
