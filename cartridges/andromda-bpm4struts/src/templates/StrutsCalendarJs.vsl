@@ -33,9 +33,9 @@ function calendar1(obj_target) {
 
 	// validate input parameters
 	if (!obj_target)
-		return cal_error("Error calling the calendar: no target control specified");
+		return cal_error("<bean:message key="calendar.error.no.target"/>");
 	if (obj_target.value == null)
-		return cal_error("Error calling the calendar: parameter specified is not valid target control");
+		return cal_error("<bean:message key="calendar.error.no.param.target"/>");
 	this.target = obj_target;
 	this.time_comp = BUL_TIMECOMPONENT;
 	this.year_scroll = BUL_YEARSCROLL;
