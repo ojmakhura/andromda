@@ -35,12 +35,12 @@
 	<expression>
 		<from>
 			context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
-                            type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType : 
-                            allInstances() -> select ( 
-                                project | 
-                                    project.type = type 
-				    and project.status = status
-				    and project.wentCurrentDate >= wentCurrentDate )
+				type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType : 
+				allInstances() -> select ( 
+					project | 
+						project.type = type 
+				and project.status = status
+				and project.wentCurrentDate >= wentCurrentDate )
 		</from>
 		<to>
 			from org.andromda.contracts.Project as project
@@ -56,9 +56,9 @@
 			body findByStatusesBody: 
 			    allInstances() -> select( 
 			        la | 
-                                    agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk) 
-                                    or agreementStatusPks -> isEmpty()
-                                    and la.agreementTypePk = anAgreementTypePk) 
+				agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk) 
+				or agreementStatusPks -> isEmpty()
+				and la.agreementTypePk = anAgreementTypePk ) 
 		</from>
 		<to>	
 			from org.andromda.contracts.LegalAgreement as la
