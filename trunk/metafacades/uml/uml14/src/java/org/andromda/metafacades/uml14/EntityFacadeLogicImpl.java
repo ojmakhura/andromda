@@ -596,10 +596,13 @@ public class EntityFacadeLogicImpl
         return literals;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getEnumerationName()
+     */
     protected String handleGetEnumerationName()
     {
         return (isEnumeration())
-                ? getName() + getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_SUFFIX)
+                ? getName() + getConfiguredProperty(UMLMetafacadeProperties.PERSISTENT_ENUMERATION_NAME_SUFFIX)
                 : null;
     }
 

@@ -211,17 +211,26 @@ public class AttributeFacadeLogicImpl
         return lower;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getEnumeration()
+     */
     protected Object handleGetEnumeration()
     {
         return (isEnumerationLiteral()) ? getOwner() : null;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isEnumerationLiteral()
+     */
     protected boolean handleIsEnumerationLiteral()
     {
         final ClassifierFacade owner = getOwner();
         return (owner == null) ? false : owner.isEnumeration();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getEnumerationValue()
+     */
     protected String handleGetEnumerationValue()
     {
         final Object value = getDefaultValue();
