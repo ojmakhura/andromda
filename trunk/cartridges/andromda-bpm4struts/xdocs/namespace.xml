@@ -186,6 +186,37 @@
                         No, default is <code>false</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>serviceAccessorPattern</td>
+                    <td>
+                        The pattern to use when constructing the accessor of a back end
+                        service to a controller.  For example say your controller referenced
+                        a service and you were using an axis webservice client stub to access the 
+                        service, the value of your serviceAccessorPattern would be: 
+                        <em>new {0}.ws.{1}Locator().get{1}()</em>, where <em>{0}</em> is
+                        the package name of the modeled service and <em>{1}</em> is the
+                        name of the modeled service.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
+                <tr>
+                    <td>servicePackageNamePattern</td>
+                    <td>
+                        Used in combination with the <code>serviceAccessorPattern</code> property,
+                        this is the pattern to use when constructing the back end service package name.
+                        This is useful when your package name may be different than the one
+                        in your model (for example when talking to a webservice your client
+                        stubs may be in a different package than your modeled ones). If this was the
+                        case you'd need to specify something like <em>{0}.ws</em> if your package
+                        name was <em>some.package.name</em> and you wanted <em>ws</em> added to each 
+                        package.
+                    </td>
+                    <td>
+                        No, default is <code>{0}</code>
+                    </td>
+                </tr>
             </table>
         </section>
     </body>

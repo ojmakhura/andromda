@@ -20,8 +20,14 @@ public class Bpm4StrutsGlobals
     public final static String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
 
     /**
-     * The namespace property use to identify the type of backend services, accessors to those
-     * services will be generated in the front-end controllers.
+     * The namespace property use to identify the pattern used to construct the backend
+     * service's accessor.
      */
-    public final static String PROPERTY_BACKEND_TYPE = "backendType";
+    public final static String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
+    
+    /**
+     * The namespace property use to identify the pattern used to construct the backend
+     * service's package name.
+     */
+    public final static String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
 }
