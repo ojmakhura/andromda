@@ -139,7 +139,7 @@ public class MethodData implements Comparable
      */
     public String buildMethodCall()
     {
-        String call = getName() + " (";
+        String call = getName() + "(";
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
