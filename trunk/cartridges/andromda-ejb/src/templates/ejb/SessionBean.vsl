@@ -178,7 +178,7 @@ $constant.getDocumentation("     * ")
 #end
 #end
 
-#set ($instanceAttributes = $service.type.instanceAttributes)
+#set ($instanceAttributes = $service.instanceAttributes)
 #if(!$instanceAttributes.empty)
     // --------------- attributes ---------------------
 #foreach ( $attribute in $instanceAttributes)
