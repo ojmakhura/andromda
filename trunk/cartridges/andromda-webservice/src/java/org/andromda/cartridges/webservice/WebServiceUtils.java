@@ -2,7 +2,6 @@ package org.andromda.cartridges.webservice;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.apache.commons.collections.Closure;
