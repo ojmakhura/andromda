@@ -25,22 +25,22 @@ public class ${metafacade.logicImplName}
     {
         super (metaObject, context);
     }
-#set ($atts = $metafacade.attributes)
-#if (!$atts.empty)
+#set ($attributes = $metafacade.attributes)
+#if (!$attributes.empty)
 
     // --------------- attributes ---------------------
-#foreach ( $att in $atts )
-#set ($methodName = $att.name)
+#foreach ( $attribute in $attributes )
+#set ($methodName = $attribute.getterName)
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
-#set ($returnTypeName = $att.type.fullyQualifiedName)
+#set ($returnTypeName = $attribute.type.fullyQualifiedName)
 
     public $returnTypeName ${handleMethodName}($typedArgumentList) {
         // TODO: put your implementation here.
 #if ("void" != $returnTypeName)
 
         // Dummy return value, just that the file compiles
-#if (!$op.returnType.primitiveType)
+#if (!$atttribute.type.primitiveType)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;
