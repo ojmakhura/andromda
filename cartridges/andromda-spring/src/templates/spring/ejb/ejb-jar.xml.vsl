@@ -20,7 +20,7 @@
             </description>
             <ejb-name>$service.name</ejb-name>
 #if ($ejbRemoteView)
-            <remote-home>${service.fullyQualifiedEjbName}Home</remote-home>
+            <home>${service.fullyQualifiedEjbName}Home</home>
             <remote>$service.fullyQualifiedEjbName</remote>
 #else
             <local-home>${service.fullyQualifiedEjbName}Home</local-home>
