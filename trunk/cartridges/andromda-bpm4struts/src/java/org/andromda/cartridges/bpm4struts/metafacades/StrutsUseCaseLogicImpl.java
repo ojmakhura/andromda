@@ -5,8 +5,14 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
 
 
 /**
@@ -99,6 +105,32 @@ public class StrutsUseCaseLogicImpl
 
     public java.lang.Object handleGetActivityGraph()
     {
+        /*
+         * In case there is a tagged value pointing to an activity graph, and this graph is found,
+         * then return it.
+         */
+/* @todo: commented out, MUST BE ENABLED LATER
+        final Object activity = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USECASE_ACTIVITY);
+        if (activity != null)
+        {
+            String activityName = activity.toString();
+            Collection activityGraphs = getModel().getAllActivityGraphs();
+            for (Iterator iterator = activityGraphs.iterator(); iterator.hasNext();)
+            {
+                Object obj = iterator.next();
+                if (obj instanceof StrutsActivityGraph)
+                {
+                    StrutsActivityGraph activityGraph = (StrutsActivityGraph)obj;
+                    if (activityName.equalsIgnoreCase(activityGraph.getName()))
+                        return activityGraph;
+                }
+            }
+        }
+*/
+
+        /*
+         * Otherwise just take the first one in this use-case's namespace.
+         */
         Collection ownedElements = getOwnedElements();
         for (Iterator iterator = ownedElements.iterator(); iterator.hasNext();)
         {
@@ -106,6 +138,10 @@ public class StrutsUseCaseLogicImpl
             if (obj instanceof StrutsActivityGraph)
                 return obj;
         }
+
+        /*
+         * Nothing was found
+         */
         return null;
     }
 
