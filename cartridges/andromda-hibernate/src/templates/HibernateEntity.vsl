@@ -48,7 +48,6 @@ public abstract class ${class.name}
 $att.getDocumentation("    * ")
     *
 #set ($attcolumnname = $att.columnName)
-#set ($attjdbctype   = $attr.jdbcType)
 #set ($attsqltype    = $att.sqlType)
 #if ($att.identifier)
     * @hibernate.id 
