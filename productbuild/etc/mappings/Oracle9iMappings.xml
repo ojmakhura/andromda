@@ -69,4 +69,8 @@
         <from>datatype.Blob</from>
         <to>BLOB</to>
     </mapping>
+    <mapping>
+        <from>datatype.Clob</from>
+        <to>CLOB</to>
+    </mapping>
 </mappings>
