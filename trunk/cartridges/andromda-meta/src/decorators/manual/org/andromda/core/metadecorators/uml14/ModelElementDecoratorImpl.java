@@ -1,5 +1,6 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.omg.uml.foundation.core.ModelElement;
@@ -97,6 +98,22 @@ public class ModelElementDecoratorImpl extends ModelElementDecorator
 
         }
         return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.ModelElementDecorator#getStereotypeName()
+     */
+    public String getStereotypeName()
+    {
+        Collection stereotypes = metaObject.getStereotype();
+        if (stereotypes == null)
+        {
+            return null;
+        }
+
+        ModelElement stereotype =
+            (ModelElement) stereotypes.iterator().next();
+        return stereotype.getName();
     }
 
 }
