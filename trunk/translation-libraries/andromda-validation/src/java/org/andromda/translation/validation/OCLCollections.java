@@ -1,5 +1,6 @@
 package org.andromda.translation.validation;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.*;
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
@@ -423,15 +424,69 @@ public final class OCLCollections
     /**
      * Returns <code>true</code> if the expression has a unique value for each
      * element in the source collection.
-     * 
-     * @todo: implement
      */
-    public static Collection isUnique(
-        Collection collection,
-        OCLExpression expression)
+    public static boolean isUnique(Collection collection, String expression)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()
-            + ".isUnique");
+        boolean unique = collection != null;
+        Collection filteredCollection = null;
+        if (unique)
+        {
+            final String property = StringUtils.trimToEmpty(expression);
+            for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+            {
+                filteredCollection = new ArrayList(collection);
+                Object element = iterator.next();
+                if (PropertyUtils.isReadable(element, property))
+                {
+                    final Object value;
+                    try
+                    {
+                        value = PropertyUtils.getProperty(element, property);
+                    }
+                    catch (Throwable th)
+                    {
+                        throw new OCLIntrospectorException(th);
+                    }
+                    CollectionUtils.filter(filteredCollection, new Predicate()
+                    {
+                        public boolean evaluate(Object object)
+                        {
+                            boolean valid = object != null;
+                            if (PropertyUtils.isReadable(object, property))
+                            {
+                                try
+                                {
+                                    Object loopValue = PropertyUtils
+                                        .getProperty(object, property);
+                                    valid = loopValue != null
+                                        && loopValue.equals(value);
+                                }
+                                catch (Throwable th)
+                                {
+                                    throw new OCLIntrospectorException(th);
+                                }
+                            }
+                            return valid;
+                        }
+                    });
+                }
+            }
+        }
+        return filteredCollection.size() <= 1;
+    }
+
+    /**
+     * Returns <code>true</code> if the expression has a unique value for each
+     * element in the source collection.
+     */
+    public static boolean isUnique(Object collection, String expression)
+    {
+        boolean unique = collection != null;
+        if (unique && Collection.class.isAssignableFrom(collection.getClass()))
+        {
+            unique = isUnique((Collection)collection, expression);
+        }
+        return unique;
     }
 
     /**
@@ -464,7 +519,8 @@ public final class OCLCollections
     }
 
     /**
-     * <p/>Returns <code>true</true> if <code>collection</code> is actually
+     * <p>
+     * Returns <code>true</true> if <code>collection</code> is actually
      * a Collection instance and if the <code>predicate</code> expression
      * evaluates true for one and only one element in the collection.
      * Returns <code>false</code> otherwise.
