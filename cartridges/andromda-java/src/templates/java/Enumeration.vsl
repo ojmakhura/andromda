@@ -23,11 +23,11 @@ $attribute.getDocumentation("     * ")
 #end
 	private $attributeType.fullyQualifiedName value;
 	
-	private ${class.name}(${attributeType.fullyQualifiedName} value) {   
 #set ($valueTypeDef = "${attributeType.fullyQualifiedName} valueType = value;")
 #if($attributeType.primitiveType)
 #set ($valueTypeDef = "${attributeType.wrapperName} valueType = new ${attributeType.wrapperName}(value);")
-#end
+#end	
+	private ${class.name}(${attributeType.fullyQualifiedName} value) {   
         $valueTypeDef
         if (!values.contains(valueType)) {
             values.add(valueType);
@@ -48,7 +48,8 @@ $attribute.getDocumentation("     * ")
 	 * @param value the value to create the ${class.name} from. 
 	 */
 	public static $class.name ${fromMethodName}($attributeType.fullyQualifiedName value) {
-        if (!values.contains(value)) {
+        $valueTypeDef
+        if (!values.contains(valueType)) {
             throw new IllegalArgumentException(
                 "invalid value, possible values are: " + values);   
         }
