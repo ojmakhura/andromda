@@ -115,6 +115,8 @@ public class AndromdaAntRunner
                 }
                 writer.flush();
                 writer.close();
+
+                System.out.println("Processed: "+target.getAbsolutePath());
             }
         } catch (Exception e)
         {
@@ -148,6 +150,8 @@ public class AndromdaAntRunner
 
         templateMap.put("templates/j2ee-app/app/build.xml.vsl", "app/build.xml");
         templateMap.put("templates/j2ee-app/app/build.properties.vsl", "app/build.properties");
+        templateMap.put("templates/j2ee-app/app/src/META-INF/application.xml.vsl", "app/src/META-INF/application.xml");
+        templateMap.put("templates/j2ee-app/app/src/META-INF/jboss-app.xml.vsl", "app/src/META-INF/jboss-app.xml");
 
         templateMap.put("templates/j2ee-app/common/build.xml.vsl", "common/build.xml");
         templateMap.put("templates/j2ee-app/common/build.properties.vsl", "common/build.properties");
@@ -160,6 +164,13 @@ public class AndromdaAntRunner
         templateMap.put("templates/j2ee-app/hibernate/db/build.xml.vsl", "hibernate/db/build.xml");
         templateMap.put("templates/j2ee-app/hibernate/db/build.properties.vsl", "hibernate/db/build.properties");
 */
+            templateMap.put("templates/j2ee-app/hibernate/db/src/initializeSchema.cmd", "hibernate/db/src/initializeSchema.cmd");
+            templateMap.put("templates/j2ee-app/hibernate/db/src/initializeSchema.sh", "hibernate/db/src/initializeSchema.sh");
+            templateMap.put("templates/j2ee-app/hibernate/db/src/reInitializeSchema.cmd", "hibernate/db/src/reInitializeSchema.cmd");
+            templateMap.put("templates/j2ee-app/hibernate/db/src/reInitializeSchema.sh", "hibernate/db/src/reInitializeSchema.sh");
+            templateMap.put("templates/j2ee-app/hibernate/db/src/removeSchema.cmd", "hibernate/db/src/removeSchema.cmd");
+            templateMap.put("templates/j2ee-app/hibernate/db/src/removeSchema.sh", "hibernate/db/src/removeSchema.sh");
+
             templateMap.put("templates/j2ee-app/hibernate/sar/build.xml.vsl", "hibernate/sar/build.xml");
             templateMap.put("templates/j2ee-app/hibernate/sar/build.properties.vsl", "hibernate/sar/build.properties");
             templateMap.put("templates/j2ee-app/hibernate/ejb/build.xml.vsl", "hibernate/ejb/build.xml");
