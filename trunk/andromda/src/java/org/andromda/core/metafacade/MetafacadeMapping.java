@@ -17,12 +17,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MetafacadeMapping
 {
-
     /**
      * The meta facade for which this mapping applies.
      */
     private Class metafacadeClass = null;
-    
+
     /**
      * Gets the metafacadeClass for this mapping.
      * 
@@ -50,7 +49,7 @@ public class MetafacadeMapping
             throw new MetafacadeMappingsException(th);
         }
     }
-    
+
     /**
      * The mapping class for which this mapping applies. The
      * <code>stereotypes</code> and this variable make up the identifying key
@@ -75,23 +74,14 @@ public class MetafacadeMapping
      */
     public void setMappingClassName(String mappingClassName)
     {
-        try
-        {
-            this.mappingClassName = StringUtils
-                .trimToEmpty(mappingClassName);
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error performing setMetafacadeClass";
-            throw new MetafacadeMappingsException(errMsg, th);
-        }
+        this.mappingClassName = StringUtils.trimToEmpty(mappingClassName);
     }
 
     /**
      * Whether or not this mapping represents a <code>contextRoot</code>.
      */
     private boolean contextRoot = false;
-    
+
     /**
      * <p>
      * Gets whether or not this mapping represents a <code>contextRoot</code>,
@@ -119,30 +109,8 @@ public class MetafacadeMapping
     }
 
     /**
-     * Returns <code>true</code> if this mapping has any stereotypes defined,
-     * <code>false</code> otherwise.
-     * 
-     * @return true/false
-     */
-    boolean hasStereotypes()
-    {
-        return !this.stereotypes.isEmpty();
-    }
-
-    /**
-     * Returns <code>true</code> if this mapping has a context defined,
-     * <code>false</code> otherwise.
-     * 
-     * @return true/false
-     */
-    boolean hasContext()
-    {
-        return StringUtils.isNotEmpty(this.context);
-    }
-    
-    /**
-     * The stereotypes to which this mapping applies (all stereotypes must
-     * be present for this mapping to apply).
+     * The stereotypes to which this mapping applies (all stereotypes must be
+     * present for this mapping to apply).
      */
     private final List stereotypes = new ArrayList();
 
@@ -154,19 +122,18 @@ public class MetafacadeMapping
      */
     public void addStereotype(String stereotype)
     {
-        this.stereotypes.add(Profile.instance().get(
-            stereotype));
+        this.stereotypes.add(Profile.instance().get(stereotype));
     }
-    
+
     /**
      * Used to hold references to language mapping classes.
      */
     private final Map propertyReferences = new HashMap();
 
     /**
-     * Adds a mapping property reference. These are used to populate metafacade impl
-     * classes with mapping files, etc. The property reference applies to the given 
-     * mapping.
+     * Adds a mapping property reference. These are used to populate metafacade
+     * impl classes with mapping files, etc. The property reference applies to
+     * the given mapping.
      * 
      * @param reference the name of the reference.
      * @param defaultValue the default value of the property reference.
@@ -184,18 +151,16 @@ public class MetafacadeMapping
     {
         return this.propertyReferences;
     }
-    
+
     /**
-     * Used to hold the properties that should apply
-     * to the mapping element.
+     * Used to hold the properties that should apply to the mapping element.
      */
     private final Map mappingProperties = new HashMap();
 
     /**
-     * Adds a mapping property. This are used to narrow the metafacade
-     * to which the mapping can apply.  The properties must exist
-     * and must evaluate to the specified value if given for the 
-     * mapping to match.
+     * Adds a mapping property. This are used to narrow the metafacade to which
+     * the mapping can apply. The properties must exist and must evaluate to the
+     * specified value if given for the mapping to match.
      * 
      * @param reference the name of the reference.
      * @param defaultValue the default value of the property reference.
@@ -226,32 +191,7 @@ public class MetafacadeMapping
             this.propertyReferences.putAll(propertyReferences);
         }
     }
-    
-    /**
-     * The parent mappings instance that owns this mapping.
-     */
-    private MetafacadeMappings mappings;
 
-    /**
-     * Sets the MetafacadeMappings to which this MetafacadeMapping belongs.
-     * 
-     * @param mappings
-     */
-    protected void setMetafacadeMappings(MetafacadeMappings mappings)
-    {
-        this.mappings = mappings;
-    }
-
-    /**
-     * Returns the MetafacadeMappings to which this mapping belongs.
-     * 
-     * @return the MetafacadeParent.
-     */
-    protected MetafacadeMappings getMetafacadeMappings()
-    {
-        return this.mappings;
-    }
-    
     /**
      * The key used to uniquely identify this mapping.
      */
@@ -262,22 +202,16 @@ public class MetafacadeMapping
      */
     protected String getKey()
     {
-        if (StringUtils.isEmpty(this.key))
+        if (StringUtils.isEmpty(this.key) && this.mappingClassName != null)
         {
-            if (this.hasStereotypes())
-            {
-                key = MetafacadeMappingsUtils.constructKey(
-                    this.mappingClassName,
-                    this.stereotypes);
-            }
-            else
-            {
-                key = this.mappingClassName;
-            }
+            key = MetafacadeMappingsUtils.constructKey(
+                this.mappingClassName,
+                this.context,
+                this.stereotypes);
         }
         return key;
     }
-    
+
     /**
      * The context to which this mapping applies.
      */
@@ -291,18 +225,6 @@ public class MetafacadeMapping
     public void setContext(String context)
     {
         this.context = StringUtils.trimToEmpty(context);
-    }
-
-    /**
-     * <p>
-     * Gets the <code>context</code> of this mapping. The <code>context</code>
-     * is the context in which the <code>metafacade</code> represented by this
-     * mapping will be created.
-     * </p>
-     */
-    String getContext()
-    {
-        return this.context;
     }
 
     /**

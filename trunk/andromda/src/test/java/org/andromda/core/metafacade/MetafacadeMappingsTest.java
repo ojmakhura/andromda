@@ -37,9 +37,10 @@ public class MetafacadeMappingsTest
     private static final String MAPPING_CLASS_3 = "org.omg.uml.foundation.core.UmlClass$Impl";
     private static final List STEREOTYPES_3;
 
-    private static final String METAFACADE_CLASS_4 = "org.andromda.core.metafacade.Metafacade3";
+    private static final String METAFACADE_CLASS_4 = "org.andromda.core.metafacade.Metafacade4";
     private static final String MAPPING_CLASS_4 = "org.omg.uml.foundation.core.UmlClass$Impl";
-    private static final String CONTEXT_4 = "org.andromda.core.metafacade.Metafacade1";
+    
+    private static final String DEFAULT_MAPPING_CLASS = "org.omg.uml.foundation.core.UmlTest$Impl";
 
     private static final String NAMESPACE_PROPERTY_1 = "namespacePropertyOne";
     private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
@@ -69,10 +70,7 @@ public class MetafacadeMappingsTest
         final String namespace = "andromda-test-metafacades";
         mappings.discoverMetafacades();
 
-        // make sure we get all mappings in the andromda-metafacades.xml file
-        Map childMappings = mappings.getMappings(namespace);
-        assertNotNull(childMappings);
-        assertEquals(5, childMappings.size());
+        // verify the property references
         Map propertyReferences = mappings.getPropertyReferences(namespace);
         // test retrieval of the namespace properties
         assertEquals(2, propertyReferences.size());
@@ -95,7 +93,7 @@ public class MetafacadeMappingsTest
             namespace,
             null);
         assertNotNull(mapping);
-        assertNull(mapping.getContext());
+        //assertNull(mapping.getContext());
         assertTrue(mapping.getMetafacadeClass().getName().equals(
             METAFACADE_CLASS_1));
         propertyReferences = mapping.getPropertyReferences();
@@ -115,7 +113,7 @@ public class MetafacadeMappingsTest
             namespace,
             null);
         assertNotNull(mapping);
-        assertNull(mapping.getContext());
+        //assertNull(mapping.getContext());
         assertTrue(mapping.getMetafacadeClass().getName().equals(
             METAFACADE_CLASS_1));
 
@@ -126,8 +124,19 @@ public class MetafacadeMappingsTest
             namespace,
             METAFACADE_CLASS_1);
         assertNotNull(mapping);
-        assertTrue(mapping.getMetafacadeClass().getName().equals(
-            METAFACADE_CLASS_4));
+        assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
+        assertTrue(mapping.getPropertyReferences().isEmpty());
+        
+        System.out.println("mapping key yes!: " + mapping.getKey());
+        
+        // test a mapping having a context (with using an inherited context)
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_CLASS_4,
+            null,
+            namespace,
+            METAFACADE_CLASS_2);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
         assertTrue(mapping.getPropertyReferences().isEmpty());
 
         // test a mapping having 2 required stereotypes
@@ -151,6 +160,7 @@ public class MetafacadeMappingsTest
             namespace,
             null);
         assertNull(mapping);
+        //assertEquals(METAFACADE_CLASS_3, mapping.getMetafacadeClass().getName());
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
@@ -158,5 +168,41 @@ public class MetafacadeMappingsTest
             stereotypes,
             namespace,
             null);
+        assertNull(mapping);
+        
+        // test a mapping having a context AND a stereotype
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_CLASS_2,
+            STEREOTYPES_2,
+            namespace,
+            METAFACADE_CLASS_3);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_CLASS_2, mapping.getMetafacadeClass().getName());
+        
+        // test a mapping having a context and multiple stereotypes
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_CLASS_4,
+            STEREOTYPES_3,
+            namespace,
+            METAFACADE_CLASS_3);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
+        //assertEquals(METAFACADE_CLASS_3, mapping.getContext());
+        
+        // make sure we can't get the mapping that requires 2 stereotypes and one context
+        // with only one of the stereotypes.
+        stereotypes = new ArrayList();
+        stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_CLASS_4,
+            stereotypes,
+            namespace,
+            METAFACADE_CLASS_3);
+        assertNull(mapping);
+        
+        // try a plain mapping (no contexts or stereotypes)
+        mapping = mappings.getMetafacadeMapping(DEFAULT_MAPPING_CLASS, null, namespace, null);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_CLASS_3, mapping.getMetafacadeClass().getName());
     }
 }

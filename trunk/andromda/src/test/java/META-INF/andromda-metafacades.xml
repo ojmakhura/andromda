@@ -20,6 +20,15 @@
     <metafacade class="org.andromda.core.metafacade.Metafacade2">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>    
+            <context>org.andromda.core.metafacade.Metafacade3</context>
+            <property name="mappingProperty">true</property>
+        </mapping>  
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>APPLICATION_EXCEPTION</stereotype>  
+            <stereotype>UNEXPECTED_EXCEPTION</stereotype>  
+            <context>org.andromda.core.metafacade.Metafacade3</context>
             <property name="mappingProperty">true</property>
         </mapping>  
     </metafacade>
@@ -30,6 +39,9 @@
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3">
+        <mapping class="org.omg.uml.foundation.core.UmlTest$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <context>org.andromda.core.metafacade.Metafacade1</context>   
         </mapping>  

@@ -26,7 +26,16 @@ public class MetafacadeFactory
 {
     private static MetafacadeFactory factory = new MetafacadeFactory();
 
+    /**
+     * The namespace that is currently active (i.e. being
+     * used) within the factory
+     */
     private String activeNamespace;
+    
+    /**
+     * The model facade which provides access to the underlying 
+     * meta model.
+     */
     private ModelAccessFacade model;
 
     /**
@@ -226,14 +235,6 @@ public class MetafacadeFactory
             if (mapping != null)
             {
                 metafacadeCacheKey = mapping.getKey();
-                // if the mapping has a context defined, add the context
-                // to the cache key
-                if (mapping.hasContext())
-                {
-                    metafacadeCacheKey = MetafacadeMappingsUtils.constructKey(
-                        metafacadeCacheKey,
-                        contextName);
-                }
             }
             else
             {
