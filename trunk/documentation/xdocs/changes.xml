@@ -18,8 +18,8 @@
         <release version="3.0M3-SNAPSHOT" date="2004-11-25">
             <action dev="draftdog" type="add">
                 Added support for lazily loaded relationships collections in
-                <a href="andromda-hibernate-cartridge/modeling.html@andromda.hibernate.lazy">Hibernate</a> and
-                <a href="andromda-spring-cartridge/modeling.html@andromda.hibernate.lazy">Spring</a>, it is sufficient
+                <a href="andromda-hibernate-cartridge/modeling.html#@andromda.hibernate.lazy">Hibernate</a> and
+                <a href="andromda-spring-cartridge/modeling.html#@andromda.hibernate.lazy">Spring</a>, it is sufficient
                 to use the aggregation kind of an association end (composite is not lazy, the other kinds are lazy)
                 but you can always override the default values using the newly define
                 <code>@andromda.hibernate.lazy</code> tagged value.
