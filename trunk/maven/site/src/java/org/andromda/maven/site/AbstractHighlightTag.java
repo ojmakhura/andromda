@@ -18,20 +18,20 @@ import java.util.Iterator;
 
 public abstract class AbstractHighlightTag extends TagSupport
 {
-    private String var = null;
+    private String value = null;
 
     protected abstract void highlight(XMLOutput output, String text) throws SAXException;
 
     public void doTag(XMLOutput xmlOutput) throws MissingAttributeException, JellyTagException
     {
-        Object content = context.getVariable(getVar());
+        Object content = context.getVariable(getValue());
 
         if (content instanceof Collection)
         {
             final Collection collection = (Collection)content;
             if (collection != null && !collection.isEmpty())
             {
-                content = collection.iterator().next();                
+                content = collection.iterator().next();
             }
         }
 
@@ -49,7 +49,7 @@ public abstract class AbstractHighlightTag extends TagSupport
         }
         else
         {
-            throw new JellyTagException("Not an XML element: "+getVar());
+            throw new JellyTagException("Not an XML element: "+getValue());
         }
     }
 
@@ -93,13 +93,13 @@ public abstract class AbstractHighlightTag extends TagSupport
         output.endElement("div");
     }
 
-    public String getVar()
+    public String getValue()
     {
-        return var;
+        return value;
     }
 
-    public void setVar(String var)
+    public void setValue(String value)
     {
-        this.var = var;
+        this.value = value;
     }
 }
