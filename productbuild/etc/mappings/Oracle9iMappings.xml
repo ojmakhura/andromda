@@ -19,7 +19,7 @@
     <mapping>
         <from>datatype.Timestamp</from>
         <to>TIMESTAMP(9)</to>
-    </mapping>	 
+    </mapping>
     <mapping>
         <from>datatype.char</from>
         <from>datatype.Character</from>
@@ -59,7 +59,7 @@
         <from>datatype.Boolean</from>
         <from>datatype.boolean</from>
         <to>NUMBER(1)</to>
-     </mapping>
+    </mapping>
     <mapping>
         <from>datatype.Decimal</from>
         <from>datatype.decimal</from>
