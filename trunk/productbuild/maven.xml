@@ -356,8 +356,10 @@
         <j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">		
             <j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
             <j:set var="groupId" value="${bootstrapProject.groupId}"/>
-            <j:set var="bootstrapGroupId" value="${groupId}-${bootstrapVersion}"/>
-            <j:set var="dummy" value="${bootstrapProject.setGroupId(bootstrapGroupId)}"/>	
+            <j:if test="${groupId.indexOf(bootstrapVersion) == '-1'}">
+                <j:set var="bootstrapGroupId" value="${groupId}-${bootstrapVersion}"/>
+                <j:set var="dummy" value="${bootstrapProject.setGroupId(bootstrapGroupId)}"/>	
+            </j:if>
             <j:set var="bootstrapArtifactId" value="${artifactId}-${bootstrapVersion}"/>
             <j:set var="dummy" value="${bootstrapProject.setArtifactId(bootstrapArtifactId)}"/>
             <j:set 
@@ -373,7 +375,7 @@
             <j:set var="newArtifactFile" value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
             <ant:copy 
                 file="${artifactFile}" 
-                tofile="${lib.dir}/${bootstrapGroupId}/${bootstrapTypes.get(index)}s/${newArtifactFile}"/>
+                tofile="${lib.dir}/${bootstrapProject.groupId}/${bootstrapTypes.get(index)}s/${newArtifactFile}"/>
         </j:forEach>
                         
     </goal>
