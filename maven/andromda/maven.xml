@@ -28,7 +28,7 @@
 	    </dependency>
             </j:set>
 		</j:if>
-		<!-- Insert the correct properties (like the current version, etc) -->
+		<!-- Just perform a replace on the '${bootstrap} property' -->
         <ant:replace file="${maven.build.dest}/plugin.jelly" 
         	token="$${bootstrap}"
         	value="${bootstrap}">
