@@ -50,6 +50,10 @@
         <antcall target="cleanComponent">
           <param name="component.name" value="andromda"/>
         </antcall>
+        
+        <antcall target="cleanComponent">
+          <param name="component.name" value="metafacades"/>
+        </antcall>
 
         <antcall target="cleanComponent">
           <param name="component.name" value="cartridges"/>
@@ -64,6 +68,13 @@
         </antcall>
     </target>
 
+    <target name="core" depends="init"  >
+        <antcall target="buildComponent">
+          <param name="component.name" value="andromda"/>
+          <param name="prefix" value="andromda-core"/>
+        </antcall>
+    </target>
+
     <target name="dist" depends="clean,init"
             description="Builds core, cartridges, samples and documentation">
 
@@ -72,12 +83,18 @@
             <zipfileset dir="." prefix="andromda-src">
                 <include name="**/*" />
                 <exclude name="**/*.log" />
+                <exclude name="dist/andromda-src-300.zip" />
             </zipfileset>
         </zip>
 
         <antcall target="buildComponent">
           <param name="component.name" value="andromda"/>
           <param name="prefix" value="andromda-core"/>
+        </antcall>
+
+        <antcall target="buildComponent">
+          <param name="component.name" value="metafacades"/>
+          <param name="prefix" value="metafacades"/>
         </antcall>
 
         <antcall target="buildComponent">

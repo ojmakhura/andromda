@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-    <classpathentry kind="src" path="src/common"/>
-    <classpathentry kind="src" path="src/web/servlet/manual"/>
-    <classpathentry kind="src" path="src/web/servlet/generated"/>
-    <classpathentry kind="src" path="src/ejb/generated"/>
-    <classpathentry kind="src" path="src/ejb/manual"/>
-    <classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
-    <classpathentry kind="var" path="STRUTS_HOME/lib/struts.jar"/>
-    <classpathentry kind="var" path="JBOSS_HOME/server/default/lib/javax.servlet.jar"/>
-    <classpathentry kind="var" path="JBOSS_HOME/server/default/lib/jboss-j2ee.jar"/>
-    <classpathentry kind="src" path="/andromda-ejb"/>
-    <classpathentry kind="src" path="/andromda-hibernate"/>
-    <classpathentry kind="src" path="/andromda-struts"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/hibernate2.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/c3p0.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/commons-collections.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/commons-dbcp.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/commons-lang.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/commons-logging.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/commons-pool.jar"/>
-    <classpathentry kind="lib" path="/andromda-hibernate/lib/odmg.jar"/>
-    <classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="src" path="common/src/java"/>
+	<classpathentry kind="src" path="common/target/src"/>
+	<classpathentry kind="src" path="ejb/src/java"/>
+	<classpathentry kind="src" path="ejb/target/src"/>
+	<classpathentry kind="src" path="web/src/java"/>
+	<classpathentry kind="src" path="web/target/src/java"/>
+	<classpathentry sourcepath="JRE_SRC" kind="var" path="JRE_LIB"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jboss/jars/jboss-j2ee-3.2.3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/servletapi/jars/servletapi-2.3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/struts/jars/struts-1.1.jar"/>
+	<classpathentry kind="src" path="/andromda3-struts"/>
+	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -1,0 +1,119 @@
+#set ($packagename = $class.package.fullyQualifiedName)
+package $packagename;
+
+#if ($class.metaclassDirectDependency)
+#set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
+#else
+#set ($shieldedMetaclassTypeName = "java.lang.Object")
+#end 
+
+/**
+ * MetafacadeLogic implementation.
+ *
+ * @see $class.fullyQualifiedInterfaceName
+ */
+public class ${class.name}LogicImpl
+       extends ${class.name}Logic
+       implements ${class.fullyQualifiedInterfaceName}
+{
+    // ---------------- constructor -------------------------------
+    
+    public ${class.name}LogicImpl ($shieldedMetaclassTypeName metaObject, java.lang.String context)
+    {
+        super (metaObject, context);
+    }
+#set ($atts = $class.attributes)
+#if ($atts.size() > 0)
+
+    // --------------- attributes ---------------------
+#foreach ( $att in $atts )
+#set ($returnTypeName = $att.type.fullyQualifiedName)
+
+   /**
+	* @see ${att.type.fullyQualifiedName}#${att.getterName}()
+    */
+    public $returnTypeName ${att.getterName}() {
+        // TODO: put your implementation here.
+#if ("void" != $returnTypeName)
+
+        // Dummy return value, just that the file compiles
+#if (!$op.type.primitiveType)
+        return null;
+#elseif ("boolean" == $returnTypeName)
+        return false;
+#else
+        return ($returnTypeName)0;
+#end
+#end
+    }
+#end
+#end
+##
+#set ($ops = $class.operations)
+#if ($ops.size() > 0)
+
+    // -------------------- business methods ----------------------
+
+    // concrete business methods that were declared
+    // abstract in class ${class.name} ...
+
+#foreach ( $op in $ops)
+#set ($msig = $op.signature)
+#set ($returnTypeName = $op.type.fullyQualifiedName)
+#if ($defaultException)
+	/**
+	 * @see ${class.fullyQualifiedInterfaceName}#${op.signature}()
+	 */
+    $op.visibility $returnTypeName ${msig}
+        throws $defaultException.name {
+#else
+	/**
+	 * @see ${class.fullyQualifiedInterfaceName}#${op.signature}()
+	 */
+    $op.visibility $returnTypeName ${msig} {
+#end
+        // TODO: put your implementation here.
+#if ("void" != $returnTypeName)
+
+        // Dummy return value, just that the file compiles
+#if (!$op.type.primitiveType)
+        return null;
+#elseif ("boolean" == $returnTypeName)
+        return false;
+#else
+        return ($returnTypeName)0;
+#end
+#end
+    }
+
+#end
+#end
+##
+#set ($assocEnds = $class.associationEnds)
+#if ($assocEnds.size() > 0)
+    // ------------- relations ------------------
+    
+#foreach ( $assocEnd in $assocEnds )
+#if ($assocEnd.otherEnd.navigable)
+##
+#set ($trn = $assocEnd.otherEnd.name)
+#set ($utrn = $str.upperCaseFirstLetter($trn))
+##
+#if ($assocEnd.one2Many || $assocEnd.many2Many)
+#set ($returnTypeName = $assocEnd.getterSetterTypeName)
+#else
+#set ($returnTypeName = "java.lang.Object")
+#end
+	/**
+	 * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
+	 */
+    public $returnTypeName handleGet${utrn}()
+    {
+        // TODO: add your implementation here!
+        return null;
+    }
+
+#end
+#end
+#end
+}

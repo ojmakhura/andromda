@@ -41,8 +41,8 @@
     <property name="src.dir"            value="src" />
 
     <!-- Output directories for generators -->
-    <property name="andromda.generated.dir"  value="${src.dir}/generated" />
-    <property name="andromda.manual.dir"     value="${src.dir}/manual" />
+    <property name="andromda.generated.dir"  value="${basedir}/${src.dir}/generated" />
+    <property name="andromda.manual.dir"     value="${basedir}/${src.dir}/manual" />
 
     <!-- Setup directory structure -->
     <target name="init">
@@ -118,17 +118,22 @@
         <property name="model" value="jar:file:${basedir}/src/uml/blank-model.zargo!/blank-model.xmi"/>
         <andromda basedir="."
            modelURL="${model}"
-           lastModifiedCheck="true"
-           typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
+           lastModifiedCheck="true">
 
             <userProperty name="foreignKeySuffix" value="_FK" />
+            
+			<namespace name="java">
+				<property name="value-objects" value="${andromda.generated.dir}"/>
+			</namespace>
 
-            <outlet cartridge="java"      outlet="value-objects"  dir="${andromda.generated.dir}" />
-
-            <outlet cartridge="hibernate" outlet="entities"       dir="${andromda.generated.dir}" />
-            <outlet cartridge="hibernate" outlet="entity-impls"   dir="${andromda.manual.dir}" />
-            <outlet cartridge="hibernate" outlet="session-beans"  dir="${andromda.generated.dir}" />
-            <outlet cartridge="hibernate" outlet="session-impls"  dir="${andromda.manual.dir}" />
+			<namespace name="hibernate">
+				<property name="sqlTypeMappings" value=""/>
+				<property name="jdbcTypeMappings" value=""/>
+				<property name="entities" value="${andromda.generated.dir}"/>
+				<property name="entity-impls" value="${andromda.manual.dir}"/>
+				<property name="session-beans" value="${andromda.generated.dir}"/>
+				<property name="session-impls" value="${andromda.manual.dir}"/>
+			</namespace>
 
         </andromda>
     </target>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-core</id>
+  	<name>AndroMDA Core</name>
+  	<shortDescription>The Framework Core</shortDescription>
+  	<description>
+		The Core refers to the "engine" of the framework.  The core takes care of loading model s
+		into memory and making the model available to the cartridges for processing.
+  	</description>
+  	<package>org.andromda.core.*</package>
+  	<logo>./images/project.png</logo>
+	<url>../index.html</url>
+	<dependencies>
+	    <dependency>
+	    	<groupId>picocontainer</groupId>
+	    	<artifactId>picocontainer</artifactId>
+	    	<version>1.0-RC-1-SNAPSHOT</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>commons-beanutils</groupId>
+	      	<artifactId>commons-beanutils</artifactId>
+	      	<version>1.6.1</version>
+	    </dependency>
+		<dependency>
+	      	<groupId>commons-collections</groupId>
+	      	<artifactId>commons-collections</artifactId>
+	      	<version>3.0</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>commons-digester</groupId>
+	      	<artifactId>commons-digester</artifactId>
+	      	<version>1.5</version>
+	    </dependency>    
+	    <dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>
+    	<dependency> 
+    		<groupId>ant</groupId>
+      		<artifactId>ant</artifactId>
+     		<version>1.6</version>
+    	</dependency>    
+	</dependencies>
+	
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/*Test.java</include>
+	     	</includes>
+			<resources>
+				<resource>
+					<directory>src/test/java</directory>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
+		  		</resource>
+			</resources>	 
+    	</unitTest>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+	      	</resource>
+    	</resources>
+  	</build>
+  	
+  	<!-- restrict the reports generated -->
+  	<reports>
+  		<report>maven-jxr-plugin</report>
+  		<report>maven-javadoc-plugin</report>
+  	    <report>maven-simian-plugin</report>
+  	    <report>maven-pmd-plugin</report>
+    	<report>maven-jdepend-plugin</report>
+  	</reports>
+	
+</project>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to instantiate and configure
+     an org.andromda.core.mapping.Mappings instance using Apache's Digester -->
+<digester-rules>
+
+	<pattern value="mappings">
+	
+    	<object-create-rule 
+      		classname="org.andromda.core.mapping.Mappings" />
+      		
+		<set-properties-rule>
+ 			<alias attr-name="name" prop-name="name" />
+ 		</set-properties-rule>      
+ 	
+		<pattern value="mapping">	
+		
+	    	<object-create-rule 
+	      		classname="org.andromda.core.mapping.Mapping" />
+			
+			<pattern  value="from">
+			
+		      	<call-method-rule  
+		      		methodname="addFrom"
+			        paramcount="1" />
+			   
+				<call-param-rule 
+		      		paramnumber="0"/>
+			
+			</pattern>
+			
+			<pattern value="to">
+			
+		      	<call-method-rule  
+		      		methodname="setTo"
+			        paramcount="1" />
+			   
+				<call-param-rule 
+		      		paramnumber="0"/>		
+		      				
+			</pattern>
+			
+			<set-next-rule methodname="addMapping" />
+			
+		</pattern>
+ 		
+	</pattern>
+
+</digester-rules>

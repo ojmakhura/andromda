@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>Maven AndroMDA Plug-in Goals</title>
+  	</properties>
+  	<body>
+	    <goals>
+	      <goal>
+	        <name>andromda:run</name>
+	        <description>	
+	        	Runs the AndroMDA processor with cartridges found on your CLASSPATH.
+	        </description>
+	      </goal>
+    	</goals>
+  	</body>
+</document>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../../project.xml</extend>
+  	<id>animal-quiz</id>
+  	<groupId>andromda-samples</groupId>
+  	<name>The Animal Quiz Sample</name>
+  	<currentVersion>3.0-SNAPSHOT</currentVersion>
+  	<shortDescription>The Animal Quiz Sample</shortDescription>
+  	<description>
+  		Contains the Animal Quiz Sample Project.
+  	</description>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+	      	</resource>
+    	</resources>
+  	</build>
+
+</project>

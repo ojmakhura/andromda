@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>car-rental-sample-ejb</id>
+  	<name>Car Rental Sample EJB</name>
+  	<shortDescription>The Car Rental Sample EJB component</shortDescription>
+  	<description>
+  		Contains the car rental sample EJB module.
+  	</description>
+	<dependencies>      
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-mda</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-common</artifactId>
+			<version>${pom.currentVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.0</version>
+		</dependency>	
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.3</version>
+		</dependency>		
+		<!-- EJB dependencies -->
+  		<dependency>
+     		<groupId>jboss</groupId>
+      		<artifactId>jboss-j2ee</artifactId>
+        	<version>3.2.3</version>
+    	</dependency>  		
+    	<!-- XDoclet dependencies -->	
+    	<dependency>
+    		<groupId>xjavadoc</groupId>
+    		<artifactId>xjavadoc</artifactId>
+        	<version>1.0.2</version>
+    	</dependency>  
+  		<dependency>
+     		<groupId>xdoclet</groupId>
+      		<artifactId>xdoclet</artifactId>
+        	<version>1.2</version>
+    	</dependency>   	
+  		<dependency>
+     		<groupId>xdoclet</groupId>
+      		<artifactId>xdoclet-xdoclet-module</artifactId>
+        	<version>1.2</version>
+    	</dependency> 	
+  		<dependency>
+     		<groupId>xdoclet</groupId>
+      		<artifactId>xdoclet-ejb-module</artifactId>
+        	<version>1.2</version>
+ 	  	</dependency>
+    	<dependency>
+     		<groupId>xdoclet</groupId>
+      		<artifactId>xdoclet-jboss-module</artifactId>
+        	<version>1.2</version>
+    	</dependency>
+    	<!-- This one is needed because jboss-module depends on it -->
+    	<dependency>
+    		<groupId>xdoclet</groupId>
+    		<artifactId>xdoclet-jmx-module</artifactId>
+        	<version>1.2</version>
+    	</dependency>
+		<!-- ejbdoclet depends on this module for some reason -->
+    	<dependency>
+    		<groupId>xdoclet</groupId>
+    		<artifactId>xdoclet-web-module</artifactId>
+        	<version>1.2</version>
+    	</dependency>  
+	</dependencies>
+	
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+  	</build>
+
+</project>

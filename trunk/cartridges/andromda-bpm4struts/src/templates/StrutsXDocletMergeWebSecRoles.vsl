@@ -1,0 +1,6 @@
+
+#foreach ($user in $class.allUsers)
+  <security-role>
+    <role-name>$user.role</role-name>
+  </security-role>
+#end

@@ -1,46 +1,48 @@
 <cartridge name="struts">
-  <property name="workflow" value="struts" />
+    
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
-  <stereotype name="WebAction" />
-  <stereotype name="WebAppConfig" />
-  <stereotype name="WebForm" />
-  <stereotype name="WebPage" />
+    <template
+      sheet="templates/StrutsForm.vsl"
+      outputPattern="{0}/{1}.java"
+      outlet="forms"
+      overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="WebForm"/>  
+        </modelElements>  
+    </template>
 
-  <outlet name="forms" />
-  <outlet name="actions" />
-  <outlet name="pages" />
-  <outlet name="config" />
+    <template
+      sheet="templates/StrutsAction.vsl"
+      outputPattern="{0}/{1}.java"
+      outlet="actions"
+      overWrite="false">
+        <modelElements variable="class">
+            <modelElement stereotype="WebAction"/>  
+        </modelElements>  
+    </template>
 
-  <template
-    stereotype="WebForm"
-    sheet="templates/StrutsForm.vsl"
-    outputPattern="{0}/{1}.java"
-    outlet="forms"
-    overWrite="true"
-  />
+    <template
+      sheet="templates/StrutsJSP.vsl"
+      outputPattern="{1}.jsp"
+      outlet="pages"
+      overWrite="false">
+        <modelElements variable="class">
+            <modelElement stereotype="WebPage"/>  
+        </modelElements>   
+    </template>
 
-  <template
-    stereotype="WebAction"
-    sheet="templates/StrutsAction.vsl"
-    outputPattern="{0}/{1}.java"
-    outlet="actions"
-    overWrite="false"
-  />
-
-  <template
-    stereotype="WebPage"
-    sheet="templates/StrutsJSP.vsl"
-    outputPattern="{1}.jsp"
-    outlet="pages"
-    overWrite="false"
-  />
-
-  <template
-    stereotype="WebAppConfig"
-    sheet="templates/StrutsConfig.vsl"
-    outputPattern="struts-config.xml"
-    outlet="config"
-    overWrite="true"
-  />
+    <template
+      sheet="templates/StrutsConfig.vsl"
+      outputPattern="WEB-INF/struts-config.xml"
+      outlet="config"
+      overWrite="true"
+      outputToSingleFile="true">
+        <modelElements variable="classes">
+            <modelElement stereotype="WebForm" variable="webForms"/>
+            <modelElement stereotype="WebAction" variable="webActions"/>
+        </modelElements>  
+    </template>
 
 </cartridge>

@@ -1,0 +1,122 @@
+##
+##
+##      This macro takes care of rendering the appropriate Struts
+##      HTML hyperlink tags for the argument trigger
+##
+##
+#macro ( renderHyperlink $action $indent )
+#set ($triggerKey = $action.triggerKey)
+${indent}<html:link forward="$action.forwardName" titleKey="$triggerKey" paramName="request" paramProperty="parameterMap">
+${indent}    <bean:message key="$triggerKey"/>
+${indent}</html:link>
+#end
+##
+##
+##      This macro takes care of rendering the appropriate Struts
+##      HTML button tags for the argument trigger
+##
+##
+#macro ( renderFormButton $trigger $indent )
+#if ($trigger.isCancelTrigger())
+${indent}<input type="button" name="<%=org.apache.struts.Globals.CANCEL_KEY%>"
+${indent}    onclick="submitForm(this.form,'$trigger.messageKey');"
+${indent}    title="<bean:message key="$trigger.titleMessageKey"/>"
+${indent}    value="<bean:message key="$trigger.messageKey"/>">
+#elseif ($trigger.isResetTrigger())
+${indent}<input type="reset"
+${indent}    title="<bean:message key="$trigger.titleMessageKey"/>"
+${indent}    value="<bean:message key="$trigger.messageKey"/>">
+#else
+${indent}<input type="button"
+${indent}    onclick="submitForm(this.form,'$trigger.messageKey');"
+${indent}    title="<bean:message key="$trigger.titleMessageKey"/>"
+${indent}    value="<bean:message key="$trigger.messageKey"/>">
+#end
+#end
+##
+##
+##      This macro takes care of rendering the appropriate Struts tags
+##      for the argument form field
+##
+##
+#macro ( renderFormField $field $indent)
+##
+##  Take the default value into account
+##
+#if ($field.defaultValue)
+#set ($value = 'value="$field.defaultValue"')
+#else
+#set ($value = '')
+#end
+##
+##  Depending on the type of the input field we render a different widget
+##
+##
+##      C H E C K B O X     &      R A D I O B U T T O N
+##
+#if ( ($field.widgetType == 'radio') || ($field.widgetType == 'checkbox') )
+#if ($field.isReadOnly())
+#set ($disabled = 'disabled="true"')
+#else
+#set ($disabled = '')
+#end
+${indent}<html:$field.widgetType property="$field.name" titleKey="$field.titleMessageKey" $disabled $value/>
+##
+##      T E X T F I E L D       &       P A S S W O R D
+##
+#elseif ( ($field.widgetType == 'text') || ($field.widgetType == 'password') )
+#if ($field.isReadOnly())
+#set ($readonly = 'readonly="true"')
+#else
+#set ($readonly = '')
+#end
+${indent}<html:$field.widgetType property="$field.name" titleKey="$field.titleMessageKey" $readonly $value/>
+##
+##      T E X T A R E A
+##
+#elseif ($field.widgetType == 'textarea')
+#if ($field.isReadOnly())
+#set ($readonly = 'readonly="true"')
+#else
+#set ($readonly = '')
+#end
+#if ($field.columnCount)
+#set ($cols = 'cols="$field.columnCount"')
+#else
+#set ($cols = '')
+#end
+#if ($field.rowCount)
+#set ($rows = 'rows="$field.rowCount"')
+#else
+#set ($rows = '')
+#end
+${indent}<html:$field.widgetType property="$field.name" titleKey="$field.titleMessageKey" $readonly $cols $rows $value/>
+##
+##      C O M B O B O X     &      L I S T
+##
+#elseif ($field.widgetType == 'select')
+#if ($field.isMultiple())
+#set ($multiple = 'multiple="true"')
+#else
+#set ($multiple = 'multiple="false"')
+#end
+#if ($field.isReadOnly())
+#set ($disabled = 'disabled="true"')
+#else
+#set ($disabled = '')
+#end
+#if ($field.size)
+#set ($size = 'size="$field.size"')
+#else
+#set ($size = '')
+#end
+${indent}<html:select $disabled $size $multiple property="$field.name" titleKey="$field.titleMessageKey">
+${indent}    <html:options property="$field.backingPropertyName"/>
+${indent}</html:select>
+##
+##      Any other field will be rendered as plain text (no input)
+##
+#else
+${indent}<bean:write name="$field.request.jsp.formBean.name" property="$field.name"/>
+#end
+#end

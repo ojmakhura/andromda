@@ -56,7 +56,11 @@
         </delete>
 
         <antcall target="cleanComponent">
-          <param name="component.name" value="car-rental-system"/>
+            <param name="component.name" value="car-rental-system"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+            <param name="component.name" value="animal-quiz"/>
         </antcall>
 
         <antcall target="cleanComponent">
@@ -85,6 +89,10 @@
 
         <antcall target="buildComponent">
           <param name="component.name" value="car-rental-system"/>
+        </antcall>
+
+        <antcall target="buildComponent">
+            <param name="component.name" value="animal-quiz"/>
         </antcall>
 
         <antcall target="copyComponent">

@@ -19,11 +19,11 @@
 
 <h2><bean:message key="h2.${class.name}"/></h2>
 
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-#if ($adata.target.roleName == "submit")
-    #set ($class2 = $adata.target.type)
+#foreach ( $associationEnd in $class.associationEnd )
+#set($target = $associationEnd.otherEnd)
+#if ($target.navigable)
+#if ($target.name == "submit")
+    #set ($class2 = $target.type)
     #if ($class2)
 <html:form action="${class2.name}.do">
     #end
@@ -32,7 +32,7 @@
 #end
   <table>
 #foreach ( $att in $class.attributes )
-#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+#set ($atttypename = $att.type.fullyQualifiedName)
     <tr>
        <td><bean:message key="prompt.${class.name}.${att.name}"/></td>
        <td><html:text property="$att.name" size="40" /></td>

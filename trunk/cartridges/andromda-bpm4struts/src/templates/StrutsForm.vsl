@@ -1,53 +1,61 @@
+#set ($generatedFile = "${class.fullFormBeanPath}.java")
 ##
-## Package declaration and imports
+##  CONSTANTS
 ##
-package $transform.getPackageName($class);
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionMapping;
+#set ($fields = $class.actionParameters)
+#set ($useCase = $class.activityGraph.useCase)
+#set ($formBeanName = $class.formBeanName)
+#set ($formBeanClassName = $class.formBeanClassName)
+#set ($messageKey = $class.messageKey)
+##
+##  START TEMPLATE
+##
+package $class.packageName;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletRequest;
+#if ($class.packageName != $useCase.formBeanPackage)
 
-##
-## Start of the class declaration
-##
-public final class ${class.name} extends ${class.name}Abstract implements Serializable
+import $useCase.formBeantype;
+#end
+
+/**
+ * @struts.form
+ *      name="$formBeanName"
+ */
+public final class $formBeanClassName extends $useCase.formBeanClassName implements Serializable
 {
-    public void reset(ActionMapping mapping, HttpServletRequest request)
-    {
-    }
-
-    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request)
-    {
-        return null;
-    }
-
-##
-## A getter and setter for each attribute
-##
-#foreach ($feature in $class.feature)
-#if ($transform.staticHelper.isAttribute($feature))
-#set ($attributeTypePackage = $transform.getPackageName($feature.type))
-#if ($attributeTypePackage == "java.lang")
-#set ($attributeTypePackage = "")## java.lang is implicitely imported, no need to mess up the code
-#end
-#if ($attributeTypePackage != "")
-#set ($attributeTypePackage = "${attributeTypePackage}.")
-#end
-#set ($attributeType = "$attributeTypePackage$feature.type.name")
+#foreach ($field in $fields)
+#set ($fieldType = $field.type.fullyQualifiedName)
+#set ($fieldName = $field.name)
+#set ($validatorTypes = $field.validatorTypes)
+#if (!$validatorTypes.isEmpty())
     /**
+#foreach ($validatorType in $validatorTypes)
      * @struts.validator
-     *   type="Required"
+     *          type="$validatorType"
+     *  arg0resource="${messageKey}.$field.validatorMsgKey"
+#foreach ($validatorArg in $field.getValidatorArgs($validatorType))
+     *     arg${velocityCount}value="$validatorArg"
+#end
+     *
+#end
+#foreach ($validatorVar in $field.validatorVars)
+     * @struts.validator-var
+     *          name="$validatorVar.get(0)"
+     *         value="$validatorVar.get(1)"
+#end
+#if ($field.validWhen)
+     * @struts.validator-var
+     *          name="test"
+     *         value="$field.validWhen"
+#end
      */
-    public void set$str.upperCaseFirstLetter($feature.name)($attributeType $feature.name)
+#end
+    public void ${field.setterName}($fieldType $fieldName)
     {
-        super.set$str.upperCaseFirstLetter($feature.name)($feature.name);
+        super.${field.setterName}($fieldName);
     }
 
 #end
-#end
-
 }

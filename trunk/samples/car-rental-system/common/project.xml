@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>car-rental-sample-common</id>
+  	<name>Car Rental Sample Common</name>
+  	<shortDescription>The Car Rental Sample</shortDescription>
+  	<description>
+  		Contains the car rental sample common module.
+  	</description>
+	<dependencies>      
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-mda</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+	
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+  	</build>
+
+</project>

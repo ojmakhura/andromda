@@ -1,33 +1,78 @@
 package org.andromda.cartridges.interfaces;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.templateengine.TemplateEngine;
+import org.apache.commons.lang.StringUtils;
+
 /**
- * A default implementation of the ICartridgeDescriptor interface.
+ * A default implementation of the CartridgeDescriptor interface.
  * 
- * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor
- * @see org.andromda.cartridges.interfaces.CartridgeXmlParser
+ * @see org.andromda.cartridges.interfaces.CartridgeDescriptor
+ * @see org.andromda.common.XmlObjectFactory
+ * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author Chad Brandon
  */
-public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
+public class DefaultCartridgeDescriptor implements CartridgeDescriptor
 {
+    
     private String cartridgeName;
-    private HashMap properties = new HashMap();
-    private ArrayList supportedStereotypes = new ArrayList();
-    private ArrayList outlets = new ArrayList();
-    private ArrayList templates = new ArrayList();
-    private ArrayList macrolibs = new ArrayList();
+    private Map properties = new HashMap();
+    private Collection propertyReferences = new ArrayList();
+    private List templates = new ArrayList();
+    private Map templateObjects = new HashMap();
     private URL definitionURL;
     private String cartridgeClassName = null;
+    private String templateEngineClassName = null;
+    
+    /**
+     * Returns a new configured instance of this DefaultCartridgeDescriptor as 
+     * a CartridgeDescriptor configured from the CartridgeDescriptor configuration URI string.
+     * 
+     * @param cartridgeDescriptorUri the URI to the XML type cartridgeDescriptor configuration file.
+     * @return CartridgeDescriptor the configured CartridgeDescriptor instance.
+     * @throws MalformedURLException when the cartridgeDescriptorUri is invalid (not a valid URL).
+     */
+    public static CartridgeDescriptor getInstance(String cartridgeDescriptorUri) throws MalformedURLException 
+    {
+        final String methodName = "DefaultCartridgeDescriptor.getInstance";
+        cartridgeDescriptorUri = StringUtils.trimToEmpty(cartridgeDescriptorUri);
+        ExceptionUtils.checkEmpty(methodName, "cartridgeDescriptorUri", cartridgeDescriptorUri);
+        CartridgeDescriptor cartridgeDescriptor = getInstance(new URL(cartridgeDescriptorUri));
+        return cartridgeDescriptor;
+    }
+    
+    /**
+     * Returns a new configured instance of this DefaultCartridgeDescriptor as
+     *  a CartridgeDescriptor configured from the cartridgeDescriptor configuration URI.
+     * 
+     * @param cartridgeDescriptorUri the URI to the XML cartridgeDescriptor configuration file.
+     * @return CartridgeDescriptor the configured CartridgeDescriptor instance.
+     */
+    public static CartridgeDescriptor getInstance(URL cartridgeDescriptorUri) 
+    {
+        final String methodName = "DefaultCartridgeDescriptor.getInstance";
+        ExceptionUtils.checkNull(methodName, "cartridgeDescriptorUri", cartridgeDescriptorUri);
+        DefaultCartridgeDescriptor cartridgeDescriptor = 
+            (DefaultCartridgeDescriptor)XmlObjectFactory.getInstance(
+                CartridgeDescriptor.class).getObject(cartridgeDescriptorUri);
+        cartridgeDescriptor.definitionURL = cartridgeDescriptorUri;
+        return cartridgeDescriptor;
+    }
 
 
     /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getCartridgeName()
-     * @return String
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getCartridgeName()
      */
     public String getCartridgeName()
     {
@@ -35,7 +80,7 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     }
 
     /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getProperties()
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getProperties()
      */
     public Map getProperties()
     {
@@ -43,29 +88,13 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     }
 
     /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getSupportedStereotypes()
-     */
-    public List getSupportedStereotypes()
-    {
-        return supportedStereotypes;
-    }
-
-    /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getOutlets()
-     */
-    public List getOutlets()
-    {
-        return outlets;
-    }
-
-    /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getTemplateConfigurations()
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getTemplateConfigurations()
      */
     public List getTemplateConfigurations()
     {
         return templates;
     }
-
+    
     /**
      * Adds a property to the list of properties of this cartridge. Properties
      * may be used to designate implementations for architectural aspects.
@@ -77,15 +106,27 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     {
         properties.put(propertyName, propertyValue);
     }
+    
+    /** 
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getPropertyReferences()
+     */
+    public Collection getPropertyReferences() 
+    {
+        return this.propertyReferences;
+    }
 
     /**
-     * Adds a stereotype to the list of supported stereotypes of this cartridge.
+     * Adds a property reference. Property references
+     * are those properties that are expected to be 
+     * supplied by the calling client.  These supplied
+     * properties are made available to the template
+     * during processing.
      * 
-     * @param stereotypeName the name of the stereotype
+     * @param reference
      */
-    public void addSupportedStereotype(String stereotypeName)
+    public void addPropertyReference(String reference) 
     {
-        supportedStereotypes.add(stereotypeName);
+        this.propertyReferences.add(reference);
     }
     
     /**
@@ -95,18 +136,6 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     public void setCartridgeName(String cartridgeName)
     {
         this.cartridgeName = cartridgeName;
-    }
-    
-    /**
-     * Adds an outlet to the list of defined outlets. An outlet is a short name
-     * for a path where output files will be written. A later step associates
-     * this name with a concrete physical directory name.
-     * 
-     * @param outletname the outlet identifier
-     */
-    public void addOutlet(String outletname)
-    {
-        outlets.add(outletname);
     }
     
     /**
@@ -120,14 +149,14 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getDefinitionURL()
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getDefinitionURL()
      */
     public URL getDefinitionURL()
     {
         return this.definitionURL;
     }
     /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#setDefinitionURL(java.net.URL)
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#setDefinitionURL(java.net.URL)
      */
     public void setDefinitionURL(URL url)
     {
@@ -159,15 +188,50 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
      */
     public void addMacroLibrary(String libraryName)
     {
-        macrolibs.add(libraryName);
+        this.getTemplateEngine().addMacroLibrary(libraryName);
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getMacroLibraries()
+     * Adds the <code>templateObject</code> and makes
+     * it available to the template.
+     * 
+     * @param templateObject
      */
-    public List getMacroLibraries()
+    public void addTemplateObject(TemplateObject templateObject) 
     {
-        return macrolibs;
+        final String methodName = "DefaultCartridgeDescriptor.addTemplateObject";
+        ExceptionUtils.checkNull(methodName, "templateObject", templateObject);
+        templateObject.setResource(this.getDefinitionURL());
+        templateObject.setNamespace(this.getCartridgeName());
+        this.templateObjects.put(
+            templateObject.getName(), 
+            templateObject.getTemplateObject());
     }
-
+    
+    /**
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getTemplateObjects()
+     */
+    public Map getTemplateObjects() 
+    {
+        return this.templateObjects;
+    }
+    
+    /**
+     * Sets the template engine class for this cartridge.
+     * 
+     * @param templateEngineClassName
+     */
+    public void setTemplateEngineClass(String templateEngineClassName) {
+        this.templateEngineClassName = templateEngineClassName; 
+    }
+    
+    /**
+     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getTemplateEngine()
+     */
+    public TemplateEngine getTemplateEngine() {
+        return (TemplateEngine)ComponentContainer.instance().findComponent(
+            	this.templateEngineClassName, 
+            	TemplateEngine.class);
+    }
+    
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to load
+     a MetafacadeMappings object by Apache Digester -->
+<digester-rules>
+
+	<pattern value="metafacades">
+	
+    	<object-create-rule 
+      		classname="org.andromda.core.metafacade.MetafacadeMappings" />
+      		
+		<set-properties-rule>
+ 			<alias attr-name="namepace" prop-name="namespace" />
+ 		</set-properties-rule>      
+ 		
+ 		<!-- add configuration property references to the metafacade -->
+		<pattern value="property">
+
+			<call-method-rule
+				methodname="addPropertyReference" 
+				paramcount="1"/>
+				
+	    	<call-param-rule 
+	    		attrname="reference" 
+	    		paramnumber="0" />
+			
+		</pattern>
+		
+ 		<!-- add the default metafacade -->
+		<pattern value="default">
+		
+			<set-properties-rule>
+	 			<alias attr-name="className" prop-name="defaultMetafacadeClass" />
+	 		</set-properties-rule>  
+
+		</pattern>
+      		
+      	<!-- add the MetafacadeMapping implementation(s) -->
+      		
+		<pattern value="metafacade">
+		
+	    	<object-create-rule 
+	      		classname="org.andromda.core.metafacade.MetafacadeMapping" />
+	 		
+			<set-properties-rule>
+	 			<alias attr-name="metaobjectClass" prop-name="metaobjectClassName" />
+	 		</set-properties-rule>  
+		
+			<set-properties-rule>
+	 			<alias attr-name="metafacadeClass" prop-name="metafacadeClassName" />
+	 		</set-properties-rule>     
+	 		
+	      	<call-method-rule 
+	      		pattern="stereotype" 
+	      		methodname="setStereotype"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="stereotype"
+	      		paramnumber="0"/>
+	      		
+	      	<call-method-rule 
+	      		pattern="context" 
+	      		methodname="setContext"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="context"
+	      		paramnumber="0"/>
+	 		
+	 		<!-- add configuration property references to the metafacade -->
+			<pattern value="property">
+	
+				<call-method-rule
+					methodname="addPropertyReference" 
+					paramcount="1"/>
+					
+		    	<call-param-rule 
+		    		attrname="reference" 
+		    		paramnumber="0" />
+				
+			</pattern>
+		   	
+		   	<set-next-rule methodname="addMapping" />
+		   	
+     	</pattern>
+	   	
+	</pattern>
+
+</digester-rules>

@@ -1,0 +1,186 @@
+<project default="install"
+         xmlns:texen="texen"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util">
+
+  	<!-- ==================================================================
+  			 Installs all libraries in the local repository                                                    
+  		 ================================================================== -->
+  	<goal name="install">
+ 		<j:set 
+ 			var="maven.multiproject.includes" 
+ 			value="**/project.xml"/>
+ 		<j:set 
+ 			var="maven.multiproject.excludes" 
+ 			value="${multiproject.install.excludes}"/>
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
+ 
+  	<!-- ==================================================================
+  			 Installs all libraries in the remote repository                                                    
+  		 ================================================================== --> 	
+  	<goal name="deploy">
+ 		<j:set 
+ 			var="maven.multiproject.includes" 
+ 			value="**/project.xml"/>
+ 		<j:set 
+ 			var="maven.multiproject.excludes" 
+ 			value="${multiproject.deploy.excludes}"/>
+		<attainGoal name="multiproject:deploy"/>	  		
+  	</goal>
+  	
+  	<!-- ==================================================================
+  			 Clean                                                     
+  		 ================================================================== -->
+  	<goal name="clean">  		
+ 		<j:set 
+ 			var="maven.multiproject.includes" 
+ 			value="**/project.xml"/>
+ 		<j:set 
+ 			var="maven.multiproject.excludes" 
+ 			value="project.xml,**/target/**"/>
+		<attainGoal name="multiproject:clean"/>
+		<attainGoal name="clean:clean"/>
+		<!-- get rid of all the log files -->
+		<ant:delete>
+			<ant:fileset dir=".">
+				<ant:include name="**/*.log*"/>
+				<ant:exclude name="maven.log"/>
+			</ant:fileset>
+		</ant:delete>
+  	</goal> 
+  	
+  	<!-- =================================================================
+  	         Install all bootstrap artifacts to the local repository
+  	         IMPORTANT: Since bootstrap dependencies depend on each other,
+  	         we need to install them ALL at the end at once (instead of
+  	         one at a time).
+  	     ================================================================= -->
+  	<goal name="bootstrap-install">
+ 		<maven:reactor
+     		basedir="${basedir}"
+      		includes="${bootstrap.modules}"
+      		goals="clean:clean,jar:jar"
+      		ignoreFailures="false"
+      		postProcessing="true"
+      		banner="Processing Bootstrap Artifact:"/>    
+      	
+      	<echo>+-------------------------------------------------------------------+</echo>
+      	<echo>|   I N S T A L L I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
+      	<echo>+-------------------------------------------------------------------+</echo>
+		<j:forEach var="reactorProject" items="${reactorProjects}">			
+			<attainGoal name="initialize-bootstrap-properties"/>
+			<ant:copy				
+				file="${artifactFile}"
+				tofile="${repoLocation}/${bootstrapArtifactName}"
+				overwrite="true"/>
+		</j:forEach>
+      			  	    
+  	</goal>
+  	  	
+  	<!-- =================================================================
+  	         Deploys all bootstrap artifacts to the remote repository
+  	         IMPORTANT: Since bootstrap dependencies depend on each other,
+  	         we need to deploy them ALL at the end at once (instead of
+  	         one at a time).  
+  	         IMPORTANT: Normally the Maven deploy plugin would
+  	         be used, but it isn't possible to use it the way its currently
+  	         implemented as it expects each artifact to be deployed 
+  	         after its built.  This allows us to deploy them all at 
+  	     ================================================================= -->
+  	<goal name="bootstrap-deploy"
+  		  description="Deploys a bootstrap jar to the remote repository">
+  		  
+  		<maven:user-check user="${maven.username}"/>
+  		
+  		<j:set var="username" value="${maven.username}"/>
+  		
+ 		<maven:reactor
+     		basedir="${basedir}"
+      		includes="${bootstrap.modules}"
+      		goals="clean:clean,jar:jar"
+      		ignoreFailures="false"
+      		postProcessing="true"
+      		banner="Processing Bootstrap Artifact:"/>  	  
+	
+      	<echo>+-----------------------------------------------------------------+</echo>
+      	<echo>|   D E P L O Y I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
+      	<echo>+-----------------------------------------------------------------+</echo>
+		<j:forEach var="reactorProject" items="${reactorProjects}">		
+				
+			<attainGoal name="initialize-bootstrap-properties"/>				
+			<ant:move				
+				file="${artifactFile}"
+				tofile="${bootstrapArtifactFile}"
+				overwrite="true"/>	
+						
+			<util:replace var="jarToDeploy" oldChar="\" newChar="/">${bootstrapArtifactFile}</util:replace>
+			<util:replace var="forwardSlashBaseDir" oldChar="\" newChar="/" value="${basedir}"/>
+			<j:if test="${!forwardSlashBaseDir.endsWith('/')}">
+			  <j:set var="base" value="${forwardSlashBaseDir}/" />
+			</j:if>
+			<j:set var="relativePath">${jarToDeploy.substring(base.length())}</j:set>
+	
+			<j:set var="siteAddress" value="${maven.repo.central}"/>
+			<j:set var="siteDirectory" value="${maven.repo.central.directory}"/>
+			<j:set 
+				var="resolvedDirectory" 
+				value="${siteDirectory}/${reactorProject.artifactDirectory}/jars"/>
+
+			<j:set var="copier" value="${maven.scp.executable}"/>
+			<j:set var="commander" value="${maven.ssh.executable}"/>
+	
+			<!-- Make sure the destination directory exists. --> 
+			<ant:exec dir="." executable="${commander}">
+			  <ant:arg line="-l ${username} ${siteAddress} 'mkdir -p ${resolvedDirectory}'"/>
+			</ant:exec>
+	
+			<ant:echo>Deploying Bootstrap Artifact: '${relativePath}' to '${resolvedDirectory}' on '${siteAddress}'</ant:echo>
+			
+			<ant:exec dir="." executable="${copier}">
+				<ant:arg value="${relativePath}"/>
+				<ant:arg value="${username}@${siteAddress}:${resolvedDirectory}"/>
+			</ant:exec>
+
+			<j:set 
+				var="siteCommand"
+				value="cd ${resolvedDirectory}; chmod 775 ${bootstrapArtifactName}"/>
+
+			<ant:echo>Executing '${siteCommand}' with the username '${username}' on '${siteAddress}'</ant:echo>
+				
+			<!-- Change the permissions -->
+			<ant:exec dir="." executable="${commander}">
+			  <ant:arg line="-l ${username} ${siteAddress} '${siteCommand}'"/>
+			</ant:exec>
+			
+		</j:forEach>
+	    
+  	</goal>
+  	
+  	<!-- =================================================================
+  	     Initializes the bootstrap properties for each reactorProject
+  	     ================================================================= -->  	
+  	<goal name="initialize-bootstrap-properties">
+		<j:set
+			var="repoLocation" 
+			value="${maven.repo.local}/${reactorProject.artifactDirectory}/jars"/>
+		<j:set 
+			var="artifactDirectory"
+			value="${reactorProject.file.parent}/target"/>
+		<j:set 
+			var="artifactName"
+			value="${reactorProject.artifactId}-${reactorProject.currentVersion}.jar"/>
+		<util:file 
+			var="artifactFile" 
+			name="${artifactDirectory}/${artifactName}"/>  	
+		<j:set 
+			var="bootstrapArtifactName"
+			value="${reactorProject.artifactId}-bootstrap-${reactorProject.currentVersion}.jar"/>
+		<j:set 
+			var="bootstrapArtifactFile"
+			value="${artifactDirectory}/${bootstrapArtifactName}"/>
+  	</goal>
+  	  	
+</project>

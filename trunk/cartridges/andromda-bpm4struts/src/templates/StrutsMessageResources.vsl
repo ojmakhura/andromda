@@ -1,0 +1,94 @@
+main.title=$class.name
+
+#
+#   Messages for the login page
+#
+login.username=User
+login.password=Password
+login.failed=Login failed, please try again
+login.submit=Login
+login.submit.title=Click to submit these credentials
+login.reset=Reset
+login.reset.title=Click to reset these credentials
+
+#
+#   Messages for the validator plugin
+#
+errors.required={0} is required.
+errors.minlength={0} can not be less than {1} characters.
+errors.maxlength={0} can not be greater than {1} characters.
+errors.invalid={0} is invalid.
+
+errors.byte={0} must be a byte.
+errors.short={0} must be a short.
+errors.integer={0} must be an integer.
+errors.long={0} must be a long.
+errors.float={0} must be a float.
+errors.double={0} must be a double.
+
+errors.date={0} is not a date.
+errors.range={0} is not in the range {1} through {2}.
+errors.creditcard={0} is an invalid credit card number.
+errors.email={0} is an invalid e-mail address.
+
+#foreach ($user in $class.users)
+$user.messageKey=$user.messageValue
+#end
+
+#set ($useCases = $class.allUseCases)
+
+#foreach ($useCase in $useCases)
+#
+#
+#   USE-CASE:   $useCase.titleValue
+#
+#
+
+#foreach ($page in $useCase.pages)
+#
+#   PAGE:       $page.titleValue
+#
+$page.titleKey=$page.titleValue
+
+#foreach ($action in $page.actions)
+#   ACTION:     $action.actionTrigger.triggerValue
+#if ($action.hasSuccessMessage())
+$action.successMessageKey=$action.successMessageValue
+#end
+#set ($messageKey = $action.messageKey)
+#set ($actionTrigger = $action.actionTrigger)
+${messageKey}.$actionTrigger.triggerKey=$actionTrigger.triggerValue
+${messageKey}.$actionTrigger.titleKey=$actionTrigger.titleValue
+${messageKey}.$actionTrigger.notAllowedTitleKey=$actionTrigger.notAllowedTitleValue
+${messageKey}.$actionTrigger.resetTitleKey=$actionTrigger.resetTitleValue
+${messageKey}.$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllowedTitleValue
+
+#set ($actionParameters = $action.actionParameters)
+#if (!$actionParameters.isEmpty())
+#   ACTION-PARAMETERS
+#foreach ($field in $action.actionParameters)
+${messageKey}.$field.messageKey=$field.messageValue
+${messageKey}.$field.titleKey=$field.titleValue
+#foreach ($optionKey in $field.optionKeys)
+${messageKey}.$optionKey=${field.name}-$velocityCount
+${messageKey}.${optionKey}.title=${field.name}-$velocityCount
+#end
+#end
+
+#end
+#set ($actionExceptions = $action.actionExceptions)
+#if (!$actionExceptions.isEmpty())
+#   ACTION-EXCEPTIONS
+#foreach ($exception in $action.actionExceptions)
+${messageKey}.$exception.exceptionKey={0} ($exception.exceptionType)
+#end
+#end
+
+#end ## for each action
+
+
+#end ## for each page
+
+
+
+#end

@@ -1,0 +1,7 @@
+#set ($useCases = $class.allUseCases)
+
+  <global-forwards>
+#foreach ($useCase in $useCases)
+    <forward name="$str.toResourceMessageKey($useCase.name)" path="${useCase.actionPath}.do" redirect="false"/>
+#end
+  </global-forwards>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-repository-mdr</id>
+  	<name>MDR Repository</name>
+  	<shortDescription>AndroMDA MDR Repository</shortDescription>
+  	<description>
+  		Implements the NetBeans MDR (Meta-Data Repository) integration with AndroMDA.
+		This MDR repository module allows AndroMDA to use the NetBeans MDR as a 
+		repository for loading, and querying object models.
+  	</description>
+  	<package>org.andromda.repositories.mdr.*</package>
+  	<logo>./images/project.png</logo>
+	<url>../index.html</url>
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+	    <dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>
+		<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>
+    	<dependency> 
+    		<groupId>mdr</groupId>
+      		<artifactId>jmiutils</artifactId>
+     		<version>200401240117</version>
+    	</dependency> 
+    	<dependency> 
+    		<groupId>mdr</groupId>
+      		<artifactId>jmitoolkit</artifactId>
+     		<version>200401240117</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>mdr</groupId>
+      		<artifactId>mdrapi</artifactId>
+     		<version>200401240117</version>
+    	</dependency>  
+     	<dependency> 
+    		<groupId>mdr</groupId>
+      		<artifactId>nbmdr</artifactId>
+     		<version>200401240117</version>
+    	</dependency>     	
+     	<dependency> 
+    		<groupId>mdr</groupId>
+      		<artifactId>openide-util</artifactId>
+     		<version>200401141900</version>
+    	</dependency> 
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmiuml</artifactId>
+     		<version>1.4di</version>
+    	</dependency>   
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>mof</artifactId>
+     		<version>200401240117</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmi</artifactId>
+     		<version>200401240117</version>
+    	</dependency>  
+	</dependencies>	
+</project>

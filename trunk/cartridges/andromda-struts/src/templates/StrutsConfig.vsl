@@ -4,76 +4,63 @@
 
 <struts-config>
 
-  <!-- ========== Form Bean Definitions =================================== -->
-  <form-beans>
-#foreach ( $onePackage in $model.packages )
-#foreach ( $oneClass in $onePackage.classes )
-    #if ($transform.getStereotype($oneClass.id) == "WebForm")
-    <form-bean
-      name="$oneClass.name"
-      type="$transform.findFullyQualifiedName($oneClass)"
-    />
+  	<!-- ========== Form Bean Definitions =================================== -->
+	<form-beans>
+#foreach ( $webForm in $webForms )
+    	<form-bean
+      		name="$webForm.name"
+      		type="$webForm.fullyQualifiedName"/>
+#end
+	</form-beans>
 
-    #end
+	<!-- ========== Action Mapping Definitions =================================== -->
+   	<action-mappings>
+#foreach ( $webAction in $webActions )
+#set ($formClass = false)
+#set ($pageClass = false)
+#foreach ( $associationEnd in $webAction.associationEnds )
+#set($target = $associationEnd.otherEnd)
+#if ($target.navigable)
+#if ($target.name == "form")
+#set ($formClass = $target.type)
+#end
+#if ($target.name == "page")
+#set ($pageClass = $target.type)
 #end
 #end
-  </form-beans>
-
-  <!-- ========== Action Mapping Definitions =================================== -->
-   <action-mappings>
-#foreach ( $onePackage in $model.packages )
-  #foreach ( $oneClass in $onePackage.classes )
-    #if ($transform.getStereotype($oneClass.id) == "WebAction")
-      #set ($formClass = false)
-      #set ($pageClass = false)
-      #foreach ( $assocLink in $oneClass.associationLinks )
-          #set ($adata = $transform.getAssociationData($assocLink))
-          #if ($adata.target.navigable == "true")
-            #if ($adata.target.roleName == "form")
-                #set ($formClass = $adata.target.type)
-            #end
-            #if ($adata.target.roleName == "page")
-                #set ($pageClass = $adata.target.type)
-            #end
-          #end
-      #end
-    <action
-      path="/$oneClass.name"
-      type="$transform.findFullyQualifiedName($oneClass)"
+#end
+		<action
+           path="/$webAction.name"
+           type="$webAction.fullyQualifiedName"
 #if ($formClass)
-      name="$formClass.name"
+           name="$formClass.name"
 #end
-      scope="request"
+           scope="request"
 #if ($pageClass)
-      input="/${pageClass.name}.jsp"
+           input="/${pageClass.name}.jsp"
 #end
-      unknown="false"
-      validate="true"
-    >
-      #foreach ( $assocLink in $oneClass.associationLinks )
-          #set ($adata = $transform.getAssociationData($assocLink))
-          #set ($targetPath = false)
-          #if ($adata.target.navigable == "true")
-            #set ($roleName = $adata.target.roleName)
-            #if (($roleName != "form") && ($roleName != "page"))
-              #set ($target = $adata.target.type)
-              #if ($transform.getStereotype($target.id) == "WebPage")
-                #set ($targetPath = "${target.name}.jsp")
-              #else
-                #set ($targetPath = "${target.name}.do")
-              #end
-      <forward
-        name="$roleName"
-        path="/$targetPath"
-        redirect="false"
-      />
-            #end
-          #end
-      #end
-    </action>
-
-    #end
-  #end
+           unknown="false"
+           validate="true">
+#foreach ( $associationEnd in $webAction.associationEnds )
+#set($target = $associationEnd.otherEnd)
+#set ($targetPath = false)
+#if ($target.navigable)
+#set ($name = $target.name)
+#if (($name != "form") && ($name != "page"))
+#set ($target = $target.type)
+#if ($target.hasStereotype("WebPage"))
+#set ($targetPath = "${target.name}.jsp")
+#else
+#set ($targetPath = "${target.name}.do")
+#end
+        <forward
+        	name="$name"
+            path="/$targetPath"
+            redirect="false"/>
+#end
+#end
+#end
+    	</action>
 #end
    </action-mappings>
 

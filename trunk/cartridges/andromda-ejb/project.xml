@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-ejb-cartridge</id>
+  	<name>EJB Cartridge</name>
+  	<shortDescription>EJB Cartridge</shortDescription>
+  	<description>
+		Produces Entity and Session EJBs from a model.
+  	</description>
+  	<developers>
+        <developer>
+      		<name>Richard Kunze</name>
+      		<id>rkunze</id>
+      		<email>rkunze@sourceforge.users.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    	<developer>
+      		<name>Chad Brandon</name>
+      		<id>cwbrandon</id>
+      		<email>cwbrandon@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+    	</developer>
+  	</developers>
+ 	<dependencies> 
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>  
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml14</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>  
+    	<dependency>
+	      	<groupId>andromda-cartridges</groupId>
+	      	<artifactId>andromda-meta-cartridge</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>     
+    	<dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>     
+	</dependencies>
+</project>

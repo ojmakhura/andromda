@@ -57,12 +57,13 @@
         <property name="model.file.name" location="${model.file}"/>
         <andromda basedir="."
                  modelURL="jar:file:${model.file.name}!/${model.xmi}"
-                 lastModifiedCheck="false"
-                 typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
+                 lastModifiedCheck="false">
 
-          <repository transformClassname="ReportHelper"/>
-
-          <outlet cartridge="mycartridge" outlet="report" dir="${output.dir}" />
+          	<repository transformClassname="ReportHelper"/>
+	
+			<namespace name="mycartridge">
+				<property name="report" dir="${output.dir}"/>
+			</namespace>
 
         </andromda>
 

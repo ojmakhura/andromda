@@ -1,25 +1,8 @@
 /**
  * Attention: Generated source! Do not modify by hand!
  */
-#set ($packagename = $transform.findPackageName(${class.package}))
-package $packagename;
-##
-#macro ( generateDocumentation $item $indent)
-#foreach ( $tgv in $item.taggedValues )
-#if ($tgv.tag == "documentation")
-#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
-#foreach ( $par in $paras )
-${indent}*
-${indent}* <p>
-#foreach ( $line in $par.lines )
-${indent}* $line
-#end
-${indent}* </p>
-#end
-#end
-#end
-#end
-##
+ 
+package $class.packageName;
 
 /**
  * <p>
@@ -27,14 +10,13 @@ ${indent}* </p>
  * Is able to find and create objects of type ${class.name}.
  * Those can be described as follows:
  * </p>
-#generateDocumentation ($class " ")
-#set ($tablename = $str.toDatabaseAttributeName(${class.name}, "_"))
+$class.getDocumentation(" * ")
 #foreach ( $tgv in $class.taggedValues )
-#if ($tgv.tag != "documentation")
-#if ($tgv.tag == "---")
+#if ($tgv.name != "documentation")
+#if ($tgv.name == "---")
     #set ($tag = "")
 #else
-    #set ($tag = $tgv.tag)
+    #set ($tag = $tgv.name)
 #end
  * $tag    $tgv.value
 #end
@@ -43,36 +25,39 @@ ${indent}* </p>
  */
 public abstract class ${class.name}Factory {
 
+#if (!$class.abstract)
    // ---------------- create method --------------------
-
+   
    /**
     * Creates a(n) ${class.name} object.
     *
-#foreach ( $att in $class.attributes)
-#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
+#set ($attributes = $class.getAttributes(true))
+#foreach ( $att in $attributes)
+#if (!$att.identifier)
     * @param ${att.name}
 #end
 #end
     * @return ${class.name} the created object
     */
-    public static ${class.name} create $transform.getAttributesAsList($class, true, false)
+    public static ${class.name} create $class.getAttributesAsList(true, false, true)
     {
         ${class.name} object = new ${class.name}Impl();
         
-#foreach ( $att in $class.attributes)
-#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
-        object.set${str.upperCaseFirstLetter(${att.name})} (${att.name});
+#foreach ( $att in $attributes)
+#if (!$att.identifier)
+        object.${att.setterName} (${att.name});
 #end
 #end
 
         return object;
     }
+#end
 
 
     // ---------------- finder methods  ----------------------
 
-#set ($primKey = $transform.getPrimaryKeyAttribute($class))
-#set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
+#set ($primKey = $class.getIdentifiers(true).iterator().next())
+#set ($primKeyTypeName = $primKey.type.fullyQualifiedName)
     /**
      *
      * Finds ${class.name} object by its primary key.
@@ -85,12 +70,11 @@ public abstract class ${class.name}Factory {
         ${class.name} object = (${class.name}) sess.load(${class.name}Impl.class, ${primKey.name});
         return object;
     }
-
-#foreach ( $op in $class.operations)
-#if ($transform.getStereotype($op.id) == "FinderMethod")
-#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+    
+#foreach ( $finder in $class.getFinders(true))
+#set ($returntype = $finder.type.fullyQualifiedName)
 ##
-#set ($parameterList = $transform.getOperationTypedParameterList($op))
+#set ($parameterList = $finder.typedParameterList)
 #if ($parameterList.length() == 0)
 #set ($parameters = "net.sf.hibernate.Session sess")
 #else
@@ -98,33 +82,17 @@ public abstract class ${class.name}Factory {
 #end
 ##
     /**
-#generateDocumentation ($op "    ")
+$finder.getDocumentation("     * ")
      *
      * Finds ${class.name} object(s) using a query.
      *
      */
-    $op.visibility static $returntype ${op.name} ($parameters)
+    $finder.visibility static $returntype ${finder.name} ($parameters)
         throws net.sf.hibernate.HibernateException
     {
+        net.sf.hibernate.Query q = sess.createQuery("$finder.query");
 ##
-#set($querystring = "")
-#set($querystring = $transform.findTagValue($op.taggedValues, "@andromda.hibernate.query"))
-#if($querystring == "")
-#set($querystring = "from c in class ${transform.findFullyQualifiedName($class)}")
-#if($op.parameters.size() > 0)
-#set($querystring = "${querystring} where")
-#foreach($prm in $op.parameters)
-#set($querystring="${querystring} c.$prm.name=?")
-#if($velocityCount != $op.parameters.size())
-#set($querystring = "${querystring} and")
-#end
-#end
-#end
-#end
-##
-        net.sf.hibernate.Query q = sess.createQuery("$querystring");
-##
-#foreach($prm in $op.parameters)
+#foreach($prm in $finder.parameters)
 #set ($index = $velocityCount - 1) 
 		q.set${prm.type.name} (${index}, ${prm.name});
 #end
@@ -132,7 +100,5 @@ public abstract class ${class.name}Factory {
         return q.list();
     }
 
-#end##if stereotype=="FinderMethod"
 #end##foreach operation
-
 }

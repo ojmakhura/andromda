@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+	<name>Car Rental Sample MDA</name>
+	<id>car-rental-sample-mda</id>
+	
+  	<dependencies>
+  	
+		<dependency> 
+			<groupId>andromda</groupId>
+	  		<artifactId>maven-andromda-plugin</artifactId>
+	 		<version>${pom.currentVersion}</version>
+	 		<type>plugin</type>
+		</dependency>
+  	
+	  	<!-- specify the plugins we want for mda -->
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-ejb-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+		</dependency>
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-hibernate-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+		</dependency>
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-java-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+		</dependency>		
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-struts-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+		</dependency>	
+	</dependencies>
+	
+  	<build/>
+</project>

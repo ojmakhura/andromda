@@ -1,8 +1,7 @@
 package org.andromda.core.common;
 
-import java.util.Collection;
-
-import org.andromda.cartridges.interfaces.OutletDictionary;
+import org.andromda.core.metafacade.ModelAccessFacade;
+import org.andromda.core.repository.RepositoryFacade;
 
 /**
  * Conext passed from the core to a cartridge
@@ -10,31 +9,23 @@ import org.andromda.cartridges.interfaces.OutletDictionary;
  * 
  * @since 28.07.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author Chad Brandon
  *
  */
 public class CodeGenerationContext
 {
     private RepositoryFacade repository = null;
-    private ScriptHelper scriptHelper = null;
-    private DbMappingTable typeMappings = null;
-    private OutletDictionary outletDictionary = null;
     private boolean lastModifiedCheck = false;
-    private Collection userProperties = null;
+    private ModelPackages modelPackages;
 
     public CodeGenerationContext(
         RepositoryFacade rf,
-        ScriptHelper sh,
-        DbMappingTable typeMappings,
-        OutletDictionary outletDictionary,
         boolean lastModifiedCheck,
-        Collection userPropeties)
+		ModelPackages modelPackages)
     {
         this.repository = rf;
-        this.scriptHelper = sh;
-        this.typeMappings = typeMappings;
-        this.outletDictionary = outletDictionary;
         this.lastModifiedCheck = lastModifiedCheck;
-        this.userProperties = userPropeties;
+        this.modelPackages = modelPackages;
     }
 
     /**
@@ -47,15 +38,6 @@ public class CodeGenerationContext
     }
 
     /**
-     * Returns the scriptHelper.
-     * @return ScriptHelper
-     */
-    public ScriptHelper getScriptHelper()
-    {
-        return scriptHelper;
-    }
-
-    /**
      * Sets the repository.
      * @param repository The repository to set
      */
@@ -65,48 +47,12 @@ public class CodeGenerationContext
     }
 
     /**
-     * Sets the scriptHelper.
-     * @param scriptHelper The scriptHelper to set
+     * Returns the model facade for this code generation step.
+     * @return the model facade
      */
-    public void setScriptHelper(ScriptHelper scriptHelper)
+    public ModelAccessFacade getModelFacade()
     {
-        this.scriptHelper = scriptHelper;
-    }
-
-    /**
-     * Returns the typeMappings.
-     * @return DbMappingTable
-     */
-    public DbMappingTable getTypeMappings()
-    {
-        return typeMappings;
-    }
-
-    /**
-     * Sets the typeMappings.
-     * @param typeMappings The typeMappings to set
-     */
-    public void setTypeMappings(DbMappingTable typeMappings)
-    {
-        this.typeMappings = typeMappings;
-    }
-
-    /**
-     * Returns the outletDictionary.
-     * @return OutletDictionary
-     */
-    public OutletDictionary getOutletDictionary()
-    {
-        return outletDictionary;
-    }
-
-    /**
-     * Sets the outletDictionary.
-     * @param outletDictionary The outletDictionary to set
-     */
-    public void setOutletDictionary(OutletDictionary outletDictionary)
-    {
-        this.outletDictionary = outletDictionary;
+        return this.getRepository().getModel();
     }
 
     /**
@@ -126,22 +72,26 @@ public class CodeGenerationContext
     {
         this.lastModifiedCheck = lastModifiedCheck;
     }
+    
+	/**
+	 * Gets the model packages that should/shouldn't
+	 * be processed.  
+	 * 
+	 * @return Returns the modelPackages.
+	 */
+	public ModelPackages getModelPackages() 
+	{
+		return this.modelPackages;
+	}
 
-    /**
-     * Returns the userProperties.
-     * @return Collection
-     */
-    public Collection getUserProperties()
-    {
-        return userProperties;
-    }
+	/**
+	 * Sets modelPackages.
+	 * 
+	 * @param modelPackages The modelPackages to set.
+	 */
+	public void setModelPackages(ModelPackages modelPackages) 
+	{
+		this.modelPackages = modelPackages;
+	}
 
-    /**
-     * Sets the userProperties.
-     * @param userProperties The userProperties to set
-     */
-    public void setUserProperties(Collection userProperties)
-    {
-        this.userProperties = userProperties;
-    }
 }

@@ -1,4 +1,4 @@
-#set ($packagename = $transform.findPackageName(${class.package}))
+#set ($packagename = $class.packageName)
 package $packagename;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,59 +11,45 @@ import org.apache.struts.action.ActionMapping;
 import org.andromda.cartridges.struts.FormFieldMapper;
 import java.text.ParseException;
 
-#macro ( generateDocumentation $item $indent)
-#foreach ( $tgv in $item.taggedValues )
-#if ($tgv.tag == "documentation")
-#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
-#foreach ( $par in $paras )
-${indent}*
-${indent}* <p>
-#foreach ( $line in $par.lines )
-${indent}* $line
+#if ($class.hasIdentifiers())
+#set ($primKey = $class.identifiers.iterator().next())
 #end
-${indent}* </p>
-#end
-#end
-#end
-#end
+#set ($primKeyTypeName = $primKey.type.fullyQualifiedName)
 
-#set ($primKey = $transform.getPrimaryKeyAttribute($class))
-#set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
-
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-    #set ($class2 = $adata.target.type)
+#foreach ( $associationEnd in $class.associationEnds)
+#set($target = $associationEnd.otherEnd)
+#if ($target.navigable)
+    #set ($class2 = $target.type)
     #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #set ($class2packagename = $class2.type.packageName)
         #if ($class2packagename != $packagename)
-import $transform.findFullyQualifiedName(${class2});
+import $class2.type.fullyQualifiedName;
         #end
     #end
 #end
 #end
 
 #foreach ( $dep in $class.dependencies )
-    #set ($class2 = $transform.findClassById($dep.targetType))
+    #set ($class2 = $dep.targetElement)
     #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #set ($class2packagename = $class2.type.packageName)
         #if ($class2packagename != $packagename)
-import $transform.findFullyQualifiedName(${class2});
+import $class2.type.fullyQualifiedName;
         #end
     #end
 #end
 
 /**
-#generateDocumentation ($class " ")
+$class.getDocumentation(" * ")
  *
  * @struts:form name="$class.name"
  *
 #foreach ( $tgv in $class.taggedValues )
-#if ($tgv.tag != "documentation")
-#if ($tgv.tag == "---")
+#if ($tgv.name != "documentation")
+#if ($tgv.name == "---")
     #set ($tag = "")
 #else
-    #set ($tag = $tgv.tag)
+    #set ($tag = $tgv.name)
 #end
  * $tag    $tgv.value
 #end
@@ -73,7 +59,7 @@ import $transform.findFullyQualifiedName(${class2});
 public class ${class.name} extends ActionForm
 {
 #foreach ( $att in $class.attributes )
-#set ($attfqtypename = $transform.findFullyQualifiedName($att.type))
+#set ($attfqtypename = $att.type.fullyQualifiedName)
 #if ($attfqtypename == "java.util.Collection")
   #set ($attJavaType = "java.util.Collection")
 #else
@@ -83,8 +69,8 @@ public class ${class.name} extends ActionForm
 #end
 
 #foreach ( $att in $class.attributes )
-#set ($attfqtypename = $transform.findFullyQualifiedName($att.type))
-#set ($atttypename = $transform.convertToType($att.type).name)
+#set ($attfqtypename = $att.type.fullyQualifiedName)
+#set ($atttypename = $att.type.name)
 #if ($attfqtypename == "java.util.Collection")
   #set ($attJavaType = "java.util.Collection")
 #else
@@ -92,7 +78,7 @@ public class ${class.name} extends ActionForm
 #end
 
    /**
-#generateDocumentation ($att "    ")
+$att.getDocumentation("    * ")
     *
     */
 #if ($attfqtypename != "java.util.Collection")

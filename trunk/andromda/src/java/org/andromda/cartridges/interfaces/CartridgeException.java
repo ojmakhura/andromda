@@ -7,7 +7,7 @@ package org.andromda.cartridges.interfaces;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  *
  */
-public class CartridgeException extends Exception
+public class CartridgeException extends RuntimeException
 {
 
     /**
