@@ -58,6 +58,7 @@
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
         <property reference="generateTableDecorators" default="false"/>
         <property reference="tableDecoratorSuffix" default="Decorator"/>
+        <property reference="defaultTableExportTypes" default="xml csv excel pdf"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">

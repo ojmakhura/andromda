@@ -44,5 +44,10 @@ public class Bpm4StrutsGlobals
     /**
      * The suffix used to append to decorator class names.
      */
-    public static final String PROPERTY_TABLE_DECORATOR_SUFFIX = "tableDecoratorSuffix"; 
+    public static final String PROPERTY_TABLE_DECORATOR_SUFFIX = "tableDecoratorSuffix";
+
+    /**
+     * A space-separated list of types to which displaytag table are to be exported by default.
+     */
+    public static final String PROPERTY_DEFAULT_TABLE_EXPORT_TYPES = "defaultTableExportTypes";
 }
