@@ -23,11 +23,9 @@ public class HibernateTypeLogicImpl
     }
 
     /**
-     * Override to provide retrieval of hibernate type mappings (if available).
-     * 
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateType#getFullyQualifiedHibernateType()
      */
-    public String getFullyQualifiedName()
+    public String handleGetFullyQualifiedHibernateType()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();
         Mappings mappings = this.getHibernateTypeMappings();

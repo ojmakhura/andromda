@@ -47,7 +47,7 @@ $attribute.getDocumentation("     * ")
      * @hibernate.property
 #end
      *     column="$attribute.columnName"
-     *     type="$attribute.type.fullyQualifiedName"
+     *     type="$attribute.type.fullyQualifiedHibernateType"
      *
      * @hibernate.column
      *     name="$attribute.columnName"
