@@ -8,10 +8,9 @@
   	<!-- ==================================================================
   			 Installs all component libraries into the local repository                                                    
   		 ================================================================== -->
-  	<goal name="install-components">
- 		<maven:set 
- 			var="maven.multiproject.includes" 
- 			value="${component.install.includes}"/>
+  	<goal name="install-components"> 		
+        <j:set var="maven.multiproject.includes"
+        	   value="${component.install.includes}"/>
 		<attainGoal name="multiproject:install"/>	
   	</goal> 
   	
@@ -19,9 +18,8 @@
   			 Installs all sample libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install-samples">
- 		<maven:set 
- 			var="maven.multiproject.includes" 
- 			value="${sample.install.includes}"/>
+        <j:set var="maven.multiproject.includes"
+        	   value="${sample.install.includes}"/>
 		<attainGoal name="multiproject:install"/>	
   	</goal> 
 
@@ -29,17 +27,17 @@
   			 Installs all libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install">
- 		<attainGoal name="install-components"/>
- 		<attainGoal name="install-samples"/>
+        <j:set var="maven.multiproject.includes"
+        	   value="${component.install.includes},${sample.install.includes}"/>
+        <attainGoal name="multiproject:install"/>
   	</goal> 
  
   	<!-- ==================================================================
   			 Deploys all libraries into the remote repository                                                    
   		 ================================================================== --> 	
   	<goal name="deploy">
- 		<maven:set 
- 			var="maven.multiproject.includes" 
- 			value="${component.install.includes}"/>
+        <j:set var="maven.multiproject.includes"
+        	   value="${component.install.includes}"/>
 		<attainGoal name="multiproject:deploy"/>	  		
   	</goal>
   	
@@ -47,12 +45,10 @@
   			 Clean                                                     
   		 ================================================================== -->
   	<goal name="clean">  		
- 		<maven:set 
- 			var="maven.multiproject.includes" 
- 			value="**/project.xml"/>
- 		<maven:set 
- 			var="maven.multiproject.excludes" 
- 			value="project.xml,**/target/**"/>
+        <j:set var="maven.multiproject.includes"
+        	   value="**/project.xml"/>
+        <j:set var="maven.multiproject.excludes"
+        	   value="project.xml,**/target/**"/>
 		<attainGoal name="multiproject:clean"/>
 		<attainGoal name="clean:clean"/>
 		<!-- get rid of all the log files -->
