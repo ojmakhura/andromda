@@ -97,7 +97,7 @@
 #set ($exportable = $variable.tableExportable)
         <display:table name="sessionScope.${formBeanName}.${variable.name}"
                        requestURI="<%=request.getRequestURL().toString()%>" 
-                       export="$exportable" pagesize="$variable.tableMaxRows">
+                       export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
             <display:column
