@@ -91,7 +91,18 @@ public class ServiceFacadeLogicImpl
                 return ((DependencyFacade)object).getSourceElement();
             }
         });
-        return roles;
+        final Collection allRoles = new HashSet(roles);
+        // add all roles which are specializations of this one
+        CollectionUtils.forAllDo(
+            roles,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    allRoles.addAll(((RoleFacade)object).getSpecializations());
+                }
+            });
+        return allRoles;
     }
 
     /**
