@@ -31,10 +31,11 @@
             name="${projectId}/project.xml"
             basedir="${templatesDir}"
             template="/project.xml.vsl"/>
-
-        <ant:copy
-            file="${templatesDir}/maven.xml"
-            tofile="${projectId}/maven.xml"/>
+            
+        <velocity:merge
+            name="${projectId}/maven.xml"
+            basedir="${templatesDir}"
+            template="maven.xml.vsl"/>
             
         <ant:copy
             file="${templatesDir}/build.properties"
