@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="andromda-test-metafacades" shared="true">
     <default className="org.andromda.core.metafacade.Metafacade1Impl"/>
     <property reference="namespacePropertyOne" default="false"/>
     <property reference="namespacePropertyTwo" default="true"/>
     <metafacade class="org.andromda.core.metafacade.Metafacade1Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject1">
-            <stereotype>FINDER_METHOD</stereotype>            
+            <stereotype>FINDER_METHOD</stereotype>
         </mapping>
         <property reference="metafacadeProperteryOne" default="true"/>
         <property reference="metafacadeProperteryTwo" default="false"/>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade1Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject1">
-            <stereotype>QUERY_METHOD</stereotype>            
+            <stereotype>QUERY_METHOD</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade2Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject2">
-            <stereotype>ENUMERATION</stereotype>    
+            <stereotype>ENUMERATION</stereotype>
             <context>org.andromda.core.metafacade.Metafacade3</context>
-        </mapping>  
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject2">
-            <stereotype>APPLICATION_EXCEPTION</stereotype>  
-            <stereotype>UNEXPECTED_EXCEPTION</stereotype>  
+            <stereotype>APPLICATION_EXCEPTION</stereotype>
+            <stereotype>UNEXPECTED_EXCEPTION</stereotype>
             <context>org.andromda.core.metafacade.Metafacade3</context>
-        </mapping>  
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject2">
-            <stereotype>APPLICATION_EXCEPTION</stereotype>  
-            <stereotype>UNEXPECTED_EXCEPTION</stereotype>   
-        </mapping>  
+            <stereotype>APPLICATION_EXCEPTION</stereotype>
+            <stereotype>UNEXPECTED_EXCEPTION</stereotype>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject7"/>
@@ -43,11 +42,11 @@
         <mapping class="org.andromda.core.metafacade.MappingObject5"/>
     </metafacade>
     <!-- Note: we map metafacades based on the properties of super metafacades,
-         so Metafacade5Impl extends Metafacade2Impl (which contains the 
+         so Metafacade5Impl extends Metafacade2Impl (which contains the
          actual property) -->
     <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject5">
-            <property name="mappingProperty"/>           
+            <property name="mappingProperty"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
@@ -55,36 +54,23 @@
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade6Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject4">
-            <property name="mappingProperty">true</property>           
+            <property name="mappingProperty">true</property>
         </mapping>
     </metafacade>
-    <!-- the following two mappings have properties defined but we
-         SHOULD NOT be able to retrieve them because of the facade
-         we don't have a super facade mapped with 
-         "org.andromda.core.metafacade.MappingObject3" that contains
-         the mappingProperty -->
     <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject3">
             <property name="mappingProperty">true</property>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.core.metafacade.Metafacade3Impl">
-        <mapping class="org.andromda.core.metafacade.MappingObject3">
-            <property name="mappingProperty">true</property>           
+    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
+            <context>org.andromda.core.metafacade.Metafacade1</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
-        <mapping class="org.andromda.core.metafacade.MappingObject2">
-            <context>org.andromda.core.metafacade.Metafacade1</context>   
-        </mapping>  
-    </metafacade>
-    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
-        <mapping class="org.andromda.core.metafacade.MappingObject6"/>
-    </metafacade>
-    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject6">
-            <context>org.andromda.core.metafacade.Metafacade5</context>   
+            <context>org.andromda.core.metafacade.Metafacade5</context>
             <property name="mappingProperty"/>
-        </mapping>  
+        </mapping>
     </metafacade>
 </metafacades>
