@@ -30,7 +30,7 @@
 #set ($firstField = $actionParameters.iterator().next())
 #set ($firstFieldName = $firstField.name)
 #set ($isFocusSet = true)
-#if ($firstField.isCollection())
+#if ($firstField.isCollectionType())
 #set ($firstFieldName = "${firstFieldName}AsArray")
 #end
 #else

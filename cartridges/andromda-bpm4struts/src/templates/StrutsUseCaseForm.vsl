@@ -32,7 +32,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
-#if ($field.isCollection())
+#if ($field.isCollectionType())
     public void ${field.setterName}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
