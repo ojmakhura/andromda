@@ -1,11 +1,14 @@
 <project default="build"
-    xmlns:ant="jelly:ant">
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:j="jelly:core">
 
     <!-- ==================================================================
             Builds all documentation
          ================================================================== -->
     <goal name="build">
         <attainGoal name="multiproject:site"/>
+        <attainGoal name="add-style"/>
         <!-- copy the animal-quiz model into the resources directory -->
         <ant:copy file="../samples/animal-quiz/mda/src/uml/AnimalQuiz.xml.zip" todir="${maven.docs.dest}/resources"/>
         <!-- unpack the UmlDoc coming with the car-rental-sample so users can browse it -->
@@ -14,6 +17,25 @@
         <ant:zip zipfile="${maven.build.dir}/docs.zip" prefix="docs">
             <ant:zipfileset dir="${maven.docs.dest}"/>
         </ant:zip>
+    </goal>
+
+    <!-- ===================================================================
+          Iterate over each subproject and copy master CSS to 
+          ${subproject.location}/xdocs/style
+         =================================================================== -->
+    <goal name="add-style">
+        <ant:fileScanner var="projects">
+            <ant:fileset dir="${maven.docs.dest}">
+                <ant:patternset>         
+                    <ant:include name="**/*maven-base.css"/>
+                </ant:patternset>
+            </ant:fileset>
+        </ant:fileScanner>
+        <j:forEach var="project" items="${projects.iterator()}">
+            <ant:copy todir="${project.parent}" overwrite="true">
+                <ant:fileset dir="${maven.docs.dest}/style"/>
+            </ant:copy>
+        </j:forEach>
     </goal>
 
     <!-- ==================================================================
