@@ -15,12 +15,12 @@
                      When the property name and its value are supplied in the build 
                      file for example, that property is then supplied to the template.  -->
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
-				<!-- a resource defines any non template resource included in the cartridge,
-					 these can include things such as files, images, etc, that are copied
-					 to a given outlet, resources are NOT processed by a template engine -->
-			    <xs:element ref="resource" minOccurs="0" maxOccurs="unbounded"/>
-	            <!-- these define the templates a cartridge contains, these are processed
-					 by an AndroMDA template engine -->
+                <!-- a resource defines any non template resource included in the cartridge,
+                     these can include things such as files, images, etc, that are copied
+                     to a given outlet, resources are NOT processed by a template engine -->
+                <xs:element ref="resource" minOccurs="0" maxOccurs="unbounded"/>
+                <!-- these define the templates a cartridge contains, these are processed
+                     by an AndroMDA template engine -->
                 <xs:element ref="template" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
