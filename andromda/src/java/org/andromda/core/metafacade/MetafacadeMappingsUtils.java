@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -98,17 +99,31 @@ class MetafacadeMappingsUtils
     }
     
     /**
-     * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,
-     * <code>suffixes</code> is optional.
+     * Indicates whether or not the mapping properties (present on the 
+     * mapping, if any) are valid on the <code>mappingObject</code>.
      * 
-     * @param object the begining of the key
-     * @param suffixes a collection of suffixes to append (note that
-     *        these suffixes are sorted)
-     * @return the constructed key
+     * @param mappingObject the mapping object on which the properties will
+     *        be validated.
+     * @param mapping the MetafacadeMapping instance that contains the properties.
+     * @return true/false
      */
-    static String constructKey(Object object, Collection suffixes)
+    static boolean mappingPropertiesValid(Object mappingObject, MetafacadeMapping mapping)
     {
-        return constructKey(object, null, suffixes);
+        boolean valid = false;
+        try
+        {
+            Iterator properties = mapping.getMappingProperties().iterator();
+            while (properties.hasNext())
+            {
+                final MetafacadeMapping.Property property = (MetafacadeMapping.Property)properties
+                    .next();
+                valid = PropertyUtils.containsValidProperty(mappingObject, property.getName(), property.getValue());
+            }
+        }
+        catch (Throwable th)
+        {
+            valid = false;
+        }
+        return valid;
     }
 }

@@ -280,40 +280,49 @@ public class MetafacadeMappings
             new Predicate()
             {
                 public boolean evaluate(Object object)
-                {
-                    boolean valid = false;
-                    MetafacadeMapping mapping = (MetafacadeMapping)object;
-                    if (mapping.getMappingClassName().equals(mappingObject.getClass().getName()))
                     {
-                        if (mapping.hasContext() && mapping.hasStereotypes())
+                        boolean valid = false;
+                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        if (mapping.getMappingClassName().equals(
+                            mappingObject.getClass().getName()))
                         {
-                            if (context != null)
+                            if (mapping.hasContext()
+                                && mapping.hasStereotypes()
+                                && !mapping.hasMappingProperties())
                             {
-                                valid = getContextHierarchy(context).contains(mapping.getContext()) && 
-                                    stereotypes.containsAll(mapping.getStereotypes());
+                                if (context != null)
+                                {
+                                    valid = getContextHierarchy(context)
+                                        .contains(mapping.getContext())
+                                        && stereotypes.containsAll(mapping
+                                            .getStereotypes());
+                                }
                             }
                         }
+                        return valid;
                     }
-                    return valid;
-                }
             });
         }
         // check just the context alone
         if (mapping == null && context != null)
         {
-            mapping = 
-                (MetafacadeMapping)CollectionUtils.find(this.mappings, 
+            mapping = (MetafacadeMapping)CollectionUtils.find(
+                this.mappings,
                 new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
                         boolean valid = false;
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
-                        if (mapping.getMappingClassName().equals(mappingObject.getClass().getName()))
+                        if (mapping.getMappingClassName().equals(
+                            mappingObject.getClass().getName()))
                         {
-                            if (mapping.hasContext() && !mapping.hasStereotypes())
+                            if (mapping.hasContext()
+                                && !mapping.hasStereotypes()
+                                && !mapping.hasMappingProperties())
                             {
-                                valid = getContextHierarchy(context).contains(mapping.getContext());
+                                valid = getContextHierarchy(context).contains(
+                                    mapping.getContext());
                             }
                         }
                         return valid;
@@ -323,27 +332,59 @@ public class MetafacadeMappings
         // check only stereotypes
         if (mapping == null && !emptyStereotypes)
         {
-            mapping = 
-                (MetafacadeMapping)CollectionUtils.find(this.mappings, 
+            mapping = (MetafacadeMapping)CollectionUtils.find(
+                this.mappings,
                 new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
                         boolean valid = false;
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
-                        if (mapping.getMappingClassName().equals(mappingObject.getClass().getName()))
+                        if (mapping.getMappingClassName().equals(
+                            mappingObject.getClass().getName()))
                         {
-                            if (mapping.hasStereotypes() && !mapping.hasContext())
+                            if (mapping.hasStereotypes()
+                                && !mapping.hasContext()
+                                && !mapping.hasMappingProperties())
                             {
                                 if (stereotypes != null)
                                 {
-                                    valid = stereotypes.containsAll(mapping.getStereotypes());
+                                    valid = stereotypes.containsAll(mapping
+                                        .getStereotypes());
                                 }
                             }
                         }
                         return valid;
                     }
                 });
+        }
+        // now check for mappings with any properties
+        if (mapping == null)
+        {
+            mapping = (MetafacadeMapping)CollectionUtils.find(
+                this.mappings,
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        boolean valid = false;
+                        if (mapping.getMappingClassName().equals(
+                            mappingObject.getClass().getName())
+                            && !mapping.hasStereotypes()
+                            && !mapping.hasContext())
+                        {
+                            if (mapping.hasMappingProperties())
+                            {
+                                valid = MetafacadeMappingsUtils
+                                    .mappingPropertiesValid(
+                                        mappingObject,
+                                        mapping);
+                            }
+                        }
+                        return valid;
+                    }
+                });            
         }
         // finally find the mapping with just the class
         if (mapping == null)
@@ -354,12 +395,12 @@ public class MetafacadeMappings
                 {
                     public boolean evaluate(Object object)
                     {
-
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
                         return mapping.getMappingClassName().equals(
                             mappingObject.getClass().getName())
                             && !mapping.hasContext()
-                            && !mapping.hasStereotypes();
+                            && !mapping.hasStereotypes()
+                            && !mapping.hasMappingProperties();
                     }
                 });
         }
@@ -369,7 +410,7 @@ public class MetafacadeMappings
             mapping = this.parent.getMapping(mappingObject, context, stereotypes);
         }
         // load the inherited property references
-        this.loadInheritedPropertyReferences(mapping, context);
+        this.loadInheritedPropertyReferences(mapping);
         return mapping;
     }
     
@@ -385,12 +426,11 @@ public class MetafacadeMappings
      * @return The MetafacadeMapping with all loaded property references.
      */
     private void loadInheritedPropertyReferences(
-        MetafacadeMapping mapping,
-        String context)
+        MetafacadeMapping mapping)
     {
         if (mapping != null)
         {
-            Class[] interfaces = this.getInterfacesReversed(context);
+            Class[] interfaces = this.getInterfacesReversed(mapping.getMetafacadeClass().getName());
             if (interfaces != null && interfaces.length > 0)
             {
                 for (int ctr = 0; ctr < interfaces.length; ctr++)
