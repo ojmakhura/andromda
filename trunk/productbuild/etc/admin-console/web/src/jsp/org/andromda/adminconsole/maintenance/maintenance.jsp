@@ -43,33 +43,32 @@
 
     <tiles:put name="body" type="string">
 
-        <%--
-            If you want your own custom messages to be displayed
-            you do just need to edit the custom.properties resource bundle.
-
-            These properties can be used like this:
-
-                <bean:message key="propertyKey" bundle="custom"/>
-        --%>
+        <c:set var="configurator" value="${databaseLoginSession.configurator}"/>
+        <c:set var="currentTable" value="${metaDataSession.currentTable}"/>
+        <c:set var="tableConfig" value="${acf:getTableConfiguration(configurator,currentTable)}"/>
 
         <div>
             <h1><bean:message key="maintenance.maintenance.title"/></h1>
         </div>
 
+        <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-change-table.jsp" flush="false"/>
+
+        <c:if test="${tableConfig.insertable}">
+            <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
+        </c:if>
+
 <%--
         <div id="applyChanges" class="action">
 --%>
             <html:form action="/Maintenance/MaintenanceApplyChanges">
-                <c:set var="configurator" value="${databaseLoginSession.configurator}"/>
-                <c:set var="currentTable" value="${metaDataSession.currentTable}"/>
-                <c:set var="tableConfig" value="${acf:getTableConfiguration(configurator,currentTable)}"/>
                 <display:table name="${metaDataSession.currentTableData}" id="row"
                                requestURI="${pageContext.request.requestURL}"
                                export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
+                    <c:set var="index" value="${row_rowNum-1}"/>
                     <display:column media="html"
                         title="" autolink="false" nulls="false"
                         sortable="false" paramId="${column.name}">
-                        <input type="checkbox" name="deletedRowsAsArray" value="${row_rowNum-1}"/>
+                        <input type="checkbox" id="change-${index}" name="selectedRowsAsArray" value="${index}"/>
                     </display:column>
                     <c:forEach items="${currentTable.columns}" var="column">
                         <c:set var="columnConfig" value="${acf:getColumnConfiguration(configurator,column)}"/>
@@ -81,33 +80,20 @@
                         <display:column media="html"
                             title="${column.name}" autolink="false" nulls="false"
                             sortable="${columnConfig.sortable}" paramId="${column.name}">
-                            ${acf:getUpdateWidget(configurator, column, column.name, row)}
+                            ${acf:getUpdateWidget(configurator, column, row, index)}
                         </display:column>
                     </c:forEach>
                 </display:table>
                 <input type="submit" name="kind" value="delete"/>
+                <input type="submit" name="kind" value="update"/>
             </html:form>
 <%--
         </div>
 --%>
 
-        <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
-
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-reset.jsp" flush="false"/>
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-reload.jsp" flush="false"/>
-
-        <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-change-table.jsp" flush="false"/>
-
-        <div>
-            <blockquote>
-                <bean:message key="required.fields.asterisk"/>
-                <a href="" id="pageHelp" style="display:inline;" onclick="openWindow('<html:rewrite page="/org/andromda/adminconsole/maintenance/maintenance_help.jsp"/>','onlinehelp',true,false,760,540); return false;">
-                    <bean:message key="online.help.href"/>
-                </a>
-                <html:img page="/layout/help.gif" style="display:inline;"/>
-            </blockquote>
-        </div>
 
     </tiles:put>
 
