@@ -1,26 +1,29 @@
-#if ($breadCrumbs == "true")
+#if ($maxBreadCrumbs != "0")
 <%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <html:xhtml/>
 
 #end
+<breadcrumbs:define id="breadcrumbs" toScope="page"/>
+<bean:size id="crumbsCount" name="breadcrumbs" scope="page"/>
+
 <div id="breadcrumbs">
-    <logic:notEmpty name="org.andromda.bpm4struts.breadcrumbs" scope="session">
-        <bean:size id="size" name="org.andromda.bpm4struts.breadcrumbs" scope="session"/>
-        <logic:iterate id="crumb" indexId="count" name="org.andromda.bpm4struts.breadcrumbs" scope="session">
-            <logic:greaterThan name="count" value="0">
-                <html:img page="/layout/breadcrumb.gif" alt="&gt;"/>
-            </logic:greaterThan>
-            <logic:notEqual name="count" value="<%=String.valueOf(size.intValue()-1)%>">
-                <a href="<bean:write name="crumb" property="value"/>">
-                    <bean:message name="crumb" property="key"/>
-                </a>
-            </logic:notEqual>
-            <logic:equal name="count" value="<%=String.valueOf(size.intValue()-1)%>">
-                <bean:message name="crumb" property="key"/>
-            </logic:equal>
-        </logic:iterate>
-    </logic:notEmpty>
+
+    <%
+        String length = String.valueOf(crumbsCount.intValue() - 1);
+    %>
+    <logic:iterate indexId="index" id="crumb" name="breadcrumbs" scope="page">
+        <logic:lessThan name="index" scope="page" value="<%=length%>">
+            <a href="<bean:write name="crumb" property="url" scope="page"/>" target="_self">
+                <bean:message name="crumb" property="value" scope="page"/>
+            </a>
+            <html:img page="/layout/breadcrumb.gif" alt="&gt;"/>
+        </logic:lessThan>
+        <logic:greaterEqual name="index" scope="page" value="<%=length%>">
+            <bean:message name="crumb" property="value" scope="page"/>
+        </logic:greaterEqual>
+    </logic:iterate>
+
 </div>
 #end
