@@ -2,7 +2,7 @@
 
 <project default="dist" name="ejb" basedir=".">
 
-    <property name="app.root.dir" value="${basedir}/../.."/>
+    <property name="app.root.dir" value="${basedir}/.."/>
 
     <property file="${basedir}/build.properties"/>
     <property file="${app.root.dir}/build.properties"/>
@@ -37,6 +37,8 @@
     </target>
 
     <target name="xdoclet" description="o Run XDoclet EJB" depends="get-deps">
+        <mkdir dir="${basedir}/${java.src.dir}"/>
+        <mkdir dir="${basedir}/${mda.build.dir}"/>
         <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
         <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
         <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
@@ -75,7 +77,7 @@
 
     <target name="jar" description="o Create the JAR" depends="compile">
         <mkdir dir="${basedir}/target"/>
-        <jar jarfile="${basedir}/target/${jar.bundle.name}" manifest="${basedir}/src/META-INF/MANIFEST.MF">
+        <jar jarfile="${basedir}/target/${jar.bundle.name}">
             <fileset dir="${basedir}/${java.build.dir}"/>
             <fileset dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.xml"/>
         </jar>
