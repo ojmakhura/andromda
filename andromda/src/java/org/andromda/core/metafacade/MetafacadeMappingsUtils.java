@@ -1,8 +1,9 @@
 package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -20,21 +21,25 @@ class MetafacadeMappingsUtils
 
     /**
      * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,<code>suffixes</code>
-     * is optional.
+     * only argument required is the <code>object</code>,
+     * <code>suffixes</code> is optional.
      * 
      * @param object the begining of the key
      * @param suffixes a collection of suffixes to append
      * @return the constructed key
      */
-    protected static String constructKey(Object object, Collection suffixes)
+    protected static String constructKey(Object object, List suffixes)
     {
         final String methodName = "MetafacadeMapping.constructKey";
         ExceptionUtils.checkNull(methodName, "object", object);
         StringBuffer key = new StringBuffer(String.valueOf(object));
         if (suffixes != null)
         {
-            for (Iterator suffixIterator = suffixes.iterator(); suffixIterator.hasNext();)
+            // sort the suffixes so that the key is always in the same order
+            // when constructing
+            Collections.sort(suffixes);
+            for (Iterator suffixIterator = suffixes.iterator(); suffixIterator
+                .hasNext();)
             {
                 key.append(':');
                 key.append(suffixIterator.next());
@@ -45,11 +50,11 @@ class MetafacadeMappingsUtils
                 + "'");
         return key.toString();
     }
-    
+
     /**
      * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,<code>suffixes</code>
-     * is optional.
+     * only argument required is the <code>object</code>,
+     * <code>suffixes</code> is optional.
      * 
      * @param object the begining of the key
      * @param suffix a single suffix to append
@@ -57,7 +62,7 @@ class MetafacadeMappingsUtils
      */
     protected static String constructKey(Object object, String suffix)
     {
-        Collection suffixes = null;
+        List suffixes = null;
         if (StringUtils.isNotEmpty(suffix))
         {
             suffixes = new ArrayList();
