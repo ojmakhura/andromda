@@ -195,24 +195,24 @@ $operation.getDocumentation("     * ")
     protected static $homeInterfaceName get${homeInterfaceName}() throws NamingException
     {
         InitialContext initialContext = new InitialContext();
-        try 
+        try
         {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
             $homeInterfaceName home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
             return home;
-        } 
-        finally 
+        }
+        finally
         {
             initialContext.close();
         }
     }
 
 #end
-    public void ejbRemove() 
+    public void ejbRemove()
     {
     }
 
-    public void ejbPassivate() 
+    public void ejbPassivate()
     {
     }
 
