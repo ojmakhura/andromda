@@ -28,13 +28,35 @@
 
       <h2>Using a cartridge</h2>
       <p class="std">
-          If you want to use a cartridge for code generation, simply put its
-          jar files on the classpath and attach a stereotype that is supported
-          by this cartridge to a model element (usually but not necessarily a class)
-          in your UML model. Tweak your <code>build.properties</code> file so
-          that it mentions one or more cartridge jars on the classpath. Specify
-          outlets for the cartridge using the <code>&lt;outlet&gt;</code> subtask
-          of the <code>&lt;andromda&gt;</code> task in <a href="buildtags.html"><code>build.xml</code></a>.
+          If you want to use existing cartridge(s) for generation 
+          (i.e. the <a href="andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>, 
+          etc.), simply place the cartridges on your classpath; using the 
+          <a href="../maven-andromda-plugin/index.html">AndromMDA Maven Plugin</a> 
+          this is VERY simple, you just add the AndroMDA maven plugin and cartridge(s)
+          as dependencies to your project.xml file and then run the plugin goal 
+          <em>andromda:run</em>, that's it!
+          <source><![CDATA[
+<dependencies>
+    ...
+	<dependency>
+		<groupId>andromda</groupId>
+		<artifactId>maven-andromda-plugin</artifactId>
+		<version>3.0</version>
+		<type>plugin</type>
+	</dependency>
+	<dependency>
+		<groupId>andromda-cartridges</groupId>
+		<artifactId>andromda-bpm4struts-cartridge</artifactId>
+		<version>3.0</version>
+	</dependency>
+	<dependency>
+		<groupId>andromda-hibernate</groupId>
+		<artifactId>andromda-bpm4struts-cartridge</artifactId>
+		<version>3.0</version>
+	</dependency>
+	...
+</dependencies>
+]]></source>
       </p>
 
       <h2>Inside a cartridge</h2>
