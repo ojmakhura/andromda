@@ -25,7 +25,7 @@ public class RepositoryConfiguration
 
     /**
      * Handles the nested &lt;moduleSearchPath&gt; element. The user can specify
-     * her own search path for submodels of the models that she is going to
+     * his/her own search path for submodels of the models that she is going to
      * process.
      * 
      * @return Path the module search path

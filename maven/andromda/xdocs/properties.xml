@@ -372,28 +372,14 @@
     <version>${pom.currentVersion}</version>
     <type>plugin</type>
     <properties>
-        <logical.languageMappingsUri>Java</logical.languageMappingsUri>
-        <logical.sqlMappingsUri>Hypersonic</logical.sqlMappingsUri>
-        <logical.jdbcMappingsUri>JDBC</logical.jdbcMappingsUri>
-        <physical.maxSqlNameLength>30</physical.maxSqlNameLength>
-        <physical.foreignKeySuffix>_FK</physical.foreignKeySuffix>
+        <languageMappingsUri>Java</languageMappingsUri>
+        <sqlMappingsUri>Hypersonic</sqlMappingsUri>
+        <jdbcMappingsUri>JDBC</jdbcMappingsUri>
+        <maxSqlNameLength>30</maxSqlNameLength>
+        <foreignKeySuffix>_FK</foreignKeySuffix>
     </properties>
 </dependency>]]>
 				</source>
-			</subsection>
-			<subsection name="Logical Vs. Physical Namespace properties">
-				<p>
-					You may have noticed from the above example that some properties
-					start with <strong>logical.</strong> and some start with <strong>physical.</strong>.
-					By default namespace properties are physical, meaning the value that you 
-					define in the namespace property element will be the value that is actually
-					set on the namespace property when AndroMDA discovers and sets the
-					properties of the plugins.  But in some cases we store properties values 
-					(such as mapping files) within the AndromMDA plugin itself and its nice
-					to be able to reference these by a logical name instead of actually 
-					giving the physical path to the mapping files. And if this is the case
-					you'd give the property a <strong>logical.</strong> prefix.
-				</p>
 			</subsection>
 			<subsection name="Ignoring Namespace properties">
 				<p>

@@ -17,7 +17,8 @@
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
             <properties>
-                <logical.languageMappingsUri>Java</logical.languageMappingsUri>
+                <languageMappingsUri>Java</languageMappingsUri>
+                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
             </properties>
         </dependency>
         <!-- specify and configure our cartridges -->

@@ -1,6 +1,7 @@
 package org.andromda.core.translation;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -156,13 +157,7 @@ public class TranslationUtils
      */
     public static String removeExtraWhitespace(String string)
     {
-        //first make the string an empty string if it happens to be null
-        string = StringUtils.trimToEmpty(string);
-
-        //remove anything that is greater than 1 space.
-        string = string.replaceAll("\\s{2,}", " ");
-
-        return string;
+        return StringUtilsHelper.toSingleLine(string);
     }
 
     /**

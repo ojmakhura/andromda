@@ -154,9 +154,10 @@ public class ModelLoader
     }
 
     /**
-     * Initializes the default namespace with the required properties. TODO:
-     * This needs to be handled in a more graceful way since properties can
-     * change depending on metafacades.
+     * Initializes the default namespace with the required properties. 
+     * 
+     * @todo This needs to be handled in a more graceful 
+     * way since properties can change depending on metafacades.
      */
     private void intializeDefaultNamespace()
     {
@@ -169,6 +170,9 @@ public class ModelLoader
         namespace.addProperty(property);
         property = new Property();
         property.setName("maxSqlNameLength");
+        property.setIgnore(true);
+        property = new Property();
+        property.setName("wrapperMappingsUri");
         property.setIgnore(true);
         namespace.addProperty(property);
         Namespaces.instance().addNamespace(namespace);

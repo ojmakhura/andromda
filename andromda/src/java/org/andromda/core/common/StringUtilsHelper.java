@@ -325,15 +325,18 @@ public class StringUtilsHelper
      * The resulting String will be trimmed.
      * <p>
      * <p>
-     * If the input String is null the return value will be null too.
+     * If the input String is null the return value will be an empty string.
      * </p>
      * 
-     * @param multiLine A multiline String, may be null
+     * @param multiLine A String, may be null
      * @return The argument in a single line
      */
-    public static String toSingleLine(String multiLine)
+    public static String toSingleLine(String string)
     {
-        return (multiLine == null) ? null : multiLine
-            .replaceAll("[$\\s]+", " ").trim();
+        //first make the string an empty string if it happens to be null
+        string = StringUtils.trimToEmpty(string);
+
+        //remove anything that is greater than 1 space.
+        return string.replaceAll("[$\\s]+", " ").trim();
     }
 }

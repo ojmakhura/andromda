@@ -1,4 +1,4 @@
-package $class.packageName;
+package $service.packageName;
 
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
@@ -8,46 +8,46 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 
-#foreach ( $serviceRef in $class.serviceReferences )
+#foreach ( $serviceRef in $service.serviceReferences )
 import ${serviceRef.targetElement.fullyQualifiedName}Home;
 #end
 ##
-#if (!$class.attributes.empty)
+#if (!$service.attributes.empty)
 #set ($stateful = true)
 #else
 #set ($stateful = false)
 #end
 ##
 /**
-$class.getDocumentation(" * ")
+$service.getDocumentation(" * ")
  *
  * @ejb.bean 
- *        name="$class.name"
+ *        name="$service.name"
 #if ($stateful)
  *        type="Stateful"
 #else
  *        type="Stateless"
 #end
- *        jndi-name="${class.jndiName}"
- *        local-jndi-name="${class.jndiName}/Local"
+ *        jndi-name="$service.jndiName"
+ *        local-jndi-name="${service.jndiName}/Local"
  *        view-type="both"
  * @ejb.interface 
  *        generate="local,remote"
- *        remote-class="${class.fullyQualifiedName}"
- *        local-class="${class.fullyQualifiedName}Local"
+ *        remote-class="${service.fullyQualifiedName}"
+ *        local-class="${service.fullyQualifiedName}Local"
  * @ejb.home 
  *        generate="local,remote"
- *        remote-class="${class.fullyQualifiedName}Home"
- *        local-class="${class.fullyQualifiedName}LocalHome"
+ *        remote-class="${service.fullyQualifiedName}Home"
+ *        local-class="${service.fullyQualifiedName}LocalHome"
  * @ejb.util generate="physical"
-#foreach ( $serviceRef in $class.serviceReferences )
- #set ($service = $serviceRef.targetElement)
+#foreach ( $serviceRef in $service.serviceReferences )
+ #set ($serviceRef = $serviceRef.targetElement)
  * @ejb.ejb-ref 
- *        ejb-name="$service.name" 
- *        view-type="$sevice.viewType" 
- *        ref-name="ejb/${service.name}BeanRef"
+ *        ejb-name="$serviceRef.name" 
+ *        view-type="$serviceRef.viewType" 
+ *        ref-name="ejb/${serviceRef.name}BeanRef"
 #end
-#foreach ( $tgv in $class.taggedValues )
+#foreach ( $tgv in $service.taggedValues )
 #if ($tgv.name != "documentation")
 #if ($tgv.name == "---")
     #set ($tag = "")
@@ -58,16 +58,16 @@ $class.getDocumentation(" * ")
 #end
 #end
  */
-public abstract class ${class.name}Bean 
-#if ($class.generalization) 
-	extends ${class.generalization.fullyQualifiedName}BeanImpl
+public abstract class ${service.name}Bean 
+#if ($service.generalization) 
+	extends ${service.generalization.fullyQualifiedName}BeanImpl
 #end
     implements javax.ejb.SessionBean
 {
 
 #if ($stateful)
     // --------------- attributes ---------------------
-#foreach ( $attribute in $class.attributes )
+#foreach ( $attribute in $service.attributes )
 #set ($attributeTypeName = $attribute.type.fullyQualifiedName)
 
    protected $attributeTypeName $attribute.name;
@@ -97,7 +97,7 @@ $attribute.getDocumentation("     * ")
 #end
     // ---------------- business methods  ----------------------
 
-#foreach ($operation in $class.operations)
+#foreach ($operation in $service.operations)
 
 ##
 ##  Add one additional parameter to the list of parameters:
@@ -160,7 +160,7 @@ $operation.getDocumentation("     * ")
 #end
         catch (Throwable th)
         {
-            throw new EJBException("${class.name}Bean.${operation.name}: " + th.toString());
+            throw new EJBException("${service.name}Bean.${operation.name}: " + th.toString());
         }
         finally
         {
@@ -173,7 +173,7 @@ $operation.getDocumentation("     * ")
                 }
                 catch (HibernateException he)
                 {
-                    throw new EJBException("${class.name}Bean.${operation.name}: " + he.getMessage());
+                    throw new EJBException("${service.name}Bean.${operation.name}: " + he.getMessage());
                 }
             }
         }
@@ -203,15 +203,15 @@ $operation.getDocumentation("     * ")
     * @ejb.create-method
     * @ejb.transaction type="Required"
     */
-    public void ejbCreate $class.getAttributesAsList(true)
+    public void ejbCreate $service.getAttributesAsList(true)
            throws javax.ejb.CreateException
     {
-#foreach ( $attribute in $class.attributes)
+#foreach ( $attribute in $service.attributes)
         ${attribute.setterName} (${attribute.name});
 #end
     }
 
-    public void ejbPostCreate $class.getAttributesAsList(true)
+    public void ejbPostCreate $service.getAttributesAsList(true)
            throws javax.ejb.CreateException
     {
     }
@@ -249,7 +249,7 @@ $operation.getDocumentation("     * ")
 
     // ---------------- accessor methods for (session!) bean references ---------------
 
-#foreach ( $serviceRef in $class.serviceReferences )
+#foreach ( $serviceRef in $service.serviceReferences )
    #set ($service = $serviceRef.targetElement)
    #set ($homeInterfaceName = "${service.name}Home")
    /**

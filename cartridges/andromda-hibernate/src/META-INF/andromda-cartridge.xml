@@ -13,7 +13,7 @@
         outputPattern="{0}/{1}.java"
         outlet="entities"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
             </modelElement> 
@@ -25,7 +25,7 @@
         outputPattern="{0}/{1}Impl.java"
         outlet="entity-impls"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
             </modelElement>   
@@ -37,13 +37,37 @@
         outputPattern="{0}/{1}Factory.java"
         outlet="entities"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
             </modelElement> 
         </modelElements> 
     </template>
-    
+
+    <template
+        path="templates/hibernate/HibernateSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement> 
+        </modelElements>             
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="session-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement> 
+        </modelElements>    
+    </template>
+
     <template 
         path="templates/hibernate/HibernateByteBlobType.vsl" 
         outputPattern="$generatedFile" 
@@ -57,29 +81,5 @@
         outlet="entities" 
         overwrite="true"
         required="false"/>
-
-    <template
-        path="templates/hibernate/HibernateSessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="session-beans"
-        overwrite="true">
-        <modelElements variable="class">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement> 
-        </modelElements>             
-    </template>
-
-    <template
-        path="templates/hibernate/HibernateSessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="session-impls"
-        overwrite="false">
-        <modelElements variable="class">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement> 
-        </modelElements>    
-    </template>
 
 </cartridge>

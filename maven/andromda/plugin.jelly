@@ -41,6 +41,11 @@
                       includes="${maven.andromda.src.includes}"
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
                       processAllModelPackages="${maven.andromda.processAllModelPackages}">
+                
+            <!-- point the mappings search path to the location of the mappings in this plugin -->      
+            <ant:mappingsSearchPath>
+                <ant:pathelement location="${plugin.resources}/andromda/mappings"/>            
+            </ant:mappingsSearchPath>
                               
             <!-- set the maximum number of packages that may be set, 
                  this can always be increased later, but not sure we would ever need to -->
