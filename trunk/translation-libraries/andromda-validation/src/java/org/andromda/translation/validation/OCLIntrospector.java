@@ -43,13 +43,32 @@ public class OCLIntrospector
             return getNestedProperty(element, feature);
 
         }
+        catch (OCLIntrospectorException th)
+        {
+            // Dont catch our own exceptions.
+            // Otherwise get Exception/Cause chain which
+            // can hide the original exception.
+            throw th;
+        }
         catch (Throwable th)
         {
             final String errMsg = "Error invoking feature '" + feature
                 + "' on element '" + element + "'";
-            th = ExceptionUtils.getRootCause(th);
-            logger.error(errMsg, th);
-            throw new OCLIntrospectorException(th);
+            Throwable cause = ExceptionUtils.getRootCause(th);
+            // If cause is an OCLIntrospector throw that exception
+            // rather than creating a new one.
+            if ( cause instanceof OCLIntrospectorException ) {
+                // Check to see if we are first in the chain.
+                if ( th.getCause() == cause ) {
+                    // We are the first in the chain, print the error msg
+                    logger.error(errMsg);
+                }
+                // Wrap exception again to prevent redundant
+                // error messages as the stack unwinds.
+                throw new OCLIntrospectorException(cause);
+            }
+            logger.error(errMsg, cause);
+            throw new OCLIntrospectorException(cause);
         }
     }
 
