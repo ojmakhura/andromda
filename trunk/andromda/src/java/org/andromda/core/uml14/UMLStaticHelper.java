@@ -148,7 +148,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
         
 		String value = findTaggedValue(feature,tagName);
 		ModelElement element = feature.getType();
-		while ( ( value == null ) & (element != null) ) 
+		while ( ( value == null ) && (element != null) ) 
 		{
 			value = findTaggedValue(element,tagName);
 			element = getGeneralization(element);
@@ -185,7 +185,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 			protected boolean accept(Object object)
 			{
 				return 
-					(object instanceof Dependency) & !(object instanceof Abstraction);
+					(object instanceof Dependency) && !(object instanceof Abstraction);
 			}
 		};
 	}

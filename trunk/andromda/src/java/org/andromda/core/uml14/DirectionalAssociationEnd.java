@@ -44,22 +44,22 @@ public class DirectionalAssociationEnd
     
     public boolean isOne2Many()
     {
-        return !isMany(associationEnd) & isMany(getOtherEnd());
+        return !isMany(associationEnd) && isMany(getOtherEnd());
     }
     
     public boolean isMany2Many()
     {
-        return isMany(associationEnd) & isMany(getOtherEnd());
+        return isMany(associationEnd) && isMany(getOtherEnd());
     }
 
     public boolean isOne2One()
     {
-        return !isMany(associationEnd) & !isMany(getOtherEnd());
+        return !isMany(associationEnd) && !isMany(getOtherEnd());
     }
     
     public boolean isMany2One()
     {
-        return isMany(associationEnd) & !isMany(getOtherEnd());
+        return isMany(associationEnd) && !isMany(getOtherEnd());
     }
     
     static public boolean isMany(AssociationEnd ae)
