@@ -36,7 +36,4 @@ public class EntityQueryOperationFacadeLogicImpl
         }
         return query;
     }
-
-    // ------------- relations ------------------
-
 }
