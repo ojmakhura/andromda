@@ -2,14 +2,12 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.*;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.HashSet;
 
 
 /**
@@ -29,6 +27,7 @@ public class StrutsJspLogicImpl
     private Collection pageVariables = null;
     private Object useCase = null;
     private Object forward = null;
+    private Collection incomingActions = null;
 
     // ---------------- constructor -------------------------------
     
@@ -107,5 +106,42 @@ public class StrutsJspLogicImpl
                 variables.addAll(trigger.getParameters());
         }
         return pageVariables = variables;
+    }
+
+    protected Collection handleGetIncomingActions()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && incomingActions != null) return incomingActions;
+
+        final Collection incomingActionsList = new LinkedList();
+
+        final Collection incomingTransitions = getIncoming();
+        for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
+        {
+            TransitionFacade incomingTransition = (TransitionFacade) iterator.next();
+            collectIncomingActions(incomingTransition, new HashSet(), incomingActionsList);
+        }
+
+        return incomingActions = incomingActionsList;
+    }
+
+    private void collectIncomingActions(TransitionFacade transition, Collection processedTransitions, Collection actions)
+    {
+        if (!processedTransitions.contains(transition))
+        {
+            processedTransitions.add(transition);
+            if (transition instanceof StrutsAction)
+            {
+                actions.add(transition);
+            }
+            else
+            {
+                Collection incomingTransitions = transition.getSource().getIncoming();
+                for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
+                {
+                    TransitionFacade incomingTransition = (TransitionFacade) iterator.next();
+                    collectIncomingActions(incomingTransition, processedTransitions, actions);
+                }
+            }
+        }
     }
 }
