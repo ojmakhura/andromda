@@ -167,6 +167,22 @@
                          No, default is <code>C</code>
                     </td>
                 </tr>
+               <tr>
+                    <td>
+                        useArraysForMultiplicitiesOfTypeMany
+                    </td>
+                    <td>
+                        Whether or not array types should denote multiplicities
+                        greater than one for associations between objects where appropriate 
+                        (i.e. value objects when exposed as webservices)
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						allowDefaultIdentifiers

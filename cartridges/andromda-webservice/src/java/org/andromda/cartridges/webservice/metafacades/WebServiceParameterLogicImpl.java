@@ -48,7 +48,7 @@ public class WebServiceParameterLogicImpl
                     if (!webService.isRpcStyle() && wsdlType.isArrayType())
                     {
                         testTypeName = webService.getTestPackageName() + '.'
-                            + wsdlType.getArrayName();
+                            + wsdlType.getWsdlArrayName();
                     }
                     else if (!type.isDataType())
                     {

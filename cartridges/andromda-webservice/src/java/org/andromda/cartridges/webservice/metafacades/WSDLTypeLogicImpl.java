@@ -44,26 +44,26 @@ public class WSDLTypeLogicImpl
             this.getSchemaTypeMappings(), 
             this.getNamespacePrefix(), 
             this.getQName(), 
-            this.getArrayNamePrefix(), 
+            this.getWsdlArrayNamePrefix(), 
             withPrefix, 
             preserveArray);
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#getArrayName()
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getWsdlArrayName()
      */
-    protected String handleGetArrayName()
+    protected String handleGetWsdlArrayName()
     {
         StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(
             this.getQName()).replaceAll("\\[\\]", ""));
-        name.insert(0, this.getArrayNamePrefix());
+        name.insert(0, this.getWsdlArrayNamePrefix());
         return name.toString();
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getArrayNamePrefix()
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getWsdlArrayNamePrefix()
      */
-    protected String handleGetArrayNamePrefix()
+    protected String handleGetWsdlArrayNamePrefix()
     {
         return String.valueOf(this
             .getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX));
