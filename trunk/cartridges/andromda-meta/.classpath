@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src/java"/>
+    <classpathentry kind="src" path="src/META-INF"/>
+    <classpathentry kind="src" path="src/templates"/>
+    <classpathentry kind="src" path="src/test"/>
+    <classpathentry kind="src" path="src/decorators/generated"/>
+    <classpathentry kind="src" path="src/decorators/manual"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="src" path="/andromda"/>
+    <classpathentry kind="lib" path="/andromda/lib/jmi.jar"/>
+    <classpathentry kind="lib" path="/andromda/lib/jmitoolkit.jar"/>
+    <classpathentry kind="lib" path="/andromda/lib/jmiuml14di.jar"/>
+    <classpathentry kind="lib" path="/andromda/lib/jmiutils.jar"/>
+    <classpathentry kind="lib" path="/andromda/lib/junit.jar"/>
+    <classpathentry kind="output" path="eclipse-build"/>
+</classpath>

@@ -1,0 +1,29 @@
+<cartridge name="meta">
+    <stereotype name="Decorator" />
+
+<!-- the outlet names -->
+    <outlet name="decorators" />
+    <outlet name="decorator-impls" />
+
+<!-- the template definitions -->
+    <template
+        stereotype="Decorator"
+        sheet="templates/MetaclassDecorator.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="decorators"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.meta.MetaScriptHelper"
+    />
+
+<!--
+    <template
+        stereotype="Decorator"
+        sheet="templates/MetaclassDecoratorImpl.vsl"
+        outputPattern="{0}/{1}Impl.java"
+        outlet="decorator-impls"
+        overWrite="false"
+        transformClass="org.andromda.cartridges.meta.MetaScriptHelper"
+    />
+-->
+
+</cartridge>
