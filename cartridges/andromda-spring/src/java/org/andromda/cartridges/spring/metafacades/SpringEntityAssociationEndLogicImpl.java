@@ -27,7 +27,7 @@ public class SpringEntityAssociationEndLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#isOne2OnePrimary()
      */
-    public boolean handleIsOne2OnePrimary()
+    protected boolean handleIsOne2OnePrimary()
     {
         boolean primaryOne2One = super.isOne2One();
         SpringEntityAssociationEndLogicImpl otherEnd = (SpringEntityAssociationEndLogicImpl)this

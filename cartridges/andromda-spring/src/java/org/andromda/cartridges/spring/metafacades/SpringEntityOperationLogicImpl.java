@@ -24,7 +24,7 @@ public class SpringEntityOperationLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#getImplementationName()
      */
-    public java.lang.String handleGetImplementationName()
+    protected java.lang.String handleGetImplementationName()
     {
         return this.getImplementationNamePrefix()
             + StringUtils.capitalize(this.getName());
@@ -33,7 +33,7 @@ public class SpringEntityOperationLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#getImplementationCall()
      */
-    public java.lang.String handleGetImplementationCall()
+    protected java.lang.String handleGetImplementationCall()
     {
         return this.getImplementationNamePrefix()
             + StringUtils.capitalize(this.getCall());
@@ -42,7 +42,7 @@ public class SpringEntityOperationLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#getImplementationSignature()
      */
-    public java.lang.String handleGetImplementationSignature()
+    protected java.lang.String handleGetImplementationSignature()
     {
         return this.getImplementationNamePrefix()
             + StringUtils.capitalize(this.getSignature());
