@@ -1,6 +1,6 @@
 #parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
 // license-header java merge-point
-#if ($service.packageName)
+#if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
 
