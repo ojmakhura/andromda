@@ -54,14 +54,22 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
      */
-    public void create($entity.fullyQualifiedEntityName $argumentName)
+    public $entity.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName)
     {
         if ($argumentName == null)
         {
             throw new IllegalArgumentException(
                 "${entity.name}.create - '$argumentName' can not be null");
         }
-        this.getHibernateTemplate().save($argumentName);
+        Object identifier = this.getHibernateTemplate().save($argumentName);
+#set ($identifierProperty = "identifier")
+#if($identifier.type.primitive)
+#set ($identifierProperty = "(($identifier.type.wrapperName)$identifierProperty).${identifier.type.fullyQualifiedName}Value()")
+#else
+#set ($identifierProperty = "($identifier.type.fullyQualifiedName)$identifierProperty")
+#end
+        ${argumentName}.${identifier.setterName}($identifierProperty);
+        return ${argumentName};
     }
 
 #set ($attributes = $entity.getAttributes(true,false))
@@ -69,7 +77,7 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(${entity.getAttributeTypeList(true, false)})
      */
-    public void create(
+    public $entity.fullyQualifiedEntityName create(
 #foreach($attribute in $attributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
 
@@ -79,7 +87,7 @@ public abstract class $entity.daoBaseName
 #foreach ($attribute in $attributes)
         entity.${attribute.setterName}($attribute.name);
 #end
-        this.create(entity);
+        return this.create(entity);
     }
 
 #set ($requiredAttributes = $entity.getRequiredAttributes(true,false))
@@ -87,7 +95,7 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredAttributeTypeList(true, false)})
      */
-    public void create(
+    public $entity.fullyQualifiedEntityName create(
 #foreach($attribute in $requiredAttributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else)#end
 
@@ -97,7 +105,7 @@ public abstract class $entity.daoBaseName
 #foreach ($attribute in $requiredAttributes)
         entity.${attribute.setterName}($attribute.name);
 #end
-        this.create(entity);
+        return this.create(entity);
     }
 
 #end
