@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="web" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="jar.bundle.name" value="${application.id}-${application.version}.ear"/>
+    <property name="deployment.descriptor.path" value="${basedir}/src/META-INF/application.xml"/>
+
+    <target name="clean" description="o Clean up the generated directories">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="ear">
+#if ($persistenceType == "hibernate")
+        <property file="${app.root.dir}/${hibernate.dir}/build.properties"/>
+        <ear destfile="${app.build.dir}/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
+            <fileset dir="${app.root.dir}/web/target" includes="*.war"/>
+            <fileset dir="${app.root.dir}/hibernate/sar/target" includes="*.sar"/>
+            <fileset dir="${app.root.dir}/hibernate/ejb/target" includes="*.jar"/>
+            <fileset dir="${app.root.dir}/common/target" includes="*.jar"/>
+            <fileset dir="${app.root.dir}/${lib.dir}">
+                <include name="commons-collections-3.0.jar"/>
+                <include name="commons-beanutils-1.6.1.jar"/>
+                <include name="hibernate-2.1.2.jar"/>
+                <include name="cglib-2.0-rc2.jar"/>
+                <include name="dom4j-1.4.jar"/>
+                <include name="odmg-3.0.jar"/>
+                <include name="ehcache-0.7.jar"/>
+                <include name="asm-1.4.1.jar"/>
+                <include name="commons-logging-1.0.3.jar"/>
+                <include name="commons-lang-2.0.jar"/>
+            </fileset>
+            <fileset dir="${basedir}/src" includes="META-INF/*.xml" excludes="META-INF/application.xml"/>
+        </ear>
+#else
+        <property file="${app.root.dir}/${ejb.dir}/build.properties"/>
+        <ear destfile="${app.build.dir}/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
+            <fileset dir="${basedir}/target">
+                <include name="*.war"/>
+            </fileset>
+            <fileset dir="${basedir}/target">
+                <include name="*.jar"/>
+            </fileset>
+        </ear>
+#end
+    </target>
+
+    <target name="dist" description="o Create a distribution" depends="ear">
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <mkdir dir="${app.root.dir}/${dist.dir}"/>
+        <copy todir="${app.root.dir}/${lib.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+        <copy todir="${app.root.dir}/${dist.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="get-deps">
+#if ($persistenceType == "hibernate")
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/hibernate-2.1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hibernate/jars/hibernate-2.1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/cglib-2.0-rc2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/cglib/jars/cglib-2.0-rc2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/dom4j-1.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/odmg-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/odmg/jars/odmg-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ehcache-0.7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ehcache/jars/ehcache-0.7.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/asm-1.4.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/asm/jars/asm-1.4.1.jar"/>
+#end
+    </target>
+
+</project>

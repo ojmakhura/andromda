@@ -1,0 +1,24 @@
+<project
+    xmlns:ant="jelly:ant"
+    xmlns:maven="jelly:maven"
+    xmlns:j="jelly:core">
+
+    <preGoal name="jar:jar">
+        <!-- include marked dependencies -->
+        <ant:mkdir dir="${maven.build.dest}"/>
+        <j:forEach var="lib" items="${pom.artifacts}">
+            <j:set var="dep" value="${lib.dependency}"/>
+            <j:if test="${dep.getProperty('jar.bundle')=='true' || dep.getProperty('jar.module')=='true'}">
+                <!--
+                 We know that this dep "wants" to be bundled.
+                -->
+                <ant:echo>Bundling: ${dep.type} - ${dep.id}</ant:echo>
+                <ant:copy todir="${maven.build.dest}">
+                    <ant:fileset dir="${lib.file.parent}" includes="${lib.file.name}"/>
+                </ant:copy>
+            </j:if>
+        </j:forEach>
+
+    </preGoal>
+
+</project>

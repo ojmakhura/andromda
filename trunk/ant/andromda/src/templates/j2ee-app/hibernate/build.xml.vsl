@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="build" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <target name="dist">
+        <ant dir="${basedir}/${hibernate.ejb.dir}" target="dist"/>
+        <ant dir="${basedir}/${hibernate.sar.dir}" target="dist"/>
+    </target>
+
+    <target name="clean">
+        <ant dir="${basedir}/${hibernate.ejb.dir}" target="clean"/>
+        <ant dir="${basedir}/${hibernate.sar.dir}" target="clean"/>
+    </target>
+
+</project>

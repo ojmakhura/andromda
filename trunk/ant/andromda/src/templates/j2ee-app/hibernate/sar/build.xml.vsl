@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="hibernate-sar" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/../.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="jar.bundle.name" value="${application.id}-hibernate-sar-${application.version}.sar"/>
+    <property name="javadoc.bundle.name" value="${application.id}-hibernate-sar-${application.version}-javadoc.zip"/>
+
+    <property name="xdoclet.gen.dir" value="${xdoclet.build.dir}/hibernate"/>
+    <property name="ejb.descriptor.dir" value="${xdoclet.gen.dir}/META-INF"/>
+
+    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
+    <fileset id="classes" dir="${basedir}/${java.build.dir}" includes="**/*.class"/>
+    <fileset id="java-sources" dir="${basedir}/../${ejb.dir}/${java.src.dir}" includes="**/*.java"/>
+    <fileset id="mda-java-sources" dir="${basedir}/../${ejb.dir}/${mda.build.dir}" includes="**/*.java"/>
+    <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
+
+    <path id="classpath">
+        <fileset refid="libraries"/>
+        <pathelement path="${basedir}/${java.build.dir}"/>
+    </path>
+
+    <condition property="useProxy">
+        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
+    </condition>
+    <target name="init-proxy">
+        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
+    </target>
+
+    <target name="clean" description="o Clean up the generated directories">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="xdoclet" description="o Run XDoclet EJB" depends="get-deps">
+        <mkdir dir="${basedir}/${java.src.dir}"/>
+        <mkdir dir="${basedir}/${mda.build.dir}"/>
+        <mkdir dir="${basedir}/${java.build.dir}"/>
+        <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
+        <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
+        <taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask" classpathref="classpath"/>
+        <hibernatedoclet destdir="${basedir}/${xdoclet.gen.dir}">
+            <fileset refid="java-sources"/>
+            <fileset refid="mda-java-sources"/>
+            <hibernate version="2.0" />
+            <jbossservice
+                destdir="${basedir}/${xdoclet.gen.dir}/META-INF"
+                transactionManagerStrategy="net.sf.hibernate.transaction.JBossTransactionManagerLookup"
+                transactionStrategy="net.sf.hibernate.transaction.JTATransactionFactory"
+                userTransactionName="java:/UserTransaction"
+                jndiname="java:/hibernate/SessionFactory"
+                servicename="${application.name}SessionFactory"
+                dialect="${xdoclet.hibernate.dialect}"
+                datasource="java:/DefaultDS"
+                showSql="true"
+            />
+        </hibernatedoclet>
+        <!--
+             hibernatedoclet has a bug under Windows: It generates
+             resource references in jboss-service.xml, using "\\"
+             instead of "/" as a package path separator.
+
+             Let's compensate for this using the following "replace" task.
+         -->
+        <replace
+			file="${basedir}/${xdoclet.gen.dir}/META-INF/jboss-service.xml"
+			token="\" value="/">
+        </replace>
+    </target>
+
+    <target name="export" description="o Export the schemas">
+        <property name="hibernate.schema.output.dir" value="app/target"/>
+        <mkdir dir="${app.root.dir}/${hibernate.schema.output.dir}"/>
+
+        <fileset id="hibernate.mapping.files" dir="${java.build.dir}" includes="**/*.hbm.xml"/>
+        <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
+            <classpath refid="classpath" />
+        </java>
+
+        <copy file="${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+              tofile="${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>
+
+        <replaceregexp file="${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+                       match="^(alter table .* drop constraint|drop table)"
+                       replace="-- SKIP \1"
+                       flags="i"
+                       byline="true"/>
+
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-remove.sql"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg value="--drop"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
+            <classpath refid="classpath" />
+        </java>
+
+        <!-- copy the db scripts over to the app target directory -->
+        <copy todir="${app.root.dir}/${hibernate.schema.output.dir}">
+        	<fileset dir="${basedir}/../db/src"/>
+        </copy>
+
+    </target>
+
+    <target name="jar" description="o Create the JAR" depends="xdoclet,export">
+        <mkdir dir="${basedir}/target"/>
+        <jar jarfile="${basedir}/target/${jar.bundle.name}" basedir="${basedir}/${xdoclet.gen.dir}"/>
+    </target>
+
+    <target name="dist" description="o Create a distribution" depends="jar">
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <mkdir dir="${app.root.dir}/${dist.dir}"/>
+        <copy todir="${app.root.dir}/${lib.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+        <copy todir="${app.root.dir}/${dist.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+                <include name="${javadoc.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="get-deps" depends="init-proxy">
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <get dest="${app.root.dir}/${lib.dir}/jboss-j2ee-3.2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jboss/jars/jboss-j2ee-3.2.3.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xjavadoc-1.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xjavadoc/jars/xjavadoc-1.0.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-xdoclet-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-xdoclet-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-ejb-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-ejb-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jboss-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jboss-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jmx-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jmx-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-web-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-web-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/xdoclet-hibernate-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-hibernate-module-1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/hibernate-2.1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hibernate/jars/hibernate-2.1.2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/cglib-2.0-rc2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/cglib/jars/cglib-2.0-rc2.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/dom4j-1.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/odmg-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/odmg/jars/odmg-3.0.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ehcache-0.7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ehcache/jars/ehcache-0.7.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/asm-1.4.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/asm/jars/asm-1.4.1.jar"/>
+    </target>
+
+</project>

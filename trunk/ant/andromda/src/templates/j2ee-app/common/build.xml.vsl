@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="common" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="jar.bundle.name" value="${application.id}-common-${application.version}.jar"/>
+    <property name="javadoc.bundle.name" value="${application.id}-common-${application.version}-javadoc.zip"/>
+
+    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
+    <fileset id="java-sources" dir="${basedir}/${java.src.dir}" includes="**/*.java"/>
+
+    <path id="classpath">
+        <pathelement path="${basedir}/${java.build.dir}"/>
+        <fileset refid="libraries"/>
+    </path>
+
+    <condition property="useProxy">
+        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
+    </condition>
+    <target name="init-proxy">
+        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
+    </target>
+
+    <target name="clean" description="o Clean up the generated directories">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="compile" description="o Compile the code" depends="get-deps">
+        <mkdir dir="${basedir}/${java.src.dir}"/>
+        <mkdir dir="${basedir}/${java.build.dir}"/>
+        <javac srcdir="${basedir}/${java.src.dir}" destdir="${basedir}/${java.build.dir}" classpathref="classpath"
+               deprecation="true" debug="true" optimize="false"/>
+    </target>
+
+    <target name="jar" description="o Create the JAR" depends="compile">
+        <mkdir dir="${basedir}/target"/>
+        <jar jarfile="${basedir}/target/${jar.bundle.name}" basedir="${basedir}/${java.build.dir}"/>
+    </target>
+
+    <target name="zip" description="o Create the zip" depends="javadoc">
+        <mkdir dir="${basedir}/target"/>
+        <zip destfile="${basedir}/target/${javadoc.bundle.name}" basedir="${basedir}/${java.build.dir}"/>
+    </target>
+
+    <target name="javadoc" description="o Generate javadoc">
+        <mkdir dir="${basedir}/${javadoc.build.dir}"/>
+        <tstamp>
+            <format pattern="2003-yyyy" property="year"/>
+        </tstamp>
+        <property name="copyright" value="Copyright &amp;copy; ${year} ${application.author}. All Rights Reserved."/>
+        <property name="title" value="${application.name} Common ${application.version} API - ${copyright}"/>
+        <javadoc destdir="${basedir}/${javadoc.build.dir}" classpathref="classpath"
+                 use="true" author="true" version="true"
+                 packagenames="${common.base.package}" windowtitle="${title}">
+            <fileset refid="java-sources"/>
+        </javadoc>
+    </target>
+
+    <target name="dist" description="o Create a distribution" depends="jar,zip">
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <mkdir dir="${app.root.dir}/${dist.dir}"/>
+        <copy todir="${app.root.dir}/${lib.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+        <copy todir="${app.root.dir}/${dist.dir}">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+                <include name="${javadoc.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="get-deps" depends="init-proxy">
+        <mkdir dir="${app.root.dir}/${lib.dir}"/>
+        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"/>
+        <get dest="${app.root.dir}/${lib.dir}/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"/>
+    </target>
+
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="build" basedir=".">
+
+    <property file="${basedir}/build.properties"/>
+
+    <target name="dist">
+        <ant dir="${mda.dir}" target="mda"/>
+        <ant dir="${common.dir}" target="dist"/>
+#if ($persistenceType == "hibernate")
+        <ant dir="${hibernate.dir}" target="dist"/>
+#else
+        <ant dir="${ejb.dir}" target="dist"/>
+#end
+        <ant dir="${web.dir}" target="dist"/>
+        <ant dir="${app.dir}" target="dist"/>
+    </target>
+
+    <target name="clean">
+        <ant dir="${common.dir}" target="clean"/>
+#if ($persistenceType == 'hibernate')
+        <ant dir="${hibernate.dir}" target="clean"/>
+#else
+        <ant dir="${ejb.dir}" target="clean"/>
+#end
+        <ant dir="${web.dir}" target="clean"/>
+        <ant dir="${app.dir}" target="clean"/>
+        <delete>
+            <fileset dir="${lib.dir}" includes="${application.id}-*.jar"/>
+            <fileset dir="${basedir}" includes="**/*.log"/>
+        </delete>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+</project>
