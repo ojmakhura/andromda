@@ -7,58 +7,56 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 /**
- * This is the logger used to write <em>AndroMDA</em>
- * prefixed messages so that our informational logging
- * is nice looking.
+ * This is the logger used to write <em>AndroMDA</em> prefixed messages so
+ * that our informational logging is nice looking.
  * 
  * @since 26.11.2003
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
 public class AndroMDALogger
 {
     private static final String DEFAULT_LOGGER_NAME = "AndroMDA";
-    
+
     private static Logger logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
-        
+
     /**
-     * Configures logging for the AndroMDA application
-     * from the the xml resource "log4j.xml" found within
-     * the same package as this class.     
+     * Configures logging for the AndroMDA application from the the xml resource
+     * "log4j.xml" found within the same package as this class.
      */
-    public static void configure() 
+    public static void configure()
     {
-    	final String methodName = "StdoutLogger.configure";
-    	String loggingConfiguration = "log4j.xml";
-    	URL url = AndroMDALogger.class.getResource(loggingConfiguration);
-    	if (url == null) 
+        final String methodName = "StdoutLogger.configure";
+        String loggingConfiguration = "log4j.xml";
+        URL url = AndroMDALogger.class.getResource(loggingConfiguration);
+        if (url == null)
         {
-    		throw new RuntimeException(methodName
-    				+ " - could not find Logger configuration file '" 
-					+ loggingConfiguration + "'");
-    	}
-    	configure(url);
+            throw new RuntimeException(methodName
+                + " - could not find Logger configuration file '"
+                + loggingConfiguration + "'");
+        }
+        configure(url);
     }
-    
-    /**   
-     * Configures the Logger from the passed in logConfigurationXml 
+
+    /**
+     * Configures the Logger from the passed in logConfigurationXml
      * 
      * @param logConfigurationXml
      */
-    protected static void configure(URL logConfigurationXml) 
+    protected static void configure(URL logConfigurationXml)
     {
-    	try 
+        try
         {
-    		DOMConfigurator.configure(logConfigurationXml);
-    	} catch (Exception ex) 
+            DOMConfigurator.configure(logConfigurationXml);
+        }
+        catch (Exception ex)
         {
-    		System.err.println(
-    				"Unable to initialize logging system with configuration file '"
-    				+ logConfigurationXml
-					+ "' --> using basic configuration.");
-    		ex.printStackTrace();
-    		BasicConfigurator.configure();
-    	}
+            System.err
+                .println("Unable to initialize logging system with configuration file '"
+                    + logConfigurationXml + "' --> using basic configuration.");
+            ex.printStackTrace();
+            BasicConfigurator.configure();
+        }
     }
 
     /**
@@ -66,33 +64,36 @@ public class AndroMDALogger
      * 
      * @param name
      */
-    public static void setSuffix(String suffix) 
+    public static void setSuffix(String suffix)
     {
-        logger = Logger.getLogger(
-            DEFAULT_LOGGER_NAME + ':' + suffix);
+        logger = Logger.getLogger(DEFAULT_LOGGER_NAME + ':' + suffix);
     }
-    
+
     /**
      * Resets the logger to the default name.
      */
-    public static void reset() {
-    	logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
-    }
-    
-    public static void debug (Object o)
+    public static void reset()
     {
-        logger.debug(o);
+        logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
     }
-    public static void info (Object o)
+
+    public static void debug(Object object)
     {
-        logger.info(o);
+        logger.debug(object);
     }
-    public static void warn (Object o)
+
+    public static void info(Object object)
     {
-        logger.warn(o);
+        logger.info(object);
     }
-    public static void error (Object o)
+
+    public static void warn(Object object)
     {
-        logger.error(o);
+        logger.warn(object);
+    }
+
+    public static void error(Object object)
+    {
+        logger.error(object);
     }
 }
