@@ -79,7 +79,7 @@ public class StringUtilsHelper extends StringUtils {
             else
             {
                 conversionBuffer.append(parts[i].substring(0,1).toUpperCase());
-                conversionBuffer.append(parts[i].substring(1).toLowerCase());
+                conversionBuffer.append(parts[i].substring(1));
             }
         }
         return conversionBuffer.toString();
@@ -155,9 +155,9 @@ public class StringUtilsHelper extends StringUtils {
     }
 
     /**
-     * Splits at each sequence of non-word characters. Because this is used to convert to Java-style
-     * conventions the final character in a capital sequence will be separated because it will be
-     * interprested as the first letter of a new word.
+     * Splits at each sequence of non-word characters.
+     * <p/>
+     * Sequences of capitals will be left untouched.
      */
     private static String[] splitAtCapitalization(String string)
     {
@@ -166,12 +166,7 @@ public class StringUtilsHelper extends StringUtils {
         StringBuffer sb = new StringBuffer();
         while (matcher.find())
         {
-            String group = matcher.group();
-            if (group.length() > 1)
-            {
-                group = group.substring(0,group.length()-1) + ' ' + group.substring(group.length()-1);
-            }
-            matcher.appendReplacement(sb, ' ' + group);
+            matcher.appendReplacement(sb, ' ' + matcher.group());
         }
         matcher.appendTail(sb);
 
