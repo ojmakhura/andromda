@@ -2,7 +2,7 @@
 		 xmlns:util="jelly:util">
 
 <j:whitespace trim="no" xmlns="dummy">
-package ${maven.androdev.translation.translator.package};
+package ${andromda.translationlibrary.translator.package};
 
 import org.andromda.core.translation.TranslatorException;
 <j:set var="translatorExceptionShortName" value="${translatorShortName}Exception"/>
