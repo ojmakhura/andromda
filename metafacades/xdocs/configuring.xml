@@ -334,7 +334,10 @@
                 <p>
                     Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
                     can take an optional nested <em><![CDATA[<context/>]]></em>
-                    element.
+                    element.  This context allows us to specify that a metafacade
+                    must be created within the <em>context</em> of another metafacade
+                    in order to be mapped.  Note that you can only specify a single
+                    context per <a href="#mapping"><![CDATA[<mapping/>]]></a>.
                 </p>
                 <a name="mappingProperty"/>
                 <h3><![CDATA[<property/>]]></h3>     
@@ -351,13 +354,25 @@
                     </tr>
                     <tr>
                         <td>
-                            
+                            name
                         </td>
                         <td>
-                            
+                            Defines the name of the property to be evaluated. When being evaluated
+                            properties are determined to be valid when the following conditions are met:
+                            <ul>
+                                <li>
+                                    The property is not null.
+                                </li>
+                                <li>
+                                    If a collection type the property is not empty.
+                                </li>
+                                <li>
+                                    If a boolean type the property is not false.
+                                </li>
+                            </ul>
                         </td>
                         <td>
-                            
+                            Yes
                         </td>
                     </tr>
                 </table>
