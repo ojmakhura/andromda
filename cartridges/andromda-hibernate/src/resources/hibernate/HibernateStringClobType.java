@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.type.ImmutableType;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -25,8 +24,7 @@ public class HibernateStringClobType
      *      java.lang.String)
      */
     public Object get(ResultSet rs, String name)
-        throws HibernateException,
-            SQLException
+        throws SQLException
     {
 
         Reader reader = rs.getCharacterStream(name);
@@ -104,7 +102,7 @@ public class HibernateStringClobType
     /**
      * @see net.sf.hibernate.type.NullableType#toString(java.lang.Object)
      */
-    public String toString(Object val) throws HibernateException
+    public String toString(Object val)
     {
         return val.toString();
     }
