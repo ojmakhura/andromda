@@ -64,5 +64,10 @@
 	  		<artifactId>andromda-validation-library</artifactId>
 	 		<version>${pom.currentVersion}</version>
 		</dependency>
+		<dependency> 
+			<groupId>andromda</groupId>
+	  		<artifactId>andromda-query-library</artifactId>
+	 		<version>${pom.currentVersion}</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -45,13 +45,13 @@
 		<type>plugin</type>
 	</dependency>
 	<dependency>
-		<groupId>andromda-cartridges</groupId>
+		<groupId>andromda</groupId>
 		<artifactId>andromda-bpm4struts-cartridge</artifactId>
 		<version>3.0</version>
 	</dependency>
 	<dependency>
-		<groupId>andromda-hibernate</groupId>
-		<artifactId>andromda-bpm4struts-cartridge</artifactId>
+		<groupId>andromda</groupId>
+		<artifactId>andromda-hibernate-cartridge</artifactId>
 		<version>3.0</version>
 	</dependency>
 	...
