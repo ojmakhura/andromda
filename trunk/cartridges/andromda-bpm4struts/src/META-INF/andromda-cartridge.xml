@@ -419,21 +419,6 @@
         generateEmptyFiles="false"/>
 
     <template
-        path="templates/StrutsTableDecorator.vsl"
-        outputPattern="$generatedFile"
-        outlet="controllers"
-        overwrite="true"
-        generateEmptyFiles="false">
-        <modelElements variable="table">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
-                    <property name="tableLinksPresent" value="true"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/StrutsBreadCrumbsJsp.vsl"
         outputPattern="layout/breadcrumbs.jsp"
         outlet="pages"
