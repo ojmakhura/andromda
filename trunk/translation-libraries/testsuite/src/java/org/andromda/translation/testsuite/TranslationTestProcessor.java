@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
@@ -78,6 +79,7 @@ public class TranslationTestProcessor
     {
         XmlObjectFactory.setDefaultValidating(false);
         ExpressionTranslator.instance().initialize();
+        MetafacadeFactory.getInstance().initialize();
         testDiscoverer.discoverTests();
         Map tests = testDiscoverer.getTests();
         TestSuite suite = new TestSuite();

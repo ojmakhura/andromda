@@ -123,9 +123,8 @@ public class ModelProcessor
         try
         {
             PluginDiscoverer.instance().discoverPlugins();
-            MetafacadeMappings.instance().discoverMetafacades();
-            MetafacadeImpls.instance().discoverMetafacadeImpls();
-
+            MetafacadeFactory.getInstance().initialize();
+            
             Collection cartridges = PluginDiscoverer.instance().findPlugins(
                 Cartridge.class);
 
