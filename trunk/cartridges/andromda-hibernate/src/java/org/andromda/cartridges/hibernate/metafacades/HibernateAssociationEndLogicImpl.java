@@ -279,21 +279,14 @@ public class HibernateAssociationEndLogicImpl
     {
         String collectionType = (String) this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
-        if (collectionType == null)
+        if (!collectionTypes.contains(collectionType))
         {
             collectionType = (String) this
                 .getConfiguredProperty(HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
         }
-        if (collectionTypes.contains(collectionType))
-        {
-            return collectionType;
-        }
-        //in case there is not a valid value, Set will be returned 
-        else
-        {
-            return COLLECTION_TYPE_SET;
-        }
-}
+        return collectionType;
+
+    }
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getSortType()
