@@ -7,7 +7,7 @@ package org.andromda.core.common;
  * Wraps any exception that occurs when configuring/processing a 
  * template object
  * 
- * @see org.andromda.core.templateengine.TemplateObject
+ * @see org.andromda.core.common.TemplateObject
  */
 public class TemplateObjectException extends RuntimeException {
 

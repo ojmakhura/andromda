@@ -22,7 +22,7 @@ public class VariableDeclarationImpl
      * Constructs a new VariableDeclarationImpl
      * 
      * @param name the name of the VariableDeclaratiom
-     * @param type the type of the VariableDeclarationCS
+     * @param type the type of the VariableDeclaration
      */
     public VariableDeclarationImpl(String name, String type, String value)
     {
@@ -34,7 +34,7 @@ public class VariableDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.syntax.VariableDeclarationCS#getName()
+     * @see org.andromda.core.translation.syntax.VariableDeclaration#getName()
      */
     public String getName()
     {
@@ -51,7 +51,7 @@ public class VariableDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.syntax.VariableDeclarationCS#getValue()
+     * @see org.andromda.core.translation.syntax.VariableDeclaration#getValue()
      */
     public String getValue()
     {

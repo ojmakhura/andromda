@@ -72,7 +72,7 @@ public class Property {
     }
     
     /**
-     * @see getIgnore()
+     * @see #isIgnore()
      * 
      * @param ignore The ignore to set.
      */

@@ -82,7 +82,7 @@ public class TemplateModelElement {
      * Sets the current model elements that
      * belong to this TemplateModelElement instanec.
      * 
-     * @param the collection of model elements.
+     * @param modelElements the collection of model elements.
      */
     protected void setModelElements(Collection modelElements) {
         final String methodName = "TemplateModelElement.setModelElements";

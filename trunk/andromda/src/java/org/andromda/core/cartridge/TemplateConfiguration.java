@@ -145,7 +145,7 @@ public class TemplateConfiguration
      * @param inputClassName name of the class from the UML model
      * @param inputPackageName name of the package from the UML model 
      *                         in which the class is contained
-     * @param directoryUri the directory URI 
+     * @param directory the directory as a File.
      * @return File absolute directory.
      */
     public File getOutputLocation(
@@ -208,7 +208,7 @@ public class TemplateConfiguration
     /**
      * Sets the model elements that are suported by this template.
      * 
-     * @param modelElements the TemplateModelElements instance
+     * @param supportedModelElements the TemplateModelElements instance.
      * 
      * @see org.andromda.core.cartridge.TemplateModelElements
      */

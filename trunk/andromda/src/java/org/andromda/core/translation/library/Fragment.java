@@ -42,7 +42,7 @@ public class Fragment
     /**
      * Gets the name of this fragment
      * 
-     * @return
+     * @return the name of this fragment.
      */
     public String getName()
     {
@@ -52,7 +52,7 @@ public class Fragment
     /**
      * Sets the name of this fragment.
      * 
-     * @param name
+     * @param name the name to set.
      */
     public void setName(String name)
     {

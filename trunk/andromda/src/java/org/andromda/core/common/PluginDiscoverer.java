@@ -74,7 +74,7 @@ public class PluginDiscoverer {
      * with the given name is already registered in the 
      * ComponentContainer, it will not be registered again.
      * 
-     * @param showCartridges if true then the cartridge found will
+     * @param showPlugins if true then the plugin found will
      *        logged, otherwise nothing will be shown.
      */
 	public void discoverPlugins(boolean showPlugins) 

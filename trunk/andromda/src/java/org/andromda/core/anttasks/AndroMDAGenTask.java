@@ -348,8 +348,9 @@ public class AndroMDAGenTask extends MatchingTask
      * elements from other packages but you don't want
      * to perform any generation from them. The default is true.
      *
-     * @param processAllModelPackages
-     * @see addPackage(java.lang.String, boolean)
+     * @param processAllModelPackages true/false on whether or not 
+     *        to process all packages.
+     * @see #addModelPackage(org.andromda.core.common.ModelPackage)
      */
     public void setProcessAllModelPackages(boolean processAllModelPackages)
     {
@@ -363,7 +364,7 @@ public class AndroMDAGenTask extends MatchingTask
      * set to false, then all packages specified by package names
      * are the only packages that will be processed.
      * 
-     * @param processPackage the Package that should/shouldn't be processed.
+     * @param modelPackage the ModelPackage that should/shouldn't be processed.
      * 
      * @see setProcessAllModelPackages(boolean)
      */

@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
  * The Metafacade mapping class. Used to map
  * meta facade objects to meta model objects.
  * 
- * @see org.andromda.common.XmlObjectFactory
+ * @see org.andromda.core.common.XmlObjectFactory
  * 
  * @author Chad Brandon
  */

@@ -49,7 +49,7 @@ public class OclParser extends Parser {
 	}
 
     /**
-     * @see org.andromda.core.translation.parser.parser.Parser#filter()
+     * @see org.andromda.core.translation.parser.Parser#filter()
      */
 	protected void filter() {
 		oclNode = node;

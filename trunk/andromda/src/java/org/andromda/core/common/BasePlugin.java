@@ -106,7 +106,11 @@ public abstract class BasePlugin
     }
 
     /**
-     * @see org.andromda.core.common.Plugin#addTemplateObject(org.andromda.core.common.TemplateObject)
+     * Adds the <code>templateObject</code> to the collection of 
+     * template objects that will be made available to the plugin
+     * during processing.
+     * 
+     * @param templateObject the TemplateObject to add.
      */
     public void addTemplateObject(TemplateObject templateObject)
     {
@@ -281,7 +285,7 @@ public abstract class BasePlugin
     /**
      * Sets the logger to be used with this Cartridge
      * 
-     * @param logger The logger to set.
+     * @param loggerName The name of the logger to set.
      */
     protected void setLogger(String loggerName)
     {
