@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -31,19 +30,6 @@ public class ClassifierFacadeLogicImpl
         String context)
     {
         super(metaObject, context);
-    }
-
-    /**
-     * This method is overridden to make sure the name 
-     * will <strong>not</strong> result in uncompilable Java code.
-     * 
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
-     */
-    public String getName()
-    {
-        return (isPrimitiveType())
-            ? super.getName()
-            : StringUtilsHelper.toJavaClassName(super.getName());
     }
 
     /**
