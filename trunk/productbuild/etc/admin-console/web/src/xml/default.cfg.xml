@@ -4,6 +4,11 @@
 
     <console-configuration>
         <resolve-foreign-keys>true</resolve-foreign-keys>
+        <database-urls>
+            <url>jdbc:hsqldb:hsql://localhost:1701</url>
+            <url>jdbc:mysql://localhost:3306/mydb</url>
+            <url>jdbc:oracle:thin:@localhost:1521:yoursid</url>
+        </database-urls>
     </console-configuration>
 
 </admin-console>
