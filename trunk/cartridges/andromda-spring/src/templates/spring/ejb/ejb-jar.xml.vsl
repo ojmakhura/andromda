@@ -51,7 +51,7 @@
 #if (!$ejbSecurityEnabled || $service.roles.empty)           
             <unchecked/>
 #else
-#foreach ($role in $service.roles)
+#foreach ($role in $service.allRoles)
             <role-name>$role.name</role-name>
 #end
 #end

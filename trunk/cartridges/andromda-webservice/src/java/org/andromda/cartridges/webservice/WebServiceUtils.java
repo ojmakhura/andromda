@@ -24,17 +24,17 @@ public class WebServiceUtils
     public Collection getAllRoles(Collection services)
     {
         final Collection allRoles = new HashSet();
-        CollectionUtils.forAllDo(services,
-            new Closure()
+        CollectionUtils.forAllDo(services, new Closure()
+        {
+            public void execute(Object object)
             {
-                public void execute(Object object)
+                if (object != null
+                    && ServiceFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    if (object != null && ServiceFacade.class.isAssignableFrom(object.getClass()))
-                    {
-                        allRoles.addAll(((ServiceFacade)object).getAllRoles());
-                    }                    
+                    allRoles.addAll(((ServiceFacade)object).getAllRoles());
                 }
-            });
+            }
+        });
         return allRoles;
     }
 }
