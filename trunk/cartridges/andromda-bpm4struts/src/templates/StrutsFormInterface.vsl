@@ -1,0 +1,42 @@
+#set ($generatedFile = "${operation.interfaceFullPath}.java")
+package $operation.interfacePackageName;
+
+public interface $operation.interfaceName
+{
+#foreach ($field in $operation.formFields)
+#set ($fieldType = $field.type.fullyQualifiedName)
+#set ($fieldName = $field.name)
+#if ($field.type.collectionType)
+    public void ${field.setterName}($fieldType $fieldName);
+    public $fieldType ${field.getterName}();
+
+    public void ${field.setterName}AsArray(Object[] $fieldName);
+    public Object[] ${field.getterName}AsArray();
+#elseif ($field.date)
+    public void ${field.setterName}AsDate($fieldType $fieldName);
+    public $fieldType ${field.getterName}AsDate();
+
+    public void ${field.setterName}(java.lang.String ${fieldName});
+    public java.lang.String ${field.getterName}();
+#else
+    public void ${field.setterName}($fieldType $fieldName);
+    public $fieldType ${field.getterName}();
+#end
+
+#if ($field.selectable)
+#set ($listType = "Object[]")
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
+#set ($valueListName = $field.valueListName)
+#set ($valueListMethod = $str.upperCaseFirstLetter($valueListName))
+#set ($labelListName = $field.labelListName)
+#set ($labelListMethod = $str.upperCaseFirstLetter($labelListName))
+    public $listType get${backingListMethod}();
+    public $listType get${valueListMethod}();
+    public void set${valueListMethod}($listType $valueListName);
+    public $listType get${labelListMethod}();
+    public void set${labelListMethod}($listType $labelListName);
+
+#end
+#end
+}
