@@ -40,11 +40,14 @@ public class $class.name implements ${class.name}Interface
     /**
      * Singleton instance accessor
      */
-    public static synchronized ${class.name} getInstance()
+    public static ${class.name} getInstance()
     {
         if (instance == null)
         {
-            instance = new ${class.name}();
+            synchronized (instance)
+            {
+                if (instance == null) instance = new ${class.name}();
+            }
         }
         return instance;
     }
