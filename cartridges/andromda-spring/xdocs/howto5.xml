@@ -28,11 +28,7 @@
                 from <code>datatype.String</code> to <code>org.andromda.test.CarType</code>.
             </p>
             <p>
-                <img src="5/uml.png"/>
-            </p>
-            <p class="highlight">
-                A zip bundle containing all these files can be downloaded here:
-                <a href="resources/howto5.zip">howto5.zip</a>
+                <img src="resources/howto/org/andromda/test/5/uml.png"/>
             </p>
             <p>
                 <ul>
@@ -43,29 +39,25 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="5/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="5/Car.java.html"><code>Car.java</code></a></li>
-                    <li class="impl"><a href="5/CarImpl.java.html"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="5/CarDao.java.html"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="5/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="5/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="5/CarType.java.html"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="5/Person.hbm.xml.html"><code>Person.hbm.xml</code></a></li>
-                    <li class="gen"><a href="5/Person.java.html"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="5/PersonImpl.java.html"><code>PersonImpl.java</code></a></li>
-                    <li class="gen"><a href="5/PersonDao.java.html"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="5/PersonDaoBase.java.html"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="5/PersonDaoImpl.java.html"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="5/RentalService.java.html"><code>RentalService.java</code></a></li>
-                    <li class="gen"><a href="5/RentalServiceBase.java.html"><code>RentalServiceBase.java</code></a></li>
-                    <li class="impl"><a href="5/RentalServiceImpl.java.html"><code>RentalServiceImpl.java</code></a></li>
-                    <li class="gen"><a href="5/ejb/RentalService.java.html"><code>ejb/RentalService.java</code></a></li>
-                    <li class="gen"><a href="5/ejb/RentalServiceBean.java.html"><code>ejb/RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="5/ejb/RentalServiceHome.java.html"><code>ejb/RentalServiceHome.java</code></a></li>
-                    <li class="gen"><a href="5/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a href="5/jboss.xml.html"><code>jboss.xml</code></a></li>
-                    <li class="gen"><a href="5/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
-                    <li class="gen"><a href="5/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/5/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/5/Car.java"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/5/CarImpl.java"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/5/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/5/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/5/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/5/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/RentalService.java"><code>RentalService.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/5/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/5/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
                 </ul>
             </p>
         </section>

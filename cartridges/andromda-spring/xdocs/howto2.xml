@@ -32,17 +32,13 @@
                 Run AndroMDA again on your model, this is what you should see:
             </p>
             <p>
-                <img src="2/uml.png"/>
+                <img src="resources/howto/org/andromda/test/2/uml.png"/>
             </p>
             <p>
                 In this example we have added two attributes: name of type <code>datatype.String</code>
                 and birthDate of type <code>datatype.Date</code>; please note that also for this entity
                 an identifier will be added by default. If you explicitely want to add an identifier you should
                 add the <![CDATA[<<PrimaryKey>>]]> stereotype to an attribute.
-            </p>
-            <p class="highlight">
-                A zip bundle containing all these files can be downloaded here:
-                <a href="resources/howto2.zip">howto2.zip</a>
             </p>
             <p>
                 <ul>
@@ -53,22 +49,18 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="2/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="2/Car.java.html"><code>Car.java</code></a></li>
-                    <li class="impl"><a href="2/CarImpl.java.html"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a href="2/CarDao.java.html"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="2/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="2/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="2/Person.hbm.xml.html"><code>Person.hbm.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="2/Person.java.html"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="2/PersonImpl.java.html"><code>PersonImpl.java</code></a></li>
-                    <li class="gen"><a href="2/PersonDao.java.html"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="2/PersonDaoBase.java.html"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="2/PersonDaoImpl.java.html"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="2/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a href="2/jboss.xml.html"><code>jboss.xml</code></a></li>
-                    <li class="gen"><a href="2/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
-                    <li class="gen"><a href="2/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/2/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/2/Car.java"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/2/CarImpl.java"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/2/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/2/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/2/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/2/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/2/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/2/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/2/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/2/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/2/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
                 </ul>
             </p>
             <p>

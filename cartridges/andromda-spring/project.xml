@@ -22,12 +22,13 @@
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
             <properties>
-                <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
-                <facades-to-impls>${basedir}/target/src</facades-to-impls>
+                <!-- default -->
                 <languageMappingsUri>Java</languageMappingsUri>
                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                <facade-logics>${basedir}/target/src</facade-logics>
-                <facades>${basedir}/target/src</facades>
+                <sqlMappingsUri>HypersonicSql</sqlMappingsUri>
+                <jdbcMappingsUri>JDBC</jdbcMappingsUri>
+                <maxSqlNameLength>30</maxSqlNameLength>
+                <foreignKeySuffix>_FK</foreignKeySuffix>
             </properties>
         </dependency>
         <dependency>
@@ -40,20 +41,40 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties/>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties/>
+            <properties>
+                <!-- facades: only used when generating from the meta-model -->
+                <facades>${meta.facades}</facades>
+                <facade-logics>${meta.facade-logics}</facade-logics>
+                <facades-to-impls>${meta.facades-to-impls}</facades-to-impls>
+                <facade-logic-impls>${meta.facade-logic-impls}</facade-logic-impls>
+                <!-- spring : only used for howto model (will move to plugin) -->
+                <hibernateTypeMappingsUri>${howto.hibernateTypeMappingsUri}</hibernateTypeMappingsUri>
+                <dataSource>${howto.dataSource}</dataSource>
+                <hibernateDialect>${howto.hibernateDialect}</hibernateDialect>
+                <hibernateUseQueryCache>${howto.hibernateUseQueryCache}</hibernateUseQueryCache>
+                <hibernateCacheProvider>${howto.hibernateCacheProvider}</hibernateCacheProvider>
+                <hibernateQueryCacheFactory>${howto.hibernateQueryCacheFactory}</hibernateQueryCacheFactory>
+                <defaultHibernateGeneratorClass>${howto.defaultHibernateGeneratorClass}</defaultHibernateGeneratorClass>
+                <hibernateDefaultCascade>${howto.hibernateDefaultCascade}</hibernateDefaultCascade>
+                <daos>${howto.daos}</daos>
+                <dao-impls>${howto.daoImpls}</dao-impls>
+                <spring-configuration>${howto.springConfiguration}</spring-configuration>
+                <services>${howto.services}</services>
+                <service-impls>${howto.serviceImpls}</service-impls>
+                <session-ejbs>${howto.sessionEjbs}</session-ejbs>
+                <exceptions>${howto.exceptions}</exceptions>
+            </properties>
         </dependency>
         <!-- added for the generation of 'howto' code files -->
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties/>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
