@@ -299,11 +299,11 @@
     
     <expression>
         <from>
-            context EntityAssociationEndFacade inv : foreignIdentiifer implies one2One and child and type.associationEnds -> one (foreignIdentifier)
+            context EntityAssociationEndFacade inv : foreignIdentifier implies one2One and child and type.associationEnds -> one (foreignIdentifier)
         </from>
         <to>
             <![CDATA[
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"foreignIdentiifer"))).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"one2One"))).booleanValue():true)&&Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"child"))).booleanValue()&&org.andromda.translation.validation.OCLCollections.one(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"type.associationEnds"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(object,"foreignIdentifier"))).booleanValue();}}));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"foreignIdentifier"))).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"one2One"))).booleanValue():true)&&Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"child"))).booleanValue()&&org.andromda.translation.validation.OCLCollections.one(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"type.associationEnds"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(object,"foreignIdentifier"))).booleanValue();}}));
             ]]>
         </to>
     </expression>
