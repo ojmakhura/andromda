@@ -19,9 +19,6 @@
 					<xs:element ref="from"/>
 					<xs:element ref="to"/>
 				</xs:sequence>
-				<!-- the element that is the context of the expression (it must
-				     be a model found within the test model being used) -->
-				<xs:attribute name="contextType" type="xs:string" use="required"/>
 			</xs:complexType>
 		</xs:element>
 		<!-- the orginial expression we are translating from -->
