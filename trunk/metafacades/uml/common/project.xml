@@ -9,6 +9,10 @@
   		The common UML metafacades.  This is the set of core UML metafacades
   		used to provide access UML meta models. 
   	</description>
+  	<repository>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/metafacades/uml/common</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/metafacades/uml/common</url>
+  	</repository>
 	<dependencies>
     	<dependency>
 	      	<groupId>andromda</groupId>
