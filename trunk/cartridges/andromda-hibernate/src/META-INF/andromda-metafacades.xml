@@ -30,4 +30,8 @@
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
         <property reference="hibernateTypeMappingsUri" default=""/>
     </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
+    </metafacade>
 </metafacades>
