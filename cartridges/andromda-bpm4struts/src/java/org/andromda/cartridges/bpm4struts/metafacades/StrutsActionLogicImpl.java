@@ -308,26 +308,36 @@ public class StrutsActionLogicImpl
         return (value == null) ? "" : value;
     }
 
-    // ------------- relations ------------------
-
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionForwards()
+     */
     protected Collection handleGetActionForwards()
     {
         if (actionForwards == null) initializeCollections();
         return actionForwards;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getDecisionTransitions()
+     */
     protected Collection handleGetDecisionTransitions()
     {
         if (decisionTransitions == null) initializeCollections();
         return decisionTransitions;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionStates()
+     */
     protected Collection handleGetActionStates()
     {
         if (actionStates == null) initializeCollections();
         return actionStates;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionExceptions()
+     */
     protected Collection handleGetActionExceptions()
     {
         final Collection exceptions = new HashSet();
@@ -341,32 +351,41 @@ public class StrutsActionLogicImpl
         return exceptions;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getInput()
+     */
     protected java.lang.Object handleGetInput()
     {
         return getSource();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActivityGraph()
+     */
     protected Object handleGetActivityGraph()
     {
         return getSource().getActivityGraph();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getController()
+     */
     protected Object handleGetController()
     {
         return getActivityGraph().getController();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionTrigger()
+     */
     protected Object handleGetActionTrigger()
     {
-        Object trigger = this.getTrigger();
-        // set the trigger to null if its not an insance of StrutsTrigger
-        if (trigger != null && !StrutsTrigger.class.isAssignableFrom(trigger.getClass()))
-        {
-            trigger = null;
-        }
-        return trigger;
+        return this.getTrigger();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionFormFields()
+     */
     protected Collection handleGetActionFormFields()
     {
         /*
@@ -405,12 +424,18 @@ public class StrutsActionLogicImpl
         return fieldMap.values();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionParameters()
+     */
     protected Collection handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
         return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getNonTabbedActionParameters()
+     */
     protected Collection handleGetNonTabbedActionParameters()
     {
         Collection nonTabbedParameters = new LinkedList();
@@ -428,6 +453,9 @@ public class StrutsActionLogicImpl
         return nonTabbedParameters;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isTabbed()
+     */
     public boolean handleIsTabbed()
     {
         Collection actionParameters = getActionParameters();
@@ -442,16 +470,25 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabCount()
+     */
     public int handleGetTabCount()
     {
         return (isTabbed()) ? getTabMap().keySet().size() : 0;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabName(int)
+     */
     public String handleGetTabName(int tabIndex)
     {
         return String.valueOf(tabIndex + 1);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabIndex()
+     */
     public int handleGetTabIndex()
     {
         final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABINDEX));
@@ -466,6 +503,9 @@ public class StrutsActionLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabMap()
+     */
     public Map handleGetTabMap()
     {
         Map tabMap = new LinkedHashMap();

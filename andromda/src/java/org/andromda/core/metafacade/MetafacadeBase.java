@@ -18,7 +18,6 @@ public class MetafacadeBase
 {
     private Object metaObject;
     protected Logger logger;
-    private boolean hasBeenValidated = false;
 
     public MetafacadeBase(
         Object metaObject,
@@ -57,17 +56,16 @@ public class MetafacadeBase
      * Classes that extend this base class may choose the override this method
      * to check whether it is in a valid state.
      * <p>
-     * In the lifecycle of a model element facade it is validated only once.
+     * Validate is called during metafacade creation by the factory. In the
+     * lifecycle of a metafacade it is validated only once, this is enforced by
+     * the caching within the metafacade factory.
      * 
+     * @see MetafacadeFactory#internalCreateMetafacade(Object, String, Class)
      * @param validationMessages any messages generated during validation.
      */
     public final void validate(Collection validationMessages)
     {
-        if (!this.hasBeenValidated)
-        {
-            this.hasBeenValidated = true;
-            this.validateInvariants(validationMessages);
-        }
+        this.validateInvariants(validationMessages);
     }
 
     /**
@@ -112,7 +110,8 @@ public class MetafacadeBase
             metafacade = MetafacadeFactory.getInstance().createMetafacade(
                 metaObject,
                 this.getContext());
-            // pass the context on to the metafacade created within this metafacade
+            // pass the context on to the metafacade created within this
+            // metafacade
             metafacade.setContext(this.getContext());
         }
         return metafacade;

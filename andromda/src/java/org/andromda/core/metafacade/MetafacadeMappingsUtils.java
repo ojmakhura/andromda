@@ -16,21 +16,18 @@ class MetafacadeMappingsUtils
 
     /**
      * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>metaobjectClass</code>,
-     * <code>suffix</code> is optional.
+     * only argument required is the <code>object</code>,<code>suffix</code>
+     * is optional.
      * 
-     * @param metaobjectClass the begining of the ky
+     * @param object the begining of the key
      * @param suffix the suffix to append
-     * @return String.
+     * @return the constructed key
      */
-    protected static String constructKey(String metaobjectClass, String suffix)
+    protected static String constructKey(Object object, String suffix)
     {
         final String methodName = "MetafacadeMapping.constructKey";
-        ExceptionUtils.checkEmpty(
-            methodName,
-            "metaobjectClass",
-            metaobjectClass);
-        String key = metaobjectClass;
+        ExceptionUtils.checkNull(methodName, "object", object);
+        Object key = object;
         suffix = StringUtils.trimToEmpty(suffix);
         if (StringUtils.isNotEmpty(suffix))
         {
@@ -44,28 +41,30 @@ class MetafacadeMappingsUtils
     }
 
     /**
-     * Appends a context suffix to the <code>string</code>. The context
+     * Appends a context suffix to the <code>object</code>. The context
      * suffix is ':' +<code>suffix</code> argument. If suffix is null or an
-     * empty string, then <code>string</code> will just be returned unchanged.
+     * empty object, then <code>object</code> will just be returned as a
+     * String unchanged.
      * 
      * @param context the context which we'll be appending too.
      * @param suffix the suffix to append.
      * @return the new context name.
      */
-    protected static String appendContext(String string, String context)
+    protected static String appendContext(Object object, String context)
     {
-        ExceptionUtils.checkEmpty(
+        ExceptionUtils.checkNull(
             "MetafacadeMappingsUtils.appendContextSuffix",
-            "string",
-            string);
+            "object",
+            object);
+        String objectAsString = String.valueOf(object);
         if (StringUtils.isNotEmpty(context))
         {
             StringBuffer completeContext = new StringBuffer(StringUtils
-                .trimToEmpty(string));
+                .trimToEmpty(objectAsString));
             completeContext.append(':' + context);
-            string = completeContext.toString();
+            object = completeContext.toString();
         }
-        return string;
+        return String.valueOf(object);
     }
 
 }
