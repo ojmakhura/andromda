@@ -39,6 +39,16 @@
             <timezone>10</timezone>
         </contributor>
     </contributors>
+    <dependencies>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties/>
+        </dependency>
+    </dependencies>
     <reports>
         <report>maven-jxr-plugin</report>
         <report>maven-javadoc-plugin</report>
