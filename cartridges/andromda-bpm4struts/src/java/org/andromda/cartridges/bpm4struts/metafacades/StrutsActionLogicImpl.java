@@ -275,7 +275,8 @@ public class StrutsActionLogicImpl
 
     public String handleGetDocumentationValue()
     {
-        return StringUtilsHelper.toResourceMessage(getDocumentation(""));
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
+        return (value == null) ? "" : value;
     }
 
     // ------------- relations ------------------
