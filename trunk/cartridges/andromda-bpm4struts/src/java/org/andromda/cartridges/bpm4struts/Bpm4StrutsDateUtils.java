@@ -1,11 +1,11 @@
-package org.andromda.core.common;
+package org.andromda.cartridges.bpm4struts;
 
 import org.apache.commons.lang.time.DateUtils;
 
 /**
  * Provides additional methods supporting various date-related features
  */
-public class DateUtilsHelper extends DateUtils
+public class Bpm4StrutsDateUtils extends DateUtils
 {
     // order is important !
     private static final FormatPattern[] JAVA2PERL_FORMAT_PATTERNS =
@@ -15,11 +15,13 @@ public class DateUtilsHelper extends DateUtils
             new FormatPattern("M{4,}","%B"),
             new FormatPattern("M{3}","%b"),
             new FormatPattern("M{1,2}","%m"),
-            new FormatPattern("d{2,}","%d"),
+            new FormatPattern("d{4,}","%A"),
+            new FormatPattern("d{3,}","%a"),
+            new FormatPattern("d{2}","%d"),
             new FormatPattern("d{1}","%e"),
             new FormatPattern("E{4,}","%A"),
             new FormatPattern("E{1,3}","%a"),
-            new FormatPattern("H{2,}","%h"),
+            new FormatPattern("H{2,}","%H"),
             new FormatPattern("H{1}","%k"),
             new FormatPattern("h{2,}","%I"),
             new FormatPattern("h{1}","%l"),
@@ -56,6 +58,24 @@ public class DateUtilsHelper extends DateUtils
         }
 
         return perlFormat;
+    }
+
+    private static final String[] PERL_TIME_FORMATS = new String[] {"%H", "%I", "%k", "%l", "%p", "%P", "%s", "%S"};
+
+    /**
+     * Checks whether a perl formatted date contains information about displaying time.
+     */
+    public static boolean containsTimeFormat(String perlFormat)
+    {
+        boolean containsTimeFormat = false;
+
+        for (int i = 0; i < PERL_TIME_FORMATS.length && !containsTimeFormat; i++)
+        {
+            String timeFormatPattern = PERL_TIME_FORMATS[i];
+            containsTimeFormat = perlFormat.indexOf(timeFormatPattern) > -1;
+        }
+
+        return containsTimeFormat;
     }
 
     private static final class FormatPattern
