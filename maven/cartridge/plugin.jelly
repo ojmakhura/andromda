@@ -28,7 +28,7 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
         <ant:echo>+-------------------------------------------+</ant:echo> 
         
         <ant:taskdef
-            name="andromda"
+            name="andromda-test"
             classname="org.andromda.core.anttasks.AndroMDAGenTask">
             <ant:classpath>		
                 <ant:path refid="andromda.cartridge.classpath"/> 
@@ -36,10 +36,11 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
             </ant:classpath>
         </ant:taskdef>  
         
-        <ant:andromda basedir="${maven.andromda.src.dir}"
-                      includes="${maven.andromda.src.includes}"
-                      lastModifiedCheck="false"
-                      processAllModelPackages="true">
+        <ant:andromda-test 
+            basedir="${maven.andromda.src.dir}"
+            includes="${maven.andromda.src.includes}"
+            lastModifiedCheck="false"
+            processAllModelPackages="true">
                 
             <!-- point the mappings search path to the location of the mappings in this plugin -->      
             <ant:mappingsSearchPath>
@@ -65,7 +66,7 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
                 </j:forEach>           
             </ant:namespace>    	
             
-        </ant:andromda>
+        </ant:andromda-test>
         
         <!-- set the testcase to run -->
         <j:set 
@@ -83,14 +84,14 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
             value="${andromda.cartridge.printreport}"
             scope="parent"/>	
             
-        <j:set var="compareDir" value="${andromda.cartridge.test.dir}/expected"/>
+        <j:set var="expectedDir" value="${andromda.cartridge.test.dir}/expected"/>
         <ant:unzip 
             src="${andromda.cartridge.test.archive}"
-            dest="${compareDir}"/>
+            dest="${expectedDir}"/>
             
         <j:set 
-            var="compare.dir"
-            value="${compareDir}"
+            var="expected.dir"
+            value="${expectedDir}"
             scope="parent"/>
             
         <j:set 
@@ -100,7 +101,7 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
             
         <j:set 
             var="maven.junit.sysproperties"
-            value="compare.dir output.dir"
+            value="expected.dir output.dir"
             scope="parent"/>
             
           <attainGoal name="test:single"/>	      

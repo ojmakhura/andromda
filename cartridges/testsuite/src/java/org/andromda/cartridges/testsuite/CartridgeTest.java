@@ -28,7 +28,7 @@ public class CartridgeTest
      * Points to the directory were the expected files are stored which will be
      * compared to the generated ones.
      */
-    public static final String DRAFT_DIR_PROPERTY = "compare.dir";
+    public static final String DRAFT_DIR_PROPERTY = "expected.dir";
 
     /**
      * Points to the directory were the generated files are located.
