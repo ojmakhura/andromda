@@ -130,13 +130,17 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetAllServices()
     {
+        final Collection services = new HashSet();
         // find all controller dependencies on <<Service>> classes
         final Collection useCases = getAllUseCases();
-        final Collection services = new HashSet();
         for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
         {
             StrutsUseCase useCase = (StrutsUseCase) iterator.next();
-            services.addAll(useCase.getController().getServices());
+            StrutsController controller = useCase.getController();
+            if (controller != null)
+            {
+                services.addAll(controller.getServices());
+            }
         }
         return services;
     }
