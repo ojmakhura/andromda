@@ -17,7 +17,9 @@
           framework - it takes any number of models 
           (usually UML models stored in XMI produced from case-tools) combined with any 
           number of andromda plugins (cartridge and translation-libraries) and produces
-          any number of custom components. 
+          any number of custom components.  You can generate components for any language you want,
+          Java, .Net, HTML, PTP, anything really, you just write (or customize existing) plugins 
+          to support it and you're good to go.  
       </p>
       <p>
         <b>Why would you want to use it?</b>
@@ -47,7 +49,7 @@
       <p>
         AndroMDA reads models into memory making these object models available to its
         plugins.  These plugins define exactly what AndroMDA will and will 
-        NOT generate.  Each plugin is completely customizable to a specific project's needs.
+        NOT generate.  Each plugin is completely customizable to a project's specific needs.
       </p>
       <p>
         You want to see what AndroMDA looks like?
