@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= DATASOURCE DEFINITION ========================= -->
+    
+#if ($stringUtils.isNotBlank($dataSource))
+    <!-- JNDI DataSource for J2EE environments -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName"><value>$dataSource</value></property>
+    </bean>
+#else
+    <!-- Local DataSource that works in any environment -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+#if ($stringUtils.isNotBlank($driver))
+        <property name="driverClassName"><value>$driver</value></property>
+#end
+#if ($stringUtils.isNotBlank($username))
+        <property name="username"><value>$username</value></property>
+#end
+#if ($stringUtils.isNotBlank($password))
+        <property name="password"><value>$password</value></property>
+#end
+#if ($stringUtils.isNotBlank($connectionUrl))
+        <property name="url"><value>$connectionUrl</value></property>
+#end
+    </bean>
+#end
+
+    <!-- ====================== End of DATASOURCE DEFINITION ====================== -->
+
+</beans>

@@ -326,6 +326,18 @@
                 </tr>
                 <tr>
                     <td>
+                        applicationContextDataSource
+                    </td>
+                    <td>
+                        The name/path of the data source application context file
+                        (i.e. some/path/applicationContext-dataSource.xml)
+                    </td>
+                    <td>
+                        No, default is <code>applicationContext-dataSource.xml</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         serverContext
                     </td>
                     <td>

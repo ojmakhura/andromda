@@ -39,8 +39,10 @@
          or not, this allows us to determine whether or not we need to generate
          entity related information -->
     <property reference="daos" default=""/>
-    <!-- default name for the application context xml file -->
+    <!-- default name for the application context file -->
     <property reference="applicationContext" default="applicationContext.xml"/>
+    <!-- default name of the datasource application context file -->
+    <property reference="applicationContextDataSource" default="applicationContext-dataSource.xml"/>
     <!-- default name for the remote services application context xml file (server side) -->
     <property reference="serverContext" default="serverContext.xml"/>
     <!-- default name for the remote services application context xml file (client side) -->
@@ -329,6 +331,20 @@
             </modelElement>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/spring/applicationContext-dataSource.xml.vsl"
+        outputPattern="$applicationContextDataSource"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
     </template>
