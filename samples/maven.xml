@@ -22,31 +22,5 @@
 			</ant:fileset>
 		</ant:delete>
   	</goal> 
-  	
-  	<!-- ==================================================================
-  			 Copies all libraries to the ${maven.repo.local} if the 
-  			 libraries exists.  This is used when building the samples
-  			 from the binary distribution.  This is so nothing is required
-  			 to be downloaded by Maven when building the samples.                                                   
-  		 ================================================================== -->
-  	<preGoal name="install">
-  		<j:set var="libDir" value="${distribution.dir}/lib"/>
-  		<ant:available
-  			property="libsPresent"
-  			file="${libDir}"/>
-  		<j:if test="${libsPresent}">
-  			<ant:copy todir="${maven.repo.local}">
-  				<ant:fileset dir="${libDir}"/>
-  			</ant:copy>
-			<!-- copy over AndroMDA non cartridge components -->
-			<ant:copy todir="${maven.repo.local}/andromda">
-				<ant:fileset dir="${distribution.dir}/andromda"/>
-			</ant:copy>
-			<!-- copy over AndroMDA cartridge components -->
-			<ant:copy todir="${maven.repo.local}/andromda-cartridges">
-				<ant:fileset dir="${distribution.dir}/andromda-cartridges"/>
-			</ant:copy>
-  		</j:if>
-  	</preGoal>
   	  	
 </project>
