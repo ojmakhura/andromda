@@ -81,6 +81,7 @@ public class Cartridge
                     .next();
                 TemplateModelElements templateModelElements = template
                     .getSupportedModeElements();
+                // handle the templates WITH model elements
                 if (templateModelElements != null
                     && !templateModelElements.isEmpty())
                 {
@@ -108,21 +109,26 @@ public class Cartridge
 
                         templateModelElement.setModelElements(metafacades);
                     }
-                    processModelElements(template, context);
+                    this.processWithModelElements(template, context);
+                }
+                else
+                {
+                    // handle any templates WITHOUT model elements.
+                    this.processWithoutModelElements(template);
                 }
             }
             //set the namespace back
             factory.setActiveNamespace(previousNamespace);
         }
     }
-
+    
     /**
      * Processes all <code>modelElements</code> for this template.
      * 
      * @param template the TemplateConfiguration object from which we process.
      * @param context the context for the cartridge
      */
-    protected void processModelElements(
+    protected void processWithModelElements(
         TemplateConfiguration template,
         CodeGenerationContext context)
     {
@@ -246,6 +252,32 @@ public class Cartridge
             }
         }
     }
+    
+    /**
+     * Processes the <code>template</code> without model elements. This is
+     * useful if you need to generate some that is part of your cartridge,
+     * however you only need to use a proprety passed in from a namespace or a
+     * template object defined in your cartridge descriptor.
+     * 
+     * @param template the template to process.
+     */
+    protected void processWithoutModelElements(TemplateConfiguration template)
+    {
+        final String methodName = "Cartridge.processWithoutModelElements";
+        ExceptionUtils.checkNull(methodName, "template", template);
+        Property outletProperty = Namespaces.instance()
+            .findNamespaceProperty(this.getName(), template.getOutlet());
+        if (outletProperty != null && !outletProperty.isIgnore())
+        {
+            Map templateContext = new HashMap();
+            this.processWithTemplate(
+                template,
+                templateContext,
+                outletProperty,
+                null,
+                null);            
+        }
+    }
 
     /**
      * <p>
@@ -255,8 +287,9 @@ public class Cartridge
      * @param template the TemplateConfiguration containing the template sheet
      *        to process.
      * @param templateContext the context to which variables are added and made
-     *        avaialbe to the template engine for processing. This will contain
-     *        any model elements being made avaiable to the template(s).
+     *        available to the template engine for processing. This will contain
+     *        any model elements being made avaiable to the template(s) as well
+     *        as properties/template objects.
      * @param outletProperty the property defining the outlet to which output
      *        will be written.
      * @param modelElementName the name of the model element (if we are
@@ -281,7 +314,7 @@ public class Cartridge
         File outFile = null;
         try
         {
-            // populate the template context will plugin descriptor
+            // populate the template context will cartridge descriptor
             // properties and template objects
             this.populateTemplateContext(templateContext);
 
@@ -333,7 +366,8 @@ public class Cartridge
                         || template.isGenerateEmptyFiles())
                     {
                         OutputUtils.writeStringToFile(outputString, outFile);
-                        AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
+                        AndroMDALogger
+                            .info("Output: '" + outFile.toURI() + "'");
                     }
                     else
                     {
