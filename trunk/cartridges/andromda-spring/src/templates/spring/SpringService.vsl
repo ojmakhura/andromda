@@ -15,9 +15,9 @@ public interface $service.name
 {
 
 #foreach ( $operation in $service.operations )
-	/**
-$operation.getDocumentation("     * ")  	
-	 */
+    /**
+$operation.getDocumentation("    * ")  	
+     */
 #if ($operation.exceptionsPresent)
 #set ($exceptionList = $operation.exceptionList)
 ## If the EJB view type is specified as remote then the business interface

@@ -12,38 +12,38 @@ package ${service.ejbPackageName};
  * @see $service.fullyQualifiedName
  */
 public class $service.ejbImplementationName
-#if($superclass)  
-	extends $superclass.fullyQualifiedEjbName
+#if($superclass)
+    extends $superclass.fullyQualifiedEjbName
 #else
     extends org.springframework.ejb.support.AbstractStatelessSessionBean
 #end
-    implements $service.fullyQualifiedName 
+    implements $service.fullyQualifiedName
 {
 #set ($businessObject = $stringUtils.uncapitalize($service.name))
-	private $service.fullyQualifiedName $businessObject;
+    private $service.fullyQualifiedName $businessObject;
 
 #foreach ( $operation in $service.operations )
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
-	/**
-	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
-	 */
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $signature 
-    	throws $operation.exceptionList 
+    $operation.visibility $returnType.fullyQualifiedName $signature
+        throws $operation.exceptionList
     {
 #else
-    $operation.visibility $returnType.fullyQualifiedName $signature 
+    $operation.visibility $returnType.fullyQualifiedName $signature
     {
 #end
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
-		return this.${businessObject}.${operation.call};    
+        return this.${businessObject}.${operation.call};
 #else
-        this.${businessObject}.${operation.call}; 
-#end 
+        this.${businessObject}.${operation.call};
+#end
     }
-	
+
 #end
     /**
      * Every Spring Session EJB needs to
@@ -52,26 +52,26 @@ public class $service.ejbImplementationName
      *
      * @see org.springframework.ejb.support.AbstractStatelessSessionBean#onEjbCreate()
      */
-	protected void onEjbCreate() 
-	{
-		this.${businessObject} = ($service.fullyQualifiedName)
-		    getBeanFactory().getBean("${businessObject}");
-	}
-	
+    protected void onEjbCreate()
+    {
+        this.${businessObject} = ($service.fullyQualifiedName)
+            getBeanFactory().getBean("${businessObject}");
+        (($service.fullyQualifiedBaseName)this.$businessObject).setSessionContext(super.getSessionContext());
+    }
+
     /**
      * Override default BeanFactoryLocator implementation to
      * provide singleton loading of the application context Bean factory.
      *
      * @see javax.ejb.SessionBeansetSessionContext(javax.ejb.SessionContext)
      */
-    public void setSessionContext(javax.ejb.SessionContext sessionContext) 
+    public void setSessionContext(javax.ejb.SessionContext sessionContext)
     {
         super.setSessionContext(sessionContext);
         super.setBeanFactoryLocator(
             org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance("$beanRefFactory"));
         super.setBeanFactoryLocatorKey("$beanRefFactoryId");
-        (($service.fullyQualifiedBaseName)(this.$businessObject)).setSessionContext(sessionContext);
     }
-    
+
 }
 #end
