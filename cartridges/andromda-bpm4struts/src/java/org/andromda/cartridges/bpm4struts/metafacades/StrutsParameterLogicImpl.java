@@ -613,27 +613,27 @@ public class StrutsParameterLogicImpl
 
     private String getRangeEnd(String format)
     {
-        return getToken(format, 2, 4);
+        return getToken(format, 2, 3);
     }
 
     private String getDateFormat(String format)
     {
-        return (isStrictDateFormat(format)) ? getToken(format, 1, 3) : getToken(format, 0, 2);
+        return (isStrictDateFormat(format)) ? getToken(format, 1, 2) : getToken(format, 0, 1);
     }
 
     private String getMinLengthValue(String format)
     {
-        return getToken(format, 1, 3);
+        return getToken(format, 1, 2);
     }
 
     private String getMaxLengthValue(String format)
     {
-        return getToken(format, 1, 3);
+        return getToken(format, 1, 2);
     }
 
     private String getPatternValue(String format)
     {
-        return getToken(format, 1, 3);
+        return getToken(format, 1, 2);
     }
 
     private String getToken(String string, int index, int limit)
