@@ -125,7 +125,7 @@ Please define the location of your model by setting a value for property "androm
 	<!-- ============================================================================
 		  Generates the initial struture of a Translation-Library
 	     ============================================================================ -->
-	<goal name="translation-library:generate-translation-library"
+	<goal name="translation-library:generate"
 		  description="Generates the initial struture of a Translation-Library"
 		  prereqs="translation-library:validate-generation-params">
 		  
