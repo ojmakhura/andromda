@@ -279,8 +279,8 @@ public class MetafacadeMappings
      * <ul>
      * <li>A single stereotype no context</li>
      * <li>A single stereotype with a context</li>
-     * <li>mappingObject properties no context</li>
-     * <li>mappingObject properties with a context</code>
+     * <li>super metafacade properties no context</li>
+     * <li>super metafacade properties with a context</code>
      * <li>multiple stereotypes no context</li>
      * <li>multiple stereotypes with a context</li>
      * </ul>
