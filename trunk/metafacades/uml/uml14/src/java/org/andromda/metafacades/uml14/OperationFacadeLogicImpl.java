@@ -21,9 +21,7 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 
 /**
- *
  * Metaclass facade implementation.
- *
  */
 public class OperationFacadeLogicImpl
        extends OperationFacadeLogic
@@ -38,7 +36,7 @@ public class OperationFacadeLogicImpl
 
     /**
      * This method is overridden to make sure the parameter name
-     * will result in uncompilable Java code.
+     * will <strong>not</strong> result in uncompilable Java code.
      */
     public String getName()
     {
