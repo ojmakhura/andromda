@@ -1,16 +1,12 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+
+import java.util.*;
 
 
 /**
@@ -330,5 +326,34 @@ public class StrutsUseCaseLogicImpl
         actions.add(getActivityGraph().getFirstAction());
 
         return actions;
+    }
+
+    private Collection pageVariables = null;
+
+    protected Collection handleGetPageVariables()
+    {
+        if (pageVariables == null)
+        {
+            Map pageVariableMap = new HashMap();
+
+            /**
+             * page variables can occur twice or more in the usecase in case their
+             * names are the same for different forms, storing them in a map
+             * solves this issue because those names do not have the action-name prefix
+             */
+            Collection pages = getPages();
+            for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+            {
+                StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+                Collection variables = jsp.getPageVariables();
+                for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
+                {
+                    StrutsParameter variable = (StrutsParameter) variableIterator.next();
+                    pageVariableMap.put(variable.getName(), variable);
+                }
+            }
+            pageVariables = pageVariableMap.values();
+        }
+        return pageVariables;
     }
 }
