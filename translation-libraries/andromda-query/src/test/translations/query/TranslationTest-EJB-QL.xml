@@ -239,4 +239,22 @@
         </to> 
     </expression>
     
+     <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate) 
+            body : 
+                allInstances() -> select( certificate | 
+                   type.concat(code) = certificate.code )
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            SELECT DISTINCT OBJECT(certificate) 
+            FROM MedicalCertificate certificate 
+            WHERE CONCAT(?1, ?2) = certificate.code
+            ]]>          
+        </to> 
+    </expression>
+    
 </translation-test>

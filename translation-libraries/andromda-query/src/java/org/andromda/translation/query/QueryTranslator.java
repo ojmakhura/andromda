@@ -376,9 +376,19 @@ public class QueryTranslator
     public void handleDotOperation(String translation, Object node)
     {
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
-        String primaryExpression = ConcreteSyntaxUtils
+        String firstArgument = ConcreteSyntaxUtils
             .getPrimaryExpression(propertyCallExpression);
-        translation = this.replaceFragment(translation, primaryExpression, 0);
+        List featureCalls = ConcreteSyntaxUtils
+            .getFeatureCalls(propertyCallExpression);
+        String secondArgument = null;
+        if (featureCalls != null && !featureCalls.isEmpty())
+        {
+            secondArgument = ConcreteSyntaxUtils
+                .getParametersAsString((AFeatureCall)featureCalls.iterator()
+                    .next());
+        }
+        translation = this.replaceFragment(translation, firstArgument, 0);
+        translation = this.replaceFragment(translation, secondArgument, 1);
         this.getExpression().appendSpaceToTranslatedExpression();
         this.getExpression().appendToTranslatedExpression(translation);
     }
