@@ -40,7 +40,7 @@ public class $service.testImplementationName
         $instanceDef = ($argument.testTypeName)0;
 #end
 #end
-        this.service.${operation.name}(${operation.argumentNames});
+        this.getService().${operation.name}(${operation.argumentNames});
 		// @todo implement ${service.fullyQualifiedTestName}.${operation.testImplementationSignature}  
 	}
 	
