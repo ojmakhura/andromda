@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.andromda.core.simpleuml.SimpleOOHelper;
+import org.omg.uml.foundation.core.Operation;
 
 /**
  * Script helper for the metaclass decorator cartridge.
@@ -21,35 +22,26 @@ public class MetaScriptHelper extends SimpleOOHelper
 
     /**
      * <p>
-     * Returns a collection of all the methods of a given interface
+     * Returns a Map of all the methods of a given interface
      * and its super-interfaces. Duplicate methods from more than one
      * super-interface are merged into one. Methods from the interface
      * <code>ModelElement</code> are <b>not included</b> since the decorator
      * class is supposed to derive from ModelElementDecorator.
      * </p>
      * 
-     * <p>
-     * The return value implements the interface Collection so that
-     * the script code can iterate over the elements.
-     * </p>
-     * 
      * @param interfaceName the FQCN of the interface
-     * @return a collection of MethodDescriptors
+     * @return a Map of MethodDescriptors
      * @throws ClassNotFoundException
      */
-    public static Collection getMethods(String interfaceName)
+    public static Map getMethodMap(String interfaceName)
         throws ClassNotFoundException
     {
         boolean allowModelElementInterfaces =
             interfaceName.equals(modelElementInterfaceName);
 
-        Collection c =
-            getMethodsInternal(interfaceName, allowModelElementInterfaces)
-                .values();
-        ArrayList result = new ArrayList();
-        result.addAll(c);
-        Collections.sort(result);
-        return result;
+        return getMethodsInternal(
+            interfaceName,
+            allowModelElementInterfaces);
     }
 
     /**
@@ -75,11 +67,10 @@ public class MetaScriptHelper extends SimpleOOHelper
         for (int i = 0; i < methods.length; i++)
         {
             MethodDescriptor mdesc =
-                new MethodDescriptor(methods[i], interfaceName);
-            String decl = mdesc.getDeclaration(false);
+                new JavaMethodDescriptor(methods[i], interfaceName);
             // the HashMap.put() will eliminate duplicate declarations
             // when the same method is declared in more than one interface.
-            result.put(decl, mdesc);
+            result.put(mdesc.getCharacteristicKey(), mdesc);
         }
 
         // add methods from all super-interfaces
@@ -97,4 +88,56 @@ public class MetaScriptHelper extends SimpleOOHelper
 
         return result;
     }
+
+    /**
+     * Excludes a simple getter from the map of all methods of a decorated interface.
+     * 
+     * @param allMethods the methods
+     * @param targetTypeName the target type of the getter
+     * @param fieldName the field that the getter gets
+     * @return the modified map
+     */
+    public static Map excludeSimpleGetter(
+        Map allMethods,
+        String targetTypeName,
+        String fieldName)
+    {
+        SimpleGetterDescriptor sgd =
+            new SimpleGetterDescriptor(targetTypeName, fieldName);
+        allMethods.remove(sgd.getCharacteristicKey());
+        return allMethods;
+    }
+
+    /**
+     * Excludes a method that will be generated from a UML Operation.
+     * 
+     * @param allMethods the methods
+     * @param o the operation to exclude
+     * @return the modified map of methods
+     */
+    public static Map excludeUMLOperation(Map allMethods, Operation o)
+    {
+        UMLOperationDescriptor uod = new UMLOperationDescriptor(o);
+        allMethods.remove(uod.getCharacteristicKey());
+        return allMethods;
+    }
+
+    /**
+     * <p>
+     * Returns a flat, sorted collection of all methods in a Map.
+     * The script code can iterate over that collection.
+     * </p>
+     * @param methods the methods inside a Map
+     * @return a collection of MethodDescriptors
+     * @throws ClassNotFoundException
+     */
+    public static Collection sortMethodsFlat(Map methods)
+        throws ClassNotFoundException
+    {
+        ArrayList result = new ArrayList();
+        result.addAll(methods.values());
+        Collections.sort(result);
+        return result;
+    }
+
 }
