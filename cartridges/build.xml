@@ -38,6 +38,9 @@
             description="Builds core, cartridges, samples and website">
 
         <antcall target="buildCartridge">
+          <param name="cartridge.name" value="andromda-java"/>
+        </antcall>
+        <antcall target="buildCartridge">
           <param name="cartridge.name" value="andromda-ejb"/>
         </antcall>
         <antcall target="buildCartridge">
