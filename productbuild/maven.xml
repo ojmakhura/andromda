@@ -436,7 +436,7 @@
         At the command line do something like this:
 
             maven update-xmi -DxmiToken=oldVersion -DxmiValue=newVersion
-            
+
     -->
     <goal name="update-xmi">
         <j:if test="${!empty xmiToken &amp;&amp; !empty xmiValue}">
@@ -449,7 +449,25 @@
                 </ant:fileset>
             </ant:fileScanner>
             <j:forEach var="model" items="${models.iterator()}">
-                <ant:echo>${model.absolutePath}</ant:echo>
+                <!-- set a few properties for this model -->
+                <j:set var="workingDir" value="${model.parent}"/>
+                <j:set var="xmiName" value="${model.name.replaceAll('.xml.zip','.xml')}"/>
+                <!-- unzip the model to have access to the XMI inside it -->
+                <ant:unzip src="${model}" dest="${workingDir}"/>
+                <!-- replace the occurrences in the XMI file -->
+                <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
+                    <ant:include name="${xmiName}"/>
+                </ant:replace>
+                <!-- zip it up again, only updating the XMI inside the zip, this allows us not to touch
+                     the file when nothing is changed, and it will not remove any other files present
+                     in the zip -->
+                <ant:zip destfile="${model}" update="true">
+                    <ant:fileset dir="${workingDir}">
+                        <ant:include name="${xmiName}"/>
+                    </ant:fileset>
+                </ant:zip>
+                <!-- delete the XMI file, it is not needed anymore -->
+                <ant:delete file="${workingDir}/${xmiName}"/>
             </j:forEach>
         </j:if>
     </goal>
