@@ -8,10 +8,11 @@
 basename=`basename $0`
 if [ $basename != $0 ]; then
    dirname=`dirname $0`
-else
-   dirname=`pwd`
+   cd $dirname
 fi
-cd $dirname 
+# Get absolute directory
+dirname=`pwd`
+
 source set-env.sh
 
 if [ -f pid ];then
