@@ -51,7 +51,13 @@ public class Cartridge
      * Cache for saving previously found model elements.
      */
     private Map elementCache = new HashMap();
-    
+
+    /**
+     * The prefix to look for when determining whether or not to retrieve the
+     * output location from the template engine.
+     */
+    private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
+
     /**
      * Processes all model elements with relevant stereotypes by retrieving the
      * model elements from the model facade contained within the context.
@@ -193,12 +199,12 @@ public class Cartridge
                         // first place all relevant model elements by the
                         // <modelElements/> variable name (if the variable
                         // isn't defined (which is possible, then ignore)
-                        if (StringUtils.isNotBlank(templateModelElements.getVariable()))
+                        if (StringUtils.isNotBlank(templateModelElements
+                            .getVariable()))
                         {
-                            templateContext.put(
-                                templateModelElements.getVariable(),
-                                allModelElements);                            
-                        }                            
+                            templateContext.put(templateModelElements
+                                .getVariable(), allModelElements);
+                        }
 
                         // now place the collections of stereotyped elements
                         // by the given variable names. (skip it the variable
@@ -242,7 +248,7 @@ public class Cartridge
                             null);
                     }
                     else
-                    {                        
+                    {
                         // if outputToSingleFile isn't true, then
                         // we just place the model element with the default
                         // variable defined on the <modelElements/> into the
@@ -352,7 +358,8 @@ public class Cartridge
                 templateContext,
                 output);
 
-            if (template.getOutputPattern().startsWith("$"))
+            if (template.getOutputPattern().startsWith(
+                TEMPLATE_ENGINE_OUTPUT_PREFIX))
             {
                 outFile = outputFileFromTemplateEngineContext(
                     template,
@@ -540,15 +547,15 @@ public class Cartridge
     /**
      * Creates a File object from a variable in a TemplateEngine context.
      * 
-     * @param template the template configuration
+     * @param resource the Cartridge resource.
      * @return outputLocation the location to which the file will be output.
      */
     private File outputFileFromTemplateEngineContext(
-        Template template,
+        Resource resource,
         String outputLocation)
     {
         String fileName = this.getTemplateEngine().getEvaluatedExpression(
-            template.getOutputPattern());
+            resource.getOutputPattern());
         return new File(outputLocation, fileName);
     }
 
