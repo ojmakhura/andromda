@@ -155,7 +155,7 @@ public ${abstractModifier}class $entity.daoBaseName
             throw new IllegalArgumentException(
                 "${entity.name}.remove - 'entities' can not be null");
         }
-        this.getHibernateTemplate().delete(entities);
+        this.getHibernateTemplate().deleteAll(entities);
     }
     
 #end	
