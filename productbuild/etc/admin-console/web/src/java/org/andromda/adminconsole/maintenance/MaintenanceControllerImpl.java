@@ -2,8 +2,10 @@ package org.andromda.adminconsole.maintenance;
 
 import org.andromda.adminconsole.config.AdminConsoleConfigurator;
 import org.andromda.adminconsole.config.xml.ColumnConfiguration;
+import org.andromda.adminconsole.config.xml.TableConfiguration;
 import org.andromda.adminconsole.db.*;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,66 +32,71 @@ public class MaintenanceControllerImpl extends MaintenanceController
 
         Table table = null;
 
-        if (form.getName() == null) // load default table
+        DatabaseLoginSession loginSession = getDatabaseLoginSession(request);
+        List tableNames = metaDataSession.getTableNames();
+
+        if (form.getName() == null)
         {
-            // get the current table
+            // try to reload the current table
             table = metaDataSession.getCurrentTable();
 
             if (table == null)
             {
-                // at least a single table is present, otherwise loadTables() would have throw an exception
-                table = (Table)metaDataSession.getTables().values().iterator().next();
+                // take the first known table (there is at least one otherwise loadTableNames
+                // would have thrown an exception
+                table = loginSession.getDatabase().findTable((String)tableNames.iterator().next());
             }
         }
         else
         {
-            table = (Table)metaDataSession.getTables().get( form.getName() );
+            table = loginSession.getDatabase().findTable(form.getName());
         }
 
         if (table != null)
         {
             metaDataSession.setCurrentTable( table );
-            metaDataSession.setCurrentTableData( table.findAllRows() );
+
+            AdminConsoleConfigurator configurator = loginSession.getConfigurator();
+            TableConfiguration tableConfiguration = configurator.getTableConfiguration(table.getName());
+            metaDataSession.setCurrentTableData( table.findAllRows( tableConfiguration.getMaxListSize() ) );
         }
     }
 
     /**
      * @see org.andromda.adminconsole.maintenance.MaintenanceController#loadTables
      */
-    public final void loadTables(ActionMapping mapping, org.andromda.adminconsole.maintenance.LoadTablesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public void loadTableNames(ActionMapping mapping, LoadTableNamesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         DatabaseLoginSession loginSession = getDatabaseLoginSession(request);
         AdminConsoleConfigurator configurator = loginSession.getConfigurator();
 
+        // create a link to the database
         Database database = DatabaseFactory.create(
                 loginSession.getUrl(), loginSession.getSchema(),
                 loginSession.getUser(), loginSession.getPassword());
 
+        // register this database connection  to the session
+        loginSession.setDatabase(database);
+
         boolean allowUnconfiguredTables = configurator.isUnconfiguredTablesAvailable();
-        List knownTableNames = loginSession.getConfigurator().getKnownTableNames();
+        List knownTableNames = loginSession.getConfigurator().getKnownDatabaseTableNames();
 
-        Table[] tables = database.getTables();
+        List tableNames = Arrays.asList(database.getAllTableNames());
 
-        Map tableMap = new LinkedHashMap();
-        for (int i = 0; i < tables.length; i++)
+        if (allowUnconfiguredTables == false)
         {
-            Table table = tables[i];
-            if (allowUnconfiguredTables || knownTableNames.contains(table.getName()))
-            {
-                tableMap.put(table.getName(), table);
-            }
+            tableNames = new ArrayList(CollectionUtils.intersection(tableNames, knownTableNames));
         }
 
-        Object[] tableNames = tableMap.keySet().toArray();
-        Arrays.sort(tableNames);
+        Collections.sort(tableNames);
 
         MetaDataSession metadataSession = getMetaDataSession(request);
-        metadataSession.setTables( tableMap );
-        metadataSession.setTableNames( Arrays.asList(tableNames) );
+        metadataSession.setTableNames( tableNames );
 
-        if (tableMap.size() > 0)
+        if (tableNames.size() > 0)
         {
-            metadataSession.setCurrentTable( (Table)tableMap.values().iterator().next() );
+            Table currentTable = database.findTable((String)tableNames.get(0));
+            metadataSession.setCurrentTable( currentTable );
         }
         else
         {
@@ -145,8 +152,6 @@ public class MaintenanceControllerImpl extends MaintenanceController
                         String user = value.substring(0, separatorIndex);
                         String url = value.substring(separatorIndex + COOKIE_VALUE_SEPARATOR.length());
 
-                        getDatabaseLoginSession(request).setPreferredUrl(url);
-
                         form.setUser(user);
                         form.setUrl(url);
                     }
@@ -168,7 +173,7 @@ public class MaintenanceControllerImpl extends MaintenanceController
         // the list of rows selected for deletion
         Object[] rowNumbers = form.getSelectedRowsAsArray();
 
-        // was something selected for deletion ?
+        // has something been selected for deletion ?
         if (rowNumbers == null || rowNumbers.length==0)
         {
             return;
@@ -239,7 +244,7 @@ public class MaintenanceControllerImpl extends MaintenanceController
             for (int j = 0; j < tableColumns.length; j++)
             {
                 Column column = tableColumns[j];
-                ColumnConfiguration columnConfiguration = configurator.getConfiguration(column);
+                ColumnConfiguration columnConfiguration = configurator.getColumnConfiguration(table.getName(), column.getName());
 
                 // only record the parameter when it is allowed for update
                 if (columnConfiguration.getUpdateable())
