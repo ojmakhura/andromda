@@ -1,4 +1,4 @@
 ## Define whether Session Ejbs are enabled
 #set ($ejbsEnabled = $stringUtils.isNotBlank($session-ejbs))
 ## Define whether or not daos are enabled
-#set ($daosEnabled = $stringUtils.isNotEmpty($daos))
+#set ($daosEnabled = $stringUtils.isNotBlank($daos))
