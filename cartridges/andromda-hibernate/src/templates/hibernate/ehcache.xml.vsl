@@ -11,7 +11,6 @@
          java.io.tmpdir - Default temp file path -->
     <diskStore path="$hibernateEhCacheDiskStore"/>
 
-
     <!--Default Cache configuration. These will applied to caches programmatically created through
         the CacheManager.
 
@@ -36,17 +35,18 @@
         eternal="false"
         timeToIdleSeconds="120"
         timeToLiveSeconds="120"
-        overflowToDisk="true"
-        />
+        overflowToDisk="true" />
+
 #if($hibernateEnableCache == "true")
 #foreach($entity in $entities)
-    <cache name="$entity.fullyQualifiedEntityImplementationName"
+    <cache 
+        name="$entity.fullyQualifiedEntityImplementationName"
         maxElementsInMemory="$entity.ehCacheMaxElementsInMemory"
         eternal="$entity.ehCacheEternal"
         timeToIdleSeconds="$entity.ehCacheTimeToIdleSeconds"
         timeToLiveSeconds="$entity.ehCacheTimeToLiveSeconds"
-        overflowToDisk="$entity.ehCacheOverflowToDisk"
-        /> 
+        overflowToDisk="$entity.ehCacheOverflowToDisk"/>
+        
 #end
 #end
 </ehcache>
