@@ -119,7 +119,7 @@
     <xs:element name="templateObject">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="property" minOccurs="0"/>
+                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <!-- the name of the templateObject (this is the scripting variable name
                  made available to the template being processed) -->
