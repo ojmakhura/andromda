@@ -168,6 +168,63 @@
                 </p>
             </answer>
         </faq>
+
+        <faq id="authentication">
+            <question>
+                How can I define in the UML model that the form-based authentication
+                is used for bpm4struts applications ?
+            </question>
+            <answer>
+                <p>You don't specify that in the UML model directly</p>
+                <p>
+                    You should consider the bpm4struts cartridge just as an example ,... customization can be done in
+                    the templates .. so you would like to change one of them .. more particular the one called
+                    'StrutsXDocletMergeWebSecurity.vsl', you will understand it when you open it.
+                </p>
+                <p>
+                    Anyway, form based authentication is configured by default, but the security is
+                    disabled by default too .. so you need to enable it.
+                </p>
+                <p>
+                    Using maven you will need to open up /your-project/mda/project.xml and in the bpm4struts
+                    namespace set 'securityEnabled' to true.
+                    <source>
+                        &lt;properties&gt;
+                            &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
+                            &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
+                            &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
+                            &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
+                            &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
+                            &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
+                            &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
+                            &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
+                            &lt;securityEnabled&gt;false&lt;/securityEnabled&gt;    &lt;---- set to true to enable security
+                            &lt;securityRealm&gt;other&lt;/securityRealm&gt;
+                        &lt;/properties&gt;
+                    </source>
+                </p>
+                <p>
+                    Using the Ant build it is a property in the
+                    MDA build.xml script.
+                    <source>
+                        &lt;property name="securityEnabled" value="false"/&gt;    &lt;---- set to true to enable security
+                        &lt;property name="securityRealm" value="other"/&gt;
+                        &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
+                        &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
+                        &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
+                        &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                        &lt;property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/&gt;
+                    </source>
+                </p>
+                <p>
+                    Security is disabled by default because it requires you to configure your
+                    container too (i.e. users/roles).
+                </p>
+            </answer>
+        </faq>
     </part>
 
     <part id="other">
@@ -194,6 +251,96 @@
                 </p>
             </answer>
         </faq>
+
+        <faq id="xmlc">
+            <question>
+                If you use JSP, TagLibs, it could be worth it to use the UML modelling as you cannot directly "run"
+                the JSP pages as they are within the web browser (especially if you put Java codes in your
+                JSP files ;-)). You always need to run the web container to see the flow, etc.
+                <br/>
+                But if you use XMLC (you just put "id" on the part you want to change in the runtime), you can have
+                the flow, look&amp;feel, sample data, etc. directly without needing to run the web container.
+                So you just build the HTML files, add the flow directly as they would work within the web
+                container. You can directly show the "story board" to your customer without any implementation and
+                any web container, just use web browser ;-) Very easy. In this case it's not worth it, IMO,
+                to use the flow modelling (activity diagram) in UML, as the story board
+                would be a lot more easier to understand for the customer.
+                <br/>
+                I agree that the class diagram (structure) is always good to use, also for the presentation layer,
+                as we can model the structure of the servlet part. But this would be already the PSM and not PIM anymore.
+            </question>
+            <answer>
+                <p>
+                    The bpm4struts cartridge for AndroMDA has mainly been created out of a general discomfort with
+                    working with JSP/Servlets or even Struts directly. The problem was that I would find myself
+                    spending too much time on details related to the underlying technology, rather than on the
+                    core business of the application.
+                </p>
+                <p>
+                    More concretely:
+                    <ol>
+                        <li>
+                            Client-side/server-side input validation:
+                            Changing the type of a field, or adding a new one, would require me to update code
+                            at several locations. Granted, XDoclet can solve this problem.
+                        </li>
+                        <li>
+                            Exception handling:
+                            It's a known problem, and I was not unaffected by it neither. Exceptions are
+                            underestimated and therefore mostly added too late, which can be hard to do.
+                            I would like to have a default behavior in pages: "whenever something goes wrong,
+                            go back the previous page and display the error message". If you change the page
+                            flow often you'll find yourself updating struts-config.xml all the times.
+                        </li>
+                        <li>
+                            Page flow transition (actions &lt;--&gt; pages):
+                            Error prone, although struts-config.xml is pretty clear and straightforward it is
+                            too easy to make a mistake. Repositioning transitions can be a nightmare if your
+                            pages rely on the parameters in your requests etc... you get the picture. Before
+                            you know it people are starting to put stuff in the 'session' (UGH).
+                        </li>
+                        <li>
+                            Security:
+                            I wanted a way to bundle resources together in web.xml, but I am too lazy to keep
+                            updating that file all the time.
+                        </li>
+                        <li>
+                            I18N Resources:
+                            Or you lock your application into a single language, or you take the time to use the i18n
+                            features available. But in doing so you'll need to maintain a bundle for each language,
+                            wouldn't it be nice if the file would be created for you (at least in one language) ?
+                            <p/>
+                            ... I guess there is more, but you get the picture ...
+                            <p/>
+                            Anyway, I chose Struts as a presentation layer, so subsequently I wrote an
+                            AndroMDA cartridge for Struts. There's no magic involved, the cartridge only
+                            takes over those tasks that are too boring and I was too lazy to do myself,
+                            this allows me to keep focus on what the application should be doing, not
+                            on how it should be doing it.
+                            <p/>
+                            If I understand correctly you build static pages using XMLC, for a POC. This is perhaps
+                            very interesting for short demos and presentations, but it is not the target of
+                            bpm4struts, as you briefly pointed out. I aimed for stable and production-ready
+                            dynamic web pages, I hope there will be enough users to give it a try,
+                            that way I am sure we'll get there eventually.
+                            <p/>
+                            Mind you, with QvT coming (soon?) we would have a standardized way of modeling our tiers,
+                            this would allow to generate different presentation layers using a single UML model. For
+                            now you would simply need to write a cartridge for WebWork/Swing/.Net/... and you
+                            could generate your code for that specific technology - still from the same UML.
+                            <p/>
+                            With bpm4struts you do not model for a specific technology, it is just that the cartridge
+                            outputs Struts code. You could easily share the model with a bpm4swing cartridge and have
+                            it generate Java Swing code.
+                            <p/>
+                            And you're right of course, everything has its own domain on which it is applicable,
+                            I am sure other technologies such as XMLC are better suited for specific tasks.
+                        </li>
+                    </ol>
+                </p>
+            </answer>
+        </faq>
     </part>
 
 </faqs>
+
