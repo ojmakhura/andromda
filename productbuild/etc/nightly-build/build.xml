@@ -1,4 +1,4 @@
-<project name="nightly-build" default="all" basedir=".">
+<project name="nightly-build" default="dist" basedir=".">
     
     <description>
         This build script can be used by a scheduled task such as Crontab
@@ -29,6 +29,8 @@
     <property environment="env"/>
     <property name="build.log" value="build-${build.today}.log"/>
     <property name="build.log.zip" value="${build.log}.zip"/>
+    <property name="build.docs.log" value="build-docs-${build.today}.log"/>
+    <property name="build.docs.log.zip" value="${build.docs.log}.zip"/>
     
     <!-- this initialization step is always required -->
     <target name="init">
@@ -58,7 +60,7 @@
     </target>
     
     <!-- builds the codebase using maven, the output is zipped -->
-    <target name="build">
+    <target name="build-dist">
         <exec executable="${maven.exe}"
               dir="${working.dir}/${cvs.module}"
               output="${build.log}"
@@ -66,7 +68,25 @@
             <arg value="dist"/>
         	<arg value="-e"/>
         </exec>
-        <zip destfile="${build.log.zip}" basedir="${basedir}" includes="${build.log}" filesonly="true"/>
+        <zip destfile="${build.log.zip}" 
+			 basedir="${basedir}" 
+			 includes="${build.log}" 
+			 filesonly="true"/>
+    </target>
+	
+    <!-- builds the docs using maven, the output is zipped -->
+    <target name="build-docs">
+        <exec executable="${maven.exe}"
+              dir="${working.dir}/${cvs.module}"
+              output="${build.log}"
+              errorproperty="build.errorcode">
+			<arg value="docs"/>
+        	<arg value="-e"/>
+        </exec>
+        <zip destfile="${build.docs.log.zip}" 
+			 basedir="${basedir}" 
+			 includes="${build.docs.slog}" 
+			 filesonly="true"/>
     </target>
     
     <!-- publishes the documentation online -->
@@ -116,6 +136,9 @@
     </target>
     
     <!-- checks out a new build, builds it, publishes and mails -->
-    <target name="all" depends="init,clean,checkout,build,copy-docs,copy-artifacts,mail-success,mail-failure"/>
+    <target name="dist" depends="init,clean,checkout,build-dist,mail-failure"/>
     
+    <!-- builds the docs, publishes and mails -->
+    <target name="docs" depends="build-docs,copy-artifacts,copy-docs,mail-success,mail-failure"/>
+	
 </project>
