@@ -145,34 +145,49 @@
 					elements.
 				</p>
 				<source><![CDATA[
-<andromda modelURL="jar:file:/path/to/my/model.zuml!/model.xmi"> 
-	<modelPackage name="my.package.foo" shouldProcess="false"/> 
-	<namespace name="default" ignore="false"> 
-		<property name="languageMappingsUri" value="file:${basedir}/JavaMappings.xml"/> 
-	</namespace> 
-	<namespace name="hibernate" ignore="false"> 
-		<property name="jdbcMappingsUri" value="file:${basedir}/JdbcMappings.xml"/> 
-		<property name="sqlMappingsUri" value="file:${basedir}/HypersonicSqlMappings.xml"/> 
-		<property name="foreignKeySuffix" value="_FK"/> 
-		<property name="maxSqlNameLength" value="30"/> 
-		<property name="entities"      value="${gen.src.dir}" ignore="false"/> 
-		<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/> 
-		<property name="session-beans" value="${gen.src.dir}" ignore="true"/> 
-		<property name="session-impls" value="${gen.src.dir}" ignore="true"/> 
-	</namespace> 
-	<namespace name="bpm4struts" ignore="false"> 
+<taskdef name="andromda"
+         classname="org.andromda.core.anttasks.AndroMDAGenTask"
+         classpathref="class.path"/>
+
+<andromda modelURL="jar:file:/path/to/my/model.zuml!/model.xmi">
+    <!-- This example package will not be processed -->
+	<modelPackage name="my.package.foo" shouldProcess="false"/>
+    <!-- This file tells AndroMDA how to map abstract datatypes to classes -->
+	<namespace name="default" ignore="false">
+		<property name="languageMappingsUri" value="file:${basedir}/JavaMappings.xml"/>
+	</namespace>
+    <!-- This will generate the Hibernate code -->
+	<namespace name="hibernate" ignore="false">
+		<property name="jdbcMappingsUri" value="file:${basedir}/JdbcMappings.xml"/>
+		<property name="sqlMappingsUri" value="file:${basedir}/HypersonicSqlMappings.xml"/>
+		<property name="foreignKeySuffix" value="_FK"/>
+		<property name="maxSqlNameLength" value="30"/>
+		<property name="entities"      value="${gen.src.dir}" ignore="false"/>
+		<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/>
+		<property name="session-beans" value="${gen.src.dir}" ignore="true"/>
+		<property name="session-impls" value="${gen.src.dir}" ignore="true"/>
+	</namespace>
+    <!-- This will generate the EJB code -->
+	<namespace name="ejb" ignore="false">
+		<property name="entities"      value="${gen.src.dir}" ignore="false"/>
+		<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/>
+		<property name="session-beans" value="${gen.src.dir}" ignore="true"/>
+		<property name="session-impls" value="${gen.src.dir}" ignore="true"/>
+	</namespace>
+    <!-- This will generate the Bpm4Struts code -->
+	<namespace name="bpm4struts" ignore="false">
 		<property name="securityEnabled" value="false"/>
-		<property name="securityRealm" value="other"/> 
+		<property name="securityRealm" value="other"/>
 		<property name="pages" value="${gen.src.dir}"/>
-		<property name="forms" value="${gen.src.dir}"/> 
-		<property name="actions" value="${gen.src.dir}"/> 
-		<property name="controllers" value="${gen.src.dir}"/> 
-		<property name="controller-impls" value="${gen.src.dir}"/> 
-		<property name="messages" value="${gen.src.dir}"/> 
-		<property name="validation" value="${gen.src.dir}"/> 
-		<property name="xdoclet-merge" value="${merge.src.dir}"/> 
-	</namespace> 
-</andromda3> 
+		<property name="forms" value="${gen.src.dir}"/>
+		<property name="actions" value="${gen.src.dir}"/>
+		<property name="controllers" value="${gen.src.dir}"/>
+		<property name="controller-impls" value="${gen.src.dir}"/>
+		<property name="messages" value="${gen.src.dir}"/>
+		<property name="validation" value="${gen.src.dir}"/>
+		<property name="xdoclet-merge" value="${merge.src.dir}"/>
+	</namespace>
+</andromda>
 				]]></source>
 			<h2>
 				<a name="modelPackage"><![CDATA[<modelPackage>]]></a>
