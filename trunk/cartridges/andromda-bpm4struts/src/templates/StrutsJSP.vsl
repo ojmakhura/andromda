@@ -221,7 +221,9 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
         <html:base/>
         <script type="text/javascript" src="<html:rewrite page="/form-validation.jsp"/>"></script>
 #foreach ($action in $actions)
+#if ($action.requiresValidation())
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
+#end
 #end
     </head>
 
@@ -281,16 +283,15 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 #set ($firstFieldName = false)
 #end
 ## ----END---- it has been determined how to specify the focus field
-#if ($actionParameters.isEmpty())
-#set ($onsubmit = "")
+#if ($action.requiresValidation())
+#set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #else
 #set ($onsubmit = "")
-## TEMPORARILY DISABLED FOR DEVELOPMENT PURPOSES: set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #end
 #if ($firstFieldName)
         <html:form action="${action.actionPath}.do" focus="$firstFieldName" onsubmit="$onsubmit">
 #else
-        <html:form action="${action.actionPath}.do" onsubmit="$action.formValidationMethodName" onsubmit="$onsubmit">
+        <html:form action="${action.actionPath}.do" onsubmit="$onsubmit">
 #end
 
 #foreach ($field in $actionParameters)
