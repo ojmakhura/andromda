@@ -1,1 +1,0 @@
-This is the place where repository implementations will be stored (i.e. MDR, EMF, etc).

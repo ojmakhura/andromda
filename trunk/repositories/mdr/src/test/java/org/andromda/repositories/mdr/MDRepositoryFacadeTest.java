@@ -1,98 +1,72 @@
 package org.andromda.repositories.mdr;
 
-import java.io.IOException;
 import java.net.URL;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.repository.RepositoryFacadeException;
+import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 
 /**
- * @author amowers
- *
+ * Implements the JUnit test suite for
+ * <code>org.andromda.repositories.MDRepositoryFacade</code>.
  * 
+ * @author <A HREF="httplo://www.amowers.com">Anthony Mowers </A>
+ * @author Chad Brandon
  */
-public class MDRepositoryFacadeTest extends TestCase
+public class MDRepositoryFacadeTest
+    extends TestCase
 {
-	private URL modelURL = null;
-	private MDRepositoryFacade repository = null;
 
-	/**
-	 * Constructor for MDRepositoryFacadeTest.
-	 * @param arg0
-	 */
-	public MDRepositoryFacadeTest(String arg0)
-	{
-		super(arg0);
-	}
+    private static final Logger logger = 
+        Logger.getLogger(MDRepositoryFacadeTest.class);
+    private URL modelURL = null;
+    private MDRepositoryFacade repository = null;
 
-	/**
-	 * @see TestCase#setUp()
-	 */
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		if (modelURL == null)
-		{
-			modelURL = TestModel.MODEL_URI;
-			repository = new MDRepositoryFacade();
-		}
+    /**
+     * Constructor for MDRepositoryFacadeTest.
+     * 
+     * @param arg0
+     */
+    public MDRepositoryFacadeTest(
+        String arg0)
+    {
+        super(arg0);
+    }
 
-	}
+    /**
+     * @see TestCase#setUp()
+     */
+    protected void setUp() throws Exception
+    {
+        super.setUp();
+        if (modelURL == null)
+        {
+            this.modelURL = TestModel.getModel();
+            if (logger.isInfoEnabled())
+                logger.info("found model --> '" + modelURL + "'");
+            repository = new MDRepositoryFacade();
+        }
 
-	public void testReadModel()
-	{
-		try
-		{
-			repository.readModel(modelURL, null);
-		}
-		catch (IOException ioe)
-		{
-			assertNull(ioe.getMessage(), ioe);
-		}
-		catch (RepositoryFacadeException rre)
-		{
-			assertNull(rre.getMessage(), rre);
-		}
-	}
+    }
 
-	public void testGetLastModified()
-	{
-		try
-		{
-			repository.readModel(modelURL, null);
-			assertEquals(
-				modelURL.openConnection().getLastModified(),
-				repository.getLastModified());
-		}
-		catch (IOException ioe)
-		{
-			assertNull(ioe.getMessage(), ioe);
-		}
-		catch (RepositoryFacadeException rre)
-		{
-			assertNull(rre.getMessage(), rre);
-		}
+    public void testReadModel()
+    {
+        repository.readModel(modelURL, null);
+    }
 
-	}
+    public void testGetLastModified() throws Exception
+    {
+        repository.readModel(modelURL, null);
+        assertEquals(modelURL.openConnection().getLastModified(), repository
+            .getLastModified());
+    }
 
-	public void testGetModel()
-	{
-
-		try
-		{
-			repository.readModel(modelURL, null);
-			assertTrue(repository.getModel().getModel() instanceof UmlPackage);
-		}
-		catch (IOException ioe)
-		{
-			assertNull(ioe.getMessage(), ioe);
-		}
-		catch (RepositoryFacadeException rre)
-		{
-			assertNull(rre.getMessage(), rre);
-		}
-	}
+    public void testGetModel()
+    {
+        assertNotNull(repository.getModel());
+        assertNotNull(repository.getModel().getModel());
+        assertTrue(repository.getModel().getModel() instanceof UmlPackage);
+    }
 
 }

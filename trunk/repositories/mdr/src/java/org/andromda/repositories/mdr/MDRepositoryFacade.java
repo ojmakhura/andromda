@@ -27,6 +27,7 @@ import org.netbeans.api.xmi.XMIReaderFactory;
  * <a href="http://mdr.netbeans.org">NetBeans MetaDataRepository</a>.
  *
  * @author <A HREF="httplo://www.amowers.com">Anthony Mowers</A>
+ * @author Chad Brandon
  */
 public class MDRepositoryFacade implements RepositoryFacade
 {	
@@ -98,7 +99,6 @@ public class MDRepositoryFacade implements RepositoryFacade
      * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
      */
     public void readModel(URL modelURL, String[] moduleSearchPath)
-        throws RepositoryFacadeException, IOException
     {
         final String methodName = "MDRepositoryFacade.readModel";
         ExceptionUtils.checkNull(methodName, "modelURL", modelURL);
@@ -117,17 +117,10 @@ public class MDRepositoryFacade implements RepositoryFacade
 
             this.model = loadModel(modelURL, moduleSearchPath, metaModel, repository);
         }
-        catch (CreationFailedException cfe)
+        catch (Throwable th) 
         {
-            throw new RepositoryFacadeException(
-                "unable to create metadata repository",
-                cfe);
-        }
-        catch (MalformedXMIException mxe)
-        {
-            throw new RepositoryFacadeException("malformed XMI data", mxe);
-        }
-        finally {
+            String errMsg = "Error performing " + methodName;
+            throw new RepositoryFacadeException(errMsg, th);
         }
 
         if (logger.isDebugEnabled())
@@ -162,15 +155,19 @@ public class MDRepositoryFacade implements RepositoryFacade
     {
         if (this.modelFacade == null) 
         {
-            try {
-                
+            try {    
             	this.modelFacade = 
                     (ModelAccessFacade)
-            	        ComponentContainer.instance().findComponent(
-            	            ModelAccessFacade.class);
+        	        ComponentContainer.instance().findComponent(
+        	            ModelAccessFacade.class);
+                if (this.modelFacade == null) {
+                    throw new RepositoryFacadeException(
+                        "Could not find implementation for the component --> '" 
+                        + ModelAccessFacade.class + "'");
+                }
             	this.modelFacade.setModel(this.model);
             } catch (Throwable th) {
-            	String errMsg = "Error performing getModel";
+            	String errMsg = "Error performing MDRepositoryFacade.getModel";
                 logger.error(errMsg, th);
                 throw new RepositoryFacadeException(errMsg, th);
             }
@@ -181,12 +178,12 @@ public class MDRepositoryFacade implements RepositoryFacade
     /**
      * Loads a metamodel into the repository.
      *
-     *@param  repository   MetaDataRepository
-     *@return MofPackage for newly loaded metamodel
+     * @param  repository   MetaDataRepository
+     * @return MofPackage for newly loaded metamodel
      *
-     *@exception  CreationFailedException
-     *@exception  IOException
-     *@exception  MalformedXMIException
+     * @exception  CreationFailedException
+     * @exception  IOException
+     * @exception  MalformedXMIException
      */
     private static MofPackage loadMetaModel(
         URL metaModelURL,
@@ -236,15 +233,13 @@ public class MDRepositoryFacade implements RepositoryFacade
      *@return  populated model
      *
      *@exception  CreationFailedException unable to create model in repository
-     *@exception  IOException  unable to read model
-     *@exception  MalformedXMIException model violates metamodel
      */
     private static RefPackage loadModel(
         URL modelURL,
         String[] moduleSearchPath,
         MofPackage metaModel,
         MDRepository repository)
-        throws CreationFailedException, IOException
+        throws CreationFailedException
     {
     	if (logger.isDebugEnabled())
     		logger.debug("creating model");
@@ -277,15 +272,14 @@ public class MDRepositoryFacade implements RepositoryFacade
         {
             xmiReader.read(modelURL.toExternalForm(), model);
         }
-        catch (Exception e)
+        catch (Throwable th)
         {
-            e.printStackTrace();
-            throw new IOException("could not read XMI");
+            String errMsg = "Error performing MDRepository.loadModel";
+            logger.error(errMsg, th);
+            throw new RepositoryFacadeException(errMsg, th);
         }
         if (logger.isDebugEnabled()) 
-        	logger.debug("reads XMI");
-        if (logger.isDebugEnabled())
-        	logger.debug("created model");
+        	logger.debug("read XMI and created model");
         return model;
     }
 

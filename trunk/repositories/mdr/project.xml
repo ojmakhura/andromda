@@ -12,11 +12,6 @@
   	</description>
   	<package>org.andromda.repositories.mdr.*</package>
 	<dependencies>
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-core</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	    </dependency>
 	    <dependency>
 	      	<groupId>commons-lang</groupId>
 	      	<artifactId>commons-lang</artifactId>
