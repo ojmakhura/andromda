@@ -328,7 +328,13 @@ public class StrutsActionLogicImpl
 
     protected Object handleGetActionTrigger()
     {
-        return getTrigger();
+        Object trigger = this.getTrigger();
+        // set the trigger to null if its not an insance of StrutsTrigger
+        if (trigger != null && !StrutsTrigger.class.isAssignableFrom(trigger.getClass()))
+        {
+            trigger = null;
+        }
+        return trigger;
     }
 
     protected Collection handleGetActionFormFields()
