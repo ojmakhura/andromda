@@ -30,16 +30,25 @@ public class ColumnImpl extends DatabaseObject implements Column
         this.loadMetaData();
     }
 
+    /**
+     * Convenient accessor to the catalog.
+     */
     protected String getCatalog()
     {
         return getTable().getDatabase().getCatalog();
     }
 
+    /**
+     * Convenient accessor to the schema.
+     */
     protected String getSchema()
     {
         return getTable().getDatabase().getSchema();
     }
 
+    /**
+     * Convenient accessor to the databse metadata.
+     */
     protected DatabaseMetaData getMetaData()
     {
         return getTable().getDatabase().getMetaData();
@@ -115,6 +124,9 @@ public class ColumnImpl extends DatabaseObject implements Column
         return this instanceof PrimaryKeyColumn;
     }
 
+    /**
+     * Loads the metadata information for this column
+     */
     private void loadMetaData()
     {
         try
@@ -126,65 +138,15 @@ public class ColumnImpl extends DatabaseObject implements Column
             {
                 resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table.getName(), name);
                 if (resultSet.next())
+                {
                     type = toJavaType(resultSet.getInt("DATA_TYPE"));
-                else
-                    throw new RuntimeException("Unable to retrieve column type: " + name);
-            }
-            finally
-            {
-                close(resultSet);
-            }
-
-            // REMARKS
-            try
-            {
-                resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table.getName(), name);
-                if (resultSet.next())
                     remarks = resultSet.getString("REMARKS");
-                else
-                    throw new RuntimeException("Unable to retrieve column remarks: " + name);
-            }
-            finally
-            {
-                close(resultSet);
-            }
-
-            // ORDINAL POSITION
-            try
-            {
-                resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table.getName(), name);
-                if (resultSet.next())
-                    ordinalPosition = resultSet.getInt("ORDINAL_POSITION");
-                else
-                    throw new RuntimeException("Unable to retrieve column ordinal position: " + name);
-            }
-            finally
-            {
-                close(resultSet);
-            }
-
-            // SIZE
-            try
-            {
-                ResultSet columnSet = getMetaData().getColumns(getCatalog(), getSchema(), table.getName(), name);
-                if (columnSet.next())
-                    size = columnSet.getInt("COLUMN_SIZE");
-                else
-                    throw new RuntimeException("Unable to retrieve column size: " + name);
-            }
-            finally
-            {
-                close(resultSet);
-            }
-
-            // NULLABLE
-            try
-            {
-                resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table.getName(), name);
-                if (resultSet.next())
+                    ordinalPosition = resultSet.getInt("ORDINAL_POSITION") - 1;
+                    size = resultSet.getInt("COLUMN_SIZE");
                     nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+                }
                 else
-                    throw new RuntimeException("Unable to retrieve column nullable: " + name);
+                    throw new RuntimeException("Unable to retrieve column metadata: " + name);
             }
             finally
             {
@@ -197,6 +159,9 @@ public class ColumnImpl extends DatabaseObject implements Column
         }
     }
 
+    /**
+     * Converts an SQL type to a Java class
+     */
     protected Class toJavaType(int type)
     {
         switch (type)
