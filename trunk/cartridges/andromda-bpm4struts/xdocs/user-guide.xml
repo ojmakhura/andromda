@@ -13,7 +13,7 @@
         <section name="Abstract">
             <p class="abstract">
                 This page is a user guide to the bpm4struts cartridge, here you will find information on specific
-                modelling features. If you are looking for a place describing what you need to do with your
+                modeling features. If you are looking for a place describing what you need to do with your
                 UML tool in order to model an application for bpm4struts you should read on.
             </p>
         </section>
@@ -46,7 +46,7 @@
                 Actors may generalize eachother, making it possible to combine several roles into a single one.
             </p>
             <p class="std">
-                Modelling actors will activate security in the generated application, an actor is only
+                Modeling actors will activate security in the generated application, an actor is only
                 authorized to request those pages and actions belonging to the use-case he has been associated with.
             </p>
             <h3>Use-Cases</h3>
@@ -152,60 +152,6 @@
             <p class="std">
                 This way you can immediately see where you are in the use-case but also in the
                 implementation. See the samples for more details.
-            </p>
-        </section>
-
-        <section name="Stereotypes">
-            <p class="std">
-                Most of the model elements will require a stereotype to be processed correctly, below you will find
-                 a table indicating on which model element you may put what stereotype, it will also
-                 denote which effect this has on the generation process.
-            </p>
-            <p class="std">
-                <blockquote>
-                    <table cellpadding="5" rules="all">
-                        <tr>
-                            <th>Stereotype</th>
-                            <th>Model element</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr>
-                            <td>FrontEndController</td>
-                            <td>Class</td>
-                            <td>Assigns to class to be responsible of handling the business logic, it is called by the actions.</td>
-                        </tr>
-                        <tr>
-                            <td>FrontEndApplication</td>
-                            <td>UseCase</td>
-                            <td>This use-case is the application's starting point, you will also need the FrontEndUseCase here</td>
-                        </tr>
-                        <tr>
-                            <td>FrontEndUseCase</td>
-                            <td>UseCase</td>
-                            <td>A use-case that participates in the front-end processes</td>
-                        </tr>
-                        <tr>
-                            <td>FrontEndUser</td>
-                            <td>Actor</td>
-                            <td>A user that is granted access to the associated use-cases</td>
-                        </tr>
-                        <tr>
-                            <td>FrontEndView</td>
-                            <td>Action State</td>
-                            <td>Designates a JSP page</td>
-                        </tr>
-                        <tr>
-                            <td>FrontEndEvent</td>
-                            <td>Transition</td>
-                            <td>Designates an action that may occur on a JSP page, must go out of an initial state or a JSP page</td>
-                        </tr>
-                        <tr>
-                            <td>FrontEndException</td>
-                            <td>Transition</td>
-                            <td>Designates an exception occuring while processing an action, goes out of an action state and into a JSP page</td>
-                        </tr>
-                    </table>
-                </blockquote>
             </p>
         </section>
 
@@ -340,12 +286,12 @@
                 </blockquote>
             </p>
             <p class="std">
-                (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please 
+                (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please
                 refer to the JavaDoc documentation of that class for more information, this format is case-sensitive
                 <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html">
                 SimpleDateFormat JavaDoc</a>
-                <br/>                
-                (**) The pattern expression is a Perl regular expression as you would you use in Javascript, 
+                <br/>
+                (**) The pattern expression is a Perl regular expression as you would you use in Javascript,
                 by convention it requires the ^ and $ to denote respectively the beginning and ending of the pattern
                 <a href="http://devedge.netscape.com/library/manuals/2000/javascript/1.5/guide/regexp.html#1010689">
                 Netscape's guide to regular expressions in Javascript</a>
