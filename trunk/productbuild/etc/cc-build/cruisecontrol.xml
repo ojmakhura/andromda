@@ -41,20 +41,20 @@
            buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all"
 	   spamwhilebroken="true"
            subjectprefix="[BUILD]" 
-           returnaddress="cwbrandon@users.sourceforge.net" 
+           returnaddress="chad@andromda.org" 
            defaultsuffix="@users.sourceforge.net" 
            xslfile="/var/andromda-build/andromda-all/etc/cc-build/xsl/andromda.xsl">
-        <map address="mbohlen@mbohlen.de" alias="mattes3">
+        <map address="matthias@andromda.org" alias="mattes3">
         </map>
-        <map address="chad.brandon@gmail.com" alias="cwbrandon">
+        <map address="chad@andromda.org" alias="cwbrandon">
         </map>
-        <map address="wouter.zoons@coditel.net" alias="draftdog">
+        <map address="wouter@andromda.org" alias="draftdog">
         </map>
-        <map address="westam@dsl.pipex.com" alias="amartinwest">
+        <map address="martin@andromda.org" alias="amartinwest">
         </map>
-        <map address="carlos@cuenca-diaz.com" alias="carloslcuenca"/>
-        <failure address="chad.brandon@gmail.com"/>
-        <always address="westam@dsl.pipex.com"/>
+        <map address="carlos@andromda.org" alias="carloslcuenca"/>
+        <failure address="chad@andromda.org"/>
+        <always address="martin@andromda.org"/>
       </htmlemail>
     </publishers>
   </project>
