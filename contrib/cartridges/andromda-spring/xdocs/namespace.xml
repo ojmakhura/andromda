@@ -302,6 +302,18 @@
                             No, default is <code>native</code>.
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            hibernateDefaultCascade
+                        </td>
+                        <td>
+                            The value of the <code>default-cascade</code>
+                            attribute of the hibernate entity XML mapping.
+                        </td>
+                        <td>
+                            No, default is <code>none</code>.
+                        </td>
+                    </tr>
 					<tr>
 						<td>
 							hibernatePoolSize
