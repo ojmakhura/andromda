@@ -235,5 +235,36 @@ public class AssociationEndFacadeLogicImpl
         // if single element, then return the type
         return getOtherEnd().getType().getFullyQualifiedName();
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
+     */
+    public boolean isRequired() {
+		int lower = this.getMultiplicityRangeLower();
+		return lower >= 1;
+    }
+    
+    /**
+     * Returns the lower range of the multiplicty for the 
+     * passed in associationEnd
+     * @return int the lower range of the multiplicty or null if
+     *         it can't be retrieved
+     */
+    private int getMultiplicityRangeLower() {
+    	int lower = 1;
+    	Multiplicity multiplicity = this.metaObject.getMultiplicity();
+    	if (multiplicity != null) {
+	    	Collection ranges = multiplicity.getRange();
+	    	if (ranges != null && !ranges.isEmpty()) {
+	    		Iterator rangeIt = ranges.iterator();
+	    		while (rangeIt.hasNext()) {
+	    			MultiplicityRange multiplicityRange =
+	    				(MultiplicityRange) rangeIt.next();
+	    			lower = multiplicityRange.getLower();
+	    		}
+	    	}
+    	}
+    	return lower;
+    }
 
 }
