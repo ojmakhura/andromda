@@ -212,11 +212,12 @@ public abstract class ${class.name} {
     *
     */
 #set ($msig = $transform.getOperationSignature($op))
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    $op.visibility abstract ${msig}
+    $op.visibility abstract $returntype ${msig}
         throws $defaultException.name;
 #else
-    $op.visibility abstract ${msig};
+    $op.visibility abstract $returntype ${msig};
 #end
 #end
 #end

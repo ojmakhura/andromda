@@ -14,14 +14,14 @@ public abstract class ${class.name}Impl
 #foreach ( $op in $class.operations)
 #if ($transform.getStereotype($op.id) != "FinderMethod")
 #set ($msig = $transform.getOperationSignature($op))
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    $op.visibility ${msig}
+    $op.visibility $returntype ${msig}
         throws $defaultException.name {
 #else
-    $op.visibility ${msig} {
+    $op.visibility $returntype ${msig} {
 #end
         // TODO: put your implementation here.
-#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ("void" != $returntype)
 
         // Dummy return value, just that the file compiles
