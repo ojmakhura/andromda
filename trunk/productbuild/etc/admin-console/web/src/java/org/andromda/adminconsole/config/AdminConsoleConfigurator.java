@@ -19,7 +19,7 @@ public class AdminConsoleConfigurator implements Serializable
 
     private final Map tableCache = new HashMap();
     private final Map columnCache = new HashMap();
-    private final Map jspCache = new HashMap(); // @todo: use
+    //private final Map jspCache = new HashMap(); // @todo: use
 
     public AdminConsoleConfigurator() throws Exception
     {
@@ -234,9 +234,9 @@ public class AdminConsoleConfigurator implements Serializable
         return getJsp(column, parameterName, "", false, custom);
     }
 
-    public String getInsertJsp(Column column, String parameterName, RowData rowData, String custom)
+    public String getInsertJsp(Column column, String parameterName, Object value, String custom)
     {
-        return getJsp(column, parameterName, (rowData==null)?"":rowData.get(column.getName()), false, custom);
+        return getJsp(column, parameterName, (value==null)?"":value, false, custom);
     }
 
     private AdminConsole loadConfiguration(String fileName) throws IOException
