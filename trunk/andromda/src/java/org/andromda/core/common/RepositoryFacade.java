@@ -12,6 +12,26 @@ import java.net.URL;
 public interface RepositoryFacade
 {
 
+	
+	/**
+	 * Opens the repository making it ready for processing.
+	 * 
+	 * The open/close semantics gives the repository the opportunity to purge 
+	 * the repository or start/end transactions if such is supported.
+	 * 
+	 */
+	public void open();
+	
+	
+	/**
+	 * Closes the repository giving it a chance to reclaim resources.
+	 * 
+	 * The open/close semantics gives the repository the opportunity to purge 
+	 * the repository or start/end transactions if such is supported.
+	 * 
+	 */
+	public void close();
+	
 	/**
 	 * Reads an object model from a specified URL
      * 

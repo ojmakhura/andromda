@@ -25,6 +25,8 @@ public class JAXBRepositoryFacade
 	private URL modelURL;
 	private Model model;
 
+	public void open() {};
+	public void close() {};
 
 	/**
 	 * @see org.andromda.core.common.RepositoryFacade#readModel(URL)
