@@ -9,7 +9,7 @@
 #set ($trigger = $action.actionTrigger)
 #set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
-#set ($formBeanName = $action.formBeanName)
+#set ($formBeanName = "form")
 #set ($securityEnabled = ($security=="true") && ($roles != "") )
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
@@ -119,7 +119,7 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType property="$fieldName" value="$optionKey" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
+${indent}            <html:$widgetType name="form" property="$fieldName" value="$optionKey" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -134,7 +134,7 @@ ${indent}</table>
 #else
 #set ($disabled = '')
 #end
-${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
+${indent}<html:$widgetType name="form" property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
@@ -144,7 +144,7 @@ ${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$field
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
+${indent}<html:$widgetType name="form" property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
 ${indent}<html:link href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
 ${indent}   <html:img page="/layout/calendar/calendar.gif" styleClass="calendar" onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"/>
@@ -159,12 +159,12 @@ ${indent}</html:link>
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
+${indent}<html:$widgetType name="form" property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
 ##
 ##      H I D D E N
 ##
 #elseif ($widgetType == 'hidden')
-${indent}<html:$widgetType property="$fieldName"/>
+${indent}<html:$widgetType name="form" property="$fieldName"/>
 ##
 ##      C O M B O B O X     &      L I S T
 ##
@@ -184,7 +184,7 @@ ${indent}<html:$widgetType property="$fieldName"/>
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<html:select property="$selectProperty" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled $multiple>
+${indent}<html:select name="form" property="$selectProperty" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled $multiple>
 ${indent}   <html:optionsCollection name="form" property="$field.backingListName" label="label" value="value"/>
 ${indent}</html:select>
 #end
