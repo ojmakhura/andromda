@@ -182,6 +182,21 @@
 					<ant:exclude name="**/target/**"/>
 				</ant:fileset>				
 			</ant:copy>
+			
+			<!-- Copy over the hibernate db scripts to each sample (if we have a 
+			     hibernate module) -->
+			<j:set var="hibernateDir" value="${toDir}/hibernate"/>
+			<j:set var="hibernateDirPresent" value="hibernateDirPresent${counter}"/>
+			<ant:available 
+			    property="${hibernateDirPresent}"
+			    file="${toDir}/hibernate"/>		    
+			<j:if test="${context.getVariable(hibernateDirPresent) != null}">
+			    <echo>test=${basedir}/etc/hibernate</echo>
+			    <ant:copy todir="${hibernateDir}"> 
+			        <ant:fileset dir="${basedir}/etc/hibernate"/>
+			    </ant:copy>
+			</j:if>			
+			
 			<j:set var="toDir" value="${binaryDistDir}/${fromDir.parentFile.name}"/>
 			<j:set var="fromDir" value="${project.file.parentFile.parent}"/>
 			<ant:copy todir="${toDir}">
