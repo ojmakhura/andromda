@@ -7,7 +7,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-02" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-04" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="SITE-15">
+                Added Fujaba Tool Suite 4.2.0 and Fujaba for Eclipse 0.1.0 to the list
+                of <a href="case-tools.html">tested UML tools</a>.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-32">
                 All profile information has been externalized into mapping files.  This means that its now <strong>VERY</strong>
                 easy to change the default stereotype names, tagged values, or datatypes.  You can use the new
