@@ -4,7 +4,8 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 /**
- * <p>Some general string processing utilities.</p>
+ * A utility object for doing string manipulation operations that are commonly 
+ * needed by the code generation templates.
  * 
  * @author Matthias Bohlen
  * @author Chris Shaw

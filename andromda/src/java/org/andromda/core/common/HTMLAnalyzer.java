@@ -12,15 +12,17 @@ import javax.swing.text.html.parser.ParserDelegator;
 
 
 /**
- * <p>This is a very simple HTML analyzer class that builds upon the
- * Swing HTMLEditor toolkit.</p>
- * <p>The purpose of this class is to read an HTML string (originating 
- * from the contents of an XMI documentation element) and translate it to
- * a list of paragraphs.</p>
- * <p>The list of paragraphs can be used in a Velocity template
- * to generate JavaDoc documentation for a class, an attribute or a 
- * method.</p>
+ * A utility object useful for reading an HTML string (originating 
+ * from the contents of an XMI documentation element) and for translating
+ * that string into an HTML paragraph.
  * 
+ * <p> The list of paragraphs can be used in a Velocity template
+ * to generate JavaDoc documentation for a class, an attribute or a 
+ * method. </p>
+ * 
+ * <p> This is a very simple HTML analyzer class that builds upon the
+ * Swing HTMLEditor toolkit. </p>
+ *  
  * @author Matthias Bohlen
  *
  */

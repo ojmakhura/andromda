@@ -3,8 +3,7 @@ package org.andromda.core.common;
 import java.lang.reflect.Method;
 
 /**
- * This exception is thrown if an error occurs during the loading
- * or initialization of the meta data repository.
+ * An exception thrown whenever an error is encountered while parsing meta data.
  * 
  * @author    Anthony Mowers
  */

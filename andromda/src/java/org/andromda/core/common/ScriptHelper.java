@@ -3,66 +3,50 @@ package org.andromda.core.common;
 import java.util.Collection;
 
 /**
- * Provides the basic operations needed by the template engine
- * to locate objects in a model and get sufficient information
- * about those objects to apply code generate templates.
- *
+ * An interface for objects responsible for providing the code generation engine and the
+ * code generation scripts with a basic level of visibility into the object model.
+ * 
+ * <p> This interface is the minimal set of API that must be supported by an object model
+ * in order for it to be usable by ANDROMDA.  If an object model can support this API it
+ * can then be used by AndroMDA. </p>
+ * 
+ * @see org.andromda.core.common.RepositoryFacade
+ * 
  * @author Anthony Mowers
  */
 public interface ScriptHelper
 {
 
 	/**
-	 * Associates a model with this script helper.
+	 * sets the model
 	 * 
-	 * This method is usually called by the template engine after it
-	 * has fetched a model object from the repository.
-	 * 
-	 * @param model
+	 * @param model top level object in object model
 	 */
 	public void setModel(Object model);
 
     /**
-     * Returns the model object.
-     * 
-     * In it is possible for the getModel to return a different object
-     * than was set in the setModel operation. This can happen when
-     * the script helper wants to wrap the model object with some helper
-     * operations
+     * returns the top level object of the object model
      */
     public Object getModel();
     
 	/**
-	 * Associates mapping rules for mapping model datatypes 
-	 * to database data types.
+	 * sets rules for how to map model types to JDBC and SQL types
 	 * 
-	 * This method is usually called by the template engine in
-	 * order to provide the script helper with rules about how
-	 * to convert model data types into implementation specific
-	 * data types.
-	 * 
-	 * @param mappings database mapping to be use by this scripthelper
+	 * @param mappings database type mapper object
 	 */
 	public void setTypeMappings(DbMappingTable mappings);
 
 	/**
-	 * Given a repository extracted model element this operation
-	 * returns the collection of associated stereotypes.
-	 *
-	 * <p>A stereotype name is used by the template engine to
-	 * locate the set of templates to apply to an object carrying
-	 * that stereotype name.</p>.  
-	 * 
+	 * returns the collection of stereotypes names associated with the
+     * given model element.
+     * 
 	 *@param modelElement an object from the model
 	 *@return Collection of strings representing stereotype names
 	 */
 	public Collection getStereotypeNames(Object modelElement);
 
 	/**
-	 * Returns a human readable name for the model element.
-	 * 
-	 * <p>The template engine usually use this name to help construct
-	 * a file name for output of the code generation templates.</p>
+	 * returns a human readable name for given model element.
 	 * 
 	 *@param  modelElement  an object from the model
 	 *@return String representing the objects name
@@ -70,8 +54,8 @@ public interface ScriptHelper
 	public String getName(Object modelElement);
 
 	/**
-	 * Returns a human readable name for the package which
-	 * contains the given model element.
+	 * returns a human readable name for the package in the model
+     * that contains the given model element.
 	 *
 	 *@param  modelElement  an object from the model
 	 *@return String representing the objects package name
@@ -79,14 +63,10 @@ public interface ScriptHelper
 	public String getPackageName(Object modelElement);
 
 	/**
-	 * Returns a collection of all the objects contained by
-	 * the model.
-	 * 
-	 * <p>It does not really have to be all the objects. It only
-	 * needs to be those objects which might need processing
-	 * by the template engine.</p>
+	 * returns the collection of model elements that are contained
+     * in the model
 	 *
-	 *@return    The modelElements value
+	 *@return  Collection of model elements
 	 */
 	public Collection getModelElements();
 

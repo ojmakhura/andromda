@@ -6,10 +6,12 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
- * <p>Represents a paragraph, made of lines. The whole
+ * A utility object useful for formatting html paragraph output.
+ * 
+ * <p> Represents a paragraph, made of lines. The whole
  * paragraph has a limit for the line width.
  * Words can be added, the class will reformat the
- * paragraph according to max. line width.</p>
+ * paragraph according to max. line width. </p>
  * 
  * @author Matthias Bohlen
  *
