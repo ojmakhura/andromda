@@ -17,6 +17,19 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Oct 15, 2004</td>
+                    <td valign="top" class="std">Entity Relationships update</td>
+                    <td valign="top" class="std">
+                        AndroMDA now automatically assigns a suitable name to association ends with a
+			            'many' cardinality and an empty name. Before only the name of the target classifier
+			            was taken into account, now it is analyzed and a proper (English) name is constructed
+			            (word:words, key:keys, property:properties).
+			            If your code relies on such unlabeled association ends it might be possible that an
+			            AndroMDA run on your UMl model will result in code that is uncompilable in combination
+			            with your existing implementation classes, a simple rename will be sufficient.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Oct 11, 2004</td>
                     <td valign="top" class="std">Metafacades major update</td>
                     <td valign="top" class="std">
@@ -31,7 +44,9 @@
                     <td valign="top" class="std">Bpm4Struts update</td>
                     <td valign="top" class="std">
                         The Xdoclet dependency, WebDoclet to be exact, has been removed from the bpm4struts-cartridge;
-                        now the <code>struts-config.xml</code> and <code>validation.xml</code> files are generated
+                        now the
+                        <code>struts-config.xml</code> and
+                        <code>validation.xml</code> files are generated
                         directly by AndroMDA. The Ant-tool and the maven plugins, used to generate a default AndroMDA
                         project, have also been updated to reflect this change.
                     </td>
@@ -40,9 +55,11 @@
                     <td valign="top" class="std">Oct 05, 2004</td>
                     <td valign="top" class="std">Spring Cartridge graduates</td>
                     <td valign="top" class="std">
-                        The AndroMDA Spring cartridge (a cartridge based on the <a href="http://www.springframework.org">Spring Framework</a>)
+                        The AndroMDA Spring cartridge (a cartridge based on the
+                        <a href="http://www.springframework.org">Spring Framework</a>)
                         has moved from the contrib module to the main andromda codebase.  To learn how to use this new cartridge,
-                        please see the the documentation <a href="andromda-spring-cartridge/index.html">here</a>
+                        please see the the documentation
+                        <a href="andromda-spring-cartridge/index.html">here</a>
                     </td>
                 </tr>
                 <tr>
@@ -69,9 +86,11 @@
                             <li>forms now implement an interface for each controller operation they defer to</li>
                             <li>it is now needed to put arguments in the controller operations, these arguments
                                 will be available in the form interface that is accessible programmatically</li>
-                            <li>these arguments will need to have the <code>
+                            <li>these arguments will need to have the
+                                <code>
                                 @andromda.struts.view.field.type</code> tagged value set to 'select' in case
-                                you want to prepopulate a list of entries (see samples)</li>
+                                you want to prepopulate a list of entries (see samples)
+                            </li>
                             <li>currently it is also needed to specify the table columns (just as you
                                 would on a collection-type page variable) in case the argument
                                 maps onto an action parameter which is displayed in tabular format, but this
@@ -89,7 +108,8 @@
                     <td valign="top" class="std">
                         Overloaded a controller method for accessing the session objects, the new
                         method allows to choose whether ot not to create the session in case it does
-                        not exist yet (default is <code>true</code>). Also implemented some
+                        not exist yet (default is
+                        <code>true</code>). Also implemented some
                         improvements in handling the session objects and the session itself.
                     </td>
                 </tr>
@@ -100,7 +120,8 @@
                         The andromda task and maven plugin, now support an attribute called
                         <code>failOnModelValidationErrors</code> which allows us to
                         turn on/off whether or not model processing should fail/stop
-                        if <strong>ANY</strong> model validation errors occur.
+                        if
+                        <strong>ANY</strong> model validation errors occur.
                     </td>
                 </tr>
                 <tr>
@@ -122,7 +143,8 @@
                         <code>@andromda.struts.action.warning.message</code> to the action
                         transition and set its value to the message you want to have displayed (will be i18n'ed).
                         Warning messages will be rendered in yellowish.
-                        In addition all messages are now supported on <strong>any</strong> transition, and you may have
+                        In addition all messages are now supported on
+                        <strong>any</strong> transition, and you may have
                         more than one message on such a transition (unlimited).
                     </td>
                 </tr>
