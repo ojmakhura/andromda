@@ -3,9 +3,10 @@ package org.andromda.translation.validation;
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.node.*;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.Stack;
 
 public class ValidationJavaTranslator extends BaseTranslator
@@ -141,11 +142,30 @@ public class ValidationJavaTranslator extends BaseTranslator
     }
 
     /**
+     * Add a variable to the context.
+     */
+    public void inALetVariableDeclaration(ALetVariableDeclaration node)
+    {
+        newTranslationLayer();  // this layer will be disposed later on, we do not write variable declarations
+
+        AVariableDeclaration variableDeclaration = (AVariableDeclaration)node.getVariableDeclaration();
+        String variableName = variableDeclaration.getName().getText();
+
+        newTranslationLayer();
+        node.getExpression().apply(this);
+
+        String variableValue = translationLayers.pop().toString();
+
+        addLetVariableToContext(variableName, variableValue);
+    }
+
+    /**
      * In Java we need to end the declaration statement with a semicolon, this is handled here.
      */
     public void outALetVariableDeclaration(ALetVariableDeclaration node)
     {
         write(";");
+        translationLayers.pop();
     }
 
     /**
@@ -268,35 +288,30 @@ public class ValidationJavaTranslator extends BaseTranslator
         inAFeaturePrimaryExpression(node);
         if(node.getPathName() != null)
         {
+            final String variableName = ((APathName)node.getPathName()).getName().getText();
+            final String variableValue = getDeclaredLetVariableValue(variableName);
+            final boolean isDeclaredAsLetVariable = (variableValue!=null);
+
             if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
             {
-                final String variableName = ((APathName)node.getPathName()).getName().getText();
-                if (letVariableStack.isEmpty() == false)
-                {
-                    Set variableNames = (Set)letVariableStack.peek();
-                    if (!variableNames.contains(variableName))
-                    {
-                        write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
-                    }
-                }
-                else
+                if (!isDeclaredAsLetVariable)
                 {
                     write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
                 }
             }
-            node.getPathName().apply(this);
+
+            if (isDeclaredAsLetVariable)
+            {
+                write(variableValue);
+            }
+            else
+            {
+                node.getPathName().apply(this);
+            }
+
             if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
             {
-                final String variableName = ((APathName)node.getPathName()).getName().getText();
-                if (letVariableStack.isEmpty() == false)
-                {
-                    Set variableNames = (Set)letVariableStack.peek();
-                    if (!variableNames.contains(variableName))
-                    {
-                        write("\")");
-                    }
-                }
-                else
+                if (!isDeclaredAsLetVariable)
                 {
                     write("\")");
                 }
@@ -436,8 +451,7 @@ public class ValidationJavaTranslator extends BaseTranslator
      */
     public void inALetExp(ALetExp node)
     {
-        write("{"); // new block scope to avoid variable collisions in the same Java fragment
-        letVariableStack.push(new HashSet(4));
+        newLetVariableContext();
     }
 
     /**
@@ -445,8 +459,7 @@ public class ValidationJavaTranslator extends BaseTranslator
      */
     public void outALetExp(ALetExp node)
     {
-        letVariableStack.pop();
-        write("}"); // end block scope
+        dropLetVariableContext();
     }
 
     public void caseAVariableDeclarationLetExpSub(AVariableDeclarationLetExpSub node)
@@ -454,16 +467,6 @@ public class ValidationJavaTranslator extends BaseTranslator
         node.getComma().apply(this);
         node.getLetVariableDeclaration().apply(this);
         node.getLetExpSub().apply(this);
-    }
-
-    /**
-     * Add a variable to the context.
-     */
-    public void inALetVariableDeclaration(ALetVariableDeclaration node)
-    {
-        Set variables = (Set)letVariableStack.peek();
-        AVariableDeclaration variableDeclaration = (AVariableDeclaration)node.getVariableDeclaration();
-        variables.add(variableDeclaration.getName().getText());
     }
 
     public void caseALogicalExp(ALogicalExp node)
@@ -882,11 +885,11 @@ public class ValidationJavaTranslator extends BaseTranslator
     private final Stack arrowPropertyCallStack = new Stack();
 
     /**
-     * This stack contains elements implementing the Set interface. For each definition of variables
-     * a new Set element will be pushed onto the stack. This element contains the variables defined
+     * This stack contains elements implementing the Map interface. For each definition of variables
+     * a new Map element will be pushed onto the stack. This element contains the variables defined
      * in the definition.
      * <p>
-     * The elements contained in the Sets are the names of the variables only (String instances).
+     * The keys and values contained in the Map are the names of the variables only (String instances).
      */
     private final Stack letVariableStack = new Stack();
 
@@ -954,6 +957,35 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         while (mergeTranslationLayerAfter() != null) ;
         return (StringBuffer) translationLayers.peek();
+    }
+
+    private String getDeclaredLetVariableValue(String variableName)
+    {
+        for (Iterator iterator = letVariableStack.iterator(); iterator.hasNext();)
+        {
+            Map variableMap = (Map) iterator.next();
+            if (variableMap.containsKey(variableName))
+            {
+                return (String)variableMap.get(variableName);
+            }
+        }
+        return null;
+    }
+
+    private void newLetVariableContext()
+    {
+        letVariableStack.push(new HashMap(4));
+    }
+
+    private void dropLetVariableContext()
+    {
+        if (!letVariableStack.isEmpty())
+            letVariableStack.pop();
+    }
+
+    private void addLetVariableToContext(String variableName, String variableValue)
+    {
+        ((Map)letVariableStack.peek()).put(variableName, variableValue);
     }
 
     public ValidationJavaTranslator()
