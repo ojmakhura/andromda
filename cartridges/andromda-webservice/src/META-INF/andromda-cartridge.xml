@@ -61,7 +61,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -84,7 +86,9 @@
         outputToSingleFile="true">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -103,7 +107,9 @@
         outputToSingleFile="true">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -117,7 +123,9 @@
         required="false">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -130,7 +138,9 @@
         required="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -144,7 +154,9 @@
         outputToSingleFile="true">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -157,7 +169,9 @@
         required="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

@@ -1,4 +1,4 @@
-#parse("templates/webservice/axis/AxisGlobals.vm")    
+#parse("templates/webservice/axis/AxisGlobals.vm")
 #if ($securityEnabled)
 <?xml version="1.0" encoding="$xmlEncoding" ?>
 
