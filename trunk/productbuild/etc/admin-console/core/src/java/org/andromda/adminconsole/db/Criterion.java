@@ -1,6 +1,8 @@
 package org.andromda.adminconsole.db;
 
-public interface Criterion
+import java.io.Serializable;
+
+public interface Criterion extends Serializable
 {
     public String toSqlString();
 }

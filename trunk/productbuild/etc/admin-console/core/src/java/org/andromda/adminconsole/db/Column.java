@@ -1,6 +1,8 @@
 package org.andromda.adminconsole.db;
 
-public interface Column extends Refreshable
+import java.io.Serializable;
+
+public interface Column extends Serializable
 {
     public String getName();
 
