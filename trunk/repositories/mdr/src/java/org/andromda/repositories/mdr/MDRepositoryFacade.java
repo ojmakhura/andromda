@@ -95,7 +95,7 @@ public class MDRepositoryFacade implements RepositoryFacade
     public void close()
     {
         MDRepository repository = MDRManager.getDefault().getDefaultRepository();
-        repository.endTrans(true);
+        repository.endTrans(false);
         // remove the model from the repository (if there is one)
         RefPackage model = repository.getExtent(EXTENT_NAME);
         if (model != null)
@@ -103,6 +103,7 @@ public class MDRepositoryFacade implements RepositoryFacade
             model.refDelete();
         }
         this.model = null;
+        MDRManager.getDefault().shutdownAll();
     }
     
     /**
@@ -123,7 +124,6 @@ public class MDRepositoryFacade implements RepositoryFacade
         try
         {
             MofPackage metaModel = loadMetaModel(metaModelURL, repository);
-
             this.model = loadModel(modelURL, moduleSearchPath, metaModel, repository);
         }
         catch (Throwable th) 
@@ -186,6 +186,8 @@ public class MDRepositoryFacade implements RepositoryFacade
 	        XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
 	        xmiWriter.getConfiguration().setEncoding(encoding);	        
 	        xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion); 
+            outputStream.close();
+            outputStream = null;
         }
         catch (Throwable th)
         {
@@ -317,7 +319,7 @@ public class MDRepositoryFacade implements RepositoryFacade
 
         try
         {
-            xmiReader.read(modelURL.toExternalForm(), model);
+            xmiReader.read(modelURL.toString(), model);
         }
         catch (Throwable th)
         {
@@ -353,7 +355,6 @@ public class MDRepositoryFacade implements RepositoryFacade
                 return (MofPackage) temp;
             }
         }
-
         return null;
     }
 }
