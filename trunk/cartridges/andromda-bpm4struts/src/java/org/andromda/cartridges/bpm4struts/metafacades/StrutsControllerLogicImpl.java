@@ -37,15 +37,16 @@ public class StrutsControllerLogicImpl
     // abstract in class StrutsController ...
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getFullPath()()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getFullPath()
      */
     protected java.lang.String handleGetFullPath()
     {
         return '/' + getUseCase().getPackageName().replace('.', '/') + '/' + getName();
     }
 
-    // ------------- relations ------------------
-
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getDeferringActions()
+     */
     protected Collection handleGetDeferringActions()
     {
         Collection deferringActions = new HashSet();
@@ -59,6 +60,9 @@ public class StrutsControllerLogicImpl
         return deferringActions;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getSessionObjects()
+     */
     protected Collection handleGetSessionObjects()
     {
         final Collection objectsList = new ArrayList();
@@ -76,7 +80,7 @@ public class StrutsControllerLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getServices()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getServiceReferences()
      */
     protected Collection handleGetServiceReferences()
     {
@@ -93,6 +97,9 @@ public class StrutsControllerLogicImpl
         };
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getUseCase()
+     */
     protected Object handleGetUseCase()
     {
         StrutsUseCase useCase = null;
@@ -110,6 +117,9 @@ public class StrutsControllerLogicImpl
         return useCase;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getAllArguments()
+     */
     protected Collection handleGetAllArguments()
     {
         final Collection allArguments = new ArrayList();
