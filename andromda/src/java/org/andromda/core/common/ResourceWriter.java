@@ -51,7 +51,7 @@ public class ResourceWriter
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         ExceptionUtils.checkNull(methodName, "file", file);
-        writeStringToFile(string, file.toString(), namespace);
+        writeStringToFile(string, file.toString(), namespace, true);
     }
 
     /**
@@ -63,7 +63,23 @@ public class ResourceWriter
     public void writeStringToFile(String string, String fileLocation)
         throws IOException
     {
-        this.writeStringToFile(string, fileLocation, null);
+        this.writeStringToFile(string, fileLocation, true);
+    }
+
+    /**
+     * Writes the string to the file specified by the fileLocation argument.
+     * 
+     * @param string the string to write to the file
+     * @param fileLocation the location of the file which to write.
+     * @param recordHistory whether or not the history of the file should be
+     *        recorded.
+     */
+    private void writeStringToFile(
+        String string,
+        String fileLocation,
+        boolean recordHistory) throws IOException
+    {
+        this.writeStringToFile(string, fileLocation, null, recordHistory);
     }
 
     /**
@@ -79,6 +95,26 @@ public class ResourceWriter
         String string,
         String fileLocation,
         String namespace) throws IOException
+    {
+        writeStringToFile(string, fileLocation, namespace, true);
+    }
+
+    /**
+     * Writes the string to the file specified by the fileLocation argument.
+     * 
+     * @param string the string to write to the file
+     * @param fileLocation the location of the file which to write.
+     * @param namespace the current namespace for which this resource is being
+     *        written.
+     * @param recordHistory whether or not the history of this file should be
+     *        recorded.
+     * @throws IOException
+     */
+    private void writeStringToFile(
+        String string,
+        String fileLocation,
+        String namespace,
+        boolean recordHistory) throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         if (string == null)
@@ -98,7 +134,10 @@ public class ResourceWriter
         stream.flush();
         stream.close();
         stream = null;
-        this.recordHistory(file);
+        if (recordHistory)
+        {
+            this.recordHistory(file);
+        }
     }
 
     /**
@@ -202,7 +241,7 @@ public class ResourceWriter
      */
     public void writeHistory() throws IOException
     {
-        writeStringToFile(history.toString(), getHistoryStorage());
+        writeStringToFile(history.toString(), getHistoryStorage(), false);
     }
 
     /**
