@@ -70,7 +70,9 @@
     </goal>
     
     <preGoal name="test:test">
-        <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null}">
+        <!-- only process the cartridge tests if we have a test cartridge model defined AND
+             the docs are NOT being built -->
+        <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null and docsBuild eq null}">
             <j:choose>
                 <j:when test="${maven.andromda.bootstrap.mode}">
                     <attainGoal name="cartridge:test-bootstrap"/>
