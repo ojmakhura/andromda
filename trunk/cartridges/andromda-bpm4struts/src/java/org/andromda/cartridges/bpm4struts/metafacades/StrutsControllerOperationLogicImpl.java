@@ -48,7 +48,7 @@ public class StrutsControllerOperationLogicImpl
 
     protected java.util.Collection handleGetDeferringActions()
     {
-        Collection deferringActions = new HashSet();
+        final Collection deferringActions = new HashSet();
 
         StrutsActivityGraph graph = getActivityGraph();
         if (graph != null)
@@ -79,10 +79,23 @@ public class StrutsControllerOperationLogicImpl
                     StrutsControllerOperation operation = trigger.getControllerCall();
                     if (this.equals(operation))
                     {
+                        // we have two types of controller calls: the ones in action states and the ones for decisions
                         StateVertexFacade source = transition.getSource();
                         if (source instanceof StrutsActionState)
                         {
-                            deferringActions.addAll(((StrutsActionState) source).getContainerActions());
+                            StrutsActionState sourceActionState = (StrutsActionState) source;
+                            deferringActions.addAll(sourceActionState.getContainerActions());
+                        }
+
+                        // test for decision
+                        StateVertexFacade target = transition.getTarget();
+                        if (target instanceof StrutsPseudostate)
+                        {
+                            StrutsPseudostate targetPseudoState = (StrutsPseudostate) target;
+                            if (targetPseudoState.isDecisionPoint())
+                            {
+                                deferringActions.addAll(targetPseudoState.getContainerActions());
+                            }
                         }
                     }
                 }
