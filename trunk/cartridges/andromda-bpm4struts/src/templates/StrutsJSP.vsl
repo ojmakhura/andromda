@@ -99,6 +99,15 @@
         <div>
             <h1><bean:message key="$class.titleKey"/></h1>
         </div>
+        
+#foreach ($variable in $class.pageVariables)
+        <logic:present name="$variable.name" scope="page">
+            <bean:write name="$variable.name" scope="page"/> <br/>
+        </logic:present>
+        <logic:notPresent name="$variable.name" scope="page">
+            Missing from request: $variable.name <br/>
+        </logic:notPresent>
+#end
 
 #if ($class.tabbed)
 #set ($tabSwitchFunction = "selectActionTab")
