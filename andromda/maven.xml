@@ -5,6 +5,11 @@
   	<j:set var="parser.src.dir" value="${maven.src.dir}/parser"/>
   	<j:set var="parser.src.generated.dir" value="${maven.build.src}/java"/>
   	<j:set var="parser.grammer.file" value="ocl.grammar"/>
+
+    <preGoal name="java:jar-resources">
+        <ant:filter token="pom.currentVersion" value="${pom.currentVersion}" />
+        <ant:filter filtersfile="${maven.src.dir}/META-INF/andromda-version.properties" />
+    </preGoal>
   		 
     <preGoal name="java:compile" > 
   		<attainGoal name="build-parser"/>

@@ -1,7 +1,9 @@
 package org.andromda.core;
 
+import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Properties;
 
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.CodeGenerationContext;
@@ -10,6 +12,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.StdoutLogger;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -33,6 +36,44 @@ public class ModelProcessor
     private static final Logger logger = Logger.getLogger(ModelProcessor.class);
 
     private static ModelProcessor instance = null;
+    
+    /**
+     * Stores the current version of AndroMDA
+     */
+    private static final String VERSION;
+    
+    /**
+     * Find and load the version.
+     */
+    static 
+    {
+        final String versionPropertiesUri = 
+            "META-INF/andromda-version.properties";
+        final String versionPropertyName = "andromda.version";
+        try 
+        {
+	        URL versionUri = 
+	            ResourceUtils.getResource(versionPropertiesUri);
+	        if (versionUri == null)
+	        {
+	            throw new ModelProcessorException(
+	                "Could not load file --> '" + versionPropertiesUri + "'");
+	        }
+	        Properties properties = new Properties();
+	        properties.load(versionUri.openStream());
+	        VERSION = properties.getProperty("andromda.version");
+	        if (VERSION == null)
+	        {
+	            throw new ModelProcessorException("Could not find '"
+	                + versionPropertyName 
+	                + "' in '" + versionPropertiesUri + "'");
+	        }
+        } 
+        catch (Throwable th) 
+        {
+            throw new ModelProcessorException(th);
+        }
+    }
 
     /**
      * Gets the shared instance of the ModelProcessor.
@@ -60,6 +101,8 @@ public class ModelProcessor
         final String methodName = "ModelProcessor.process";
         ExceptionUtils.checkNull(methodName, "models", models);
 
+        this.printConsoleHeader();
+        
         long startTime = System.currentTimeMillis();
 
         try
@@ -192,5 +235,16 @@ public class ModelProcessor
 
         }
     }
+    
+    /**
+     * Prints the console header.
+     */
+    protected void printConsoleHeader()
+    {
+        logger.info("");
+        logger.info("A n d r o M D A - " + VERSION);
+        logger.info("");
+    }
+
 
 }
