@@ -34,7 +34,7 @@ class HibernateGlobals
 
     /**
      * The property used to specify the implementation operation name prefix (on
-     * both services and DAOs).
+     * services).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
 }
