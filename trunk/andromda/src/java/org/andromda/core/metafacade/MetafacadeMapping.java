@@ -157,6 +157,17 @@ public class MetafacadeMapping
     }
 
     /**
+     * Returns <code>true</code> if this mapping has a context defined,
+     * <code>false</code> otherwise.
+     * 
+     * @return true/false
+     */
+    boolean hasContext()
+    {
+        return StringUtils.isNotEmpty(this.context);
+    }
+
+    /**
      * Adds a <code>stereotype</code> to the stereotypes for which the
      * <code>metafacadeClass</code> should be instead.
      * 

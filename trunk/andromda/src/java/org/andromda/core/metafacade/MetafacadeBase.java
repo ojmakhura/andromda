@@ -2,6 +2,8 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -100,14 +102,21 @@ public class MetafacadeBase
      */
     public Collection shieldedElements(Collection metaobjects)
     {
-        if (metaobjects == null)
+        Collection metafacades = null;
+        if (metaobjects != null)
         {
-            return null; // a facaded null is still a null! :-)
+            metafacades = MetafacadeFactory.getInstance().createMetafacades(
+                metaobjects,
+                this.getContext());
+            // pass the context on to all metafacades created by this metafacade
+            CollectionUtils.forAllDo(metafacades, new Closure()
+            {
+                public void execute(Object object)
+                {
+                    ((MetafacadeBase)object).setContext(getContext());
+                }
+            });
         }
-
-        Collection metafacades = MetafacadeFactory.getInstance()
-            .createMetafacades(metaobjects, this.getContext());
-
         return metafacades;
     }
 
@@ -128,7 +137,7 @@ public class MetafacadeBase
 
     /**
      * Sets the <code>context<code> for this metafacade.
-     * This is used by the MetafacadeFactory to set the context 
+     * This is used by the {@link MetafacadeFactory} to set the context 
      * during metafacade creation when a metafacade represents 
      * a <code>contextRoot</code>.
      * @param context the context class to set
@@ -231,25 +240,27 @@ public class MetafacadeBase
     }
 
     /**
-     * Returns one facade for a particular metaobject. Contacts the
-     * MetafacadeFactory to manufacture the proper facade.
+     * Returns one facade for a particular metaObject. Contacts the
+     * MetafacadeFactory to manufacture the proper metafacade. In certain cases
+     * <code>metaObject</code> can also be a metafacade instance; in that case
+     * the actual meta model element is retrieved from the metafacade and a
+     * metafacade is constructed from that.
      * 
      * @see MetafacadeFactory
-     * @param metaObject the object to decorate
+     * @param metaObject the underlying meta model element. A metafacade is
+     *        created for each.
      * @return MetafacadeBase the facade
      */
     public MetafacadeBase shieldedElement(Object metaObject)
     {
-        if (metaObject instanceof MetafacadeBase)
-        {
-            return (MetafacadeBase)metaObject;
-        }
         MetafacadeBase metafacade = null;
         if (metaObject != null)
         {
             metafacade = MetafacadeFactory.getInstance().createMetafacade(
                 metaObject,
                 this.getContext());
+            // pass the context on to the metafacade created by this metafacade
+            metafacade.setContext(this.getContext());
         }
         return metafacade;
     }
@@ -264,6 +275,19 @@ public class MetafacadeBase
             this.getPropertyNamespace(),
             name,
             value);
+    }
+
+    /**
+     * Gets the current meta model object for this metafacade. This is used from
+     * {@link MetafacadeFactory}when attempting to construct a metafacade from
+     * a metafacade. This allows us to get the meta object for this metafacade
+     * so that the meta object can be used instead.
+     * 
+     * @return the underlying model's meta object instance.
+     */
+    Object getMetaObject()
+    {
+        return this.metaObject;
     }
 
     /**
