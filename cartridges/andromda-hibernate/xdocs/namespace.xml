@@ -121,25 +121,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        defaultIdentifierType
-                    </td>
-                    <td>
-                         The type to give default identifiers.
-                         This setting is overridden from
-                         <a href="../andromda-metafacades-uml/namespace.html#defaultIdentifierType">
-                         UML Metafacade defaultIdentifierType</a>
-                         in order to make it consistent with idGeneratorClass setting.
-                         If the idGeneratorClass setting is changed then the
-                         defaultIdentifier setting should be consistent with the
-                         change.
-                    </td>
-                    <td>
-                        No, default is
-                        <code>datatype.String</code>.
-                    </td>
-                </tr>
-                <tr>
                     <a name="ejbJndiNamePrefix"/>
                     <td>
                         ejbJndiNamePrefix
