@@ -5,7 +5,7 @@ import org.andromda.cartridges.database.DatabaseProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.core.common.StringUtilsHelper;
@@ -242,9 +242,9 @@ public class ColumnLogicImpl
     protected Object handleGetImportedTable()
     {
         Table table = null;
-        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
+        EntityAssociationEnd end = this.getForeignIdentifierEnd();
         if (end != null
-            && EntityAssociationEndFacade.class.isAssignableFrom(
+            && EntityAssociationEnd.class.isAssignableFrom(
                 end.getOtherEnd().getClass()))
         {
             table = (Table)end.getOtherEnd().getType();
@@ -272,9 +272,9 @@ public class ColumnLogicImpl
      * @return the foreign identifier association end or null if
      *         on can't be found.
      */
-    private EntityAssociationEndFacade getForeignIdentifierEnd()
+    private EntityAssociationEnd getForeignIdentifierEnd()
     {
-        EntityAssociationEndFacade end = (EntityAssociationEndFacade)CollectionUtils
+        EntityAssociationEnd end = (EntityAssociationEnd)CollectionUtils
             .find(this.getOwner().getAssociationEnds(), new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -282,10 +282,10 @@ public class ColumnLogicImpl
                     AssociationEndFacade end = (AssociationEndFacade)object;
                     boolean valid = false;
                     if (end != null
-                        && EntityAssociationEndFacade.class.isAssignableFrom(
+                        && EntityAssociationEnd.class.isAssignableFrom(
                             end.getClass()))
                     {
-                        valid = ((EntityAssociationEndFacade)
+                        valid = ((EntityAssociationEnd)
                             end).isForeignIdentifier();
                     }
                     return valid;

@@ -3,7 +3,7 @@ package org.andromda.cartridges.database.metafacades;
 import java.util.Iterator;
 
 import org.andromda.cartridges.database.DatabaseGlobals;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 
 /**
@@ -43,10 +43,10 @@ public class AssociationTableLogicImpl
             .hasNext();)
         {
             Object object = endIterator.next();
-            if (EntityAssociationEndFacade.class.isAssignableFrom(object
+            if (EntityAssociationEnd.class.isAssignableFrom(object
                 .getClass()))
             {
-                columns.append(((EntityAssociationEndFacade)object)
+                columns.append(((EntityAssociationEnd)object)
                     .getColumnName());
                 if (endIterator.hasNext())
                 {
