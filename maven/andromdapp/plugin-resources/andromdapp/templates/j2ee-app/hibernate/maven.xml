@@ -45,9 +45,8 @@
                  everyone is happy.
              -->
             <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml"
-              token="Bean&lt;/ejb-class&gt;"
-              value="BeanImpl&lt;/ejb-class&gt;">
-            </ant:replace>
+                         token="Bean&lt;/ejb-class&gt;"
+                         value="BeanImpl&lt;/ejb-class&gt;"/>
         </j:if>
 
     </preGoal>
@@ -57,8 +56,8 @@
         <j:if test="${generatedSrcAvailable != null}">
             <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
                 <ant:classpath>
-            <ant:path refid="maven.dependency.classpath"/>
-            <ant:pathelement path="${pom.dependencyClasspath}"/>
+                    <ant:path refid="maven.dependency.classpath"/>
+                    <ant:pathelement path="${pom.dependencyClasspath}"/>
                 </ant:classpath>
             </ant:taskdef>
     
