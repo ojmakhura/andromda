@@ -19,6 +19,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
@@ -157,6 +158,7 @@ public class SchemaTransformer
      */
     public void transform(String inputModel, String outputLocation)
     {
+        long startTime = System.currentTimeMillis();
         outputLocation = StringUtils.trimToEmpty(outputLocation);
         if (outputLocation == null)
         {
@@ -180,8 +182,12 @@ public class SchemaTransformer
         }
         finally
         {
-
+            DbUtils.closeQuietly(connection);
             repository.close();
+            logger.info("Completed adding " 
+                + this.classes.size() 
+                + " classes, TIME --> "
+                + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"); 
         }
     }
 
@@ -321,41 +327,39 @@ public class SchemaTransformer
             "TABLE",
         });
 
-        if (tableRs.next())
+        // loop through and create all classes and store then
+        // in the classes Map keyed by table
+        while (tableRs.next())
         {
-	        // loop through and create all classes and store then
-	        // in the classes Map keyed by table
-	        do
-	        {
-	            String tableName = tableRs.getString("TABLE_NAME");
-	            if (StringUtils.isNotBlank(this.tableNamePattern))
-	            {
-	                if (tableName.matches(this.tableNamePattern))
-	                {
-	                    UmlClass umlClass = this.createClass(
-	                        modelPackage,
-	                        metadata,
-	                        corePackage,
-	                        tableName);
-	                    this.classes.put(tableName, umlClass);
-	                }
-	            }
-	            else
-	            {
-	                UmlClass umlClass = this.createClass(
-	                    modelPackage,
-	                    metadata,
-	                    corePackage,
-	                    tableName);
-	                this.classes.put(tableName, umlClass);
-	            }
-	        } while (tableRs.next());
+            String tableName = tableRs.getString("TABLE_NAME");
+            if (StringUtils.isNotBlank(this.tableNamePattern))
+            {
+                if (tableName.matches(this.tableNamePattern))
+                {
+                    UmlClass umlClass = this.createClass(
+                        modelPackage,
+                        metadata,
+                        corePackage,
+                        tableName);
+                    this.classes.put(tableName, umlClass);
+                }
+            }
+            else
+            {
+                UmlClass umlClass = this.createClass(
+                    modelPackage,
+                    metadata,
+                    corePackage,
+                    tableName);
+                this.classes.put(tableName, umlClass);
+            }
         }
-        else 
+        DbUtils.closeQuietly(tableRs);
+        if (this.classes.isEmpty())
         {
             logger.warn("WARNING! No tables found in schema matching pattern -->'" 
                 + this.tableNamePattern + "'");
-        }
+        } 
 
         // add all attributes and associations to the modelPackage
         Iterator tableNameIt = this.classes.keySet().iterator();
@@ -499,6 +503,7 @@ public class SchemaTransformer
                         .info("adding attribute --> '" + attributeName + "'");
             }
         }
+        DbUtils.closeQuietly(columnRs);
         return attributes;
     }
 
@@ -527,6 +532,7 @@ public class SchemaTransformer
         {
             nullable = columnRs.getInt("NULLABLE") != DatabaseMetaData.attributeNoNulls;
         }
+        DbUtils.closeQuietly(columnRs);
         return nullable;
     }
 
@@ -640,6 +646,7 @@ public class SchemaTransformer
                     + foreignEnd.getParticipant().getName() 
                     + "'");
         }
+        DbUtils.closeQuietly(columnRs);
         return associations;
     }
 
