@@ -1,0 +1,17 @@
+## Only generate the controller impl if there are operations defined
+#set ($generatedFile = "${operation.interfaceFullPath}.java")
+##
+##  START TEMPLATE
+##
+package $operation.interfacePackageName;
+
+public interface ${operation.interfaceName}
+{
+#foreach ($field in $operation.formFields)
+#set ($type = $field.type.fullyQualifiedName)
+#set ($name = $field.name)
+    public $type ${field.getterName}();
+    public void ${field.setterName}($type $name);
+
+#end
+}
