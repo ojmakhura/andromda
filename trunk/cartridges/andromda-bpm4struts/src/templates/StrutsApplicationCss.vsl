@@ -116,23 +116,39 @@ div.action div.trigger form buttons { display: block; }
     margin: 1.5em 0 1.5em 0;
 }
 
-#messages p
+#messages div
 {
     margin: 1.5em 0 1.5em 0;
     padding: 0.8em 0.5em 0.8em 1em;
     font-size: 86%;
     font-style: italic;
     font-weight: bold;
+}
+
+#messages .messages
+{
     color: green;
     border: 1px dashed green;
     background-color: #dfd;
 }
 
-#messages p.error
+#messages .errors
 {
     color: red;
     border: 1px dashed red;
     background-color: #fee;
+}
+
+#messages .warnings
+{
+    color: #ccc;
+    border: 1px dashed #ffd;
+    background-color: #fdd;
+}
+
+#messages .message, #messages .warning, #messages .error
+{
+    display: block;
 }
 
 .hide { display: none; }
