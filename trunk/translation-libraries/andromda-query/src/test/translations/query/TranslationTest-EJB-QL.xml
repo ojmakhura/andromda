@@ -113,16 +113,6 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
-			body findAllBody : allInstances()
-		</from>
-		<to>
-			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement
-		</to>
-	</expression>
-	
-	<expression>
-		<from>
 			context org::andromda::contracts::LegalAgreement::findChildAgreements(primaryKey:Long):Collection(LegalAgreement) 
 			body findChildAgreementsBody : allInstances() -> select( 
 				legalAgreement | legalAgreement.legalAgreements -> includesAll ( 
