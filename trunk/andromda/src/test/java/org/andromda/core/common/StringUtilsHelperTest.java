@@ -180,4 +180,46 @@ public class StringUtilsHelperTest extends TestCase
     }
 */
 
+    public void testPrefixWithAPredicate()
+    {
+        final String[][] fixture = new String[][]
+        {
+            new String[] { "a", "an a" },
+            new String[] { "b", "a b" },
+            new String[] { "c", "a c" },
+            new String[] { "d", "a d" },
+            new String[] { "e", "an e" },
+            new String[] { "f", "a f" },
+            new String[] { "g", "a g" },
+            new String[] { "h", "a h" },
+            new String[] { "i", "an i" },
+            new String[] { "j", "a j" },
+            new String[] { "k", "a k" },
+            new String[] { "l", "a l" },
+            new String[] { "m", "a m" },
+            new String[] { "n", "a n" },
+            new String[] { "o", "an o" },
+            new String[] { "p", "a p" },
+            new String[] { "q", "a q" },
+            new String[] { "r", "a r" },
+            new String[] { "s", "a s" },
+            new String[] { "t", "a t" },
+            new String[] { "u", "a u" },
+            new String[] { "v", "a v" },
+            new String[] { "w", "a w" },
+            new String[] { "x", "a x" },
+            new String[] { "y", "a y" },
+            new String[] { "z", "a z" },
+            new String[] { "elephant", "an elephant" },
+            new String[] { "cat", "a cat" },
+            new String[] { "horse", "a horse" },
+            new String[] { "building", "a building" }
+        };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(StringUtilsHelper.prefixWithAPredicate(strings[0]), strings[1]);
+        }
+    }
 }
