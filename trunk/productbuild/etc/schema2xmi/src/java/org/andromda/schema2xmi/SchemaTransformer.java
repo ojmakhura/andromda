@@ -466,10 +466,15 @@ public class SchemaTransformer
             String schemaName = "";
             if (StringUtils.isNotEmpty(this.schema))
             {
-                schemaName = "'" + this.schema + "' ";
+                schemaName = " '" + this.schema + "' ";
             }
-            logger.warn("WARNING! No tables found in schema " + schemaName
-                + "matching pattern -->'" + this.tableNamePattern + "'");
+            StringBuffer warning = new StringBuffer("WARNING! No tables found in schema");
+            warning.append(schemaName);
+            if (StringUtils.isNotEmpty(this.tableNamePattern))
+            {
+                warning.append(" matching pattern --> '" + this.tableNamePattern + "'");
+            }
+            logger.warn(warning);
         }
 
         // add all attributes and associations to the modelPackage
