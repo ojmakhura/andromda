@@ -28,12 +28,12 @@ import org.apache.commons.collections.Predicate;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on 
- * the base/root class. All subclasses must then follow the same
- * strategy. NB if the strategy is changed after
- * the initial generation, the impl classes have
- * to be hand modified.
- * </p>
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
+ *                                 subclasses must then follow the same
+ *                                 strategy. NB if the strategy is changed after
+ *                                 the initial generation, the impl classes have
+ *                                 to be hand modified.
+ *                                 </p>
  * @author Martin West
  */
 public class HibernateEntityLogicImpl
@@ -47,6 +47,26 @@ public class HibernateEntityLogicImpl
     {
         super(metaObject, context);
     }
+
+    /**
+     * Value for one Table per root class
+     */
+    private static final String INHERITANCE_STRATEGY_CLASS = "class";
+
+    /**
+     * Value for joined-subclass
+     */
+    private static final String INHERITANCE_STRATEGY_SUBCLASS = "subclass";
+
+    /**
+     * Value for one Table per concrete class
+     */
+    private static final String INHERITANCE_STRATEGY_CONCRETE = "concrete";
+
+    /**
+     * Value make Entity an interface, delegate attributes to subclasses.
+     */
+    private static final String INHERITANCE_STRATEGY_INTERFACE = "interface";
 
     /**
      * Return all the business operations, used when leafImpl true.
@@ -86,8 +106,7 @@ public class HibernateEntityLogicImpl
             // We are a root if we are the base class and not interface
             // inheritance
             result = (inheritance == null)
-                || !inheritance
-                    .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_INTERFACE);
+                || !inheritance.equals(INHERITANCE_STRATEGY_INTERFACE);
         }
         else
         {
@@ -97,10 +116,8 @@ public class HibernateEntityLogicImpl
             // Are we the subclass element
             result = root.getFullyQualifiedName().equals(
                 getFullyQualifiedName());
-            if (!result
-                && inheritance != null
-                && inheritance
-                    .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_SUBCLASS))
+            if (!result && inheritance != null
+                && inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
             {
                 // If not check if we are a subclass
                 result = superElement.getFullyQualifiedName().equals(
@@ -147,14 +164,12 @@ public class HibernateEntityLogicImpl
                 result = superclasses[i];
                 break;
             }
-            if (inheritance
-                .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_SUBCLASS))
+            if (inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
             {
                 result = superclasses[i];
                 break;
             }
-            if (inheritance
-                .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CLASS))
+            if (inheritance.equals(INHERITANCE_STRATEGY_CLASS))
             {
                 result = superclasses[i];
                 break;
@@ -186,7 +201,7 @@ public class HibernateEntityLogicImpl
             }
             if (result == null)
             {
-                result = HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CLASS;
+                result = INHERITANCE_STRATEGY_CLASS;
             }
         }
         catch (Exception ex)
@@ -199,9 +214,9 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Scan back up the generalization hierarchy looking for a
-     * INHERITANCE strategy specification. Cases: super subclass CLASS None
-     * Allowed SUBCLASS None Allowed CONCRETE CLASS | SUBCLASS
+     * Scan back up the generalization hierarchy looking for a INHERITANCE
+     * strategy specification. Cases: super subclass CLASS None Allowed SUBCLASS
+     * None Allowed CONCRETE CLASS | SUBCLASS
      * 
      * @return the super inheritance strategy
      */
@@ -228,23 +243,19 @@ public class HibernateEntityLogicImpl
             int rootIndex = hierarchy.size() - 1;
             rootInheritance = getInheritance(superclasses[rootIndex]);
             if (rootInheritance == null
-                || rootInheritance
-                    .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CLASS))
+                || rootInheritance.equals(INHERITANCE_STRATEGY_CLASS))
             {
                 validateNoInheritance(superclasses);
             }
-            else if (rootInheritance
-                .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_SUBCLASS))
+            else if (rootInheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
             {
                 validateNoInheritance(superclasses);
             }
-            else if (rootInheritance
-                .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CONCRETE))
+            else if (rootInheritance.equals(INHERITANCE_STRATEGY_CONCRETE))
             {
                 rootInheritance = validateConcreteInheritance(superclasses);
             }
-            else if (rootInheritance
-                .equals(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_INTERFACE))
+            else if (rootInheritance.equals(INHERITANCE_STRATEGY_INTERFACE))
             {
                 rootInheritance = validateInterfaceInheritance(superclasses);
             }
@@ -284,7 +295,7 @@ public class HibernateEntityLogicImpl
         GeneralizableElementFacade[] superclasses)
     {
         String result = null;
-        String rootInheritance = HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CONCRETE;
+        String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
         // Search from root class but 1 to lowest.
         for (int i = superclasses.length - 1; i > -1; i--)
         {
@@ -340,7 +351,7 @@ public class HibernateEntityLogicImpl
         }
         if (result == null)
         {
-            result = HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CLASS;
+            result = INHERITANCE_STRATEGY_CLASS;
         }
         return result;
     }

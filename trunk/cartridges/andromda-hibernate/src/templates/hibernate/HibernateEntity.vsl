@@ -197,11 +197,7 @@ $target.getDocumentation("     * ")
 #if($target.required)
      *     not-null="true"
 #end
-#if (!$associationEnd.outerJoin)
-     *     outer-join="${hibernateAssociationOuterJoin}"
-#else
-     *     outer-join="${associationEnd.outerJoin}"
-#end
+     *     outer-join="$associationEnd.outerJoin"
      */
     public ${targetTypeName} ${target.getterName}()
     {

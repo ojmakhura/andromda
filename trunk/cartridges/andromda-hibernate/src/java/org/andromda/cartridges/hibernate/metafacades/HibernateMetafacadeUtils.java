@@ -18,9 +18,9 @@ class HibernateMetafacadeUtils
 
     /**
      * Gets the view type for the passed in <code>classifier</code>. Checks
-     * to see if the classifier is a service, if so checks to see
-     * if it has the tagged value defining the view type.  If the classifier
-     * is not a service, the view type 'local' is always returned.
+     * to see if the classifier is a service, if so checks to see if it has the
+     * tagged value defining the view type. If the classifier is not a service,
+     * the view type 'local' is always returned.
      * 
      * @return String the view type name.
      */

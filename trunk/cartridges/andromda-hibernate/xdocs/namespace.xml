@@ -476,15 +476,21 @@
                         No, default is <code>false</code>.
                     </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td>
-                        hibernateAssociationOuterJoin
+                        hibernateAssociationEndOuterJoin
                     </td>
                     <td>
-                         This tagged value will determine how Hibernate manages  many to one and one to one associations.
+                         Defines the default outer join value for many to one and 
+                         one to one association ends. Possible values are:
+                         <ul>
+                            <li>auto</li>
+                            <li>true</li>
+                            <li>false</li>
+                         </ul>
                     </td>
                     <td>
-                        Yes, default is <code>auto</code>.
+                        No, default is <code>auto</code>.
                     </td>
                 </tr>    
             </table>
