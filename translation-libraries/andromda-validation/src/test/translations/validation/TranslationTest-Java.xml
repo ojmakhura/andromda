@@ -326,6 +326,15 @@
         </to>
     </expression>
     
+    <expression>
+        <from>
+            context Gender inv: not male implies female
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(!Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue())).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"female"))).booleanValue():true));          
+        </to>
+    </expression>
+    
     <!--
     <expression>
         <from>

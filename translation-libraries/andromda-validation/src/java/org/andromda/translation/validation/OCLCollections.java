@@ -17,6 +17,10 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Used to translated OCL collection expressions
+ * to their corresponding Java collection expressions.
+ */
 public final class OCLCollections
 {
     /**

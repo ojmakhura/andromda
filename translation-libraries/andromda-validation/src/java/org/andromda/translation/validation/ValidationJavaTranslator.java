@@ -423,7 +423,7 @@ public class ValidationJavaTranslator
     private void handleConcat(AFeatureCall featureCall)
     {
         write(" + \"\" + ");
-        write("org.andromda.translation.validation.OCLIntrospector.invoke(");
+        write(OCL_INTROSPECTOR_INVOKE_PREFIX);
         write(CONTEXT_ELEMENT_NAME);
         write(",\"");
         write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
@@ -442,8 +442,7 @@ public class ValidationJavaTranslator
      */
     public void handleDotFeatureCall(AFeatureCall featureCall)
     {
-        this
-            .prependToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(");
+        this.prependToTranslationLayer(OCL_INTROSPECTOR_INVOKE_PREFIX);
         String propertyCallExpression = TranslationUtils
             .deleteWhitespace(featureCall.parent().parent());
         if (propertyCallExpression.matches(".*\\s?self\\..*"))
@@ -460,8 +459,7 @@ public class ValidationJavaTranslator
             if (parameters != null && !parameters.isEmpty())
             {
                 write(",new Object[]{");
-                this
-                    .appendToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(");
+                this.appendToTranslationLayer(OCL_INTROSPECTOR_INVOKE_PREFIX);
                 this.appendToTranslationLayer(CONTEXT_ELEMENT_NAME);
                 this.appendToTranslationLayer(",\"");
                 this.appendToTranslationLayer(ConcreteSyntaxUtils
@@ -512,6 +510,19 @@ public class ValidationJavaTranslator
                     "");
                 if (StringUtils.isNotBlank(expressionAsString))
                 {
+                    boolean convertToBoolean = false;
+                    if (node.parent().parent() instanceof AUnaryExpression)
+                    {
+                        AUnaryExpression unaryExpression = (AUnaryExpression)node
+                            .parent().parent();
+                        // we convert each unary not expression to boolean
+                        convertToBoolean = unaryExpression.getUnaryOperator() instanceof ANotUnaryOperator;
+                        if (convertToBoolean)
+                        {
+                            this.write(BOOLEAN_WRAP_PREFIX);
+                            this.requiresBooleanConversion = true;
+                        }
+                    }
                     if (expressionAsString.matches(OCLFeatures.OCL_IS_KIND_OF))
                     {
                         this.write("object");
@@ -525,7 +536,7 @@ public class ValidationJavaTranslator
                     }
                     else
                     {
-                        write("org.andromda.translation.validation.OCLIntrospector.invoke(");
+                        write(OCL_INTROSPECTOR_INVOKE_PREFIX);
                         String invokedObject = CONTEXT_ELEMENT_NAME;
                         // if we're in an arrow call we assume the invoked
                         // object is the object for which the arrow call applies
@@ -538,11 +549,15 @@ public class ValidationJavaTranslator
                         // remove any references to 'self.' as we write
                         write(expressionAsString);
                         write("\")");
+                        if (convertToBoolean)
+                        {
+                            this.write(BOOLEAN_WRAP_SUFFIX);
+                        }
                     }
-                    if (this.requiresBooleanWrap)
+                    if (this.requiresBooleanConversion)
                     {
                         this.write(BOOLEAN_WRAP_SUFFIX);
-                        this.requiresBooleanWrap = false;
+                        this.requiresBooleanConversion = false;
                     }
                 }
             }
@@ -566,9 +581,6 @@ public class ValidationJavaTranslator
         }
         outAFeaturePrimaryExpression(node);
     }
-
-    public void inAFeaturePrimaryExpression(AFeaturePrimaryExpression node)
-    {}
 
     /**
      * Handles an <strong>arrow </strong> feature call. Its expected that this
@@ -749,7 +761,7 @@ public class ValidationJavaTranslator
      * A flag indicating if the expression needs to be converted/wrapped in a
      * Java Boolean instance.
      */
-    private boolean requiresBooleanWrap = false;
+    private boolean requiresBooleanConversion = false;
 
     public void inARelationalExpression(ARelationalExpression node)
     {
@@ -773,9 +785,9 @@ public class ValidationJavaTranslator
             {
                 expression = TranslationUtils.trimToEmpty(node);
             }
-            requiresBooleanWrap = expression != null
+            requiresBooleanConversion = expression != null
                 && expression.matches(pattern);
-            if (requiresBooleanWrap)
+            if (requiresBooleanConversion)
             {
                 this.write(BOOLEAN_WRAP_PREFIX);
             }
@@ -1190,7 +1202,16 @@ public class ValidationJavaTranslator
         arrowPropertyCallStack.push(Boolean.FALSE);
     }
 
+    /**
+     * The name of the context element within the translated expression.
+     */
     private static final String CONTEXT_ELEMENT_NAME = "contextElement";
+
+    /**
+     * The prefix for calling the OCLIntrospector to invoke a property or method
+     * on an element.
+     */
+    private static final String OCL_INTROSPECTOR_INVOKE_PREFIX = "org.andromda.translation.validation.OCLIntrospector.invoke(";
 
     /**
      * We need to wrap every expression with a converter so that any expressions
