@@ -47,6 +47,11 @@
 	      	<artifactId>andromda-templateengine-velocity${bootstrap}</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
+		<dependency>
+	      	<groupId>andromda-translation-libraries</groupId>
+	      	<artifactId>andromda-validation-library${bootstrap}</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
         ${bootstrapMetaCartridge}
 	    <dependency>
 	    	<groupId>picocontainer</groupId>
