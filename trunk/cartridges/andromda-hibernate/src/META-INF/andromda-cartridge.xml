@@ -1,0 +1,35 @@
+<!--
+    This is the descriptor for the AndroMDA cartridge for
+    the O/R mapper "Hibernate".
+
+    We describe only entities here, so that the process model
+    can be chosen independently.
+
+    Matthias Bohlen, April 2003
+-->
+
+<cartridge name="hibernate">
+    <property name="persistence" value="hibernate" />
+
+    <stereotype name="entity" />
+
+    <outlet name="pojos" />
+    <outlet name="impls" />
+
+    <template
+        stereotype="entity"
+        sheet="templates/HibernateEntity.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="pojos"
+        overWrite="true"
+    />
+
+    <template
+        stereotype="entity"
+        sheet="templates/HibernateEntityImpl.vsl"
+        outputPattern="{0}/{1}Impl.java"
+        outlet="impls"
+        overWrite="false"
+    />
+
+</cartridge>
