@@ -16,8 +16,8 @@ public class ResourceUtils {
 	private static final Logger logger = Logger.getLogger(ResourceUtils.class);
 	
 	/**
-	 * Retrieves aresource from the class package
-	 * @param resourceName - the name of the resource
+	 * Retrieves a resource from the class package
+	 * @param resourceName the name of the resource
 	 * @return java.net.URL
 	 */
 	public static URL getResource(String resourceName) {
