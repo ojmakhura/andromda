@@ -118,6 +118,21 @@
 			          	<th>Description</th>    	     	
 		        	</tr>
 		        	<tr>
+						<td>
+	                        @andromda.ejb.automaticKey
+						</td>
+						<td>
+							Attribute
+						</td>
+						<td>
+							Can be used in class level of an entity. If you set this to true,
+							the class will use an automatic key generation for the defined
+							primary key.
+							Please note: This is currently only available in BEA Weblogic
+							and can not be used with combined primary keys.
+						</td>
+					</tr>	
+		        	<tr>
 						<a name="@andromda.ejb.query"/>
 			          	<td>
 			          		@andromda.ejb.query
@@ -176,7 +191,7 @@
 						<td>
 							Represents the column length for entity persistence.
 						</td>
-					</tr>		        	        	      	        	        		        	        	        	     	             	        	
+					</tr>	        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
     	</section>

@@ -21,6 +21,14 @@ $entity.getDocumentation(" * ")
 #if (!$identifier.complex)
  *     primkey-field = "$identifier.name"
 #end
+#set ($automaticKey = $entity.findTaggedValue("@andromda.ejb.automaticKey"))
+#if ($automaticKey == "true")
+ *
+ * @weblogic.automatic-key-generation
+ *     generator-type="${entity.getSqlType()}"
+ *     generator-name="$entity.name"
+ *     key-cache-size="1"
+ #end
  *
  * @jboss.container-configuration name="Instance Per Transaction CMP 2.x EntityBean"
  * @jboss.tuned-updates
