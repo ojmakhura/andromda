@@ -78,11 +78,9 @@ public class ServiceFacadeLogicImpl
             {
                 DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null
-                    && dependency.getSourceElement() != null
-                    && RoleFacade.class.isAssignableFrom(dependency
-                        .getSourceElement().getClass());
+                    && dependency.getSourceElement() instanceof RoleFacade;
             }
-        });
+        });   
         CollectionUtils.transform(roles, new Transformer()
         {
             public Object transform(Object object)
@@ -92,15 +90,13 @@ public class ServiceFacadeLogicImpl
         });
         final Collection allRoles = new HashSet(roles);
         // add all roles which are specializations of this one
-        CollectionUtils.forAllDo(
-            roles,
-            new Closure()
+        CollectionUtils.forAllDo(roles, new Closure()
+        {
+            public void execute(Object object)
             {
-                public void execute(Object object)
-                {
-                    allRoles.addAll(((RoleFacade)object).getSpecializations());
-                }
-            });
+                allRoles.addAll(((RoleFacade)object).getSpecializations());
+            }
+        });
         return allRoles;
     }
 

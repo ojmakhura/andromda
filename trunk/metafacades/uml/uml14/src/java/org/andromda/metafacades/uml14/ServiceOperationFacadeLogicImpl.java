@@ -36,8 +36,7 @@ public class ServiceOperationFacadeLogicImpl
     public java.util.Collection handleGetRoles()
     {
         Collection roles = new HashSet();
-        if (this.getOwner() != null
-            && ServiceFacade.class.isAssignableFrom(this.getOwner().getClass()))
+        if (this.getOwner() instanceof ServiceFacade)
         {
             roles.addAll(((ServiceFacade)this.getOwner()).getRoles());
         }

@@ -1,7 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.andromda.metafacades.uml.ServiceOperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -99,8 +103,15 @@ public class RoleFacadeLogicImpl
      */
     protected boolean handleIsReferencesPresent()
     {
-        return CollectionUtils.find(
-            this.getSourceDependencies(),
+        final Collection allSourceDependencies = new HashSet(this
+            .getSourceDependencies());
+        for (GeneralizableElementFacade parent = this.getGeneralization(); parent != null; parent = parent
+            .getGeneralization())
+        {
+            allSourceDependencies.addAll(parent.getSourceDependencies());
+        }
+        Object test = CollectionUtils.find(
+            allSourceDependencies,
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -110,7 +121,9 @@ public class RoleFacadeLogicImpl
                     return target instanceof ServiceFacade
                         || target instanceof ServiceOperationFacade;
                 }
-            }) != null;
+            });
+
+        return test != null;
     }
 
 }
