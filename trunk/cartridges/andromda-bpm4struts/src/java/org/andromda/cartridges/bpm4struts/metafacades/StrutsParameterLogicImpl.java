@@ -870,11 +870,17 @@ public class StrutsParameterLogicImpl
         return selectable;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValueListName()
+     */
     protected String handleGetValueListName()
     {
         return getName() + "ValueList";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getLabelListName()
+     */
     protected String handleGetLabelListName()
     {
         return getName() + "LabelList";
@@ -886,23 +892,35 @@ public class StrutsParameterLogicImpl
         return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" + name + "-5\"}";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isRequired()
+     */
     protected boolean handleIsRequired()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_REQUIRED);
         return isTrue(value == null ? null : String.valueOf(value));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isReadOnly()
+     */
     protected boolean handleIsReadOnly()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_READONLY);
         return isTrue(value == null ? null : String.valueOf(value));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isDate()
+     */
     protected boolean handleIsDate()
     {
         return getType().isDateType();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getDateFormat()
+     */
     protected String handleGetDateFormat()
     {
         final String format = getValidatorFormat();
@@ -923,6 +941,9 @@ public class StrutsParameterLogicImpl
         return defaultDateFormat;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isStrictDateFormat()
+     */
     protected boolean handleIsStrictDateFormat()
     {
         final String format = getValidatorFormat();
@@ -935,6 +956,9 @@ public class StrutsParameterLogicImpl
                 "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()
+     */
     protected String handleGetResetValue()
     {
         final String name = getName();
@@ -962,6 +986,9 @@ public class StrutsParameterLogicImpl
         return "\"" + name + "-test" + "\"";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isValidationRequired()
+     */
     protected boolean handleIsValidationRequired()
     {
         return getValidatorTypes().isEmpty() == false;
@@ -1029,11 +1056,17 @@ public class StrutsParameterLogicImpl
         return validatorTypesList;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorMsgKey()
+     */
     protected String handleGetValidatorMsgKey()
     {
         return getMessageKey();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorArgs(java.lang.String)
+     */
     protected java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
     {
         final Collection args = new ArrayList();
@@ -1053,7 +1086,9 @@ public class StrutsParameterLogicImpl
         return args;
     }
 
-
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
+     */
     protected java.util.Collection handleGetValidatorVars()
     {
         final Collection vars = new ArrayList();
@@ -1106,12 +1141,18 @@ public class StrutsParameterLogicImpl
         return vars;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidWhen()
+     */
     protected java.lang.String handleGetValidWhen()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
         return value == null ? null : value.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMultiboxPropertyName()
+     */
     protected String handleGetMultiboxPropertyName()
     {
         String multiboxPropertyName = null;
@@ -1133,6 +1174,9 @@ public class StrutsParameterLogicImpl
         return multiboxPropertyName;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionKeys()
+     */
     protected Collection handleGetOptionKeys()
     {
         final String key = getMessageKey() + '.';
@@ -1142,6 +1186,9 @@ public class StrutsParameterLogicImpl
         return optionKeys;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#gGetOptionValues()
+     */
     protected Collection handleGetOptionValues()
     {
         Collection optionValues = new ArrayList();
@@ -1180,12 +1227,39 @@ public class StrutsParameterLogicImpl
         return optionValues;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionCount()
+     */
     protected int handleGetOptionCount()
     {
         return getOptionValues().size();
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isShouldReset()
+     */
+    protected boolean handleIsShouldReset()
+    {
+        boolean shouldReset = false;
+        Object value = this
+            .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
+        if (value != null)
+        {
+            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String)value)).booleanValue();
+        }
+        return shouldReset;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetName()
+     */
+    protected String handleGetResetName()
+    {
+        return "reset" + StringUtils.capitalize(StringUtils.trimToEmpty(this.getName()));
+    }
 
     // ------------------------------------------
+    
     private boolean isValidatorBoolean(String type)
     {
         return "datatype.boolean".equals(type) || "datatype.Boolean".equals(type);
@@ -1313,5 +1387,4 @@ public class StrutsParameterLogicImpl
         String[] tokens = string.split("[\\s]+", limit);
         return (index >= tokens.length) ? null : tokens[index];
     }
-
 }
