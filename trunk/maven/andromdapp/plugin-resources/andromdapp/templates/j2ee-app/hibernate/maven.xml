@@ -1,4 +1,5 @@
-<project xmlns:ant="jelly:ant"
+<project default="ejb:install"
+         xmlns:ant="jelly:ant"
   		 xmlns:maven="jelly:maven">
   		 
     <preGoal name="java:compile"> 
@@ -47,15 +48,6 @@
         	token="Bean&lt;/ejb-class&gt;"
         	value="BeanImpl&lt;/ejb-class&gt;">
         </ant:replace>
-        
-		<!-- add the paths of the generated source to the
-		     maven compile path -->
-	 	<ant:path
-	       	id="andromda.ejb.gen.src"
-	       	location="${maven.build.src}"/>
-		<maven:addPath
-	       	id="maven.compile.src.set"
-	       	refid="andromda.ejb.gen.src"/>
         
     </preGoal>
     

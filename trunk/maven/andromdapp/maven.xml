@@ -12,13 +12,9 @@
 			value="${pluginResources}/templates/j2ee-app"/>
 	    <!-- merge all the versions in -->
 	    <velocity:merge
-			name="${maven.build.dest}/${pluginResourceJ2eeDir}/project-ejb.properties"
+			name="${maven.build.dest}/${pluginResourceJ2eeDir}/build.properties"
 			basedir="${basedir}/${pluginResourceJ2eeDir}"
-			template="/project-ejb.properties"/> 
-	    <velocity:merge
-			name="${maven.build.dest}/${pluginResourceJ2eeDir}/project-hibernate.properties"
-			basedir="${basedir}/${pluginResourceJ2eeDir}"
-			template="/project-hibernate.properties"/> 
+			template="/build.properties.vsl"/> 
         <ant:delete file="${maven.build.dest}/project.xml"/>
         <velocity:merge
             name="${maven.build.dest}/project.xml"

@@ -1,0 +1,19 @@
+maven.multiproject.includes=**/*project.xml
+maven.multiproject.excludes=project.xml
+
+maven.idea.project.version=4
+maven.idea.project.multiproject.basedir=.
+
+# The datasource for the application
+dataSource=java:/DefaultDS
+
+#if ($webservice)
+application.name=${projectName}
+#end
+
+#if ($hibernate || $spring)
+# For MySql use: net.sf.hibernate.dialect.MySQLDialect
+# For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
+# For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=net.sf.hibernate.dialect.HSQLDialect
+#end
