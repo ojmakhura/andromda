@@ -178,12 +178,17 @@ public class StrutsJspLogicImpl
 
     protected Object handleGetUseCase()
     {
+        UseCaseFacade useCase = null;
         final ActivityGraphFacade graph = getActivityGraph();
         if (graph instanceof StrutsActivityGraph)
         {
-            return ((StrutsActivityGraph) graph).getUseCase();
+            useCase = ((StrutsActivityGraph) graph).getUseCase();
+            if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
+            {
+                useCase = null;
+            }
         }
-        return null;
+        return useCase;
     }
 
     protected Collection handleGetActions()
