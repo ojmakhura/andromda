@@ -292,6 +292,21 @@
                         No, default is <code>UTF-8</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        generateWebXmlIds
+                    </td>
+                    <td>
+                        Indicates whether or not to generate <code>id</code>
+                        attributes in the XMl elements of the web.xml
+                        descriptor. Some application servers such as WebSphere
+                        need them, other application servers such as Resin
+                        can't handle them.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr>
             </table>
         </section>
     </body>

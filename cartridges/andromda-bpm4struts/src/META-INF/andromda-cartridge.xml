@@ -32,6 +32,8 @@
     <property reference="customResourcesKey" default="custom"/>
     <!-- generated xml's encoding -->
     <property reference="xmlEncoding" default="UTF-8"/>
+    <!-- generate id attribute in web.xml elements -->
+    <property reference="generateWebXmlIds" default="false"/>
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
