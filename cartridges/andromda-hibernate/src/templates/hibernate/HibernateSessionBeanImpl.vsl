@@ -11,7 +11,6 @@ public class ${service.name}BeanImpl
     // abstract in class ${service.name}Bean ...
 
 #foreach ( $operation in $service.operations)
-
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
@@ -22,7 +21,6 @@ public class ${service.name}BeanImpl
 #else
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
-
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.hasExceptions())
     protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
@@ -45,10 +43,8 @@ public class ${service.name}BeanImpl
 #end
 #end
     }
-
-
+    
 #end
-
     // ---------- the usual session bean stuff... ------------
 
     public void setSessionContext(javax.ejb.SessionContext ctx)

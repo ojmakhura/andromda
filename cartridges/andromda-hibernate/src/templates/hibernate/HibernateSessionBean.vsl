@@ -11,6 +11,7 @@ import net.sf.hibernate.SessionFactory;
 #foreach ( $serviceRef in $service.serviceReferences )
 import ${serviceRef.targetElement.fullyQualifiedName}Home;
 #end
+
 ##
 #if (!$service.attributes.empty)
 #set ($stateful = true)
@@ -41,7 +42,7 @@ $service.getDocumentation(" * ")
  *        local-class="${service.fullyQualifiedName}LocalHome"
  * @ejb.util generate="physical"
 #foreach ( $serviceRef in $service.serviceReferences )
- #set ($serviceRef = $serviceRef.targetElement)
+#set ($serviceRef = $serviceRef.targetElement)
  * @ejb.ejb-ref 
  *        ejb-name="$serviceRef.name" 
  *        view-type="$serviceRef.viewType" 
@@ -96,9 +97,7 @@ $attribute.getDocumentation("     * ")
 #end
 #end
     // ---------------- business methods  ----------------------
-
 #foreach ($operation in $service.operations)
-
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
@@ -109,7 +108,6 @@ $attribute.getDocumentation("     * ")
 #else
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
-
 #if ($operation.hasExceptions())
     protected abstract $operation.returnType.fullyQualifiedName handle${str.capitalize(${operation.name})} ($parameters)
         throws $operation.exceptionList;
@@ -178,8 +176,8 @@ $operation.getDocumentation("     * ")
             }
         }
     }
+    
 #end
-
    // ---------------- create methods -------------------------
 
    /**
@@ -248,7 +246,6 @@ $operation.getDocumentation("     * ")
     }
 
     // ---------------- accessor methods for (session!) bean references ---------------
-
 #foreach ( $serviceRef in $service.serviceReferences )
    #set ($service = $serviceRef.targetElement)
    #set ($homeInterfaceName = "${service.name}Home")

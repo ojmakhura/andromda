@@ -16,6 +16,8 @@ public class HibernateProfile extends UMLProfile {
 	
 	/* ----------------- Tagged Values -------------------- */
 	
-	public static final String TAGGEDVALUE_HIBERNATE_QUERY = "@andromda.hibernate.query";	
+	public static final String TAGGEDVALUE_HIBERNATE_QUERY = "@andromda.hibernate.query";
+    
+    public static final String TAGGEDVALUE_EJB_VIEWTYPE = "@andromda.ejb.viewType";
 	
 }

@@ -66,7 +66,6 @@ $attribute.getDocumentation("     * ")
     }
 
 #end
-
     // ------------- relations ------------------
 
 #foreach ( $associationEnd in $entity.associationEnds )
