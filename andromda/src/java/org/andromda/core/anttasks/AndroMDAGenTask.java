@@ -308,17 +308,31 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Sets <code>validating</code> to be true/false. This defines whether XML
-     * resources loaded by AndroMDA (such as plugin descriptors) should be
+     * Sets <code>xmlValidation</code> to be true/false. This defines whether
+     * XML resources loaded by AndroMDA (such as plugin descriptors) should be
      * validated. Sometimes underlying parsers don't support XML Schema
      * validation and in that case, we want to be able to turn it off.
      * 
      * @param validating true/false on whether we should validate XML resources
      *        used by AndroMDA
      */
-    public void setValidating(boolean validating)
+    public void setXmlValidation(boolean xmlValidation)
     {
-        XmlObjectFactory.setDefaultValidating(validating);
+        XmlObjectFactory.setDefaultValidating(xmlValidation);
+    }
+
+    /**
+     * Sets <code>modelValidation</code> to be true/false. This defines
+     * whether model validation should occur when AndroMDA processes model(s).
+     * 
+     * @param modelValidation true/false on whether model validation should be
+     *        performed or not.
+     * @see org.andromda.core.ModelProcessor#setModelValidation(boolean)
+     * @see org.andromda.core.metafacade.MetafacadeFactory#setModelValidation(boolean)
+     */
+    public void setModelValidation(boolean modelValidation)
+    {
+        ModelProcessor.instance().setModelValidation(modelValidation);
     }
 
     /**

@@ -17,6 +17,18 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 29, 2004</td>
+                    <td valign="top" class="std">Core change</td>
+                    <td valign="top" class="std">
+                        The <code>validating</code> flag has been renamed to the more
+                        appropriate <code>xmlValidation</code>.  At the same time a new
+                        <code>modelValidation</code> flag has been added that allows us
+                        to turn on/off model validation during processing.   By default
+                        model validation occurs, however its sometimes nice to turn it 
+                        off for performance reasons (i.e. you have a really big model).
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 28, 2004</td>
                     <td valign="top" class="std">New bpm4struts feature</td>
                     <td valign="top" class="std">

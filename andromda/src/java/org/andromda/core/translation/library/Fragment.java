@@ -16,7 +16,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class Fragment
 {
-
     private String name;
     private String handlerMethod;
 
@@ -72,8 +71,7 @@ public class Fragment
     /**
      * Returns the body for the fragment kind with the specified name.
      * 
-     * @param name
-     *            the name of the kind to get.
+     * @param name the name of the kind to get.
      * @return FragmentKind
      */
     public String getKind(String name)
@@ -87,13 +85,11 @@ public class Fragment
         String kind = StringUtils.trimToEmpty((String)kinds.get(name));
         if (kind == null)
         {
-            throw new LibraryException(
-                methodName + " - no kind '" + name
-                    + "' could be found for the translation fragment '"
-                    + this.getName() + "' check the fragment '"
-                    + this.getName() + "' in translation template --> '"
-                    + getTranslation().getLibraryTranslation().getTemplate()
-                    + "'");
+            throw new LibraryException(methodName + " - no kind '" + name
+                + "' could be found for the translation fragment '"
+                + this.getName() + "' check the fragment '" + this.getName()
+                + "' in translation template --> '"
+                + getTranslation().getLibraryTranslation().getTemplate() + "'");
         }
         return kind;
     }
@@ -102,10 +98,8 @@ public class Fragment
      * Adds the specified kind having the specified name and body to the
      * Fragment.
      * 
-     * @param name
-     *            the name of the kind of expression.
-     * @param body
-     *            the body of the kind of expression.
+     * @param name the name of the kind of expression.
+     * @param body the body of the kind of expression.
      */
     public void addKind(String name, String body)
     {
@@ -127,8 +121,7 @@ public class Fragment
      * Translator that handles the processing of the fragment.
      * 
      * @see org.andromda.core.translation.Translator
-     * @param handlerMethod
-     *            The handlerMethod to set.
+     * @param handlerMethod The handlerMethod to set.
      */
     public void setHandlerMethod(String handlerMethod)
     {
@@ -146,8 +139,8 @@ public class Fragment
         //should never happen, but it doesn't hurt to be safe
         if (this.translation == null)
         {
-            throw new LibraryException(
-                methodName + " - translation can not be null");
+            throw new LibraryException(methodName
+                + " - translation can not be null");
         }
         return translation;
     }
@@ -169,5 +162,4 @@ public class Fragment
     {
         return ToStringBuilder.reflectionToString(this);
     }
-
 }

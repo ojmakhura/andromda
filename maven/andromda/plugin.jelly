@@ -39,7 +39,8 @@
         <ant:andromda basedir="${maven.andromda.src.dir}"
                       includes="${maven.andromda.src.includes}"
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
-                      processAllModelPackages="${maven.andromda.processAllModelPackages}">
+                      processAllModelPackages="${maven.andromda.processAllModelPackages}"
+                      modelValidation="${maven.andromda.modelValidation}">
                 
             <!-- point the mappings search path to the location of the mappings in this plugin -->      
             <ant:mappingsSearchPath>
