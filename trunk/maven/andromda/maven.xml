@@ -44,11 +44,14 @@
 				
         <j:set var="pluginResources" value="plugin-resources/andromda"/>
 				
+		<j:set 
+			var="pluginResourceJ2eeDir" 
+			value="${pluginResources}/templates/j2ee-app"/>
   		<!-- perform the below merges so we can add the 
   			 current version of AndroMDA to the mda genapp module -->
 		<j:set 
 			var="mdaResourcesDir" 
-			value="${pluginResources}/templates/j2ee-app/mda"/>
+			value="${pluginResourceJ2eeDir}/mda"/>
 		<j:set 
 			var="mdaTemplatesDir" 
 			value="${basedir}/${mdaResourcesDir}"/>
@@ -66,7 +69,7 @@
 			<ant:fileset dir="${mappings.location}"/>
 		</ant:copy>		
 		<!-- copy over the db initialization scripts for hibernate -->
-        <ant:copy todir="${maven.build.dest}/templates/j2ee-app/hibernate/db/conf">
+        <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/hibernate/db/conf">
             <ant:fileset dir="${hibernate.db.conf.location}"/>
         </ant:copy>	
    </preGoal>
