@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.omg.uml.foundation.core.AssociationEnd;
+import org.omg.uml.foundation.datatypes.AggregationKindEnum;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
 
 /**
@@ -42,7 +43,7 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
             AssociationEnd ae = (AssociationEnd) i.next();
             if (!metaObject.equals(ae))
             {
-                return (AssociationEndDecorator)decoratedElement(ae);
+                return (AssociationEndDecorator) decoratedElement(ae);
             }
         }
 
@@ -152,6 +153,24 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
         }
 
         return false;
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.AssociationEndDecorator#isAggregation()
+     */
+    public boolean isAggregation()
+    {
+        return AggregationKindEnum.AK_AGGREGATE.equals(
+            metaObject.getAggregation());
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.AssociationEndDecorator#isComposition()
+     */
+    public boolean isComposition()
+    {
+        return AggregationKindEnum.AK_COMPOSITE.equals(
+            metaObject.getAggregation());
     }
 
     // ------------- relations ------------------
