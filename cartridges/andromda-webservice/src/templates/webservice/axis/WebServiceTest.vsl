@@ -2,11 +2,10 @@
 package $service.testPackageName;
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedTestName,'.','/')}.java")
 
-import ${service.testPackageName}.${service.name}ServiceLocator;
-import ${service.testPackageName}.${service.name};
-import ${service.testPackageName}.${service.name}SoapBindingStub;
-
-import javax.xml.rpc.ServiceException;
+#set ($fullyQualifiedTestServiceLocator = $testServiceLocatorName)
+#if($stringUtils.isNotEmpty($testServiceLocatorPackage))
+#set ($fullyQualifiedTestServiceLocator = "${testServiceLocatorPackage}.${fullyQualifiedTestServiceLocator}")
+#end
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -39,15 +38,11 @@ public abstract class $service.testName
 	public void setUp() {
 		try 
 		{
-			${service.name}ServiceLocator locator = 
-				new ${service.name}ServiceLocator();
-			this.service = locator.get${service.name}();
-			${service.name}SoapBindingStub stub = 
-				(${service.name}SoapBindingStub)this.service;	
+			this.service = ${fullyQualifiedTestServiceLocator}.instance().get${service.name}();	
 		} 
-		catch (ServiceException ex) 
+		catch (Throwable th) 
 		{
-			TestCase.fail(ex.toString());
+			TestCase.fail(th.toString());
 		}
 	}
 	

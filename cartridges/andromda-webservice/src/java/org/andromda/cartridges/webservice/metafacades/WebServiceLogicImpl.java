@@ -224,7 +224,7 @@ public class WebServiceLogicImpl
      * <code>nonArrayType</code>. Non array types are loaded seperately so
      * that they are added at the end at the type collecting process. Since the
      * types collection are a set (by the fullyQualifiedName) we don't want any
-     * non array types to override things such as association ends in the the
+     * non array types to override things such as association ends in the
      * <code>types</code> collection.
      * 
      * @param type the type

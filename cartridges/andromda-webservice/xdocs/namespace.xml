@@ -164,6 +164,28 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        testServiceLocatorPackage
+                    </td>
+                    <td>
+                        The package to give to the test service locator.
+                    </td>
+                    <td>
+                        No, default is <code>org.andromda.webservice.test</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        testServiceLocatorName
+                    </td>
+                    <td>
+                        The name to give the test service locator.
+                    </td>
+                    <td>
+                        No, default is <code>TestServiceLocator</code>
+                    </td>
+                </tr>
+                <tr>
                     <a name="rpcClassNamePattern"/>
                     <td>
                         rpcClassNamePattern
