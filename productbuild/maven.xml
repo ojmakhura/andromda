@@ -1,4 +1,4 @@
-<project default="dist" xmlns:maven="jelly:maven" xmlns:j="jelly:core"
+<project default="clean-dist" xmlns:maven="jelly:maven" xmlns:j="jelly:core"
     xmlns:ant="jelly:ant" xmlns:util="jelly:util" xmlns:artifact="artifact">
 
     <!-- ==================================================================
@@ -90,6 +90,14 @@
     <goal name="dist">
         <attainGoal name="dist-src"/>
         <attainGoal name="dist-bin"/>
+    </goal>
+    
+    <!-- ==================================================================
+             Cleans and creates the AndroMDA distributions
+         ================================================================== -->
+    <goal name="clean-dist">
+        <attainGoal name="clean"/>
+        <attainGoal name="dist"/>
     </goal>
 
     <!-- ==================================================================
