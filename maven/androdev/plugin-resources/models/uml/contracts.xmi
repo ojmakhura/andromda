@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- <!DOCTYPE XMI SYSTEM "uml14xmi12.dtd"> -->
 
-<XMI xmi.version='1.2' timestamp='Sat May 22 13:42:03 EDT 2004' xmlns:UML='omg.org/UML/1.4'>
+<XMI xmi.version='1.2' timestamp='Tue May 25 07:49:41 EDT 2004' xmlns:UML='omg.org/UML/1.4'>
 	<XMI.header>
 		<XMI.documentation>
 			<XMI.exporter>MagicDraw UML</XMI.exporter>
@@ -82,17 +82,17 @@
 							<UML:Classifier.feature>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ed6' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171037109_282682_3468'>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130843_23059_3484'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_726860_82'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ed3' name='projectNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ed3' name='number' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_51903_3640'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_195804_83'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ed0' name='projectName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ed0' name='name' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_954445_3641'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_486434_84'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ecd' name='discipline' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
@@ -103,11 +103,8 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_322539_3642'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eca' name='projectType' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eca' name='type' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='_24400562_1085170423890_782585_2509'>
 											<UML:Multiplicity.range>
@@ -116,10 +113,10 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_670631_3643'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_271385_85'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ec7' name='projectStatus' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ec7' name='status' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='_24400562_1085170423890_756992_2512'>
 											<UML:Multiplicity.range>
@@ -128,7 +125,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_115733_3644'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_15232_86'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ec4' name='sponsorName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
@@ -139,9 +136,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_350496_3645'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ebb' name='projectLeaderName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -152,7 +146,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_485842_3646'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_977919_87'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eb8' name='businessDevManagerName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
@@ -163,9 +157,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_339783_3647'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eb5' name='contractManagerName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -175,11 +166,8 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_633438_3648'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eb2' name='projectWentCurrentDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085170835453_273058_3254'>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eb2' name='wentCurrentDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e9d' type='_24400562_1085170835453_273058_3254'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='_24400562_1085170423890_775183_2533'>
 											<UML:Multiplicity.range>
@@ -188,7 +176,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_36406_3649'/>
+										<UML:Expression xmi.id='_24400562_1085454626343_960620_88'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Operation xmi.id='lsm:10bbd42:fa013e7b04:-7ea6' name='findByName' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='lsm:10bbd42:fa013e7b04:-7db8' owner='lsm:10bbd42:fa013e7b04:-7e9d'>
@@ -204,11 +192,24 @@
 										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7ea1' name='return' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
 									</UML:BehavioralFeature.parameter>
 								</UML:Operation>
-								<UML:Operation xmi.id='_24400562_1085245358203_993329_3932' name='findByProjectType' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='_24400562_1085246950875_187565_9178' owner='lsm:10bbd42:fa013e7b04:-7e9d'>
+								<UML:Operation xmi.id='_24400562_1085245358203_993329_3932' name='findByProjectTypeStatusAfterWentCurrentDate' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='_24400562_1085246950875_187565_9178' owner='lsm:10bbd42:fa013e7b04:-7e9d'>
+									<UML:ModelElement.comment>
+										<UML:Comment xmi.id='_24400562_1085483425203_671106_91' name='Finds all projects by &apos;type&apos;, &apos;status&apos; and having a wentCurrentDate after the given &apos;wentCurrentDate&apos;.'/>
+									</UML:ModelElement.comment>
 									<UML:BehavioralFeature.parameter>
-										<UML:Parameter xmi.id='_24400562_1085245356781_496867_3930' name='projectType' kind='in' type='_24400562_1085171293593_427980_3624'>
+										<UML:Parameter xmi.id='_24400562_1085245356781_496867_3930' name='type' kind='in' type='_24400562_1085171293593_427980_3624'>
 											<UML:ModelElement.comment>
-												<UML:Comment xmi.id='_24400562_1085245359625_480918_3934' name='Finds all projects by the give &apos;projectType&apos;.'/>
+												<UML:Comment xmi.id='_24400562_1085245359625_480918_3934' name='The type of the project.'/>
+											</UML:ModelElement.comment>
+										</UML:Parameter>
+										<UML:Parameter xmi.id='_24400562_1085483421953_303967_89' name='status' kind='in' type='_24400562_1085171293593_427980_3624'>
+											<UML:ModelElement.comment>
+												<UML:Comment xmi.id='_24400562_1085483425203_371827_92' name='The status of the project.'/>
+											</UML:ModelElement.comment>
+										</UML:Parameter>
+										<UML:Parameter xmi.id='_24400562_1085483421953_281664_90' name='wentCurrentDate' kind='in' type='_24400562_1085170835453_273058_3254'>
+											<UML:ModelElement.comment>
+												<UML:Comment xmi.id='_24400562_1085483425203_622587_93' name='The date the project went current.'/>
 											</UML:ModelElement.comment>
 										</UML:Parameter>
 										<UML:Parameter xmi.id='_24400562_1085245356781_809558_3931' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
@@ -256,21 +257,9 @@
 						</UML:Association>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7f4d' name='PartyContact' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f72' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130843_48195_3485'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f6f' name='firstName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_274488_3650'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f6c' name='lastName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_502754_3651'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f72' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171037109_282682_3468'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f6f' name='firstName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f6c' name='lastName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'/>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f69' name='addressLineOne' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='_24400562_1085169963015_120313_2126'>
@@ -279,9 +268,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_981073_3652'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f66' name='addressLineTwo' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -291,9 +277,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_698435_3653'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f63' name='city' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -303,9 +286,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_208907_3654'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f60' name='postalCode' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -315,9 +295,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_3343_3655'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f5d' name='phoneNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -327,9 +304,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_749883_3656'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f5a' name='phoneExtension' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -339,9 +313,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_911424_3657'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f57' name='faxNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -351,9 +322,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_327211_3658'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f54' name='faxExtension' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -363,9 +331,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_685068_3659'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f51' name='emailAddress' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -375,9 +340,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_960011_3660'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f4e' name='note' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f4d' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -387,38 +349,19 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_100046_3661'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e83' name='Capability' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e87' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e83' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130843_563068_3486'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e84' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e83' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_865325_3662'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e87' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e83' type='_24400562_1085171037109_282682_3468'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e84' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e83' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7eec' name='PartyAudit' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7efc' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130843_246728_3487'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ef9' name='scheduledDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085170835453_273058_3254'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085170909859_281721_3271'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7efc' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085171037109_282682_3468'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ef9' name='scheduledDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085170835453_273058_3254'/>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ef6' name='performedDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085170835453_273058_3254'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='_24400562_1085167590796_658424_1700'>
@@ -427,9 +370,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085170909859_247988_3272'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ef0' name='note' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -439,9 +379,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_366000_3663'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7eed' name='contactName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eec' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -451,24 +388,13 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_918200_3664'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7ee4' name='AuditStatus' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ee8' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ee4' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_765290_3665'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ee5' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ee4' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_762829_3666'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ee8' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ee4' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ee5' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ee4' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7ded' name='ProjectManager' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false' clientDependency='lsm:10bbd42:fa013e7b04:-7dea'>
@@ -486,11 +412,7 @@
 						<UML:Dependency xmi.id='lsm:10bbd42:fa013e7b04:-7deb' client='lsm:10bbd42:fa013e7b04:-7df5' supplier='lsm:10bbd42:fa013e7b04:-7e41'/>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e8b' name='AgreementPriority' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e8c' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e8b' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_354403_3667'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e8c' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e8b' type='_24400562_1085171293593_427980_3624'/>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e8f' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e8b' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='lsm:10bbd42:fa013e7b04:-7e92'>
@@ -499,9 +421,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667734_345882_3668'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 							</UML:Classifier.feature>
 						</UML:Class>
@@ -537,26 +456,10 @@
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e5f' name='LastActionNote' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e67' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130859_70239_3488'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e64' name='actionNote' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_260985_3669'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e62' name='modified' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085170835453_273058_3254'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085170985859_967091_3276'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e60' name='modifiedUserId' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_41303_3670'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e67' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085171037109_282682_3468'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e64' name='actionNote' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e62' name='modified' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085170835453_273058_3254'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e60' name='modifiedUserId' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e5f' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e46' name='Person' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
@@ -569,30 +472,11 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130859_153532_3489'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e56' name='lastName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_183084_3671'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e53' name='firstName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_346385_3672'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e50' name='initials' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_855387_3673'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e4d' name='phoneNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_872477_3674'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e56' name='lastName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e53' name='firstName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e50' name='initials' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e4d' name='phoneNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'/>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e4a' name='phoneExtension' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
 										<UML:Multiplicity xmi.id='_24400562_1085170064093_978573_2332'>
@@ -601,9 +485,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_643641_3675'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e47' name='emailAddress' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e46' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -613,33 +494,18 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_628671_3676'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e3d' name='PartyAuditCapability' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false' constraint='lsm:10bbd42:fa013e7b04:-7de4'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e3e' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e3d' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130859_134829_3490'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e3e' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e3d' type='_24400562_1085171037109_282682_3468'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7dd4' name='Country' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7dd8' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7dd4' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_419290_3677'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7dd5' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7dd4' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_330206_3678'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7dd8' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7dd4' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7dd5' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7dd4' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7eda' name='AgreementType' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
@@ -652,44 +518,21 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_261409_3679'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7edb' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eda' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_159859_3680'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7edb' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7eda' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Dependency xmi.id='lsm:10bbd42:fa013e7b04:-7dea' client='lsm:10bbd42:fa013e7b04:-7ded' supplier='lsm:10bbd42:fa013e7b04:-7e9d'/>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7ddc' name='State' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7de0' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ddc' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_844815_3681'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ddd' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ddc' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_403359_3682'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7de0' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ddc' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7ddd' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7ddc' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e95' name='RegulatoryRiskStatus' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e99' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e95' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_67678_3683'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e96' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e95' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_79949_3684'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e99' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e95' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e96' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e95' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e16' name='LegalAgreementManager' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false' clientDependency='lsm:10bbd42:fa013e7b04:-7cd1'>
@@ -766,16 +609,8 @@
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e6b' name='AgreementStatus' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e6f' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e6b' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_835914_3686'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e6c' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e6b' type='_24400562_1085171293593_427980_3624'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_897873_3687'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e6f' name='code' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e6b' type='_24400562_1085171293593_427980_3624'/>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e6c' name='value' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e6b' type='_24400562_1085171293593_427980_3624'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Dependency xmi.id='lsm:10bbd42:fa013e7b04:-7cd2' client='lsm:10bbd42:fa013e7b04:-7e07' supplier='lsm:10bbd42:fa013e7b04:-7f00'/>
@@ -789,9 +624,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130859_773827_3492'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f46' name='legalPartyName' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -801,9 +633,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_279530_3688'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f43' name='isSubContractor' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085170643953_364610_2922'>
 									<UML:Attribute.initialValue>
@@ -823,9 +652,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_756094_3690'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f3a' name='addressLineOne' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -835,9 +661,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_472673_3691'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f37' name='addressLineTwo' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -847,9 +670,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_514886_3692'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f34' name='city' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -859,9 +679,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_450552_3693'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f31' name='postalCode' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -871,9 +688,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_858120_3694'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7f2e' name='phoneNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f00' type='_24400562_1085171293593_427980_3624'>
 									<UML:StructuralFeature.multiplicity>
@@ -883,9 +697,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_203623_3695'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Operation xmi.id='lsm:10bbd42:fa013e7b04:-7f2b' name='findByLegalPartyName' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='lsm:10bbd42:fa013e7b04:-7d97' owner='lsm:10bbd42:fa013e7b04:-7f00'>
 									<UML:BehavioralFeature.parameter>
@@ -962,9 +773,6 @@
 											</UML:Multiplicity.range>
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_314815_3696'/>
-									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Operation xmi.id='lsm:10bbd42:fa013e7b04:-7f09' name='findByLegalAgreement' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='lsm:10bbd42:fa013e7b04:-7ce7' owner='lsm:10bbd42:fa013e7b04:-7f00'>
 									<UML:BehavioralFeature.parameter>
@@ -993,20 +801,12 @@
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e7e' name='PartyCapability' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e7f' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e7e' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_299879_3697'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e7f' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e7e' type='_24400562_1085171037109_282682_3468'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Class xmi.id='lsm:10bbd42:fa013e7b04:-7e41' name='PartyService' visibility='public' isRoot='false' isLeaf='false' isAbstract='false' isActive='false'>
 							<UML:Classifier.feature>
-								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e42' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e41' type='_24400562_1085171037109_282682_3468'>
-									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667765_108165_3698'/>
-									</UML:Attribute.initialValue>
-								</UML:Attribute>
+								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7e42' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7e41' type='_24400562_1085171037109_282682_3468'/>
 							</UML:Classifier.feature>
 						</UML:Class>
 						<UML:Dependency xmi.id='lsm:10bbd42:fa013e7b04:-7cd1' client='lsm:10bbd42:fa013e7b04:-7e16' supplier='lsm:10bbd42:fa013e7b04:-7f76'/>
@@ -1014,7 +814,7 @@
 							<UML:Classifier.feature>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fe9' name='id' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085171037109_282682_3468'>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171130859_217262_3491'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_535548_103'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fe4' name='documentTitle' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085171293593_427980_3624'>
@@ -1026,12 +826,12 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171667750_217984_3685'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_712371_104'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fe1' name='initiatedDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085170835453_273058_3254'>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085170909859_857330_3273'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_767593_105'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fde' name='executedDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085170835453_273058_3254'>
@@ -1043,7 +843,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085170909859_679031_3274'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_798704_106'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fdb' name='expiredDate' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085170835453_273058_3254'>
@@ -1055,7 +855,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085170909859_747579_3275'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_448614_107'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fd8' name='amendmentNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085171146562_902396_3543'>
@@ -1067,7 +867,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171280171_276681_3559'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_828506_108'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Attribute xmi.id='lsm:10bbd42:fa013e7b04:-7fd3' name='addendumNumber' visibility='public' ownerScope='instance' changeability='changeable' targetScope='instance' ordering='unordered' owner='lsm:10bbd42:fa013e7b04:-7f76' type='_24400562_1085171146562_902396_3543'>
@@ -1079,7 +879,7 @@
 										</UML:Multiplicity>
 									</UML:StructuralFeature.multiplicity>
 									<UML:Attribute.initialValue>
-										<UML:Expression xmi.id='_24400562_1085171280171_959630_3560'/>
+										<UML:Expression xmi.id='_24400562_1085484631250_8754_109'/>
 									</UML:Attribute.initialValue>
 								</UML:Attribute>
 								<UML:Operation xmi.id='lsm:10bbd42:fa013e7b04:-7fcd' name='findByTitlePartyTypeStatus' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='lsm:10bbd42:fa013e7b04:-7d54' owner='lsm:10bbd42:fa013e7b04:-7f76'>
@@ -1140,11 +940,11 @@
 								</UML:Method>
 								<UML:Operation xmi.id='lsm:10bbd42:fa013e7b04:-7fac' name='findByTitlePartyTypeStatusProject' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='lsm:10bbd42:fa013e7b04:-7d29' owner='lsm:10bbd42:fa013e7b04:-7f76'>
 									<UML:BehavioralFeature.parameter>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fb2' name='aDocumentTitle' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fb1' name='aLegalPartyName' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fb0' name='anAgreementTypePk' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7faf' name='agreementStatusPks' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fae' name='aProjectPk' kind='inout'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fb2' name='aDocumentTitle' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fb1' name='aLegalPartyName' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fb0' name='anAgreementTypePk' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7faf' name='anAgreementStatusPk' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fae' name='aProjectPk' kind='in' type='_24400562_1085171037109_282682_3468'/>
 										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fad' name='return' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
 									</UML:BehavioralFeature.parameter>
 								</UML:Operation>
@@ -1169,12 +969,12 @@
 								</UML:Method>
 								<UML:Operation xmi.id='lsm:10bbd42:fa013e7b04:-7f9a' name='findByTitlePartyTypeStatusPersonProject' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='lsm:10bbd42:fa013e7b04:-7d09' owner='lsm:10bbd42:fa013e7b04:-7f76'>
 									<UML:BehavioralFeature.parameter>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fa0' name='aDocumentTitle' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9f' name='aLegalPartyName' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9e' name='anAgreementTypePk' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9d' name='agreementStatusPks' kind='inout' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9c' name='aDcriPersonPk' kind='inout'/>
-										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9b' name='aProjectPk' kind='inout'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fa0' name='aDocumentTitle' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9f' name='aLegalPartyName' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9e' name='anAgreementTypePk' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9d' name='anAgreementStatusPk' kind='in' type='_24400562_1085171293593_427980_3624'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9c' name='aPersonPk' kind='in' type='_24400562_1085171037109_282682_3468'/>
+										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7f9b' name='aProjectPk' kind='in' type='_24400562_1085171037109_282682_3468'/>
 										<UML:Parameter xmi.id='lsm:10bbd42:fa013e7b04:-7fa1' name='return' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
 									</UML:BehavioralFeature.parameter>
 								</UML:Operation>
@@ -1229,14 +1029,19 @@
 										<UML:Parameter xmi.id='_24400562_1085166455937_312957_20' kind='return'/>
 									</UML:BehavioralFeature.parameter>
 								</UML:Method>
-								<UML:Operation xmi.id='_24400562_1085245795218_986011_3982' name='findByStatuses' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='_24400562_1085247101640_617878_9218' owner='lsm:10bbd42:fa013e7b04:-7f76'>
+								<UML:Operation xmi.id='_24400562_1085245795218_986011_3982' name='findByTypeAndStatuses' visibility='public' ownerScope='instance' isQuery='true' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' constraint='_24400562_1085247101640_617878_9218' owner='lsm:10bbd42:fa013e7b04:-7f76'>
 									<UML:ModelElement.comment>
 										<UML:Comment xmi.id='_24400562_1085246323328_559398_9098' name='Finds projects by a collection of given statuses.'/>
 									</UML:ModelElement.comment>
 									<UML:BehavioralFeature.parameter>
-										<UML:Parameter xmi.id='_24400562_1085247639625_959435_9259' name='statuses' kind='in' type='lsm:10bbd42:fa013e7b04:-7bf8'>
+										<UML:Parameter xmi.id='_24400562_1085483798437_387438_95' name='anAgreementTypePk' kind='in' type='_24400562_1085171293593_427980_3624'>
 											<UML:ModelElement.comment>
-												<UML:Comment xmi.id='_24400562_1085247665390_826001_9261' name='The statuses to search by.'/>
+												<UML:Comment xmi.id='_24400562_1085483809609_437522_96' name='The primary key of an agreement type.'/>
+											</UML:ModelElement.comment>
+										</UML:Parameter>
+										<UML:Parameter xmi.id='_24400562_1085247639625_959435_9259' name='agreementStatusPks' kind='in' type='lsm:10bbd42:fa013e7b04:-7bf8'>
+											<UML:ModelElement.comment>
+												<UML:Comment xmi.id='_24400562_1085247665390_826001_9261' name='Collection of agreement status primary keys.'/>
 											</UML:ModelElement.comment>
 										</UML:Parameter>
 										<UML:Parameter xmi.id='_24400562_1085245795218_174311_3981' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
@@ -1250,6 +1055,19 @@
 											</UML:ModelElement.comment>
 										</UML:Parameter>
 										<UML:Parameter xmi.id='_24400562_1085247607765_180008_9256' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
+									</UML:BehavioralFeature.parameter>
+								</UML:Operation>
+								<UML:Operation xmi.id='_24400562_1085484629265_151527_101' name='findByLegalPartyName' visibility='public' ownerScope='instance' isQuery='false' concurrency='sequential' isRoot='false' isLeaf='false' isAbstract='false' owner='lsm:10bbd42:fa013e7b04:-7f76'>
+									<UML:ModelElement.comment>
+										<UML:Comment xmi.id='_24400562_1085484631265_534185_110' name='Finds the LegalAgreements related to Legal Parties that have the given &apos;legalPartyName&apos;.'/>
+									</UML:ModelElement.comment>
+									<UML:BehavioralFeature.parameter>
+										<UML:Parameter xmi.id='_24400562_1085484654390_470650_111' name='legalPartyName' kind='in' type='_24400562_1085171293593_427980_3624'>
+											<UML:ModelElement.comment>
+												<UML:Comment xmi.id='_24400562_1085484655734_760326_112' name='The name of the legal party to search by.'/>
+											</UML:ModelElement.comment>
+										</UML:Parameter>
+										<UML:Parameter xmi.id='_24400562_1085484629265_161898_100' kind='return' type='lsm:10bbd42:fa013e7b04:-7bf8'/>
 									</UML:BehavioralFeature.parameter>
 								</UML:Operation>
 							</UML:Classifier.feature>
@@ -1393,7 +1211,7 @@
 										</UML:Constraint>
 										<UML:Constraint xmi.id='lsm:10bbd42:fa013e7b04:-7d09' name='findByTitlePartyTypeStatusPersonProjectBody' constrainedElement='lsm:10bbd42:fa013e7b04:-7f9a'>
 											<UML:Constraint.body>
-												<UML:BooleanExpression xmi.id='_24400562_1085246657578_730865_9156' body='context LegalAgreement::findByTitlePartyTypeStatusPersonProject(aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String, anAgreementStatusPk:String, aDcriPersonPk:Long, aProjectPk:Long):Collection(LegalAgreement) body findByTitlePartyTypeStatusPersonProjectBody: allInstances-&gt;select( legalAgreement | StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) and legalAgreement.legalAgreementParties -&gt; includesAll(legalAgreement.legalAgreementParties -&gt; select( legalAgreementParty | StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName))) and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) and legalAgreement.dcriPerson.dcriPersonPk = aDcriPersonPk and legalAgreement.project.projectPk = aProjectPk)'/>
+												<UML:BooleanExpression xmi.id='_24400562_1085485509390_89750_117' body='context LegalAgreement::findByTitlePartyTypeStatusPersonProject(aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String, anAgreementStatusPk:String, aDcriPersonPk:Long, aProjectPk:Long):Collection(LegalAgreement) body findByTitlePartyTypeStatusPersonProjectBody: allInstances-&gt;select( legalAgreement | StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) and legalAgreement.legalAgreementParties -&gt; includesAll(legalAgreement.legalAgreementParties -&gt; select( legalAgreementParty | StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName))) and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) and legalAgreement.dcriPerson.dcriPersonPk = aDcriPersonPk and legalAgreement.project.projectPk = aProjectPk)'/>
 											</UML:Constraint.body>
 											<XMI.extension xmi.extender='MagicDraw UML 7.5' xmi.extenderID='MagicDraw UML 7.5'>
 												<Constraint.baseClass>Operation</Constraint.baseClass>
@@ -1454,7 +1272,7 @@
 										</UML:Constraint>
 										<UML:Constraint xmi.id='lsm:10bbd42:fa013e7b04:-7d29' name='findByTitlePartyTypeStatusProjectBody' constrainedElement='lsm:10bbd42:fa013e7b04:-7fac'>
 											<UML:Constraint.body>
-												<UML:BooleanExpression xmi.id='_24400562_1085246610687_541682_9154' body='context LegalAgreement::findByTitlePartyTypeStatusProject(aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String, anAgreementStatusPk:String, aProjectPk:Long):Collection(LegalAgreement)&#10;body findByTitlePartyTypeStatusProjectBody: allInstances-&gt;select( legalAgreement | StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) and legalAgreement.legalAgreementParties -&gt; includesAll( legalAgreement.legalAgreementParties -&gt; select( legalAgreementParty | StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, anLegalPartyName))) and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) and legalAgreement.project.projectPk = aProjectPk)'/>
+												<UML:BooleanExpression xmi.id='_24400562_1085485627609_586472_118' body='context LegalAgreement::findByTitlePartyTypeStatusProject(aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String, anAgreementStatusPk:String, aProjectPk:Long):Collection(LegalAgreement)&#10;body findByTitlePartyTypeStatusProjectBody: allInstances-&gt;select( legalAgreement | StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) and legalAgreement.legalAgreementParties -&gt; includesAll( legalAgreement.legalAgreementParties -&gt; select( legalAgreementParty | StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, anLegalPartyName))) and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) and legalAgreement.project.projectPk = aProjectPk)'/>
 											</UML:Constraint.body>
 											<XMI.extension xmi.extender='MagicDraw UML 7.5' xmi.extenderID='MagicDraw UML 7.5'>
 												<Constraint.baseClass>Operation</Constraint.baseClass>
@@ -1652,7 +1470,7 @@
 										</UML:Constraint>
 										<UML:Constraint xmi.id='_24400562_1085247101640_617878_9218' name='findByStatusesBody' constrainedElement='_24400562_1085245795218_986011_3982'>
 											<UML:Constraint.body>
-												<UML:BooleanExpression xmi.id='_24400562_1085247665390_3810_9263' body='context LegalAgreement::findByStatuses(agreementStatusPk : Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) body findByStatusesBody: allInstances() -&gt; select(legalAgreement | agreementStatusPks -&gt; exists(legalAgreement.agreementStatus.agreementStatusPk) or agreementStatusPks -&gt; isEmpty() and legalAgreement.agreementTypePk = anAgreementTypePk) '/>
+												<UML:BooleanExpression xmi.id='_24400562_1085484574750_970468_99' body='context LegalAgreement::findByTypeAndStatuses(anAgreementTypePk:String, agreementStatusPk : Collection(String)): Collection(LegalAgreement) body findByTypeAndStatusesBody: allInstances() -&gt; select(legalAgreement | legalAgreement.agreementTypePk = anAgreementTypePk and agreementStatusPks -&gt; exists(legalAgreement.agreementStatus.agreementStatusPk) or agreementStatusPks -&gt; isEmpty() ) '/>
 											</UML:Constraint.body>
 											<XMI.extension xmi.extender='MagicDraw UML 7.5' xmi.extenderID='MagicDraw UML 7.5'>
 												<Constraint.baseClass>Operation</Constraint.baseClass>
@@ -2089,7 +1907,7 @@
 										</UML:Constraint>
 										<UML:Constraint xmi.id='_24400562_1085246950875_187565_9178' name='findByProjectTypeBody' constrainedElement='_24400562_1085245358203_993329_3932'>
 											<UML:Constraint.body>
-												<UML:BooleanExpression xmi.id='_24400562_1085246961781_874532_9217' body='context org::andromda::contracts::Project::findByProjectType(&#10;aProjectTypePk:Long, aRequestStatus:String, aCompareDate:Timestamp):Collection (Project) body findByProjectType : allInstances() -&gt; select (project | project.jobRequestType.jobRequestTypePk = aProjectTypePk  and project.status = aRequestStatus &#10;and project.submittedDate &gt;= aCompareDate)'/>
+												<UML:BooleanExpression xmi.id='_24400562_1085483425265_319167_94' body='context org::andromda::contracts::Project::findByProjectType(&#10;aProjectTypePk:Long, aRequestStatus:String, aCompareDate:Timestamp):Collection (Project) body findByProjectType : allInstances() -&gt; select (project | project.jobRequestType.jobRequestTypePk = aProjectTypePk  and project.status = aRequestStatus &#10;and project.submittedDate &gt;= aCompareDate)'/>
 											</UML:Constraint.body>
 											<XMI.extension xmi.extender='MagicDraw UML 7.5' xmi.extenderID='MagicDraw UML 7.5'>
 												<Constraint.baseClass>Operation</Constraint.baseClass>
@@ -2696,9 +2514,9 @@
 					<elementID xmi.idref='_24400562_1085166535312_620821_118'/>
 					<zoomFactor xmi.value='0.7'/>
 					<diagramOpened xmi.value='true'/>
-					<diagramWindowBounds>0, 0, 1034, 542</diagramWindowBounds>
-					<diagramScrollPositionX xmi.value='0'/>
-					<diagramScrollPositionY xmi.value='0'/>
+					<diagramWindowBounds>0, 0, 1034, 666</diagramWindowBounds>
+					<diagramScrollPositionX xmi.value='305'/>
+					<diagramScrollPositionY xmi.value='27'/>
 					<maximized xmi.value='true'/>
 					<active xmi.value='true'/>
 					<mdOwnedViews>
@@ -2715,54 +2533,54 @@
 									<value xmi.value='false'/>
 								</mdElement>
 							</properties>
-							<geometry>440, 50, 255, 327</geometry>
+							<geometry>440, 50, 255, 342</geometry>
 						</mdElement>
 						<mdElement elementClass='AssociationView' xmi.id='_24400562_1085166541312_49975_168'>
 							<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cc6'/>
 							<linkFirstEndID xmi.idref='_24400562_1085166541203_211602_134'/>
 							<linkSecondEndID xmi.idref='_24400562_1085166541203_211602_134'/>
-							<geometry>670, 377; 670, 450; 567, 450; 567, 377; </geometry>
+							<geometry>670, 392; 670, 465; 567, 465; 567, 392; </geometry>
 							<linkNameID xmi.idref='_24400562_1085166541312_806216_201'/>
 							<nameVisible xmi.value='true'/>
 							<mdOwnedViews>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_920524_169'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>610, 442, 30, 15</geometry>
+									<geometry>604, 435, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_689395_171'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>603, 462, 30, 15</geometry>
+									<geometry>604, 480, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_600278_173'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>617, 441, 30, 15</geometry>
+									<geometry>617, 456, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085166541312_319760_175'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cca'/>
-									<geometry>665, 377, 10, 10</geometry>
+									<geometry>665, 392, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_152555_176'>
-											<geometry>645, 400, 134, 15</geometry>
+											<geometry>640, 415, 134, 15</geometry>
 											<text>+parentLegalAgreement</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_721019_178'>
-											<geometry>675, 380, 30, 15</geometry>
+											<geometry>670, 395, 30, 15</geometry>
 											<text>0..1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_610072_180'>
 											<visible xmi.value='false'/>
-											<geometry>665, 372, 30, 15</geometry>
+											<geometry>660, 387, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_508311_182'>
 											<visible xmi.value='false'/>
-											<geometry>798, 417, 30, 15</geometry>
+											<geometry>793, 432, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_787579_184'>
 											<visible xmi.value='false'/>
-											<geometry>670, 402, 228, 15</geometry>
+											<geometry>665, 417, 228, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085166541312_152555_176'/>
@@ -2773,27 +2591,27 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085166541312_310803_188'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cc7'/>
-									<geometry>562, 377, 10, 10</geometry>
+									<geometry>562, 392, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_690321_189'>
-											<geometry>506, 377, 102, 15</geometry>
+											<geometry>501, 392, 102, 15</geometry>
 											<text>+legalAgreements</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_949793_191'>
-											<geometry>506, 397, 30, 15</geometry>
+											<geometry>501, 412, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_756668_193'>
 											<visible xmi.value='false'/>
-											<geometry>557, 377, 30, 15</geometry>
+											<geometry>552, 392, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_529176_195'>
 											<visible xmi.value='false'/>
-											<geometry>557, 437, 30, 15</geometry>
+											<geometry>552, 452, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166541312_414116_197'>
 											<visible xmi.value='false'/>
-											<geometry>557, 377, 30, 15</geometry>
+											<geometry>552, 392, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085166541312_690321_189'/>
@@ -2804,7 +2622,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085166541312_806216_201'>
 									<visible xmi.value='false'/>
-									<geometry>593, 443, 45, 15</geometry>
+									<geometry>597, 450, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085166541312_920524_169'/>
@@ -2828,12 +2646,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_787420_718'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>371, 76, 30, 15</geometry>
+									<geometry>370, 45, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_864506_720'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>371, 48, 30, 15</geometry>
+									<geometry>385, 90, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_648772_722'>
 									<editable xmi.value='false'/>
@@ -2846,23 +2664,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_723350_725'>
 											<visible xmi.value='false'/>
-											<geometry>331, 70, 30, 15</geometry>
+											<geometry>331, 65, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_212018_727'>
-											<geometry>321, 82, 30, 15</geometry>
+											<geometry>321, 77, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_129154_729'>
 											<visible xmi.value='false'/>
-											<geometry>331, 70, 30, 15</geometry>
+											<geometry>331, 65, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_855383_731'>
 											<visible xmi.value='false'/>
-											<geometry>338, 95, 30, 15</geometry>
+											<geometry>338, 90, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_332545_733'>
 											<visible xmi.value='false'/>
-											<geometry>102, 30, 30, 15</geometry>
+											<geometry>102, 25, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085166967265_723350_725'/>
@@ -2877,23 +2695,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_934613_738'>
 											<visible xmi.value='false'/>
-											<geometry>430, 70, 30, 15</geometry>
+											<geometry>420, 65, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_641857_740'>
-											<geometry>390, 50, 30, 15</geometry>
+											<geometry>380, 45, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_152565_742'>
 											<visible xmi.value='false'/>
-											<geometry>430, 70, 30, 15</geometry>
+											<geometry>420, 65, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_530841_744'>
 											<visible xmi.value='false'/>
-											<geometry>430, 110, 30, 15</geometry>
+											<geometry>420, 105, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085166967265_849742_746'>
 											<visible xmi.value='false'/>
-											<geometry>430, 70, 30, 15</geometry>
+											<geometry>420, 65, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085166967265_934613_738'/>
@@ -2904,7 +2722,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085166967265_936917_750'>
 									<visible xmi.value='false'/>
-									<geometry>382, 31, 45, 15</geometry>
+									<geometry>363, 60, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085166967265_787420_718'/>
@@ -2928,12 +2746,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_327420_833'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>822, 135, 30, 15</geometry>
+									<geometry>822, 120, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_775640_835'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>822, 162, 30, 15</geometry>
+									<geometry>837, 165, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_380919_837'>
 									<editable xmi.value='false'/>
@@ -2946,23 +2764,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_902196_840'>
 											<visible xmi.value='false'/>
-											<geometry>695, 145, 30, 15</geometry>
+											<geometry>695, 140, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_554042_842'>
-											<geometry>711, 130, 30, 15</geometry>
+											<geometry>711, 125, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_949108_844'>
 											<visible xmi.value='false'/>
-											<geometry>695, 145, 30, 15</geometry>
+											<geometry>695, 140, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_753048_846'>
 											<visible xmi.value='false'/>
-											<geometry>713, 170, 30, 15</geometry>
+											<geometry>713, 165, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_453190_848'>
 											<visible xmi.value='false'/>
-											<geometry>695, 145, 30, 15</geometry>
+											<geometry>695, 140, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085167081578_902196_840'/>
@@ -2977,23 +2795,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_74825_853'>
 											<visible xmi.value='false'/>
-											<geometry>970, 145, 30, 15</geometry>
+											<geometry>960, 140, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_192758_855'>
-											<geometry>950, 120, 30, 15</geometry>
+											<geometry>940, 115, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_751821_857'>
 											<visible xmi.value='false'/>
-											<geometry>970, 145, 30, 15</geometry>
+											<geometry>960, 140, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_279134_859'>
 											<visible xmi.value='false'/>
-											<geometry>970, 185, 30, 15</geometry>
+											<geometry>960, 180, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167081578_54202_861'>
 											<visible xmi.value='false'/>
-											<geometry>910, 65, 30, 15</geometry>
+											<geometry>900, 60, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085167081578_74825_853'/>
@@ -3004,7 +2822,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167081578_157080_865'>
 									<visible xmi.value='false'/>
-									<geometry>750, 213, 45, 15</geometry>
+									<geometry>815, 135, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167081578_327420_833'/>
@@ -3028,12 +2846,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_29360_918'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>818, 298, 30, 15</geometry>
+									<geometry>817, 280, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_204943_920'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>818, 322, 30, 15</geometry>
+									<geometry>832, 325, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_963101_922'>
 									<editable xmi.value='false'/>
@@ -3046,23 +2864,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_818835_925'>
 											<visible xmi.value='false'/>
-											<geometry>695, 305, 30, 15</geometry>
+											<geometry>695, 300, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_474894_927'>
-											<geometry>701, 290, 30, 15</geometry>
+											<geometry>701, 285, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_233346_929'>
 											<visible xmi.value='false'/>
-											<geometry>695, 305, 30, 15</geometry>
+											<geometry>695, 300, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_110135_931'>
 											<visible xmi.value='false'/>
-											<geometry>713, 330, 30, 15</geometry>
+											<geometry>713, 325, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_839868_933'>
 											<visible xmi.value='false'/>
-											<geometry>695, 305, 30, 15</geometry>
+											<geometry>695, 300, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085167116078_818835_925'/>
@@ -3077,23 +2895,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_222645_938'>
 											<visible xmi.value='false'/>
-											<geometry>960, 305, 30, 15</geometry>
+											<geometry>950, 300, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_392663_940'>
-											<geometry>930, 290, 30, 15</geometry>
+											<geometry>920, 285, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_74627_942'>
 											<visible xmi.value='false'/>
-											<geometry>960, 305, 30, 15</geometry>
+											<geometry>950, 300, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_501042_944'>
 											<visible xmi.value='false'/>
-											<geometry>960, 345, 30, 15</geometry>
+											<geometry>950, 340, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167116078_845322_946'>
 											<visible xmi.value='false'/>
-											<geometry>905, 225, 30, 15</geometry>
+											<geometry>895, 220, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085167116078_222645_938'/>
@@ -3104,7 +2922,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167116078_881336_950'>
 									<visible xmi.value='false'/>
-									<geometry>730, 390, 45, 15</geometry>
+									<geometry>810, 295, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167116078_29360_918'/>
@@ -3140,12 +2958,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_640295_1182'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>316, 248, 30, 15</geometry>
+									<geometry>309, 225, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_395725_1184'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>295, 248, 30, 15</geometry>
+									<geometry>324, 270, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_364219_1186'>
 									<editable xmi.value='false'/>
@@ -3158,23 +2976,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_946544_1189'>
 											<visible xmi.value='false'/>
-											<geometry>430, 250, 30, 15</geometry>
+											<geometry>420, 245, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_770132_1191'>
-											<geometry>268, 235, 30, 15</geometry>
+											<geometry>258, 230, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_800017_1193'>
 											<visible xmi.value='false'/>
-											<geometry>430, 250, 30, 15</geometry>
+											<geometry>420, 245, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_946185_1195'>
 											<visible xmi.value='false'/>
-											<geometry>437, 275, 30, 15</geometry>
+											<geometry>427, 270, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_361178_1197'>
 											<visible xmi.value='false'/>
-											<geometry>202, 255, 30, 15</geometry>
+											<geometry>192, 250, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085167228062_946544_1189'/>
@@ -3188,24 +3006,24 @@
 									<geometry>209, 250, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_749715_1202'>
-											<geometry>162, 175, 94, 15</geometry>
+											<geometry>162, 170, 94, 15</geometry>
 											<text>+lastActionNotes</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_337646_1204'>
-											<geometry>162, 155, 30, 15</geometry>
+											<geometry>162, 150, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_824473_1206'>
 											<visible xmi.value='false'/>
-											<geometry>209, 250, 30, 15</geometry>
+											<geometry>209, 245, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_824227_1208'>
 											<visible xmi.value='false'/>
-											<geometry>209, 310, 30, 15</geometry>
+											<geometry>209, 305, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167228062_800220_1210'>
 											<visible xmi.value='false'/>
-											<geometry>209, 250, 30, 15</geometry>
+											<geometry>209, 245, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085167228062_749715_1202'/>
@@ -3216,7 +3034,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167228062_939419_1214'>
 									<visible xmi.value='false'/>
-									<geometry>367, 340, 45, 15</geometry>
+									<geometry>302, 240, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167228062_640295_1182'/>
@@ -3251,12 +3069,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167301515_40759_1436'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>375, 543, 30, 15</geometry>
+									<geometry>373, 520, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167301515_427637_1438'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>364, 543, 30, 15</geometry>
+									<geometry>388, 565, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167301515_806982_1440'>
 									<editable xmi.value='false'/>
@@ -3265,7 +3083,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167301515_871592_1442'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c18'/>
-									<geometry>296, 545, 10, 10</geometry>
+									<geometry>296, 550, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167301515_302536_1443'>
 											<visible xmi.value='false'/>
@@ -3296,7 +3114,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167301515_782715_1455'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c14'/>
-									<geometry>470, 545, 10, 10</geometry>
+									<geometry>480, 550, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167301515_643693_1456'>
 											<visible xmi.value='false'/>
@@ -3327,7 +3145,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167301515_248084_1468'>
 									<visible xmi.value='false'/>
-									<geometry>439, 713, 45, 15</geometry>
+									<geometry>366, 535, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167301515_40759_1436'/>
@@ -3351,12 +3169,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515625_28667_1597'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>655, 751, 30, 15</geometry>
+									<geometry>650, 728, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515625_762880_1599'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>638, 751, 30, 15</geometry>
+									<geometry>665, 773, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515625_603730_1601'>
 									<editable xmi.value='false'/>
@@ -3365,7 +3183,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167515625_20717_1603'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cd8'/>
-									<geometry>571, 753, 10, 10</geometry>
+									<geometry>571, 758, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515625_45881_1604'>
 											<visible xmi.value='false'/>
@@ -3396,7 +3214,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167515625_135049_1616'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cd4'/>
-									<geometry>750, 753, 10, 10</geometry>
+									<geometry>760, 758, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515625_205339_1617'>
 											<visible xmi.value='false'/>
@@ -3427,7 +3245,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167515625_508295_1629'>
 									<visible xmi.value='false'/>
-									<geometry>554, 633, 45, 15</geometry>
+									<geometry>643, 743, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167515625_28667_1597'/>
@@ -3447,12 +3265,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515640_245730_1633'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>295, 744, 30, 15</geometry>
+									<geometry>295, 728, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515640_312774_1635'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>295, 772, 30, 15</geometry>
+									<geometry>295, 773, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515640_149889_1637'>
 									<editable xmi.value='false'/>
@@ -3461,7 +3279,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167515640_337728_1639'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7ca4'/>
-									<geometry>400, 753, 10, 10</geometry>
+									<geometry>410, 758, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515640_669566_1640'>
 											<geometry>180, 738, 68, 15</geometry>
@@ -3492,7 +3310,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167515640_819673_1652'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7ca0'/>
-									<geometry>235, 727, 10, 10</geometry>
+									<geometry>240, 727, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167515640_256982_1653'>
 											<visible xmi.value='false'/>
@@ -3523,7 +3341,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167515640_875075_1665'>
 									<visible xmi.value='false'/>
-									<geometry>345, 651, 45, 15</geometry>
+									<geometry>288, 743, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167515640_245730_1633'/>
@@ -3558,12 +3376,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167592906_868040_1756'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>479, 852, 30, 15</geometry>
+									<geometry>475, 829, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167592906_456297_1758'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>456, 852, 30, 15</geometry>
+									<geometry>475, 874, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167592906_686356_1760'>
 									<editable xmi.value='false'/>
@@ -3572,7 +3390,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167592906_157771_1762'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c31'/>
-									<geometry>485, 808, 10, 10</geometry>
+									<geometry>490, 808, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167592906_831231_1763'>
 											<visible xmi.value='false'/>
@@ -3603,7 +3421,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167592906_323826_1775'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c2e'/>
-									<geometry>485, 900, 10, 10</geometry>
+									<geometry>490, 910, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167592906_539874_1776'>
 											<geometry>435, 870, 127, 15</geometry>
@@ -3634,7 +3452,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167592906_285906_1788'>
 									<visible xmi.value='false'/>
-									<geometry>489, 858, 45, 15</geometry>
+									<geometry>468, 844, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167592906_868040_1756'/>
@@ -3658,12 +3476,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692156_29786_1870'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>773, 848, 30, 15</geometry>
+									<geometry>770, 825, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692156_340529_1872'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>770, 859, 30, 15</geometry>
+									<geometry>770, 870, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692156_694152_1874'>
 									<editable xmi.value='false'/>
@@ -3672,7 +3490,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167692156_608596_1876'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c93'/>
-									<geometry>890, 850, 10, 10</geometry>
+									<geometry>900, 855, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692156_996547_1877'>
 											<visible xmi.value='false'/>
@@ -3703,7 +3521,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167692156_980642_1889'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c90'/>
-									<geometry>780, 960, 10, 10</geometry>
+									<geometry>785, 970, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692156_904299_1890'>
 											<visible xmi.value='false'/>
@@ -3734,7 +3552,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167692156_958753_1902'>
 									<visible xmi.value='false'/>
-									<geometry>706, 872, 45, 15</geometry>
+									<geometry>763, 840, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167692156_29786_1870'/>
@@ -3754,12 +3572,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_485164_1906'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>279, 995, 30, 15</geometry>
+									<geometry>280, 978, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_185772_1908'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>279, 1023, 30, 15</geometry>
+									<geometry>280, 1023, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_870605_1910'>
 									<editable xmi.value='false'/>
@@ -3768,7 +3586,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167692171_553869_1912'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c63'/>
-									<geometry>720, 1003, 10, 10</geometry>
+									<geometry>730, 1008, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_711829_1913'>
 											<geometry>610, 980, 100, 15</geometry>
@@ -3799,7 +3617,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167692171_895894_1925'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c5f'/>
-									<geometry>135, 727, 10, 10</geometry>
+									<geometry>140, 727, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_67305_1926'>
 											<visible xmi.value='false'/>
@@ -3830,7 +3648,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167692171_796544_1938'>
 									<visible xmi.value='false'/>
-									<geometry>447, 765, 45, 15</geometry>
+									<geometry>273, 993, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167692171_485164_1906'/>
@@ -3850,12 +3668,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_981440_1942'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>655, 910, 30, 15</geometry>
+									<geometry>655, 895, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_794423_1944'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>655, 938, 30, 15</geometry>
+									<geometry>670, 940, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_45963_1946'>
 									<editable xmi.value='false'/>
@@ -3864,7 +3682,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167692171_131039_1948'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c2a'/>
-									<geometry>551, 920, 10, 10</geometry>
+									<geometry>551, 925, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_848413_1949'>
 											<visible xmi.value='false'/>
@@ -3895,7 +3713,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167692171_912344_1961'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c26'/>
-									<geometry>740, 960, 10, 10</geometry>
+									<geometry>745, 970, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167692171_299746_1962'>
 											<visible xmi.value='false'/>
@@ -3926,7 +3744,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167692171_322353_1974'>
 									<visible xmi.value='false'/>
-									<geometry>616, 938, 45, 15</geometry>
+									<geometry>648, 910, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167692171_981440_1942'/>
@@ -3950,12 +3768,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_287613_2037'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>642, 460, 30, 15</geometry>
+									<geometry>643, 445, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_55523_2039'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>642, 487, 30, 15</geometry>
+									<geometry>643, 490, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_179148_2041'>
 									<editable xmi.value='false'/>
@@ -3964,7 +3782,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167746437_379817_2043'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cbe'/>
-									<geometry>1010, 470, 10, 10</geometry>
+									<geometry>1020, 475, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_357452_2044'>
 											<geometry>880, 440, 83, 15</geometry>
@@ -3995,7 +3813,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167746437_973285_2056'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cba'/>
-									<geometry>296, 470, 10, 10</geometry>
+									<geometry>296, 475, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_956481_2057'>
 											<visible xmi.value='false'/>
@@ -4026,7 +3844,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167746437_274546_2069'>
 									<visible xmi.value='false'/>
-									<geometry>773, 255, 45, 15</geometry>
+									<geometry>636, 460, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167746437_287613_2037'/>
@@ -4046,12 +3864,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_303572_2073'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>777, 538, 30, 15</geometry>
+									<geometry>776, 520, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_469655_2075'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>777, 564, 30, 15</geometry>
+									<geometry>776, 565, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_224639_2077'>
 									<editable xmi.value='false'/>
@@ -4060,7 +3878,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167746437_39235_2079'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cad'/>
-									<geometry>1010, 545, 10, 10</geometry>
+									<geometry>1020, 550, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_257549_2080'>
 											<visible xmi.value='false'/>
@@ -4091,7 +3909,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085167746437_654168_2092'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7ca9'/>
-									<geometry>563, 545, 10, 10</geometry>
+									<geometry>563, 550, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085167746437_273134_2093'>
 											<visible xmi.value='false'/>
@@ -4122,7 +3940,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085167746437_370535_2105'>
 									<visible xmi.value='false'/>
-									<geometry>910, 333, 45, 15</geometry>
+									<geometry>769, 535, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085167746437_303572_2073'/>
@@ -4146,12 +3964,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085169965390_7324_2188'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>910, 975, 30, 15</geometry>
+									<geometry>911, 960, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085169965390_306754_2190'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>910, 1005, 30, 15</geometry>
+									<geometry>926, 1005, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085169965390_855992_2192'>
 									<editable xmi.value='false'/>
@@ -4160,7 +3978,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085169965390_752646_2194'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c41'/>
-									<geometry>822, 985, 10, 10</geometry>
+									<geometry>822, 990, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085169965390_293332_2195'>
 											<visible xmi.value='false'/>
@@ -4191,7 +4009,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085169965390_664858_2207'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c3e'/>
-									<geometry>1020, 985, 10, 10</geometry>
+									<geometry>1030, 990, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085169965390_323787_2208'>
 											<geometry>980, 1023, 81, 15</geometry>
@@ -4222,7 +4040,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085169965390_441780_2220'>
 									<visible xmi.value='false'/>
-									<geometry>906, 923, 45, 15</geometry>
+									<geometry>904, 975, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085169965390_7324_2188'/>
@@ -4233,30 +4051,30 @@
 						</mdElement>
 						<mdElement elementClass='ClassView' xmi.id='_24400562_1085170001140_762370_2254'>
 							<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7e46'/>
-							<geometry>1350, 40, 172, 148</geometry>
+							<geometry>1340, 40, 172, 148</geometry>
 						</mdElement>
 						<mdElement elementClass='AssociationView' xmi.id='_24400562_1085170001187_206431_2276'>
 							<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c45'/>
 							<linkFirstEndID xmi.idref='_24400562_1085166541203_211602_134'/>
 							<linkSecondEndID xmi.idref='_24400562_1085170001140_762370_2254'/>
-							<geometry>695, 80; 1350, 80; </geometry>
+							<geometry>695, 80; 1340, 80; </geometry>
 							<linkNameID xmi.idref='_24400562_1085170001187_14552_2309'/>
 							<nameVisible xmi.value='true'/>
 							<mdOwnedViews>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_908161_2277'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>1008, 68, 30, 15</geometry>
+									<geometry>1002, 50, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_719416_2279'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>988, 91, 30, 15</geometry>
+									<geometry>1002, 94, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_408405_2281'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>981, 88, 30, 15</geometry>
+									<geometry>976, 88, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170001187_967660_2283'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c4a'/>
@@ -4264,23 +4082,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_29845_2284'>
 											<visible xmi.value='false'/>
-											<geometry>711, 80, 30, 15</geometry>
+											<geometry>711, 75, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_384331_2286'>
-											<geometry>711, 60, 30, 15</geometry>
+											<geometry>711, 55, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_185063_2288'>
 											<visible xmi.value='false'/>
-											<geometry>695, 75, 30, 15</geometry>
+											<geometry>695, 70, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_566208_2290'>
 											<visible xmi.value='false'/>
-											<geometry>713, 100, 30, 15</geometry>
+											<geometry>713, 95, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_564315_2292'>
 											<visible xmi.value='false'/>
-											<geometry>695, 75, 30, 15</geometry>
+											<geometry>695, 70, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085170001187_29845_2284'/>
@@ -4291,27 +4109,27 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170001187_303744_2296'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c46'/>
-									<geometry>1340, 75, 10, 10</geometry>
+									<geometry>1330, 75, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_434171_2297'>
-											<geometry>1210, 60, 99, 15</geometry>
+											<geometry>1190, 55, 99, 15</geometry>
 											<text>+contractManager</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_605672_2299'>
-											<geometry>1280, 10, 30, 15</geometry>
+											<geometry>1260, 5, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_341224_2301'>
 											<visible xmi.value='false'/>
-											<geometry>1340, 75, 30, 15</geometry>
+											<geometry>1320, 70, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_898052_2303'>
 											<visible xmi.value='false'/>
-											<geometry>1340, 115, 30, 15</geometry>
+											<geometry>1320, 110, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170001187_804159_2305'>
 											<visible xmi.value='false'/>
-											<geometry>1277, 10, 30, 15</geometry>
+											<geometry>1257, 5, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085170001187_434171_2297'/>
@@ -4322,7 +4140,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085170001187_14552_2309'>
 									<visible xmi.value='false'/>
-									<geometry>812, 405, 45, 15</geometry>
+									<geometry>995, 65, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085170001187_908161_2277'/>
@@ -4344,7 +4162,7 @@
 									<value xmi.value='false'/>
 								</mdElement>
 							</properties>
-							<geometry>1280, 520, 238, 252</geometry>
+							<geometry>1280, 520, 284, 252</geometry>
 						</mdElement>
 						<mdElement elementClass='AssociationView' xmi.id='_24400562_1085170142046_466254_2401'>
 							<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c67'/>
@@ -4357,12 +4175,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_264718_2402'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>910, 697, 30, 15</geometry>
+									<geometry>910, 680, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_979045_2404'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>910, 725, 30, 15</geometry>
+									<geometry>925, 725, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_334644_2406'>
 									<editable xmi.value='false'/>
@@ -4375,23 +4193,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_355850_2409'>
 											<visible xmi.value='false'/>
-											<geometry>1270, 705, 30, 15</geometry>
+											<geometry>1260, 700, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_498960_2411'>
-											<geometry>766, 808, 30, 15</geometry>
+											<geometry>756, 803, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_719106_2413'>
 											<visible xmi.value='false'/>
-											<geometry>1270, 705, 30, 15</geometry>
+											<geometry>1260, 700, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_639845_2415'>
 											<visible xmi.value='false'/>
-											<geometry>1277, 730, 30, 15</geometry>
+											<geometry>1267, 725, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_428832_2417'>
 											<visible xmi.value='false'/>
-											<geometry>737, 710, 30, 15</geometry>
+											<geometry>727, 705, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085170142046_355850_2409'/>
@@ -4406,23 +4224,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_990091_2422'>
 											<visible xmi.value='false'/>
-											<geometry>571, 705, 30, 15</geometry>
+											<geometry>571, 700, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_992763_2424'>
-											<geometry>556, 631, 30, 15</geometry>
+											<geometry>556, 626, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_816312_2426'>
 											<visible xmi.value='false'/>
-											<geometry>571, 705, 30, 15</geometry>
+											<geometry>571, 700, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_930617_2428'>
 											<visible xmi.value='false'/>
-											<geometry>571, 745, 30, 15</geometry>
+											<geometry>571, 740, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_16648_2430'>
 											<visible xmi.value='false'/>
-											<geometry>571, 705, 30, 15</geometry>
+											<geometry>571, 700, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085170142046_990091_2422'/>
@@ -4433,7 +4251,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085170142046_522974_2434'>
 									<visible xmi.value='false'/>
-									<geometry>1105, 767, 45, 15</geometry>
+									<geometry>903, 695, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085170142046_264718_2402'/>
@@ -4453,12 +4271,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_679231_2438'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>1171, 225, 30, 15</geometry>
+									<geometry>1170, 205, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_196837_2440'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>1171, 246, 30, 15</geometry>
+									<geometry>1170, 250, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_807916_2442'>
 									<editable xmi.value='false'/>
@@ -4471,23 +4289,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_642026_2445'>
 											<visible xmi.value='false'/>
-											<geometry>695, 230, 30, 15</geometry>
+											<geometry>695, 225, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_686550_2447'>
-											<geometry>837, 215, 30, 15</geometry>
+											<geometry>837, 210, 30, 15</geometry>
 											<text>0..*</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_527088_2449'>
 											<visible xmi.value='false'/>
-											<geometry>695, 230, 30, 15</geometry>
+											<geometry>695, 225, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_484930_2451'>
 											<visible xmi.value='false'/>
-											<geometry>713, 255, 30, 15</geometry>
+											<geometry>713, 250, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_607123_2453'>
 											<visible xmi.value='false'/>
-											<geometry>695, 230, 30, 15</geometry>
+											<geometry>695, 225, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085170142046_642026_2445'/>
@@ -4502,23 +4320,23 @@
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_185163_2458'>
 											<visible xmi.value='false'/>
-											<geometry>1385, 510, 30, 15</geometry>
+											<geometry>1380, 500, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_533305_2460'>
-											<geometry>1350, 299, 30, 15</geometry>
+											<geometry>1345, 289, 30, 15</geometry>
 											<text>1</text>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_927457_2462'>
 											<visible xmi.value='false'/>
-											<geometry>1385, 510, 30, 15</geometry>
+											<geometry>1380, 500, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_123039_2464'>
 											<visible xmi.value='false'/>
-											<geometry>1385, 550, 30, 15</geometry>
+											<geometry>1380, 540, 30, 15</geometry>
 										</mdElement>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170142046_635970_2466'>
 											<visible xmi.value='false'/>
-											<geometry>1350, 279, 30, 15</geometry>
+											<geometry>1345, 269, 30, 15</geometry>
 										</mdElement>
 									</mdOwnedViews>
 									<roleNameID xmi.idref='_24400562_1085170142046_185163_2458'/>
@@ -4529,7 +4347,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085170142046_730645_2470'>
 									<visible xmi.value='false'/>
-									<geometry>1043, 406, 45, 15</geometry>
+									<geometry>1163, 220, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085170142046_679231_2438'/>
@@ -4553,12 +4371,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170436859_683821_2575'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>305, 798, 30, 15</geometry>
+									<geometry>305, 770, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170436859_371199_2577'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>305, 784, 30, 15</geometry>
+									<geometry>305, 815, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170436859_374211_2579'>
 									<editable xmi.value='false'/>
@@ -4567,7 +4385,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170436859_508020_2581'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c9c'/>
-									<geometry>400, 785, 10, 10</geometry>
+									<geometry>410, 790, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170436859_313633_2582'>
 											<visible xmi.value='false'/>
@@ -4598,7 +4416,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170436859_2284_2594'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c98'/>
-									<geometry>315, 890, 10, 10</geometry>
+									<geometry>320, 900, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170436859_580219_2595'>
 											<visible xmi.value='false'/>
@@ -4629,7 +4447,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085170436859_903093_2607'>
 									<visible xmi.value='false'/>
-									<geometry>197, 838, 45, 15</geometry>
+									<geometry>298, 785, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085170436859_683821_2575'/>
@@ -4653,12 +4471,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501843_191621_2660'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>443, 627, 30, 15</geometry>
+									<geometry>443, 610, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501843_847773_2662'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>443, 653, 30, 15</geometry>
+									<geometry>458, 655, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501843_160951_2664'>
 									<editable xmi.value='false'/>
@@ -4667,7 +4485,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170501843_814164_2666'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c10'/>
-									<geometry>296, 635, 10, 10</geometry>
+									<geometry>296, 640, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501843_322753_2667'>
 											<visible xmi.value='false'/>
@@ -4698,7 +4516,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170501843_540365_2679'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7c0c'/>
-									<geometry>610, 635, 10, 10</geometry>
+									<geometry>620, 640, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501843_228657_2680'>
 											<visible xmi.value='false'/>
@@ -4729,7 +4547,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085170501843_388385_2692'>
 									<visible xmi.value='false'/>
-									<geometry>386, 674, 45, 15</geometry>
+									<geometry>436, 625, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085170501843_191621_2660'/>
@@ -4749,12 +4567,12 @@
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501859_779893_2696'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>845, 637, 30, 15</geometry>
+									<geometry>846, 620, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501859_673090_2698'>
 									<editable xmi.value='false'/>
 									<visible xmi.value='false'/>
-									<geometry>845, 663, 30, 15</geometry>
+									<geometry>861, 665, 30, 15</geometry>
 								</mdElement>
 								<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501859_278949_2700'>
 									<editable xmi.value='false'/>
@@ -4763,7 +4581,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170501859_194885_2702'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cb4'/>
-									<geometry>703, 645, 10, 10</geometry>
+									<geometry>703, 650, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501859_113508_2703'>
 											<visible xmi.value='false'/>
@@ -4794,7 +4612,7 @@
 								</mdElement>
 								<mdElement elementClass='RoleView' xmi.id='_24400562_1085170501859_714854_2715'>
 									<elementID xmi.idref='lsm:10bbd42:fa013e7b04:-7cb1'/>
-									<geometry>1010, 645, 10, 10</geometry>
+									<geometry>1020, 650, 10, 10</geometry>
 									<mdOwnedViews>
 										<mdElement elementClass='TextBoxView' xmi.id='_24400562_1085170501859_75984_2716'>
 											<visible xmi.value='false'/>
@@ -4825,7 +4643,7 @@
 								</mdElement>
 								<mdElement elementClass='AssociationTextBoxView' xmi.id='_24400562_1085170501859_999553_2728'>
 									<visible xmi.value='false'/>
-									<geometry>928, 687, 45, 15</geometry>
+									<geometry>839, 635, 45, 15</geometry>
 								</mdElement>
 							</mdOwnedViews>
 							<linkConstraintID xmi.idref='_24400562_1085170501859_779893_2696'/>
@@ -4844,7 +4662,7 @@
 				<default xmi.value='false'/>
 				<mdElement elementClass='PropertyManager'>
 					<name>PROJECT_GENERAL_PROPERTIES</name>
-					<propertyManagerID>_24400562_1085166885406_105089_496</propertyManagerID>
+					<propertyManagerID>_24400562_1085454349187_283967_1</propertyManagerID>
 					<mdElement elementClass='ModelElementProperty'>
 						<propertyID>DEFAULT_PROFILE_PACKAGE</propertyID>
 						<displayableTypes xmi.value='ModelPackage^Model^Subsystem'/>
@@ -4867,7 +4685,7 @@
 				</mdElement>
 				<mdElement elementClass='PropertyManager'>
 					<name>PROJECT_INVISIBLE_PROPERTIES</name>
-					<propertyManagerID>_24400562_1085166885406_561327_497</propertyManagerID>
+					<propertyManagerID>_24400562_1085454349187_9978_2</propertyManagerID>
 					<mdElement elementClass='NumberProperty'>
 						<propertyID>TOOL_TIP_STYLE</propertyID>
 						<value xmi.value='0.0'/>
@@ -4909,7 +4727,7 @@
 					</mdElement>
 					<mdElement elementClass='StringProperty'>
 						<propertyID>BROWSER_LAYOUT</propertyID>
-						<value>0 12 0 0 0 15 0 0 0 9 0 0 5 3f 0 0 3 5d 0 0 0 0 0 0 0 8 0 0 0 d 0 44 0 69 0 61 0 67 0 72 0 61 0 6d 0 73 0 20 0 54 0 72 0 65 0 65 0 0 3d 1d 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 3d 1d 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 f 0 4d 0 65 0 73 0 73 0 61 0 67 0 65 0 73 0 20 0 57 0 69 0 6e 0 64 0 6f 0 77 0 0 3f d 0 0 0 2 0 0 0 1 0 0 0 0 0 0 0 f 0 0 0 0 0 0 0 4 0 0 0 2 0 0 0 0 0 0 0 78 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 3f d 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 2 0 0 0 0 0 0 1d af 0 0 0 1 0 0 3f d 0 0 0 1 0 0 11 29 0 0 1d af 0 0 0 0 0 0 0 2 0 0 cc b2 0 0 1d af 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 43 0 6f 0 6e 0 74 0 61 0 69 0 6e 0 6d 0 65 0 6e 0 74 0 20 0 54 0 72 0 65 0 65 0 0 23 15 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 23 15 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 15 0 4d 0 6f 0 64 0 65 0 6c 0 20 0 45 0 78 0 74 0 65 0 6e 0 73 0 69 0 6f 0 6e 0 73 0 20 0 54 0 72 0 65 0 65 0 0 47 1f 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 47 1f 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 d 0 44 0 6f 0 63 0 75 0 6d 0 65 0 6e 0 74 0 61 0 74 0 69 0 6f 0 6e 0 0 cf d5 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 cf d5 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 aa c4 0 0 0 2 0 0 ae 1c 0 0 cf d5 0 0 0 2 0 0 4c d3 0 0 aa c4 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 c 0 5a 0 6f 0 6f 0 6d 0 20 0 43 0 6f 0 6e 0 74 0 72 0 6f 0 6c 0 0 ae 1c 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 ae 1c 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 aa c4 0 0 0 2 0 0 ae 1c 0 0 cf d5 0 0 0 2 0 0 4c d3 0 0 aa c4 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 49 0 6e 0 68 0 65 0 72 0 69 0 74 0 61 0 6e 0 63 0 65 0 20 0 54 0 72 0 65 0 65 0 0 e7 3f 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 e7 3f 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 e 0 53 0 65 0 61 0 72 0 63 0 68 0 20 0 52 0 65 0 73 0 75 0 6c 0 74 0 73 0 0 24 30 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 24 30 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 63 0 0 0 0 0 0 11 29 0 0 0 2 0 0 4 63 0 0 0 1 0 0 cc b2 0 0 0 2 0 0 4 63 0 0 0 0 0 0 4c d3 0 0 0 2 0 0 4 64 0 0 f 4a 0 0 0 5 0 0 4 65 0 0 0 10 0 43 0 6f 0 6e 0 74 0 61 0 69 0 6e 0 6d 0 65 0 6e 0 74 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 10 0 49 0 6e 0 68 0 65 0 72 0 69 0 74 0 61 0 6e 0 63 0 65 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 d 0 44 0 69 0 61 0 67 0 72 0 61 0 6d 0 73 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 15 0 4d 0 6f 0 64 0 65 0 6c 0 20 0 45 0 78 0 74 0 65 0 6e 0 73 0 69 0 6f 0 6e 0 73 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 e 0 53 0 65 0 61 0 72 0 63 0 68 0 20 0 52 0 65 0 73 0 75 0 6c 0 74 0 73 0 0 1 62 0 0 1 b6 0 0 0 0 0 0 4 64 0 0 aa c4 0 0 0 2 0 0 4 65 0 0 0 c 0 5a 0 6f 0 6f 0 6d 0 20 0 43 0 6f 0 6e 0 74 0 72 0 6f 0 6c 0 0 4 65 0 0 0 d 0 44 0 6f 0 63 0 75 0 6d 0 65 0 6e 0 74 0 61 0 74 0 69 0 6f 0 6e 0 0 1 62 0 0 0 7b 0 0 0 0 0 0 1 6b 0 0 1 c3 0 0 4 66 0 0 4 a 0 0 0 2 0 0 1 67 0 0 1 e6 0 0 4 64 0 0 1d af 0 0 0 1 0 0 4 65 0 0 0 f 0 4d 0 65 0 73 0 73 0 61 0 67 0 65 0 73 0 20 0 57 0 69 0 6e 0 64 0 6f 0 77 0 0 5 3f 0 0 0 78 0 0 0 0 0 0 5 3f 0 0 2 62 0 0 0 3 0 0 0 0 0 0 0 7 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 </value>
+						<value>0 12 0 0 0 15 0 0 0 9 0 0 5 3f 0 0 3 5d 0 0 0 0 0 0 0 8 0 0 0 d 0 44 0 69 0 61 0 67 0 72 0 61 0 6d 0 73 0 20 0 54 0 72 0 65 0 65 0 0 3d 1d 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 3d 1d 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 f 0 4d 0 65 0 73 0 73 0 61 0 67 0 65 0 73 0 20 0 57 0 69 0 6e 0 64 0 6f 0 77 0 0 3f d 0 0 0 2 0 0 0 1 0 0 0 0 0 0 0 f 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 78 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 3f d 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 2 0 0 0 0 0 0 1d af 0 0 0 1 0 0 3f d 0 0 0 1 0 0 11 29 0 0 1d af 0 0 0 0 0 0 0 2 0 0 cc b2 0 0 1d af 0 0 0 1 0 0 0 0 0 0 3f d 0 0 0 0 0 0 0 3c 0 0 0 3c 0 0 0 c8 0 0 0 c8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 43 0 6f 0 6e 0 74 0 61 0 69 0 6e 0 6d 0 65 0 6e 0 74 0 20 0 54 0 72 0 65 0 65 0 0 23 15 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 23 15 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 15 0 4d 0 6f 0 64 0 65 0 6c 0 20 0 45 0 78 0 74 0 65 0 6e 0 73 0 69 0 6f 0 6e 0 73 0 20 0 54 0 72 0 65 0 65 0 0 47 1f 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 47 1f 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 d 0 44 0 6f 0 63 0 75 0 6d 0 65 0 6e 0 74 0 61 0 74 0 69 0 6f 0 6e 0 0 cf d5 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 cf d5 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 aa c4 0 0 0 2 0 0 ae 1c 0 0 cf d5 0 0 0 2 0 0 4c d3 0 0 aa c4 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 c 0 5a 0 6f 0 6f 0 6d 0 20 0 43 0 6f 0 6e 0 74 0 72 0 6f 0 6c 0 0 ae 1c 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 ae 1c 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 aa c4 0 0 0 2 0 0 ae 1c 0 0 cf d5 0 0 0 2 0 0 4c d3 0 0 aa c4 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 49 0 6e 0 68 0 65 0 72 0 69 0 74 0 61 0 6e 0 63 0 65 0 20 0 54 0 72 0 65 0 65 0 0 e7 3f 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 e7 3f 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 e 0 53 0 65 0 61 0 72 0 63 0 68 0 20 0 52 0 65 0 73 0 75 0 6c 0 74 0 73 0 0 24 30 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 24 30 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 79 0 0 2 b1 0 0 0 8 0 0 0 0 0 0 f 4a 0 0 0 5 0 0 23 15 0 0 e7 3f 0 0 3d 1d 0 0 47 1f 0 0 24 30 0 0 0 2 0 0 4c d3 0 0 f 4a 0 0 0 0 0 0 0 2 0 0 f 4a 0 0 aa c4 0 0 cc b2 0 0 4c d3 0 0 0 1 0 0 0 2 0 0 4c d3 ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 63 0 0 0 0 0 0 11 29 0 0 0 1 0 0 4 63 0 0 0 1 0 0 cc b2 0 0 0 2 0 0 4 63 0 0 0 0 0 0 4c d3 0 0 0 2 0 0 4 64 0 0 f 4a 0 0 0 5 0 0 4 65 0 0 0 10 0 43 0 6f 0 6e 0 74 0 61 0 69 0 6e 0 6d 0 65 0 6e 0 74 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 10 0 49 0 6e 0 68 0 65 0 72 0 69 0 74 0 61 0 6e 0 63 0 65 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 d 0 44 0 69 0 61 0 67 0 72 0 61 0 6d 0 73 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 15 0 4d 0 6f 0 64 0 65 0 6c 0 20 0 45 0 78 0 74 0 65 0 6e 0 73 0 69 0 6f 0 6e 0 73 0 20 0 54 0 72 0 65 0 65 0 0 4 65 0 0 0 e 0 53 0 65 0 61 0 72 0 63 0 68 0 20 0 52 0 65 0 73 0 75 0 6c 0 74 0 73 0 0 1 62 0 0 1 b6 0 0 0 0 0 0 4 64 0 0 aa c4 0 0 0 2 0 0 4 65 0 0 0 c 0 5a 0 6f 0 6f 0 6d 0 20 0 43 0 6f 0 6e 0 74 0 72 0 6f 0 6c 0 0 4 65 0 0 0 d 0 44 0 6f 0 63 0 75 0 6d 0 65 0 6e 0 74 0 61 0 74 0 69 0 6f 0 6e 0 0 1 62 0 0 0 7b 0 0 0 0 0 0 1 6b 0 0 1 c3 0 0 4 66 0 0 4 a 0 0 0 2 0 0 1 67 0 0 1 e6 0 0 5 3f 0 0 2 62 0 0 0 3 0 0 0 0 0 0 0 7 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 f 0 4d 0 65 0 73 0 73 0 61 0 67 0 65 0 73 0 20 0 57 0 69 0 6e 0 64 0 6f 0 77 </value>
 						<multiline xmi.value='false'/>
 						<editableProp xmi.value='true'/>
 					</mdElement>
@@ -4929,7 +4747,7 @@
 					</mdElement>
 					<mdElement elementClass='StringProperty'>
 						<propertyID>INFO_PROPERTY</propertyID>
-						<value>28 39 66 6f 22 14 5a 1b 6d 14 6 bb 91 1a d0 5c 4 d8 49 c5 19 e2 93 93 22 a0 56 de dc a2 3 ea e6 1a e5 44 6e d1 4d d4 d7 e6 70 a8 83 5d 9 4d 23 4b c1 9 aa 5 30 f7 9e 9b 62 84 5 21 6 d2 42 9f c4 c4 75 53 fa </value>
+						<value>49 30 55 6 4d 3 20 30 34 37 21 72 ed 2c 25 3b 8f 4 ae bc 45 3a 3c 5 37 be be df 1c 52 87 eb 91 70 b6 ea bd 6b a7 85 dd 83 e3 4f a5 1a ee bf ba e6 f5 80 7d 71 28 4f 81 42 48 7a 1b b7 a6 b9 46 6 ac 23 ac f7 2d </value>
 						<multiline xmi.value='false'/>
 						<editableProp xmi.value='true'/>
 					</mdElement>
@@ -4957,8 +4775,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Abstraction</name>
-					<propertyManagerID>_24400562_1085166885406_50710_498</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_531490_3</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -5001,8 +4819,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Action State</name>
-					<propertyManagerID>_24400562_1085166885406_210227_500</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_736000_5</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
 						<value xmi.value='true'/>
@@ -5013,8 +4831,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Actor</name>
-					<propertyManagerID>_24400562_1085166885406_168147_502</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_456496_7</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -5133,8 +4951,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Artifact</name>
-					<propertyManagerID>_24400562_1085166885406_252924_503</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_230583_8</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -5253,8 +5071,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Association</name>
-					<propertyManagerID>_24400562_1085166885406_54902_504</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_92761_9</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -5301,8 +5119,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Binding Dependency</name>
-					<propertyManagerID>_24400562_1085166885406_338419_505</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_33911_10</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -5345,8 +5163,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Call State</name>
-					<propertyManagerID>_24400562_1085166885406_269362_506</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_424858_11</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
 						<value xmi.value='true'/>
@@ -5357,8 +5175,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Class</name>
-					<propertyManagerID>_24400562_1085166885406_926320_507</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_386170_12</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-10053121'/>
@@ -5477,8 +5295,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Classifier Role</name>
-					<propertyManagerID>_24400562_1085166885406_913609_508</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_274654_13</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-3605816'/>
@@ -5497,8 +5315,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Classifier Role(in Sequence Diagram)</name>
-					<propertyManagerID>_24400562_1085166885406_607603_509</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_625716_14</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-3605816'/>
@@ -5521,24 +5339,24 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Collaboration</name>
-					<propertyManagerID>_24400562_1085166885406_387116_510</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_44903_15</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Component</name>
-					<propertyManagerID>_24400562_1085166885406_680666_511</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_366311_16</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Component Instance</name>
-					<propertyManagerID>_24400562_1085166885406_89635_512</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_514337_17</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_OBJECT_CLASS</propertyID>
 						<value xmi.value='true'/>
@@ -5553,8 +5371,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Concurrent State</name>
-					<propertyManagerID>_24400562_1085166885406_146966_513</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_587336_18</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
 						<value xmi.value='false'/>
@@ -5569,8 +5387,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Constraint</name>
-					<propertyManagerID>_24400562_1085166885406_621202_514</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_109675_19</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_NAME</propertyID>
 						<value xmi.value='true'/>
@@ -5597,8 +5415,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Containment</name>
-					<propertyManagerID>_24400562_1085166885406_457577_515</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_916357_20</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<value>OBLIQUE</value>
@@ -5611,8 +5429,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>ContentShape</name>
-					<propertyManagerID>_24400562_1085166885406_904623_516</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_747010_21</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<value xmi.value='false'/>
@@ -5627,8 +5445,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>DataType</name>
-					<propertyManagerID>_24400562_1085166885406_163596_517</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_50377_22</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -5698,8 +5516,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Decision</name>
-					<propertyManagerID>_24400562_1085166885406_280064_518</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_748451_23</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -5714,8 +5532,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Dependency</name>
-					<propertyManagerID>_24400562_1085166885406_184591_519</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_918940_24</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -5764,8 +5582,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Diagram</name>
-					<propertyManagerID>_24400562_1085166885406_400183_520</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_985017_521</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_760867_25</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_181400_26</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>DIAGRAM_BACKGROUND_COLOR</propertyID>
 						<value xmi.value='-1'/>
@@ -5807,16 +5625,16 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Diagram Shape</name>
-					<propertyManagerID>_24400562_1085166885406_83176_522</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_701181_27</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>DiagramInfo</name>
-					<propertyManagerID>_24400562_1085166885406_567049_523</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_711429_28</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-1'/>
@@ -5839,8 +5657,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Enumeration</name>
-					<propertyManagerID>_24400562_1085166885406_633798_524</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_648905_29</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -5927,8 +5745,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Extend</name>
-					<propertyManagerID>_24400562_1085166885406_81032_525</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_171548_30</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -5977,8 +5795,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Final State</name>
-					<propertyManagerID>_24400562_1085166885406_320591_526</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_126643_31</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -5993,8 +5811,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Generalization</name>
-					<propertyManagerID>_24400562_1085166885406_706281_527</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_764684_32</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -6038,8 +5856,8 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Implementation Diagram</name>
-					<propertyManagerID>_24400562_1085166885406_81132_528</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_653048_529</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_131553_33</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_992097_34</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
 						<propertyGroup>OPERATIONS</propertyGroup>
@@ -6051,8 +5869,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Include</name>
-					<propertyManagerID>_24400562_1085166885406_324038_530</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_586567_35</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -6101,8 +5919,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Instance</name>
-					<propertyManagerID>_24400562_1085166885421_21791_531</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_299193_36</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_OBJECT_CLASS</propertyID>
 						<value xmi.value='true'/>
@@ -6121,8 +5939,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Interface</name>
-					<propertyManagerID>_24400562_1085166885406_653048_529</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_992097_34</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -6241,8 +6059,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Link</name>
-					<propertyManagerID>_24400562_1085166885421_192990_532</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_4199_37</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -6285,16 +6103,16 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Link Attribute</name>
-					<propertyManagerID>_24400562_1085166885421_372556_533</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_982736_38</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Message</name>
-					<propertyManagerID>_24400562_1085166885421_468242_534</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_235650_39</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<value xmi.value='false'/>
@@ -6313,8 +6131,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Message(in Sequence Diagram)</name>
-					<propertyManagerID>_24400562_1085166885421_202196_535</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_622686_40</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -6339,8 +6157,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Model</name>
-					<propertyManagerID>_24400562_1085166885421_597566_536</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_304480_41</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-3355393'/>
@@ -6367,16 +6185,16 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>N-ary Association</name>
-					<propertyManagerID>_24400562_1085166885421_800677_537</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_625499_42</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Node</name>
-					<propertyManagerID>_24400562_1085166885421_191626_538</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_791359_43</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -6393,8 +6211,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Node Instance</name>
-					<propertyManagerID>_24400562_1085166885421_813020_539</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_587558_44</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -6419,16 +6237,16 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Note</name>
-					<propertyManagerID>_24400562_1085166885421_787230_540</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885421_127099_541</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_791295_45</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_49669_46</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Note Anchor</name>
-					<propertyManagerID>_24400562_1085166885421_202319_542</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_557592_47</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<value>OBLIQUE</value>
@@ -6441,29 +6259,29 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Note(with Comment)</name>
-					<propertyManagerID>_24400562_1085166885421_748965_543</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885421_127099_541</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_586969_48</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_49669_46</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Note(with Constraint)</name>
-					<propertyManagerID>_24400562_1085166885421_384019_544</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885421_127099_541</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_980808_49</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_49669_46</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Note(with TaggedValue)</name>
-					<propertyManagerID>_24400562_1085166885421_129441_545</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885421_127099_541</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_911628_50</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_49669_46</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='PropertyManager'>
 					<name>Notes</name>
-					<propertyManagerID>_24400562_1085166885421_127099_541</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_49669_46</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-1'/>
@@ -6486,8 +6304,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Object</name>
-					<propertyManagerID>_24400562_1085166885421_118405_546</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_632726_51</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_OBJECT_CLASS</propertyID>
 						<value xmi.value='true'/>
@@ -6506,8 +6324,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>ObjectFlow State</name>
-					<propertyManagerID>_24400562_1085166885421_934168_547</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_935220_52</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_OBJECT_CLASS</propertyID>
 						<value xmi.value='true'/>
@@ -6522,8 +6340,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Package</name>
-					<propertyManagerID>_24400562_1085166885421_239097_548</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_294276_53</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-3355393'/>
@@ -6550,8 +6368,8 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Paths</name>
-					<propertyManagerID>_24400562_1085166885406_852346_499</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_985017_521</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_561005_4</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_181400_26</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -6568,8 +6386,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Permission</name>
-					<propertyManagerID>_24400562_1085166885421_673016_549</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_298448_54</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -6612,8 +6430,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Pseudo State</name>
-					<propertyManagerID>_24400562_1085166885421_280604_550</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_445263_55</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -6628,8 +6446,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Realization</name>
-					<propertyManagerID>_24400562_1085166885421_545954_551</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_311036_56</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -6672,8 +6490,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Role</name>
-					<propertyManagerID>_24400562_1085166885421_688850_552</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_838367_57</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -6696,8 +6514,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Separator</name>
-					<propertyManagerID>_24400562_1085166885421_646175_553</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_215229_58</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-1'/>
@@ -6732,8 +6550,8 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Shapes</name>
-					<propertyManagerID>_24400562_1085166885406_10636_501</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_985017_521</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349187_804630_6</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_181400_26</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>AUTOSIZE</propertyID>
 						<value xmi.value='false'/>
@@ -6788,8 +6606,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Signal Classifier</name>
-					<propertyManagerID>_24400562_1085166885421_371071_554</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_929250_59</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-13159'/>
@@ -6908,8 +6726,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>SignalRS</name>
-					<propertyManagerID>_24400562_1085166885421_565974_555</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_181623_60</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<value xmi.value='true'/>
@@ -6930,8 +6748,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>State</name>
-					<propertyManagerID>_24400562_1085166885421_263913_556</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_960700_61</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
 						<value xmi.value='false'/>
@@ -6946,8 +6764,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Stereotype</name>
-					<propertyManagerID>_24400562_1085166885421_957834_557</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_33506_62</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_TAGS</propertyID>
 						<value xmi.value='false'/>
@@ -6966,16 +6784,16 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='true'/>
 					<name>Stereotypes</name>
-					<propertyManagerID>_24400562_1085166885421_773785_558</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_985017_521</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_976823_63</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_181400_26</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Stimulus</name>
-					<propertyManagerID>_24400562_1085166885421_647144_559</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_770893_64</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -6994,16 +6812,16 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Stub State</name>
-					<propertyManagerID>_24400562_1085166885421_27312_560</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_1656_65</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi.value='false'/>
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Subactivity State</name>
-					<propertyManagerID>_24400562_1085166885421_111515_561</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_1726_66</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
 						<value xmi.value='true'/>
@@ -7014,8 +6832,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Submachine State</name>
-					<propertyManagerID>_24400562_1085166885421_319981_562</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_286681_67</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
 						<value xmi.value='false'/>
@@ -7030,8 +6848,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Subsystem</name>
-					<propertyManagerID>_24400562_1085166885421_125652_563</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_186993_68</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-3355393'/>
@@ -7125,8 +6943,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Subsystem Instance</name>
-					<propertyManagerID>_24400562_1085166885421_504018_564</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_598077_69</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_OBJECT_CLASS</propertyID>
 						<value xmi.value='true'/>
@@ -7141,8 +6959,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Swimlane</name>
-					<propertyManagerID>_24400562_1085166885421_914144_565</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_548646_70</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -7159,7 +6977,7 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Symbol</name>
-					<propertyManagerID>_24400562_1085166885406_985017_521</propertyManagerID>
+					<propertyManagerID>_24400562_1085454349187_181400_26</propertyManagerID>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-52'/>
@@ -7188,8 +7006,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Synch State</name>
-					<propertyManagerID>_24400562_1085166885421_176347_566</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_364998_71</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -7204,8 +7022,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Synchronization Bar</name>
-					<propertyManagerID>_24400562_1085166885421_504349_567</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_782292_72</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>SYNCH_BAR_ORIENTATION</propertyID>
 						<value>HORIZONTAL</value>
@@ -7218,8 +7036,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>TextBox</name>
-					<propertyManagerID>_24400562_1085166885421_856621_568</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_485305_73</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<value xmi.value='true'/>
@@ -7242,8 +7060,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Transition</name>
-					<propertyManagerID>_24400562_1085166885421_78068_569</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_646659_74</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -7286,8 +7104,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Tree</name>
-					<propertyManagerID>_24400562_1085166885421_154216_570</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_229210_75</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<value xmi.value='false'/>
@@ -7298,8 +7116,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Usage</name>
-					<propertyManagerID>_24400562_1085166885421_887169_571</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_852346_499</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_683232_76</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_561005_4</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<value xmi.value='-16777216'/>
@@ -7342,8 +7160,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Use Case</name>
-					<propertyManagerID>_24400562_1085166885421_560439_572</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_991060_77</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<value xmi.value='-103'/>
@@ -7372,8 +7190,8 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Use Case Diagram</name>
-					<propertyManagerID>_24400562_1085166885421_831181_573</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_706281_527</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_944433_78</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_92761_9</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<value>OBLIQUE</value>
@@ -7387,8 +7205,8 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Use Case Diagram</name>
-					<propertyManagerID>_24400562_1085166885421_644736_574</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_54902_504</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_315319_79</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_764684_32</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<value>OBLIQUE</value>
@@ -7402,8 +7220,8 @@
 					<extendableByDiagram xmi.value='false'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Use Case Diagram</name>
-					<propertyManagerID>_24400562_1085166885421_653803_575</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885421_545954_551</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_697963_80</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349203_311036_56</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<value>OBLIQUE</value>
@@ -7416,8 +7234,8 @@
 					<extendableByDiagram xmi.value='true'/>
 					<extendableByStereotype xmi.value='false'/>
 					<name>Use Case Instance</name>
-					<propertyManagerID>_24400562_1085166885421_336280_576</propertyManagerID>
-					<parentPropertyManager>_24400562_1085166885406_10636_501</parentPropertyManager>
+					<propertyManagerID>_24400562_1085454349203_318006_81</propertyManagerID>
+					<parentPropertyManager>_24400562_1085454349187_804630_6</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_OBJECT_CLASS</propertyID>
 						<value xmi.value='true'/>
