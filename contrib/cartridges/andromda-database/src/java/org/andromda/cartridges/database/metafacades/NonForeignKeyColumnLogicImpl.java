@@ -72,6 +72,9 @@ public class NonForeignKeyColumnLogicImpl
 
     private final static DateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.NonForeignKeyColumn#getDummyLoadValue(int)
+     */
     protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
@@ -115,12 +118,12 @@ public class NonForeignKeyColumnLogicImpl
         {
             maxLength = Integer.parseInt(maxLengthString);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
             maxLength = 0;
         }
 
-        if (maxLength >0 && dummyValueLength > maxLength)
+        if (maxLength > 0 && dummyValueLength > maxLength)
         {
             initialLoadValue = initialLoadValue.substring(0, maxLength);
         }
@@ -128,6 +131,9 @@ public class NonForeignKeyColumnLogicImpl
         return initialLoadValue;
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.NonForeignKeyColumn#isPrimaryKey()
+     */
     protected boolean handleIsPrimaryKey()
     {
         return isIdentifier();

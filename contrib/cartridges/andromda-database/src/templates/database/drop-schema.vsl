@@ -11,10 +11,4 @@ WHENEVER OSERROR  EXIT;
 drop table $table.tableName cascade constraints ;
 #end
 
-/* drop all sequences */
-#foreach ( $table in $tables )
-#set($sequenceName = "${table.tableName}_SEQ")
-drop sequence $sequenceName  ;
-#end
-
 exit;

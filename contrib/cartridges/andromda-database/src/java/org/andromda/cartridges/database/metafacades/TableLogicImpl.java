@@ -97,11 +97,14 @@ public class TableLogicImpl
         Collection associationEnds = getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
         {
-            AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
-            AssociationEndFacade otherAssociationEnd = associationEnd.getOtherEnd();
-            if (associationEnd.isMany2One() && otherAssociationEnd.isNavigable())
+            AssociationEndFacade associationEnd = 
+                (AssociationEndFacade)iterator.next();
+            AssociationEndFacade otherAssociationEnd = 
+                associationEnd.getOtherEnd();
+            if (associationEnd.isMany2One()
+                && otherAssociationEnd.isNavigable())
             {
-                foreignKeyColumns.add( otherAssociationEnd );
+                foreignKeyColumns.add(otherAssociationEnd);
             }
         }
 
@@ -144,7 +147,7 @@ public class TableLogicImpl
     {
         Collection importedTables = new HashSet();
 
-        Collection foreignKeyColumns = getForeignKeyColumns();
+        Collection foreignKeyColumns = this.getForeignKeyColumns();
         for (Iterator iterator = foreignKeyColumns.iterator(); iterator.hasNext();)
         {
             ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) iterator.next();
@@ -154,11 +157,17 @@ public class TableLogicImpl
         return importedTables;
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#isForeignKeyColumnsPresent()
+     */
     protected boolean handleIsForeignKeyColumnsPresent()
     {
         return getForeignKeyColumns().isEmpty() == false;
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#getPrimaryKeyConstraintName()
+     */
     protected String handleGetPrimaryKeyConstraintName()
     {
         StringBuffer buffer = new StringBuffer();
@@ -169,6 +178,9 @@ public class TableLogicImpl
         return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#getNonForeignKeyColumns()
+     */
     protected Collection handleGetNonForeignKeyColumns()
     {
         return getAttributes();
