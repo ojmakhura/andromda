@@ -67,6 +67,15 @@
                 <p>
                     <img src="resources/howto/org/andromda/test/action-states.gif"/>
                 </p>
+                <p>
+                    Most of the time you'll want exactly a single outgoing transition for your server-side
+                    action states, but in a few cases it is required to take full control of the process flow, meaning
+                    you don't want to have the application forward to the next resource. In this case simply don't
+                    model an outgoing transition, the Struts action class will return <code>null</code>. Don't forget
+                    to write to the HTTP response yourself, you can do this is you defer to a controller operation in
+                    your action state. <em>You'll want to make use of this feature when you want
+                    an action returning a dynamically generated report such as a PDF.</em>
+                </p>
             </subsection>
             <subsection name="Transitions">
                 <p>

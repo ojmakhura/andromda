@@ -2,7 +2,9 @@
 ##  MACROS
 ##
 #macro (processTransition $transition)
-#if ($transition.enteringFinalState || $transition.enteringPage)
+#if (!$transition)
+null;
+#elseif ($transition.enteringFinalState || $transition.enteringPage)
 mapping.findForward("$transition.forwardName");
 #elseif ($transition.enteringDecisionPoint)
 ${transition.operationCall.name}(mapping, form, request, response);
