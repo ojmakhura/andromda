@@ -176,6 +176,16 @@
                         <code>org.andromda.bpm4struts.successmessages</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>hints</td>
+                    <td>
+                        True/false on whether or not hints should be rendered in the generated
+                        JSP pages.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
             </table>
         </section>
     </body>
