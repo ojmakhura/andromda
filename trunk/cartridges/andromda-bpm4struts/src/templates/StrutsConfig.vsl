@@ -4,12 +4,18 @@
    "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
    "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
 
-#set ($allUseCases = $transform.filterWithStereotypeName($transform.allUseCases, "FrontEndUseCase"))
-#set ($allControllerForms = $transform.filterWithStereotypeName($transform.allControllerForms, "FrontEndPresentation"))
+##
+## Set global variables.
+##
+#set ($allUseCases = $transform.filterWithStereotypeName($transform.dynamicHelper.allUseCases, "FrontEndUseCase"))
+#set ($allWorkflows = $transform.filterWithStereotypeName($transform.dynamicHelper.allUseCases, "FrontEndWorkflow"))
+#set ($allControllerForms = $transform.filterWithStereotypeName($transform.staticHelper.allClasses, "FrontEndPresentation"))
 #set ($allInitialStates = $transform.getAllInitialStates($allUseCases))
 <struts-config>
 
-   <!-- ========== Form Bean Definitions =================================== -->
+##
+## For each controller form we will declare a form bean.
+##
    <form-beans>
 #foreach ($formBeanControllerForm in $allControllerForms)
 #set ($formBeanName = "$transform.toJavaMethodName($formBeanControllerForm)")
@@ -18,19 +24,28 @@
 #end
    </form-beans>
 
-   <!-- ========== Global Forwards Definitions ================================== -->
+##
+## We will take all workflow use-cases and their initial states will determine the global
+## entry points of the application. For each workflow there will be exactly one global-forward declaration here.
+##
    <global-forwards>
-#foreach ($initialState in $allInitialStates)
-#set ($forwardName = $transform.toForwardName($initialState))
-#set ($forwardPath = $transform.toFullyQualifiedWebFileName($transform.getLastTransitionState($initialState)))
-      <forward name="$forwardName" path="/${forwardPath}.jsp" redirect="true"/>
+#foreach ($workflow in $allWorkflows)
+#set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getActivityGraph($workflow))))
+#set ($firstUseCase = $transform.getFirstFrontEndUseCase($workflow))
+#set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($firstUseCase)))
+      <forward name="$forwardName" path="/${forwardPath}" redirect="false"/>
 #end
    </global-forwards>
 
-   <!-- ========== Action Mapping Definitions =================================== -->
+##
+## Each use-case will be mapping onto an action controller, optionally associated to an action form.
+## Final states of a use-cases will be connected to the next use-case as determined by the global workflows
+## that contain these use-cases.
+## Each action state in the use-case's activity graph will render a forward.
+##
    <action-mappings>
 #foreach ($useCase in $allUseCases)
-#set ($activityGraph = $transform.getActivityGraphs($useCase).iterator().next())
+#set ($activityGraph = $transform.getActivityGraph($useCase))
 #set ($actionMappingControllerClass = $transform.getControllerClass($useCase))
 #set ($actionMappingPath = $transform.toJavaClassName($actionMappingControllerClass))
 #set ($actionMappingType = $transform.toFullyQualifiedJavaClassName($actionMappingControllerClass))
@@ -42,17 +57,18 @@
          name="$actionMappingFormName"
 #end
          scope="request" unknown="false" validate="true" parameter="target" >
-#set ($actionStates = $transform.filterWithStereotypeName($transform.getActionStates($activityGraph), "FrontEndView"))
+#set ($actionStates = $transform.dynamicHelper.getActionStates($activityGraph))
 #foreach ($actionState in $actionStates)
 #set ($actionForwardName = $transform.toWebFileName($actionState))
 #set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($actionState))
-         <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="true" />
+         <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="false" />
 #end
-#set ($finalStates = $transform.filterWithStereotypeName($transform.getFinalStates($activityGraph), "FrontEndView"))
+#set ($finalStates = $transform.dynamicHelper.getFinalStates($activityGraph))
 #foreach ($finalState in $finalStates)
 #set ($actionForwardName = $transform.toForwardName($finalState))
-#set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($finalState))
-         <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="true"/>
+#set ($nextUseCase = $transform.findNextUseCaseInWorkflow($useCase, $finalState.name))
+#set ($actionForwardPath = $transform.toJavaClassName($transform.getControllerClass($nextUseCase)))
+         <forward name="$actionForwardName" path="/${actionForwardPath}" redirect="false"/>
 #end
       </action>
 #end

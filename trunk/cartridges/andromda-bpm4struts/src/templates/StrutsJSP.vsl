@@ -1,8 +1,11 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
+##
+## This macro will render documentation
+##
 #macro ( generateJSPDocumentation $item $indent )
-#set ($tagValue = $transform.findTagValue( $transform.getTaggedValues($item), "documentation"))
+#set ($tagValue = $transform.staticHelper.findTagValue( $item, "documentation"))
 #set ($paras = $transform.formatHTMLStringAsParagraphs($tagValue))
 ${indent}[
 ${indent}[  documentation:
@@ -19,8 +22,11 @@ ${indent}[        NO DOCUMENTATION HAS BEEN SUPPLIED
 #end
 ${indent}[
 #end
-#set ($activityGraph = $transform.getStateMachine($class))
-#set ($useCase = $transform.getParentUseCase($activityGraph))
+##
+## Set global invariants
+##
+#set ($activityGraph = $transform.dynamicHelper.getStateMachineContext($class))
+#set ($useCase = $transform.getUseCaseContext($activityGraph))
 #set ($controllerForm = $transform.getControllerForm($useCase))
 #set ($controllerClass = $transform.getControllerClass($useCase))
 #set ($formName = $transform.toJavaMethodName($controllerForm))
@@ -30,11 +36,11 @@ ${indent}[
 #set ($transitions = $class.outgoing)
 
 #if ($transform.isFinalState($class))
-#set ($targetUseCaseName = $transform.findTagValue($class, "TargetUseCase"))
+#set ($targetUseCaseName = $transform.staticHelper.findTagValue($class, "TargetUseCase"))
 #if ($targetUseCaseName)
 #set ($targetUseCase = $transform.findUseCaseByName($targetUseCaseName))
 #if ($targetUseCase)
-#set ($initialState = $transform.getInitialStates($transform.getActivityGraphs($targetUseCase).iterator().next()).iterator().next())
+#set ($initialState = $transform.getInitialState($transform.getActivityGraph($targetUseCase)))
 <html:forward name="$transform.toForwardName($initialState)"/>
 #else
 <!--
@@ -58,17 +64,17 @@ ${indent}[
    <html:submit value="submit"/>
 #else
 #foreach ($transition in $transitions)
-   <html:submit property="transition" value="$transform.toFinalMemberName($transition)"/>
+   <html:submit property="trigger" value="$transform.toFinalMemberName($transition.trigger)"/>
 #end
 #end
 </html:form>
 #else
 #if ($transitions.size() == 1)
-<html:link action="/$actionName?target=$methodName">$transform.toForwardName($transition)</html:link>
+<html:link action="/$actionName?target=$methodName">$transform.toForwardName($transition.trigger)</html:link>
 #else
 <ul>
 #foreach ($transition in $transitions)
-   <li><html:link action="/$actionName?target=$methodName" paramId="transition" paramName="$transform.toFinalMemberName($transition)">$transform.toForwardName($transition)</html:link></li>
+   <li><html:link action="/$actionName?target=$methodName" paramId="trigger" paramName="$transform.toFinalMemberName($transition.trigger)">$transform.toForwardName($transition.trigger)</html:link></li>
 #end
 </ul>
 #end

@@ -1,3 +1,17 @@
+##
+## Set global invariants
+##
+#set ($activityGraph = $transform.getActivityGraph($class))
+#set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
+#set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
+#if ($controllerFormName == false)
+#set ($controllerFormName = "ActionForm")
+#end
+#set ($className = "${controllerClassName}")
+#set ($parentClassName = "${controllerClassName}Abstract")
+##
+## Package declaration and imports
+##
 package $transform.getPackageName($class);
 
 import org.apache.struts.action.ActionForm;
@@ -5,8 +19,11 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+##
+## This macro will render documentation into HTML paragraphs
+##
 #macro ( generateDocumentation $item $indent )
-#set ($tagValue = $transform.findTagValue( $transform.getTaggedValues($item), "documentation"))
+#set ($tagValue = $transform.staticHelper.findTagValue( $item, "documentation"))
 #set ($paras = $transform.formatHTMLStringAsParagraphs($tagValue))
 #foreach ( $par in $paras )
 ${indent}*
@@ -17,22 +34,25 @@ ${indent}* $line
 ${indent}* </p>
 #end
 #end
-#set ($activityGraph = $transform.getActivityGraphs($class).iterator().next())
-#set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
-#set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
-#if ($controllerFormName == false)
-#set ($controllerFormName = "ActionForm")
-#end
-#set ($className = "${controllerClassName}")
-#set ($parentClassName = "${controllerClassName}Abstract")
-#set ($objectFlowStates = $transform.getObjectFlowStates($activityGraph))
-#set ($choices = $transform.getChoices($activityGraph))
-#set ($actionStates = $transform.getActionStates($activityGraph))
+##
+## Set collections from which methods will be rendered, we convert them to sets
+## because we don't want to render doubles (just to make sure)
+##
+#set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($activityGraph)))
+#set ($choices = $transform.toSet($transform.dynamicHelper.getChoices($activityGraph)))
+#set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($activityGraph)))
 /**
 #generateDocumentation ( $class " " )
  */
+##
+## Start of the class declaration, notice how it extends the parent
+##
 public class $className extends $parentClassName
 {
+##
+## Decision points need to be implemented manually, for each outgoing transition there is an 'int'
+## return value
+##
 #foreach ($choice in $choices)
 #set ($methodNameImpl = "$transform.toJavaMethodName($choice)Impl")
    /**
@@ -55,10 +75,14 @@ public class $className extends $parentClassName
    }
 
 #end
+##
+## Each object flow state needs to reflect the change in the 'back-end', the user will need to code this
+## manually
+##
 #foreach ($objectFlowState in $objectFlowStates)
-#set ($objectFlowType = $transform.toJavaClassName($objectFlowState.type))
+#set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
-#set ($methodName = "set$transform.toJavaClassName($objectFlowStateState)")
+#set ($methodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
    /**
     * This method changes the state of the object with name '$objectFlowState.name' to '$objectFlowStateState.name'. The
     * type of this object is <code>'$transform.toFullyQualifiedJavaClassName($objectFlowState.type)'</code>.
@@ -68,7 +92,7 @@ public class $className extends $parentClassName
     */
    protected final void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
    {
-//      $objectFlowType $transform.toJavaMethodName($objectFlowState) = null;
+//      $objectFlowTypeName $transform.toJavaMethodName($objectFlowState) = null;
    }
 
 #end
