@@ -18,20 +18,36 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 08, 2004</td>
+                    <td valign="top" class="std">New Core Feature</td>
+                    <td valign="top" class="std">
+                        Cartridges now allow generation based on metafacade 
+                        type (and optionally its properties), in addition to stereotypes.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Aug 06, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts improvement</td>
+                    <td valign="top" class="std">
+                        It is now possible to create a hyperlink from a final state to a use-case
+                        and have the cartridge interpret it as the next use-case to navigate to.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 03, 2004</td>
                     <td valign="top" class="std">build update</td>
                     <td valign="top" class="std">
                         The maven build has been changed
                         <ul>
                             <li>
-                                All artifacts now reside in the 'andromda' groupId of the maven 
+                                All artifacts now reside in the 'andromda' groupId of the maven
                                 repository.  This means for those using Maven for their projects,
-                                they'll need to specify 'andromda' as the groupId (for dependencies) 
-                                instead of the old 'andromda-cartridges' for cartridges and 
-                                'andromda-translation-libraries' for translation-libraries.                                
+                                they'll need to specify 'andromda' as the groupId (for dependencies)
+                                instead of the old 'andromda-cartridges' for cartridges and
+                                'andromda-translation-libraries' for translation-libraries.
                             </li>
                             <li>
-                               Bootstrap dependencies are now stored in CVS. They are renamed 
+                               Bootstrap dependencies are now stored in CVS. They are renamed
                                to the current version and copied to the remote repository during the build (
                                they used to be stored remotely).
                             </li>
@@ -42,11 +58,29 @@
                     <td valign="top" class="std">July 26, 2004</td>
                     <td valign="top" class="std">andromda Ant task update</td>
                     <td valign="top" class="std">
-                        The <![CDATA[<andromda/>]]> Ant task was changed to 
+                        The <![CDATA[<andromda/>]]> Ant task was changed to
 						allow multiple models to be specified using a URL.
 						This included adding a new <![CDATA[<model/>]]> element
 						and eliminating the modelURL attribute from the <![CDATA[<andromda/>]]>
 						task.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July 21, 2004</td>
+                    <td valign="top" class="std">new Bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        Enabled support for tools that do not allow putting graphs inside use-cases. It is now
+                        sufficient to put the <code>@andromda.struts.usecase.activity</code>
+                        tagged value on the use-case and assign it the name of an activity graph.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July 21, 2004</td>
+                    <td valign="top" class="std">new Bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        Enabled support for tools that do not allow assigning model elements to classifiers.
+                        It is now possible to put a <code>@andromda.struts.controller.usecase</code> tagged value
+                        on the controller and assigning it the name of a use-case.
                     </td>
                 </tr>
                 <tr>
