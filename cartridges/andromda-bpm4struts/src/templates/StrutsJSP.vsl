@@ -18,10 +18,16 @@
 
 <tiles:insert definition="main.layout">
 
+##
+##  SETS THE TITLE
+##
     <tiles:put name="title" type="string">
         <bean:message key="$class.titleKey"/>
     </tiles:put>
 
+##
+##  SETS THE JAVASCRIPT CONTENT
+##
     <tiles:put name="javascript" type="string">
 ## only load the static javascript when it will actually be used
 #set ($loadStaticScript = false)
@@ -40,6 +46,9 @@
 #end
     </tiles:put>
 
+##
+##  SETS THE BODY OF THIS PAGE
+##
     <tiles:put name="body" type="string">
         <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
 
@@ -66,31 +75,22 @@
                 <bean:message key="propertyKey" bundle="custom"/>
         --%>
 
-        <p><h2><bean:message key="$class.titleKey"/></h2></p>
-
-        <logic:messagesPresent>
-            <html:messages id="error">
-                ERROR: <bean:write name="error"/> <br/>
-            </html:messages>
-        </logic:messagesPresent>
-
-        <logic:messagesPresent message="true">
-            <html:messages id="message" message="true">
-                MESSAGE: <bean:write name="message"/> <br/>
-            </html:messages>
-        </logic:messagesPresent>
+        <h1><bean:message key="$class.titleKey"/></h1>
 
 #foreach ($variable in $class.pageVariables)
         <logic:present name="$variable.name" scope="page">
-            <bean:write name="$variable.name" scope="page"/> <br/>
+            <h4><bean:write name="$variable.name" scope="page"/></h4> <br/>
         </logic:present>
         <logic:notPresent name="$variable.name" scope="page">
-            Missing from request: $variable.name <br/>
+            <h4>Missing from request: $variable.name</h4> <br/>
         </logic:notPresent>
 #end
 
 #set ($isFocusSet = false)## only one field per JSP page can have focus
 #foreach ($action in $actions)
+        <div class="action">
+            <h3>$action.actionTrigger.name</h3>
+            <div>
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 #if ($action.isHyperlink())
@@ -115,9 +115,9 @@
 #set ($onsubmit = "")
 #end
 #if ($firstFieldName)
-        <html:form action="${action.actionPath}" focus="$firstFieldName" onsubmit="$onsubmit">
+                <html:form action="${action.actionPath}" focus="$firstFieldName" onsubmit="$onsubmit">
 #else
-        <html:form action="${action.actionPath}" onsubmit="$onsubmit">
+                <html:form action="${action.actionPath}" onsubmit="$onsubmit">
 #end
 
 #foreach ($field in $actionParameters)
@@ -126,7 +126,7 @@
 #end
 #end
 
-            <table cellpadding="5" cellspacing="5" border="0">
+                <table cellpadding="5" cellspacing="5" border="0">
 #foreach ($field in $actionParameters)
 #if ($field.widgetType != "hidden")
                 <tr>
@@ -142,17 +142,23 @@
 #renderFormButtons($action "                        ")
                     </td>
                 </tr>
-            </table>
-        </html:form>
+                </table>
+                </html:form>
+            </div>
 #end
-
-#end
-
-        <div>
-            <i><font color="#808080">
-$class.getDocumentation("                ")
-            </font></i>
+            <div class="action-text">
+                <bean:message key="$action.documentationKey"/>
+            </div>
         </div>
+
+        <hr class="hide"/>
+        <br class="clr"/>
+#end
+
+        <blockquote>
+            <bean:message key="$class.documentationKey"/>
+        </blockquote>
+
     </tiles:put>
 
 </tiles:insert>
