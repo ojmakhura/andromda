@@ -33,7 +33,7 @@ ${indent}[
 #set ($methodName  = $transform.toJavaMethodName($class))
 #set ($formName = $transform.toJavaMethodName($controllerForm))
 #set ($fullyQualifiedFormName = $transform.toFullyQualifiedJavaClassName($controllerForm))
-#set ($triggeredTransitions = $transform.dynamicHelper.getNextTriggeredTransitions($class))
+#set ($triggeredTransitions = $transform.getNextTriggeredTransitions($class))
 ##
 ## Start JSP body
 ##
@@ -44,10 +44,11 @@ ${indent}[
 
 #if ($triggeredTransitions.size() > 0)
 #foreach ($transition in $triggeredTransitions)
-    <html:link action="/$actionName?target=$methodName" paramId="trigger" paramName="$transform.toFinalMemberName($transition.trigger)"/>
+#set ($triggerName = $transform.toFinalMemberName($transition.trigger))
+    <html:link action="/$actionName?target=$methodName&trigger=$triggerName">$triggerName</html:link>
 #end
 #else
-    <html:link action="/$actionName?target=$methodName"/>
+    <html:link action="/$actionName?target=$methodName">$transition.target.name</html:link>
 #end
 
 -->
@@ -55,7 +56,7 @@ ${indent}[
 #if ($controllerForm)
 <!--
         Use this piece of code when you want additional information passed into the form
-        (you will need to manually add input fields.
+        (you will need to manually add input fields)
 
         Valid input field examples are:
 #foreach ($attribute in $transform.staticHelper.getAttributes($controllerForm))
