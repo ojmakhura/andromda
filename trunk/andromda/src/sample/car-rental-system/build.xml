@@ -95,59 +95,23 @@
                  classpathref="build.class.path"
         />
 
-		<property name="templates.home" value="${andromda.home}src/templates/" />
         <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
 
         <andromda basedir="build/model/unzipped"
-                 genDestdir="${andromda.ejb.bean.dir}"
-                 implDestdir="${andromda.ejb.impl.dir}"
                  includes="CarRentalSystem15.xmi"
-                 lastModifiedCheck="true"
-                 templatePath="${templates.home}/ejb"
-                 useDefaultTemplateConfig="true"
+                 lastModifiedCheck="false"
                  typeMappings="${andromda.home}/src/xml/TypeMapping.xml"
         >
-            <template
-                stereotype="EntityBean"
-                outputPattern="{1}-{2}.txt"
-                outputDir="${andromda.fantasy.dir}"
-                overWrite="true"
-            >
-                <fileset dir="mySpecialTemplates" includes="*.vsl" />
-            </template>
-
             <userProperty name="foreignKeySuffix" value="_FK" />
             <userProperty name="testProperty" value="The quick brown fox" />
 
-            <template
-                stereotype="StrutsForm"
-                sheet="StrutsForm.vsl"
-                outputPattern="{0}/{1}.java"
-                outputDir="${andromda.web.form.dir}"
-                overWrite="true"
-            />
-            
-            <template
-                stereotype="StrutsAction"
-                sheet="StrutsAction.vsl"
-                outputPattern="{0}/{1}.java"
-                outputDir="${andromda.web.action.dir}"
-                overWrite="false"
-            />
-            <template
-                stereotype="StrutsJSP"
-                sheet="StrutsJSP.vsl"
-                outputPattern="{1}.jsp"
-                outputDir="${andromda.web.page.dir}"
-                overWrite="false"
-            />
-            <template
-                stereotype="StrutsConfig"
-                sheet="StrutsConfig.vsl"
-                outputPattern="struts-config.xml"
-                outputDir="${src.webconfig.dir}/generated"
-                overWrite="true"
-            />
+            <outlet cartridge="ejb"    outlet="beans"   dir="${andromda.ejb.bean.dir}" />
+            <outlet cartridge="ejb"    outlet="impls"   dir="${andromda.ejb.impl.dir}" />
+
+            <outlet cartridge="struts" outlet="forms"   dir="${andromda.web.form.dir}" />
+            <outlet cartridge="struts" outlet="actions" dir="${andromda.web.action.dir}" />
+            <outlet cartridge="struts" outlet="pages"   dir="${andromda.web.page.dir}" />
+            <outlet cartridge="struts" outlet="config"  dir="${src.webconfig.dir}/generated" />
 
         </andromda>
     </target>
@@ -159,7 +123,7 @@
                  classname="xdoclet.modules.ejb.EjbDocletTask"
                  classpathref="build.class.path"
         />
-		
+
         <ejbdoclet destdir="${ejbdoclet.output.dir}"
                    ejbspec="2.0"
                    force="false">
@@ -251,7 +215,7 @@
             <fileset dir="${andromda.home}lib/" includes="struts.jar"/>
         </copy>
         <copy todir="build/webstage/WEB-INF/lib/tlds/">
-            <fileset dir="${andromda.home}/src/tld/" includes="struts*.tld"/>
+            <fileset dir="${strutscartridge.home}/lib/tld/" includes="struts*.tld"/>
         </copy>
     </target>
 
@@ -279,18 +243,18 @@
 
 
     <target name="check-environment">
-    	<property name="classpath" refid="build.class.path"/>
-    	<echo message=" path=${classpath}"/>
-    	
+        <property name="classpath" refid="build.class.path"/>
+        <echo message=" path=${classpath}"/>
+        
         <antcall target="check-andromda"/>
 
         <antcall target="check-buildclasspath"/>
-		
-		<available property="mdr.present"
-			classname="org.netbeans.mdr.NBMDRepositoryImpl"
-			classpathref="build.class.path"/>
-		<antcall target="wrong-mdr"/>
-		
+
+        <available property="mdr.present"
+                classname="org.netbeans.mdr.NBMDRepositoryImpl"
+                classpathref="build.class.path"/>
+        <antcall target="wrong-mdr"/>
+                
         <available property="velocity.present"
                    classname="org.apache.velocity.context.Context"
                    classpathref="build.class.path" />
@@ -351,15 +315,15 @@
         </fail>
     </target>
     
-	<target name="wrong-mdr" unless="mdr.present">
-	<fail>
-	    Property "build.classpath" is set but it doesn't seem
-	    to contain the necessary MDR jars such as 
-	    mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
-	    uml14.jar, openide-lookup.jar, openide-fs.jar
-	</fail>
+    <target name="wrong-mdr" unless="mdr.present">
+      <fail>
+          Property "build.classpath" is set but it doesn't seem
+          to contain the necessary MDR jars such as
+          mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
+          uml14.jar, openide-lookup.jar, openide-fs.jar
+      </fail>
     </target>
-    
+
     <target name="wrong-velocity" unless="velocity.present">
         <fail>
             Property "build.classpath" is set but it doesn't seem
