@@ -90,7 +90,7 @@ $attribute.getDocumentation("     * ")
 #if ($target.many)
 #set($targetTypeFQName = "java.util.Collection")
 #end
-   private $targetTypeFQName $target.name;
+    private $targetTypeFQName $target.name;
    
     /**
      * Get the ${target.name}
