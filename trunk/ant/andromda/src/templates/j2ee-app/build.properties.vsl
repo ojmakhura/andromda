@@ -3,6 +3,9 @@ application.name=$applicationName
 application.version=$applicationVersion
 application.author=$author
 
+# set this property when you want AndroMDA to perform additional validation checks
+andromda.validating=false
+
 # set this property if you want to precompile the jsps during development
 precompile.jsp=false
 
