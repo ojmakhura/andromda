@@ -746,4 +746,19 @@ public class MockClassifierFacade
     {
         return false;
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getConstantAttributes()
+     */
+    public Collection getConstantAttributes()
+    {
+        return null;
+    }
+
+    public Collection getLiterals()
+    {
+        return null;
+    }
 }
