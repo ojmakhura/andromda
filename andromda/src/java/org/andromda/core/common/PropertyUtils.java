@@ -1,5 +1,7 @@
 package org.andromda.core.common;
 
+import java.util.Collection;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -50,15 +52,28 @@ public class PropertyUtils
                 // is not null
                 if (valid)
                 {
-                    final String valueAsString = String.valueOf(propertyValue);
-                    if (StringUtils.isNotEmpty(value))
-                    {
-                        valid = valueAsString.equals(value);
-                    }
-                    else if (Boolean.class.isAssignableFrom(propertyValue
+                    // if it's a collection then we check to see if the
+                    // collection
+                    // is not empty
+                    if (Collection.class.isAssignableFrom(propertyValue
                         .getClass()))
                     {
-                        valid = Boolean.valueOf(valueAsString).booleanValue();
+                        valid = !((Collection)propertyValue).isEmpty();
+                    }
+                    else
+                    {
+                        final String valueAsString = String
+                            .valueOf(propertyValue);
+                        if (StringUtils.isNotEmpty(value))
+                        {
+                            valid = valueAsString.equals(value);
+                        }
+                        else if (Boolean.class.isAssignableFrom(propertyValue
+                            .getClass()))
+                        {
+                            valid = Boolean.valueOf(valueAsString)
+                                .booleanValue();
+                        }
                     }
                 }
             }
