@@ -52,31 +52,33 @@ public class ExceptionRecorder
     }
 
     /**
-     * record writes out the exception to a file along with trace data if
+     * <p>
+     * Record writes out the exception to a file along with trace data if
      * active. The file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS
      * is the timestamp <_nn>is an ascending sequence number when multiple
      * exceptions occur in the same second. Returns the filename of the
      * generated exception report.
+     * </p>
      * 
-     * @param Message to log with the exception report.
-     * @param Exception to record.
+     * @param errorMessage to log with the exception report.
+     * @param throwable to record.
      */
-    public static String record(String errorMessage, Throwable th)
+    public static String record(String errorMessage, Throwable throwable)
     {
-        return record(errorMessage, th, "S");
+        return record(errorMessage, throwable, "S");
     }
 
     /**
-     * record writes out the exception to a file along with trace data if
+     * Record writes out the exception to a file along with trace data if
      * active. The file name is of the form sYYMMDDHHMMSS <_nn>.exc where YY..SS
      * is the timestamp <_nn>is an ascending sequence number when multiple
      * exceptions occur in the same second.
      * 
-     * @param msg diagnostic message
-     * @param th exception to record.
+     * @param message diagnostic message
+     * @param throwable exception to record.
      * @param prefix for the file name.
      */
-    public static String record(String message, Throwable th, String prefix)
+    public static String record(String message, Throwable throwable, String prefix)
     {
         PrintWriter writer;
         String tempName = null;
@@ -91,8 +93,8 @@ public class ExceptionRecorder
             writer.println("*** AndroMDA Exception Recording ***");
             writer.println("Andromda Version:" + getAndromdaVersion());
             writer.println("Error:" + message);
-            writer.println("Main exception:" + th.getMessage());
-            Throwable cause = ExceptionUtils.getRootCause(th);
+            writer.println("Main exception:" + throwable.getMessage());
+            Throwable cause = ExceptionUtils.getRootCause(throwable);
             writer.println("Root exception:" + cause.getMessage());
             cause.printStackTrace(writer);
             writer.close();
@@ -101,8 +103,8 @@ public class ExceptionRecorder
         {
             System.err
                 .println("ExceptionRecorder.record error recording exception:"
-                    + th);
-            th.printStackTrace(System.err);
+                    + throwable);
+            throwable.printStackTrace(System.err);
             System.err.println("ExceptionRecorder.record Exception:" + ex);
             ex.printStackTrace(System.err);
         } // End catch
