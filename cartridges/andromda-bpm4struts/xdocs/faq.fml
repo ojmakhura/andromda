@@ -178,6 +178,52 @@
             </answer>
         </faq>
 
+        <faq id="quick-steps">
+            <question>What kind of work is involved in making a very simple bpm4struts model ?</question>
+            <answer>
+                <p>
+                    Let's get over the things to do for a single use-case with a single page:
+                    <ol>
+                        <li>create a use-case</li>
+                        <li>give this use-case the FrontEndApplication and FrontEndUseCase stereotypes</li>
+                        <li>create an activity graph in this use-case</li>
+                        <li>add an initial state</li>
+                        <li>add an action state "Action1"</li>
+                        <li>add a transition from the initial state into this action state,
+                            this transition needs the FrontEndEvent stereotype</li>
+                        <li>add another action state "Action2"</li>
+                        <li>add a transition from "Action1" into "Action2"</li>
+                        <li>add the FrontEndView stereotype to "Action2" (doing this will make
+                            it a JSP page)</li>
+                        <li>add a final state and give it the name of the use-case to forward
+                            to (case-insensitive)</li>
+                        <li>add a transition from "Action2" into this final state, this
+                            transition needs the FrontEndEvent stereotype</li>
+                        <li>because this transition is going out of an action state with the
+                            FrontEndView stereotype it needs a trigger with a name and
+                            optionally with some parameters (this will be rendered as a
+                            submittable form)</li>
+                        <li>Create a controller class, "ActionController"</li>
+                        <li>Give this class the FrontEndController stereotype</li>
+                        <li>"assign" this controller class to the activity graph created in
+                            step 3. (using MagicDraw you can do that easily)</li>
+                        <li>optionally you can add operations to this controller and have an
+                            action state defer to any of these operations</li>
+                    </ol>
+                    That should be it, I always keep in mind these points:
+                    <ul>
+                        <li>the first transition (going out of the initial state) needs the
+                            FrontEndEvent stereotype</li>
+                        <li>transitions going out of action states with the FrontEndView
+                            stereotype need the FrontEndEvent stereotype and they need a
+                            trigger with a non-empty name</li>
+                        <li>do not forget to assign the controller class, and make sure it has
+                            the FrontEndController stereotype</li>
+                    </ul>
+                </p>
+            </answer>
+        </faq>
+
     </part>
 
     <part id="tuning">
@@ -242,16 +288,16 @@
                     namespace set 'securityEnabled' to true.
                     <source>
                         &lt;properties&gt;
-                            &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
-                            &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
-                            &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
-                            &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
-                            &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
-                            &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
-                            &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
-                            &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
-                            &lt;securityEnabled&gt;false&lt;/securityEnabled&gt;    &lt;---- set to true to enable security
-                            &lt;securityRealm&gt;other&lt;/securityRealm&gt;
+                        &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
+                        &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
+                        &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
+                        &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
+                        &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
+                        &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
+                        &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
+                        &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
+                        &lt;securityEnabled&gt;false&lt;/securityEnabled&gt;    &lt;---- set to true to enable security
+                        &lt;securityRealm&gt;other&lt;/securityRealm&gt;
                         &lt;/properties&gt;
                     </source>
                 </p>
@@ -284,7 +330,7 @@
                 <p>
                     When you put your forms in the session and reuse them across different pages and actions you expose
                     your application to the risk of showing data which is outdated, it might happen that some data
-                    from the persistence layer has changed while your session still keeps the previous values. In this
+                    from the persistence layer has changed while your session has stale data. In this
                     case you will manually need to synchronize the objects. This might not seem a big problem at first
                     but it can quickly become a maintenance nightmare.
                 </p>
@@ -408,7 +454,8 @@
                             dynamic web pages, I hope there will be enough users to give it a try,
                             that way I am sure we'll get there eventually.
                             <p/>
-                            Mind you, with <a href="http://www.omg.org/docs/ad/02-04-10.pdf">QVT</a> coming (soon?)
+                            Mind you, with
+                            <a href="http://www.omg.org/docs/ad/02-04-10.pdf">QVT</a> coming (soon?)
                             we would have a standardized way of modeling our tiers,
                             this would allow to generate different presentation layers using a single UML model. For
                             now you would simply need to write a cartridge for WebWork/Swing/.Net/... and you
