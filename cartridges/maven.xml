@@ -70,11 +70,9 @@
     </goal>
     
     <preGoal name="test:test">
-        <!--
         <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null}">
             <attainGoal name="cartridge:test"/>
-        </j:if>   
-        -->    
+        </j:if>     
     </preGoal>
     
     <!-- ===================================================================
