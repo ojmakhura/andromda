@@ -23,7 +23,13 @@ public class UMLMetafacadeGlobals
      * that will be identified as a list must specialize this type.
      */
     public static final String LIST_TYPE_NAME = "datatype.List";
-    
+
+    /**
+     * Used to identify a set type in the model, any other type
+     * that will be identified as a set must specialize this type.
+     */
+    public static final String SET_TYPE_NAME = "datatype.Set";
+
     /**
      * Used to identify date types in the model, any other type
      * that will be identified as a date must specialize this type.
