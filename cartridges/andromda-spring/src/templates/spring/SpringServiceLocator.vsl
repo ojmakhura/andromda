@@ -33,22 +33,22 @@ public class $serviceLocatorName
      */
     private String contextLocation;
     
-    private ServiceLocator()
+    private $serviceLocatorName()
     {
         // shouldn't be instantiated
     }
     
     /**
-     * The shared instance of this ServiceLocator.
+     * The shared instance of this ${serviceLocatorName}.
      */
-    private final static ServiceLocator instance = new ServiceLocator();
+    private final static $serviceLocatorName instance = new $serviceLocatorName();
     
     /**
      * Gets the shared instance of this Class
      *
      * @return the shared service locator instance.
      */
-    public static final ServiceLocator instance() 
+    public static final $serviceLocatorName instance() 
     {
         return instance;
     }
