@@ -9,17 +9,18 @@ import java.util.List;
 
 /**
  * Metafacade implementation for org.andromda.metafacades.uml.ConstraintFacade.
- *
+ * 
  * @see org.andromda.metafacades.uml.ConstraintFacade
  */
 public class ConstraintFacadeLogicImpl
-        extends ConstraintFacadeLogic
-        implements org.andromda.metafacades.uml.ConstraintFacade
+    extends ConstraintFacadeLogic
+    implements org.andromda.metafacades.uml.ConstraintFacade
 {
     // ---------------- constructor -------------------------------
 
-    public ConstraintFacadeLogicImpl(org.omg.uml.foundation.core.Constraint metaObject,
-                                     java.lang.String context)
+    public ConstraintFacadeLogicImpl(
+        org.omg.uml.foundation.core.Constraint metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -58,8 +59,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsInvariant()
     {
-        return UMLMetafacadeUtils.isConstraintKind(getBody(),
-                ExpressionKinds.INV);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.INV);
     }
 
     /**
@@ -67,8 +69,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPreCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(getBody(),
-                ExpressionKinds.PRE);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.PRE);
     }
 
     /**
@@ -76,8 +79,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPostCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(getBody(),
-                ExpressionKinds.POST);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.POST);
     }
 
     /**
@@ -85,8 +89,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsDefinition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(getBody(),
-                ExpressionKinds.DEF);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.DEF);
     }
 
     /**
@@ -94,8 +99,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsBodyExpression()
     {
-        return UMLMetafacadeUtils.isConstraintKind(getBody(),
-                ExpressionKinds.BODY);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.BODY);
     }
 
     /**
@@ -103,19 +109,33 @@ public class ConstraintFacadeLogicImpl
      */
     public String handleGetTranslation(String language)
     {
-        return ExpressionTranslator.instance().translate(language,
-                getContextElement(),
-                getBody()).getTranslatedExpression();
+        return ExpressionTranslator.instance().translate(
+            language,
+            getContextElement(),
+            getBody()).getTranslatedExpression();
     }
 
-    public String getDocumentation(String indent, int lineLength, boolean htmlStyle)
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
+     *      int, boolean)
+     */
+    public String getDocumentation(
+        String indent,
+        int lineLength,
+        boolean htmlStyle)
     {
-        String documentation = super.getDocumentation(indent, lineLength, htmlStyle);
+        String documentation = super.getDocumentation(
+            indent,
+            lineLength,
+            htmlStyle);
         boolean isBlank = false;
 
         if (htmlStyle)
         {
-            String plainDocumentation = super.getDocumentation(indent, lineLength, false);
+            String plainDocumentation = super.getDocumentation(
+                indent,
+                lineLength,
+                false);
             isBlank = StringUtils.isBlank(plainDocumentation);
         }
         else
@@ -125,7 +145,8 @@ public class ConstraintFacadeLogicImpl
 
         if (isBlank)
         {
-            documentation = "An undocumented constraint has been violated: " + StringEscapeUtils.escapeJava(getBody());
+            documentation = "An undocumented constraint has been violated: "
+                + StringEscapeUtils.escapeJava(getBody());
         }
         return documentation;
     }
