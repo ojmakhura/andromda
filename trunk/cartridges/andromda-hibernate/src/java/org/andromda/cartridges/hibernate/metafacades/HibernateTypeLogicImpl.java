@@ -33,7 +33,11 @@ public class HibernateTypeLogicImpl
         Mappings mappings = this.getHibernateTypeMappings();
         if (mappings != null)
         {
-            fullyQualifiedName = mappings.getTo(super.getFullyQualifiedName(true));
+            String fullyQualifiedModelName = super.getFullyQualifiedName(true);
+            if (mappings.containsFrom(fullyQualifiedModelName))
+            {    
+                fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);   
+            }
         }
         return fullyQualifiedName;
     }
