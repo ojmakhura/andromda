@@ -61,7 +61,7 @@ $attribute.getDocumentation("     * ")
         if (!values.contains(valueType)) 
         {
             throw new IllegalArgumentException(
-                "invalid value, possible values are: " + values);   
+                "invalid value '" + value + "', possible values are: " + values);
         }
 		return new ${enumeration.name}(value);
 	}
