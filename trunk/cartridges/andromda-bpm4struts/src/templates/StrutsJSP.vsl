@@ -162,7 +162,7 @@
 #set ($link = $tableLink)
 #end
 #end
-                    <display:column media="xml excel csv"
+                    <display:column media="$variable.tableExportTypes"
                         property="$columnName" title="$str.toPhrase($columnName)"
                         sortable="$sortable" autolink="true" nulls="false"
                         paramId="$columnName" />
@@ -176,7 +176,11 @@
                         </div>
                     </display:column>
 #else
-                    <display:column
+                    <display:column media="$variable.tableExportTypes"
+                        property="$columnName" title="$str.toPhrase($columnName)"
+                        sortable="$sortable" autolink="true" nulls="false"
+                        paramId="$columnName" />
+                    <display:column media="html"
                         headerClass="${columnName}"
                         title="$str.toPhrase($columnName)"
                         sortable="$sortable" autolink="true" nulls="false"
