@@ -120,7 +120,7 @@
                         </tr>
                         <tr>
                             <td>NullPointerException at StrutsActionLogicImpl.getPackageName(StrutsActionLogicImpl.java)</td>
-                            <td>The cartridge tried to resolve the package for an action by trying to look for the controller, the controller cas not found.</td>
+                            <td>The cartridge tried to resolve the package for an action by trying to look for the controller, the controller was not found.</td>
                             <td>Make sure all activity graphs have a controller assigned to them.</td>
                         </tr>
                         <tr>
