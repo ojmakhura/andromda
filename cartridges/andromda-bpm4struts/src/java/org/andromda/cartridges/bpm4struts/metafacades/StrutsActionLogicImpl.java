@@ -182,6 +182,11 @@ public class StrutsActionLogicImpl
         return StringUtilsHelper.upperCamelCaseName(name);
     }
 
+    public String handleGetActionType()
+    {
+        return getPackageName() + '.' + getActionClassName();    
+    }
+
     public String handleGetFormBeanClassName()
     {
         return getActionClassName() + "Form";
