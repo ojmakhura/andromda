@@ -30,7 +30,7 @@ public class CustomerServiceBeanImpl
         try
         {
             CustomerLocalHome clh = getCustomerLocalHome();
-            CustomerLocal cl = clh.create(name, customerNo, password);
+            Customer cl = clh.create(name, customerNo, password);
             return cl.getId();
         }
         catch (NamingException e)
@@ -71,7 +71,7 @@ public class CustomerServiceBeanImpl
             ArrayList result = new ArrayList();
             for (Iterator it = customers.iterator(); it.hasNext();)
             {
-                CustomerLocal cl = (CustomerLocal) it.next();
+                Customer cl = (Customer) it.next();
                 result.add(cl.getCustomerData());
             }
 
@@ -108,8 +108,8 @@ public class CustomerServiceBeanImpl
                         + " could not be found");
             }
             
-            CustomerLocal theCustomer =
-                (CustomerLocal) customers.iterator().next();
+            Customer theCustomer =
+                (Customer) customers.iterator().next();
             if (theCustomer.getPassword().equals(password))
             {
                 return theCustomer.getId();

@@ -50,10 +50,10 @@ public class InventoryServiceBeanImpl
         try
         {
             CarTypeLocalHome ctlh = getCarTypeLocalHome();
-            CarTypeLocal ctl = ctlh.findByPrimaryKey(carTypeId);
+            CarType ctl = ctlh.findByPrimaryKey(carTypeId);
 
             CarLocalHome clh = getCarLocalHome();
-            CarLocal cl = clh.create(carData);
+            Car cl = clh.create(carData);
 
             cl.setType(ctl);
             return cl.getId();
@@ -86,7 +86,7 @@ public class InventoryServiceBeanImpl
             ArrayList result = new ArrayList();
             for (Iterator iter = cl.iterator(); iter.hasNext();)
             {
-                CarLocal element = (CarLocal) iter.next();
+                Car element = (Car) iter.next();
                 result.add(element.getCarData());
             }
             return result;
@@ -114,7 +114,7 @@ public class InventoryServiceBeanImpl
             ArrayList result = new ArrayList();
             for (Iterator iter = carTypes.iterator(); iter.hasNext();)
             {
-                CarTypeLocal element = (CarTypeLocal) iter.next();
+                CarType element = (CarType) iter.next();
                 result.add(element.getCarTypeData());
             }
             return result;
@@ -141,7 +141,7 @@ public class InventoryServiceBeanImpl
             ArrayList result = new ArrayList();
             for (Iterator iter = cl.iterator(); iter.hasNext();)
             {
-                CarLocal element = (CarLocal) iter.next();
+                Car element = (Car) iter.next();
                 result.add(
                     new CarAndTypeData(
                         element.getCarData(),

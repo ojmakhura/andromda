@@ -8,14 +8,12 @@ public abstract class CustomerBeanImpl
        extends CustomerBean
        implements EntityBean
 {
-    // concrete business methods that were declared
-    // abstract in class CustomerBean ...
-
-    public void addDriver (org.andromda.samples.carrental.customers.DriverLocal driver) {
-        // TODO: put your implementation here.
+    /**
+     * @see org.andromda.samples.carrental.customers.CustomerBean#addDriver(org.andromda.samples.carrental.customers.Driver)
+     */
+    public void addDriver (Driver driver) {
+        getLicensedDrivers().add(driver);
     }
-
-
 
     // ------------ and the rest of the EJB stuff ---------------
 
