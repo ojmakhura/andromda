@@ -92,6 +92,20 @@
                     <a href="modeling.html#Supported_Tagged_Values">modeling.html</a>.
                 </p>
                 <p>
+                    Using these tagged values a transition may be marked to carry a message to the (indirectly)
+                    targetted <![CDATA[<<FrontEndView>>]]> action state:
+                </p>
+                <p>
+                    <ul>
+                        <li><code>@andromda.struts.action.success.message</code>: Write a message that will be
+                            displayed in a green box. This message will be stored into the default
+                            resource bundle.</li>
+                        <li><code>@andromda.struts.action.warning.message</code>: Write a message that will be
+                            displayed in a yellow box. This message will be stored into the default
+                            resource bundle.</li>
+                    </ul>
+                </p>
+                <p>
                     It is possible to model exceptions to the process logic, in doing so you express how the system
                     should behave in case something goes wrong. You just need to add the
                     <![CDATA[<<FrontEndException>>]]> stereotype to the transition and you're good. Additionally
