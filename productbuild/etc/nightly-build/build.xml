@@ -64,6 +64,7 @@
               output="${build.log}"
               errorproperty="build.errorcode">
             <arg value="dist"/>
+        	<arg value="-e"/>
         </exec>
         <zip destfile="${build.log.zip}" basedir="${basedir}" includes="${build.log}" filesonly="true"/>
     </target>
