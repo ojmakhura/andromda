@@ -266,8 +266,10 @@
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
         overwrite="true">
-        <modelElements variable="class">
-            <modelElement stereotype="Entity"/>
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -276,8 +278,10 @@
         outputPattern="{0}/{1}.java"
         outlet="entity-beans"
         overwrite="true">
-        <modelElements variable="class">
-            <modelElement stereotype="Entity"/>
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -286,8 +290,10 @@
         outputPattern="{0}/{1}LocalHome.java"
         outlet="entity-beans"
         overwrite="true">
-        <modelElements variable="class">
-            <modelElement stereotype="Entity"/>
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -296,8 +302,10 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
         overwrite="false">
-        <modelElements variable="class">
-            <modelElement stereotype="Entity"/>
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -633,7 +641,8 @@
             There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements
             that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>,
             they are used to specify what properties the <a href="../andromda-metafacades/index.html">metafacade</a>
-            <em>type</em> must have or be equal to in order for the model element to be made available to a
+            <em>type</em> must have (meaning non-null in case of a non-collection property or having at least one value
+            in case of a collection property) or be equal to, in order for the model element to be made available to a
             <a href="#template"><code><![CDATA[<template/>]]></code></a>. For example, the following would make each
             model element with a metafacade of type <em>org.andromda.core.uml.ClassifierFacade</em> with the property
             <em>enumeration</em> equal to <code>true</code> available to a template:
@@ -642,7 +651,24 @@
 <modelElements variable="enumeration">
     <modelElement>
         <type name="org.andromda.metafacades.uml.ClassifierFacade">
-            <property name="enumeration" value="true"/>
+            <property name="enumeration">true</property>
+        </type>
+    </modelElement>
+</modelElements>
+...
+]]></source>
+        </p>
+        <p class="highlight">
+            Another VERY useful application of these properties, is to determine when and when not to
+            output a file (for example you may only want output a WSDL for a web service that has <strong>at least</strong>
+            one exposed operation), so in that case you'd map a nested property checking for the exposed operations like
+            the example directly below:
+<source><![CDATA[
+...
+<modelElements variable="services">
+    <modelElement>
+        <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+            <property name="exposedOperations"/>
         </type>
     </modelElement>
 </modelElements>
@@ -657,33 +683,35 @@
         </p>
         <br/>
         <table>
-          <tr>
-            <th>Attribute</th>
-            <th>Description</th>
-            <th>Required?</th>
-          </tr>
-          <tr>
-            <td>
-                name
-            </td>
-            <td>
-                The name of the property to check the exitence of (there must be a valid java bean accessor on the metafacade).
-            </td>
-            <td>
-                Yes
-            </td>
-          </tr>
-          <tr>
-            <td>
-                value
-            </td>
-            <td>
-                The value the property must have in order to evaluate to true.
-            </td>
-            <td>
-                No, if not specified then just the existence of the property accessor on the metafacade is enough.
-            </td>
-          </tr>
+            <tr>
+                <th>Attribute</th>
+                <th>Description</th>
+                <th>Required?</th>
+            </tr>
+            <tr>
+                <td>
+                    name
+                </td>
+                <td>
+                    The name of the property to check the exitence of (there must be a valid java bean accessor on the metafacade).
+                </td>
+                <td>
+                    Yes
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    value
+                </td>
+                <td>
+                    The value the property must have in order to evaluate to true. Please note that instead of using this 
+                    value attribute you can use the content of the property element as the value, like so:
+                    <em><![CDATA[<property name="enumeration">true</property>]]></em>.
+                </td>
+                <td>
+                    No, if not specified then just the existence of the property accessor on the metafacade is enough.
+                </td>
+            </tr>
         </table>
         <h3><![CDATA[<resource/>]]></h3>
         <p>
