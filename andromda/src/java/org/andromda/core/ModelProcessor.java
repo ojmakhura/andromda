@@ -52,6 +52,11 @@ public class ModelProcessor
     private static final String VERSION;
 
     /**
+     * Stores whether or not to process all model packages
+     */
+    private boolean processAllModelPackages = true;
+
+    /**
      * Find and load the version.
      */
     static
@@ -193,6 +198,7 @@ public class ModelProcessor
             boolean lastModifiedCheck = true;
             long lastModified = 0;
             ModelPackages modelPackages = new ModelPackages();
+            modelPackages.setProcessAllPackages(this.processAllModelPackages);
 
             for (int ctr = 0; ctr < models.length; ctr++)
             {
@@ -276,6 +282,22 @@ public class ModelProcessor
         AndroMDALogger.info("");
         AndroMDALogger.info("A n d r o M D A  -  " + VERSION);
         AndroMDALogger.info("");
+    }
+
+    /**
+     * Sets whether or not AndroMDA should process all packages. If this is set
+     * to true, then package elements should be specified if you want to keep
+     * certain packages from being processed. If this is set to false, then you
+     * would want to define package elements to specify which packages
+     * <strong>SHOULD BE </strong> processed. This is useful if you need to
+     * reference model elements from other packages but you don't want to
+     * perform any generation from them. The default is <strong>true </strong>.
+     * 
+     * @param processAllModelPackages The processAllModelPackages to set.
+     */
+    public void setProcessAllModelPackages(boolean processAllModelPackages)
+    {
+        this.processAllModelPackages = processAllModelPackages;
     }
 
     /**

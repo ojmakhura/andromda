@@ -280,21 +280,17 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Specifies whether or not AndroMDA should process all packages. If this is
-     * set to true, then package elements should be specified if you want to
-     * keep certain packages from being processed. If this is set to false, then
-     * you would want to define package elements to specify which packages
-     * SHOULD BE processed. This is useful if you need to reference stereotyped
-     * model elements from other packages but you don't want to perform any
-     * generation from them. The default is true.
+     * Specifies whether or not AndroMDA should process all packages.
      * 
      * @param processAllModelPackages true/false on whether or not to process
      *        all packages.
      * @see #addModelPackage(org.andromda.core.common.ModelPackage)
+     * @see org.andromda.core.ModelProcessor#setProcessAllModelPackages(boolean)
      */
     public void setProcessAllModelPackages(boolean processAllModelPackages)
     {
-        this.packages.setProcessAllPackages(processAllModelPackages);
+        ModelProcessor.instance().setProcessAllModelPackages(
+            processAllModelPackages);
     }
 
     /**
