@@ -7,7 +7,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.MetafacadeDataTypes;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
@@ -34,9 +34,9 @@ public class AssociationEndFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
-    public Object getMetafacadeOwner()
+    public Object getValidationOwner()
     {
         return this.getType();
     }
@@ -87,7 +87,7 @@ public class AssociationEndFacadeLogicImpl
     {
         boolean pluralize = false;
         Object value = this
-            .getConfiguredProperty(MetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
+            .getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
         if (value != null)
         {
             pluralize = Boolean.valueOf(String.valueOf(value)).booleanValue();

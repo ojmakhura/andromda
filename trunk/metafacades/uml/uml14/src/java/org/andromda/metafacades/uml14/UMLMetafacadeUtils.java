@@ -48,10 +48,11 @@ public class UMLMetafacadeUtils
      * <code>fullyQualifiedName</code>. If the model element can <strong>NOT
      * </strong> be found, <code>null</code> will be returned instead.
      * 
-     * @param model the model to search
+     * @param fullyQualifieName the fully qualified name of the element to search for.
+     * @param seperator the seperator used for qualifying the name (example '::').
      * @return the found model element
      */
-    static Object findByFullyQualifiedName(String fullyQualifiedName)
+    static Object findByFullyQualifiedName(String fullyQualifiedName, String seperator)
     {
         final String methodName = "UMLMetafacadeUtils.findModelElement";
         Object modelElement = null;
@@ -71,7 +72,7 @@ public class UMLMetafacadeUtils
                 if (rootPackage != null)
                 {
                     String[] names = fullyQualifiedName.split("\\"
-                        + UMLMetafacadeGlobals.PACKAGE_SEPERATOR);
+                        + seperator);
                     if (names != null && names.length > 0)
                     {
                         Object element = rootPackage;
@@ -228,12 +229,14 @@ public class UMLMetafacadeUtils
      * @param name the new name
      * @param fullyQualifiedTypeName the name of the fully qualified type
      * @param visibility the visibility name
+     * @param the seperator used for qualifying the name.
      * @return the new Attribute.
      */
     static Attribute createAttribute(
         String name,
         String fullyQualifiedTypeName,
-        String visibility)
+        String visibility,
+        String seperator)
     {
         Attribute attribute = UMLMetafacadeUtils.getCorePackage()
             .getAttribute().createAttribute();
@@ -241,7 +244,7 @@ public class UMLMetafacadeUtils
         attribute.setVisibility(UMLMetafacadeUtils
             .getVisibilityKind(visibility));
         Object type = UMLMetafacadeUtils
-            .findByFullyQualifiedName(fullyQualifiedTypeName);
+            .findByFullyQualifiedName(fullyQualifiedTypeName, seperator);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
         {
             attribute.setType((Classifier)type);

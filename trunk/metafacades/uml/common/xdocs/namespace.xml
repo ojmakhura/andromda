@@ -220,7 +220,30 @@
                     <td>
                         No, the default is <code>none</code>.
                     </td>
-                </tr>      	
+                </tr>     
+                <tr>
+                    <td>
+                        namespaceSeperator
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        No, the default is <code>'.'</code>.
+                    </td>
+                </tr> 	
+                <tr>
+                    <td>
+                        undefinedName
+                    </td>
+                    <td>
+                        When a model element name is unspecified this is
+                        the name used (instead of null).
+                    </td>
+                    <td>
+                        No, the default is <code>undefined</code>.
+                    </td>
+                </tr>
             </table>
     	</section>
   	</body>

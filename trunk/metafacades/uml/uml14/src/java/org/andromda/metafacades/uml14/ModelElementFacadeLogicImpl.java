@@ -8,11 +8,12 @@ import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
-import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -56,17 +57,17 @@ public class ModelElementFacadeLogicImpl
     public String handleGetPackageName()
     {
         String packageName = "";
-
         for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage)
             && !(namespace instanceof Model); namespace = namespace
             .getNamespace())
         {
             packageName = "".equals(packageName)
                 ? namespace.getName()
-                : namespace.getName() + UMLMetafacadeGlobals.PACKAGE_SEPERATOR
+                : namespace.getName()
+                    + this
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)
                     + packageName;
         }
-
         return packageName;
     }
 
@@ -80,7 +81,9 @@ public class ModelElementFacadeLogicImpl
 
         if (StringUtils.isNotEmpty(packageName))
         {
-            fullName = packageName + UMLMetafacadeGlobals.PACKAGE_SEPERATOR
+            fullName = packageName
+                + this
+                    .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)
                 + fullName;
         }
 
@@ -239,9 +242,10 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetFullyQualifiedNamePath()
     {
-        return this.getFullyQualifiedName().replace(
-            UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
-            '/');
+        return StringUtils.replace(
+            this.getFullyQualifiedName(), 
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
+                "/");
     }
 
     /**
@@ -249,9 +253,10 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackagePath()
     {
-        return this.getPackageName().replace(
-            UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
-            '/');
+        return StringUtils.replace(
+            this.getPackageName(), 
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
+                "/");
     }
 
     /**
@@ -371,7 +376,7 @@ public class ModelElementFacadeLogicImpl
      */
     public Mappings handleGetLanguageMappings()
     {
-        final String propertyName = MetafacadeProperties.LANGUAGE_MAPPINGS_URI;
+        final String propertyName = UMLMetafacadeProperties.LANGUAGE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
         Mappings mappings = null;
         String uri = null;
@@ -611,6 +616,9 @@ public class ModelElementFacadeLogicImpl
         return this.translateConstraints(constraints, translation);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getActivityGraphContext()
+     */
     protected Object handleGetActivityGraphContext()
     {
         ActivityGraph graphContext = null;
@@ -629,5 +637,42 @@ public class ModelElementFacadeLogicImpl
         }
 
         return graphContext;
+    }
+
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
+     */
+    public String getValidationName()
+    {
+        StringBuffer validationName = new StringBuffer("");
+        Object seperator = this
+            .getConfiguredProperty(MetafacadeProperties.VALIDATION_NAME_SEPERATOR);
+        for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace
+            .getNamespace())
+        {
+            if (validationName.length() == 0)
+            {
+                validationName.append(namespace.getName());
+            }
+            else
+            {
+                validationName.insert(0, namespace.getName());
+                validationName.insert(0, seperator);
+            }
+        }
+        if (validationName.length() > 0)
+        {
+            validationName.append(seperator);
+        }
+        if (StringUtils.isNotEmpty(this.getName()))
+        {
+            validationName.append(this.getName());
+        }
+        else
+        {
+            validationName.append(this
+                .getConfiguredProperty(UMLMetafacadeProperties.UNDEFINED_NAME));
+        }
+        return validationName.toString();
     }
 }

@@ -22,9 +22,17 @@ public interface $metafacade.name
     
     /**
      * Gets the metafacade that acts as the <code>owner</code> of this metafacade.
-     * (for example: an operation is an owner of its parameters, etc).
+     * (for example: an operation is an owner of its parameters, etc). This is used
+     * by AndroMDA's validation framework to provide more context as to where the
+     * error has occurred.
      */
-    public Object getMetafacadeOwner();
+    public Object getValidationOwner();
+    
+    /**
+     * Gets the name of the metafacade used within validation messages.  This provides
+     * the full name of the metafacade.
+     */
+    public String getValidationName();
     
     /**
      * Performs validation of any invariants found on this model element 

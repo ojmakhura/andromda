@@ -2,7 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 
 /**
@@ -48,7 +48,7 @@ public class EntityAssociationEndFacadeLogicImpl
     public String handleGetForeignKeySuffix()
     {
         return (String)this
-            .getConfiguredProperty(MetafacadeProperties.FOREIGN_KEY_SUFFIX);
+            .getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
     }
 
 }

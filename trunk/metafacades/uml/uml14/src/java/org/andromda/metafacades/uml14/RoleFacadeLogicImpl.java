@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
@@ -63,7 +63,7 @@ public class RoleFacadeLogicImpl
         {
             name = super.getName();
             String mask = StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty(MetafacadeProperties.ROLE_NAME_MASK)));
+                .getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
             if (!mask.equalsIgnoreCase(MASK_NONE))
             {
                 if (mask.equalsIgnoreCase(MASK_UPPERCASE))

@@ -9,7 +9,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeDataTypes;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -126,7 +126,7 @@ public class ClassifierFacadeLogicImpl
      */
     public Mappings getWrapperMappings()
     {
-        final String propertyName = MetafacadeProperties.WRAPPER_MAPPINGS_URI;
+        final String propertyName = UMLMetafacadeProperties.WRAPPER_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
         Mappings mappings = null;
         String uri = null;

@@ -11,7 +11,7 @@ import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -124,7 +124,8 @@ public class EntityFacadeLogicImpl
     {
         Attribute identifier = UMLMetafacadeUtils.createAttribute(this
             .getDefaultIdentifier(), this.getDefaultIdentifierType(), this
-            .getDefaultIdentifierVisibility());
+            .getDefaultIdentifierVisibility(), String.valueOf(this
+            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
 
         identifier.getStereotype().add(
             UMLMetafacadeUtils
@@ -148,7 +149,7 @@ public class EntityFacadeLogicImpl
     public String handleGetTableName()
     {
         String tableNamePrefix = StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty(MetafacadeProperties.TABLE_NAME_PREFIX)));
+            .getConfiguredProperty(UMLMetafacadeProperties.TABLE_NAME_PREFIX)));
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             tableNamePrefix,
             this,
@@ -521,7 +522,7 @@ public class EntityFacadeLogicImpl
     public Short handleGetMaxSqlNameLength()
     {
         return Short.valueOf((String)this
-            .getConfiguredProperty(MetafacadeProperties.MAX_SQL_NAME_LENGTH));
+            .getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
 
     /**
@@ -532,7 +533,7 @@ public class EntityFacadeLogicImpl
         return Boolean
             .valueOf(
                 (String)this
-                    .getConfiguredProperty(MetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
+                    .getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
             .booleanValue();
     }
 
@@ -542,7 +543,7 @@ public class EntityFacadeLogicImpl
     private String getDefaultIdentifier()
     {
         return (String)this
-            .getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER);
+            .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
     }
 
     /**
@@ -551,7 +552,7 @@ public class EntityFacadeLogicImpl
     private String getDefaultIdentifierType()
     {
         return (String)this
-            .getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
+            .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
     }
 
     /**
@@ -560,6 +561,6 @@ public class EntityFacadeLogicImpl
     private String getDefaultIdentifierVisibility()
     {
         return (String)this
-            .getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
+            .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
     }
 }

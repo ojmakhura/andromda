@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
@@ -14,6 +15,8 @@ import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.modelmanagement.Model;
+import org.omg.uml.modelmanagement.UmlPackage;
 
 /**
  * Metaclass facade implementation.
@@ -161,5 +164,5 @@ public class ModelFacadeLogicImpl
         }
         return filteredCollection;
     }
-
+    
 }

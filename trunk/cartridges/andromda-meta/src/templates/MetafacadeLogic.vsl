@@ -275,14 +275,26 @@ public abstract class ${metafacade.logicName}
     }
     
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
-    public Object getMetafacadeOwner()
+    public Object getValidationOwner()
     {
 #if ($superMetafacade)
-        return super_.getMetafacadeOwner();
+        return super_.getValidationOwner();
 #else
-        return super.getMetafacadeOwner();
+        return super.getValidationOwner();
+#end
+    }
+    
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
+     */
+    public String getValidationName()
+    {
+#if ($superMetafacade)
+        return super_.getValidationName();
+#else
+        return super.getValidationName();
 #end
     }
     
