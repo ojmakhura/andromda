@@ -43,7 +43,7 @@
                 {0} in ({1})
             </kind>
         </fragment>
-                
+
         <!-- Maps the '-> sortedBy(<some expression>)' to the correct handler method -->
         <fragment name="sortedBy${nonEmptyParentheses}"
                   handlerMethod="handleSortedBy"/>
@@ -62,7 +62,7 @@
                 size({0}) = 0
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when '-> size()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*->\s*size${emptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -70,7 +70,7 @@
                 size({0})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.toLower()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*toLower${emptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -78,7 +78,7 @@
                 lower({0})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.toUpper()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*toUpper${emptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -86,7 +86,7 @@
                 upper({0})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.concat(string)' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*concat${nonEmptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -94,7 +94,7 @@
                 {0} || {1}
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.substring(int,int)' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*substring${nonEmptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -102,7 +102,7 @@
                 substr({0}, {1}, {2})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.size()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*size${emptyParentheses}"
                   handlerMethod="handleDotOperation">
