@@ -308,41 +308,58 @@ public class EntityFacadeLogicImpl
             }
         };
     }
-    
+   
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredAttributes(boolean)
-     */    
-    public Collection handleGetRequiredAttributes(boolean follow)
+     * @see org.andromda.metafacades.uml.EntityFacade#getAttributes(boolean, boolean)
+     */   
+    public Collection handleGetAttributes(boolean follow, final boolean withIdentifiers)
     {
-        final Collection attributes = this.getAttributes();
-        if (follow)
-        {
-            CollectionUtils.forAllDo(
-                this.getAllGeneralizations(),    
-                new Closure()
-                {
-                    public void execute(Object object)
-                    {
-                        attributes.addAll(((ClassifierFacade)object).getAttributes());
-                    }
-                });
-        }
+        final Collection attributes = this.getAttributes(follow);  
         CollectionUtils.filter(
             attributes,
             new Predicate()
             {
                 public boolean evaluate(Object object)
                 {
-                    return ((AttributeFacade)object).isRequired();
+                    boolean valid = true;
+                    if (!withIdentifiers && EntityAttributeFacade.class.isAssignableFrom(object.getClass()))
+                    {
+                        valid = !((EntityAttributeFacade)object).isIdentifier();
+                    }
+                    return valid;
                 }
             });
         return attributes;
     }
     
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredProperties(boolean)
+     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredAttributes(boolean, boolean)
      */    
-    public Collection handleGetRequiredProperties(boolean follow)
+    public Collection handleGetRequiredAttributes(boolean follow, final boolean withIdentifiers)
+    {
+        final Collection attributes = this.getAttributes(follow, withIdentifiers);
+        CollectionUtils.filter(
+            attributes,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = false;
+                    valid =  ((AttributeFacade)object).isRequired();
+                    if (valid && !withIdentifiers && EntityAttributeFacade.class.isAssignableFrom(object.getClass()))
+                    {
+                        valid = !((EntityAttributeFacade)object).isIdentifier();
+                    }
+                    return valid;
+                }
+            });
+        return attributes;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredProperties(boolean, boolean)
+     */    
+    public Collection handleGetRequiredProperties(boolean follow, final boolean withIdentifiers)
     {
         final Collection properties = this.getProperties();
         if (follow)
@@ -363,16 +380,20 @@ public class EntityFacadeLogicImpl
             {
                 public boolean evaluate(Object object)
                 {
-                    boolean required = false;
+                    boolean valid = false;
                     if (AttributeFacade.class.isAssignableFrom(object.getClass()))
                     {
-                        required = ((AttributeFacade)object).isRequired();
+                        valid = ((AttributeFacade)object).isRequired();
+                        if (valid && !withIdentifiers && EntityAttributeFacade.class.isAssignableFrom(object.getClass()))
+                        {
+                            valid = !((EntityAttributeFacade)object).isIdentifier();
+                        }
                     }
                     else if (AssociationEndFacade.class.isAssignableFrom(object.getClass()))
                     {
-                        required = ((AssociationEndFacade)object).isRequired();
+                        valid = ((AssociationEndFacade)object).isRequired();
                     }
-                    return required;
+                    return valid;
                 }
             });
         return properties;
