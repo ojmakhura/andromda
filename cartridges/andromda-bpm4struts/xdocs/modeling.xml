@@ -271,8 +271,9 @@
                             <td>java.lang.String</td>
                             <td>pattern</td>
                             <td>a regular expression</td>
-                            <td>pattern ^[a-zA-Z]*$</td>
-                            <td>Validates format according to a regular expression (**)</td>
+                            <td>pattern [a-zA-Z]*</td>
+                            <td>Validates format according to a regular expression (**), the leading
+                                '^' and trailing '$' must not be specified</td>
                         </tr>
                         <tr>
                             <td>java.lang.String</td>
