@@ -5,7 +5,7 @@
 #set ($packagename = $transform.findPackageName(${class.package}))
 package $packagename;
 
-public abstract class ${class.name}Impl
+public class ${class.name}Impl
        extends ${class.name}
 {
     // concrete business methods that were declared
