@@ -7,7 +7,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-03-13" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-03-15" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add">
+                The bpm4struts cartridge now supports exporting to PDF, existing projects will need to include
+                the <a href="http://www.ibiblio.org/maven/itext/jars/itext-0.99.jar">IText v0.99</a> dependency.
+                Add this dependency to your <code>/web/project.xml</code>.
+            </action>
             <action dev="cwbrandon" type="add" issue="SPRING-38">
                 The spring cartridge now supports modeled hibernate criteria finders (Thanks to Stefan Reichert and Peter Friese).
             </action>
