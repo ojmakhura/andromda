@@ -47,7 +47,7 @@ public class $entity.daoImplementationName
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
-     * @see ${entity.fullyQualifiedDaoBaseName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity)
     {
