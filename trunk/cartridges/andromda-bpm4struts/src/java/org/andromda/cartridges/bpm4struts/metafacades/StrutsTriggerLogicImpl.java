@@ -52,6 +52,11 @@ public class StrutsTriggerLogicImpl
         return getTitleKey() + ".reset";
     }
 
+    protected java.lang.String handleGetResetMessageKey()
+    {
+        return getResetTitleKey() + ".message";
+    }
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetNotAllowedTitleKey()()
      */
@@ -88,6 +93,11 @@ public class StrutsTriggerLogicImpl
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetTitleValue()()
      */
     protected java.lang.String handleGetResetTitleValue()
+    {
+        return "Reset";
+    }
+
+    protected java.lang.String handleGetResetMessageValue()
     {
         return "Reset";
     }
