@@ -210,7 +210,7 @@
 						</p>
 						<a name="constraintExpression"/>
 						<source>
-	<![CDATA[<expression contextType="org.andromda.contracts.LegalAgreement">
+	<![CDATA[<expression>
 		<from>
 			context LegalAgreement 
 			inv: allInstances -> isUnique(documentTitle) 
@@ -473,7 +473,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 						</p>
 						<source>
 
-	<![CDATA[<expression contextType="org.andromda.contracts.LegalAgreement">
+	<![CDATA[<expression>
 		<from>
 			context LegalAgreement 
 			inv: self.allInstances -> isUnique(documentTitle) 
