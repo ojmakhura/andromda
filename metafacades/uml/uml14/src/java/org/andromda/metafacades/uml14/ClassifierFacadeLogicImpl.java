@@ -297,7 +297,7 @@ public class ClassifierFacadeLogicImpl
         {
             nonArrayType = (ClassifierFacade)this.getRootPackage()
                 .findModelElement(
-                    this.getFullyQualifiedName().replaceAll("\\[\\]", ""));
+                    this.getFullyQualifiedName(true).replaceAll("\\[\\]", ""));
         }
         return nonArrayType;
     }
@@ -308,7 +308,7 @@ public class ClassifierFacadeLogicImpl
     public Object handleGetArray()
     {
         ClassifierFacade arrayType = this;
-        String name = this.getFullyQualifiedName();
+        String name = this.getFullyQualifiedName(true);
         if (name.indexOf(ARRAY_SUFFIX) == -1)
         {
             name = name + ARRAY_SUFFIX;
