@@ -543,7 +543,7 @@ public class StrutsParameterLogicImpl
             for (int i = 0; i < properties.length; i++)
             {
                 String property = properties[i];
-                columnNamesCollection.add(StringUtilsHelper.lowerCamelCaseName(property));
+                columnNamesCollection.add(StringUtils.trimToEmpty(property));
             }
         }
         return columnNamesCollection;
