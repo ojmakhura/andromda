@@ -34,15 +34,15 @@ public class AndromdaAntRunner
 
         String inputValue = null;
         while (null == (inputValue=promptForInput("application id")));
-        propertiesMap.put("applicationId", inputValue);
+        propertiesMap.put("applicationId", inputValue.replaceAll("[\\s]*",""));
 
         inputValue = null;
         while (null == (inputValue=promptForInput("application name")));
-        propertiesMap.put("applicationName", inputValue);
+        propertiesMap.put("applicationName", inputValue.replaceAll("[\\s]*",""));
 
         inputValue = null;
         while (null == (inputValue=promptForInput("application version")));
-        propertiesMap.put("applicationVersion", inputValue);
+        propertiesMap.put("applicationVersion", inputValue.replaceAll("[\\s]*",""));
 
         inputValue = null;
         while (null == (inputValue=promptForInput("persistence type [ejb,hibernate]"))
