@@ -17,6 +17,11 @@ public class UMLProfile
      * The Profile instance from which we retrieve the mapped profile names.
      */
     private static final Profile profile = Profile.instance();
+    
+    /**
+     * Represents a criteria search.
+     */
+    public static final String STEREOTYPE_CRITERIA = profile.get("CRITERIA");
 
     /**
      * Represents a persistent entity.

@@ -31,6 +31,22 @@
                         </td>
                     </tr>
                     <tr>
+                      <a name="Criteria"/>
+                        <td>
+                            <strong><![CDATA[<<Criteria>>]]></strong>
+                        </td>
+                        <td>
+                            Classifier
+                        </td>
+                        <td>
+                            Produces a criteria search facility consisting of three helper classes being written
+                            to the package for extra spring classes and a criteria value object. If you add a finder
+                            method to a Hibernate entity, giving it a parameter that is of a class that is stereotyped
+                            as a <![CDATA[<<Criteria>>]]>, the finder will contain code to construct a Hibernate 
+                            criteria query.
+                        </td>
+                    </tr>
+                    <tr>
                         <a name="Service"/>
                         <td>
                             <strong><![CDATA[<<Service>>]]></strong>
@@ -292,6 +308,51 @@
 						<td>
 							Sets the port this service will be exported on. You must also tag the
 							service using <a href="#@andromda.spring.service.remote.port">@andromda.spring.service.remote.port</a>.
+						</td>
+                    </tr>
+                    <tr>
+						<a name="@andromda.hibernate.criteria.attribute"/>
+						<td>
+							@andromda.hibernate.criteria.attribute
+						</td>
+                        <td>
+							<a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+						<td>
+							Sets the name of the attribute on the hibernate entity that should be added to a criteria
+							search. If the attribute you want to search for is not in the entity itself, but rather in
+							an associated class, you can use a fully qualified name here. Assume you have two entites
+							<code>Person</code> and <code>Address</code>, the address being referenced as a one-to-one
+							relationship with the role name <code>homeAddress</code> and the address having an attribute
+							named "city". If you want to retrieve all people living in Hamburg, simply set the value of 
+							this tagged value to <code>homeAddress.city</code>.
+							
+							If you ommit this tagged value, the name of the attribute in the criteria class will be used.
+						</td>
+                    </tr>
+                    <tr>
+						<a name="@andromda.hibernate.criteria.comparator"/>
+						<td>
+							@andromda.hibernate.criteria.comparator
+						</td>
+                        <td>
+							<a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+						<td>
+							Using this tagged value the logical condition for the underlying attribute in the query.
+							Possible values are
+							<ul>
+								<li>like</li>
+								<li>equal</li>
+								<li>greater</li>
+								<li>greater_equal</li>
+								<li>less</li>
+								<li>less_equal</li>
+							</ul>
+							
+							If you ommit this tagged value and the underlying attribute is a <code>String</code>, 
+							<code>equal</code> will be used. If the underlying attribute is anything else but a 
+							<code>String</code>, <code>like</code> will be used.
 						</td>
                     </tr>
                 </table>
