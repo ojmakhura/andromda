@@ -413,7 +413,9 @@
 <andromda modelURL="=jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml"
           lastModifiedCheck="false">
 	<repository>
-		<pathelement location="${basedir}/../../metafacades/uml/common/src/uml"/>
+	    <moduleSearchPath>
+		    <pathelement location="${basedir}/lib"/>
+	    </moduleSearchPath>
 	</repository>
 	...
 </andromda>
