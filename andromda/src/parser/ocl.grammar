@@ -55,7 +55,7 @@ Helpers
 Tokens
 
   	single_line_comment = '--' [[all - 10] - 13]* [10 + 13]?;
-  	
+
   	multi_line_comment = '/*' not_star+ '*'+ (not_star_not_slash not_star* '*'+)* '/';
 
   	dot = '.';
@@ -289,13 +289,13 @@ Productions
 
   	// 'let ...'
   	let_exp =
-    	let let_variable_delaration let_exp_sub ;
+    	let let_variable_declaration let_exp_sub ;
 
     let_exp_sub =
-  		{variable_declaration} comma let_variable_delaration let_exp_sub |
+  		{variable_declaration} comma let_variable_declaration let_exp_sub |
   		{in} in logical_exp ;
 
-  	let_variable_delaration =
+  	let_variable_declaration =
   		variable_declaration equal expression ;
 
   	literal =
@@ -324,7 +324,7 @@ Productions
 
   	feature_call =
     	path_name is_marked_pre? qualifiers? feature_call_parameters? ;
-    
+
  	qualifiers =
     	l_bracket actual_parameter_list r_bracket ;
 
