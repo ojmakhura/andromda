@@ -1,5 +1,17 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import java.text.Collator;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeSet;
+
+import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -14,17 +26,6 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
-import java.text.Collator;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeSet;
 
 /**
  * MetafacadeLogic implementation for
@@ -104,11 +105,6 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * The character used to seperate namespace names.
-     */
-    static char NAMESPACE_DELIM = '.';
-
-    /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getNamespace()
      */
     protected java.lang.String handleGetNamespace()
@@ -116,9 +112,7 @@ public class WebServiceLogicImpl
         String packageName = this.getPackageName();
         if (this.isReverseNamespace())
         {
-            packageName = StringUtils.reverseDelimited(
-                packageName,
-                NAMESPACE_DELIM);
+            packageName = WebServiceUtils.reversePackage(packageName);
         }
         return MessageFormat.format(this.getNamespacePattern(), new String[]
         {
