@@ -116,6 +116,12 @@ public class UMLProfile
     public static final String STEREOTYPE_NULLABLE = umlProfile
         .getString("STEREOTYPE_NULLABLE");
 
+    /**
+     * Represents a role played by a user within a system.
+     */
+    public static final String STEREOTYPE_ROLE = umlProfile
+        .getString("STEREOTYPE_ROLE");
+
     /* ----------------- Tagged Values -------------------- */
 
     /**

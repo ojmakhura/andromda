@@ -205,7 +205,22 @@
                     <td>
                         No, default is <code>true</code>.
                     </td>
-                </tr>        	
+                </tr>  
+                <tr>
+                    <td>
+                        roleNameMask
+                    </td>
+                    <td>
+                        Provides the ability to apply a mask to role names (roles are actors
+                        marked with the role stereotype:
+                        currently these are <strong>upperase</strong>, <strong>lowercase</strong>,
+                        <strong>nospace</strong>, <strong>camelcase</strong>, 
+                        and <strong>none</strong>.                        
+                    </td>
+                    <td>
+                        No, the default is <code>none</code>.
+                    </td>
+                </tr>      	
             </table>
     	</section>
   	</body>
