@@ -33,7 +33,7 @@ public class HibernateTypeLogicImpl
         Mappings mappings = this.getHibernateTypeMappings();
         if (mappings != null)
         {
-            fullyQualifiedName = mappings.getTo(fullyQualifiedName);
+            fullyQualifiedName = mappings.getTo(super.getFullyQualifiedName(true));
         }
         return fullyQualifiedName;
     }
