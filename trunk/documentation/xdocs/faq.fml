@@ -20,6 +20,82 @@
 	    </faq>
 	</part>
 
+    <part id="usage">
+        <title>Using AndroMDA</title>
+
+        <faq id="reverse">
+            <question>
+                I haven't used this product in the past, but I'm curious: will it stay in sync with code modifications?
+                Let's say I do a model in Rose, bring it into AndroMDA, and generate code from it. Then I modify the
+                generated code by hand. Will the UML model be updated automatically ?
+            </question>
+            <answer>
+                <p>
+                    Changes in the code will not be reflected back into the UML model, so the answer is no.
+                    The generation is unidirectional from UML to &lt;code&gt;.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="regeneration">
+            <question>
+                Will my custom code be overwritten the next time I (re)generate ?
+            </question>
+            <answer>
+                <p>
+                    Incremental development and regeneration cycles are supported by AndroMDA
+                </p>
+                <p>
+                    For classes this is not a problem, abstract parent classes are regenerated, the child
+                    classes are only generated when they do not yet exist, so you will put your custom code in
+                    there and you are sure it will stay there, worst case you'll have compilation
+                    errors when building your project
+                </p>
+                <p>
+                    Jsps, properties files, etc... are a different story because the notion of extending one another
+                    does not exist. Tackling this problem is not so easy as with classes. Anyway, it is partially
+                    supported. For the Bpm4Struts cartridge JSPs will be using Tiles to separate as much as possible
+                    those parts that need update and those that don't need update. The cartridge also generates CSS
+                    stylesheets, i18n properties files, etc.. subsequently making it easier to identify which files
+                    would need manual update
+                </p>
+                <p>
+                    what most users will do anyway is fine-tune the templates to their needs, they are quite easy to
+                    read and are written in Velocity (any other template-engine can easily be supported), and in
+                    doing so the generated files will be customized to your very needs.
+                </p>
+                <p>
+                    The purpose of AndroMDA is not to generate your complete application with the click of a button,
+                    maybe that will be possible in the future :-) but not yet for now. If you are tired writing the same
+                    code all the time, updating XDoclet tags, etc... and you want to keep focus on
+                    the business, AndroMDA is for you.
+                </p>
+                <p>
+                    For users not familiar with AndroMDA, here's an approximation of the percentage of code generated:
+                </p>
+                <p>
+                    <ul>
+                        <li>Persistence (EJB/Hibernate): 100%</li>
+                        <li>Business (EJB): 30%</li>
+                        <li>Presentation (Struts): 80%</li>
+                    </ul>
+                </p>
+                <p>
+                    The presentation layer is taken care of.
+                    The business layer needs an implementation since this is (or at least should be) unique for each
+                    different application.
+                    The presentation will also run out-of-the-box but you'll still need to wire it to the business
+                    layer. The web application can be deployed and run without it though, be it with a 'dummy'
+                    implementation behind.
+                </p>
+                <p>
+                    Since each layer is cleanly separated each one of them can be developed and tested independently
+                    before linking them together.
+                </p>
+            </answer>
+        </faq>
+    </part>
+
   	<part id="third-party">
 	    <title>Third-party tools</title>
 
@@ -60,4 +136,3 @@
 	</part>
 
 </faqs>
-   
