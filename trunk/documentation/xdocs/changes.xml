@@ -8,7 +8,15 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-03" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-05" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="BPM-163">
+                Bpm4Struts now allows a new namespace property called <code>defaultTableExportType</code>, it takes
+                a space-separated list of export types that will be used by default by the displaytag tables,
+                valid types are any combination of <code>csv</code>, <code>xml</code>, <code>excel</code> and
+                <code>pdf</code>, use <code>none</code> to disable exporting for tables.
+                In addition the <code>@andromda.struts.view.table.export</code> tagged
+                value can now also take the <code>none</code> value to turn off export for the corresponding table.
+            </action>
             <action dev="cwbrandon" type="fix" issue="MISC-29">
                 Mappings are now required to use the correct '::' namespace separator istead of the Java 
                 specific '.' separator.  This requires any custom type mapping files to replace all occurances
