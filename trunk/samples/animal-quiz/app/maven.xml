@@ -3,6 +3,9 @@
          xmlns:j="jelly:core">
 
 	<ant:property environment="env"/>
+	
+    <!-- The location of the database configuration scripts -->
+    <j:set var="hibernate.db.conf.location" value="${basedir}/../../../etc/hibernate/db/conf"/>
 
   	<goal name="deploy" prereqs="ear:ear">
   		<ant:copy file="${maven.build.dir}/${maven.final.name}.ear"

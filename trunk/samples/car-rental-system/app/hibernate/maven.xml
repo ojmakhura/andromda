@@ -1,6 +1,9 @@
 <project default="install"
          xmlns:ant="jelly:ant"
          xmlns:j="jelly:core">
+         
+    <!-- The location of the database configuration scripts -->
+    <j:set var="hibernate.db.conf.location" value="${basedir}/../../../../etc/hibernate/db/conf"/>
 
 	<ant:property environment="env"/>
 
