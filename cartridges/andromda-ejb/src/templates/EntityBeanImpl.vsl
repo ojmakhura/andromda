@@ -45,7 +45,7 @@ $op.getDocumentation("     * ")
 #if ("void" != $returntype)
 
         // Dummy return value, just that the file compiles
-#if (!$returntype.primitiveType)
+#if (!$op.returnType.primitiveType)
         return null;
 #elseif ("boolean" == $returntype)
         return false;
