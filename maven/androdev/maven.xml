@@ -1,4 +1,5 @@
-<project xmlns:j="jelly:core"
+<project xmlns:artifact="artifact"
+  		 xmlns:j="jelly:core"
   		 xmlns:ant="jelly:ant"
   		 xmlns:velocity="jelly:velocity">
   		 
@@ -19,6 +20,17 @@
 			<ant:fileset dir="${mappings.location}"/>
 		</ant:copy>		  
     </preGoal>
+    
+    <!-- Override the default plugin:install to just install
+         the plugin into the local repository (since we don't
+         want this plugin in the $MAVEN_HOME/plugins directory -->
+    <goal name="plugin:install">
+        <attainGoal name="jar:jar"/>
+		<artifact:install 
+			artifact="${maven.build.dir}/${maven.final.name}.jar" 
+			type="plugin" 
+			project="${pom}"/>	
+    </goal>
 
 </project>
  

@@ -1,0 +1,36 @@
+<project xmlns:j="jelly:core"
+  		 xmlns:ant="jelly:ant"
+  		 xmlns:velocity="jelly:velocity">
+  		 
+   <preGoal name="jar:jar">
+    	<!-- replace the ${pom.currentVersion} in these
+    		 files so we don't need to maintain them between
+    		 different releases --> 
+        <j:set var="pluginResources" value="plugin-resources/andromdapp"/>
+		<j:set 
+			var="pluginResourceJ2eeDir" 
+			value="${pluginResources}/templates/j2ee-app"/>
+  		<!-- perform the below merges so we can add the 
+  			 current version of AndroMDA to the mda genapp module -->
+		<j:set 
+			var="mdaResourcesDir" 
+			value="${pluginResourceJ2eeDir}/mda"/>
+		<j:set 
+			var="mdaTemplatesDir" 
+			value="${basedir}/${mdaResourcesDir}"/>
+	    <velocity:merge
+			name="${maven.build.dest}/${mdaResourcesDir}/project-ejb.xml.vsl"
+			basedir="${mdaTemplatesDir}"
+			template="/project-ejb.xml.vsl"/>  
+	    <velocity:merge
+			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vsl"
+			basedir="${mdaTemplatesDir}"
+			template="/project-hibernate.xml.vsl"/> 	
+
+		<!-- copy over the db initialization scripts for hibernate -->
+        <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/hibernate/db/conf">
+            <ant:fileset dir="${hibernate.db.conf.location}"/>
+        </ant:copy>	
+   </preGoal>
+
+</project>

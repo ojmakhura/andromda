@@ -1,4 +1,5 @@
-<project xmlns:j="jelly:core"
+<project xmlns:artifact="artifact"
+  		 xmlns:j="jelly:core"
   		 xmlns:ant="jelly:ant"
   		 xmlns:velocity="jelly:velocity">
   		 
@@ -27,14 +28,11 @@
 	    </dependency>
             </j:set>
 		</j:if>
-		<!-- Just perform a replace on the '${bootstrap} property' -->
+		<!-- Replace references to the '${bootstrap} property' -->
         <ant:replace file="${maven.build.dest}/plugin.jelly" 
         	token="$${bootstrap}"
         	value="${bootstrap}">
         </ant:replace> 
-    	<!-- replace the ${pom.currentVersion} in these
-    		 files so we don't need to maintain them between
-    		 different releases -->
 		<velocity:merge
 			name="${maven.build.dest}/plugin.properties"
 			basedir="${basedir}"
@@ -42,38 +40,22 @@
 		<velocity:merge
 			name="${maven.build.dest}/project.xml"
 			basedir="${basedir}"
-			template="/project.xml"/>     
-				
-        <j:set var="pluginResources" value="plugin-resources/andromda"/>
-				
-		<j:set 
-			var="pluginResourceJ2eeDir" 
-			value="${pluginResources}/templates/j2ee-app"/>
-  		<!-- perform the below merges so we can add the 
-  			 current version of AndroMDA to the mda genapp module -->
-		<j:set 
-			var="mdaResourcesDir" 
-			value="${pluginResourceJ2eeDir}/mda"/>
-		<j:set 
-			var="mdaTemplatesDir" 
-			value="${basedir}/${mdaResourcesDir}"/>
-	    <velocity:merge
-			name="${maven.build.dest}/${mdaResourcesDir}/project-ejb.xml.vsl"
-			basedir="${mdaTemplatesDir}"
-			template="/project-ejb.xml.vsl"/>  
-	    <velocity:merge
-			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vsl"
-			basedir="${mdaTemplatesDir}"
-			template="/project-hibernate.xml.vsl"/> 	
-		
+			template="/project.xml"/>     		
 		<!-- copy over the mappings -->
-		<ant:copy todir="${maven.build.dest}/${pluginResources}/mappings">
+		<ant:copy todir="${maven.build.dest}/plugin-resources/andromda/mappings">
 			<ant:fileset dir="${mappings.location}"/>
-		</ant:copy>		
-		<!-- copy over the db initialization scripts for hibernate -->
-        <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/hibernate/db/conf">
-            <ant:fileset dir="${hibernate.db.conf.location}"/>
-        </ant:copy>	
+		</ant:copy>			
    </preGoal>
+   
+    <!-- Override the default plugin:install to just install
+         the plugin into the local repository (since we don't
+         want this plugin in the $MAVEN_HOME/plugins directory -->
+    <goal name="plugin:install">
+        <attainGoal name="jar:jar"/>
+		<artifact:install 
+			artifact="${maven.build.dir}/${maven.final.name}.jar" 
+			type="plugin" 
+			project="${pom}"/>	
+    </goal>
 
 </project>
