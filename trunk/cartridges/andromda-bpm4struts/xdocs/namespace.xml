@@ -156,6 +156,26 @@
                         <code>dd/MM/yyyy</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>warningMessagesKey</td>
+                    <td>The key to lookup warning messages in a scope, the value will be an 
+                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
+                        ActionMessages</a> instance</td>
+                    <td>
+                        No, default is
+                        <code>org.andromda.bpm4struts.warningmessages</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>successMessagesKey</td>
+                    <td>The key to lookup success messages in a scope, the value will be an 
+                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
+                        ActionMessages</a> instance</td>
+                    <td>
+                        No, default is
+                        <code>org.andromda.bpm4struts.successmessages</code>.
+                    </td>
+                </tr>
             </table>
         </section>
     </body>
