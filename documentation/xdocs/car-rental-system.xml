@@ -59,19 +59,14 @@
                             <th>Cartridge</th>
                         </tr>
                         <tr>
-                            <td>Persistence (Hibernate) and Business (Stateless Session EJBs)</td>
-                            <td>Hibernate 2.x.y and EJB 2.0 (Stateless Session EJBs)</td>
-                            <td>andromda-hibernate-cartridge</td>
-                        </tr>
-                        <tr>
                             <td>Persistence (Entity Beans) and Business (Stateless Session EJBs)</td>
                             <td>EJB 2.0 (Stateless Session and Entity EJBs)</td>
                             <td>andromda-ejb-cartridge</td>
                         </tr>
                         <tr>
                             <td>Presentation</td>
-                            <td>Struts 1.2.2</td>
-                            <td>andromda-struts-cartridge</td>
+                            <td>Struts 1.2.4</td>
+                            <td>andromda-bpm4struts-cartridge</td>
                         </tr>
                     </table>
                 </p>
