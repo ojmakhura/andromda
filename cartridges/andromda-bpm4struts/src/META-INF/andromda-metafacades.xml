@@ -12,6 +12,7 @@
     <metafacade
         metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"
         metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
+        <stereotype>FrontEndUseCase</stereotype>
     </metafacade>
 
     <metafacade
