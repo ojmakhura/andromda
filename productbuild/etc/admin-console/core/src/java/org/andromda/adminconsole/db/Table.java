@@ -33,8 +33,10 @@ public interface Table extends Serializable
     public int insertRow(RowData rowData) throws SQLException;
 
     public List findAllRows() throws SQLException;
+    public List findAllRows(int maximum) throws SQLException;
 
     public List findRows(Criterion criterion) throws SQLException;
+    public List findRows(Criterion criterion, int maximum) throws SQLException;
 
     public int updateRow(RowData rowData, Criterion criterion) throws SQLException;
 
@@ -42,7 +44,7 @@ public interface Table extends Serializable
 
     public Database getDatabase();
 
-    public Table[] getImportingTables();
+    public String[] getImportingTableNames();
 
     public int getImportingTablesCount();
 }
