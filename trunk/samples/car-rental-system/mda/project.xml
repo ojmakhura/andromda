@@ -4,9 +4,7 @@
   	<extend>../project.xml</extend>
 	<name>Car Rental Sample MDA</name>
 	<id>car-rental-sample-mda</id>
-	
-  	<dependencies>
-  	
+  	<dependencies> 	
 		<dependency> 
 			<groupId>andromda</groupId>
 	  		<artifactId>maven-andromda-plugin</artifactId>
@@ -20,8 +18,7 @@
 	 			<physical.foreignKeySuffix>_FK</physical.foreignKeySuffix>
 	 		</properties>	 		
 		</dependency>
-  	
-	  	<!-- specify the plugins we want for mda -->
+	  	<!-- Specify and configure our cartridges -->
 		<dependency> 
 			<groupId>andromda-cartridges</groupId>
 	  		<artifactId>andromda-ejb-cartridge</artifactId>
@@ -64,6 +61,4 @@
 			</properties>	 		
 		</dependency>	
 	</dependencies>
-	
-  	<build/>
 </project>

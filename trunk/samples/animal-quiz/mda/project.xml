@@ -3,10 +3,8 @@
 <project>
   	<extend>../project.xml</extend>
 	<name>Animal Quiz Sample MDA</name>
-	<id>animal-quiz-sample-mda</id>
-	
+	<id>animal-quiz-sample-mda</id>	
   	<dependencies>
-  	
 		<dependency> 
 			<groupId>andromda</groupId>
 	  		<artifactId>maven-andromda-plugin</artifactId>
@@ -19,9 +17,8 @@
 	 			<physical.maxSqlNameLength>30</physical.maxSqlNameLength>
 	 			<physical.foreignKeySuffix>_FK</physical.foreignKeySuffix>
 	 		</properties>
-		</dependency>
-  	
-	  	<!-- specify the plugins we want for mda -->
+		</dependency> 	
+	  	<!-- specify and configure our cartridges -->
 		<dependency> 
 			<groupId>andromda-cartridges</groupId>
 	  		<artifactId>andromda-hibernate-cartridge</artifactId>
@@ -59,6 +56,4 @@
 	 		</properties>
 		</dependency>	
 	</dependencies>
-	
-  	<build/>
 </project>
