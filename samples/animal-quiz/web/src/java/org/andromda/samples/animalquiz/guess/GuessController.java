@@ -110,7 +110,7 @@ final class GuessController implements GuessControllerInterface
             throws Exception
     {
         GuessSessionState gss = getSessionState(request);
-        gss.setLastAnimalName(form.getAnimal());
+        gss.setLastAnimalName(form.getThisIsTheAnimalAnimal());
     }
 
     /**
