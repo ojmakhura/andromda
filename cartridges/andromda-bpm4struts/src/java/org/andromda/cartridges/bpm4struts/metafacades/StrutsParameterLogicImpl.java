@@ -1,11 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
 
 
 /**
