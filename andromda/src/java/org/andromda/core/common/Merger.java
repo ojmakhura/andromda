@@ -26,7 +26,7 @@ public class Merger
     /**
      * The shared instance
      */
-    private static Merger instance = null;
+    private static final Merger instance = new Merger();
 
     /**
      * Gets the shared Merger instance. Normally you'll want to retrieve the
@@ -36,10 +36,6 @@ public class Merger
      */
     public static Merger instance()
     {
-        if (instance == null)
-        {
-            instance = new Merger();
-        }
         return instance;
     }
 
