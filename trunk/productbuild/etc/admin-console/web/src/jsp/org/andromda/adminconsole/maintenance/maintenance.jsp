@@ -1,3 +1,9 @@
+<%@ page import="org.andromda.adminconsole.db.Column,
+                 org.andromda.adminconsole.config.xml.ColumnConfiguration,
+                 org.andromda.adminconsole.config.AdminConsoleConfigurator,
+                 org.andromda.adminconsole.db.Table,
+                 org.andromda.adminconsole.config.xml.TableConfiguration,
+                 org.andromda.adminconsole.db.RowData"%>
 <%@ include file="/taglib-imports.jspf" %>
 <%@ include file="/org/andromda/adminconsole/maintenance/maintenance-vars.jspf" %>
 
@@ -61,18 +67,40 @@
             <h1><bean:message key="maintenance.maintenance.title"/></h1>
         </div>
 
+        <%
+            AdminConsoleConfigurator configurator = (AdminConsoleConfigurator) request.getAttribute("configurator");
+            Table tableMetaData = (Table) request.getAttribute("tableMetaData");
+
+            TableConfiguration tableConfig = configurator.getConfiguration(tableMetaData);
+            pageContext.setAttribute("tableConfig", tableConfig);
+        %>
         <display:table name="${tableData}" id="row"
                        requestURI="${pageContext.request.requestURL}"
-                       export="true" pagesize="5" sort="list">
+                       export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
             <c:forEach items="${tableMetaData.columns}" var="column">
-                <display:column
-                    property="${column.name}" title="${column.name}"
-                    sortable="${column.comparable}" autolink="true" nulls="false"
-                    paramId="${column.name}" />
+                <%
+                    Column column = (Column) pageContext.getAttribute("column");
+                    RowData rowData = (RowData) pageContext.getAttribute("row");
+
+                    pageContext.setAttribute("columnConfig", configurator.getConfiguration(column));
+                    pageContext.setAttribute("columnJsp", configurator.getJsp(column, rowData.get(column.getName())) );
+                %>
+                <c:if test="${columnConfig.exportable}">
+                    <display:column media="xml excel csv"
+                        property="${column.name}" title="${column.name}"
+                        autolink="true" nulls="false" paramId="${column.name}" />
+                </c:if>
+                <display:column media="html"
+                    title="${column.name}" autolink="false" nulls="false"
+                    sortable="${columnConfig.sortable}" paramId="${column.name}">
+                    ${columnJsp}
+                </display:column>
             </c:forEach>
         </display:table>
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-reset.jsp" flush="false"/>
+
+        <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-reload.jsp" flush="false"/>
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-change-table.jsp" flush="false"/>
 
