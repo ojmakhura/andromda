@@ -119,8 +119,8 @@ $entity.getDocumentation(" * ")
 #end## finder operations
  */
 public abstract class ${entity.name}Bean
-#if($entity.generalization)  
-	extends ${entity.generalization.fullyQualifiedName}BeanImpl
+#if($entity.generalization)
+    extends ${entity.generalization.fullyQualifiedName}BeanImpl
 #end
     implements javax.ejb.EntityBean {
     // ----------- constant definitions -----------
@@ -305,157 +305,157 @@ $target.getDocumentation("    * ")
     *    target-multiple="true"
 #end
 #else
-	*    target-ejb="$target.type.name"
+    *    target-ejb="$target.type.name"
 #end
-	*
+    *
 #if ($transactionType)
     * @ejb.transaction type="$associationEnd.association.transactionType"
     *
 #end
 #if($associationEnd.many2Many) ## relation table only on the view side
-	* @jboss.relation-table table-name = "${associationEnd.association.tableName}"
-	* @jboss.relation-mapping style="relation-table"
+    * @jboss.relation-table table-name = "${associationEnd.association.tableName}"
+    * @jboss.relation-mapping style="relation-table"
     *
     * @weblogic.relation
-	*	join-table-name="${associationEnd.association.tableName}"
-	*
+    *	join-table-name="${associationEnd.association.tableName}"
+    *
 #end
 #if(!$associationEnd.navigable)
-	* UNIDIRECTIONAL RELATIONSHIP
-	*
-#if($associationEnd.many2Many) 
+    * UNIDIRECTIONAL RELATIONSHIP
+    *
+#if($associationEnd.many2Many)
 #foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-	* @jboss.relation 
+    * @jboss.relation
     *     fk-column = "${associationEnd.otherEnd.columnName}"
     *     related-pk-field = "${identifier.name}"
     *
     * @weblogic.column-map
     *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
+    *	key-column="${identifier.columnName}"
+    *
 #end
 #foreach ($identifier in $associationEnd.type.identifiers)
-    * @jboss.target-relation 
+    * @jboss.target-relation
     *     fk-column = "${associationEnd.columnName}"
     *     related-pk-field = "${identifier.name}"
     *
     * @weblogic.target-column-map
     *   foreign-key-column="${associationEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
+    *	key-column="${identifier.columnName}"
+    *
 #end
-#elseif($associationEnd.many2One) 
+#elseif($associationEnd.many2One)
 ##The one-end is on the other side
 #foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
     * @jboss.relation
     *     fk-column="${associationEnd.otherEnd.columnName}"
     *     related-pk-field="${identifier.name}"
-    * 
-    * @weblogic.column-map
-    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
-#end
-#elseif($associationEnd.one2One) 
-#if($associationEnd.aggregation || $associationEnd.composition)
-## COMPOSITION / AGGREGATION END
-#foreach ($identifier in $associationEnd.type.identifiers)
-	* @jboss.target-relation 
-    *     fk-column = "${associationEnd.columnName}"
-    *     related-pk-field = "${identifier.name}"
-    *
-    * @weblogic.target-column-map
-    *   foreign-key-column="${associationEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
-#end
-#else
-## OTHER END
-#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-	* @jboss.relation
-    *     fk-column="${associationEnd.otherEnd.columnName}"
-    *     related-pk-field="${identifier.name}"
-    * 
-    * @weblogic.column-map
-    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
-#end
-#end
-#elseif($associationEnd.one2Many)
-#foreach ($identifier in $associationEnd.type.identifiers)
-    * @jboss.target-relation 
-    *     fk-column = "${associationEnd.columnName}"
-    *     related-pk-field = "${identifier.name}"
-    *
-    * @weblogic.target-column-map
-    *   foreign-key-column="${associationEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
-#end
-#end
-#else  
-	* BIDIRECTIONAL RELATIONSHIP
-	*
-#if($associationEnd.many2Many)
-#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-	* @jboss.relation 
-    *     fk-column = "${associationEnd.otherEnd.columnName}"
-    *     related-pk-field = "${identifier.name}"
     *
     * @weblogic.column-map
     *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
-#end
-#elseif($associationEnd.many2One)
-#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-    * @jboss.relation 
-    *     fk-column = "${associationEnd.otherEnd.columnName}"
-    *     related-pk-field = "${identifier.name}"
+    *	key-column="${identifier.columnName}"
     *
-    * @weblogic.column-map
-    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
 #end
 #elseif($associationEnd.one2One)
 #if($associationEnd.aggregation || $associationEnd.composition)
 ## COMPOSITION / AGGREGATION END
 #foreach ($identifier in $associationEnd.type.identifiers)
-	* @jboss.target-relation 
+    * @jboss.target-relation
     *     fk-column = "${associationEnd.columnName}"
     *     related-pk-field = "${identifier.name}"
     *
     * @weblogic.target-column-map
     *   foreign-key-column="${associationEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
+    *	key-column="${identifier.columnName}"
+    *
 #end
 #else
 ## OTHER END
 #foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-	* @jboss.relation
+    * @jboss.relation
     *     fk-column="${associationEnd.otherEnd.columnName}"
     *     related-pk-field="${identifier.name}"
-    * 
+    *
     * @weblogic.column-map
     *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
+    *	key-column="${identifier.columnName}"
+    *
+#end
+#end
+#elseif($associationEnd.one2Many)
+#foreach ($identifier in $associationEnd.type.identifiers)
+    * @jboss.target-relation
+    *     fk-column = "${associationEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+    *	key-column="${identifier.columnName}"
+    *
+#end
+#end
+#else
+    * BIDIRECTIONAL RELATIONSHIP
+    *
+#if($associationEnd.many2Many)
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+    * @jboss.relation
+    *     fk-column = "${associationEnd.otherEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+    *	key-column="${identifier.columnName}"
+    *
+#end
+#elseif($associationEnd.many2One)
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+    * @jboss.relation
+    *     fk-column = "${associationEnd.otherEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+    *	key-column="${identifier.columnName}"
+    *
+#end
+#elseif($associationEnd.one2One)
+#if($associationEnd.aggregation || $associationEnd.composition)
+## COMPOSITION / AGGREGATION END
+#foreach ($identifier in $associationEnd.type.identifiers)
+    * @jboss.target-relation
+    *     fk-column = "${associationEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+    *	key-column="${identifier.columnName}"
+    *
+#end
+#else
+## OTHER END
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+    * @jboss.relation
+    *     fk-column="${associationEnd.otherEnd.columnName}"
+    *     related-pk-field="${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+    *	key-column="${identifier.columnName}"
+    *
 #end
 #end
 #elseif($associationEnd.one2Many)
 ##The one-end is here
 #foreach ($identifier in $associationEnd.type.identifiers)
-	* @jboss.target-relation 
+    * @jboss.target-relation
     *     fk-column = "${associationEnd.columnName}"
     *     related-pk-field = "${identifier.name}"
     *
-	* @weblogic.target-column-map
+    * @weblogic.target-column-map
     *   foreign-key-column="${associationEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
+    *	key-column="${identifier.columnName}"
+    *
 #end
 #end
 #end
@@ -579,21 +579,21 @@ $operation.getDocumentation("    * ")
      * problems with different primary key classes.
      */
     protected abstract void createImpl(${operation.typedArgumentList}) throws javax.ejb.CreateException;
-    
+
     /**
 $operation.getDocumentation("    * ")
      */
     public $identifier.type.fullyQualifiedName ejbCreate(${operation.typedArgumentList}) throws javax.ejb.CreateException {
-       createImpl($operation.argumentNames);
-       return null;
+        createImpl($operation.argumentNames);
+        return $identifier.type.javaNullString;
     }
-	
-	/**
+
+    /**
 $operation.getDocumentation("    * ")
      */
     public void ejbPostCreate(${operation.typedArgumentList}) {
     }
-    
+
 #end
 
 ## Autogenerate a create method implementation with all attributes.
@@ -610,7 +610,7 @@ $operation.getDocumentation("    * ")
      *
      * This extra implementation method is necessary to avoid
      * problems with different primary key classes.
-	 *
+     *
 #foreach($attribute in $allAttributes)
      * @param $attribute.name Value for the ${attribute.name} property
 #end
@@ -620,7 +620,7 @@ $operation.getDocumentation("    * ")
         super.createImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
 #end
 #if (!$identifier.complex)
-#if ($identifier.type.fullyQualifiedName == "java.lang.String")
+#if ($identifier.type.stringType)
         if ($identifier.name == null) {
             $identifier.name = new java.rmi.server.UID().toString();
         }
@@ -646,7 +646,7 @@ $operation.getDocumentation("    * ")
      */
     public $identifier.type.fullyQualifiedName ejbCreate($transform.getAttributesAsList($allAttributes, true, true)) throws javax.ejb.CreateException {
         createImpl($transform.getAttributesAsList($allAttributes, false, true));
-        return null;
+        return $identifier.type.javaNullString;
     }
 
     public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)) throws javax.ejb.CreateException {
@@ -675,7 +675,7 @@ $operation.getDocumentation("    * ")
         // Call ejbCreate method for the CMP attributes
         ejbCreate($transform.getAttributesAsList($allAttributes, false, true));
         // Relations cannot be set in ejbCreate() - this is done in ejbPostCreate()
-        return null;
+        return $identifier.type.javaNullString;
     }
 
     public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.relationType} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
@@ -693,30 +693,30 @@ $operation.getDocumentation("    * ")
     // ---------------- accessor methods for bean references ---------------
 #foreach ($valueRef in $entity.valueDependencies)
 #set ($reference = $valueRef.targetElement)
-	/**
-	 * @ejb.interface-method 
-	 */
-	 public ${reference.fullyQualifiedName} get${reference.name}() {
-	 	${reference.fullyQualifiedName} valueObject = new ${reference.fullyQualifiedName}();
+    /**
+     * @ejb.interface-method
+     */
+     public ${reference.fullyQualifiedName} get${reference.name}() {
+         ${reference.fullyQualifiedName} valueObject = new ${reference.fullyQualifiedName}();
 #foreach ($attr in $reference.getAttributes(true))
 #if ($entity.isAttributePresent($attr.name) || $entity.isOperationPresent($attr.getterName))
-		valueObject.${attr.setterName}(${attr.getterName}());
+        valueObject.${attr.setterName}(${attr.getterName}());
 #end
 #end
-		return valueObject;
-	 }
+        return valueObject;
+     }
 
-	/**	 
-	 * @ejb.interface-method 
-	 */
-	 public void set${reference.name}(${reference.fullyQualifiedName} valueObject) {
+    /**
+     * @ejb.interface-method
+     */
+     public void set${reference.name}(${reference.fullyQualifiedName} valueObject) {
 #foreach ($attr in $reference.getAttributes(true))
 #if ((${entity.isAttributePresent($attr.name)} || $entity.isOperationPresent($attr.setterName))&& !${entity.isIdentifierPresent($attr.name)})
-		${attr.setterName}(valueObject.${attr.getterName}());
+        ${attr.setterName}(valueObject.${attr.getterName}());
 #end
 #end
-	 }
-	 
+     }
+
 #end
 #foreach ( $dependency in $entity.sourceDependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))

@@ -70,13 +70,7 @@ $operation.getDocumentation("     * ")
 #if ($operation.returnTypePresent())
 
         // Dummy return value, just so that the file compiles
-#if (!$operation.returnType.primitive)
-        return null;
-#elseif ("boolean" == $returnType)
-        return false;
-#else
-        return ($returnType)0;
-#end
+        return $operation.returnType.javaNullString;
 #end
     }
 
