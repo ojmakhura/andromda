@@ -67,12 +67,14 @@
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl">
         <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
+        <property reference="ejbViewType" default="local"/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl">
         <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
+        <property reference="ejbViewType" default="local"/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"

@@ -17,18 +17,17 @@ class HibernateMetafacadeUtils
 {
 
     /**
-     * Gets the view type for the passed in <code>classifier</code>. Checks
-     * to see if the classifier is a service, if so checks to see if it has the
-     * tagged value defining the view type. If the classifier is not a service,
-     * the view type 'local' is always returned.
+     * Gets the view type for the passed in <code>classifier</code>. If the 
+     * view type can be retrieved from the <code>classifier</code>, then
+     * that is used, otherwise the <code>defaultViewType</code> is returned.
      * 
      * @return String the view type name.
      */
-    static String getViewType(ClassifierFacade classifier)
+    static String getViewType(ClassifierFacade classifier, String defaultViewType)
     {
         final String methodName = "HibernateMetafacadeUtils.getViewType";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
-        String viewType = "local";
+        String viewType = null;
         if (classifier.hasStereotype(HibernateProfile.STEREOTYPE_SERVICE))
         {
             String viewTypeValue = (String)classifier
@@ -50,10 +49,10 @@ class HibernateMetafacadeUtils
             {
                 viewType = viewTypeValue;
             }
-            else
-            {
-                viewType = "remote";
-            }
+        }
+        if (StringUtils.isEmpty(viewType))
+        {
+            viewType = defaultViewType;
         }
         return viewType;
     }

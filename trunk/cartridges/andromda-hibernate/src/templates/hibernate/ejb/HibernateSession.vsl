@@ -21,7 +21,7 @@ public interface $service.name
 ## Only expose public methods
 #if ($operation.visibility == "public")
 #set ($throwsList = $operation.exceptionList)
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($throwsList = $operation.getExceptionList('java.rmi.RemoteException'))
 #end
    /**
@@ -31,7 +31,7 @@ $operation.getDocumentation("    * ")
     public $operation.returnType.fullyQualifiedName $operation.signature 
         throws $throwsList;
 #else
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
     public $operation.returnType.fullyQualifiedName $operation.signature 
         throws java.rmi.RemoteException;
 #else

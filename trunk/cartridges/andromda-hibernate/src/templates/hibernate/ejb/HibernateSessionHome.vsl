@@ -17,7 +17,7 @@ public interface ${service.name}Home
 #end 
 {
 #set ($throwsList = "throws javax.ejb.CreateException")
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($throwsList = "${throwsList},java.rmi.RemoteException")
 #end
 

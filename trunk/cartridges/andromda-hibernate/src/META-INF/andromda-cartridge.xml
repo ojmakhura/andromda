@@ -9,8 +9,7 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils"/>
     <!-- cartridge-templateObject merge-point-->  
-
-    <property reference="ejbViewType" default="local"/>
+    
     <property reference="securityRealm" default=""/>
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
     <!-- the name to give the service locator class -->

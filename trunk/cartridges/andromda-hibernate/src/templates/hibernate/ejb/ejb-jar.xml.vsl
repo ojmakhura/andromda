@@ -18,7 +18,7 @@
                 ]]>
             </description>
             <ejb-name>$service.name</ejb-name>
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
             <remote-home>${service.fullyQualifiedName}Home</remote-home>
             <remote>$service.fullyQualifiedName</remote>
 #else
@@ -32,6 +32,22 @@
             <session-type>Stateless</session-type>
 #end
             <transaction-type>Container</transaction-type>
+#foreach ($serviceRef in $service.serviceReferences)
+#set ($serviceRef = $serviceRef.targetElement)
+#set ($viewType = "remote")
+#set ($ejbRefTag = "ejb-ref")
+#if (!$service.ejbRemoteView)
+#set ($ejbRefTag = "ejb-local-ref")
+#set ($viewType = "local")
+#end
+            <$ejbRefTag>
+                <ejb-ref-name>ejb/${serviceRef.name}Ref</ejb-ref-name>
+                <ejb-ref-type>Session</ejb-ref-type>
+                <${viewType}-home>${serviceRef.fullyQualifiedName}Home</${viewType}-home>
+                <${viewType}>$serviceRef.fullyQualifiedName</${viewType}>
+                <ejb-link>$serviceRef.name</ejb-link>
+            </$ejbRefTag>
+#end
         </session>
 
 #end
@@ -119,5 +135,5 @@
 #end
 #end
     </assembly-descriptor>
-    
+
 </ejb-jar>
