@@ -182,6 +182,14 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isFileType()
+     */
+    public boolean handleIsFileType()
+    {
+        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.FILE_TYPE_NAME);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
     public Collection handleGetAttributes(boolean follow)

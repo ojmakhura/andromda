@@ -486,4 +486,7 @@ public class MockClassifierFacade implements ClassifierFacade {
         return null;
     }
 
+    public boolean isFileType() {
+        return false;
+    }
 }
