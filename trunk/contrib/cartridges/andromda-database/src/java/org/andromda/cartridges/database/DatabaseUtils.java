@@ -63,7 +63,7 @@ public class DatabaseUtils
         boolean tableProcessed = true;  // initialization in order to enter the while-loop
         while (tables.isEmpty() == false)
         {
-            // if no table has been processed in the previous cycle it means we won't in this cycle neither
+            // if no table has been processed in the previous cycle it means we won't in this cycle either
             if (tableProcessed == false)
             {
                 // we're in an unresolvable situation, list the problematic tables
