@@ -33,6 +33,43 @@
             <p>
                 <img src="resources/howto/org/andromda/test/security.gif"/>
             </p>
+            <subsection name="Input validation">
+                <p>
+                    By default the cartridge generates client-side and server-side validation code. On the
+                    client side this is implemented using Javascript, rendered dynamically into the JSP
+                    pages by the <![CDATA[<html:javascript ... />]]> struts tag.
+                </p>
+                <p>
+                    The server-side code is perfectly equivalent to the validation on the client-side. Client-side
+                    validation is interesting because it can warn the user of errors without having to go to the server
+                    (which can take time and resources), server-side validation is a safety net that will guarantee
+                    input fields are present or properly formatted.
+                </p>
+                <p>
+                    Client-side and/or server-side validation can be enabled or disabled using the
+                    <code>clientValidation</code> and <code>serverValidation</code>
+                    <a href="namespace.html">namespace properties</a> respectively.
+                </p>
+                <p>
+                    Different types of validation exist and depending on how you model your application
+                    different validation routines will be activated. For example, numeric input fields
+                    will be checked, email addresses will be checked for valid format, URLs must be well-formed,
+                    input needs to be in a certain range, creditcard numbers must pass the
+                    <a href="http://www.beachnet.com/~hstiles/cardtype.html">Luhn</a> check, .. even regular expressions
+                    can be matched.
+                </p>
+                <p>
+                    Check the table at the bottom of the <a href="modeling.html">modeling</a> page to learn
+                    what's possible. <em>Please note that more than one validator tagged value can be added to an
+                    event parameter.</em>
+                </p>
+                <p>
+                    Adding your own validator is simple, you can specify the validator's name so it will be checked
+                    if you just make sure your validator has been added to the <code>validator-rules.xml</code> file.
+                    To do this make use of the <![CDATA[<!-- validator-rules merge-point -->]]>
+                    <a href="../andromda-cartridges/index.html#mergeMappingsUri">merge point</a>.
+                </p>
+            </subsection>
         </section>
         <section name="Nice to know">
             <subsection name="web.xml">
