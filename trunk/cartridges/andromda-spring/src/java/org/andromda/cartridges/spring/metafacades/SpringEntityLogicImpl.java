@@ -804,25 +804,25 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDiscriminatorColumn()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDiscriminatorColumn()
      */
-    protected String handleGetDiscriminatorColumn()
+    protected String handleGetHibernateDiscriminatorColumn()
     {
         return "class";
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDiscriminatorType()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDiscriminatorType()
      */
-    protected String handleGetDiscriminatorType()
+    protected String handleGetHibernateDiscriminatorType()
     {
         return "string";
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDiscriminatorLength()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDiscriminatorLength()
      */
-    protected int handleGetDiscriminatorLength()
+    protected int handleGetHibernateDiscriminatorLength()
     {
         return 1;
     }
