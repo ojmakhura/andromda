@@ -1,7 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
 import java.util.Collection;
@@ -78,13 +77,6 @@ public class StrutsFinalStateLogicImpl
                             targetUseCase = useCase;
                     }
                 }
-            }
-            final Collection allUseCases = getModel().getAllUseCases();
-            for (Iterator iterator = allUseCases.iterator(); (targetUseCase == null && iterator.hasNext());)
-            {
-                ModelElementFacade facade = (ModelElementFacade) iterator.next();
-                if (facade.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION))
-                    targetUseCase = facade;
             }
         }
         return targetUseCase;
