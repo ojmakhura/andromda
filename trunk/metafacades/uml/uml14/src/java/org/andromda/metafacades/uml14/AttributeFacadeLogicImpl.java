@@ -164,20 +164,7 @@ public class AttributeFacadeLogicImpl
                     MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt
                         .next();
                     int upper = multiplicityRange.getUpper();
-                    int lower = multiplicityRange.getLower();
-                    int rangeSize = upper - lower;
-                    if (upper > 1)
-                    {
-                        isMany = true;
-                    }
-                    else if (rangeSize < 0)
-                    {
-                        isMany = true;
-                    }
-                    else
-                    {
-                        isMany = false;
-                    }
+                    isMany = upper > 1 || upper < 0;
                 }
             }
         }
