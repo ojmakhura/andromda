@@ -32,8 +32,8 @@ public class HibernateTypeLogicImpl
         {
             String fullyQualifiedModelName = super.getFullyQualifiedName(true);
             if (mappings.containsFrom(fullyQualifiedModelName))
-            {    
-                fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);   
+            {
+                fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);
             }
         }
         return fullyQualifiedName;
@@ -62,8 +62,8 @@ public class HibernateTypeLogicImpl
                 }
                 catch (Throwable th)
                 {
-                    String errMsg = "Error getting '" + propertyName + "' --> '"
-                        + uri + "'";
+                    String errMsg = "Error getting '" + propertyName
+                        + "' --> '" + uri + "'";
                     logger.error(errMsg, th);
                     //don't throw the exception
                 }
