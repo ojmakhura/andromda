@@ -31,16 +31,6 @@ public class ValidationJavaTranslator
 
     private static Properties features = null;
 
-    /**
-     * The prefix for converting expressions to boolean expressions
-     */
-    private static final String BOOLEAN_WRAP_PREFIX = "Boolean.valueOf(String.valueOf(";
-
-    /**
-     * The suffix for converting expressions to boolean expressions;
-     */
-    private static final String BOOLEAN_WRAP_SUFFIX = ")).booleanValue()";
-
     static
     {
         try
@@ -328,20 +318,20 @@ public class ValidationJavaTranslator
         String expression = TranslationUtils.trimToEmpty(node);
         // we prepend an introspection call if the expression is
         // an operation call
-        if (expression.matches(OCLIntrospector.OPERATION_FEATURE))
+        if (OCLPatterns.isOperation(expression))
         {
             AFeatureCall featureCall = (AFeatureCall)node.getFeatureCall();
             String featureCallExpression = TranslationUtils.trimToEmpty(node
                 .getFeatureCall());
-            if (featureCallExpression.matches(OCLFeatures.OCL_IS_KIND_OF))
+            if (OCLFeatures.isOclIsKindOf(featureCallExpression))
             {
                 this.handleOclIsKindOf(featureCall);
             }
-            else if (featureCallExpression.matches(OCLFeatures.OCL_IS_TYPE_OF))
+            else if (OCLFeatures.isOclIsTypeOf(featureCallExpression))
             {
                 this.handleOclIsTypeOf(featureCall);
             }
-            else if (featureCallExpression.matches(OCLFeatures.CONCAT))
+            else if (OCLFeatures.isConcat(featureCallExpression))
             {
                 this.handleConcat(featureCall);
             }
@@ -499,7 +489,7 @@ public class ValidationJavaTranslator
                 write(variableValue);
             }
             else if (node.getFeatureCallParameters() == null
-                || featureExpression.matches(OCLIntrospector.OPERATION_FEATURE))
+                || OCLPatterns.isOperation(featureExpression))
             {
                 APropertyCallExpression expression = (APropertyCallExpression)node
                     .parent();
@@ -522,13 +512,12 @@ public class ValidationJavaTranslator
                             this.write(BOOLEAN_WRAP_PREFIX);
                         }
                     }
-                    if (expressionAsString.matches(OCLFeatures.OCL_IS_KIND_OF))
+                    if (OCLFeatures.isOclIsKindOf(expressionAsString))
                     {
                         this.write("object");
                         this.handleOclIsKindOf(node.getFeatureCallParameters());
                     }
-                    else if (expressionAsString
-                        .matches(OCLFeatures.OCL_IS_TYPE_OF))
+                    else if (OCLFeatures.isOclIsTypeOf(expressionAsString))
                     {
                         this.write("object");
                         this.handleOclIsTypeOf(node.getFeatureCallParameters());
@@ -785,7 +774,8 @@ public class ValidationJavaTranslator
                 expression = TranslationUtils.trimToEmpty(node);
             }
             requiresBooleanConversion = expression != null
-                && expression.matches(pattern);
+                && expression.matches(pattern)
+                && !OCLPatterns.isOperation(node);
             if (this.requiresBooleanConversion)
             {
                 this.write(BOOLEAN_WRAP_PREFIX);
@@ -1211,6 +1201,16 @@ public class ValidationJavaTranslator
      * on an element.
      */
     private static final String OCL_INTROSPECTOR_INVOKE_PREFIX = "org.andromda.translation.validation.OCLIntrospector.invoke(";
+
+    /**
+     * The prefix for converting expressions to boolean expressions
+     */
+    private static final String BOOLEAN_WRAP_PREFIX = "Boolean.valueOf(String.valueOf(";
+
+    /**
+     * The suffix for converting expressions to boolean expressions;
+     */
+    private static final String BOOLEAN_WRAP_SUFFIX = ")).booleanValue()";
 
     /**
      * We need to wrap every expression with a converter so that any expressions

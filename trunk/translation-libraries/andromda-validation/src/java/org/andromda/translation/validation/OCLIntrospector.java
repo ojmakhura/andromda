@@ -21,13 +21,6 @@ public class OCLIntrospector
         .getLogger(OCLIntrospector.class);
 
     /**
-     * Used to match on operation feature patterns, which helps us to determine
-     * whether or not to invoke the feature call as a property or operation on
-     * an element.
-     */
-    public static final String OPERATION_FEATURE = ".*\\(.*\\).*";
-
-    /**
      * Invokes the given <code>feature</code> on the <code>element</code>.
      * Its expected that the feature is either an operation or a property.
      */
@@ -37,7 +30,7 @@ public class OCLIntrospector
         try
         {
             feature = StringUtils.trimToEmpty(feature);
-            if (feature.matches(OPERATION_FEATURE))
+            if (OCLPatterns.isOperation(feature))
             {
                 result = invoke(element, feature, null);
             }

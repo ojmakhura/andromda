@@ -344,25 +344,25 @@
         </to>
     </expression>
     
-    <!--
     <expression>
         <from>
             context StrutsForward inv: operationCall->notEmpty() implies (target.oclIsKindOf(org::andromda::metafacades::uml::PseudostateFacade) and target.decisionPoint)
         </from>
         <to>
-            
+            <![CDATA[
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"operationCall")))).booleanValue()?(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"target") instanceof org.andromda.metafacades.uml.PseudostateFacade&&Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"target.decisionPoint"))).booleanValue()):true));   
+            ]]>                
         </to>
     </expression>
-    -->
-    
-    <!--
+   
+   <!-- 
     <expression>
         <from>
             context EnumerationFacade 
             inv : attributes -> forAll(attribute1, attribute2 | attribute1.type = attribute2.type)
         </from>
         <to>
-            
+ 
         </to>
     </expression>
     -->
