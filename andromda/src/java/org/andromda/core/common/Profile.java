@@ -7,10 +7,6 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>
- * The base profile instance, all classes that load profile information shall
- * extend from this class.
- * </p>
- * <p>
  * This class provides the ability to load profile mapping files from default
  * locations as well as easily load profile mappings files that will override
  * the default profile values. This allows us to decouple all profile
