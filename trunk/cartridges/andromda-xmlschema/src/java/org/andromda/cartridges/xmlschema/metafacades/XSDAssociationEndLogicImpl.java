@@ -19,10 +19,6 @@ public class XSDAssociationEndLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class XSDAssociationEnd ...
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#getMaxOccurs()
      */

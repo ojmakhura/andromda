@@ -21,10 +21,6 @@ public class XSDAttributeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class XSDAttribute ...
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#getMaxOccurs()
      */
@@ -66,7 +62,7 @@ public class XSDAttributeLogicImpl
      */
     public boolean handleIsXsdAttribute()
     {
-        return this.hasStereotype(XmlSchemaProfile.TAGGEDVALUE_XML_ATTRIBUTE);
+        return this.hasStereotype(XmlSchemaProfile.STEREOTYPE_XML_ATTRIBUTE);
     }
 
     /**

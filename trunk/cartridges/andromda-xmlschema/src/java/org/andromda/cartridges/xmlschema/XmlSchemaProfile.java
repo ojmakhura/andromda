@@ -18,7 +18,7 @@ public class XmlSchemaProfile {
     
    /**
      * <p>
-     *  Represents the a complex element type.
+     *  Represents a complex element type.
      * </p>   
     */
    public static final java.lang.String STEREOTYPE_XML_SCHEMA_TYPE = "XmlSchemaType";
@@ -28,13 +28,13 @@ public class XmlSchemaProfile {
     
    /**
      * <p>
-     *  This is used to define whether or not an attribute should be
+     *  Defines whether or not an attribute should be
      *  represented as an XML Schema attribute during generation time, if
      *  its either false, or not defined, then it will be assumed that
      *  the UML attribute should be represented as an XML Schema element
      *  instead.
      * </p>   
     */
-   public static final java.lang.String TAGGEDVALUE_XML_ATTRIBUTE = "@andromda.xml.attribute";
+   public static final java.lang.String STEREOTYPE_XML_ATTRIBUTE = "XmlAttribute";
    
 }
