@@ -257,12 +257,11 @@ public class ModelProcessor
         AndroMDALogger.info("A n d r o M D A  -  " + VERSION);
         AndroMDALogger.info("");
     }
-    
+
     /**
-     * Sorts the validation <code>messages</code> first by
-     * type (i.e. the metafacade class) and then by
-     * the <code>name</code> of the model element to which
-     * the validation message applies.
+     * Sorts the validation <code>messages</code> first by type (i.e. the
+     * metafacade class) and then by the <code>name</code> of the model
+     * element to which the validation message applies.
      * 
      * @param messages the collection of messages to sort.
      * @return the sorted <code>messages</code> collection.
@@ -295,9 +294,8 @@ public class ModelProcessor
             ModelValidationMessage a = (ModelValidationMessage)objectA;
             ModelValidationMessage b = (ModelValidationMessage)objectB;
 
-            return collator.compare(
-                a.getMetafacadeClass().getName(), 
-                b.getMetafacadeClass().getName());
+            return collator.compare(a.getMetafacadeClass().getName(), b
+                .getMetafacadeClass().getName());
         }
     }
 
@@ -319,9 +317,9 @@ public class ModelProcessor
             ModelValidationMessage a = (ModelValidationMessage)objectA;
             ModelValidationMessage b = (ModelValidationMessage)objectB;
 
-            return collator.compare(
-                StringUtils.trimToEmpty(a.getModelElementName()), 
-                StringUtils.trimToEmpty(b.getModelElementName()));
+            return collator.compare(StringUtils.trimToEmpty(a
+                .getModelElementName()), StringUtils.trimToEmpty(b
+                .getModelElementName()));
         }
     }
 }
