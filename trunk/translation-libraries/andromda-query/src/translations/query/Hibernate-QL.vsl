@@ -126,15 +126,6 @@
                 {0} &lt;= {1}
             </kind>
         </fragment>
-        
-        <!-- if '(<expression>)' is encountered in the expression then
-             the parenthesis will be left around the expression -->
-        <fragment name="\(.*\)"
-                  handlerMethod="handleParenthesisExpression">
-            <kind name="body">
-                ({0})
-            </kind>
-        </fragment>
 
     </fragments>
 
