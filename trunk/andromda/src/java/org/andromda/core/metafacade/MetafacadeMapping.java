@@ -1,8 +1,8 @@
 package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
@@ -145,7 +145,7 @@ public class MetafacadeMapping
      * The stereotypes to which this mapping applies (all stereotypes must
      * be present for this mapping to apply).
      */
-    private final Collection stereotypes = new ArrayList();
+    private final List stereotypes = new ArrayList();
 
     /**
      * Adds a <code>stereotype</code> to the stereotypes for which the

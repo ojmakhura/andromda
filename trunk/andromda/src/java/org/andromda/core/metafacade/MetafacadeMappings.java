@@ -252,8 +252,9 @@ public class MetafacadeMappings
 
     /**
      * Retrieves the MetafacadeMapping belonging to the unique <code>key</code>
-     * created from the <code>metaobjectClass</code> and
-     * <code>stereotypes</code>.
+     * created from the <code>metaobjectClass</code> and given
+     * <code>stereotypes</code>.  This allows us to retrieve mappings based on 
+     * single stereotypes or mappings having multiple stereotypes.
      * 
      * @param metaobjectClass the class name of the meta model object.
      * @param stereotypes the stereotypes to check.
@@ -273,14 +274,31 @@ public class MetafacadeMappings
         // out of it with the mapping
         if (stereotypes != null && !stereotypes.isEmpty())
         {
+            // stores the stereotypes that are being used
+            // to check for matching mappings
+            List verifiedStereotypes = new ArrayList();
             Iterator stereotypeIt = stereotypes.iterator();
             while (stereotypeIt.hasNext())
             {
                 String stereotype = StringUtils
                     .trimToEmpty((String)stereotypeIt.next());
+                // first check for a mapping that contains the single stereotype
+                // (this gives us the 'OR' feature of matching on stereotypes)
                 key = MetafacadeMappingsUtils.constructKey(
                     metaobjectClass,
                     stereotype);
+                mapping = (MetafacadeMapping)this.mappings.get(key);
+                if (mapping != null)
+                {
+                    break;
+                }
+                // if we didn't find a mapping containing a single stereotype
+                // try a mapping having a combination of multiple stereotypes
+                // (this gives us the 'AND' feature of matching on stereotypes)
+                verifiedStereotypes.add(stereotype);
+                key = MetafacadeMappingsUtils.constructKey(
+                    metaobjectClass,
+                    verifiedStereotypes);
                 mapping = (MetafacadeMapping)this.mappings.get(key);
                 if (mapping != null)
                 {
@@ -314,9 +332,10 @@ public class MetafacadeMappings
             Map mappingMap = (Map)this.mappings.get(metaobjectClass);
             if (mappingMap != null)
             {
+                // retrieve default mapping
                 mapping = (MetafacadeMapping)mappingMap.get(null);
             }
-        };
+        }
         return mapping;
     }
 
