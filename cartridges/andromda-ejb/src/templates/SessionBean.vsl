@@ -302,7 +302,7 @@ public abstract class ${servicename}Bean
 #set ($visibility = ${transform.getVisibility($op)})
 #set($exceptions = "")
 #set ($exceptions = $transform.findTagValue($op, "@andromda.java.throws"))
-#if ($exceptions="")
+#if ($exceptions == "")
 #set ($exceptions = $transform.findFullyQualifiedName($defaultException))
 #end
 ## Public static methods are exposed on the home 
