@@ -375,6 +375,14 @@
              Copy the distribution to the server.
          ================================================================= -->
     <goal name="deploy-distribution">
+       <!--attainGoal name="deploy-docs"/-->
+       <attainGoal name="deploy-repository"/>
+    </goal>
+        
+    <!-- =================================================================
+             Copy the repository artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-docs">
         <!-- rsync the docs first, they should go quite quick unless there are
              major changes -->
         <!-- Add -n to test, just lists out the files that would be xfr'ed -->
@@ -385,6 +393,11 @@
         <ant:exec executable="rsync">
             <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_tgt}"/>
         </ant:exec>
+    </goal>
+    <!-- =================================================================
+             Copy the repository artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-repository">
         <!-- rsync the local maven andromda repository 
              until we figure out were deploy is sending stuff -->
         <j:set var="rsync_arg1" value="-Cvuaz"/>
