@@ -227,12 +227,20 @@
             <p class="std">
                 Answer the questions, a little later you will have your environment
                 setup for you. It consists of a hierarchy of build.xml files and
-                corresponding property files.
+                corresponding property files.  In addition, it will create a directory 
+				called 'lib' containing all necessary dependencies for your newly generated application.			
             </p>
             <p class="std">
-                Running 'ant' in the root of the generated structure is sufficient to build a distribution.
-                It is also possible to build each submodule (represented in each
-                subdirectory) separately.
+				To successfully build your new application, you must do two things:
+                <ol>
+					<li>
+						Copy the resulting lib directory to the directory of your newly generated application. 
+					</li>
+					<li>
+				        Change to your newly generated application directory and type 'ant' and you'll
+                        see your AndroMDA powered Ant application application being built!	
+					</li>
+                </ol>
             </p>
             <p class="std">
                 Please note:
