@@ -60,7 +60,7 @@ $class.getDocumentation(" * ")
  *       scope="request"
  *
 #end
-#if ($class.actionExceptions.isEmpty() && !$class.isUseCaseStart())
+#if ($class.actionExceptions.empty && !$class.useCaseStart)
  * @struts.action-exception
  *         key="${class.messageKey}.exception"
  *        type="java.lang.Exception"
