@@ -243,7 +243,7 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility $returnType $operation.signature;
 #end
-#end
 
+#end
 #end
 }
