@@ -24,6 +24,9 @@
       <p class="std">If you want to configure the way it uses the templates,
          you will possibly use a nested <a href="#template"><code>&lt;template&gt;</code></a> element.
       </p>
+      <p class="std">If you want to extend andromda then
+         you will possibly use a nested <a href="#repository"><code>&lt;repository&gt;</code></a> element.
+      </p>
       <h3>Parameters</h3>
       <table border="1" cellpadding="2" cellspacing="0">
         <tr>
@@ -33,20 +36,17 @@
         </tr>
         <tr>
           <td valign="top" class="std">basedir</td>
-          <td valign="top" class="std">Specifies the path to the directory location of your simpleOO model (*.xml) files.
-                           These files are a result from the XSL transformation that
-                           processes XMI to simpleOO XML format.
-          </td>
+          <td valign="top" class="std">Specifies the path to the directory location of your case tools XMI files.</td>
           <td align="center" class="std">Yes.</td>
         </tr>
         <tr>
-          <td valign="top" class="std">ejbDestDir</td>
-          <td valign="top" class="std">Specifies the path to the directory where the bean class output files should go.
+          <td valign="top" class="std">genDestdir</td>
+          <td valign="top" class="std">Specifies the path to the directory where the generated class output files should go.
           </td>
           <td align="center" class="std">Yes, except when nested <a href="#template"><code>&lt;template&gt;</code></a> tag is used.</td>
         </tr>
         <tr>
-          <td valign="top" class="std">implDestDir</td>
+          <td valign="top" class="std">implDestdir</td>
           <td valign="top" class="std">Specifies the path to the directory where the implementation output files should go.
                            AndroMDA will write these files only once. If they are already there, it will not
                            write them once more.
@@ -56,13 +56,21 @@
         <tr>
           <td valign="top" class="std">includes</td>
           <td valign="top" class="std">This is the standard Ant includes attribute. Specify any files
-                           or directories with simpleOO files that you <b>do</b> want AndroMDA to try to process.</td>
+                           or directories with XMI files that you <b>do</b> want AndroMDA to try to process.</td>
           <td valign="top" align="center" class="std">Yes.</td>
         </tr>
         <tr>
           <td valign="top" class="std">excludes</td>
           <td valign="top" class="std">This is the standard Ant excludes attribute. Specify any files
-                           or directories with simpleOO files that you <b>do not</b> want AndroMDA to try to process.</td>
+                           or directories with XMI files that you <b>do not</b> want AndroMDA to try to process.</td>
+          <td valign="top" align="center" class="std">No.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">modelURL</td>
+          <td valign="top" class="std">It can be used instead of the include and exclude attributes to point directly
+                           at the location of your XMI file.  It is useful if the model file is in a JAR and you do not
+                           want to unzip the jar.  Unlike include it can only be used to process one XMI file.
+                           </td>
           <td valign="top" align="center" class="std">No.</td>
         </tr>
         <tr>
@@ -117,30 +125,23 @@
       <blockquote><pre>
 &lt;unzip src="CarRentalSystem.zargo" dest="${build.dir}/unzipped" /&gt;
 
-&lt;style basedir="${build.dir}/unzipped"
-       destdir="${build.dir}/model"
-       extension=".xml"
-       includes="*.xmi"
-       style="${env.AndroMDAHOME}/xmi-to-simpleOO.xsl"
-/&gt;
 
-&lt;uml2ejb basedir="${build.dir}/model"
-         ejbDestdir="${generated.src.dir}"
+&lt;andromda basedir="${build.dir}/model/unzipped"
+         genDestdir="${generated.src.dir}"
          implDestdir="${handcrafted.src.dir}"
          includes="*.xml"
          lastModifiedCheck="true"
-         templatePath="${env.AndroMDAHOME}"
+         templatePath="${env.AndroMDAHOME}/src/templates/ejb/"
          useDefaultTemplateConfig="true"
 /&gt;
       </pre></blockquote>
       <p class="std">
-        This unzips the Poseidon model into a temporary directory, runs XSLT
-        to convert it into simpleOO format, and finally runs AndroMDA to
-        generate the bean classes and the implementation classes.
+        This unzips the Poseidon model into a temporary directory, and finally runs 
+        AndroMDA to generate the bean classes and the implementation classes.
       </p>
       <h2><a name="template">&lt;template&gt;</a></h2>
       <p class="std">
-      The <a href="#uml2ejb"><code>&lt;uml2ejb&gt;</code></a> task supports a nested <code>&lt;template&gt;</code> tag to customize
+      The <a href="#andromda"><code>&lt;andromda&gt;</code></a> task supports a nested <code>&lt;template&gt;</code> tag to customize
       the set of templates that will be used to generate source code.
       </p>
 
@@ -197,14 +198,27 @@
           </td>
           <td valign="top" align="center" class="std">Yes.</td>
         </tr>
+        <tr>
+          <td valign="top" class="std">transformClassname</td>
+          <td valign="top" class="std">Specifies a name of a java class that can be used to help the code generation templates.
+                                       In some cases the velocity scripting language is not enough for what you would like
+                                       to do in your code generation template.  You can solve this problem by writing a
+                                       java class to extend the $transform object in the template.  One way to write your
+                                       own helper is to extend the class
+                                       <a href="../javadoc/org/andromda/core/simpleuml/SimpleOOHelper.html">
+                                         SimpleOOHelper
+                                       </a>
+          </td>
+          <td valign="top" align="center" class="std">No.</td>
+        </tr>
       </table>
 
       <h3>Example 1</h3>
       <blockquote><pre>
-&lt;uml2ejb basedir="${build.dir}/model"
+&lt;andromda basedir="${build.dir}/model"
          includes="*.xml"
          lastModifiedCheck="true"
-         templatePath="${env.AndroMDAHOME}"
+         templatePath="${env.AndroMDAHOME}/src/templates/ejb/"
          useDefaultTemplateConfig="false"&gt;
     &lt;template
         stereotype="EntityBean"
@@ -213,7 +227,7 @@
         overWrite="true"&gt;
       &lt;fileset dir="databaseScriptTemplates" includes="*.vsl" /&gt;
     &lt;/template&gt;
-&lt;/uml2ejb&gt;
+&lt;/andromda&gt;
       </pre></blockquote>
       <p class="std">
           This could generate SQL scripts for the entity beans in the model.
@@ -225,12 +239,12 @@
       </p>
       <h3>Example 2</h3>
       <blockquote><pre>
-&lt;uml2ejb basedir="${build.dir}/model"
-         ejbDestdir="${generated.src.dir}"
+&lt;andromda basedir="${build.dir}/model"
+         genDestdir="${generated.src.dir}"
          implDestdir="${handcrafted.src.dir}"
          includes="*.xml"
          lastModifiedCheck="true"
-         templatePath="${env.AndroMDAHOME}"
+         templatePath="${env.AndroMDAHOME}/src/templates/ejb/"
          useDefaultTemplateConfig="false"&gt;
 
     &lt;template
@@ -273,7 +287,7 @@
         overWrite="false"
     /&gt;
 
-&lt;/uml2ejb&gt;
+&lt;/andromda&gt;
       </pre></blockquote>
 
       <p class="std">
@@ -282,6 +296,65 @@
           of the <code>"{0}/"</code> pattern. This will cause the target
           java file to be generated into <code>"com/mycompany/test"</code>
           if it was in the package <code>"com.mycompany.test"</code>.
+      </p>
+
+<h2><a name="repository">&lt;repository&gt;</a></h2>
+      <p class="std">
+        The <a href="#andromda"><code>&lt;andromda&gt;</code></a> task supports a nested <code>&lt;repository&gt;</code> tag to
+        use to write extensions to androMDA.
+      </p>
+
+	  <p class="std">
+	    AndroMDA by default reads models from XMI files.  If you wanted to change AndroMDA so that it could read the
+	    model from another format, or source type, then this tag would be useful for implementing that sort of extension.  
+	  </p>
+      <h3>Parameters</h3>
+
+      <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+          <td valign="top" class="std"><b>Attribute</b></td>
+          <td valign="top" class="std"><b>Description</b></td>
+          <td align="center" valign="top" class="std"><b>Required</b></td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">classname</td>
+          <td valign="top" class="std">Specifies the name of the java class that implements AndroMDA's meta data
+                                       repository.  One way to write your own meta data repository is by 
+                                       extending the class
+                                       <a href="../javadoc/org/andromda/core/mdr/MDRepositoryFacade.html">
+                                         MDRepositoryFacade
+                                       </a>
+          </td>
+          <td align="center" class="std">No.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">transformClassname</td>
+          <td valign="top" class="std">Specifies the name of the java class that implements the script helper
+                                       that the velocity code templates access as $transform.
+          </td>
+          <td align="center" class="std">No.</td>
+        </tr>
+      </table>
+
+      <h3>Example 1</h3>
+      <blockquote><pre>
+&lt;andromda basedir="${build.dir}/model"
+         genDestdir="${generated.src.dir}"
+         implDestdir="${handcrafted.src.dir}"
+         includes="*.xml"
+         lastModifiedCheck="true"
+         templatePath="${env.AndroMDAHOME}/src/templates/ejb/"
+         useDefaultTemplateConfig="false"&gt;
+         
+    &lt;repository
+        classname="org.andromda.core.mdr.MDRepositoryFacade"
+        transformClassname="org.andromda.core.simpleuml.SimpleOOHelper"/&gt;
+    
+&lt;/andromda&gt;
+      </pre></blockquote>
+      
+      <p class="std">
+          The above shows the defaults setup assumed by AndroMDA when there is no repository subtask.
       </p>
 
     </freetext>

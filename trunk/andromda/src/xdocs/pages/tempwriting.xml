@@ -45,11 +45,11 @@
         <tr>
           <td valign="top" class="std">$model</td>
           <td valign="top" class="std">Contains the model that was
-                           built in the case tool, in the form of
-                           an object graph.
+                           built in the case tool, in the form a
+                           UML v1.4 model.
           </td>
           <td align="left" valign="top" class="std">
-            <a href="../javadoc/de/mbohlen/tools/uml2ejb/xml/Model.html">
+            <a href="http://www.gentleware.com/support/developer/jmi-uml1.4/org/omg/uml/UmlPackage.html">
                <code>Model</code>
             </a>
           </td>
@@ -58,11 +58,17 @@
         <tr>
           <td valign="top" class="std">$class</td>
           <td valign="top" class="std">
-                           Describes the UML class for which code should be generated.
+                           Provides a reference to the UML model element for which code should be generated.
+                           
           </td>
           <td align="left" valign="top" class="std">
-            <a href="../javadoc/de/mbohlen/tools/uml2ejb/xml/Klass.html">
-               <code>Klass</code>
+          	In general that object will be of type
+            <a href="../javadoc/org/andromda/core/simpleuml/PModelElement.html">
+               <code>PModelElement</code>
+            </a>
+            and in the case of a class it will be of type
+            <a href="../javadoc/org/andromda/core/simpleuml/PClassifier.html">
+               <code>PClassifier</code>
             </a>
           </td>
         </tr>
@@ -75,8 +81,8 @@
                            that can be used easily from a VTL script.
           </td>
           <td align="left" valign="top" class="std">
-            <a href="../javadoc/de/mbohlen/tools/uml2ejb/anttasks/ScriptHelper.html">
-               <code>ScriptHelper</code>
+            <a href="../javadoc/org/andromda/core/simpleuml/ScriptOOHelper.html">
+               <code>ScriptOOHelper</code>
             </a>
           </td>
         </tr>
@@ -88,7 +94,7 @@
                            formatting.
           </td>
           <td align="left" valign="top" class="std">
-            <a href="../javadoc/de/mbohlen/tools/uml2ejb/anttasks/StringUtilsHelper.html">
+            <a href="../javadoc/org/andromda/core/common/StringUtilsHelper.html">
                <code>StringUtilsHelper</code>
             </a>
           </td>
