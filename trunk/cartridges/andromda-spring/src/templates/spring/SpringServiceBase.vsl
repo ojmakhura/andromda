@@ -114,19 +114,18 @@ public abstract class $service.baseName
 
 #end
 #if ($ejbsEnabled)
-    private java.security.Principal principal;
+    private javax.ejb.SessionContext sessionContext;
 
     /**
-     * Sets the current <code>principal</code>.  Used by the 
-     * Session EJB wrappers to pass the principal to this the base 
-     * service class.
+     * Sets the current <code>sessionContext</code>.  Used by the 
+     * Session EJB wrappers to pass the sessionContext to this base 
+     * service class (so that we can retrieve the current principal).
      *
-     * @param principal the java.security.Principal associated with the 
-     *        EJB session contexdt.
+     * @param sessionContext the current EJB wrapper session context.
      */
-    public void setPrincipal(java.security.Principal principal)
+    public void setSessionContext(javax.ejb.SessionContext sessionContext)
     {
-        this.principal = principal;
+        this.sessionContext = sessionContext;
     }
 
 #end
@@ -139,7 +138,7 @@ public abstract class $service.baseName
     public java.security.Principal getPrincipal()
     {
 #if ($ejbsEnabled)
-        return this.principal;
+        return this.sessionContext.getCallerPrincipal();
 #else
 #set ($principalStoreCall = "${principalStoreName}.get();")
 #if($stringUtils.isNotEmpty($springTypesPackage))

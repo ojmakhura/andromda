@@ -146,7 +146,7 @@ public interface $entity.daoName
     public void remove(java.util.Collection entities);
 
 #end
-#foreach ( $operation in $entity.operations )
+#foreach ( $operation in $entity.finders )
 #set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
@@ -157,7 +157,6 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility $returnType $operation.signature;
 #end
-#if ($operation.query)
 
     /**
      * <p>
@@ -207,6 +206,18 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility $returnType ${operation.name}(boolean transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
+
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+    /**
+$operation.getDocumentation("     * ")
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType $operation.signature
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType $operation.signature;
 #end
 
 #end

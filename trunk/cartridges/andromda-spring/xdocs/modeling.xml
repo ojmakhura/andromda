@@ -209,6 +209,20 @@
                             to be different than the name of the actor that defines the role).
 			          	</td>
 		        	</tr>	
+                    <tr>
+                        <a name="@andromda.spring.entity.operation.location"/>
+                        <td>
+                            @andromda.spring.entity.operation.location
+                        </td>
+                        <td>
+                            Operation (on an <![CDATA[<<Entity>>]]>)
+                        </td>
+                        <td>
+                            Defines where a modeled business operation on an entity should 
+                            be generated (the DAO or entity itself).  The two possible 
+                            values are <em>dao</em> or <em>entity</em>.                            
+                        </td>
+                    </tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">

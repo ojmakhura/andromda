@@ -1,21 +1,22 @@
+#if ($entity.entityBusinessOperationsPresent)
+#set ($generatedFile = "${entity.packagePath}/${entity.entityImplementationName}.java")
 /**
  * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
  */
 package $entity.packageName;
 
-#set ($superclass = $entity.generalization)
 /**
- * @see $entity.fullyQualifiedName
+ * @see $entity.fullyQualifiedEntityName
  */
-public class $entity.daoImplementationName
-#if($superclass)  
-	extends $superclass.fullyQualifiedDaoImplementationName
-#else
-    extends $entity.fullyQualifiedDaoBaseName
+public class ${entity.entityImplementationName}
+#set ($superEntity = $entity.generalization)
+#if($superEntity)  
+	extends $superEntity.fullyQualifiedEntityImplementationName
 #end
+    extends $entity.fullyQualifiedEntityName
 {
-#foreach ($operation in $entity.daoBusinessOperations )
+#foreach ($operation in $entity.entityBusinessOperations)
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.signature)
@@ -43,19 +44,5 @@ public class $entity.daoImplementationName
     }
 	
 #end
-    /**
-     * @see ${entity.fullyQualifiedDaoBaseName}#transformEntity($entity.fullyQualifiedName)
-     */ 
-    protected Object transformEntity($entity.fullyQualifiedName entity)
-    {
-        /* 
-         * This method provides the ability to transform 
-         * any returned entity (from finders or a call to load) 
-         * into value objects.  If you aren't using value objects, 
-         * and just want to return the entities directly, leave 
-         * this method unchanged
-         */
-        return entity;
-    }
-    
 }
+#end

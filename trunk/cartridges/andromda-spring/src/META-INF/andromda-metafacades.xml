@@ -38,6 +38,7 @@
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
+        <property reference="entityBusinessOperationLocation" default="entity"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
@@ -47,6 +48,7 @@
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
+        <property reference="entityBusinessOperationLocation" default="entity"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
@@ -57,6 +59,6 @@
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
-        <property reference="implementationOperationNamePrefix" default="handle"/>>
+        <property reference="implementationOperationNamePrefix" default="handle"/>
     </metafacade>		
 </metafacades>
