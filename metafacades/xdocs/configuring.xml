@@ -58,17 +58,27 @@
                         <td >Yes</td>
                     </tr>
                 </table>
+                <a name="#metafacade"/>
                 <h3><![CDATA[<metafacade/>]]></h3>     
                 <p>
-                  The <em><![CDATA[<metafacade/>]]></em> element allows us to configure
-                  a mapping (and any applicable namespace properties) to a metafacade class. 
-                  The <code><![CDATA[<metafacade/>]]></code> is nested directly under the root
-                  <code><![CDATA[<metafacades/>]]></code> element:
-<source><![CDATA[
+                    The <em><![CDATA[<metafacade/>]]></em> element allows us to configure
+                    a mapping (and any applicable namespace properties) to a metafacade class. 
+                    The <code><![CDATA[<metafacade/>]]></code> is nested directly under the root
+                    <code><![CDATA[<metafacades/>]]></code> element.  For example this <code><![CDATA[<metafacade/>]]></code> 
+                    element below tells AndroMDA to construct an instance of 
+                    <em>org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl</em>
+                    when a metafacade for <em>org.omg.uml.foundation.core.Operation$Impl</em> is created
+                    within the context of <em>org.andromda.cartridges.spring.metafacades.SpringEntity</em>
+                    and has a valid <em>query</em> property.
+                     <source><![CDATA[
 <metafacades namespace="spring">
     ...    
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
-       ...
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+            <property name="query"/>
+        </mapping>
+        ...
     </metafacade>    
     ...
 </metafacades>
@@ -83,32 +93,63 @@
                     <tr>
                         <td>class</td>
                         <td>
-                            Specifies the metafacade implementation class that should be instantiated
-                            when this mapping is matched.
+                            <p>
+                                Specifies the metafacade implementation class that should be instantiated
+                                when this mapping is matched.  
+                            </p>
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>contextRoot</td>
+                        <td>
+                            Indicates that this metafacade mapping will be treated as a context root
+                            for other metafacades.  For example this metafacade mapping below is indicating that the
+                            metafacade constructed from <em>org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl</em>
+                            will be a context root (since it will play the context for the metafacade construced from a
+                            <em>org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl</em> instance).
+                            <source><![CDATA[
+...
+<metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
+    <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <stereotype>WEBSERVICE</stereotype>
+    </mapping>
+    ...
+</metafacade>
+...
+<metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" contextRoot="true">
+    <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <context>org.andromda.cartridges.webservice.metafacades.WebService</context>
+    </mapping>
+    ...
+</metafacade>
+...
+                            ]]></source>
                         </td>
                         <td>Yes</td>
                     </tr>
                 </table>
+                <a name="mapping"/>
                 <h3><![CDATA[<mapping/>]]></h3>     
                 <p>
-                    The <em><![CDATA[<mapping/>]]></em> is the element containing the nested
-                    elements that telling AndroMDA how exactly a meta model object should be mapped
-                    to a specific metafacade. 
+                    Each <a href="#metafacade"><![CDATA[<metafacade/>]]></a> can take a single
+                    <em><![CDATA[<mapping/>]]></em> element. The <em><![CDATA[<mapping/>]]></em> 
+                    is the element containing the nested elements that tell AndroMDA how exactly 
+                    a meta model object should be mapped to a specific metafacade. 
                     <ul>
                         This <em><![CDATA[<mapping/>]]></em> element allows metafacades to be mapped
-                        by the following attributes:
+                        by a combination of the following attributes:
                         <li>
-                            Stereotypes - each meta model element can be mapped by one or more stereotypes
-                            (we'll talk more about this later).
+                            <a href="#stereotype">stereotypes</a> - each meta model element can be mapped by one or more stereotypes.
                         </li>
                         <li>
-                            Context - each meta model element can be mapped by one context.  A context is
+                            <a href="#context">context</a> - each meta model element can be mapped by one context.  A context is
                             is a metafacade interface name, the context must be the context under which the
-                            metafacade is created (we'll talk more about this later).
+                            metafacade is created.
                         </li>
                         <li>
-                            Properties - each meta model element can be mapped by one or more properties that
-                            apply to it (again will talk more about this later).
+                            <a href="#mappingProperty">properties</a> - each meta model element can be mapped by one or more properties that
+                            apply to it.
                         </li>
                     </ul>
                 </p>
@@ -121,10 +162,76 @@
                     <tr>
                         <td>class</td>
                         <td>
-                            Specifies the metafacade implementation class that should be instantiated
-                            when this mapping is matched.
+                            Specifies the meta model class that should be instantiated when this mapping is matched.
+                            For example, you'll see that this mapping indicates that it shall be matched on each
+                            occurence of <em>org.omg.uml.foundation.core.Operation$Impl</em> while the model is
+                            being processed.
+                            <source><![CDATA[
+...
+<mapping class="org.omg.uml.foundation.core.Operation$Impl">
+    ...
+</mapping>
+...
+                            ]]></source>                                                        
                         </td>
-                        <td >Yes</td>
+                        <td>Yes</td>
+                    </tr>
+                </table>
+                <a name="stereotype"/>
+                <h3><![CDATA[<stereotype/>]]></h3>     
+                <p>
+                    Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
+                    can take one or more optional nested <em><![CDATA[<stereotype/>]]></em>
+                    elements.
+                </p>
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </table>
+                <a name="context"/>
+                <h3><![CDATA[<context/>]]></h3>     
+                <p>
+                    Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
+                    can take an optional nested <em><![CDATA[<stereotype/>]]></em>
+                    element.
+                </p>
+                <a name="mappingProperty"/>
+                <h3><![CDATA[<property/>]]></h3>     
+                <p>
+                    Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
+                    can take one or more optional nested <em><![CDATA[<property/>]]></em>
+                    elements.                    
+                </p>
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
                     </tr>
                 </table>
 		  	</subsection>
