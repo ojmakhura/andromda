@@ -108,6 +108,13 @@
         <j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
         <j:set var="moduleDir" value="${projectId}/${moduleName}"/>
         <attainGoal name="andromdapp:generate-module"/>
+        
+        <j:set var="metaInfDir" value="${moduleDir}/src/META-INF"/>
+        <ant:mkdir dir="${metaInfDir}"/>
+        <velocity:merge
+          name="${metaInfDir}/jboss-app.xml"
+          basedir="${moduleTemplatesDir}/src/META-INF"
+          template="jboss-app.xml.vsl"/>
 
     </goal>
 
@@ -271,6 +278,11 @@
             <i:ask
                 question="Please enter the id for your J2EE project (i.e. animalquiz):"
                 answer="projectId"/>
+        </j:while>
+        <j:while test="${empty(projectVersion)}">
+            <i:ask
+                question="Please enter a version for your project (i.e. 1.0):"
+                answer="projectVersion"/>
         </j:while>
         <j:while test="${empty(baseProjectPackage)}">
             <i:ask
