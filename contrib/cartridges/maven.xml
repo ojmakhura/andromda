@@ -1,0 +1,27 @@
+<project xmlns:j="jelly:core"
+  		 xmlns:ant="jelly:ant"
+  		 xmlns:maven="jelly:maven">
+  		 
+    <preGoal name="java:compile"> 
+   		<ant:available 
+   			file="${maven.src.dir}/uml"
+      		type="dir" 
+      		property="hasModel"/>
+		
+		<j:set var="skipProcessing" value="${skip.mda.plugin.processing}"/>
+		<j:if test="${!empty(hasModel) and empty(skipProcessing)}">
+			<attainGoal name="andromda:run"/>						
+	  		<!-- add the paths of the generated source to the
+	  		     maven compile path -->
+	 	 	<ant:path
+		       	id="metafacade.gen.src"
+		       	location="${maven.build.src}/java"/>
+			<maven:addPath
+		       	id="maven.compile.src.set"
+		       	refid="metafacade.gen.src"/>     		        	
+		</j:if>
+    </preGoal>
+  		 
+</project>
+
+

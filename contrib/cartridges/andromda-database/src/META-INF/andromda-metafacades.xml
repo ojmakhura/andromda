@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<metafacades namespace="database">
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
+		metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
+		contextRoot="true">
+        <property reference="allowDefaultIdentifiers" default="true"/>
+        <property reference="defaultIdentifier" default="id"/>
+        <property reference="defaultIdentifierType" default="datatype.Long"/>
+	    <property reference="defaultIdentifierVisibility" default="public"/>
+		<property reference="maxSqlNameLength"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+		metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
+		contextRoot="true">
+        <property reference="allowDefaultIdentifiers" default="true"/>
+        <property reference="defaultIdentifier" default="id"/>
+        <property reference="defaultIdentifierType" default="datatype.Long"/>
+	    <property reference="defaultIdentifierVisibility" default="public"/>
+		<property reference="maxSqlNameLength"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+		metafacadeClass="org.andromda.metafacades.uml14.EntityAttributeFacadeLogicImpl">
+		<context>org.andromda.cartridges.database.metafacades.Table</context>
+	    <property reference="sqlMappingsUri"/>
+	    <property reference="jdbcMappingsUri"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
+		metafacadeClass="org.andromda.cartridges.database.metafacades.TableAssociationEndLogicImpl">
+		<context>org.andromda.cartridges.database.metafacades.Table</context>
+		<property reference="foreignKeySuffix"/>
+	</metafacade>
+</metafacades>

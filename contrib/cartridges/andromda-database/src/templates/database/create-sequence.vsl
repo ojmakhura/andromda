@@ -1,0 +1,14 @@
+#foreach ( $entity in $entities )
+## Include the property definition
+/* ------------ $entity.name sequence ---------------- */
+#set($sequenceName = "${entity.tableName}_SEQ")
+CREATE SEQUENCE $sequenceName                                              
+INCREMENT BY 1                                                                  
+START WITH 1                                                                    
+MINVALUE 1                                                                      
+MAXVALUE 999999999999                                                           
+NOCYCLE                                                                         
+NOORDER                                                                         
+NOCACHE;  
+#end
+

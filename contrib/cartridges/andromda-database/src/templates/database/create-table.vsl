@@ -1,0 +1,64 @@
+#macro( tableColumns )
+/* --------------- $entity.name table definition --------------------- */
+#set ($identifier = $entity.identifiers.iterator().next())
+CREATE TABLE $entity.tableName (
+	$identifier.columnName $identifier.sqlType NOT NULL,
+#foreach ( $attribute in $entity.attributes )
+#if (!$attribute.identifier)
+#set ($isRequired = $attribute.required)
+#set ($hasInitialValue = $stringUtils.isNotBlank($attribute.defaultValue()))
+#set ($initialValue = $databaseTemplateObject.getInitialValue(${attribute}))
+#if ($initialValue.class.name == "java.lang.Boolean")
+#if($initialValue)
+#set($initialValue = "1")
+#else  
+#set($initialValue = "0")
+#end
+#end
+	$attribute.columnName $attribute.sqlType#if($hasInitialValue) DEFAULT $initialValue#end#if($isRequired) NOT#end NULL,
+#end
+#end
+#foreach ( $associationEnd in $entity.associationEnds )
+#set ($otherEnd = $associationEnd.otherEnd)
+#if ($otherEnd.navigable)
+#set ($source = $otherEnd.otherEnd)
+#set ($sourceType = $source.type)
+#set ($otherEndType = $otherEnd.type)
+#if (!($otherEnd.one2One && $otherEndType.child))
+#if ($otherEnd.many2Many)
+#set($foreignKeyColumn =  $source.columnName)
+#set ($foreignKeyAttribute = ${sourceType.identifiers.iterator().next()})
+#set ($foreignKeyAttributeSqlType = $foreignKeyAttribute.sqlType)
+	$foreignKeyColumn $foreignKeyAttributeSqlType#if($source.required) NOT#end NULL,
+#elseif ($otherEnd.one2One || $otherEnd.one2Many)
+#set($foreignKeyColumn =  $otherEnd.columnName)
+#set ($foreignKeyAttribute = ${otherEndType.identifiers.iterator().next()})
+#set ($foreignKeyAttributeSqlType = $foreignKeyAttribute.sqlType)
+	$foreignKeyColumn $foreignKeyAttributeSqlType#if($otherEnd.required) NOT#end NULL,
+#end
+#end
+#end
+#end
+);
+#end
+$stringUtils.removeLastOccurrence("#tableColumns()", ",")
+/* ------------- relation indexes ------------------ */
+#foreach ($associationEnd in $entity.associationEnds)
+#set ($otherEnd = $associationEnd.otherEnd)
+#set ($otherEndType = $otherEnd.type)
+#if ($otherEnd.navigable && !($otherEnd.one2One && $otherEndType.child))
+#set ($indexName = $databaseTemplateObject.ensureMaxNameLength("IDX${otherEndType.tableName}${entity.tableName}"))
+#if ($otherEnd.one2One || $otherEnd.one2Many)
+CREATE INDEX $indexName ON $entity.tableName
+(
+       $otherEnd.columnName
+);
+#end
+#end
+
+#end
+## Define the PrimaryKey constraint
+/* ------------ primary key contraints ---------------- */
+#set ($primaryKeyConstraintName = $databaseTemplateObject.ensureMaxNameLength("XPK${entity.tableName}"))
+ALTER TABLE $entity.tableName
+   ADD  ( CONSTRAINT $primaryKeyConstraintName PRIMARY KEY ($identifier.columnName) );
