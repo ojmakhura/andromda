@@ -20,11 +20,8 @@ public abstract class $entity.daoBaseName
 #else
     extends org.springframework.orm.hibernate.support.HibernateDaoSupport
 #end
-#set ($finders = $entity.getFinders(true))
-#set ($hasFinders = !$finders.empty)
-    implements $entity.fullyQualifiedDaoName#if ($hasFinders),
+    implements $entity.fullyQualifiedDaoName,
                org.apache.commons.collections.Transformer
-#end
 {
 
 #foreach($entityRef in $entity.entityReferences)
@@ -267,6 +264,7 @@ public abstract class $entity.daoBaseName
     }
 
 #end
+#set ($finders = $entity.getFinders(true))
 #foreach ($finder in $finders)
 #set ($returnType = $finder.returnType.fullyQualifiedName)
     /**
