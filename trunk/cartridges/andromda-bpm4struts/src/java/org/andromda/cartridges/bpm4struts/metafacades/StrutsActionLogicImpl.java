@@ -61,7 +61,11 @@ public class StrutsActionLogicImpl
         else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
-            collectTransitions(((StrutsActionState) target).getForward(), processedTransitions);
+            StrutsForward forward = ((StrutsActionState) target).getForward();
+            if (forward != null)
+            {
+                collectTransitions(forward, processedTransitions);
+            }
         }
         else    // all the rest is ignored but outgoing transitions are further processed
         {
