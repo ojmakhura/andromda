@@ -46,7 +46,23 @@
         timeToIdleSeconds="$entity.ehCacheTimeToIdleSeconds"
         timeToLiveSeconds="$entity.ehCacheTimeToLiveSeconds"
         overflowToDisk="$entity.ehCacheOverflowToDisk"/>
-        
+
+#if($hibernateEnableAssociationsCache == "true")
+#foreach ($sourceEnd in $entity.associationEnds)
+#if ($sourceEnd.one2Many)
+#set ($otherEnd = $sourceEnd.otherEnd)
+#set ($association = $sourceEnd.association)
+    <cache 
+        name="${entity.fullyQualifiedEntityImplementationName}.$otherEnd.name"
+        maxElementsInMemory="$association.ehCacheMaxElementsInMemory"
+        eternal="$association.ehCacheEternal"
+        timeToIdleSeconds="$association.ehCacheTimeToIdleSeconds"
+        timeToLiveSeconds="$association.ehCacheTimeToLiveSeconds"
+        overflowToDisk="$association.ehCacheOverflowToDisk"/>
+
+#end
+#end
+#end
 #end
 #end
 </ehcache>
