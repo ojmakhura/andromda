@@ -248,4 +248,11 @@ public class StringUtilsHelperTest extends TestCase
             assertEquals(StringUtilsHelper.toSingleLine(strings[0]), strings[1]);
         }
     }
+    
+    public void testRemoveLastOccurence()
+    {
+        String testString = "This is a test string ending with a comma";
+        String someString = testString + ",  ";
+        assertEquals(StringUtilsHelper.removeLastOccurrence(someString, ","), testString + "  ");
+    }
 }

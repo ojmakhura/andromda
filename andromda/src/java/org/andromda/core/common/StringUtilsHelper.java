@@ -109,6 +109,30 @@ public class StringUtilsHelper
     }
 
     /**
+     * Removes the last occurance of the oldValue found within the string.
+     * 
+     * @param string the String to remove the <code>value</code> from.
+     * @param value the value to remove.
+     * @return String the resulting string.
+     */
+    public static String removeLastOccurrence(String string, String value)
+    {
+        if (string != null && value != null)
+        {
+            StringBuffer buf = new StringBuffer();
+            int index = string.lastIndexOf(value);
+            if (index != -1)
+            {
+                buf.append(string.substring(0, index));
+                buf.append(string.substring(index + value.length(), string
+                    .length()));
+                string = buf.toString();
+            }
+        }
+        return string;
+    }
+
+    /**
      * <p>
      * Returns the argument string as a Java method name according the Sun
      * coding conventions.
