@@ -1,5 +1,8 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 
 
 /**
@@ -10,6 +13,8 @@ package org.andromda.core.metadecorators.uml14;
  */
 public class EntityDecoratorImpl extends EntityDecorator
 {
+    private final static String PRIMARY_KEY = "PrimaryKey";
+
     // ---------------- constructor -------------------------------
     
     public EntityDecoratorImpl (org.omg.uml.foundation.core.Classifier metaObject)
@@ -29,7 +34,15 @@ public class EntityDecoratorImpl extends EntityDecorator
     */
     public org.omg.uml.foundation.core.ModelElement handleGetPrimaryKeyAttribute()
     {
-        // TODO: add your implementation here!
+        for (Iterator i = getAttributes().iterator(); i.hasNext();)
+        {
+            AttributeDecorator attribute = (AttributeDecorator) i.next();
+            if (attribute.getStereotype().equals(PRIMARY_KEY))
+            {
+                return attribute;
+            }
+        }
+
         return null;
     }
 
