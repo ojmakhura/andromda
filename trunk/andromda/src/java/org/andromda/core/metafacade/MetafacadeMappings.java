@@ -686,6 +686,17 @@ public class MetafacadeMappings
     }
 
     /**
+     * Performs shutdown procedures for the factory. This should be called
+     * <strong>ONLY</code> when {@link MetafacadeFactory#shutdown()}is called.
+     */
+    void shutdown()
+    {
+        this.mappings.clear();
+        this.namespaceMetafacadeMappings.clear();
+        this.propertyReferences.clear();
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()

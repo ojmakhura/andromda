@@ -697,6 +697,7 @@ public class MetafacadeFactory
         this.metafacadeCache.clear();
         this.registeredProperties.clear();
         this.validationMessages.clear();
+        MetafacadeMappings.instance().shutdown();
     }
 
     /**
