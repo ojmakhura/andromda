@@ -19,7 +19,7 @@
 				<ol>
 					<li>
 						<p>
-							First make sure you have the <a href="../maven-translation-library-plugin/index.html">maven-translation-library-plugin</a> 
+							First make sure you have the <a href="../andromda-translation-library-plugin/index.html">andromda-translation-library-plugin</a> 
 							installed.  
 						</p>
 					</li>
@@ -28,7 +28,7 @@
 							Next we need to create the Translation-Library directory that will contain all
 							required resources (you'll be editing these as you develop).  We'll call our 
 							sample Translation-Library 'constraint'.  This is simple with the 
-							<a href="../maven-translation-library-plugin/index.html">maven-translation-library-plugin</a>.  After changing 
+							<a href="../andromda-translation-library-plugin/index.html">andromda-translation-library-plugin</a>.  After changing 
 							to the directory where you want the 'constraint' Translation-Library to be 
 							generated, just type the following:
 							<ul>
@@ -50,7 +50,7 @@
 									maven <em>translation-library:generate</em> goal can be generated seperately (you 
 									may want to do this after you've started working on your Translation-Library, if you
 									want to add a new Translation, Translator, etc.). Please see the 
-									<a href="../maven-translation-library-plugin/goals.html">Maven AndroMDA Development Plugin</a> documentation 
+									<a href="../andromda-translation-library-plugin/goals.html">Maven AndroMDA Development Plugin</a> documentation 
 									for more information.
 								</li>
 							</ul>
@@ -99,7 +99,7 @@
 											<strong>NOTE:</strong> The translation file is named 'Oracle-SQL' because if you'll remember 
 											we gave the 'translations' property a value of 'Oracle-SQL', you'll have a translation 
 											file generated for each comma seperated value specified for the 'translations' 
-											property when using the <a href="../maven-translation-library-plugin/index.html">maven-translation-library-plugin</a> 
+											property when using the <a href="../andromda-translation-library-plugin/index.html">andromda-translation-library-plugin</a> 
 										    <code>translation-library:generate</code> goal. 
 										</li>
 										<li>
@@ -366,7 +366,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 								we'll want to give this fragment <code>name</code> a regular expression that will match
 								on one of these three allInstances() patterns.
 								<strong>NOTE:</strong> There is a goal called 
-								<a href="../maven-translation-library-plugin/goals.html#translation-library:test-regex">translation-library:test-regex</a> that will
+								<a href="../andromda-translation-library-plugin/goals.html#translation-library:test-regex">translation-library:test-regex</a> that will
 								allow you to test your regular expressions while writing them for your fragment names which
 								comes in very handy.
 							</li>
