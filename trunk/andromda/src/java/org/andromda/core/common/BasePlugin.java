@@ -286,8 +286,8 @@ public abstract class BasePlugin
     private List contents = null;
 
     /**
-     * @todo get contents needs to work with directories 
-     *       the same as with archives.
+     * @todo get contents needs to work with directories the same as with
+     *       archives.
      * @see org.andromda.core.common.Plugin#getContents()
      */
     public List getContents()
@@ -297,16 +297,16 @@ public abstract class BasePlugin
             this.contents = new ArrayList();
             if (this.isArchive())
             {
-	            ZipFile archive = this.getArchive();
-	            if (archive != null)
-	            {
-	                Enumeration entries = archive.entries();
-	                while (entries.hasMoreElements())
-	                {
-	                    ZipEntry entry = (ZipEntry)entries.nextElement();
-	                    contents.add(entry.getName());
-	                }
-	            }
+                ZipFile archive = this.getArchive();
+                if (archive != null)
+                {
+                    Enumeration entries = archive.entries();
+                    while (entries.hasMoreElements())
+                    {
+                        ZipEntry entry = (ZipEntry)entries.nextElement();
+                        contents.add(entry.getName());
+                    }
+                }
             }
             else if (this.getResource() != null)
             {
@@ -314,12 +314,12 @@ public abstract class BasePlugin
                 File fileResource = new File(resourceUrl.getFile());
                 // we go two levels since descriptors reside in META-INF
                 // and we want the parent of the META-INF directory
-                String[] contentArray = 
-                    fileResource.getParentFile().getParentFile().list();
+                String[] contentArray = fileResource.getParentFile()
+                    .getParentFile().list();
                 if (contentArray != null)
                 {
-                    contents.addAll(Arrays.asList(contentArray)); 
-                }            
+                    contents.addAll(Arrays.asList(contentArray));
+                }
             }
         }
         return contents;
@@ -331,8 +331,8 @@ public abstract class BasePlugin
     private static final String ARCHIVE_PREFIX = "jar:";
 
     /**
-     * Returns true/false on whether or not this plugin is an archive
-     * or not.  If its not an archive, its a directory.
+     * Returns true/false on whether or not this plugin is an archive or not. If
+     * its not an archive, its a directory.
      * 
      * @return true if its an archive, false otherwise.
      */

@@ -49,12 +49,10 @@ public class ConcreteSyntaxUtils
      * Iterates through the passed in list and concates all the values of
      * objects toString value to a StringBuffer and returns the StringBuffer.
      * 
-     * @param list
-     *            the List of objects to concatinate.
+     * @param list the List of objects to concatinate.
      * @return StringBuffer the concatinated contents of the list.
      */
-    public static StringBuffer concatContents(
-        List list)
+    public static StringBuffer concatContents(List list)
     {
         StringBuffer name = new StringBuffer();
         if (list != null)
@@ -80,10 +78,7 @@ public class ConcreteSyntaxUtils
         POperation operation)
     {
         final String methodName = "ConcreteSyntaxUtils.getOperationDeclaration";
-        ExceptionUtils.checkNull(
-            methodName,
-            "operation",
-            operation);
+        ExceptionUtils.checkNull(methodName, "operation", operation);
 
         OperationDeclaration operationDeclaration = null;
 
@@ -97,10 +92,9 @@ public class ConcreteSyntaxUtils
             returnType = ObjectUtils.toString(typeDeclaration.getType());
         }
 
-        operationDeclaration = new OperationDeclarationImpl(
-            ObjectUtils.toString(op.getName()),
-            returnType,
-            ConcreteSyntaxUtils.getVariableDeclarations(operation));
+        operationDeclaration = new OperationDeclarationImpl(ObjectUtils
+            .toString(op.getName()), returnType, ConcreteSyntaxUtils
+            .getVariableDeclarations(operation));
 
         if (logger.isDebugEnabled())
         {
@@ -115,18 +109,15 @@ public class ConcreteSyntaxUtils
      * Retrieves all the variable declarations for the passed in
      * <code>operation</code>.
      * 
-     * @param operation
-     *            the operation for which to retrieve the variable declarations.
+     * @param operation the operation for which to retrieve the variable
+     *        declarations.
      * @return VariableDeclaration[]
      */
     public static VariableDeclaration[] getVariableDeclarations(
         POperation operation)
     {
         final String methodName = "ConcreteSyntaxUtils.getVariableDeclarations";
-        ExceptionUtils.checkNull(
-            methodName,
-            "operation",
-            operation);
+        ExceptionUtils.checkNull(methodName, "operation", operation);
         return ConcreteSyntaxUtils
             .getVariableDeclarations(((AOperation)operation).getParameters());
     }
@@ -135,9 +126,8 @@ public class ConcreteSyntaxUtils
      * Retrieves all the variable declarations for the passed in
      * <code>standardDeclarator</code>.
      * 
-     * @param standardDeclarator
-     *            the standard declartor for which to retrieve the
-     *            VariableDeclaration instances.
+     * @param standardDeclarator the standard declartor for which to retrieve
+     *        the VariableDeclaration instances.
      * @return VariableDeclaration[]
      */
     public static VariableDeclaration[] getVariableDeclarations(
@@ -156,11 +146,9 @@ public class ConcreteSyntaxUtils
      * Creates a new VariableDeclaration from the passed in
      * PVariableDeclaration.
      * 
-     * @param variableDeclaration
-     *            the PVariableDeclaration that the new VariableDeclaration will
-     *            be created from.
-     * @param initialValue
-     *            the initial value of the variable declaration.
+     * @param variableDeclaration the PVariableDeclaration that the new
+     *        VariableDeclaration will be created from.
+     * @param initialValue the initial value of the variable declaration.
      * @return VariableDeclaration the new VariableDeclaration
      */
     protected static VariableDeclaration newVariableDeclaration(
@@ -177,26 +165,21 @@ public class ConcreteSyntaxUtils
         ATypeDeclaration typeDeclaration = (ATypeDeclaration)declaration
             .getTypeDeclaration();
         String type = null;
-        String name = ObjectUtils.toString(
-            declaration.getName()).trim();
+        String name = ObjectUtils.toString(declaration.getName()).trim();
         if (typeDeclaration != null)
         {
             type = ObjectUtils.toString(typeDeclaration.getType());
         }
-        return new VariableDeclarationImpl(
-            name,
-            type,
-            ObjectUtils.toString(
-                initialValue).trim());
+        return new VariableDeclarationImpl(name, type, ObjectUtils.toString(
+            initialValue).trim());
     }
 
     /**
      * Creates an array of VariableDeclaration[] from the passed in
      * PVariableDeclarationList.
      * 
-     * @param variableDeclarationList
-     *            the PVariableDeclarationList that the new VariableDeclaration
-     *            will be created from.
+     * @param variableDeclarationList the PVariableDeclarationList that the new
+     *        VariableDeclaration will be created from.
      * @return VariableDeclaration[] the new VariableDeclaration array
      */
     public static VariableDeclaration[] getVariableDeclarations(
@@ -226,9 +209,9 @@ public class ConcreteSyntaxUtils
                         AVariableDeclarationListTail tail = (AVariableDeclarationListTail)variableTailIt
                             .next();
                         declarations.add(ConcreteSyntaxUtils
-                            .newVariableDeclaration(
-                                tail.getVariableDeclaration(),
-                                tail.getVariableDeclarationValue()));
+                            .newVariableDeclaration(tail
+                                .getVariableDeclaration(), tail
+                                .getVariableDeclarationValue()));
                     }
                 }
             }
@@ -240,13 +223,11 @@ public class ConcreteSyntaxUtils
     /**
      * Gets all the parameters from the <code>featureCall</code> instance.
      * 
-     * @param featureCall
-     *            the featureCall for which to retrieve the parameters
+     * @param featureCall the featureCall for which to retrieve the parameters
      * @return List the list containing any parameters retrieved, or an empty
      *         array if none could be retrieved
      */
-    public static List getParameters(
-        AFeatureCall featureCall)
+    public static List getParameters(AFeatureCall featureCall)
     {
         List parameters = new ArrayList();
         if (featureCall != null)
@@ -260,29 +241,24 @@ public class ConcreteSyntaxUtils
      * Gets all the parameters from the <code>featureCall</code> instance as a
      * comma seperated String.
      * 
-     * @param featureCall
-     *            the featureCall for which to retrieve the parameters
+     * @param featureCall the featureCall for which to retrieve the parameters
      * @return String the comma seperated String
      */
-    public static String getParametersAsString(
-        AFeatureCall featureCall)
+    public static String getParametersAsString(AFeatureCall featureCall)
     {
-        return StringUtils.join(
-            ConcreteSyntaxUtils.getParameters(
-                featureCall).iterator(),
-            ",");
+        return StringUtils.join(ConcreteSyntaxUtils.getParameters(featureCall)
+            .iterator(), ",");
     }
 
     /**
      * Gets all the parameters from the <code>callParameters</code> instance.
      * 
-     * @param callParameters
-     *            the callParameters for which to retrieve the parameters
+     * @param callParameters the callParameters for which to retrieve the
+     *        parameters
      * @return List the list containing any parameters retrieved, or an empty
      *         array if none could be retrieved
      */
-    private static List getParameters(
-        PFeatureCallParameters callParameters)
+    private static List getParameters(PFeatureCallParameters callParameters)
     {
         List parameters = new ArrayList();
         if (callParameters != null)
@@ -351,20 +327,14 @@ public class ConcreteSyntaxUtils
     /**
      * Concatinates the type from the passed in name and pathNameTail.
      * 
-     * @param name
-     *            the starting name of the type
-     * @param pathNameTail
-     *            the tail pieces of the name
+     * @param name the starting name of the type
+     * @param pathNameTail the tail pieces of the name
      * @return String the concatinated name.
      */
-    public static String getType(
-        TName name,
-        List pathNameTail)
+    public static String getType(TName name, List pathNameTail)
     {
         StringBuffer type = ConcreteSyntaxUtils.concatContents(pathNameTail);
-        type.insert(
-            0,
-            TranslationUtils.trimToEmpty(name));
+        type.insert(0, TranslationUtils.trimToEmpty(name));
         return StringUtils.deleteWhitespace(type.toString());
     }
 
@@ -373,12 +343,11 @@ public class ConcreteSyntaxUtils
      * retrieved from the parser syntax (since it leaves off any navigational
      * relationships).
      * 
-     * @param expression the APosfixExpression instance for which to retrieve the
-     *        primary expression
+     * @param expression the APosfixExpression instance for which to retrieve
+     *        the primary expression
      * @return String the "real" primary expression or the passed in expression.
      */
-    public static String getPrimaryExpression(
-        APropertyCallExpression expression)
+    public static String getPrimaryExpression(APropertyCallExpression expression)
     {
         StringBuffer primaryExpression = new StringBuffer();
         if (expression != null)
@@ -386,8 +355,7 @@ public class ConcreteSyntaxUtils
             //append the first part of the primary expression
             primaryExpression.append(TranslationUtils.trimToEmpty(expression
                 .getPrimaryExpression()));
-            List expressionTail = 
-                expression.getPropertyCallExpressionTail();
+            List expressionTail = expression.getPropertyCallExpressionTail();
             if (expressionTail.size() > 0)
             {
                 Iterator expressionTailIt = expressionTail.iterator();
@@ -396,8 +364,8 @@ public class ConcreteSyntaxUtils
                     Object tail = expressionTailIt.next();
                     String tailAsString = TranslationUtils.trimToEmpty(tail);
                     // we ignore tails that have arrows or are operations
-                    if (tailAsString.indexOf("->") == -1 &&
-                        TranslationUtils.trimToEmpty(tail).indexOf('(') == -1)
+                    if (tailAsString.indexOf("->") == -1
+                        && TranslationUtils.trimToEmpty(tail).indexOf('(') == -1)
                     {
                         primaryExpression.append(tailAsString);
                     }
@@ -411,13 +379,11 @@ public class ConcreteSyntaxUtils
      * Gets all feature calls from the passed in APropertyCallExpression
      * instance.
      * 
-     * @param expression
-     *            the APosfixExpression instance for which to retrieve the
-     *            primary expression
+     * @param expression the APosfixExpression instance for which to retrieve
+     *        the primary expression
      * @return String the "real" primary expression of the passed in expression.
      */
-    public static List getFeatureCalls(
-        APropertyCallExpression expression)
+    public static List getFeatureCalls(APropertyCallExpression expression)
     {
         final String methodName = "ConcreteSyntaxUtils.getFeatureCalls";
         if (logger.isDebugEnabled())
@@ -433,9 +399,8 @@ public class ConcreteSyntaxUtils
             {
                 for (int ctr = 0; ctr < tails.size(); ctr++)
                 {
-                    featureCalls.add(TranslationUtils.getProperty(
-                        tails.get(ctr),
-                        "featureCall"));
+                    featureCalls.add(TranslationUtils.getProperty(tails
+                        .get(ctr), "featureCall"));
                 }
             }
         }
@@ -446,8 +411,7 @@ public class ConcreteSyntaxUtils
      * Loads a List of variable declaration names from the
      * <code>variableDeclarations</code>
      * 
-     * @param variableDeclarations
-     *            an array of VariableDeclaration objects
+     * @param variableDeclarations an array of VariableDeclaration objects
      * @return List the list of argument names as Strings/
      */
     public static List getArgumentNames(

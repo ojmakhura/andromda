@@ -27,10 +27,10 @@ import org.picocontainer.defaults.DefaultPicoContainer;
  * <li>Create the component implementation (i.e.
  * org.andromda.repositories.mdr.MDRepositoryFacade)</li>
  * <li>Create a file with the exact same name as the fully qualified name of
- * the component (i.e. org.andromda.core.repository.RepositoryFacade) that 
- * contains the name of the implementation class
- * (i.e. org.andromda.repositories.mdr.MDRepostioryFacade) and place
- * this in the META-INF/services/ directory within the core.</li>
+ * the component (i.e. org.andromda.core.repository.RepositoryFacade) that
+ * contains the name of the implementation class (i.e.
+ * org.andromda.repositories.mdr.MDRepostioryFacade) and place this in the
+ * META-INF/services/ directory within the core.</li>
  * </ol>
  * After you perform the above steps, the component can be found by the methods
  * within this class. See each below method for more information on how each

@@ -36,9 +36,9 @@ public class PathMatcher
             pattern = StringUtils.replaceOnce(pattern, doubleStar, replacement);
         }
         pattern = StringUtils.replace(pattern, "*", ".*");
-        try 
+        try
         {
-            matches = path.matches(pattern);            
+            matches = path.matches(pattern);
         }
         catch (PatternSyntaxException ex)
         {

@@ -24,7 +24,10 @@ public class VariableDeclarationImpl
      * @param name the name of the VariableDeclaratiom
      * @param type the type of the VariableDeclaration
      */
-    public VariableDeclarationImpl(String name, String type, String value)
+    public VariableDeclarationImpl(
+        String name,
+        String type,
+        String value)
     {
         String methodName = "VariableDeclarationImpl";
         ExceptionUtils.checkNull(methodName, "name", name);
@@ -42,7 +45,8 @@ public class VariableDeclarationImpl
     }
 
     /**
-==
+     * ==
+     * 
      * @see org.andromda.core.translation.syntax.VariableDeclaration#getType()
      */
     public String getType()

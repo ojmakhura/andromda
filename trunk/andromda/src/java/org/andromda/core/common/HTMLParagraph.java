@@ -1,11 +1,12 @@
 package org.andromda.core.common;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+
 /**
  * A utility object useful for formatting paragraph output.
- * 
  * <p>
  * Represents a paragraph, made of lines. The whole paragraph has a limit for
  * the line length. Words can be added, the class will reformat the paragraph
@@ -14,14 +15,13 @@ import java.util.StringTokenizer;
  * 
  * @author Matthias Bohlen
  * @author Chad Brandon
- *  
  */
 public class HTMLParagraph
 {
     private ArrayList lines = new ArrayList();
     private StringBuffer currentLine = new StringBuffer();
     private int maxLineWidth;
-    
+
     /**
      * <p>
      * Constructs an HtmlParagraph with a specified maximum line length.
@@ -29,11 +29,12 @@ public class HTMLParagraph
      * 
      * @param lineLength maximum line length
      */
-    public HTMLParagraph(int lineLength)
+    public HTMLParagraph(
+        int lineLength)
     {
         this.maxLineWidth = lineLength;
     }
-    
+
     /**
      * <p>
      * Appends another word to this paragraph.
@@ -50,7 +51,7 @@ public class HTMLParagraph
         currentLine.append(" ");
         currentLine.append(word);
     }
-    
+
     /**
      * <p>
      * Appends a bunch of words to the paragraph.
@@ -72,7 +73,7 @@ public class HTMLParagraph
             appendWord(st.nextToken());
         }
     }
-    
+
     /**
      * <p>
      * Returns the lines in this paragraph.
@@ -88,7 +89,7 @@ public class HTMLParagraph
         }
         return lines;
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -97,12 +98,12 @@ public class HTMLParagraph
         StringBuffer st = new StringBuffer();
         for (Iterator it = getLines().iterator(); it.hasNext();)
         {
-            st.append((String) it.next());
+            st.append((String)it.next());
             st.append("\n");
         }
         return st.toString();
     }
-    
+
     private void nextLine()
     {
         lines.add(currentLine.toString());

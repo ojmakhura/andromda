@@ -75,13 +75,13 @@ public class ModelPackages
     {
         if (modelPackages != null)
         {
-	        if (this.modelPackages == null)
-	        {
-	            this.modelPackages = new HashMap();
-	        }
-	        modelPackages.init();
-	        this.modelPackages.putAll(modelPackages.modelPackages);
-        } 
+            if (this.modelPackages == null)
+            {
+                this.modelPackages = new HashMap();
+            }
+            modelPackages.init();
+            this.modelPackages.putAll(modelPackages.modelPackages);
+        }
     }
 
     /**

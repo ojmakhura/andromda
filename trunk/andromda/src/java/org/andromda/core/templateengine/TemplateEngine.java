@@ -17,25 +17,21 @@ public interface TemplateEngine
     /**
      * Initializes the TempateEngine.
      * 
-     * @param cartridgeName
-     *            The name of the cartridge this can be used for whatever the
-     *            template engine implementation likes. For example, it can help
-     *            determine the name of the log file to which output is logged.
+     * @param cartridgeName The name of the cartridge this can be used for
+     *        whatever the template engine implementation likes. For example, it
+     *        can help determine the name of the log file to which output is
+     *        logged.
      */
     public void init(String cartridgeName) throws Exception;
 
     /**
      * Processes a template.
      * 
-     * @param templateFile
-     *            the path to the template file that will be processed.
-     * @param templateObjects
-     *            any additional objects we wish to make available to the
-     *            translation template that is processed
-     * @param output
-     *            the Writer to which to write the output of the processing.
-     * @throws Exception
-     *             any exception that may occur
+     * @param templateFile the path to the template file that will be processed.
+     * @param templateObjects any additional objects we wish to make available
+     *        to the translation template that is processed
+     * @param output the Writer to which to write the output of the processing.
+     * @throws Exception any exception that may occur
      */
     public void processTemplate(
         String templateFile,
