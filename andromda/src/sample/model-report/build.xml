@@ -1,21 +1,34 @@
-<project name="model-query" default="report">
+<project name="model-report" default="report">
 
    <property file="build.properties" />
    
+   <!-- directories where build output is written -->
+   <property name="build.dir" value="build/"/>
+   <property name="classes.dir" value="${build.dir}/classes/"/>
+   <property name="output.dir" value="${build.dir}/output/"/>
+   
    <target name="clean">
-     <delete dir="build"/>
+     <delete dir="${build.dir}"/>
    </target>
    
    <target name="init">
-     <mkdir dir="build/output"/>
+     <mkdir dir="${output.dir}"/>
+     <mkdir dir="${classes.dir}"/>
    </target>
    
    <path id="classpath">
    	  <pathelement path="${build.classpath}"/>
    	  <pathelement location="src/andromda-cartridge"/>
+   	  <pathelement location="${classes.dir}"/>
    </path>
 
-   <target name="report" depends="init">
+   <target name="compile" depends="init">
+     <javac srcdir="src/java"
+         destdir="${classes.dir}"
+         classpath="${build.classpath}"/>
+   </target>
+   
+   <target name="report" depends="compile,init">
    
    		<echo message="build.classpath =${build.classpath}" />
    		
@@ -27,8 +40,10 @@
                  modelURL="${model.url}"
                  lastModifiedCheck="false"
                  typeMappings="${andromda.home}/src/xml/TypeMapping.xml">
+          
+          <repository transformClassname="ReportHelper"/>
                  
-          <outlet cartridge="mycartridge" outlet="model" dir="build/output" />
+          <outlet cartridge="mycartridge" outlet="report" dir="${output.dir}" />
           
         </andromda>
         
