@@ -150,7 +150,7 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetGetterName()
     {
-        return "get" + StringUtilsHelper.upperCaseFirstLetter(getName());
+        return "get" + StringUtilsHelper.capitalize(getName());
     }
 
     /**
@@ -158,7 +158,7 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetSetterName()
     {
-        return "set" + StringUtilsHelper.upperCaseFirstLetter(getName());
+        return "set" + StringUtilsHelper.capitalize(getName());
     }
 
     /**

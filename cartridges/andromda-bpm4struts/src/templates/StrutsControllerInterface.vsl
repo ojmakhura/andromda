@@ -51,7 +51,7 @@ $operation.getDocumentation("     * ")
 #set ($returnType = false)
 #end
 #foreach ($sessionObject in $sessionObjects)
-#set ($accessorSuffix = $str.upperCaseFirstLetter($sessionObject.name))
+#set ($accessorSuffix = $str.capitalize($sessionObject.name))
     protected final $sessionObject.fullyQualifiedName get${accessorSuffix}(HttpServletRequest request)
     {
         $sessionObject.fullyQualifiedName object = null;

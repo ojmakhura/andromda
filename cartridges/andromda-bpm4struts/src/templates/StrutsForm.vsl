@@ -172,11 +172,11 @@ public class $formBeanClassName
 #set ($hasSelectableField = true)
 #set ($listType = "Object[]")
 #set ($backingListName = $field.backingListName)
-#set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
+#set ($backingListMethod = $str.capitalize($backingListName))
 #set ($valueListName = $field.valueListName)
-#set ($valueListMethod = $str.upperCaseFirstLetter($valueListName))
+#set ($valueListMethod = $str.capitalize($valueListName))
 #set ($labelListName = $field.labelListName)
-#set ($labelListMethod = $str.upperCaseFirstLetter($labelListName))
+#set ($labelListMethod = $str.capitalize($labelListName))
     public $listType get${backingListMethod}()
     {
         $listType values = this.${valueListName};

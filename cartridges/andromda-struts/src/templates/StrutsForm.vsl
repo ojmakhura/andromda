@@ -82,17 +82,17 @@ $att.getDocumentation("    * ")
     *
     */
 #if ($attfqtypename != "java.util.Collection")
-    public String get${str.upperCaseFirstLetter(${att.name})}()
+    public String get${str.capitalize(${att.name})}()
     {
         return this.${att.name};
     }
 
-    public void set${str.upperCaseFirstLetter(${att.name})}(String newValue)
+    public void set${str.capitalize(${att.name})}(String newValue)
     {
         this.${att.name} = newValue;
     }
 
-    public $attfqtypename getDecoded${str.upperCaseFirstLetter(${att.name})}()
+    public $attfqtypename getDecoded${str.capitalize(${att.name})}()
         throws ParseException
     {
 #if ($attfqtypename == "java.lang.String")
@@ -104,7 +104,7 @@ $att.getDocumentation("    * ")
 #end
     }
 
-    public void setDecoded${str.upperCaseFirstLetter(${att.name})}(${attfqtypename} newValue)
+    public void setDecoded${str.capitalize(${att.name})}(${attfqtypename} newValue)
     {
 #if ($attfqtypename == "java.lang.String")
         this.${att.name} = newValue;
@@ -116,12 +116,12 @@ $att.getDocumentation("    * ")
     }
 
 #else   ## Collection
-    public $attJavaType get${str.upperCaseFirstLetter(${att.name})}()
+    public $attJavaType get${str.capitalize(${att.name})}()
     {
         return this.${att.name};
     }
 
-    public void set${str.upperCaseFirstLetter(${att.name})}($attJavaType newValue)
+    public void set${str.capitalize(${att.name})}($attJavaType newValue)
     {
         this.${att.name} = newValue;
     }

@@ -47,8 +47,8 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
         form.${field.setterName}($field.resetValue);
 #end
 #if ($field.selectable)
-#set ($valueListMethod = $str.upperCaseFirstLetter($field.valueListName))
-#set ($labelListMethod = $str.upperCaseFirstLetter($field.labelListName))
+#set ($valueListMethod = $str.capitalize($field.valueListName))
+#set ($labelListMethod = $str.capitalize($field.labelListName))
         form.set${valueListMethod}($field.valueListResetValue);
         form.set${labelListMethod}(form.get${valueListMethod}());
 #end
@@ -83,11 +83,11 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($constructor = "$constructor$paramSeparator$quote${columnName}-$count$quote")
 #set ($paramSeparator = ', ')
 #end
-            new $str.upperCaseFirstLetter($field.name)Dummy($constructor)$itemSeparator
+            new $str.capitalize($field.name)Dummy($constructor)$itemSeparator
 #end
         } );
 
-    public final class $str.upperCaseFirstLetter($field.name)Dummy implements java.io.Serializable
+    public final class $str.capitalize($field.name)Dummy implements java.io.Serializable
     {
 #set ($constructor = '')
 #set ($paramSeparator = '')
@@ -98,7 +98,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($paramSeparator = ', ')
 #end
 
-        public $str.upperCaseFirstLetter($field.name)Dummy($constructor)
+        public $str.capitalize($field.name)Dummy($constructor)
         {
 #foreach ($columnName in $field.tableColumnNames)
 #set ($columnName = $str.lowerCamelCaseName($columnName))
@@ -108,12 +108,12 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
         
 #foreach ($columnName in $field.tableColumnNames)
 #set ($columnName = $str.lowerCamelCaseName($columnName))
-        public void set$str.upperCaseFirstLetter($columnName)(String $columnName)
+        public void set$str.capitalize($columnName)(String $columnName)
         {
             this.$columnName = $columnName;
         }
 
-        public String get$str.upperCaseFirstLetter($columnName)()
+        public String get$str.capitalize($columnName)()
         {
             return this.$columnName;
         }

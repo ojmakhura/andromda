@@ -24,7 +24,7 @@
 #foreach ($field in $action.actionFormFields)
 #if ($field.validationRequired && $actionParameters.contains($field))
 #set ($validatorTypes = $field.validatorTypes)
-            <field property="$field.name" depends="$str.toStringList($validatorTypes)">
+            <field property="$field.name" depends="$str.join($validatorTypes.iterator(),",")">
                 <arg0 key="$field.validatorMsgKey" />
 #foreach ($validatorType in $validatorTypes)
 #foreach ($validatorArg in $field.getValidatorArgs($validatorType))
