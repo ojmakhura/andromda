@@ -1,5 +1,9 @@
 package org.andromda.cartridges.bpm4struts;
 
+import org.andromda.cartridges.bpm4struts.validator.StrutsModelValidator;
+import org.andromda.cartridges.bpm4struts.validator.ValidationMessage;
+import org.andromda.cartridges.bpm4struts.validator.ValidationError;
+import org.andromda.cartridges.bpm4struts.validator.ValidationWarning;
 import org.andromda.core.common.CollectionFilter;
 import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.HTMLAnalyzer;
@@ -49,11 +53,14 @@ import java.util.Set;
  */
 public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
 {
+    private static boolean validated = false;
+
     public final static String ASPECT_FRONT_END_VIEW = "FrontEndView";
     public final static String ASPECT_FRONT_END_USE_CASE = "FrontEndUseCase";
     public final static String ASPECT_FRONT_END_WORKFLOW = "FrontEndWorkflow";
-    public final static String ASPECT_FRONT_END_PRESENTATION = "FrontEndPresentation";
-    public final static String ASPECT_CONTROLLER_CLASS = "ControllerClass";
+    public final static String ASPECT_FRONT_END_MODEL = "FrontEndModel";
+    public final static String ASPECT_FRONT_END_CONTROLLER_CLASS = "FrontEndController";
+    public final static String TAG_CONTROLLER_CLASS = "ControllerClass";
 
     /**
      * The meta-data repository implementation used by this script helper.
@@ -131,7 +138,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public UmlClass getControllerClass(UseCase useCase)
     {
-        String tagValue = staticHelper.findTagValue(useCase, ASPECT_CONTROLLER_CLASS);
+        String tagValue = staticHelper.findTagValue(useCase, TAG_CONTROLLER_CLASS);
         return findClassByName(tagValue);
     }
 
@@ -162,7 +169,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
                 AssociationEnd associationEnd = (AssociationEnd) iterator.next();
                 DirectionalAssociationEnd directionalAssociationEnd = staticHelper.getAssociationData(associationEnd);
                 Classifier participant = directionalAssociationEnd.getTarget().getParticipant();
-                if (staticHelper.getStereotypeNames(participant).contains(ASPECT_FRONT_END_PRESENTATION))
+                if (staticHelper.getStereotypeNames(participant).contains(ASPECT_FRONT_END_MODEL))
                 {
                     return (UmlClass) participant;
                 }
@@ -207,6 +214,9 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     /**
      * Gets the set of types for the ObjectFlowStates in the argument
      * activity graph.
+     * <p>
+     * All elements in the set are instances of type
+     * <code>org.omg.uml.foundation.core.Classifier</code>.
      *
      * @param activityGraph an activity graph
      * @return a set of object flow state types (no doubles)
@@ -899,9 +909,36 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public void setModel(Object model)
     {
-        qualifiedNameToClassMap = null; // invalidate the cache
+        qualifiedNameToClassMap = null;     // invalidate the cache
+        qualifiedNameToUseCaseMap = null;   // invalidate the cache
         staticHelper.setModel(model);
         dynamicHelper.setModel(model);
+
+        if (!validated)
+        {
+            validated = true;
+            StrutsModelValidator modelValidator = new StrutsModelValidator(this);
+            Collection messageCollection = modelValidator.validate();
+            ValidationMessage[] messages = (ValidationMessage[])messageCollection.toArray(new ValidationMessage[messageCollection.size()]);
+
+            int errorCount = 0;
+            int warningCount = 0;
+            for (int i = 0; i < messages.length; i++)
+            {
+                ValidationMessage validationMessage = messages[i];
+                System.out.println(validationMessage.getMessage());
+                if (validationMessage instanceof ValidationError)
+                    errorCount++;
+                if (validationMessage instanceof ValidationWarning)
+                    warningCount++;
+            }
+
+            System.out.println("**");
+            System.out.println("** Validation process completed with");
+            System.out.println("**    - "+errorCount+((errorCount==1)?" error":" errors"));
+            System.out.println("**    - "+warningCount+((warningCount==1)?" warning":" warnings"));
+            System.out.println("**");
+        }
     }
 
     /**
