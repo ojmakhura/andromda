@@ -14,7 +14,6 @@ import org.omg.uml.foundation.core.UmlClass;
  */
 public class PackageFacadeLogicImpl
     extends PackageFacadeLogic
-    implements org.andromda.metafacades.uml.PackageFacade
 {
     // ---------------- constructor -------------------------------
 

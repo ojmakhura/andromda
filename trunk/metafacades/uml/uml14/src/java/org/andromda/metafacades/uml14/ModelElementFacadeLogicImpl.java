@@ -32,7 +32,6 @@ import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
  */
 public class ModelElementFacadeLogicImpl
     extends ModelElementFacadeLogic
-    implements org.andromda.metafacades.uml.ModelElementFacade
 {
     // ---------------- constructor -------------------------------
 

@@ -10,7 +10,6 @@ import org.andromda.metafacades.uml.AttributeFacade;
  */
 public class EJBPrimaryKeyFacadeLogicImpl
     extends EJBPrimaryKeyFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacade
 {
     // ---------------- constructor -------------------------------
 

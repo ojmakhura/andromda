@@ -10,8 +10,6 @@ import org.andromda.metafacades.uml.ClassifierFacade;
  */
 public class WebServiceParameterLogicImpl
     extends WebServiceParameterLogic
-    implements
-    org.andromda.cartridges.webservice.metafacades.WebServiceParameter
 {
     // ---------------- constructor -------------------------------
 

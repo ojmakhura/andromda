@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EntityAssociationFacadeLogicImpl
     extends EntityAssociationFacadeLogic
-    implements org.andromda.metafacades.uml.EntityAssociationFacade
 {
     // ---------------- constructor -------------------------------
 

@@ -9,8 +9,7 @@ import org.andromda.cartridges.hibernate.HibernateProfile;
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation
  */
 public class HibernateAssociationLogicImpl
-       extends HibernateAssociationLogic
-       implements org.andromda.cartridges.hibernate.metafacades.HibernateAssociation
+    extends HibernateAssociationLogic
 {
     // ---------------- constructor -------------------------------
 

@@ -20,7 +20,6 @@ import org.omg.uml.foundation.core.ModelElement;
  */
 public class ModelFacadeLogicImpl
     extends ModelFacadeLogic
-    implements org.andromda.metafacades.uml.ModelFacade
 {
     // ---------------- constructor -------------------------------
 

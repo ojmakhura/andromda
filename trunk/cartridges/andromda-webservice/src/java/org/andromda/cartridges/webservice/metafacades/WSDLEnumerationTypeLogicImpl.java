@@ -13,8 +13,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class WSDLEnumerationTypeLogicImpl
     extends WSDLEnumerationTypeLogic
-    implements
-    org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType
 {
     // ---------------- constructor -------------------------------
 

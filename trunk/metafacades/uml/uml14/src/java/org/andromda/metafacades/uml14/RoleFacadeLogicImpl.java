@@ -1,8 +1,13 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ServiceFacade;
+import org.andromda.metafacades.uml.ServiceOperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -12,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class RoleFacadeLogicImpl
     extends RoleFacadeLogic
-    implements org.andromda.metafacades.uml.RoleFacade
 {
     // ---------------- constructor -------------------------------
 
@@ -49,9 +53,9 @@ public class RoleFacadeLogicImpl
     private static final String MASK_NONE = "none";
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String getName()
+    public String handleGetName()
     {
         String name;
         Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_ROLE_NAME);
@@ -61,7 +65,7 @@ public class RoleFacadeLogicImpl
         }
         else
         {
-            name = super.getName();
+            name = super.handleGetName();
             String mask = StringUtils
                 .trimToEmpty(String
                     .valueOf(this
@@ -88,5 +92,25 @@ public class RoleFacadeLogicImpl
             }
         }
         return name;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.RoleFacade#isEnabled()
+     */
+    protected boolean handleIsEnabled()
+    {
+        return CollectionUtils.find(
+            this.getSourceDependencies(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    Object target = dependency.getTargetElement();
+                    return target instanceof ServiceFacade
+                        || target instanceof ServiceOperationFacade;
+                }
+            }) != null;
+
     }
 }

@@ -19,8 +19,7 @@ import org.andromda.metafacades.uml.*;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
  */
 public class StrutsForwardLogicImpl
-        extends StrutsForwardLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
+    extends StrutsForwardLogic
 {
     // ---------------- constructor -------------------------------
 

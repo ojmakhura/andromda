@@ -11,8 +11,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class WebServiceOperationLogicImpl
     extends WebServiceOperationLogic
-    implements
-    org.andromda.cartridges.webservice.metafacades.WebServiceOperation
 {
     // ---------------- constructor -------------------------------
 

@@ -5,7 +5,6 @@ package org.andromda.metafacades.uml14;
  */
 public class StateFacadeLogicImpl
     extends StateFacadeLogic
-    implements org.andromda.metafacades.uml.StateFacade
 {
     // ---------------- constructor -------------------------------
 

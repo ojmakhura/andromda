@@ -5,7 +5,6 @@ package org.andromda.metafacades.uml14;
  */
 public class FinalStateFacadeLogicImpl
     extends FinalStateFacadeLogic
-    implements org.andromda.metafacades.uml.FinalStateFacade
 {
     // ---------------- constructor -------------------------------
 

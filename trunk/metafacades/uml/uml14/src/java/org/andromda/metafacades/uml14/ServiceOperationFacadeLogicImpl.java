@@ -20,7 +20,6 @@ import org.apache.commons.collections.Transformer;
  */
 public class ServiceOperationFacadeLogicImpl
     extends ServiceOperationFacadeLogic
-    implements org.andromda.metafacades.uml.ServiceOperationFacade
 {
     // ---------------- constructor -------------------------------
 

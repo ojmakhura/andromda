@@ -16,8 +16,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class HibernateFinderMethodLogicImpl
     extends HibernateFinderMethodLogic
-    implements
-    org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod
 {
     // ---------------- constructor -------------------------------
 

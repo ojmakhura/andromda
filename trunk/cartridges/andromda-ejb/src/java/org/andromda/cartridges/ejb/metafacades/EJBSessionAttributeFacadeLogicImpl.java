@@ -10,8 +10,6 @@ import org.andromda.metafacades.uml.UMLProfile;
  */
 public class EJBSessionAttributeFacadeLogicImpl
     extends EJBSessionAttributeFacadeLogic
-    implements
-    org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacade
 {
     // ---------------- constructor -------------------------------
 

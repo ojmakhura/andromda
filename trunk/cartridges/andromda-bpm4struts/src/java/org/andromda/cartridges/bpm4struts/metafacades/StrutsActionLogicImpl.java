@@ -26,8 +26,7 @@ import java.util.Map;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction
  */
 public class StrutsActionLogicImpl
-        extends StrutsActionLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsAction
+    extends StrutsActionLogic
 {
     private Collection actionStates = null;
     private Collection actionForwards = null;
@@ -261,10 +260,10 @@ public class StrutsActionLogicImpl
     /**
      * Overrides the one from StrutsForward. This one incorporates the name of the originating page to avoid conflicts.
      */
-    public String getMessageKey()
+    public String handleGetMessageKey()
     {
-        String messageKey = super.getMessageKey() + ' ';
-        messageKey += (isExitingPage()) ? getInput().getName() : messageKey;
+        String messageKey = super.handleGetMessageKey() + ' ';
+        messageKey += isExitingPage() ? getInput().getName() : "";
         return StringUtilsHelper.toResourceMessageKey(messageKey);
     }
 

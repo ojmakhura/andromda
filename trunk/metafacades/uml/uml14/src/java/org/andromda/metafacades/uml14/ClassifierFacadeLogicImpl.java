@@ -27,7 +27,6 @@ import org.omg.uml.foundation.core.Operation;
  */
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
-    implements org.andromda.metafacades.uml.ClassifierFacade
 {
     // ---------------- constructor -------------------------------
 

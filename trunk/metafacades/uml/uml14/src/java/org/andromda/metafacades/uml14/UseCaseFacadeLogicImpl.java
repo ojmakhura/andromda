@@ -15,7 +15,6 @@ import org.omg.uml.foundation.core.ModelElement;
  */
 public class UseCaseFacadeLogicImpl
     extends UseCaseFacadeLogic
-    implements org.andromda.metafacades.uml.UseCaseFacade
 {
     // ---------------- constructor -------------------------------
 

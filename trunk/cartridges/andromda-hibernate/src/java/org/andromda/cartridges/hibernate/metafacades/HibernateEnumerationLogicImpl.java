@@ -7,8 +7,7 @@ package org.andromda.cartridges.hibernate.metafacades;
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration
  */
 public class HibernateEnumerationLogicImpl
-       extends HibernateEnumerationLogic
-       implements org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration
+    extends HibernateEnumerationLogic
 {
     // ---------------- constructor -------------------------------
 

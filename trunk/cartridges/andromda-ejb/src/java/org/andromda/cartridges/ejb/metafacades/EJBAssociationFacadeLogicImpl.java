@@ -10,7 +10,6 @@ import org.andromda.metafacades.uml.UMLProfile;
  */
 public class EJBAssociationFacadeLogicImpl
     extends EJBAssociationFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade
 {
     // ---------------- constructor -------------------------------
 

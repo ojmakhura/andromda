@@ -19,7 +19,6 @@ import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
  */
 public class ActivityGraphFacadeLogicImpl
     extends ActivityGraphFacadeLogic
-    implements org.andromda.metafacades.uml.ActivityGraphFacade
 {
     // ---------------- constructor -------------------------------
 

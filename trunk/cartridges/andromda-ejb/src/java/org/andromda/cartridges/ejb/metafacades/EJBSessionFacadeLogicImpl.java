@@ -14,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EJBSessionFacadeLogicImpl
     extends EJBSessionFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBSessionFacade
 {
     // ---------------- constructor -------------------------------
 

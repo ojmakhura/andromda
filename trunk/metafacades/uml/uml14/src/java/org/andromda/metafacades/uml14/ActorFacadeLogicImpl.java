@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.GeneralizationFacade;
  */
 public class ActorFacadeLogicImpl
     extends ActorFacadeLogic
-    implements org.andromda.metafacades.uml.ActorFacade
 {
     // ---------------- constructor -------------------------------
 

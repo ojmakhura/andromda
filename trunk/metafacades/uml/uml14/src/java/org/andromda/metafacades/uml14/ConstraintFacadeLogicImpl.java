@@ -14,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
-    implements org.andromda.metafacades.uml.ConstraintFacade
 {
     // ---------------- constructor -------------------------------
 

@@ -10,7 +10,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringEntityOperationLogicImpl
     extends SpringEntityOperationLogic
-    implements org.andromda.cartridges.spring.metafacades.SpringEntityOperation
 {
     // ---------------- constructor -------------------------------
 

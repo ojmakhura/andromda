@@ -7,7 +7,6 @@ package org.andromda.metafacades.uml14;
  */
 public class GuardFacadeLogicImpl
     extends GuardFacadeLogic
-    implements org.andromda.metafacades.uml.GuardFacade
 {
     // ---------------- constructor -------------------------------
 

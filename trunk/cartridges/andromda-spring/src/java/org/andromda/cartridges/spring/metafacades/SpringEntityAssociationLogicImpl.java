@@ -10,7 +10,6 @@ import org.andromda.cartridges.spring.SpringProfile;
  */
 public class SpringEntityAssociationLogicImpl
        extends SpringEntityAssociationLogic
-       implements org.andromda.cartridges.spring.metafacades.SpringEntityAssociation
 {
     // ---------------- constructor -------------------------------
 

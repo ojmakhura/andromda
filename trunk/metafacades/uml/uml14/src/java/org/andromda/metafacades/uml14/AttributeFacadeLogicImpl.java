@@ -16,7 +16,6 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
  */
 public class AttributeFacadeLogicImpl
     extends AttributeFacadeLogic
-    implements org.andromda.metafacades.uml.AttributeFacade
 {
     // ---------------- constructor -------------------------------
 

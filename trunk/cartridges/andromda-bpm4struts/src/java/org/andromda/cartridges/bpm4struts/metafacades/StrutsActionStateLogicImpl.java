@@ -23,8 +23,7 @@ import java.util.Map;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState
  */
 public class StrutsActionStateLogicImpl
-        extends StrutsActionStateLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState
+    extends StrutsActionStateLogic
 {
     // ---------------- constructor -------------------------------
 

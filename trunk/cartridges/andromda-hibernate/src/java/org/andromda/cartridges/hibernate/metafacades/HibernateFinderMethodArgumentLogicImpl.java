@@ -8,8 +8,6 @@ package org.andromda.cartridges.hibernate.metafacades;
  */
 public class HibernateFinderMethodArgumentLogicImpl
     extends HibernateFinderMethodArgumentLogic
-    implements
-    org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument
 {
     // ---------------- constructor -------------------------------
 

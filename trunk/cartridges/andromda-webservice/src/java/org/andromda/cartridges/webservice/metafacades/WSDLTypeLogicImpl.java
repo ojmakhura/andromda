@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class WSDLTypeLogicImpl
     extends WSDLTypeLogic
-    implements org.andromda.cartridges.webservice.metafacades.WSDLType
 {
     // ---------------- constructor -------------------------------
 

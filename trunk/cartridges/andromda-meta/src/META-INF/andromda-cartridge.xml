@@ -1,7 +1,7 @@
 <cartridge name="meta">
-
+    
     <templateEngine>
-        <macrolibrary name="templates/RenderTranslation.vm"/>
+        <macrolibrary name="templates/meta/RenderTranslation.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
@@ -11,7 +11,7 @@
 
     <!-- the template definitions -->
     <template
-        path="templates/MetafacadeLogic.vsl"
+        path="templates/meta/MetafacadeLogic.vsl"
         outputPattern="$generatedFile"
         outlet="facade-logics"
         overwrite="true">
@@ -21,7 +21,7 @@
     </template>
 
     <template
-        path="templates/MetafacadeLogicImpl.vsl"
+        path="templates/meta/MetafacadeLogicImpl.vsl"
         outputPattern="$generatedFile"
         outlet="facade-logic-impls"
         overwrite="false">
@@ -31,7 +31,7 @@
     </template>
 
     <template
-        path="templates/Metafacade.vsl"
+        path="templates/meta/Metafacade.vsl"
         outputPattern="{0}/{1}.java"
         outlet="facades"
         overwrite="true">
@@ -41,7 +41,7 @@
     </template>
 
     <template
-        path="templates/MetafacadesToImpls.vsl"
+        path="templates/meta/MetafacadesToImpls.vsl"
         outputPattern="metafacade-impls.properties"
         outlet="facades-to-impls"
         overwrite="true"

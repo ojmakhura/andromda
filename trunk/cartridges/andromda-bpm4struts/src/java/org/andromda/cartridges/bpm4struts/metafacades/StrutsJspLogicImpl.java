@@ -23,8 +23,7 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
  */
 public class StrutsJspLogicImpl
-        extends StrutsJspLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
+    extends StrutsJspLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -215,13 +214,14 @@ public class StrutsJspLogicImpl
         {
             Object object = iterator.next();
             if (!(object instanceof StrutsAction))
+            {
                 actions.add(object);
+            }
         }
-
         return actions;
     }
 
-    public StrutsForward getForward()
+    public Object handleGetForward()
     {
         return (StrutsForward) shieldedElement(getOutgoing().iterator().next());
     }

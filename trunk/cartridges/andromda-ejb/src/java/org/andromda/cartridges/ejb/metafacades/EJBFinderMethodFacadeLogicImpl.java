@@ -15,7 +15,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EJBFinderMethodFacadeLogicImpl
     extends EJBFinderMethodFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacade
 {
     // ---------------- constructor -------------------------------
 

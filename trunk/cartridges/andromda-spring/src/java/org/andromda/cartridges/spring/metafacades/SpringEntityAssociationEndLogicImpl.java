@@ -12,8 +12,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringEntityAssociationEndLogicImpl
     extends SpringEntityAssociationEndLogic
-    implements
-    org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd
 {
     // ---------------- constructor -------------------------------
 

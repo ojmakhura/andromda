@@ -7,7 +7,6 @@ import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
  */
 public class PseudostateFacadeLogicImpl
     extends PseudostateFacadeLogic
-    implements org.andromda.metafacades.uml.PseudostateFacade
 {
     // ---------------- constructor -------------------------------
 

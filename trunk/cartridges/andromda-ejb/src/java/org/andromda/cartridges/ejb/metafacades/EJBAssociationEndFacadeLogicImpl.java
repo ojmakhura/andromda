@@ -8,7 +8,6 @@ package org.andromda.cartridges.ejb.metafacades;
  */
 public class EJBAssociationEndFacadeLogicImpl
     extends EJBAssociationEndFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacade
 {
     // ---------------- constructor -------------------------------
 

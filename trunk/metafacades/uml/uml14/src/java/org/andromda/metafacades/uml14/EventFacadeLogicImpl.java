@@ -13,7 +13,6 @@ import org.omg.uml.behavioralelements.statemachines.Transition;
  */
 public class EventFacadeLogicImpl
     extends EventFacadeLogic
-    implements org.andromda.metafacades.uml.EventFacade
 {
     // ---------------- constructor -------------------------------
 

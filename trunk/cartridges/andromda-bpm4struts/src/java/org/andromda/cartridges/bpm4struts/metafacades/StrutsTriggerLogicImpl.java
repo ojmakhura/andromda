@@ -12,8 +12,7 @@ import java.lang.reflect.Method;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger
  */
 public class StrutsTriggerLogicImpl
-        extends StrutsTriggerLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger
+    extends StrutsTriggerLogic
 {
     // ---------------- constructor -------------------------------
 

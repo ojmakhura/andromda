@@ -17,8 +17,7 @@ import java.util.*;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter
  */
 public class StrutsParameterLogicImpl
-        extends StrutsParameterLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter
+    extends StrutsParameterLogic
 {
     // ---------------- constructor -------------------------------
 
