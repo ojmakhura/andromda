@@ -8,6 +8,7 @@
     <!-- externalise the hibernate ID generator class see the hibernate doc for details -->
     <property reference="idGeneratorClass" default="uuid.hex"/>
     <property reference="tableNamePrefix" default=""/>
+    <property reference="versionProperty" default=""/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"

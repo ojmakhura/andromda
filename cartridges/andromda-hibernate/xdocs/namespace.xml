@@ -166,6 +166,20 @@
                           No, default is the empty string
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                          versionProperty
+                    </td>
+                    <td>
+                          The name of the property/attribute to automatically add to entities
+                          for versioning purposes. If this value is not specified or it contains
+                          only whitespace characters it will be ignored and the property will
+                          not be generated.
+                    </td>
+                    <td>
+                          No, default is the empty string
+                    </td>
+                </tr>
             </table>
         </section>
     </body>

@@ -33,6 +33,27 @@ public abstract class $entity.name
 #end
 {
     // --------------- attributes ---------------------
+#if ($str.isNotBlank($versionProperty))
+#set ($versionPropertyCapitalized = $str.upperCaseFirstLetter($versionProperty))
+   private int $versionProperty;
+
+    /**
+     * @hibernate.version
+     *     column="$versionProperty"
+     *     type="int"
+     *     unsaved-value="null"
+     */
+    public int get${versionPropertyCapitalized}()
+    {
+        return this.$versionProperty;
+    }
+
+    public void set${versionPropertyCapitalized}(int $versionProperty)
+    {
+        this.$versionProperty = $versionProperty;
+    }
+
+#end
 #foreach ( $attribute in $entity.attributes )
     private $attribute.type.fullyQualifiedName $attribute.name;
 
