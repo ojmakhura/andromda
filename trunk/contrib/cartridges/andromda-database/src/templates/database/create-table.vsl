@@ -2,7 +2,7 @@
 /* --------------- $table.name table definition --------------------- */
 #set ($primaryKeyColumn = $table.primaryKeyColumn)
 CREATE TABLE $table.tableName (
-	$primaryKeyColumn.columnName $primaryKeyColumn.sqlType NOT NULL,
+    $primaryKeyColumn.columnName $primaryKeyColumn.sqlType NOT NULL,
 #foreach ( $column in $table.nonForeignKeyColumns )
 #if ($column.primaryKey == false)
 #set ($hasInitialValue = $stringUtils.isNotBlank($column.defaultValue()))
@@ -10,11 +10,11 @@ CREATE TABLE $table.tableName (
 #if ($initialValue.class.name == "java.lang.Boolean")
 #if($initialValue)
 #set($initialValue = "1")
-#else  
+#else
 #set($initialValue = "0")
 #end
 #end
-	$column.columnName $column.sqlType#if($hasInitialValue) DEFAULT $initialValue#end#if($column.required) NOT#end NULL,
+    $column.columnName $column.sqlType#if($hasInitialValue) DEFAULT $initialValue#end#if($column.required) NOT#end NULL,
 #end
 #end
 ##

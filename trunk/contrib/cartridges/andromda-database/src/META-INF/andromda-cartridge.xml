@@ -1,69 +1,69 @@
 <cartridge name="database">
-	
-	<!-- templateObjects -->
-    	
-    <templateObject 
-    	name="databaseTemplateObject"
-    	className="org.andromda.cartridges.database.DatabaseTemplateObject">
-    	<property reference="maxSqlNameLength"/>
-    </templateObject>  
 
-    <templateObject 
-    	name="stringUtils"
-    	className="org.andromda.core.common.StringUtilsHelper"/>  
-    	
-	<!-- template definitions -->
-	
-	<template 
-		path="templates/database/create-schema.vsl" 
-		outputPattern="create-schema.sql" 
-		outlet="scripts" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="tables">
-            <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table"/>                
-            </modelElement>
-		</modelElements>
-	</template>
+    <!-- templateObjects -->
 
-	<template 
-		path="templates/database/create-table.vsl" 
-		outputPattern="create-table-{1}.sql" 
-		outlet="scripts" 
-		overwrite="true">
-		<modelElements variable="table">
-            <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table"/>                
-            </modelElement>
-		</modelElements>
-	</template>
+    <templateObject
+        name="databaseTemplateObject"
+        className="org.andromda.cartridges.database.DatabaseTemplateObject">
+        <property reference="maxSqlNameLength"/>
+    </templateObject>
 
-	<template 
-		path="templates/database/drop-schema.vsl" 
-		outputPattern="drop-schema.sql" 
-		outlet="scripts" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="tables">
+    <templateObject
+        name="stringUtils"
+        className="org.andromda.core.common.StringUtilsHelper"/>
+
+    <!-- template definitions -->
+
+    <template
+        path="templates/database/create-schema.vsl"
+        outputPattern="create-schema.sql"
+        outlet="scripts"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="tables">
             <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table"/>                
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
-		</modelElements>
-	</template>
-		
-	<template 
-		path="templates/database/create-sequence.vsl" 
-		outputPattern="create-sequences.sql" 
-		outlet="scripts" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="tables">
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/database/create-table.vsl"
+        outputPattern="create-table-{1}.sql"
+        outlet="scripts"
+        overwrite="true">
+        <modelElements variable="table">
             <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table"/>                
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/database/drop-schema.vsl"
+        outputPattern="drop-schema.sql"
+        outlet="scripts"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="tables">
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/database/create-sequence.vsl"
+        outputPattern="create-sequences.sql"
+        outlet="scripts"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="tables">
+            <modelElement>
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/database/create-foreign-keys.vsl"
@@ -73,7 +73,7 @@
         outputToSingleFile="true">
         <modelElements variable="tables">
             <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table"/>                
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
         </modelElements>
     </template>
@@ -87,7 +87,7 @@
         required="false">
         <modelElements variable="tables">
             <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table"/>                
+                <type name="org.andromda.cartridges.database.metafacades.Table"/>
             </modelElement>
         </modelElements>
     </template>
