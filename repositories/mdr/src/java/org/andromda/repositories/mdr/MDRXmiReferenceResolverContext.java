@@ -58,14 +58,19 @@ public class MDRXmiReferenceResolverContext
         if (logger.isDebugEnabled())
             logger.debug("attempting to resolve Xmi Href --> '" + systemId
                 + "'");
-        // if the model URL has a '.zip', remove it
-        systemId = systemId.replaceAll("\\.zip", "");
-        String suffix = getSuffix(systemId);
-        URL modelUrl = (URL)urlMap.get(suffix);
+        
+        final String suffix = getSuffix(systemId);
+        
+        // if the model URL has a suffix of '.zip' or '.jar', get 
+        // the suffix without it and store it in the urlMap
+        String exts = "\\.jar|\\.zip";
+        String suffixWithExt = suffix.replaceAll(exts, "");
+        URL modelUrl = (URL)urlMap.get(suffixWithExt);
         
         // Several tries to construct a URL that really exists.
         if (modelUrl == null)
         {
+            // If systemId is a valid URL, simply use it
             modelUrl = this.getValidURL(systemId);
 	        if (modelUrl == null)
 	        {
@@ -93,7 +98,7 @@ public class MDRXmiReferenceResolverContext
 	        {
 	            AndroMDALogger.info("Referenced model --> '" 
 	                + modelUrl + "'");
-	            urlMap.put(suffix, modelUrl);
+	            urlMap.put(suffixWithExt, modelUrl);
 	        }
         }
         return modelUrl;
@@ -133,7 +138,7 @@ public class MDRXmiReferenceResolverContext
                     return null;
                 }
 
-                if (moduleName.endsWith(".zip"))
+                if (moduleName.endsWith(".zip") || moduleName.endsWith(".jar"))
                 {
                     // typical case for MagicDraw
                     urlString = "jar:" + urlString + "!/"
