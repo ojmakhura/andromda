@@ -202,12 +202,12 @@ public class SpecialAttribute extends Attribute {
 <source>            
 #foreach ( $operation in $class.operations)
 #set ($visibility = $operation.visibility)
-#set ($returntype = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.hasExceptions())
-    $visibility abstract $returntype $operation.signature
+    $visibility abstract $returnType $operation.signature
         throws $operation.exceptionList;
 #else
-    $visibility abstract $returntype $operation.signature;
+    $visibility abstract $returnType $operation.signature;
 #end
 </source>
             <p>
@@ -233,7 +233,7 @@ public class SpecialAttribute extends Attribute {
                 above is:
             </p>
 <source>            
-#set ($returntype = $op.returnType.fullyQualifiedName)
+#set ($returnType = $op.returnType.fullyQualifiedName)
 </source>
             <p>
                 This template engine invokes two methods, here:
