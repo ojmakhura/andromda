@@ -85,7 +85,7 @@
 	<goal name="dist-bin" prereqs="dist-init">
 		    			
         <ant:delete dir="${binaryDistDir}"/>
-	    <attainGoal name="install-components"/>
+	    <attainGoal name="install"/>
 		<ant:mkdir dir="${binaryDistLibDir}"/>
 				
 		<!-- first add the components -->
@@ -149,46 +149,6 @@
 		</j:forEach> 
 		
 		<!-- now add the samples -->
-		<attainGoal name="dist-samples"/>  	
-		
-		<!-- add docs -->
-		<attainGoal name="docs"/>
-		<ant:copy todir="${binaryDistDir}">
-			<ant:fileset dir="documentation/target">
-				<ant:include name="*.zip"/>
-			</ant:fileset>
-		</ant:copy>
- 
-		<!-- zip it all up -->
-        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
-		<ant:zip zipfile="${zipFile}">
-            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
-        </ant:zip>	
-        		
-	</goal>
-	
-	<!-- ==================================================================
-	         Performs the distribution initialization                                                   
-		 ================================================================== --> 	
-	<goal name="dist-init">
-		<j:set 
-			var="distName" 
-			value="${pom.groupId}-bin-${pom.currentVersion}"/>	
-		<j:set 
-			var="binaryDistDir" 
-			value="${distribution.dir}/${distName}"/>
-		<j:set
-			var="binaryDistLibDir"
-			value="${binaryDistDir}/lib"/>
-	</goal>
-	
-	<!-- ==================================================================
-	         Adds the samples to the distribution                                                   
-		 ================================================================== --> 
-	<goal name="dist-samples" prereqs="dist-init">
-		
-	    <attainGoal name="install-samples"/>
-		
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Samples: "
@@ -247,6 +207,35 @@
 		<j:set var="distMavenXml" value="${templatesDir}/distribution-maven.xml"/>
 		<ant:copy file="${distMavenXml}" tofile="${toDir}/maven.xml"/>
 		
+		<!-- add docs -->
+		<attainGoal name="docs"/>
+		<ant:copy todir="${binaryDistDir}">
+			<ant:fileset dir="documentation/target">
+				<ant:include name="*.zip"/>
+			</ant:fileset>
+		</ant:copy>
+ 
+		<!-- zip it all up -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+		<ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+        </ant:zip>	
+        		
+	</goal>
+	
+	<!-- ==================================================================
+	         Performs the distribution initialization                                                   
+		 ================================================================== --> 	
+	<goal name="dist-init">
+		<j:set 
+			var="distName" 
+			value="${pom.groupId}-bin-${pom.currentVersion}"/>	
+		<j:set 
+			var="binaryDistDir" 
+			value="${distribution.dir}/${distName}"/>
+		<j:set
+			var="binaryDistLibDir"
+			value="${binaryDistDir}/lib"/>
 	</goal>
 		
 	<!-- ==================================================================
