@@ -11,7 +11,11 @@
       		
 		<set-properties-rule>
  			<alias attr-name="namepace" prop-name="namespace" />
- 		</set-properties-rule>      
+ 		</set-properties-rule>    
+        
+		<set-properties-rule>
+ 			<alias attr-name="shared" prop-name="shared" />
+ 		</set-properties-rule>   
  		
  		<!-- add configuration property references to the metafacade -->
 		<pattern value="property">

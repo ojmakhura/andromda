@@ -28,12 +28,17 @@
     <xs:element name="metafacade">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
+				<xs:choice>
+                    <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
+				</xs:choice>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="metaobjectClass" type="xs:string" use="required"/>
             <xs:attribute name="metafacadeClass" type="xs:string" use="required"/>
+			<!-- You should set the context root to 'true' when the metafacade
+				 mapping will be used as a context for other mappings -->
+			<xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="metafacades">
@@ -45,6 +50,9 @@
             </xs:sequence>
             <!-- each grouping of metafacades is identified by this namespaces -->
             <xs:attribute name="namespace" type="xs:string" use="required"/>
+            <!-- Specifies whether or not this set of metafacades is 'shared'
+                 Shared metafacades are mappings used across all namespaces -->
+            <xs:attribute name="shared" type="xs:boolean" use="optional" default="false"/>
         </xs:complexType>
     </xs:element>
     <!-- property references are properties you wish to configure on a metafacade,
@@ -52,6 +60,8 @@
     <xs:element name="property">
         <xs:complexType>
             <xs:attribute name="reference" type="xs:string" use="required"/>
+            <!-- defines the default value of the property if the property isn't supplied -->
+            <xs:attribute name="default" use="optional"/>     
         </xs:complexType>
     </xs:element>
     <xs:element name="stereotype" type="xs:string"/>
