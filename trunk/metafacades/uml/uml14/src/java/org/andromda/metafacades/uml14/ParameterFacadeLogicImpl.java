@@ -1,6 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.core.common.StringUtilsHelper;
 import org.omg.uml.foundation.datatypes.Expression;
 
 
@@ -16,17 +15,6 @@ public class ParameterFacadeLogicImpl
     public ParameterFacadeLogicImpl (org.omg.uml.foundation.core.Parameter metaObject, String context)
     {
         super (metaObject, context);
-    }
-
-    /**
-     * This method is overridden to make sure the name 
-     * will <strong>not</strong> result in uncompilable Java code.
-     * 
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
-     */
-    public String getName()
-    {
-        return StringUtilsHelper.toJavaMethodName(super.getName());
     }
 
     // -------------------- business methods ----------------------
