@@ -35,18 +35,6 @@
         </to>
     </expression>
 
-    <!--
-    <expression>
-        <from>
-            context CustomerCard
-            inv: printedName = customer.title.concat( customer.name )
-        </from>
-        <to>
-            org.andromda.translation.validation.OCLExpressions.equal(printedName,customer.title.concat(customer.name))
-        </to>
-    </expression>
-	-->
-
     <expression>
         <from>
             context LoyaltyProgram
@@ -178,17 +166,6 @@
         </to>
     </expression>
 
-<!--
-    <expression>
-        <from>
-            context Customer
-            inv: self.isRelatedTo(self) = true
-        </from>
-        <to>
-            org.andromda.translation.validation.OCLExpressions.equal(contextElement.isRelatedTo(contextElement),true)
-        </to>
-    </expression>
--->
     <expression>
         <from>
             context Membership
@@ -287,6 +264,16 @@
         </from>
         <to>
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLCollections.isUnique(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"operations"),new org.apache.commons.collections.Transformer(){public Object transform(java.lang.Object object){return org.andromda.translation.validation.OCLIntrospector.invoke(object,"name");}}));
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context Customer
+            inv: age.oclIsKindOf(Integer)
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"age") instanceof Integer);
         </to>
     </expression>
 
