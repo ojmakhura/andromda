@@ -8,7 +8,9 @@
   <body> 
     <section name="AndroMDA Spring Cartridge">
 		<p>
-  			Generates <a href="http://www.springframework.org">Spring Framework</a> components.
+  			A cartridge based on the <a href="http://www.springframework.org">Spring Framework</a>.
+			This cartridge, can work without an EJB container (i.e. standalone Tomcat for example) 
+			or within an EJB container (using EJB itself) simply by modifying a few namespace properties.
 		</p>
     </section>
   </body>
