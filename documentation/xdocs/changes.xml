@@ -9,6 +9,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-03-19" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="update">
+                The <![CDATA[<<PrimaryKey>>]]> stereotype has been renamed to <![CDATA[<<Identifier>>]]>. UML tools
+                that do not import the latest version of the andromda profile will need to have the stereotype
+                renamed by the user.
+            </action>
             <action dev="draftdog" type="add">
                 The caching of metafacade properties can now be disabled (even on a per cartridge basis), just use
                 the <code>enableMetafacadePropertyCaching</code> namespace property. Most properties are being cached
