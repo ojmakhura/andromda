@@ -15,8 +15,8 @@ import org.apache.commons.beanutils.PropertyUtils;
  * <p>
  *  A configurable pattern matching error handler retrieves exception mapping
  *  keys from an exception, and re-throws the exception if a pattern can not be
- *  retrieved.  This is used to retrieve keys from the back-end exceptions 
- *  which can be mapped to exception messages keyed in an application resource 
+ *  retrieved.  This is used to retrieve keys from the back-end exceptions
+ *  which can be mapped to exception messages keyed in an application resource
  *  file.
  * </p>
  */
@@ -24,12 +24,12 @@ public class $className
     implements java.io.Serializable
 {
     private static final $className instance = new PatternMatchingExceptionHandler();
-    
+
     private static final Pattern compiledPattern = Pattern.compile("$exceptionHandlerPattern");
 
     /**
      * Gets the shared PatternMatchingExceptionHandler instance.
-     * 
+     *
      * @return the shared instance
      */
     public static PatternMatchingExceptionHandler instance()
@@ -41,7 +41,7 @@ public class $className
      * Handles Exceptions by retrieving the message and attempting to extract
      * the specified pattern defined within this class. If a string can not be
      * found matching the pattern, the exception is re-thrown
-     * 
+     *
      * @param exception the Exception containing the message to retrieve
      * @return the retrieved string matching the pattern.
      */
@@ -64,7 +64,10 @@ public class $className
             {
                 // no match was found ignore
             }
-            return matched;
+            if (matched != null)
+            {
+                return matched;
+            }
         }
         if (cause instanceof Exception)
         {
@@ -72,51 +75,51 @@ public class $className
         }
         throw new Exception(cause);
     }
-    
-	/**
-	 * Finds the root cause of the parent exception
-	 * by traveling up the exception tree
-	 */
-    private Throwable findRootCause(Throwable th) 
+
+    /**
+     * Finds the root cause of the parent exception
+     * by traveling up the exception tree
+     */
+    private Throwable findRootCause(Throwable th)
     {
-    	if (th != null) 
-    	{
+        if (th != null)
+        {
             // Reflectively get any exception causes.
-            try 
+            try
             {
                 Throwable targetException = null;
-                // java.lang.reflect.InvocationTargetException 
+                // java.lang.reflect.InvocationTargetException
                 String exceptionProperty = "targetException";
-                if (PropertyUtils.isReadable(th, exceptionProperty)) 
+                if (PropertyUtils.isReadable(th, exceptionProperty))
                 {
                     targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
-                } 
-                else 
+                }
+                else
                 {
-                	exceptionProperty = "causedByException";
+                    exceptionProperty = "causedByException";
                     // javax.ejb.EJBException
-                    if (PropertyUtils.isReadable(th, exceptionProperty)) 
+                    if (PropertyUtils.isReadable(th, exceptionProperty))
                     {
-                    	targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                        targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
                     }
                 }
-                if (targetException != null) 
+                if (targetException != null)
                 {
-                	th = targetException;
+                    th = targetException;
                 }
-            } 
-            catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
-            	// just print the exception and continue
+                // just print the exception and continue
                 ex.printStackTrace();
             }
-            
-            if (th.getCause() != null) 
+
+            if (th.getCause() != null)
             {
                 th = th.getCause();
                 th = findRootCause(th);
             }
         }
         return th;
-	}
+    }
 }
