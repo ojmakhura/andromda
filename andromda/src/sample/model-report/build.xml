@@ -30,6 +30,7 @@
                  lastModifiedCheck="false"
                  templatePath="templates"
                  useDefaultTemplateConfig="false"
+                 typeMappings="${andromda.home}/src/xml/TypeMapping.xml"
         >
         	<repository
         		classname="org.andromda.core.mdr.MDRepositoryFacade"
