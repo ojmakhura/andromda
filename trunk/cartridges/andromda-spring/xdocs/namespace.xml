@@ -81,20 +81,6 @@
 				</tr>
 				<tr>
 					<td>
-						session-ejbs
-					</td>
-					<td>
-						The location to which Spring Session EJBs will be generated,
-						if this is specified, then session EJBs will wrap Spring
-						service POJOs and transaction management will be handled
-						by the Session EJB (instead of Spring).
-					</td>
-					<td>
-						No
-					</td>
-				</tr>
-				<tr>
-					<td>
 						spring-configuration
 					</td>
 					<td>
@@ -224,6 +210,43 @@
 						No, default is <a href="http://www.springframework.org/docs/api/org/springframework/orm/hibernate/LocalSessionFactoryBean.html">org.springframework.orm.hibernate.LocalSessionFactoryBean</a>
 					</td>
 				</tr>   
+                <tr>
+                    <td>
+                        applicationContext
+                    </td>
+                    <td>
+                        The name/path of the application context resource
+                        file (i.e. some/path/applicationContex.xml)
+                    </td>
+                    <td>
+                        No, default is <code>applicationContext.xml</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        beanRefFactory
+                    </td>
+                    <td>
+                        The name/path of the bean ref factory resource
+                        file (i.e. some/path/beanRefFactory.xml)
+                    </td>
+                    <td>
+                        No, default is beanRefFactory.xml
+                    </td>
+                </tr>        	  
+                <tr>
+                    <td>
+                        beanRefFactoryId
+                    </td>
+                    <td>
+                        The ID for the Spring bean reference factory (used
+                        to load the bean factory when using the Session EJB 
+                        wrappers)
+                    </td>
+                    <td>
+                        No, default is beanRefFactory
+                    </td>
+                </tr>     
 			</table>
             <subsection name="Hibernate Specific Properties">
                 <table>
@@ -438,6 +461,27 @@
 							No
 						</td>
 					</tr>       	
+                </table>
+            </subsection>
+            <subsection name="EJB Specific Properties">
+                <table>
+                    <tr>
+                        <td>
+                            session-ejbs
+                        </td>
+                        <td>
+                            The location to which Spring Session EJBs will be generated,
+                            if this is specified, then session EJBs will wrap Spring
+                            service POJOs and transaction management will be handled
+                            by the Session EJB (instead of Spring).
+                            <strong>IMPORTANT:</strong> This enables Session EJB support, 
+                            if you want your Spring service objects to be wrapped with 
+                            Session EJBs then you need to specify this property.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
 					<tr>
 						<td>
 							ejbJndiNamePrefix
@@ -480,44 +524,19 @@
 						<td>
 							No, default is <code>local</code>.
 						</td>
-					</tr>
+					</tr> 	
 					<tr>
 						<td>
-							applicationContext
+							ejbSecurityDomain
 						</td>
 						<td>
-							The name/path of the application context resource
-							file (i.e. some/path/applicationContex.xml)
+						    The name of the security domain (i.e. java:/jaas/animal-quiz, 
+                            java:/jaas/other, etc).  <strong>NOTE:</strong>This enables EJB security if specified.
 						</td>
 						<td>
-							No, default is <code>applicationContext.xml</code>
+							No
 						</td>
-					</tr> 
-					<tr>
-						<td>
-							beanRefFactory
-						</td>
-						<td>
-							The name/path of the bean ref factory resource
-							file (i.e. some/path/beanRefFactory.xml)
-						</td>
-						<td>
-							No, default is beanRefFactory.xml
-						</td>
-					</tr>        	  
-					<tr>
-						<td>
-							beanRefFactoryId
-						</td>
-						<td>
-							The ID for the Spring bean reference factory (used
-							to load the bean factory when using the Session EJB 
-							wrappers)
-						</td>
-						<td>
-							No, default is beanRefFactory
-						</td>
-					</tr>      	
+					</tr>   
 				</table>
 			</subsection>
     	</section>

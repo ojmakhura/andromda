@@ -1,4 +1,5 @@
 #parse("templates/spring/ejb/SpringSessionEJBGlobals.vm")
+#if ($ejbsEnabled)
 #set ($generatedFile = "${service.ejbPackageNamePath}/${service.name}Home.java")
 //
 // Attention: Generated code! Do not modify by hand!
@@ -35,3 +36,4 @@ public interface ${service.name}Home
         $throwsList;
 
 }
+#end

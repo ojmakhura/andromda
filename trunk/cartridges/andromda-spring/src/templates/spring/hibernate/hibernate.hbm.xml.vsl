@@ -15,10 +15,7 @@
 	<class name="${entity.fullyQualifiedEntityImplementationName}" table="${entity.tableName}">
 
 #set ($identifier = $entity.identifiers.iterator().next())
-		<id name="$identifier.name" 
-			type="${identifier.type.fullyQualifiedName}" 
-			column="${identifier.columnName}"
-			unsaved-value="null">
+		<id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
 #if ($entity.child)
 #set ($parent = $entity.parent)
 #set ($parentPropertyName = $stringUtils.uncapitalize($parent.name))
