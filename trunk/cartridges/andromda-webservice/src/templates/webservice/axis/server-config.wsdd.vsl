@@ -47,10 +47,8 @@ $service.getDocumentation("            ", 64, false)
 #parse("templates/webservice/axis/${service.provider}-provider.vm")
 #foreach ( $operation in $service.allowedOperations )
         <operation name="${operation.name}">
-#foreach ( $parameter in $operation.parameters )
-#if ($parameter.name != 'return')
-            <parameter name="${parameter.name}"/>
-#end
+#foreach ( $argument in $operation.arguments )
+            <parameter name="${argument.name}"/>
 #end
         </operation>
 #end
