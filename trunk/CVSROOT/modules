@@ -24,7 +24,8 @@
 # character to interpose another module into the current module.  This
 # can be useful for creating a module that consists of many directories
 # spread out over the entire source repository.
-andromda   andromda
+andromda andromda
+ant ant
 cartridges cartridges
 documentation documentation
 metafacades metafacades
@@ -32,5 +33,5 @@ maven maven
 repositories repositories
 samples samples
 templateengines templateengines
-andromda-all productbuild &andromda &cartridges &documentation &metafacades &maven &repositories &samples &templateengines
+andromda-all productbuild &andromda &ant &cartridges &documentation &metafacades &maven &repositories &samples &templateengines
 
