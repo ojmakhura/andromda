@@ -24,7 +24,7 @@ public class Model
     /**
      * Whether or not to perform a last modified check on the model.
      */
-    private boolean lastModifiedCheck;
+    private boolean lastModifiedCheck = false;
 
     /**
      * The path to search for the model's <em>modules</em> (i.e. models that
@@ -89,5 +89,18 @@ public class Model
     public String[] getModuleSearchPath()
     {
         return moduleSearchPath;
+    }
+    
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        String toString = super.toString();
+        if (this.url != null)
+        {
+            toString = this.url.toString();
+        }
+        return toString;
     }
 }

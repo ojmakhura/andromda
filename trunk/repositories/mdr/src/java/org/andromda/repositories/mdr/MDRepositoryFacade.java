@@ -99,7 +99,14 @@ public class MDRepositoryFacade implements RepositoryFacade
      */
     public void close()
     {
-        MDRManager.getDefault().getDefaultRepository().endTrans(true);
+        MDRepository repository = MDRManager.getDefault().getDefaultRepository();
+        repository.endTrans(true);
+        // remove the model from the repository (if there is one)
+        RefPackage model = repository.getExtent(EXTENT_NAME);
+        if (model != null)
+        {
+            model.refDelete();
+        }
         this.model = null;
     }
 
@@ -292,6 +299,11 @@ public class MDRepositoryFacade implements RepositoryFacade
         	logger.debug("created MetaModel");
         return metaModelPackage;
     }
+    
+    /**
+     * The name (unique within the repository) for the new package extent
+     */
+    private static final String EXTENT_NAME = "MODEL";
 
     /**
      * Loads a model into the repository and validates the model against the
@@ -313,18 +325,18 @@ public class MDRepositoryFacade implements RepositoryFacade
     	if (logger.isDebugEnabled())
     		logger.debug("creating model");
     	
-        RefPackage model = repository.getExtent("MODEL");
-        if (model != null)
+        RefPackage model = repository.getExtent(EXTENT_NAME);
+        if (model == null)
         {
         	if (logger.isDebugEnabled())
-        		logger.debug("deleting existing model");
-            model.refDelete();
+        		logger.debug("creating the new meta model");
+            model = repository.createExtent(EXTENT_NAME, metaModel);
         }
 
         if (logger.isDebugEnabled())
         	logger.debug("creating model extent");
         
-        model = repository.createExtent("MODEL", metaModel);
+
         
         if (logger.isDebugEnabled()) 
         	logger.debug("created model extent");
