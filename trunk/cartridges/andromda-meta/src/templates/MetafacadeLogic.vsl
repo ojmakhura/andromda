@@ -86,8 +86,8 @@ public abstract class ${class.name}Logic
         if (${memberName}Set) return $memberName;
         ${handleMethodName}PreCondition();
         $memberName = ${handleMethodName}($typedArgumentList);
-        ${memberName}Set = true;
         ${handleMethodName}PostCondition();
+        ${memberName}Set = true;
         return $memberName;
     }
 
@@ -123,8 +123,8 @@ public abstract class ${class.name}Logic
         if (${memberName}Set) return $memberName;
         ${handleMethodName}PreCondition();
         $memberName = ${handleMethodName}($op.argumentNames);
-        ${memberName}Set = true;
         ${handleMethodName}PostCondition();
+        ${memberName}Set = true;
         return $memberName;
     }
 
@@ -170,8 +170,8 @@ public abstract class ${class.name}Logic
 #else
         $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
 #end
-        ${memberName}Set = true;
         ${handleMethodName}PostCondition();
+        ${memberName}Set = true;
         return ($memberTypeName)$memberName;
     }
 
