@@ -10,6 +10,9 @@
   <module>
     <connector>${applicationId}-hibernate-sar-${applicationVersion}.sar</connector>
   </module>
+  <module>
+    <connector>${applicationId}-hibernate-db-${applicationVersion}.sar</connector>
+  </module>
 #else
   <module>
     <ejb>${applicationId}-ejb-${applicationVersion}.jar</ejb>
