@@ -1,22 +1,27 @@
 
   <taglib>
     <taglib-uri>struts-bean.tld</taglib-uri>
-    <taglib-location>/WEB-INF/tld/struts-bean-1.2dev-20040621.tld</taglib-location>
-  </taglib>
-
-  <taglib>
-    <taglib-uri>struts-tiles.tld</taglib-uri>
-    <taglib-location>/WEB-INF/tld/struts-tiles-1.2dev-20040621.tld</taglib-location>
-  </taglib>
-
-  <taglib>
-    <taglib-uri>struts-logic.tld</taglib-uri>
-    <taglib-location>/WEB-INF/tld/struts-logic-1.2dev-20040621.tld</taglib-location>
+    <taglib-location>/WEB-INF/tld/struts-bean-1.2.1.tld</taglib-location>
   </taglib>
 
   <taglib>
     <taglib-uri>struts-html.tld</taglib-uri>
-    <taglib-location>/WEB-INF/tld/struts-html-1.2dev-20040621.tld</taglib-location>
+    <taglib-location>/WEB-INF/tld/struts-html-1.2.1.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>struts-tiles.tld</taglib-uri>
+    <taglib-location>/WEB-INF/tld/struts-tiles-1.2.1.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>struts-logic.tld</taglib-uri>
+    <taglib-location>/WEB-INF/tld/struts-logic-1.2.1.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>struts-nested.tld</taglib-uri>
+    <taglib-location>/WEB-INF/tld/struts-nested-1.2.1.tld</taglib-location>
   </taglib>
 
   <taglib>
