@@ -112,27 +112,25 @@
             <xsl:sort select="date" order="descending" data-type="text" />
         </xsl:apply-templates>
         </table>
+
+        <xsl:variable name="maven.deploy.messages" select="$mavengoal[@name='jar:deploy']"/>
+        <xsl:if test="count($maven.deploy.messages) > 0">
+                        <HR/><H2>Deployments</H2>
+            <xsl:apply-templates select="$mavengoal[@name='jar:deploy']"/>
+        </xsl:if>
+
 		
         </html>
     </xsl:template>
 
-    <xsl:template match="mavengoal">
-       <tr class="compile-sectionheader">
-       	<td>
-           <xsl:value-of select="@name"/>
-        </td>
-       </tr>
-       <tr>
-       	<td>
-           <xsl:apply-templates select="message[@priority='error']"/>
-        </td>
-       </tr>
+    <xsl:template match="mavengoal[@name='jar:deploy']">
+        <xsl:apply-templates select="message[@priority='info']"/>
     </xsl:template>
 
     <xsl:template match="message[@priority='error']">
          <tr>
-           <td> 
-    	  <span class="compile-error-data">
+           <td>
+          <span class="compile-error-data">
         <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
         </span>
            </td>
@@ -143,6 +141,19 @@
     	  <span class="compile-data">
         <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
         </span>
+    </xsl:template>
+
+    <xsl:template match="message[@priority='info']">
+       <xsl:variable name="infoTest" select="string()" />
+        <xsl:choose>
+        <xsl:when test="starts-with($infoTest,'Deploying:')">
+      <span class="compile-data">
+        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+      </span>
+        </xsl:when>
+        <xsl:otherwise>
+         </xsl:otherwise>
+       </xsl:choose>
     </xsl:template>
 
     <xsl:variable name="tasklist" select="/cruisecontrol/build//target/task"/>
