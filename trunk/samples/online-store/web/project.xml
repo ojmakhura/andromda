@@ -44,7 +44,7 @@
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.1.2dev-SNAPSHOT</version>
+            <version>1.1.1</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -76,39 +76,39 @@
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-xdoclet-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jboss-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-ejb-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <!-- This one is needed because jboss-module depends on it -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jmx-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <!-- ejbdoclet depends on this module for some reason -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-apache-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-web-module</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <!-- TLDs -->
         <dependency>
