@@ -52,17 +52,19 @@ public class StrutsForwardLogicImpl
 
     protected java.lang.String handleGetForwardPath()
     {
+        String forwardPath = null;
+
         final StateVertexFacade target = getTarget();
         if (isEnteringPage())
         {
-            return ((StrutsJsp) target).getFullPath() + ".jsp";
+            forwardPath = ((StrutsJsp) target).getFullPath() + ".jsp";
         }
         else if (isEnteringFinalState())
         {
-            return ((StrutsFinalState) target).getFullPath() + ".do";
+            forwardPath = ((StrutsFinalState) target).getFullPath();
         }
-        else
-            return null;
+
+        return forwardPath;
     }
 
     protected String handleGetActionMethodName()
