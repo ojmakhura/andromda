@@ -4,7 +4,7 @@
     <classpathentry kind="src" path="src/test"/>
     <classpathentry kind="src" path="build/gensrc"/>
     <classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
-    <classpathentry kind="lib" path="lib/openide.jar"/>
+    <classpathentry kind="lib" path="lib/openide-lookup.jar"/>
     <classpathentry kind="lib" path="lib/nbmdr.jar"/>
     <classpathentry kind="lib" path="lib/mdrapi.jar"/>
     <classpathentry kind="lib" path="lib/jmi.jar"/>
@@ -26,5 +26,5 @@
     <classpathentry kind="var" path="JAXB_HOME/jaxb-libs.jar"/>
     <classpathentry kind="lib" path="lib/junit.jar"/>
     <classpathentry kind="var" path="TEST_MODEL"/>
-    <classpathentry kind="output" path="build/classes"/>
+    <classpathentry kind="output" path="build\classes"/>
 </classpath>
