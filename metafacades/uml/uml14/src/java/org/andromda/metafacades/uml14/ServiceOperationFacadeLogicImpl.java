@@ -63,15 +63,16 @@ public class ServiceOperationFacadeLogicImpl
         roles.addAll(operationRoles);
         final Collection allRoles = new HashSet(roles);
         // add all roles which are specializations of this one
-        CollectionUtils.forAllDo(
-            roles,
-            new Closure()
+        CollectionUtils.forAllDo(roles, new Closure()
+        {
+            public void execute(Object object)
             {
-                public void execute(Object object)
+                if (object instanceof RoleFacade)
                 {
                     allRoles.addAll(((RoleFacade)object).getSpecializations());
                 }
-            });
+            }
+        });
         return allRoles;
     }
 
