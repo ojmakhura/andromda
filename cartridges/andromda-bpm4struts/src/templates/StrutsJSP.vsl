@@ -48,7 +48,7 @@ ${indent}[
     <html:link action="/$actionName?target=$methodName&trigger=$triggerName">$triggerName</html:link>
 #end
 #else
-    <html:link action="/$actionName?target=$methodName">$transition.target.name</html:link>
+    <html:link action="/$actionName?target=$methodName">continue</html:link>
 #end
 
 -->
@@ -63,12 +63,12 @@ ${indent}[
 #set ($attributeName = $attribute.name)
 #set ($typeName = $attribute.type.name)
 #if ($attributeName == "trigger")## do nothing
-#elseif ($typeName == "String")
-            <html:text property="$attributeName"/>
 #elseif ($typeName == "boolean")
             <html:checkbox property="$attributeName"/>
 #elseif ($typeName.endsWith("[]") || $typeName == "Collection")
             <html:select property="$attributeName"/>
+#else
+            <html:text property="$attributeName"/>
 #end
 #end
 
