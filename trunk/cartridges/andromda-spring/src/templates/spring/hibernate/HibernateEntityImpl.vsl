@@ -86,29 +86,18 @@ public class ${entity.entityImplementationName}
 ## Generate the relation methods.
 #foreach ( $associationEnd in $entity.associationEnds )
 #set ($target = $associationEnd.otherEnd)
-#if ($target.type.fullyQualifiedEntityName)
-#set ($targetTypeName = $target.type.fullyQualifiedEntityName)
-#else
-#set ($targetTypeName = $target.type.fullyQualifiedName)
-#end
-#if ($target.navigable)
-#if ($target.many)
-#set($targetTypeName = "java.util.Collection")
-#if ($target.ordered)
-#set($targetTypeName = "java.util.Set")
-#end
-#end
-    private $targetTypeName $target.name;
+#if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
+    private $target.getterSetterTypeName $target.name;
    
     /**
      * @see $entity.fullyQualifiedName#${target.getterName}()
      */
-    public $targetTypeName ${target.getterName}()
+    public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
 
-    public void ${target.setterName}($targetTypeName ${target.name})
+    public void ${target.setterName}($target.getterSetterTypeName ${target.name})
     {
         this.${target.name} = ${target.name};
     }

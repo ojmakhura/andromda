@@ -1,9 +1,14 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -161,4 +166,56 @@ public class SpringEntityLogicImpl
             .getGeneralization());
         return (SpringEntity)generalization;
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
+     */
+    public java.util.Collection getProperties()
+    {
+        Collection properties = this.getAttributes();
+        Collection connectingEnds = this.getAssociationEnds();
+        CollectionUtils.transform(connectingEnds, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return ((AssociationEndFacade)object).getOtherEnd();
+            }
+        });
+        class NavigableFilter
+            implements Predicate
+        {
+            public boolean evaluate(Object object)
+            {
+                AssociationEndFacade end = (AssociationEndFacade)object;
+                return end.isNavigable()
+                    || (end.getOtherEnd().isChild() && isForeignHibernateGeneratorClass());
+            }
+        }
+        CollectionUtils.filter(connectingEnds, new NavigableFilter());
+        properties.addAll(connectingEnds);
+        return properties;
+    }
+
+    private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isForeignHibernateGeneratorClass()
+     */
+    protected boolean handleIsForeignHibernateGeneratorClass()
+    {
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(
+            HIBERNATE_GENERATOR_CLASS_FOREIGN);
+    }
+
+    private static final String HIBERNATE_GENERATOR_CLASS_SEQUENCE = "sequence";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isSequenceHibernateGeneratorClass()
+     */
+    protected boolean handleIsSequenceHibernateGeneratorClass()
+    {
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(
+            HIBERNATE_GENERATOR_CLASS_SEQUENCE);
+    }
+
 }
