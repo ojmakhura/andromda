@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.omg.uml.foundation.core.AssociationEnd;
+import org.omg.uml.foundation.datatypes.Multiplicity;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
 
 /**
@@ -79,7 +80,12 @@ public class DirectionalAssociationEnd
     
     static protected boolean isMany(AssociationEnd ae)
     {
-        Collection ranges = ae.getMultiplicity().getRange();
+        Multiplicity multiplicity = ae.getMultiplicity();
+        if (multiplicity == null)
+        {
+            return false;  // no multiplicity means multiplicity==1
+        }
+        Collection ranges = multiplicity.getRange();
         
         for (Iterator i = ranges.iterator(); i.hasNext() ; )
         {
