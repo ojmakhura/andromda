@@ -4,7 +4,6 @@ import java.io.StringWriter;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 

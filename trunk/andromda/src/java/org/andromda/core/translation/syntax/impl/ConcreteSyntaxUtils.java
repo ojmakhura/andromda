@@ -8,7 +8,6 @@ import java.util.List;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AActualParameterList;
-import org.andromda.core.translation.node.AArrowPropertyCallExpressionTail;
 import org.andromda.core.translation.node.ACommaExpression;
 import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.AFeatureCallParameters;

@@ -1,7 +1,6 @@
 package org.andromda.core.metafacade;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.log4j.Logger;
 
 /**
  * Stores the validation messages that are stored up to be 
