@@ -289,16 +289,17 @@ public class MetafacadeFactory
                     }
                 }
 
-                metafacade.initialize();
                 // IMPORTANT: we must add the metafacade to the cache
-                // before validate is called below, (so ordering matters here)
-                // do NOT call validate method before adding the
+                // before validate and initialize are called below, (so ordering
+                // matters here)
+                // do NOT call validate or initialize methods before adding the
                 // metafacade to the cache, this will cause endless loops
                 this.addToMetafacadeCache(
                     metaObject,
                     metafacadeClass,
                     metafacadeCacheKey,
                     metafacade);
+                metafacade.initialize();
                 if (this.modelValidation)
                 {
                     // validate the meta-facade and collect the messages
