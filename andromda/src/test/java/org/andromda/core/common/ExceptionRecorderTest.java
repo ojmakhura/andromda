@@ -41,6 +41,33 @@ public class ExceptionRecorderTest extends TestCase
             inline = br.readLine();
             assertTrue("First line not header line",
                     ExceptionRecorder.FILE_HEADER.equals(inline));
+            for (int ctr = 0; ctr < 10; ctr++)
+            {
+                if ( (inline = br.readLine()) != null ) {
+                    if ( inline.startsWith( ExceptionRecorder.RUN_SYSTEM )) {
+                        String sysver;
+                        try
+                        {
+                            sysver  = System.getProperty( "os.name") + System.getProperty( "os.version");
+                        } catch (Exception e)
+                        {
+                            sysver = "Not available";
+                        }
+                        assertTrue( "Incorrect " + ExceptionRecorder.RUN_SYSTEM, inline.endsWith(sysver));
+                    }
+                    if ( inline.startsWith( ExceptionRecorder.RUN_JDK )) {
+                        String jdkver;
+                        try
+                        {
+                            jdkver = System.getProperty( "java.vm.vendor") + System.getProperty( "java.vm.version");
+                        } catch (Exception e)
+                        {
+                            jdkver = "Not available";
+                        }
+                        assertTrue( "Incorrect " + ExceptionRecorder.RUN_JDK, inline.endsWith(jdkver));
+                    }
+                }
+            }
         } catch (FileNotFoundException e)
         {
             fail(e.getMessage());
