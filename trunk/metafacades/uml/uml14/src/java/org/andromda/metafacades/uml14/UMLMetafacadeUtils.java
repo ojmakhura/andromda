@@ -2,6 +2,8 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -249,6 +251,24 @@ public class UMLMetafacadeUtils
             ((Stereotype)stereotype).setName(name);
         }
         return (Stereotype)stereotype;
+    }
+
+    /**
+     * Returns true if the passed in constraint <code>expression</code> is of
+     * type <code>kind</code>, false otherwise.
+     * 
+     * @param expression the expression to check.
+     * @param kind the constraint kind (i.e. <em>inv</em>,<em>pre</em>,
+     *        <em>body</em>, etc).
+     * @return boolean
+     */
+    static boolean isConstraintKind(String expression, String kind)
+    {
+        Pattern pattern = Pattern.compile(
+            ".*\\s*" + StringUtils.trimToEmpty(kind) + "\\s*:.*",
+            Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
+        return matcher.matches();
     }
 
 }
