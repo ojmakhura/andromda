@@ -43,6 +43,8 @@
             <ant:arg value="--text"/>
             <ant:arg value="--quiet"/>
             <ant:arg value="--drop"/>
+            <ant:arg value="--delimiter=;"/>
+            <ant:arg value="--format"/>
             <ant:arg line="${hibernate.mappings}"/>
             <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
             <ant:classpath refid="schema.classpath" />
