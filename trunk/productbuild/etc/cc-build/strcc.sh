@@ -1,5 +1,9 @@
 #! /bin/sh
 
+echo "DO NOT USE, for some reason kills the started process"
+echo "When the tail is CTL-c'd"
+exit
+
 basename=`basename $0`
 if [ $basename != $0 ]; then
    dirname=`dirname $0`
