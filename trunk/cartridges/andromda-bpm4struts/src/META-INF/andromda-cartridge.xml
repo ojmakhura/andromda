@@ -269,6 +269,18 @@
         </modelElements>
     </template>
 
+<!--
+    <template
+        path="templates/StrutsMenuConfigXml.vsl"
+        outputPattern="menu-config.xml"
+        outlet="configuration"
+        overwrite="true">
+        <modelElements variable="applicationUseCase">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+-->
+
     <template
         path="templates/StrutsValidationXml.vsl"
         outputPattern="validation.xml"
