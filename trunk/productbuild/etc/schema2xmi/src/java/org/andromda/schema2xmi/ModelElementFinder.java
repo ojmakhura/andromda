@@ -72,7 +72,7 @@ public class ModelElementFinder
             }
         });
     }
-    
+
     /**
      * Finds and returns the first model element having the given
      * <code>name</code> in the <code>umlPackage</code>, returns
@@ -87,15 +87,15 @@ public class ModelElementFinder
         final String name)
     {
         return CollectionUtils.find(
-            umlPackage.getOwnedElement(), 
+            umlPackage.getOwnedElement(),
             new Predicate()
-        {
-            public boolean evaluate(Object object)
             {
-                return StringUtils
-                    .trimToEmpty(((ModelElement)object).getName()).equals(name);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    return StringUtils.trimToEmpty(
+                        ((ModelElement)object).getName()).equals(name);
+                }
+            });
     }
 
     /**
