@@ -19,9 +19,6 @@
             </fileset>
             <strutsconfigxml version="1.1"/>
             <strutsvalidationxml/>
-            <deploymentdescriptor
-                distributable="false"
-                servletspec="2.3"/>
             <jbosswebxml securitydomain="java:/jaas/other"/>
         </webdoclet>
 

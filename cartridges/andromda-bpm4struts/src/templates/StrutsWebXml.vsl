@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" 
+         version="2.4">
+         
+    <filter>
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>3</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>3</param-value>
+        </init-param>
+        <init-param>
+            <param-name>validate</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- precompilation merge-point -->
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>$welcomeFileName</welcome-file>
+    </welcome-file-list>
+    
+#if ($security == "true")
+##
+##  We don't use security-role-refs at this point, maybe in a later step
+##
+#foreach ($useCase in $applicationUseCase.allUseCases)
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>$useCase.name resources</web-resource-name>
+            <description>
+                This collection bundles all pages and resources
+                as well as the actions called in the "$useCase.name" use-case
+            </description>
+            <url-pattern>/${useCase.packagePath}/*</url-pattern>
+            <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+#foreach ($user in $useCase.allUsers)
+            <role-name>$user.role</role-name>
+#end
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+#end
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+#if ($securityRealm)
+        <realm-name>$securityRealm</realm-name>
+#end
+        <form-login-config>
+            <form-login-page>/login/login-form.jsp</form-login-page>
+            <form-error-page>/login/login-error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+#end
+#if ($security == "true")
+#foreach ($user in $applicationUseCase.allUsers)
+  <security-role>
+    <role-name>$user.role</role-name>
+  </security-role>
+#end
+
+#end
+</web-app>
