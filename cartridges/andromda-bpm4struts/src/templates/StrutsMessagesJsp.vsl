@@ -2,6 +2,8 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
+<html:xhtml/>
+
 <div id="messages">
     <logic:messagesPresent>
         <html:messages id="error">

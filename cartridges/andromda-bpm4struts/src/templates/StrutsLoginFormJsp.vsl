@@ -2,6 +2,8 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 
+<html:xhtml/>
+
 <tiles:insert definition="login.layout">
 
     <tiles:put name="title" type="string">
