@@ -84,11 +84,6 @@ public class StrutsUseCaseLogicImpl
         return getController().getPackageName();
     }
 
-    public String getPackagePath()
-    {
-        return '/' + getPackageName().replace('.', '/');
-    }
-
     public String getActionRoles()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && actionRoles != null) return actionRoles;
