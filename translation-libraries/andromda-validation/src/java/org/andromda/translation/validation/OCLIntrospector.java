@@ -139,6 +139,11 @@ public class OCLIntrospector
             {
                 method = getMethod("is", element, propertyName);
             }
+            if (method == null)
+            {
+                throw new OCLIntrospectorException("No property named '" 
+                    + propertyName + "', found on element '" + element + "'");
+            }
             property = method.invoke(element, null);
         }
         return property;
