@@ -71,7 +71,11 @@ public class ExpressionTranslator {
 			
 			if (libraryTranslation != null) {
 				Translator translator = libraryTranslation.getTranslator();
-				translatedOcl = translator.translate(translationName, contextElement, expression);
+				translatedOcl = 
+                    translator.translate(
+                        translationName, 
+                        contextElement, 
+                        expression);
 			} else {
 				logger.error("ERROR! No translation found with name --> '" 
                     + translationName + "'");
