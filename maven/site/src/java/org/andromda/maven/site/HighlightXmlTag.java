@@ -1,25 +1,161 @@
 package org.andromda.maven.site;
 
 import org.apache.commons.jelly.XMLOutput;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.util.StringTokenizer;
 
 public class HighlightXmlTag extends AbstractHighlightTag
 {
-    // used in case the input xml has no root element
-    private final static String DUMMY_ELEMENT_NAME = "ANDROMDADUMMY";
-
     private String elementClass = null;
     private String attributeClass = null;
-    private String valueClass = null;
+    private String literalClass = null;
     private String cdataClass = null;
+    private String commentClass = null;
+
+    protected void highlight(XMLOutput output, String text) throws SAXException
+    {
+        boolean inElement = false;
+        boolean inCdata = false;
+        boolean inComment = false;
+        boolean inString = false;
+        boolean inAttribute = false;
+
+        boolean wroteOpeningCharacter = false;
+        boolean commentsAwaitClosure = false; // flagged when the '>' needs to be in comment style
+
+        StringTokenizer tokenizer = new StringTokenizer(text, " \n\r\t\f<>\"\'=", true);
+        while (tokenizer.hasMoreTokens())
+        {
+            String token = tokenizer.nextToken();
+
+            if (inCdata)
+            {
+                output.write(token);
+
+                if (token.equals("]]"))
+                {
+                    output.write(">");
+                    endTokenHighlight(output);
+                    inCdata = false;
+                }
+            }
+            else if (inComment)
+            {
+                output.write(token);
+
+                if (token.equals("--"))
+                {
+                    commentsAwaitClosure = true;
+                    inComment = false;
+                }
+            }
+            else if (inString)
+            {
+                output.write(token);
+
+                if (token.equals("\"") || token.equals("\'"))
+                {
+                    endTokenHighlight(output);
+                    inString = false;
+                    startTokenHighlight(output, getAttributeClass());
+                }
+            }
+            else if (inAttribute)
+            {
+                if (token.equals("\"") || token.equals("\'"))
+                {
+                    endTokenHighlight(output);
+                    startTokenHighlight(output, getLiteralClass());
+                    output.write(token);
+                    inString = true;
+                }
+                else if (token.equals(">"))
+                {
+
+                    endTokenHighlight(output);
+                    output.write(token);
+                    inElement = false;
+                    inAttribute = false;
+                }
+                else
+                {
+                    output.write(token);
+                }
+            }
+            else if (inElement)
+            {
+                if (inAttribute == false &&
+                        (token.equals(" ") || token.equals("\t") || token.equals("\f") ||
+                        token.equals("\n") || token.equals("\r")))
+                {
+                    endTokenHighlight(output);
+                    startTokenHighlight(output, getAttributeClass());
+                    output.write(token);
+                    inAttribute = true;
+                }
+                else if (token.equals(">"))
+                {
+                    endTokenHighlight(output);
+                    output.write(token);
+                    inElement = false;
+                }
+                else if (token.startsWith("![CDATA["))
+                {
+                    inCdata = true;
+                    inElement = false;
+                    startTokenHighlight(output, getCdataClass());
+                    output.write("<");
+                    output.write(token);
+                }
+                else if (token.startsWith("!--"))
+                {
+                    inComment = true;
+                    inElement = false;
+                    startTokenHighlight(output, getCommentClass());
+                    output.write("<");
+                    output.write(token);
+                }
+                else
+                {
+                    if (wroteOpeningCharacter == false)
+                    {
+                        output.write("<");
+                        wroteOpeningCharacter = true;
+                    }
+                    startTokenHighlight(output, getElementClass());
+                    output.write(token);
+                }
+            }
+            else
+            {
+                if (token.equals("<"))
+                {
+                    inElement = true;
+                    wroteOpeningCharacter = false;
+                }
+                else
+                {
+                    output.write(token);
+                    if (commentsAwaitClosure)
+                    {
+                        commentsAwaitClosure = false;
+                        endTokenHighlight(output);
+                    }
+                }
+            }
+        }
+    }
+
+    public String getCommentClass()
+    {
+        return commentClass;
+    }
+
+    public void setCommentClass(String commentClass)
+    {
+        this.commentClass = commentClass;
+    }
 
     public String getCdataClass()
     {
@@ -31,14 +167,14 @@ public class HighlightXmlTag extends AbstractHighlightTag
         this.cdataClass = cdataClass;
     }
 
-    public String getValueClass()
+    public String getLiteralClass()
     {
-        return valueClass;
+        return literalClass;
     }
 
-    public void setValueClass(String valueClass)
+    public void setLiteralClass(String literalClass)
     {
-        this.valueClass = valueClass;
+        this.literalClass = literalClass;
     }
 
     public String getAttributeClass()
@@ -61,99 +197,4 @@ public class HighlightXmlTag extends AbstractHighlightTag
         this.elementClass = elementClass;
     }
 
-    protected void highlight(XMLOutput output, String text) throws SAXException
-    {
-        if (!text.startsWith("<?xml"))
-        {
-            text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<"+
-                    DUMMY_ELEMENT_NAME+" test=\"value\">" + text + "</"+DUMMY_ELEMENT_NAME+">";
-        }
-        
-//        text = text.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
-/*
-        if (getCdataClass() == null)
-        {
-            text = text.replaceAll("<!\\[CDATA\\[", "&lt;![CDATA[");
-            text = text.replaceAll("\\]\\]>", "]]&gt;");
-        }
-        else
-        {
-            text = text.replaceAll("<!\\[CDATA\\[", "<div class=\""+getCdataClass()+"\">&lt;![CDATA[");
-            text = text.replaceAll("\\]\\]>", "]]&gt;</div>");
-        }
-*/
-
-        XMLReader reader = XMLReaderFactory.createXMLReader();
-        reader.setContentHandler(new SyntaxContentHandler(output,this));
-        try
-        {
-            reader.parse(new InputSource(new StringReader(text)));
-        }
-        catch (IOException e)
-        {
-            throw new SAXException(e);
-        }
-    }
-
-    public static class SyntaxContentHandler extends DefaultHandler
-    {
-        private XMLOutput output = null;
-        private HighlightXmlTag highlighter = null;
-
-        public SyntaxContentHandler(XMLOutput output, HighlightXmlTag highlighter)
-        {
-            this.output = output;
-            this.highlighter = highlighter;
-        }
-
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException
-        {
-            if (DUMMY_ELEMENT_NAME.equals(localName)) return;
-
-            output.write("<");
-            highlighter.startTokenHighlight(output, highlighter.getElementClass());
-            output.write( (qName==null) ? localName : qName );
-
-            highlighter.endTokenHighlight(output);
-            highlighter.startTokenHighlight(output, highlighter.getAttributeClass());
-            for (int i=0; i<atts.getLength(); i++)
-            {
-                String name = (atts.getQName(i) == null) ? atts.getLocalName(i) : atts.getQName(i);
-                output.write(" ");
-                highlighter.startTokenHighlight(output, highlighter.getAttributeClass());
-                output.write(name);
-                output.write("=");
-                highlighter.endTokenHighlight(output);
-                highlighter.startTokenHighlight(output, highlighter.getValueClass());
-                output.write("\"");
-                output.write(atts.getValue(i));
-                output.write("\"");
-                highlighter.endTokenHighlight(output);
-            }
-
-            highlighter.endTokenHighlight(output);
-            output.write(">");
-        }
-
-        public void endElement(String namespaceURI, String localName, String qName) throws SAXException
-        {
-            if (DUMMY_ELEMENT_NAME.equals(localName)) return;
-
-            output.write("</");
-            highlighter.startTokenHighlight(output, highlighter.getElementClass());
-            output.write( (qName==null) ? localName : qName );
-            highlighter.endTokenHighlight(output);
-            output.write(">");
-        }
-
-        public void characters(char ch[], int start, int length) throws SAXException
-        {
-            output.write(String.valueOf(ch, start, length));
-        }
-
-        public void ignorableWhitespace(char ch[], int start, int length) throws SAXException
-        {
-            output.write(String.valueOf(ch, start, length));
-        }
-    }
 }
