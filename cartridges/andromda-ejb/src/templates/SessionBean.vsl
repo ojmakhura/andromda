@@ -32,17 +32,17 @@ $service.getDocumentation(" * ")
  * @ejb.env-entry
  *     name="$envEntry.name"
  *     type="$envEntry.type.fullyQualifiedName"
- *     value=$value
+ *     value="$value"
  *
 #end
 #foreach ( $dependency in $service.dependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
- *
  * @ejb.ejb-ref
  *     ejb-name="${reference.name}"
  *     view-type="$reference.viewType"
  *     ref-name="ejb/${reference.name}BeanRef"
+ *
 #end
 #if ($dependency.hasStereotype("ResourceRef"))
 #set ($reference = $dependency.targetElement)
@@ -55,16 +55,16 @@ $service.getDocumentation(" * ")
 #if (!$resName)
 #set ($resName = $reference.name)
 #end
- *
  * @ejb.resource-ref
  *     res-ref-name="resource/$resName"
  *     res-type="${reference.fullyQualifiedName}"
  *     res-auth="$resAuth"
-#if ($jndiRef)
  *
+#if ($jndiRef)
  * @jboss.resource-ref
  *     res-ref-name = "resource/$resName"
  *     jndi-name = "$jndiRef"
+ *
 #end
 #end
 #end

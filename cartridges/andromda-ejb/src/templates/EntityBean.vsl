@@ -114,28 +114,39 @@ $envEntry.getDocumentation("     * ")
      */
     $envEntry.visibility $envEntry.type.fullyQualifiedName ${constant.getterName}(){
         javax.naming.InitialContext initialContext = null;
-        try {
+        try 
+        {
             initialContext = new javax.naming.InitialContext();
             return (${envEntry.type.fullyQualifiedName}}) initialContext.lookup("java:comp/env/$envEntry.name");
-        } catch (javax.naming.NamingException cause) {
+        } 
+        catch (javax.naming.NamingException cause) 
+        {
             RuntimeException ex = new IllegalStateException(
                 "Cannot access environment entry \"$envEntry.name\".");
             // In order to set the exception cause on JDK 1.4
             // and stay JDK 1.3 compatible nonetheless, we need
             // a bit of reflection magic here...
-            try {
+            try 
+            {
                 java.lang.reflect.Method initCause =
                   ex.getClass().getMethod("initCause",
                                         new Class[] {Throwable.class});
                 initCause.invoke(ex, new Object[] { cause });
-            } catch (Throwable t) {
+            } 
+            catch (Throwable t) 
+            {
                // Ignore any errors here - we simply make do without the cause
             }
             throw ex;
-        } finally {
-            try {
+        } 
+        finally 
+        {
+            try 
+            {
                 if (initialContext != null) { initialContext.close(); }
-            } catch (javax.naming.NamingException ignore) {
+            } 
+            catch (javax.naming.NamingException ignore) 
+            {
                 // Silently ignore naming exceptions at cleanup time
             }
         }

@@ -82,6 +82,21 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
         </dependency>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-query-library</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <cartridge.testDependency>true</cartridge.testDependency>
+            </properties>
+        </dependency>
     </dependencies>
     <reports>
         <report>maven-jxr-plugin</report>

@@ -28,7 +28,6 @@ public class ${metafacade.logicImplName}
 #set ($attributes = $metafacade.attributes)
 #if (!$attributes.empty)
 
-    // --------------- attributes ---------------------
 #foreach ( $attribute in $attributes )
 #set ($methodName = $attribute.getterName)
 #set ($handleMethodName = "handle$str.capitalize($methodName)")
@@ -51,11 +50,10 @@ public class ${metafacade.logicImplName}
 #end
     }
 #end
+
 #end
 ##
 #if (!$metafacade.operations.empty)
-
-    // -------------------- business methods ----------------------
 #foreach ( $operation in $metafacade.operations)
 #set ($methodName = $operation.name)
 #set ($handleMethodName = "handle$str.capitalize($methodName)")
@@ -66,7 +64,7 @@ public class ${metafacade.logicImplName}
         throws $defaultException.name {
 #else
     /**
-     * @see ${metafacade.fullyQualifiedName}#${operation.name}(${operation.argumentTypeNames})
+     * @see ${metafacade.fullyQualifiedName}#${operation.getSignature(false)}
      */
     $operation.visibility $returnTypeName ${handleMethodName}($typedArgumentList) 
     {
@@ -89,8 +87,6 @@ public class ${metafacade.logicImplName}
 #end
 ##
 #if (!$metafacade.associationEnds.empty)
-    // ------------- relations ------------------
-
 #foreach ( $associationEnd in $metafacade.associationEnds )
 #if ($associationEnd.otherEnd.navigable)
 #set ($memberTypeName = $associationEnd.getterSetterTypeName)
@@ -102,6 +98,9 @@ public class ${metafacade.logicImplName}
 #else
 #set ($returnTypeName = "java.lang.Object")
 #end
+    /**
+     * @see ${metafacade.fullyQualifiedName}#${associationEnd.otherEnd.getterName}()
+     */
     public $returnTypeName ${handleMethodName}($typedArgumentList)
     {
         // TODO: add your implementation here!

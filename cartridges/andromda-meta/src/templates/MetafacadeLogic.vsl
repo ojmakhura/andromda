@@ -87,9 +87,9 @@ public abstract class ${metafacade.logicName}
     }
 
 ##
-
 #if (!$metafacade.attributes.empty)
     // --------------- attributes ---------------------
+    
 #foreach ( $attribute in $metafacade.attributes )
 ##
 #set ($memberTypeName = $attribute.type.fullyQualifiedName)
@@ -128,7 +128,7 @@ public abstract class ${metafacade.logicName}
 #end
 #end
 #if (!$$metafacade.operations.empty)
-    // ---------------- real business methods ----------------------
+    // ---------------- business methods ----------------------
 
 #foreach ($operation in $metafacade.operations)
 #set ($hasArguments = (!$operation.arguments.empty))
@@ -139,7 +139,6 @@ public abstract class ${metafacade.logicName}
 #set ($typedArgumentList = $operation.typedArgumentList)
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
-
     $operation.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
     private void $handleMethodPreCondition
@@ -170,7 +169,7 @@ public abstract class ${metafacade.logicName}
 #end
 ##
 #if (!$metafacade.associationEnds.empty)
-    // ------------- relations ------------------
+    // ------------- associations ------------------
 
 #foreach ( $associationEnd in $metafacade.associationEnds )
 #if ($associationEnd.otherEnd.navigable)
@@ -231,16 +230,15 @@ public abstract class ${metafacade.logicName}
 	}
 	
 #end
-
-     /**
-      * @see java.lang.Object#toString()
-      */
+	/**
+	 * @see java.lang.Object#toString()
+     */
     public String toString()
     {
         return super_.toString();
     }   
+    
 #end
-
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
      */
