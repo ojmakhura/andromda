@@ -11,6 +11,7 @@ import javax.jmi.reflect.RefPackage;
 import javax.jmi.xmi.MalformedXMIException;
 
 import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
@@ -93,12 +94,15 @@ public class MDRepositoryFacade implements RepositoryFacade
         MDRManager.getDefault().getDefaultRepository().endTrans(true);
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
      */
     public void readModel(URL modelURL, String[] moduleSearchPath)
         throws RepositoryFacadeException, IOException
     {
+        final String methodName = "MDRepositoryFacade.readModel";
+        ExceptionUtils.checkNull(methodName, "modelURL", modelURL);
+        
     	if (logger.isDebugEnabled())
     		logger.debug("creating repository");
 
@@ -141,9 +145,6 @@ public class MDRepositoryFacade implements RepositoryFacade
         {
             URLConnection urlConnection = modelURL.openConnection();
             lastModified = urlConnection.getLastModified();
-            // perhaps there should be a corresponding close
-            // to match the open.
-            // But, where is the close in the URL API?
         }
         catch (IOException ioe)
         {
