@@ -35,16 +35,16 @@
    <global-forwards>
       <!-- WORKFLOWS: these are the macro-level entry points of the application -->
 #foreach ($workflow in $allWorkflows)
-#set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getStateMachine($workflow))))
+#set ($forwardName = $transform.toForwardName($workflow))
 #set ($firstUseCase = $transform.getFirstFrontEndUseCase($workflow))
 #set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($firstUseCase)))
-      <forward name="$forwardName" path="/${forwardPath}" redirect="true"/>
+      <forward name="$forwardName" path="/${forwardPath}.do" redirect="true"/>
 #end
       <!-- USE-CASES: these are the micro-level entry points of the application -->
 #foreach ($useCase in $allUseCases)
-#set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getStateMachine($useCase))))
+#set ($forwardName = $transform.toForwardName($useCase))
 #set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($useCase)))
-      <forward name="$forwardName" path="/${forwardPath}" redirect="true"/>
+      <forward name="$forwardName" path="/${forwardPath}.do" redirect="true"/>
 #end
    </global-forwards>
 
@@ -70,7 +70,7 @@
          scope="request" unknown="false" validate="true" parameter="target" >
 #set ($actionStates = $transform.dynamicHelper.getActionStates($stateMachine))
 #foreach ($actionState in $actionStates)
-#set ($actionForwardName = $transform.toWebFileName($actionState))
+#set ($actionForwardName = $transform.toForwardName($actionState))
 #set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($actionState))
 ##
 ## Notice how we forward instead of redirect to the next action, this allows us to reuse the form that
@@ -81,25 +81,22 @@
 #end
 #set ($finalStates = $transform.dynamicHelper.getFinalStates($stateMachine))
 #foreach ($finalState in $finalStates)
-#set ($actionForwardName = $transform.toForwardName($finalState))
 #set ($nextUseCase = $transform.findNextUseCaseInWorkflow($useCase, $finalState.name))
-#if ($nextUseCase == false)
-#set ($nextUseCase = $useCase)
-#end
+#if ($nextUseCase == false)## nothing happens here
+#else
+#set ($actionForwardName = $transform.toForwardName($finalState))
 #set ($actionForwardPath = $transform.toJavaClassName($transform.getControllerClass($nextUseCase)))
 ##
 ## Notice how we redirect instead of forward to the next use case, we explicitly want a new request
 ## object to be sent to the provided path
 ##
-         <forward name="$actionForwardName" path="/${actionForwardPath}" redirect="true"/>
+         <forward name="$actionForwardName" path="/${actionForwardPath}.do" redirect="true"/>
 #set ($nextUseCase = false)
+#end
 #end
       </action>
 #end
    </action-mappings>
-
-   <!-- not used yet by struts, but present because of a bug in current struts version -->
-   <message-resources parameter="application-resources" null="false"/>
 
    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
       <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
