@@ -17,7 +17,7 @@ import javassist.NotFoundException;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.StdoutLogger;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.TranslationUtils;
@@ -576,7 +576,7 @@ public class TraceTranslator
     {
         try
         {
-            StdoutLogger.configure();
+            AndroMDALogger.configure();
             TraceTranslator.adaptClass();
         }
         catch (Throwable th)
