@@ -116,12 +116,16 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetEjbPackageName()
     {
-        return MessageFormat.format(
-            this.getEjbPackageNamePattern(),
-            new Object[]
-            {
-                StringUtils.trimToEmpty(this.getPackageName())
-            });
+        String ejbPackageName = MessageFormat.format(this
+            .getEjbPackageNamePattern(), new Object[]
+        {
+            StringUtils.trimToEmpty(this.getPackageName())
+        });
+        if (StringUtils.isBlank(this.getPackageName()))
+        {
+            ejbPackageName = ejbPackageName.replaceAll("^\\.", "");
+        }
+        return ejbPackageName;
     }
 
     /**
