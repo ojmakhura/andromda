@@ -219,7 +219,8 @@
                     </tr>
                     <tr>
                         <td>radio X</td>
-                        <td>renders radiobuttons, the X is optional and represents an integer with a default value of 3; it denotes the number of choices for this parameter: the value you enter there will determine the number of radiobuttons that will be rendered</td>
+                        <td>renders radiobuttons, the X is optional and represents an integer with a default value of 3; it denotes the number of choices for this parameter: the value you enter there will determine the number of radiobuttons that will be rendered.
+                            Alternatively you can use a comma-separated list of property values instead of an integer</td>
                     </tr>
                     <tr>
                         <td>password</td>
