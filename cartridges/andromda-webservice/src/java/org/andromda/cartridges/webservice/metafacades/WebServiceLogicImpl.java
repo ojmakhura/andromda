@@ -294,11 +294,6 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * The default provider of the service.
-     */
-    private static final String DEFAULT_PROVIDER = "RPC";
-
-    /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getProvider()
      */
     public java.lang.String handleGetProvider()
@@ -307,7 +302,7 @@ public class WebServiceLogicImpl
             .findTaggedValue(WebServiceProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
         if (StringUtils.isEmpty(provider))
         {
-            provider = DEFAULT_PROVIDER;
+            provider = (String)this.getConfiguredProperty("defaultProvider");
         }
         return provider;
     }
