@@ -60,7 +60,7 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context> 
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
             <stereotype>FINDER_METHOD</stereotype>
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
@@ -68,7 +68,7 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context> 
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
             <property name="query"/>
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
