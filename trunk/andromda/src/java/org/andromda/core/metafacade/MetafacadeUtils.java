@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
  */
 class MetafacadeUtils
 {
-
     private static Logger logger = Logger.getLogger(MetafacadeUtils.class);
 
     /**
