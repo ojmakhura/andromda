@@ -154,7 +154,9 @@
             <roles/>
         </contributor>
     </contributors>
-    <build/>
+    <build>
+        <nagEmailAddress>andromda-devel@lists.sourceforge.net</nagEmailAddress>
+    </build>
     <reports>
         <report>maven-faq-plugin</report>
         <report>maven-multiproject-plugin</report>
