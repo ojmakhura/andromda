@@ -19,10 +19,10 @@ public class $service.implementationName
 	/**
 	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
 	 */
-    $operation.visibility $returnType.fullyQualifiedName $signature 
+    protected $returnType.fullyQualifiedName $signature
         throws java.lang.Exception
     {
-        //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
+        //@todo implement protected $returnType.fullyQualifiedName $signature
 #set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($operation.returnTypePresent)
 #if (!$operation.returnType.primitive)
