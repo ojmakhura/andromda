@@ -26,24 +26,6 @@
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
 		</dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-breadcrumbs-taglib</artifactId>
-            <version>1.0</version>
-            <type>jar</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-breadcrumbs</artifactId>
-            <version>taglib-1.0</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
