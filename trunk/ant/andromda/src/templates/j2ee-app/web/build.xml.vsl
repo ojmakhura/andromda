@@ -37,6 +37,7 @@
 
     <target name="xdoclet" description="o Run XDoclet WEB">
         <mkdir dir="${basedir}/src/java"/>
+        <mkdir dir="${basedir}/src/properties"/>
         <mkdir dir="${basedir}/target/src"/>
         <mkdir dir="${basedir}/target/classes"/>
         <mkdir dir="${basedir}/target/xdoclet"/>
