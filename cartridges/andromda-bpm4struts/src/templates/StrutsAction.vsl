@@ -69,8 +69,8 @@ $actionState.getDocumentation("     * ")
         catch (Exception ex)
         {
             final String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(ex);
-            errors.add(org.apache.struts.action.ActionMessages.GLOBAL_MESSAGE, new org.apache.struts.action.ActionMessage(messageKey));
-            super.saveErrors(request, errors);
+            errors.add("$exceptionHandlerMessagesKey", new org.apache.struts.action.ActionMessage(messageKey));
+            request.setAttribute("$exceptionHandlerMessagesKey", errors);
         }
         finally
         {

@@ -7,23 +7,38 @@
 <div id="messages">
     <logic:messagesPresent message="false">
         <div class="errors">
-            <html:messages id="error" message="false">
-                <div class="error">${error}</div>
-            </html:messages>
+            <ul>
+	            <html:messages id="error" message="false">
+	                <div class="error"><li>${error}</li></div>
+	            </html:messages>
+            </ul>
+        </div>
+    </logic:messagesPresent>
+    <logic:messagesPresent name="$exceptionHandlerMessagesKey">
+        <div class="errors">
+            <ul>
+                <html:messages id="error" name="$exceptionHandlerMessagesKey" bundle="$customResourcesKey">
+                    <div class="error"><li>${error}</li></div>
+                </html:messages>
+            </ul>
         </div>
     </logic:messagesPresent>
     <logic:messagesPresent name="$warningMessagesKey">
         <div class="warnings">
-            <html:messages id="warning" name="$warningMessagesKey">
-                <div class="warning">${warning}</div>
-            </html:messages>
+            <ul>
+                <html:messages id="warning" name="$warningMessagesKey">
+                    <div class="warning"><li>${warning}</li></div>
+                </html:messages>
+            </ul>
         </div>
     </logic:messagesPresent>
     <logic:messagesPresent name="$successMessagesKey">
         <div class="messages">
-            <html:messages id="message" name="$successMessagesKey">
-                <div class="message">${message}</div>
-            </html:messages>
+            <ul>
+                <html:messages id="message" name="$successMessagesKey">
+                    <div class="message"><li>${message}</li></div>
+                </html:messages>
+            </ul>
         </div>
     </logic:messagesPresent>
 </div>

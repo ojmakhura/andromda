@@ -78,7 +78,7 @@
    </action-mappings>
 
   <message-resources parameter="application-resources" null="false" />
-  <message-resources key="custom" parameter="custom-resources" null="false" />
+  <message-resources key="$customResourcesKey" parameter="custom-resources" null="false" />
 
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)
   <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
