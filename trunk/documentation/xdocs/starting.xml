@@ -15,13 +15,205 @@
                 AndroMDA 2.x and AndroMDA 3.x are used differently, please go to
                 their respective documentation page:
                 <ul>
-                    <li>
-                        <a href="starting-v2.html">Getting started with AndroMDA 2.x</a>
+                    <li><a href="#andromda2">Getting started with AndroMDA 2.x</a></li>
+                    <li><a href="#andromda3">Getting started with AndroMDA 3.x</a></li>
+                </ul>
+            </p>
+        </section>
+
+        <section name="AndroMDA 2.x">
+            <a name="andromda2"/>
+
+            <p class="std">
+        The approach we recommend to getting started with AndroMDA is to
+                <b>learn it</b>,
+                <b>see it</b>, and
+                <b>do it</b>.
+            </p>
+
+            <p class="std">
+                <b>Learn it</b>
+            </p>
+
+            <p class="std">
+         The first step is to review the web pages under the section
+                <b>For Users</b>.
+         A quick review of the concepts and some of the parts of AndroMDA will get you
+         acquainted enough with the AndroMDA landscape so that you will understand what
+         is happening when you see it in action.
+            </p>
+
+            <p class="std">
+         If there is something you do not immediately understand, don't worry
+         too much. It'll all become clear once you've built your own model and generated
+         code from it.
+            </p>
+
+            <p class="std">
+                <b>See It</b>
+            </p>
+
+            <p class="std">
+         After a brief review of the basics of AndroMDA you are ready to
+         to see it in action.  The best way to see it in action is to build, deploy, and run
+         the
+                <b>Car Rental System</b> sample that comes with AndroMDA.
+            </p>
+
+            <p class="std">
+         Have a look at the
+                <a href="../sampleintro.html">Sample Intro</a> to find
+         out more about how to build and use the
+                <b>Car Rental System</b> sample.  Once you
+         have run it you might want to browse around the UML model and generated code to get
+         a feel for how was put together.
+            </p>
+
+            <p class="std">
+                <b>Do It</b>
+            </p>
+
+            <p class="std">
+         You are now ready to try AndroMDA on a simple project of your own.  We've provided with
+         the AndroMDA distribution a blank Poseidon project and an ANT based wizard to help you
+         get started with your first AndroMDA based project.
+            </p>
+
+            <p class="std">
+        Here are the instructions to create your first EJB or Hibernate based project using AndroMDA:
+
+                <ul>
+                    <li class="std">
+                        <code>cd samples</code> - this directory contains blank project templates
+            and a wizard.xml file to help copy and setup these blanks projects.
                     </li>
-                    <li>
-                        <a href="starting-v3.html">Getting started with AndroMDA 3.x</a>
+
+                    <li class="std">
+                        <code>edit wizard.properties</code> - in order for the wizard script to help
+            setup a new project for you it needs you to set the values for a few properties.
+            For example, the wizard will need to know the path to your AndroMDA installation and your
+            JBoss installation. Use only
+                        <b>ABSOLUTE PATHS</b> when setting these properties.
+                    </li>
+
+                    <li class="std">
+            To create an empty EJB based project:
+                        <br/>
+                        <code>ant -f wizard.xml -Dproject.home=c:/temp/myproject  ejb</code> - run the wizard script,
+            using ANT, and use the 'project.home' property to tell it where to place your new project.
+                    </li>
+
+                    <li class="std">
+            To create an empty Hibernate based project:
+                        <br/>
+                        <code>ant -f wizard.xml -Dproject.home=c:/temp/myproject  hibernate</code> - run the wizard script,
+            using ANT, and use the 'project.home' property to tell it where to place your new project.
+                    </li>
+
+                    <li class="std">
+                        <code>cd c:/temp/myproject</code> - go to the newly created project directory and have a look
+            around at what is there.  In the
+                        <code>src/uml</code> directory there is a blank UML model
+            that can be opened using Poseidon. If you are using a UML tool other than Poseidon then
+            you will have to write a blank-model of your own, but at least you have this little project
+            environment to get you started.
+                    </li>
+
+                    <li class="std">
+                        <code>ant</code> - if you invoke ant in your new project directory it will build the blank
+            model and deploy it into your JBoss installation. The UML model that comes with this project
+            template is not completely blank, it has one diagram and a couple of model elements just
+            to provide a compiling example of EJBs or Hibernate objects.
                     </li>
                 </ul>
+            </p>
+
+            <p class="std">
+        You can use this basic project as a starting point for your modeling.  Edit the blank
+        UML model and design your own beans.
+            </p>
+
+            <p class="std">
+         There are a few things that should be noted about this basic project setup:
+
+                <ul>
+                    <li class="std">
+             Session Bean names have to end in the word 'Service' - such as 'AdminService',
+             'InventoryService'.  This is not a requirement of AndroMDA. It has to do with the
+                        <code>buid.xml</code> file that comes with this project. If you want to
+             understand the reason why then have a look at the build.xml file and look for
+             the
+                        <b>replace</b> command which is used to process the ejb deployment descriptor file.
+                    </li>
+
+                    <li class="std">
+             PrimaryKeys - be sure to remember that each entity bean must have at least one
+             attribute that is a primary key.  Currently the code generation templates assume
+             that the primary key is a String.
+                    </li>
+
+                    <li class="std">
+             No Struts support in this blank project -  this little project has no Struts
+             support built into it.  It is not much extra work to setup the project to start
+             generating struts code too.  Take a look at the
+                        <b>Car Rental System</b> sample.
+                    </li>
+                </ul>
+
+            </p>
+        </section>
+
+        <section name="AndroMDA 3.x">
+            <a name="andromda2"/>
+            <h3>Maven</h3>
+            <p class="std">
+                Make sure you have Maven installed
+            </p>
+            <p class="std">
+                Go into a directory in which you want to create your working directory.
+                For example, suppose you want to work in C:\development\java\my-project, then
+                simple go into C:\development\java\
+            </p>
+            <p class="std">
+                At the console type:
+                <source>
+                    C:\development\java> maven andromda:genapp
+                </source>
+            </p>
+            <p class="std">
+                Answer the questions you are prompted to answer
+            </p>
+            <p class="std">
+                Giving your project the id 'my-project' will create a subdirectory
+                with the same name, so you'll have C:\development\java\my-project.
+            </p>
+            <p class="std">
+                C:\development\java\my-project\mda\src\uml will contain an empty XMI
+                document, you can use it to get started modelling your application
+            </p>
+            <p class="std">
+                Simply typing 'maven' in C:\development\java\my-project will build your
+                application and it will put all the binaries into the local
+                Maven repository (most probably this is the .maven directory in your home
+                directory)
+            </p>
+            <p class="std">
+                Optionally you can go into a subdirectory to build it separately from
+                the others, this is much quicker and it will make it easy to focus on
+                only a part of your application.
+            </p>
+            <p class="std">
+                If your application 'my-project' has been built succesfully you can find
+                the binaries here: %USERPROFILE%\.maven\repository\my-project\
+                (for *nix users: $USER_HOME\.maven\repository\my-project\)
+            </p>
+            <p class="std">
+                By default the application will generate an EJB backend (optionally with a
+                Hibernate persistence layer) and a Struts front-end.
+            </p>
+            <h3>Ant</h3>
+            <p class="std">
+                Under construction
             </p>
         </section>
 
