@@ -63,7 +63,10 @@ public class $class.name
 
 #foreach ( $attribute in $class.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
-    private $attribute.type.fullyQualifiedName ${attribute.name};
+#if ($attribute.many)
+#set ($typeName = "${typeName}[]")
+#end
+    private $typeName ${attribute.name};
 
     /**
 $attribute.getDocumentation("     * ") 
