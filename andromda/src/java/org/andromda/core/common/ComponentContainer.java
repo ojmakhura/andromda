@@ -137,7 +137,6 @@ public class ComponentContainer
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
         return component;
@@ -208,7 +207,6 @@ public class ComponentContainer
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
     }
@@ -406,7 +404,6 @@ public class ComponentContainer
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
     }
@@ -448,7 +445,6 @@ public class ComponentContainer
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
     }
@@ -486,7 +482,6 @@ public class ComponentContainer
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
     }

@@ -110,7 +110,6 @@ public class MetafacadeImpls
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new MetafacadeImplsException(errMsg, th);
         }
     }
@@ -194,7 +193,6 @@ public class MetafacadeImpls
             catch (Throwable th)
             {
                 String errMsg = "Error performing " + methodName;
-                logger.error(errMsg, th);
                 throw new MetafacadeImplsException(errMsg, th);
             }
         }

@@ -78,7 +78,7 @@ public class Fragment
     {
         final String methodName = "Fragment.getKind";
 
-        //clean the name first
+        // clean the name first
         name = StringUtils.trimToEmpty(name);
 
         ExceptionUtils.checkEmpty(methodName, "name", name);
@@ -136,7 +136,7 @@ public class Fragment
     public Translation getTranslation()
     {
         final String methodName = "Fragment.getTranslation";
-        //should never happen, but it doesn't hurt to be safe
+        // should never happen, but it doesn't hurt to be safe
         if (this.translation == null)
         {
             throw new LibraryException(methodName

@@ -144,9 +144,9 @@ public class XmlObjectFactory
 
     /**
      * Sets whether or not the XmlObjectFactory should be validating, default is
-     * <code>true</code>. If it IS set to be validating, then there needs to be a schema
-     * named objectClass.xsd in the same package as the objectClass that this
-     * factory was created from.
+     * <code>true</code>. If it IS set to be validating, then there needs to
+     * be a schema named objectClass.xsd in the same package as the objectClass
+     * that this factory was created from.
      * 
      * @param validating true/false
      */
@@ -254,7 +254,6 @@ public class XmlObjectFactory
                     + objectXml
                     + "', please check either the objectXml "
                     + "or objectRulesXml file for inconsistencies";
-                logger.error(errMsg);
                 throw new XmlObjectFactoryException(errMsg);
             }
         }
@@ -263,14 +262,12 @@ public class XmlObjectFactory
             String validationErrorMsg = "VALIDATION FAILED for --> '"
                 + objectXml + "' against SCHEMA --> '" + this.schemaUri
                 + "' --> message: '" + ex.getMessage() + "'";
-            logger.error(validationErrorMsg);
             throw new XmlObjectFactoryException(validationErrorMsg);
         }
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName
                 + ", XML resource could not be loaded --> '" + objectXml + "'";
-            logger.error(errMsg, th);
             throw new XmlObjectFactoryException(errMsg, th);
         }
         return object;

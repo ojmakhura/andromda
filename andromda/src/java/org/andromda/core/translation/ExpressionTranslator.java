@@ -36,9 +36,9 @@ public class ExpressionTranslator
      */
     public void initialize()
     {
-        //configure the logger
+        // configure the logger
         AndroMDALogger.configure();
-        //discover plugins
+        // discover plugins
         PluginDiscoverer.instance().discoverPlugins();
     }
 
@@ -97,7 +97,6 @@ public class ExpressionTranslator
                 + " with translationName '" + translationName
                 + "', contextElement '" + contextElement + "' and expression '"
                 + expression + "'";
-            logger.error(errMsg, ex);
             throw new TranslatorException(errMsg, ex);
         }
         return translatedOcl;

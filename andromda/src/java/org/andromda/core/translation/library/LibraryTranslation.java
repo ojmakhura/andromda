@@ -152,8 +152,8 @@ public class LibraryTranslation
         {
             String translation = this.getTranslationFragment(name, kind);
 
-            //only handle the fragment if we can find the fragment in the
-            //translation template
+            // only handle the fragment if we can find the fragment in the
+            // translation template
             if (StringUtils.isNotEmpty(translation))
             {
                 String handlerMethod = this.translation.getFragment(name)
@@ -172,7 +172,7 @@ public class LibraryTranslation
                         Method method = this.getTranslator().getClass()
                             .getMethod(handlerMethod, argTypes);
 
-                        //add the translation as the first arg
+                        // add the translation as the first arg
                         Object[] args = new Object[]
                         {
                             translation,
@@ -197,7 +197,6 @@ public class LibraryTranslation
                     catch (Exception ex)
                     {
                         String errMsg = "Error performing " + methodName;
-                        logger.error(errMsg, ex);
                         throw new LibraryException(errMsg, ex);
                     }
                 }
@@ -292,7 +291,7 @@ public class LibraryTranslation
                 {
                     logger.debug("processed output --> '" + outputString + "'");
                 }
-                //load Reader into the translation
+                // load Reader into the translation
                 this.setTranslation(input);
             }
             catch (Exception ex)

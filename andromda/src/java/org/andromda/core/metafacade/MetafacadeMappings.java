@@ -642,7 +642,6 @@ public class MetafacadeMappings
             {
                 String errMsg = "No '" + Namespaces.DEFAULT + "' metafacades "
                     + "found, please check your classpath";
-                logger.error("ERROR!! " + errMsg);
                 throw new MetafacadeMappingsException(errMsg);
             }
         }
@@ -682,7 +681,6 @@ public class MetafacadeMappings
         catch (Throwable th)
         {
             String errMsg = "Error performing MetafacadeMappings.setDefaultMetafacadeClass";
-            logger.error(errMsg, th);
             throw new MetafacadeMappingsException(errMsg, th);
         }
     }

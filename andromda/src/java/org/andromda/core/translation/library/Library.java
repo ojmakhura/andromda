@@ -92,7 +92,6 @@ public class Library
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
             throw new LibraryException(errMsg, th);
         }
     }
