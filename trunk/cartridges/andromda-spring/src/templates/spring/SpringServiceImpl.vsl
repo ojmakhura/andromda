@@ -19,13 +19,11 @@ public class $service.implementationName
 	/**
 	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
 	 */
+    $operation.visibility $returnType.fullyQualifiedName $signature 
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $signature 
-    	throws $operation.exceptionList {
-#else
-    $operation.visibility $returnType.fullyQualifiedName $signature 
-    {
+    	throws $operation.exceptionList 
 #end
+    {
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
 #set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($operation.returnTypePresent)

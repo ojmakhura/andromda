@@ -177,4 +177,21 @@ public class SpringServiceLogicImpl
     {
         return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceDelegatorName()
+     */
+    protected String handleGetWebServiceDelegatorName()
+    {
+        return this.getName() + SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedWebServiceDelegatorName()
+     */
+    protected String handleGetFullyQualifiedWebServiceDelegatorName()
+    {
+        return this.getFullyQualifiedName()
+            + SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX;
+    }
 }
