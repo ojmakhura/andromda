@@ -6,12 +6,14 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import org.andromda.core.common.ScriptHelper;
+import org.andromda.core.common.StringUtilsHelper;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.GeneralizableElement;
+import org.omg.uml.foundation.core.Generalization;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.core.StructuralFeature;
