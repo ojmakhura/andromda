@@ -97,7 +97,7 @@
 #foreach ($useCase in $applicationUseCase.allUseCases)
 #if ($generateWebXmlIds=="true")
 #set ($counter = $counter + 1)
-    <security-constraint id="security_constraint_$counter>
+    <security-constraint id="security_constraint_$counter">
 #else
     <security-constraint>
 #end
