@@ -287,17 +287,15 @@
         </to>
     </expression>
     
-    <!--
     <expression>
         <from>
             context CustomerCard
             inv: printedName = customer.title.concat(customer.name)
         </from>
         <to>
-            org.andromda.translation.validation.OCLExpressions.equal(printedName,customer.title.concat(customer.name))
+           final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"printedName"),org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"customer.title") + "" + org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"customer.name")));
         </to>
     </expression>
-    -->
 
 </translation-test>
 
