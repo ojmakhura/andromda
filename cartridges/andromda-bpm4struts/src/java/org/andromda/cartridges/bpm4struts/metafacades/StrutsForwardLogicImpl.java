@@ -163,7 +163,7 @@ public class StrutsForwardLogicImpl
 
     protected Object handleGetDecisionTrigger()
     {
-        return getTrigger();
+        return (isTargettingDecisionPoint()) ? getTrigger() : null;
     }
 
     protected Object handleGetStrutsActivityGraph()
