@@ -70,7 +70,8 @@
         <link rel="stylesheet" type="text/css" href="${relativePath}/style/print.css" media="print"/>
         <meta http-equiv="Content-Type" content="text/html; charset=${outputencoding}"/>
         <meta name="Description" content="AndroMDA is an open source code generation framework that follows the Model Driven Architecture (MDA) paradigm."></meta>
-        <meta name="Keywords" content="MDA, Model Driven Architecture, cartridge, cartridges, PIM, PSM, Platform Independent Model, Platform Specific Model, Project Generator, J2EE, Java, OCL, UML, XMI, JMI, MagicDraw, Poseidon, Free, Open-Source, open source, open, source, sourceforge, sourceforge.net, schema2xmi, Schema2XMI, Translation Library, MDR, metadata, repository, templates, templating, template engine, velocity, maven, ant, animal quiz, online store, Matthias Bohlen, Chad Brandon, Wouter Zoons, Carlos Cuenca, Martin West, application server, jboss"></meta>
+        <meta name="keywords" content="MDA, Model Driven Architecture, cartridge, cartridges, PIM, PSM, Platform Independent Model, Platform Specific Model, Project Generator, J2EE, Java, OCL, UML, XMI, JMI, MagicDraw, Poseidon, Free, Open-Source, open source, open, source, sourceforge, sourceforge.net, schema2xmi, Schema2XMI, Translation Library, MDR, metadata, repository, templates, templating, template engine, velocity, maven, ant, animal quiz, online store, Matthias Bohlen, Chad Brandon, Wouter Zoons, Carlos Cuenca, Martin West, application server, jboss"></meta>
+        <meta name="robots" content="index,follow"></meta>
         <x:forEach var="author" select="./properties/author">
           <meta name="author" content="${author.text}"/>
           <meta name="email" content="${author.attribute('email').value}"/>
