@@ -155,6 +155,9 @@ $field.messageKey=$field.messageValue
 $field.titleKey=$field.titleValue
 $field.onlineHelpKey=$field.onlineHelpValue
 $field.documentationKey=$field.documentationValue
+#if ($field.validWhen)
+${field.messageKey}_validwhen={0} is only valid when $field.validWhen
+#end
 #if ($field.optionCount > 0)
 #set ($optionKeys = $field.optionKeys)
 #set ($optionValues = $field.optionValues)

@@ -26,6 +26,9 @@
 #set ($validatorTypes = $field.validatorTypes)
             <field property="$field.name" depends="$stringUtils.join($validatorTypes.iterator(),",")">
                 <arg0 key="$field.validatorMsgKey" />
+#if ($field.validWhen)
+                <msg name="validwhen" key="${field.validatorMsgKey}_validwhen" />
+#end
 #foreach ($validatorType in $validatorTypes)
 #foreach ($validatorArg in $field.getValidatorArgs($validatorType))
                 <arg${velocityCount} name="$validatorType" key="$validatorArg" resource="false"/>
