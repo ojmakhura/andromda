@@ -368,7 +368,7 @@ public class HibernateEntityLogicImpl
     {
         return 1;
     }
-    
+
     /**
      * Override so that we retrieve only the operations that are classifier
      * scope (i.e. static).
@@ -377,7 +377,8 @@ public class HibernateEntityLogicImpl
      */
     public Collection getBusinessOperations()
     {
-        Collection businessOperations = new FilteredCollection(super.getBusinessOperations())
+        Collection businessOperations = new FilteredCollection(super
+            .getBusinessOperations())
         {
             public boolean evaluate(Object object)
             {
@@ -576,8 +577,8 @@ public class HibernateEntityLogicImpl
     {
         final HibernateEntity superEntity = this.getSuperEntity();
         return this.isRoot()
-            && (!this.isHibernateInheritanceInterface() || (superEntity != null
-                && superEntity.isHibernateInheritanceInterface()));
+            && (!this.isHibernateInheritanceInterface() || (superEntity != null && superEntity
+                .isHibernateInheritanceInterface()));
     }
 
     /**
@@ -611,8 +612,8 @@ public class HibernateEntityLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT);
         if (dynamicInsert == null)
         {
-        dynamicInsert = (String)this
-            .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
+            dynamicInsert = (String)this
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
         }
         return Boolean.valueOf(dynamicInsert).booleanValue();
     }
@@ -626,8 +627,8 @@ public class HibernateEntityLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         if (dynamicUpdate == null)
         {
-        dynamicUpdate = (String)this
-            .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
+            dynamicUpdate = (String)this
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
         return Boolean.valueOf(dynamicUpdate).booleanValue();
     }
