@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <document>
-  	<properties>
-    	<title>Spring Cartridge Modeling</title>
-  	</properties>
-  	<body>
-    	<section name="Spring Cartridge Modeling">
-    		<p>
-    			The page describes the modeling standards one must follow to in order
-    			to use the Spring Cartridge.
-    		</p>   	
-    		<subsection name="Supported Stereotypes">
-		      	<table>
-		        	<tr>
-			          	<th>Stereotype</th>   
-			          	<th nowrap="nowrap">Model Element</th>
-			          	<th>Description</th>    	     	
-		        	</tr>
+      <properties>
+        <title>Spring Cartridge Modeling</title>
+      </properties>
+      <body>
+        <section name="Spring Cartridge Modeling">
+            <p>
+                The page describes the modeling standards one must follow to in order
+                to use the Spring Cartridge.
+            </p>
+            <subsection name="Supported Stereotypes">
+                <table>
+                    <tr>
+                        <th>Stereotype</th>
+                        <th nowrap="nowrap">Model Element</th>
+                        <th>Description</th>
+                    </tr>
                     <tr>
                       <a name="Entity"/>
                         <td>
@@ -31,176 +31,175 @@
                         </td>
                     </tr>
                     <tr>
-                    <a name="Service"/>
-                    <td>
-                        <strong><![CDATA[<<Service>>]]></strong>
-                    </td>
-                    <td>
-                        Classifier
-                    </td>
-                    <td>
-                        Creates POJO service facades (and optionally
-                        Session EJB facades).
-                    </td>
+                        <a name="Service"/>
+                        <td>
+                            <strong><![CDATA[<<Service>>]]></strong>
+                        </td>
+                        <td>
+                            Classifier
+                        </td>
+                        <td>
+                            Creates POJO service facades (and optionally
+                            Session EJB facades).
+                        </td>
                     </tr>
                     <tr>
-                      <td>
-                        <a name="Enumeration"/>
-                          <strong><![CDATA[<<Enumeration>>]]></strong>
-                      </td>
-                    <td>
-                        Classifier
-                    </td>
-                      <td>
-                          To be used together with the <![CDATA[<<Entity>>]]> stereotype. It denotes the class will
-                          be a persistent type-safe enumeration, implemented by means of a Hibernate UserType.
-                          Any attribute modeled on this entity will result in an enumeration literal. You
-                          may assign an <code>initial value</code> to such an attribute, Hibernate will persist
-                          that specified value for the corresponding literal. If no such value is specified the name
-                          of the attribute is assumed. Make sure there are no naming collisions between the
-                          initial values and the attribute names you model. <i>Please note: these enumerations
-                          use a <code>String</code> in order to persist their unique value.</i>
-                      </td>
+                        <td>
+                            <a name="Enumeration"/>
+                            <strong><![CDATA[<<Enumeration>>]]></strong>
+                        </td>
+                        <td>
+                            Classifier
+                        </td>
+                        <td>
+                            Indicates that the class will be a persistent type-safe enumeration, implemented by means
+                            of a Hibernate UserType.  Any attribute modeled on this entity will result in an enumeration
+                            literal. You may assign an <code>initial value</code> to such an attribute, Hibernate will persist
+                            that specified value for the corresponding literal. If no such value is specified the name
+                            of the attribute is assumed. Make sure there are no naming collisions between the
+                            initial values and the attribute names you model. <i>Please note: these enumerations
+                            use a <code>String</code> in order to persist their unique value.</i>
+                        </td>
                     </tr>
-		        	<tr>
-			          	<td>
-							<a name="FinderMethod"/>
-			          		<strong><![CDATA[<<FinderMethod>>]]></strong>
-			          	</td>
-			          	<td>
-			          		Operation
-			          	</td>			       
-			          	<td>
-			          		Identifies an <strong>entity</strong> operation as a finder method.  
+                    <tr>
+                          <td>
+                            <a name="FinderMethod"/>
+                              <strong><![CDATA[<<FinderMethod>>]]></strong>
+                          </td>
+                          <td>
+                              Operation
+                          </td>
+                          <td>
+                              Identifies an <strong>entity</strong> operation as a finder method.
                             Finder method queries can be defined as an OCL body
-							expression using the <a href="../andromda-query-library/index.html">
-							AndroMDA Query Library</a> or directly as Hibernate QL using the 
-							<a href="#@andromda.hibernate.query">@andromda.hibernate.query</a> tagged value.
+                            expression using the <a href="../andromda-query-library/index.html">
+                            AndroMDA Query Library</a> or directly as Hibernate QL using the
+                            <a href="#@andromda.hibernate.query">@andromda.hibernate.query</a> tagged value.
                             <strong>NOTE:</strong> finders can always be overriden at the DAO level as well.
-			          	</td>
-		        	</tr>	  
-		        	<tr>
-			          	<td>
-							<a name="Unique"/>
-			          		<strong><![CDATA[<<Unique>>]]></strong>
-			          	</td>
-						<td>
-							Attribute
-						</td>
-			          	<td>
-			          		Identifies an attribute as unique.
-			          	</td>
-					</tr>   	      
-		        	<tr>
-		        		<a name="Nullable"/>
-			          	<td>
-			          		<strong><![CDATA[<<Nullable>>]]></strong>
-			          	</td>
-						<td>
-							Parameter
-						</td>
-			          	<td>
-			          		Allows you to define whether or not service operation parameters can be <code>null</code>.
+                          </td>
+                    </tr>
+                    <tr>
+                          <td>
+                            <a name="Unique"/>
+                              <strong><![CDATA[<<Unique>>]]></strong>
+                          </td>
+                        <td>
+                            Attribute
+                        </td>
+                          <td>
+                              Identifies an attribute as unique.
+                          </td>
+                    </tr>
+                    <tr>
+                        <a name="Nullable"/>
+                          <td>
+                              <strong><![CDATA[<<Nullable>>]]></strong>
+                          </td>
+                        <td>
+                            Parameter
+                        </td>
+                          <td>
+                              Allows you to define whether or not service operation parameters can be <code>null</code>.
                             By default all service operation parameters are checked for null, if you want
                             a parameter to allow nulls, you'd add this stereotype to the parameter.
-			          	</td>
-		        	</tr>  	     
-		        	<tr>
-		        		<a name="Role"/>
-			          	<td>
-			          		<strong><![CDATA[<<Role>>]]></strong>
-			          	</td>
-						<td>
-							Actor
-						</td>
-			          	<td>
-			          		Defines a role providing access to a given service or service operation.
+                          </td>
+                    </tr>
+                    <tr>
+                        <a name="Role"/>
+                          <td>
+                              <strong><![CDATA[<<Role>>]]></strong>
+                          </td>
+                        <td>
+                            Actor
+                        </td>
+                          <td>
+                              Defines a role providing access to a given service or service operation.
                             To designate that the role has access to a service you must draw a dependeny
-                            from the role to the service, to designate the role has access to to a given operation, 
+                            from the role to the service, to designate the role has access to to a given operation,
                             you must draw a dependeny from the role to the operation.
-			          	</td>
-		        	</tr>	 	        	        		        	        	        	     	             	        	
-		        </table>
-    		</subsection>
-    		<subsection name="Supported Tagged Values">
-		      	<table>
-		        	<tr>
-			          	<th>Tagged Value</th>  
-						<th>Used With</th> 
-			          	<th>Description</th>    	     	
-		        	</tr>
-					<tr>
-						<td>
-	                        @andromda.persistence.table
-						</td>
-						<td>
-							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
-						</td>
-						<td>
-							Defines the relational table name for entity persistence.
-						</td>
-					</tr>	
-					<tr>
-						<td>
-	                        @andromda.persistence.column
-						</td>
-						<td>
-							Attribute
-						</td>
-						<td>
-							Represents the column name for entity persistence.
-						</td>
-					</tr>	
-					<tr>
-						<td>
-	                        @andromda.persistence.column.length
-						</td>
-						<td>
-							Attribute
-						</td>
-						<td>
-							Represents the column length for entity persistence.
-						</td>
-					</tr>
-		        	<tr>
-						<a name="@andromda.persistence.column.index"/>
-			          	<td>
-			          		@andromda.persistence.column.index
-			          	</td>
-						<td>
-							Attribute
-						</td>
-			          	<td>
-			          		The name of an index to create on an entity attribute/column.
-			          	</td>
-					</tr> 
-		        	<tr>
-						<a name="@andromda.hibernate.query"/>
-			          	<td>
-			          		@andromda.hibernate.query
-			          	</td>
-						<td>
-							<a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
-						</td>
-			          	<td>
-			          		Defines a hibernate query expression.  Note that you 
-							can model your finder method body in OCL as well
-							(to keep your model more PIM like).
-			          	</td>
-					</tr>
-		        	<tr>
-                        <a name="@andromda.hibernate.generator.class"/>
-			          	<td>
-                            @andromda.hibernate.generator.class
-			          	</td>
-						<td>
+                          </td>
+                    </tr>
+                </table>
+            </subsection>
+            <subsection name="Supported Tagged Values">
+                  <table>
+                    <tr>
+                          <th>Tagged Value</th>
+                        <th>Used With</th>
+                          <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @andromda.persistence.table
+                        </td>
+                        <td>
                             <a href="#Entity"><![CDATA[<<Entity>>]]></a>
-						</td>
-			          	<td>
+                        </td>
+                        <td>
+                            Defines the relational table name for entity persistence.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @andromda.persistence.column
+                        </td>
+                        <td>
+                            Attribute
+                        </td>
+                        <td>
+                            Represents the column name for entity persistence.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @andromda.persistence.column.length
+                        </td>
+                        <td>
+                            Attribute
+                        </td>
+                        <td>
+                            Represents the column length for entity persistence.
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.persistence.column.index"/>
+                          <td>
+                              @andromda.persistence.column.index
+                          </td>
+                        <td>
+                            Attribute
+                        </td>
+                          <td>
+                              The name of an index to create on an entity attribute/column.
+                          </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.query"/>
+                          <td>
+                              @andromda.hibernate.query
+                          </td>
+                        <td>
+                            <a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
+                        </td>
+                          <td>
+                              Defines a hibernate query expression.  Note that you
+                            can model your finder method body in OCL as well
+                            (to keep your model more PIM like).
+                          </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.generator.class"/>
+                          <td>
+                            @andromda.hibernate.generator.class
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                          <td>
                             Used to define the generator class used for the hibernate entity.
                             Any of the hibernate generator classes may be used.
-			          	</td>
-		        	</tr>
+                          </td>
+                    </tr>
                     <tr>
                         <a name="@andromda.hibernate.lazy"/>
                         <td>
@@ -215,21 +214,21 @@
                             relationships and defaults to <code>true</code> for the other kinds.
                         </td>
                     </tr>
-		        	<tr>
-		        		<a name="@andromda.role.name"/>
-			          	<td>
-			          		@andromda.role.name
-			          	</td>
-						<td>
-							<a href="#Role"><![CDATA[<<Role>>]]></a>
-						</td>
-			          	<td>
-			          		Optionally allows you to define the name of the role (if it needs
+                    <tr>
+                        <a name="@andromda.role.name"/>
+                          <td>
+                              @andromda.role.name
+                          </td>
+                        <td>
+                            <a href="#Role"><![CDATA[<<Role>>]]></a>
+                        </td>
+                          <td>
+                              Optionally allows you to define the name of the role (if it needs
                             to be different than the name of the actor that defines the role).
-			          	</td>
-		        	</tr>	
-		        </table>
-    		</subsection>	
+                          </td>
+                    </tr>
+                </table>
+            </subsection>
             <subsection name="Additional Remarks">
                 <p>
                     Dependencies can be used between Services and Entities, they
@@ -248,6 +247,6 @@
                     of the entity implementation class.
                 </p>
             </subsection>
-    	</section>
-  	</body>
+        </section>
+      </body>
 </document>
