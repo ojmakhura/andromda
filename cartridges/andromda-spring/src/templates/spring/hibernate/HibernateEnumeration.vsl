@@ -151,11 +151,11 @@ $literal.getDocumentation("     * ")
     }
 
     /**
-     * Returns a list containing all literals that are known by this enumeration.
+     * Returns a list containing the literals that are known by this enumeration.
      *
-     * @return List a List containing the actual literals as defined in this enumeration
+     * @return A List containing the actual literals as defined by this enumeration
      */
-    public static List allLiterals()
+    public static List literals()
     {
         return LITERALS;
     }
