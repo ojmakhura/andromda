@@ -21,7 +21,7 @@ $enumeration.getDocumentation(" * ")
 public final class $enumeration.enumerationName
     extends $enumeration.name
     implements java.io.Serializable,
-               java.lang.Comparable, 
+               java.lang.Comparable,
                net.sf.hibernate.UserType
 {
 
@@ -87,14 +87,14 @@ public final class $enumeration.enumerationName
     {
         return ${enumeration.enumerationName}.class;
     }
-    
+
     /**
      *  @see net.sf.hibernate.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
      */
-    public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException
+    public Object nullSafeGet(ResultSet resultSet, String[] values, Object owner) throws HibernateException, SQLException
     {
-        final String name = resultSet.getString(names[0]);
-        return resultSet.wasNull() ? null : ${enumeration.fromOperationName}(name);
+        final $enumeration.literalType.fullyQualifiedName value = ($enumeration.literalType.fullyQualifiedName)resultSet.getObject(values[0]);
+        return resultSet.wasNull() ? null : ${enumeration.fromOperationName}(value);
     }
 
     /**
@@ -108,7 +108,7 @@ public final class $enumeration.enumerationName
         }
         else
         {
-            statement.setString(index, value.toString());
+            statement.setObject(index, ${enumeration.literalType.fullyQualifiedName}.valueOf(String.valueOf(value)));
         }
     }
 }
