@@ -155,7 +155,7 @@ public class SpringEntityLogicImpl
     {
         String entityNamePattern = (String)this
             .getConfiguredProperty("entityNamePattern");
-        return MessageFormat.format(entityNamePattern, new String[]
+        return MessageFormat.format(entityNamePattern, new Object[]
         {
             StringUtils.trimToEmpty(this.getName())
         });
@@ -753,7 +753,7 @@ public class SpringEntityLogicImpl
         EntityAttributeFacade attribute = null;
         String columnName = null;
         Collection attributes = getAttributes();
-        Predicate pred = new Predicate()
+        Predicate predicate = new Predicate()
         {
 
             public boolean evaluate(Object object)
@@ -776,7 +776,7 @@ public class SpringEntityLogicImpl
         };
         attribute = (EntityAttributeFacade)CollectionUtils.find(
             attributes,
-            pred);
+            predicate);
         if (logger.isDebugEnabled())
             logger.debug("*** handleGetIdentifierColumn return:"
                 + (attribute == null ? null : attribute.getColumnName()));
