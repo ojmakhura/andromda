@@ -147,12 +147,7 @@
    <target name="build" depends="jar-ear">
    </target>
 
-   <target name="dist" depends="init"
-      description="Zips everything 'as is' so that the user can use this as a project template" >
-      <zip zipfile="${dist.dir}/andromda-blank-project.zip">
-          <zipfileset dir="." includes="*"  prefix="andromda-blank-project"/>
-          <zipfileset dir="." includes="src/**/*"  prefix="andromda-blank-project"/>
-      </zip>
+   <target name="dist" >
    </target>
 
    <target name="deploy" depends="build">
