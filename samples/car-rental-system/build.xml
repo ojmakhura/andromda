@@ -254,7 +254,7 @@
                 <include name="**/*Bean.java" />
             </fileset>
 
-            <utilobject/>
+            <utilobject kind="physical" />
 
             <remoteinterface/>
             <homeinterface/>
@@ -301,7 +301,7 @@
                 <include name="**/*Bean.java" />
             </fileset>
 
-            <utilobject/>
+            <utilobject kind="physical" />
 
             <deploymentdescriptor
                 destdir="build/ejbstage/META-INF/"/>
@@ -333,7 +333,7 @@
 
         <property name="bcp" refid="build.class.path"/>
         <echo message="build.class.path = ${bcp}"/>
-        
+
         <!-- Compile EJB classes -->
         <javac destdir="build/ejbstage" includes="**/*.java"
                includeAntRuntime="false">
@@ -473,9 +473,9 @@
             <classpath refid="schema.classpath" />
         </java>
 
-		<copy file="build/hibernate-schema-initialize.sql"
-		      tofile="build/hibernate-schema-reinitialize.sql"
-	    />		
+        <copy file="build/hibernate-schema-initialize.sql"
+              tofile="build/hibernate-schema-reinitialize.sql"
+        />      
         
         <replaceregexp file="build/hibernate-schema-initialize.sql"
                        match="^(alter table .* drop constraint|drop table)"
