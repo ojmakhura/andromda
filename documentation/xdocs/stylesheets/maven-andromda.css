@@ -60,7 +60,7 @@ body
 	color: #51a2ff;
     border-bottom: 1px dotted;
 }
-/*
+
 #navcolumn li.expanded
 {
     background-image: url(../images/expanded.gif);
@@ -71,7 +71,7 @@ body
     background-image: url(../images/collapsed.gif);
     background-repeat: no-repeat;
 }
-*/
+
 #bodyColumn
 {
     position: absolute;
@@ -189,14 +189,12 @@ tr.a
 
 a.externalLink, a.externalLink:link, a.externalLink:visited, a.externalLink:active, a.externalLink:hover
 {
-  background: url(images/external.png) right center no-repeat;
-  padding: 0 15px 0 4px;
+  background: url(images/external.gif) right center no-repeat;
 }
 
 a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWindow:hover
 {
-  background: url(images/newwindow.png) right center no-repeat;
-  padding: 0 18px 0 4px;
+  background: url(images/newwindow.gif) right center no-repeat;
 }
 
 
