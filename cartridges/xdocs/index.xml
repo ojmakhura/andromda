@@ -137,10 +137,11 @@
         <![CDATA[<from/>]]> definition):
      </p>
      <source>
-...
-<strong>&lt;mapping&gt;
-    &lt;from&gt;&lt;![CDATA[</strong>&lt;!-- error-page merge-point --&gt;<strong>]]&gt;&lt;/from&gt;
-    &lt;to&gt;
+&lt;mappings&gt;
+    ...
+    <strong>&lt;mapping&gt;
+        &lt;from&gt;&lt;![CDATA[</strong>&lt;!-- error-page merge-point --&gt;<strong>]]&gt;&lt;/from&gt;
+        &lt;to&gt;
 &lt;![CDATA[</strong>
 &lt;error-page&gt;
     &lt;error-code&gt;404&lt;/error-code&gt;
@@ -155,9 +156,10 @@
     &lt;location&gt;/index.jsp&lt;/location&gt;
 &lt;/error-page&gt;<strong>
 ]]&gt;
-    &lt;/to&gt;
-&lt;/mapping&gt;</strong>
-...
+        &lt;/to&gt;
+    &lt;/mapping&gt;</strong>
+    ...
+&lt;/mappings&gt;
      </source>
      <p class="highlight">
         If you wanted to add resources (i.e. a new template, image, static file, etc) to a cartridge without modifying the contents
