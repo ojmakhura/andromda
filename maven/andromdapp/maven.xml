@@ -25,14 +25,6 @@
         <ant:copy
             file="${model.location}"
             todir="${maven.build.dest}/${pluginResourceJ2eeDir}/mda/src/uml"/>
-        <!-- copy over the db initialization scripts for hibernate -->
-        <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/hibernate/conf">
-            <ant:fileset dir="${hibernate.db.conf.location}"/>
-        </ant:copy>
-        <!-- copy over the db initialization scripts for spring -->
-        <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/spring/conf">
-            <ant:fileset dir="${hibernate.db.conf.location}"/>
-        </ant:copy>
        <!-- Replace references to the '${andromdaVersion} property' -->
        <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/readme.txt.vsl"
            token="andromda.version"

@@ -47,12 +47,6 @@
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
-        <ant:copy todir="${hibernate.schema.output.dir}">
-            <ant:fileset dir="${maven.conf.dir}">
-                <ant:include name="**/*"/>
-            </ant:fileset>
-        </ant:copy>
-
     </postGoal>
 
 </project>
