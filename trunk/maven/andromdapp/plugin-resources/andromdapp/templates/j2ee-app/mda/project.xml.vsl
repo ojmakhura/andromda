@@ -162,7 +162,7 @@
                  <controllers>${maven.andromda.web.generated.dir}</controllers>
                  <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
                  <decorators>${maven.andromda.web.manual.java.dir}</decorators>
-                 <messages>${maven.andromda.web.generated.dir}</messages>
+                 <messages>${maven.andromda.web.generated.dir}/WEB-INF/classes</messages>
                  <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
                  <security>false</security>
                  <securityRealm>other</securityRealm>
