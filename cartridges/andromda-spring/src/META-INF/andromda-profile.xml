@@ -19,6 +19,10 @@
         <from>HIBERNATE_INHERITANCE</from>
         <to>@andromda.hibernate.inheritance</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_USE_QUERY_CACHE</from>
+        <to>@andromda.hibernate.query.useCache</to>
+    </mapping>
      <mapping>
         <from>HIBERNATE_ENTITY_CACHE</from>
         <to>@andromda.hibernate.entity.cache</to>

@@ -812,5 +812,23 @@ public class SpringEntityLogicImpl
     {
         return 1;
     }
+    /**
+     * Stores the hibernate entity cache value.
+     */
+    private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateCacheType()
+     */
+    protected String handleGetHibernateCacheType()
+    {
+        String cacheType = (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
+        if (cacheType == null)
+        {
+            cacheType = String.valueOf(this
+                .getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
+        }
+        return cacheType;
+    }
 
 }
