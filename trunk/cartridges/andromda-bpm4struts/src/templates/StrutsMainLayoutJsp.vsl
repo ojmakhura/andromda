@@ -19,6 +19,7 @@
             </div>
             <div id="content">
                 <tiles:insert attribute="body" flush="true"/>
+                <tiles:insert attribute="messages" flush="true"/>
             </div>
         </div>
     </body>
