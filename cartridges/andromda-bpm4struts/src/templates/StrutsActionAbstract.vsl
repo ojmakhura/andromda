@@ -1,17 +1,64 @@
+##
+## Set global invariants
+##
+#set ($activityGraph = $transform.getActivityGraph($class))
+#set ($initialState = $transform.getInitialState($activityGraph))
+#set ($controllerClass = $transform.getControllerClass($class))
+#set ($controllerClassName = $transform.toJavaClassName($controllerClass))
+#set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
+#if (!$controllerFormName) ## If there is no form, use the default one
+#set ($controllerFormName = "ActionForm")
+#end
+#set ($className = "${controllerClassName}Abstract")
+#set ($packageName = $transform.getPackageName($controllerClass))
+##
+## This macro is designed to generate code that goes into the body of a method.
+##
+## For action states and final states it will render an action forward.
+##
+## For object flow states it will render a method call that will need
+## manual implementation.
+##
+## For decision points (Pseudostate.CHOICE) it will render a call to
+## another method that will handle the decision.
+##
+## If the argument transition has a guard it will be evaluated before
+## execution
+##
 #macro ( processTransition $transition $indent )
-#set ($target = $transform.getLastTransitionTarget($transition.target))
-#if ( $transform.isFinalState($target) || $transform.isActionState($target) )
+#set ($transitionGuard = $transition.guard)
+#if ($transitionGuard)
+#set ($transitionGuardName = $transform.toJavaMethodName($transitionGuard))
+${indent}if ($transitionGuardName())
+${indent}{
+#set ($indent2 = $indent)## backup original indentation
+#set ($indent = "$indent    ")
+#end
+#set ($target = $transform.dynamicHelper.getLastTransitionTarget($transition.target))
+#if ( $transform.dynamicHelper.isFinalState($target) || $transform.dynamicHelper.isActionState($target) )
 #set ($forwardName = $transform.toForwardName($target))
 ${indent}return mapping.findForward("$forwardName");
-#elseif ( $transform.isObjectFlowState($target) )
+#elseif ( $transform.dynamicHelper.isObjectFlowState($target) )
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($target))
 #set ($objectFlowStateStateMethodName = "set$transform.toJavaClassName($objectFlowStateState)")
 ${indent}return $objectFlowStateStateMethodName(mapping, form, request, response);
-#elseif ( $transform.isChoice($target) )
+#elseif ( $transform.dynamicHelper.isChoice($target) )
 ${indent}return $transform.toJavaMethodName($target)(mapping, form, request, response);
 #end
+#if ($transitionGuard)
+#set ($indent = $indent2)## restore original indentation
+${indent}}
+${indent}else
+${indent}{
+${indent}    // if the guard fails we restart the use-case
+${indent}    return mapping.findForward("$transform.toForwardName($initialState)");
+${indent}}
 #end
-package $transform.getPackageName($class);
+#end
+##
+## Package declaration and imports
+##
+package $packageName;
 
 import org.apache.struts.actions.DispatchAction;
 import org.apache.struts.action.ActionForm;
@@ -21,92 +68,137 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-#set ($activityGraph = $transform.getActivityGraphs($class).iterator().next())
-#set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
-#set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
-#if (!$controllerFormName)
-#set ($controllerFormName = "ActionForm")
-#end
-#set ($className = "${controllerClassName}Abstract")
+##
+## Set collections from which methods will be rendered, we convert them to sets
+## because we don't want to render doubles (just to make sure)
+##
+#set ($choices = $transform.toSet($transform.dynamicHelper.getChoices($activityGraph)))
+#set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($activityGraph)))
+#set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($activityGraph)))
+#set ($choiceTransitions = $transform.toSet($transform.getChoiceTransitions($activityGraph)))
+##
+## Start of the class declaration, notice how it extends DispatchAction, not Action
+##
 public abstract class ${className} extends DispatchAction
 {
-#set ($choiceTransitions = $transform.getActivityGraphChoiceTransitions($activityGraph))
+##
+## For each distinct choice transition in this use-case's activity graph we will render
+## a global static constant that will be used in the decision process, these constants
+## will be used by the developer that implements the decision methods.
+##
 #foreach ($choiceTransition in $choiceTransitions)
 #set ($choiceTransitionName = $transform.toFinalMemberName($choiceTransition))
-#set ($choiceTransitionValue = $transform.getChoiceOptionFinalMemberValue($choiceTransition))
-   protected static final int $choiceTransitionName = $choiceTransitionName.hashCode();
+#set ($choiceTransitionValue = $choiceTransitionName.hashCode())
+    protected static final int $choiceTransitionName = $choiceTransitionValue;
 #end
 
-#set ($choices = $transform.getChoices($activityGraph))
-#set ($actionStates = $transform.getActionStates($activityGraph))
-#set ($objectFlowStates = $transform.getObjectFlowStates($activityGraph))
-#set ($methodName = $transform.toJavaMethodName($initialState))
+##
+## Since there is only one initial state (with only one outgoing transition we will make the unspecified method
+## call the first state vertex.
+##
+    public final ActionForward unspecified(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+#processTransition ( $transform.dynamicHelper.getNextStateTransition($initialState) "        " )
+    }
+
+##
+## Each action state will have a corresponding dispatch method, depending on the outgoing
+## transitions the macro is called.
+##
+## If there is only one transition this method is fairly simply, for more transitions
+## there needs to be some logic to determine which one has been called. This is done by
+## means of a request parameter (notice what happens if there is no custom form class,
+## the transition value will be retrieved from the request context in that case).
+##
+## Each transition needs to have a trigger or this script will not work (hard requirement).
+##
 #foreach ($actionState in $actionStates)
 #set ($methodName = $transform.toJavaMethodName($actionState))
 #set ($methodNameImpl = "${methodName}Impl")
-   public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
-   {
+    public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
 #set ($transitions = $actionState.outgoing)
 #if ($transitions.size() > 1)
 #if ($controllerFormName.equals("ActionForm"))
-      final String transition = request.getParameter("transition").toUpperCase();
+        final String trigger = request.getParameter("trigger").toUpperCase();
 #else
-      final String transition = form.getTransition().toUpperCase();
+        final String trigger = form.getTrigger().toUpperCase();
 #end
-#set ($conditionSuffix = ".equals(transition)")
+
+#set ($conditionSuffix = ".equals(trigger)")
 #foreach ($transition in $transitions)
-      if ("$transform.toFinalMemberName($transition)"$conditionSuffix)
-      {
-#processTransition ( $transition "         " )
-      } else
+        if ("$transform.toFinalMemberName($transition.trigger)"$conditionSuffix)
+        {
+#processTransition ( $transition "            " )
+        } else
 #end
-      {
-         // the form property has not been set to a valid value, application bug!
-         return null;
-      }
+        {
+            // the form property has not been set to a valid value, application bug!
+            return null;
+        }
 #else
-#processTransition ( $transform.getNextStateTransition($actionState) "      " )
+#processTransition ( $transform.dynamicHelper.getNextStateTransition($actionState) "        " )
 #end
-   }
+    }
 
 #end
+##
+## Each choice needs a method that will implement the business logic behind it.
+## The methods generated in this part of the template will take care of that, notice also how
+## the global static constants are being used here, and how the implementation depends on them.
+##
 #foreach ($choice in $choices)
 #set ($methodName = $transform.toJavaMethodName($choice))
 #set ($returnValue = "${methodName}Value")
-   private ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
-   {
-      final int $returnValue = ${methodName}Impl(mapping, form, request, response);
+    private ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final int $returnValue = ${methodName}Impl(mapping, form, request, response);
 
-      switch ($returnValue)
-      {
+        switch ($returnValue)
+        {
 #set ($choiceTransitions = $choice.outgoing)
 #foreach ($choiceTransition in $choiceTransitions)
-#set ($choiceMemberName = $transform.toFinalMemberName($choiceTransition))
-         case $choiceMemberName :
-#processTransition ( $choiceTransition "            " )
+#set ($choiceMemberName = $transform.toFinalMemberName($choiceTransition.trigger))
+            case $choiceMemberName :
+#processTransition ( $choiceTransition "                " )
 #end
-         default :
-            return null; // if this occurs ${methodName}Impl is not correctly implemented
-      }
-   }
+            default :
+                return null; // if this occurs ${methodName}Impl is not correctly implemented
+        }
+    }
 
-   protected abstract int ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    protected abstract int ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #end
+##
+## For each object flow state we will have a method that implements the logic to actually
+## set the specified object in the desired state, this is done in the implementation class.
+##
 #foreach ($objectFlowState in $objectFlowStates)
-#set ($objectFlowType = $transform.toJavaClassName($objectFlowState.type))
+#set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
-#set ($activityGraph = $transform.getStateMachine($objectFlowState))
-#set ($methodName = "set$transform.toJavaClassName($objectFlowStateState)")
-   public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
-   {
-      ${methodName}Impl(mapping,form,request,response);
+#set ($methodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
+    private final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        ${methodName}Impl(mapping, form, request, response);
 
-#set ($transition = $objectFlowState.outgoing.iterator().next())
-#processTransition ( $transition "      " )
-   }
+#processTransition ( $transform.dynamicHelper.getNextStateTransition($objectFlowState) "        " )
+    }
 
-   protected abstract void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    protected abstract void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #end
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
