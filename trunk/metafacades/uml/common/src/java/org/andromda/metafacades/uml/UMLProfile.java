@@ -42,8 +42,8 @@ public class UMLProfile
 
     /**
      * The base exception stereotype. If a model element is stereotyped with
-     * this (or one of its sub stereotypes), then it is excepted that a
-     * cartridge will generate an exception
+     * this (or one of its specializations), then the exception can be generated
+     * by a cartridge and a dependency to it from an operation will add a throws clause.
      */
     public static final String STEREOTYPE_EXCEPTION = umlProfile
         .getString("STEREOTYPE_EXCEPTION");
