@@ -14,31 +14,39 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
- * Creates and returns Objects based on a set of 
- * Apache Digester rules in a consistent manner, providing validation
- * in the process.
+ * <p>
+ *   Creates and returns Objects based on a set of 
+ *   Apache Digester rules in a consistent manner, providing validation
+ *   in the process.
+ * </p>
  * 
- * This XML object factory allows us to define a consistent/clean of configuring
- * java objects from XML configuration files (i.e. it uses the class name of 
- * the java object to find what rule file and what XSD file to use).  It also 
- * allows us to define a consistent way in which schema validation is performed.  
- *  
- * It seperates each concern into one file, for example: to configure and perform validation on
- * the MetafacadeMappings class, we need 3 files 1.) the java object (MetafacadeMappings.java),
- * 2.) the rules file which tells the apache digester how to populate the java object from the
- * XML configuration file (MetafacadeMappings-Rules.xml), and 3.) the XSD schema validation 
- * file (MetafacadeMappings.xsd).  Note that each file is based on the name of the java 
- * object: 'java object name'.xsd  and'java object name'-Rules.xml'.  After you have these 
- * three files then you just need to call the method #getInstance(java.net.URL objectClass) 
- * in this class from the java object you want to configure.  This keeps the dependency 
- * to digester (or whatever XML configuration tool we are using at the time) to this single file.
+ * <p>
+ *   This XML object factory allows us to define a consistent/clean of configuring
+ *   java objects from XML configuration files (i.e. it uses the class name of 
+ *   the java object to find what rule file and what XSD file to use).  It also 
+ *   allows us to define a consistent way in which schema validation is performed.  
+ * </p>
  * 
- * In order to add/modify an existing element/attribute in your configuration file, first 
- * make the modification in your java object, then modify it's rules file 
- * to instruct the digester on how to configure your new attribute/method in the java object, 
- * and then modify your XSD file to provide correct validation for this new method/attribute.  
- * Please see the org.andromda.core.metafacade.MetafacadeMappings* files for an example on how
- * to do this.
+ * <p>
+ *   It seperates each concern into one file, for example: to configure and perform validation on
+ *   the MetafacadeMappings class, we need 3 files 1.) the java object (MetafacadeMappings.java),
+ *   2.) the rules file which tells the apache digester how to populate the java object from the
+ *   XML configuration file (MetafacadeMappings-Rules.xml), and 3.) the XSD schema validation 
+ *   file (MetafacadeMappings.xsd).  Note that each file is based on the name of the java 
+ *   object: 'java object name'.xsd  and'java object name'-Rules.xml'.  After you have these 
+ *   three files then you just need to call the method #getInstance(java.net.URL objectClass) 
+ *   in this class from the java object you want to configure.  This keeps the dependency 
+ *   to digester (or whatever XML configuration tool we are using at the time) to this single file.
+ * </p>
+ * 
+ * <p>
+ *   In order to add/modify an existing element/attribute in your configuration file, first 
+ *   make the modification in your java object, then modify it's rules file 
+ *   to instruct the digester on how to configure your new attribute/method in the java object, 
+ *   and then modify your XSD file to provide correct validation for this new method/attribute.  
+ *   Please see the org.andromda.core.metafacade.MetafacadeMappings* files for an example on how
+ *   to do this.
+ * </p>
  * 
  * @author Chad Brandon
  */
