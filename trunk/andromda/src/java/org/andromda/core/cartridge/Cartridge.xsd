@@ -75,22 +75,22 @@
 	<xs:element name="resource" type="resourceType"/>
     <xs:element name="template">		
         <xs:complexType>
-		    <xs:complexContent>
-			    <xs:extension base="resourceType">
+            <xs:complexContent>
+                <xs:extension base="resourceType">
                     <!-- You can have as many modelElements as you want for a template or
-				         you don't even need to add model elements to your template -->
+                         you don't even need to add model elements to your template -->
                     <xs:sequence>
-                       <xs:element ref="modelElements" minOccurs="0" maxOccurs="1"/>
+                        <xs:element ref="modelElements" minOccurs="0" maxOccurs="1"/>
                     </xs:sequence>
                     <!-- true/false on whether we should allow generation of empty files-->
                     <xs:attribute name="generateEmptyFiles" type="xs:boolean"/>
                     <!-- if this flag is set to true, then all model elments
                          processed by the template will be output to one template as
-                         a collection of model elements (instead of on a per model 
+                         collection of model elements (instead of on a per model 
                          element per file basis) -->
                     <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>				
-			    </xs:extension>
-		    </xs:complexContent>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="templateObject">
