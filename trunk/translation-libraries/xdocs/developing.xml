@@ -19,7 +19,7 @@
 				<ol>
 					<li>
 						<p>
-							First make sure you have the <a href="../maven-andromdadev-plugin/index.html">maven-andromdadev-plugin</a> 
+							First make sure you have the <a href="../maven-androdev-plugin/index.html">maven-androdev-plugin</a> 
 							installed.  
 						</p>
 					</li>
@@ -28,7 +28,7 @@
 							Next we need to create the Translation-Library directory that will contain all
 							required resources (you'll be editing these as you develop).  We'll call our 
 							sample Translation-Library 'constraint'.  This is simple with the 
-							<a href="../maven-andromdadev-plugin/index.html">maven-andromdadev-plugin</a>.  After changing 
+							<a href="../maven-androdev-plugin/index.html">maven-androdev-plugin</a>.  After changing 
 							to the directory where you want the 'constraint' Translation-Library to be 
 							generated, just type the following:
 							<ul>
@@ -38,7 +38,7 @@
 								</li>
 							</ul>
 						</p>
-						<source>maven andromdadev:generate-translation-library -Dlibrary=constraint -Dtranslations=Oracle-SQL</source> 
+						<source>maven androdev:generate-translation-library -Dlibrary=constraint -Dtranslations=Oracle-SQL</source> 
 					</li>
 					<li>
 						<p>
@@ -47,10 +47,10 @@
 							<ul>
 								<li>
 									<strong>IMPORTANT:</strong> each one of the resources that is generated at once by the 
-									maven <em>andromdadev:generate-translation-library</em> goal can be generated seperately (you 
+									maven <em>androdev:generate-translation-library</em> goal can be generated seperately (you 
 									may want to do this after you've started working on your Translation-Library, if you
 									want to add a new Translation, Translator, etc.). Please see the 
-									<a href="../maven-andromdadev-plugin/goals.html">Maven AndroMDA Plugin</a> documentation 
+									<a href="../maven-androdev-plugin/goals.html">Maven AndroMDA Plugin</a> documentation 
 									for more information.
 								</li>
 							</ul>
@@ -99,8 +99,8 @@
 											<strong>NOTE:</strong> The translation file is named 'Oracle-SQL' because if you'll remember 
 											we gave the 'translations' property a value of 'Oracle-SQL', you'll have a translation 
 											file generated for each comma seperated value specified for the 'translations' 
-											property when using the <a href="../maven-andromdadev-plugin/index.html">maven-andromdadev-plugin</a> 
-										    <code>andromdadev:generate-translation-library</code> goal. 
+											property when using the <a href="../maven-androdev-plugin/index.html">maven-androdev-plugin</a> 
+										    <code>androdev:generate-translation-library</code> goal. 
 										</li>
 										<li>
 											<strong>IMPORTANT:</strong> Each translation file has an instance of 
@@ -161,7 +161,7 @@
 										<li>
 											<strong>NOTE:</strong> There will be a <code>TranslationTest-*.xml</code> file 
 											generated for every comma seperated value defined by the 'translation' property 
-											from the <code>andromdadev:generate-translation-library</code> goal.
+											from the <code>androdev:generate-translation-library</code> goal.
 										</li>
 									</ul>
 								</td>
@@ -171,9 +171,9 @@
 					<li>
 						<p>
 							Ok, since you now are within your 'constraint' directory, you can run the 
-							<code>andromdadev:test-translation</code> goal to make sure everything was setup correctly:
+							<code>androdev:test-translation</code> goal to make sure everything was setup correctly:
 						</p>
-						<source>maven andromdadev:test-translation</source>.  
+						<source>maven androdev:test-translation</source>.  
 					</li>
 					<li>
 						<p>
@@ -223,14 +223,14 @@
 					<li>
 						<a name="executeTranslationTestWithTrace"/>
 						<p>
-							We'll now execute the <em>andromdadev:test-translation</em> goal once again but this time
+							We'll now execute the <em>androdev:test-translation</em> goal once again but this time
 							we'll add the '-Dtrace=true' property. Since we've added an expression to the <![CDATA[<from/>]]>
 							element in the previous step, this will allow us to see, in what order and how the OCL parser
 							parses the expression that we added.  This is necessary since we'll need to know what methods
 							to override in our <a href="#constraintTranslator">ConstraintTranslator</a> class to perform 
 							the translation of the expression.
 						</p>
-						<source>maven andromdadev:test-translation -Dtrace=true</source>
+						<source>maven androdev:test-translation -Dtrace=true</source>
 						<p>
 							Your output should look like the following:
 							<source>
@@ -366,7 +366,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 								we'll want to give this fragment <code>name</code> a regular expression that will match
 								on one of these three allInstances patterns.
 								<strong>NOTE:</strong> There is a goal called 
-								<a href="../maven-andromdadev-plugin/goals.html#andromdadev:test-regex">andromdadev:test-regex</a> that will
+								<a href="../maven-androdev-plugin/goals.html#androdev:test-regex">androdev:test-regex</a> that will
 								allow you to test your regular expressions while writing them for your fragment names which
 								comes in very handy.
 							</li>
@@ -442,10 +442,10 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 					</li>
 					<li>
 						<p>
-							Next we'll again run the <em>andromdadev:test-translation</em> method, this 
+							Next we'll again run the <em>androdev:test-translation</em> method, this 
 							time not adding the <em>-Dtrace=true</em> property.  
 						</p>
-						<source>maven andromdadev:test-translation</source>
+						<source>maven androdev:test-translation</source>
 						<p>
 							Your console output should contain the following (in addition to other output). 
 							Notice the line: <em>translated: <![CDATA[-->]]> 'alter table LegalAgrmt add 
@@ -487,7 +487,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 					<li>
 						<p>
 							For the final step of our little tutorial, we'll again run the translation test 
-							maven goal: <em>andromdadev:test-translation</em> to see if our 'translated' and 'expected' outputs 
+							maven goal: <em>androdev:test-translation</em> to see if our 'translated' and 'expected' outputs 
 							match (of course they won't since the only thing we have added to our 
 							<a href="#sqlTranslation">Oracle-SQL.vsl</a> translation file so far is a fragment for 
 							handling the <code>allInstances</code> operation). This time you should at least see that 
@@ -507,7 +507,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 				<p>
 					Ok that's it!  You're job now is to continue the process of getting the 'expected' and 'translated' 
 					expressions to equal each other (and get the Junit test cases to pass when running the Maven 
-					<em>andromdadev:test-translation</em> goal) by repeating the steps above.  To summarize 
+					<em>androdev:test-translation</em> goal) by repeating the steps above.  To summarize 
 					you'll repeat the following steps over and over again until you have the translator 
 					and translations supporting the language you want.
 					<ol>
@@ -524,7 +524,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 						</li>
 						<li>
 							Execute the translator test with command 
-							<a href="#executeTranslationTestWithTrace">maven andromdadev:test-translation -Dtrace=true</a>
+							<a href="#executeTranslationTestWithTrace">maven androdev:test-translation -Dtrace=true</a>
 							and decide what parser generated method you need to override in your 
 							<a href="#constraintTranslator">Translator</a> to handle a fragment of the expression: .							
 						</li>
@@ -549,7 +549,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 						</li>
 						<li>
 							Execute the translation test with command 
-							<a href="#executeTranslationTestWithTrace">maven andromdadev:test-translation</a>
+							<a href="#executeTranslationTestWithTrace">maven androdev:test-translation</a>
 							and see if the expressions equal each other and if the tests pass.  
 						</li>
 						<li>
