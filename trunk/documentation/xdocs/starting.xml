@@ -19,6 +19,16 @@
                 and have Java and Maven already up and running then feel free to jump to this section:
                 <a href="#My first AndroMDA project">My first AndroMDA project</a>.
             </p>
+            <p>
+                On this page you will learn:
+            </p>
+            <p>
+                <ul>
+                    <li>what software is needed to run AndroMDA,</li>
+                    <li>how to configure environment variables for these software components,</li>
+                    <li> and how to make AndroMDA setup a template J2EE project for you</li>
+                </ul>
+            </p>
         </section>
 
         <section name="Requirements">
@@ -235,6 +245,12 @@
                 nightly-build, stable releases could be: <code>3.0M1, 3.0M2, 3.0M3 or 3.0</code>, at the time of
                 this writing <code>3.0M3-SNAPSHOT</code> was the most recent release (meaning the third milestone
                 of AndroMDA 3 was/is still under development).
+            </p>
+            <p>
+                The documentation for this specific plugin can be found by clicking on the
+                <a href="andromda-maven-plugins/index.html">Maven Plugins</a> on the left,
+                or by directly going to its page by clicking
+                <a href="maven-andromdapp-plugin/index.html">here</a>.
             </p>
             <p>
                 <code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.0M3-SNAPSHOT</code>
