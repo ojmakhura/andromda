@@ -17,6 +17,8 @@ public class PathMatcher
      * 
      * @param path the path to match against.
      * @param pattern the pattern to check if the path matches.
+     * @return true if the <code>path</code> matches the given
+     *         <code>pattern</code>, false otherwise.
      */
     public static boolean wildcardMatch(String path, String pattern)
     {
