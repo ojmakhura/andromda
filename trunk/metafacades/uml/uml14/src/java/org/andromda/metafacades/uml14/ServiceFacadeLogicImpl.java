@@ -1,6 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityFacade;
@@ -8,6 +9,8 @@ import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.RoleFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
+import org.andromda.metafacades.uml.ServiceOperationFacade;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -88,6 +91,28 @@ public class ServiceFacadeLogicImpl
                 return ((DependencyFacade)object).getSourceElement();
             }
         });
+        return roles;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ServiceFacade#getAllRoles()
+     */
+    protected Collection handleGetAllRoles()
+    {
+        final Collection roles = new HashSet(this.getRoles());
+        CollectionUtils.forAllDo(this.getOperations(), new Closure()
+        {
+            public void execute(Object object)
+            {
+                if (object != null
+                    && ServiceOperationFacade.class.isAssignableFrom(object
+                        .getClass()))
+                {
+                    roles.addAll(((ServiceOperationFacade)object).getRoles());
+                }
+            }
+        });
+
         return roles;
     }
 }

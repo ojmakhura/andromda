@@ -602,6 +602,7 @@ public class WebServiceLogicImpl
      */
     protected boolean handleIsSecured()
     {
-        return this.getRoles() != null && !this.getRoles().isEmpty();
+        Collection roles = this.getAllRoles();
+        return roles != null && !roles.isEmpty();
     }
 }
