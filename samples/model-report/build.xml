@@ -19,8 +19,16 @@
 	 <mkdir dir="${dist.dir}"/>
    </target>
 
+   
+   <property file="build.properties"/>   
+   <property file="${andromda-core.home}/andromda-core.properties"/>
+   <path id="build.classpath">
+     <pathelement path="${andromda-core.classpath}"/>
+     <pathelement location="${andromda-core.home}/andromda.jar"/>
+   </path>
+   
    <path id="classpath">
-	  <pathelement path="${build.classpath}"/>
+	  <path refid="build.classpath"/>
 
 	  <!-- Tony's cool trick: put a new cartridge on the classpath! -->
 	  <pathelement location="src/andromda-cartridge"/>
@@ -30,6 +38,10 @@
 
 
    <target name="compile" depends="init">
+   	 <property name="build.classpath" refid="build.classpath"/>
+   	 <echo message="basedir = ${basedir}" />
+     <echo message="build.classpath =${build.classpath}" />
+     
 	 <javac srcdir="src/java"
 		 destdir="${classes.dir}"
 		 classpath="${build.classpath}"/>
@@ -37,24 +49,17 @@
 
 
    <target name="report" depends="compile,init">
-
-		<echo message="basedir = ${basedir}" />
-		<echo message="build.classpath =${build.classpath}" />
-
+		
 		<taskdef name="andromda"
 				 classname="org.andromda.core.anttasks.AndroMDAGenTask"
 				 classpathref="classpath"/>
 
-		<path id="model.file.path">
-		   <pathelement location="${model.file}" />
-		</path>
-
-		<property name="model.file.name" refid="model.file.path" />
-
+		
+        <property name="model.file.name" location="${model.file}"/>
 		<andromda basedir="."
 				 modelURL="jar:file:${model.file.name}!/${model.xmi}"
 				 lastModifiedCheck="false"
-				 typeMappings="${andromda.home}/src/xml/TypeMapping.xml">
+				 typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
 
 		  <repository transformClassname="ReportHelper"/>
 

@@ -5,7 +5,17 @@
     <!-- Load user environment parameters -->
     <!-- This should define build classpath -->
     <property file="build.properties" />
-
+    
+    <property name="andromda-core.home" value="." />
+    <property file="andromda-core.properties" />
+    <path id="andromda-core.classpath">
+      <pathelement path="${andromda-core.classpath}"/>
+    </path>
+    
+	<path id="build.classpath">
+		<path refid="andromda-core.classpath"/>
+	</path>
+	
     <!-- ============================================================= -->
     <!--                      Define the directory layout              -->
     <!-- ============================================================= -->
@@ -33,7 +43,7 @@
 
     <path id="build.class.path">
         <pathelement location="${build.classes.dir}" />
-        <pathelement path="${build.classpath}"/>
+        <path refid="build.classpath"/>
     </path>
 
     <path id="test.class.path">
@@ -85,7 +95,8 @@
         <!-- copy everything into the stage dir -->
         <copy todir="${dist.stage.dir}">
             <fileset dir="." includes="build.xml"/>
-            <fileset dir="." includes="build.properties.sample"/>
+            <fileset dir="." includes="andromda-core.properties"/>
+            <fileset dir="." includes="xdoclet.properties"/>
             <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
             <fileset dir="${license.src.dir}" includes="LICENSE"/>
         </copy>
@@ -139,6 +150,7 @@
     <target name="jar" depends="compile">
         <jar jarfile="${build.jar.dir}andromda.jar">
             <fileset dir="${build.classes.dir}" includes="**/*.class" />
+            <fileset dir="." includes="andromda-core.properties" />
         </jar>
     </target>
 
@@ -185,8 +197,11 @@
     </target>
 
     <target name="check-environment">
-        <antcall target="check-buildclasspath"/>
 
+		<property name="buildclasspath" refid="build.classpath"/>
+		
+		<echo message="classpath = ${buildclasspath}" />
+		
         <available property="mdr.present"
                classname="org.netbeans.mdr.NBMDRepositoryImpl"
                classpathref="build.class.path"/>
