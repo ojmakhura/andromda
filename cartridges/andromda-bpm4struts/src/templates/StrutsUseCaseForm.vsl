@@ -22,15 +22,43 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class $formBeanClassName extends ValidatorForm implements Serializable
 {
+#set ($collectionPresent = false)
+#set ($arrayPresent = false)
 #foreach ($field in $fields)
-    private $field.type.fullyQualifiedName $field.name;
+#if ($field.type.collectionType)
+#set ($collectionPresent = true)
+#end
+#if ($field.type.arrayType)
+#set ($arrayPresent = true)
+#end
+#set ($fieldType = $field.type.fullyQualifiedName)
+#if ($field.date)
+#set ($fieldType = "java.lang.String")
+#end
+    private $fieldType $field.name;
+#if ($field.date)
+    private final java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
+#end
 #if ($field.hasBackingList())
     private $field.backingListType $field.backingListName;
 #end
 #end
 
+    public $formBeanClassName()
+    {
+#foreach ($field in $fields)
+#if ($field.date)
+#set ($lenient = !$field.strictDateFormat)
+        ${field.name}DateFormatter.setLenient($lenient);
+#end
+#end
+    }
+
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
+#if ($field.date)
+#set ($fieldType = "String")
+#end
 #set ($fieldName = $field.name)
 #if ($field.type.collectionType)
     public void ${field.setterName}($fieldType $fieldName)
@@ -51,6 +79,50 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
     public Object[] ${field.getterName}AsArray()
     {
         return ($fieldName == null) ? null : ${fieldName}.toArray();
+    }
+#elseif ($field.date)
+    public void ${field.setterName}($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    public $fieldType ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
+
+    public void ${field.setterName}AsString(String ${fieldName}AsString)
+    {
+        if (${fieldName}AsString == null || ${fieldName}AsString.trim().length()==0)
+        {
+            this.$fieldName = null;
+        }
+        else
+        {
+            try
+            {
+#if ($fieldType == "java.util.Date")
+                this.$fieldName = ${fieldName}DateFormatter.parse(${fieldName}AsString);
+#else
+## this is an attempt to support descendants of java.util.Date, the class needs <init>(long)
+                this.$fieldName = new ${fieldType}(${fieldName}DateFormatter.parse(${fieldName}AsString).getTime());
+#end
+            }
+            catch(java.text.ParseException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public String ${field.getterName}AsString()
+    {
+        return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
+    }
+
+    public java.text.DateFormat ${field.getterName}DateFormatter()
+    {
+        return this.${fieldName}DateFormatter;
     }
 #else
     public void ${field.setterName}($fieldType $fieldName)
@@ -96,13 +168,19 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 
 #foreach ($field in $fields)
 #if ($field.type.arrayType || $field.type.collectionType)
-        buffer.append("${separator}${field.name}=" + toString(this.${field.getterName}()));
+        buffer.append("${separator}${field.name}=");
+        buffer.append(toString(this.${field.getterName}()));
+#elseif ($field.date)
+        buffer.append("${separator}${field.name}=");
+        buffer.append(${field.getterName}AsString());
 #else
-        buffer.append("${separator}${field.name}=" + String.valueOf(this.${field.getterName}()));
+        buffer.append("${separator}${field.name}=");
+        buffer.append(String.valueOf(this.${field.getterName}()));
 #end
 #set ($separator = ',')
 #if ($field.hasBackingList())
-        buffer.append("${separator}${field.backingListName}=" + toString(this.get${backingListMethod}()));
+        buffer.append("${separator}${field.backingListName}=");
+        buffer.append(toString(this.get${backingListMethod}()));
 #end
 #end
 
@@ -110,11 +188,14 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
     }
 #end
 
+#if ($collectionPresent)
     private final static String toString(java.util.Collection objects)
     {
         return (objects==null) ? null : toString(objects.toArray());
     }
 
+#end
+#if ($arrayPresent || $collectionPresent)
     private final static String toString(Object[] objects)
     {
         if (objects == null)
@@ -134,6 +215,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
             return buffer.append(']').toString();
         }
     }
+#end
 
     public void clean()
     {
