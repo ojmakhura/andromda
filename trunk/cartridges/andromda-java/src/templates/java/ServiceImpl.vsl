@@ -8,25 +8,25 @@ package $service.packageName;
 /**
  * @see $service.fullyQualifiedName
  */
-public class ${service.name}Impl 
-#if($superclass)  
-	extends $superclass.fullyQualifiedName
+public class ${service.name}Impl
+#if($superclass)
+    extends $superclass.fullyQualifiedName
 #end
-    implements $service.fullyQualifiedName 
+    implements $service.fullyQualifiedName
 {
 
 #foreach ( $operation in $service.operations )
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.signature)
-	/**
-	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
-	 */
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $signature 
-    	throws $operation.exceptionList 
+    $operation.visibility $returnType.fullyQualifiedName $signature
+        throws $operation.exceptionList
 #else
-    $operation.visibility $returnType.fullyQualifiedName $signature 
+    $operation.visibility $returnType.fullyQualifiedName $signature
 #end
     {
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
@@ -41,8 +41,8 @@ public class ${service.name}Impl
 #end
 #else
         throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${signature} Not implemented!");
-#end 
+#end
     }
-	
+
 #end
 }

@@ -8,8 +8,8 @@ package $class.packageName;
 $class.getDocumentation(" * ")
  */
 public class $class.name
-#if($class.generalization)  
-	extends ${class.generalization.fullyQualifiedName}
+#if($class.generalization)
+    extends ${class.generalization.fullyQualifiedName}
 #end
 #if ($serializable == 'true')
     implements java.io.Serializable
@@ -24,7 +24,7 @@ public class $class.name
 
     /**
      * Constructor taking all properties.
-     */ 
+     */
 #set ($parenthesis = "(")
 #if ($class.properties.empty)
 #set ($parenthesis = "()")
@@ -47,10 +47,10 @@ public class $class.name
 
     /**
      * Copies constructor from other ${class.name}
-     */ 
-    public ${class.name}(${class.name} otherBean) 
+     */
+    public ${class.name}(${class.name} otherBean)
     {
-        if (otherBean != null) 
+        if (otherBean != null)
         {
 #foreach ( $property in $class.properties)
             this.${property.name} = otherBean.${property.getterName}();
@@ -86,7 +86,7 @@ $attribute.getDocumentation("     * ")
 #set($targetTypeFQName = "java.util.Collection")
 #end
     private $targetTypeFQName $target.name;
-   
+
     /**
      * Get the ${target.name}
 $target.getDocumentation("     * ")
