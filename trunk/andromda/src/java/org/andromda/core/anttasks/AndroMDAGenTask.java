@@ -10,6 +10,7 @@ import java.util.Iterator;
 import org.andromda.core.cartridge.AndroMDACartridge;
 import org.andromda.core.cartridge.CartridgeFinder;
 import org.andromda.core.common.CodeGenerationContext;
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
@@ -171,7 +172,12 @@ public class AndroMDAGenTask extends MatchingTask
 
             createRepository().createRepository().open();
 
-            if (modelURL == null)
+            if (modelURL != null) 
+            {
+                // process the model via the explicit modelURL
+                process(modelURL, cartridges);    
+            }
+            else
             {
                 // find the files/directories
                 scanner = getDirectoryScanner(baseDir);
@@ -183,18 +189,18 @@ public class AndroMDAGenTask extends MatchingTask
                 {
                     for (int i = 0; i < list.length; ++i)
                     {
-                        URL modelURL = null;
+                        URL url = null;
                         File inFile = new File(baseDir, list[i]);
 
                         try
                         {
-                            modelURL = inFile.toURL();
-                            process(modelURL, cartridges);
+                            url = inFile.toURL();
+                            process(url, cartridges);
                         }
                         catch (MalformedURLException mfe)
                         {
                             throw new BuildException(
-                                "Malformed model URI --> '" + modelURL + "'");
+                                "Malformed model URI --> '" + url + "'");
                         }
                     }
                 }
@@ -202,11 +208,6 @@ public class AndroMDAGenTask extends MatchingTask
                 {
                     throw new BuildException("Could not find any model input!");
                 }
-            }
-            else
-            {
-                // get the model via URL
-                process(modelURL, cartridges);
             }
 
             createRepository().createRepository().close();
@@ -229,6 +230,7 @@ public class AndroMDAGenTask extends MatchingTask
     private void process(URL url, Collection cartridges) throws BuildException
     {
         final String methodName = "AndroMDAGenTask.process";
+        ExceptionUtils.checkNull(methodName, "url", url);
         
         CodeGenerationContext context = null;
 
@@ -283,7 +285,7 @@ public class AndroMDAGenTask extends MatchingTask
         {
             String errMsg = "Error performing " + methodName + 
                 " with model --> '" 
-                + modelURL + "'";
+                + url + "'";
             logger.error(errMsg, th);
             throw new BuildException(
                 errMsg, th);
