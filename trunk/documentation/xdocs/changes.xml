@@ -18,6 +18,27 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 03, 2004</td>
+                    <td valign="top" class="std">build update</td>
+                    <td valign="top" class="std">
+                        The maven build has been changed 
+                        <ul>
+                            <li>
+                                All artifacts now reside in the 'andromda' groupId of the maven 
+                                repository.  This means for those using Maven for their projects,
+                                they'll need to specify 'andromda' as the groupId (for dependencies) 
+                                instead of the old 'andromda-cartridges' for cartridges and 
+                                'andromda-translation-libraries' for translation-libraries.                                
+                            </li>
+                            <li>
+                               Bootstrap dependencies are now stored in CVS. They are renamed 
+                               to the current version and copied to the remote repository during the build (
+                               they used to be stored remotely).
+                            </li>
+                        </ul>  
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">July 26, 2004</td>
                     <td valign="top" class="std">andromda Ant task update</td>
                     <td valign="top" class="std">
