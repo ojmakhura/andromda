@@ -1,0 +1,21 @@
+package $transform.getPackageName($class);
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ExceptionHandler;
+import org.apache.struts.config.ExceptionConfig;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class $class.name extends ExceptionHandler
+{
+    public final ActionForward execute(
+        Exception exception, ExceptionConfig config, ActionMapping mapping, ActionForm form,
+        HttpServletRequest request, HttpServletResponse response )
+    {
+        request.setAttribute("$transform.toForwardName($class)", exception);
+        return mapping.findForward("$transform.toForwardName($class)");
+    }
+}
