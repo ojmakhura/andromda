@@ -79,6 +79,10 @@
             </xsl:if>
 
             <tr><td class="header-data">
+                <span class="header-label">Full Build Results:&#160;</span>
+                <a href="http:/thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all">Build results</a>
+            </td></tr>
+            <tr><td class="header-data">
                 <span class="header-label">Date of build:&#160;</span>
                 <xsl:value-of select="cruisecontrol/info/property[@name='builddate']/@value"/>
             </td></tr>
@@ -105,6 +109,20 @@
             </table>
         </xsl:if>		
 
+        <xsl:variable name="testsuite" select="cruisecontrol/testsuite"/>
+        <xsl:variable name="junit.failures" select="$testsuite[@failures!='0']"/>
+
+        <xsl:if test="count($junit.failures) > 0">
+			<HR/><H2>JUnit Failures</H2>
+            <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
+                 <!-- Style download notifications first -->
+                 <tr class="compile-sectionheader">
+                     <td>Error Messages</td>
+                 </tr>
+            </table>
+                 <xsl:apply-templates select="$junit.failures"/>
+        </xsl:if>		
+
         <HR/><H2>Modifications</H2>
         <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
         <xsl:variable name="modification.list" select="cruisecontrol/modifications/modification"/>
@@ -125,6 +143,25 @@
 
 		
         </html>
+    </xsl:template>
+
+    <xsl:template name="break">
+      <xsl:param name="text" select="."/>
+      <xsl:choose>
+         <xsl:when test="contains($text, '&#xa;')">
+            <xsl:value-of select="substring-before($text, '&#xa;')" disable-output-escaping="yes" /><br/>
+            <xsl:call-template name="break">
+               <xsl:with-param name="text" select="substring-after($text,'&#xa;')"/>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:otherwise>
+           <xsl:value-of select="$text" disable-output-escaping="yes" />
+         </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="testcase/failure">
+        <example><xsl:call-template name="break" /></example>
     </xsl:template>
 
     <xsl:template match="mavengoal[@name='jar:deploy']">
