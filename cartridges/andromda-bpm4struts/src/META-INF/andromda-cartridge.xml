@@ -455,18 +455,4 @@
         overwrite="false"
         generateEmptyFiles="false"/>
 
-    <template
-        path="templates/StrutsControllerCallInterface.vsl"
-        outputPattern="$generatedFile"
-        outlet="controllers"
-        overwrite="true">
-        <modelElements variable="operation">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation">
-                    <property name="controller"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
 </cartridge>
