@@ -170,7 +170,7 @@
 #set ($exportable = $variable.tableExportable)
 #set ($collectionVariableName = "form.${variable.name}")
         <display:table name="${${collectionVariableName}}" id="row"
-                       requestURI="${request.contextPath}"
+                       requestURI="${pageContext.request.requestURI}"
                        export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
