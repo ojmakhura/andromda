@@ -26,6 +26,7 @@ public class StrutsUseCaseLogicImpl
     private Object controller = null;
     private Collection formFields = null;
     private Collection pages = null;
+    private Collection allPages = null;
     private Collection users = null;
     private Collection finalStates = null;
     private String actionRoles = null;
@@ -184,7 +185,7 @@ public class StrutsUseCaseLogicImpl
         if (Bpm4StrutsProfile.ENABLE_CACHE && pages != null) return pages;
 
         final Collection pagesList = new LinkedList();
-        final Collection allActionStates = getModel().getAllActionStates();
+        final Collection allActionStates = getActivityGraph().getActionStates();
 
         for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
         {
@@ -193,6 +194,22 @@ public class StrutsUseCaseLogicImpl
                 pagesList.add(actionState);
         }
         return pages = pagesList;
+    }
+
+    protected Collection handleGetAllPages()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && allPages != null) return allPages;
+
+        final Collection pagesList = new LinkedList();
+        final Collection allActionStates = getModel().getAllActionStates();
+
+        for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
+        {
+            Object actionState = shieldedElement(actionStateIterator.next());
+            if (actionState instanceof StrutsJsp)
+                pagesList.add(actionState);
+        }
+        return allPages = pagesList;
     }
 
     protected Collection handleGetAllUseCases()
