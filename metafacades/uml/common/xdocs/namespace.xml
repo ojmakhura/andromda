@@ -261,56 +261,6 @@
                 </tr>
                 <tr>
                     <td>
-                        roleNameMask
-                    </td>
-                    <td>
-                        Provides the ability to apply a mask to role names (roles are actors
-                        marked with the role stereotype:
-                        currently these are:
-                        <ul>
-                            <li>uppercase</li>
-                            <li>lowercase</li>
-                            <li>upperunderscore</li>
-                            <li>lowerunderscore</li>
-                            <li>underscore</li>
-                            <li>nospace</li>
-                            <li>camelcase</li>
-                            <li>none</li>
-                        </ul>
-                    </td>
-                    <td>
-                        RoleFacade
-                    </td>
-                    <td>
-                        No, the default is <code>none</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        enumerationLiteralNameMask
-                    </td>
-                    <td>
-                        Provides the ability to apply a mask to enumeration literal names.
-                        <ul>
-                            <li>uppercase</li>
-                            <li>lowercase</li>
-                            <li>upperunderscore</li>
-                            <li>lowerunderscore</li>
-                            <li>underscore</li>
-                            <li>nospace</li>
-                            <li>camelcase</li>
-                            <li>none</li>
-                        </ul>
-                    </td>
-                    <td>
-                        Enumeration
-                    </td>
-                    <td>
-                        No, the default is <code>none</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         namespaceSeparator
                     </td>
                     <td>
@@ -372,6 +322,179 @@
                       </td>
                   </tr>
             </table>
+            <subsection name="Name Masking Properties">
+                <p>
+                    <a name="masking_values"/>
+                    Certain namespace properties (the ones listed below) are used to provide masking of names.   For example
+                    a name such as "Hospital Visit" given to an enumeration literal could be transformed
+                    into <em>HOSPITAL_VISIT</em> during model processing by applying the <em>upperunderscore</em>
+                    mask to it.
+                    When applicable, the following masks are available:
+                    <ul>
+                        <li>uppercase - upper cases the name (i.e. "Hospital Visit" would become <em>HOSPITAL VISIT</em>)</li>
+                        <li>lowercase - lower cases the name (i.e. "Hospital Visit" would become <em>hosptial visit</em>)</li>
+                        <li>upperunderscore - upper cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>HOSPITAL_VISIT</em>)</li>
+                        <li>lowerunderscore - lower cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>hosptial_visit</em>)</li>
+                        <li>underscore - replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>Hosptial_Visit</em>)</li>
+                        <li>nospace - removes all spaces (i.e. "Hospital Visit" would become <em>HosptialVisit</em>)</li>
+                        <li>uppercamelcase - camel cases the word beginning with an upper cased letter (i.e. "Hospital Visit" would become <em>HospitalVisit</em>)</li>
+                        <li>lowercamelcase - camel cases the word beginning with a lower cased letter (i.e. "Hospital Visit" would become <em>hospitalVisit</em></li>
+                        <li>none - no mask is applied</li>
+                    </ul>                    
+                </p>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                        <th>Configures</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            roleNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to role names (roles are actors
+                            marked with the role stereotype). Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            RoleFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            operationNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to all operation names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            OperationFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            parameterNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to all parameter names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            ParameterFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            classifierNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to all classifier names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            ClassifierFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            classifierPropertyNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to all classifier property names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            ClassifierFacade properties (attributes and association ends)
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            enumerationLiteralNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to enumeration literal names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            Literals (i.e. attributes) on an EnumerationFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            enumerationNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to enumeration names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            EnumerationFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            entityNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to enumeration names.
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            EntityFacade
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            entityPropertyNameMask
+                        </td>
+                        <td>
+                            Provides the ability to apply a mask to entity property names. 
+                            Please see <a href="#masking_values">above</a>
+                            for the available masks that may be applied.
+                        </td>
+                        <td>
+                            EntityFacade properties (attributes and association ends).
+                        </td>
+                        <td>
+                            No, the default is <code>none</code>.
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
     	</section>
   	</body>
 </document>

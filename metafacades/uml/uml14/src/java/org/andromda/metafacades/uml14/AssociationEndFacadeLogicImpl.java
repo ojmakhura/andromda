@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +45,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getOtherEnd()
      */
-    public Object handleGetOtherEnd()
+    protected Object handleGetOtherEnd()
     {
         Collection ends = metaObject.getAssociation().getConnection();
         for (Iterator endIt = ends.iterator(); endIt.hasNext();)
@@ -61,7 +62,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String handleGetName()
+    protected String handleGetName()
     {
         String name = super.handleGetName();
         // if name is empty, then get the name from the type
@@ -78,7 +79,9 @@ public class AssociationEndFacadeLogicImpl
                 name = StringUtilsHelper.pluralize(name);
             }
         }
-        return name;
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+        return NameMasker.mask(name, nameMask);
     }
 
     /**
@@ -109,7 +112,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isOne2Many()
      */
-    public boolean handleIsOne2Many()
+    protected boolean handleIsOne2Many()
     {
         return !this.isMany() && this.getOtherEnd().isMany();
     }
@@ -117,7 +120,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isMany2Many()
      */
-    public boolean handleIsMany2Many()
+    protected boolean handleIsMany2Many()
     {
         return this.isMany() && this.getOtherEnd().isMany();
     }
@@ -125,7 +128,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isOne2One()
      */
-    public boolean handleIsOne2One()
+    protected boolean handleIsOne2One()
     {
         return !this.isMany() && !this.getOtherEnd().isMany();
     }
@@ -133,7 +136,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isMany2One()
      */
-    public boolean handleIsMany2One()
+    protected boolean handleIsMany2One()
     {
         return this.isMany() && !this.getOtherEnd().isMany();
     }
@@ -141,7 +144,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isMany()
      */
-    public boolean handleIsMany()
+    protected boolean handleIsMany()
     {
         boolean isMany = false;
         Multiplicity multiplicity = this.metaObject.getMultiplicity();
@@ -167,7 +170,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isOrdered()
      */
-    public boolean handleIsOrdered()
+    protected boolean handleIsOrdered()
     {
         boolean ordered = false;
 
@@ -184,7 +187,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isAggregation()
      */
-    public boolean handleIsAggregation()
+    protected boolean handleIsAggregation()
     {
         return AggregationKindEnum.AK_AGGREGATE.equals(metaObject
             .getAggregation());
@@ -193,7 +196,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isComposition()
      */
-    public boolean handleIsComposition()
+    protected boolean handleIsComposition()
     {
         return AggregationKindEnum.AK_COMPOSITE.equals(metaObject
             .getAggregation());
@@ -202,7 +205,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isReadOnly()
      */
-    public boolean handleIsReadOnly()
+    protected boolean handleIsReadOnly()
     {
         return ChangeableKindEnum.CK_FROZEN.equals(metaObject
             .getChangeability());
@@ -211,7 +214,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isNavigable()
      */
-    public boolean handleIsNavigable()
+    protected boolean handleIsNavigable()
     {
         return metaObject.isNavigable();
     }
@@ -219,7 +222,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterName()
      */
-    public java.lang.String handleGetGetterName()
+    protected java.lang.String handleGetGetterName()
     {
         return "get" + StringUtils.capitalize(this.getName());
     }
@@ -227,7 +230,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getSetterName()
      */
-    public java.lang.String handleGetSetterName()
+    protected java.lang.String handleGetSetterName()
     {
         return "set" + StringUtils.capitalize(this.getName());
     }
@@ -243,7 +246,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
-    public String handleGetGetterSetterTypeName()
+    protected String handleGetGetterSetterTypeName()
     {
         // if many, then list or collection
         if (this.isMany())
@@ -261,7 +264,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
      */
-    public boolean handleIsRequired()
+    protected boolean handleIsRequired()
     {
         int lower = this.getMultiplicityRangeLower();
         return lower >= 1;
@@ -270,7 +273,7 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isChild()
      */
-    public boolean handleIsChild()
+    protected boolean handleIsChild()
     {
         return this.getOtherEnd() != null && this.getOtherEnd().isComposition();
     }

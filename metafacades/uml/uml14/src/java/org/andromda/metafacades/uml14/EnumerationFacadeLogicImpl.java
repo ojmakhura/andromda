@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -22,6 +24,18 @@ public class EnumerationFacadeLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**
@@ -47,7 +61,7 @@ public class EnumerationFacadeLogicImpl
         }
         return signature.toString();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationName()
      */

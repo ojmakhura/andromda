@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.andromda.metafacades.uml.ServiceOperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -45,11 +45,9 @@ public class RoleFacadeLogicImpl
         else
         {
             name = super.handleGetName();
-            String mask = StringUtils
-                .trimToEmpty(String
-                    .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
-            name = MetafacadeUtils.getMaskedName(name, mask);
+            String mask = StringUtils.trimToEmpty(String.valueOf(
+                this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
+            name = NameMasker.mask(name, mask);
         }
         return name;
     }

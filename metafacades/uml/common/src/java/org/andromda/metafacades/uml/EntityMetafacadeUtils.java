@@ -27,8 +27,8 @@ public class EntityMetafacadeUtils
      */
     public static String toSqlName(String modelElementName, Object separator)
     {
-        final String methodName = "EntityFacadeUtils.toSqlName";
-        ExceptionUtils.checkEmpty(methodName, "string", modelElementName);
+        final String methodName = "EntityMetaFacadeUtils.toSqlName";
+        ExceptionUtils.checkEmpty(methodName, "modelElementName", modelElementName);
 
         StringBuffer sqlName = new StringBuffer();
         StringCharacterIterator iter = new StringCharacterIterator(StringUtils

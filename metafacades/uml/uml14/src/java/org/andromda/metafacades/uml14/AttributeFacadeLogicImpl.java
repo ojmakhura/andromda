@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.mapping.Mappings;
-import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.EnumerationFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -245,17 +245,17 @@ public class AttributeFacadeLogicImpl
             value = getDefaultValue();
             value = (value == null) ? getName() : String.valueOf(value);
         }
-         
+
         if (this.getType().isStringType())
         {
             value = "\"" + value + "\"";
         }
         return value;
     }
-    
+
     /**
-     * Overridden to provide different handling of the name if this
-     * attribute represents a literal.
+     * Overridden to provide different handling of the name if this attribute
+     * represents a literal.
      * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
@@ -264,12 +264,16 @@ public class AttributeFacadeLogicImpl
         String name = super.handleGetName();
         if (this.getOwner() instanceof EnumerationFacade)
         {
-            final String mask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
-            name = MetafacadeUtils.getMaskedName(name, mask);
+            final String mask = String
+                .valueOf(this
+                    .getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
+            name = NameMasker.mask(name, mask);
         }
-        return name;
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+        return NameMasker.mask(name, nameMask);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Attribute#isOrdered()
      */
@@ -286,7 +290,7 @@ public class AttributeFacadeLogicImpl
 
         return ordered;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterSetterTypeName()
      */
@@ -296,9 +300,9 @@ public class AttributeFacadeLogicImpl
         if (this.isMany())
         {
             Mappings mappings = getLanguageMappings();
-            return isOrdered() ? mappings
-                .getTo(UMLProfile.LIST_TYPE_NAME) : mappings
-                .getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            return isOrdered()
+                ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+                : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type

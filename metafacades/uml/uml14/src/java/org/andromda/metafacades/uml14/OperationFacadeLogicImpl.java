@@ -8,7 +8,9 @@ import java.util.Iterator;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.CollectionUtils;
@@ -35,6 +37,19 @@ public class OperationFacadeLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * Overridden to provide name masking.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.OPERATION_NAME_MASK));
+        return NameMasker.mask(super.handleGetName(), nameMask);
+    }
+    
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
