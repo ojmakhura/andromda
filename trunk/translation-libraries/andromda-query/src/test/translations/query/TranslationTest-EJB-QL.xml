@@ -89,7 +89,6 @@
 			and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) 
 			and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) 
 			and legalAgreement.project.projectPk = aProjectPk)
- 
 		</from>
 		<to>
 			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement , 
