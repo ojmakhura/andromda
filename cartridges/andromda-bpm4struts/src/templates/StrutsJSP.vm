@@ -97,7 +97,7 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType property="$fieldName" value="$optionKey" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled/>
+${indent}            <html:$widgetType name="$formBeanName" property="$fieldName" value="$optionKey" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -107,20 +107,20 @@ ${indent}</table>
 ##      C H E C K B O X
 ##
 #elseif ($widgetType == 'checkbox')
-${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled/>
+${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled/>
 ##
 ##      M U L T I B O X 
 ##
 #elseif ($widgetType == 'multibox')
-${indent}<html:$widgetType name="form" property="$field.multiboxPropertyName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
-#set ($multiboxBody = "form.${fieldName}")
+${indent}<html:$widgetType name="$formBeanName" property="$field.multiboxPropertyName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
+#set ($multiboxBody = "${formBeanName}.${fieldName}")
 ${indent}    ${${multiboxBody}}
 ${indent}</html:$widgetType>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
-${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $readonly/>
+${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $readonly/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
 ${indent}<html:link href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
 ${indent}   <html:img page="/layout/calendar/calendar.gif" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
@@ -130,12 +130,12 @@ ${indent}</html:link>
 ##      T E X T A R E A
 ##
 #elseif ($widgetType == 'textarea')
-${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $readonly/>
+${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $readonly/>
 ##
 ##      H I D D E N
 ##
 #elseif ($widgetType == 'hidden')
-${indent}<html:$widgetType property="$fieldName"/>
+${indent}<html:$widgetType name="$formBeanName" property="$fieldName"/>
 ##
 ##      C O M B O B O X     &      L I S T
 ##
@@ -150,8 +150,8 @@ ${indent}<html:$widgetType property="$fieldName"/>
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<html:select property="$selectProperty" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled $multiple>
-${indent}   <html:optionsCollection name="form" property="$field.backingListName" label="label" value="value"/>
+${indent}<html:select name="$formBeanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled $multiple>
+${indent}   <html:optionsCollection name="$formBeanName" property="$field.backingListName" label="label" value="value"/>
 ${indent}</html:select>
 ##
 ##      L I N K     (will only work on tablelinks, this is ensured by the facade)
@@ -163,7 +163,7 @@ ${indent}</html:select>
 #if ($parameter.tableLinkColumnName)
 #set ($propertyName = "row.${parameter.tableLinkColumnName}")
 #else
-#set ($propertyName = "form.${parameter.name}")
+#set ($propertyName = "${formBeanName}.${parameter.name}")
 #end
 #if ($velocityCount == 1)
 #set ($requestPath = "${field.action.actionPath}?${parameter.name}=${${propertyName}}")
@@ -179,7 +179,7 @@ ${indent}</html:link>
 ##      P L A I N T E X T
 ##
 #else
-#set ($plainText = "form.${fieldName}")
+#set ($plainText = "${formBeanName}.${fieldName}")
 ${indent}${${plainText}}
 #end
 #end
