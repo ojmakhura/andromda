@@ -192,6 +192,7 @@
                 context of the activity graph. So you will need to set it first, here's how:
                 <ul>
                     <li>Create a controller class</li>
+                    <li>Give it the FrontEndController stereotype</li>
                     <li>Add operations to this controller class</li>
                     <li>Assign this controller class as the context of the activity graph</li>
                     <li>On the action states, optionally add deferrable events of type 'Call' and
