@@ -177,6 +177,11 @@ public class ModelElementFacadeLogicImpl
         return stereotypeNames;
     }
 
+    public String getPackagePath()
+    {
+        return '/' + getPackageName().replace('.','/');
+    }
+
     public String getDocumentation(String indent)
     {
         return getDocumentation(indent, 64);
