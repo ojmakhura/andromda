@@ -11,8 +11,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
 import org.apache.commons.beanutils.ConstructorUtils;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -270,26 +268,6 @@ public class MetafacadeFactory
                     metaobject,
                     metafacadeCacheKey,
                     metafacade);
-            }
-
-            if ("org.andromda.cartridges.spring.metafacades.SpringService"
-                .equals(StringUtils.trimToEmpty(contextName)))
-            {
-                try
-                {
-                    String name = StringUtils.trimToEmpty((String)PropertyUtils
-                        .getProperty(metafacade, "name"));
-                    if (StringUtils.isNotEmpty(name) && name.equals("name"))
-                    {
-                        System.out
-                            .println("constructed metafacade!!!!!!!!!!!: "
-                                + metafacade.getClass());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
             }
 
             return metafacade;
