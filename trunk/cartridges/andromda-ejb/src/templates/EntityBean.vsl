@@ -40,7 +40,7 @@ $entity.getDocumentation(" * ")
  * @ejb.env-entry
  *     name="$envEntry.name"
  *     type="$envEntry.type.fullyQualifiedName"
- *     value=$value
+ *     value="$value"
  *
 #end
 #foreach ( $dependency in $entity.dependencies )
