@@ -1,0 +1,50 @@
+##
+##  CONSTANTS
+##
+#set ($useCases = $applicationUseCase.allUseCases)
+#set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
+##
+##  START TEMPLATE
+##
+#if ($applicationUseCase.applicationValidationRequired && $validationDesired)
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE form-validation PUBLIC
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN"
+    "http://jakarta.apache.org/commons/dtds/validator_1_0.dtd">
+
+<form-validation>
+
+    <formset>
+#foreach ($useCase in $useCases)
+#foreach ($action in $useCase.actions)
+#if ($action.validationRequired)
+        <form name="$action.formBeanName">
+#set ($actionParameters = $action.actionParameters)
+#foreach ($field in $action.actionFormFields)
+#if ($field.validationRequired && $actionParameters.contains($field))
+#set ($validatorTypes = $field.validatorTypes)
+            <field property="$field.name" depends="$str.toStringList($validatorTypes)">
+                <arg0 key="$field.validatorMsgKey" />
+#foreach ($validatorType in $validatorTypes)
+#foreach ($validatorArg in $field.getValidatorArgs($validatorType))
+                <arg${velocityCount} name="$validatorType" key="$validatorArg" resource="false"/>
+#end
+#end
+#foreach ($validatorVar in $field.validatorVars)
+                <var>
+                    <var-name>$validatorVar.get(0)</var-name>
+                    <var-value>$validatorVar.get(1)</var-value>
+                </var>
+#end
+            </field>
+#end
+#end
+      </form>
+#end
+#end
+#end
+  </formset>
+
+</form-validation>
+#end
