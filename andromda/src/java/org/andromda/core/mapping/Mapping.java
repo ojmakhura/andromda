@@ -48,12 +48,6 @@ public class Mapping
      */
     public String getTo()
     {
-        final String methodName = "Mappings.getTo";
-        if (StringUtils.isEmpty(this.to))
-        {
-            throw new MappingsException(methodName
-                + " - 'to' can not be null or empty");
-        }
         return this.to;
     }
 
