@@ -125,14 +125,15 @@ public ${abstractModifier}class $entity.daoBaseName
     public $entity.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
     {
 #set ($argument = $identifier.name)
-#if($identifier.type.primitiveType)
+#if($identifier.type.primitive)
 #set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
-#end
+#else
         if ($argument == null)
         {
             throw new IllegalArgumentException(
                 "${entity.name}.load - '$argument' can not be null");
         }
+#end
         $entity.fullyQualifiedEntityName entity = null;
         try
         {
@@ -168,14 +169,15 @@ public ${abstractModifier}class $entity.daoBaseName
 	public void remove($identifier.type.fullyQualifiedName $identifier.name)
 	{
 #set ($argument = $identifier.name)
-#if($identifier.type.primitiveType)
+#if($identifier.type.primitive)
 #set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
-#end
+#else
         if ($argument == null)
         {
             throw new IllegalArgumentException(
                 "${entity.name}.remove - '$identifier.name' can not be null");
-        }
+        } 
+#end
         $entity.fullyQualifiedEntityName entity = this.load($identifier.name);
         if (entity != null)
         {
