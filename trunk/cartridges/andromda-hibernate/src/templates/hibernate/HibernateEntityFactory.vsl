@@ -84,17 +84,16 @@ public abstract class ${class.name}Factory {
     /**
 $finder.getDocumentation("     * ")
      *
-     * Finds ${class.name} object(s) using a query.
-     *
+     * Finds ${class.name} instance(s) using a query.
      */
     $finder.visibility static $returntype ${finder.name} ($parameters)
         throws net.sf.hibernate.HibernateException
     {
         net.sf.hibernate.Query query = session.createQuery("$finder.query");
 ##
-#foreach($prm in $finder.arguments)
+#foreach($argument in $finder.arguments)
 #set ($index = $velocityCount - 1)
-		query.set${prm.type.wrapperName} (${index}, ${prm.name});
+		query.set${argument.type.wrapperName} (${index}, ${argument.name});
 #end
 ##
         return query.list();
