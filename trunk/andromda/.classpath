@@ -3,7 +3,7 @@
     <classpathentry kind="src" path="src/java"/>
     <classpathentry kind="src" path="src/test"/>
     <classpathentry kind="src" path="build/gensrc"/>
-    <classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
+    <classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
     <classpathentry kind="lib" path="lib/openide-lookup.jar"/>
     <classpathentry kind="lib" path="lib/nbmdr.jar"/>
     <classpathentry kind="lib" path="lib/mdrapi.jar"/>
@@ -11,12 +11,9 @@
     <classpathentry kind="lib" path="lib/jmiutils.jar"/>
     <classpathentry kind="lib" path="lib/jmitoolkit.jar"/>
     <classpathentry kind="lib" path="lib/mof.jar"/>
-    <classpathentry kind="lib" path="lib/uml14.jar" rootpath="" sourcepath="/andromda/lib/uml14-src.jar"/>
+    <classpathentry kind="lib" path="lib/uml14.jar" sourcepath="/andromda/lib/uml14-src.jar"/>
     <classpathentry kind="lib" path="lib/velocity-dep-1.2.jar"/>
-    <classpathentry kind="var" path="JAVAC"/>
-    <classpathentry kind="var" path="JRE_SRC"/>
     <classpathentry kind="lib" path="lib/junit.jar"/>
-    <classpathentry kind="var" path="TEST_MODEL"/>
     <classpathentry kind="var" path="ANT_HOME/lib/ant.jar"/>
     <classpathentry kind="var" path="ANT_HOME/lib/optional.jar"/>
     <classpathentry kind="var" path="JAXB_HOME/lib/jaxb-api.jar"/>
@@ -24,5 +21,5 @@
     <classpathentry kind="var" path="JAXB_HOME/lib/jaxb-xjc.jar"/>
     <classpathentry kind="var" path="JAXB_HOME/lib/jaxb-libs.jar"/>
     <classpathentry kind="var" path="JAXB_HOME/lib/jax-qname.jar"/>
-    <classpathentry kind="output" path="build\classes"/>
+    <classpathentry kind="output" path="build/classes"/>
 </classpath>
