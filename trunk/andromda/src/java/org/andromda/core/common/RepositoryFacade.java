@@ -4,38 +4,38 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * A facade that is used to hide the underlying data repository technology.  A data 
- * repository is a facility for loading and retrieving object models.
- *  
+ * An interface for objects responsible for being a repository into which an object model can 
+ * be loaded.
+ * 
+ * <p> AndroMDA does code generation from an object model.  There must exist a repository in which
+ * the model can be loaded.  The repository must be able to load the object model 
+ * given a URL. Any repository that supports this API can be used by AndroMDA. </p>
+ * 
+ * @see org.andromda.core.common.ScriptHelper
+ * 
  * @author    Anthony Mowers
  */
 public interface RepositoryFacade
 {
-
 	
 	/**
-	 * Opens the repository making it ready for processing.
-	 * 
-	 * The open/close semantics gives the repository the opportunity to purge 
-	 * the repository or start/end transactions if such is supported.
-	 * 
+	 * open and initialize the repository.
+	 *
 	 */
 	public void open();
 	
 	
 	/**
-	 * Closes the repository giving it a chance to reclaim resources.
-	 * 
-	 * The open/close semantics gives the repository the opportunity to purge 
-	 * the repository or start/end transactions if such is supported.
+	 * close the repository and reclaim all resources
 	 * 
 	 */
 	public void close();
 	
 	/**
-	 * Reads an object model from a specified URL
+	 * read the object model into the repository from the given URL
      * 
-     * The model must conform to the meta model used by the repository
+     * <p> An URLs can be used to point to files on the filesystem, 
+     * a file in a jar file, a file from a website, data from a database, etc... </p>
      * 
 	 * @param modelURL url of model
 	 * @throws MetaDataReadException if model syntax is violated
@@ -44,14 +44,14 @@ public interface RepositoryFacade
 	public void readModel(URL modelURL) throws RepositoryReadException, IOException;
 
 	/**
-	 *  Returns the date/time of when the model was last modified
+	 *  returns the date and time of when the model was last modified
 	 *
-	 *@return    The lastModified value
+	 *@return the lastModified time
 	 */
 	public long getLastModified();
 
 	/**
-	 *  Gets the top-level model object from the repository
+	 *  returns the top-level model object from the repository
 	 *
 	 *@return    The model value
 	 */
