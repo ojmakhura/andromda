@@ -6,11 +6,4 @@ package org.andromda.core.metafacade;
  * @author Chad Brandon
  */
 public class MappingObject4
-{
-    private boolean mappingProperty = true;
-    
-    public boolean isMappingProperty()
-    {
-        return mappingProperty;   
-    }
-}
+{}
