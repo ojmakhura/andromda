@@ -30,13 +30,17 @@ public interface RepositoryFacade
     public void close();
 
     /**
-     * read the object model into the repository from the given URL.
+     * Reads the object model into the repository from the given URL. If the URL
+     * is <strong>null </strong> then an empty model will be created in the
+     * repository and can be retrieved from {@link #getModel()}.
      * <p>
      * An URLs can be used to point to files on the filesystem, a file in a jar
      * file, a file from a website, data from a database, etc...
      * </p>
      * 
-     * @param modelURL url of model
+     * @param modelURL url of model <strong>NOTE: </strong> if the url of the
+     *        model isn't specified, then an empty model will be created and can
+     *        be retrieved from {@link #getModel()}
      * @param moduleSearchPath a list of paths from which to search for module
      *        models (i.e. models that can be used from within other models).
      */
