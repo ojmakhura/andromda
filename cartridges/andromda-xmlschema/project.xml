@@ -2,7 +2,6 @@
     <extend>../project.xml</extend>
     <name>AndroMDA XMLSchema Cartridge</name>
     <artifactId>andromda-xmlschema-cartridge</artifactId>
-    <currentVersion>1.0-SNAPSHOT</currentVersion>
     <organization/>
     <description>
         Generates XSD Schemas
@@ -23,51 +22,53 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>maven-andromda-plugin</artifactId>
-            <version>${andromda.version}</version>
+            <version>${pom.currentVersion}</version>
             <type>plugin</type>
             <properties>
                 <languageMappingsUri>Java</languageMappingsUri>
                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
                 <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
-                <facades-to-impls>${basedir}/target/src/java</facades-to-impls>
-                <facade-logics>${basedir}/target/src/java</facade-logics>
-                <facades>${basedir}/target/src/java</facades>
+                <facades-to-impls>${maven.build.src}</facades-to-impls>
+                <facade-logics>${maven.build.src}</facade-logics>
+                <facades>${maven.build.src}</facades>
             </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${andromda.version}</version>
+            <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${andromda.version}</version>
+            <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <properties/>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.6.1</version>
+            <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.0</version>
+            <version>3.1</version>
             <properties/>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.0</version>
+            <properties/>
+        </dependency>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
             <properties/>
         </dependency>
     </dependencies>

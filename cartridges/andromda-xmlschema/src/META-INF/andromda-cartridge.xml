@@ -12,7 +12,7 @@
 	<template 
 		path="templates/xmlschema/XmlSchema.vsl" 
 		outputPattern="xmlSchema.xsd"  
-		outlet="schemas" 
+		outlet="schema" 
 		overwrite="true"
 		outputToSingleFile="true">
 		<modelElements variable="types">
