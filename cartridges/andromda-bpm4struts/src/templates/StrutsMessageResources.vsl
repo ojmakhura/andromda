@@ -123,38 +123,25 @@ $action.documentationKey=$action.documentationValue
 #if ($action.successMessagePresent)
 $action.successMessageKey=$action.successMessageValue
 #end
-${messageKey}.$actionTrigger.triggerKey=$actionTrigger.triggerValue
-${messageKey}.$actionTrigger.titleKey=$actionTrigger.titleValue
-${messageKey}.$actionTrigger.notAllowedTitleKey=$actionTrigger.notAllowedTitleValue
-${messageKey}.$actionTrigger.resetTitleKey=$actionTrigger.resetTitleValue
-${messageKey}.$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllowedTitleValue
+$actionTrigger.triggerKey=$actionTrigger.triggerValue
+$actionTrigger.titleKey=$actionTrigger.titleValue
+$actionTrigger.notAllowedTitleKey=$actionTrigger.notAllowedTitleValue
+$actionTrigger.resetTitleKey=$actionTrigger.resetTitleValue
+$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllowedTitleValue
 
 #set ($actionParameters = $action.actionParameters)
 #if (!$actionParameters.empty)
 #   ACTION-PARAMETERS
 #foreach ($field in $action.actionParameters)
-#if ($field.required && ($clientValidation=='true' || $serverValidation=='true'))
-#set ($requiredSuffix = ' is required')
-#else
-#set ($requiredSuffix = '')
-#end
-#set ($fieldComment = "")
-#if ($field.date)
-#set ($strict = "")
-#if ($field.strictDateFormat)
-#set ($fieldComment = " (use this strict format: $field.dateFormat)")
-#end
-#set ($fieldComment = " (use this lenient format: $field.dateFormat)")
-#end
-${messageKey}.$field.messageKey=$field.messageValue
-${messageKey}.$field.titleKey=$field.titleValue$requiredSuffix$fieldComment
+$field.messageKey=$field.messageValue
+$field.titleKey=$field.titleValue
 #if ($field.optionCount > 0)
 #set ($optionKeys = $field.optionKeys)
 #set ($optionValues = $field.optionValues)
 #foreach ($optionKey in $optionKeys)
 #set ($count = $velocityCount - 1)
-${messageKey}.$optionKey=$optionValues.get($count)
-${messageKey}.${optionKey}.title=$optionValues.get($count)
+${optionKey}=$optionValues.get($count)
+${optionKey}.title=$optionValues.get($count)
 #end
 #end
 #end
