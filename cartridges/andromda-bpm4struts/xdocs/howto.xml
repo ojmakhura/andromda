@@ -11,36 +11,14 @@
         <section name="Modeling example">
             <p>
                 We want to get you kick-started so that you can get productive with this cartridge as soon as
-                possible. For this reason this section describes a very small example that will allow
-                me to show more features with less application complexity.
-            </p>
-            <p>
-                The application resembles an online store, the customer logs in, selects some items
-                to buy, and proceeds to the payment. This all is modeled very roughly, the point is
-                to teach you something about bpm4struts, not about online shopping.
+                possible. For this reason the following sections describe a very small example that will allow
+                us to explain more features with less application complexity.
             </p>
             <p>
                 Please note that everything happens in UML! There is no hand-coding needed!
             </p>
             <p>
-                The application we are about to model consists of three pages:
-                <ul>
-                    <li>the first page expects the user to enter his name and password, his name must be
-                        at least 3 alphabetical characters, the password needs to be 6 characters
-                        or more and consists of alphanumerical characters (both uppercase and lowercase), when
-                        the user clicks on 'proceed' we go to the second page</li>
-                    <li>the second page lists items that can be purchased, the user can select an arbitrary number of
-                        items from this list, there is also a checkbox where to user can confirm he read
-                        the store's licence</li>
-                    <li>the third and last page asks the user to enter his email and creditcard number, he
-                        also needs to enter his age, which must be in a range from 12 to 112. After placing
-                        the order the application returns to the beginning</li>
-                </ul>
-                Each time we travel between pages the application will store this data in a database somewhere
-                (this is transparent for us), but the fact this is done is also modeled in UML.
-            </p>
-            <p>
-                Please note that in some cases you will see something slightly different on the images compared to what
+                In some cases you will see something slightly different on the images compared to what
                 you see when you model it yourself, don't worry, it's me who played with the model
                 so it would present nicely.
             </p>
