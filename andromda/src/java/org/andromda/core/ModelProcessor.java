@@ -1,11 +1,17 @@
 package org.andromda.core;
 
 import java.net.URL;
+import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import org.andromda.core.cartridge.Cartridge;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
@@ -13,10 +19,10 @@ import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
+import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.log4j.Logger;
 
 /**
@@ -36,40 +42,38 @@ public class ModelProcessor
     private static final Logger logger = Logger.getLogger(ModelProcessor.class);
 
     private static ModelProcessor instance = null;
-    
+
     /**
      * Stores the current version of AndroMDA
      */
     private static final String VERSION;
-    
+
     /**
      * Find and load the version.
      */
-    static 
+    static
     {
-        final String versionPropertiesUri = 
-            "META-INF/andromda-version.properties";
+        final String versionPropertiesUri = "META-INF/andromda-version.properties";
         final String versionPropertyName = "andromda.version";
-        try 
+        try
         {
-	        URL versionUri = 
-	            ResourceUtils.getResource(versionPropertiesUri);
-	        if (versionUri == null)
-	        {
-	            throw new ModelProcessorException(
-	                "Could not load file --> '" + versionPropertiesUri + "'");
-	        }
-	        Properties properties = new Properties();
-	        properties.load(versionUri.openStream());
-	        VERSION = properties.getProperty("andromda.version");
-	        if (VERSION == null)
-	        {
-	            throw new ModelProcessorException("Could not find '"
-	                + versionPropertyName 
-	                + "' in '" + versionPropertiesUri + "'");
-	        }
-        } 
-        catch (Throwable th) 
+            URL versionUri = ResourceUtils.getResource(versionPropertiesUri);
+            if (versionUri == null)
+            {
+                throw new ModelProcessorException("Could not load file --> '"
+                    + versionPropertiesUri + "'");
+            }
+            Properties properties = new Properties();
+            properties.load(versionUri.openStream());
+            VERSION = properties.getProperty("andromda.version");
+            if (VERSION == null)
+            {
+                throw new ModelProcessorException("Could not find '"
+                    + versionPropertyName + "' in '" + versionPropertiesUri
+                    + "'");
+            }
+        }
+        catch (Throwable th)
         {
             throw new ModelProcessorException(th);
         }
@@ -102,7 +106,7 @@ public class ModelProcessor
         ExceptionUtils.checkNull(methodName, "models", models);
 
         this.printConsoleHeader();
-        
+
         long startTime = System.currentTimeMillis();
 
         try
@@ -149,6 +153,7 @@ public class ModelProcessor
                 .getValidationMessages();
             if (messages != null && !messages.isEmpty())
             {
+                messages = this.sortValidationMessages(messages);
                 AndroMDALogger.setSuffix("VALIDATION:ERROR");
                 Iterator messageIt = messages.iterator();
                 while (messageIt.hasNext())
@@ -236,7 +241,7 @@ public class ModelProcessor
 
         }
     }
-    
+
     /**
      * Prints the console header.
      */
@@ -246,6 +251,69 @@ public class ModelProcessor
         AndroMDALogger.info("A n d r o M D A  -  " + VERSION);
         AndroMDALogger.info("");
     }
+    
+    /**
+     * Sorts the validation <code>messages</code> first by
+     * type (i.e. the metafacade class) and then by
+     * the <code>name</code> of the model element to which
+     * the validation message applies.
+     * 
+     * @param messages the collection of messages to sort.
+     * @return the sorted <code>messages</code> collection.
+     */
+    protected Collection sortValidationMessages(Collection messages)
+    {
+        ComparatorChain chain = new ComparatorChain();
+        chain.addComparator(new ValidationMessageTypeComparator());
+        chain.addComparator(new ValidationMessageNameComparator());
+        messages = new ArrayList(messages);
+        Collections.sort((List)messages, chain);
+        return messages;
+    }
 
+    /**
+     * Used to sort validation messages by <code>metafacadeClass</code>.
+     */
+    private final static class ValidationMessageTypeComparator
+        implements Comparator
+    {
+        private final Collator collator = Collator.getInstance();
 
+        private ValidationMessageTypeComparator()
+        {
+            collator.setStrength(Collator.PRIMARY);
+        }
+
+        public int compare(Object objectA, Object objectB)
+        {
+            ModelValidationMessage a = (ModelValidationMessage)objectA;
+            ModelValidationMessage b = (ModelValidationMessage)objectB;
+
+            return collator.compare(a.getMetafacadeClass().getName(), b
+                .getMetafacadeClass().getName());
+        }
+    }
+
+    /**
+     * Used to sort validation messages by <code>modelElementName</code>.
+     */
+    private final static class ValidationMessageNameComparator
+        implements Comparator
+    {
+        private final Collator collator = Collator.getInstance();
+
+        private ValidationMessageNameComparator()
+        {
+            collator.setStrength(Collator.PRIMARY);
+        }
+
+        public int compare(Object objectA, Object objectB)
+        {
+            ModelValidationMessage a = (ModelValidationMessage)objectA;
+            ModelValidationMessage b = (ModelValidationMessage)objectB;
+
+            return collator.compare(a.getModelElementName(), b
+                .getModelElementName());
+        }
+    }
 }
