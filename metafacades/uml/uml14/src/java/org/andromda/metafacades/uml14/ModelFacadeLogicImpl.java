@@ -4,7 +4,7 @@ import java.util.Collection;
 
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -14,7 +14,7 @@ public class ModelFacadeLogicImpl
        implements org.andromda.metafacades.uml.ModelFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public ModelFacadeLogicImpl (org.omg.uml.UmlPackage metaObject, String context)
     {
         super (metaObject, context);
@@ -27,9 +27,6 @@ public class ModelFacadeLogicImpl
 
     // ------------- relations ------------------
 
-    /**
-     * @see org.andromda.core.metadecorators.uml.ModelDecorator#getRootPackage()
-     */
     protected Object handleGetRootPackage()
     {
         Collection rootPackages =
@@ -57,5 +54,10 @@ public class ModelFacadeLogicImpl
     protected Collection handleGetAllFinalStates()
     {
         return metaObject.getStateMachines().getFinalState().refAllOfType();
+    }
+
+    protected Collection handleGetAllActivityGraphs()
+    {
+        return metaObject.getActivityGraphs().getActivityGraph().refAllOfType();
     }
 }
