@@ -113,9 +113,9 @@ public class TableLogicImpl
                 boolean otherEndAggregationPresent = otherEnd.isAggregation()
                     || otherEnd.isComposition();
                 boolean one2One = end.isOne2One()
-                    && (aggregationPresent && !otherEnd.isForeignIdentifier())
+                    && ((aggregationPresent && !otherEnd.isForeignIdentifier())
                     || column.isForeignIdentifier()
-                    || (!otherEndAggregationPresent && thisSideNavigable);
+                    || (!otherEndAggregationPresent && thisSideNavigable));
                 if ((otherEnd.isNavigable() && end.isMany2One()) || one2One)
                 {
                     if (column.isForeignIdentifier())
