@@ -716,7 +716,7 @@ public class StrutsParameterLogicImpl
                     if (!isTableLink())
                     {
                         if (type.isFileType())
-                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
+                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
                         else if (isValidatorBoolean(parameterType))
                             widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
                         else if (isMultiple())
