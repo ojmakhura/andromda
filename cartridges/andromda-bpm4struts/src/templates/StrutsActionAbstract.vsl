@@ -54,6 +54,8 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.lang.reflect.Method;
+
 ##
 ## Set collections from which methods will be rendered, we convert them to sets
 ## because we don't want to render doubles (just to make sure)
@@ -71,6 +73,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class ${className} extends DispatchAction
 {
+    private final String dispatchGuardAttributeKey = "org.andromda.cartridges.bpm4struts.dispatchguard";
+    private final Object dispatchGuardDummyValue   = new Object();
+
 ##
 ## Global constants used by the decision making processes, please note how their values
 ## are hashcodes, while they do not need to be unique for each object of the same type we know they
@@ -192,4 +197,62 @@ public abstract class ${className} extends DispatchAction
     protected abstract void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #end
+
+
+    /**
+     * In some cases it may happen that a single client request is passed onto several controllers, Struts with Tiles
+     * is an example: when requesting a page constructed with tiles each tile will receive the same client request.
+     * <p>
+     * In general this works fine, but with DispatchActions there is a side effect: all controllers will be requested
+     * to dispatch to a specific method, and most of the time this method will only exist in one controller.
+     * <p>
+     * This method takes care of these cases by handling unfound dispatch methods by calling the
+     * <code>unspecified()</code> method instead.
+     */
+    protected final Method getMethod(String s) throws NoSuchMethodException
+    {
+        Method method = null;
+
+        try
+        {
+            method = super.getMethod(s);
+        }
+        catch (NoSuchMethodException e)
+        {
+            method = super.getMethod("unspecified");
+        }
+
+        return method;
+    }
+
+    /**
+     * A client request contains a parameter that holds the name of the controller's dispatch method to call.
+     * Typically this request originates from a page on the client machine and targets a specific controller
+     * feature.
+     * <p>
+     * If the controller decides to forward to another controller this parameter will also be passed on, making
+     * the latter controller think he needs to dispatch also to this method. When this method name does not exist
+     * the <code>getMethod()</code> method of the controller will handle it, but consider the case where a controller
+     * decides to target itself: it will result in an endless-loop because the same dispatch method is
+     * called over and over again.
+     * <p>
+     * In fact, dispatching may only occur once per request. When a controller targets a controller
+     * it can only call the <code>unspecified()</code> method (architectural convention).
+     * <p>
+     * In order to guarantee this this class has a mechanism built-in that sets flag into the request indicating
+     * dispatching occurred. The flag is set here if it is not yet present. In case it is present we forward to
+     * the <code>unspecified()</code> method.
+     */
+    protected final ActionForward dispatchMethod(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, String name) throws Exception
+    {
+        if (request.getAttribute(dispatchGuardAttributeKey) == null)
+        {
+            request.setAttribute(dispatchGuardAttributeKey, dispatchGuardDummyValue);
+            return super.dispatchMethod(mapping, form, request, response, name);
+        }
+        else
+        {
+            return unspecified(mapping, form, request, response);
+        }
+    }
 }
