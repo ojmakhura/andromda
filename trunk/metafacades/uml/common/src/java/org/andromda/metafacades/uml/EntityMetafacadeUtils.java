@@ -195,7 +195,7 @@ public class EntityMetafacadeUtils
      *        be followed
      * @return the collection of identifiers.
      */
-    public static Collection getIdentifiers(EntityFacade entity, boolean follow)
+    public static Collection getIdentifiers(Entity entity, boolean follow)
     {
         Collection identifiers = entity.getAttributes();
         MetafacadeUtils.filterByStereotype(
@@ -208,7 +208,7 @@ public class EntityMetafacadeUtils
         {
             if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
             {
-                EntityFacade facade = (EntityFacade)superClass;
+                Entity facade = (Entity)superClass;
                 identifiers.addAll(facade.getIdentifiers(follow));
             }
         }

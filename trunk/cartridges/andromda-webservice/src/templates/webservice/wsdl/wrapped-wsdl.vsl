@@ -15,12 +15,23 @@
                     targetNamespace="$service.namespace" 
                     xmlns="$xmlSchemaNamespace"> 
 #foreach ($operation in $service.allowedOperations)
-            <xsd:element name="$operation.name">       
+            <xsd:element name="$operation.name">      
+                <xsd:annotation>     
+                    <xsd:documentation> 
+$operation.getDocumentation("                        ", 64, false)
+                    </xsd:documentation>
+                </xsd:annotation> 
 #if (!$operation.arguments.empty)
                 <xsd:complexType>  
                     <xsd:sequence>
 #foreach ($argument in $operation.arguments)     
-                        <xsd:element name="$argument.name" type="$argument.type.schemaType" nillable="$argument.nillable"/>
+                        <xsd:element name="$argument.name" type="$argument.type.schemaType" nillable="$argument.nillable">
+                            <xsd:annotation>     
+                                <xsd:documentation> 
+$argument.getDocumentation("                                    ", 64, false)
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
 #end
                      </xsd:sequence>
                  </xsd:complexType>
@@ -74,7 +85,13 @@ $type.getDocumentation("                        ", 64, false)
                 </xsd:annotation>
                 <xsd:restriction base="$enumType">
 #foreach ($literal in $type.literals) 
-                    <xsd:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}"/>
+                    <xsd:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}">
+                        <xsd:annotation>     
+                            <xsd:documentation> 
+$literal.getDocumentation("                                ", 64, false)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:enumeration>
 #end                   
                 </xsd:restriction>
             </xsd:simpleType>
@@ -87,7 +104,13 @@ $type.getDocumentation("                        ", 64, false)
                 </xsd:annotation>
                 <xsd:sequence>
 #foreach ($attribute in $type.attributes) 
-                    <xsd:element name="$attribute.name" nillable="$attribute.nillable" type="$attribute.type.schemaType"/>
+                    <xsd:element name="$attribute.name" nillable="$attribute.nillable" type="$attribute.type.schemaType">
+                        <xsd:annotation>     
+                            <xsd:documentation> 
+$attribute.getDocumentation("                                ", 64, false)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
 #end
 #foreach ($associationEnd in $type.associationEnds) 
 #set ($otherEnd = $associationEnd.otherEnd)
@@ -98,7 +121,13 @@ $type.getDocumentation("                        ", 64, false)
 #else
 #set ($schemaType = "${type.namespacePrefix}:${type.qName}")
 #end                
-                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.nillable" type="${schemaType}"/>   
+                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.nillable" type="${schemaType}">
+                        <xsd:annotation>     
+                            <xsd:documentation> 
+$otherEnd.getDocumentation("                                ", 64, false)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>   
 #end    
 #end
                 </xsd:sequence>

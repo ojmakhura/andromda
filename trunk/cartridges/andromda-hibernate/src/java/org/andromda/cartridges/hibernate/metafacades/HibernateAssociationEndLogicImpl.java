@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -310,7 +310,7 @@ public class HibernateAssociationEndLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
         if (orderColumns == null)
         {
-            orderColumns = (String)((EntityAssociationEndFacade)this
+            orderColumns = (String)((EntityAssociationEnd)this
                 .getOtherEnd()).getColumnName();
 
         }

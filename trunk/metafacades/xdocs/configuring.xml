@@ -483,12 +483,12 @@ private String getDaoNamePattern()
                 For example, this here tells AndroMDA to apply the 
                 <em>org.andromda.metafacades.uml14.EntityAssociationEndFacadeLogicImpl</em>
                 to any meta model element of type <em>org.omg.uml.foundation.core.AssociationEnd$Impl</em>
-                when creating the metafacade within the context of <em>org.andromda.metafacades.uml.EntityFacade</em>.
+                when creating the metafacade within the context of <em>org.andromda.metafacades.uml.Entity</em>.
                 <source language="xml"><![CDATA[
 ...
 <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndFacadeLogicImpl">
     <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
-        <context>org.andromda.metafacades.uml.EntityFacade</context>        
+        <context>org.andromda.metafacades.uml.Entity</context>        
     </mapping>
 </metafacade>
 ...
@@ -500,14 +500,14 @@ private String getDaoNamePattern()
                 is used to construct the EntityQueryOperationFacade, it tells AndroMDA to apply
                 <em>org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl</em> to 
                 any meta model element of type <em>org.omg.uml.foundation.core.Operation$Impl</em>
-                when constructed within the context of <em>org.andromda.metafacades.uml.EntityFacade</em>
+                when constructed within the context of <em>org.andromda.metafacades.uml.Entity</em>
                 and when the <em>query</em> <a href="#mappingProperty">property</a> on the metafacade 
                 evaluates as a valid <a href="#mappingProperty">property</a>.
                 <source language="xml"><![CDATA[
 ...
 <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
     <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-        <context>org.andromda.metafacades.uml.EntityFacade</context>   
+        <context>org.andromda.metafacades.uml.Entity</context>   
         <property name="query"/>   
     </mapping>
 </metafacade>        

@@ -14,7 +14,7 @@
                 <strong>NOTE:</strong> each metafacade listed in the <em>Configures</em>
                 column applies to all metafacades specializing this metafacade as well (i.e.
                 languageMappingsUri will also apply to ClassifierFacade, sqlMappingsUri would
-                also apply to an EJBEntityFacade, etc).
+                also apply to an EJBEntity, etc).
             </p>
 	      	<table>
 	        	<tr>
@@ -64,7 +64,7 @@
 		          		(i.e. <code>file:${basedir}/Oracle9iMappings.xml</code>).
 		          	</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 		          	<td>
 		          		Yes
@@ -96,7 +96,7 @@
 		          		in the generated Entities (i.e. <code>file:${basedir}/JdbcMappings.xml</code>).
 		          	</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 		          	<td>
 		          		Yes
@@ -114,7 +114,7 @@
 	        			after 30 characters when retrieveing the column name or table name.
 	        		</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 	        		<td>
 	        			No, default is <code>30</code>.
@@ -131,7 +131,7 @@
                         <em>My_Car</em>.
                     </td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
                     <td>
                         No
@@ -194,7 +194,7 @@
 						modeled.
 					</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 					<td>
 						No, default is <code>true</code>.
@@ -208,7 +208,7 @@
 						The name to give default identifiers.
 					</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 					<td>
 						No, default is <code>id</code>.
@@ -223,7 +223,7 @@
 						The type to give default identifiers.
 					</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 					<td>
 						No, default is <code>datatype.Long</code>.
@@ -237,7 +237,7 @@
 						The visibility to give default identifiers.
 					</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 					<td>
 						No, default is <code>public</code>.
@@ -254,7 +254,7 @@
                         be <em>ColorEnum</em>.
 	        		</td>
                     <td>
-                        EntityFacade
+                        Entity
                     </td>
 	        		<td>
 	        			No, default is <code>Enum</code>.
@@ -488,7 +488,7 @@
                             for the available masks that may be applied.
                         </td>
                         <td>
-                            EntityFacade
+                            Entity
                         </td>
                         <td>
                             No, the default is <code>none</code>.
@@ -504,7 +504,7 @@
                             for the available masks that may be applied.
                         </td>
                         <td>
-                            EntityFacade properties (attributes and association ends).
+                            Entity properties (attributes and association ends).
                         </td>
                         <td>
                             No, the default is <code>none</code>.

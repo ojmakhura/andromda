@@ -6,12 +6,12 @@ import org.andromda.translation.ocl.ExpressionKinds;
 /**
  * Metaclass facade implementation.
  */
-public class EntityQueryOperationFacadeLogicImpl
-    extends EntityQueryOperationFacadeLogic
+public class EntityQueryOperationLogicImpl
+    extends EntityQueryOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityQueryOperationFacadeLogicImpl(
+    public EntityQueryOperationLogicImpl(
         java.lang.Object metaObject,
         String context)
     {

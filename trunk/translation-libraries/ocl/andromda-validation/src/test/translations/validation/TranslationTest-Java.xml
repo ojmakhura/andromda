@@ -301,7 +301,7 @@
     
     <expression>
         <from>
-            context EntityAssociationEndFacade inv : foreignIdentifier implies one2One and child and type.associationEnds -> one (foreignIdentifier)
+            context EntityAssociationEnd inv : foreignIdentifier implies one2One and child and type.associationEnds -> one (foreignIdentifier)
         </from>
         <to>
             <![CDATA[
@@ -312,19 +312,19 @@
     
     <expression>
         <from>
-            context EntityFacade inv : generalization -> notEmpty() implies generalization.oclIsKindOf(EntityFacade)
+            context org::andromda::translation::validation::Entity inv : generalization -> notEmpty() implies generalization.oclIsKindOf(Entity)
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof org.andromda.translation.validation.EntityFacade:true));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof org.andromda.translation.validation.Entity:true));
         </to>
     </expression>
     
     <expression>
         <from>
-            context EntityFacade inv : specializations -> notEmpty() implies specializations -> forAll(oclIsKindOf(EntityFacade))
+            context org::andromda::translation::validation::Entity inv : specializations -> notEmpty() implies specializations -> forAll(oclIsKindOf(Entity))
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(object instanceof org.andromda.translation.validation.EntityFacade)).booleanValue();}}):true));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(object instanceof org.andromda.translation.validation.Entity)).booleanValue();}}):true));
         </to>
     </expression>
     

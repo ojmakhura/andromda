@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.RoleFacade;
-import org.andromda.metafacades.uml.ServiceFacade;
+import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -17,12 +17,12 @@ import org.apache.commons.collections.Transformer;
  * 
  * @see org.andromda.metafacades.uml.ServiceOperationFacade
  */
-public class ServiceOperationFacadeLogicImpl
-    extends ServiceOperationFacadeLogic
+public class ServiceOperationLogicImpl
+    extends ServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ServiceOperationFacadeLogicImpl(
+    public ServiceOperationLogicImpl(
         Object metaObject,
         String context)
     {
@@ -35,9 +35,9 @@ public class ServiceOperationFacadeLogicImpl
     public java.util.Collection handleGetRoles()
     {
         Collection roles = new HashSet();
-        if (this.getOwner() instanceof ServiceFacade)
+        if (this.getOwner() instanceof Service)
         {
-            roles.addAll(((ServiceFacade)this.getOwner()).getRoles());
+            roles.addAll(((Service)this.getOwner()).getRoles());
         }
         Collection operationRoles = this.getTargetDependencies();
         CollectionUtils.filter(operationRoles, new Predicate()
@@ -47,7 +47,7 @@ public class ServiceOperationFacadeLogicImpl
                 DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null
                     && dependency.getSourceElement() != null
-                    && RoleFacade.class.isAssignableFrom(dependency
+                    && Role.class.isAssignableFrom(dependency
                         .getSourceElement().getClass());
             }
         });
@@ -65,9 +65,9 @@ public class ServiceOperationFacadeLogicImpl
         {
             public void execute(Object object)
             {
-                if (object instanceof RoleFacade)
+                if (object instanceof Role)
                 {
-                    allRoles.addAll(((RoleFacade)object).getSpecializations());
+                    allRoles.addAll(((Role)object).getSpecializations());
                 }
             }
         });
@@ -79,10 +79,10 @@ public class ServiceOperationFacadeLogicImpl
      */
     protected Object handleGetService()
     {
-        ServiceFacade owner = null;
-        if (this.getOwner() instanceof ServiceFacade)
+        Service owner = null;
+        if (this.getOwner() instanceof Service)
         {
-            owner = (ServiceFacade)this.getOwner();
+            owner = (Service)this.getOwner();
         }
         return owner;
     }

@@ -6,8 +6,8 @@ import java.util.HashSet;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
-import org.andromda.metafacades.uml.ServiceFacade;
-import org.andromda.metafacades.uml.ServiceOperationFacade;
+import org.andromda.metafacades.uml.Service;
+import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
@@ -15,16 +15,16 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.RoleFacade.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.Role.
  * 
- * @see org.andromda.metafacades.uml.RoleFacade
+ * @see org.andromda.metafacades.uml.Role
  */
-public class RoleFacadeLogicImpl
-    extends RoleFacadeLogic
+public class RoleLogicImpl
+    extends RoleLogic
 {
     // ---------------- constructor -------------------------------
 
-    public RoleFacadeLogicImpl(
+    public RoleLogicImpl(
         Object metaObject,
         String context)
     {
@@ -53,7 +53,7 @@ public class RoleFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.RoleFacade#isReferencesPresent()
+     * @see org.andromda.metafacades.uml.Role#isReferencesPresent()
      */
     protected boolean handleIsReferencesPresent()
     {
@@ -72,8 +72,8 @@ public class RoleFacadeLogicImpl
                 {
                     DependencyFacade dependency = (DependencyFacade)object;
                     Object target = dependency.getTargetElement();
-                    return target instanceof ServiceFacade
-                        || target instanceof ServiceOperationFacade;
+                    return target instanceof Service
+                        || target instanceof ServiceOperation;
                 }
             });
 

@@ -2,7 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -12,12 +12,12 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Metaclass facade implementation.
  */
-public class EntityAttributeFacadeLogicImpl
-    extends EntityAttributeFacadeLogic
+public class EntityAttributeLogicImpl
+    extends EntityAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityAttributeFacadeLogicImpl(
+    public EntityAttributeLogicImpl(
         java.lang.Object metaObject,
         String context)
     {
@@ -37,19 +37,19 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnName()
+     * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName()
      */
     public String handleGetColumnName()
     {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            ((EntityFacade)this.getOwner()).getMaxSqlNameLength(),
+            ((Entity)this.getOwner()).getMaxSqlNameLength(),
             this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnLength()
+     * @see org.andromda.metafacades.uml.EntityAttribute#getColumnLength()
      */
     public String handleGetColumnLength()
     {
@@ -59,7 +59,7 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#isIdentifier()
+     * @see org.andromda.metafacades.uml.EntityAttribute#isIdentifier()
      */
     public boolean handleIsIdentifier()
     {
@@ -67,7 +67,7 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#isUnique()
+     * @see org.andromda.metafacades.uml.EntityAttribute#isUnique()
      */
     public boolean handleIsUnique()
     {
@@ -75,7 +75,7 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnIndex()
+     * @see org.andromda.metafacades.uml.EntityAttribute#getColumnIndex()
      */
     public java.lang.String handleGetColumnIndex()
     {
@@ -85,7 +85,7 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getSqlType()
+     * @see org.andromda.metafacades.uml.EntityAttribute#getSqlType()
      */
     public java.lang.String handleGetSqlType()
     {
@@ -136,7 +136,7 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getJdbcType()
+     * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcType()
      */
     public java.lang.String handleGetJdbcType()
     {

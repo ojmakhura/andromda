@@ -1,10 +1,8 @@
 package org.andromda.metafacades.uml14;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.andromda.core.common.HTMLAnalyzer;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.TagDefinition;
 
@@ -63,22 +61,6 @@ public class TaggedValueFacadeLogicImpl
     {
         Collection values = getValues();
         return (values.isEmpty()) ? null : values.iterator().next();
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.TaggedValueFacade#formatHTMLStringAsParagraphs()
-     */
-    public Collection handleFormatHTMLStringAsParagraphs()
-    {
-        try
-        {
-            return new HTMLAnalyzer().htmlToParagraphs(getValue().toString());
-        }
-        catch (IOException e)
-        {
-            logger.error(e);
-            return null;
-        }
     }
 
 }

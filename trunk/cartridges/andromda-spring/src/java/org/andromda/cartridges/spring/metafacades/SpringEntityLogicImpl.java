@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -360,13 +360,13 @@ public class SpringEntityLogicImpl
      */
     protected Collection handleGetAllBusinessOperations()
     {
-        EntityFacade superElement = (EntityFacade)this.getGeneralization();
+        Entity superElement = (Entity)this.getGeneralization();
 
         Collection result = super.getBusinessOperations();
         while (superElement != null)
         {
             result.addAll(superElement.getBusinessOperations());
-            superElement = (EntityFacade)superElement.getGeneralization();
+            superElement = (Entity)superElement.getGeneralization();
         }
         return result;
     }

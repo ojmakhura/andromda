@@ -7,11 +7,11 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
-import org.andromda.metafacades.uml.EntityAttributeFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
+import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-import org.andromda.metafacades.uml.EntityQueryOperationFacade;
+import org.andromda.metafacades.uml.EntityQueryOperation;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -29,12 +29,12 @@ import org.omg.uml.foundation.core.Classifier;
 /**
  * Metaclass facade implementation.
  */
-public class EntityFacadeLogicImpl
-    extends EntityFacadeLogic
+public class EntityLogicImpl
+    extends EntityLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityFacadeLogicImpl(
+    public EntityLogicImpl(
         java.lang.Object metaObject,
         String context)
     {
@@ -68,7 +68,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getQueryOperations()
+     * @see org.andromda.metafacades.uml.Entity#getQueryOperations()
      */
     protected java.util.Collection handleGetQueryOperations()
     {
@@ -76,7 +76,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getQueryOperations(boolean)
+     * @see org.andromda.metafacades.uml.Entity#getQueryOperations(boolean)
      */
     protected java.util.Collection handleGetQueryOperations(boolean follow)
     {
@@ -84,15 +84,15 @@ public class EntityFacadeLogicImpl
 
         MetafacadeUtils.filterByType(
             queryOperations,
-            EntityQueryOperationFacade.class);
+            EntityQueryOperation.class);
 
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
             && follow; superClass = (ClassifierFacade)superClass
             .getGeneralization())
         {
-            if (EntityFacade.class.isAssignableFrom(superClass.getClass()))
+            if (Entity.class.isAssignableFrom(superClass.getClass()))
             {
-                EntityFacade entity = (EntityFacade)superClass;
+                Entity entity = (Entity)superClass;
                 queryOperations.addAll(entity.getQueryOperations());
             }
         }
@@ -100,7 +100,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers()
+     * @see org.andromda.metafacades.uml.Entity#getIdentifiers()
      */
     protected java.util.Collection handleGetIdentifiers()
     {
@@ -108,7 +108,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers(boolean)
+     * @see org.andromda.metafacades.uml.Entity#getIdentifiers(boolean)
      */
     protected java.util.Collection handleGetIdentifiers(boolean follow)
     {
@@ -166,7 +166,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#isIdentifiersPresent()
+     * @see org.andromda.metafacades.uml.Entity#isIdentifiersPresent()
      */
     protected boolean handleIsIdentifiersPresent()
     {
@@ -175,7 +175,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getTableName()
+     * @see org.andromda.metafacades.uml.Entity#getTableName()
      */
     protected String handleGetTableName()
     {
@@ -191,7 +191,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean)
+     * @see org.andromda.metafacades.uml.Entity#getOperationCallFromAttributes(boolean)
      */
     protected String handleGetOperationCallFromAttributes(
         boolean withIdentifiers)
@@ -200,7 +200,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean,
+     * @see org.andromda.metafacades.uml.Entity#getOperationCallFromAttributes(boolean,
      *      boolean)
      */
     protected String handleGetOperationCallFromAttributes(
@@ -217,9 +217,9 @@ public class EntityFacadeLogicImpl
             && follow; superClass = (ClassifierFacade)superClass
             .getGeneralization())
         {
-            if (EntityFacade.class.isAssignableFrom(superClass.getClass()))
+            if (Entity.class.isAssignableFrom(superClass.getClass()))
             {
-                EntityFacade entity = (EntityFacade)superClass;
+                Entity entity = (Entity)superClass;
                 attributes.addAll(entity.getAttributes());
             }
         }
@@ -229,7 +229,7 @@ public class EntityFacadeLogicImpl
             Iterator attributeIt = attributes.iterator();
             while (attributeIt.hasNext())
             {
-                EntityAttributeFacade attribute = (EntityAttributeFacade)attributeIt
+                EntityAttribute attribute = (EntityAttribute)attributeIt
                     .next();
                 if (withIdentifiers || !attribute.isIdentifier())
                 {
@@ -248,7 +248,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacadeLogic#getAttributeTypeList(boolean,
+     * @see org.andromda.metafacades.uml.EntityLogic#getAttributeTypeList(boolean,
      *      boolean)
      */
     protected String handleGetAttributeTypeList(
@@ -261,7 +261,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getAttributeNameList(boolean,
+     * @see org.andromda.metafacades.uml.Entity#getAttributeNameList(boolean,
      *      boolean)
      */
     protected String handleGetAttributeNameList(
@@ -274,7 +274,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacadeLogic#getRequiredAttributeTypeList(boolean,
+     * @see org.andromda.metafacades.uml.EntityLogic#getRequiredAttributeTypeList(boolean,
      *      boolean)
      */
     protected String handleGetRequiredAttributeTypeList(
@@ -287,7 +287,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacadeLogic#getRequiredAttributeNameList(boolean,
+     * @see org.andromda.metafacades.uml.EntityLogic#getRequiredAttributeNameList(boolean,
      *      boolean)
      */
     protected String handleGetRequiredAttributeNameList(
@@ -353,7 +353,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#isChild()
+     * @see org.andromda.metafacades.uml.Entity#isChild()
      */
     protected boolean handleIsChild()
     {
@@ -368,7 +368,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getParentEnd()
+     * @see org.andromda.metafacades.uml.Entity#getParentEnd()
      */
     protected Object handleGetParentEnd()
     {
@@ -391,7 +391,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getChildren()
+     * @see org.andromda.metafacades.uml.Entity#getChildren()
      */
     protected Collection handleGetChildEnds()
     {
@@ -413,19 +413,19 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     * @see org.andromda.metafacades.uml.Entity#getBusinessOperations()
      */
     protected Collection handleGetBusinessOperations()
     {
         final Collection businessOperations = this.getOperations();
         MetafacadeUtils.filterByNotType(
             businessOperations,
-            EntityQueryOperationFacade.class);
+            EntityQueryOperation.class);
         return businessOperations;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getEntityReferences()
+     * @see org.andromda.metafacades.uml.Entity#getEntityReferences()
      */
     protected Collection handleGetEntityReferences()
     {
@@ -436,14 +436,14 @@ public class EntityFacadeLogicImpl
                 ModelElementFacade targetElement = ((DependencyFacade)object)
                     .getTargetElement();
                 return targetElement != null
-                    && EntityFacade.class.isAssignableFrom(targetElement
+                    && Entity.class.isAssignableFrom(targetElement
                         .getClass());
             }
         };
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getAttributes(boolean,
+     * @see org.andromda.metafacades.uml.Entity#getAttributes(boolean,
      *      boolean)
      */
     protected Collection handleGetAttributes(
@@ -457,10 +457,10 @@ public class EntityFacadeLogicImpl
             {
                 boolean valid = true;
                 if (!withIdentifiers
-                    && EntityAttributeFacade.class.isAssignableFrom(object
+                    && EntityAttribute.class.isAssignableFrom(object
                         .getClass()))
                 {
-                    valid = !((EntityAttributeFacade)object).isIdentifier();
+                    valid = !((EntityAttribute)object).isIdentifier();
                 }
                 return valid;
             }
@@ -469,7 +469,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredAttributes(boolean,
+     * @see org.andromda.metafacades.uml.Entity#getRequiredAttributes(boolean,
      *      boolean)
      */
     protected Collection handleGetRequiredAttributes(
@@ -487,10 +487,10 @@ public class EntityFacadeLogicImpl
                 valid = ((AttributeFacade)object).isRequired();
                 if (valid
                     && !withIdentifiers
-                    && EntityAttributeFacade.class.isAssignableFrom(object
+                    && EntityAttribute.class.isAssignableFrom(object
                         .getClass()))
                 {
-                    valid = !((EntityAttributeFacade)object).isIdentifier();
+                    valid = !((EntityAttribute)object).isIdentifier();
                 }
                 return valid;
             }
@@ -499,7 +499,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredProperties(boolean,
+     * @see org.andromda.metafacades.uml.Entity#getRequiredProperties(boolean,
      *      boolean)
      */
     protected Collection handleGetRequiredProperties(
@@ -530,10 +530,10 @@ public class EntityFacadeLogicImpl
                     valid = ((AttributeFacade)object).isRequired();
                     if (valid
                         && !withIdentifiers
-                        && EntityAttributeFacade.class.isAssignableFrom(object
+                        && EntityAttribute.class.isAssignableFrom(object
                             .getClass()))
                     {
-                        valid = !((EntityAttributeFacade)object).isIdentifier();
+                        valid = !((EntityAttribute)object).isIdentifier();
                     }
                 }
                 else if (AssociationEndFacade.class.isAssignableFrom(object
@@ -606,11 +606,11 @@ public class EntityFacadeLogicImpl
     private boolean checkForAndAddForeignIdentifiers()
     {
         boolean identifiersAdded = false;
-        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
+        EntityAssociationEnd end = this.getForeignIdentifierEnd();
         if (end != null
-            && EntityFacade.class.isAssignableFrom(end.getType().getClass()))
+            && Entity.class.isAssignableFrom(end.getType().getClass()))
         {
-            EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
+            Entity foreignEntity = (Entity)end.getOtherEnd()
                 .getType();
             Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
                 foreignEntity,
@@ -643,14 +643,14 @@ public class EntityFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade)object).getOtherEnd().getType() instanceof EntityFacade;
+                return ((AssociationEndFacade)object).getOtherEnd().getType() instanceof Entity;
             }
         });
         return associationEnds;
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.EntityFacadeLogic#handleIsUsingForeignIdentifier()
+     * @see org.andromda.metafacades.uml14.EntityLogic#handleIsUsingForeignIdentifier()
      */
     protected boolean handleIsUsingForeignIdentifier()
     {
@@ -661,19 +661,19 @@ public class EntityFacadeLogicImpl
      * Gets the association end that is flagged as having the foreign identifier
      * set (or null if none is).
      */
-    private EntityAssociationEndFacade getForeignIdentifierEnd()
+    private EntityAssociationEnd getForeignIdentifierEnd()
     {
-        return (EntityAssociationEndFacade)CollectionUtils.find(this
+        return (EntityAssociationEnd)CollectionUtils.find(this
             .getAssociationEnds(), new Predicate()
         {
             public boolean evaluate(Object object)
             {
                 boolean valid = false;
                 if (object != null
-                    && EntityAssociationEndFacade.class.isAssignableFrom(object
+                    && EntityAssociationEnd.class.isAssignableFrom(object
                         .getClass()))
                 {
-                    EntityAssociationEndFacade end = (EntityAssociationEndFacade)object;
+                    EntityAssociationEnd end = (EntityAssociationEnd)object;
                     valid = end.isForeignIdentifier();
                 }
                 return valid;
