@@ -361,10 +361,8 @@ public class StrutsParameterLogicImpl
                 }
             }
             return 3;
-        } else
-        {
-            return 0;
-        }
+        } 
+        return 0;
     }
 
     // ------------------------------------------

@@ -125,9 +125,9 @@ public class EJBEntityFacadeLogicImpl
                             + "' has the abstract target '"
                             + target.getName()
                             + "'. Abstract targets are not allowed in EJB.");
-                } else {
-                    result.add(assoc);
                 }
+                
+                result.add(assoc);
             }
         }
         return result;
