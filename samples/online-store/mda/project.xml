@@ -27,6 +27,9 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <xhtml>false</xhtml>
+                <welcomeFileName>index.jsp</welcomeFileName>
+                <clientValidation>true</clientValidation>
+                <serverValidation>true</serverValidation>
                 <security>false</security>
                 <securityRealm>other</securityRealm>
                 <server>${maven.andromda.bpm4struts.generated.dir}</server>

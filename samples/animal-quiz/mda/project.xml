@@ -37,7 +37,7 @@
                 <session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
                 <session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>
             </properties>
-        </dependency>  
+        </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
@@ -51,7 +51,7 @@
                 <axis-configuration>${maven.andromda.webservice.axis.dir}</axis-configuration>
                 <java-types>${maven.andromda.java.generated.dir}</java-types>
             </properties>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
@@ -67,6 +67,9 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <xhtml>false</xhtml>
+                <welcomeFileName>welcome.jsp</welcomeFileName>
+                <clientValidation>true</clientValidation>
+                <serverValidation>true</serverValidation>
                 <security>false</security>
                 <securityRealm>other</securityRealm>
                 <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
