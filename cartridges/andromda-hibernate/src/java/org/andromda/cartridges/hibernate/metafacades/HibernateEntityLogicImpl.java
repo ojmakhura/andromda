@@ -441,13 +441,15 @@ public class HibernateEntityLogicImpl
         if (logger.isDebugEnabled())
             logger.debug("*** handleGetIdentifierColumn return:"
                 + (attribute == null ? null : attribute.getColumnName()));
-        columnName = attribute == null ? "ID" : attribute.getColumnName();
+        columnName = attribute == null
+            ? this.getDefaultIdentifier().toUpperCase()
+            : attribute.getColumnName();
         return columnName;
     }
 
     private String getDefaultIdentifier()
     {
-        return (String)getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
+        return String.valueOf(getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER));
     }
 
     /**
