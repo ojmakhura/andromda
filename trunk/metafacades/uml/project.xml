@@ -17,17 +17,15 @@
 	      	<artifactId>maven-andromda-plugin</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	      	<type>plugin</type>
+	      	<properties>
+	      		<logical.languageMappingsUri>Java</logical.languageMappingsUri>
+	      	</properties>
 	    </dependency>
     	<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-core</artifactId>
 	      	<version>${pom.currentVersion}</version>
-	    </dependency>
-    	<dependency> 
-    		<groupId>andromda-cartridges</groupId>
-      		<artifactId>andromda-meta-cartridge-bootstrap</artifactId>
-     		<version>3.0-SNAPSHOT</version>
-    	</dependency> 	 
+	    </dependency>	 
     	<dependency> 
     		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>
