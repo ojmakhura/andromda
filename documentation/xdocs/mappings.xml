@@ -62,19 +62,31 @@
                 <p>
                     <ul>
                         <li><a href="mappings/JavaMappings.xml">JavaMappings.xml</a></li>
-                        <li><a href="mappings/JavaWrapperMappings.xml">JavaWrapperMappings.xml</a></li>
                         <li><a href="mappings/XmlSchemaMappings.xml">XmlSchemaMappings.xml</a></li>
                         <li><a href="mappings/HibernateTypeMappings.xml">HibernateTypeMappings.xml</a></li>
                     </ul>
                 </p>
             </subsection>
-            <subsection name="Database Mappings">
+            <subsection name="Wrapper Mappings">
+                <p>
+                    <ul>
+                        <li><a href="mappings/JavaWrapperMappings.xml">JavaWrapperMappings.xml</a></li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="JDBC Mappings">
+                <p>
+                    <ul>
+                        <li><a href="mappings/JdbcMappings.xml">JdbcMappings.xml</a></li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="SQL Mappings">
                 <p>
                     <ul>
                         <li><a href="mappings/DB2Mappings.xml">DB2Mappings.xml</a></li>
                         <li><a href="mappings/FirebirdMappings.xml">FirebirdMappings.xml</a></li>
                         <li><a href="mappings/HypersonicSqlMappings.xml">HypersonicSqlMappings.xml</a></li>
-                        <li><a href="mappings/JdbcMappings.xml">JdbcMappings.xml</a></li>
                         <li><a href="mappings/MSSQLMappings.xml">MSSQLMappings.xml</a></li>
                         <li><a href="mappings/MySQLMappings.xml">MySQLMappings.xml</a></li>
                         <li><a href="mappings/Oracle9iMappings.xml">Oracle9iMappings.xml</a></li>
@@ -104,8 +116,18 @@
                     <p>
                         It might happen you want to have a mapping that is slightly different than the
                         default one known by AndroMDA. Well, in that case you will simply need to override
-                        the default mapping by specifying your own mapping file, this is explained here:
-                        @todo (wouter)
+                        the default mapping by specifying your own mapping file.
+                    </p>
+                    <p>
+                        This is done by simply using a URI instead of the logical name of the mappings, here are
+                        a few examples for all types of mappings, you can find them in the andromda-plugin
+                        dependency of <code>/mda/project.xml</code>:
+<source language="xml"><![CDATA[
+    <languageMappingsUri>file:${maven.src.dir}/mappings/MyJavaMappings.xml</languageMappingsUri>
+    <wrapperMappingsUri>file:${maven.src.dir}/mappings/MyJavaWrapperMappings.xml</wrapperMappingsUri>
+    <jdbcMappingsUri>file:${maven.src.dir}/mappings/MyJdbcMappings.xml</jdbcMappingsUri>
+    <sqlMappingsUri>file:${maven.src.dir}/mappings/MySqlMappings.xml</sqlMappingsUri>
+]]></source>
                     </p>
                 </subsection>
             </section>
