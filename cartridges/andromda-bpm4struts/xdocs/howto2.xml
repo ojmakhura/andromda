@@ -316,6 +316,25 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     <img src="resources/howto/org/andromda/test/final-states.gif"/>
                 </p>
             </subsection>
+            <subsection name="Sending parameters across use-cases">
+                <p>
+                    Sometimes it can happen that you would like to send parameters from one use-case into another
+                    use-case. This is easy with the bpm4struts cartridge: just model the parameters on an action
+                    leading into a final state and the parameters will be automagically be available in the target
+                    use-case.
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/inter-usecase-source.gif"/>
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/inter-usecase-target.gif"/>
+                </p>
+                <p class="highlight">
+                    Respect the fact that use-cases are supposed to be loosely coupled: do not assume incoming
+                    parameters to always be present and check for <code>null</code>, this will improve your
+                    application's robustness.
+                </p>
+            </subsection>
         </section>
         <section name="Nice to know">
             <subsection name="JSP pages">
