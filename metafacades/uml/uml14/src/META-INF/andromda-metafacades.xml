@@ -13,33 +13,44 @@
     <property reference="foreignKeySuffix" default="_FK"/>
     <property reference="sqlNameSeparator" default="_"/>
     <default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.PackageFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.UmlPackage$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.UmlPackage$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ModelFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.modelmanagement.Model$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.modelmanagement.Model$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.PackageFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
         <stereotype>ENUMERATION</stereotype>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
         <stereotype>ENUMERATION</stereotype>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
         <stereotype>ENUMERATION</stereotype>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Component$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Component$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Node$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Node$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
@@ -49,22 +60,29 @@
         metafacadeClass="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl">
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Dependency$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Dependency$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.TaggedValue$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.TaggedValue$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.TaggedValueFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.OperationFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ParameterFacadeLogicImpl"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Generalization$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.GeneralizationFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Stereotype$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Stereotype$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.StereotypeFacadeLogicImpl"/>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Constraint$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Constraint$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ConstraintFacadeLogicImpl"/>
     <!-- Behavioral element metafacades -->
     <metafacade
@@ -146,7 +164,8 @@
         metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.UseCaseFacadeLogicImpl"/>
     <!-- Entity  metafacades -->
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl"
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
@@ -156,7 +175,8 @@
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl"
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
@@ -166,7 +186,8 @@
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl"
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
@@ -176,7 +197,8 @@
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EntityAttributeFacadeLogicImpl">
         <context>org.andromda.metafacades.uml.EntityFacade</context>
         <property reference="sqlMappingsUri"/>
@@ -193,11 +215,13 @@
         <context>org.andromda.metafacades.uml.EntityFacade</context>
     </metafacade>
     <!-- Service  metafacades -->
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ServiceFacadeLogicImpl">
         <stereotype>SERVICE</stereotype>
     </metafacade>
-    <metafacade metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ServiceOperationFacadeLogicImpl">
         <context>org.andromda.metafacades.uml.ServiceFacade</context>
     </metafacade>
