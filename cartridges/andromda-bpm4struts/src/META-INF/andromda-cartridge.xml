@@ -27,7 +27,7 @@
         sheet="templates/StrutsActionJsp.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overWrite="true"
+        overWrite="false"
         generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndEvent"/>
@@ -78,7 +78,7 @@
         sheet="templates/StrutsJSP.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndView"/>
         </modelElements>
@@ -260,16 +260,6 @@
     </template>
 
     <template
-        sheet="templates/StrutsHeaderJsp.vsl"
-        outputPattern="layout/header.jsp"
-        outlet="pages"
-        overWrite="true">
-        <modelElements variable="class">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
         sheet="templates/StrutsMainLayoutJsp.vsl"
         outputPattern="layout/main-layout.jsp"
         outlet="pages"
@@ -283,7 +273,7 @@
         sheet="templates/StrutsTilesDefs.vsl"
         outputPattern="tiles-defs.xml"
         outlet="configuration"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -293,7 +283,7 @@
         sheet="templates/StrutsApplicationCss.vsl"
         outputPattern="layout/default-application.css"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -303,7 +293,7 @@
         sheet="templates/StrutsCss.vsl"
         outputPattern="layout/default.css"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -313,7 +303,7 @@
         sheet="templates/StrutsMessagesJsp.vsl"
         outputPattern="layout/messages.jsp"
         outlet="pages"
-        overWrite="true">
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
