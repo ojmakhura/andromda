@@ -35,7 +35,8 @@ public class StrutsParameterLogicImpl
             if (transitionObject instanceof StrutsAction)
             {
                 StrutsAction action = (StrutsAction) transitionObject;
-                if (action.getActionParameters().contains(this))
+                Collection parameters = action.getActionParameters();
+                if (parameters != null && parameters.contains(this))
                 {
                     return action;
                 }
