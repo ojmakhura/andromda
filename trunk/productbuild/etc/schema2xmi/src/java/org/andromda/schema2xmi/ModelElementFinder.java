@@ -30,7 +30,7 @@ public class ModelElementFinder
         if (model != null)
         {
             String[] names = fullyQualifiedName
-                .split(Schema2XmiGlobals.PACKAGE_SEPERATOR);
+                .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
             if (names != null && names.length > 0)
             {
                 Object element = model;
