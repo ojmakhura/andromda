@@ -1,5 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.translation.ExpressionKinds;
+
 
 /**
  * 
@@ -12,21 +15,27 @@ public class EntityFinderMethodFacadeLogicImpl
        implements org.andromda.metafacades.uml.EntityFinderMethodFacade
 {
     // ---------------- constructor -------------------------------
-    
+     
     public EntityFinderMethodFacadeLogicImpl (java.lang.Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class EntityFinderMethodDecorator ...
-
-    public java.lang.String getQuery() {
-        //right now this method does nothing,
-        //eventually it will return an OCL query.
-        return null;
+    /**
+     * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery(java.lang.String)
+     */
+    public java.lang.String getQuery(String translation) 
+    {
+        final String methodName = "EntityFinderMethodFacadeImpl.getQuery";
+        ExceptionUtils.checkEmpty(methodName, "translation", translation);
+        String[] translatedExpressions = 
+            this.translateConstraints(ExpressionKinds.BODY, translation);
+        String query = null;
+        // we just get the first body constraint found
+        if (translatedExpressions != null && translatedExpressions.length > 0) {
+            query = translatedExpressions[0];
+        }
+        return query;
     }
 
     // ------------- relations ------------------

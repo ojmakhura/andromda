@@ -49,6 +49,9 @@
 	<metafacade
 		metaobjectClass="org.omg.uml.foundation.core.Stereotype$Impl"
 		metafacadeClass="org.andromda.metafacades.uml14.StereotypeFacadeLogicImpl"/>
+	<metafacade
+		metaobjectClass="org.omg.uml.foundation.core.Constraint$Impl"
+		metafacadeClass="org.andromda.metafacades.uml14.ConstraintFacadeLogicImpl"/>
 
     <!-- Behavioral element facades -->
 	<metafacade
