@@ -113,6 +113,10 @@ public class StrutsControllerLogicImpl
         else
         {
             useCase = graphContext.getUseCase();
+            if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
+            {
+                useCase = null;
+            }
         }
 
         return useCase;
