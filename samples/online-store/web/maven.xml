@@ -25,15 +25,6 @@
             <jbosswebxml securitydomain="java:/jaas/other"/>
         </webdoclet>
 
-        <!-- add the paths of the generated source to the
-             maven compile path -->
-        <ant:path
-            id="andromda.struts.gen.src"
-            location="${maven.build.src}"/>
-        <maven:addPath
-            id="maven.compile.src.set"
-            refid="andromda.struts.gen.src"/>
-
     </preGoal>
 
     <postGoal name="war:webapp">
