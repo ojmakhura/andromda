@@ -38,17 +38,18 @@
     <!-- removes the working dir, the log files and the maven plugin -->
     <target name="clean">
         <delete dir="${working.dir}"/>
-        <delete file="build-*.log"/>
-        <delete file="build-*.log.zip"/>
+        <delete dir="${basedir}" includes="build*.log,build*.log.zip"/>
         <delete>
             <fileset dir="${env.MAVEN_HOME}/plugins">
                 <include name="maven-${project.name}-plugin*/**/*"/>
             </fileset>
+            <fileset dir="${user.home}/.maven"/>
         </delete>
     </target>
     
     <!-- checks out a fresh copy from cvs -->
     <target name="checkout">
+        <mkdir dir="${working.dir}"/>
         <cvs command="checkout"
              cvsRoot=":${cvs.protocol}:${cvs.user}@${cvs.server}:/${cvs.root}"
              dest="${working.dir}"
@@ -69,6 +70,7 @@
     
     <!-- publishes the documentation online -->
     <target name="copy-docs">
+        <mkdir dir="${public.docs}"/>
         <copy todir="${public.docs}">
             <fileset dir="${working.dir}/${cvs.module}/${documentation.path}"/>
         </copy>
@@ -76,11 +78,13 @@
     
     <!-- copies artifacts and distributions into the online maven repository -->
     <target name="copy-artifacts">
+        <mkdir dir="${public.repo}/repository"/>
         <copy todir="${public.repo}/repository">
 	        <fileset dir="${maven.local.repo}/repository">
                 <include name="${project.name}*/**/*"/>
             </fileset>
         </copy>
+        <mkdir dir="${public.repo}/repository/${project.name}/distributions"/>
         <copy todir="${public.repo}/repository/${project.name}/distributions">
 	        <fileset dir="${working.dir}/${cvs.module}/target/distributions">
                 <include name="${project.name}-*.zip"/>
@@ -111,6 +115,6 @@
     </target>
     
     <!-- checks out a new build, builds it, publishes and mails -->
-    <target name="all" depends="init,clean,checkout,build,copy-docs,copy-artifacts,mail-success,mail-failure"/>
+    <target name="all" depends="init,clean,checkout,build,copy-docs,copy-artifacts"/>
     
 </project>
