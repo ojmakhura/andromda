@@ -8,16 +8,8 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 
-#foreach ( $dep in $class.dependencies )
-#set ($targetType = $dep.targetElement)
-#if ($targetType)
-#if ($dep.hasStereotype("ServiceRef"))
-#set ($targetTypePackageName = $targetType.packageName)
-#if ($targetTypePackageName != $class.packageName)
-import ${targetType.fullyQualifiedName}Home;
-#end
-#end
-#end
+#foreach ( $serviceRef in $class.serviceReferences )
+import ${$serviceRef.targetElement.fullyQualifiedName}Home;
 #end
 ##
 #if ($class.attributes.size() > 0)
@@ -48,14 +40,12 @@ $class.getDocumentation(" * ")
  *        remote-class="${class.packageName}.${class.name}Home"
  *        local-class="${class.packageName}.${class.name}LocalHome"
  * @ejb.util generate="physical"
-#foreach ( $dep in $class.dependencies )
-#if ($dep.hasStereotype("ServiceRef"))
- #set ($targetType = $dep.targetElement)
+#foreach ( $serviceRef in $class.serviceReferences )
+ #set ($service = $serviceRef.targetElement)
  * @ejb.ejb-ref 
- *        ejb-name="${targetType.name}" 
- *        view-type="${targetType.viewType}" 
- *        ref-name="ejb/${targetType.name}BeanRef"
-#end
+ *        ejb-name="$service.name" 
+ *        view-type="$sevice.viewType" 
+ *        ref-name="ejb/${service.name}BeanRef"
 #end
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.name != "documentation")
@@ -252,27 +242,25 @@ $op.getDocumentation("     * ")
 
     // ---------------- accessor methods for (session!) bean references ---------------
 
-#foreach ( $dep in $class.dependencies )
-#if ($dep.hasStereotype("ServiceRef"))
-   #set ($referencedClass = $dep.targetElement)
-   #set ($homeInterfaceName = "${referencedClass.name}Home")
+#foreach ( $serviceRef in $class.serviceReferences )
+   #set ($service = $serviceRef.targetElement)
+   #set ($homeInterfaceName = "${service.name}Home")
    /**
-    * This is to get the reference to the ${referencedClass.name} bean.
+    * This is to get the reference to the ${service.name} bean.
     * Obtains local home interface from default initial context
-    * @return Local home interface for ${referencedClass.name}. Lookup using bean ref name.
+    * @return Local home interface for ${service.name}. Lookup using bean ref name.
     */
     protected static ${homeInterfaceName} get${homeInterfaceName}() throws NamingException
     {
         InitialContext initialContext = new InitialContext();
         try {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
-            ${homeInterfaceName} home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${referencedClass.name}BeanRef");
+            ${homeInterfaceName} home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
             return home;
         } finally {
             initialContext.close();
         }
     }
 
-#end
 #end
 }
