@@ -20,8 +20,10 @@
     <xs:element name="metafacade">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
+				<xs:choice>
+                    <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
+				</xs:choice>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="metaobjectClass" type="xs:string" use="required"/>
