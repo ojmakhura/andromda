@@ -17,7 +17,7 @@ public class $entity.entityImplementationName
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.signature)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
+     * @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
      */
     $operation.visibility $returnType.fullyQualifiedName $signature
 #if ($operation.exceptionsPresent)
