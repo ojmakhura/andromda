@@ -43,8 +43,8 @@ public class TableLogicImpl
          * getLiterals().size(); }
          */
 
-        int dummyLoadSize = 0;
-        float dummyLoadMultiplier = 0;
+        int dummyLoadSize = -1;
+        float dummyLoadMultiplier = -1;
 
         // first get the initial load size for this table
         try
@@ -61,39 +61,44 @@ public class TableLogicImpl
         }
         finally
         {
-            if (dummyLoadSize <= 0)
+            if (dummyLoadSize < 0)
             {
                 dummyLoadSize = DatabaseProfile.DUMMY_LOAD_SIZE_DEFAULT;
             }
         }
 
-        try
+        if (dummyLoadSize > 0)
         {
-            final String multiplierString = (String)getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER);
-            if (multiplierString != null)
+            try
             {
-                dummyLoadMultiplier = Float.parseFloat(multiplierString);
+                final String multiplierString = (String)getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER);
+                if (multiplierString != null)
+                {
+                    dummyLoadMultiplier = Float.parseFloat(multiplierString);
+                }
             }
-        }
-        catch (MetafacadeFactoryException mfe)
-        {
-            // this means the namespace property has not been registered
-            logger.info(
-                    "Namespace property \'" + DatabaseGlobals.DUMMYLOAD_MULTIPLIER +
-                    "\' not specified, using default value " + DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT );
-            dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
-        }
-        catch (Exception e)
-        {
-            // this means the property has been registered with an invalid value
-            logger.warn(
-                    "Invalid namespace property value for \'" + DatabaseGlobals.DUMMYLOAD_MULTIPLIER +
-                    "\', using default value " + DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT +
-                    " instead of "+getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER));
-            dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
+            catch (MetafacadeFactoryException mfe)
+            {
+                // this means the namespace property has not been registered
+                logger.info(
+                        "Namespace property \'" + DatabaseGlobals.DUMMYLOAD_MULTIPLIER +
+                        "\' not specified, using default value " + DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT );
+                dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
+            }
+            catch (Exception e)
+            {
+                // this means the property has been registered with an invalid value
+                logger.warn(
+                        "Invalid namespace property value for \'" + DatabaseGlobals.DUMMYLOAD_MULTIPLIER +
+                        "\', using default value " + DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT +
+                        " instead of "+getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER));
+                dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
+            }
+
+            dummyLoadSize = (int)Math.ceil(dummyLoadSize * dummyLoadMultiplier);
         }
 
-        return (int)Math.ceil(dummyLoadSize * dummyLoadMultiplier);
+        return dummyLoadSize;
     }
 
     /**
