@@ -179,10 +179,11 @@
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
 #set ($collectionVariableName = "form.${variable.name}")
+        <div id="${variable.name}" class="table">
 #if ($variable.tableAction)
-        <html:form action="$variable.tableAction.actionPath">
+            <html:form action="$variable.tableAction.actionPath">
 #end
-            <display:table name="${${collectionVariableName}}" id="row"
+                <display:table name="${${collectionVariableName}}" id="row"
                            requestURI="${pageContext.request.requestURI}"
                            export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
@@ -194,30 +195,31 @@
 #set ($link = $tableLink)
 #end
 #end
-                <display:column media="xml excel csv"
-                    property="$columnName" title="$str.toPhrase($columnName)"
-                    sortable="$sortable" autolink="true" nulls="false"
-                    paramId="$columnName" />
-                <display:column media="html"
-                    title="$str.toPhrase($columnName)"
-                    sortable="$sortable" autolink="false" nulls="false"
-                    paramId="$columnName" >
-#renderFormField($variable.tableAction $link "                    ")
-                </display:column>
+                    <display:column media="xml excel csv"
+                        property="$columnName" title="$str.toPhrase($columnName)"
+                        sortable="$sortable" autolink="true" nulls="false"
+                        paramId="$columnName" />
+                    <display:column media="html"
+                        title="$str.toPhrase($columnName)"
+                        sortable="$sortable" autolink="false" nulls="false"
+                        paramId="$columnName" >
+#renderFormField($variable.tableAction $link "                        ")
+                    </display:column>
 #else
-                <display:column
-                    property="$columnName" title="$str.toPhrase($columnName)"
-                    sortable="$sortable" autolink="true" nulls="false"
-                    paramId="$columnName" />
+                    <display:column
+                        property="$columnName" title="$str.toPhrase($columnName)"
+                        sortable="$sortable" autolink="true" nulls="false"
+                        paramId="$columnName" />
 #end
 #end
 #end
-            </display:table>
+                </display:table>
 #if ($variable.tableAction)
 ## temporarily commented out
 ##renderFormButtons($variable.tableAction "            ")
-        </html:form>
+            </html:form>
 #end
+        </div>
 
 #end
 #end
