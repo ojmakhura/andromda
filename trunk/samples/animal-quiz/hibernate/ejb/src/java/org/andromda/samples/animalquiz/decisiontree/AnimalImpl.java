@@ -36,7 +36,6 @@ public class AnimalImpl
                 formattedBuffer.insert(1, 'n');
                 break;
             default:
-                ;
         }
 
         return formattedBuffer.toString();
