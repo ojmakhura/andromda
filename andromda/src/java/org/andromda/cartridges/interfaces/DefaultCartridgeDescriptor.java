@@ -102,7 +102,7 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
      * for a path where output files will be written. A later step associates
      * this name with a concrete physical directory name.
      * 
-     * @param string the outlet identifier
+     * @param outletname the outlet identifier
      */
     public void addOutlet(String outletname)
     {

@@ -67,7 +67,7 @@ public class RepositoryConfiguration
      * object will be the object used the code generation scripts
      * to access the object model. </p>
      * 
-     * @see TemplateConfiguration
+     * @see org.andromda.cartridges.interfaces.TemplateConfiguration
      * @see org.andromda.core.common.ScriptHelper
      * 
 	 * @param scriptHelperClassName

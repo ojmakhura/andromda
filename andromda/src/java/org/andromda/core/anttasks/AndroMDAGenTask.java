@@ -17,14 +17,16 @@ import org.andromda.cartridges.interfaces.IAndroMDACartridge;
 import org.andromda.cartridges.interfaces.OutletDictionary;
 import org.andromda.cartridges.mgmt.CartridgeDictionary;
 import org.andromda.cartridges.mgmt.CartridgeFinder;
+
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.RepositoryReadException;
 import org.andromda.core.common.ScriptHelper;
+import org.andromda.core.common.StdoutLogger;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 
 /**
@@ -252,7 +254,7 @@ public class AndroMDAGenTask extends MatchingTask
 
         initOutletDictionary();
         initVelocityProperties();
-        initCartridges();
+        List cartridges = initCartridges();
 
         // log("Transforming into: " + destDir.getAbsolutePath(), Project.MSG_INFO);
 
@@ -294,6 +296,12 @@ public class AndroMDAGenTask extends MatchingTask
         {
             // get the model via URL
             process(modelURL);
+        }
+
+        for (Iterator iter = cartridges.iterator(); iter.hasNext();)
+        {
+            IAndroMDACartridge cart = (IAndroMDACartridge) iter.next();
+            cart.shutdown();
         }
 
         createRepository().createRepository().close();
@@ -376,7 +384,7 @@ public class AndroMDAGenTask extends MatchingTask
      * Initialize the cartridge system. Discover all installed cartridges and
      * register them in the cartridge dictionary.
      */
-    private void initCartridges() throws BuildException
+    private List initCartridges() throws BuildException
     {
         CartridgeFinder.initClasspath(getClass());
         try
@@ -385,9 +393,8 @@ public class AndroMDAGenTask extends MatchingTask
 
             if (cartridges.size() <= 0)
             {
-                log(
-                    "Warning: No cartridges found, check configuration!",
-                    Project.MSG_INFO);
+                StdoutLogger.error(
+                    "Warning: No cartridges found, check configuration!");
             }
             else
             {
@@ -413,6 +420,7 @@ public class AndroMDAGenTask extends MatchingTask
                     }
                 }
             }
+            return cartridges;
         }
         catch (IOException e)
         {
@@ -432,7 +440,7 @@ public class AndroMDAGenTask extends MatchingTask
         try
         {
             //-- command line status
-            log("Input:  " + url, Project.MSG_INFO);
+            StdoutLogger.info("Input:  " + url);
 
             // configure repository
             RepositoryFacade repository =
