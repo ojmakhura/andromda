@@ -155,14 +155,16 @@
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
-                Dependencies can be used between Services and Entities, they
-                won't need any stereotype assigned to them. These dependencies
-                are used to produce entity references (from a entity or service)
-                in the Spring applicationContext.xml and within
-                the Spring base classes (i.e. DaoBase and ServiceBase),
-                or to produce service references (from another service)
-                in the Spring applicationContext.xml and within
-                the ServiceBase classes.
+                <p>
+                    Dependencies can be used between Services and Entities, they
+                    won't need any stereotype assigned to them. These dependencies
+                    are used to produce entity references (from a entity or service)
+                    in the Spring applicationContext.xml and within
+                    the Spring base classes (i.e. DaoBase and ServiceBase),
+                    or to produce service references (from another service)
+                    in the Spring applicationContext.xml and within
+                    the ServiceBase classes.
+                </p>
             </subsection>
     	</section>
   	</body>
