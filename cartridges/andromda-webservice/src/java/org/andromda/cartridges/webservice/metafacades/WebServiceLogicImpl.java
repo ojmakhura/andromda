@@ -505,4 +505,28 @@ public class WebServiceLogicImpl
     {
         return (String)this.getConfiguredProperty("ejbInterfacePattern");
     }
+    
+    private static final String RPC_CLASS_NAME_PATTERN = "rpcClassNamePattern";
+    
+    /**
+     * Gets the <code>rpcClassNamePattern</code> for this service.
+     */
+    protected String getRpcClassNamePattern()
+    {
+        return (String)this.getConfiguredProperty(RPC_CLASS_NAME_PATTERN);
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetRpcClassName()
+     */
+    protected String handleGetRpcClassName()
+    {
+        return MessageFormat.format(
+            this.getRpcClassNamePattern(),
+            new String[]
+            {
+                StringUtils.trimToEmpty(this.getPackageName()),
+                StringUtils.trimToEmpty(this.getName())
+            });
+    }
 }

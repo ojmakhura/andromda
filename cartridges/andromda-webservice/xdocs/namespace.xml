@@ -104,6 +104,21 @@
 						No
 					</td>
 				</tr> 	 
+                <tr>
+                    <td>
+                        rpcClassNamePattern
+                    </td>
+                    <td>
+                        The pattern to use for the class name for a web service using an RPC
+                        provider.  It's useful to set this when your RPC service
+                        has a non typical name (i.e. you want to use the web service delegator
+                        from the spring cartridge).
+                    </td>
+                    <td>
+                        No, default is <code>{0}.{1}Impl</code>, where <em>{0}</em> is the 
+                        service package name and <em>{1}</em> is the service class name.
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						qualifiedNameLocalPartPattern
