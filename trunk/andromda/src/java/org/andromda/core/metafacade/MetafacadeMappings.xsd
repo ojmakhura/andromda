@@ -21,14 +21,20 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
+                    <!-- deprecated: please using the mapping element
+                         instead -->
                     <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
+                    <!-- deprecated: please using the mapping element
+                         instead -->
                     <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
                 </xs:choice>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="mapping" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
             <xs:attribute name="class" type="xs:string" use="optional"/>
+            <!-- deprecated: please using the class attribute on the mapping element instead -->
             <xs:attribute name="metaobjectClass" type="xs:string" use="optional"/>
+            <!-- deprecated: please using the class attribute on the metafacade element instead -->
             <xs:attribute name="metafacadeClass" type="xs:string" use="required"/>
             <!-- You should set the context root to 'true' when the metafacade
                  mapping will be used as a context for other mappings -->
@@ -46,7 +52,7 @@
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <!-- defines the class to which this mapping shall apply (can be a 
+            <!-- defines the class to which this mapping shall apply (can be a
                  metafacade or a metaclass) -->
             <xs:attribute name="class" type="xs:string" use="required"/>
         </xs:complexType>
