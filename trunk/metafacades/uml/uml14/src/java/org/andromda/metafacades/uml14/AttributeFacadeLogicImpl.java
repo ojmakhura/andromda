@@ -65,15 +65,15 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.core.metadecorators.uml14.AttributeFacade#handleGetType()
+     * @see org.andromda.metafacades.uml.AttributeFacade#getType()
      */
     protected Object handleGetType()
     {
         return metaObject.getType();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#handleGetOwner()
+    /**
+     * @see org.andromda.core.metadecorators.uml.AssociationEndFacade#getOwner()
      */
     public Object handleGetOwner()
     {

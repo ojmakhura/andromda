@@ -172,19 +172,24 @@ public class OperationFacadeLogicImpl
         return sb.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getType()
+     */
     protected Object handleGetType()
     {
+        Object type = null;
         Collection parms = metaObject.getParameter();
         for (Iterator i = parms.iterator(); i.hasNext();)
         {
             Parameter p = (Parameter) i.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
             {
-                return p.getType();
+                type = (ClassifierFacade)this.shieldedElement(p.getType());
+                break;
             }
         }
 
-        return null;
+        return type;
     }
 
     public Collection handleGetArguments()

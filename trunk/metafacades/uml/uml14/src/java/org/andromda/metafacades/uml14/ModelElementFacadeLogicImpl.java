@@ -348,10 +348,21 @@ public class ModelElementFacadeLogicImpl
      */
     protected Object handleGetRootPackage()
     {
-        Collection rootPackages =
-            ((UmlPackage)MetafacadeFactory.getInstance().getModel().getModel())
-                .getModelManagement().refAllPackages();
-        return (ModelElement) rootPackages.iterator().next();
+        Object rootPackage = null;
+        Collection rootPackages = 
+            ((UmlPackage)MetafacadeFactory.getInstance()
+                .getModel().getModel())
+                    .getModelManagement().getModel().refAllOfType();
+        Iterator packageIt = rootPackages.iterator();
+        while (packageIt.hasNext()) {
+            rootPackage = packageIt.next();
+            // get the first package that's a ModelElement
+            // instance
+            if (rootPackage instanceof ModelElement) {
+                break;
+            }
+        }
+        return rootPackage;
     }
 
     /**
@@ -483,5 +494,5 @@ public class ModelElementFacadeLogicImpl
                 }
             });
         return this.translateConstraints(constraints, translation);
-     }
+     }     
 }

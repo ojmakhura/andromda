@@ -33,7 +33,7 @@ public class AssociationEndFacadeLogicImpl
     } 
 
     /*** 
-     * @see org.andromda.metafacades.uml.AssociationEndFacadeLogic#handleGetOtherEnd()
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getOtherEnd()
      */
     public Object handleGetOtherEnd()
     {
@@ -51,7 +51,7 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getName()
      */
     public String getName()
     {
@@ -68,9 +68,9 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationEndFacadeLogic#handleGetType()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getType()
      */
-    public Object handleGetType()
+    protected Object handleGetType()
     {
         return metaObject.getParticipant();
     }
