@@ -21,7 +21,7 @@
       <h2><a name="AndroMDA"><![CDATA[<andromda>]]></a></h2>
       <h3>Description</h3>
       <p class="std">andromda is the task that generates Java source (or other) files
-         from Velocity templates and a metamodel that it reads from text file.</p>
+         from templates and a metamodel that it loads from a text file (i.e. an XMI file).</p>
       <p class="std">If you want to configure the location of the generated files,
          you will possibly use a nested <a href="#outlet"><code><![CDATA[<outlet>]]></code></a> element.
       </p>
