@@ -95,7 +95,7 @@
                 
             <j:if test="${srcAvailable != null}">         
                 <!-- only attempt to add the generated source if it exists -->
-                <j:set var="generatedSrc" value="${maven.build.dir}"/>
+                <j:set var="generatedSrc" value="${maven.build.src}"/>
                 <j:if test="${generatedSrc != null and generatedSrc != ''}">
                     <!-- add the paths of the generated source to the
                          maven compile path -->

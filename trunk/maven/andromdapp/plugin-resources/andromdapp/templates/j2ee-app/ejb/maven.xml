@@ -29,7 +29,7 @@
             <ant:jboss 
 				version="3.0"
                 xmlencoding="UTF-8"
-                typemapping="Hypersonic SQL"
+                typemapping="${jboss.typeMappings}"
                 datasource="${dataSource}"
                 destdir="${ejb.descriptor.dir}"/>
 

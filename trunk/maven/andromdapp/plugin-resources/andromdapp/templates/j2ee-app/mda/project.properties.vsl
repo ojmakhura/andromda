@@ -3,15 +3,19 @@ maven.multiproject.type=pom
 maven.andromda.model.uri=file:${maven.src.dir}/uml/${projectNameNoWhitespace}Model.xmi
 
 # Define the output locations for the cartridge dependencies in the project.xml
-maven.andromda.${persistenceType}.generated.dir=${maven.src.dir}/../../core/target/src
-maven.andromda.${persistenceType}.manual.dir=${maven.src.dir}/../../core/src/java
-maven.andromda.${persistenceType}.config.dir=${maven.src.dir}/../../core/target/conf
+maven.andromda.core.generated.dir=${maven.src.dir}/../../core/target/src
+maven.andromda.core.manual.dir=${maven.src.dir}/../../core/src/java
+maven.andromda.core.config.dir=${maven.src.dir}/../../core/target/conf
 
-maven.andromda.bpm4struts.generated.dir=${maven.src.dir}/../../web/target/src
-maven.andromda.bpm4struts.manual.java.dir=${maven.src.dir}/../../web/src/java
-maven.andromda.bpm4struts.manual.webapp.dir=${maven.src.dir}/../../web/src/webapp
+maven.andromda.web.generated.dir=${maven.src.dir}/../../web/target/src
+maven.andromda.web.manual.java.dir=${maven.src.dir}/../../web/src/java
+maven.andromda.web.manual.webapp.dir=${maven.src.dir}/../../web/src/webapp
 
-maven.andromda.java.generated.dir=${maven.src.dir}/../../common/target/src
+#if ($webservice)
+maven.andromda.webservice.generated.dir=${maven.src.dir}/../../webservice/target/src
+#end
+
+maven.andromda.common.generated.dir=${maven.src.dir}/../../common/target/src
 
 #if ($hibernate || $spring)
 #if ($hibernate)
@@ -23,4 +27,12 @@ hibernate.db.showsql=true
 # The hibernate generator class to use for identifiers
 hibernate.generatorClass=native
 #end
+#end
+#if ($webservice)
+# The default provider for web services, note that this can 
+# be overridden on model element level
+default.provider=EJB
+
+# The address of the port type in the generated WSDL
+wsdl.soap.address=http://${service.host}:${service.port}/${application.id}-ws/services
 #end
