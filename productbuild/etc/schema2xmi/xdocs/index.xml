@@ -59,8 +59,38 @@ Options:
  -v,--taggedValues <arg>            Whether or not to include persistence
                                     tagged values, default is true
 ]]></source>
+        <p>
+			Here's an example of how you could use Schema2XMI with 
+			an Oracle schema from Ant with the <code>java</code> task .
+        </p>
+<source><![CDATA[
+<java classname="org.andromda.schema2xmi.Schema2XMI" fork="true">
+	<classpath>
+		 <path refid="schema2xmi.classpath"/>
+	</classpath>
+	<arg value="-i"/>
+	<arg value="jar:file:${maven.src.dir}/test/uml/SomeModel.xml.zip!/SomeModel.xml"/>
+	<arg value="-u"/>
+	<arg value="someuser"/>
+	<arg value="-p"/>
+	<arg value="somepassword"/>
+	<arg value="-c"/>
+	<arg value="jdbc:oracle:oci:@yoursid"/>
+	<arg value="-d"/>
+	<arg value="oracle.jdbc.driver.OracleDriver"/>
+	<arg value="-m"/>
+	<arg value="file:${maven.conf.dir}/mappings/DatatypeMappings.xml"/>
+	<arg value="-o"/>
+	<arg value="${maven.build.dir}/schema2xmi/transformed.xmi"/>
+	<arg value="-t"/>
+	<arg value="[p{Lower}\p{Upper}[_]]*"/>
+	<arg value="-P"/>
+	<arg value="org::andromda::sample"/>
+	<arg value="-C"/>
+	<arg value="entity,persistent"/>
+</java>
+]]></source>
 		</subsection>
     </section>
-
   </body>
 </document>
