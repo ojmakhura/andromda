@@ -111,7 +111,7 @@
                 snippet that shows how you could look up and translate an OCL query into EJB-QL
                 (assuming you had the query translation-library on your classpath) for an EJB 
                 metafacade getQuery method: 
-                <source>
+                <source language="java">
 <![CDATA[
     public java.lang.String handleGetQuery() 
     {

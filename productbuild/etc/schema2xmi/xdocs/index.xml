@@ -95,7 +95,7 @@ Options:
 			Here's an example of how you could use Schema2XMI with 
 			an Oracle schema from Ant with the <code>java</code> task .
         </p>
-<source><![CDATA[
+<source language="xml"><![CDATA[
 <java classname="org.andromda.schema2xmi.Schema2XMI" fork="true">
     <classpath>
         <path refid="schema2xmi.classpath"/>
@@ -134,8 +134,7 @@ Options:
                 use '<strong>::</strong>' instead of '<strong>.</strong>' for the scope
                 operator of the datatypes):
             </p>
-<source><![CDATA[
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<source language="xml"><![CDATA[
 <!--
   This is used to map SQL Types to
   model datatypes for Schema2XMI

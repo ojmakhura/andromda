@@ -26,7 +26,7 @@
             <p>
                 So basically this snippet is a good example of an implementation of a service operation, there is
                 no need to catch any exception and rethrow it:
-<source><![CDATA[
+<source language="java"><![CDATA[
 protected PersonDetails handleGet(Long id) throws Exception
 {
     return (PersonDetails)getPersonDao().load(PersonDao.TRANSFORM_PERSONDETAILS, id);
@@ -48,7 +48,7 @@ protected PersonDetails handleGet(Long id) throws Exception
                 If you generated your project using the
                 <a href="../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> Maven plugin you simply
                 need to put the outlet in comment like this (this is done in <code>/mda/project.xml</code>):
-<source><![CDATA[
+<source language="xml"><![CDATA[
 <dependency>
     <groupId>andromda</groupId>
     <artifactId>andromda-spring-cartridge</artifactId>
@@ -84,16 +84,15 @@ protected PersonDetails handleGet(Long id) throws Exception
                   and the following is another Spring Service method,
                   it would raise a <code>net.sf.hibernate.LazyInitializationException</code>:
             </p>
-            <source><![CDATA[
+<source language="java"><![CDATA[
 protected boolean doSomethingWithUserGroups(User user) throws Exception
 {
     ...
     java.util.Collection userGroups = user.getGroups ();
-    java.util.Iterator everyUserGroup = userGroups.iterator(); // <-- this call would generate the exception
+    java.util.Iterator everyUserGroup = userGroups.iterator(); // this call would generate the exception
     ...
 }
-            ]]>
-            </source>
+]]></source>
         </section>
     </body>
 </document>

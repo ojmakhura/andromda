@@ -4,7 +4,7 @@
          xmlns:velocity="jelly:velocity">
          
     <preGoal name="jar:jar">
-        <!-- The following builds the the bootstrap plugin.
+        <!-- The following builds the bootstrap plugin.
              You build the bootstrap plugin, by supplying the
              property 'maven.andromda.bootstrap.mode=true'-->
         <j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>

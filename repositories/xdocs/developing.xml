@@ -17,7 +17,7 @@
 							service file that contains ONLY the name of your repository facade implementation class, 
 							for example the <code>META-INF/services/org.andromda.core.repository.RepositoryFacade</code>
 							file for the MDRepositoryFacade contains only:
-		                    <source>org.andromda.repositories.mdr.MDRepositoryFacade</source>
+		                    <code>org.andromda.repositories.mdr.MDRepositoryFacade</code>
 						</li>
 						<li>
 							Jar up the contents of your repository implementation and the service file

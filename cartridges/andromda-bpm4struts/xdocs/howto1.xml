@@ -43,7 +43,7 @@
                 <p>
                     Per use-case the generated <code>struts-config.xml</code> will contain a
                     <code>global-forward</code>, like this:
-<source><![CDATA[
+<source language="xml"><![CDATA[
 <global-forwards>
     ...
     <forward

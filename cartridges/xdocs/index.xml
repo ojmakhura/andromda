@@ -33,7 +33,7 @@
           this is VERY simple, you just add the AndroMDA maven plugin and cartridge(s)
           as dependencies to your project.xml file and then run the plugin goal
           <em>andromda:run</em>, that's it!
-          <source><![CDATA[
+          <source language="xml"><![CDATA[
 <dependencies>
     ...
     <dependency>
@@ -67,7 +67,7 @@
             <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in
             <code>&lt;your-project&gt;/mda/project.xml</code>):
         </p>
-        <source><![CDATA[
+        <source language="xml"><![CDATA[
  ...
  <dependency>
      <groupId>andromda</groupId>
@@ -95,7 +95,7 @@
            Please note that if you're an <strong>Ant</strong> user, you will need to specify the
            <code>mergeLocation</code> as a namespace property:
         </p>
-        <source><![CDATA[
+        <source language="xml"><![CDATA[
  ...
  <namespace name="hibernate">
      ...
@@ -116,7 +116,7 @@
         This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the
         cartridge-dependency and create a new mappings file in which to map what you want merged.
       </p>
-      <source><![CDATA[
+      <source language="xml"><![CDATA[
 ...
 <dependency>
     <groupId>andromda</groupId>
@@ -136,7 +136,7 @@
         definition) with the <em><![CDATA[<error-page/>]]></em> fragments (found in the from
         <![CDATA[<from/>]]> definition):
      </p>
-     <source>
+     <source language="xml">
 &lt;mappings&gt;
     ...
     <strong>&lt;mapping&gt;
@@ -246,7 +246,7 @@
       <p>
         Let's have a look at part of a typical cartridge descriptor:
       </p>
-      <source><![CDATA[
+      <source language="xml"><![CDATA[
 <cartridge name="ejb">
 
     <templateEngine>
@@ -588,7 +588,7 @@
                 the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong>
                 entities and services available as <code>$ejbs</code> in a velocity template (since
                 <a href="#outputToSingleFile">outputToSingleFile</a> is set to <em>true</em>).
-                <source><![CDATA[
+                <source language="xml"><![CDATA[
 ...
 <template
     path="templates/ejb-jar.xml.vsl"
@@ -619,7 +619,7 @@
             to be made available to a <a href="#template"><code><![CDATA[<template/>]]></code></a>.
             For example, this could make each metafacade of type
             <code>org.andromda.cartridges.webservice.metafacades.WebService</code> available to a template:
-<source><![CDATA[
+<source language="xml"><![CDATA[
 ...
 <template
     path="templates/webservice/wsdl/wrapped-wsdl.vsl"
@@ -666,7 +666,7 @@
             <a href="#template"><code><![CDATA[<template/>]]></code></a>. For example, the following would make each
             model element with a metafacade of type <em>org.andromda.core.uml.ClassifierFacade</em> with the property
             <em>enumeration</em> equal to <code>true</code> available to a template:
-<source><![CDATA[
+<source language="xml"><![CDATA[
 ...
 <modelElements variable="enumeration">
     <modelElement>
@@ -683,7 +683,7 @@
             output a file (for example you may only want output a WSDL for a web service that has <strong>at least</strong>
             one exposed operation), so in that case you'd map a nested property checking for the exposed operations like
             the example directly below:
-<source><![CDATA[
+<source language="xml"><![CDATA[
 ...
 <modelElements variable="services">
     <modelElement>
@@ -826,7 +826,7 @@
             location defined by the <em>resource</em> outlet within
             the <code>lib</code> directory.
         </p>
-        <source>
+        <source language="xml">
 <![CDATA[
 <resource
     path="**/*.jar"

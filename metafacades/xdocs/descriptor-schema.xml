@@ -7,10 +7,8 @@
 			<p>
   				Each Metafacades descriptor (andromda-metafacades.xml) must comply with the following XSD Schema: 
   			</p>
-			<source>
+			<source language="xml">
 				<![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- Used for mapping contexts.  An example for a context is: An entity is a
          context for its attributes. So, the metaclass "Attribute" would be mapped to
