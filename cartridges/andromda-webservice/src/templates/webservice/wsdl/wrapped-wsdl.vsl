@@ -47,11 +47,10 @@
 #set ($type = $typeMapping)
 #if ($typeMapping.type)
 #set ($type = $typeMapping.type)
-
 #end
 ## Handle any type mappings that happen to be associationEnds 
 #if ($typeMapping.many)
-            <xsd:complexType name="ArrayOf${type.name}">
+            <xsd:complexType name="${type.arrayName}">
                 <xsd:sequence>
                     <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${namespacePrefix}:${type.name}" /> 
                 </xsd:sequence>
@@ -89,11 +88,11 @@ $type.getDocumentation("                        ", 64, false)
 #foreach ( $associationEnd in $type.associationEnds) 
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable)
-#set ($typeName = $otherEnd.type.name)
+#set ($type = $otherEnd.type)
 #if ($otherEnd.many)
-#set ($schemaType = "${namespacePrefix}:ArrayOf${typeName}")
+#set ($schemaType = "${namespacePrefix}:${type.arrayName}")
 #else
-#set ($schemaType = "${namespacePrefix}:${typeName}")
+#set ($schemaType = "${namespacePrefix}:${type.name}")
 #end                
                     <xsd:element name="$otherEnd.name" nillable="$otherEnd.required" type="${schemaType}"/>   
 #end    

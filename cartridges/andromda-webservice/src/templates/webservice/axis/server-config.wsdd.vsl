@@ -65,7 +65,7 @@ $service.getDocumentation("            ", 64, false)
 #set ($serialPrefix = "Bean")
 #if ($type.arrayType)
 #set ($serialPrefix = "Array")
-            qname="ns${velocityCount}:ArrayOf${type.name.replaceAll('\[\]', '')}" 
+            qname="ns${velocityCount}:${type.arrayName}" 
 #else
             qname="ns${velocityCount}:${type.name}" 
 #if ($type.enumeration)
@@ -84,7 +84,7 @@ $type.getDocumentation("            ", 64, false)
         <typeMapping 
             type="java:${type.fullyQualifiedName}[]" 
             xmlns:ns${velocityCount}="${namespace}"
-            qname="ns${velocityCount}:ArrayOf${type.name}" 
+            qname="ns${velocityCount}:${type.arrayName}" 
             serializer="org.apache.axis.encoding.ser.ArraySerializerFactory"
             deserializer="org.apache.axis.encoding.ser.ArrayDeserializerFactory"
             encodingStyle="${encodingStyle}">
