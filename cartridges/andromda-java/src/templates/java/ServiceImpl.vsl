@@ -12,7 +12,8 @@ public class ${service.name}Impl
 #if($superclass)  
 	extends $superclass.fullyQualifiedName
 #end
-    implements $service.fullyQualifiedName {
+    implements $service.fullyQualifiedName 
+{
 
 #foreach ( $operation in $service.operations )
 #set ($returnType = $operation.returnType)
@@ -23,10 +24,11 @@ public class ${service.name}Impl
 	 */
 #if ($operation.hasExceptions())
     $operation.visibility $returnType.fullyQualifiedName $signature 
-    	throws $operation.exceptionList {
+    	throws $operation.exceptionList 
 #else
-    $operation.visibility $returnType.fullyQualifiedName $signature {
+    $operation.visibility $returnType.fullyQualifiedName $signature 
 #end
+    {
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.hasReturnType())

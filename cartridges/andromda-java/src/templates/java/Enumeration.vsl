@@ -8,8 +8,9 @@ package $packagename;
 /**
 $class.getDocumentation(" * ")
  */
-public class ${class.name} implements java.io.Serializable {
-
+public class ${class.name} 
+    implements java.io.Serializable 
+{
     private static java.util.Collection values = new java.util.ArrayList();
 
 #foreach ( $attribute in $class.attributes )
@@ -18,7 +19,7 @@ public class ${class.name} implements java.io.Serializable {
 	/**
 $attribute.getDocumentation("     * ") 
 	 */
-    public static final $class.name ${attribute.name} = new ${class.name}(${attribute.defaultValue});
+    public static final $class.name $attribute.name = new ${class.name}($attribute.defaultValue);
    
 #end
 	private $attributeType.fullyQualifiedName value;
@@ -27,9 +28,11 @@ $attribute.getDocumentation("     * ")
 #if($attributeType.primitiveType)
 #set ($valueTypeDef = "${attributeType.wrapperName} valueType = new ${attributeType.wrapperName}(value);")
 #end	
-	private ${class.name}(${attributeType.fullyQualifiedName} value) {   
+	private ${class.name}($attributeType.fullyQualifiedName value) 
+	{   
         $valueTypeDef
-        if (!values.contains(valueType)) {
+        if (!values.contains(valueType)) 
+        {
             values.add(valueType);
         }
 		this.value = value;
@@ -38,7 +41,8 @@ $attribute.getDocumentation("     * ")
 	/**
 	 * @see java.lang.Object#toString()
 	 */
-	public String toString() {
+	public String toString() 
+	{
 		return "" + value;
 	}
 	
@@ -47,9 +51,11 @@ $attribute.getDocumentation("     * ")
 	 *
 	 * @param value the value to create the ${class.name} from. 
 	 */
-	public static $class.name ${fromMethodName}($attributeType.fullyQualifiedName value) {
+	public static $class.name ${fromMethodName}($attributeType.fullyQualifiedName value) 
+	{
         $valueTypeDef
-        if (!values.contains(valueType)) {
+        if (!values.contains(valueType)) 
+        {
             throw new IllegalArgumentException(
                 "invalid value, possible values are: " + values);   
         }
@@ -59,15 +65,16 @@ $attribute.getDocumentation("     * ")
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-    public boolean equals(Object object) {
+    public boolean equals(Object object) 
+    {
         return object == this;
     }
     
     /**
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() { 
+    public int hashCode() 
+    { 
         return toString().hashCode();
-    }	
-    
+    }	   
 }

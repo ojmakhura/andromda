@@ -10,19 +10,26 @@ package $packagename;
 /** 
 $class.getDocumentation(" * ")
  */
-public class ${class.name} extends RuntimeException {
-
+public class ${class.name}
+#if($class.generalization)  
+	extends ${class.generalization.fullyQualifiedName}
+#else
+    extends java.lang.RuntimeException
+#end
+{
     /**
      * The default constructor.
      */
-    public ${class.name}() {}
+    public ${class.name}() 
+    {}
 
 	/**
 	 * Constructs a new instance of ${class.name}
 	 *
 	 * @param throwable the parent Throwable
 	 */
-	public ${class.name}(Throwable throwable) {
+	public ${class.name}(Throwable throwable) 
+	{
 		super(findRootCause(throwable));	
 	}
 	
@@ -31,7 +38,8 @@ public class ${class.name} extends RuntimeException {
 	 *
 	 * @param message the throwable message.
 	 */
-	public ${class.name}(String message) {
+	public ${class.name}(String message) 
+	{
 		super(message);	
 	}
 	
@@ -41,7 +49,8 @@ public class ${class.name} extends RuntimeException {
 	 * @param message the throwable message.
 	 * @param throwable the parent of this Throwable.
 	 */
-	public ${class.name}(String message, Throwable throwable) {
+	public ${class.name}(String message, Throwable throwable) 
+	{
 		super(message, findRootCause(throwable));	
 	}
 	
