@@ -17,14 +17,12 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">Oct 18, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts feature update</td>
+                    <td valign="top" class="std">Oct 19, 2004</td>
+                    <td valign="top" class="std">AndroMDApp Maven Plugin improvement</td>
                     <td valign="top" class="std">
-                        The menu containing the use-case links has been reworked a little bit, it now supports
-                        hierarchies of use-cases. The cartride will analyze your UML model and will construct
-                        a proper tree structure to be displayed. The result will be in DHTML and will feature
-                        collapsable/expandable menus. [Note: at this point this is still a work-in-progress,
-                        there seems to be a problem with the images used for the actuators]
+                        The AndroMDApp Maven plugin has been improved to include Spring
+                        and the WebService cartridges as options when generating an AndroMDA
+                        powered Maven application.
                     </td>
                 </tr>
                 <tr>
