@@ -46,10 +46,10 @@
                 <pathelement location="${basedir}/src/mappings"/>
             </mappingsSearchPath>
             <namespace name="default" ignore="false">
-                <property name="sqlMappingsUri" value="file:${basedir}/src/mappings/${datasource.type}Mappings.xml"/>
-                <property name="jdbcMappingsUri" value="file:${basedir}/src/mappings/JdbcMappings.xml"/>
-                <property name="wrapperMappingsUri" value="file:${basedir}/src/mappings/JavaWrapperMappings.xml"/>
-                <property name="languageMappingsUri" value="file:${basedir}/src/mappings/JavaMappings.xml"/>
+                <property name="sqlMappingsUri" value="${datasource.type}"/>
+                <property name="jdbcMappingsUri" value="JDBC"/>
+                <property name="wrapperMappingsUri" value="JavaWrapper"/>
+                <property name="languageMappingsUri" value="Java"/>
                 <property name="foreignKeySuffix" value="_FK"/>
                 <property name="maxSqlNameLength" value="30"/>
             </namespace>
@@ -63,7 +63,7 @@
 #else
             <namespace name="hibernate" ignore="true">
 #end
-                <property name="hibernateTypeMappingsUri" value="file:${basedir}/src/mappings/HibernateTypeMappings.xml"/>
+                <property name="hibernateTypeMappingsUri" value="Hibernate"/>
                 <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
                 <property name="entity-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
                 <property name="session-beans" value="${app.root.dir}/hibernate/ejb/target/src"/>
