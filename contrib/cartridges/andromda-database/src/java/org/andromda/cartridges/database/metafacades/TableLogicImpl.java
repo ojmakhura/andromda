@@ -59,9 +59,9 @@ public class TableLogicImpl
                     .next();
                 if (end != null)
                 {
-                    hasForeignKeyConstraints = end.getOtherEnd().isNavigable()
-                        && (end.isMany2Many() || end.isOne2One() || end
-                            .isOne2Many());
+                    hasForeignKeyConstraints = end.getOtherEnd().isNavigable() 
+                        && (end.isMany2Many() || end.isOne2One() || end 
+                            .isMany2One());
                     if (hasForeignKeyConstraints)
                     {
                         break;
