@@ -1,8 +1,11 @@
 The samples illustrate the use of AndroMDA with Maven.  
 Both the Animal Quiz and Car Rental System show typical
-AndroMDA project structures.  The Animal Quiz is the most
-current sample: you should be able to easily use that as 
-a template for your AndroMDA project.  
+AndroMDA project structures. Provided in this
+distribution is a maven plugin, you can use this
+plugin to generate your own application having the 
+same structure as these samples.  To run it, just install
+the plugin into your $MAVEN_HOME/plugins directory and 
+type 'andromda:genapp'.  
 
 It's also possible to build an Ant based project with AndroMDA by 
 using the <andromda> ant task (although its currently not shown in the
