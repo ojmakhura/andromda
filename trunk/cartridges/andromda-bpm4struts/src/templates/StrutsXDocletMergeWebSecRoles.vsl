@@ -1,4 +1,4 @@
-#if ($securityEnabled == "true")
+#if ($security == "true")
 
 #foreach ($user in $class.allUsers)
   <security-role>

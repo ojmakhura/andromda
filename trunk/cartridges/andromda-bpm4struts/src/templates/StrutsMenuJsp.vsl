@@ -1,7 +1,7 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
-#if ($xhtml)
+#if ($xhtml == "true")
 <html:xhtml/>
 
 #end
@@ -25,7 +25,7 @@
     <ul>
 #foreach ($useCase in $useCases)
 #set ($roles = $useCase.actionRoles)
-#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#set ($security = ($security=="true") && ($roles != "") )
 #if ($security)
         <logic:present role="$roles">
 #end

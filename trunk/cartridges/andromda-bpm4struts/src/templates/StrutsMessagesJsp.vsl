@@ -2,7 +2,7 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
-#if ($xhtml)
+#if ($xhtml == "true")
 <html:xhtml/>
 
 #end

@@ -9,7 +9,7 @@
 #set ($triggerKey = $action.actionTrigger.triggerKey)
 #set ($parameters = $action.actionParameters)
 #set ($formBeanName = $action.activityGraph.useCase.formBeanName)
-#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#set ($security = ($security=="true") && ($roles != "") )
 #if ($security)
 ${indent}<logic:present role="$roles">
 #end
@@ -66,7 +66,7 @@ ${indent}</logic:notPresent>
 #set ($messageKey = $action.messageKey)
 #set ($trigger = $action.actionTrigger)
 #set ($roles = $action.actionRoles)
-#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#set ($security = ($security=="true") && ($roles != "") )
 #if ($security)
 ${indent}<logic:present role="$roles">
 #end

@@ -10,7 +10,7 @@
 #set ($actionExceptions = $class.actionExceptions)
 #set ($actionStates = $class.actionStates)
 #set ($decisionTransitions = $class.decisionTransitions)
-#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#set ($security = ($security=="true") && ($roles != "") )
 ##
 ##  START TEMPLATE
 ##

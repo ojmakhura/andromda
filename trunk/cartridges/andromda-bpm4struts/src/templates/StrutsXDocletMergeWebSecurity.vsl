@@ -1,6 +1,6 @@
 #set ($useCases = $class.allUseCases)
 
-#if ($securityEnabled == "true")
+#if ($security == "true")
 
 ##
 ##  We don't use security-role-refs at this point, maybe in a later step
