@@ -148,6 +148,13 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX = profile
         .get("PERSISTENCE_COLUMN_INDEX");
+    
+    /**
+     * Used on an entity to indicate whether an entity should use the identifier
+     * of the entity on ther other side of a relation.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_IDENTIFIER_FOREIGN = profile
+        .get("PERSISTENCE_IDENTIFIER_FOREIGN");
 
     /**
      * Stores the style of a web service (document, wrapped, rpc).

@@ -82,16 +82,20 @@
         <to>@andromda.persistence.column.index</to>
     </mapping>
     <mapping>
+        <from>PERSISTENCE_IDENTIFIER_FOREIGN</from>
+        <to>@andromda.persistence.identifier.foreign</to>
+    </mapping>
+    <mapping>
         <from>WEBSERVICE_STYLE</from>
-        <to>@andromda.webService.style</to>
+        <to>@andromda.webservice.style</to>
     </mapping>
     <mapping>
         <from>WEBSERVICE_USE</from>
-        <to>@andromda.webService.use</to>
+        <to>@andromda.webservice.use</to>
     </mapping>
     <mapping>
         <from>WEBSERVICE_PROVIDER</from>
-        <to>@andromda.webService.provider</to>
+        <to>@andromda.webservice.provider</to>
     </mapping>
     <mapping>
         <from>ROLE_NAME</from>
