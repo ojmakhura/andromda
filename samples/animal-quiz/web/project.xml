@@ -179,15 +179,15 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
-    <build>
-        <sourceDirectory>src/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>target/src</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+		<resources>
+	      	<resource>
+		        <directory>${maven.build.dir}</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+    	</resources>
+  	</build>
 </project>
