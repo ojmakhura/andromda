@@ -26,7 +26,7 @@
 			        <td>
             			<p>
             				Can be specified to override the default 
-			        		<a href="../andromda-core/apidocs/org/andromda/core/metafacades/ModelAccessFacade.html">ModelFacade</a> implementation.
+			        		<a href="../andromda-core/apidocs/org/andromda/core/metafacade/ModelAccessFacade.html">ModelFacade</a> implementation.
             				Default value is defined in the <a href="../andromda-core/index.html">Core</a> .
             			</p>
           			</td>
@@ -85,17 +85,6 @@
               			</p>
           			</td>
         		</tr>
-        		<tr>
-          			<td>maven.androdev.translation.translator.contextType</td>
-          			<td>Yes</td>
-         			<td>
-            			<p>
-            				The contextType used with generated test files (the element to which the expressions apply). 
-            				This contextType must be an element contained within the model you're testing with.
-            				Default value is <code>org.androdev.contracts.LegalAgreement</code>.
-              			</p>
-          			</td>
-        		</tr> 
         		<tr>
         			<td>maven.androdev.languageMappingsUri</td>
         			<td>Yes</td>
