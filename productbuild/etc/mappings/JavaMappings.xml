@@ -81,6 +81,10 @@
         <to>java.lang.Double</to>
     </mapping>
 	<mapping>
+		<from>datatype.Decimal</from>
+		<to>java.lang.Double</to>
+	</mapping>
+	<mapping>
 	  	<from>datatype.Boolean</from>
 	  	<to>java.lang.Boolean</to>
 	</mapping>
