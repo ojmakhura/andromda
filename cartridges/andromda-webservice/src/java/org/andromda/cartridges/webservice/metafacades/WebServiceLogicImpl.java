@@ -250,30 +250,11 @@ public class WebServiceLogicImpl
                     {
                         ClassifierFacade nonArrayType = type;
                         if (type.isArrayType()
-                            || this.isAssociation(modelElement.getClass()))
+                            || this.isValidAssociationEnd(modelElement))
                         {
                             // convert to non-array type since we
                             // check if that one has the stereotype
                             nonArrayType = type.getNonArray();
-
-                            // check to see if the 'types' set says it already
-                            // contains the model element. If it does,
-                            // AND its an association end with a MANY
-                            // multiplicity we remove the existing one (so
-                            // the new one can be added).
-                            // In this way we always make sure association
-                            // ends with many muliplicities always take
-                            // precedence over ones with single multiplicities
-                            // of the same type.
-                            if (types.contains(modelElement)
-                                && modelElement instanceof AssociationEndFacade)
-                            {
-                                if (((AssociationEndFacade)modelElement)
-                                    .isMany())
-                                {
-                                    types.remove(modelElement);
-                                }
-                            }
                             types.add(modelElement);
                             // set the type to the non array type since
                             // that will have the attributes
@@ -415,16 +396,16 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * Returns true/false depending on whether or not this class represents an
-     * association class.
+     * Returns true/false depending on whether or not this class represents a
+     * valid association end (meaning it has a multiplicify of many)
      * 
-     * @param modelElementClass the model element class to check.
+     * @param modelElement the model element to check.
      * @return true/false
      */
-    private boolean isAssociation(Class modelElementClass)
+    private boolean isValidAssociationEnd(Object modelElement)
     {
-        return modelElementClass != null
-            && AssociationEndFacade.class.isAssignableFrom(modelElementClass);
+        return modelElement instanceof AssociationEndFacade
+            && ((AssociationEndFacade)modelElement).isMany();
     }
 
     /**
