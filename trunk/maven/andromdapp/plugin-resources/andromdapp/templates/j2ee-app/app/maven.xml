@@ -24,6 +24,9 @@
                     <ant:mkdir dir="${explodedDir}/${warFile.name}"/>
                     <ant:unzip src="${explodedTmpDir}/${warFile.name}" dest="${explodedDir}/${warFile.name}"/>
                 </j:forEach>
+                <ant:copy todir="${env.JBOSS_HOME}/server/${jboss.config}/deploy/${maven.final.name}.ear">
+                    <fileset dir="${explodedDir}/${warFile.name}"/>
+                </ant:copy>
             </j:when>
             <j:otherwise>
                 <ant:copy file="${maven.build.dir}/${maven.final.name}.ear"
