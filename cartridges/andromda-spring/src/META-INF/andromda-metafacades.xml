@@ -42,4 +42,8 @@
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
     </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAttributeLogicImpl">
+    </metafacade>
 </metafacades>

@@ -81,30 +81,6 @@
 			          	</td>
 					</tr>
 		        	<tr>
-						<a name="@andromda.hibernate.index"/>
-			          	<td>
-			          		@andromda.hibernate.index
-			          	</td>
-						<td>
-							Attribute
-						</td>
-			          	<td>
-			          		The name of an index for an attribute.
-			          	</td>
-					</tr>
-		        	<tr>
-						<a name="@andromda.hibernate.index"/>
-			          	<td>
-			          		@andromda.hibernate.unique
-			          	</td>
-						<td>
-							Attribute
-						</td>
-			          	<td>
-			          		Whether or not (true/false) the attribute should be unique.
-			          	</td>
-					</tr>
-		        	<tr>
 						<a name="@andromda.ejb.viewType"/>
 			          	<td>
 			          		@andromda.ejb.viewType
@@ -149,7 +125,31 @@
 						<td>
 							Represents the column length for entity persistence.
 						</td>
-					</tr>				        	        	      	        	        		        	        	        	     	             	        	
+					</tr>		
+		        	<tr>
+						<a name="@andromda.persistence.column.index"/>
+			          	<td>
+			          		@andromda.persistence.column.index
+			          	</td>
+						<td>
+							Attribute
+						</td>
+			          	<td>
+			          		The name of an index to create on an entity attribute/column.
+			          	</td>
+					</tr>
+		        	<tr>
+						<a name="@andromda.persistence.column.unique"/>
+			          	<td>
+			          		@andromda.persistence.column.unique
+			          	</td>
+						<td>
+							Attribute
+						</td>
+			          	<td>
+			          		Whether or not (true/false) the entity attribute/column should be unique.
+			          	</td>
+					</tr>          		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>	
     	</section>

@@ -94,6 +94,63 @@
 						<th>Used With</th> 
 			          	<th>Description</th>    	     	
 		        	</tr>
+					<tr>
+						<td>
+	                        @andromda.persistence.table
+						</td>
+						<td>
+							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
+						</td>
+						<td>
+							Defines the relational table name for entity persistence.
+						</td>
+					</tr>	
+					<tr>
+						<td>
+	                        @andromda.persistence.column
+						</td>
+						<td>
+							Attribute
+						</td>
+						<td>
+							Represents the column name for entity persistence.
+						</td>
+					</tr>	
+					<tr>
+						<td>
+	                        @andromda.persistence.column.length
+						</td>
+						<td>
+							Attribute
+						</td>
+						<td>
+							Represents the column length for entity persistence.
+						</td>
+					</tr>
+		        	<tr>
+						<a name="@andromda.persistence.column.index"/>
+			          	<td>
+			          		@andromda.persistence.column.index
+			          	</td>
+						<td>
+							Attribute
+						</td>
+			          	<td>
+			          		The name of an index to create on an entity attribute/column.
+			          	</td>
+					</tr>
+		        	<tr>
+						<a name="@andromda.persistence.column.unique"/>
+			          	<td>
+			          		@andromda.persistence.column.unique
+			          	</td>
+						<td>
+							Attribute
+						</td>
+			          	<td>
+			          		Whether or not (true/false) the entity attribute/column should be unique.
+			          	</td>
+					</tr>   
 		        	<tr>
 						<a name="@andromda.hibernate.query"/>
 			          	<td>
