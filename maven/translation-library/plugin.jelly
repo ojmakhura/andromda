@@ -376,6 +376,9 @@
 	    <ant:copy 
 	    	file="${translationLibraryTemplatesDir}/project.properties" 
 	    	todir="${pomDir}"/>
+        <ant:copy 
+            file="${translationLibraryTemplatesDir}/maven.xml"
+            todir="${pomDir}"/>
 
 	</goal>
 	
