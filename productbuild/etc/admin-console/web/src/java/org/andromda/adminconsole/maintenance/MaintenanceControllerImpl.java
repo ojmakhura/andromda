@@ -3,15 +3,26 @@ package org.andromda.adminconsole.maintenance;
 import org.andromda.adminconsole.config.AdminConsoleConfigurator;
 import org.andromda.adminconsole.config.xml.ColumnConfiguration;
 import org.andromda.adminconsole.config.xml.TableConfiguration;
-import org.andromda.adminconsole.db.*;
-import org.apache.commons.lang.StringUtils;
+import org.andromda.adminconsole.db.Column;
+import org.andromda.adminconsole.db.Criterion;
+import org.andromda.adminconsole.db.Database;
+import org.andromda.adminconsole.db.DatabaseFactory;
+import org.andromda.adminconsole.db.Expression;
+import org.andromda.adminconsole.db.RowData;
+import org.andromda.adminconsole.db.Table;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @see org.andromda.adminconsole.maintenance.MaintenanceController
@@ -112,7 +123,16 @@ public class MaintenanceControllerImpl extends MaintenanceController
         if ( configurator.isArbitraryUrlAllowed() == false)
         {
             List knownUrls = configurator.getKnownDatabaseUrls();
-            if (knownUrls.contains(StringUtils.trim(form.getUrl())) == false)
+            boolean validUrl = false;
+            for (int i = 0; i < knownUrls.size() && !validUrl; i++)
+            {
+                String url = ((AdminConsoleConfigurator.DbUrl) knownUrls.get(i)).getValue();
+                if (url != null && url.equals(form.getUrl()))
+                {
+                    validUrl = true;
+                }
+            }
+            if (validUrl == false)
             {
                 throw new Exception("You are not allowed to login into this database (contact your System Administrator): "+form.getUrl());
             }

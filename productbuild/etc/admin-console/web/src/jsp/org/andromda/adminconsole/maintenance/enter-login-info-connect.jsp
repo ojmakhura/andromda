@@ -22,11 +22,19 @@
                                         <select name="selectedUrl" disabled="true">
                                             <c:forEach var="url" items="${knownUrls}">
                                                 <c:choose>
-                                                    <c:when test="${url == form.url}">
-                                                        <option selected value="${url}">${url}</option>
+                                                    <c:when test="${empty url.name}">
+                                                        <c:set var="urlName" value="${url.value}"/>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <option value="${url}">${url}</option>
+                                                        <c:set var="urlName" value="${url.name}"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:choose>
+                                                    <c:when test="${url.value == form.url}">
+                                                        <option selected value="${url.value}">${urlName}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${url.value}">${urlName}</option>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
@@ -43,11 +51,19 @@
                                     <select name="selectedUrl">
                                         <c:forEach var="url" items="${knownUrls}">
                                             <c:choose>
-                                                <c:when test="${url == form.url}">
-                                                    <option selected value="${url}">${url}</option>
+                                                <c:when test="${empty url.name}">
+                                                    <c:set var="urlName" value="${url.value}"/>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <option value="${url}">${url}</option>
+                                                    <c:set var="urlName" value="${url.name}"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${url.value == form.url}">
+                                                    <option selected value="${url.value}">${urlName}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${url.value}">${urlName}</option>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
