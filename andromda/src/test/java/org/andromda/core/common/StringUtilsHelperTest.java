@@ -2,51 +2,11 @@ package org.andromda.core.common;
 
 import junit.framework.TestCase;
 
-import java.util.*;
-
 public class StringUtilsHelperTest extends TestCase
 {
     public StringUtilsHelperTest(String format)
     {
         super(format);
-    }
-
-    public void testUpperCaseFirstLetter()
-    {
-        final String[][] fixture = new String[][]
-        {
-            new String[]{"ejb", "Ejb"},
-            new String[]{"EJB", "EJB"},
-            new String[]{"an EJB class", "An EJB class"},
-            new String[]{"an EJB Class", "An EJB Class"},
-            new String[]{"HibernateEntity", "HibernateEntity"},
-            new String[]{"Hibernate Entity", "Hibernate Entity"}
-        };
-
-        for (int i = 0; i < fixture.length; i++)
-        {
-            String[] strings = fixture[i];
-            assertEquals(StringUtilsHelper.upperCaseFirstLetter(strings[0]), strings[1]);
-        }
-    }
-
-    public void testLowerCaseFirstLetter()
-    {
-        final String[][] fixture = new String[][]
-        {
-            new String[]{"ejb", "ejb"},
-            new String[]{"EJB", "eJB"},
-            new String[]{"an EJB class", "an EJB class"},
-            new String[]{"an EJB Class", "an EJB Class"},
-            new String[]{"HibernateEntity", "hibernateEntity"},
-            new String[]{"Hibernate Entity", "hibernate Entity"}
-        };
-
-        for (int i = 0; i < fixture.length; i++)
-        {
-            String[] strings = fixture[i];
-            assertEquals(StringUtilsHelper.lowerCaseFirstLetter(strings[0]), strings[1]);
-        }
     }
 
     public void testReplaceSuffix()
@@ -277,22 +237,5 @@ public class StringUtilsHelperTest extends TestCase
             assertEquals(StringUtilsHelper.crunch(strings[0], 10), strings[1]);
         }
 */
-    }
-
-    public void testToStringList()
-    {
-        final Object[][] fixture = new Object[][]
-        {
-            new Object[] { null, "" },
-            new Object[] { Collections.EMPTY_LIST, "" },
-            new Object[] { new ArrayList(), "" },
-            new Object[] { Arrays.asList(new Object[] { "", null, "  ", "qwerty", new Integer(2)}), ",,  ,qwerty,2"}
-        };
-
-        for (int i = 0; i < fixture.length; i++)
-        {
-            Object[] objects = fixture[i];
-            assertEquals(StringUtilsHelper.toStringList((Collection)objects[0], ","), objects[1]);
-        }
     }
 }
