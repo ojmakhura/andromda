@@ -737,7 +737,7 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetTableColumnMessageValue(String columnName)
     {
-        return (isTable()) ? StringUtilsHelper.toPhrase(columnName.toLowerCase()) : null;
+        return (isTable()) ? StringUtilsHelper.toPhrase(columnName) : null;
     }
 
     protected int handleGetTableMaxRows()
