@@ -87,12 +87,15 @@ $operation.getDocumentation("     * ")
      * This method exists solely to make the application work at runtime by populating
      * the complete form with default values.
      * <p/>
-     * You may remove this method if you want.
+     * You may remove everything under here, including this comment. Simply make sure
+     * you properly populate the form when implementing the operations.
      */
     private void populateForm($formBeanClassName form)
     {
 #foreach ($field in $useCase.formFields)
-#if ($field.date)
+#if ($field.table)
+        form.${field.setterName}(${field.name}DummyList);
+#elseif ($field.date)
         form.${field.setterName}AsDate($field.resetValue);
 #else
         form.${field.setterName}($field.resetValue);
@@ -104,5 +107,57 @@ $operation.getDocumentation("     * ")
 #end
 #end
     }
+
+## here we populate tabular data with dummy values
+#set ($quote = '"')
+#foreach ($field in $useCase.formFields)
+#if ($field.table)
+    private final static java.util.Collection ${field.name}DummyList =
+        java.util.Arrays.asList( new Object[] {
+#set ($count = 0)
+#foreach ($itemSeparator in [",", ",", ",", ",", ""])
+#set ($count = $count + 1)
+#set ($constructor = '')
+#set ($paramSeparator = '')
+#foreach ($columnName in $field.tableColumnNames)
+#set ($constructor = "$constructor$paramSeparator$quote${columnName}-$count$quote")
+#set ($paramSeparator = ', ')
+#end
+            new $str.upperCaseFirstLetter($field.name)DummyItem($constructor)$itemSeparator
+#end
+        } );
+
+    public final static class $str.upperCaseFirstLetter($field.name)DummyItem implements java.io.Serializable
+    {
+#set ($constructor = '')
+#set ($paramSeparator = '')
+#foreach ($columnName in $field.tableColumnNames)
+        private String $columnName = null;
+#set ($constructor = "$constructor${paramSeparator}String ${columnName}")
+#set ($paramSeparator = ', ')
+#end
+
+        public $str.upperCaseFirstLetter($field.name)DummyItem($constructor)
+        {
+#foreach ($columnName in $field.tableColumnNames)
+            this.$columnName = $columnName;
+#end
+        }
+#foreach ($columnName in $field.tableColumnNames)
+
+        public void set$str.upperCaseFirstLetter($columnName)(String $columnName)
+        {
+            this.$columnName = $columnName;
+        }
+
+        public String get$str.upperCaseFirstLetter($columnName)()
+        {
+            return this.$columnName;
+        }
+#end
+    }
+#end
+#end
+
 }
 #end
