@@ -694,9 +694,10 @@
         </p>
         <p class="highlight">
             Its important to note that you are NOT required to specify a property's value when using the nested
-            <code><![CDATA[<property/>]]></code>, if you do not specify the <em>value</em> attribute, then only
-            the presence of the property will be enough (presence meaning existing on the metafacade
-            and having a non-null value).
+            <code><![CDATA[<property/>]]></code>, if you do not specify the <em>value</em> attribute, then the
+            properties needs to be <em>valid</em>, meaning the follwing things: it's non-null, it has
+            one or more elements if its a collection type property, or has a value of <code>true</code>
+            if a boolean type.
         </p>
         <br/>
         <table>
