@@ -1,10 +1,8 @@
 package org.andromda.cartridges.database.metafacades;
 
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityFacade;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-
 import java.util.Random;
+
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 
 
 /**
@@ -16,7 +14,6 @@ public class ForeignKeyColumnLogicImpl
        extends ForeignKeyColumnLogic
        implements org.andromda.cartridges.database.metafacades.ForeignKeyColumn
 {
-    private final static Random RANDOM = new Random();
 
     // ---------------- constructor -------------------------------
 
@@ -30,19 +27,7 @@ public class ForeignKeyColumnLogicImpl
      */
     protected boolean handleIsCascadeDelete()
     {
-        boolean isCascadeDelete = false;
-        isCascadeDelete = this.getOtherEnd().isComposition();
-        AssociationEndFacade otherEnd = this.getOtherEnd();
-        // check for assignable so we don't get class cast exceptions
-        if (otherEnd != null
-            && EntityFacade.class.isAssignableFrom(otherEnd.getType()
-                .getClass()))
-            if (otherEnd.isOne2One()
-                && ((EntityFacade)otherEnd.getType()).isChild())
-            {
-                isCascadeDelete = this.isComposition();
-            }
-        return isCascadeDelete;
+        return this.isComposition();
     }
     
     /**
@@ -60,7 +45,12 @@ public class ForeignKeyColumnLogicImpl
     {
         return getType();
     }
+    
+    private final static Random RANDOM = new Random();
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getDummyLoadValue(int)
+     */
     protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
@@ -76,6 +66,9 @@ public class ForeignKeyColumnLogicImpl
         return initialLoadValue;
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getConstraintName()
+     */
     protected String handleGetConstraintName()
     {
         StringBuffer buffer = new StringBuffer();
@@ -87,6 +80,9 @@ public class ForeignKeyColumnLogicImpl
         return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getIndexName()
+     */
     protected String handleGetIndexName()
     {
         StringBuffer buffer = new StringBuffer();
@@ -106,6 +102,9 @@ public class ForeignKeyColumnLogicImpl
         return Short.valueOf((String)this.getConfiguredProperty("maxSqlNameLength"));
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getImportedPrimaryKeyColumn()
+     */
     protected Object handleGetImportedPrimaryKeyColumn()
     {
         return getImportedTable().getPrimaryKeyColumn();
