@@ -68,6 +68,30 @@
                     <img src="resources/howto/org/andromda/test/action-states.jpg"/>
                 </p>
             </subsection>
+            <subsection name="Transitions">
+                <p>
+                    Transitions are used to interconnect the different states in the activity graph, they make up
+                    the actual process logic.
+                </p>
+                <p>
+                    A few tagged values exist for transitions coming out of <![CDATA[<<FrontEndView>>]]> action states,
+                    please see this page to learn more about them:
+                    <a href="modeling.html#Supported_Tagged_Values">modeling.html</a>.
+                </p>
+                <p>
+                    It is possible to model exceptions to the process logic, in doing so you express how the system
+                    should behave in case something goes wrong. You just need to add the
+                    <![CDATA[<<FrontEndException>>]]> stereotype to the transition and you're good. Additionally
+                    you can add a tagged value to such a transition in order to refine the exception handling:
+                    <code>@andromda.struts.exception.type</code> needs the fully qualified classname of the exception
+                    to be handled by this transition, others will be ignored; the default value if not specified is
+                    <code>java.lang.Exception</code> meaning all exceptions will be handled.
+                </p>
+                <p class="highlight">
+                    The default exception handling strategy is to return to the source page on which
+                    the exception has been triggered.
+                </p>
+            </subsection>
             <subsection name="Action Parameters">
                 <p>
                     Action parameters are parameters modeled on transitions exiting client-side action states
@@ -92,6 +116,11 @@
                 </p>
                 <p>
                     <img src="resources/howto/org/andromda/test/page-variables.jpg"/>
+                </p>
+                <p>
+                    Page variables can be rendered in tabular format, this is an advanced feature which
+                    is explained in more depth on this page:
+                    <a href="howto8.html">Tables</a>.   
                 </p>
             </subsection>
             <subsection name="Decision Points">
