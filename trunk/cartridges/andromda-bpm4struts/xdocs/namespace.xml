@@ -119,11 +119,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>breadCrumbs</td>
-                    <td>true/false, denotes whether or not to render breadcrumbs on the pages.</td>
+                    <td>maxBreadCrumbs</td>
+                    <td>an integer denoting the maximum number of breadcrumbs to appear on a
+                        page, specify zero to disable breadcrumbs</td>
                     <td>
                         No, default is
-                        <code>true</code>.
+                        <code>5</code>.
                     </td>
                 </tr>
                 <tr>
