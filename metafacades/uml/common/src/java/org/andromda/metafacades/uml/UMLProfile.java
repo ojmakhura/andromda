@@ -33,9 +33,9 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_IDENTIFIER = umlProfile
         .getString("STEREOTYPE_IDENTIFIER");
-   
+
     /**
-     * If an attribute has this stereotype, it is considered unique. 
+     * If an attribute has this stereotype, it is considered unique.
      */
     public static final String STEREOTYPE_UNIQUE = umlProfile
         .getString("STEREOTYPE_UNIQUE");
@@ -51,15 +51,34 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_VALUE_OBJECT = umlProfile
         .getString("STEREOTYPE_VALUE_OBJECT");
-    
+
+    /**
+     * <p>
+     * Represents a web service. Stereotype a class with this stereotype when
+     * you want everything on the class to be exposed as a web service.
+     * </p>
+     */
+    public static final java.lang.String STEREOTYPE_WEBSERVICE = umlProfile
+        .getString("STEREOTYPE_WEBSERVICE");
+
+    /**
+     * <p>
+     * Stereotype an operation on a <code>service</code> if you wish to expose
+     * the operation.
+     * </p>
+     */
+    public static final java.lang.String STEREOTYPE_WEBSERVICE_OPERATION = umlProfile
+        .getString("STEREOTYPE_WEBSERVICE_OPERATION");
+
     /**
      * The base exception stereotype. If a model element is stereotyped with
      * this (or one of its specializations), then the exception can be generated
-     * by a cartridge and a dependency to it from an operation will add a throws clause.
+     * by a cartridge and a dependency to it from an operation will add a throws
+     * clause.
      */
     public static final String STEREOTYPE_EXCEPTION = umlProfile
         .getString("STEREOTYPE_EXCEPTION");
-    
+
     /**
      * Represents an enumeration type.
      */
@@ -95,13 +114,13 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_ENTITY_REF = umlProfile
         .getString("STEREOTYPE_ENTITY_REF");
-    
+
     /**
      * Represents a reference to an service.
      */
     public static final String STEREOTYPE_SERVICE_REF = umlProfile
         .getString("STEREOTYPE_SERVICE_REF");
-    
+
     /* ----------------- Tagged Values -------------------- */
 
     /**
@@ -127,11 +146,11 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH");
-    
+
     /**
      * Represents a relational table column index name.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX");
-    
+
 }

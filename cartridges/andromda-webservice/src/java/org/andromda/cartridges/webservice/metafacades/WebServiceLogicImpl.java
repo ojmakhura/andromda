@@ -256,7 +256,7 @@ public class WebServiceLogicImpl
                     }
 
                     if (nonArrayType
-                        .hasStereotype(WebServiceProfile.STEREOTYPE_VALUEOBJECT)
+                        .hasStereotype(WebServiceProfile.STEREOTYPE_VALUE_OBJECT)
                         || nonArrayType
                             .hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION))
                     {

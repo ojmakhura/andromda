@@ -1,25 +1,29 @@
+#if ($service.webService || !$service.webServiceOperations.empty)
 package $service.packageName;
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedWebServiceDelegatorName,'.','/')}.java")
 
 /**
- * Web service delegator for <code>$service.fullyQualifiedName}</code>.
+ * Web service delegator for <code>$service.fullyQualifiedName</code>.
  *
  * @see $service.fullyQualifiedName
  */
 public class $service.webServiceDelegatorName
-    implements $service.fullyQualifiedName 
 {
     
 	/**
-     * Gets an instance of <code>${service.fullyQualifiedName}</code>  	
+     * Gets an instance of <code>$service.fullyQualifiedName</code>  	
 	 */
 #set ($serviceGetter = "get${service.name}()")
-    public final ${service.fullyQualifiedName} $serviceGetter
+    private final ${service.fullyQualifiedName} $serviceGetter
     {
         return ${serviceLocatorPackage}.ServiceLocator.instance().${serviceGetter};
     }
-	
-#foreach ($operation in $service.operations)
+
+#set ($operations = $service.operations)
+#if (!$service.webService)
+#set ($operations = $service.webServiceOperations)
+#end
+#foreach ($operation in $operations)
     /**
 	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
 	 */
@@ -37,3 +41,4 @@ public class $service.webServiceDelegatorName
 	
 #end
 }
+#end
