@@ -7,6 +7,13 @@
     <property reference="defaultActionRedirect" default="false"/>
 
     <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
+        <stereotype>Service</stereotype>
+        <property reference="serviceAccessorPattern" default=""/>
+    </metafacade>
+
+    <metafacade
         metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"
         metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
         <stereotype>FrontEndApplication</stereotype>
