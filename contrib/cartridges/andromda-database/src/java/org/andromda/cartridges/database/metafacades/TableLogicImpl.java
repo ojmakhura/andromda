@@ -35,12 +35,12 @@ public class TableLogicImpl
 
         try
         {
-            String initialLoadSizeString = (String)findTaggedValue(DatabaseProfile.INITIAL_LOAD_SIZE);
+            String initialLoadSizeString = (String)findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
             initialLoadSize = Integer.parseInt(initialLoadSizeString);
         }
         catch (Exception e)
         {
-            initialLoadSize = DatabaseProfile.INITIAL_LOAD_SIZE_DEFAULT;
+            initialLoadSize = DatabaseProfile.DUMMY_LOAD_SIZE_DEFAULT;
         }
 
         return initialLoadSize;
