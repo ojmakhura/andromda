@@ -4,6 +4,7 @@
 ##
 #set ($useCase = $controller.useCase)
 #set ($formBeanClassName = $useCase.formBeanClassName)
+#set ($sessionObjects = $controller.sessionObjects)
 ##
 ##  START TEMPLATE
 ##
@@ -13,6 +14,9 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+#if (!$sessionObjects.empty)
+import javax.servlet.http.HttpSession;
+#end
 
 /**
 $controller.getDocumentation(" * ")
@@ -34,7 +38,7 @@ $controller.getDocumentation(" * ")
  *
 #end
  */
-public interface ${controller.name}Interface
+public abstract class ${controller.name}Interface
 {
 #foreach ($operation in $controller.operations)
 #set ($parameters = $operation.arguments)
@@ -73,9 +77,36 @@ $operation.getDocumentation("     * ")
      * </table>
 #end
      */
-    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #set ($returnType = false)
+#end
+#foreach ($sessionObject in $sessionObjects)
+#set ($accessorSuffix = $str.upperCaseFirstLetter($sessionObject.name))
+    protected final $sessionObject.fullyQualifiedName get${accessorSuffix}(HttpServletRequest request)
+    {
+        $sessionObject.fullyQualifiedName object = null;
+        HttpSession session = request.getSession();
+        if (session != null)
+        {
+            Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
+            if (attribute instanceof $sessionObject.fullyQualifiedName)
+            {
+                object = ($sessionObject.fullyQualifiedName)attribute;
+            }
+        }
+        return object;
+    }
+
+    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object)
+    {
+        HttpSession session = request.getSession();
+        if (session != null)
+        {
+            session.setAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY, object);
+        }
+    }
+
 #end
 }
 
