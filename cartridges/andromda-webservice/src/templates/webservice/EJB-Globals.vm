@@ -3,5 +3,3 @@
 #set ($ejbJndiName = "${service.ejbJndiName}")
 #set ($ejbHomeInterfaceName = "${service.ejbHomeInterface}")
 #set ($ejbRemoteInterfaceName = "${service.ejbInterface}")
-#set ($ejbJndiUrl = "jnp://localhost:1099")
-#set ($ejbNamingContextFactory = "org.jnp.interfaces.NamingContextFactory")

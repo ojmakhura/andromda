@@ -16,6 +16,8 @@
     <property reference="testServiceLocatorName" default="TestServiceLocator"/>
     <property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
     <property reference="servicesPath" default="/services/"/>
+    <property reference="ejbJndiUrl" default=""/>
+    <property reference="ejbNamingContextFactory" default="org.jnp.interfaces.NamingContextFactory"/>
     
     <!-- default namespaces -->
     <property reference="wsdlSoapNamespace" default="http://schemas.xmlsoap.org/wsdl/soap/"/>

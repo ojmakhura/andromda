@@ -1,7 +1,7 @@
         <parameter name="beanJndiName" value="${ejbJndiName}"/>
         <parameter name="homeInterfaceName" value="${ejbHomeInterfaceName}"/>
         <parameter name="remoteInterfaceName" value="${ejbRemoteInterfaceName}"/>
-        <!-- app server connection info 
+#if ($ejbJndiUrl.length() != 0)
         <parameter name="jndiURL" value="${ejbJndiUrl}"/>
+#end
         <parameter name="jndiContextClass" value="${ejbNamingContextFactory}"/>
-        -->
