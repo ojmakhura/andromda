@@ -73,17 +73,20 @@ public interface $entity.daoName
 	
 #end
 #foreach ( $operation in $entity.operations )
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#if ($operation.query && !$operation.returnType.collectionType)
+#set ($returnType = "Object")
+#end
 	/**
 $operation.getDocumentation("     * ")  	
 	 */
 #if ($operation.hasExceptions())
-	$operation.visibility $operation.returnType.fullyQualifiedName $operation.signature 
+	$operation.visibility $returnType $operation.signature 
     	throws $operation.exceptionList;
 #else
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
+    $operation.visibility $returnType $operation.signature;
 #end
 #if ($operation.query)
-
 	/**
      * <p>
      *   Does the same thing as {@link #${operation.getSignature(false)}) with an 
@@ -95,10 +98,10 @@ $operation.getDocumentation("     * ")
      * </p>  	
 	 */
 #if ($operation.hasExceptions())
-	$operation.visibility $operation.returnType.fullyQualifiedName ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+	$operation.visibility $returnType ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
     	throws $operation.exceptionList;
 #else
-    $operation.visibility $operation.returnType.fullyQualifiedName ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility $returnType ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #end
 
