@@ -19,6 +19,7 @@
 		        	</tr>
 		        	<tr>
 			          	<td>
+							<a name="Entity"/>
 			          		<strong><![CDATA[<<Entity>>]]></strong>
 			          	</td>
 			          	<td>
@@ -30,6 +31,7 @@
 		        	</tr>	
 		        	<tr>
 			          	<td>
+							<a name="Service"/>
 			          		<strong><![CDATA[<<Service>>]]></strong>
 			          	</td>
 			          	<td>
@@ -38,9 +40,48 @@
 			          	<td>
 			          		Produces Session EJB facades for the hibernate entities.
 			          	</td>
-		        	</tr>		    				        		        	        	      	        	        		        	        	        	     	             	        	
+		        	</tr>		
+		        	<tr>
+			          	<td>
+							<a name="FinderMethod"/>
+			          		<strong><![CDATA[<<FinderMethod>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Operation
+			          	</td>			       
+			          	<td>
+			          		Identifies an operation as a finder method.  Finder
+							method queries can be defined as a OCL body
+							expression using the <a href="../andromda-query-library/index.html">
+							AndroMDA Query Library</a> or directly as a Hibernate QL using the 
+							<a href="#@hibernate.query">@hibernate.query</a> tagged value.
+			          	</td>
+		        	</tr>	    				        		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
 		    </subsection>
+    		<subsection name="Supported Tagged Values">
+		      	<table>
+		        	<tr>
+			          	<th>Tagged Value</th>  
+						<th>Used With</th> 
+			          	<th>Description</th>    	     	
+		        	</tr>
+		        	<tr>
+						<a name="@hibernate.query"/>
+			          	<td>
+			          		@hibernate.query
+			          	</td>
+						<td>
+							<a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
+						</td>
+			          	<td>
+			          		Defines a hibernate query expression.  Note that you 
+							can model your finder method body in OCL as well
+							(to keep your model more PIM like).
+			          	</td>
+		        	</tr>					        	        	      	        	        		        	        	        	     	             	        	
+		        </table>
+    		</subsection>	
     	</section>
   	</body>
 </document>
