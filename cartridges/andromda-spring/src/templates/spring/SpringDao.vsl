@@ -81,7 +81,7 @@ public interface $entity.daoName
      * <p>
      *   Does the same thing as {@link #create($entity.getAttributeTypeList(true,false))} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
-     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
+     *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
@@ -139,14 +139,14 @@ public interface $entity.daoName
      public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
      
     /**
-     *  <p> 
-     *    Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
-     *    additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
-     *    the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
-     *    defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
-     *    transform the entity (into a value object for example).  By default, transformation does
-     *    not occur.
-     *  </p>
+     * <p> 
+     *   Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
+     *   defined in this class then the finder results <strong>WILL BE</strong> passed through an operation which can 
+     *   optionally transform the entity (into a value object for example).  By default, transformation does
+     *   not occur.
+     * </p>
      * 
      * @param $identifier.name the identifier of the entity to load.
      * @return either the entity or the object transformed from the entity.
