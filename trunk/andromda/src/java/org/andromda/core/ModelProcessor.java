@@ -188,7 +188,7 @@ public class ModelProcessor
             ModelPackages modelPackages = new ModelPackages();
             modelPackages.setProcessAllPackages(this.processAllModelPackages);
 
-            // get the time from the model with the newest modified time
+            // get the time from the model that has the latest modified time
             for (int ctr = 0; ctr < models.length; ctr++)
             {
                 Model model = models[ctr];

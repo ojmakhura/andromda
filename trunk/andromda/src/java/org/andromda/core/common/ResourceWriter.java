@@ -9,10 +9,9 @@ import java.net.URL;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Used for writing resources for the framework.  Also
- * keeps histories of previous resources generated so
- * that we can avoid regenerating if the generated
- * resources are current.
+ * Used for writing resources for the framework. Also keeps histories of
+ * previous resources generated so that we can avoid regenerating if the
+ * generated resources are current.
  * 
  * @author Chad Brandon
  */
@@ -22,11 +21,10 @@ public class ResourceWriter
      * The shared instance
      */
     private static ResourceWriter instance = null;
-    
+
     /**
-     * Gets the shared ResourceWriter instance.
-     * Normally you'll want to retrieve the 
-     * instance through this method.
+     * Gets the shared ResourceWriter instance. Normally you'll want to retrieve
+     * the instance through this method.
      * 
      * @return the shared instance.
      */
@@ -38,7 +36,7 @@ public class ResourceWriter
         }
         return instance;
     }
-    
+
     /**
      * Writes the string to the file specified by the fileLocation argument.
      * 
@@ -46,8 +44,7 @@ public class ResourceWriter
      * @param file the file to which to write.
      * @throws IOException
      */
-    public void writeStringToFile(String string, File file)
-        throws IOException
+    public void writeStringToFile(String string, File file) throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         ExceptionUtils.checkNull(methodName, "file", file);
@@ -90,8 +87,7 @@ public class ResourceWriter
      * @param url the URL to read
      * @param fileLocation the location which to write.
      */
-    public void writeUrlToFile(URL url, String fileLocation)
-        throws IOException
+    public void writeUrlToFile(URL url, String fileLocation) throws IOException
     {
         final String methodName = "ResourceWriter.writeUrlToFile";
         ExceptionUtils.checkNull(methodName, "url", url);
