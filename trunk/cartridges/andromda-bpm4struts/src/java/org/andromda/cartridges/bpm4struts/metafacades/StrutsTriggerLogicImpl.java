@@ -69,28 +69,27 @@ public class StrutsTriggerLogicImpl
      */
     protected java.lang.String handleGetTriggerKey()
     {
-        return getAction().getMessageKey() + '.' + StringUtilsHelper.toResourceMessageKey(getName());
+        String triggerKey = null;
+
+        StrutsAction action = getAction();
+        if (action != null)
+        {
+            triggerKey = action.getMessageKey() + '.' + StringUtilsHelper.toResourceMessageKey(getName());
+        }
+
+        return triggerKey;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTriggerValue()()
-     */
     protected java.lang.String handleGetTriggerValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTitleValue()()
-     */
     protected java.lang.String handleGetTitleValue()
     {
         return getTriggerValue();
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetTitleValue()()
-     */
     protected java.lang.String handleGetResetTitleValue()
     {
         return "Reset";
@@ -101,17 +100,11 @@ public class StrutsTriggerLogicImpl
         return "Reset";
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetNotAllowedTitleValue()()
-     */
     protected java.lang.String handleGetResetNotAllowedTitleValue()
     {
         return "You are not allowed to reset";
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getNotAllowedTitleValue()()
-     */
     protected java.lang.String handleGetNotAllowedTitleValue()
     {
         return "You are not allowed to call this action";
