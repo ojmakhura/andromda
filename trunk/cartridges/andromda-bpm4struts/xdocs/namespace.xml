@@ -60,7 +60,7 @@
                     <td>Yes</td>
                 </tr>
                 <tr>
-                    <td>securityEnabled</td>
+                    <td>security</td>
                     <td>Whether or not to render code enabling the security features (true/false)</td>
                     <td>No, default is <code>false</code></td>
                 </tr>
@@ -69,6 +69,13 @@
                     <td>The security realm to use when security is enabled.</td>
                     <td>
                         No, default is <code>other</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>xhtml</td>
+                    <td>True/false on whether or not xhtml should be rendered (instead of just normal html).</td>
+                    <td>
+                        No, default is <code>false</code>.
                     </td>
                 </tr>
             </table>
