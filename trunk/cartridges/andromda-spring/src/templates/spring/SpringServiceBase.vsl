@@ -81,48 +81,34 @@ public abstract class $service.baseName
         }
 #end
 #end
-#set($callIndention = "        ")
-#if ($service.allowDefaultServiceException || $operation.exceptionsPresent)
-#set($callIndention = "${callIndention}    ")
         try
         {
-#end
 #set ($call = "this.${operation.implementationCall};")
 #if ($operation.returnTypePresent)
-${callIndention}return $call
+            return $call
 #else
-${callIndention}$call
+            $call
 #end 
-#foreach($exception in $operation.exceptions)
         }
+#foreach($exception in $operation.exceptions)
         catch ($exception.fullyQualifiedName ex)
         {
-            throw ex;
-#if (!$service.allowDefaultServiceException)           
+            throw ex;        
         }
 #end
-#end
-#if ($service.allowDefaultServiceException)
-        }
         catch (Throwable th)
         {
             throw new ${service.fullyQualifiedDefaultExceptionName}(
                 "Error performing '${service.fullyQualifiedName}.${operation.signature}'", 
                 th);
         }
-#end
     }
     
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
-#if ($operation.exceptionsPresent)
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
-        throws $operation.exceptionList;
-#else
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName ${operation.implementationSignature};  
-#end
-    
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature 
+        throws java.lang.Exception;
 #end
 #if ($ejbsEnabled)
     private javax.ejb.SessionContext sessionContext;
