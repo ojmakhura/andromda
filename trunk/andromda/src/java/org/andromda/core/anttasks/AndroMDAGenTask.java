@@ -30,10 +30,10 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
 /**
- *  This class represents the <code>&lt;andromda&gt;</code> custom task which can
- *  be called from an ant script. 
+ * This class represents the <code>&lt;andromda&gt;</code> custom task which can
+ * be called from an ant script. 
  * 
- *  The &lt;andromda&gt; task facilitates Model Driven Architecture by enabling
+ * The &lt;andromda&gt; task facilitates Model Driven Architecture by enabling
  * the generation of source code, configuration files, and other such artifacts
  * from a UML model.
  * 

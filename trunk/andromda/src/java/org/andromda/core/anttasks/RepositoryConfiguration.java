@@ -6,14 +6,22 @@ import org.apache.tools.ant.BuildException;
 
 /**
  * 
- * Objects of this class are instantiated when
- * the <code>&lt;repository&gt;</code> tag occurs in the build.xml file
- * as a nested tag within the <code>&lt;andromda&gt;</code> tag.
+ * This class implements the <code>&lt;repository&gt;</code> tag
+ * which can used within the ant <code>&lt;andromda&gt;</code> tag
+ * to configure androMDA to use a different object model repository.
  * 
- * <p>This tag enables an ANT user to configure the object model 
- * repository that ANDROMDA uses during code generation.  It also provides
- * the ability to customize the API used by the code generation templates to
- * access the repository.</p>
+ * <p> One application of this tag is that it supports the
+ * possibility of loading an object model from a source other
+ * than an XMI file. It could implemented by: <p>
+ * 
+ * <ul>
+ * <li> introducing a new class that extends 
+ * org.andromda.core.mdr.MDRespositoryFacade </li>
+ * <li> overriding the readModel(URL) method so
+ * that it reads the object model from the new object model source </li>
+ * <li> storing the results of the object model
+ * read into the MDR UML v1.4 repository </li>
+ * </ul>
  * 
  * @author Anthony Mowers
  *  
@@ -28,6 +36,14 @@ public class RepositoryConfiguration
 	private Class scriptHelperClass = null;
 
 
+	/**
+	 * Sets the name of the class to use as the repository.  The
+     * class must implement the RepositoryFacade interface.
+     * 
+     * @see org.andromda.core.common.RepositoryFacade
+     * 
+	 * @param repositoryClassName
+	 */
 	public void setClassname(String repositoryClassName)
 	{
 		try
@@ -41,6 +57,21 @@ public class RepositoryConfiguration
 
 	}
     
+	/**
+	 * Sets the name of the class that is used by AndroMDA to
+     * access object model elements from within he repository.  The
+     * class must implement the ScriptHelper interface.
+     * 
+     * <p> Unless specified otherwise by use of the
+     * <code>&lt;template&gt;</code> tag this transformer
+     * object will be the object used the code generation scripts
+     * to access the object model. </p>
+     * 
+     * @see TemplateConfiguration
+     * @see org.andromda.core.common.ScriptHelper
+     * 
+	 * @param scriptHelperClassName
+	 */
     public void setTransformClassname(String scriptHelperClassName)
     {
         try
@@ -53,6 +84,11 @@ public class RepositoryConfiguration
         }
     }
 
+	/**
+	 * Creates an instance of the repository.
+     * 
+	 * @return RepositoryFacade
+	 */
 	public RepositoryFacade createRepository()
 	{
 		RepositoryFacade instance = null;
@@ -91,6 +127,11 @@ public class RepositoryConfiguration
 
 
 
+	/**
+	 * Creates an instance of the object model Transfomer.
+     * 
+	 * @return ScriptHelper
+	 */
 	public ScriptHelper createTransform()
 	{
 		ScriptHelper instance = null;
@@ -119,7 +160,7 @@ public class RepositoryConfiguration
 		catch (IllegalAccessException iae)
 		{
 			throw new BuildException(
-				"unable to access repository constructor "
+				"unable to access transform constructor "
 					+ scriptHelperClass
 					+ "()");
 		}
