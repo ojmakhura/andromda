@@ -11,33 +11,36 @@ import org.andromda.core.common.Property;
  * 
  * @author Chad Brandon
  */
-public class NamespacesTest extends TestCase {
-	
-	private static final String TEST_LOCATION = "C:/some/directory/location";
-	private static final String TEST_OUTLET = "test-outlet";
-	private static final String TEST_NAMESPACE = "testNS";
+public class NamespacesTest
+    extends TestCase
+{
 
-	/**
-	 * Constructor for NamespacesTest.
-	 * 
-	 * @param arg0
-	 */
-	public NamespacesTest(String arg0) {
-		super(arg0);
-	}
+    private static final String TEST_LOCATION = "C:/some/directory/location";
+    private static final String TEST_OUTLET = "test-outlet";
+    private static final String TEST_NAMESPACE = "testNS";
 
-	public void testAddAndFindNamespaceProperty() {
-		Namespace namespace = new Namespace();
-		namespace.setName(TEST_NAMESPACE);
-		Property outletLocation = new Property();
-		outletLocation.setName(TEST_OUTLET);
-		outletLocation.setValue(TEST_LOCATION);
-		namespace.addProperty(outletLocation);
-		Namespaces.instance().addNamespace(namespace);
+    /**
+     * Constructor for NamespacesTest.
+     * 
+     * @param arg0
+     */
+    public NamespacesTest(
+        String arg0)
+    {
+        super(arg0);
+    }
 
-		assertEquals(outletLocation, 
-			Namespaces.instance().findNamespaceProperty(
-				TEST_NAMESPACE, 
-				TEST_OUTLET));
-	}
+    public void testAddAndFindNamespaceProperty()
+    {
+        Namespace namespace = new Namespace();
+        namespace.setName(TEST_NAMESPACE);
+        Property outletLocation = new Property();
+        outletLocation.setName(TEST_OUTLET);
+        outletLocation.setValue(TEST_LOCATION);
+        namespace.addProperty(outletLocation);
+        Namespaces.instance().addNamespace(namespace);
+
+        assertEquals(outletLocation, Namespaces.instance()
+            .findNamespaceProperty(TEST_NAMESPACE, TEST_OUTLET));
+    }
 }

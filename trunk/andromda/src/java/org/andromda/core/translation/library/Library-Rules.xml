@@ -90,11 +90,15 @@
 			<call-method-rule
 				methodname="addPropertyReference" 
 				paramcount="2" 
-				paramtypes="java.lang.String"/>
+				paramtypes="java.lang.String,java.lang.String"/>
 				
 	    	<call-param-rule 
 	    		attrname="reference" 
 	    		paramnumber="0" />
+	    		
+            <call-param-rule 
+	            attrname="default" 
+	            paramnumber="1" />
 		       
 	   	</pattern>
       		

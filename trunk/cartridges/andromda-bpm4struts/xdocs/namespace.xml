@@ -62,14 +62,13 @@
                 <tr>
                     <td>securityEnabled</td>
                     <td>Whether or not to render code enabling the security features (true/false)</td>
-                    <td>Yes</td>
+                    <td>No, default is <code>false</code></td>
                 </tr>
                 <tr>
                     <td>securityRealm</td>
                     <td>The security realm to use when security is enabled.</td>
                     <td>
-                        Yes, even if the security is not enabled. If you don't know what to enter here,
-                        just type 'other'.
+                        No, default is <code>other</code>.
                     </td>
                 </tr>
             </table>

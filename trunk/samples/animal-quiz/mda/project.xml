@@ -53,8 +53,6 @@
 	 			<messages>${maven.andromda.bpm4struts.generated.dir}</messages>
 	 			<configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
 	 			<xdoclet-merge>${maven.andromda.bpm4struts.generated.dir}/merge</xdoclet-merge>
-	 			<securityEnabled>false</securityEnabled>
-	 			<securityRealm>other</securityRealm>
 	 		</properties>
 		</dependency>	
 		<dependency>

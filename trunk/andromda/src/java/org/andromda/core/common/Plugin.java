@@ -2,6 +2,7 @@ package org.andromda.core.common;
 
 import java.net.URL;
 import java.util.Collection;
+import java.util.Map;
 
 import org.andromda.core.templateengine.TemplateEngine;
 
@@ -81,14 +82,12 @@ public interface Plugin {
     public TemplateEngine getTemplateEngine();
     
     /**
-     * Returns the propery references supplied with this
-     * plugin. Property references are references to 
-     * properties that are expected to be supplied by
-     * the calling client.  These properties are then
-     * made available to the plugin templates. 
+     * Gets all property references available for this cartridge.
+     * Returns a Map that contains all property references and 
+     * their default values (if any).
      * 
-     * @param reference
+     * @return the Map of property references.
      */
-    public Collection getPropertyReferences();
+    public Map getPropertyReferences();
 
 }
