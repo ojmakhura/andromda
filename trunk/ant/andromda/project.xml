@@ -56,6 +56,11 @@
                 <jar.manifest.classpath>true</jar.manifest.classpath>
             </properties>
         </dependency>
+    	<dependency>
+      		<groupId>commons-jelly</groupId>
+      		<artifactId>commons-jelly-tags-velocity</artifactId>
+      		<version>20030303.205659</version>
+    	</dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>

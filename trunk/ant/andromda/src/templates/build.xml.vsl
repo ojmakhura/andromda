@@ -1,0 +1,55 @@
+<project name="andromda-ant" default="run">
+    
+    <description>
+    	
+        This build script creates the lib.zip containing
+    	all dependencies required to run an AndroMDA application
+    	created by the AndroMDA ant tool.
+    	
+    	IMPORTANT: this is intended to be run from the 
+        AndroMDA binary distribution (as it copies all 
+    	required dependencies into the andromda ant 
+    	tool jar).
+	
+    </description>
+    
+    <target name="init">
+        <property name="lib.dir" value="lib"/>
+        <path id="andromda.ant.classpath">
+            <fileset dir=".">
+                <include name="${pom.artifactId}-${pom.currentVersion}.jar"/> 
+            </fileset>        
+            <fileset dir="${lib.dir}">        
+#foreach ($lib in $pom.artifacts)
+#set ($dep = $lib.dependency)
+#if ($dep.getProperty('jar.bundle')=='true' || $dep.getProperty('jar.module')=='true')
+                <include name="${dep.artifactId}-${dep.version}.jar"/>
+#end
+#end
+            </fileset>
+        </path>
+    </target>
+
+    <target name="run" depends="init">
+        <copy todir="${lib.dir}" 
+        	  flatten="true" 
+        	  includeEmptyDirs="false">
+        	<fileset dir="../lib"/>
+        	<fileset dir="../andromda">
+        		<exclude name="**maven**"/>
+        	</fileset>
+        	<fileset dir="../andromda-cartridges"/>
+    	</copy>   
+        <zip destfile="./${pom.artifactId}-${pom.currentVersion}.jar"
+             update="true">            
+            <zipfileset dir="lib" prefix="lib"/>
+        </zip>    	 	
+        <java classname="org.andromda.ant.AndromdaAntRunner">
+            <classpath>
+                <path refid="andromda.ant.classpath"/>
+            </classpath>
+        </java>
+        <delete dir="${lib.dir}"/>
+    </target>
+
+</project>
