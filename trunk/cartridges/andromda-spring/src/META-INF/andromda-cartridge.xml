@@ -365,13 +365,6 @@
 		outputToSingleFile="true"/>
         
     <template
-        path="templates/spring/hibernate/HibernateEnumerationType.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false"/>
-
-    <template
         path="templates/spring/hibernate/HibernateEnumeration.vsl"
         outputPattern="$generatedFile"
         outlet="daos"

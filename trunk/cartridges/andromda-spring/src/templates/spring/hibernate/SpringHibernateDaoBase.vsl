@@ -51,6 +51,54 @@ public abstract class $entity.daoBaseName
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
+     * @see ${entity.fullyQualifiedDaoName}#load(boolean, $identifier.type.fullyQualifiedName)
+     */
+    public Object load(final int transform, final $identifier.type.fullyQualifiedName $identifier.name)
+    {
+#set ($argument = $identifier.name)
+#if($identifier.type.primitive)
+#set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
+#else
+        if ($argument == null)
+        {
+            throw new IllegalArgumentException(
+                "${entity.name}.load - '$argument' can not be null");
+        }
+#end
+        Object entity = null;
+        try
+        {
+            org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
+            {
+                public Object doInHibernate(net.sf.hibernate.Session session)
+                    throws net.sf.hibernate.HibernateException
+                {
+                    Object entity = session.load(
+                        ${entity.fullyQualifiedEntityImplementationName}.class,
+                        $argument);
+                    return transformEntity(transform, ($entity.fullyQualifiedName)entity);
+                }
+            };
+	        entity = this.getHibernateTemplate().execute(callback);
+	    }
+	    catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
+	    {
+            // ignore since we just want null returned if no
+            // object can be found
+	    }
+	    return entity;
+    }
+
+     /**
+      * @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
+      */
+     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
+     {
+         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
+     }
+
+#if (!$entity.enumeration)
+    /**
      * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
      */
     public $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName)
@@ -157,53 +205,6 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#load(boolean, $identifier.type.fullyQualifiedName)
-     */
-    public Object load(final int transform, final $identifier.type.fullyQualifiedName $identifier.name)
-    {
-#set ($argument = $identifier.name)
-#if($identifier.type.primitive)
-#set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
-#else
-        if ($argument == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.load - '$argument' can not be null");
-        }
-#end
-        Object entity = null;
-        try
-        {
-            org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
-            {
-                public Object doInHibernate(net.sf.hibernate.Session session) 
-                    throws net.sf.hibernate.HibernateException
-                {
-                    Object entity = session.load(
-                        ${entity.fullyQualifiedEntityImplementationName}.class, 
-                        $argument);
-                    return transformEntity(transform, ($entity.fullyQualifiedName)entity);
-                }
-            };
-	        entity = this.getHibernateTemplate().execute(callback); 
-	    }
-	    catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
-	    {
-            // ignore since we just want null returned if no
-            // object can be found
-	    }
-	    return entity;
-    }
-    
-     /**
-      * @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
-      */ 
-     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
-     {
-         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
-     }
-
-    /**
      * @see ${entity.fullyQualifiedDaoName}#remove($entity.fullyQualifiedEntityName)
      */
     public void remove($entity.fullyQualifiedEntityName $argumentName)
@@ -255,6 +256,7 @@ public abstract class $entity.daoBaseName
         this.getHibernateTemplate().deleteAll(entities);
     }
 
+#end
 #end
 #set ($finders = $entity.getFinders(true))
 #foreach ($finder in $finders)

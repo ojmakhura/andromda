@@ -14,7 +14,6 @@ public interface $entity.daoName
     extends $superclass.fullyQualifiedDaoName
 #end
 {
-
 #if (!$superclass)
     /**
      * This constant is used as a transformation flag; entities can be converted automatically into value objects
@@ -46,6 +45,27 @@ public interface $entity.daoName
 #if (!$entity.abstract)
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
+    /**
+     * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
+     */
+     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
+
+    /**
+     * <p>
+     *   Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
+     *   defined in this class then the finder results <strong>WILL BE</strong> passed through an operation which can
+     *   optionally transform the entity (into a value object for example).  By default, transformation does
+     *   not occur.
+     * </p>
+     *
+     * @param $identifier.name the identifier of the entity to load.
+     * @return either the entity or the object transformed from the entity.
+     */
+     public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
+
+#if (!$entity.enumeration)
     /**
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
      */
@@ -133,26 +153,6 @@ public interface $entity.daoName
      * Updates the <code>$argumentName</code> instance in the persistent store.
      */ 
     public void update($entity.fullyQualifiedEntityName $argumentName);
-
-    /**
-     * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
-     */
-     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
-     
-    /**
-     * <p> 
-     *   Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
-     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
-     *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
-     *   defined in this class then the finder results <strong>WILL BE</strong> passed through an operation which can 
-     *   optionally transform the entity (into a value object for example).  By default, transformation does
-     *   not occur.
-     * </p>
-     * 
-     * @param $identifier.name the identifier of the entity to load.
-     * @return either the entity or the object transformed from the entity.
-     */
-     public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
 
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
@@ -243,6 +243,7 @@ $operation.getDocumentation("     * ")
         throws $operation.exceptionList;
 #else
     $operation.visibility $returnType $operation.signature;
+#end
 #end
 
 #end

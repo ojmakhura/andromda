@@ -9,7 +9,7 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  */
 #if ($entity.enumeration)
-public final class $entity.entityName implements java.io.Serializable
+public class $entity.entityName implements java.io.Serializable
 {
 #set ($identifier = $entity.identifiers.iterator().next())
     private $identifier.type.fullyQualifiedName $identifier.name;
@@ -24,14 +24,15 @@ public final class $entity.entityName implements java.io.Serializable
         this.${identifier.name} = $identifier.name;
     }
 
-    private ${entity.enumerationType} value;
+#set ($enumType = "${entity.packageName}.${entity.enumerationName}")
+    private $enumType value;
 
-    public ${entity.enumerationType} getValue()
+    public $enumType getValue()
     {
         return this.value;
     }
 
-    public void setValue(${entity.enumerationType} value)
+    public void setValue($enumType value)
     {
         this.value = value;
     }

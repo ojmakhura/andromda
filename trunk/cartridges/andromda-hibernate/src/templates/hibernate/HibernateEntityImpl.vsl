@@ -1,4 +1,3 @@
-#if ($entity.enumeration == false)
 /**
  * This class is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
@@ -82,4 +81,3 @@ $operation.getDocumentation("   * ")
 #end ## operation.abstract
 #end ## foreach
 }
-#end
