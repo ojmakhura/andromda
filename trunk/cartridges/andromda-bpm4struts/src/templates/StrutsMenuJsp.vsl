@@ -1,11 +1,9 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
-<div id="latest-news-title">
+<div class="box1">
      <h4>Latest News</h4>
-</div>
 
-<div id="latest-news">
      <p><b>AndroMDA 3.0</b><br/>
 
      - Completely new engine core<br/>
@@ -16,12 +14,11 @@
 
 <p class="spacer"></p>
 
-<div id="quick-links">
 #set ($useCases = $class.allUseCases)
-#if ($useCases.size()>0)
+#if ($useCases.size()>1)
+<div class="box2">
     <h4><bean:message key="menu.title"/></h4>
     <ul>
-#end
 #foreach ($useCase in $useCases)
 #set ($roles = $useCase.actionRoles)
 #set ($security = ($securityEnabled=="true") && ($roles != "") )
@@ -38,11 +35,14 @@
 #end
 #end
 </div>
+#end
 
-<div id="andromda-ad">
-    <p class="text">This web application has been generated using AndroMDA&#146;s Bpm4Struts cartridge, check the
-                    <a href="http://team.andromda.org/tiki/tiki-index.php" title="AndroMDA WiKi">WiKi</a>
-                    for more information.</p>
-    <p class="author">The AndroMDA Team &copy; 2004</p>
+<div class="box3">
+    <p>This web application has been generated using AndroMDA&#146;s Bpm4Struts cartridge, check the
+       <a href="http://team.andromda.org/tiki/tiki-index.php" title="AndroMDA WiKi">WiKi</a>
+       for more information.</p>
+    <p class="author">
+       The AndroMDA Team <br/>
+       &copy; 2004</p>
 </div>
 
