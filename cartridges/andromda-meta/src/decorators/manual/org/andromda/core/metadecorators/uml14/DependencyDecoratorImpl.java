@@ -1,7 +1,7 @@
 package org.andromda.core.metadecorators.uml14;
 
 import org.omg.uml.foundation.core.ModelElement;
-        
+
 /**
  *
  * Metaclass decorator implementation for org.omg.uml.foundation.core.Dependency
@@ -11,10 +11,11 @@ import org.omg.uml.foundation.core.ModelElement;
 public class DependencyDecoratorImpl extends DependencyDecorator
 {
     // ---------------- constructor -------------------------------
-    
-    public DependencyDecoratorImpl (org.omg.uml.foundation.core.Dependency metaObject)
+
+    public DependencyDecoratorImpl(
+        org.omg.uml.foundation.core.Dependency metaObject)
     {
-        super (metaObject);
+        super(metaObject);
     }
 
     // -------------------- business methods ----------------------
@@ -22,11 +23,11 @@ public class DependencyDecoratorImpl extends DependencyDecorator
     // concrete business methods that were declared
     // abstract in class DependencyDecorator ...
 
-    public org.andromda.core.metadecorators.uml14.ClassifierDecorator getTargetType() {
-        ModelElement supplier = (ModelElement)metaObject.getSupplier().iterator().next();
-        return (ClassifierDecorator)decoratedElement(supplier);        
+    public ModelElement handleGetTargetType()
+    {
+        return (ModelElement) metaObject.getSupplier().iterator().next();
     }
 
     // ------------- relations ------------------
-    
+
 }

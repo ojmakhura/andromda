@@ -142,7 +142,7 @@ public class DecoratorSmallTest1 extends TestCase implements TestModel
             AssociationEndDecorator aed =
                 (AssociationEndDecorator) i3.next();
             assertNotNull(aed);
-            aed = aed.getOtherEnd();
+            aed = (AssociationEndDecorator)aed.getOtherEnd();
             assertNotNull(aed);
             String role = aed.getRoleName();
             if (role.equals(ONE2ONE))
