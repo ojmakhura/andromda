@@ -70,6 +70,26 @@
                 </ul>
             </p>
         </section>
+        <section name="Nice to know">
+            <subsection name="Overriding queries">
+                <p>
+                    It's allowed to override queries such as finders in the DAO, just override the appropriate method
+                    in an entity's DAO implementation class. What follows is an example of a code snippet
+                    overriding a generated HQL query (example taken from a ficticous <code>UserDAOImpl</code> class):
+<source><![CDATA[
+public List findActiveUsers(int transform)
+{
+    // the next query is user-specified and overrides the one generated in super.findActiveUsers(int transform) 
+    return super.findActiveUsers(transform, "from org.andromda.test.Users as user where user.exitDate is null");
+}
+]]></source>
+                </p>
+                <p>
+                    You might consider doing this when you think the generated query is not performant enough, or
+                    when you need to do something which is so complex the OCL translation can't properly handle it.
+                </p>
+            </subsection>
+        </section>
         <section name="Next">
             <p>
                 The final section will cover the modeling of exceptions, click
