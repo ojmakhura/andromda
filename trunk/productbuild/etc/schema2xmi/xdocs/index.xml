@@ -128,6 +128,37 @@ Options:
     <arg value="@andromda.persistence.column"/>
 </java>
 ]]></source>
+            <p class="highlight">
+                IMPORTANT:  The datatype mappings file that you specify with the <em>-m</em>
+                argument, must be strutured like the example directly below (notice how we 
+                use '<strong>::</strong>' instead of '<strong>.</strong>' for the scope
+                operator of the datatypes):
+            </p>
+<source><![CDATA[
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is used to map SQL Types to
+  model datatypes for Schema2XMI
+-->
+<mappings name="DatatypeMappings">
+    <mapping>
+        <from>DECIMAL</from>
+        <to>datatype::Decimal</to>
+    </mapping>
+    <mapping>
+        <from>VARCHAR</from>
+        <to>datatype::String</to>
+    </mapping>
+    <mapping>
+        <from>TIMESTAMP</from>
+        <to>datatype::Timestamp</to>
+    </mapping>
+    <mapping>
+        <from>BLOB</from>
+        <to>datatype::Blob</to>
+    </mapping>
+</mappings>
+]]></source>
 		</subsection>
     </section>
   </body>
