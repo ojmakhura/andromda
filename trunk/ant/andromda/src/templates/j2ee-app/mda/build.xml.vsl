@@ -29,7 +29,8 @@
             <include name="andromda-*.jar"/>
             <include name="andromda-profile-*.xml.zip"/>
             <exclude name="andromda-meta-cartridge*"/>
-            <exclude name="andromda-struts-cartridge*"/>
+            <exclude name="andromda-spring-cartridge*"/>
+            <exclude name="andromda-xmlschema-cartridge*"/>
 #if ($persistenceType == 'hibernate')
             <exclude name="andromda-ejb-cartridge*"/>
 #else
@@ -68,10 +69,10 @@
 #end
                 <property name="hibernateTypeMappingsUri" value="Hibernate"/>
                 <property name="dataSource" value="${datasource.jndi}"/>
-			    <property name="hibernateDialect" value="${hibernate.db.dialect}"/>
-			    <property name="hibernateTransactionManagerLookup" value="${hibernate.transaction.manager.lookup}"/>
-			    <property name="hibernateShowSql" value="true"/>
-			    <property name="hibernateJdbcBatchSize" value="0"/>
+			                <property name="hibernateDialect" value="${hibernate.db.dialect}"/>
+			                <property name="hibernateTransactionManagerLookup" value="${hibernate.transaction.manager.lookup}"/>
+			                <property name="hibernateShowSql" value="true"/>
+			                <property name="hibernateJdbcBatchSize" value="0"/>
                 <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
                 <property name="entity-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
                 <property name="session-beans" value="${app.root.dir}/hibernate/ejb/target/src"/>
