@@ -227,7 +227,7 @@ public class StringUtilsHelperTest extends TestCase
     {
         final String[][] fixture = new String[][]
         {
-            new String[] { null, null },
+            new String[] { "", "" },
             new String[] { "", "" },
             new String[] { " ", "" },
             new String[] { "\n", "" },

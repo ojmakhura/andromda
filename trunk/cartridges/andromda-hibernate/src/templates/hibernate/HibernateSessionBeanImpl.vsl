@@ -1,16 +1,16 @@
-package $class.packageName;
+package $service.packageName;
 
 /**
- * @see $class.fullyQualifiedName
+ * @see $service.fullyQualifiedName
  */
-public class ${class.name}BeanImpl
-    extends ${class.name}Bean
+public class ${service.name}BeanImpl
+    extends ${service.name}Bean
     implements javax.ejb.SessionBean
 {
     // concrete business methods that were declared
-    // abstract in class ${class.name}Bean ...
+    // abstract in class ${service.name}Bean ...
 
-#foreach ( $operation in $class.operations)
+#foreach ( $operation in $service.operations)
 
 ##
 ##  Add one additional parameter to the list of parameters:

@@ -4,8 +4,14 @@
     <property reference="defaultIdentifierType" default="datatype.String"/>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl">
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl"
+        contextRoot="true">
         <stereotype>FinderMethod</stereotype>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgumentLogicImpl">
+        <context>org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod</context>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl" 

@@ -19,11 +19,12 @@
              <version>${pom.currentVersion}</version>
              <type>plugin</type>
              <properties>
-                 <logical.languageMappingsUri>Java</logical.languageMappingsUri>
-                 <logical.sqlMappingsUri>Hypersonic</logical.sqlMappingsUri>
-                 <logical.jdbcMappingsUri>JDBC</logical.jdbcMappingsUri>
-                 <physical.maxSqlNameLength>30</physical.maxSqlNameLength>
-                 <physical.foreignKeySuffix>_FK</physical.foreignKeySuffix>
+                 <languageMappingsUri>Java</languageMappingsUri>
+                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
+                 <sqlMappingsUri>Hypersonic</sqlMappingsUri>
+                 <jdbcMappingsUri>JDBC</jdbcMappingsUri>
+                 <maxSqlNameLength>30</maxSqlNameLength>
+                 <foreignKeySuffix>_FK</foreignKeySuffix>
              </properties>
         </dependency> 	
           <!-- specify and configure our cartridges -->

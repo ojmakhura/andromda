@@ -1,5 +1,5 @@
 #if (!$service.allowedOperations.empty)
-package ${service.packageName};
+package $service.packageName;
 
 #set($testPackageName = "${service.packageName}.test")
 
@@ -19,18 +19,21 @@ import junit.framework.TestSuite;
 /**
  * JUnit test for web service '${service.fullyQualifiedName}'.
  *
- * @see ${service.fullyQualifiedName}
+ * @see $service.fullyQualifiedName
  */
-public class ${testClassName} extends TestCase {
+public class $testClassName
+    extends TestCase 
+{
 
-	private ${service.name} service = null;
+	private $service.name service = null;
 
 	/**
 	 * Constructor for ${service.name}Test.
 	 *
 	 * @param testName name of the test.
 	 */
-	public ${testClassName}(String testName) {
+	public ${testClassName}(String testName) 
+	{
 		super(testName);
 	}
 	
@@ -38,13 +41,16 @@ public class ${testClassName} extends TestCase {
 	 * Sets up the ${service.name} client.
 	 */
 	public void setUp() {
-		try {
+		try 
+		{
 			${service.name}ServiceLocator locator = 
 				new ${service.name}ServiceLocator();
 			this.service = locator.get${service.name}();
 			${service.name}SoapBindingStub stub = 
 				(${service.name}SoapBindingStub)this.service;	
-		} catch (ServiceException ex) {
+		} 
+		catch (ServiceException ex) 
+		{
 			TestCase.fail(ex.toString());
 		}
 	}
@@ -52,14 +58,16 @@ public class ${testClassName} extends TestCase {
 	/**
 	 * Allows the ${testClassName} to be run by JUnit as a suite.
 	 */
-	public static Test suite() {
+	public static Test suite() 
+	{
    		return new TestSuite(${testClassName}.class);
 	}
 
 	/**
 	 * Runs the ${testClassName} test case.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
     	junit.textui.TestRunner.main(new String[] {${testClassName}.class.getName()});
 	}
 	
@@ -71,7 +79,8 @@ public class ${testClassName} extends TestCase {
 	 *
 	 * @see ${service.fullyQualifiedName}#${operation.signature}()
      */ 
-	$operation.visibility void test${stringUtils.capitalize($operation.name)}() {
+	$operation.visibility void test${stringUtils.capitalize($operation.name)}() 
+	{
 #foreach ($argument in $operation.arguments)
 #set ($packageName = $argument.type.packageName)
 #if (!$argument.type.datatype)
@@ -87,15 +96,18 @@ public class ${testClassName} extends TestCase {
 #set ($instanceDef = "$argumentTypeName $argument.name")
 #if(!$argument.type.primitiveType)
         $instanceDef = null;
-#elseif ("boolean" == $argumentTypeName)
+#elseif ($argumentTypeName.equals("boolean"))
         $instanceDef = false;
 #else
         $instanceDef = ($argumentTypeName)0;
 #end
 #end
-		try {
+		try 
+		{
 			this.service.${operation.name}(${operation.argumentNames});
-		} catch (Throwable th) {
+		} 
+		catch (Throwable th) 
+		{
 			TestCase.fail(th.toString());
 		}
 		//@todo implement ${testClassName}.test${stringUtils.capitalize($operation.name)}()  

@@ -2,35 +2,35 @@
  * Attention: Generated source! Do not modify by hand!
  */
 
-package $class.packageName;
+package $entity.packageName;
 
 /**
  * <p>
  * Factory class.
- * Is able to find and create objects of type ${class.name}.
+ * Is able to find and create objects of type ${entity.name}.
  * Those can be described as follows:
  * </p>
- * @ see $class.fullyQualifiedName
+ * @ see $entity.fullyQualifiedName
  */
-public abstract class ${class.name}Factory {
+public abstract class ${entity.name}Factory {
 
-#if (!$class.abstract)
+#if (!$entity.abstract)
    // ---------------- create method --------------------
 
    /**
-    * Creates a(n) ${class.name} object.
+    * Creates a(n) ${entity.name} object.
     *
-#set ($attributes = $class.getAttributes(true))
+#set ($attributes = $entity.getAttributes(true))
 #foreach ( $attribute in $attributes)
 #if (!$attribute.identifier)
     * @param ${attribute.name}
 #end
 #end
-    * @return ${class.name} the created object
+    * @return ${entity.name} the created object
     */
-    public static ${class.name} create $class.getAttributesAsList(true, false, true)
+    public static ${entity.name} create $entity.getAttributesAsList(true, false, true)
     {
-        ${class.name} object = new ${class.name}Impl();
+        ${entity.name} object = new ${entity.name}Impl();
 
 #foreach ( $attribute in $attributes)
 #if (!$attribute.identifier)
@@ -45,26 +45,26 @@ public abstract class ${class.name}Factory {
 
     // ---------------- finder methods  ----------------------
 
-#set ($primaryKey = $class.getIdentifiers(true).iterator().next())
+#set ($primaryKey = $entity.getIdentifiers(true).iterator().next())
 #set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)
     /**
      *
-     * Finds ${class.name} object by its primary key.
+     * Finds ${entity.name} object by its primary key.
      * In Hibernate, this is just a call to load().
      *
      */
-    public static $class.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
+    public static $entity.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws net.sf.hibernate.HibernateException
     {
-        ${class.name} object = (${class.name}) session.load(${class.name}Impl.class, ${primaryKey.name});
+        ${entity.name} object = (${entity.name}) session.load(${entity.name}Impl.class, ${primaryKey.name});
         return object;
     }
 
-#foreach ( $finder in $class.getFinders(true))
-#set ($returntype = $finder.returnType.fullyQualifiedName)
+#foreach ( $finder in $entity.getFinders(true))
+#set ($returnType = $finder.returnType.fullyQualifiedName)
 ##
 #set ($parameterList = $finder.typedArgumentList)
-#if ($parameterList.length() == 0)
+#if ($finder.arguments.empty)
 #set ($parameters = "net.sf.hibernate.Session session")
 #else
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
@@ -73,16 +73,16 @@ public abstract class ${class.name}Factory {
     /**
 $finder.getDocumentation("     * ")
      *
-     * Finds ${class.name} instance(s) using a query.
+     * Finds ${entity.name} instance(s) using a query.
      */
-    $finder.visibility static $returntype ${finder.name} ($parameters)
+    $finder.visibility static $returnType ${finder.name} ($parameters)
         throws net.sf.hibernate.HibernateException
     {
         net.sf.hibernate.Query query = session.createQuery("$finder.query");
 ##
 #foreach($argument in $finder.arguments)
 #set ($index = $velocityCount - 1)
-		query.set${argument.type.wrapperName} (${index}, ${argument.name});
+		query.${argument.queryArgumentNameSetter}(${index}, ${argument.name});
 #end
 ##
         return query.list();

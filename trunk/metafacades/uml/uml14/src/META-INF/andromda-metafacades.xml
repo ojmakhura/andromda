@@ -3,6 +3,7 @@
 <metafacades namespace="uml-1.4" 
              shared="true">
 	<property reference="languageMappingsUri" />
+	<property reference="wrapperMappingsUri" />
 	<default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
 	<metafacade 
 		metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"

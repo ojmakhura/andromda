@@ -2,24 +2,23 @@
  * This class is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
  */
-package $class.packageName;
+package $entity.packageName;
 
-#set ($superclass = $class.generalization)
 /**
  * @hibernate.subclass
- *    discriminator-value="${class.name}Impl"
+ *    discriminator-value="${entity.name}Impl"
  */
-#if ($class.abstract)
-public abstract class ${class.name}Impl
+#if ($entity.abstract)
+public abstract class ${entity.name}Impl
 #else
-public class ${class.name}Impl
+public class ${entity.name}Impl
 #end
-    extends ${class.name}
+    extends ${entity.name}
 {
     // concrete business methods that were declared
-    // abstract in class ${class.name} ...
+    // abstract in class ${entity.name} ...
 
-#foreach ( $operation in $class.businessOperations)
+#foreach ( $operation in $entity.businessOperations)
 #set ($msig = $operation.signature)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.hasException())

@@ -1,10 +1,8 @@
 package org.andromda.metafacades.uml14;
 
-import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -80,16 +78,11 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsPrimitiveType()
     {
-        final String dataType = StringUtils
-            .trimToEmpty(getFullyQualifiedName(true));
-        return "datatype.char".equals(dataType)
-            || "datatype.int".equals(dataType)
-            || "datatype.float".equals(dataType)
-            || "datatype.double".equals(dataType)
-            || "datatype.long".equals(dataType)
-            || "datatype.boolean".equals(dataType)
-            || "datatype.short".equals(dataType)
-            || "datatype.byte".equals(dataType);
+        // If this type has a wrapper then its a primitive, 
+        // otherwise it isn't
+        return this.getWrapperMappings() != null
+            && this.getWrapperMappings().containsFrom(
+                this.getFullyQualifiedName());
     }
 
     /**
@@ -106,58 +99,55 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * The location on the classpath of where to find the wrapper types.
-     */
-    private static final String WRAPPER_NAMES_LOCATION = "META-INF/wrapper-names.xml";
-
-    /**
-     * Stores the type mappings for mapping primitive types to wrapper types.
-     */
-    private Mappings wrapperMappings = null;
-
-    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getWrapperName()
      */
     public String handleGetWrapperName()
     {
-        String wrapperName = this.getFullyQualifiedName();
-        if (wrapperMappings == null)
+        String wrapperName = null;
+        if (this.getWrapperMappings() != null)
         {
-            URL mappingsUri = ResourceUtils.getResource(WRAPPER_NAMES_LOCATION);
-            if (mappingsUri == null)
+            if (this.getWrapperMappings().containsFrom(this.getFullyQualifiedName()))
             {
-                logger.warn("Wrapper names --> '" + WRAPPER_NAMES_LOCATION
-                    + "' could not be found, not "
-                    + "attempting to retrieve wrapper name");
-            }
-            else
-            {
-                this.wrapperMappings = Mappings.getInstance(mappingsUri);
-            }
-        }
-        if (this.wrapperMappings != null)
-        {
-            if (this.wrapperMappings.containsFrom(wrapperName))
-            {
-                wrapperName = this.wrapperMappings.getTo(wrapperName);
-            }
-            else
-            {
-                wrapperName = this.getName();
+                wrapperName = this.getWrapperMappings().getTo(this.getFullyQualifiedName());
             }
         }
         return wrapperName;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#hasWrapper()
+     * Gets the mappings from primitive types to wrapper types. Some languages
+     * have primitives (i.e., Java) and some languages don't, so therefore this
+     * property is optional.
+     * 
+     * @return the wrapper mappings
      */
-    public boolean handleHasWrapper()
+    public Mappings getWrapperMappings()
     {
-        // we check for the actual mapped type instead of the model type
-        // because when it comes to generating code we only care whether
-        // the type thats returned has a wrapper or not
-        return !this.getFullyQualifiedName().equals(this.getWrapperName());
+        final String propertyName = "wrapperMappingsUri";
+        Object property = this.getConfiguredProperty(propertyName);
+        Mappings mappings = null;
+        String uri = null;
+        if (String.class.isAssignableFrom(property.getClass()))
+        {
+            uri = (String)property;
+            try
+            {
+                mappings = Mappings.getInstance(uri);
+                this.setProperty(propertyName, mappings);
+            }
+            catch (Throwable th)
+            {
+                String errMsg = "Error getting '" + propertyName + "' --> '"
+                    + uri + "'";
+                logger.error(errMsg, th);
+                //don't throw the exception
+            }
+        }
+        else
+        {
+            mappings = (Mappings)property;
+        }
+        return mappings;
     }
 
     /**

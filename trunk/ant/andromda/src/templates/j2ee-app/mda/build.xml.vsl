@@ -42,8 +42,12 @@
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
         <andromda lastModifiedCheck="false" validating="${andromda.validating}">
             <model url="file:${basedir}/src/uml/model.xmi"/>
+            <mappingsSearchPath>
+                <pathelement location="${basedir}/src/mappings"/>
+            </mappingsSearchPath>
             <namespace name="default" ignore="false">
-                <property name="languageMappingsUri" value="file:${basedir}/src/mappings/JavaMappings.xml"/>
+                <property name="languageMappingsUri" value="Java"/>
+                <property name="wrapperMappingsUri" value="JavaWrapper"/>
             </namespace>
             <namespace name="java" ignore="false">
                 <property name="exceptions" value="${app.root.dir}/common/target/src"/>
@@ -55,8 +59,8 @@
 #else
             <namespace name="hibernate" ignore="true">
 #end
-                <property name="jdbcMappingsUri" value="file:${basedir}/src/mappings/JdbcMappings.xml"/>
-                <property name="sqlMappingsUri" value="file:${basedir}/src/mappings/${datasource.type}Mappings.xml"/>
+                <property name="jdbcMappingsUri" value="Jdbc"/>
+                <property name="sqlMappingsUri" value="${datasource.type}"/>
                 <property name="foreignKeySuffix" value="_FK"/>
                 <property name="maxSqlNameLength" value="30"/>
                 <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
@@ -69,8 +73,8 @@
 #else
             <namespace name="ejb" ignore="false">
 #end
-                <property name="jdbcMappingsUri" value="file:${basedir}/src/mappings/JdbcMappings.xml"/>
-                <property name="sqlMappingsUri" value="file:${basedir}/src/mappings/${datasource.type}Mappings.xml"/>
+                <property name="jdbcMappingsUri" value="Jdbc"/>
+                <property name="sqlMappingsUri" value="${datasource.type}"/>
                 <property name="foreignKeySuffix" value="_FK"/>
                 <property name="maxSqlNameLength" value="30"/>
                 <property name="entity-beans" value="${app.root.dir}/ejb/target/src"/>
@@ -101,7 +105,7 @@
                 <property name="wsdls" value="${app.root.dir}/webservice/target/wsdl"/>
                 <property name="java-types" value="${app.root.dir}/webservice/target/src" ignore="true"/>
                 <property name="axis-configuration" value="${app.root.dir}/webservice/target/axis"/>
-                <property name="schemaTypeMappingsUri" value="file:${basedir}/src/mappings/XmlSchemaMappings.xml"/>
+                <property name="schemaTypeMappingsUri" value="XmlSchema"/>
                 <property name="qualifiedNameLocalPartPattern" value="WS{0}"/>
                 <property name="namespacePattern" value="{0}"/>
                 <property name="reverseNamespace" value="true"/>

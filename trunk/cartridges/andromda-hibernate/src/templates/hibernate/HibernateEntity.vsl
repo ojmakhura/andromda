@@ -1,23 +1,22 @@
 /**
  * Attention: Generated source! Do not modify by hand!
  */
-package $class.packageName;
-#set ($superclass = $class.generalization)
+package $entity.packageName;
 
 /**
-$class.getDocumentation(" * ")
+$entity.getDocumentation(" * ")
  *
-#if($superclass)
+#if($entity.generalization)
  * @hibernate.subclass
- *    discriminator-value="$class.name"
+ *    discriminator-value="$entity.name"
 #else
  * @hibernate.class
- *     table="$class.tableName"
+ *     table="$entity.tableName"
  * @hibernate.discriminator
  *     column="class"
 #end
  *
-#foreach ( $tgv in $class.taggedValues )
+#foreach ( $tgv in $entity.taggedValues )
 #if ($tgv.name != "documentation")
 #if ($tgv.name == "---")
     #set ($tag = "")
@@ -28,13 +27,13 @@ $class.getDocumentation(" * ")
 #end
 #end
  */
-public abstract class $class.name
-#if($superclass)
-	extends ${superclass.fullyQualifiedName}Impl
+public abstract class $entity.name
+#if($entity.generalization)
+	extends ${entity.generalization.fullyQualifiedName}Impl
 #end
 {
     // --------------- attributes ---------------------
-#foreach ( $attribute in $class.attributes )
+#foreach ( $attribute in $entity.attributes )
     private $attribute.type.fullyQualifiedName $attribute.name;
 
     /**
@@ -70,7 +69,7 @@ $attribute.getDocumentation("     * ")
 
     // ------------- relations ------------------
 
-#foreach ( $associationEnd in $class.associationEnds )
+#foreach ( $associationEnd in $entity.associationEnds )
 	#set ($target = $associationEnd.otherEnd)
     #set ($sourceType = $associationEnd.type)
     #set ($targetType = $target.type)
@@ -151,7 +150,7 @@ $target.getDocumentation("     * ")
 
     // ---------------- business methods  ----------------------
 
-#foreach ( $operation in $class.businessOperations)
+#foreach ( $operation in $entity.businessOperations)
     /**
 $operation.getDocumentation("     * ")
      */

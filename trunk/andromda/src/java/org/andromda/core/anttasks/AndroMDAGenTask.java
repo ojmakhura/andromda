@@ -14,10 +14,14 @@ import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.mapping.Mappings;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.taskdefs.MatchingTask;
+import org.apache.tools.ant.types.Path;
 
 /**
  * <p>
@@ -58,12 +62,17 @@ public class AndroMDAGenTask
     private boolean lastModifiedCheck = true;
 
     /**
-     * A Packages object which specify whether or not packages should be
+     * A ModelPackages object which specify whether or not packages should be
      * processed.
      */
     private ModelPackages packages = new ModelPackages();
 
     private RepositoryConfiguration repositoryConfiguration = null;
+
+    /**
+     * Stores the path elements pointing to the mapping files
+     */
+    private Path mappingsSearchPath = null;
 
     private Collection models = new ArrayList();
 
@@ -137,7 +146,8 @@ public class AndroMDAGenTask
     {
         try
         {
-            this.initNamespaces();
+            this.initializeMappings();
+            this.initializeNamespaces();
 
             DirectoryScanner scanner;
             String[] list;
@@ -226,15 +236,18 @@ public class AndroMDAGenTask
      * initialized. So we kept the javabeans in an ArrayList that we have to
      * copy into the Namespaces instance.
      */
-    private void initNamespaces()
+    private void initializeNamespaces()
     {
-        for (Iterator iter = namespaces.iterator(); iter.hasNext();)
+        CollectionUtils.forAllDo(this.namespaces, new Closure()
         {
-            Namespace namespace = (Namespace)iter.next();
-            if (logger.isDebugEnabled())
-                logger.debug("adding namespace --> '" + namespace + "'");
-            Namespaces.instance().addNamespace(namespace);
-        }
+            public void execute(Object object)
+            {
+                Namespace namespace = (Namespace)object;
+                if (logger.isDebugEnabled())
+                    logger.debug("adding namespace --> '" + namespace + "'");
+                Namespaces.instance().addNamespace(namespace);
+            }
+        });
     }
 
     /**
@@ -311,5 +324,70 @@ public class AndroMDAGenTask
     public void setValidating(boolean validating)
     {
         XmlObjectFactory.setDefaultValidating(validating);
+    }
+
+    /**
+     * Handles the nested &lt;mappingSearchPath&gt; element. The user can
+     * specify his/her own search path for mapping files. These mapping files
+     * will then we loaded into memory and can be referenced by logical name.
+     * 
+     * @return Path the mapping search path
+     */
+    public Path createMappingsSearchPath()
+    {
+        if (mappingsSearchPath == null)
+        {
+            mappingsSearchPath = new Path(this.getProject());
+        }
+        return mappingsSearchPath;
+    }
+
+    /**
+     * Loads all mappings from the specified mapping seach path. If the path
+     * points to a directory the directory contents will be loaded, otherwise
+     * just the mapping itself will be loaded.
+     */
+    private void initializeMappings()
+    {
+        String[] mappingsPaths = this.createMappingsSearchPath().list();
+        Collection mappingsLocations = new ArrayList();
+        if (mappingsLocations != null)
+        {
+            for (int ctr = 0; ctr < mappingsPaths.length; ctr++)
+            {
+                File mappingsPath = new File(mappingsPaths[ctr]);
+                if (mappingsPath.isDirectory())
+                {
+                    File[] mappingsFiles = mappingsPath.listFiles();
+                    if (mappingsFiles != null)
+                    {
+                        for (int ctr2 = 0; ctr2 < mappingsFiles.length; ctr2++)
+                        {
+                            mappingsLocations.add(mappingsFiles[ctr2]);
+                        }
+                    }
+                }
+                else
+                {
+                    mappingsLocations.add(mappingsPath);
+                }
+            }
+            Iterator mappingsLocationIt = mappingsLocations.iterator();
+            while (mappingsLocationIt.hasNext())
+            {
+                try
+                {
+                    Mappings
+                        .addLogicalMappings(Mappings
+                            .getInstance(((File)mappingsLocationIt.next())
+                                .toURL()));
+                }
+                catch (Throwable th)
+                {
+                    // ignore the exception (probably means its a file
+                    // other than a mapping and in that case we don't care
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,5 @@
 package org.andromda.maven;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,8 +10,6 @@ import org.andromda.core.anttasks.AndroMDAGenTask;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PluginDiscoverer;
-import org.andromda.core.common.ResourceFinder;
-import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -29,29 +25,9 @@ public class MavenPluginUtils
         .getLogger(MavenPluginUtils.class);
 
     /**
-     * Stores the property values, keyed by logical names.
-     */
-    private Map namespaceProperties;
-
-    /**
      * Stores the available cartridge named, keyed by location.
      */
     private Map cartridgeNames;
-
-    /**
-     * Where we store andromda plugin resources.
-     */
-    private static final String PLUGIN_RESOURCES = "plugin-resources/andromda";
-
-    /**
-     * The prefix for logical property definitions.
-     */
-    private static final String LOGICAL_PREFIX = "logical.";
-
-    /**
-     * The prefix for physical property defintions.
-     */
-    private static final String PHYSICAL_PREFIX = "physical.";
 
     /**
      * The suffix for a property that should be ignored.
@@ -73,7 +49,6 @@ public class MavenPluginUtils
             // we need to set the correct context class loader
             Thread.currentThread().setContextClassLoader(
                 AndroMDAGenTask.class.getClassLoader());
-            initializeNamespaceProperties();
             initializeCartridgeNames();
         }
         catch (Throwable th)
@@ -161,8 +136,6 @@ public class MavenPluginUtils
         }
         if (stripPrefix)
         {
-            name = StringUtils.replaceOnce(name, LOGICAL_PREFIX, "");
-            name = StringUtils.replaceOnce(name, PHYSICAL_PREFIX, "");
             name = StringUtils.replaceOnce(name, IGNORE_SUFFIX, "");
         }
         return StringUtils.trimToEmpty(name);
@@ -184,10 +157,7 @@ public class MavenPluginUtils
 
     /**
      * Gets the value of the maven dependency property assuming the property is
-     * in the format &lt;name&gt;:&lt;value&gt;. Can return both physical and
-     * logical properties. Physical properties are prefixed with 'physical.' and
-     * logical properties are prefixed with 'logical.', if no prefix is found,
-     * physical is assumed.
+     * in the format &lt;name&gt;:&lt;value&gt;.
      * 
      * @param property the property.
      * @return the value
@@ -207,99 +177,8 @@ public class MavenPluginUtils
                     index + 1,
                     property.length()));
             }
-            // if the property is logical, we attempt to
-            // look up its mapped physical property
-            String propertyName = this.getDependencyPropertyName(
-                property,
-                false);
-            if (propertyName.startsWith(LOGICAL_PREFIX))
-            {
-                if (logger.isDebugEnabled())
-                    logger.debug("looking up logical key --> '" + value + "'");
-                value = this.getNamespaceProperty(value);
-                if (logger.isDebugEnabled())
-                    logger.debug("found value --> '" + value + "'");
-            }
         }
         return value;
-    }
-
-    /**
-     * Looks up the namespace property value. The <code>logicalKey</code> is
-     * the reference to the physical property value stored within the
-     * <code>namespaceProperties</code>.
-     * 
-     * @param logicalKey the logical key of the namespace property to retrieve.
-     * @return the namespace property value or null if one can't be found.
-     */
-    protected Object getNamespaceProperty(Object logicalKey)
-    {
-        return namespaceProperties.get(logicalKey);
-    }
-
-    /**
-     * Initializes the namespace properties, these are the properties which are
-     * used to store physical property names keyed by logical names.
-     */
-    protected void initializeNamespaceProperties()
-    {
-        final String methodName = "MavenPluginUtils.initializeNamespaceProperties";
-        try
-        {
-            this.namespaceProperties = new HashMap();
-            initalizeMappingLocations();
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
-            throw new MavenPluginUtilsException(errMsg, th);
-        }
-    }
-
-    /**
-     * Initializes the maven plugin mappings.
-     * 
-     * @throws MalformedURLException
-     */
-    private void initalizeMappingLocations() throws MalformedURLException
-    {
-        String mappingsUri = PLUGIN_RESOURCES + "/mappings";
-        URL[] mappingResources = ResourceFinder.findResources(mappingsUri);
-        if (mappingResources != null)
-        {
-            if (logger.isDebugEnabled())
-                logger.debug("found '" + mappingResources.length
-                    + "' mapping directories --> '" + mappingsUri + "'");
-            for (int ctr = 0; mappingResources.length > ctr; ctr++)
-            {
-                URL mappingResource = mappingResources[ctr];
-                if (mappingResource == null)
-                {
-                    logger.error("Could not find --> '" + mappingsUri + "'");
-                }
-                else
-                {
-                    File mappingsDir = new File(mappingResource.getFile());
-                    File[] mappingFiles = mappingsDir.listFiles();
-                    if (mappingFiles != null && mappingFiles.length > 0)
-                    {
-                        File mappingFile = mappingFiles[ctr];
-                        for (int ctr2 = 0; ctr2 < mappingFiles.length; ctr2++)
-                        {
-                            if (logger.isDebugEnabled())
-                                logger.debug("loading mapping --> '"
-                                    + mappingFile + "'");
-                            Mappings mappings = Mappings
-                                .getInstance(mappingFiles[ctr2].toURL());
-                            namespaceProperties.put(
-                                mappings.getName(),
-                                mappings.getResource());
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**

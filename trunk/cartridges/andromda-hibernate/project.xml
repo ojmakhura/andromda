@@ -34,7 +34,8 @@
 	      	<version>${pom.currentVersion}</version>
 	      	<type>plugin</type>
 	      	<properties>
-	      		<logical.languageMappingsUri>Java</logical.languageMappingsUri>
+                <languageMappingsUri>Java</languageMappingsUri>
+                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
 	      		<facades>${basedir}/target/src</facades>
 	      		<facade-logics>${basedir}/target/src</facade-logics>
 	      		<facades-to-impls>${basedir}/target/src</facades-to-impls>
