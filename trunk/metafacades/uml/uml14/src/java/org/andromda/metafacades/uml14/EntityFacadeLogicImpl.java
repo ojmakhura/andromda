@@ -57,7 +57,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getQueryOperations()
      */
-    public java.util.Collection handleGetQueryOperations()
+    protected java.util.Collection handleGetQueryOperations()
     {
         return this.getQueryOperations(false);
     }
@@ -65,7 +65,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getQueryOperations(boolean)
      */
-    public java.util.Collection handleGetQueryOperations(boolean follow)
+    protected java.util.Collection handleGetQueryOperations(boolean follow)
     {
         Collection queryOperations = this.getOperations();
 
@@ -89,7 +89,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers()
      */
-    public java.util.Collection handleGetIdentifiers()
+    protected java.util.Collection handleGetIdentifiers()
     {
         return this.getIdentifiers(true);
     }
@@ -97,7 +97,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers(boolean)
      */
-    public java.util.Collection handleGetIdentifiers(boolean follow)
+    protected java.util.Collection handleGetIdentifiers(boolean follow)
     {
         Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
             this,
@@ -155,7 +155,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#isIdentifiersPresent()
      */
-    public boolean handleIsIdentifiersPresent()
+    protected boolean handleIsIdentifiersPresent()
     {
         Collection identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
@@ -164,7 +164,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getTableName()
      */
-    public String handleGetTableName()
+    protected String handleGetTableName()
     {
         String tableNamePrefix = StringUtils.trimToEmpty(String.valueOf(this
             .getConfiguredProperty(UMLMetafacadeProperties.TABLE_NAME_PREFIX)));
@@ -181,7 +181,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean)
      */
-    public String handleGetOperationCallFromAttributes(boolean withIdentifiers)
+    protected String handleGetOperationCallFromAttributes(boolean withIdentifiers)
     {
         return this.getOperationCallFromAttributes(withIdentifiers, false);
     }
@@ -190,7 +190,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean,
      *      boolean)
      */
-    public String handleGetOperationCallFromAttributes(
+    protected String handleGetOperationCallFromAttributes(
         boolean withIdentifiers,
         boolean follow)
     {
@@ -238,7 +238,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacadeLogic#getAttributeTypeList(boolean,
      *      boolean)
      */
-    public String handleGetAttributeTypeList(
+    protected String handleGetAttributeTypeList(
         boolean follow,
         boolean withIdentifiers)
     {
@@ -251,7 +251,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacade#getAttributeNameList(boolean,
      *      boolean)
      */
-    public String handleGetAttributeNameList(
+    protected String handleGetAttributeNameList(
         boolean follow,
         boolean withIdentifiers)
     {
@@ -264,7 +264,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacadeLogic#getRequiredAttributeTypeList(boolean,
      *      boolean)
      */
-    public String handleGetRequiredAttributeTypeList(
+    protected String handleGetRequiredAttributeTypeList(
         boolean follow,
         boolean withIdentifiers)
     {
@@ -277,7 +277,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacadeLogic#getRequiredAttributeNameList(boolean,
      *      boolean)
      */
-    public String handleGetRequiredAttributeNameList(
+    protected String handleGetRequiredAttributeNameList(
         boolean follow,
         boolean withIdentifiers)
     {
@@ -342,7 +342,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#isChild()
      */
-    public boolean handleIsChild()
+    protected boolean handleIsChild()
     {
         return CollectionUtils.find(this.getAssociationEnds(), new Predicate()
         {
@@ -357,7 +357,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getParentEnd()
      */
-    public Object handleGetParentEnd()
+    protected Object handleGetParentEnd()
     {
         Object parentEnd = null;
         AssociationEndFacade end = (AssociationEndFacade)CollectionUtils.find(
@@ -380,7 +380,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getChildren()
      */
-    public Collection handleGetChildEnds()
+    protected Collection handleGetChildEnds()
     {
         Collection childEnds = new FilteredCollection(this.getAssociationEnds())
         {
@@ -402,7 +402,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
      */
-    public Collection handleGetBusinessOperations()
+    protected Collection handleGetBusinessOperations()
     {
         final Collection businessOperations = this.getOperations();
         MetafacadeUtils.filterByNotType(
@@ -414,7 +414,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getEntityReferences()
      */
-    public Collection handleGetEntityReferences()
+    protected Collection handleGetEntityReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
         {
@@ -433,7 +433,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacade#getAttributes(boolean,
      *      boolean)
      */
-    public Collection handleGetAttributes(
+    protected Collection handleGetAttributes(
         boolean follow,
         final boolean withIdentifiers)
     {
@@ -459,7 +459,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacade#getRequiredAttributes(boolean,
      *      boolean)
      */
-    public Collection handleGetRequiredAttributes(
+    protected Collection handleGetRequiredAttributes(
         boolean follow,
         final boolean withIdentifiers)
     {
@@ -489,7 +489,7 @@ public class EntityFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFacade#getRequiredProperties(boolean,
      *      boolean)
      */
-    public Collection handleGetRequiredProperties(
+    protected Collection handleGetRequiredProperties(
         boolean follow,
         final boolean withIdentifiers)
     {
@@ -537,7 +537,7 @@ public class EntityFacadeLogicImpl
     /**
      * Gets the maximum name length SQL names may be
      */
-    public Short handleGetMaxSqlNameLength()
+    protected Short handleGetMaxSqlNameLength()
     {
         return Short
             .valueOf((String)this
