@@ -5,6 +5,7 @@ contain this directory's contents.
 Instructions:
 1) Install the latest version of Maven (http://maven.apache.org) and add it to your $PATH
    and place in your %USERPROFILE% (windows), or $HOME (linux/unix) directory.
+2) Set the MAVEN_OPTS: "export MAVEN_OPTS=-XX:MaxPermSize=128m\ -Xmx512m" 
 3) cd to andromda-all, type 'maven dist', this will build the entire distribution
    without documentation.  Check the target/distributions directory from the resulting output.
 
