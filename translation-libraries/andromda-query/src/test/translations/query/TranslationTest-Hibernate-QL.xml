@@ -86,11 +86,10 @@
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
 		</to>
 	</expression>
-
-	<!-- 		
+		
 	 <expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusesPersonProject(
+			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
 				aDocumentTitle:String, 
 				aLegalPartyName:String, 
 				anAgreementTypePk:String, 
@@ -107,8 +106,8 @@
 								StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName))) 
 					and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) 
 					and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) 
-					and (legalAgreement.person.personPk = aPersonPk or aPersonPk.size() = 0) 
-					and (legalAgreement.project.projectPk = aProjectPk or aProjectPk.size() = 0))
+					and legalAgreement.person.personPk = aPersonPk 
+					and legalAgreement.project.projectPk = aProjectPk)
 		</from>
 		<to>
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
@@ -120,5 +119,5 @@
 			and legalAgreement.person.personPk = ? 
 			and legalAgreement.project.projectPk = ?
 		</to>
-	</expression> -->
+	</expression> 
 </translation-test>
