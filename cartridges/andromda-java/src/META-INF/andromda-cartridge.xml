@@ -1,10 +1,12 @@
 <cartridge name="java">
 
-    <templateObject 
-    	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>  
+    <templateObject
+        name="stringUtils"
+        className="org.apache.commons.lang.StringUtils"/>
 
-	<!-- template definitions -->
+    <property reference="serializable" default="true"/>
+
+    <!-- template definitions -->
     <template
         path="templates/java/Service.vsl"
         outputPattern="{0}/{1}.java"
@@ -14,10 +16,10 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement> 
-        </modelElements>       
+            </modelElement>
+        </modelElements>
     </template>
-	
+
     <template
         path="templates/java/ServiceImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
@@ -27,10 +29,10 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement> 
-        </modelElements>       
+            </modelElement>
+        </modelElements>
     </template>
-	
+
     <template
         path="templates/java/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
@@ -38,14 +40,14 @@
         overwrite="true"
         required="false">
         <modelElements variable="class">
-            <modelElement stereotype="ValueObject"/>  
-        </modelElements>       
+            <modelElement stereotype="ValueObject"/>
+        </modelElements>
     </template>
-    
-    <template 
-        path="templates/java/ApplicationException.vsl" 
-        outputPattern="{0}/{1}.java"  
-        outlet="exceptions" 
+
+    <template
+        path="templates/java/ApplicationException.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="exceptions"
         overwrite="true"
         required="false">
         <modelElements variable="class">
@@ -53,22 +55,22 @@
             <modelElement stereotype="ApplicationException"/>
         </modelElements>
     </template>
-	
-    <template 
-        path="templates/java/UnexpectedException.vsl" 
-        outputPattern="{0}/{1}.java"  
-        outlet="exceptions" 
+
+    <template
+        path="templates/java/UnexpectedException.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="exceptions"
         overwrite="true"
         required="false">
-		<modelElements variable="class">
+        <modelElements variable="class">
             <modelElement stereotype="UnexpectedException"/>
         </modelElements>
     </template>
-	
-    <template 
-        path="templates/java/Enumeration.vsl" 
-        outputPattern="{0}/{1}.java"  
-        outlet="enumerations" 
+
+    <template
+        path="templates/java/Enumeration.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="enumerations"
         overwrite="true"
         required="false">
         <modelElements variable="enumeration">
@@ -76,7 +78,7 @@
                 <type name="org.andromda.metafacades.uml.ClassifierFacade">
                     <property name="enumeration" value="true"/>
                 </type>
-            </modelElement> 
+            </modelElement>
         </modelElements>
     </template>
 
