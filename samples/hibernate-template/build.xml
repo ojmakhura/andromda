@@ -1,0 +1,294 @@
+<project name="andromda-hibernate-project-template" default="build">
+
+    <!-- Load user environment parameters -->
+    <!-- This should define the properties andromda-core.home and build.classpath -->
+    <property file="build.properties" />
+    <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
+    <property name="andromda-hibernate.home" location="${andromda.home}/andromda-hibernate"/>
+
+    <property file="${andromda-core.home}/andromda-core.properties"/>
+    <property file="${andromda-core.home}/xdoclet.properties"/>
+    <property file="${andromda-hibernate.home}/andromda-hibernate.properties"/>
+
+    <!-- classpath for using AndroMDA to compile UML -->
+    <path id="andromda.classpath">
+       <pathelement location="${andromda-core.home}/andromda.jar"/>
+       <pathelement path="${andromda-core.classpath}"/>
+       <pathelement path="${andromda-hibernate.classpath}"/>
+    </path>
+
+    <!-- classpath for J2EE classes -->
+    <path id="j2ee.classpath">
+      <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
+      <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
+    </path>
+
+    <!-- Define our build class path -->
+    <path id="build.class.path">
+        <path refid="andromda.classpath"/>
+        <pathelement path="${xdoclet.classpath}"/>
+        <path refid="j2ee.classpath"/>
+    </path>
+
+
+    <!-- ============================================================= -->
+    <!--               Directory settings                              -->
+    <!-- ============================================================= -->
+
+
+    <!-- Physical source directories -->
+    <property name="src.appconfig.dir"  value="src/xml" />
+    <property name="src.dir"            value="src" />
+
+    <!-- Output directories for generators -->
+    <property name="andromda.generated.dir"  value="${src.dir}/generated" />
+    <property name="andromda.manual.dir"     value="${src.dir}/manual" />
+
+    <!-- Setup directory structure -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="dist"/>
+        <mkdir dir="dist/predist"/>
+        <mkdir dir="dist/predist/source"/>
+
+        <mkdir dir="build"/>
+        <mkdir dir="build/earstage"/>
+        <mkdir dir="build/hibernatestage"/>
+        <mkdir dir="build/hibernateservice"/>
+    </target>
+
+    <!-- Remove directory structure structure -->
+    <target name="clean" description="Removes all generated files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="dist"/>
+            <fileset dir="build"/>
+            <fileset dir="${andromda.generated.dir}"/>
+        </delete>
+    </target>
+
+    <!-- ============================================================= -->
+    <!--               Highlevel user tasks                            -->
+    <!-- ============================================================= -->
+
+    <target name="build" depends="init,buildjars,hibernate-schema"
+            description="Builds all jars and the database schema"/>
+
+    <target name="dist" depends="clean,build"
+            description="Builds distribution ZIP">
+      <copy todir="dist/predist" >
+          <fileset dir="build/" includes="*.ear" />
+          <fileset dir="build/" includes="hibernate-schema.txt" />
+      </copy>
+      <copy todir="dist/predist/source" >
+            <fileset dir=".">
+               <exclude name="**/generated/**" />
+               <exclude name="**/hibernate/**" />   <!-- FIXME: when hibernate runs! -->
+               <exclude name="**/build/**" />
+               <exclude name="**/dist/**" />
+               <exclude name="*.log" />
+               <exclude name="build.properties" />
+            </fileset>
+      </copy>
+      <zip zipfile="dist/andromda-hibernate-template.zip">
+          <fileset dir="dist/predist" includes="**/*" />
+      </zip>
+    </target>
+
+    <!--
+        "ant deploy" will deploy the *.ear file into JBoss's
+        default server configuration.
+    -->
+    <target name="deploy" depends="dist"
+            description="Deploys generated application ear in JBoss">
+      <copy todir="${jboss.home}/server/default/deploy" >
+          <fileset dir="build/" includes="andromda-hibernate-template.ear" />
+      </copy>
+    </target>
+
+    <!-- ============================================================= -->
+    <!--               Internal subtasks                               -->
+    <!-- ============================================================= -->
+
+    <target name="genjava" depends="init">
+        <taskdef name="andromda"
+                 classname="org.andromda.core.anttasks.AndroMDAGenTask"
+                 classpathref="andromda.classpath"
+        />
+
+        <property name="model" value="jar:file:${basedir}/src/uml/blank-model.zargo!/blank-model.xmi"/>
+        <andromda basedir="."
+           modelURL="${model}"
+           lastModifiedCheck="true"
+           typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
+
+            <userProperty name="foreignKeySuffix" value="_FK" />
+
+            <outlet cartridge="java"      outlet="value-objects"  dir="${andromda.generated.dir}" />
+
+            <outlet cartridge="hibernate" outlet="entities"       dir="${andromda.generated.dir}" />
+            <outlet cartridge="hibernate" outlet="entity-impls"   dir="${andromda.manual.dir}" />
+            <outlet cartridge="hibernate" outlet="session-beans"  dir="${andromda.generated.dir}" />
+            <outlet cartridge="hibernate" outlet="session-impls"  dir="${andromda.manual.dir}" />
+
+        </andromda>
+    </target>
+
+    <target name="rundoclets" depends="init,genjava">
+        <delete>
+            <fileset dir="build/hibernateservice" includes="**/*.hbm.xml" />
+        </delete>
+
+        <taskdef
+            name="hibernatedoclet"
+            classname="xdoclet.modules.hibernate.HibernateDocletTask"
+            classpathref="build.class.path"
+        />
+
+        <hibernatedoclet destdir="build/hibernateservice">
+            <fileset dir="${andromda.generated.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${andromda.manual.dir}">
+                <include name="**/*.java" />
+            </fileset>
+
+            <hibernate />
+
+            <jbossservice
+                destdir="build/hibernateservice/META-INF"
+                jndiname="java:/hibernate/SessionFactory"
+                servicename="AndroMDAHibernateSessionFactory"
+                dialect="cirrus.hibernate.sql.HSQLDialect"
+                datasource="java:/DefaultDS"
+                showSql="true"
+            />
+        </hibernatedoclet>
+        <!--
+             hibernatedoclet has a bug under Windows: It generates
+             resource references in jboss-service.xml, using "\\"
+             instead of "/" as a package path separator.
+
+             Let's compensate for this using the following "replace" task.
+         -->
+        <replace file="build/hibernateservice/META-INF/jboss-service.xml" >
+            <replacetoken><![CDATA[\]]></replacetoken>
+            <replacevalue><![CDATA[/]]></replacevalue>
+        </replace>
+
+
+        <taskdef name="ejbdoclet"
+                 classname="xdoclet.modules.ejb.EjbDocletTask"
+                 classpathref="build.class.path"
+        />
+
+        <ejbdoclet destdir="${andromda.generated.dir}"
+                   ejbspec="2.0"
+                   force="false">
+
+            <fileset dir="${andromda.generated.dir}">
+                <include name="**/*Bean.java" />
+            </fileset>
+
+            <utilobject/>
+
+            <remoteinterface/>
+            <homeinterface/>
+            <localinterface/>
+            <localhomeinterface/>
+
+            <deploymentdescriptor
+                destdir="build/hibernatestage/META-INF/"/>
+
+            <jboss version="3.0"
+                   xmlencoding="UTF-8"
+                   typemapping="Hypersonic SQL"
+                   datasource="java:/DefaultDS"
+                   destdir="build/hibernatestage/META-INF/"/>
+
+        </ejbdoclet>
+
+        <!--
+             XDoclet stores the *Bean classes into ejb-jar.xml
+             but the used andromda templates have created
+             subclasses *BeanImpl.  Replace
+             the names in the deployment descriptor so that
+             everyone is happy.
+         -->
+        <replace file="build/hibernatestage/META-INF/ejb-jar.xml" >
+            <replacetoken><![CDATA[ServiceBean</ejb-class>]]></replacetoken>
+            <replacevalue><![CDATA[ServiceBeanImpl</ejb-class>]]></replacevalue>
+        </replace>
+
+    </target>
+
+    <!-- Compile all files, generated and hand-written -->
+    <target name="compile" depends="init,rundoclets">
+
+        <!-- Compile hibernate classes -->
+        <javac destdir="build/hibernatestage" includes="**/*.java"
+               includeAntRuntime="false">
+            <src path="${andromda.generated.dir}" />
+            <src path="${andromda.manual.dir}" />
+            <classpath refid="build.class.path"/>
+        </javac>
+
+    </target>
+
+
+    <!-- Create the archive structures on disk, first -->
+    <target name="copystages" depends="init,compile">
+        <!-- Copy the hibernate libraries -->
+        <copy todir="build/hibernateservice/lib/">
+            <fileset dir="${andromda-hibernate.home}/lib/" includes="hibernate.jar"/>
+        </copy>
+        <!-- Copy the hibernate libraries -->
+        <copy todir="build/hibernatestage/lib/">
+            <fileset dir="${andromda-hibernate.home}/lib/" includes="*.jar"/>
+        </copy>
+    </target>
+
+
+    <!-- Create the Hibernate sar, the Hibernate jar and the application EAR -->
+    <target name="buildjars" depends="copystages">
+        <delete>
+            <fileset dir="build/earstage" includes="**/*"/>
+        </delete>
+        <jar taskname="hibernate-sar" jarfile="build/earstage/andromda-hibernate-template.sar">
+            <fileset dir="build/hibernateservice/" includes="**/*"/>
+        </jar>
+        <jar taskname="hibernate-jar" jarfile="build/earstage/andromda-hibernate-template.jar">
+            <fileset dir="build/hibernatestage/" includes="**/*"/>
+        </jar>
+        <copy taskname="app-xml"
+              file="${src.appconfig.dir}/application-hibernate.xml"
+              tofile="build/earstage/META-INF/application.xml"/>
+        <!-- Put everything in build/earstage into the ear. -->
+        <jar taskname="app-ear" jarfile="build/andromda-hibernate-template.ear">
+            <fileset dir="build/earstage/" includes="**/*"/>
+        </jar>
+    </target>
+
+    <!-- Generate the SQL database schema from the hibernate mapping files -->
+    <target name="hibernate-schema" description="Generates database schema" depends="buildjars" >
+        <fileset id="hibernate.mapping.files" dir="build/hibernateservice">
+            <include name="**/*.hbm.xml"/>
+        </fileset>
+        <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+
+        <echo message="mapping files: ${hibernate.mappings}"/>
+
+        <path id="schema.classpath">
+            <path refid="build.class.path"/>
+            <pathelement location="build/earstage/andromda-hibernate-template.jar"/>
+        </path>
+
+        <java classname="cirrus.hibernate.tools.SchemaExport" fork="true">
+            <arg value="--output=build/hibernate-schema.txt"/>
+            <arg value="--text"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=cirrus.hibernate.sql.HSQLDialect"/>
+            <classpath refid="schema.classpath" />
+        </java>
+    </target>
+
+</project>
