@@ -5,9 +5,11 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 
 /**
@@ -229,32 +231,24 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetFormFields()
     {
-        final Map formFieldsMap = new HashMap();
+        final Collection formFields = new LinkedList(); // parameter names are supposed to be unique
 
-        final Collection transitions = getActivityGraph().getTransitions();
-        for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
+        final Collection pages = getAllPages();
+        for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
-            Object transitionObject = iterator.next();
-            if (transitionObject instanceof StrutsAction)
+            StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+            Collection variables = jsp.getPageVariables();
+            for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
             {
-                Collection parameters = ((StrutsAction) transitionObject).getActionFormFields();
-                for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
-                {
-                    ParameterFacade parameter = (ParameterFacade) parameterIterator.next();
-                    formFieldsMap.put(parameter.getName(), parameter);
-                }
+                formFields.add(variableIterator.next());
+            }
+            Collection parameters = jsp.getAllActionParameters();
+            for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+            {
+                formFields.add(parameterIterator.next());
             }
         }
-
-        // this assumes no duplicate names (should be validated before)
-        final Collection controllerArguments = this.getController().getAllArguments();
-        for (Iterator iterator = controllerArguments.iterator(); iterator.hasNext();)
-        {
-            ParameterFacade parameter = (ParameterFacade) iterator.next();
-            formFieldsMap.put(parameter.getName(), parameter);
-        }
-
-        return formFieldsMap.values();
+        return formFields;
     }
 
     protected Collection handleGetFinalStates()
