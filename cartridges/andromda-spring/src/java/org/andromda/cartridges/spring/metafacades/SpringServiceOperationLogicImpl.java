@@ -45,7 +45,8 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationSignature()
     {
-        return this.getImplementationNamePrefix() + StringUtils.capitalize(this.getSignature());
+        return this.getImplementationNamePrefix()
+            + StringUtils.capitalize(this.getSignature());
     }
 
     /**
@@ -53,18 +54,21 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationCall()
     {
-        return this.getImplementationNamePrefix() + StringUtils.capitalize(this.getCall());
+        return this.getImplementationNamePrefix()
+            + StringUtils.capitalize(this.getCall());
     }
-    
+
     /**
-     * Retrieves the implementationNamePrefix property
-     * from the namespace.
+     * Retrieves the implementationNamePrefix property from the namespace.
+     * 
      * @return the implementation name prefix
      */
     private String getImplementationNamePrefix()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty(SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX)));   
+        return StringUtils
+            .trimToEmpty(String
+                .valueOf(this
+                    .getConfiguredProperty(SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX)));
     }
 
 }

@@ -58,18 +58,18 @@ public class HibernateTypeLogicImpl
                 uri = (String)property;
                 if (StringUtils.isNotBlank(uri))
                 {
-	                try
-	                {
-	                    mappings = Mappings.getInstance((String)property);
-	                    this.setProperty(propertyName, mappings);
-	                }
-	                catch (Throwable th)
-	                {
-	                    String errMsg = "Error getting '" + propertyName
-	                        + "' --> '" + uri + "'";
-	                    logger.error(errMsg, th);
-	                    //don't throw the exception
-	                }
+                    try
+                    {
+                        mappings = Mappings.getInstance((String)property);
+                        this.setProperty(propertyName, mappings);
+                    }
+                    catch (Throwable th)
+                    {
+                        String errMsg = "Error getting '" + propertyName
+                            + "' --> '" + uri + "'";
+                        logger.error(errMsg, th);
+                        // don't throw the exception
+                    }
                 }
             }
             else

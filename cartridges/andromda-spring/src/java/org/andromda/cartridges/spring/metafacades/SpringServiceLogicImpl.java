@@ -230,7 +230,8 @@ public class SpringServiceLogicImpl
         String fullyQualifiedName = "java.lang.RuntimeException";
         if (this.isAllowDefaultServiceException())
         {
-            fullyQualifiedName = this.getPackageName() + '.' + this.getDefaultExceptionName();
+            fullyQualifiedName = this.getPackageName() + '.'
+                + this.getDefaultExceptionName();
         }
         return fullyQualifiedName;
     }

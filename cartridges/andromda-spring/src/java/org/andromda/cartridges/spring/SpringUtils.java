@@ -2,10 +2,8 @@ package org.andromda.cartridges.spring;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ServiceFacade;
-import org.andromda.metafacades.uml.ServiceOperationFacade;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 

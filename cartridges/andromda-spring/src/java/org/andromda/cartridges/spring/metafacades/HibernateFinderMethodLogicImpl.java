@@ -62,7 +62,8 @@ public class HibernateFinderMethodLogicImpl
                     Iterator argumentIt = arrguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
+                        ParameterFacade argument = (ParameterFacade)argumentIt
+                            .next();
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {

@@ -96,18 +96,22 @@ public class SpringEntityAssociationEndLogicImpl
         boolean secondary = false;
         Object type = this.getType();
         Object otherType = this.getOtherEnd().getType();
-        if (type != null && SpringEntity.class.isAssignableFrom(type.getClass()) &&
-            otherType != null && SpringEntity.class.isAssignableFrom(otherType.getClass()))
+        if (type != null
+            && SpringEntity.class.isAssignableFrom(type.getClass())
+            && otherType != null
+            && SpringEntity.class.isAssignableFrom(otherType.getClass()))
         {
             SpringEntity entity = (SpringEntity)type;
             SpringEntity otherEntity = (SpringEntity)otherType;
-            secondary = (this.isChild() && entity.isForeignHibernateGeneratorClass()) ||
-                otherEntity.isForeignHibernateGeneratorClass() ||
-                (!this.isNavigable() && this.getOtherEnd().isNavigable() && !this.isOne2OnePrimary());
+            secondary = (this.isChild() && entity
+                .isForeignHibernateGeneratorClass())
+                || otherEntity.isForeignHibernateGeneratorClass()
+                || (!this.isNavigable() && this.getOtherEnd().isNavigable() && !this
+                    .isOne2OnePrimary());
         }
         return secondary;
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#getHibernateCascade()
      */
@@ -115,14 +119,16 @@ public class SpringEntityAssociationEndLogicImpl
     {
         String cascade = SpringGlobals.HIBERNATE_CASCADE_DELETE;
         Object type = this.getType();
-        if (type != null && SpringEntity.class.isAssignableFrom(type.getClass()))
+        if (type != null
+            && SpringEntity.class.isAssignableFrom(type.getClass()))
         {
             SpringEntity entity = (SpringEntity)type;
-            if (entity.getHibernateDefaultCascade().equalsIgnoreCase(SpringGlobals.HIBERNATE_CASCADE_SAVE_UPDATE) &&
-                this.getOtherEnd().isMany())
+            if (entity.getHibernateDefaultCascade().equalsIgnoreCase(
+                SpringGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
+                && this.getOtherEnd().isMany())
             {
-                cascade = SpringGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;                    
-            }           
+                cascade = SpringGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
+            }
         }
         return cascade;
     }

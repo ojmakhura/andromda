@@ -5,9 +5,9 @@ import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -221,17 +221,18 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * The namespace property storing the hibernate default-cascade value
-     * for an entity.
+     * The namespace property storing the hibernate default-cascade value for an
+     * entity.
      */
     private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDefaultCascade()
      */
     protected String handleGetHibernateDefaultCascade()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
+        return StringUtils.trimToEmpty(String.valueOf(this
+            .getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
     }
 
     /**
@@ -239,7 +240,8 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsEntityBusinessOperationsPresent()
     {
-        return this.getEntityBusinessOperations() != null && !this.getEntityBusinessOperations().isEmpty();
+        return this.getEntityBusinessOperations() != null
+            && !this.getEntityBusinessOperations().isEmpty();
     }
 
     /**
@@ -247,9 +249,10 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsDaoBusinessOperationsPresent()
     {
-        return this.getDaoBusinessOperations() != null && !this.getDaoBusinessOperations().isEmpty();
+        return this.getDaoBusinessOperations() != null
+            && !this.getDaoBusinessOperations().isEmpty();
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoBusinessOperations()
      */
@@ -287,5 +290,5 @@ public class SpringEntityLogicImpl
             }
         };
     }
-   
+
 }
