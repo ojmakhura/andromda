@@ -8,6 +8,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2004-12-30" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="update">
+                The tagged value @andromda.ejb.transactionType has been renamed to @andromda.transaction.type
+                (this was needed because of that fact we already had an @andromda.transaction.type and
+                we don't need duplicates).
+            </action>
             <action dev="draftdog" type="update">
                 The andromda-profile-XXX.xml.zip has been updated to restrict the values you can assign
                 to a tagged-value, enumerations have been used instead of plain String types.
