@@ -5,7 +5,6 @@
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
         <title>AndroMDA - Spring - HowTo (3)</title>
-        <gennews>no</gennews>
     </properties>
 
     <body>
@@ -13,8 +12,9 @@
             <p>
                 A common strategy to shield the presentation tier from the persistence tier is to model
                 the services in between, they will be used to implement the business logic in the application tier.
-                The technology behind is of little interest for the developer, but it's good to know EJBs are
-                being used, more specifically Session Beans.
+                The technology behind is of little interest to the developer (that's one o the good points of MDA right!), 
+                but it's good to know Spring POJOs are being used (optionally wrapped with EJBs: more specifically 
+                EJB Session Beans).
             </p>
             <p>
                 In order to model such services you would just create another class, but this time you will give
