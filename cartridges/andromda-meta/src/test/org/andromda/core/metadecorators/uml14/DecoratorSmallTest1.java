@@ -52,7 +52,7 @@ public class DecoratorSmallTest1 extends TestCase implements TestModel
         DecoratorFactory df = DecoratorFactory.getInstance();
         ModelDecorator md =
             (ModelDecorator) df.createDecoratorObject(model);
-        Collection packages = md.getRootPackage().getPackages();
+        Collection packages = md.getRootPackage().getSubPackages();
         assertEquals(5, packages.size());
         ArrayList expectedResults = new ArrayList();
         expectedResults.add("org");
@@ -81,7 +81,7 @@ public class DecoratorSmallTest1 extends TestCase implements TestModel
         DecoratorFactory df = DecoratorFactory.getInstance();
         ModelDecorator md =
             (ModelDecorator) df.createDecoratorObject(model);
-        Collection packages = md.getRootPackage().getPackages();
+        Collection packages = md.getRootPackage().getSubPackages();
 
         HashMap expectedResults = new HashMap();
         expectedResults.put("ClassAA", "associations");
