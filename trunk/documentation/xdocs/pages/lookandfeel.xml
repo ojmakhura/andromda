@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+  <properties>
+    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+    <title>AndroMDA - Look and Feel</title>
+    <gennews>yes</gennews>
+  </properties>
+
+  <body>
+
+    <freetext name="Section 1">
+      <h1>The Look and Feel and How it Works</h1>
+          <p class="std">
+            AndroMDA for itself does not have a "look", the look begins when
+            you start a CASE tool and draw the packages, classes, 
+            attributes, methods and relationships. Later, you save
+            your model in XMI format and let AndroMDA and XDoclet
+            generate a whole bunch of Java files for your EJBs. Both tools
+            are integrated into the well-known build tool "Ant".
+            Usually, you invoke the command-line version of Ant,
+            but you can also use Ant from an IDE like Eclipse or JBuilder.
+            In any case, you use you own, personal Ant build script
+            and call AndroMDA as one "custom task" from there.
+          </p>
+          <p class="std">
+            <b>Modeling in UML with a CASE tool</b>
+          </p>
+          <p class="std">
+            The Unified Modeling Language (UML) has a 
+            graphical notation that allows you to model the world
+            as you see it. An example: A car rental system might
+            manage customers, drivers, cars and rental contracts.
+            One class diagram from a UML model of this system might
+            look like this:
+          </p>
+          <img src="images/CarRentalCustomers.gif" width="408" height="496" />
+          <p class="std">
+            Save the model to an XMI-formatted file. Some CASE tools will
+            call this an "export", some will not, as it is their native
+            file format.
+          </p>
+          <p class="std">
+            <b>The generator</b>
+          </p>
+          <p class="std">
+            From the model, the Ant script generates the Java files
+            in these steps:
+            <ul>
+              <li class="news">
+                The Ant task reads the UML model in XMI format and creates an
+                in-memory object model from it that contains the packages, classes,
+                attributes, methods and relationships.
+              </li>
+              <li class="news">
+                Now, it starts the Velocity template processing
+                engine and processes templates for entity beans,
+                session beans and their implementation classes, 
+                all based on the object model that it created from the
+                transformed CASE tool output. It shields the complexity
+                of the UML metamodel by a script helper facade.
+                As a result, several Java files are written, the
+                most important of which are called *Bean.java,
+                containing the bean classes.
+              </li>
+              <li class="news">
+                Now, the Ant script calls the &lt;ejbDoclet&gt; task which is
+                contained in XDoclet. This task reads all the bean classes
+                and generates the bean's interfaces and deployment
+                descriptor elements.
+              </li>
+            </ul>
+          </p>
+          <p class="std">
+            <b>The output files</b>
+          </p>
+          <p class="std">
+            From the customer part of the car rental system model above,
+            AndroMDA and XDoclet will generate
+            the following files for you. Bean classes are marked with
+            <img src="../images/ejb.gif" align="middle" />,
+            the other classes are marked with
+            <img src="../images/class.gif" align="middle" />. You can
+            click on a file name to see the contents of the file.
+          </p>
+          <table border="0" cellpadding="2" cellspacing="2">
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/Customer.java.html">Customer.java</a></td>          <td class="news">Remote interface</td> </tr>
+            <tr><td><img src="../images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBean.java.html">CustomerBean.java</a></td>      <td class="news">Bean class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBeanCMP.java.html">CustomerBeanCMP.java</a></td>   <td class="news">Container-managed persistent attributes</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBeanImpl.java.html">CustomerBeanImpl.java</a></td>  <td class="news">Implementation class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerData.java.html">CustomerData.java</a></td>      <td class="news">Value object class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerHome.java.html">CustomerHome.java</a></td>      <td class="news">Home interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerLocal.java.html">CustomerLocal.java</a></td>     <td class="news">Local interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerLocalHome.java.html">CustomerLocalHome.java</a></td> <td class="news">Local home interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerUtil.java.html">CustomerUtil.java</a></td>      <td class="news">Utility class to find home interfaces</td> </tr>
+
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerService.java.html">CustomerService.java</a></td>   <td class="news">Remote interface</td> </tr>
+            <tr><td><img src="../images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceBean.java.html">CustomerServiceBean.java</a></td>  <td class="news">Bean class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceBeanImpl.java.html">CustomerServiceBeanImpl.java</a></td>  <td class="news">Implementation class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceHome.java.html">CustomerServiceHome.java</a></td> <td class="news">Home interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceUtil.java.html">CustomerServiceUtil.java</a></td> <td class="news">Utility class to find home interfaces</td> </tr>
+
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/Driver.java.html">Driver.java</a></td> <td class="news">Remote interface</td> </tr>
+            <tr><td><img src="../images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBean.java.html">DriverBean.java</a></td> <td class="news">Bean class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBeanCMP.java.html">DriverBeanCMP.java</a></td> <td class="news">Container-managed persistent attributes</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBeanImpl.java.html">DriverBeanImpl.java</a></td> <td class="news">Implementation class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverData.java.html">DriverData.java</a></td> <td class="news">Value object class</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverHome.java.html">DriverHome.java</a></td> <td class="news">Home interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverLocal.java.html">DriverLocal.java</a></td> <td class="news">Local interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverLocalHome.java.html">DriverLocalHome.java</a></td> <td class="news">Local home interface</td> </tr>
+            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverUtil.java.html">DriverUtil.java</a></td> <td class="news">Utility class to find home interfaces</td> </tr>
+          </table>
+          <p class="std">
+            <b>Writing the business methods</b>
+          </p>
+          <p class="std">
+            Well, using the generator is not everything (as you will
+            probably know). The beef of the beans, the business logic,
+            is your job. AndroMDA built a framework for you to fill
+            in your code. The so-called "implementation classes" derive
+            from the bean classes and are the leaves of the class hierarchy.
+            AndroMDA generates them only once and will never modify them again.
+            This is to make sure that hand-written code will never be
+            overwritten by the generator.
+          </p>
+          <p class="std">
+            So, code your business methods inside the implementation classes
+            and start the rest of your personal Ant build script that will
+            compile all the Java files and put them into an ejb-jar file.
+            The deployment descriptor has already been generated, so put it
+            into the jar file, too.
+          </p>
+          <p class="std">
+            <b>What to do last</b>
+          </p>
+          <p class="std">
+            The last step is (of course) the deployment in the application
+            server. In the case of JBoss, simply copy the jar file into
+            the deploy directory of your JBoss installation.
+          </p>
+          <p class="std">
+            <b>Have fun!</b>
+          </p>
+          <p class="std">
+            In case of difficulties, ask a question on the
+            <a href="http://lists.sourceforge.net/lists/listinfo/andromda-user">
+               andromda-user
+            </a>mailing list.
+          </p>
+    </freetext>
+
+    <news name="XMI" href="http://www.omg.org/technology/documents/formal/xmi.htm">
+      <p>
+        XMI, or <b>XML Metadata Interchange</b>, is a specification enabling easy
+        interchange of metadata between modeling tools (based on the OMG-UML)
+        and metadata repositories (OMG-MOF based) in distributed
+        heterogeneous environments.
+      </p>
+      <p>
+        A number of CASE tools write their models into this XML-based
+        format so that other tools (like AndroMDA) can read and understand
+        the model.
+      </p>
+      <p>
+        XMI is not used consistently - it has <i>dialects</i>. We are working
+        to support as many CASE tools as possible.
+      </p>
+    </news>
+
+
+    <news name="Poseidon" href="http://www.gentleware.com/">
+      <p>
+        Poseidon for UML is a very nice UML CASE tool. It evolved
+        from the Open Source project ArgoUML and enhanced Argo's
+        quality to make it usable in every day modeling work.
+        It is delivered in different editions to meet different
+        needs of different users. There is a <b>community edition</b>
+        which is free of charge.
+      </p>
+      <p>
+        The native data format of Poseidon
+        is XMI which makes it an ideal candidate for use with
+        AndroMDA.
+      </p>
+    </news>
+
+    <news name="MagicDraw" href="http://www.magicdraw.com">
+      <p>
+      	MagicDraw UML is another UML CASE tool whos native
+      	data format is XMI and it too works very well with
+      	AndroMDA.
+      </p>
+      
+    </news>
+    
+    <news name="TogetherJ" href="http://www.togethersoft.com/">
+      <p>
+        TogetherJ is another CASE tool, a really big one.
+        It aims to be a complete model-build-deploy platform
+        with everything in it that you would expect from
+        a modeling tool packed with an IDE.
+      </p>
+      <p>
+        TogetherJ's XMI dialect is not supported in the
+        alpha version of AndroMDA. We plan to support it.
+      </p>
+    </news>
+
+    <news name="Rational Rose" href="http://www.rational.com/rose">
+      <p>
+        Rational Rose was one of the first products in the area of
+        CASE tools. Today, it is an award-winning model-driven
+        development tool and is part of Rational Software's
+        "Suite". 
+      </p>
+      <p>
+      	Rose can write XMI, too, but it's XMI dialect is
+      	not supported in the alpha verson of AndroMDA. We plan
+      	to it.
+      </p>
+    </news>
+
+  </body>
+</document>

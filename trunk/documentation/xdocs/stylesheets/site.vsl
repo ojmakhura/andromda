@@ -1,0 +1,416 @@
+<!-- Site aus XML-Beschreibungen generiert -->
+
+## Defined variables
+
+#set ($pagewidth    = 800)
+#set ($navwidth     = 125)
+#set ($spacewidth   =  12)
+#set ($newswidth    = 230)
+
+#set ($bodybg = "#ffffff")
+#set ($bodyfg = "#000000")
+#set ($bodylink = "#525D76")
+#set ($bannerbg = "#525D76")
+#set ($bannerfg = "#ffffff")
+#set ($tablethbg = "#039acc")
+#set ($tabletdbg = "#a0ddf0")
+
+#set ($menubg    = "#ffff99")
+#set ($menusepbg = "#ffffff")
+#set ($articlebg = "#cdcdb0")
+
+<!-- Beginn der Verarbeitung -->
+#set ($gennewscolumn = $root.getChild("properties").getChild("gennews").getText() )
+#if ($gennewscolumn == "yes")
+  #set ($colcount = 5)
+#else
+  #set ($newswidth = 0)
+  #set ($colcount = 3)
+#end
+
+#set ($newswidth2   = $newswidth - 2)
+
+#document()
+<!-- Ende der Verarbeitung -->
+
+
+
+## Ab hier kommen die Makros
+
+#macro ( makeProject )
+    #set ($menus     = $xpath.applyTo("body/menu", $project))
+    #set ($headlines = $xpath.applyTo("body/headline", $project))
+
+    <table cellspacing="0" cellpadding="0" width="100%" border=0>
+
+    #foreach ( $hline in $headlines )
+        #set ($name = $hline.getAttributeValue("name"))
+        #set ($href = $hline.getAttributeValue("href"))
+        <tr>
+          <td class="NAV" width="100%" bgcolor="$menubg" height="18">
+            <b>
+              #projectanchor($name $href)
+            </b>
+          </td>
+        </tr>
+    #end
+
+    #foreach ( $menu in $menus )
+        <tr>
+          <td width="100%" bgcolor="$menusepbg" height="2"></td>
+        </tr>
+
+        <tr>
+          <td class="NAV" width="100%" bgcolor="#cdcdb0" height="18">
+            <b>$menu.getAttributeValue("name")</b>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="100%" bgcolor="$menusepbg" height="2">
+          </td>
+        </tr>
+        #foreach ( $item in $menu.getChildren() )
+            #set ($name = $item.getAttributeValue("name"))
+            #set ($href = $item.getAttributeValue("href"))
+            <tr>
+              <td class="NAV" width="100%" bgcolor="$menubg" height="18">
+                #projectanchor($name $href)
+              </td>
+            </tr>
+        #end
+    #end
+
+    <tr>
+      <td width="100%" bgcolor="$menusepbg" height="4"></td>
+    </tr>
+
+    <tr>
+      <td class="NAV" width="100%" bgcolor="#cdcdb0" height="18">
+        <b>Project hosted by</b>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="100%" bgcolor="$menusepbg" height="4"></td>
+    </tr>
+
+    <tr>
+      <td class="NAV" width="100%" bgcolor="#cdcdb0" height="18">
+        <a href="http://sourceforge.net/projects/andromda">
+          <img src="http://sourceforge.net/sflogo.php?group_id=73047&amp;type=4"
+          width="125" height="37" border="0" alt="SourceForge Logo" align="middle">
+        </a>
+      </td>
+    </tr>
+
+  </table>
+#end
+
+#macro ( image $value )
+#if ($value.getAttributeValue("width"))
+#set ($width=$value.getAttributeValue("width"))
+#end
+#if ($value.getAttributeValue("height"))
+#set ($height=$value.getAttributeValue("height"))
+#end
+#if ($value.getAttributeValue("align"))
+#set ($align=$value.getAttributeValue("align"))
+#end
+#if ($value.getAttributeValue("alt"))
+#set ($align=$value.getAttributeValue("alt"))
+#end
+<img src="$relativePath/$value.getAttributeValue("src")" width="$!width" height="$!height" align="$!align" alt="$!alt">
+#end
+
+#macro ( projectanchor $name $value )
+    <a href="$relativePath$value">$name</a>
+#end
+#macro ( metaauthor $author $email )
+            <meta name="author" value="$author">
+            <meta name="email" value="$email">
+#end
+
+#macro (formatArticle $section $width $width2)
+  #set ($name = $section.getAttributeValue("name"))
+  <table border=0 cellspacing=0 cellpadding=1 width="$width" bgcolor="#888888">
+    <tr>
+        <td>
+          <table border=0 cellspacing=0 cellpadding=4 width="$width2" bgcolor="$bodybg">
+            <tr>
+              <td class="std" bgcolor="$articlebg" height="18">
+                <b>$name</b>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" class="news">
+              <table width="100%">
+                <tr>
+                  <td class="news">
+                    #foreach ( $item in $section.getChildren() )
+                        #if ($item.getName().equals("img"))
+                            #image ($item)
+                        #else
+                            $item
+                        #end
+                    #end
+                  <td>
+                </tr>
+                #if ($section.getAttributeValue("href"))
+                  <tr>
+                    <td class="news" align="right">
+                      <a href="$section.getAttributeValue("href")">[more...]</a>
+                    </td>
+                  </tr>
+                #end
+              </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+    </tr>
+  </table>
+#end
+
+#macro (formatContent $section)
+    #set ($name = $section.getAttributeValue("name"))
+    <table cellspacing="0" cellpadding="0" width="100%" border=0>
+        <tr>
+          <td class="contenthead" width="100%" bgcolor="$menubg" valign="middle" height="30">
+             $name
+          </td>
+        </tr>
+    </table>
+    #foreach ( $item in $section.getChildren() )
+        #if ($item.getName().equals("img"))
+            #image ($item)
+        #else
+           <div class="std">
+              $item
+           </div>
+        #end
+    #end
+    #if ($section.getAttributeValue("href"))
+      <p class="std">
+          <a href="$section.getAttributeValue("href")">[mehr...]</a>
+      </p>
+    #end
+#end
+
+#macro (formatNamedValues $section)
+  #set ($bgcolor = 0)
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      #foreach ( $item in $section.getChildren() )
+        <tr>
+          #if ($bgcolor == 0)
+            <td bgcolor="#EEEECC" width="128" valign="top" class="std">$item.getChild("name").content:</td>
+            <td bgcolor="#EEEECC" width="366" valign="top" class="std"><b>$item.getChild("value").content<br />&nbsp;</b></td>
+            #set ($bgcolor = 1)
+          #else
+            <td                   width="128" valign="top" class="std">$item.getChild("name").content:</td>
+            <td                   width="366" valign="top" class="std"><b>$item.getChild("value").content<br />&nbsp;</b></td>
+            #set ($bgcolor = 0)
+          #end
+        </tr>
+      #end
+  </table>
+#end
+
+#macro (document)
+    <!-- ====================================================================== -->
+    <!-- Hauptteil der Seite -->
+    <!-- ====================================================================== -->
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+    <html>
+        <head>
+          <title>$root.getChild("properties").getChild("title").getText()</title>
+          <link href="$relativePath/styles/andromda.css" type="text/css" rel="stylesheet">
+          <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" >
+          <meta name="copyright" content="Matthias Bohlen">
+          <meta name="author" content="Matthias Bohlen">
+          <meta name="publisher" content="Matthias Bohlen">
+          <meta name="keywords" content="MDA, model driven architecture, Java, J2EE, EJB, Enterprise JavaBeans, UML, XML">
+          <meta name="robots" content="INDEX, FOLLOW">
+        </head>
+
+        <body bgcolor="$bodybg" text="$bodyfg" link="$bodylink">
+          <center>
+
+          ##
+          ## Tabelle mit Überschrift - diese enthält noch kein
+          ## JavaScript, dadurch wird sie auf jeden Fall immer
+          ## schnell geladen.
+          ##
+          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              <td colspan="$colcount">
+                <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                    <tr>
+                      <td width="15%" bgcolor="#ccccff" valign="middle">
+                        <a href="http://sourceforge.net/projects/andromda">
+                          <img src="$relativePath/images/galaxy.jpg"
+                          width="$navwidth" height                  ="$navwidth" border="0" alt="The AndroMDA project" align="middle">
+                        </a>
+                      </td>
+                      <td class="banner" align="right" width="85%" bgcolor="#ccccff" valign="middle">
+                         AndroMDA<BR />
+                         from UML to deployable components
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="100%" colspan="2" height="17">
+                        <hr>
+                      </td>
+                    </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+          ##
+          ## Tabelle für das Layout der gesamten Seite
+          ## Enthält möglicherweise JavaScript in der rechten Spalte,
+          ## was dazu führt, dass der Browser zuerst alles lädt und
+          ## das Script ausführt, die Seite erst dann anzeigt.
+          ##
+          <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td valign="top" width="$navwidth" bgcolor="#cccccc"> <!-- Navigationsspalte -->
+                #makeProject()
+              </td> <!-- end of navigation column -->
+
+              <td valign="top" width="$spacewidth">
+                  <table width="$spacewidth"> <!-- Abstand zur nächsten Spalte -->
+                    <tr>
+                      <td>
+                        <img border="0" src="$relativePath/images/spacing.gif" width="$spacewidth" height="1" align="middle" alt="spacing" />
+                      </td>
+                    </tr>
+                  </table>
+              </td>
+
+              <td width="300%" valign="top"> <!-- Spalte mit eigentlichem Inhalt -->
+
+                ##
+                ## freie Texte im Hauptbereich
+                ##
+                #set ($allSections = $xpath.applyTo("body/freetext", $root))
+
+                #foreach ( $section in $allSections )
+                  #foreach ( $item in $section.getChildren() )
+                      #if ($item.getName().equals("img"))
+                          #image ($item)
+                      #else
+                          $item
+                      #end
+                  #end
+                #end
+
+                ##
+                ## Artikel im Hauptbereich
+                ##
+                #set ($allSections = $xpath.applyTo("body/article", $root))
+
+                #foreach ( $section in $allSections )
+                  <p></p>
+                  #formatContent ($section)
+                #end
+
+                ##
+                ## Tabelle mit Paaren aus Name und Wert (z.B. Telefon, Telefax, Email)
+                ##
+                #set ($allSections = $xpath.applyTo("body/namedvalues", $root))
+
+                #foreach ( $section in $allSections )
+                  #formatNamedValues ($section)
+                #end
+
+              </td> <!-- Ende des Inhalts -->
+
+              #if ($gennewscolumn == "yes")
+                <td valign="top" width="$spacewidth">
+                    <table width="$spacewidth"> <!-- Abstand zur nächsten Spalte -->
+                      <tr>
+                        <td>
+                          <img border="0" src="$relativePath/images/spacing.gif" width="$spacewidth" height="1" align="middle" alt="spacing" />
+                        </td>
+                      </tr>
+                    </table>
+                </td>
+
+                <td valign="top" width="$newswidth" bgcolor="$bodybg" class="news">
+
+                  ##
+                  ## Nachrichten selbstgeschrieben
+                  ##
+                  #set ($allSections = $xpath.applyTo("body/news", $root))
+                  #set ($first = true)
+                  #foreach ( $section in $allSections )
+                    #if (!$first)
+                      <p />
+                    #else
+                        #set ($first = false)
+                    #end
+                    #formatArticle ($section $newswidth $newswidth2)
+                  #end
+
+                  ##
+                  ## Nachrichten extern dazugekauft
+                  ##
+                  #set ($allSections = $xpath.applyTo("body/externnews", $root))
+                  #foreach ( $section in $allSections )
+                    <table border=0 cellspacing=0 cellpadding=1 width="$newswidth" bgcolor="#888888">
+                      <tr>
+                        <td bgcolor="$bodybg" class="news">&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>
+                            <table border=0 cellspacing=0 cellpadding=4 width="$newswidth2" bgcolor="#FFFFFF">
+                              <tr>
+                                <td class="std" bgcolor="$articlebg" height="18">
+                                  <b>Schlagzeilen</b>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td valign="top" class="news">
+                                  <!-- Schlagzeilen von pte.online Anfang -->
+                                  <script type="text/javascript" language="JavaScript" src="http://www.pte-online.de/ads/schlagzeilen/schlagzeilen.pl.cgi?zone=schlagzeilen_ht_ger;jscript">
+                                  </script>
+                                  <noscript>
+                                      <br>
+                                      Damit Sie hier aktuelle Schlagzeilen aus der Hightech-Branche
+                                      sehen k&ouml;nnen, m&uuml;ssen Sie <b>JavaScript</b>
+                                      bei Ihrem Browser <b>aktivieren</b>!
+                                      <br>
+                                  </noscript>
+                                  <!-- Schlagzeilen von pte.online Ende  -->
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                      </tr>
+                    </table>
+                  #end
+                </td> <!-- end of news column -->
+              #end
+            </tr>
+
+            <tr>
+              <td colspan="$colcount" class="std">
+                <hr>
+                Copyright &copy; 2001-2003 Matthias Bohlen and the AndroMDA team
+                &lt;<A href="mailto:mbohlen@mbohlen.de">mbohlen@mbohlen.de</A>&gt;
+                <p>
+                  <a href="http://validator.w3.org/check/referer"><img border="0"
+                      src="http://www.w3.org/Icons/valid-html401"
+                      alt="Valid HTML 4.01!" height="31" width="88"></a>
+                </p>
+                </td>
+            </tr>
+
+          </table>
+          </center>
+          </body>
+          </html>
+#end
