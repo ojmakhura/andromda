@@ -121,7 +121,8 @@ class MetafacadeUtils
             {
                 if (getLogger().isDebugEnabled())
                     getLogger().debug(
-                        "evaluating " + properties.size() + " on metafacade '"
+                        "evaluating " + properties.size() 
+                            + " property(s) on metafacade '"
                             + metafacade + "'");
                 Iterator propertyIterator = properties.iterator();
                 while (propertyIterator.hasNext())
