@@ -16,6 +16,7 @@ import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.StdoutLogger;
+import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.BuildException;
@@ -368,5 +369,24 @@ public class AndroMDAGenTask extends MatchingTask
     public void addModelPackage(ModelPackage modelPackage)
     {
         this.packages.addPackage(modelPackage);
+    }
+    
+    /**
+     * Sets <code>validating</code> to be true/false.
+     * 
+     * This defines whether XML resources loaded by
+     * AndroMDA (such as plugin descriptors) should
+     * be validated.
+     * 
+     * Sometimes underlying parsers don't support XML
+     * Schema validation and in that case, we want to
+     * be able to turn it off. 
+     * 
+     * @param validating true/false on whether we should
+     *        validate XML resources used by AndroMDA
+     */
+    public void setValidating(boolean validating) 
+    {
+        XmlObjectFactory.setDefaultValidating(validating);    
     }
 }

@@ -133,6 +133,20 @@
 						No, defaults to <code>true</code>.
 					</td>
 				</tr>
+				<tr>
+					<td valign="top" class="std">
+						<a name="validating">validating</a>
+					</td>
+					<td valign="top" class="std">
+						Specifies whether or not XML resources loaded by AndroMDA will be
+						validated (such as XML plugin descriptors).  Sometimes underlying 
+						XML parsers don't support XML Schema validation and in that case, 
+						we want to be able to turn it off. 						
+					</td>
+					<td>
+						No, defaults to <code>true</code>.
+					</td>
+				</tr>
 			</table>
 			<a name="andromda-example"/>
 			<h3>Example</h3>
