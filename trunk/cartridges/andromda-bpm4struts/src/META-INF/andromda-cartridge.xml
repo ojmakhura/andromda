@@ -16,6 +16,7 @@
     <property reference="clientValidation" default="true"/>
     <property reference="serverValidation" default="true"/>
     <property reference="welcomeFileName" default="index.jsp"/>
+    <property reference="breadCrumbs" default="true"/>
 
     <!-- copy resources -->
     <resource
@@ -430,6 +431,14 @@
                 </type>
             </modelElement>
         </modelElements>
+    </template>
+
+    <template
+        path="templates/StrutsBreadCrumbsJsp.vsl"
+        outputPattern="layout/breadcrumbs.jsp"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
     </template>
 
 </cartridge>
