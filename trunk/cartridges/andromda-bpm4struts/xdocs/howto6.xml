@@ -33,6 +33,90 @@
                 <img src="resources/howto/org/andromda/test/security.jpg"/>
             </p>
         </section>
+        <section name="Nice to know">
+            <subsection name="web.xml">
+                <p>
+                    If you have enabled security the <code>web.xml</code> descriptor will contain sections
+                    describing the security on the level of each individual use-case, the next examples
+                    are taken from an imaginary project.
+<source><![CDATA[
+<security-constraint>
+    ...
+    <web-resource-collection>
+        <web-resource-name>Person Search resources</web-resource-name>
+        <description>
+            This collection bundles all pages and resources
+            as well as the actions called in the "Person Search" use-case
+        </description>
+        <url-pattern>/my/company/rules/person/search/*</url-pattern>
+        <url-pattern>/PersonSearch/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
+        <role-name>manager</role-name>
+        <role-name>user</role-name>
+        <role-name>guest</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+        <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+    ...
+</security-constraint>
+]]></source>
+                </p>
+                <p>
+                    And the section describing the roles:
+<source><![CDATA[
+<security-role>
+    <role-name>user</role-name>
+</security-role>
+<security-role>
+    <role-name>admin</role-name>
+</security-role>
+<security-role>
+    <role-name>guest</role-name>
+</security-role>
+<security-role>
+    <role-name>manager</role-name>
+</security-role>
+]]></source>
+                </p>
+                <p>
+                    A login page will always be generated automatically, but this time it will be presented
+                    to you when you are trying to access one of the application's resources, this might be an action,
+                    an image, a JSP or anything else which it will try to locate within the application's path.
+<source><![CDATA[
+<login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>other</realm-name>
+    <form-login-config>
+        <form-login-page>/login/login-form.jsp</form-login-page>
+        <form-error-page>/login/login-form.jsp?action=error</form-error-page>
+    </form-login-config>
+</login-config>
+]]></source>
+                </p>
+            </subsection>
+            <subsection name="Screenshots">
+                <div class="screenshot">
+                    <table>
+                        <tr>
+                            <td><img src="resources/howto/org/andromda/test/screenshots/thumb5.gif"/></td>
+                            <td>
+                                <a href="resources/howto/org/andromda/test/screenshots/screen5.gif">(Larger View)</a>
+                                <p>
+                                    This screenshot is taken from the online-store sample, although security has not
+                                    been enabled by default you can always access the login page by simply
+                                    appending <code>/login/login-form.jsp</code> to the context-path, like
+                                    this: <a href="http://team.andromda.org:8080/OnlineStore/login/login-form.jsp">
+                                    http://team.andromda.org:8080/OnlineStore/login/login-form.jsp</a>.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </subsection>
+        </section>
         <section name="Next">
             <p>
                 Next section: <a href="howto7.html">Calling back-end services</a>.
