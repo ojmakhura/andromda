@@ -1,36 +1,35 @@
 <project xmlns:artifact="artifact"
-  		 xmlns:j="jelly:core"
-  		 xmlns:ant="jelly:ant"
-  		 xmlns:velocity="jelly:velocity">
-  		 
+       xmlns:j="jelly:core"
+       xmlns:ant="jelly:ant"
+       xmlns:velocity="jelly:velocity">
+
     <preGoal name="jar:jar">
-    	<!-- replace the ${pom.currentVersion} in these
-    		 files so we don't need to maintain them between
-    		 different releases -->
-		<velocity:merge
-			name="${maven.build.dest}/plugin.properties"
-			basedir="${basedir}"
-			template="/plugin.properties"/> 
-		<velocity:merge
-			name="${maven.build.dest}/project.xml"
-			basedir="${basedir}"
-			template="/project.xml"/> 
-		<!-- copy over the mappings -->
-		<ant:copy todir="${maven.build.dest}/plugin-resources/mappings">
-			<ant:fileset dir="${mappings.location}"/>
-		</ant:copy>		  
+        <!-- replace the ${pom.currentVersion} in these
+             files so we don't need to maintain them between
+             different releases -->
+        <velocity:merge
+            name="${maven.build.dest}/plugin.properties"
+            basedir="${basedir}"
+            template="/plugin.properties"/>
+        <velocity:merge
+            name="${maven.build.dest}/project.xml"
+            basedir="${basedir}"
+            template="/project.xml"/>
+            <!-- copy over the mappings -->
+        <ant:copy todir="${maven.build.dest}/plugin-resources/mappings">
+            <ant:fileset dir="${mappings.location}"/>
+        </ant:copy>
     </preGoal>
-    
+
     <!-- Override the default plugin:install to just install
          the plugin into the local repository (since we don't
          want this plugin in the $MAVEN_HOME/plugins directory -->
     <goal name="plugin:install">
         <attainGoal name="jar:jar"/>
-		<artifact:install 
-			artifact="${maven.build.dir}/${maven.final.name}.jar" 
-			type="plugin" 
-			project="${pom}"/>	
+        <artifact:install
+            artifact="${maven.build.dir}/${maven.final.name}.jar"
+            type="plugin"
+            project="${pom}"/>
     </goal>
 
 </project>
- 
