@@ -14,36 +14,36 @@
             <artifactId>${pom.groupId}-mda</artifactId>
             <version>${pom.currentVersion}</version>
             <type>pom</type>
-    </dependency>
-    <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>${pom.groupId}-common</artifactId>
-        <version>${pom.currentVersion}</version>
-    </dependency>
-    <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>${pom.groupId}-core</artifactId>
-        <version>${pom.currentVersion}</version>
-        <type>ejb</type>
-    </dependency>
-    <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.1</version>
-    </dependency>
-    <dependency>
-        <groupId>commons-digester</groupId>
-        <artifactId>commons-digester</artifactId>
-        <version>1.6</version>
-        <properties>
-            <war.bundle>true</war.bundle>
-        </properties>
-    </dependency>
-    <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>1.0.4</version>
-    </dependency>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-common</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>ejb</type>
+       </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.6</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
@@ -72,7 +72,7 @@
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
-        </dependency
+        </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
@@ -89,11 +89,58 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-    <dependency>
-      <groupId>jboss</groupId>
-      <artifactId>jboss-j2ee</artifactId>
-      <version>3.2.3</version>
-    </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-j2ee</artifactId>
+            <version>3.2.3</version>
+        </dependency>
+ #if ($webservice)
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-ant</artifactId>
+            <version>1.2-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.2-RC1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-discovery</groupId>
+            <artifactId>commons-discovery</artifactId>
+            <version>0.2</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-jaxrpc</artifactId>
+            <version>1.2-RC1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-saaj</artifactId>
+            <version>1.2-RC1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-wsdl4j</artifactId>
+            <version>1.2-RC1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+#end
         <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
