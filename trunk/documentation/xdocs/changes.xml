@@ -6,6 +6,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0M3-SNAPSHOT" date="2004-11-12">
+            <action dev="draftdog" type="add">
+                Specific generated pieces of JSP code has its own style, a stylesheet is generated for each page.
+            </action>
+        </release>
         <release version="3.0M3-SNAPSHOT" date="2004-11-10">
             <action dev="draftdog" type="update">
                 The bpm4struts cartridge now overwrites all jsps pages and stylesheets upon regeneration.
