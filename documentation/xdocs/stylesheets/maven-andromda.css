@@ -189,3 +189,12 @@ li a { vertical-align: top; }
 li a.changed { padding-right: 20px; background: url(images/changed-file.gif) no-repeat right; }
 
 .textList li { margin-bottom: 10px; }
+
+div.redirect { margin-left: 25px; }
+div.redirect h3
+{
+  background: url(images/redirect.gif);
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 34px;
+}
