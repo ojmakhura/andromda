@@ -57,6 +57,9 @@
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Node$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.AssociationClassFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationClass$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationEndFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl"/>
     </metafacade>
