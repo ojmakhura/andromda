@@ -81,7 +81,7 @@
 							Parameter
 						</td>
 			          	<td>
-			          		Allows you to define whether or not service operation parameters can be nullable.
+			          		Allows you to define whether or not service operation parameters can be <code>null</code>.
                             By default all service operation parameters are checked for null, if you want
                             a parameter to allow nulls, you'd add this stereotype to the parameter.
 			          	</td>
@@ -202,7 +202,7 @@
 			          		@andromda.role.name
 			          	</td>
 						<td>
-							<![CDATA[<<Role>>]]>
+							<a href="#Role"><![CDATA[<<Role>>]]></a>
 						</td>
 			          	<td>
 			          		Optionally allows you to define the name of the role (if it needs
