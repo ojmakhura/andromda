@@ -353,33 +353,7 @@ public abstract class BaseTranslator extends DepthFirstAdapter implements Transl
 			this.translatedExpression.setName(TranslationUtils.trimToEmpty(expressionBody.getName()));
 			this.translatedExpression.setKind(ExpressionKinds.DEF);
 		}
-	}
-	
-	/**
-     * Sets the kind and name of the expression for classifier contexts.  If subclasses 
-     * override this method, they <strong>MUST</strong> call this method before their 
-     * own implementation.
-	 * @param classifierExpressionBody
-	 *
-	public void inAClassifierExpressionBody(AClassifierExpressionBody classifierExpressionBody) {
-		String methodName = "inAClassifierExpressionBody";
-		if (logger.isDebugEnabled()) {
-			logger.debug("performing " + methodName + 
-				" with classifierExpressionBody --> " + classifierExpressionBody);
-		}		
-		ExceptionUtils.checkNull(methodName, "classifierExpressionBody", classifierExpressionBody);
-		
-        if (this.translatedExpression != null) {
-    		//sets the name of the expression
-    		this.translatedExpression.setName(
-                 TranslationUtils.getPropertyAsString(classifierExpressionBody, "name"));
-    		
-    		//sets the kind of the expression (inv, def)
-    		this.translatedExpression.setKind(
-                 TranslationUtils.getPropertyAsString(classifierExpressionBody, "classifierStereotype"));
-        }
-	
-	}*/
+    }
 	
 	/**
 	 * Sets the kind and name of the expression for operation contexts.  If subclasses 
