@@ -42,4 +42,7 @@
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
     </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
+        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl"/>	
 </metafacades>
