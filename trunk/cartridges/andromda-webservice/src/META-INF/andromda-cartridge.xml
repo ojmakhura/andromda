@@ -33,6 +33,13 @@
 	<!-- if true, causes generation of necessary code that signs
 		 the response -->
 	<property reference="signedResponse" default="false"/>
+	
+	<!-- Defines the crypto properties for WSS4J -->
+	<property reference="cryptoKeyStore" default=""/>
+	<property reference="cryptoKeyStoreType" default=""/>
+	<property reference="cryptoKeyStoreAlias" default=""/>
+	<property reference="cryptoAliasPassword" default=""/>
+	<property reference="cryptoKeyStorePassword" default=""/>
 	    
     <!-- WSDL template definitions -->
     

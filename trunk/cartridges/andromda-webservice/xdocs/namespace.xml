@@ -89,18 +89,6 @@
 				</tr>   
 				<tr>
 					<td>
-						wss4j-configuration
-					</td>
-					<td>
-						The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
-						specific configuration files are generated. 
-					</td>
-					<td>
-						No
-					</td>
-				</tr>
-				<tr>
-					<td>
 						axis-tests
 					</td>
 					<td>
@@ -197,8 +185,94 @@
 					<td>
 						No, default is <code>{0}.{1}Home</code>
 					</td>
-				</tr>  		        	        	        	     	             	        	
-	        </table>
+				</tr> 
+			</table>
+			<subsection name="WS-Security Specific Properties">
+				<table>
+					<tr>
+						<td>
+							wss4j-configuration
+						</td>
+						<td>
+							The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
+							specific configuration files are generated. 
+						</td>
+						<td>
+							No
+						</td>
+					</tr>
+					<tr>
+						<td>
+							signedRequest
+						</td>
+						<td>
+							True or false on whether or not the webservice will expect signed
+							requests.  If true, a WSS4J Axis handler will be added to provide
+							decryption of signed requests (if this is set to <code>true</code>
+							the following properties below MUST be specified.
+						</td>
+						<td>
+							No
+						</td>
+					</tr>
+					<tr>
+						<td>
+							cryptoKeyStore
+						</td>
+						<td>
+							The location of the key store file (i.e. 
+							<em>keys/authorization-service.jks</em>
+						</td>
+						<td>
+							No, unless WS-Security is being used
+						</td>
+					</tr>
+					<tr>
+						<td>
+							cryptoKeyStoreType
+						</td>
+						<td>
+							The key store's type (i.e. <em>jks</em>).
+						</td>
+						<td>
+							No, unless WS-Security is being used.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							cryptoKeyStoreAlias
+						</td>
+						<td>
+							The key store alias name.
+						</td>
+						<td>
+							No, unless WS-Security is being used
+						</td>
+					</tr>
+					<tr>
+						<td>
+							cryptoAliasPassword
+						</td>
+						<td>
+							The alias password.
+						</td>
+						<td>
+							No, unless WS-Security is being used
+						</td>
+					</tr>
+					<tr>
+						<td>
+							cryptoKeyStorePassword
+						</td>
+						<td>
+							The key store password.
+						</td>
+						<td>
+							No, unless WS-Security is being used
+						</td>
+					</tr>
+		        </table>
+			</subsection> 		        	        	        	     	             	        	
     	</section>
   	</body>
 </document>
