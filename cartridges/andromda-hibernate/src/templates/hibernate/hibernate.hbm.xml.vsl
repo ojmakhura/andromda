@@ -30,7 +30,7 @@
 #end
 #if (!$entity.specializations.empty && $entity.hibernateInheritanceClass)
         <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
-#end 
+#end
 ## If super inheritance == interface, render super properties etc
 #set ( $generalization = $entity.generalization )
 #if($generalization && $generalization.hibernateInheritanceInterface)

@@ -9,7 +9,7 @@ package $service.packageName;
 /**
  * @see ${service.fullyQualifiedName}
  */
-public interface $service.name 
+public interface $service.name
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #else
@@ -28,14 +28,14 @@ public interface $service.name
 $operation.getDocumentation("    * ")
     */
 #if ($operation.exceptionsPresent)
-    public $operation.returnType.fullyQualifiedName $operation.signature 
+    public $operation.returnType.fullyQualifiedName $operation.signature
         throws $throwsList;
 #else
 #if ($service.ejbRemoteView)
-    public $operation.returnType.fullyQualifiedName $operation.signature 
+    public $operation.returnType.fullyQualifiedName $operation.signature
         throws java.rmi.RemoteException;
 #else
-    public $operation.returnType.fullyQualifiedName $operation.signature; 
+    public $operation.returnType.fullyQualifiedName $operation.signature;
 #end
 #end
 #end

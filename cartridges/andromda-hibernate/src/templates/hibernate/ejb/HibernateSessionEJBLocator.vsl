@@ -18,19 +18,19 @@ public class $serviceLocatorName
     /**
      * The shared instance of this ${serviceLocatorName}.
      */
-    private static $serviceLocatorName instance; 
-    
+    private static $serviceLocatorName instance;
+
     private $serviceLocatorName()
     {
         // shouldn't be instantiated
     }
-    
+
     /**
      * Gets the shared instance of this Class
      *
      * @return the shared service locator instance.
      */
-    public static final $serviceLocatorName instance() 
+    public static final $serviceLocatorName instance()
     {
         if (instance == null)
         {
@@ -62,14 +62,14 @@ public class $serviceLocatorName
             initialContext.close();
         }
     }
-    
+
 #foreach ($service in $services)
 #set ($home = "${stringUtils.uncapitalize($service.name)}Home")
 #set ($homeClassName = "${service.fullyQualifiedName}Home")
     private static $homeClassName $home = null;
 
     /**
-     * Gets an instance of <code>$service.fullyQualifiedName</code>  
+     * Gets an instance of <code>$service.fullyQualifiedName</code>
      */
     public final $service.fullyQualifiedName get${service.name}()
     {
@@ -89,7 +89,7 @@ public class $serviceLocatorName
             throw new javax.ejb.EJBException(ex);
         }
     }
-    
+
 #end
 }
 #end
