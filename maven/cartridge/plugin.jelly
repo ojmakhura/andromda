@@ -8,9 +8,9 @@
     <!-- ===================================================================
          Runs cartridge translation tests                         
          =================================================================== -->	
-    <goal name="cartridge:test"
+    <goal name="cartridge:test${bootstrap}"
           description="Runs cartridge tests"
-          prereqs="cartridge:initialize-test-resources">
+          prereqs="cartridge:initialize-test-resources${bootstrap}">
           
         <maven:param-check value="${context.getVariable('andromda.cartridge.model.uri')}" fail="true">
 Please define the location of your model by setting a value for property "andromda.cartridge.model.uri".
@@ -137,7 +137,7 @@ Please define the test archive containing the expected output '${context.getVari
     <!-- ================================================================
            Adds model dependencies (since they aren't added by Maven)
          ================================================================ -->
-    <goal name="cartridge:add-model-dependencies"
+    <goal name="cartridge:add-model-dependencies${bootstrap}"
           description="Internal goal used by the plugin">
         <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
             <j:set var="dep" value="${artifact.dependency}"/>
@@ -157,7 +157,7 @@ Please define the test archive containing the expected output '${context.getVari
     <!-- ================================================================
            Adds test dependencies
          ================================================================ -->
-    <goal name="cartridge:add-test-dependencies"
+    <goal name="cartridge:add-test-dependencies${bootstrap}"
           description="Internal goal used by the plugin">
         <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
             <j:set var="dep" value="${artifact.dependency}"/>
@@ -178,7 +178,7 @@ Please define the test archive containing the expected output '${context.getVari
     <!-- ============================================================================
           Initializes resources required for tests
          ============================================================================ -->
-    <goal name="cartridge:initialize-test-resources"
+    <goal name="cartridge:initialize-test-resources${bootstrap}"
           description="Internal goal used by plugin">
           
         <path id="andromda.cartridge.classpath">
@@ -186,10 +186,10 @@ Please define the test archive containing the expected output '${context.getVari
          </path>
          
         <!-- add any model dependencies -->
-        <attainGoal name="cartridge:add-model-dependencies"/>	
+        <attainGoal name="cartridge:add-model-dependencies${bootstrap}"/>	
         
         <!-- add any test dependencies -->
-        <attainGoal name="cartridge:add-test-dependencies"/>
+        <attainGoal name="cartridge:add-test-dependencies${bootstrap}"/>
         
         <maven:addPath
             id="maven.dependency.classpath"

@@ -19,27 +19,29 @@
             <j:set var="bootstrapGroupId" value="${pom.groupId}${bootstrap}"/>
             <j:set var="dummy" value="${pom.setArtifactId(bootstrapPluginId)}"/>
             <j:set var="dummy" value="${pom.setGroupId(bootstrapGroupId)}"/>	
-            <!-- set the meta cartridge bootstrap dependency 
-                 into the bootstap project.xml-->
-            <j:set var="bootstrapMetaCartridge" trim="false">
-        <dependency> 
-            <groupId>andromda${bootstrap}</groupId>
-            <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${pom.currentVersion}</version>
-        </dependency>
-            </j:set>
         </j:if>
+        <!-- Replace references to the '${bootstrap} property' -->
+        <ant:replace file="${maven.build.dest}/plugin.jelly" 
+            token="$${bootstrap}"
+            value="${bootstrap}">
+        </ant:replace> 
+        <!-- Replace references to the '${bootstrapMode} property' -->
+        <ant:replace file="${maven.build.dest}/plugin.jelly" 
+            token="$${bootstrapMode}"
+            value="${bootstrapMode}">
+        </ant:replace> 
     	<!-- replace the ${pom.currentVersion} in these
     		 files so we don't need to maintain them between
     		 different releases -->
-		<velocity:merge
-			name="${maven.build.dest}/plugin.properties"
-			basedir="${basedir}"
-			template="/plugin.properties"/> 
-		<velocity:merge
-			name="${maven.build.dest}/project.xml"
-			basedir="${basedir}"
-			template="/project.xml"/> 
+        <velocity:merge
+            name="${maven.build.dest}/plugin.properties"
+            basedir="${basedir}"
+            template="/plugin.properties"/> 
+        <ant:delete file="${maven.build.dest}/project.xml"/>
+        <velocity:merge
+            name="${maven.build.dest}/project.xml"
+            basedir="${basedir}"
+            template="/project.xml"/>     		
 		<!-- copy over the mappings -->
 		<ant:copy todir="${maven.build.dest}/plugin-resources/mappings">
 			<ant:fileset dir="${mappings.location}"/>

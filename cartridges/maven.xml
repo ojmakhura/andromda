@@ -71,7 +71,14 @@
     
     <preGoal name="test:test">
         <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null}">
-            <attainGoal name="cartridge:test"/>
+            <j:choose>
+                <j:when test="${maven.andromda.bootstrap.mode}">
+                    <attainGoal name="cartridge:test-bootstrap"/>
+                </j:when>
+                <j:otherwise>
+                    <attainGoal name="cartridge:test"/>						
+                </j:otherwise>
+            </j:choose>
         </j:if>
     </preGoal>
     
