@@ -72,7 +72,9 @@ $attribute.getDocumentation("     * ")
      * @hibernate.column
      *     name="$attribute.columnName"
      *     sql-type="$attribute.sqlType"
-#if($attribute.required)
+## Since there is one table per hierarchy, we don't want
+## non null set to true for child entities.
+#if(!$entity.generalization && $attribute.required)
      *     not-null="true"
 #end
 ##
