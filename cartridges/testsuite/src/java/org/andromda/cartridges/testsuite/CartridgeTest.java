@@ -183,7 +183,7 @@ public class CartridgeTest
         int dotIndex = fileName.indexOf('.');
         if (dotIndex != -1)
         {
-            suffix = fileName.substring(0, dotIndex + 1);
+            suffix = fileName.substring(dotIndex + 1, fileName.length());
         }
         return binarySuffixes.contains(suffix);
     }
