@@ -1,11 +1,15 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
 
 
 /**
@@ -53,7 +57,7 @@ public class StrutsParameterLogicImpl
             Collection actionStates = getModel().getAllActionStates();
             for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
             {
-                Object stateObject = (Object) iterator.next();
+                Object stateObject = iterator.next();
                 if (stateObject instanceof StrutsJsp)
                 {
                     StrutsJsp jsp = (StrutsJsp) stateObject;
@@ -159,7 +163,14 @@ public class StrutsParameterLogicImpl
 
     public boolean handleIsTable()
     {
-        return (getType().isCollectionType() || getType().isArrayType()) && (!getTableColumnNames().isEmpty());
+        boolean isTable = this.getType() != null;
+        if (isTable)
+        {
+            isTable = (getType().isCollectionType() || 
+                getType().isArrayType()) && 
+                (!getTableColumnNames().isEmpty());
+        }
+        return isTable;
     }
 
     public boolean handleIsTableLink()
@@ -281,7 +292,9 @@ public class StrutsParameterLogicImpl
 
     public Collection handleGetTableColumnNames()
     {
-        Collection columnNamesCollection = null;
+        Collection columnNamesCollection = Collections.EMPTY_LIST;
+        try 
+        {
 
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_COLUMNS);
         if ((taggedValue == null) || (String.valueOf(taggedValue).matches(",")))
@@ -298,6 +311,10 @@ public class StrutsParameterLogicImpl
                 String property = properties[i];
                 columnNamesCollection.add(StringUtils.trimToEmpty(property));
             }
+        }
+        } catch (Throwable th)
+        {
+            th.printStackTrace();
         }
         return columnNamesCollection;
     }
