@@ -71,5 +71,25 @@ public class ResourceUtils {
 	public static String getContents(String resourceName) {
 		return getContents(getResource(resourceName));
 	}
-
+    /**
+     * Takes a className as an argument and returns the URL for the 
+     * class.  
+     * @param className
+     * @return java.net.URL
+     */
+    public static URL getClassResource(String className) {
+        final String methodName = "ResourceUtils.getClassResource";
+        ExceptionUtils.checkEmpty(methodName, "className", className);
+        return getResource(getClassNameAsResource(className));
+    }
+    
+    /**
+     * Private helper method.
+     * @param className
+     * @return String
+     */
+    private static String getClassNameAsResource(String className) {
+        return className.replace('.', '/') + ".class";
+    }
+    
 }

@@ -1,0 +1,6 @@
+-- This OCL file contains valid OCL syntax which the parser should 
+-- be able to successfully parse.
+
+context Bookpart::findAllParts(): Collection(Bookpart)
+body thisIsUnique :
+	self.allInstances() -> select(la : Bookpart, la : SomeType, la3 : AnotherType | la.title = 'test' and la2.title = 'test')

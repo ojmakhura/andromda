@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to load
+     a Translation object by Apache Digester -->
+     
+<digester-rules>
+
+	<pattern value="translation">
+	
+    	<object-create-rule 
+      		classname="org.andromda.core.translation.library.Translation" />
+      		
+	   	<pattern value="fragments/fragment">
+	   	
+	   		<object-create-rule 
+      			classname="org.andromda.core.translation.library.Fragment" />
+	      		
+			<set-properties-rule>
+	 			<alias attr-name="name" prop-name="name" />
+	 		</set-properties-rule>    
+	 		
+			<set-properties-rule>
+	 			<alias attr-name="handlerMethod" prop-name="handlerMethod" />
+	 		</set-properties-rule>    	 		
+	      	
+	      	<pattern value="kind">   
+	     
+				<call-method-rule 
+					methodname="addKind" 
+					paramcount="2" 
+					paramtypes="java.lang.String,java.lang.String"/>
+					
+	    		<call-param-rule 
+	    			attrname="name" 
+	    			paramnumber="0" />
+	    			
+	    		<call-param-rule 
+	    			paramnumber="1" />
+	    			
+	    	</pattern>
+	    	
+	    	<!-- add the default kind which is just the body of
+	    	     the fragment, this is used if there are no kind
+	    	     fragments defind within the fragment (the name
+	    	     is null) -->
+	    	
+			<call-method-rule 
+				methodname="addKind" 
+				paramcount="2" 
+				paramtypes="java.lang.String,java.lang.String"/>
+    			
+    		<call-param-rule 
+    			paramnumber="1" />
+	      		
+			<set-next-rule methodname="addFragment" />
+	      		
+	   	</pattern>
+	   	
+	   	<pattern value="patterns">
+	   	
+	   		<pattern value="validate">
+				<call-method-rule 
+					methodname="addValidatePattern" 
+					paramcount="1" 
+					paramtypes="java.lang.String"/>
+					
+	    		<call-param-rule 
+	    			paramnumber="0" />	   	
+	    	</pattern>
+	   	
+	   		<pattern value="ignore">
+				<call-method-rule 
+					methodname="addIgnorePattern" 
+					paramcount="1" 
+					paramtypes="java.lang.String"/>
+					
+	    		<call-param-rule 
+	    			paramnumber="0" />	   	
+	    	</pattern>
+    				
+	   	</pattern>
+	   	
+	</pattern>
+
+</digester-rules>

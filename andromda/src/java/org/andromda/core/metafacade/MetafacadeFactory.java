@@ -13,6 +13,15 @@ import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
+/**
+ * The factory in charge of constucting Metafacade
+ * instances.  In order for a metafacade (i.e. a facade
+ * around a meta model element) to be constructed, it 
+ * must be constructed through this factory.
+ * 
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author Chad Brandon
+ */
 public class MetafacadeFactory
 {
     private static MetafacadeFactory factory = new MetafacadeFactory();

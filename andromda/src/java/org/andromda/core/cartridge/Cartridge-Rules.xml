@@ -7,18 +7,12 @@
 	<pattern value="cartridge">
 	
     	<object-create-rule 
-      		classname="org.andromda.core.cartridge.DefaultCartridgeDescriptor" />
+      		classname="org.andromda.core.cartridge.Cartridge" />
       		
 		<set-properties-rule>
- 			<alias attr-name="name" prop-name="cartridgeName" />
+ 			<alias attr-name="name" prop-name="name" />
  		</set-properties-rule>      
- 		
- 		<pattern value="class">
-            <set-properties-rule>
-                <alias attr-name="name" prop-name="cartridgeClassName" />
-            </set-properties-rule>     		    		    
- 		</pattern>
- 		
+
        	<!-- add the TemplateEngine implementation to the Cartridge -->
       		
 		<pattern value="templateEngine">
@@ -30,7 +24,7 @@
 	 		<pattern value="macrolibrary">
 	 		
                 <call-method-rule
-                    methodname="addMacroLibrary" 
+                    methodname="addMacrolibrary" 
                     paramcount="1" 
                     paramtypes="java.lang.String"/>
                     
@@ -62,7 +56,7 @@
 		<pattern value="templateObject">
 		
 		    <object-create-rule 
-      			classname="org.andromda.core.cartridge.TemplateObject" />
+      			classname="org.andromda.core.common.TemplateObject" />
       			
 			<set-properties-rule>
 	 			<alias attr-name="name" prop-name="name" />
@@ -114,7 +108,7 @@
 	 		</set-properties-rule> 	 			      	
 	      		      	 
 			<set-properties-rule>
-	 			<alias attr-name="overWrite" prop-name="overwrite" />
+	 			<alias attr-name="overWrite" prop-name="overWrite" />
 	 		</set-properties-rule> 	 	 	
 	 		
 			<set-properties-rule>

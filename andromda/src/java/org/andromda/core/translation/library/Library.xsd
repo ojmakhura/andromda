@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= 
+     This schema defines the andromda-translation-library.xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES                             
+     ========================================================================= -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<!-- description of what the translation-library does -->
+	<xs:element name="description" type="xs:string"/>
+	
+	<!-- the file that contains the 'translation' tempate -->
+	<xs:element name="file" type="xs:string"/>
+	
+    <!-- you configure the template engine through here -->
+    <xs:element name="templateEngine">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <!-- the class of the TemplateEngine implementation (must have a default constructor) -->
+            <xs:attribute name="className" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- Defines a macro library that can be used with commonly used scripting engine macros -->
+    <xs:element name="macrolibrary">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+	
+	<!-- the translation which performs 'translation' of the expression in combination with the 
+	     translation file -->
+	<xs:element name="translator" type="xs:string"/>
+	
+	<!-- any objects to make available to the translation template file -->
+	<xs:element name="templateObject">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="className" type="xs:string" use="required"/>
+			<!-- the name of the templateObject, this is the name of the scripting object
+			     made available to the translation template file during processing -->
+			<!-- the fully qualified class name of the object (must have a default public constructor) -->
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- the 'translation' element -->
+	<xs:element name="translation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="translator" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="description" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="file" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- the root 'translation-library' element -->
+	<xs:element name="translation-library">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="templateEngine" minOccurs="0"/>
+				<xs:element ref="translator" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
+                <!-- these are references to properties that are expected to 
+                     be supplied by the calling client through a <namespace/> element. 
+                     When the property name and its value are supplied in the build 
+                     file for example, that property is then supplied to the template.  -->
+                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="translation" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+    <xs:element name="property">
+        <xs:complexType>
+            <!-- defines a reference to a <property/> element defined within 
+                 a namespace element in your build file -->
+            <xs:attribute name="reference" use="required"/>
+        </xs:complexType>
+    </xs:element>	
+</xs:schema>

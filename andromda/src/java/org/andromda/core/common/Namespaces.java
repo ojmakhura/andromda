@@ -67,17 +67,35 @@ public class Namespaces {
         return (Namespace)namespaces.get(namespaceName);
     }
 
-	/**
-	 * Retrieves a property from the Namespace with the namespaceName. If
+    /**
+     * Retrieves a property from the Namespace with the namespaceName. If
+     * the <code>ignore</code> attribute of the Property instance is set to
+     * <code>true</code> then lookup of the property will not be attempted
+     * and null will just be returned instead.  If the propety is not 
+     * found and <code>ignore<code> is not <code>true</code> a 
+     * warning message is logged.
+     * 
+     * @param namespaceName name of the Plugin to which the namespace applies
+     * @param propertyName name of the namespace property to find.
+     * @return String the namespace property value.
+     */
+    public Property findNamespaceProperty(String namespaceName, String propertyName) {
+        return this.findNamespaceProperty(namespaceName, propertyName, true);
+    }
+
+    /**
+     * Retrieves a property from the Namespace with the namespaceName. If
      * the <code>ignore</code> attribute of the Property instance is set to
      * <code>true</code> then lookup of the property will not be attempted
      * and null will just be returned instead.
-	 * 
-	 * @param namespaceName name of the Plugin to which the contexdt applies
-	 * @param propertyName name of the namespace property to find.
-	 * @return String the namespace property value.
-	 */
-	public Property findNamespaceProperty(String namespaceName, String propertyName) {
+     * 
+     * @param namespaceName name of the Plugin to which the namespace applies
+     * @param propertyName name of the namespace property to find.
+     * @param showWarning true/false if we'd like to display a warning
+     *        if the property can not be found.
+     * @return String the namespace property value.
+     */
+    public Property findNamespaceProperty(String namespaceName, String propertyName, boolean showWarning) {
 		final String methodName = "Namespaces.findNamespaceProperty";
 		ExceptionUtils.checkEmpty(methodName, "namespaceName", namespaceName);
 		ExceptionUtils.checkEmpty(methodName, "propertyName", propertyName);
@@ -114,7 +132,7 @@ public class Namespaces {
                 + "to ignore this message, define the namespace with "
                 + "ignore set to 'true'");            
             
-        } else if (property == null) {
+        } else if (property == null && showWarning) {
             
 			logger.warn("WARNING! Namespaces '" + DEFAULT + "' and '" 
 				+ namespaceName + "' have no property '"
@@ -122,6 +140,7 @@ public class Namespaces {
                 + "property in AT LEAST ONE of these two namespaces. " 
                 + " If you want to 'ignore' this message, add the " 
                 + "property to the namespace with ignore set to 'true'");
+            
 		}
 
 		return property;

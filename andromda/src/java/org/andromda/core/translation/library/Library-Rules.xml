@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to load
+     a Library object by Apache Digester -->
+<digester-rules>
+
+	<pattern value="translation-library">
+	
+    	<object-create-rule 
+      		classname="org.andromda.core.translation.library.Library" />
+      		
+		<set-properties-rule>
+ 			<alias attr-name="name" prop-name="name" />
+ 		</set-properties-rule>    
+      		
+       	<!-- add the TemplateEngine implementation to the Cartridge -->
+      		
+		<pattern value="templateEngine">
+		
+			<set-properties-rule>
+	 			<alias attr-name="className" prop-name="templateEngineClass" />
+	 		</set-properties-rule>   
+	 		
+	 		<pattern value="macrolibrary">
+	 		
+                <call-method-rule
+                    methodname="addMacrolibrary" 
+                    paramcount="1" 
+                    paramtypes="java.lang.String"/>
+                    
+                <call-param-rule 
+                    attrname="name" 
+                    paramnumber="0" />
+                    
+             </pattern>
+		       
+	   	</pattern>
+      		
+      	<call-method-rule 
+      		pattern="translator" 
+      		methodname="setTranslator"
+	        paramcount="1" />
+	   
+		<call-param-rule 
+      		pattern="translator"   
+      		paramnumber="0"/>
+      		
+	   	<!-- add the template objects to the Library -->
+	   	
+		<pattern value="templateObject">
+		
+		    <object-create-rule 
+      			classname="org.andromda.core.common.TemplateObject" />
+      			
+			<set-properties-rule>
+	 			<alias attr-name="name" prop-name="name" />
+	 		</set-properties-rule>    
+					
+			<set-properties-rule>
+	 			<alias attr-name="className" prop-name="className" />
+	 		</set-properties-rule>    
+	 		
+	 		<!-- add the Properties to the TemplateObject -->
+	 		
+			<pattern value="property">
+			
+		    	<object-create-rule 
+      				classname="org.andromda.core.common.Property" />
+				
+				<set-properties-rule>
+		 			<alias attr-name="name" prop-name="name" />
+		 		</set-properties-rule>   
+
+				<set-properties-rule>
+		 			<alias attr-name="value" prop-name="value" />
+		 		</set-properties-rule>   
+		 		
+		 		<set-next-rule methodname="addProperty" />	  
+				
+			</pattern>
+	    		
+	      	<set-next-rule methodname="addTemplateObject" />	    		
+		       
+	   	</pattern>
+	   	
+      	<!-- add the property references to the Library -->
+      		
+		<pattern value="property">
+		
+			<call-method-rule
+				methodname="addPropertyReference" 
+				paramcount="2" 
+				paramtypes="java.lang.String"/>
+				
+	    	<call-param-rule 
+	    		attrname="reference" 
+	    		paramnumber="0" />
+		       
+	   	</pattern>
+      		
+		<pattern value="translation">
+		
+	    	<object-create-rule 
+	      		classname="org.andromda.core.translation.library.LibraryTranslation" />
+	      		
+			<set-properties-rule>
+	 			<alias attr-name="name" prop-name="name" />
+	 		</set-properties-rule>   
+	      		
+	      	<call-method-rule 
+	      		pattern="templateEngine" 
+	      		methodname="setTemplateEngine"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="templateEngine"
+	      		paramnumber="0"/>
+	      		
+	      	<call-method-rule 
+	      		pattern="translator" 
+	      		methodname="setTranslator"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="translator"   
+	      		paramnumber="0"/>
+
+	      	<call-method-rule 
+	      		pattern="file" 
+	      		methodname="setFile"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="file"
+	      		paramnumber="0"/>
+			
+			<set-next-rule methodname="addLibraryTranslation" />
+		       
+	   	</pattern>
+	   	
+	</pattern>
+
+</digester-rules>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The schema definining a translation document for OCL translation -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	
+	<!-- the translation 'fragment' -->
+	<xs:element name="fragment">
+		<xs:complexType mixed="true">
+		
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element ref="kind"/>
+			</xs:choice>
+			
+			<!-- the name of the translation 'fragment' -->
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			
+			<!-- the optional name of the 'handler' method, this is the method
+			     that will handle translation of the fragment if the name is found.  
+			     The handler method belongs on your Translator implementation -->
+			<xs:attribute name="handlerMethod" type="xs:string"/>
+			
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="fragments">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fragment" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- the kind or type of the expression being translated by the 
+	     translation fragment -->
+	<xs:element name="kind">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="name" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:NMTOKEN">
+								<xs:enumeration value="body"/>
+								<xs:enumeration value="def"/>
+								<xs:enumeration value="inv"/>
+								<xs:enumeration value="post"/>
+								<xs:enumeration value="pre"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- the root 'translation' element -->
+	<xs:element name="translation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fragments"/>
+				<xs:element ref="patterns" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- patterns allow us to do additional things with patterns/regular expressions will translating -->
+	<xs:element name="patterns">
+		<xs:complexType>
+			<xs:sequence>
+			
+				<!-- These can be specified to indicate which patterns should be validated
+			         against the model -->
+				<xs:element ref="validate" minOccurs="0" maxOccurs="unbounded" />
+				
+				<!-- These can be specified so that any pattern not matching in a handler can will be ignored,
+				     if these aren't specified any patterns not matching give errors -->
+				<xs:element ref="ignore" minOccurs="0" maxOccurs="unbounded" />
+				
+			</xs:sequence>
+		</xs:complexType>	
+	</xs:element>
+	
+	<xs:element name="ignore" type="xs:string"/>
+	
+	<xs:element name="validate" type="xs:string"/>
+	
+</xs:schema>

@@ -2,6 +2,8 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,73 +11,76 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.OutputUtils;
 import org.andromda.core.common.Property;
+import org.andromda.core.common.TemplateObject;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
 
 /**
- * Default implementation of standard AndroMDA cartridge behaviour.
- * Can be customized by derived cartridge classes.
+ * The AndroMDA Cartridge implementation of the Plugin.
+ * Cartridge instances are configured from  
+ * <code>META-INF/andromda-cartridge.xml</code> 
+ * files discovered on the classpath.
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
  */
-public class DefaultAndroMDACartridge implements AndroMDACartridge
+public class Cartridge extends BasePlugin
 {
-    private CartridgeDescriptor desc = null;
-    
+    private List templates = new ArrayList();
     private CodeGenerationContext context;
-
-    private Logger logger = null;
     
-    public DefaultAndroMDACartridge() {
-    	this.resetLogger();
+    /**
+     * Gets an instance of this Cartridge configured
+     * with <code>cartridgeXml</code>.
+     * 
+     * @param cartridgeXml the URL to the XML that
+     *        configures this Cartridge.
+     * 
+     * @return Cartridge
+     */
+    public static Cartridge getInstance(URL cartridgeXml) {
+        return (Cartridge)getInstance(
+            cartridgeXml, 
+            Cartridge.class);    
     }
-
+    
+    /**
+     * The default Cartridge constructor.
+     */
+    public Cartridge() {
+        super();
+    }
+    
     /**
      * Cache for saving previously found model elements.
      */
     private Map elementCache = new HashMap();
 
     /**
-     * @see org.andromda.core.cartridge.AndroMDACartridge#getDescriptor()
-     */
-    public CartridgeDescriptor getDescriptor()
-    {
-        return desc;
-    }
-
-    /**
-     * @see org.andromda.core.cartridge.AndroMDACartridge#setDescriptor(org.andromda.core.cartridge.CartridgeDescriptor)
-     */
-    public void setDescriptor(CartridgeDescriptor d)
-    {
-        this.desc = d;
-    }
-    
-    /**
-     * @see org.andromda.core.cartridge.AndroMDACartridge#processModelElements(org.andromda.core.common.CodeGenerationContext)
+     * Processes all model elements with relevant stereotypes by 
+     * retrieving the model elements from the model facade 
+     * contained within the context.
+     * 
+     * @param context the context containing the RepositoryFacade 
+     *        (among other things).
      */
     public void processModelElements(CodeGenerationContext context) 
     {
-        final String methodName = "DefaultAndroMDACartridge.processModelElements";
+        final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(methodName, "context", context);
             
         this.context = context;
         
-        CartridgeDescriptor descriptor = 
-            this.getDescriptor();
-        
         Collection templates = 
-            descriptor.getTemplateConfigurations();
+            this.getTemplateConfigurations();
         
         if (templates == null || templates.isEmpty()) 
         {
@@ -87,7 +92,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
         factory.setModel(context.getModelFacade());
         
         String previousNamespace = factory.getActiveNamespace();
-        factory.setActiveNamespace(descriptor.getCartridgeName());
+        factory.setActiveNamespace(this.getName());
         
         Iterator templateIt = templates.iterator();
         while (templateIt.hasNext()) 
@@ -146,7 +151,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
         TemplateConfiguration template,
         CodeGenerationContext context) 
     {
-        final String methodName = "DefaultAndroMDACartridge.processModelElements";
+        final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "context", context);
         
@@ -163,12 +168,9 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
         if (templateModelElements != null && !templateModelElements.isEmpty()) 
         {
             
-            CartridgeDescriptor descriptor = 
-                this.getDescriptor();
-            
             Property outletProperty = 
                 Namespaces.instance().findNamespaceProperty(
-                        descriptor.getCartridgeName(), template.getOutlet());
+                    this.getName(), template.getOutlet());
             
             if (outletProperty != null && !outletProperty.isIgnore()) 
             {
@@ -296,7 +298,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
         String modelElementName,
         String modelElementPackage) 
     {    
-        final String methodName = "DefaultAndroMDACartridge.processWithTemplate";
+        final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
         ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
@@ -309,7 +311,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
             this.addPropertiesToContext(templateContext);
             
             // add all the TemplateObject objects to the template context
-            List templateObjects = this.getDescriptor().getTemplateObjects();
+            Collection templateObjects = this.getTemplateObjects();
             if (templateObjects != null && !templateObjects.isEmpty()) {
             	Iterator templateObjectIt = templateObjects.iterator();
             	while (templateObjectIt.hasNext()) {
@@ -324,7 +326,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
             StringWriter output = new StringWriter();
             
             // process the template with the set TemplateEngine
-            this.getDescriptor().getTemplateEngine().processTemplate(
+            this.getTemplateEngine().processTemplate(
                 template.getSheet(), 
                 templateContext, 
                 output);
@@ -350,7 +352,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                 
                 // do not overWrite already generated file,
                 // if that is a file that the user needs to edit
-                boolean writeOutputFile = !outFile.exists() || template.isOverwrite();
+                boolean writeOutputFile = !outFile.exists() || template.isOverWrite();
                 
                 long modelLastModified = context.getRepository().getLastModified();
                 
@@ -362,7 +364,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                  
                     String outputString = output.toString();
                     
-                    this.setLogger(this.getDescriptor().getCartridgeName());
+                    this.setLogger(this.getName());
                     //check to see if generateEmptyFiles is true and if outString (when CLEANED)
                     //isn't empty.
                     if (StringUtils.trimToEmpty(outputString).length() > 0 || template.isGenerateEmptyFiles()) 
@@ -393,7 +395,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                 + "', template context '" 
                 + templateContext 
                 + "' and cartridge '" 
-                + this.getDescriptor().getCartridgeName() + "'";
+                + this.getName() + "'";
             logger.error(errMsg, th);
             throw new CartridgeException(errMsg, th);
         }
@@ -431,7 +433,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
         String outputLocation)
     {
         String fileName = 
-            this.getDescriptor().getTemplateEngine().getEvaluatedExpression(
+            this.getTemplateEngine().getEvaluatedExpression(
                 template.getOutputPattern());
 
         return new File(outputLocation, fileName);
@@ -441,7 +443,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
      * Takes all the property references defined in the
      * cartridge descriptor and looks up the corresponding
      * values supplied by the calling client and supplies
-     * the to the template.
+     * them to the template.
      *
      * @param  context  the template context
      * @param  properties the user properties
@@ -449,7 +451,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     private void addPropertiesToContext(Map context)
     {
         Collection propertyReferences = 
-            this.getDescriptor().getPropertyReferences();
+            this.getPropertyReferences();
         if (propertyReferences != null && !propertyReferences.isEmpty()) 
         {
             Iterator referenceIt = propertyReferences.iterator();
@@ -459,7 +461,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                 // find the property from the namespace
                 Property property = 
                     Namespaces.instance().findNamespaceProperty(
-                        this.getDescriptor().getCartridgeName(), 
+                        this.getName(), 
                         reference);
                 // if property isn't ignore, then add it to 
                 // the context
@@ -469,23 +471,6 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                 }
             }
         }
-    }
-
-    /**
-     * @see org.andromda.core.cartridge.AndroMDACartridge#init(java.util.Properties)
-     */
-    public void init() throws Exception
-    {
-        this.getDescriptor().getTemplateEngine().init(
-            this.getDescriptor().getCartridgeName());
-    }
-    
-    /**
-     * @see org.andromda.core.cartridge.AndroMDACartridge#shutdown()
-     */
-    public void shutdown()
-    {
-        this.getDescriptor().getTemplateEngine().shutdown();
     }
     
     /**
@@ -505,27 +490,35 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     }
     
     /**
-     * Resets the logger to the default name.
-     */
-    private void resetLogger() {
-        this.setLogger(DefaultAndroMDACartridge.class.getName());      
-    }
-    
-    /**
-     * Sets the logger to be used
-     * with this Cartridge
+     * Returns the list of templates configured in this cartridge. 
      * 
-     * @param logger The logger to set.
+     * @param List the template list.
      */
-    private void setLogger(String loggerName) {
-        this.logger = Logger.getLogger(loggerName);
+    public List getTemplateConfigurations()
+    {
+        return templates;
     }
-    
+        
     /**
-     * @see java.lang.Object#toString()
+     * Adds an item to the list of defined template configurations.
+     * 
+     * @param template the new configuration to add
      */
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
+    public void addTemplateConfiguration(TemplateConfiguration template)
+    {
+        ExceptionUtils.checkNull(
+            "Cartridge.addTemplateConfiguration", 
+            "template", 
+            template);
+        template.setCartridge(this);
+        templates.add(template);
+    }
+
+    /**
+     * @see org.andromda.core.common.Plugin#getType()
+     */
+    public String getType() {
+        return "cartridge";
     }
     
 }
