@@ -2,8 +2,8 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -28,8 +28,15 @@ public class StrutsActivityGraphLogicImpl
 
     protected Object handleGetFirstAction()
     {
-        PseudostateFacade initialState = (PseudostateFacade) getInitialStates().iterator().next();
-        return initialState.getOutgoing().iterator().next();
+        Object firstAction = null;
+        Collection initialStates = getInitialStates();
+        if (initialStates.isEmpty() == false)
+        {
+            PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
+            Collection outgoing = initialState.getOutgoing();
+            firstAction = (outgoing.isEmpty()) ? null : outgoing.iterator().next();
+        }
+        return firstAction;
     }
 
     protected Object handleGetUseCase()
