@@ -1,5 +1,10 @@
 <cartridge name="meta">
 
+    <templateEngine>
+        <macrolibrary name="templates/RenderTranslation.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
