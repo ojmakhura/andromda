@@ -77,6 +77,15 @@ $literal.getDocumentation("     * ")
     }
     
     /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo(Object that)
+    {
+        return (this == that) ? 0 : this.getValue().compareTo(
+            (($enumeration.name)that).getValue());
+    }
+    
+    /**
      * Returns an unmodifiable list containing the literals that are known by this enumeration.
      *
      * @return A List containing the actual literals as defined by this enumeration, this list can

@@ -39,14 +39,6 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    public int compareTo(Object that)
-    {
-        return (this == that) ? 0 : this.toString().compareTo(that.toString());
-    }
-
-    /**
      *  @see net.sf.hibernate.UserType#sqlTypes()
      */
     public int[] sqlTypes()
@@ -77,7 +69,7 @@ public final class $enumeration.enumerationName
      */
     public boolean equals(Object x, Object y) throws HibernateException
     {
-        return x == y;
+        return (x == y) || (x != null && y != null && y.equals(x));
     }
 
     /**
@@ -85,7 +77,7 @@ public final class $enumeration.enumerationName
      */
     public Class returnedClass()
     {
-        return ${enumeration.enumerationName}.class;
+        return ${enumeration.name}.class;
     }
 
     /**
