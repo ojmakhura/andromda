@@ -278,4 +278,24 @@
         </modelElements>
     </template>
 
+    <template
+        sheet="templates/StrutsApplicationCss.vsl"
+        outputPattern="layout/application.css"
+        outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsMessagesJsp.vsl"
+        outputPattern="layout/messages.jsp"
+        outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
 </cartridge>
