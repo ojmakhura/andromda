@@ -333,7 +333,9 @@ public class HibernateAssociationEndLogicImpl
     protected boolean handleIsIndexedCollection()
     {
         boolean indexed = false;
-        if (this.isOrdered())
+        HibernateAssociationEnd otherEnd = (HibernateAssociationEnd)this
+        .getOtherEnd();
+        if (otherEnd.isOrdered())
         {
             if (this.getCollectionType().equals(COLLECTION_TYPE_LIST)
                 || this.getCollectionType().equals(COLLECTION_TYPE_MAP))
