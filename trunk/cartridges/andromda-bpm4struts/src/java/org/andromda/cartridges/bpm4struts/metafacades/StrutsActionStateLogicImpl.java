@@ -52,18 +52,13 @@ public class StrutsActionStateLogicImpl
             if (activityGraphFacade instanceof StrutsActivityGraph)
             {
                 StrutsActivityGraph activityGraph = (StrutsActivityGraph) activityGraphFacade;
-                Collection pages = activityGraph.getUseCase().getPages();
-                for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+                Collection actions = activityGraph.getUseCase().getActions();
+                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    StrutsJsp jsp = (StrutsJsp) pageIterator.next();
-                    Collection actions = jsp.getActions();
-                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                    StrutsAction action = (StrutsAction) actionIterator.next();
+                    if (action.getActionStates().contains(this))
                     {
-                        StrutsAction action = (StrutsAction) actionIterator.next();
-                        if (action.getActionStates().contains(this))
-                        {
-                            actionSet.add(action);
-                        }
+                        actionSet.add(action);
                     }
                 }
             }
