@@ -43,7 +43,7 @@ public class DecisionServiceBeanImpl extends DecisionServiceBean implements java
         }
     }
 
-    protected java.lang.String handleAddNewAnimalWithQuestion(
+    protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleAddNewAnimalWithQuestion(
         net.sf.hibernate.Session sess,
         java.lang.String animalName,
         java.lang.String promptForYes,
@@ -66,8 +66,9 @@ public class DecisionServiceBeanImpl extends DecisionServiceBean implements java
         catch (HibernateException e) {
             throw new EJBException(e);
         }
-
-        return null; // TODO: make method return "void" and delete this line!
+        
+        // TODO: check why this can't be eliminated - the method in the model has no return type!!!
+        return null;
     }
 
     // ---------- the usual session bean stuff... ------------

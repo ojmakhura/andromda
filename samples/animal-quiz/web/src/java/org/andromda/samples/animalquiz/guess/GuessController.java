@@ -10,8 +10,17 @@ import org.andromda.samples.animalquiz.decisiontree.DecisionServiceUtil;
 import org.andromda.samples.animalquiz.decisiontree.VODecisionItem;
 import org.apache.struts.action.ActionMapping;
 
+/**
+ *
+ * This controller class implements all the methods that are called
+ * from the activities inside the "Guess" activity graph.
+ * 
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ */
 public final class GuessController implements GuessControllerInterface {
     private final static GuessController INSTANCE = new GuessController();
+
+    private String lastAnswerFromUser = null;
 
     /**
      * Singleton constructor
@@ -63,11 +72,13 @@ public final class GuessController implements GuessControllerInterface {
         throws Exception {
         HttpSession session = request.getSession();
         VODecisionItem vodi = (VODecisionItem) session.getAttribute("voLastDecisionItem");
-        String idNoItem = vodi.getIdNoItem();
-        if (idNoItem != null) {
+
+        String idNextItem =
+            "yes".equals(lastAnswerFromUser) ? vodi.getIdYesItem() : vodi.getIdNoItem();
+        if (idNextItem != null) {
             DecisionServiceHome dsh = DecisionServiceUtil.getHome();
             DecisionService ds = dsh.create();
-            vodi = ds.getNextQuestion(idNoItem);
+            vodi = ds.getNextQuestion(idNextItem);
             ds.remove();
 
             form.setQuestion(vodi.getPrompt());
@@ -126,8 +137,30 @@ public final class GuessController implements GuessControllerInterface {
         HttpServletRequest request,
         HttpServletResponse reponse)
         throws Exception {
+        return "yes".equals(lastAnswerFromUser);
+    }
 
-        return true;
+    /* (non-Javadoc)
+     * @see org.andromda.samples.animalquiz.guess.GuessControllerInterface#rememberPositiveAnswer(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.GuessForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public void rememberPositiveAnswer(
+        ActionMapping mapping,
+        GuessForm form,
+        HttpServletRequest request,
+        HttpServletResponse reponse)
+        throws Exception {
+        lastAnswerFromUser = "yes";
+    }
 
+    /* (non-Javadoc)
+     * @see org.andromda.samples.animalquiz.guess.GuessControllerInterface#rememberNegativeAnswer(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.GuessForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public void rememberNegativeAnswer(
+        ActionMapping mapping,
+        GuessForm form,
+        HttpServletRequest request,
+        HttpServletResponse reponse)
+        throws Exception {
+        lastAnswerFromUser = "no";
     }
 }
