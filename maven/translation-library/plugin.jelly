@@ -13,71 +13,75 @@
     	  description="Runs the translation tests for any translator test XML files beginning with 'Translation-Test'"
     	  prereqs="translation-library:initialize-test-resources">
        
-        <j:set var="modelValidation" value="${andromda.translationlibrary.test.model.validation}"/>
-     
-        <j:if test="${modelValidation}">
-			<j:set var="modelUri" value="${andromda.translationlibrary.model.uri}"/>
-			<maven:param-check value="${modelUri}" fail="true">
-Please define the location of your model by setting a value for property "andromda.translationlibrary.model.uri".
-			</maven:param-check> 
-		</j:if>
-        <ant:echo>+-------------------------------------------+</ant:echo>
-        <ant:echo>|   T E S T I N G   T R A N S L A T I O N   |</ant:echo>
-        <ant:echo>+-------------------------------------------+</ant:echo> 
-		
-		<!-- set the testcase to run -->
-		<j:set 
-			var="testcase" 
-			value="org.andromda.translation.testsuite.TranslationTestProcessor" 
-			scope="parent"/>
-
-		<j:set 
-			var="maven.junit.fork" 
-			value="true" 
-			scope="parent"/>
+        <j:if test="${!context.getVariable('maven.test.skip')}">
+       
+	        <j:set var="modelValidation" value="${andromda.translationlibrary.test.model.validation}"/>
+	     
+	        <j:if test="${modelValidation}">
+				<j:set var="modelUri" value="${andromda.translationlibrary.model.uri}"/>
+				<maven:param-check value="${modelUri}" fail="true">
+	Please define the location of your model by setting a value for property "andromda.translationlibrary.model.uri".
+				</maven:param-check> 
+			</j:if>
+	        <ant:echo>+-------------------------------------------+</ant:echo>
+	        <ant:echo>|   T E S T I N G   T R A N S L A T I O N   |</ant:echo>
+	        <ant:echo>+-------------------------------------------+</ant:echo> 
 			
-		<j:set 
-			var="maven.junit.usefile"
-			value="${andromda.translationlibrary.printreport}"
-			scope="parent"/>
-
-		<!-- set the properties that we can override from a properties file -->
-		<j:set
-			var="model.xmi"
-			value="${andromda.translationlibrary.model.uri}"
-			scope="parent"/>
+			<!-- set the testcase to run -->
+			<j:set 
+				var="testcase" 
+				value="org.andromda.translation.testsuite.TranslationTestProcessor" 
+				scope="parent"/>
+	
+			<j:set 
+				var="maven.junit.fork" 
+				value="true" 
+				scope="parent"/>
+				
+			<j:set 
+				var="maven.junit.usefile"
+				value="${andromda.translationlibrary.printreport}"
+				scope="parent"/>
+	
+			<!-- set the properties that we can override from a properties file -->
+			<j:set
+				var="model.xmi"
+				value="${andromda.translationlibrary.model.uri}"
+				scope="parent"/>
+				
+			<j:set
+				var="trace.expression"
+				value="${trace}"
+				scope="parent"/>		
+				
+			<j:set
+				var="translation.name"
+				value="${translation}"
+				scope="parent"/>	
+				
+			<j:set
+				var="languageMappingsUri"
+				value="${andromda.translationlibrary.test.languageMappingsUri}"
+				scope="parent"/>	
 			
-		<j:set
-			var="trace.expression"
-			value="${trace}"
-			scope="parent"/>		
-			
-		<j:set
-			var="translation.name"
-			value="${translation}"
-			scope="parent"/>	
-			
-		<j:set
-			var="languageMappingsUri"
-			value="${andromda.translationlibrary.test.languageMappingsUri}"
-			scope="parent"/>	
-		
-		<j:set
-			var="model.validation"
-			value="${modelValidation}"
-			scope="parent"/>
-			
-	    <j:set 
-	    	var="current.directory"
-	    	value="${basedir}"
-	    	scope="parent"/>
-			
-		<j:set 
-			var="maven.junit.sysproperties"
-			value="current.directory model.xmi model.validation trace.expression translation.name languageMappingsUri"
-			scope="parent"/>
-			
-      	<attainGoal name="test:single"/>
+			<j:set
+				var="model.validation"
+				value="${modelValidation}"
+				scope="parent"/>
+				
+		    <j:set 
+		    	var="current.directory"
+		    	value="${basedir}"
+		    	scope="parent"/>
+				
+			<j:set 
+				var="maven.junit.sysproperties"
+				value="current.directory model.xmi model.validation trace.expression translation.name languageMappingsUri"
+				scope="parent"/>
+				
+	      	<attainGoal name="test:single"/>
+	      	
+        </j:if>
       	
 	</goal>
 	
