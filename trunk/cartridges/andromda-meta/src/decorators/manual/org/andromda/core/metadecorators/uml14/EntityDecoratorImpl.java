@@ -1,6 +1,5 @@
 package org.andromda.core.metadecorators.uml14;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 
