@@ -39,7 +39,7 @@ public class WidgetRenderer
 
         buffer.append("<input type=\"checkbox\" name=\"");
         buffer.append(parameterName);
-        buffer.append('\"');
+        buffer.append("\" value=\"true\"");
         if (isTrue(value))
         {
             buffer.append(" checked");
