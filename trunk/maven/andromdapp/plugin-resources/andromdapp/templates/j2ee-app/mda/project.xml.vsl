@@ -61,7 +61,7 @@
                 <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
                 <session-beans>${maven.andromda.core.generated.dir}</session-beans>
                 <session-impls>${maven.andromda.core.manual.dir}</session-impls>
-                <configuration>${{maven.andromda.core.generated.dir}</configuration>
+                <configuration>${maven.andromda.core.generated.dir}</configuration>
             </properties>
         </dependency>
 #else
