@@ -337,4 +337,49 @@ public class StringUtilsHelper
 */
         return text.substring(0, maxLength);
     }
+
+    /**
+     * Linguistically multiplies a singular noun.
+     * <p>
+     * <ul>
+     *  <li><code>noun</code> becomes <code>nouns</code></li>
+     *  <li><code>key</code> becomes <code>keys</code></li>
+     *  <li><code>word</code> becomes <code>words</code></li>
+     *  <li><code>property</code> becomes <code>properties</code></li>
+     * </ul>
+     * <p>
+     * Whitespace as well as <code>null></code> arguments will return an empty String.
+     *
+     * @param singularNoun A singularNoun to multiply
+     * @return The multiplication of the argument singularNoun
+     */
+    public static String multiply(String singularNoun)
+    {
+        singularNoun = trimToEmpty(singularNoun);
+
+        int nounLength = singularNoun.length();
+        if (singularNoun.endsWith("y"))
+        {
+            if (nounLength > 1)
+            {
+                switch (singularNoun.charAt(nounLength-2))
+                {
+                    case 'a':
+                    case 'e':
+                    case 'i':
+                    case 'o':
+                    case 'u':
+                        singularNoun = singularNoun + 's';
+                        break;
+                    default :
+                        singularNoun = singularNoun.substring(0, nounLength-1) + "ies";
+                }
+            }
+        }
+        else if (nounLength > 0)
+        {
+            singularNoun = singularNoun + 's';
+        }
+        return singularNoun;
+    }
 }

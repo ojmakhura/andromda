@@ -238,4 +238,24 @@ public class StringUtilsHelperTest extends TestCase
         }
 */
     }
+
+    public void testMultiply()
+    {
+        final String[][] fixture = new String[][]
+        {
+            new String[] { null, "" },
+            new String[] { "", "" },
+            new String[] { "               ", "" },
+            new String[] { "key", "keys" },
+            new String[] { "word", "words" },
+            new String[] { "property", "properties" },
+            new String[] { "noun", "nouns" }
+        };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(StringUtilsHelper.multiply(strings[0]), strings[1]);
+        }
+    }
 }
