@@ -59,7 +59,7 @@
                 excludes="${maven.multiproject.excludes}"/>
         </ant:fileScanner>
         <j:forEach var="project" items="${projects.iterator()}">
-            <ant:copy todir="${project.parent}/target/docs/jsl">
+            <ant:copy todir="${project.parent}/target/jsl">
                 <ant:fileset dir="${maven.docs.src}/jsl"/>
             </ant:copy>
         </j:forEach>
