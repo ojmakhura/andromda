@@ -147,7 +147,7 @@
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
 
     <resource
-        path="templates/application-constants.properties"
+        path="templates/*.properties"
         outlet="entity-beans"
         overwrite="true">
     </resource>
@@ -384,11 +384,8 @@
             <td>path</td>
             <td>
                 Specifies the path (relative to the cartridge root)
-                for a resource file to be copied to an outlet. This value can contain regular expression syntax
-                to match more than one resource in the cartridge jar. For more info go here:
-                <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html">
-                    Java RegExp package
-                </a>
+                for a resource file to be copied to an outlet. You can use the asterisk wilcard
+                to match multiple characters at once, similar to Ant filesets.
                 The matching will start relatively to the root of the cartridge, similar to the values
                 used in the path attribute of the <![CDATA[<template/>]]> tag.
             </td>
@@ -434,7 +431,7 @@
 		<source>
 <![CDATA[
 <resource
-    path=".*\.jar"
+    path="*.jar"
     outlet="libs"
     overwrite="false"/> 
      ]]></source>
