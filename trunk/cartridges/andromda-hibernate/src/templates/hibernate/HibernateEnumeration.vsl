@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
 $enumeration.getDocumentation(" * ")
@@ -27,6 +29,7 @@ public final class $enumeration.name
      * A map holding all the enumeration instances, mapped by their value.
      */
     private static final Map INSTANCES = new HashMap();
+    private static final List LITERALS = new ArrayList();
 
 #foreach ($literal in $enumeration.literals)
     /**
@@ -41,6 +44,7 @@ $literal.getDocumentation("     * ")
 #foreach ($literal in $enumeration.literals)
         INSTANCES.put(${literal.name}.enumCode, ${literal.name});
 #end
+        LITERALS.addAll(INSTANCES.values());
     }
 
     private static final int[] SQL_TYPES = {Types.VARCHAR};
@@ -144,5 +148,15 @@ $literal.getDocumentation("     * ")
         {
             statement.setString(index, value.toString());
         }
+    }
+
+    /**
+     * Returns a list containing the literals that are known by this enumeration.
+     *
+     * @return A List containing the actual literals as defined by this enumeration
+     */
+    public static List literals()
+    {
+        return LITERALS;
     }
 }
