@@ -3,7 +3,8 @@
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:util="jelly:util"
-         xmlns:maven="jelly:maven">
+         xmlns:maven="jelly:maven"
+         xmlns:velocity="jelly:velocity">
 
     <!-- ===================================================================
          Runs the translator tests                         
@@ -346,6 +347,10 @@ Please define the location of your model by setting a value for property "maven.
 	    <j:file name="${pomFile}" trim="false">
 	        <j:import file="${plugin.resources}/templates/translation-library-pom.jelly" inherit="true"/>
 	    </j:file>
+	    
+	    <ant:copy 
+	    	file="${plugin.resources}/templates/project.properties" 
+	    	todir="${pomDir}"/>
 
 	</goal>
 	
