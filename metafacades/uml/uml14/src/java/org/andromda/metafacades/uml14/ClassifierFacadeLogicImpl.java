@@ -372,14 +372,16 @@ public class ClassifierFacadeLogicImpl
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
     }
-
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getJavaNullString()
+     */
     public String handleGetJavaNullString()
     {
         String javaNullString = null;
-        final String typeName = getFullyQualifiedName(false);
         if (isPrimitive())
         {
-            if ("boolean".equals(typeName) || "java.lang.Boolean".equals(typeName))
+            if (UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.BOOLEAN_TYPE_NAME))
             {
                 javaNullString = "false";
             }
