@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
@@ -13,6 +14,7 @@ import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -150,21 +152,21 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getAttributesAsList(boolean,
+     * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean,
      *      boolean)
      */
-    public String handleGetAttributesAsList(
+    public String handleGetOperationCallFromAttributes(
         boolean withTypeNames,
         boolean withIdentifiers)
     {
-        return this.getAttributesAsList(withTypeNames, withIdentifiers, false);
+        return this.getOperationCallFromAttributes(withTypeNames, withIdentifiers, false);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getAttributesAsList(boolean,
+     * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean,
      *      boolean, boolean)
      */
-    public String handleGetAttributesAsList(
+    public String handleGetOperationCallFromAttributes(
         boolean withTypeNames,
         boolean withIdentifiers,
         boolean follow)
@@ -305,6 +307,75 @@ public class EntityFacadeLogicImpl
                     .hasStereotype(UMLProfile.STEREOTYPE_ENTITY_REF);
             }
         };
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredAttributes(boolean)
+     */    
+    public Collection handleGetRequiredAttributes(boolean follow)
+    {
+        final Collection attributes = this.getAttributes();
+        if (follow)
+        {
+            CollectionUtils.forAllDo(
+                this.getAllGeneralizations(),    
+                new Closure()
+                {
+                    public void execute(Object object)
+                    {
+                        attributes.addAll(((ClassifierFacade)object).getAttributes());
+                    }
+                });
+        }
+        CollectionUtils.filter(
+            attributes,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return ((AttributeFacade)object).isRequired();
+                }
+            });
+        return attributes;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getRequiredProperties(boolean)
+     */    
+    public Collection handleGetRequiredProperties(boolean follow)
+    {
+        final Collection properties = this.getProperties();
+        if (follow)
+        {
+            CollectionUtils.forAllDo(
+                this.getAllGeneralizations(),    
+                new Closure()
+                {
+                    public void execute(Object object)
+                    {
+                        properties.addAll(((ClassifierFacade)object).getProperties());
+                    }
+                });
+        }
+        CollectionUtils.filter(
+            properties,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean required = false;
+                    if (AttributeFacade.class.isAssignableFrom(object.getClass()))
+                    {
+                        required = ((AttributeFacade)object).isRequired();
+                    }
+                    else if (AssociationEndFacade.class.isAssignableFrom(object.getClass()))
+                    {
+                        required = ((AssociationEndFacade)object).isRequired();
+                    }
+                    return required;
+                }
+            });
+        return properties;
     }
     
     /**
