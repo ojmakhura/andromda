@@ -80,8 +80,19 @@ public class MetafacadeBase
      * </p>
      */
     protected void handleInvariants(Collection messages)
-    {}
+    {
+    }
 
+    /**
+     * A lifecycle method, providing the ability for 
+     * sub classes to take any action after the factory has 
+     * completely initialized a metafacade, but before it has
+     * been validated for completeness.
+     */
+    protected void preValidation()
+    {
+    }
+    
     /**
      * Returns a collection of facades for a collection
      * of metaobjects. Contacts the MetafacadeFactory to manufacture

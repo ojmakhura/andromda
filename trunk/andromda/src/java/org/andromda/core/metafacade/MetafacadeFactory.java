@@ -253,6 +253,9 @@ public class MetafacadeFactory
 	                    metafacade,
 	                    mapping.getPropertyReferences());
 	            } 
+	            
+	            metafacade.preValidation();
+	            
                 // validate the meta-facade and collect the messages
                 Collection validationMessages = new ArrayList();
 	            metafacade.validate(validationMessages);
