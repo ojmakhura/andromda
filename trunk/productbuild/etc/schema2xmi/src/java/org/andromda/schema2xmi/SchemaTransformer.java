@@ -27,6 +27,7 @@ import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.Stereotype;
 import org.omg.uml.foundation.core.TagDefinition;
 import org.omg.uml.foundation.core.TaggedValue;
 import org.omg.uml.foundation.core.UmlAssociation;
@@ -106,6 +107,16 @@ public class SchemaTransformer
      * classes, attributes and associationEnds.
      */
     private boolean includeTaggedValues = true;
+    
+    /**
+     * Specifies the Class stereotype.
+     */
+    private String classStereotypes = null;
+    
+    /**
+     * Specifies the identifier stereotype.
+     */
+    private String identifierStereotypes = null;
 
     /**
      * Constructs a new instance of this SchemaTransformer.
@@ -184,11 +195,11 @@ public class SchemaTransformer
         {
             DbUtils.closeQuietly(connection);
             repository.close();
-            logger.info("Completed adding " 
-                + this.classes.size() 
-                + " classes, TIME --> "
-                + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"); 
         }
+        logger.info("Completed adding " 
+            + this.classes.size() 
+            + " classes, TIME --> "
+            + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"); 
     }
 
     /**
@@ -236,6 +247,26 @@ public class SchemaTransformer
     public void setIncludeTaggedValues(boolean includeTaggedValues)
     {
         this.includeTaggedValues = includeTaggedValues;
+    }
+    
+    /**
+     * Sets the stereotype name for the new classes.
+     * 
+     * @param classStereotypes The classStereotypes to set.
+     */
+    public void setClassStereotypes(String classStereotype)
+    {
+        this.classStereotypes = classStereotype;
+    }
+    
+    /**
+     * Sets the stereotype name for the identifiers on the new classes.
+     * 
+     * @param identifierStereotypes The identifierStereotypes to set.
+     */
+    public void setIdentifierStereotypes(String identifierStereotype)
+    {
+        this.identifierStereotypes = identifierStereotype;
     }
 
     /**
@@ -287,23 +318,26 @@ public class SchemaTransformer
         org.omg.uml.modelmanagement.UmlPackage modelPackage)
     {
         this.packageName = StringUtils.trimToEmpty(this.packageName);
-        String[] packages = this.packageName
-            .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
-        if (packages != null && packages.length > 0)
+        if (StringUtils.isNotEmpty(packageName))
         {
-            for (int ctr = 0; ctr < packages.length; ctr++)
-            {
-                org.omg.uml.modelmanagement.UmlPackage umlPackage = modelManagementPackage
-                    .getUmlPackage().createUmlPackage(
-                        packages[ctr],
-                        VisibilityKindEnum.VK_PUBLIC,
-                        false,
-                        false,
-                        false,
-                        false);
-                modelPackage.getOwnedElement().add(umlPackage);
-                modelPackage = umlPackage;
-            }
+	        String[] packages = this.packageName
+	            .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
+	        if (packages != null && packages.length > 0)
+	        {
+	            for (int ctr = 0; ctr < packages.length; ctr++)
+	            {
+	                org.omg.uml.modelmanagement.UmlPackage umlPackage = modelManagementPackage
+	                    .getUmlPackage().createUmlPackage(
+	                        packages[ctr],
+	                        VisibilityKindEnum.VK_PUBLIC,
+	                        false,
+	                        false,
+	                        false,
+	                        false);
+	                modelPackage.getOwnedElement().add(umlPackage);
+	                modelPackage = umlPackage;
+	            }
+	        }
         }
         return modelPackage;
     }
@@ -405,6 +439,11 @@ public class SchemaTransformer
             false,
             false,
             false);
+        
+        umlClass.getStereotype().addAll(
+            this.findOrCreateStereotypes(
+                corePackage, 
+                this.classStereotypes));
 
         if (this.includeTaggedValues)
         {
@@ -418,6 +457,7 @@ public class SchemaTransformer
                 umlClass.getTaggedValue().add(taggedValue);
             }
         }
+        
         return umlClass;
     }
 
@@ -655,7 +695,7 @@ public class SchemaTransformer
      * 
      * @param name the name of the tagged value to create.
      * @param value the value to populate on the tagged value.
-     * @return returns the found TaggedValue
+     * @return returns the new TaggedValue
      */
     protected TaggedValue createTaggedValue(
         CorePackage corePackage,
@@ -680,6 +720,50 @@ public class SchemaTransformer
             taggedValue.setType((TagDefinition)tagDefinition);
         }
         return taggedValue;
+    }
+    
+    /**
+     * Finds or creates a stereotypes given the 
+     * specfied comma seperated list of <code>names</code>.  
+     * If any of the stereotypes can't be found, they will be created.
+     * 
+     * @param names comma seperated list of stereotype names
+     * @return Collection of Stereotypes
+     */
+    protected Collection findOrCreateStereotypes(
+        CorePackage corePackage,
+        String names)
+    {
+        Collection stereotypes = new HashSet();
+        String stereotypeNames[] = names.split(",");
+        if (stereotypeNames != null && stereotypeNames.length > 0) 
+        {
+            for (int ctr = 0; ctr < stereotypeNames.length; ctr++)
+            {
+                String name = StringUtils.trimToEmpty(stereotypeNames[ctr]);
+		        // see if we can find the stereotype first
+		        Object stereotype = ModelElementFinder.find(this.umlPackage, name);
+		        if (stereotype == null
+		            || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
+		        {
+		            Collection baseClasses = new ArrayList();
+		            baseClasses.add("Class");
+		            stereotype = 
+		                corePackage.getStereotype().createStereotype(
+		                    name,
+		                    VisibilityKindEnum.VK_PUBLIC,
+		                    false,
+		                    false,
+		                    false,
+		                    false,
+		                    null,
+		                    baseClasses);
+		            this.model.getOwnedElement().add(stereotype);
+		        }
+		        stereotypes.add(stereotype);
+            }
+        }
+        return stereotypes;
     }
 
     /**
