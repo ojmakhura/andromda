@@ -54,7 +54,7 @@
     <!-- ==================================================================
                Clean
          ================================================================== -->
-    <goal name="clean" prereqs="initialize">
+    <goal name="clean">
         <j:set var="maven.multiproject.includes" value="${clean.includes}"/>
         <attainGoal name="multiproject:clean"/>
         <attainGoal name="clean:clean"/>
