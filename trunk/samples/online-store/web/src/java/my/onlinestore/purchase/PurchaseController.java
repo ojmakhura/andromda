@@ -1,6 +1,7 @@
 package my.onlinestore.purchase;
 
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +9,12 @@ import java.util.List;
 import java.util.LinkedList;
 import java.io.Serializable;
 
+/**
+ * This controller manages the operations of the 'Purchase' use-case. It is not implemented, this is what is generated
+ * by AndroMDA.
+ *
+ * @author <a href="mailto:draftdog@users.sourceforge.net">Wouter Zoons</a>
+ */
 public class PurchaseController implements PurchaseControllerInterface
 {
     private static PurchaseController instance = null;
@@ -53,7 +60,7 @@ public class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void addItemsToBasket(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public void addItemsToBasket(Action action, ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
     {
 
         /*
@@ -70,7 +77,7 @@ public class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void closeUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public void closeUserSession(Action action, ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
     {
 
         /*
@@ -87,7 +94,7 @@ public class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void loadItems(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public void loadItems(Action action, ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
     {
 
         /*
@@ -104,7 +111,7 @@ public class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void openUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public void openUserSession(Action action, ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
     {
 
         /*
@@ -121,7 +128,7 @@ public class PurchaseController implements PurchaseControllerInterface
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
-    public void prepareForShipping(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    public void prepareForShipping(Action action, ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
     {
 
         /*
@@ -155,7 +162,7 @@ public class PurchaseController implements PurchaseControllerInterface
         form.setItemListBackingList(dummyItemList.toArray());
     }
 
-    public class DummyItem implements Serializable
+    public final class DummyItem implements Serializable
     {
         private String id = null;
         private String name = null;
