@@ -1,0 +1,82 @@
+################################################################
+## Property definitions for use in EJB templates              ##
+################################################################
+##
+## This file defines the following properties:
+##
+## $packagename
+##   the name of the package for the current class
+##
+## $entityname
+##   the (unqualified) name of the entity, as defined in the UML model.
+##   Empty if the current class is a <<Service>>
+##
+## $servicename
+##   the (unqualified) name of the service, as defined in the UML model
+##   Empty if the current class is an <<Entity>>
+##
+## $servicetype
+##   the Session bean type. If the service class has non-static attributes,
+##   this is "Stateful", else it is "Stateless"
+##   Empty if the current class is an <<Entity>>
+##
+## $pkclassname
+##    the fully qualified name of the primary key class for this entity.
+##    If this entity or any of its super classes has a dependency stereotyped
+##    <<PrimaryKey>>, $pkclassname is set to the name of the supplier for this
+##    dependency. Otherwise, if there is an attribute stereotyped <<PrimaryKey>>,
+##    $pkclassname is the name of this attributes type. If neither a PK dependency
+##    nor a PK attribute exists, the primary key class defaults to 
+##    "java.lang.String"
+##    Empty if the current class is a <<Service>>
+##
+## $pkfieldname
+##    set to the name of the attribute stereotyped <<PrimaryKey>> if the primary
+##    key class has been defined from such an attribute. If not, this property
+##    is not set.
+##    Empty if the current class is a <<Service>>
+##
+## $beanparentclass
+##    the fully qualified classname of the parent class for the generated
+##    bean class. If this entity has a parent class in the UML model, this is
+##    either the name of the parent class or - if the parent class itself is
+##    sterotyped <<Entity>> or <<Service>> - the name of the corresponding 
+##    implementation class If no parent class is specified in the UML model, 
+##    this value defaults to 'java.lang.Object'
+##  
+#set ($packagename = $transform.findPackageName(${class.package}))
+#if ($transform.getStereotype($class.id) == "Entity")
+#set ($entityname = $class.name)
+#set ($pkclassname = $transform.findPkTypeName($class, "java.lang.String"))
+#end
+#if ($transform.getStereotype($class.id) == "Service")
+#set ($servicename = $class.name)
+#if (${transform.getAllInstanceAttributes(${class.id}).isEmpty()})
+#set ($servicetype = "Stateless")
+#else 
+#set ($servicetype = "Stateful")
+#end
+#end
+## 
+## Find the default exception class
+#foreach ( $dep in $class.dependencies )
+#set ($class2 = $transform.findClassById($dep.targetType))
+#if ($transform.getStereotype($dep.id) == "Exception")
+#set ($defaultException = $class2)
+#end
+#end
+##
+## Set the "$beanparentclass" property.
+#set ($myClass = $transform.getGeneralization($class.id))
+#if ($myClass)
+#set ($myStereotype = $transform.getStereotype($myClass))
+#if ( $myStereotype == "Entity" || $myStereotype == "Service" )
+## Extend the implementation class if the super type is an <<Entity>> or <<Service>>
+#set ($beanparentclass = "${transform.findFullyQualifiedName($myClass)}BeanImpl")
+#else
+#set ($beanparentclass = ${transform.findFullyQualifiedName($myClass)})
+#end
+#else
+#set ($beanparentclass = 'java.lang.Object')
+#end
+##
