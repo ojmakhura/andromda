@@ -18,10 +18,10 @@
             </p>
 	      	<table>
 	        	<tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
+		          	<th>Property</th>
+		          	<th>Description</th>
                     <th>Configures</th>
-		          	<th>Required?</th>	   	 
+		          	<th>Required?</th>
 	        	</tr>
 	        	<tr>
 		          	<td>
@@ -36,14 +36,14 @@
                     </td>
 		          	<td>
 		          		Yes
-		          	</td>		          	
-	        	</tr>		
+		          	</td>
+	        	</tr>
 	        	<tr>
 		          	<td>
 		          		wrapperMappingsUri
 		          	</td>
 		          	<td>
-		          		URI specifying primitive type to wrapper types (i.e. 
+		          		URI specifying primitive type to wrapper types (i.e.
                         <code>int</code> -> <code>java.lang.Integer</code>)
 		          		(i.e. <code>file:${basedir}/JavaWrapperMappings.xml</code>)
 		          	</td>
@@ -52,8 +52,8 @@
                     </td>
 		          	<td>
 		          		Yes
-		          	</td>		          	
-	        	</tr>	
+		          	</td>
+	        	</tr>
 	        	<tr>
 		          	<td>
 		          		sqlMappingsUri
@@ -61,15 +61,15 @@
 		          	<td>
 		          		URI specifying the mappings file to use for mapping from model types to SQL types 
 		          		for generated entities. 
-		          		(i.e. <code>file:${basedir}/Oracle9iMappings.xml</code>). 
+		          		(i.e. <code>file:${basedir}/Oracle9iMappings.xml</code>).
 		          	</td>
                     <td>
                         EntityFacade
                     </td>
 		          	<td>
 		          		Yes
-		          	</td>			          	
-	        	</tr>		     
+		          	</td>
+	        	</tr>
                 <tr>
                     <td>
                         sqlNameSeparator
@@ -86,22 +86,22 @@
                     <td>
                         No, default is <code>'_'</code>.
                     </td>
-                </tr>   	  
+                </tr>
 	        	<tr>
 		          	<td>
 		          		jdbcMappingsUri
 		          	</td>
 		          	<td>
 		          		URI specifying the mappings file to use for mapping from model types to JDBC types 
-		          		in the generated Entities (i.e. <code>file:${basedir}/JdbcMappings.xml</code>).  
+		          		in the generated Entities (i.e. <code>file:${basedir}/JdbcMappings.xml</code>).
 		          	</td>
                     <td>
                         EntityFacade
                     </td>
 		          	<td>
 		          		Yes
-		          	</td>			          	
-	        	</tr>	
+		          	</td>
+	        	</tr>
 	        	<tr>
 	        		<td>
 	        			maxSqlNameLength
@@ -110,7 +110,7 @@
 	        			The maximum length that a SQL name (such as a column name or 
 	        			table name) may be.  This is useful for databases that have a limit
 	        			on the lengh that a name used in DDL may be (like Oracle).  If you set 
-	        			this to <code>30</code> for example, then all names will be truncated 
+	        			this to <code>30</code> for example, then all names will be truncated
 	        			after 30 characters when retrieveing the column name or table name.
 	        		</td>
                     <td>
@@ -127,7 +127,7 @@
                     <td>
                         The prefix to give all persistent entity table names.  For example
                         if you had an entity named <em>Car</em> and you defined the tableNamePrefix
-                        as <em>My_</em>, then the table name for the <em>Car</em> entity would be 
+                        as <em>My_</em>, then the table name for the <em>Car</em> entity would be
                         <em>My_Car</em>.
                     </td>
                     <td>
@@ -151,6 +151,22 @@
                         No, default is <code>_FK</code>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        constraintSuffix
+                    </td>
+                    <td>
+                        The suffix to use when creating constraints such as for entity associations.
+                        This is appended to the <code>foreignKeySuffix</code> suffix for foreign
+                        key constraint names.
+                     </td>
+                    <td>
+                        EntityAssociationEndFacade
+                    </td>
+                    <td>
+                         No, default is <code>C</code>
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						allowDefaultIdentifiers
@@ -158,7 +174,7 @@
 					<td>
 						Specifies whether or not default identifiers should
 						be created for entities that do not have them 
-						modeled.  
+						modeled.
 					</td>
                     <td>
                         EntityFacade
@@ -166,7 +182,7 @@
 					<td>
 						No, default is <code>true</code>.
 					</td>
-				</tr> 	
+				</tr>
 				<tr>
 					<td>
 						defaultIdentifier
@@ -180,7 +196,7 @@
 					<td>
 						No, default is <code>id</code>.
 					</td>
-				</tr> 	
+				</tr>
 				<tr>
                     <a name="defaultIdentifierType"/>
 					<td>
@@ -195,7 +211,7 @@
 					<td>
 						No, default is <code>datatype.Long</code>.
 					</td>
-				</tr> 	
+				</tr>
 				<tr>
 					<td>
 						defaultIdentifierVisibility
@@ -209,7 +225,7 @@
 					<td>
 						No, default is <code>public</code>.
 					</td>
-				</tr> 		
+				</tr>
 	        	<tr>
 	        		<td>
 	        			enumerationSuffix
@@ -217,8 +233,8 @@
 	        		<td>
 	        			The suffix given to persistent enumeration names.  For example
                         if you had a modeled enumeration named <em>Color</em> and the enumerationSuffix
-                        was set to <em>Enum</em> the persistent enumeration name would then 
-                        be <em>ColorEnum</em>. 
+                        was set to <em>Enum</em> the persistent enumeration name would then
+                        be <em>ColorEnum</em>.
 	        		</td>
                     <td>
                         EntityFacade
@@ -242,7 +258,7 @@
                     <td>
                         No, default is <code>true</code>.
                     </td>
-                </tr>  
+                </tr>
                 <tr>
                     <td>
                         roleNameMask
@@ -251,8 +267,8 @@
                         Provides the ability to apply a mask to role names (roles are actors
                         marked with the role stereotype:
                         currently these are <strong>uppercase</strong>, <strong>lowercase</strong>,
-                        <strong>nospace</strong>, <strong>camelcase</strong>, 
-                        and <strong>none</strong>.                        
+                        <strong>nospace</strong>, <strong>camelcase</strong>,
+                        and <strong>none</strong>.
                     </td>
                     <td>
                         RoleFacade
@@ -260,7 +276,7 @@
                     <td>
                         No, the default is <code>none</code>.
                     </td>
-                </tr>     
+                </tr>
                 <tr>
                     <td>
                         namespaceSeparator
@@ -276,7 +292,7 @@
                     <td>
                         No, the default is <code>'.'</code>.
                     </td>
-                </tr> 	
+                </tr>
                 <tr>
                     <td>
                         relationNameSeparator

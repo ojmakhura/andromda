@@ -45,6 +45,11 @@ public class UMLMetafacadeProperties
     public static final String FOREIGN_KEY_SUFFIX = "foreignKeySuffix";
 
     /**
+     * The default suffix to use for foreign keys.
+     */
+    public static final String CONSTRAINT_SUFFIX = "constraintSuffix";
+
+    /**
      * The mask to apply to role names (lowercase, uppercase, camelcase,
      * nospace, none).
      */
