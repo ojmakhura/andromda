@@ -216,6 +216,19 @@
                     </td>
                 </tr>
                 <tr>
+                    <a name="compositionDefinesEagerLoading"/>
+                    <td>
+                        compositionDefinesEagerLoading
+                    </td>
+                    <td>
+                        Allows you to turn on/off whether or not composite associations
+                        will define eager loading.  
+                    </td>
+                    <td>
+                        No, default is <code>true</code>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         customTypesPackage
                     </td>

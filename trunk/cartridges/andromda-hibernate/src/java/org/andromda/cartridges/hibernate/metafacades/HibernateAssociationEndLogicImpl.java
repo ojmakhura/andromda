@@ -68,15 +68,29 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
+     * Stores the property indicating whether or not composition should define
+     * the eager loading strategy.
+     */
+    private static final String COMPOSITION_DEFINES_EAGER_LOADING = "compositionDefinesEagerLoading";
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
      */
     protected boolean handleIsLazy()
     {
         String lazyString = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
-        boolean lazy;
+        boolean lazy = true;
         if (lazyString == null)
         {
-            lazy = !this.getOtherEnd().isComposition();
+            // check whether or not composition defines eager loading is turned on
+            boolean compositionDefinesEagerLoading = Boolean.valueOf(
+                String.valueOf(this
+                    .getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)))
+                .booleanValue();
+            if (compositionDefinesEagerLoading)
+            {
+                lazy = !this.getOtherEnd().isComposition();
+            }
         }
         else
         {
@@ -121,10 +135,10 @@ public class HibernateAssociationEndLogicImpl
         {
             HibernateEntity entity = (HibernateEntity)type;
             final String defaultCascade = entity.getHibernateDefaultCascade();
-            if (defaultCascade.equalsIgnoreCase(
-                    HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
-                || defaultCascade.equalsIgnoreCase(
-                    HibernateGlobals.HIBERNATE_CASCADE_ALL))
+            if (defaultCascade
+                .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
+                || defaultCascade
+                    .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_ALL))
             {
                 if (this.getOtherEnd().isMany())
                 {
@@ -150,8 +164,8 @@ public class HibernateAssociationEndLogicImpl
         if (inverse)
         {
             inverse = this.isMany2One();
-            // for many-to-many we just put the flag on the side that 
-            // has the lexically longer fully qualified name for 
+            // for many-to-many we just put the flag on the side that
+            // has the lexically longer fully qualified name for
             // it's type
             if (this.isMany2Many() && !inverse)
             {

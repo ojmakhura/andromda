@@ -103,7 +103,7 @@ public class HibernateProfile
     public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE = profile.get("HIBERNATE_EHCACHE_TIME_TO_LIVE");
 
     /**
-     * Defines if elements can overflow to disk
+     * Defines if elements can overflow to disk.
      */
     public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = profile.get("HIBERNATE_EHCACHE_OVERFLOW_TO_DISK");
 
