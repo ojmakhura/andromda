@@ -1,8 +1,12 @@
 <project>
     <extend>../../project.xml</extend>
-    <pomVersion>3</pomVersion>
     <name>AndroMDA Profile</name>
     <artifactId>andromda-profile</artifactId>
     <package>org.andromda.project</package>
     <shortDescription>The AndoMDA profile for models.</shortDescription>
+    <description>
+        This profile should be imported as a model when possible so
+        that all AndroMDA stereotypes, tagged values and datatypes
+        can be used.
+    </description>
 </project>
