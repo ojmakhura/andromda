@@ -19,7 +19,7 @@ import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.OutputUtils;
+import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.Property;
 import org.andromda.core.common.ResourceUtils;
@@ -414,12 +414,8 @@ public class Cartridge
                 boolean writeOutputFile = !outFile.exists()
                     || template.isOverwrite();
 
-                long modelLastModified = context.getLastModified();
-
                 // only process files that have changed
-                if (writeOutputFile
-                    && (!context.isLastModifiedCheck() || modelLastModified > outFile
-                        .lastModified()))
+                if (writeOutputFile)
                 {
                     String outputString = output.toString();
 
@@ -429,7 +425,9 @@ public class Cartridge
                     if (StringUtils.isNotBlank(outputString)
                         || template.isGenerateEmptyFiles())
                     {
-                        OutputUtils.writeStringToFile(outputString, outFile);
+                        ResourceWriter.instance().writeStringToFile(
+                            outputString,
+                            outFile);
                         AndroMDALogger
                             .info("Output: '" + outFile.toURI() + "'");
                     }
@@ -542,7 +540,9 @@ public class Cartridge
                 {
                     uriSuffix
                 }, new File(outletLocation));
-                OutputUtils.writeUrlToFile(resourceUrl, outFile.toString());
+                ResourceWriter.instance().writeUrlToFile(
+                    resourceUrl,
+                    outFile.toString());
                 AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
             }
         }

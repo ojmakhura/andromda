@@ -57,6 +57,9 @@
             <groupId>picocontainer</groupId>
             <artifactId>picocontainer</artifactId>
             <version>1.0</version>
+            <properties>
+                <classloader>root</classloader>
+            </properties>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>

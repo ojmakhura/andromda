@@ -13,30 +13,14 @@ import org.andromda.core.repository.RepositoryFacade;
 public class CodeGenerationContext
 {
     private RepositoryFacade repository = null;
-    long lastModified;
-    private boolean lastModifiedCheck = false;
     private ModelPackages modelPackages;
 
     public CodeGenerationContext(
         RepositoryFacade repository,
-        long lastModified,
-        boolean lastModifiedCheck,
         ModelPackages modelPackages)
     {
         this.repository = repository;
-        this.lastModified = lastModified;
-        this.lastModifiedCheck = lastModifiedCheck;
         this.modelPackages = modelPackages;
-    }
-
-    /**
-     * Gets <code>lastModified</code> for this context.
-     * 
-     * @return RepositoryFacade
-     */
-    public long getLastModified()
-    {
-        return this.lastModified;
     }
 
     /**
@@ -47,16 +31,6 @@ public class CodeGenerationContext
     public ModelAccessFacade getModelFacade()
     {
         return this.repository.getModel();
-    }
-
-    /**
-     * Returns the lastModifiedCheck.
-     * 
-     * @return boolean
-     */
-    public boolean isLastModifiedCheck()
-    {
-        return lastModifiedCheck;
     }
 
     /**
