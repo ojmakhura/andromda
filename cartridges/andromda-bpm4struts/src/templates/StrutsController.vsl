@@ -24,19 +24,20 @@ public class ${controller.name}Impl extends ${controller.name}
 #if (!$returnType)
 #set ($returnType = "void")
 #end
+#foreach ($action in $operation.deferringActions)
     /**
 $operation.getDocumentation("     * ")
      */
-    $visibility final $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    $visibility final $returnType ${operation.name}(ActionMapping mapping, $action.formBeanType form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #set($allowDummyData = ($dummyData == 'true'))
 #if ($allowDummyData)
-#set ($formFields = $operation.formFields)
+#set ($formFields = $action.actionFormFields)
 #if ($formFields.empty)
         // nothing to be done for this operation, there are no properties that can be set
 #else
         // all properties receive a default value, just to have the application running properly
-#foreach ($field in $operation.formFields)
+#foreach ($field in $formFields)
 #if ($field.table)
         form.${field.setterName}(${field.name}DummyList);
 #elseif ($field.date)
@@ -66,9 +67,10 @@ $operation.getDocumentation("     * ")
 #set ($returnType = false)
 
 #end
+#end
 ## here we populate tabular data with dummy values
 #set ($quote = '"')
-#foreach ($field in $useCase.formFields)
+#foreach ($field in $useCase.pageVariables)
 #if ($field.table)
     private final java.util.Collection ${field.name}DummyList =
         java.util.Arrays.asList( new Object[] {
