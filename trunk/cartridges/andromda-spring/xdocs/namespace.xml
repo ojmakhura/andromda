@@ -111,10 +111,7 @@
                     </td>
                     <td>
                         The name to give the class that stores the <code>java.security.Principal</code>
-                        that is made available to the spring POJOs. <strong>Note:</strong> 
-                        that this class will not be needed if you're wrapping your 
-                        spring service POJOs with Session EJBs (i.e. using the 
-                        <a href="#session-ejbs">session-ejbs</a> property).
+                        that is made available to the spring POJOs. 
                     </td>
                     <td>
                         No, default is <code>PrincipalStore</code>.
