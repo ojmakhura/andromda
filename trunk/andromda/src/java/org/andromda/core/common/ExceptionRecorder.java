@@ -125,7 +125,7 @@ public class ExceptionRecorder
             writer.println("Root Exception --> " + cause);
             cause.printStackTrace(writer);
             writer.close();
-            AndroMDALogger.info("Exception recorded in --> '" + result + "'");
+            AndroMDALogger.error("Exception recorded in --> '" + result + "'");
         }
         catch (Throwable th)
         {
