@@ -3,6 +3,7 @@ package org.andromda.translation.validation;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Dynamically invokes operation and property calls
@@ -13,6 +14,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class OCLIntrospector
 {
+    
+    private static final Logger logger = Logger.getLogger(OCLIntrospector.class);
     
     /**
      * Used to match on operation feature patterns, which
@@ -41,6 +44,9 @@ public class OCLIntrospector
         }
         catch (Throwable th)
         {
+            final String errMsg = "Error invoking feature '" 
+                + feature + "' on element '" + element + "'";
+            logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
     }
@@ -64,6 +70,11 @@ public class OCLIntrospector
         }
         catch (Throwable th)
         {
+            final String errMsg = "Error invoking feature '" 
+                + feature + "' on element '" + element 
+                + "' with arguments '" 
+                + StringUtils.join(arguments, ',') + "'";
+            logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
     }
