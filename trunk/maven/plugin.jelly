@@ -27,31 +27,20 @@
 			<ant:property name="mavenDependencyClasspath" refid="maven.dependency.classpath"/>
 			<j:set var="mavenDependencyPath" value="${mavenDependencyClasspath}"/>
 			<j:set var="pluginDependencyPath" value="${plugin.dependencyClasspath}"/>
-            <j:forEach var="artifact" items="${artifacts}">           	
+            <j:forEach var="artifact" items="${artifacts}" varStatus="index">           	
             	<j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
             	<j:set var="artifactId" value="${pluginUtils.getArtifactId(artifact)}"/>
             	<j:set var="groupId" value="${pluginUtils.getGroupId(artifact)}"/>
             	
-            	<j:set var="artifactDirLocation" value="${maven.repo.local}/${groupId}/jars"/>
-            	<j:set var="artifactLocation" value="${artifactDirLocation}/${artifactId}-${version}.jar"/>		
+            	<j:set var="artifactDirLocation" value="${maven.repo.local}/${groupId}/jars"/>	
 				<j:choose>
 					<j:set 
-						var="bootstrapArtifactName" 
+						var="artifactName" 
 						value="${artifactId}-bootstrap-${version}.jar"/>
+					<j:set var="artifactLocation" value="${artifactDirLocation}/${artifactName}"/>	
 					<j:when test="${bootstrapMode}">
-						<!-- make sure we get the bootstrap version since it isn't
-							 a normal maven dependency (but only try to download 
-							 if we are online) -->
-						<j:if test="${context.online}">
-							<ant:get 
-								dest="${artifactDirLocation}/${bootstrapArtifactName}" 
-								usetimestamp="true" 
-								ignoreerrors="true" 
-								src="${maven.andromda.bootstrap.repos}/${groupId}/jars/${bootstrapArtifactName}"/>
-					    </j:if>
 						<ant:pathelement 
-							location="${artifactDirLocation}/${bootstrapArtifactName}"/>
-						
+							location="${artifactDirLocation}/${artifactName}"/>
 						<!-- remove any non-bootstrap versions of bootstrap dependencies found 
 							 in the plugin dependency classpath -->
 						<j:set 
@@ -62,11 +51,34 @@
 							value="${pluginUtils.removeFromPath(mavenDependencyPath, artifactLocation)}"/>
 					</j:when>
 					<j:otherwise>
-						<ant:pathelement location="${artifactLocation}"/>
+            	        <j:set var="artifactName" value="${artifactId}-${version}.jar"/>
+						<ant:pathelement location="${artifactDirLocation}/${artifactName}"/>
 						<j:set var="pluginDependencyPath" value="${plugin.dependencyClasspath}"/>
 						<j:set var="mavenDependencyPath" value="${mavenDependencyClasspath}"/>
 					</j:otherwise>			
 				</j:choose>
+				<!-- make sure we get the artifact since it isn't
+					 a normal maven dependency (but only try to download 
+					 if we are online) -->
+				<j:if test="${context.online}">
+					<j:set 
+						var="remoteArtifact" 
+						value="${maven.andromda.bootstrap.repos}/${groupId}/jars/${artifactName}"/>
+					<ant:get 
+						dest="${artifactDirLocation}/${artifactName}" 
+						usetimestamp="true" 
+						ignoreerrors="true" 
+						src="${remoteArtifact}"/>
+					<j:set var="artifactAvailable" value="artifactAvailable${index}"/>
+					<ant:available
+						property="artifactAvailable"
+						file="${artifactDirLocation}/${artifactName}"/>
+					<j:if test="${artifactAvailable == null}">
+						<ant:fail>
+							<ant:echo>Failed to download artifact: '${remoteArtifact}'</ant:echo>
+						</ant:fail>
+					</j:if>
+				</j:if>
 			</j:forEach>	
 			<ant:pathelement path="${mavenDependencyPath}"/> 
 			<ant:pathelement path="${pluginDependencyPath}"/> 
