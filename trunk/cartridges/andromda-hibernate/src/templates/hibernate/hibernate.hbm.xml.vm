@@ -34,10 +34,10 @@
 #if ($otherEnd.navigable || ($sourceEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($sourceEnd.one2One)
 #if ($sourceEnd.one2OneSecondary)
-        <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end constrained="false"/>
+        <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" unique="true" not-null="$otherEnd.required"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" unique="true" not-null="$otherEnd.required"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #else
@@ -46,7 +46,7 @@
 #end
 #end
 #if ($sourceEnd.one2Many)
-        <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
 #if(($hibernateEnableCache == "true") && ($hibernateEnableAssociationsCache == "true"))
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
@@ -56,11 +56,11 @@
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </set>
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" not-null="$otherEnd.required"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" not-null="$otherEnd.required"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$otherEnd.columnName" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$otherEnd.columnName" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
             <key>
                 <column name="$sourceEnd.columnName"/>
             </key>

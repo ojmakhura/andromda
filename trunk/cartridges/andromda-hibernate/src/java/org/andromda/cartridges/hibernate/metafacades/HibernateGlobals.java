@@ -36,6 +36,11 @@ class HibernateGlobals
      * Represents the hibernate <code>all</code> cascade option.
      */
     static final String HIBERNATE_CASCADE_ALL = "all";
+    
+    /**
+     * Represents the hibernate <code>none</code> cascade option.
+     */
+    static final String HIBERNATE_CASCADE_NONE = "none";
 
     /**
      * The property used to specify the implementation operation name prefix (on
