@@ -180,10 +180,15 @@ public class StrutsForwardLogicImpl
         Map messages = null;
 
         String messageKey = getMessageKey();
-        if (messageKey != null)
+        if (messageKey == null)
+        {
+            messages = Collections.EMPTY_MAP;
+        }
+        else
         {
             messages = getMessages("success", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCES_MESSAGE);
         }
+
         return messages;
     }
 
@@ -192,7 +197,11 @@ public class StrutsForwardLogicImpl
         Map messages = null;
 
         String messageKey = getMessageKey();
-        if (messageKey != null)
+        if (messageKey == null)
+        {
+            messages = Collections.EMPTY_MAP;
+        }
+        else
         {
             messages = getMessages("warning", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
         }
