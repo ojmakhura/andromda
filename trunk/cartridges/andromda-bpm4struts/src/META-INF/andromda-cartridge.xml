@@ -3,6 +3,9 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
+    <!-- define template external properties -->
+    <property reference="securityEnabled"/>
+
     <template
         sheet="templates/StrutsAction.vsl"
         outputPattern="$generatedFile"
@@ -98,6 +101,16 @@
         outputPattern="application-resources.properties"
         outlet="messages"
         overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsCustomMessageResources.vsl"
+        outputPattern="custom-resources.properties"
+        outlet="messages"
+        overWrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>

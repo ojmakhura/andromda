@@ -237,7 +237,7 @@ public class MDRepositoryFacade implements RepositoryFacade
         String[] moduleSearchPath,
         MofPackage metaModel,
         MDRepository repository)
-        throws CreationFailedException, IOException, MalformedXMIException
+        throws CreationFailedException, IOException
     {
     	if (logger.isDebugEnabled())
     		logger.debug("creating model");

@@ -257,7 +257,9 @@ public class VelocityTemplateEngine implements TemplateEngine {
         while (appenders.hasMoreElements())
         {
             Appender appender = (Appender) appenders.nextElement();
-            appender.close();
+            if (appender.getName() != null) {
+                appender.close();
+            }
         }
     }
 

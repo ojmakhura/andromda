@@ -21,13 +21,9 @@ public class ClassUtils extends org.apache.commons.lang.ClassUtils {
 	 * @param className the name of the class to load.
 	 * @return Class the loaded class
 	 * @throws ClassNotFoundException if the class can not be found
-	 * @throws NoSuchFieldException if the className is a primative and its corresponding
-	 *         type field can not be retrieved.
-	 * @throws IllegalAccessException if the className is a primative and its corresponding
-	 *         type field is illegal accessed.
 	 */
 	public static Class loadClass(String className) 
-		throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+		throws ClassNotFoundException {
 		final String methodName = "ClassUtils.loadClass";
 		ExceptionUtils.checkEmpty(methodName, "className", className);
 		className = StringUtils.trimToNull(className);
@@ -60,12 +56,8 @@ public class ClassUtils extends org.apache.commons.lang.ClassUtils {
 	 *         corresponding java.lang wrapper class if
 	 *         <code>name</code> is a Java primitive type;
 	 *         <code>false</code> if not
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
 	 */
-	protected static Class getPrimitiveClass(String name, ClassLoader loader)
-		throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+	protected static Class getPrimitiveClass(String name, ClassLoader loader) {
 		final String methodName = "ClassUtils.getPrimitiveClass";
 		ExceptionUtils.checkEmpty(methodName, "name", name);
 		ExceptionUtils.checkNull(methodName, "loader", loader);

@@ -10,7 +10,8 @@
 #set ($triggerKey = $action.actionTrigger.triggerKey)
 #set ($parameters = $action.actionParameters)
 #set ($formBeanName = $action.activityGraph.useCase.formBeanName)
-#if ($roles != "")
+#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#if ($security)
 ${indent}<logic:present role="$roles">
 #end
 #set ($mapName = "$str.toJavaMethodName($triggerKey)Parameters")
@@ -45,7 +46,7 @@ ${indent}    </logic:iterate>
 #end
 #end
 ${indent}</table>
-#if ($roles != "")
+#if ($security)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
 ${indent}   <bean:message key="${action.messageKey}.$triggerKey"/>
@@ -62,7 +63,8 @@ ${indent}</logic:notPresent>
 #set ($messageKey = $action.messageKey)
 #set ($trigger = $action.actionTrigger)
 #set ($roles = $action.actionRoles)
-#if ($roles != "")
+#set ($security = ($securityEnabled=="true") && ($roles != "") )
+#if ($security)
 ${indent}<logic:present role="$roles">
 #end
 ${indent}   <html:submit titleKey="${messageKey}.$trigger.titleKey">
@@ -73,10 +75,8 @@ ${indent}   <html:reset titleKey="${messageKey}.$trigger.resetTitleKey">
 ${indent}       <bean:message key="${messageKey}.$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
-#if ($roles != "")
+#if ($security)
 ${indent}</logic:present>
-#end
-#if ($roles != "")
 ${indent}<logic:notPresent role="$roles">
 ${indent}   <html:submit titleKey="${messageKey}.$trigger.notAllowedTitleKey" disabled="true">
 ${indent}       <bean:message key="${messageKey}.$trigger.triggerKey"/>
@@ -222,6 +222,17 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 
     <body>
 
+        <%--
+
+            If you want your own custom messages to be displayed you do not need to edit
+            the custom.properties resource bundle.
+
+            These properties can be used like this:
+
+                <bean:message key="propertyKey" bundle="custom"/>
+
+        --%>
+
         <p><h2><bean:message key="$class.titleKey"/></h2></p>
 
         <logic:messagesPresent>
@@ -238,10 +249,10 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 
 #foreach ($variable in $class.pageVariables)
         <logic:present name="$variable.name" scope="page">
-            <bean:write name="$variable.name" scope="page"/>
+            <bean:write name="$variable.name" scope="page"/> <br/>
         </logic:present>
         <logic:notPresent name="$variable.name" scope="page">
-            Missing from request: $variable.name
+            Missing from request: $variable.name <br/>
         </logic:notPresent>
 #end
 
@@ -265,10 +276,15 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 #set ($firstFieldName = false)
 #end
 ## ----END---- it has been determined how to specify the focus field
-#if ($firstFieldName)
-        <html:form action="${action.actionPath}.do" focus="$firstFieldName" onsubmit="return ${action.formValidationMethodName}(this);">
+#if ($actionParameters.isEmpty())
+#set ($onsubmit = "")
 #else
-        <html:form action="${action.actionPath}.do" onsubmit="$action.formValidationMethodName" onsubmit="return ${action.formValidationMethodName}(this);">
+#set ($onsubmit = "return ${action.formValidationMethodName}(this);")
+#end
+#if ($firstFieldName)
+        <html:form action="${action.actionPath}.do" focus="$firstFieldName" onsubmit="$onsubmit">
+#else
+        <html:form action="${action.actionPath}.do" onsubmit="$action.formValidationMethodName" onsubmit="$onsubmit">
 #end
             <table cellpadding="5" cellspacing="5" border="0">
 #foreach ($field in $actionParameters)

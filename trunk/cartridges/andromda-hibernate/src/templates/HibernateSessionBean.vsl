@@ -51,7 +51,7 @@ $class.getDocumentation(" * ")
 #foreach ( $dep in $class.dependencies )
 #if ($dep.hasStereotype("ServiceRef"))
  #set ($targetType = $dep.targetElement)
- * @ejb.ejb-ref ejb-name="${targetType.name}" view-type="${remote}" ref-name="ejb/${targetType}BeanRef"
+ * @ejb.ejb-ref ejb-name="${targetType.name}" view-type="${targetType.viewType}" ref-name="ejb/${targetType.name}BeanRef"
 #end
 #end
 #foreach ( $tgv in $class.taggedValues )

@@ -336,7 +336,8 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                             outletProperty.getValue());
             }     
             
-            if (outFile != null) {
+            if (outFile != null) 
+            {
                 
                 // do not overWrite already generated file,
                 // if that is a file that the user needs to edit
@@ -347,17 +348,21 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                 // only process files that have changed
                 if (writeOutputFile && 
                         (!context.isLastModifiedCheck()|| 
-                                modelLastModified > outFile.lastModified())) {
+                                modelLastModified > outFile.lastModified())) 
+                {
                  
                     String outputString = output.toString();
                     
                     StdoutLogger.setLogger(this.getDescriptor().getCartridgeName());
                     //check to see if generateEmptyFiles is true and if outString (when CLEANED)
                     //isn't empty.
-                    if (StringUtils.trimToEmpty(outputString).length() > 0 || template.isGenerateEmptyFiles()) {
+                    if (StringUtils.trimToEmpty(outputString).length() > 0 || template.isGenerateEmptyFiles()) 
+                    {
                         OutputUtils.writeStringToFile(outputString, outFile, true);
                         StdoutLogger.info("Output: '" + outFile.toURI() + "'");
-                    } else {
+                    } 
+                    else 
+                    {
                         StdoutLogger.info("Empty Output: '" + outFile.toURI() + "' --> not writing");
                     }
                     StdoutLogger.reset();
@@ -367,7 +372,8 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
         } 
         catch (Throwable th) 
         {
-            if (outFile != null) {
+            if (outFile != null) 
+            {
                 outFile.delete();
                 logger.info("Removed --> '" + outFile + "'");
                 StdoutLogger.info("Removed --> '" + outFile + "'");
@@ -416,7 +422,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     {
         String fileName = 
             this.getDescriptor().getTemplateEngine().getEvaluatedExpression(
-            template.getOutputPattern());
+                template.getOutputPattern());
 
         return new File(outputLocation, fileName);
     }

@@ -59,9 +59,12 @@ public class StrutsExceptionHandlerLogicImpl
     public java.lang.String getExceptionPath()
     {
         final StateVertexFacade target = getTarget();
-        return (target instanceof StrutsJsp)
-            ? ((StrutsJsp)target).getFullPath() + ".jsp"
-            : "";
+        if (target instanceof StrutsJsp)
+            return ((StrutsJsp)target).getFullPath() + ".jsp";
+        else if (target instanceof StrutsFinalState)
+            return ((StrutsFinalState)target).getFullPath() + ".do";
+        else
+            return "";
     }
 
     // ------------- relations ------------------

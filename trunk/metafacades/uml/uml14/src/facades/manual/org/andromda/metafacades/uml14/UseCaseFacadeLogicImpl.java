@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.andromda.core.common.CollectionFilter;
+import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 
 
@@ -33,9 +33,9 @@ public class UseCaseFacadeLogicImpl
 
     protected Collection handleGetStateMachines()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof ActionState;
             }
@@ -46,9 +46,9 @@ public class UseCaseFacadeLogicImpl
 
     protected Collection handleGetActivityGraphs()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof ActionState;
             }
@@ -57,18 +57,18 @@ public class UseCaseFacadeLogicImpl
         return getSubGraphs(filter);
     }
 
-    private Collection getSubGraphs(CollectionFilter collectionFilter)
+    private Collection getSubGraphs(Predicate collectionFilter)
     {
         return filter(metaObject.getOwnedElement(), collectionFilter);
     }
 
-    private Collection filter(Collection collection, CollectionFilter collectionFilter)
+    private Collection filter(Collection collection, Predicate collectionFilter)
     {
         final Set filteredCollection = new LinkedHashSet();
         for (Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
-            if (collectionFilter.accept(object))
+            if (collectionFilter.evaluate(object))
             {
                 filteredCollection.add(object);
             }

@@ -101,7 +101,7 @@ public class MetafacadeFactory
         final String methodName = "MetafacadeFactory.internalCreateMetafacade";
 
         ExceptionUtils.checkNull(methodName, "metaobject", metaobject);
-
+        
         //if the metaobject ALREADY IS a metafacade
         //return the metaobject since we don't want to try and create a
         //metafacade from a metafacade.
@@ -109,8 +109,7 @@ public class MetafacadeFactory
         {
             return (MetafacadeBase)metaobject;
         }
-
-        MetafacadeBase metafacade = null;
+        
         Class metaobjectClass = null;
         try
         {
@@ -182,7 +181,7 @@ public class MetafacadeFactory
                             + " -> "
                             + metafacadeClass);
 
-            metafacade =
+            MetafacadeBase metafacade =
                 (MetafacadeBase) ConstructorUtils.invokeConstructor(
                     metafacadeClass,
                     new Object[] {
@@ -214,7 +213,7 @@ public class MetafacadeFactory
             } 
             // validate the meta-facade
             metafacade.validate();
-
+            return metafacade;
         }
         catch (Throwable th)
         {
@@ -227,8 +226,6 @@ public class MetafacadeFactory
             internalGetLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
         }
-
-        return metafacade;
     }
 
     /**
@@ -264,7 +261,7 @@ public class MetafacadeFactory
         Class metafacadeClass = null;
         try
         {
-            
+                                    
             metafacadeClass = 
                 MetafacadeImpls.instance().getMetafacadeImplClass(
                     interfaceName);
@@ -273,9 +270,9 @@ public class MetafacadeFactory
                 this.internalCreateMetafacade(
                         metaObject,
                         contextName,
-                        metafacadeClass);   
+                        metafacadeClass);  
             
-            return metafacade;
+            return metafacade;   
         }
         catch (Throwable th)
         {

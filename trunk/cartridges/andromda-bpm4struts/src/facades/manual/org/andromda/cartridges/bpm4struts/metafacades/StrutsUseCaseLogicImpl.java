@@ -172,11 +172,10 @@ public class StrutsUseCaseLogicImpl
         final Collection transitions = getActivityGraph().getTransitions();
         for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
         {
-            TransitionFacade transition = (TransitionFacade) iterator.next();
-            EventFacade trigger = transition.getTrigger();
-            if (trigger != null)
+            Object transitionObject = iterator.next();
+            if (transitionObject instanceof StrutsAction)
             {
-                Collection parameters = trigger.getParameters();
+                Collection parameters = ((StrutsAction)transitionObject).getActionParameters();
                 for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                 {
                     ParameterFacade parameter = (ParameterFacade) parameterIterator.next();

@@ -1,6 +1,6 @@
 #set ($useCases = $class.allUseCases)
 
-<!-- TEMPORARILY COMMENTED OUT TO MAKE APPS WORK IN DEVELOPMENT
+#if ($securityEnabled == "true")
 
 ##
 ##  We don't use security-role-refs at this point, maybe in a later step
@@ -36,4 +36,5 @@
       <form-error-page>/login-error.jsp</form-error-page>
     </form-login-config>
   </login-config>
--->
+
+#end
