@@ -28,7 +28,7 @@ public interface $metafacade.name
      * and stores the messages within the <code>validationMessages</code>
      * collection.
      *
-     * @param validationMessages the collection of messages which additional
+     * @param validationMessages the collection of messages to which additional
      *        validation messages will be added if invariants are broken.
      */
     void validateInvariants(java.util.Collection validationMessages);
