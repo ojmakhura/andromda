@@ -1,11 +1,17 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+#if ($xhtml)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html:xhtml/>
 
+#else
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+#end
 <html:html lang="true">
 
     <head>
@@ -13,7 +19,11 @@
             <tiles:insert attribute="title" flush="true"/>
         </title>
         <html:base/>
+#if ($xhtml)
         <meta http-equiv="Content-Type" content="application/xhtml+xml" />
+#else
+        <meta http-equiv="Content-Type" content="text/html" />
+#end
 <%-- uncomment this to enable the browser 'favorites' icons
         <link rel="shortcut icon" href="my-custom-image.ico"></link>
         <link rel="icon" type="image/png" href="my-custom-image.png"></link>

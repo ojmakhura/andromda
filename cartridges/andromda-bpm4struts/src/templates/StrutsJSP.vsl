@@ -16,8 +16,10 @@
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="displaytag-all.tld" prefix="display" %>
 
+#if ($xhtml)
 <html:xhtml/>
 
+#end
 <tiles:insert definition="main.layout">
 
 ##
@@ -47,7 +49,11 @@
 #end
 #foreach ($action in $actions)
 #if ($action.requiresValidation())
-        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="true"/>
+#if ($xhtml)
+        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" cdata="true"/>
+#else
+        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
+#end
 #end
 #end
 #if ($hasTabs)
@@ -145,7 +151,11 @@
 
 #if ($class.tabbed)
         <script type="text/javascript">
+#if ($xhtml)
         //<![CDATA[
+#else
+        //<!--
+#end
             var actionTab = new Array($class.tabCount);
 #set ($tabMap = $class.tabMap)
 #foreach ($tab in $tabMap.keySet())
@@ -160,7 +170,11 @@
                 actionTab[tabIndex].style.display = 'block';
             }
             this.selectActionTab(0);
+#if ($xhtml)
         //]]>
+#else
+        //-->
+#end
         </script>
 #end
     </tiles:put>

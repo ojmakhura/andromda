@@ -1,8 +1,10 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
+#if ($xhtml)
 <html:xhtml/>
 
+#end
 <div class="box1">
      <h4>Latest News</h4>
 
