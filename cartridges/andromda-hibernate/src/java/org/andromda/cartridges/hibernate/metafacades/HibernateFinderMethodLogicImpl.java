@@ -28,7 +28,7 @@ public class HibernateFinderMethodLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#getQuery()
      */
-    public String getQuery()
+    protected String handleGetQuery()
     {
 
         // first see if we can retrieve the query from the super class as an OCL

@@ -203,6 +203,16 @@ public class ClassifierFacadeLogicImpl
             this,
             MetafacadeDataTypes.FILE_TYPE_NAME);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isMapType()
+     */
+    public boolean handleIsMapType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            MetafacadeDataTypes.MAP_TYPE_NAME);
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
