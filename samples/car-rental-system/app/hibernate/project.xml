@@ -11,15 +11,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>car-rental-sample-hibernate-ejb</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>ejb</type>
-	      	<properties>
-	        	<ear.bundle>true</ear.bundle>
-	     	</properties>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
 	      	<properties>
@@ -28,9 +19,9 @@
 		</dependency>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>car-rental-sample-hibernate-sar</artifactId>
+			<artifactId>car-rental-sample-hibernate</artifactId>
 			<version>${pom.currentVersion}</version>
-			<type>sar</type>
+			<type>ejb</type>
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
