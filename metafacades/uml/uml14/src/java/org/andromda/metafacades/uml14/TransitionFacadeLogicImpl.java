@@ -38,4 +38,9 @@ public class TransitionFacadeLogicImpl
     {
         return metaObject.getGuard();
     }
+
+    protected boolean handleIsTriggerPresent()
+    {
+        return metaObject.getTrigger() != null;
+    }
 }
