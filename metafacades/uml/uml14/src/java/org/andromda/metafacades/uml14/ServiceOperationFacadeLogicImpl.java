@@ -1,12 +1,13 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.RoleFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -35,7 +36,7 @@ public class ServiceOperationFacadeLogicImpl
      */
     public java.util.Collection handleGetRoles()
     {
-        Collection roles = new ArrayList();
+        Collection roles = new HashSet();
         if (this.getOwner() != null
             && ServiceFacade.class.isAssignableFrom(this.getOwner().getClass()))
         {
@@ -61,7 +62,18 @@ public class ServiceOperationFacadeLogicImpl
             }
         });
         roles.addAll(operationRoles);
-        return roles;
+        final Collection allRoles = new HashSet(roles);
+        // add all roles which are specializations of this one
+        CollectionUtils.forAllDo(
+            roles,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    allRoles.addAll(((RoleFacade)object).getSpecializations());
+                }
+            });
+        return allRoles;
     }
 
     /**
