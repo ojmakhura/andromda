@@ -747,17 +747,12 @@ public class MockClassifierFacade
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getConstantAttributes()
-     */
-    public Collection getConstantAttributes()
+    public Collection getLiterals()
     {
         return null;
     }
 
-    public Collection getLiterals()
+    public String getEnumerationType()
     {
         return null;
     }
