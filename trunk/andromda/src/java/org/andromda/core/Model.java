@@ -98,6 +98,7 @@ public class Model
         {
             URLConnection urlConnection = url.openConnection();
             lastModified = urlConnection.getLastModified();
+            urlConnection = null;
         }
         catch (Exception ex)
         {

@@ -69,6 +69,7 @@ public class ResourceUtils
                     contents.append(line + "\n");
                 }
                 in.close();
+                in = null;
             }
         }
         catch (Throwable th)
