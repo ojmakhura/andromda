@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<document>
+
+    <properties>
+        <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+        <title>AndroMDA Repositories</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="AndroMDA Repositories">
+            <p class="std">
+			    <strong>Repositories</strong> are pluggable 
+			     <a href="../andromda-core/apidocs/org/andromda/core/repository/RepositoryFacade.html">RepositoryFacade</a> 
+			     implementations.  These allow us to switch out the repository that performs
+			     reading/loading of a MOF model (i.e. the 
+			     <a href="../andromda-repository-mdr/apidocs/org/andromda/repositories/mdr/MDRepositoryFacade.html">MDRepositoryFacade</a> 
+			     is an implementation of the AndroMDA repository for 
+			     <a href="http://mdr.netbeans.org">MDR</a>).
+            </p>
+        </section>
+
+    </body>
+</document>
