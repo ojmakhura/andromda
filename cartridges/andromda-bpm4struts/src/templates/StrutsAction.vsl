@@ -80,20 +80,14 @@ $actionState.getDocumentation("     * ")
         {
             forward = mapping.getInputForward();
         }
-## We only add an else statement if at least one parameter
-## needs to be reset
-#set ($needsElse = false)
-#foreach ($field in $action.actionParameters)
-#if ($field.shouldReset)
-#set ($needsElse = true)
-#if ($velocityCount == 1)
+#if (!$action.resettableActionParameters.empty)
         else
         {
 #end
+#foreach ($field in $action.resettableActionParameters)
             (($formBeanClassName)form).${field.resetName}();
 #end        
-#end
-#if ($needsElse)
+#if (!$action.resettableActionParameters.empty)
         }
 #end
         return forward;

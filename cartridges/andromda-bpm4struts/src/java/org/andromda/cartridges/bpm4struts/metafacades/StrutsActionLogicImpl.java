@@ -1,12 +1,24 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
 
 
 /**
@@ -727,5 +739,19 @@ public class StrutsActionLogicImpl
             redirect = (String)value;
         }
         return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getResettableActionParameters()
+     */
+    protected Collection handleGetResettableActionParameters()
+    {
+        return new FilteredCollection(this.getActionParameters())
+        {
+            public boolean evaluate(Object object)
+            {
+                return object != null && ((StrutsParameter)object).isShouldReset();
+            }
+        };
     }
 }
