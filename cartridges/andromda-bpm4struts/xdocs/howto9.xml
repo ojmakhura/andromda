@@ -48,7 +48,7 @@ public void renderUserPicture(ActionMapping mapping, ..., HttpServletResponse re
 --></source>
             <p class="highlight">
                 Directly calling the action from a link will result in the HTTP response being rendered in the browser
-                window, you will probably want to edit the JSP and use a tag a shown above to have a more
+                window, you will probably want to edit the JSP and use a tag as shown above to have a more
                 aesthetically pleasing result.
             </p>
         </section>
