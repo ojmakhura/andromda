@@ -14,12 +14,10 @@
         		</tr>
         		<tr>
           			<td>maven.androdev.model.uri</td>
-          			<td>Yes</td>
+          			<td>No</td>
           			<td>
           				The URI to the model used to run tests.
-            			<p>Default value is
-              				<code>file:${plugin.resources}/models/uml/contracts.xmi</code>.
-              			</p>
+            			(i.e.<code>maven.androdev.model.uri=jar:file:${maven.src.dir}/test/uml/ContractsModel.xml.zip!ContractsModel.xmi</code>).
           			</td>
         		</tr>
        			<tr>
