@@ -127,13 +127,11 @@ public class Cartridge
                 Collection modelElements = null;
                 if (modelElements == null)
                 {
-                    // if the template model element has a stereotype defined,
-                    // then we filter the model elements based on that
-                    // stereotype,
-                    // otherwise we get all model elements and let the
-                    // modelElement
-                    // perform filtering on the metafacades by type and
-                    // properties
+                    // if the template model element has a stereotype
+                    // defined, then we filter the model elements based
+                    // on that stereotype, otherwise we get all model elements
+                    // and let the modelElement perform filtering on the
+                    // metafacades by type and properties
                     if (templateModelElement.hasStereotype())
                     {
                         modelElements = context.getModelFacade()
