@@ -79,7 +79,7 @@ public class $clientServiceLocatorName
             {
                 contextLocation = DEFAULT_CONTEXT_LOCATION;
             }
-#if ($clientServiceLocatorClassloaderSwitching == "on")
+#if ($clientServiceLocatorClassloaderSwitching.equalsIgnoreCase("on"))
             Thread currentThread = Thread.currentThread();
             ClassLoader originalClassloader = currentThread.getContextClassLoader();
             try
@@ -87,7 +87,7 @@ public class $clientServiceLocatorName
                 currentThread.setContextClassLoader(this.getClass().getClassLoader());
 #end
                 context = new ClassPathXmlApplicationContext(contextLocation);
-#if ($clientServiceLocatorClassloaderSwitching == "on")
+#if ($clientServiceLocatorClassloaderSwitching.equalsIgnoreCase("on"))
             }
             finally
             {

@@ -9,7 +9,7 @@
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
     <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate">
-#if($hibernateEnableCache == "true")
+#if($hibernateEnableCache.equalsIgnoreCase("true"))
         <cache usage="$entity.hibernateCacheType" />
 #end
 #set ($identifier = $entity.identifiers.iterator().next())
