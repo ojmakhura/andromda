@@ -107,10 +107,7 @@
             <fileset dir="lib" includes="*"/>
         </copy>
 
-    </target>
-
-    <target name="dist2" depends="website"
-            description="Pack distribution zips">
+	    <!-- copy examples into distribution staging area -->
         <copy todir="${dist.stage.dir}sample/">
             <fileset dir="${src.dir}/sample">
                <exclude name="**/generated/**" />
@@ -118,7 +115,12 @@
                <exclude name="**/dist/**" />
             </fileset>
         </copy>
+        
+    </target>
 
+    <target name="dist2" depends="website"
+            description="Pack distribution zips">
+        
         <copy todir="${dist.stage.dir}doc/">
               <fileset dir="${build.doc.dir}" includes="**/*"/>
         </copy>
