@@ -5,5 +5,5 @@
 # by default the 'admin' user has all roles
 #
 #set ($separator = '')
-admin=#foreach($user in $users)$separator$user.name #set($separator=',') #end
+admin=#foreach($user in $users)$separator$user.name #set($separator=',')#end
 #end
