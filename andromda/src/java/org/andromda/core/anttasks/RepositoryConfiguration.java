@@ -36,7 +36,7 @@ public class RepositoryConfiguration
 		}
 		catch (ClassNotFoundException cnfe)
 		{
-			new BuildException(cnfe);
+			throw new BuildException(cnfe);
 		}
 
 	}
@@ -45,12 +45,11 @@ public class RepositoryConfiguration
     {
         try
         {
-       
             scriptHelperClass = Class.forName(scriptHelperClassName);
         }
         catch (ClassNotFoundException cnfe)
         {
-            new BuildException(cnfe);
+            throw new BuildException(cnfe);
         }
     }
 

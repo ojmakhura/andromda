@@ -47,11 +47,8 @@ public class DependencyProxy
 	
 	public ModelElement getTargetType()
 	{
-		System.out.println("getTargetType()");
 		Dependency dependency = (Dependency)modelElement;
 		ModelElement supplier = (ModelElement)dependency.getSupplier().iterator().next();
-		System.out.println("supplier: " + supplier);
-		
 		
 		if (supplier instanceof Attribute)
 		{

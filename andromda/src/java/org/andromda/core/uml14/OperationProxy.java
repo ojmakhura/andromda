@@ -14,9 +14,7 @@ import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 public class OperationProxy extends ModelElementProxy implements UMLOperation
 {
 	private UMLScriptHelper scriptHelper;
-	private Operation operation;
 
-	private static Method getVisibilityMethod;
 	private static VisibilityKind PRIVATE = new JavaVisibility("private");
 	private static VisibilityKind PUBLIC = new JavaVisibility("public");
 	private static VisibilityKind PROTECTED = new JavaVisibility("protected");
@@ -49,14 +47,14 @@ public class OperationProxy extends ModelElementProxy implements UMLOperation
 
 	public Object getId()
 	{
-		return this.operation;
+		return this.modelElement;
 	}
 
 	public VisibilityKind getVisibility()
 	{
 		VisibilityKind visibility;
 
-		visibility = operation.getVisibility();
+		visibility = ((Operation)modelElement).getVisibility();
 		if (VisibilityKindEnum.VK_PRIVATE.equals(visibility))
 		{
 			return PRIVATE;

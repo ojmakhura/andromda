@@ -42,6 +42,10 @@ public class JAXBScriptHelper
 		this.model = (Model)model;
 	}
 	
+    public Object getModel()
+    {
+        return this.model;
+    }
 	public void setTypeMappings(DbMappingTable typeMappings)
 	{
 		this.typeMappings = (DbMappingTable)typeMappings;

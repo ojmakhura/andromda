@@ -10,7 +10,6 @@ import org.omg.uml.foundation.core.AssociationEnd;
  */
 public class UMLScriptHelperTest extends UMLBaseHelperTest
 {
-	protected Operation operation;
     protected AssociationEnd one2many;
 
 	/**

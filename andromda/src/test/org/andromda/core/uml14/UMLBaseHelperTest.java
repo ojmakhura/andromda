@@ -23,8 +23,8 @@ import junit.framework.TestCase;
 public class UMLBaseHelperTest extends TestCase
 {
     // file name containing the Test Model
-	private final static String XMI_FILE_NAME = 
-        TestModel.XMI_FILE_NAME;
+	private final static String XMI_FILE_URL = 
+        TestModel.XMI_FILE_URL;
     
     // name of model element to be used by the test
 	private final static String CLASS_NAME = 
@@ -71,10 +71,8 @@ public class UMLBaseHelperTest extends TestCase
 		}
 
         // locate the TestModel file
-		modelURL = UMLBaseHelperTest.class.getResource(XMI_FILE_NAME);
-		assertNotNull(
-			"file: " + XMI_FILE_NAME + " not found in classpath",
-			modelURL);
+		modelURL = new URL(XMI_FILE_URL);
+		
 
         // create repository and script helper
 		repository = new MDRepositoryFacade();

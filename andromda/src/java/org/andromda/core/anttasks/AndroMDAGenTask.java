@@ -844,8 +844,8 @@ public class AndroMDAGenTask extends MatchingTask
 		{
 			VelocityContext velocityContext = new VelocityContext();
 
-			// Shove things into the Context
-			velocityContext.put("model", context.repository.getModel());
+			// put some objects into the velocity context
+			velocityContext.put("model", context.scriptHelper.getModel());
 			velocityContext.put("transform", context.scriptHelper);
 			velocityContext.put("str", new StringUtilsHelper());
 			velocityContext.put("class", modelElement);

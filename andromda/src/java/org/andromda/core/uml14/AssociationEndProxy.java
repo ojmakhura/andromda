@@ -39,7 +39,7 @@ public class AssociationEndProxy
 	public String getRoleName()
 	{
 		String roleName = modelElement.getName();
-		if ( (roleName == null) | (roleName.length() == 0) )
+		if ( (roleName == null) || (roleName.length() == 0) )
 		{
 			AssociationEnd ae = (AssociationEnd)modelElement;
 			roleName = "The" + ae.getParticipant().getName();
@@ -56,7 +56,7 @@ public class AssociationEndProxy
 			scriptHelper, ae.getParticipant());
 	}
 	
-	public String getId()
+	public Object getId()
 	{
 		return modelElement.refMofId();
 	}

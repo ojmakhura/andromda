@@ -22,6 +22,16 @@ public interface ScriptHelper
 	 */
 	public void setModel(Object model);
 
+    /**
+     * Returns the model object.
+     * 
+     * In it is possible for the getModel to return a different object
+     * than was set in the setModel operation. This can happen when
+     * the script helper wants to wrap the model object with some helper
+     * operations
+     */
+    public Object getModel();
+    
 	/**
 	 * Associates mapping rules for mapping model datatypes 
 	 * to database data types.
