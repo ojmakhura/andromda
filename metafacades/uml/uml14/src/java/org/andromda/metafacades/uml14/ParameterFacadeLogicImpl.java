@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.foundation.datatypes.Expression;
 import org.andromda.core.common.StringUtilsHelper;
+import org.omg.uml.foundation.datatypes.Expression;
 
 
 /**
@@ -31,7 +31,7 @@ public class ParameterFacadeLogicImpl
 
     // concrete business methods that were declared
     // abstract in class ParameterDecorator ...
-
+    
     public String handleGetDefaultValue()
     {
         final Expression expression = metaObject.getDefaultValue();
@@ -41,8 +41,8 @@ public class ParameterFacadeLogicImpl
 
     // ------------- relations ------------------
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ParameterDecorator#handleGetType()
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getType()
      */
     protected Object handleGetType()
     {
