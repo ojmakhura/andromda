@@ -51,6 +51,22 @@
 		</ant:delete>
   	</goal> 
   	
+  	<!-- ==================================================================
+  			 Creates the AndroMDA distribution                                                     
+  		 ================================================================== --> 	
+    <goal name="dist">
+
+    </goal>
+    
+  	<!-- ==================================================================
+  			 Builds ALL documentation                                                   
+  		 ================================================================== --> 
+    <goal name="docs">
+		<maven:maven 
+			descriptor="${basedir}/documentation/project.xml"
+			goals="build"/> 
+    </goal>
+  	
   	<!-- =================================================================
   	         Install all bootstrap artifacts to the local repository
   	         IMPORTANT: Since bootstrap dependencies depend on each other,
