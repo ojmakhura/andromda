@@ -27,11 +27,9 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <!-- deprecated: please use the mapping element
-                         instead -->
+                    <!-- deprecated: please use the mapping element instead -->
                     <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
-                    <!-- deprecated: please use the mapping element
-                         instead -->
+                    <!-- deprecated: please use the mapping element instead -->
                     <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
                 </xs:choice>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
@@ -42,8 +40,8 @@
             <xs:attribute name="metaobjectClass" type="xs:string" use="optional"/>
             <!-- deprecated: please using the class attribute on the metafacade element instead -->
             <xs:attribute name="metafacadeClass" type="xs:string" use="required"/>
-            <!-- You should set the context root to 'true' when the metafacade
-                 mapping will be used as a context for other mappings -->
+            <!-- You should set the context root to 'true' when the metafacade mapping
+                 will be used as a context for other mappings -->
             <xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
         </xs:complexType>
     </xs:element>
@@ -56,7 +54,7 @@
                     <xs:complexType mixed="true">
                         <xs:attribute name="name" type="xs:string" use="required"/>
                         <!-- the value of the property must evaluate to
-                             to this value in order to be grouped, if no value
+                             this value in order to be grouped, if no value
                              is defined, then just the presence of the property is checked
                              on the type (note that you can also specify the value as the
                              body of the property element) -->
