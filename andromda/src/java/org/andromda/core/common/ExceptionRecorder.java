@@ -30,8 +30,10 @@ public class ExceptionRecorder
 
     /** Run line system constant */
     static final String RUN_SYSTEM = "Run system .....: ";
+    
     /** Run line jdk constant */
     static final String RUN_JDK = "Run jdk ........: ";
+    
     /** Information not available constant */
     static final String INFORMATION_UNAVAILABLE = " unavailable";
 
