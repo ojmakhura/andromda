@@ -2,32 +2,27 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB.
- * 
- * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB
+ * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateService.
+ *
+ * @see org.andromda.cartridges.hibernate.metafacades.HibernateService
  */
-public class HibernateSessionEJBLogicImpl
-    extends HibernateSessionEJBLogic
-    implements
-    org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB
+public class HibernateServiceLogicImpl
+       extends HibernateServiceLogic
+       implements org.andromda.cartridges.hibernate.metafacades.HibernateService
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateSessionEJBLogicImpl(
-        Object metaObject,
-        String context)
+    public HibernateServiceLogicImpl (Object metaObject, String context)
     {
-        super(metaObject, context);
+        super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB#getJndiName()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#getEjbJndiName()
      */
-    protected java.lang.String handleGetJndiName()
+    protected java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this
@@ -43,9 +38,9 @@ public class HibernateSessionEJBLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB#getViewType()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#getEjbViewType()
      */
-    protected java.lang.String handleGetViewType()
+    protected java.lang.String handleGetEjbViewType()
     {
         return HibernateMetafacadeUtils.getViewType(this);
     }
@@ -59,4 +54,13 @@ public class HibernateSessionEJBLogicImpl
     {
         return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#isEjbStateful()
+     */
+    protected boolean handleIsEjbStateful() 
+    {
+        return !this.getAttributes().isEmpty();
+    }
+    
 }
