@@ -120,6 +120,16 @@
     </template>
 
     <template
+        path="templates/StrutsSessionObject.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="false">
+        <modelElements variable="sessionObject">
+            <modelElement stereotype="FrontEndSessionObject"/>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/StrutsJSP.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
