@@ -53,12 +53,12 @@
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
     	<dependency>
-	      	<groupId>andromda-cartridges</groupId>
+	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-meta-cartridge</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
         <dependency>
-            <groupId>andromda-translation-libraries</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>

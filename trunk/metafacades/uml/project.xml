@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>andromda-uml-metafacades</id>
+  	<artifactId>andromda-uml-metafacades</artifactId>
   	<name>Core UML Metafacades</name>
   	<shortDescription>Core UML Metafacade Libraries</shortDescription>
   	<description>
@@ -19,18 +19,12 @@
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-core</artifactId>
 	      	<version>${pom.currentVersion}</version>
-	    </dependency>	 
-		<dependency>
-			<groupId>andromda</groupId>
-			<artifactId>andromda-profile</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>xml.zip</type>
-		</dependency>
+	    </dependency>
         <dependency>
-            <groupId>andromda-translation-libraries</groupId>
-            <artifactId>andromda-validation-library-bootstrap</artifactId>
+            <groupId>andromda-bootstrap</groupId>
+            <artifactId>andromda-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
-        </dependency>
+        </dependency>	 
     	<dependency> 
     		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>

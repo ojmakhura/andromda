@@ -39,17 +39,9 @@
             <ant:copy todir="${maven.repo.local}">
                 <ant:fileset dir="${libDir}"/>
             </ant:copy>
-            <!-- copy over AndroMDA non cartridge components -->
+            <!-- copy over AndroMDA components -->
             <ant:copy todir="${maven.repo.local}/andromda">
                 <ant:fileset dir="${distributionDir}/andromda"/>
-            </ant:copy>
-            <!-- copy over AndroMDA cartridge components -->
-            <ant:copy todir="${maven.repo.local}/andromda-cartridges">
-                <ant:fileset dir="${distributionDir}/andromda-cartridges"/>
-            </ant:copy>
-            <!-- copy over AndroMDA translation-library components -->
-            <ant:copy todir="${maven.repo.local}/andromda-translation-libraries">
-                <ant:fileset dir="${distributionDir}/andromda-translation-libraries"/>
             </ant:copy>
         </j:if>
     </preGoal>

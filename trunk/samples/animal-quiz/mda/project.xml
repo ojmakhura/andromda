@@ -27,7 +27,7 @@
         </dependency>
         <!-- specify and configure our cartridges -->
         <dependency>
-            <groupId>andromda-cartridges</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
@@ -39,7 +39,7 @@
             </properties>
         </dependency>  
         <dependency>
-            <groupId>andromda-cartridges</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>
@@ -53,7 +53,7 @@
             </properties>
         </dependency>        
         <dependency>
-            <groupId>andromda-cartridges</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
@@ -62,7 +62,7 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>andromda-cartridges</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
@@ -80,12 +80,12 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>andromda-translation-libraries</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-query-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>andromda-translation-libraries</groupId>
+            <groupId>andromda</groupId>
             <artifactId>andromda-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>

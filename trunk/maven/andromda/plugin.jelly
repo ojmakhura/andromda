@@ -4,7 +4,7 @@
          xmlns:i="jelly:interaction">
       
     <!-- ===================================================================
-         Call AndroMDA to generate code from the model                             
+         Call AndroMDA to generate code from the model                            
          =================================================================== -->
     <goal name="andromda:run${bootstrap}"
           description="Runs AndroMDA with plugins defined as dependencies with your POM">
@@ -24,9 +24,9 @@
         
         <j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
  
-        <attainGoal name="andromda:init-classpath"/>
+        <attainGoal name="andromda:init-classpath${bootstrap}"/>
         <!-- add any model dependencies -->
-        <attainGoal name="andromda:add-model-dependencies"/>
+        <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
 
           <ant:taskdef
             name="andromda"
@@ -92,9 +92,7 @@
                    <j:set var="dependency" value="${artifact.dependency}"/>  
        
                 <j:choose>
-                    <j:set var="boostrapArtifactId" value="${dependency.artifactId}-bootstrap"/>
-                    <j:when test="${plugin.artifactId eq dependency.artifactId or 
-                                     plugin.artifactId eq bootstrapArtifactId}">
+                    <j:when test="${plugin.artifactId eq dependency.artifactId}">
                         <j:set var="namespaceName" value="default"/>
                     </j:when>
                     <j:otherwise>
@@ -151,7 +149,7 @@
     <!-- ================================================================
            Adds model dependencies (since they aren't added by Maven)
          ================================================================ -->
-    <goal name="andromda:add-model-dependencies"
+    <goal name="andromda:add-model-dependencies${bootstrap}"
           description="Internal goal used by the plugin">
         <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
             <j:set var="dep" value="${artifact.dependency}"/>
@@ -171,7 +169,7 @@
     <!-- ================================================================
            Provides any classpath initialization.
          ================================================================ -->
-    <goal name="andromda:init-classpath"
+    <goal name="andromda:init-classpath${bootstrap}"
           description="private interal goal">
         <ant:path id="maven.andromda.classpath">
             <ant:pathelement path="${plugin.dependencyClasspath}"/>   		
@@ -182,7 +180,7 @@
     <!-- ================================================================
            Runs AndroMDA's Schema2XMI on a given schema.
          ================================================================ -->
-    <goal name="andromda:schema2xmi"
+    <goal name="andromda:schema2xmi${bootstrap}"
           description="Runs AndroMDA's Schema2XMI on a given schema">
         <j:set var="inputModel" value="${maven.andromda.schema2xmi.inputModel}"/>
           <j:while test="${empty(inputModel)}">
@@ -220,7 +218,7 @@
                 question="Please enter the URI to your mappings file:" 
                 answer="mappingsUri"/>
         </j:while>
-        <attainGoal name="andromda:init-classpath"/>
+        <attainGoal name="andromda:init-classpath${bootstrap}"/>
          <ant:java classname="org.andromda.schema2xmi.Schema2XMI"
                     fork="true">
               <ant:classpath>
