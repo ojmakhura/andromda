@@ -64,7 +64,6 @@ public class GeneralizableElementFacadeLogicImpl
             Generalization generalization = (Generalization)i.next();
             return generalization.getParent();
         }
-
         return null;
     }
 
