@@ -24,7 +24,7 @@ $field.getDocumentation("     * ")
      * @see #${field.setterName}AsArray(Object[])
      */
     public void ${field.setterName}($fieldType $fieldName);
-    
+
     /**
      * This field is a collection type, and this method allows you to get it from the form.
      *
@@ -43,7 +43,7 @@ $field.getDocumentation("     * ")
      * @see #${field.setterName}($fieldType)
      */
     public void ${field.setterName}AsArray(Object[] $fieldName);
-    
+
     /**
      * This field is a collection type, and this method allows you to get it as an
      * array from the form, conversion will be automatically performed.
@@ -53,7 +53,7 @@ $field.getDocumentation("     * ")
      * @see #${field.getterName}()
      */
     public Object[] ${field.getterName}AsArray();
-    
+
 #elseif ($field.date)
     /**
      * This field is a date type, and this method allows you to set it into the form.
@@ -63,7 +63,7 @@ $field.getDocumentation("     * ")
      * @see #${field.setterName}(java.lang.String)
      */
     public void ${field.setterName}AsDate($fieldType $fieldName);
-    
+
     /**
      * This field is a date type, and this method allows you to get it from the form.
      *
@@ -81,7 +81,7 @@ $field.getDocumentation("     * ")
      * @see #${field.setterName}AsDate($fieldType)
      */
     public void ${field.setterName}(java.lang.String ${fieldName});
-    
+
     /**
      * This field is a date type, and this method allows you to get it from the form as a String.
      *
@@ -90,7 +90,7 @@ $field.getDocumentation("     * ")
      * @see #${field.getterName}AsDate()
      */
     public java.lang.String ${field.getterName}();
-    
+
 #elseif ($field.type.mapType)
     /**
      * Sets the argument value for the specified key into the <code>$field.name</code> Map.
@@ -100,7 +100,7 @@ $field.getDocumentation("     * ")
      * @see #${field.setterName}(java.util.Map)
      */
     public void ${field.setterName}Value(java.lang.String key, Object value);
-    
+
     /**
      * Gets the argument value for the specified key from the <code>$field.name</code> Map.
      *
@@ -118,7 +118,7 @@ $field.getDocumentation("     * ")
      * @see #${field.setterName}Value(java.lang.String key, Object value)
      */
     public void ${field.setterName}(java.util.Map $fieldName);
-    
+
     /**
      * Gets the <code>$field.name</code> Map.
      *
@@ -127,7 +127,27 @@ $field.getDocumentation("     * ")
      * @see #${field.getterName}Value(java.lang.String)
      */
     public java.util.Map ${field.getterName}();
-    
+
+#elseif ($field.file)
+    /**
+     * Sets the <code>$field.name</code> Struts FormFile field to the specified value.
+     *
+$field.getDocumentation("     * ")
+     *
+     * @see #${field.getterName}Value(java.lang.String)
+     */
+    public void ${field.setterName}(org.apache.struts.upload.FormFile ${field.name});
+
+
+    /**
+     * Gets the <code>$field.name</code> Struts FormFile field value.
+     *
+$field.getDocumentation("     * ")
+     *
+     * @see #${field.getterName}Value(java.lang.String)
+     */
+    public org.apache.struts.upload.FormFile ${field.getterName}();
+
 #else
     /**
      * Sets the <code>$field.name</code> field.
@@ -135,7 +155,7 @@ $field.getDocumentation("     * ")
 $field.getDocumentation("     * ")
      */
     public void ${field.setterName}($fieldType $fieldName);
-    
+
     /**
      * Gets the <code>$field.name</code> field.
      *
@@ -170,7 +190,7 @@ $field.getDocumentation("     * ")
      * @see #get${labelListMethod}()
      */
     public $listType get${backingListMethod}();
-    
+
     /**
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the values from that list.
@@ -179,7 +199,7 @@ $field.getDocumentation("     * ")
      * @see #get${backingListMethod}()
      */
     public $listType get${valueListMethod}();
-    
+
     /**
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the values for that list.
@@ -188,7 +208,7 @@ $field.getDocumentation("     * ")
      * @see #get${backingListMethod}()
      */
     public void set${valueListMethod}($listType $valueListName);
-    
+
     /**
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the labels from that list.
@@ -197,7 +217,7 @@ $field.getDocumentation("     * ")
      * @see #get${backingListMethod}()
      */
     public $listType get${labelListMethod}();
-    
+
     /**
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the labels for that list.
