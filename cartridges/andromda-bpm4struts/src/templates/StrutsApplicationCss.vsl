@@ -93,10 +93,58 @@ div.action div.trigger form buttons { display: block; }
    padding: 0.8em 0.5em 0.8em 1em;
    margin-bottom: 1.5em;
 }
-#sidebar div.box2 h4 { color: #999; padding-bottom: 1em; font-size: 100%; font-weight: normal;}
-#sidebar div.box2 ul { margin-bottom: 1em; margin-top: 0.3em; }
-#sidebar div.box2 li { padding: 5px 0 5px 0; list-style-type: none; }
-#sidebar div.box2 li a:link, #sidebar div.box2 li a:visited, #sidebar div.box2 li a:hover { padding: 0; }
+
+#menuList a {
+  border: 0;
+  background-color: transparent;
+}
+
+li.menubar {
+  background: url(menu/plus.gif) no-repeat 0em 0.3em;
+  list-style: none outside;
+}
+
+.menu, .submenu {
+  display: none;
+  margin-left: 15px;
+  padding: 0px;
+}
+
+.menu li, .submenu li  {
+  background: url(menu/square.gif) no-repeat 0em 0.3em;
+  list-style: none outside;
+}
+
+li.menubar a.standalone {
+  background: url(menu/square.gif) no-repeat 0em 0.2em !important;
+  border: 0;
+}
+
+a.actuator, a.standalone {
+  background-color: transparent;
+  padding-left: 15px;
+  text-decoration: none;
+  border: 0;
+}
+
+.menu li a, .submenu li a {
+  background-color: transparent;
+  padding-left: 15px;
+  text-decoration: none;
+  border: 0;
+}
+
+a.actuator:hover, .menu li a:hover, submenu li a:hover, li a.standalone:hover {
+  text-decoration: underline;
+  border: 0;
+}
+
+li a.base, li a.base:visited {
+  background-color: transparent;
+  padding-left: 0px;
+  text-decoration: none;
+  border: 0;
+}
 
 ##
 ##  The box of type 3 has no border and is used to display a quote or copyright information,
