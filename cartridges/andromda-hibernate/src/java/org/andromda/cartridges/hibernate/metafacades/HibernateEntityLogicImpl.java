@@ -328,12 +328,17 @@ public class HibernateEntityLogicImpl
     }
 
     /**
+     * The namespace to specify the pattern for determining the entity name.
+     */
+    private static final String ENTITY_NAME_PATTERN = "entityNamePattern";
+
+    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
     protected String handleGetEntityName()
     {
         String entityNamePattern = (String)this
-            .getConfiguredProperty("entityNamePattern");
+            .getConfiguredProperty(ENTITY_NAME_PATTERN);
         return MessageFormat.format(entityNamePattern, new Object[]
         {
             StringUtils.trimToEmpty(this.getName())
@@ -414,6 +419,11 @@ public class HibernateEntityLogicImpl
     }
 
     /**
+     * The namespace property for specifying a hibernate proxy for this entity.
+     */
+    private static final String HIBERNATE_PROXY = "hibernateProxy";
+
+    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateProxy()
      */
     protected boolean handleIsHibernateProxy()
@@ -423,7 +433,7 @@ public class HibernateEntityLogicImpl
         if (hibernateProxy == null)
         {
             hibernateProxy = (String)this
-                .getConfiguredProperty("hibernateProxy");
+                .getConfiguredProperty(HIBERNATE_PROXY);
         }
         return Boolean.valueOf(hibernateProxy).booleanValue();
     }
