@@ -144,7 +144,7 @@ public class XmlObjectFactory
 
     /**
      * Sets whether or not the XmlObjectFactory should be validating, default is
-     * false. If it IS set to be validating, then there needs to be a schema
+     * <code>true</code>. If it IS set to be validating, then there needs to be a schema
      * named objectClass.xsd in the same package as the objectClass that this
      * factory was created from.
      * 
