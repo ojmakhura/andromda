@@ -32,7 +32,7 @@ public class ValidationJavaTranslator
     private static Properties features = null;
 
     /**
-     * The prefix for coverting expressions to boolean expressions
+     * The prefix for converting expressions to boolean expressions
      */
     private static final String BOOLEAN_WRAP_PREFIX = "Boolean.valueOf(String.valueOf(";
 
