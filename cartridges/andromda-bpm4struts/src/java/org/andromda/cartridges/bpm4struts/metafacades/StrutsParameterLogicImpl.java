@@ -658,7 +658,7 @@ public class StrutsParameterLogicImpl
         else if (isControllerOperationArgument())
         {
             tableColumnNames = new HashSet();
-            final String name = getName();
+            final String name = StringUtils.trimToEmpty(getName());
             Collection actions = getControllerOperation().getDeferringActions();
             for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
