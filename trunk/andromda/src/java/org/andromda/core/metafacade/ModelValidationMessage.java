@@ -86,7 +86,6 @@ public class ModelValidationMessage
                     name.insert(0, validationName);
                 }
             }
-            System.out.println("the final metafacade: " + name.toString());
             this.metafacadeName = name.toString();
         }
         return metafacadeName;
