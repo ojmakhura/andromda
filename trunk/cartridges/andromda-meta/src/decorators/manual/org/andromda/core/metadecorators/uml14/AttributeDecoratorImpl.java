@@ -1,6 +1,7 @@
 package org.andromda.core.metadecorators.uml14;
 
 import org.andromda.core.common.StringUtilsHelper;
+import org.omg.uml.foundation.core.ModelElement;
 
 /**
  *
@@ -33,6 +34,14 @@ public class AttributeDecoratorImpl extends AttributeDecorator
     {
         return "set"
             + StringUtilsHelper.upperCaseFirstLetter(metaObject.getName());
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.AttributeDecorator#handleGetType()
+     */
+    protected ModelElement handleGetType()
+    {
+        return metaObject.getType();
     }
 
     // ------------- relations ------------------
