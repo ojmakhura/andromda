@@ -259,15 +259,7 @@ public abstract class ${metafacade.logicName}
         return super_.${method.buildMethodCall()};
 	}
 	
-#end
-	/**
-	 * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        return super_.toString();
-    }   
-    
+#end    
 #end
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
@@ -289,4 +281,17 @@ public abstract class ${metafacade.logicName}
 #end
 #renderTranslation ($metafacade "inv")
     }
+    
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        StringBuffer toString = new StringBuffer(this.getClass().getName());
+        String name = this.getFullyQualifiedName(true);
+        toString.append("[");
+        toString.append(name);
+        toString.append("]");
+        return toString.toString();
+    }      
 }
