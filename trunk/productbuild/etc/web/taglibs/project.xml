@@ -55,21 +55,6 @@
         <sourceDirectory>src/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>src/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src</directory>
-                <excludes>
-                    <exclude>java/**/*.java</exclude>
-                    <exclude>uml/**/*</exclude>
-                    <exclude>test/**/*</exclude>
-                </excludes>
-            </resource>
-            <resource>
                 <directory>src</directory>
                 <includes>
                     <include>META-INF/**/*</include>
