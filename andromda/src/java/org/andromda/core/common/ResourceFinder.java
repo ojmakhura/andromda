@@ -16,7 +16,13 @@ public class ResourceFinder {
 	
 	private static Logger logger = Logger.getLogger(ResourceFinder.class);
 
-	private ResourceFinder() {}
+    /**
+     * Default constructor should not be used in 
+     * regular programming.  Should only be used
+     * where java bean instantiation is necessary.
+     *
+     */
+	public ResourceFinder() {}
 
 	/**
 	 * Returns a URL[] containing the URL of each
