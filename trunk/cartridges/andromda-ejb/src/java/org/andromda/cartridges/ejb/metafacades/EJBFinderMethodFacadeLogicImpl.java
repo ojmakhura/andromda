@@ -31,14 +31,14 @@ public class EJBFinderMethodFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery()
      */
     public java.lang.String getQuery() {
-
-        // first see if we can retrieve the query from the super class.
-        String queryString = super.getQuery();
         
-        // now see if there is a query stored as a tagged value
+         // first see if there is a query stored as a tagged value
+        String queryString = super.getQuery("query.EJB-QL");
+        
+        // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
             queryString = this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_QUERY);
-        }
+        }     
 
         //if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString)) {
