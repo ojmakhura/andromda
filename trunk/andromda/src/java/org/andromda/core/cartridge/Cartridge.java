@@ -18,6 +18,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.NamespaceProperties;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.PathMatcher;
@@ -62,11 +63,6 @@ public class Cartridge
     private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
 
     /**
-     * Defines the location for merge templates.
-     */
-    private static final String MERGE_LOCATION = "mergeLocation";
-
-    /**
      * The current cartridge merge location.
      */
     private String mergeLocation;
@@ -105,7 +101,7 @@ public class Cartridge
                     this.processResource(resource);
                 }
             }
-            //set the namespace back
+            // set the namespace back
             factory.setActiveNamespace(previousNamespace);
         }
     }
@@ -120,7 +116,7 @@ public class Cartridge
         // merge property can be set once on the template engine.
         Property mergeProperty = Namespaces.instance().findNamespaceProperty(
             this.getName(),
-            MERGE_LOCATION,
+            NamespaceProperties.MERGE_LOCATION,
             false);
         this.mergeLocation = mergeProperty != null
             ? mergeProperty.getValue()
@@ -423,7 +419,8 @@ public class Cartridge
                     {
                         ResourceWriter.instance().writeStringToFile(
                             outputString,
-                            outFile);
+                            outFile,
+                            this.getName());
                         AndroMDALogger
                             .info("Output: '" + outFile.toURI() + "'");
                     }

@@ -50,14 +50,14 @@ public class ClassUtils
         final String methodName = "ClassUtils.loadClass";
         ExceptionUtils.checkEmpty(methodName, "className", className);
         className = StringUtils.trimToNull(className);
-        //get rid of any array notation
+        // get rid of any array notation
         className = StringUtils.replace(className, "[]", "");
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Class loadedClass = null;
         try
         {
-            //check and see if its a primitive and if so convert it
+            // check and see if its a primitive and if so convert it
             if (ClassUtils.isPrimitiveType(className))
             {
                 loadedClass = getPrimitiveClass(className, loader);

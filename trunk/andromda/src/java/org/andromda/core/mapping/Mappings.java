@@ -1,6 +1,8 @@
 package org.andromda.core.mapping;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +10,8 @@ import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.XmlObjectFactory;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
@@ -166,8 +170,8 @@ public class Mappings
         String to = null;
 
         String arraySuffix = "[]";
-        //if the type is an array suffix, then strip the array off
-        //so we can find the mapping
+        // if the type is an array suffix, then strip the array off
+        // so we can find the mapping
         int suffixIndex = from.indexOf(arraySuffix);
         if (suffixIndex != -1)
         {
@@ -182,7 +186,7 @@ public class Mappings
 
             if (suffixIndex != -1)
             {
-                //append the suffix back to the return value;
+                // append the suffix back to the return value;
                 buf.append(arraySuffix);
             }
             to = buf.toString();
@@ -239,6 +243,31 @@ public class Mappings
         return this.resource;
     }
 
+    /**
+     * Gets all Mapping instances for for this Mappings instance.
+     * 
+     * @return a collection containing <strong>all </strong> Mapping instances.
+     */
+    public Collection getMappings()
+    {
+        Collection mappingsSet = new ArrayList(this.mappings.entrySet());
+        CollectionUtils.transform(mappingsSet,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return ((Map.Entry)object).getValue();
+                }
+            });
+        return mappingsSet;
+    }
+
+    /**
+     * Gets the mapping having the given <code>from</code>.
+     * 
+     * @param from the <code>from</code> mapping.
+     * @return the Mapping instance (or null if it doesn't exist).
+     */
     private Mapping getMapping(String from)
     {
         return (Mapping)mappings.get(from);

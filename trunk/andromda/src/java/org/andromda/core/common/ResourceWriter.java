@@ -42,13 +42,16 @@ public class ResourceWriter
      * 
      * @param string the string to write to the file
      * @param file the file to which to write.
+     * @param namespace the current namespace for which this resource is being
+     *        written.
      * @throws IOException
      */
-    public void writeStringToFile(String string, File file) throws IOException
+    public void writeStringToFile(String string, File file, String namespace)
+        throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         ExceptionUtils.checkNull(methodName, "file", file);
-        writeStringToFile(string, file.toString());
+        writeStringToFile(string, file.toString(), namespace);
     }
 
     /**
@@ -56,10 +59,26 @@ public class ResourceWriter
      * 
      * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
-     * @throws IOException
      */
     public void writeStringToFile(String string, String fileLocation)
         throws IOException
+    {
+        this.writeStringToFile(string, fileLocation, null);
+    }
+
+    /**
+     * Writes the string to the file specified by the fileLocation argument.
+     * 
+     * @param string the string to write to the file
+     * @param fileLocation the location of the file which to write.
+     * @param namespace the current namespace for which this resource is being
+     *        written.
+     * @throws IOException
+     */
+    public void writeStringToFile(
+        String string,
+        String fileLocation,
+        String namespace) throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         if (string == null)
@@ -73,6 +92,7 @@ public class ResourceWriter
         {
             parent.mkdirs();
         }
+        string = Merger.instance().getMergedString(namespace, string);
         FileOutputStream stream = new FileOutputStream(file);
         stream.write(string.getBytes());
         stream.flush();
@@ -139,6 +159,11 @@ public class ResourceWriter
     }
 
     /**
+     * The location to which history is written.
+     */
+    private final String HISTORY_LOCATION = ".andromda/history/";
+
+    /**
      * Stores the file history.
      */
     private String getHistoryStorage()
@@ -149,7 +174,7 @@ public class ResourceWriter
         {
             historyStorage.append("/");
         }
-        historyStorage.append(".andromda/history/");
+        historyStorage.append(HISTORY_LOCATION);
         historyStorage.append(this.modelFile);
         return historyStorage.toString();
     }

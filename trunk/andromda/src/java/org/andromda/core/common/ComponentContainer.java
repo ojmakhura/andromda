@@ -182,9 +182,9 @@ public class ComponentContainer
             {
                 String typeName = type.getName();
                 component = this.container.getComponentInstance(typeName);
-                //if the component doesn't have a default already
-                //(i.e. componet == null), then see if we can find the default
-                //configuration file.
+                // if the component doesn't have a default already
+                // (i.e. componet == null), then see if we can find the default
+                // configuration file.
                 if (component == null)
                 {
                     String defaultImpl = this.getDefaultImplementation(type

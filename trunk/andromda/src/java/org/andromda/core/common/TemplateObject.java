@@ -118,7 +118,7 @@ public class TemplateObject
                         + "' with '" + property.getValue()
                         + "' on templateObject --> '" + templateObject + "'";
                     logger.error(errMsg, ex);
-                    //don't throw the exception
+                    // don't throw the exception
                 }
             }
         }
