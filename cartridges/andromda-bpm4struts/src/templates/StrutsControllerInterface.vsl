@@ -43,6 +43,9 @@ public abstract class ${controller.name} implements java.io.Serializable
 #if (!$returnType)
 #set ($returnType = "void")
 #end
+    /**
+$operation.getDocumentation("     * ")
+     */
     $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #set ($returnType = false)
