@@ -5,7 +5,10 @@ import java.util.Iterator;
 
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
@@ -250,6 +253,14 @@ public class AssociationEndFacadeLogicImpl
     {
         int lower = this.getMultiplicityRangeLower();
         return lower >= 1;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isChild()
+     */
+    public boolean handleIsChild()
+    {
+        return this.getOtherEnd() != null && this.getOtherEnd().isComposition();
     }
 
     /**
