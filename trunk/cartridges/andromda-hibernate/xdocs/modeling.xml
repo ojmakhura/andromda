@@ -40,7 +40,26 @@
 			          	<td>
 			          		Produces Session EJB facades for the hibernate entities.
 			          	</td>
-		        	</tr>		
+		        	</tr>
+                    <tr>
+                        <td>
+                          <a name="Enumeration"/>
+                            <strong><![CDATA[<<Enumeration>>]]></strong>
+                        </td>
+                      <td>
+                          Classifier
+                      </td>
+                        <td>
+                            To be used together with the <![CDATA[<<Entity>>]]> stereotype. It denotes the class will
+                            be a persistent type-safe enumeration, implemented by means of a Hibernate UserType.
+                            Any attribute modeled on this entity will result in an enumeration literal. You
+                            may assign an <code>initial value</code> to such an attribute, Hibernate will persist
+                            that specified value for the corresponding literal. If no such value is specified the name
+                            of the attribute is assumed. Make sure there are no naming collisions between the
+                            initial values and the attribute names you model. <i>Please note: these enumerations
+                            use a <code>String</code> in order to persist their unique value.</i>
+                        </td>
+                    </tr>
 		        	<tr>
 			          	<td>
 							<a name="FinderMethod"/>
