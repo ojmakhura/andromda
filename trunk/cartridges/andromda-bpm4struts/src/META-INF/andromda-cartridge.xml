@@ -16,7 +16,7 @@
     <property reference="clientValidation" default="true"/>
     <property reference="serverValidation" default="true"/>
     <property reference="welcomeFileName" default="index.jsp"/>
-    <property reference="breadCrumbs" default="true"/>
+    <property reference="maxBreadCrumbs" default="5"/>
     <property reference="dummyData" default="true"/>
     <property reference="onlineHelp" default="true"/>
 
