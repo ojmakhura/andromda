@@ -11,7 +11,7 @@
       </cvs>
     </modificationset>
     <schedule interval="900">
-      <maven goal="scm:update-project|dist|docs|deploy-distribution" projectfile="/work/andromda/andromda-all/project.xml" mavenscript="/usr/local/maven/bin/maven">
+      <maven goal="scm:update-project|clean|dist|docs|deploy-distribution" projectfile="/work/andromda/andromda-all/project.xml" mavenscript="/usr/local/maven/bin/maven">
       </maven>
       <pause starttime="0505" endtime="0605"/>
     </schedule>
