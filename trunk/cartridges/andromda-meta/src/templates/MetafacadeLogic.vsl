@@ -1,6 +1,35 @@
 //
 // Attention: generated code (by MetafacadeLogic.vsl) - do not modify!
 //
+##
+##  This macro will render the approriate java validation code
+##
+##      o   $modelElement: the element from which for are going to translate constraints
+##      o   $elementKind: "class", "attribute", "operation", "association", ...
+##      o   $constraintKind: "pre", "post", "inv", ...
+##
+#macro (renderTranslation $modelElement $elementKind $constraintKind)
+#foreach ($constraint in $modelElement.getConstraints($constraintKind))
+#set ($constraintTranslation = $constraint.getTranslation("validation.Java"))
+#set ($constraintDocumentation = $constraint.getDocumentation("",9999,false))
+#if (!$constraintDocumentation || $constraintDocumentation.trim().length()==0)
+#set ($constraintDocumentation = $constraintTranslation)
+#end
+#set ($constraintKindString = "invariant")
+#if ($constraintKind == "pre")
+#set ($constraintKindString = "precondition")
+#elseif ($constraintKind == "post")
+#set ($constraintKindString = "postcondition")
+#end
+        if (false == $constraintTranslation)
+            throw new ModelValidationException(${modelElement.class.name}, "While checking for $elementKind $constraintKindString", "$str.toSingleLine($constraintDocumentation)");
+#set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
+#end##foreach constraint
+#set ($constraint = false)## reset to make sure we do not reuse the last constraint
+#end##macro
+##
+##
+##
 #set ($generatedFile = $metafacade.getLogicFile($metamodelVersionPackage))
 #set ($packageName = $metafacade.getLogicPackageName($metamodelVersionPackage))
 #if ($packageName)
@@ -87,10 +116,12 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
+#renderTranslation ($att "attribute" "pre")
     }
 
     private void $handleMethodPostCondition
     {
+#renderTranslation ($att "attribute" "post")
     }
 
     public final $memberTypeName ${methodName}()
@@ -186,14 +217,12 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
-#foreach ($constraint in $op.translateConstraints("pre","validation.Java"))
-        if (false == $constraint)
-            throw new ModelValidationException(${metafacade.logicName}.class, "While checking for operation preconditions", "$constraint");
-#end
+#renderTranslation ($op "operation" "pre")
     }
 
     private void $handleMethodPostCondition
     {
+#renderTranslation ($op "operation" "post")
     }
 
     public final $memberTypeName ${methodName}($typedArgumentList)
@@ -251,10 +280,12 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
+#renderTranslation ($assocEnd "association" "pre")
     }
 
     private void $handleMethodPostCondition
     {
+#renderTranslation ($assocEnd "association" "post")
     }
 
 #if ($assocEnd.one2Many || $assocEnd.many2Many)
@@ -307,9 +338,6 @@ public abstract class ${metafacade.logicName}
 
     protected void __handleInvariants()
     {
-#foreach ($constraint in $metafacade.translateConstraints("inv","validation.Java"))
-        if (false == $constraint)
-            throw new ModelValidationException(${metafacade.logicName}.class, "While checking for class invariants", "$constraint");
-#end
+#renderTranslation ($metafacade "class" "inv")
     }
 }
