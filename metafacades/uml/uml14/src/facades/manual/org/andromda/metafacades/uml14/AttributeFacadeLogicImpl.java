@@ -1,9 +1,14 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
+import org.omg.uml.foundation.datatypes.Multiplicity;
+import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 
@@ -94,5 +99,38 @@ public class AttributeFacadeLogicImpl
         }
         return value;
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
+     */
+	public boolean isRequired() {
+		int lower = this.getMultiplicityRangeLower();
+		return lower >= 1;
+    }	
 
+	/**
+	 * Returns the lower range of the multiplicty for the 
+	 * passed in associationEnd
+	 * @return int the lower range of the multiplicty or null if
+	 *         it can't be retrieved
+	 */
+	private int getMultiplicityRangeLower() {
+		int lower = 1;
+		Multiplicity multiplicity = metaObject.getMultiplicity();
+		// assume no multiplicity is 1
+		if (multiplicity != null) {
+			if (multiplicity != null) {
+				Collection ranges = multiplicity.getRange();
+				if (ranges != null && !ranges.isEmpty()) {
+					Iterator rangeIt = ranges.iterator();
+					while (rangeIt.hasNext()) {
+						MultiplicityRange multiplicityRange =
+							(MultiplicityRange) rangeIt.next();
+						lower = multiplicityRange.getLower();
+					}
+				}
+			}
+		}
+		return lower;
+	}
 }
