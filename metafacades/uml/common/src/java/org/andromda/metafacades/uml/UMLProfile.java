@@ -41,6 +41,12 @@ public class UMLProfile
         .getString("STEREOTYPE_SERVICE");
 
     /**
+     * Represents a value object.
+     */
+    public static final String STEREOTYPE_VALUE_OBJECT = umlProfile
+        .getString("STEREOTYPE_VALUE_OBJECT");
+    
+    /**
      * The base exception stereotype. If a model element is stereotyped with
      * this (or one of its specializations), then the exception can be generated
      * by a cartridge and a dependency to it from an operation will add a throws clause.
