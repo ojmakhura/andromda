@@ -5,14 +5,25 @@
 
 #end
 <div id="messages">
-    <logic:messagesPresent>
-        <html:messages id="error">
-            <p class="error"><bean:write name="error"/></p>
-        </html:messages>
+    <logic:messagesPresent message="false">
+        <div class="errors">
+            <html:messages id="error" message="false">
+                <div class="error"><bean:write name="error"/></div>
+            </html:messages>
+        </div>
     </logic:messagesPresent>
-    <logic:messagesPresent message="true">
-        <html:messages id="message" message="true">
-            <p><bean:write name="message"/></p>
-        </html:messages>
+    <logic:messagesPresent name="$warningMessagesKey">
+        <div class="warnings">
+            <html:messages id="warning" name="$warningMessagesKey">
+                <div class="warning"><bean:write name="warning"/></div>
+            </html:messages>
+        </div>
+    </logic:messagesPresent>
+    <logic:messagesPresent name="$successMessagesKey>">
+        <div class="messages">
+            <html:messages id="message" name="$successMessagesKey">
+                <div class="message"><bean:write name="message"/></div>
+            </html:messages>
+        </div>
     </logic:messagesPresent>
 </div>
