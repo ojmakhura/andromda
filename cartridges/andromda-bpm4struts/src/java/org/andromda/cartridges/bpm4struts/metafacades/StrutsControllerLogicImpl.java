@@ -38,6 +38,22 @@ public class StrutsControllerLogicImpl
 
     // ------------- relations ------------------
 
+    protected Collection handleGetSessionObjects()
+    {
+        final Collection objectsList = new ArrayList();
+
+        final Collection associationEnds = getAssociationEnds();
+        for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+        {
+            AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
+            ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
+            if (classifier instanceof StrutsSessionObject)
+                objectsList.add(classifier);
+        }
+
+        return objectsList;
+    }
+
     protected Collection handleGetServices()
     {
         final Collection servicesList = new ArrayList();
