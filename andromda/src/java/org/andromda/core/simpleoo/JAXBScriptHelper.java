@@ -1,20 +1,17 @@
 package org.andromda.core.simpleoo;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Vector;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
+import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.HTMLAnalyzer;
-import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.common.ScriptHelper;
-import org.andromda.core.common.DbMappingTable;
-
-import org.andromda.core.common.DbMappingTable;
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.xml.Association;
-import org.andromda.core.xml.AssociationEnd;
 import org.andromda.core.xml.AssociationLink;
 import org.andromda.core.xml.Attribute;
 import org.andromda.core.xml.Datatype;

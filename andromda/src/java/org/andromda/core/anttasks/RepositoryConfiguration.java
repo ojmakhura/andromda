@@ -1,10 +1,10 @@
 package org.andromda.core.anttasks;
 
-import org.apache.tools.ant.BuildException;
-import org.andromda.core.simpleoo.JAXBRepositoryFacade;
-import org.andromda.core.simpleoo.JAXBScriptHelper;
 import org.andromda.core.common.RepositoryFacade;
 import org.andromda.core.common.ScriptHelper;
+import org.andromda.core.simpleoo.JAXBRepositoryFacade;
+import org.andromda.core.simpleoo.JAXBScriptHelper;
+import org.apache.tools.ant.BuildException;
 
 /**
  * 

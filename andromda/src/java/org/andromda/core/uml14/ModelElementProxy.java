@@ -1,7 +1,6 @@
 package org.andromda.core.uml14;
 
 import java.lang.reflect.Method;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
@@ -13,7 +12,7 @@ import org.omg.uml.foundation.core.TaggedValue;
 /**
  *  Description of the Class
  *
- *@author    amowers
+ *@author    Anthony Mowers
  */
 public class ModelElementProxy
 	 implements 

@@ -13,12 +13,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Properties;
 
-// PENDING: remove these JAXB imports as soon as
-// the TypeMapping dependency on JAXB has been removed
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.andromda.core.common.DbMappingTable;
+import org.andromda.core.common.RepositoryFacade;
+import org.andromda.core.common.RepositoryReadException;
+import org.andromda.core.common.ScriptHelper;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.core.dbmapping.JAXBDbMappingTable;
+import org.andromda.core.dbmapping.Mappings;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
@@ -27,14 +32,6 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
-
-import org.andromda.core.dbmapping.JAXBDbMappingTable;
-import org.andromda.core.common.RepositoryReadException;
-import org.andromda.core.common.RepositoryFacade;
-import org.andromda.core.common.ScriptHelper;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.core.common.DbMappingTable;
-import org.andromda.core.dbmapping.Mappings;
 
 /**
  *  This class represents the <code>&lt;andromda&gt;</code> custom task which can

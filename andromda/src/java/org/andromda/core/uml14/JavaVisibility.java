@@ -5,7 +5,7 @@ import java.util.List;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 
 /**
- * @author tony
+ * @author Anthony Mowers
  *
  * 
  */

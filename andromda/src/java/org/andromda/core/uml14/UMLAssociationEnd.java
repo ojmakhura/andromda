@@ -2,9 +2,8 @@ package org.andromda.core.uml14;
 
 import org.omg.uml.foundation.core.Classifier;
 /**
- * @author tony
- *
  * 
+ * @author Anthony Mowers
  */
 public interface UMLAssociationEnd
 	extends UMLModelElement

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 
 /**
- * @author amowers
+ * @author Anthony Mowers
  *
  * 
  */

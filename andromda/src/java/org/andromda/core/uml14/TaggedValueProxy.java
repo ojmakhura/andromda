@@ -1,11 +1,10 @@
 package org.andromda.core.uml14;
 
-
 import java.util.Iterator;
 import org.omg.uml.foundation.core.TaggedValue;
 
 /**
- * @author tony
+ * @author Anthony Mowers
  *
  * 
  */

@@ -1,14 +1,12 @@
 package org.andromda.core.uml14;
 
-import java.lang.reflect.Method;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Dependency;
-import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Operation;
 
 

@@ -12,10 +12,10 @@ package org.andromda.core.common;
  */
 public interface DbMappingTable
 {
-
+   
 	/**
 	* Returns the JDBC type for the given Java type.
-	* @see java.sql.Types
+    *
 	* @param javaType name of the Java type (e.g. "java.util.Date")
 	* @return String name of the JDBC type (e.g. "DATE")
 	*/

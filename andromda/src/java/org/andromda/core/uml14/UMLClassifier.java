@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  *  Description of the Interface
  *
- *@author    amowers
+ *@author    Anthony Mowers
  */
 public interface UMLClassifier
 	extends UMLModelElement

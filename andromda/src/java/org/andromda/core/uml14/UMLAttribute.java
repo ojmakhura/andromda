@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  *  Description of the Interface
  *
- *@author    tony
+ *@author    Anthony Mowers
  */
 public interface UMLAttribute
 	extends UMLModelElement

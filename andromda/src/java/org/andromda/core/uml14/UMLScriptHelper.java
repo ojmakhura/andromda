@@ -1,37 +1,28 @@
 package org.andromda.core.uml14;
 
-import org.andromda.core.common.DbMappingTable;
-import org.andromda.core.common.ScriptHelper;
-import org.andromda.core.common.StringUtilsHelper;
-
 import java.util.Collection;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Vector;
-import java.util.List;
 
-import javax.jmi.reflect.RefPackage;
-
-import org.omg.uml.UmlPackage;
+import org.andromda.core.common.ScriptHelper;
+import org.andromda.core.common.StringUtilsHelper;
 import org.omg.uml.foundation.core.Abstraction;
-import org.omg.uml.foundation.core.Dependency;
-import org.omg.uml.foundation.core.Attribute;
-import org.omg.uml.foundation.core.GeneralizableElement;
 import org.omg.uml.foundation.core.AssociationEnd;
-import org.omg.uml.foundation.core.StructuralFeature;
+import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
-import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.Dependency;
+import org.omg.uml.foundation.core.GeneralizableElement;
 import org.omg.uml.foundation.core.ModelElement;
-import org.omg.uml.foundation.core.Parameter;
 import org.omg.uml.foundation.core.Operation;
-import org.omg.uml.foundation.core.Usage;
+import org.omg.uml.foundation.core.Parameter;
+import org.omg.uml.foundation.core.StructuralFeature;
 import org.omg.uml.foundation.core.TaggedValue;
 
 /**
  *  Description of the Class
  *
- *@author    amowers
+ *@author    Anthony Mowers
  */
 public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 {

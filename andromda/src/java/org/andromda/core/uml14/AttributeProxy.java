@@ -1,8 +1,5 @@
 package org.andromda.core.uml14;
 
-import java.lang.reflect.Method;
-
-import java.util.Collection;
 import org.omg.uml.foundation.core.Attribute;
 
 

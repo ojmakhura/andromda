@@ -1,10 +1,10 @@
 package org.andromda.core.dbmapping;
 
-import org.andromda.core.common.DbMappingTable;
-
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import org.andromda.core.common.DbMappingTable;
 
 /**
  * <p>This is a lookup table for the mapping from Java data types
@@ -44,7 +44,7 @@ public class JAXBDbMappingTable
 
     /**
      * Returns the JDBC type for the given Java type.
-     * @see java.sql.Types
+     * 
      * @param javaType name of the Java type (e.g. "java.util.Date")
      * @return String name of the JDBC type (e.g. "DATE")
      */
