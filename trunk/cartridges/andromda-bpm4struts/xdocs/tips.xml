@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - Tips</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="uc">
+            <h3>THIS PAGE IS UNDER CONSTRUCTION</h3>
+        </section>
+
+        <section name="tips-intro">
+            <h3>Tips for using AndroMDA bpm4struts</h3>
+            <p class="std">
+                This section provides you with some pointers that might prove helpful when using AndroMDA with
+                the bpm4struts cartridge.
+            </p>
+            <p class="std">
+
+            </p>
+        </section>
+
+        <section name="regeneration">
+            <h3>Regeneration of jsps</h3>
+            <p class="std">
+                The power of AndroMDA is apparent when you will need to apply changes to your model and regenerate
+                the set of code files. Using bpm4struts these files comprise Java classes as well as properties
+                files and JSPs.
+            </p>
+            <p class="std">
+                You will not want to lose your changes to the generated code, to ensure this the cartridges have
+                been designed never to overwrite the implementation classes and files. On the other hand you will
+                most probably want to see the most recent changes in the model reflected in the code.
+            </p>
+            <p class="std">
+                For classes this is not a problem because the cartridges generating them will provide you with
+                an implementation class that will only be written when it does not yet exist. Subsequent changes
+                during generation will be reflected automatically in the abstract parent classes. The implementation
+                classes extending them will require a manual update.
+            </p>
+            <p class="std">
+                So what about JSPs ? There are many different ways of handling these kinds of updates for regular
+                files such as JSPs, but we are looking for the most efficient and less error prone one.
+            </p>
+            <p class="std">
+
+            </p>
+        </section>
+
+    </body>
+</document>
