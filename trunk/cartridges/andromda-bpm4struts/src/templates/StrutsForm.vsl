@@ -4,9 +4,7 @@
 ##
 #set ($fields = $action.actionFormFields)
 #set ($actionParameters = $action.actionParameters)
-#set ($formBeanName = $action.formBeanName)
 #set ($formBeanClassName = $action.formBeanClassName)
-#set ($messageKey = $action.messageKey)
 ##
 ##  MACROS
 ##
@@ -49,11 +47,14 @@ package $action.formBeanPackageName;
 
 /**
  * @struts.form
- *      name="$formBeanName"
+ *      name="$action.formBeanName"
  */
 public class $formBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
+#foreach ($operation in $action.deferredOperations)
+        , $operation.interfaceName
+#end
 {
 #set ($collectionPresent = false)
 #set ($arrayPresent = false)
