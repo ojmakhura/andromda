@@ -11,50 +11,50 @@
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
     <template
-        sheet="templates/HibernateEntity.vsl"
+        path="templates/HibernateEntity.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entities"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>  
         </modelElements>  
     </template>
 
     <template
-        sheet="templates/HibernateEntityImpl.vsl"
+        path="templates/HibernateEntityImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
         outlet="entity-impls"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>  
         </modelElements>  
     </template>
 
     <template
-        sheet="templates/HibernateEntityFactory.vsl"
+        path="templates/HibernateEntityFactory.vsl"
         outputPattern="{0}/{1}Factory.java"
         outlet="entities"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>   
         </modelElements> 
     </template>
 
     <template
-        sheet="templates/HibernateSessionBean.vsl"
+        path="templates/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Service"/>
         </modelElements>             
     </template>
 
     <template
-        sheet="templates/HibernateSessionBeanImpl.vsl"
+        path="templates/HibernateSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="Service"/>
         </modelElements>    

@@ -63,8 +63,8 @@ public class CartridgeTest extends TestCase
     
     public void testGetTemplates() 
     {
-        assertNotNull(this.cartridge.getTemplateConfigurations());
-        assertEquals(2, this.cartridge.getTemplateConfigurations().size());
+        assertNotNull(this.cartridge.getTemplates());
+        assertEquals(2, this.cartridge.getTemplates().size());
     }
 
     public void testGetPropertyReferences() 

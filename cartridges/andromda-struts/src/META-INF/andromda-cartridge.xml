@@ -4,40 +4,40 @@
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
     <template
-      sheet="templates/StrutsForm.vsl"
+      path="templates/StrutsForm.vsl"
       outputPattern="{0}/{1}.java"
       outlet="forms"
-      overWrite="true">
+      overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="WebForm"/>  
         </modelElements>  
     </template>
 
     <template
-      sheet="templates/StrutsAction.vsl"
+      path="templates/StrutsAction.vsl"
       outputPattern="{0}/{1}.java"
       outlet="actions"
-      overWrite="false">
+      overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="WebAction"/>  
         </modelElements>  
     </template>
 
     <template
-      sheet="templates/StrutsJSP.vsl"
+      path="templates/StrutsJSP.vsl"
       outputPattern="{1}.jsp"
       outlet="pages"
-      overWrite="false">
+      overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="WebPage"/>  
         </modelElements>   
     </template>
 
     <template
-      sheet="templates/StrutsConfig.vsl"
+      path="templates/StrutsConfig.vsl"
       outputPattern="WEB-INF/struts-config.xml"
       outlet="config"
-      overWrite="true"
+      overwrite="true"
       outputToSingleFile="true">
         <modelElements variable="classes">
             <modelElement stereotype="WebForm" variable="webForms"/>

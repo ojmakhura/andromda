@@ -14,20 +14,20 @@
     <property reference="securityRealm" default="other"/>
 
     <template
-        sheet="templates/StrutsAction.vsl"
+        path="templates/StrutsAction.vsl"
         outputPattern="$generatedFile"
         outlet="actions"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndEvent"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsActionJsp.vsl"
+        path="templates/StrutsActionJsp.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overWrite="false"
+        overwrite="false"
         generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndEvent"/>
@@ -35,130 +35,130 @@
     </template>
 
     <template
-        sheet="templates/StrutsForm.vsl"
+        path="templates/StrutsForm.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndEvent"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsUseCaseForm.vsl"
+        path="templates/StrutsUseCaseForm.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndUseCase"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsController.vsl"
+        path="templates/StrutsController.vsl"
         outputPattern="$generatedFile"
         outlet="controller-impls"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndController"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsControllerInterface.vsl"
+        path="templates/StrutsControllerInterface.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndController"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsJSP.vsl"
+        path="templates/StrutsJSP.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndView"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsFormValidationStaticJavascript.vsl"
+        path="templates/StrutsFormValidationStaticJavascript.vsl"
         outputPattern="form-validation.jsp"
         outlet="pages"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsFormValidationRules.vsl"
+        path="templates/StrutsFormValidationRules.vsl"
         outputPattern="validator-rules.xml"
         outlet="configuration"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsIndexJsp.vsl"
+        path="templates/StrutsIndexJsp.vsl"
         outputPattern="index.jsp"
         outlet="pages"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsMessageResources.vsl"
+        path="templates/StrutsMessageResources.vsl"
         outputPattern="application-resources.properties"
         outlet="messages"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsCustomMessageResources.vsl"
+        path="templates/StrutsCustomMessageResources.vsl"
         outputPattern="custom-resources.properties"
         outlet="messages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeMessageResources.vsl"
+        path="templates/StrutsXDocletMergeMessageResources.vsl"
         outputPattern="struts-message-resources.xml"
         outlet="xdoclet-merge"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeGlobalForwards.vsl"
+        path="templates/StrutsXDocletMergeGlobalForwards.vsl"
         outputPattern="global-forwards.xml"
         outlet="xdoclet-merge"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergePlugins.vsl"
+        path="templates/StrutsXDocletMergePlugins.vsl"
         outputPattern="struts-plugins.xml"
         outlet="xdoclet-merge"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -166,30 +166,30 @@
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeServletMapping.vsl"
+        path="templates/StrutsXDocletMergeServletMapping.vsl"
         outputPattern="servlet-mappings.xml"
         outlet="xdoclet-merge"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeServlets.vsl"
+        path="templates/StrutsXDocletMergeServlets.vsl"
         outputPattern="servlets.xml"
         outlet="xdoclet-merge"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeTagLibs.vsl"
+        path="templates/StrutsXDocletMergeTagLibs.vsl"
         outputPattern="taglibs.xml"
         outlet="xdoclet-merge"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -197,10 +197,10 @@
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeWelcomeFiles.vsl"
+        path="templates/StrutsXDocletMergeWelcomeFiles.vsl"
         outputPattern="welcomefiles.xml"
         outlet="xdoclet-merge"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -208,10 +208,10 @@
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeWebSecurity.vsl"
+        path="templates/StrutsXDocletMergeWebSecurity.vsl"
         outputPattern="web-security.xml"
         outlet="xdoclet-merge"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -219,10 +219,10 @@
     </template>
 
     <template
-        sheet="templates/StrutsXDocletMergeWebSecRoles.vsl"
+        path="templates/StrutsXDocletMergeWebSecRoles.vsl"
         outputPattern="web-sec-roles.xml"
         outlet="xdoclet-merge"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -230,80 +230,80 @@
     </template>
 
     <template
-        sheet="templates/StrutsLoginFormJsp.vsl"
+        path="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsLoginErrorJsp.vsl"
+        path="templates/StrutsLoginErrorJsp.vsl"
         outputPattern="login/login-error.jsp"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsMenuJsp.vsl"
+        path="templates/StrutsMenuJsp.vsl"
         outputPattern="layout/menu.jsp"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsMainLayoutJsp.vsl"
+        path="templates/StrutsMainLayoutJsp.vsl"
         outputPattern="layout/main-layout.jsp"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsTilesDefs.vsl"
+        path="templates/StrutsTilesDefs.vsl"
         outputPattern="tiles-defs.xml"
         outlet="configuration"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsApplicationCss.vsl"
+        path="templates/StrutsApplicationCss.vsl"
         outputPattern="layout/default-application.css"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsCss.vsl"
+        path="templates/StrutsCss.vsl"
         outputPattern="layout/default.css"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
 
     <template
-        sheet="templates/StrutsMessagesJsp.vsl"
+        path="templates/StrutsMessagesJsp.vsl"
         outputPattern="layout/messages.jsp"
         outlet="pages"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>

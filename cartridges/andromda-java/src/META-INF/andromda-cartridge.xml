@@ -6,10 +6,10 @@
 
 	<!-- template definitions -->
     <template
-        sheet="templates/java/Service.vsl"
+        path="templates/java/Service.vsl"
         outputPattern="{0}/{1}.java"
         outlet="services"
-        overWrite="true"
+        overwrite="true"
 		required="false">
         <modelElements variable="service">
             <modelElement stereotype="Service"/>  
@@ -17,10 +17,10 @@
     </template>
 	
     <template
-        sheet="templates/java/ServiceImpl.vsl"
+        path="templates/java/ServiceImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
         outlet="service-impls"
-        overWrite="false"
+        overwrite="false"
 		required="false">
         <modelElements variable="service">
             <modelElement stereotype="Service"/>  
@@ -28,10 +28,10 @@
     </template>
 	
     <template
-        sheet="templates/java/ValueObject.vsl"
+        path="templates/java/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
-        overWrite="true"
+        overwrite="true"
 		required="false">
         <modelElements variable="class">
             <modelElement stereotype="ValueObject"/>  
@@ -39,10 +39,10 @@
     </template>
     
 	<template 
-		sheet="templates/java/ApplicationException.vsl" 
+		path="templates/java/ApplicationException.vsl" 
 		outputPattern="{0}/{1}.java"  
 		outlet="exceptions" 
-		overWrite="true"
+		overwrite="true"
 		required="false">
 		<modelElements variable="class">
             <modelElement stereotype="Exception"/>
@@ -51,10 +51,10 @@
 	</template>
 	
 	<template 
-		sheet="templates/java/UnexpectedException.vsl" 
+		path="templates/java/UnexpectedException.vsl" 
 		outputPattern="{0}/{1}.java"  
 		outlet="exceptions" 
-		overWrite="true"
+		overwrite="true"
 		required="false">
 		<modelElements variable="class">
             <modelElement stereotype="UnexpectedException"/>
@@ -62,10 +62,10 @@
 	</template>
 	
 	<template 
-		sheet="templates/java/Enumeration.vsl" 
+		path="templates/java/Enumeration.vsl" 
 		outputPattern="{0}/{1}.java"  
 		outlet="enumerations" 
-		overWrite="true"
+		overwrite="true"
 		required="false">
 		<modelElements variable="class">
             <modelElement stereotype="Enumeration"/>
