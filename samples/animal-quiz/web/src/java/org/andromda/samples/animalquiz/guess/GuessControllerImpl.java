@@ -17,7 +17,7 @@ import javax.xml.rpc.ServiceException;
  * @author Chad Brandon
  * @author Wouter Zoons
  */
-final class GuessController extends GuessControllerInterface
+final class GuessControllerImpl extends GuessController
 {
     /**
      * Fetches the first question from the business tier and
