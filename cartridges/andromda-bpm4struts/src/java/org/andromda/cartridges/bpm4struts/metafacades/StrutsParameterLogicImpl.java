@@ -342,6 +342,7 @@ public class StrutsParameterLogicImpl
         final String array = constructArray();
         if (getType().isArrayType()) return array;
         if (getType().isCollectionType()) return "java.util.Arrays.asList(" + array + ")";
+        if (getType().isDateType()) return "java.util.Date()";
 
         return "\"" + name + "-test" + "\"";
     }
