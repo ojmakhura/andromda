@@ -8,7 +8,6 @@ import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -165,23 +164,23 @@ public class HibernateEntityLogicImpl
         superclasses = (GeneralizableElementFacade[])hierarchy
             .toArray(superclasses);
         int rootIndex = hierarchy.size() - 1;
-        for (int i = rootIndex; i > -1; i--)
+        for (int ctr = rootIndex; ctr > -1; ctr--)
         {
-            inheritance = getInheritance(superclasses[i]);
+            inheritance = getInheritance(superclasses[ctr]);
             if (inheritance == null)
             {
                 // Default = class
-                result = superclasses[i];
+                result = superclasses[ctr];
                 break;
             }
             if (inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
             {
-                result = superclasses[i];
+                result = superclasses[ctr];
                 break;
             }
             if (inheritance.equals(INHERITANCE_STRATEGY_CLASS))
             {
-                result = superclasses[i];
+                result = superclasses[ctr];
                 break;
             }
         }
@@ -200,31 +199,15 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetHibernateInheritanceStrategy()
     {
-        String result = null;
-        if (logger.isDebugEnabled())
-            logger.debug(">>> handleGetInheritanceStrategy start:" + this);
-
-        try
+        String result = this.getSuperInheritance();
+        if (StringUtils.isEmpty(result))
         {
-            result = getSuperInheritance();
-            if (result == null)
-            {
-                result = getInheritance(this);
-            }
-            if (result == null)
-            {
-                result = INHERITANCE_STRATEGY_CLASS;
-            }
+            result = this.getInheritance(this);
         }
-        catch (Exception ex)
+        if (StringUtils.isEmpty(result))
         {
-            String errorMessage = "*** " + getClass().getName()
-                + " handleGetInheritanceStrategy exception:" + ex;
-            ExceptionRecorder.record(errorMessage, ex, "hibernate");
-            logger.error(errorMessage);
+            result = INHERITANCE_STRATEGY_CLASS;
         }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< handleGetInheritanceStrategy return:" + result);
         return result;
     }
 
@@ -289,13 +272,13 @@ public class HibernateEntityLogicImpl
      */
     private void validateNoInheritance(GeneralizableElementFacade[] superclasses)
     {
-        for (int i = 0; i < superclasses.length - 1; i++)
+        for (int ctr = 0; ctr < superclasses.length - 1; ctr++)
         {
-            String inheritance = getInheritance(superclasses[i]);
+            String inheritance = getInheritance(superclasses[ctr]);
             if (inheritance != null)
             {
                 AndroMDALogger.warn("Inheritance tagged value:" + inheritance
-                    + " on " + superclasses[i] + " ignored.");
+                    + " on " + superclasses[ctr] + " ignored.");
             }
         }
     }
@@ -316,9 +299,9 @@ public class HibernateEntityLogicImpl
         String result = null;
         String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
         // Search from root class but 1 to lowest.
-        for (int i = superclasses.length - 1; i > -1; i--)
+        for (int ctr = superclasses.length - 1; ctr > -1; ctr--)
         {
-            String inheritance = getInheritance(superclasses[i]);
+            String inheritance = getInheritance(superclasses[ctr]);
             if (inheritance != null)
             {
                 if (result == null)
@@ -339,7 +322,7 @@ public class HibernateEntityLogicImpl
                                     + " with "
                                     + inheritance
                                     + " on "
-                                    + superclasses[i] + " ignored.");
+                                    + superclasses[ctr] + " ignored.");
                         }
                         else
                         {
