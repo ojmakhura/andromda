@@ -1,6 +1,7 @@
 package org.andromda.cartridges.webservice.metafacades;
 
 import java.text.Collator;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -84,11 +85,27 @@ public class WebServiceLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getQName()
+     */
+    public String handleGetQName()
+    {
+        return MessageFormat.format(
+            this.getQualifiedNameLocalPartPattern(),
+            new String[]
+            {
+                StringUtils.trimToEmpty(this.getName())
+            });
+    }
+
+    /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getNamespace()
      */
     public java.lang.String handleGetNamespace()
     {
-        return "http://" + this.getPackageName();
+        return MessageFormat.format(this.getNamespacePattern(), new String[]
+        {
+            StringUtils.trimToEmpty(this.getPackageName())
+        });
     }
 
     /**
@@ -170,7 +187,7 @@ public class WebServiceLogicImpl
             OperationFacade operation = (OperationFacade)operationIt.next();
             exceptions.addAll(operation.getExceptions());
         }
-        
+
         types.addAll(exceptions);
 
         // now since we're at the end, and we know the
@@ -384,5 +401,53 @@ public class WebServiceLogicImpl
     public String handleGetNamespacePrefix()
     {
         return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
+    }
+
+    /**
+     * The prefix to give to type names.
+     */
+    static final String QNAME_LOCAL_PART_PATTERN = "qualifiedNameLocalPartPattern";
+
+    /**
+     * Sets the <code>qualifiedNameLocalPartPattern</code> for this service.
+     * 
+     * @param qualifiedNameLocalPartPattern the name prefix to use for these types.
+     */
+    public void setQualifiedNameLocalPartPattern(String qualifiedNameLocalPartPattern)
+    {
+        this.registerConfiguredProperty(QNAME_LOCAL_PART_PATTERN, StringUtils
+            .trimToEmpty(qualifiedNameLocalPartPattern));
+    }
+
+    /**
+     * Gets the <code>qualifiedNameLocalPartPattern</code> for this service.
+     */
+    protected String getQualifiedNameLocalPartPattern()
+    {
+        return (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
+    }
+
+    /**
+     * The pattern to use for determining the service namespace.
+     */
+    static final String NAMESPACE_PATTERN = "namespacePattern";
+
+    /**
+     * Sets the <code>namespacePattern</code> for this service.
+     * 
+     * @param namespacePattern the pattern to use for creating the namespace.
+     */
+    public void setNamespacePattern(String namespacePattern)
+    {
+        this.registerConfiguredProperty(NAMESPACE_PATTERN, StringUtils
+            .trimToEmpty(namespacePattern));
+    }
+
+    /**
+     * Gets the <code <namespacePattern</code> for this service.
+     */
+    protected String getNamespacePattern()
+    {
+        return (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
     }
 }

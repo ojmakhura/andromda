@@ -100,26 +100,32 @@
 				</tr> 	 
 				<tr>
 					<td>
-						typeNamePrefix
+						qualifiedNameLocalPartPattern
 					</td>
 					<td>
-					    A prefix given to every webservice type name in the WSDD/WSDL
+					    The pattern to use when a qualified name local part is created.
+						<em>{0}</em> represents the name of the classifier (i.e.
+						<em>WS{0}</em> would give all your types and services a prefix
+						of <em>WS</em>. 
 					</td>
 					<td>
-						No
+						No, default is <code>{0}</code>.
 					</td>
 				</tr>
 				<tr>
 					<td>
-						typePackageNamePrefix
+						namespacePattern
 				    </td>
 					<td>
-						The prefix given to every webservice type package name in the WSDD/WSDL
+					    The pattern to use when a namespace is created.
+						<em>{0}</em> represents the package name of the classifier (i.e.
+						<em>ws.{0}</em> would prefix all your type and service
+						namespaces with <em>ws.</em>. 
 				    </td>
                     <td>
-						No				
+						No, default is <code>http://{0}</code>			
 					</td>
-				</tr>     	        	        		        	        	        	     	             	        	
+				</tr>           	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
