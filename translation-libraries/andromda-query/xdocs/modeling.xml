@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Query Translation-Library Modeling</title>
+  	</properties>
+  	<body>
+    	<section name="Query Translation-Library Modeling">
+    		<p>
+    			The page describes the modeling standards one must follow to in order
+    			to use the Query Translation-Library.
+    		</p>   	
+			<p>
+				In order for an expression to be written so that it can be translated in
+				the correct manner, there are some guide lines that it must follow.
+			</p>
+			<table>
+				<tr>
+					<th>
+						Guideline
+					</th>
+					<th>
+						Explanation
+					</th>
+					<th>
+						Example
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Must be of type 'body'.
+					</td>
+					<td>	
+						An expression which translates to a query is in
+						essence the body of a query operation. 
+					</td>
+					<td>	
+						context Project::findByProjectType(
+							aProjectTypePk:Long, 
+							aRequestStatus:String, 
+							aCompareDate:Timestamp):Collection(Project) <strong>body</strong> findByProjectType: 
+							allInstances -> select ( project | project.jobRequestType.jobRequestTypePk = aProjectTypePk
+								and project.status = aRequestStatus and project.submittedDate >= aCompareDate)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						After the context declaration, each expression must start with a
+						'<code>allInstances -> select(<![CDATA[<some expression>]]>)</code>'
+					</td>
+					<td>
+						This represents the beginning of the query and tells us that
+						we are beginning with all instances of the Classifier element
+						in which the query operation resides.
+					</td>
+					<td>
+			  			context Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
+						body findByNameAndNumberBody: <strong>allInstances -> select( 
+						project | StringUtils.isLike(project.projectName, name) 
+						and StringUtils.isLike(project.projectNumber, number) )</strong>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Translation to like statements require you add a StringUtils element
+						to your model with an <code>isLike</code> operation.
+					</td>
+					<td>
+					  	This is required because OCL String types do not natively support any SQL like type
+					  	operation. On the other hand, OCL does allow us to create and use user defined types. This
+					  	permits us to create and use the <code>StringUtils.isLike</code> method without
+					  	violating standards.  
+					</td>
+					<td>
+						context LegalAgreement::findByLegalPartyName(aLegalPartyName:String) 
+						<strong>body</strong> findByLegalPartyNameBody: allInstances -> select( legalAgreement |
+						legalAgreement.legalAgreementParties->includesAll(
+							legalAgreement.legalAgreementParties -> select( 
+								legalAgreementParty |
+						<strong>StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName,
+						aLegalPartyName)</strong>)))
+					</td>
+				</tr>
+			</table>
+    	</section>
+  	</body>
+</document>
