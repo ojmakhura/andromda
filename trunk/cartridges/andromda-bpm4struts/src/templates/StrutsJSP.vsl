@@ -18,6 +18,9 @@
 #end
 #end
 
+<breadcrumbs:resize size="$maxBreadCrumbs"/>
+<breadcrumbs:add value="$jsp.titleKey"/>
+
 #if ($xhtml == "true")
 <html:xhtml/>
 
@@ -120,7 +123,7 @@
         --%>
 
         <div>
-#if ($breadCrumbs == "true")
+#if ($maxBreadCrumbs != "0")
             <tiles:insert definition="breadcrumbs.tile" flush="false">
                 <tiles:put name="current.page.title" type="string" value="$jsp.titleKey"/>
             </tiles:insert>
