@@ -95,8 +95,9 @@
 
             <j:if test="${srcAvailable != null}">
                 <!-- only attempt to add the generated source if it exists -->
+                <j:set var="generatedSrc" value="${maven.build.src}"/>              
                 <ant:available
-                    file="${maven.build.src}"
+                    file="${generatedSrc}"
                     type="dir"
                     property="generatedSrcAvailable"/>
                 <j:if test="${generatedSrcAvailable != null}">
