@@ -40,7 +40,8 @@
                       includes="${maven.andromda.src.includes}"
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
                       processAllModelPackages="${maven.andromda.processAllModelPackages}"
-                      modelValidation="${maven.andromda.modelValidation}">
+                      modelValidation="${maven.andromda.modelValidation}"
+                      failOnModelValidationErrors="${maven.andromda.failOnModelValidationErrors}">
                 
             <!-- point the mappings search path to the location of the mappings in this plugin -->      
             <ant:mappingsSearchPath>

@@ -167,6 +167,10 @@ public class ModelProcessor
             AndroMDALogger.info("completed model processing, TIME --> "
                 + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"
                 + totalMessagesMessage);
+            if (failOnValidationErrors && !messages.isEmpty())
+            {
+                throw new ModelProcessorException("Model validation failed!");
+            }
         }
     }
 
@@ -322,6 +326,20 @@ public class ModelProcessor
     public void setModelValidation(boolean modelValidation)
     {
         MetafacadeFactory.getInstance().setModelValidation(modelValidation);
+    }
+
+    private boolean failOnValidationErrors = true;
+
+    /**
+     * Sets whether or not processing should fail when validation errors occur,
+     * default is <code>true</code>.
+     * 
+     * @param failOnValidationErrors whether or not processing should fail if
+     *        any validation errors are present.
+     */
+    public void setFailOnValidationErrors(boolean failOnValidationErrors)
+    {
+        this.failOnValidationErrors = failOnValidationErrors;
     }
 
     /**
