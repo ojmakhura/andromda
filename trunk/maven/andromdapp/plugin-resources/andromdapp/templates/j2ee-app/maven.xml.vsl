@@ -32,7 +32,7 @@
          ================================================================== -->
     <goal name="deploy">
         <maven:maven
-            descriptor="${maven.src.dir}/../app/project.xml"
+            descriptor="app/project.xml"
             goals="deploy"/>
     </goal>
 
@@ -41,7 +41,7 @@
          ================================================================== -->
     <goal name="undeploy">
         <maven:maven
-            descriptor="${maven.src.dir}/../app/project.xml"
+            descriptor="app/project.xml"
             goals="undeploy"/>
     </goal>
 
@@ -51,7 +51,7 @@
          ================================================================== -->
     <goal name="web">
         <maven:maven
-            descriptor="${maven.src.dir}/../web/project.xml"
+            descriptor="web/project.xml"
             goals="war:install"/>
     </goal>
 
@@ -61,7 +61,7 @@
          ================================================================== -->
     <goal name="core">
         <maven:maven
-            descriptor="${maven.src.dir}/../core/project.xml"
+            descriptor="core/project.xml"
             goals="ejb:install"/>
     </goal>
 
@@ -70,7 +70,7 @@
          ================================================================== -->
     <goal name="common">
         <maven:maven
-        descriptor="${maven.src.dir}/../common/project.xml"
+        descriptor="common/project.xml"
         goals="jar:install"/>
     </goal>
 
@@ -79,7 +79,7 @@
          ================================================================== -->
     <goal name="mda">
         <maven:maven
-            descriptor="${maven.src.dir}/../mda/project.xml"
+            descriptor="mda/project.xml"
             goals="pom:install"/>
     </goal>
 
@@ -89,7 +89,7 @@
          ================================================================== -->
     <goal name="webservice">
         <maven:maven
-            descriptor="${maven.src.dir}/../webservice/project.xml"
+            descriptor="webservice/project.xml"
             goals="war:install"/>
     </goal>
 
