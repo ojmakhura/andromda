@@ -1,8 +1,8 @@
 <project xmlns:ant="jelly:ant">
 
-    <!-- ==================================================================
-    Installs all libraries in the local repository
-    ================================================================== -->
+<!-- ==================================================================
+         Generate a PDF from the docs
+	 ================================================================== -->
     <postGoal name="xdoc">
         <!-- we want to generate a pdf from the documentation -->
         <attainGoal name="fo:fo"/>
