@@ -97,15 +97,15 @@ class PurchaseController implements PurchaseControllerInterface
      */
     private void populateForm(PurchaseItemsForm form)
     {
-        form.setPassword("password-test");
-        form.setAge((int) 96511);
-        form.setEmail("email-test");
+        form.setProceedPassword("password-test");
+        form.setPurchaseAge((int) 96511);
+        form.setPurchaseEmail("email-test");
         form.setItemList(itemListDummyList);
-        form.setCreditCard("creditCard-test");
-        form.setName("NameTest");
-        form.setConfirmedLicence(false);
-        form.setSelectedItems(java.util.Arrays.asList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"}));
-        form.setSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
+        form.setPurchaseCreditCard("creditCard-test");
+        form.setProceedName("NameTest");
+        form.setProceedConfirmedLicence(false);
+        form.setProceedSelectedItems(java.util.Arrays.asList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"}));
+        form.setProceedSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
     }
 
     private final static java.util.Collection itemListDummyList =
