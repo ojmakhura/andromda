@@ -10,18 +10,12 @@
 ##
 ##  START TEMPLATE
 ##
-<%@ taglib uri="struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="struts-html.tld" prefix="html" %>
-<%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
-<%@ taglib uri="struts-logic.tld" prefix="logic" %>
+<%@ include file="/taglib-imports.jspf" %>
 #set ($hasTable = false)
 #foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($hasTable = true)
 #end
-#end
-#if ($hasTable)
-<%@ taglib uri="displaytag-all.tld" prefix="display" %>
 #end
 
 #if ($xhtml == "true")
@@ -137,7 +131,9 @@
                 </div>
                 <div class="tab-body">
 #foreach ($tabAction in $tabMap.get($tab))
+#if ($tabAction.tableLinkPresent == false)
                     <tiles:insert page="${tabAction.fullTilePath}.jsp" flush="false"/>
+#end
 #end
                 </div>
             </div>
@@ -146,8 +142,10 @@
 
 #else
 #foreach ($action in $actions)
+#if ($action.tableLinkPresent == false)
         <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
 
+#end
 #end
 #end
 #foreach ($variable in $jsp.pageVariables)
