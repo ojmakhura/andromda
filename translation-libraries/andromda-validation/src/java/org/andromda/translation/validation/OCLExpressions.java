@@ -71,6 +71,17 @@ public class OCLExpressions
         return first != second;
     }
 
+    public static boolean equal(Object first, long second)
+    {
+        boolean equal = first != null && Comparable.class.isAssignableFrom(first.getClass());
+        if (equal)
+        {
+            Comparable comparable = (Comparable)first;
+            equal = comparable.equals(new Long(second));
+        }
+        return equal;
+    }
+    
     public static boolean notEqual(int first, int second)
     {
         return first != second;
@@ -199,6 +210,17 @@ public class OCLExpressions
     public static boolean greater(Comparable first, Comparable second)
     {
         return (first == null) ? (second == null) : (first.compareTo(second) > 0);
+    }
+    
+    public static boolean greater(Object first, long second)
+    {
+        boolean greater = first != null && Comparable.class.isAssignableFrom(first.getClass());
+        if (greater)
+        {
+            Comparable comparable = (Comparable)first;
+            greater = comparable.compareTo(new Long(second)) > 0;
+        }
+        return greater;
     }
 
     public static boolean greater(int first, int second)

@@ -39,12 +39,7 @@ public class OCLIntrospector
             {
                 return invoke(element, feature, null);
             }
-            Object result = null;
-            if (PropertyUtils.isReadable(element, feature))
-            {
-                result = PropertyUtils.getProperty(element, feature);
-            }
-            return result;
+            return PropertyUtils.getProperty(element, feature);
 
         }
         catch (Throwable th)
