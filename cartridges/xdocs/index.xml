@@ -141,7 +141,8 @@
 <strong>&lt;mapping&gt;
     &lt;from&gt;&lt;![CDATA[</strong>&lt;!-- error-page merge-point --&gt;<strong>]]&gt;&lt;/from&gt;
     &lt;to&gt;
-&lt;![CDATA[</strong>&lt;error-page&gt;
+&lt;![CDATA[</strong>
+&lt;error-page&gt;
     &lt;error-code&gt;404&lt;/error-code&gt;
     &lt;location&gt;/index.jsp&lt;/location&gt;
 &lt;/error-page&gt;
