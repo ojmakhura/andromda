@@ -5,9 +5,7 @@ import java.util.Collection;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.StringUtils;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.UmlClass;
 
@@ -70,19 +68,13 @@ public class PackageFacadeLogicImpl
     public ModelElementFacade handleFindModelElement(
         final String fullyQualifiedName)
     {
-        return (ModelElementFacade)CollectionUtils.find(
-            this.getModelElements(),
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    return ModelElementFacade.class.isAssignableFrom(object
-                        .getClass())
-                        && ((ModelElementFacade)object).getFullyQualifiedName(
-                            true).equals(
-                            StringUtils.trimToEmpty(fullyQualifiedName));
-                }
-            });
+        return (ModelElementFacade)this
+            .shieldedElement(UMLMetafacadeUtils
+                .findByFullyQualifiedName(
+                    fullyQualifiedName,
+                    String
+                        .valueOf(this
+                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR))));
     }
 
     protected Collection handleGetOwnedElements()
