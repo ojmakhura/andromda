@@ -14,7 +14,7 @@
 ${indent}<logic:present role="$roles">
 #end
 #if(!$parameters.empty)
-#set ($mapName = "$str.toJavaMethodName($triggerKey)Parameters")
+#set ($mapName = "$str.lowerCamelCaseName($triggerKey)Parameters")
 ${indent}<%
 ${indent}  java.util.Map $mapName = new java.util.HashMap();
 ${indent}  pageContext.setAttribute("$mapName", $mapName, javax.servlet.jsp.PageContext.PAGE_SCOPE);

@@ -128,7 +128,7 @@ public class StrutsActionLogicImpl
 
     public String handleGetActionPathRoot()
     {
-        return '/' + StringUtilsHelper.toJavaClassName(getActivityGraph().getUseCase().getName());
+        return '/' + StringUtilsHelper.upperCamelCaseName(getActivityGraph().getUseCase().getName());
     }
 
     public java.lang.String handleGetActionRoles()
@@ -174,7 +174,7 @@ public class StrutsActionLogicImpl
             final String suffix = (trigger == null) ? getTarget().getName() : trigger.getName();
             name = getSource().getName() + ' ' + suffix;
         }
-        return StringUtilsHelper.toJavaClassName(name);
+        return StringUtilsHelper.upperCamelCaseName(name);
     }
 
     public String handleGetFormBeanClassName()
@@ -185,7 +185,7 @@ public class StrutsActionLogicImpl
     public String handleGetFormBeanName()
     {
         final String useCaseName = getActivityGraph().getUseCase().getName();
-        return StringUtilsHelper.toJavaMethodName(useCaseName) + getFormBeanClassName();
+        return StringUtilsHelper.lowerCamelCaseName(useCaseName) + getFormBeanClassName();
     }
 
     public String handleGetFormValidationMethodName()

@@ -30,7 +30,7 @@ public class StrutsPseudostateLogicImpl
     public java.lang.String handleGetActionMethodName()
     {
         final String methodName = getName();
-        return (methodName == null) ? "a" + System.currentTimeMillis() : StringUtilsHelper.toJavaMethodName(methodName);
+        return (methodName == null) ? "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
     }
 
     // ------------- relations ------------------

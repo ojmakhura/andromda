@@ -51,7 +51,7 @@ public class StrutsUseCaseLogicImpl
 
     public String handleGetFullFormBeanPath()
     {
-        return '/' + getFormBeanPackageName().replace('.', '/') + '/' + StringUtilsHelper.toJavaClassName(getName()) + "Form";
+        return '/' + getFormBeanPackageName().replace('.', '/') + '/' + StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
     public String handleGetFormBeanName()
@@ -61,7 +61,7 @@ public class StrutsUseCaseLogicImpl
 
     public String handleGetFormBeanClassName()
     {
-        return StringUtilsHelper.toJavaClassName(getName()) + "Form";
+        return StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
     public String handleGetFormBeanType()

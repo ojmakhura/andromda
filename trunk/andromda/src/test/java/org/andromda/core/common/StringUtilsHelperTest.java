@@ -66,7 +66,7 @@ public class StringUtilsHelperTest extends TestCase
     }
 
 
-    public void testToJavaClassName()
+    public void testUpperCamelCaseName()
     {
         final String[][] fixture = new String[][]
         {
@@ -82,11 +82,11 @@ public class StringUtilsHelperTest extends TestCase
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
-            assertEquals(StringUtilsHelper.toJavaClassName(strings[0]), strings[1]);
+            assertEquals(StringUtilsHelper.upperCamelCaseName(strings[0]), strings[1]);
         }
     }
 
-    public void testToJavaMethodName()
+    public void testLowerCamelCaseName()
     {
         final String[][] fixture = new String[][]
         {
@@ -102,7 +102,7 @@ public class StringUtilsHelperTest extends TestCase
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
-            assertEquals(StringUtilsHelper.toJavaMethodName(strings[0]), strings[1]);
+            assertEquals(StringUtilsHelper.lowerCamelCaseName(strings[0]), strings[1]);
         }
     }
 

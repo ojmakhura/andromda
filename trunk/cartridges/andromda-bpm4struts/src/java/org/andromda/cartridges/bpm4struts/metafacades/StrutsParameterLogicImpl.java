@@ -237,8 +237,8 @@ public class StrutsParameterLogicImpl
     public String handleGetDecoratorClassName()
     {
         StrutsJsp jsp = getJsp();
-        return StringUtilsHelper.toJavaClassName(jsp.getName()) +
-                StringUtilsHelper.toJavaClassName(getName()) + "TableDecorator";
+        return StringUtilsHelper.upperCamelCaseName(jsp.getName()) +
+                StringUtilsHelper.upperCamelCaseName(getName()) + "TableDecorator";
     }
 
     public String handleGetDecoratorFullPath()
@@ -293,9 +293,6 @@ public class StrutsParameterLogicImpl
     public Collection handleGetTableColumnNames()
     {
         Collection columnNamesCollection = Collections.EMPTY_LIST;
-        try 
-        {
-
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_COLUMNS);
         if ((taggedValue == null) || (String.valueOf(taggedValue).matches(",")))
         {
@@ -309,12 +306,8 @@ public class StrutsParameterLogicImpl
             for (int i = 0; i < properties.length; i++)
             {
                 String property = properties[i];
-                columnNamesCollection.add(StringUtils.trimToEmpty(property));
+                columnNamesCollection.add(StringUtilsHelper.lowerCamelCaseName(property));
             }
-        }
-        } catch (Throwable th)
-        {
-            th.printStackTrace();
         }
         return columnNamesCollection;
     }
