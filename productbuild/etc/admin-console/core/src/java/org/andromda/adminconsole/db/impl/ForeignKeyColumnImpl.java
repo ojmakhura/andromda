@@ -16,14 +16,7 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
     public ForeignKeyColumnImpl(Table table, String name, int sqlType)
     {
         super(table, name, sqlType);
-        this.refresh(true);
-    }
-
-    public ForeignKeyColumnImpl(Table table, String name, int sqlType, PrimaryKeyColumn importedKeyColumn)
-    {
-        super(table, name, sqlType);
-        this.importedKeyColumn = importedKeyColumn;
-        this.refresh(false);
+        this.loadMetaData();
     }
 
     public String getForeignKeyName()
@@ -51,7 +44,7 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
         return importedKeyColumn;
     }
 
-    private void refresh(boolean importedKey)
+    private void loadMetaData()
     {
         try
         {
@@ -78,35 +71,32 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
                         deleteRule = ForeignKeyDeleteRule.get(resultSet.getInt("DELETE_RULE"));
                         updateRule = ForeignKeyUpdateRule.get(resultSet.getInt("UPDATE_RULE"));
 
-                        String targetTableName = resultSet.getString("PKTABLE_NAME");
-                        String targetTableColumnName = resultSet.getString("PKCOLUMN_NAME");
+                        String pkTableName = resultSet.getString("PKTABLE_NAME");
+                        String pkColumnName = resultSet.getString("PKCOLUMN_NAME");
 
-                        Table targetTable = getTable().getDatabase().getPool().findTable(targetTableName);
-                        if (targetTable == null)
+                        Table pkTable = getTable().getDatabase().getPool().findTable(pkTableName);
+                        if (pkTable == null)
                         {
-                            targetTable = new TableImpl(getTable().getDatabase(), targetTableName);
+                            pkTable = new TableImpl(getTable().getDatabase(), pkTableName);
                         }
 
-                        if (importedKey)    // only refresh if requested
+                        Column targetColumn = getTable().getDatabase().getPool().findColumn(pkTableName, pkColumnName);
+                        if (targetColumn == null)
                         {
-                            Column targetColumn = getTable().getDatabase().getPool().findColumn(targetTableName, targetTableColumnName);
-                            if (targetColumn == null)
+                            ResultSet columnSet = getMetaData().getColumns(
+                                    getCatalog(), getSchema(), pkTableName, pkColumnName);
+                            if (columnSet.next())
                             {
-                                ResultSet columnSet = getMetaData().getColumns(
-                                        getCatalog(), getSchema(), targetTableName, targetTableColumnName);
-                                if (columnSet.next())
-                                {
-                                    int sqlType = columnSet.getInt("DATA_TYPE");
-                                    targetColumn = new PrimaryKeyColumnImpl(targetTable, targetTableColumnName, sqlType);
-                                }
-                                else
-                                {
-                                    throw new IllegalStateException("An exported key column was found but the " +
-                                            "column could not be loaded: "+targetTableColumnName);
-                                }
+                                int sqlType = columnSet.getInt("DATA_TYPE");
+                                targetColumn = new PrimaryKeyColumnImpl(pkTable, pkColumnName, sqlType);
                             }
-                            importedKeyColumn = (PrimaryKeyColumnImpl) targetColumn;
+                            else
+                            {
+                                throw new IllegalStateException("An exported key column was found but the " +
+                                        "column could not be loaded: "+pkColumnName);
+                            }
                         }
+                        importedKeyColumn = (PrimaryKeyColumnImpl) targetColumn;
 
                         break;
                     }
@@ -123,19 +113,14 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
                     throw new IllegalStateException("ImportedColumn could not be read, column not found: " + name);
             }
             finally
-            { close(resultSet); }
-
+            {
+                close(resultSet);
+            }
         }
         catch (SQLException e)
         {
             throw new RuntimeException("Unable to refresh table: " + getName());
         }
-    }
-
-    public void refresh()
-    {
-        super.refresh();
-        this.refresh(true);
     }
 
 }
