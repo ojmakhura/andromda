@@ -900,9 +900,11 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isRequired()
+     * Override normal parameter facade required implementation.
+     * 
+     * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
-    protected boolean handleIsRequired()
+    public boolean isRequired()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_REQUIRED);
         return isTrue(value == null ? null : String.valueOf(value));

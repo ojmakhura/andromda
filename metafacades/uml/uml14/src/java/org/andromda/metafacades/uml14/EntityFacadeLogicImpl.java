@@ -18,6 +18,7 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 
@@ -145,10 +146,14 @@ public class EntityFacadeLogicImpl
      */
     public String handleGetTableName()
     {
+        String tableNamePrefix =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
+        	    UMLMetafacadeGlobals.PROPERTY_TABLE_NAME_PREFIX)));
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            this,
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-            this.getMaxSqlNameLength());
+            	tableNamePrefix,
+                this,
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                this.getMaxSqlNameLength());
     }
 
     /**

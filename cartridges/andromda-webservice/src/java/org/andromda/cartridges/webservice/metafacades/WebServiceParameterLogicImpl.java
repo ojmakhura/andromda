@@ -24,6 +24,6 @@ public class WebServiceParameterLogicImpl
      */
     protected boolean handleIsNillable()
     {
-        return !this.hasStereotype(UMLProfile.STEREOTYPE_REQUIRED);
+        return !this.isRequired();
     }
 }
