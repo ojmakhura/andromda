@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
  * @author    <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author    Chad Brandon
  * @since     April 1, 2003
- * @version   $Revision: 1.2 $
+ * @version   $Revision: 1.3 $
  */
 public class CartridgeFinder
 {
@@ -48,16 +48,16 @@ public class CartridgeFinder
                     instantiateCartridge(cDescriptor);
                 cartridges.add(cartridge);
             }
-        }
-
-        for (Iterator iter = cartridges.iterator(); iter.hasNext();)
-        {
-            AndroMDACartridge element =
-                (AndroMDACartridge) iter.next();
-			logger.info("found cartridge --> '" 
-			    + element.getDescriptor().getCartridgeName() + "'");
-
-        }
+            
+	        for (Iterator iter = cartridges.iterator(); iter.hasNext();)
+	        {
+	            AndroMDACartridge element =
+	                (AndroMDACartridge) iter.next();
+				logger.info("found cartridge --> '" 
+				    + element.getDescriptor().getCartridgeName() + "'");
+	
+	        }
+        }      
         return cartridges;
     }
     
