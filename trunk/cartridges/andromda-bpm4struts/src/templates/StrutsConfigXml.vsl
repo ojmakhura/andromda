@@ -1,0 +1,105 @@
+##
+##  CONSTANTS
+##
+#set ($useCases = $applicationUseCase.allUseCases)
+#set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
+##
+##  START TEMPLATE
+##
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+    <form-beans>
+#foreach ($useCase in $useCases)
+#foreach ($action in $useCase.actions)
+        <form-bean
+            name="$action.formBeanName"
+            type="$action.formBeanType" />
+#end
+#end
+    </form-beans>
+
+    <global-forwards>
+#foreach ($useCase in $useCases)
+        <forward
+            name="$str.toResourceMessageKey($useCase.name)"
+            path="${useCase.actionPath}.do"
+            redirect="false" />
+#end
+    </global-forwards>
+
+   <action-mappings>
+#foreach ($useCase in $useCases)
+#foreach ($action in $useCase.actions)
+        <action
+            path="$action.actionPath"
+            type="${action.actionType}"
+            name="$action.formBeanName"
+#set ($roles = $action.actionRoles)
+#if (($security=="true") && ($roles != ""))
+            roles="$roles"
+#end
+            scope="$action.actionScope"
+#if ($action.useCaseStart == false)
+            input="${action.actionPathRoot}${action.actionPathRoot}.do"
+#end
+            unknown="false"
+#if ($action.validationRequired && $validationDesired)
+            validate="true">
+#else
+            validate="false">
+#end
+#set ($actionExceptions = $action.actionExceptions)
+#foreach ($actionException in $actionExceptions)
+            <exception
+                type="$actionException.exceptionType"
+                key="${action.messageKey}.$actionException.exceptionKey"
+                path="$actionException.exceptionPath"
+                scope="request" />
+#end
+#if ($actionExceptions.empty && !$action.useCaseStart)
+            <exception
+                type="java.lang.Exception"
+                key="${action.messageKey}.exception"
+                path="${action.input.fullPath}.jsp"
+                scope="request" />
+#end
+#foreach ($actionForward in $action.actionForwards)
+            <forward
+                name="$actionForward.forwardName"
+                path="$actionForward.forwardPath"
+                redirect="false" />
+#end
+        </action>
+#end
+#end
+   </action-mappings>
+
+  <message-resources parameter="application-resources" null="false" />
+  <message-resources key="custom" parameter="custom-resources" null="false" />
+
+#if ($applicationUseCase.applicationValidationRequired && $validationDesired)
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames" value="/WEB-INF/validation.xml,/WEB-INF/validator-rules.xml"/>
+    <set-property property="stopOnFirstError" value="false"/>
+  </plug-in>
+#end
+
+  <plug-in className="org.apache.struts.tiles.TilesPlugin">
+    <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+    <set-property property="definitions-parser-validate" value="true"/>
+    <set-property property="moduleAware" value="true"/>
+  </plug-in>
+
+<!--
+  <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+    <set-property property="menuConfig" value="/WEB-INF/menu-config.xml"/>
+  </plug-in>
+-->
+
+</struts-config>
