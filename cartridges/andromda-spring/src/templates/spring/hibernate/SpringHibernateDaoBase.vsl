@@ -5,9 +5,6 @@
 //
 package $entity.packageName;
 
-import org.apache.commons.collections.Transformer;
-import org.apache.commons.collections.CollectionUtils;
-
 #set ($superEntity = $entity.generalization)
 #set ($valueObjectReferences = $entity.valueObjectReferences)
 /**
@@ -502,17 +499,20 @@ public#if ($entity.daoImplementationRequired) abstract#end class $entity.daoBase
     }
 
 #foreach ($valueObjectRef in $valueObjectReferences)
-#set ($targetElement = $valueObjectRef.targetElement)
-    protected abstract $targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity);
+    /**
+     * Converts this DAO's entity to a value object of type
+     * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     */
+    protected abstract $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity);
 
     /**
      * Transforms a collection of entities to
-     * <code>$targetElement.fullyQualifiedName</code> instance. This method does not
+     * {@link $valueObjectRef.targetElement.fullyQualifiedName} instance. This method does not
      * instantiate a new collection, all transformations occur in-place.
      */
     protected final void ${valueObjectRef.transformationMethodName}(java.util.Collection entities)
     {
-        CollectionUtils.transform(entities, ${valueObjectRef.transformationAnonymousName});
+        org.apache.commons.collections.CollectionUtils.transform(entities, ${valueObjectRef.transformationAnonymousName});
     }
 
     /**
@@ -520,8 +520,8 @@ public#if ($entity.daoImplementationRequired) abstract#end class $entity.daoBase
      * <code>$valueObjectRef.targetElement.fullyQualifiedName</code>
      * using the Jakarta Commons-Collections Transformation API.
      */
-    private final Transformer ${valueObjectRef.transformationAnonymousName} =
-        new Transformer()
+    private final org.apache.commons.collections.Transformer ${valueObjectRef.transformationAnonymousName} =
+        new org.apache.commons.collections.Transformer()
         {
             public Object transform(Object input)
             {

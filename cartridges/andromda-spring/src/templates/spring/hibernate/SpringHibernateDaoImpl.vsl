@@ -1,3 +1,4 @@
+#if ($entity.daoImplementationRequired)
 /**
  * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
@@ -15,13 +16,13 @@ public class $entity.daoImplementationName
     extends $entity.fullyQualifiedDaoBaseName
 #end
 {
-#foreach ($operation in $entity.daoBusinessOperations )
+#foreach ($operation in $entity.daoBusinessOperations)
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.implementationSignature)
-	/**
-	 * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
-	 */
+	    /**
+	     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
+	     */
     $operation.visibility $returnType.fullyQualifiedName $signature 
 #if ($operation.exceptionsPresent)
     	throws $operation.exceptionList
@@ -44,12 +45,10 @@ public class $entity.daoImplementationName
 	
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
-#set ($targetElement = $valueObjectRef.targetElement)
-    /**
-     * Converts this DAO's entity to a value object of type
-     * <code>$targetElement.fullyQualifiedName</code>.
-     */
-    protected $targetElement.fullyQualifiedName ${valueObjectRef.transformerMethodName}($entity.fullyQualifiedName entity)
+	    /**
+	     * @see ${entity.fullyQualifiedDaoBaseName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+	     */
+    protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformerMethodName}($entity.fullyQualifiedName entity)
     {
         return null;
     }
@@ -57,3 +56,4 @@ public class $entity.daoImplementationName
 #end
 
 }
+#end
