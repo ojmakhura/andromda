@@ -7,9 +7,16 @@
 package $customTypesPackage;
 
 import net.sf.hibernate.Hibernate;
+import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.UserType;
 
 import java.io.Serializable;
+import java.sql.Types;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * A user defined hibernate type for persistent enumerations, type safety is also ensured.
