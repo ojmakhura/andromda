@@ -18,6 +18,15 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">July 04, 2004</td>
+                    <td valign="top" class="std">andromda-cartridge.xml update</td>
+                    <td valign="top" class="std">
+                        Added new resource element to the andromda-cartridge.xml
+						that allows non template resources (like images, jars, etc) 
+						to be included and output from a cartridge.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July 04, 2004</td>
                     <td valign="top" class="std">bpm4struts moved to XHTML mode</td>
                     <td valign="top" class="std">
                         All JSPs have been update to render XHTML 1.0 compatible content,
