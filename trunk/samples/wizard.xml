@@ -1,34 +1,63 @@
 <project name="AndroMDA Wizard" default="ejb" basedir=".">
 
   <property file="wizard.properties"/>
-	
-  <property name="project-template.dir" 
+
+  <property name="project-template.dir"
      value="${basedir}/"/>
 
-  <target name="ejb" depends="check-ejb-environment" 
+  <target name="ejb" depends="check-environment"
     description="creates a new EJB project">
-	
-	<echo message="Creating a new EJB based project"/>
-	<echo message="    project.home = ${project.home}"/>
-	
+
+    <echo message="Creating a new EJB based project"/>
+    <echo message="    project.home = ${project.home}"/>
+
     <copy todir="${project.home}">
-      <fileset dir="${project-template.dir}/ejbProjectTemplate"/>
+      <fileset dir="${project-template.dir}/ejb-template"/>
     </copy>
-	
+
+    <copy file="${project.home}/build.properties.sample" tofile="${project.home}/build.properties" />
+
     <replace file="${project.home}/build.properties"
-	propertyFile="wizard.properties">
-    		
-       <replacefilter token="@ANDROMDA_HOME@" 
-    	  property="andromda.home"/>
-    			
-       <replacefilter token="@JBOSS_HOME@" 
+             propertyFile="wizard.properties">
+
+       <replacefilter token="@ANDROMDA_HOME@"
+          property="andromda.home"/>
+
+       <replacefilter token="@JBOSS_HOME@"
           property="jboss.home"/>
-    			
+
     </replace>
 
   </target>
 
-  <target name="check-ejb-environment">
+
+  <target name="hibernate" depends="check-environment"
+    description="creates a new Hibernate project">
+
+    <echo message="Creating a new Hibernate based project"/>
+    <echo message="    project.home = ${project.home}"/>
+
+    <copy todir="${project.home}">
+      <fileset dir="${project-template.dir}/hibernate-template"/>
+    </copy>
+
+    <copy file="${project.home}/build.properties.sample" tofile="${project.home}/build.properties" />
+
+    <replace file="${project.home}/build.properties"
+             propertyFile="wizard.properties">
+
+       <replacefilter token="@ANDROMDA_HOME@"
+          property="andromda.home"/>
+
+       <replacefilter token="@JBOSS_HOME@"
+          property="jboss.home"/>
+
+    </replace>
+
+  </target>
+
+
+  <target name="check-environment">
     <antcall target="check-andromda"/>
     <antcall target="check-jboss"/>
     <antcall target="check-project"/>
