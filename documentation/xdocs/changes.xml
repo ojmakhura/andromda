@@ -9,6 +9,13 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-03-26" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="HIB-81">
+                The Hibernate cartridge now generates readible foreign key constraint names where possible. This
+                information is generated into the mapping files and is processed by the <code>SchemaExport</code>
+                tool when generating the database schema DDL. The
+                <code>@andromda.persistence.foreignkey.constraint</code> tagged value can be used to override the
+                default name.
+            </action>
             <action dev="cwbrandon" type="add" issue="SPRING-52">
                 The Spring cartridge now has configurable transactions for Spring service operations.  This change required
                 the rename of @andromda.transaction.type to @andromda.ejb.transaction.type to prevent conflicts with 
