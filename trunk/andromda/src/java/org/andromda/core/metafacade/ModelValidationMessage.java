@@ -85,8 +85,7 @@ public class ModelValidationMessage
     {
         return StringUtils.trimToEmpty(this.message).hashCode()
             + StringUtils.trimToEmpty(this.getModelElementName()).hashCode()
-            + StringUtils.trimToEmpty(this.getMetafacadeClass().getName())
-                .hashCode();
+            + this.getMetafacadeClass().hashCode();
     }
 
     /**
@@ -99,11 +98,7 @@ public class ModelValidationMessage
         if (equals)
         {
             ModelValidationMessage message = (ModelValidationMessage)object;
-
-            String className = StringUtils.trimToEmpty(message
-                .getMetafacadeClass().getName());
-            equals = className.equals(StringUtils.trimToEmpty(this
-                .getMetafacadeClass().getName()));
+            equals = message.getMetafacadeClass() == this.getMetafacadeClass();
             if (equals)
             {
                 equals = StringUtils
