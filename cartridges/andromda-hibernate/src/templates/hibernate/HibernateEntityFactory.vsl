@@ -75,7 +75,7 @@ $finder.getDocumentation("     * ")
      *
      * Finds ${entity.name} instance(s) using a query.
      */
-    $finder.visibility static $returnType ${finder.name} ($parameters)
+    $finder.visibility static $returnType ${finder.name}($parameters)
         throws net.sf.hibernate.HibernateException
     {
         net.sf.hibernate.Query query = session.createQuery("$finder.query");
