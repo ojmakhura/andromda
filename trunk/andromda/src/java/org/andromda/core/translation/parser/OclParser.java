@@ -179,17 +179,6 @@ public class OclParser extends Parser {
 			PFeatureCallParameterOption[] parameterOptions) {
 			
 			int parameterOptionNum = parameterOptions.length;
-
-			boolean valid = true;
-			
-			// if there is less than one parameter in the parameterOption array
-			if (parameterOptionNum < 1) {
-				valid = false;	
-			//check and make sure the last parameterOption is an instance of ABarFeatureCallParameterOption
-			//and set to false if not.
-			} else if (!(parameterOptions[parameterOptionNum - 1] instanceof ABarFeatureCallParameterOption)) {
-				valid = false;
-			}
 			
 			//check if the parameterOptions (after the first two) are instances of either 
 			//ACommaFeatureCallParameter (so we can retrieve something like ', name') or
