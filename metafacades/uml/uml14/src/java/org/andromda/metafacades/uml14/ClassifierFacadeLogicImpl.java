@@ -1,28 +1,39 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.mapping.Mappings;
-import org.andromda.metafacades.uml.*;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
-import org.omg.uml.foundation.core.*;
-
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.mapping.Mappings;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
+import org.omg.uml.foundation.core.Abstraction;
+import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.DataType;
+import org.omg.uml.foundation.core.Operation;
 
 /**
  * Metaclass facade implementation.
  */
 public class ClassifierFacadeLogicImpl
-        extends ClassifierFacadeLogic
-        implements org.andromda.metafacades.uml.ClassifierFacade
+    extends ClassifierFacadeLogic
+    implements org.andromda.metafacades.uml.ClassifierFacade
 {
     // ---------------- constructor -------------------------------
 
-    public ClassifierFacadeLogicImpl(org.omg.uml.foundation.core.Classifier metaObject,
-                                     String context)
+    public ClassifierFacadeLogicImpl(
+        org.omg.uml.foundation.core.Classifier metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -61,7 +72,7 @@ public class ClassifierFacadeLogicImpl
     public java.util.Collection handleGetAssociationEnds()
     {
         return UMLMetafacadeUtils.getCorePackage().getAParticipantAssociation()
-                .getAssociation(metaObject);
+            .getAssociation(metaObject);
     }
 
     /**
@@ -69,11 +80,16 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsPrimitiveType()
     {
-        final String dataType = getFullyQualifiedName(true);
-        return "datatype.char".equals(dataType) || "datatype.int".equals(dataType) ||
-                "datatype.float".equals(dataType) || "datatype.double".equals(dataType) ||
-                "datatype.long".equals(dataType) || "datatype.boolean".equals(dataType) ||
-                "datatype.short".equals(dataType) || "datatype.byte".equals(dataType);
+        final String dataType = StringUtils
+            .trimToEmpty(getFullyQualifiedName(true));
+        return "datatype.char".equals(dataType)
+            || "datatype.int".equals(dataType)
+            || "datatype.float".equals(dataType)
+            || "datatype.double".equals(dataType)
+            || "datatype.long".equals(dataType)
+            || "datatype.boolean".equals(dataType)
+            || "datatype.short".equals(dataType)
+            || "datatype.byte".equals(dataType);
     }
 
     /**
@@ -104,15 +120,15 @@ public class ClassifierFacadeLogicImpl
      */
     public String handleGetWrapperName()
     {
-        String wrapperName = this.getName();
+        String wrapperName = this.getFullyQualifiedName();
         if (wrapperMappings == null)
         {
             URL mappingsUri = ResourceUtils.getResource(WRAPPER_NAMES_LOCATION);
             if (mappingsUri == null)
             {
                 logger.warn("Wrapper names --> '" + WRAPPER_NAMES_LOCATION
-                        + "' could not be found, not "
-                        + "attempting to retrieve wrapper name");
+                    + "' could not be found, not "
+                    + "attempting to retrieve wrapper name");
             }
             else
             {
@@ -125,22 +141,24 @@ public class ClassifierFacadeLogicImpl
         }
         return wrapperName;
     }
+   
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#hasWrapper()
+     */
+    public boolean handleHasWrapper()
+    {
+        // we check for the actual mapped type instead of the model type
+        // because when it comes to generating code we only care whether
+        // the type thats returned has a wrapper or not
+        return !this.getFullyQualifiedName().equals(this.getWrapperName());
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isCollectionType()
      */
     public boolean handleIsCollectionType()
     {
-        try
-        {
-            // we check the actual impl. class too because in Java there are many Collection descendants
-            return getFullyQualifiedName(true).equals("datatype.Collection") ||
-                    java.util.Collection.class.isAssignableFrom(Class.forName(getFullyQualifiedName()));
-        }
-        catch (Exception exception)
-        {
-            return false;
-        }
+        return this.isType(UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -148,16 +166,40 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsDateType()
     {
-        try
+        return this.isType(UMLMetafacadeGlobals.DATE_TYPE_NAME);
+    }
+
+    /**
+     * Returns true or false depending on whether or not this Classifier or any
+     * of its specializations is of the given type having the specified
+     * <code>typeName</code>
+     * 
+     * @param typeName the name of the type (i.e. datatype.Collection)
+     * @return true/false
+     */
+    private boolean isType(String typeName)
+    {
+        final String type = StringUtils.trimToEmpty(typeName);
+        String name = StringUtils.trimToEmpty(this.getFullyQualifiedName(true));
+        boolean isType = name.equals(type);
+        // if this isn't a collection type, see if we can find any
+        // types that inherit from the collection type.
+        if (!isType)
         {
-            // we check the actual impl. class too because in Java there are many Date descendants
-            return getFullyQualifiedName(true).equals("datatype.Date") ||
-                    java.util.Date.class.isAssignableFrom(Class.forName(getFullyQualifiedName()));
+            isType = CollectionUtils.find(
+                this.getAllGeneralizations(),
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        String name = StringUtils
+                            .trimToEmpty(((ModelElementFacade)object)
+                                .getFullyQualifiedName(true));
+                        return name.equals(type);
+                    }
+                }) != null;
         }
-        catch (Exception exception)
-        {
-            return false;
-        }
+        return isType;
     }
 
     /**
@@ -166,9 +208,9 @@ public class ClassifierFacadeLogicImpl
     public Collection handleGetAttributes(boolean follow)
     {
         Collection attributes = this.getAttributes();
-        for (ClassifierFacade superClass = (ClassifierFacade) getGeneralization(); superClass != null
-                && follow; superClass = (ClassifierFacade) superClass
-                        .getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
+            && follow; superClass = (ClassifierFacade)superClass
+            .getGeneralization())
         {
             attributes.addAll(superClass.getAttributes(follow));
         }
@@ -186,7 +228,7 @@ public class ClassifierFacadeLogicImpl
 
         for (Iterator it = getAttributes().iterator(); it.hasNext();)
         {
-            AttributeFacade a = (AttributeFacade) it.next();
+            AttributeFacade a = (AttributeFacade)it.next();
 
             sb.append(separator);
             if (withTypeNames)
@@ -224,7 +266,7 @@ public class ClassifierFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((AttributeFacade) object).isStatic();
+                return ((AttributeFacade)object).isStatic();
             }
         };
     }
@@ -238,7 +280,7 @@ public class ClassifierFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return !((AttributeFacade) object).isStatic();
+                return !((AttributeFacade)object).isStatic();
             }
         };
     }
@@ -250,22 +292,23 @@ public class ClassifierFacadeLogicImpl
     {
         Collection properties = this.getAttributes();
         class ConnectingEndTransformer
-                implements Transformer
+            implements Transformer
         {
             public Object transform(Object object)
             {
-                return ((AssociationEndFacade) object).getOtherEnd();
+                return ((AssociationEndFacade)object).getOtherEnd();
             }
         }
         Collection connectingEnds = this.getAssociationEnds();
-        CollectionUtils.transform(connectingEnds,
-                new ConnectingEndTransformer());
+        CollectionUtils.transform(
+            connectingEnds,
+            new ConnectingEndTransformer());
         class NavigableFilter
-                implements Predicate
+            implements Predicate
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade) object).isNavigable();
+                return ((AssociationEndFacade)object).isNavigable();
             }
         }
         CollectionUtils.filter(connectingEnds, new NavigableFilter());
@@ -303,8 +346,9 @@ public class ClassifierFacadeLogicImpl
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(ARRAY_SUFFIX) != -1)
         {
-            nonArrayType = (ClassifierFacade) this.getRootPackage()
-                    .findModelElement(this.getFullyQualifiedName(true).replaceAll("\\[\\]", ""));
+            nonArrayType = (ClassifierFacade)this.getRootPackage()
+                .findModelElement(
+                    this.getFullyQualifiedName(true).replaceAll("\\[\\]", ""));
         }
         return nonArrayType;
     }
@@ -319,25 +363,26 @@ public class ClassifierFacadeLogicImpl
         if (name.indexOf(ARRAY_SUFFIX) == -1)
         {
             name = name + ARRAY_SUFFIX;
-            arrayType = (ClassifierFacade) this.getRootPackage()
-                    .findModelElement(name);
+            arrayType = (ClassifierFacade)this.getRootPackage()
+                .findModelElement(name);
         }
         return arrayType;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String,
-            *      java.lang.String, java.lang.String)
+     *      java.lang.String, java.lang.String)
      */
-    public void handleAddAttribute(String name,
-                                   String fullyQualifiedType,
-                                   String visibility)
+    public void handleAddAttribute(
+        String name,
+        String fullyQualifiedType,
+        String visibility)
     {
         CorePackage corePackage = UMLMetafacadeUtils.getCorePackage();
         Attribute attribute = corePackage.getAttribute().createAttribute();
         attribute.setName(name);
         attribute.setVisibility(UMLMetafacadeUtils
-                .getVisibilityKind(visibility));
+            .getVisibilityKind(visibility));
         this.metaObject.getFeature().add(attribute);
     }
 

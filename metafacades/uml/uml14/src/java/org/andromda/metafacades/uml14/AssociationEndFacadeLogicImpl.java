@@ -228,8 +228,9 @@ public class AssociationEndFacadeLogicImpl
         if (isOne2Many() || isMany2Many())
         {
             Mappings lm = getLanguageMappings();
-            return isOrdered() ? lm.getTo("datatype.List") : lm
-                .getTo("datatype.Collection");
+            return isOrdered()
+                ? lm.getTo(UMLMetafacadeGlobals.LIST_TYPE_NAME)
+                : lm.getTo(UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type
