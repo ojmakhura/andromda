@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is used to map the model types to XML Schema types
+  for the generated code.
+-->
+<mappings name="XmlSchema">
+	<mapping>
+	  	<from>datatype.Boolean</from>
+	  	<to>boolean</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Byte</from>
+	  	<to>base64Binary</to>
+	</mapping>
+	<mapping>
+		<from>datatype.Blob</from>
+		<to>base64Binary</to>
+	</mapping>
+	<mapping>
+		<from>datatype.URI</from>
+		<from>datatype.URL</from>
+	  	<from>datatype.String</from>
+		<to>string</to>
+	</mapping>
+	<mapping>
+		<from>datatype.Integer</from>
+		<to>integer</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Date</from>
+	  	<to>date</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Decimal</from>
+	  	<to>decimal</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Double</from>
+	  	<to>double</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Float</from>
+	  	<to>float</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Long</from>
+	  	<to>long</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Short</from>
+	  	<to>short</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Time</from>
+	  	<to>time</to>
+	</mapping>
+	<mapping>
+	  	<from>datatype.Timestamp</from>
+	  	<from>datatype.DateTime</from>
+	  	<to>dateTime</to>
+	</mapping>
+	<mapping>
+		<from>datatype.Object</from>
+		<to>anyType</to>
+	</mapping>
+</mappings>
