@@ -2,9 +2,7 @@
     <extend>../project.xml</extend>
     <pomVersion>3</pomVersion>
     <name>AndroMDA Core</name>
-    <groupId>andromda-core</groupId>
     <artifactId>andromda-core</artifactId>
-    <organization/>
     <package>org.andromda.core</package>
     <description>
 		The Core refers to the "engine" of the framework.  The core takes care making all
@@ -15,10 +13,6 @@
         <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/andromda</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda/</url>
     </repository>
-    <versions/>
-    <branches/>
-    <mailingLists/>
-    <developers/>
     <dependencies>
         <dependency>
             <groupId>picocontainer</groupId>
