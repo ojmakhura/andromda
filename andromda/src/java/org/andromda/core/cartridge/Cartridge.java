@@ -121,7 +121,7 @@ public class Cartridge
             factory.setActiveNamespace(previousNamespace);
         }
     }
-    
+
     /**
      * Processes all <code>modelElements</code> for this template.
      * 
@@ -252,7 +252,7 @@ public class Cartridge
             }
         }
     }
-    
+
     /**
      * Processes the <code>template</code> without model elements. This is
      * useful if you need to generate some that is part of your cartridge,
@@ -265,8 +265,9 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
-        Property outletProperty = Namespaces.instance()
-            .findNamespaceProperty(this.getName(), template.getOutlet());
+        Property outletProperty = Namespaces.instance().findNamespaceProperty(
+            this.getName(),
+            template.getOutlet());
         if (outletProperty != null && !outletProperty.isIgnore())
         {
             Map templateContext = new HashMap();
@@ -275,7 +276,7 @@ public class Cartridge
                 templateContext,
                 outletProperty,
                 null,
-                null);            
+                null);
         }
     }
 
