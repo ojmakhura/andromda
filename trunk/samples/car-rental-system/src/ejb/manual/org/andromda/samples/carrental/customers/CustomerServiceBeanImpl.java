@@ -71,8 +71,8 @@ public class CustomerServiceBeanImpl
             ArrayList result = new ArrayList();
             for (Iterator it = customers.iterator(); it.hasNext();)
             {
-                Customer cl = (Customer) it.next();
-                result.add(cl.getCustomerData());
+                Customer c = (Customer) it.next();
+                result.add(getCustomerData(c));
             }
 
             return result;
@@ -85,6 +85,16 @@ public class CustomerServiceBeanImpl
         {
             throw new EJBException(e);
         }
+    }
+    
+    /**
+     * Extracts the data from a Customer object.
+     * @param c the Customer
+     * @return CustomerData the data
+     */
+    private CustomerData getCustomerData(Customer c)
+    {
+        return new CustomerData(c.getId(), c.getName(), c.getCustomerNo(), c.getPassword());
     }
 
     /**

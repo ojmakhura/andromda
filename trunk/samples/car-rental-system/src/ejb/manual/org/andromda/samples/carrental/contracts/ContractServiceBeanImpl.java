@@ -43,7 +43,7 @@ public class ContractServiceBeanImpl
             for (Iterator it = reservations.iterator(); it.hasNext();)
             {
                 Reservation r = (Reservation) it.next();
-                results.add(r.getReservationData());
+                results.add(getReservationData(r));
             }
 
             return results;
@@ -56,6 +56,16 @@ public class ContractServiceBeanImpl
         {
             throw new EJBException(e);
         }
+    }
+    
+    /**
+     * Extracts the data from a Reservation object.
+     * @param r the Reservation
+     * @return ReservationData the data
+     */
+    private ReservationData getReservationData(Reservation r)
+    {
+        return new ReservationData(r.getId(), r.getReservationDate(), r.getComfortClass());
     }
 
     /**
