@@ -14,27 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 ##
 ## Start of the class declaration
 ##
-public final class $class.name extends ActionForm implements Serializable
+public final class ${class.name} extends ${class.name}Abstract implements Serializable
 {
-    private String trigger = null;
-
-##
-## Each attribute needs to be rendered as a private field
-##
-#foreach ($feature in $class.feature)
-#if ($transform.staticHelper.isAttribute($feature))
-#set ($attributeTypePackage = $transform.getPackageName($feature.type))
-#if ($attributeTypePackage == "java.lang")
-#set ($attributeTypePackage = "")## java.lang is implicitely imported, no need to mess up the code
-#end
-#if ($attributeTypePackage != "")
-#set ($attributeTypePackage = "${attributeTypePackage}.")
-#end
-#set ($attributeType = "$attributeTypePackage$feature.type.name")
-    private $attributeType $feature.name;
-#end
-#end
-
     public void reset(ActionMapping mapping, HttpServletRequest request)
     {
     }
@@ -42,22 +23,6 @@ public final class $class.name extends ActionForm implements Serializable
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request)
     {
         return null;
-    }
-
-    /**
-     * Gets the value of the event that triggered the action.
-     */
-    public String getTrigger()
-    {
-        return trigger;
-    }
-
-    /**
-     * Sets the value of the event that triggered the action.
-     */
-    public void setTrigger(String trigger)
-    {
-        this.trigger = trigger;
     }
 
 ##
@@ -73,15 +38,15 @@ public final class $class.name extends ActionForm implements Serializable
 #set ($attributeTypePackage = "${attributeTypePackage}.")
 #end
 #set ($attributeType = "$attributeTypePackage$feature.type.name")
-    public $attributeType get$str.upperCaseFirstLetter($feature.name)()
-    {
-        return $feature.name;
-    }
-
+    /**
+     * @struts.validator
+     *   type="Required"
+     */
     public void set$str.upperCaseFirstLetter($feature.name)($attributeType $feature.name)
     {
-        this.$feature.name = $feature.name;
+        super.set$str.upperCaseFirstLetter($feature.name)($feature.name);
     }
+
 #end
 #end
 
