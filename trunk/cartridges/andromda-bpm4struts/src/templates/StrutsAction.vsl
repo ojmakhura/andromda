@@ -59,16 +59,27 @@ $actionState.getDocumentation("     * ")
     private ActionForward ${actionState.actionMethodName}(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         ActionForward forward = null;
+        final org.apache.struts.action.ActionMessages errors = new org.apache.struts.action.ActionMessages();
         try
         {
 #foreach ($controllerCall in $actionState.controllerCalls)
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #end
         }
+        catch (Exception ex)
+        {
+            final String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(ex);
+            errors.add(org.apache.struts.action.ActionMessages.GLOBAL_MESSAGE, new org.apache.struts.action.ActionMessage(messageKey));
+            super.saveErrors(request, errors);
+        }
         finally
         {
 #saveMessages($actionState.forward "        ")
             forward = #processTransition($actionState.forward)
+        }
+        if (!errors.isEmpty())
+        {
+            forward = mapping.getInputForward();
         }
         return forward;
     }
