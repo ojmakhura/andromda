@@ -364,7 +364,7 @@ public class ModelProcessor
      */
     protected boolean shouldProcess(String namespace)
     {
-        boolean shouldProcess = cartridgeFilter == null;
+        boolean shouldProcess = cartridgeFilter == null || cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
             shouldProcess = cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
@@ -388,8 +388,11 @@ public class ModelProcessor
      */
     public void setCartridgeFilter(String namespaces)
     {
-        cartridgeFilter = Arrays.asList(StringUtils
-            .deleteWhitespace(namespaces).split(","));
+        if (StringUtils.isNotBlank(namespaces))
+        {
+	        cartridgeFilter = Arrays.asList(StringUtils
+	            .deleteWhitespace(namespaces).split(","));
+        }
     }
 
     /**
