@@ -252,7 +252,7 @@
 		path="templates/spring/ejb/SpringSessionHome.vsl" 
 		outputPattern="$generatedFile" 
 		outlet="session-ejbs" 
-		overwrite="false"
+		overwrite="true"
 		required="false">
 		<modelElements variable="service">
             <modelElement>
