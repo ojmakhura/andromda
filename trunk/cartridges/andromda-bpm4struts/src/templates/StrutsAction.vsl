@@ -88,9 +88,9 @@ public final class $action.actionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
+        request.setAttribute("form", form);
         final ActionForward forward = #processTransition($action)
 #saveMessages($action "        ")
-        request.setAttribute("form", form);
         return forward;
     }
 
@@ -104,7 +104,6 @@ $actionState.getDocumentation("     * ")
         ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #end
 #saveMessages($actionState.forward "        ")
-        request.setAttribute("form", form);
         return #processTransition($actionState.forward)
     }
 
