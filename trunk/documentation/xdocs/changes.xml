@@ -17,6 +17,34 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Oct 01, 2004</td>
+                    <td valign="top" class="std">Major Bpm4Struts update</td>
+                    <td valign="top" class="std">
+                        The latest major bpm4struts update did not prove to be a very elegant solution,
+                        this led us to revise
+                        the implementation and come up with an alternative one. Here's a list of what has changed:
+                        <ol>
+                            <li>parameters with the same name and in the same use-case are required to also
+                                be of the same type</li>
+                            <li>form fields do no longer have their name prefixed with the name of the action</li>
+                            <li>forms now implement an interface for each controller operation they defer to</li>
+                            <li>it is now needed to put arguments in the controller operations, these arguments
+                                will be available in the form interface that is accessible programmatically</li>
+                            <li>these arguments will need to have the <code>
+                                @andromda.struts.view.field.type</code> tagged value set to 'select' in case
+                                you want to prepopulate a list of entries (see samples)</li>
+                            <li>currently it is also needed to specify the table columns (just as you
+                                would on a collection-type page variable) in case the argument
+                                maps onto an action parameter which is displayed in tabular format, but this
+                                will be solved soon</li>
+                        </ol>
+                        <p class="highlight">
+                            All of this means this will break the compilation of your current
+                            codebase using one of the previous AndroMDA versions.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Sep 29, 2004</td>
                     <td valign="top" class="std">Bpm4Struts update</td>
                     <td valign="top" class="std">
