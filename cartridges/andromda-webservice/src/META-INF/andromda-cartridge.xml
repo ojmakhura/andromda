@@ -82,9 +82,10 @@
 	<template	
 		path="templates/webservice/axis/wss4j/crypto.properties.vsl"
 		outputPattern="wss4j/crypto.properties" 
-		outlet="axis-configuration"
+		outlet="wss4j-configuration"
 		overwrite="true"
-		outputToSingleFile="true">
+		outputToSingleFile="true"
+		required="false">
 		<modelElements variable="services">
             <modelElement stereotype="WebService"/>
 			<modelElement stereotype="Service"/>
