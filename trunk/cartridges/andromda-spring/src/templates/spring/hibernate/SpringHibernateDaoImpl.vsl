@@ -1,4 +1,3 @@
-#if (!$entity.daoImplementationRequired)
 #set ($generatedFile = "${entity.packagePath}/${entity.daoImplementationName}.java")
 //
 // Attention: Generated code! Do not modify by hand!
@@ -18,4 +17,3 @@ public class $entity.daoImplementationName
 #end
 {
 }
-#end
