@@ -333,9 +333,7 @@ public class HibernateAssociationEndLogicImpl
     protected boolean handleIsIndexedCollection()
     {
         boolean indexed = false;
-        HibernateAssociationEnd otherEnd = (HibernateAssociationEnd)this
-        .getOtherEnd();
-        if (otherEnd.isOrdered())
+        if (this.isOrdered())
         {
             if (this.getCollectionType().equals(COLLECTION_TYPE_LIST)
                 || this.getCollectionType().equals(COLLECTION_TYPE_MAP))
@@ -353,7 +351,8 @@ public class HibernateAssociationEndLogicImpl
     {
         String indexName = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
-        return indexName;
+        ClassifierFacade type = this.getType();
+        return type.findAttribute(indexName).getName();
     }
 
     /**
@@ -386,6 +385,17 @@ public class HibernateAssociationEndLogicImpl
     protected boolean handleIsBag()
     {
         return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_BAG);
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexType()
+     */
+    protected String handleGetCollectionIndexType()
+    {
+        String indexName = (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
+        ClassifierFacade type = this.getType();
+        return type.findAttribute(indexName).getType().getFullyQualifiedName();
     }
 
 }
