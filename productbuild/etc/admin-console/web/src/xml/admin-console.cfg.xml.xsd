@@ -98,6 +98,13 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="display-name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The name to display for this table.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="display-column" minOccurs="0" type="xs:string">
                     <xs:annotation>
                         <xs:documentation>
@@ -156,6 +163,13 @@
                     <xs:annotation>
                         <xs:documentation>
                             The name of the column being configured.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="display-name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The name to display for this column.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
