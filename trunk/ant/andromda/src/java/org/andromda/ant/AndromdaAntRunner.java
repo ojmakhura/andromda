@@ -79,25 +79,25 @@ public class AndromdaAntRunner
         final Map propertiesMap = new HashMap();
 
         String inputValue = null;
-        while (null == (inputValue = promptForInput("developer names")))
+        while (null == (inputValue = promptForInput("developer names"))) ;
         propertiesMap.put("author", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("application id")))
+        while (null == (inputValue = promptForInput("application id"))) ;
         propertiesMap.put("applicationId", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("application name")))
+        while (null == (inputValue = promptForInput("application name"))) ;
         propertiesMap.put("applicationName", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("application version")))
+        while (null == (inputValue = promptForInput("application version"))) ;
         propertiesMap.put("applicationVersion", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
         while (null == (inputValue = promptForInput("persistence type [ejb,hibernate]"))
                 || (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)))
-            
+            ;
         propertiesMap.put("persistenceType", inputValue);
 
 /*        inputValue = null;
