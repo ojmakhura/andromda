@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - How-to Guides</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+        <section name="How-to Guides">
+            <p>
+                A few guides have been written to make it easier to get started using AndroMDA
+                on your projects, on this page you will find the links to those guides.
+            </p>
+            <p>
+                <ul class="textList">
+                    <li>
+                        <a href="starting.html#My_first_AndroMDA_project">Project Generator</a><br/>
+                        Explains how to set up a new project template in which you use AndroMDA to generate
+                        code from your UML model. The project templates have been specifically designed
+                        for J2EE applications.
+                    </li>
+                    <li>
+                        <a href="andromda-bpm4struts-cartridge/how-to.html">Bpm4Struts Cartridge</a><br/>
+                        Bpm4Struts is a cartridge that is able to generate Struts code from activity
+                        graphs and use-cases. This guide briefly explains the way you should approach
+                        and eventually model your application's architecture. This is a one-page
+                        how-to featuring screenshots.
+                    </li>
+                    <li>
+                        <a href="andromda-spring-cartridge/howto.html">Spring Cartridge</a><br/>
+                        The Spring cartridge is used to generate your application's back end, it generates Spring
+                        code wrapping Hibernate POJOs and Stateless Session Beans. This guide includes
+                        seven pages of documentation including screenshots and examples of generate code.
+                        The spring-catridge's features are listed and described.
+                    </li>
+                </ul>
+            </p>
+        </section>
+    </body>
+</document>
