@@ -110,7 +110,7 @@
         "ant deploy-hibernate" will deploy the *.ear file into JBoss's
         default server configuration.
     -->
-    <target name="deploy-hibernate" depends="dist"
+    <target name="deploy-hibernate"
             description="Deploys generated Hibernate ear in JBoss">
       <copy todir="${jboss.home}/server/default/deploy" >
           <fileset dir="build/" includes="*hibernate.ear" />
@@ -193,6 +193,9 @@
             <fileset dir="${andromda.hibernate.generated.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${andromda.hibernate.manual.dir}">
+                <include name="**/*.java" />
+            </fileset>
 
             <hibernate />
 
@@ -205,6 +208,11 @@
                 showSql="true"
             />
         </hibernatedoclet>
+
+        <replace file="build/hibernateservice/META-INF/jboss-service.xml" >
+            <replacetoken><![CDATA[\]]></replacetoken>
+            <replacevalue><![CDATA[/]]></replacevalue>
+        </replace>
 
         <taskdef name="ejbdoclet"
                  classname="xdoclet.modules.ejb.EjbDocletTask"
