@@ -49,8 +49,9 @@
 		outlet="wsdls" 
 		overwrite="true">
 		<modelElements variable="service">
-            <modelElement stereotype="WebService"/>
-			<modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
 		</modelElements>
 	</template>     
 	
@@ -81,8 +82,9 @@
 		overwrite="true"
 		outputToSingleFile="true">
 		<modelElements variable="services">
-            <modelElement stereotype="WebService"/>
-			<modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -94,8 +96,9 @@
 		outputToSingleFile="true"
 		required="false">
 		<modelElements variable="services">
-            <modelElement stereotype="WebService"/>
-			<modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -106,8 +109,9 @@
 		overwrite="true"
 		required="false">
 		<modelElements variable="service">
-            <modelElement stereotype="WebService"/>
-			<modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
 		</modelElements>
 	</template>
 		
