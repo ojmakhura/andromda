@@ -218,7 +218,7 @@
 
                 <!-- body start -->
                 <div id="bodyColumn">
-                    <x:set var="pdfHref" select="$doc/document/body/pdf/@href"/>
+                    <x:set var="pdfHref" select="$nav/body/pdf/@href"/>
                     <j:if test="${!empty pdfHref}">
                         <div id="pdf">
                             <j:set var="pdfHref" value="${pdfHref.get(0).value}"/>
