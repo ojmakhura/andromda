@@ -19,8 +19,10 @@ public class ParameterFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the parameter name 
+     * This method is overridden to make sure the name 
      * will <strong>not</strong> result in uncompilable Java code.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String getName()
     {
