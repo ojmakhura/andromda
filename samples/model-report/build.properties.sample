@@ -1,7 +1,8 @@
 andromda.home = ../../andromda/dist/predist/
 car-rental-system.home = ../car-rental-system/
 
-model.url = jar:file:${car-rental-system.home}CarRentalSystem15.zargo!/CarRentalSystem15.xmi
+model.file=${car-rental-system.home}CarRentalSystem15.zargo
+model.xmi=CarRentalSystem15.xmi
 
 velocity.home = ${andromda.home}
 mdr.home = ${andromda.home}
