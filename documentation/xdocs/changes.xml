@@ -9,6 +9,10 @@
     </properties>
     <body>
         <release version="3.0-RC2-SNAPSHOT" date="2005-03-29" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="HIB-82">
+                Many-to-many relationships, where only a single table is involved, are not causing the Hibernate
+                SchemaExport tool to choke anymore. This bug was related to the generated foreign key constraint names.
+            </action>
             <action dev="draftdog" type="fix" issue="BPM-81">
                 The calendar support has completely been rewritten, make sure your JSPs reflect the latest changes
                 if you're using the copy-over feature.
