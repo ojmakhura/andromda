@@ -252,10 +252,8 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetFullyQualifiedEntityImplementationName()
     {
-        return HibernateMetafacadeUtils.getFullyQualifiedName(
-            this.getPackageName(),
-            this.getEntityName(),
-            HibernateGlobals.IMPLEMENTATION_SUFFIX);
+        return HibernateMetafacadeUtils.getFullyQualifiedName(this
+            .getPackageName(), this.getEntityImplementationName(), null);
     }
 
     /**
@@ -338,11 +336,22 @@ public class HibernateEntityLogicImpl
     }
 
     /**
+     * The property which stores the pattern defining the entity implementation
+     * name.
+     */
+    private static final String ENTITY_IMPLEMENTATION_NAME_PATTERN = "entityImplementationNamePattern";
+
+    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityImplementationName()
      */
     protected String handleGetEntityImplementationName()
     {
-        return this.getEntityName() + HibernateGlobals.IMPLEMENTATION_SUFFIX;
+        String implNamePattern = String.valueOf(this
+            .getConfiguredProperty(ENTITY_IMPLEMENTATION_NAME_PATTERN));
+        return MessageFormat.format(implNamePattern, new Object[]
+        {
+            StringUtils.trimToEmpty(this.getName())
+        });
     }
 
     /**
@@ -641,7 +650,8 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsMappingRequiresSuperProperties()
     {
-        return this.isHibernateInheritanceInterface() || (this.isHibernateInheritanceConcrete() && this.isAbstract());
+        return this.isHibernateInheritanceInterface()
+            || (this.isHibernateInheritanceConcrete() && this.isAbstract());
     }
 
 }

@@ -188,6 +188,17 @@
 				</tr>
                 <tr>
                     <td>
+                          enumerationNamePattern
+                    </td>
+                    <td>
+                          The pattern to use when constructing hibernate enumerations.
+                    </td>
+                    <td>
+                          No, default is <em>{0}</em>Enum
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         serviceOperationTransactionType
                     </td>
                     <td>
@@ -247,6 +258,17 @@
                     </td>
                     <td>
                         No, default is <code>org.andromda.persistence.hibernate</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>entityImplementationNamePattern</td>
+                    <td>
+                        The pattern to use when constructing the entity implementation
+                        name.
+                    </td>
+                    <td>
+                        No, default is <code>{0}Impl</code> where <em>{0}</em>
+                        is the name of the modeled entity.
                     </td>
                 </tr>
                 <tr>

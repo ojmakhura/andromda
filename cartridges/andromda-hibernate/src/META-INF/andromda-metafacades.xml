@@ -2,6 +2,7 @@
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="hibernate">
     <property reference="entityNamePattern" default="{0}"/>
+    <property reference="entityImplementationNamePattern" default="{0}Impl"/>
     <property reference="defaultHibernateGeneratorClass" default="native"/>
     <property reference="hibernateDefaultCascade" default="none"/>
     <property reference="hibernateEntityCache" default="read-write"/>
@@ -21,6 +22,7 @@
     <property reference="ejbViewType" default="local"/>
     <property reference="hibernateAssociationCollectionType" default="set"/>
     <property reference="hibernateAssociationSortType" default="unsorted"/>
+    <property reference="enumerationNamePattern" default="{0}Enum"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENTITY</stereotype>
