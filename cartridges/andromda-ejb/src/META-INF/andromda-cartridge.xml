@@ -10,6 +10,7 @@
     <stereotype name="StatelessSessionBean" />
     <stereotype name="StatefulSessionBean" />
 
+<!-- the outlet names -->
     <outlet name="session-beans" />
     <outlet name="entity-beans" />
     <outlet name="session-impls" />
@@ -42,14 +43,14 @@
 
 <!--
      The following two definitions map services to stateless session beans.
-     This is incomplete. The final version should map a service to session bean
-     and the template itself should decide to generate a stateless or stateful
+     The templates map a service to a session bean
+     and the template itself decides to generate a stateless or stateful
      session bean, based on the fact that the UML class contains attributes or not.
      (Matthias Bohlen)
 -->
     <template
         stereotype="service"
-        sheet="templates/StatelessSessionBean.vsl"
+        sheet="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overWrite="true"
@@ -57,7 +58,7 @@
 
     <template
         stereotype="service"
-        sheet="templates/StatelessSessionBeanImpl.vsl"
+        sheet="templates/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overWrite="false"
@@ -90,7 +91,7 @@
 
     <template
         stereotype="StatelessSessionBean"
-        sheet="templates/StatelessSessionBean.vsl"
+        sheet="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overWrite="true"
@@ -98,7 +99,7 @@
 
     <template
         stereotype="StatelessSessionBean"
-        sheet="templates/StatelessSessionBeanImpl.vsl"
+        sheet="templates/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overWrite="false"
@@ -106,7 +107,7 @@
 
     <template
         stereotype="StatefulSessionBean"
-        sheet="templates/StatefulSessionBean.vsl"
+        sheet="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overWrite="true"
@@ -114,7 +115,7 @@
 
     <template
         stereotype="StatefulSessionBean"
-        sheet="templates/StatefulSessionBeanImpl.vsl"
+        sheet="templates/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overWrite="false"
