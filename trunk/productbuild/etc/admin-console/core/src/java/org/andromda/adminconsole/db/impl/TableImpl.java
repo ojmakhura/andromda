@@ -39,16 +39,25 @@ public class TableImpl extends DatabaseObject implements Table
         return database;
     }
 
+    /**
+     * Convenient accessor to the database metadata.
+     */
     protected DatabaseMetaData getMetaData()
     {
         return getDatabase().getMetaData();
     }
 
+    /**
+     * Convenient accessor to the schema.
+     */
     protected String getSchema()
     {
         return getDatabase().getSchema();
     }
 
+    /**
+     * Convenient accessor to the catalog.
+     */
     protected String getCatalog()
     {
         return getDatabase().getCatalog();
@@ -109,6 +118,9 @@ public class TableImpl extends DatabaseObject implements Table
         return importingTableNames.size();
     }
 
+    /**
+     * Loads the metadata information for this table
+     */
     private void loadMetaData()
     {
         try
@@ -181,13 +193,6 @@ public class TableImpl extends DatabaseObject implements Table
                     String columnName = resultSet.getString("FKCOLUMN_NAME");
                     Column column = getColumn(columnName);
 
-/*
-                    String foreignKeyName = resultSet.getString("FK_NAME");
-                    String primaryKeyName = resultSet.getString("PK_NAME");
-                    ForeignKeyDeleteRule deleteRule = ForeignKeyDeleteRule.get(resultSet.getInt("DELETE_RULE"));
-                    ForeignKeyUpdateRule updateRule = ForeignKeyUpdateRule.get(resultSet.getInt("UPDATE_RULE"));
-*/
-
                     String importedTableName = resultSet.getString("PKTABLE_NAME");
                     String importedColumnName = resultSet.getString("PKCOLUMN_NAME");
 
@@ -196,12 +201,7 @@ public class TableImpl extends DatabaseObject implements Table
                             new ForeignKeyColumnImpl(
                                     this, columnName, column.getSqlType(),
                                     importedTableName, importedColumnName );
-/*
-                    ForeignKeyColumn foreignKeyColum =
-                            new ForeignKeyColumnImpl(
-                                    this, columnName, getColumn(columnName).getSqlType(),
-                                    foreignKeyName, primaryKeyName, deleteRule, updateRule, importedTableName);
-*/
+
                     foreignKeyColumns.put(foreignKeyColum.getName(), foreignKeyColum);
                     columns.put(foreignKeyColum.getName(), foreignKeyColum);
                 }
@@ -399,7 +399,6 @@ public class TableImpl extends DatabaseObject implements Table
         finally
         {
             close(statement);
-            // close(connection);
         }
     }
 
@@ -435,7 +434,6 @@ public class TableImpl extends DatabaseObject implements Table
         {
             close(statement);
             close(resultSet);
-            // close(connection);
         }
 
         return rows;

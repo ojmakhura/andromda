@@ -114,53 +114,8 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
         {
             close(statement);
             close(resultSet);
-            // close(connection);
         }
 
         return values;
     }
-
-/* maybe we'll need this in the future, at this time we don't
-
-    private String foreignKeyName = null;
-    private String primaryKeyName = null;
-    private ForeignKeyDeleteRule deleteRule = null;
-    private ForeignKeyUpdateRule updateRule = null;
-
-    public ForeignKeyColumnImpl(Table table, String name, int sqlType, String foreignKeyName, String primaryKeyName, ForeignKeyDeleteRule deleteRule, ForeignKeyUpdateRule updateRule, String importedTableName)
-    {
-        super(table, name, sqlType);
-        this.foreignKeyName = foreignKeyName;
-        this.primaryKeyName = primaryKeyName;
-        this.deleteRule = deleteRule;
-        this.updateRule = updateRule;
-        this.importedTableName = importedTableName;
-    }
-
-    public String getForeignKeyName()
-    {
-        return foreignKeyName;
-    }
-
-    public String getPrimaryKeyName()
-    {
-        return primaryKeyName;
-    }
-
-    public ForeignKeyDeleteRule getDeleteRule()
-    {
-        return deleteRule;
-    }
-
-    public ForeignKeyUpdateRule getUpdateRule()
-    {
-        return updateRule;
-    }
-
-    public String getImportedTableName()
-    {
-        return importedTableName;
-    }
-*/
-
 }
