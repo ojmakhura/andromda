@@ -139,6 +139,18 @@ div.action div.trigger form buttons { display: block; }
 .hide { display: none; }
 br.clr { clear: left; }
 
+.hintsClass
+{
+    background-color: #ffd;
+    font-size: 68%;
+    font-weight: normal;
+    border: 1px solid #333;
+    padding: 4px;
+    margin: 0;
+    text-align: left;
+    vertical-align: top;
+}
+
 div.col-a1 { width: 46%; float: left; padding-top: 1.5em; }
 div.col-a2 { width: 46%; float: right; padding-top: 1.5em; }
 div.col-a1 h3, div.col-a2 h3 { color: #043DBC; border-bottom: 1px dotted #3D7DC7; margin-bottom: 1.0em; }
