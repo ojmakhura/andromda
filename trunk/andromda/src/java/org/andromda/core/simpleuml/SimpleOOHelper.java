@@ -19,7 +19,7 @@ import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
  * with the UML2EJB code generation scripts - it would be nice to 
  * deprecate it at some point, but at present there is no plan to do so.
  *
- * @author Anthony Mowers 
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class SimpleOOHelper extends UMLStaticHelper 
 {

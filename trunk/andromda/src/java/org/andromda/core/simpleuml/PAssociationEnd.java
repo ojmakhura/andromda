@@ -8,6 +8,7 @@ import org.omg.uml.foundation.core.Classifier;
  * dynamic proxy for an AssociationEnd: dynamically supports the UMLAssociationEnd, 
  * and org.omg.uml.foundation.core.AssociationEnd interfaces.
  * 
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class PAssociationEnd
 	extends PModelElement

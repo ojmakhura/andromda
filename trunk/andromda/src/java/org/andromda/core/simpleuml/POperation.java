@@ -16,7 +16,7 @@ import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
  * dynamic proxy for an Operation: dynamically supports the UMLOperation, 
  * and org.omg.uml.foundation.core.Operation interfaces.
  *
- *@author    Anthony Mowers
+ *@author   <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class POperation extends PModelElement implements UMLOperation
 {

@@ -8,7 +8,7 @@ import org.omg.uml.foundation.core.AssociationEnd;
  * Implements operations for querying an assocation from the perspective
  * of one of the assocation ends.
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class DirectionalAssociationEnd
     extends org.andromda.core.uml14.DirectionalAssociationEnd

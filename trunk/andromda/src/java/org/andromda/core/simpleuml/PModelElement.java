@@ -14,7 +14,7 @@ import org.omg.uml.foundation.core.TaggedValue;
  * dynamic proxy for a ModelElement: dynamically supports the UMLModelElement, 
  * and org.omg.uml.foundation.core.ModelElement interfaces.
  *
- *@author    Anthony Mowers
+ *@author   <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class PModelElement
 	 implements 

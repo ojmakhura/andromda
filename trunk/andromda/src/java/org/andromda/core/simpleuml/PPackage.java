@@ -13,7 +13,7 @@ import org.omg.uml.modelmanagement.UmlPackage;
  * dynamic proxy for a Package: dynamically supports the UMLPackage, 
  * and org.omg.uml.modelmanagement.UmlPackage interfaces.
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class PPackage 
     extends PModelElement 

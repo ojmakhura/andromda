@@ -12,7 +12,7 @@ import org.omg.uml.UmlPackage;
  * dynamic proxy for a Model: dynamically supports the UMLModel, 
  * and org.omg.uml.UmlPackage interfaces.
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  *.
  */
 public class PModel 

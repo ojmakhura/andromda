@@ -11,7 +11,7 @@ import java.io.IOException;
  * a set of project based peferences for how to map types to the database. <p>
  * 
  * @author Matthias Bohlen
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  *
  */
 public interface DbMappingTable

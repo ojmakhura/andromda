@@ -15,7 +15,7 @@ import org.omg.uml.foundation.core.Operation;
  * dynamic proxy for a Classifier: dynamically supports the UMLClassifier, 
  * and org.omg.uml.foundation.core.Classifier interfaces.
  *
- *@author    Anthony Mowers
+ *@author    <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class PClassifier
 	extends PModelElement

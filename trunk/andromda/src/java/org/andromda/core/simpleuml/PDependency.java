@@ -11,7 +11,7 @@ import org.omg.uml.foundation.core.Operation;
  * dynamic proxy for a Dependency: dynamically supports the UMLDependency, 
  * and org.omg.uml.foundation.core.Dependency interfaces.
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class PDependency 
 	extends PModelElement 
