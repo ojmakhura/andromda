@@ -79,7 +79,7 @@ public class ContractServiceBeanImpl
     {
         try
         {
-            CustomerLocalHome clh = this.getCustomerLocalHome();
+            CustomerLocalHome clh = getCustomerLocalHome();
             Customer customer = clh.findByPrimaryKey(customerId);
 
             InventoryServiceHome ish = getInventoryServiceHome();
