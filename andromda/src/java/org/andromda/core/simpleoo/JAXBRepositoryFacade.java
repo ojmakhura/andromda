@@ -27,14 +27,9 @@ public class JAXBRepositoryFacade
 
 
 	/**
-	 *  Constructor for the JAXBMetaDataRepository object
-	 *
-	 *@param  typeMappings               Description of the Parameter
-	 *@param  inFile                     Description of the Parameter
-	 *@exception  MetaDataReadException  Description of the Exception
-	 *@exception  IOException            Description of the Exception
+	 * @see org.andromda.core.common.RepositoryFacade#readModel(URL)
 	 */
-	public void read(URL modelURL) throws 
+	public void readModel(URL modelURL) throws 
 		IOException, 
 		RepositoryReadException
 	{
@@ -79,7 +74,17 @@ public class JAXBRepositoryFacade
 	 */
 	public long getLastModified()
 	{
-		return modelURL.openConnection().getLastModified();
+        long lastModified = 0;
+        
+        try {
+            lastModified = modelURL.openConnection().getLastModified();
+        }
+        catch (IOException ioe)
+        {
+            // eat the exception
+        }
+        
+        return lastModified;
 	}
 
 

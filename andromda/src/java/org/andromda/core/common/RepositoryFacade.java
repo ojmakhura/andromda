@@ -17,7 +17,7 @@ public interface RepositoryFacade
 	/**
 	 * Reads an object model from a specified URL
      * 
-     * <p>The model must conform to the meta model used by the repository</p>
+     * The model must conform to the meta model used by the repository
      * 
 	 * @param modelURL url of model
 	 * @throws MetaDataReadException if model syntax is violated

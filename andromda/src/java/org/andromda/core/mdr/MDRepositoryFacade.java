@@ -54,7 +54,7 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
     
 	/**
-	 * @see org.andromda.tools.common.RepositoryFacade#readModel(URL)
+	 * @see org.andromda.core.common.RepositoryFacade#readModel(URL)
 	 */
 	public void readModel(URL modelURL)
 		throws RepositoryReadException, IOException
