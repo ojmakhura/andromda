@@ -28,7 +28,7 @@
 #if (!$table.enumeration)
 ##  insert plain data
 #set ($columns = $table.nonForeignKeyColumns)
-#if ($columns.size() > 0)
+#if ($columns.size() > 0 && $table.dummyLoadSize > 0)
 #foreach ($count in [1..$table.dummyLoadSize])
 insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($columns $count));
 #end
