@@ -81,6 +81,9 @@
                         was '<em>_</em>'.
                     </td>
                     <td>
+                        N/A
+                    </td>
+                    <td>
                         No, default is <code>'_'</code>.
                     </td>
                 </tr>   	  
@@ -280,6 +283,9 @@
                     </td>
                     <td>
                         The separator used for constructing a relation name between two associations.
+                    </td>
+                    <td>
+                        EntityAssociationEnd
                     </td>
                     <td>
                         No, the default is <code>2</code>.
