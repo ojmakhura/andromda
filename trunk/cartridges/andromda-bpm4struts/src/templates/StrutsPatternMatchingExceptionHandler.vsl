@@ -63,7 +63,7 @@ public class $className
             }
             catch (IllegalStateException ex)
             {
-                // no match was found rethrow the throwable
+                // no match was found rethrow the exception
                 throw exception;
             }
             return matched;
