@@ -59,6 +59,28 @@
                     instead.
                 </p>
             </subsection>
+            <subsection name="Date Formats">
+                <p>
+                    It is also possible to have input fields representing dates automatically formatted. Two ways to do
+                    this exist: on a global level you can use the <code>defaultDateFormat</code>
+                    namespace property which defaults to <code>dd/MM/yyyy</code> (go
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/index.html">here</a> to learn more about
+                    possible date formats)
+                    , it sets the format for all dates in the modeled application; on a field
+                    level it is possible to use the <code>@andromda.struts.view.field.format</code> tagged value,
+                    just make sure the parameter is a date type and it will override the global setting.
+                </p>
+                <p>
+                    Use the <code>strict</code> keyword in front of the date format, that way the application
+                    will strictly check the format, without being lenient that is.
+                </p>
+                <p class="highlight">
+                    Use dates in combination with the <code>@andromda.struts.view.field.calendar=true</code>
+                    tagged value to have a popup calendar trigger rendered next to the input field, the selected date
+                    will immediately be converted into the correct format. A screenshot is shown here:
+                    <a href="howto2.html">Activity Graphs</a> <em>(bottom of the page)</em>
+                </p>
+            </subsection>
         </section>
     </body>
 </document>
