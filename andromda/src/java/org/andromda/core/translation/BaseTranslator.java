@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  *  to take note of when extending this class are:
  *      <ul>
  *          <li>
- *              <a href="#handleTranslationFragment(java.lang.String, org.andromda.core.translation.node.Node)">handleTranslationFragment(java.lang.String, Node node)</a> 
+ *              <a href="#handleTranslationFragment(org.andromda.core.translation.node.Node)">handleTranslationFragment(java.lang.String, Node node)</a> 
  *          </li>
  *          <li>
  *              <a href="#getTranslationFragment(java.lang.String)">getTranslationFragment(java.lang.String)</a>
@@ -190,7 +190,7 @@ public abstract class BaseTranslator extends DepthFirstAdapter implements Transl
      * 
      * <p>
      *  <strong>IMPORTANT:</strong> as a best practice, it is recommended that you use 
-     *  <a href="#handleTranslationFragment(java.lang.String, org.andromda.core.translation.parser.node.Node)">handleTranslationFragment(java.lang.String, Node node)</a> 
+     *  <a href="#handleTranslationFragment(org.andromda.core.translation.parser.node.Node)">handleTranslationFragment(Node node)</a> 
      *  if at all possible (instead of this method), it will help  your code be cleaner and the methods smaller and 
      *  more maintainable.
      * </p>
@@ -203,7 +203,7 @@ public abstract class BaseTranslator extends DepthFirstAdapter implements Transl
      * </p>
      * <p>
      * <strong>NOTE:</strong>You would use this method <strong>instead</strong> of
-     * <a href="#handleTranslationFragment(java.lang.String, org.andromda.core.translation.parser.node.Node)">handleTranslationFragment(java.lang.String, Node node)</a>
+     * <a href="#handleTranslationFragment(org.andromda.core.translation.parser.node.Node)">handleTranslationFragment(Node node)</a>
      * if you just want to retrieve the value of the fragment and don't want to have a <a href="#handlerMethod">handlerMethod</a> 
      * which actually handles the processing of the output.  For example you may want 
      * to add a fragment called 'constraintTail' which would always be added to your 
