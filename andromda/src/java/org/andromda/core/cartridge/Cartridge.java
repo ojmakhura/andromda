@@ -99,7 +99,7 @@ public class Cartridge
             Property mergeProperty = Namespaces.instance()
                 .findNamespaceProperty(this.getName(), MERGE_LOCATION, false);
             this.mergeLocation = mergeProperty != null ? mergeProperty
-                .getName() : null;
+                .getValue() : null;
             this.getTemplateEngine().setMergeLocation(this.mergeLocation);
 
             Iterator resourceIt = resources.iterator();
