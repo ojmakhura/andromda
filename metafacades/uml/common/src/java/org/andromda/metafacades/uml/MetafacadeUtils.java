@@ -100,7 +100,7 @@ public class MetafacadeUtils
 
     /**
      * Registers the argument name and updates it if necessary so it is unique
-     * among all the registered names so far.
+     * amoung all the registered names so far.
      * 
      * @param name the name to register
      * @return the argument, possible transformed in case it was already
