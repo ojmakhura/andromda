@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class WidgetRenderer implements Serializable
 {
-    public String renderTextfield(String parameterName, Object value, boolean readOnly)
+    public String renderTextfield(String parameterName, Object value, boolean readOnly, String custom)
     {
         final StringBuffer buffer = new StringBuffer();
 
@@ -17,7 +17,12 @@ public class WidgetRenderer implements Serializable
         buffer.append('\"');
         if (readOnly)
         {
-            buffer.append(" readonly");
+            buffer.append(" readonly=\"readonly\"");
+        }
+        if (custom != null)
+        {
+            buffer.append(' ');
+            buffer.append(custom);
         }
         buffer.append("/>");
 
@@ -35,7 +40,7 @@ public class WidgetRenderer implements Serializable
         return isTrue;
     }
 
-    public String renderCheckbox(String parameterName, Object value, boolean readOnly)
+    public String renderCheckbox(String parameterName, Object value, boolean readOnly, String custom)
     {
         final StringBuffer buffer = new StringBuffer();
 
@@ -44,18 +49,23 @@ public class WidgetRenderer implements Serializable
         buffer.append("\" value=\"true\"");
         if (isTrue(value))
         {
-            buffer.append(" checked");
+            buffer.append(" checked=\"checked\"");
         }
         if (readOnly)
         {
-            buffer.append(" disabled");
+            buffer.append(" disabled=\"disabled\"");
+        }
+        if (custom != null)
+        {
+            buffer.append(' ');
+            buffer.append(custom);
         }
         buffer.append("/>");
 
         return buffer.toString();
     }
 
-    public String renderSelect(String parameterName, Object value, Object[] values, Object[] labels, boolean readOnly)
+    public String renderSelect(String parameterName, Object value, Object[] values, Object[] labels, boolean readOnly, String custom)
     {
         final StringBuffer buffer = new StringBuffer();
 
@@ -64,7 +74,12 @@ public class WidgetRenderer implements Serializable
         buffer.append('\"');
         if (readOnly)
         {
-            buffer.append(" disabled");
+            buffer.append(" disabled=\"disabled\"");
+        }
+        if (custom != null)
+        {
+            buffer.append(' ');
+            buffer.append(custom);
         }
         buffer.append('>');
 
@@ -73,7 +88,7 @@ public class WidgetRenderer implements Serializable
             for (int i = 0; i < values.length; i++)
             {
                 buffer.append("<option");
-                if (values[i].equals(value)) buffer.append(" selected");
+                if (values[i].equals(value)) buffer.append(" selected=\"selected\"");
                 buffer.append(" value=\"");
                 buffer.append(values[i]);
                 buffer.append("\">");
