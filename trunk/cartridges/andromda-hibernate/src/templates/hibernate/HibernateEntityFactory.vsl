@@ -10,18 +10,7 @@ package $class.packageName;
  * Is able to find and create objects of type ${class.name}.
  * Those can be described as follows:
  * </p>
-$class.getDocumentation(" * ")
-#foreach ( $tgv in $class.taggedValues )
-#if ($tgv.name != "documentation")
-#if ($tgv.name == "---")
-    #set ($tag = "")
-#else
-    #set ($tag = $tgv.name)
-#end
- * $tag    $tgv.value
-#end
-#end
- *
+ * @ see $class.fullyQualifiedName
  */
 public abstract class ${class.name}Factory {
 
@@ -32,9 +21,9 @@ public abstract class ${class.name}Factory {
     * Creates a(n) ${class.name} object.
     *
 #set ($attributes = $class.getAttributes(true))
-#foreach ( $att in $attributes)
-#if (!$att.identifier)
-    * @param ${att.name}
+#foreach ( $attribute in $attributes)
+#if (!$attribute.identifier)
+    * @param ${attribute.name}
 #end
 #end
     * @return ${class.name} the created object
@@ -43,9 +32,9 @@ public abstract class ${class.name}Factory {
     {
         ${class.name} object = new ${class.name}Impl();
 
-#foreach ( $att in $attributes)
-#if (!$att.identifier)
-        object.${att.setterName} (${att.name});
+#foreach ( $attribute in $attributes)
+#if (!$attribute.identifier)
+        object.${attribute.setterName} ($attribute.name);
 #end
 #end
 
@@ -56,18 +45,18 @@ public abstract class ${class.name}Factory {
 
     // ---------------- finder methods  ----------------------
 
-#set ($primKey = $class.getIdentifiers(true).iterator().next())
-#set ($primKeyTypeName = $primKey.type.fullyQualifiedName)
+#set ($primaryKey = $class.getIdentifiers(true).iterator().next())
+#set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)
     /**
      *
      * Finds ${class.name} object by its primary key.
      * In Hibernate, this is just a call to load().
      *
      */
-    public static $class.name findByPrimaryKey (net.sf.hibernate.Session session, $primKeyTypeName ${primKey.name})
+    public static $class.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws net.sf.hibernate.HibernateException
     {
-        ${class.name} object = (${class.name}) session.load(${class.name}Impl.class, ${primKey.name});
+        ${class.name} object = (${class.name}) session.load(${class.name}Impl.class, ${primaryKey.name});
         return object;
     }
 

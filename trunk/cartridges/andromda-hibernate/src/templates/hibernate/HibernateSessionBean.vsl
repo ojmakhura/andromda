@@ -62,65 +62,67 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 
 #if ($stateful)
     // --------------- attributes ---------------------
-#foreach ( $att in $class.attributes )
-#set ($atttypename = $att.type.fullyQualifiedName)
+#foreach ( $attribute in $class.attributes )
+#set ($attributeTypeName = $attribute.type.fullyQualifiedName)
 
-   protected ${atttypename} ${att.name};
+   protected $attributeTypeName $attribute.name;
 
    /**
-$att.getDocumentation("     * ")
+$attribute.getDocumentation("     * ")
     *
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
     *
     */
-    public $atttypename get${str.upperCaseFirstLetter(${att.name})}() {
-        return ${att.name};
+    public $attributeTypeName ${attribute.getterName}() 
+    {
+        return ${attribute.name};
     }
    /**
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
     */
-    public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue) {
-        ${att.name} = newValue;
+    public void ${attribute.setterName}($attributeTypeName newValue) 
+    {
+        $attribute.name = newValue;
     }
 
 #end
 #end
     // ---------------- business methods  ----------------------
 
-#foreach ($op in $class.operations)
-#set ($msig = $op.signature)
+#foreach ($operation in $class.operations)
+#set ($msig = $operation.signature)
 
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
-#set ($parameterList = $op.typedArgumentList)
+#set ($parameterList = $operation.typedArgumentList)
 #if ($parameterList.length() == 0)
 #set ($parameters = "net.sf.hibernate.Session session")
 #else
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 
-#if ($op.hasExceptions())
-    protected abstract $op.returnType.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
-        throws $op.exceptionList;
+#if ($operation.hasExceptions())
+    protected abstract $operation.returnType.fullyQualifiedName handle${str.capitalize(${operation.name})} ($parameters)
+        throws $operation.exceptionList;
 #else
-    protected abstract $op.returnType.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
+    protected abstract $operation.returnType.fullyQualifiedName handle${str.capitalize(${operation.name})} ($parameters);
 #end
 
     /**
-$op.getDocumentation("     * ")
+$operation.getDocumentation("     * ")
      *
      * @ejb.interface-method view-type="both"
      * @ejb.transaction type="Required"
      */
-#if ($op.hasExceptions())
-    $op.visibility $op.returnType.fullyQualifiedName $msig
-        throws $op.exceptionList
+#if ($operation.hasExceptions())
+    $operation.visibility $operation.returnType.fullyQualifiedName $msig
+        throws $operation.exceptionList
 #else
-    $op.visibility $op.returnType.fullyQualifiedName $msig
+    $operation.visibility $operation.returnType.fullyQualifiedName $msig
 #end
     {
         Session session = null;
@@ -131,20 +133,20 @@ $op.getDocumentation("     * ")
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
-#set ($parameterList = $op.argumentNames)
+#set ($parameterList = $operation.argumentNames)
 #if ($parameterList.length() == 0)
 #set ($parameters = "session")
 #else
 #set ($parameters = "session, ${parameterList}")
 #end
 ##
-#if ("void" != $op.returnType.fullyQualifiedName)
-            return handle${str.upperCaseFirstLetter($op.name)}($parameters);
+#if ("void" != $operation.returnType.fullyQualifiedName)
+            return handle${str.capitalize($operation.name)}($parameters);
 #else
-            handle${str.upperCaseFirstLetter($op.name)}($parameters);
+            handle${str.capitalize($operation.name)}($parameters);
 #end
         }
-#foreach ( $exception in $op.exceptions )
+#foreach ( $exception in $operation.exceptions )
         catch ($exception.fullyQualifiedName e)
         {
            _ctx.setRollbackOnly();
@@ -153,7 +155,7 @@ $op.getDocumentation("     * ")
 #end
         catch (Throwable th)
         {
-            throw new EJBException("${class.name}Bean.${op.name}: " + th.toString());
+            throw new EJBException("${class.name}Bean.${operation.name}: " + th.toString());
         }
         finally
         {
@@ -166,7 +168,7 @@ $op.getDocumentation("     * ")
                 }
                 catch (HibernateException he)
                 {
-                    throw new EJBException("${class.name}Bean.${op.name}: " + he.getMessage());
+                    throw new EJBException("${class.name}Bean.${operation.name}: " + he.getMessage());
                 }
             }
         }
@@ -199,8 +201,8 @@ $op.getDocumentation("     * ")
     public void ejbCreate $class.getAttributesAsList(true)
            throws javax.ejb.CreateException
     {
-#foreach ( $att in $class.attributes)
-        ${att.setterName} (${att.name});
+#foreach ( $attribute in $class.attributes)
+        ${attribute.setterName} (${attribute.name});
 #end
     }
 

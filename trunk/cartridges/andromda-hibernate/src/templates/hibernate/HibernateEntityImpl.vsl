@@ -19,30 +19,30 @@ public class ${class.name}Impl
     // concrete business methods that were declared
     // abstract in class ${class.name} ...
 
-#foreach ( $op in $class.businessOperations)
-#set ($msig = $op.signature)
-#set ($returntype = $op.returnType.fullyQualifiedName)
-#if ($op.hasException())
-#set ($throws = " throws $op.exceptionList")
+#foreach ( $operation in $class.businessOperations)
+#set ($msig = $operation.signature)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#if ($operation.hasException())
+#set ($throws = " throws $operation.exceptionList")
 #else
 #set ($throws = "")
 #end
-#if ($op.abstract)
-    $op.visibility abstract $returntype ${msig}$throws;
+#if ($operation.abstract)
+    $operation.visibility abstract $returnType ${msig}$throws;
 
 #else
-    $op.visibility $returntype ${msig}$throws
+    $operation.visibility $returnType ${msig}$throws
     {
         // TODO: put your implementation here.
-#if ("void" != $returntype)
+#if ("void" != $returnType)
 
         // Dummy return value, just that the file compiles
-#if (!$returntype.primitive)
+#if (!$returnType.primitiveType)
         return null;
-#elseif ("boolean" == $returntype)
+#elseif ("boolean" == $returnType)
         return false;
 #else
-        return ($returntype)0;
+        return ($returnType)0;
 #end
 #end
     }

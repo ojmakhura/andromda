@@ -10,37 +10,37 @@ public class ${class.name}BeanImpl
     // concrete business methods that were declared
     // abstract in class ${class.name}Bean ...
 
-#foreach ( $op in $class.operations)
-#set ($msig = $op.signature)
+#foreach ( $operation in $class.operations)
+#set ($msig = $operation.signature)
 
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
-#set ($parameterList = $op.typedArgumentList)
+#set ($parameterList = $operation.typedArgumentList)
 #if ($parameterList.length() == 0)
 #set ($parameters = "net.sf.hibernate.Session session")
 #else
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 
-#set ($returntype = $op.returnType.fullyQualifiedName)
-#if ($op.hasExceptions())
-    protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
-        throws $op.exceptionList {
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#if ($operation.hasExceptions())
+    protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
+        throws $operation.exceptionList {
 #else
-    protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters) {
+    protected $returnType handle${str.capitalize(${operation.name})} ($parameters) {
 #end
         // TODO: put your implementation here.
-#if ("void" != $returntype)
+#if ("void" != $returnType)
 
         // Dummy return value, just that the file compiles
-#if (!$returntype.primitiveType)
+#if (!$returnType.primitiveType)
         return null;
-#elseif ("boolean" == $returntype)
+#elseif ("boolean" == $returnType)
         return false;
 #else
-        return ($returntype)0;
+        return ($returnType)0;
 #end
 #end
     }
