@@ -40,7 +40,6 @@
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="entityBusinessOperationLocation" default="entity"/>
         <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade
@@ -51,7 +50,6 @@
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="entityBusinessOperationLocation" default="entity"/>
         <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade
@@ -62,7 +60,6 @@
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="entityBusinessOperationLocation" default="entity"/>
         <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade
