@@ -286,6 +286,7 @@ public class AndroMDAGenTask extends MatchingTask
                 }
             }
             repository.close();
+            repository = null;
         }
         catch (Throwable th)
         {
