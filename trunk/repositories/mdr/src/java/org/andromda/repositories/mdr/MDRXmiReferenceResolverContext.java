@@ -8,26 +8,29 @@ import java.util.HashMap;
 
 import javax.jmi.reflect.RefPackage;
 
+import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.netbeans.api.xmi.XMIInputConfig;
 import org.netbeans.lib.jmi.xmi.XmiContext;
 
 /**
- * This class supports the expansion of XML HREF references to other modules within
- * a model.  The result of the resolver should be a valid URL.  This is 
- * necessary for Magic Draw as it doesn't have the entire model referenced
- * but just the archived model.
+ * This class supports the expansion of XML HREF references to other modules
+ * within a model. The result of the resolver should be a valid URL. This is
+ * necessary for Magic Draw as it doesn't have the entire model referenced but
+ * just the archived model.
  * 
  * @author Matthias Bohlen
- * @author Chad Brandon  
+ * @author Chad Brandon
  */
-public class MDRXmiReferenceResolverContext extends XmiContext
+public class MDRXmiReferenceResolverContext
+    extends XmiContext
 {
 
     private String[] moduleSearchPath;
 
-    private static Logger logger =
-        Logger.getLogger(MDRXmiReferenceResolverContext.class);
+    private static Logger logger = Logger
+        .getLogger(MDRXmiReferenceResolverContext.class);
 
     private HashMap urlMap = new HashMap();
 
@@ -52,8 +55,8 @@ public class MDRXmiReferenceResolverContext extends XmiContext
     public URL toURL(String systemId)
     {
         if (logger.isDebugEnabled())
-            logger.debug(
-                "attempting to resolve Xmi Href --> '" + systemId + "'");
+            logger.debug("attempting to resolve Xmi Href --> '" + systemId
+                + "'");
 
         // Several tries to construct a URL that really exists.
 
@@ -69,7 +72,7 @@ public class MDRXmiReferenceResolverContext extends XmiContext
 
         // Find URL in map. If found, return it.
         String suffix = getSuffix(systemId);
-        URL mappedUrl = (URL) urlMap.get(suffix);
+        URL mappedUrl = (URL)urlMap.get(suffix);
         if (mappedUrl != null)
         {
             if (logger.isDebugEnabled())
@@ -94,9 +97,8 @@ public class MDRXmiReferenceResolverContext extends XmiContext
         // If still ends with .zip, find it in map without the '.zip'.
         if (systemId.endsWith(".zip"))
         {
-            String urlWithoutZip =
-                systemId.substring(0, systemId.length() - 4);
-            mappedUrl = (URL) urlMap.get(urlWithoutZip);
+            String urlWithoutZip = systemId.substring(0, systemId.length() - 4);
+            mappedUrl = (URL)urlMap.get(urlWithoutZip);
             if (mappedUrl != null)
             {
                 if (logger.isDebugEnabled())
@@ -105,15 +107,25 @@ public class MDRXmiReferenceResolverContext extends XmiContext
             }
         }
 
-        // Give up and let superclass deal with it.
-        return super.toURL(systemId);
+        // finally search the classpath (since the model
+        // could be bundled with a metafacades jar)
+        URL modelUrl = this.findModelUrlOnClasspath(systemId);
+        if (modelUrl == null)
+        {
+            // Give up and let superclass deal with it.
+            modelUrl = super.toURL(systemId);
+        }
+
+        return modelUrl;
     }
 
     /**
      * Finds a module in the module search path.
      * 
-     * @param moduleName the name of the module without any path
-     * @return the complete URL string of the module if found (null if not found)
+     * @param moduleName
+     *            the name of the module without any path
+     * @return the complete URL string of the module if found (null if not
+     *         found)
      */
     private String findModuleURL(String moduleName)
     {
@@ -121,18 +133,14 @@ public class MDRXmiReferenceResolverContext extends XmiContext
             return null;
 
         if (logger.isDebugEnabled())
-            logger.debug(
-                "findModuleURL: moduleSearchPath.length="
-                    + moduleSearchPath.length);
+            logger.debug("findModuleURL: moduleSearchPath.length="
+                + moduleSearchPath.length);
         for (int i = 0; i < moduleSearchPath.length; i++)
         {
             File candidate = new File(moduleSearchPath[i], moduleName);
             if (logger.isDebugEnabled())
-                logger.debug(
-                    "candidate '"
-                        + candidate.toString()
-                        + "' exists="
-                        + candidate.exists());
+                logger.debug("candidate '" + candidate.toString() + "' exists="
+                    + candidate.exists());
             if (candidate.exists())
             {
                 String urlString;
@@ -148,13 +156,8 @@ public class MDRXmiReferenceResolverContext extends XmiContext
                 if (moduleName.endsWith(".zip"))
                 {
                     // typical case for MagicDraw
-                    urlString =
-                        "jar:"
-                            + urlString
-                            + "!/"
-                            + moduleName.substring(
-                                0,
-                                moduleName.length() - 4);
+                    urlString = "jar:" + urlString + "!/"
+                        + moduleName.substring(0, moduleName.length() - 4);
                 }
                 return urlString;
             }
@@ -163,8 +166,10 @@ public class MDRXmiReferenceResolverContext extends XmiContext
     }
 
     /**
-     *  Gets the suffix of the <code>systemId</code>
-     * @param systemId the system identifier.
+     * Gets the suffix of the <code>systemId</code>
+     * 
+     * @param systemId
+     *            the system identifier.
      * @return the suffix as a String.
      */
     private static String getSuffix(String systemId)
@@ -177,12 +182,72 @@ public class MDRXmiReferenceResolverContext extends XmiContext
         }
         return systemId;
     }
+    
+    /**
+     * The suffixes to use when searching for referenced models on the
+     * classpath.
+     */
+    protected final static String[] CLASSPATH_MODEL_SUFFIXES = new String[]
+    {
+        "xml",
+        "xmi"
+    };
 
     /**
-     * Returns a URL if the systemId is valid.
-     * Returns null otherwise. Catches exceptions as necessary.
+     * Searches for the model URL on the classpath.
      * 
-     * @param systemId the system id
+     * @param systemId
+     *            the system identifier.
+     * @return the suffix as a String.
+     */
+    private URL findModelUrlOnClasspath(String systemId)
+    {
+        URL modelUrl = (URL)this.urlMap.get(systemId);
+        if (modelUrl == null)
+        {
+            String modelName = StringUtils.substringAfterLast(systemId, "/");
+            String dot = ".";
+            // remove the first prefix because it may be an archive 
+            // (like magicdraw)
+            modelName = StringUtils.substringBeforeLast(modelName, dot);
+
+            modelUrl = ResourceUtils.getResource(modelName);
+            if (modelUrl == null)
+            {
+                if (CLASSPATH_MODEL_SUFFIXES != null
+                    && CLASSPATH_MODEL_SUFFIXES.length > 0)
+                {
+                    int suffixNum = CLASSPATH_MODEL_SUFFIXES.length;
+                    for (int ctr = 0; ctr < suffixNum; ctr++)
+                    {
+                        if (logger.isDebugEnabled())
+                            logger.debug("searching for model reference --> '"
+                                + modelUrl + "'");
+                        String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
+                        modelUrl = ResourceUtils.getResource(modelName + dot
+                            + suffix);
+                        if (modelUrl != null)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (modelUrl != null)
+            {
+                logger.info("found referenced model --> '" + modelUrl + "'");
+                this.urlMap.put(systemId, modelUrl);
+            }
+        }
+        return modelUrl;
+    }
+
+    /**
+     * Returns a URL if the systemId is valid. Returns null otherwise. Catches
+     * exceptions as necessary.
+     * 
+     * @param systemId
+     *            the system id
      * @return the URL (if valid)
      */
     private URL getValidURL(String systemId)

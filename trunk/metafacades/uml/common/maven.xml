@@ -1,0 +1,14 @@
+<project xmlns:ant="jelly:ant">
+    
+    <!-- ===================================================================
+         Extract the model XMI to be bundled with the jar
+         =================================================================== -->
+  	<preGoal name="jar:jar">
+		<ant:unzip dest="${maven.build.dir}/classes">
+		    <ant:fileset dir="${maven.src.dir}/uml">
+		        <ant:include name="**/*.zip"/>
+		    </ant:fileset>
+		</ant:unzip>
+  	</preGoal>
+  		 
+</project>
