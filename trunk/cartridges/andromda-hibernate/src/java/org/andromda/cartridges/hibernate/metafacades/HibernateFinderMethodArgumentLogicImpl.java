@@ -26,13 +26,12 @@ public class HibernateFinderMethodArgumentLogicImpl
      */
     protected java.lang.String handleGetQueryArgumentNameSetter()
     {
-        String suffix = this.getType().getFullyQualifiedName();
-        if (this.getType().isPrimitive())
+        StringBuffer setterName = new StringBuffer("setParameter");
+        if (this.getType().isCollectionType())
         {
-            suffix = this.getType().getWrapperName();
+            setterName.append("List"); 
         }
-        suffix = suffix.replaceAll(".*\\.", "");
-        return "set" + suffix;
+        return setterName.toString();
     }
 
 }

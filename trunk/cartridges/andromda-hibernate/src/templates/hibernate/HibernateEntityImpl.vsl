@@ -39,7 +39,7 @@ public class ${entity.name}Impl
 #if ( $generateImpl )
     // concrete business methods that were declared
     // abstract in class ${entity.name} ...
-#if ( $leafImpl == "true" ) 
+#if ( $leafImpl == "true" )
     // and its superclasses ...
 #set ( $businessOperations = $entity.allBusinessOperations )
 #else
