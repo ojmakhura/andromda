@@ -4,7 +4,7 @@
 ##
 #if ($superclass)
 #if ($superclass.hasStereotype("Entity"))
-## Extend the component interface of the super type if the super type 
+## Extend the component interface of the super type if the super type
 ## is an <<Entity>>
 #set ($parentInterface = "${superclass.fullyQualifiedName}")
 #end
@@ -25,8 +25,8 @@ $class.getDocumentation(" * ")
 #copyTaggedValues($class " " [ "@ejb.viewType", "@ejb.transactionType", "@ejb.noSyntheticCreateMethod" ])
  *
  */
-public interface ${entityname} 
-extends $parentInterface 
+public interface ${entityname}
+extends $parentInterface
         #foreach($intf in $class.abstractions),
         $intf.fullyQualifiedName#end
 
@@ -40,7 +40,7 @@ extends $parentInterface
 $envEntry.getDocumentation("     * ")
      */
     public $envEntry.type.fullyQualifiedName ${envEntry.type.getterName}();
-    
+
 #end
 #end
 // -- accessors for constants --
@@ -52,12 +52,12 @@ $envEntry.getDocumentation("     * ")
 $constant.getDocumentation("     * ")
      */
     public $constant.type.fullyQualifiedName ${constant.getterName}();
-    
+
 #end
 #end
 
     // ------------- attributes ----------------
-    
+
 #foreach ( $att in $class.instanceAttributes)
 #set ($visibility = $att.visibility.toString())
 ## Only expose the method to the component interface if it is public.
@@ -75,7 +75,7 @@ $att.getDocumentation("     * ")
      * @param value the new value
      */
     public void ${att.setterName}($attType value);
-    
+
 #end
 #end
 #end
@@ -106,12 +106,12 @@ $assoc.otherEnd.getDocumentation("    * ")
 #set ($visibility = $op.visibility.toString())
 ## Only expose public, nonstatic methods (public static methods go on the home
 ## interface)
-#if ($visibility == "public" && !$op.static) 
+#if ($visibility == "public" && !$op.static)
 #set ($msig = $op.signature)
    /**
 $op.getDocumentation("    * ")
     */
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasExceptions())
     public $returntype ${msig} throws $op.exceptionList;
 #else

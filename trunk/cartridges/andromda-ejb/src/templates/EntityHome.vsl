@@ -66,7 +66,7 @@ $constant.getDocumentation("     * ")
    /**
 $op.getDocumentation("    * ")
     */
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasExceptions())
     public $returntype ${msig} throws $op.exceptionList;
 #else
@@ -93,7 +93,7 @@ $op.getDocumentation("    * ")
    /**
 $op.getDocumentation("    * ")
     */
-    public ${op.type.fullyQualifiedName} ${msig}
+    public ${op.returnType.fullyQualifiedName} ${msig}
            throws javax.ejb.FinderException;
 
 #end

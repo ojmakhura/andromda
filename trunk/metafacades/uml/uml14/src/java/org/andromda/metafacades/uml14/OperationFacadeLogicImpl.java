@@ -173,9 +173,9 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#getType()
+     * @see org.andromda.metafacades.uml.OperationFacade#getReturnType()
      */
-    protected Object handleGetType()
+    protected Object handleGetReturnType()
     {
         Object type = null;
         Collection parms = metaObject.getParameter();
@@ -222,7 +222,7 @@ public class OperationFacadeLogicImpl
         name = StringUtils.trimToEmpty(name);
         Object value = findTaggedValue(name);
         if (follow) {
-            ClassifierFacade type = this.getType();
+            ClassifierFacade type = this.getReturnType();
             while (value == null && type != null) {
                 value = type.findTaggedValue(name);
                 type = (ClassifierFacade)type.getGeneralization();
@@ -324,10 +324,10 @@ public class OperationFacadeLogicImpl
      */
     public boolean handleHasReturnType() {
         boolean hasReturnType = true;
-        if (this.getType() != null) {
+        if (this.getReturnType() != null) {
             hasReturnType =
                 !StringUtils.trimToEmpty(
-                    this.getType().getFullyQualifiedName()).equals("void");
+                    this.getReturnType().getFullyQualifiedName()).equals("void");
         }
         return hasReturnType;
     }

@@ -40,7 +40,7 @@ public class ${metafacade.logicImplName}
 #if ("void" != $returnTypeName)
 
         // Dummy return value, just that the file compiles
-#if (!$op.type.primitiveType)
+#if (!$op.returnType.primitiveType)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;
@@ -65,7 +65,7 @@ public class ${metafacade.logicImplName}
 #set ($typedArgumentList = $op.typedArgumentList)
 ##
 #set ($msig = $op.signature)
-#set ($returnTypeName = $op.type.fullyQualifiedName)
+#set ($returnTypeName = $op.returnType.fullyQualifiedName)
 #if ($defaultException)
     $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList)
         throws $defaultException.name {
@@ -79,7 +79,7 @@ public class ${metafacade.logicImplName}
 #if ("void" != $returnTypeName)
 
         // Dummy return value, just that the file compiles
-#if (!$op.type.primitiveType)
+#if (!$op.returnType.primitiveType)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;
