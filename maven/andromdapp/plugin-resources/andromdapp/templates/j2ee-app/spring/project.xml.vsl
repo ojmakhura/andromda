@@ -125,11 +125,11 @@
     <build>
         <sourceDirectory>src/java</sourceDirectory>
         <resources>
-            <resource>
-                <directory>conf</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
+             <resource>
+                <directory>${maven.build.src}</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
             </resource>
         </resources>
     </build>

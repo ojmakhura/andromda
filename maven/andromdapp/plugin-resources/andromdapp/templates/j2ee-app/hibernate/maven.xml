@@ -31,8 +31,6 @@
 
             <jboss version="3.0"
                    xmlencoding="UTF-8"
-                   typemapping="Hypersonic SQL"
-                   datasource="${dataSource}"
                    destdir="${ejb.descriptor.dir}"/>
 
         </ejbdoclet>
@@ -58,7 +56,7 @@
 				<ant:pathelement path="${pom.dependencyClasspath}"/>
             </ant:classpath>
         </ant:taskdef>
-        
+                
         <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
             <fileset dir="${maven.build.src}">
                 <include name="**/*.java" />
@@ -71,13 +69,13 @@
     </preGoal>
 
   	<postGoal name="ejb:ejb">
-				
-		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
-		
+        
         <ant:path id="schema.classpath">
             <ant:path refid="maven.dependency.classpath"/>
             <ant:path location="${maven.build.dest}"/>
         </ant:path>
+				
+		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
 
         <ant:fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
             <ant:include name="**/*.hbm.xml"/>

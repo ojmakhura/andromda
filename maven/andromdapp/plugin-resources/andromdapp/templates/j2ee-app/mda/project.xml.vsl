@@ -3,7 +3,7 @@
 <project>
     <extend>../project.xml</extend>
     <name>${projectName} MDA</name>
-    <artifactId>${projectId}-mda</artifactId>	
+    <artifactId>${projectId}-mda</artifactId>
     <shortDescription>${pom.name} Component</shortDescription>
     <description>Contains the ${pom.name} module</description>
     <dependencies>
@@ -13,72 +13,72 @@
             <version>${andromda}</version>
             <type>xml.zip</type>
         </dependency>
-        <dependency> 
+        <dependency>
             <groupId>andromda</groupId>
-              <artifactId>maven-andromda-plugin</artifactId>
+             <artifactId>maven-andromda-plugin</artifactId>
              <version>${andromda}</version>
              <type>plugin</type>
              <properties>
                  <languageMappingsUri>Java</languageMappingsUri>
                  <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                 <sqlMappingsUri>HypersonicSql</sqlMappingsUri>
+                 <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
                  <jdbcMappingsUri>JDBC</jdbcMappingsUri>
                  <maxSqlNameLength>30</maxSqlNameLength>
                  <foreignKeySuffix>_FK</foreignKeySuffix>
              </properties>
-        </dependency> 	
+        </dependency>
 #if ($ejb)
         <!-- Specify and configure our cartridges -->
-        <dependency> 
+        <dependency>
             <groupId>andromda</groupId>
-              <artifactId>andromda-ejb-cartridge</artifactId>
-             <version>${andromda}</version>
-             <properties>
-                 <entity-beans>${maven.andromda.ejb.generated.dir}</entity-beans>
-                 <session-beans>${maven.andromda.ejb.generated.dir}</session-beans>
-                 <entity-impls>${maven.andromda.ejb.manual.dir}</entity-impls>
-                 <session-impls>${maven.andromda.ejb.manual.dir}</session-impls>
-             </properties>
+            <artifactId>andromda-ejb-cartridge</artifactId>
+            <version>${andromda}</version>
+            <properties>
+                <entity-beans>${maven.andromda.core.generated.dir}</entity-beans>
+                <session-beans>${maven.andromda.core.generated.dir}</session-beans>
+                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
+                <session-impls>${maven.andromda.core.manual.dir}</session-impls>
+            </properties>
         </dependency>
 #elseif ($hibernate)
         <!-- specify and configure our cartridges -->
-        <dependency> 
-        	<groupId>andromda</groupId>
+        <dependency>
+            <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${andromda}</version>
             <properties>
-             	<hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-			   	<dataSource>${dataSource}</dataSource>
-			    <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
-                <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup> 
-			    <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
+                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
+                <dataSource>${dataSource}</dataSource>
+                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
+                <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
+                <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
-            	<entities>${maven.andromda.hibernate.generated.dir}</entities>
-                <entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
-                <session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
-           		<session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>	
-                <configuration>${maven.andromda.hibernate.config.dir}</configuration>
-       		</properties>
+                <entities>${maven.andromda.core.generated.dir}</entities>
+                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
+                <session-beans>${maven.andromda.core.generated.dir}</session-beans>
+                <session-impls>${maven.andromda.core.manual.dir}</session-impls>
+                <configuration>${maven.andromda.core.config.dir}</configuration>
+            </properties>
         </dependency>
 #else
-         <dependency>
+        <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${andromda}</version>
             <type>jar</type>
-            <properties>	    
-			   	<dataSource>${dataSource}</dataSource>
-			    <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
-			    <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
+            <properties>
+                <dataSource>${dataSource}</dataSource>
+                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
+                <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <serviceLocatorPackage>${pom.package}</serviceLocatorPackage>
                 <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
                 <hibernateDefaultCascade>save-update</hibernateDefaultCascade>
-                <daos>${maven.andromda.spring.generated.dir}</daos>
-                <dao-impls>${maven.andromda.spring.manual.dir}</dao-impls>
-                <spring-configuration>${maven.andromda.spring.generated.dir}</spring-configuration>
-                <services>${maven.andromda.spring.generated.dir}</services>
-                <service-impls>${maven.andromda.spring.manual.dir}</service-impls>
-                <session-ejbs>${maven.andromda.spring.generated.dir}</session-ejbs>   
+                <daos>${maven.andromda.core.generated.dir}</daos>
+                <dao-impls>${maven.andromda.core.manual.dir}</dao-impls>
+                <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
+                <services>${maven.andromda.core.generated.dir}</services>
+                <service-impls>${maven.andromda.core.manual.dir}</service-impls>
+                <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
                 <!-- uncomment to enable the EJB security domain -->
                 <!-- <ejbSecurityDomain>${security.domain}</ejbSecurityDomain> -->
             </properties>
@@ -92,62 +92,56 @@
             <type>jar</type>
             <properties>
                 <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
-                <applicationName>${application.name}</applicationName>
+                <defaultProvider>${default.provider}</defaultProvider>
+                <applicationName>${application.id}</applicationName>
                 <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
                 <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>
                 <ejbHomeInterfacePattern>{0}.ejb.{1}Home</ejbHomeInterfacePattern>
-                <wsdls>${basedir}/../webservice/target/src/wsdl</wsdls>
-                <axis-configuration>${basedir}/../webservice/target/src/axis</axis-configuration>
-                <java-types>${basedir}/../core/target/src/java</java-types>
-                <axis-tests>${basedir}/../test/target/src/test/java</axis-tests>
-                <!-- WSS4J properties -->
-                <wss4j-configuration>${basedir}/../core/target/src</wss4j-configuration>
-                <!-- <signedRequest>true</signedRequest> -->
-                <cryptoKeyStore>${crypto.keystore.file}</cryptoKeyStore>
-                <cryptoKeyStoreType>${crypto.keystore.type}</cryptoKeyStoreType>
-                <cryptoKeyStoreAlias>${crypto.keystore.alias}</cryptoKeyStoreAlias>
-                <cryptoAliasPassword>${crypto.alias.password}</cryptoAliasPassword>
-                <cryptoKeyStorePassword>${crypto.keystore.password}</cryptoKeyStorePassword>
+                <wsdls>${maven.andromda.webservice.generated.dir}/wsdl</wsdls>
+                <axis-configuration>${maven.andromda.webservice.generated.dir}/axis</axis-configuration>
+                <java-types>${maven.andromda.common.generated.dir}</java-types>
             </properties>
         </dependency>
 #end
-        <dependency> 
+        <dependency>
             <groupId>andromda</groupId>
-              <artifactId>andromda-java-cartridge</artifactId>
-             <version>${andromda}</version>
-             <properties>
-                 <enumerations>${maven.andromda.java.generated.dir}</enumerations>
-                 <exceptions>${maven.andromda.java.generated.dir}</exceptions>	 		
-                 <value-objects>${maven.andromda.java.generated.dir}</value-objects>
-             </properties>
-        </dependency>		
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${andromda}</version>
+            <properties>
+                <enumerations>${maven.andromda.common.generated.dir}</enumerations>
+                <exceptions>${maven.andromda.common.generated.dir}</exceptions>
+#if (!$webservice)
+                <value-objects>${maven.andromda.common.generated.dir}</value-objects>
+#end
+            </properties>
+        </dependency>
 #if ($web)
-        <dependency> 
+        <dependency>
             <groupId>andromda</groupId>
-              <artifactId>andromda-bpm4struts-cartridge</artifactId>
-             <version>${andromda}</version>
-             <properties>
-                 <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
-                 <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
-                 <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
-                 <controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
-                 <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
-                 <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
-                 <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${andromda}</version>
+            <properties>
+                 <forms>${maven.andromda.web.generated.dir}</forms>
+                 <pages>${maven.andromda.web.generated.dir}</pages>
+                 <actions>${maven.andromda.web.generated.dir}</actions>
+                 <controllers>${maven.andromda.web.generated.dir}</controllers>
+                 <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
+                 <messages>${maven.andromda.web.generated.dir}</messages>
+                 <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
                  <securityEnabled>false</securityEnabled>
                  <securityRealm>other</securityRealm>
-             </properties>
-        </dependency>	
-#end
-        <dependency> 
-            <groupId>andromda</groupId>
-              <artifactId>andromda-validation-library</artifactId>
-             <version>${andromda}</version>
+            </properties>
         </dependency>
-        <dependency> 
+#end
+        <dependency>
             <groupId>andromda</groupId>
-              <artifactId>andromda-query-library</artifactId>
-             <version>${andromda}</version>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${andromda}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-query-library</artifactId>
+            <version>${andromda}</version>
         </dependency>
     </dependencies>
 </project>
