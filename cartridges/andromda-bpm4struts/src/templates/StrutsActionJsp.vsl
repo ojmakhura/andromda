@@ -14,7 +14,7 @@
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
-<bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+<bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="session" toScope="page"/>
 
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
