@@ -3,22 +3,24 @@
 
 <!-- these are the new, official stereotypes -->
     <stereotype name="entity" />
-    <stereotype name="process" />
+    <stereotype name="service" />
 
 <!-- the following stereotypes are deprecated and will be removed in the next release. -->
     <stereotype name="EntityBean" />
     <stereotype name="StatelessSessionBean" />
     <stereotype name="StatefulSessionBean" />
 
-    <outlet name="beans" />
-    <outlet name="impls" />
+    <outlet name="session-beans" />
+    <outlet name="entity-beans" />
+    <outlet name="session-impls" />
+    <outlet name="entity-impls" />
 
 <!-- the official template definitions -->
     <template
         stereotype="entity"
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
+        outlet="entity-beans"
         overWrite="true"
     />
 
@@ -26,7 +28,7 @@
         stereotype="entity"
         sheet="templates/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
+        outlet="entity-impls"
         overWrite="false"
     />
 
@@ -34,30 +36,30 @@
         stereotype="entity"
         sheet="templates/EntityBeanCMP.vsl"
         outputPattern="{0}/{1}BeanCMP.java"
-        outlet="beans"
+        outlet="entity-beans"
         overWrite="true"
     />
 
 <!--
-     The following two definitions map processes to stateless session beans.
-     This is incomplete. The final version should map process to session bean
+     The following two definitions map services to stateless session beans.
+     This is incomplete. The final version should map a service to session bean
      and the template itself should decide to generate a stateless or stateful
      session bean, based on the fact that the UML class contains attributes or not.
      (Matthias Bohlen)
 -->
     <template
-        stereotype="process"
+        stereotype="service"
         sheet="templates/StatelessSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
+        outlet="session-beans"
         overWrite="true"
     />
 
     <template
-        stereotype="process"
+        stereotype="service"
         sheet="templates/StatelessSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
+        outlet="session-impls"
         overWrite="false"
     />
 
@@ -66,7 +68,7 @@
         stereotype="EntityBean"
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
+        outlet="entity-beans"
         overWrite="true"
     />
 
@@ -74,7 +76,7 @@
         stereotype="EntityBean"
         sheet="templates/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
+        outlet="entity-impls"
         overWrite="false"
     />
 
@@ -82,7 +84,7 @@
         stereotype="EntityBean"
         sheet="templates/EntityBeanCMP.vsl"
         outputPattern="{0}/{1}BeanCMP.java"
-        outlet="beans"
+        outlet="entity-beans"
         overWrite="true"
     />
 
@@ -90,7 +92,7 @@
         stereotype="StatelessSessionBean"
         sheet="templates/StatelessSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
+        outlet="session-beans"
         overWrite="true"
     />
 
@@ -98,7 +100,7 @@
         stereotype="StatelessSessionBean"
         sheet="templates/StatelessSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
+        outlet="session-impls"
         overWrite="false"
     />
 
@@ -106,7 +108,7 @@
         stereotype="StatefulSessionBean"
         sheet="templates/StatefulSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
+        outlet="session-beans"
         overWrite="true"
     />
 
@@ -114,7 +116,7 @@
         stereotype="StatefulSessionBean"
         sheet="templates/StatefulSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
+        outlet="session-impls"
         overWrite="false"
     />
 </cartridge>
