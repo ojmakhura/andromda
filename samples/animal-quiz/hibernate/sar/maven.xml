@@ -109,7 +109,7 @@
     	<attainGoal name="jar:jar"/>
 		<artifact:install 
 			artifact="${maven.build.dir}/${maven.final.name}.jar" 
-			type="aspect" 
+			type="sar" 
 			project="${pom}"/>		
     </goal>
       		 
