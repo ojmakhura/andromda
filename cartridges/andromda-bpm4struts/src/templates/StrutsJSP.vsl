@@ -43,7 +43,7 @@
 #end
 #foreach ($action in $actions)
 #if ($action.requiresValidation())
-        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
+        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="true"/>
 #end
 #end
     </tiles:put>
