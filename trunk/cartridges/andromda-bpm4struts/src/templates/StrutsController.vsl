@@ -85,7 +85,7 @@ $operation.getDocumentation("     * ")
      * </table>
 #end
      */
-    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #foreach ($parameter in $parameters)
         final $parameter.type.name $parameter.name = form.${parameter.getterName}();
@@ -102,7 +102,7 @@ $operation.getDocumentation("     * ")
 
 #if ($returnType=="boolean")
         return false;
-#elseif ($returnType=="int" || $returnType=="float" || $returnType=="double" || $returnType=="short" || $returnType=="char" || $returnType=="short" || $returnType=="long")
+#elseif ($returnType.primitiveType)
         return 0;
 #else
         return null;
