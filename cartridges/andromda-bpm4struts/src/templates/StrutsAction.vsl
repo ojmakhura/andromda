@@ -83,7 +83,7 @@ public final class $class.actionClassName extends Action
 #end
         return forward;
     }
-    
+
 #foreach ($actionState in $actionStates)
     /**
 $actionState.getDocumentation("     * ")
@@ -106,13 +106,15 @@ $decisionTransition.getDocumentation("     * ")
     private ActionForward ${decisionMethodName}(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         final String value = String.valueOf(${controllerClass.name}.getInstance().${controllerMethodName}(mapping, ($formBeanClassName)form, request, response));
-        
+
+#set ($defaultOutcome = false)## keeps track of the last transition
 #foreach ($outcome in $decisionTransition.target.outgoing)
+#set ($defaultOutcome = $outcome)
         if (value.equals("$outcome.guardName")) return #processTransition($outcome)
 #end
 
         // we take the last action in case we have an invalid return value from the controller
-        return #processTransition($outcome)
+        return #processTransition($defaultOutcome)
     }
 
 #end
