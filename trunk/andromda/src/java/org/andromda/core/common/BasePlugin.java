@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.templateengine.TemplateEngine;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
@@ -139,6 +138,8 @@ public abstract class BasePlugin
         return this.templateObjects;
     }
 
+    private String templateEngineClass;
+
     /**
      * Sets the template engine class for this cartridge.
      * 
@@ -147,21 +148,22 @@ public abstract class BasePlugin
      */
     public void setTemplateEngineClass(String templateEngineClass)
     {
-        if (StringUtils.isNotBlank(templateEngineClass))
-        {
-            ComponentContainer.instance().registerDefaultComponent(
-                TemplateEngine.class,
-                templateEngineClass);
-        }
+        this.templateEngineClass = templateEngineClass;
     }
+
+    private TemplateEngine templateEngine = null;
 
     /**
      * @see org.andromda.core.common.Plugin#getTemplateEngine()
      */
     public TemplateEngine getTemplateEngine()
     {
-        return (TemplateEngine)ComponentContainer.instance().findComponent(
-            TemplateEngine.class);
+        if (templateEngine == null)
+        {
+            templateEngine = (TemplateEngine)ComponentContainer.instance()
+                .newComponent(templateEngineClass, TemplateEngine.class);
+        }
+        return templateEngine;
     }
 
     /**

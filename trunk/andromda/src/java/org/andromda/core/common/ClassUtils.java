@@ -16,6 +16,28 @@ public class ClassUtils
     private static Logger logger = Logger.getLogger(ClassUtils.class);
 
     /**
+     * Creates a new instance of the class having the given
+     * <code>className</code>.
+     * 
+     * @param className the name of the class to instantiate.
+     * @return Object the new instance
+     */
+    public static Object newInstance(String className)
+    {
+        final String methodName = "ClassUtils.newInstance";
+        try
+        {
+            return loadClass(className).newInstance();
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, th);
+            throw new ClassUtilsException(errMsg, th);
+        }
+    }
+
+    /**
      * Loads and returns the class having the className. Will load but normal
      * classes and the classes representing primatives.
      * 
