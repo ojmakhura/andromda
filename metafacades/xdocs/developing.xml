@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<document> 
+	<properties>
+    	<title>Developing Metafacades</title> 
+    </properties>
+  	<body> 
+  		<section name="Developing Metafacades">
+  			<subsection name="Steps To Building Your Own Metafacades">
+  				<ol>
+  					<li>
+  						Write your andromda-metafacades.xml file.
+  					</li>
+  				</ol>
+  			</subsection>
+	  		<subsection name="Metafacades Descriptor">
+		  		<a name="descriptor"/>
+		  		<p> 
+		  			Each metafacades descriptor must comply with the following 
+		  			<a href="descriptor-schema.html">XSD Schema</a>.
+		  		</p>
+		  	</subsection>
+		</section>
+  	</body> 
+</document>
