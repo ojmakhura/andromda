@@ -76,6 +76,13 @@
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
         </dependency>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>andromda-bootstrap</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
     </dependencies>
     <reports>
         <report>maven-jxr-plugin</report>
