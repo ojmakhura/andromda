@@ -43,7 +43,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
  */
 public class AndroMDAGenTask extends MatchingTask {
 	private static final String DEFAULT_DBMAPPING_TABLE_CLASSNAME =
-		"org.andromda.core.dbmapping.JAXBDbMappingTable";
+		"org.andromda.core.dbmapping.CastorDbMappingTable";
 
 	/**
 	 *  the destination directory

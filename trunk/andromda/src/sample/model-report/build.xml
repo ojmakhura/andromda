@@ -23,24 +23,19 @@
                  classname="org.andromda.core.anttasks.AndroMDAGenTask"
                  classpathref="classpath"/>
 
-		<unzip src="${model.file}" dest="build/model/unzipped" />
-
-        <andromda basedir="build/model/unzipped"
+        <andromda basedir="."
                  ejbDestdir="."
                  implDestdir="."
-                 includes="*.xmi"
+                 modelURL="${model.url}"
                  lastModifiedCheck="false"
                  templatePath="templates"
                  useDefaultTemplateConfig="false"
         >
-        	<repository
-        		classname="org.andromda.core.mdr.MDRepositoryFacade"
-        		transformClassname="org.andromda.core.uml14.UMLStaticHelper"/>
         		
             <template
                 stereotype="StrutsConfig"
                 sheet="report.vsl"
-                outputPattern="{1}-{2}.txt"
+                outputPattern="Report.txt"
                 outputDir="build/output"
                 overWrite="true"/>
 
