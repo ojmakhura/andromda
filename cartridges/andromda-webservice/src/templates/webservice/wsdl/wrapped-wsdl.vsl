@@ -4,9 +4,9 @@
 #parse("templates/webservice/Globals.vm") 
 #set ($namespacePrefix = "impl")
 <wsdl:definitions 
-    name="${service.qName}" 
-    targetNamespace="${service.namespace}" 
-    xmlns:${namespacePrefix}="${service.namespace}" 
+    name="$service.qName" 
+    targetNamespace="$service.namespace" 
+    xmlns:${namespacePrefix}="$service.namespace" 
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
     xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -14,7 +14,7 @@
     <!-- WSDL Types -->
     <wsdl:types>
         <xsd:schema elementFormDefault="qualified" 
-                    targetNamespace="${service.namespace}" 
+                    targetNamespace="$service.namespace" 
                     xmlns="http://www.w3.org/2001/XMLSchema"> 
 #foreach ( $operation in $service.allowedOperations )
             <xsd:element name="$operation.name">       
@@ -76,7 +76,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
 #else
-            <xsd:complexType name="${type.qName}">
+            <xsd:complexType name="$type.qName">
                 <xsd:annotation>     
                     <xsd:documentation> 
 $type.getDocumentation("                        ", 64, false)
@@ -117,9 +117,9 @@ $type.getDocumentation("                        ", 64, false)
 #end
 
     <!-- Port Type -->
-    <wsdl:portType name="${service.qName}">
+    <wsdl:portType name="$service.qName">
 #foreach ( $operation in $service.allowedOperations )
-        <wsdl:operation name="${operation.name}">
+        <wsdl:operation name="$operation.name">
                 
             <wsdl:documentation> 
 $operation.getDocumentation("                ", 64, false)
@@ -134,11 +134,11 @@ $operation.getDocumentation("                ", 64, false)
     
 #set ($serviceBindingName = "${service.qName}SoapBinding") 
     <!-- WSDL Binding -->
-    <wsdl:binding name="${serviceBindingName}" type="${namespacePrefix}:${service.qName}">
+    <wsdl:binding name="$serviceBindingName" type="${namespacePrefix}:${service.qName}">
         <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 #foreach ( $operation in $service.allowedOperations )
-        <wsdl:operation name="${operation.name}">
-            <wsdlsoap:operation soapAction="${operation.name}" style="document"/>
+        <wsdl:operation name="$operation.name">
+            <wsdlsoap:operation soapAction="$operation.name" style="document"/>
             <wsdl:input name="${operation.name}${velocityCount}Request">
                 <wsdlsoap:body use="literal"/>
             </wsdl:input>
@@ -154,7 +154,7 @@ $operation.getDocumentation("                ", 64, false)
         <wsdl:documentation> 
 $service.getDocumentation("            ", 64, false)
         </wsdl:documentation>
-        <wsdl:port binding="${namespacePrefix}:${serviceBindingName}" name="${service.qName}">
+        <wsdl:port binding="${namespacePrefix}:${serviceBindingName}" name="$service.qName">
             <wsdlsoap:address location="${wsdlSoapAddress}/${service.qName}"/>
         </wsdl:port>
     </wsdl:service>
