@@ -75,14 +75,14 @@
      <version>3.0</version>
      <properties>
          ...
-         <mergeLocation>/opt/templates</mergeLocation>
+         <mergeLocation>/opt/custom</mergeLocation>
          ...
      </properties>
  </dependency>
  ...
 ]]></source>
         <p>
-            This way the cartridge will try to load resources (templates, images, etc.) from /opt/templates/
+            This way the cartridge will try to load resources (templates, images, etc.) from /opt/custom
             prior to loading them from the cartridge-jar.
         </p>
         <p class="highlight">
@@ -99,7 +99,7 @@
  ...
  <namespace name="hibernate">
      ...
-     <property name="mergeLocation" value="/opt/templates"/>
+     <property name="mergeLocation" value="/opt/custom"/>
      ...
  </namespace>
  ...
