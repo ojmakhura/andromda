@@ -60,12 +60,11 @@ public class $service.defaultExceptionName
     {
     	if (th != null) 
     	{
-            // Reflectively get any JMX or EJB exception causes.
+            // Reflectively get any exception causes.
             try 
             {
                 Throwable targetException = null;
                 // java.lang.reflect.InvocationTargetException 
-                // or javax.management.ReflectionException
                 String exceptionProperty = "targetException";
                 if (PropertyUtils.isReadable(th, exceptionProperty)) 
                 {
@@ -73,7 +72,7 @@ public class $service.defaultExceptionName
                 } 
                 else 
                 {
-                	exceptionProperty = "causedByException";
+                	String exceptionProperty = "causedByException";
                     //javax.ejb.EJBException
                     if (PropertyUtils.isReadable(th, exceptionProperty)) 
                     {
