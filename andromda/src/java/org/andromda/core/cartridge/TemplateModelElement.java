@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
  * Represents a single template &lt;&lt;modelElement/&gt;gt;
  * within the &lt;&lt;modelElements/&gt;gt; element.
  * 
- * @see org.andromda.cartridges.interfaces.TemplateModelElements
+ * @see org.andromda.core.cartridge.TemplateModelElements
  * 
  * @author Chad Brandon
  */

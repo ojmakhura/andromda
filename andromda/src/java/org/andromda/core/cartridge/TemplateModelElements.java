@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,8 +14,8 @@ import org.apache.commons.lang.StringUtils;
  * element within a &lt;&lt;template/&ltl&lt; 
  * within an XML cartridge descriptor.
  * 
- * @see org.andromda.cartridges.interfaces.TemplateConfiguration
- * @see org.andromda.cartridges.interfaces.TemplateModelElement
+ * @see org.andromda.core.cartridge.TemplateConfiguration
+ * @see org.andromda.core.cartridge.TemplateModelElement
  * 
  * @author Chad Brandon
  */

@@ -7,7 +7,7 @@
 	<pattern value="cartridge">
 	
     	<object-create-rule 
-      		classname="org.andromda.cartridges.interfaces.DefaultCartridgeDescriptor" />
+      		classname="org.andromda.core.cartridge.DefaultCartridgeDescriptor" />
       		
 		<set-properties-rule>
  			<alias attr-name="name" prop-name="cartridgeName" />
@@ -62,7 +62,7 @@
 		<pattern value="templateObject">
 		
 		    <object-create-rule 
-      			classname="org.andromda.cartridges.interfaces.TemplateObject" />
+      			classname="org.andromda.core.cartridge.TemplateObject" />
       			
 			<set-properties-rule>
 	 			<alias attr-name="name" prop-name="name" />
@@ -95,7 +95,7 @@
 		<pattern value="template">
 		
 	    	<object-create-rule 
-	      		classname="org.andromda.cartridges.interfaces.TemplateConfiguration" />     		
+	      		classname="org.andromda.core.cartridge.TemplateConfiguration" />     		
 
 			<set-properties-rule>
 	 			<alias attr-name="sheet" prop-name="sheet" />
@@ -124,7 +124,7 @@
 	 		<pattern value="modelElements">
 	 		    
                 <object-create-rule 
-                    classname="org.andromda.cartridges.interfaces.TemplateModelElements" />   
+                    classname="org.andromda.core.cartridge.TemplateModelElements" />   
                     
                 <set-properties-rule>
                     <alias attr-name="variable" prop-name="variable" />
@@ -133,7 +133,7 @@
                 <pattern value="modelElement">
                     
                     <object-create-rule 
-                        classname="org.andromda.cartridges.interfaces.TemplateModelElement" />                       
+                        classname="org.andromda.core.cartridge.TemplateModelElement" />                       
     
                     <set-properties-rule>
                         <alias attr-name="stereotype" prop-name="stereotype" />

@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces;
+package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -47,7 +47,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     private Map elementCache = new HashMap();
 
     /**
-     * @see org.andromda.cartridges.interfaces.AndroMDACartridge#getDescriptor()
+     * @see org.andromda.core.cartridge.AndroMDACartridge#getDescriptor()
      */
     public CartridgeDescriptor getDescriptor()
     {
@@ -55,7 +55,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     }
 
     /**
-     * @see org.andromda.cartridges.interfaces.AndroMDACartridge#setDescriptor(org.andromda.cartridges.interfaces.CartridgeDescriptor)
+     * @see org.andromda.core.cartridge.AndroMDACartridge#setDescriptor(org.andromda.core.cartridge.CartridgeDescriptor)
      */
     public void setDescriptor(CartridgeDescriptor d)
     {
@@ -63,7 +63,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.AndroMDACartridge#processModelElements(org.andromda.core.common.CodeGenerationContext)
+     * @see org.andromda.core.cartridge.AndroMDACartridge#processModelElements(org.andromda.core.common.CodeGenerationContext)
      */
     public void processModelElements(CodeGenerationContext context) 
     {
@@ -462,7 +462,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     }
 
     /**
-     * @see org.andromda.cartridges.interfaces.AndroMDACartridge#init(java.util.Properties)
+     * @see org.andromda.core.cartridge.AndroMDACartridge#init(java.util.Properties)
      */
     public void init(Properties templateEngineProperties) throws Exception
     {
@@ -472,7 +472,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.AndroMDACartridge#shutdown()
+     * @see org.andromda.core.cartridge.AndroMDACartridge#shutdown()
      */
     public void shutdown()
     {
