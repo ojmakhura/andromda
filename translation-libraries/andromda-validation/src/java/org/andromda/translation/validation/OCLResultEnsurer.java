@@ -16,6 +16,7 @@ public class OCLResultEnsurer
      * Does nothing but return the passed in <code>result</code> argument.
      * 
      * @param result the result.
+     * @return the boolean result.
      */
     public static boolean ensure(boolean result)
     {
@@ -28,7 +29,7 @@ public class OCLResultEnsurer
      * <code>result</code> is null, false will be assumed.
      * 
      * @param result
-     * @return
+     * @return the boolean result.
      */
     public static boolean ensure(Object result)
     {
