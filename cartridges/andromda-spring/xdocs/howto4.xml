@@ -11,12 +11,11 @@
         <section name="Value Objects">
             <p>
                 In many cases it is a good idea to never expose your persistence layer to the presentation layer
-                directly,
-                this dependency could cause your application to be difficult to maintain. For that reason one can
-                use value objects, these are simple classes that simply encapsulate information to be presented
-                to an end-user. Although these value objects represent different views on the existing business
-                objects, they do need to map onto those objects directly. Most of the time you will want to
-                collect some information coming from several entities. For this reason value objects are
+                directly, this dependency could cause your application to be difficult to maintain. 
+                For that reason one can use value objects, these are simple classes that simply encapsulate 
+                information to be presented to an end-user.  Although these value objects represent different views 
+                on the existing business objects, they do need to map onto those objects directly. Most of the time 
+                you will want to collect some information coming from several entities. For this reason value objects are
                 <i>coarse-grain</i> objects.
             </p>
             <p>
@@ -32,7 +31,7 @@
             </p>
             <p>
                 An interesting feature is that you can draw a dependency from any <![CDATA[<<Entity>>]]> to a
-                <![CDATA[<<ValueObject>>]]>. This will instruct the cartridge to generate a transformation
+                <![CDATA[<<ValueObject>>]]> or UML datatype.  This will instruct the cartridge to generate a transformation
                 method in the entity's DAO class, this transformation method can be called directly or
                 it can be invoked from any finder or load operation that exists: just use the
                 public constant associated with this transformation and specify it as the optional

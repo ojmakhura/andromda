@@ -8,7 +8,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-03-30" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-01" description="Second release candidate for version 3.0">
+            <action dev="cwbrandon" type="add">
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> DAO transformation methods can 
+                now be generated for UML datatypes as well (in addition to value objects), just draw a dependency
+                from an entity to a datatype, and the corresponding transform method will be generated on the DAO.
+                This is useful when you need to return a single field from an entity.
+            </action>
             <action dev="cwbrandon" type="update">
                 When generating value objects for webservices, the webservice cartridge no longer generates its own
                 value objects but instead uses the ones generated from the java cartridge, it's just required
