@@ -12,7 +12,7 @@ public class OclParserException
     extends RuntimeException
 {
 
-    private StringBuffer detailMessage;
+    private StringBuffer messageBuffer;
     private int errorLine;
     private int errorCol;
 
@@ -40,17 +40,17 @@ public class OclParserException
         if (errorLine != -1)
         {
             String msg = "line: " + errorLine + " ";
-            detailMessage.insert(0, msg);
+            messageBuffer.insert(0, msg);
             position = msg.length();
         }
         if (errorCol != -1)
         {
             String msg = "column: " + errorCol + " ";
-            detailMessage.insert(position, msg);
+            messageBuffer.insert(position, msg);
             position = position + msg.length();
         }
-        detailMessage.insert(position, "--> ");
-        return detailMessage.toString();
+        messageBuffer.insert(position, "--> ");
+        return messageBuffer.toString();
     }
 
     /**
@@ -80,41 +80,40 @@ public class OclParserException
      * Error line and column are stored in {@link #errorLine}and
      * {@link #errorCol}so that they can be retrieved using
      * {@link #getErrorLine}and {@link #getErrorCol}. The detail message
-     * without the position information is stored in {@link #detailMessage}
+     * without the position information is stored in {@link #message}
      * </p>
      * 
-     * @param sDetailMessage
+     * @param message
      */
-    private void extractErrorPosition(String sDetailMessage)
+    private void extractErrorPosition(String message)
     {
-        detailMessage = new StringBuffer();
-        if (sDetailMessage.charAt(0) == '[')
+        messageBuffer = new StringBuffer();
+        if (message.charAt(0) == '[')
         {
             // Positional data seems to be available
-            StringTokenizer st = new StringTokenizer(sDetailMessage
+            StringTokenizer tokenizer = new StringTokenizer(message
                 .substring(1), ",]");
 
             try
             {
-                errorLine = Integer.parseInt(st.nextToken());
-                errorCol = Integer.parseInt(st.nextToken());
+                errorLine = Integer.parseInt(tokenizer.nextToken());
+                errorCol = Integer.parseInt(tokenizer.nextToken());
 
-                detailMessage.append(st.nextToken("").substring(2)); // skip "]
-                                                                     // "
+                messageBuffer.append(tokenizer.nextToken("").substring(2));
             }
-            catch (NumberFormatException nfe)
+            catch (NumberFormatException ex)
             {
-                nfe.printStackTrace();
-                // No positional data available
-                detailMessage.append(sDetailMessage);
+                ex.printStackTrace();
+                // No positional information
+                messageBuffer.append(message);
                 errorLine = -1;
                 errorCol = -1;
             }
         }
         else
         {
-            // No positional data available
-            detailMessage = detailMessage.append(sDetailMessage);
+            // No positional information
+            messageBuffer.append(message);
             errorLine = -1;
             errorCol = -1;
         }
