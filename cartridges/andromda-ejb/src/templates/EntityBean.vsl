@@ -25,8 +25,8 @@ $entity.getDocumentation(" * ")
 #if ($automaticKey == "true")
  *
  * @weblogic.automatic-key-generation
- *     generator-type="${entity.getSqlType()}"
- *     generator-name="$entity.name"
+ *     generator-type="${entity.sqlType}"
+ *     generator-name="KEYGEN${entity.name}"
  *     key-cache-size="1"
  #end
  *
