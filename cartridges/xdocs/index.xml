@@ -59,12 +59,13 @@
 ]]></source>
       </p>
       <h3>Overriding cartridge resources</h3>
-        <p>
-          Sometimes you may want to change some of the resources a cartridge uses without touching
-          the internals of the cartridge: i.e. you want to add some more stuff to the JSP-pages
-          that the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>
-          generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
-          and put the replacement-files in that directory: 
+         <p>
+            Sometimes you may want to change some of the resources a cartridge uses without touching
+            the internals of the cartridge: i.e. you want to add some more stuff to the JSP-pages
+            that the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>
+            generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
+            and put the replacement-files in that directory: 
+         </p>
          <source><![CDATA[
  ...
  <dependency>
@@ -78,14 +79,16 @@
      </properties>
  </dependency>
  ...
-      ]]></source>
+         ]]></source>
+      <p>
           This way the cartridge will try to load resources (templates, images, etc.) from /opt/templates/
           prior to loading them from the cartridge-jar.
       </p>
       <p class="highlight">
-          Please note that if you're an Ant user, you will just need to specify the 
-          <code>mergeLocation</code> as a namespace property:
-         <source><![CDATA[
+         Please note that if you're an <strong>Ant</strong> user, you will need to specify the 
+         <code>mergeLocation</code> as a namespace property:
+      </p>
+      <source><![CDATA[
  ...
  <namespace name="hibernate">
      ...
@@ -93,8 +96,7 @@
      ...
  </namespace>
  ...
-      ]]></source>          
-      </p>
+            ]]></source>          
       <h2>Inside a cartridge</h2>
       <p>
           An AndroMDA cartridge is a "thing" (directory or jar file)
