@@ -321,32 +321,40 @@ public class SchemaTransformer
             "TABLE",
         });
 
-        // loop through and create all classes and store then
-        // in the classes Map keyed by table
-        while (tableRs.next())
+        if (tableRs.next())
         {
-            String tableName = tableRs.getString("TABLE_NAME");
-            if (StringUtils.isNotBlank(this.tableNamePattern))
-            {
-                if (tableName.matches(this.tableNamePattern))
-                {
-                    UmlClass umlClass = this.createClass(
-                        modelPackage,
-                        metadata,
-                        corePackage,
-                        tableName);
-                    this.classes.put(tableName, umlClass);
-                }
-            }
-            else
-            {
-                UmlClass umlClass = this.createClass(
-                    modelPackage,
-                    metadata,
-                    corePackage,
-                    tableName);
-                this.classes.put(tableName, umlClass);
-            }
+	        // loop through and create all classes and store then
+	        // in the classes Map keyed by table
+	        do
+	        {
+	            String tableName = tableRs.getString("TABLE_NAME");
+	            if (StringUtils.isNotBlank(this.tableNamePattern))
+	            {
+	                if (tableName.matches(this.tableNamePattern))
+	                {
+	                    UmlClass umlClass = this.createClass(
+	                        modelPackage,
+	                        metadata,
+	                        corePackage,
+	                        tableName);
+	                    this.classes.put(tableName, umlClass);
+	                }
+	            }
+	            else
+	            {
+	                UmlClass umlClass = this.createClass(
+	                    modelPackage,
+	                    metadata,
+	                    corePackage,
+	                    tableName);
+	                this.classes.put(tableName, umlClass);
+	            }
+	        } while (tableRs.next());
+        }
+        else 
+        {
+            logger.warn("WARNING! No tables found in schema matching pattern -->'" 
+                + this.tableNamePattern + "'");
         }
 
         // add all attributes and associations to the modelPackage
@@ -355,7 +363,9 @@ public class SchemaTransformer
         {
             String tableName = (String)tableNameIt.next();
             UmlClass umlClass = (UmlClass)classes.get(tableName);
-
+            if (logger.isInfoEnabled())
+                logger.info("created class --> '" + umlClass.getName() + "'");
+            
             // create and add all associations to the package
             modelPackage.getOwnedElement().addAll(
                 this.createAssociations(metadata, corePackage, tableName));
@@ -404,9 +414,6 @@ public class SchemaTransformer
                 umlClass.getTaggedValue().add(taggedValue);
             }
         }
-
-        if (logger.isInfoEnabled())
-            logger.info("created attribute --> '" + className + "'");
         return umlClass;
     }
 
@@ -489,7 +496,7 @@ public class SchemaTransformer
                 attributes.add(attribute);
                 if (logger.isInfoEnabled())
                     logger
-                        .info("created attribute --> '" + attributeName + "'");
+                        .info("adding attribute --> '" + attributeName + "'");
             }
         }
         return attributes;
@@ -625,6 +632,13 @@ public class SchemaTransformer
                 .get(foreignTableName));
             association.getConnection().add(foreignEnd);
             associations.add(association);
+            
+            if (logger.isInfoEnabled())
+                logger.info("adding association: '" 
+                    + primaryEnd.getParticipant().getName() 
+                    + " <--> "
+                    + foreignEnd.getParticipant().getName() 
+                    + "'");
         }
         return associations;
     }

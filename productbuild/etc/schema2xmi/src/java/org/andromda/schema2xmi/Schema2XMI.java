@@ -1,6 +1,7 @@
 package org.andromda.schema2xmi;
 
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -56,7 +57,7 @@ public class Schema2XMI
     /**
      * The command line argument specifying the URI to the type mappings file.
      */
-    private static final String TYPE_MAPPINGS_URI = "T";
+    private static final String MAPPINGS = "m";
 
     /**
      * The command line argument specifying the package to which the model
@@ -67,7 +68,7 @@ public class Schema2XMI
     /**
      * The command line argument specifying the tables names to match on
      */
-    private static final String TABLE_NAME_PATTERN = "t";
+    private static final String TABLE_PATTERN = "t";
 
     /**
      * The command line argument specifying whether or not to include tagged
@@ -83,6 +84,9 @@ public class Schema2XMI
         try
         {
             AndroMDALogger.configure();
+            // turn off validation because of the incorrect parsers 
+            // in the JDK
+            XmlObjectFactory.setDefaultValidating(false);
         }
         catch (Throwable th)
         {
@@ -97,7 +101,7 @@ public class Schema2XMI
 
         option = new Option(
             INPUT_MODEL,
-            false,
+            true,
             "Input model file (to which model elements will be added)");
         option.setLongOpt("input");
         options.addOption(option);
@@ -119,26 +123,26 @@ public class Schema2XMI
         options.addOption(option);
 
         option = new Option(
-            TYPE_MAPPINGS_URI,
+            MAPPINGS,
             true,
             "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
-        option.setLongOpt("typeMappings");
+        option.setLongOpt("mappings");
         options.addOption(option);
 
         option = new Option(
-            TABLE_NAME_PATTERN,
-            false,
+            TABLE_PATTERN,
+            true,
             "The table name pattern of tables to process (regular expression)");
-        option.setLongOpt("tableNamePattern");
+        option.setLongOpt("tablePattern");
         options.addOption(option);
 
-        option = new Option(PACKAGE, false, "The package to output classifiers");
+        option = new Option(PACKAGE, true, "The package to output classifiers");
         option.setLongOpt("package");
         options.addOption(option);
 
         option = new Option(
             INCLUDE_TAGGED_VALUES,
-            false,
+            true,
             "Whether or not to include persistence tagged values, default is true");
         option.setLongOpt("taggedValues");
         options.addOption(option);
@@ -193,13 +197,16 @@ public class Schema2XMI
         {
             CommandLine commandLine = schema2Xmi.parseCommands(args);
             if (commandLine.hasOption(HELP)
-                || !commandLine.hasOption(INPUT_MODEL)
-                || !commandLine.hasOption(OUTPUT_NAME))
+                || !(commandLine.hasOption(INPUT_MODEL)
+                &&   commandLine.hasOption(OUTPUT_NAME)
+                &&   commandLine.hasOption(DRIVER)
+                &&   commandLine.hasOption(CONNECTION_URL)
+                &&   commandLine.hasOption(USER)
+                &&   commandLine.hasOption(PASSWORD)))
             {
                 Schema2XMI.displayHelp();
             }
-            else if (commandLine.hasOption(INPUT_MODEL)
-                && (commandLine.hasOption(OUTPUT_NAME)))
+            else
             {
                 String inputModel = commandLine.getOptionValue(INPUT_MODEL);
                 SchemaTransformer transformer = new SchemaTransformer(
@@ -210,10 +217,10 @@ public class Schema2XMI
 
                 // set the extra options
                 transformer.setTypeMappings(commandLine
-                    .getOptionValue(TYPE_MAPPINGS_URI));
+                    .getOptionValue(MAPPINGS));
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
                 transformer.setTableNamePattern(commandLine
-                    .getOptionValue(TABLE_NAME_PATTERN));
+                    .getOptionValue(TABLE_PATTERN));
                 transformer.setIncludeTaggedValues(
                     Boolean.valueOf(
                         commandLine.getOptionValue(INCLUDE_TAGGED_VALUES)).booleanValue());
