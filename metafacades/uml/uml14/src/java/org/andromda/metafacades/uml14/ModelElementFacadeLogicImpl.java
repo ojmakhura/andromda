@@ -99,7 +99,7 @@ public class ModelElementFacadeLogicImpl
     public Collection handleFindTaggedValues(String name)
     {
         Collection values = new ArrayList();
-        if (name != null)
+        if (StringUtils.isNotBlank(name))
         {
             name = StringUtils.trimToEmpty(name);
             Collection taggedValues = this.getTaggedValues();
@@ -110,7 +110,7 @@ public class ModelElementFacadeLogicImpl
                 {
                     for (Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
                     {
-                        values.add(String.valueOf(valueIterator.next()));
+                        values.add(valueIterator.next());
                     }
                 }
             }
