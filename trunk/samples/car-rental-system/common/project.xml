@@ -11,7 +11,7 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-mda</artifactId>
+            <artifactId>car-rental-system-mda</artifactId>
             <version>${pom.currentVersion}</version>
             <type>pom</type>
         </dependency>
@@ -22,6 +22,6 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
+        <sourceDirectory>${maven.build.src}</sourceDirectory>
     </build>
 </project>

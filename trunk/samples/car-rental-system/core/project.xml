@@ -2,19 +2,19 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<artifactId>${pom.groupId}-core</artifactId>
-  	<name>Car Rental System2 Core Business Tier</name>
+  	<artifactId>car-rental-system-core</artifactId>
+  	<name>Car Rental System Core Business Tier</name>
   	<shortDescription>The ${pom.name} component</shortDescription>
 	<dependencies>      
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-mda</artifactId>
+			<artifactId>car-rental-system-mda</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-common</artifactId>
+			<artifactId>car-rental-system-common</artifactId>
 			<version>${pom.currentVersion}</version>
 			<properties>
 				<ejb.manifest.classpath>true</ejb.manifest.classpath>

@@ -10,7 +10,7 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-core</artifactId>
+            <artifactId>car-rental-system-core</artifactId>
             <version>${pom.currentVersion}</version>
             <type>ejb</type>
             <properties>
@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-web</artifactId>
+            <artifactId>car-rental-system-web</artifactId>
             <version>${pom.currentVersion}</version>
             <type>war</type>
             <properties>
@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-common</artifactId>
+            <artifactId>car-rental-system-common</artifactId>
             <version>${pom.currentVersion}</version>
                 <properties>
                     <ear.bundle>true</ear.bundle>

@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
+  	<extend>../project.xml</extend>
   	<artifactId>car-rental-system</artifactId>
-  	<groupId>car-rental-system</groupId>
   	<name>The Car Rental System</name>
-  	<currentVersion>3.0M3</currentVersion>
-  	<shortDescription>The New Car Rental Application</shortDescription>
+  	<shortDescription>The Car Rental Application</shortDescription>
   	<description>
   		Contains the Car Rental System Project.
   	</description>
   	<package>org.andromda.samples.carrental</package>
-  	<developers>
-    	<developer>
-      		<name>Andro Team</name>
-      		<id></id>
-      		<email></email>
-    	</developer>
-  	</developers>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+	      	</resource>
+    	</resources>
+  	</build>
 </project>
