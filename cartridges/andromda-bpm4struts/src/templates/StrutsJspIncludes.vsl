@@ -3,3 +3,6 @@
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="displaytag-all.tld" prefix="display" %>
+#if ($maxBreadCrumbs != "0")
+<%@ taglib uri="andromda-breadcrumbs.tld" prefix="breadcrumbs" %>
+#end
