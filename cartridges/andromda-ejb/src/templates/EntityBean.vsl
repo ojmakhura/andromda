@@ -633,7 +633,6 @@ $operation.getDocumentation("    * ")
      * @param $attribute.name Value for the $attribute.name property
 #end
      * @ejb.create-method
-     * @ejb.transaction type="Required"
      * @return <code>null</code> as required by the EJB specification for CMP
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
@@ -641,7 +640,6 @@ $operation.getDocumentation("    * ")
         createImpl($transform.getAttributesAsList($allAttributes, false, true));
         return null;
     }
-#end
 
     public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)) throws javax.ejb.CreateException {
 #if(!$inheritedAttributes.empty)
@@ -661,7 +659,6 @@ $operation.getDocumentation("    * ")
      * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
 #end
      * @ejb.create-method
-     * @ejb.transaction type="Required"
      * @return <code>null</code> as required by the EJB specification for CMP
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
@@ -682,6 +679,7 @@ $operation.getDocumentation("    * ")
         ${relation.otherEnd.setterName}($relation.otherEnd.name);
 #end
     }
+#end
 #end
 #end
     // ---------------- accessor methods for bean references ---------------
