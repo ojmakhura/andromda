@@ -39,6 +39,7 @@
                 <hibernateShowSql>true</hibernateShowSql>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
                 <entities>${maven.andromda.hibernate.generated.dir}</entities>
+                <man-impls>${maven.andromda.hibernate.manual.dir}</man-impls>
                 <entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
                 <session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
                 <session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>

@@ -24,10 +24,10 @@ public class ${service.name}BeanImpl
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
     protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
-        throws $operation.exceptionList
+        throws $operation.exceptionList 
     {
 #else
-    protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
+    protected $returnType handle${str.capitalize(${operation.name})} ($parameters) 
     {
 #end
         // TODO: put your implementation here.
@@ -42,7 +42,7 @@ public class ${service.name}BeanImpl
 #end
 #end
     }
-
+    
 #end
     // ---------- the usual session bean stuff... ------------
 
