@@ -5,46 +5,46 @@
          xmlns:util="jelly:util"
          xmlns:artifact="artifact">
          
-	<!-- ==================================================================
+    <!-- ==================================================================
                Installs all component libraries into the local repository                                                    
          ================================================================== -->
-	<goal name="install-components" prereqs="initialize"> 		
-      	<j:set var="maven.multiproject.includes"
+    <goal name="install-components" prereqs="initialize"> 		
+          <j:set var="maven.multiproject.includes"
                value="${component.install.includes}"/>
         <attainGoal name="multiproject:install"/>	
-	</goal> 
+    </goal> 
       
-	<!-- ==================================================================
+    <!-- ==================================================================
                Installs all sample libraries into the local repository                                                    
          ================================================================== -->
-	<goal name="install-samples" prereqs="initialize">
+    <goal name="install-samples" prereqs="initialize">
         <j:set var="maven.multiproject.includes"
                value="${sample.install.includes}"/>
         <attainGoal name="multiproject:install"/>	
-	</goal> 
+    </goal> 
 
-	<!-- ==================================================================
+    <!-- ==================================================================
                Installs all libraries into the local repository                                                    
          ================================================================== -->
-	<goal name="install" prereqs="initialize">
+    <goal name="install" prereqs="initialize">
         <j:set var="maven.multiproject.includes"
                value="${component.install.includes},${sample.install.includes}"/>
         <attainGoal name="multiproject:install"/>
-	</goal> 
+    </goal> 
  
-	<!-- ==================================================================
+    <!-- ==================================================================
                Deploys all libraries into the remote repository                                                    
          ================================================================== --> 	
-	<goal name="deploy" prereqs="initialize">
+    <goal name="deploy" prereqs="initialize">
         <j:set var="maven.multiproject.includes"
                value="${component.install.includes}"/>
         <attainGoal name="multiproject:deploy"/>	  		
-	</goal>
+    </goal>
       
-	<!-- ==================================================================
+    <!-- ==================================================================
                Clean                                                     
          ================================================================== -->
-	<goal name="clean">  		
+    <goal name="clean">  		
         <j:set var="maven.multiproject.includes"
                value="${component.install.includes},${sample.install.includes}"/>
         <attainGoal name="multiproject:clean"/>
@@ -56,9 +56,9 @@
                 <ant:exclude name="maven.log"/>
             </ant:fileset>
         </ant:delete>
-	</goal> 
+    </goal> 
             
-	<!-- ==================================================================
+    <!-- ==================================================================
                Builds ALL documentation and inludes it in the binary dist                                          
          ================================================================== --> 
     <goal name="docs" prereqs="dist-init,initialize">
@@ -300,20 +300,20 @@
          ================================================================== -->     
     <goal name="init-bootstrap">
         <ant:fileScanner var="bootstrapArtifacts">
-	        <ant:fileset dir="${lib.dir}">
-	          <ant:patternset>
-	            <ant:include name="andromda-bootstrap/**/*"/>
-	          </ant:patternset>
-	        </ant:fileset>
+            <ant:fileset dir="${lib.dir}">
+              <ant:patternset>
+                <ant:include name="andromda-bootstrap/**/*"/>
+              </ant:patternset>
+            </ant:fileset>
         </ant:fileScanner>
         <j:forEach var="file" items="${bootstrapArtifacts.iterator()}">
             <j:set var="versionIndex" value="${file.name.lastIndexOf(bootstrapVersion)}"/>
             <j:if test="${versionIndex ne '-1'}">
-            	<j:set var="artifactNoVersion" value="${file.name.substring(0,versionIndex)}"/>
-            	<j:set var="artifactDir" value="${file.parentFile.parentFile.name}"/> 
-            	<j:set var="types" value="${file.parentFile.name}"/>
+                <j:set var="artifactNoVersion" value="${file.name.substring(0,versionIndex)}"/>
+                <j:set var="artifactDir" value="${file.parentFile.parentFile.name}"/> 
+                <j:set var="types" value="${file.parentFile.name}"/>
                 <j:set var="artifactTypesPath" value="${maven.repo.local}/${artifactDir}/${types}"/>
-            	<ant:copy file="${file}" tofile="${artifactTypesPath}/${artifactNoVersion}${pom.currentVersion}.jar"/>
+                <ant:copy file="${file}" tofile="${artifactTypesPath}/${artifactNoVersion}${pom.currentVersion}.jar"/>
             </j:if>
         </j:forEach>
     </goal>
@@ -332,26 +332,26 @@
         <echo>|   I N S T A L L I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
         <echo>+-------------------------------------------------------------------+</echo>
         <j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">		
-	        <j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
-	        <j:set var="groupId" value="${bootstrapProject.groupId}"/>
+            <j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
+            <j:set var="groupId" value="${bootstrapProject.groupId}"/>
             <j:set var="bootstrapGroupId" value="${groupId}-${bootstrapVersion}"/>
             <j:set var="dummy" value="${bootstrapProject.setGroupId(bootstrapGroupId)}"/>	
-	        <j:set var="bootstrapArtifactId" value="${artifactId}-${bootstrapVersion}"/>
-	        <j:set var="dummy" value="${bootstrapProject.setArtifactId(bootstrapArtifactId)}"/>
-	        <j:set 
-	            var="artifactDirectory"
-	            value="${bootstrapProject.file.parent}/target"/>
-	        <j:set 
-	            var="artifactName"
-	            value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
-	        <util:file 
-	            var="artifactFile" 
-	            name="${artifactDirectory}/${artifactName}"/>  	
-	        <j:set var="dummy" value="${bootstrapProject.setCurrentVersion(bootstrapVersion)}"/>
-	        <j:set var="newArtifactFile" value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
-	        <ant:copy 
-	            file="${artifactFile}" 
-	            tofile="${lib.dir}/${bootstrapGroupId}/${bootstrapTypes.get(index)}s/${newArtifactFile}"/>
+            <j:set var="bootstrapArtifactId" value="${artifactId}-${bootstrapVersion}"/>
+            <j:set var="dummy" value="${bootstrapProject.setArtifactId(bootstrapArtifactId)}"/>
+            <j:set 
+                var="artifactDirectory"
+                value="${bootstrapProject.file.parent}/target"/>
+            <j:set 
+                var="artifactName"
+                value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
+            <util:file 
+                var="artifactFile" 
+                name="${artifactDirectory}/${artifactName}"/>  	
+            <j:set var="dummy" value="${bootstrapProject.setCurrentVersion(bootstrapVersion)}"/>
+            <j:set var="newArtifactFile" value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
+            <ant:copy 
+                file="${artifactFile}" 
+                tofile="${lib.dir}/${bootstrapGroupId}/${bootstrapTypes.get(index)}s/${newArtifactFile}"/>
         </j:forEach>
                         
     </goal>
@@ -360,41 +360,41 @@
              Performs preprocessing on the bootstrap modules, basically
              executes them and loads the modules and their types into lists.
          ================================================================= -->  
-	<goal name="preprocess-bootstrap-modules">
-		
-		<!-- set bootstrap mode to true -->
-		<j:set var="maven.andromda.bootstrap.mode" value="true" scope="parent"/>
-		
-		<util:tokenize 
-			var="bootstrapModules" 
-			delim=",">${bootstrap.modules}</util:tokenize>
-			
-		<j:set var="listType" value="java.util.ArrayList"/>
-		<j:useList var="bootstrapProjects" class="${listType}"/>
-		<j:useList var="bootstrapTypes" class="${listType}"/>
-		<j:forEach var="bootstrapModule" items="${bootstrapModules}">
-			<util:tokenize 
-				var="moduleAndType" 
-				delim=":">${bootstrapModule}</util:tokenize>	
-			<j:set var="module" value="${moduleAndType.get(0)}"/>
-			<j:set var="type" value="${moduleAndType.get(1)}"/>		
-			<maven:reactor
-				basedir="${basedir}"
-				includes="${module}"
-				goals="clean:clean,jar:jar"
-				ignoreFailures="false"
-				postProcessing="true"
-				banner="Processing Bootstrap Artifact:"/>  
-				
-			<!-- load up the bootstrapLists -->
-			<j:forEach var="reactorProject" items="${reactorProjects}">		
-				<!-- add the reactor project to the list of bootstrap projects -->	
-				<j:set var="dummy" value="${bootstrapProjects.add(reactorProject)}"/>
-				<!-- add the bootstrap type to the list of bootsrap project types -->
-				<j:set var="dummy" value="${bootstrapTypes.add(type)}"/>
-			</j:forEach>				
-						
-		</j:forEach>
-	</goal>
+    <goal name="preprocess-bootstrap-modules">
+        
+        <!-- set bootstrap mode to true -->
+        <j:set var="maven.andromda.bootstrap.mode" value="true" scope="parent"/>
+        
+        <util:tokenize 
+            var="bootstrapModules" 
+            delim=",">${bootstrap.modules}</util:tokenize>
+            
+        <j:set var="listType" value="java.util.ArrayList"/>
+        <j:useList var="bootstrapProjects" class="${listType}"/>
+        <j:useList var="bootstrapTypes" class="${listType}"/>
+        <j:forEach var="bootstrapModule" items="${bootstrapModules}">
+            <util:tokenize 
+                var="moduleAndType" 
+                delim=":">${bootstrapModule}</util:tokenize>	
+            <j:set var="module" value="${moduleAndType.get(0)}"/>
+            <j:set var="type" value="${moduleAndType.get(1)}"/>		
+            <maven:reactor
+                basedir="${basedir}"
+                includes="${module}"
+                goals="clean:clean,jar:jar"
+                ignoreFailures="false"
+                postProcessing="true"
+                banner="Processing Bootstrap Artifact:"/>  
+                
+            <!-- load up the bootstrapLists -->
+            <j:forEach var="reactorProject" items="${reactorProjects}">		
+                <!-- add the reactor project to the list of bootstrap projects -->	
+                <j:set var="dummy" value="${bootstrapProjects.add(reactorProject)}"/>
+                <!-- add the bootstrap type to the list of bootsrap project types -->
+                <j:set var="dummy" value="${bootstrapTypes.add(type)}"/>
+            </j:forEach>				
+                        
+        </j:forEach>
+    </goal>
             
 </project>
