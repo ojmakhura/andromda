@@ -39,7 +39,7 @@ $class.getDocumentation(" * ")
  *       input="${class.input.fullPath}.jsp"
 #end
  *    validate="true"
- *       scope="request"
+ *       scope="session"
  *     unknown="false"
 #if ($security)
  *       roles="$roles"

@@ -50,7 +50,7 @@
 ##  SETS THE BODY OF THIS PAGE
 ##
     <tiles:put name="body" type="string">
-        <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+        <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="session" toScope="page"/>
 
 #foreach ($variable in $class.pageVariables)
 #set ($variableName = $variable.name)
@@ -95,7 +95,7 @@
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
-        <display:table name="requestScope.${formBeanName}.${variable.name}"
+        <display:table name="sessionScope.${formBeanName}.${variable.name}"
                        requestURI="<%=request.getRequestURL().toString()%>" 
                        export="$exportable" pagesize="$variable.tableMaxRows">
 #if (!$variable.tableColumnNames.empty)
