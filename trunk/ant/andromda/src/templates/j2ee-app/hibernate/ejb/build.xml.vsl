@@ -37,6 +37,8 @@
     </target>
 
     <target name="xdoclet" description="o Run XDoclet EJB" depends="get-deps">
+        <mkdir dir="${basedir}/${java.src.dir}"/>
+        <mkdir dir="${basedir}/${mda.build.dir}"/>
         <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
         <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
         <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
