@@ -215,10 +215,10 @@ public class MDRepositoryFacade implements RepositoryFacade
                         + ModelAccessFacade.class + "'");
                 }
             } 
-            catch (RepositoryFacadeException th) 
+            catch (RepositoryFacadeException ex) 
             {
                 // Dont do anything with our own exceptions.
-                throw th;
+                throw ex;
             } 
             catch (Throwable th) 
             {
