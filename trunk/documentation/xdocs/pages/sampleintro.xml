@@ -23,8 +23,9 @@
       </p>
       <p class="std">
         The model and the source code of the sample are located
-        in the subdirectory <code>sample/car-rental-system/</code> of the AndroMDA distribution package.
-        You will notice that it does <b>not</b> contain all the classes because
+        in the subdirectory <code>samples/car-rental-system/</code> of the AndroMDA source distribution package.
+        The binary distribution contains the deployable *.ear files for JBoss.
+        You will notice that the source ZIP does <b>not</b> contain all the classes because
         most of them are generated automatically. So, please run AndroMDA
         using <code>ant -f build.xml</code> to see the whole thing!
         The source code in the distribution contains only the hand-written
@@ -96,8 +97,9 @@
       <p class="std">
         Start the JBoss server and watch it load the application. At the end, it
         says something like "JBoss started in xxx seconds". Now, point your browser
-        to <a href="http://localhost:8080/carrental">http://localhost:8080/carrental</a>
-        to start the web app. You will notice that the web app comes up in your
+        to <a href="http://localhost:8080/carrental-ejb">http://localhost:8080/carrental-ejb</a>
+        to start the web app (replace the word "ejb" by "hibernate" if you
+        deployed the Hibernate version of the car rental system. You will notice that the web app comes up in your
         preferred language (currently available: Brazilian Portuguese, Finnish, and German)
         or in English if your language is not supported. This is due to the fact
         that the sample app uses Struts localized message resources.
