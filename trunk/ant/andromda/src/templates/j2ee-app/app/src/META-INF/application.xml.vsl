@@ -2,26 +2,27 @@
 <!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
 
 <application>
-  <display-name>$applicationName</display-name>
+  <display-name>@application.name@</display-name>
 #if ($persistenceType == "hibernate")
   <module>
-    <ejb>${applicationId}-hibernate-ejb-server-${applicationVersion}.jar</ejb>
+    <ejb>@application.id@-hibernate-ejb-server-@application.version@.jar</ejb>
   </module>
   <module>
-    <connector>${applicationId}-hibernate-sar-${applicationVersion}.sar</connector>
+    <connector>@application.id@-hibernate-sar-@application.version@.sar</connector>
   </module>
   <module>
-    <connector>${applicationId}-hibernate-db-${applicationVersion}.sar</connector>
+    <connector>@application.id@-hibernate-db-@application.version@.sar</connector>
   </module>
 #else
   <module>
-    <ejb>${applicationId}-ejb-${applicationVersion}.jar</ejb>
+    <ejb>@application.id@-ejb-@application.version@.jar</ejb>
   </module>
 #end
   <module>
     <web>
-      <web-uri>${applicationId}-web-${applicationVersion}.war</web-uri>
-      <context-root>/${applicationName}</context-root>
+      <web-uri>@application.id@-web-@application.version@.war</web-uri>
+      <context-root>/@application.name@</context-root>
     </web>
   </module>
 </application>
+
