@@ -16,29 +16,8 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class $class.name implements ${class.name}Interface
+class $class.name implements ${class.name}Interface
 {
-    private static $class.name instance = null;
-
-    /**
-     * Singleton constructor
-     */
-    private ${class.name}()
-    {
-    }
-
-    /**
-     * Singleton instance accessor
-     */
-    public final static synchronized ${class.name} getInstance()
-    {
-        if (${class.name}.instance == null)
-        {
-            ${class.name}.instance = new ${class.name}();
-        }
-        return ${class.name}.instance;
-    }
-
 #foreach ($operation in $class.operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
