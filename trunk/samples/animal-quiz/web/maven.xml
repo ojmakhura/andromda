@@ -2,6 +2,9 @@
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
 	
+	<!-- =====================================================================
+	        Handle the xdoclet webdoclet generation for struts                                          
+	     ===================================================================== -->
   	<preGoal name="war:init">
   		
   		<j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
@@ -34,6 +37,32 @@
 	       	id="maven.compile.src.set"
 	       	refid="andromda.struts.gen.src"/>
 		
+  	</preGoal>
+  	
+	<!-- =====================================================================
+	        Handle the generation of Axis wsdl2java JAX-RPC client classes                                          
+	     ===================================================================== -->
+  	<preGoal name="war:init">
+		<ant:path id="axis.classpath">
+            <ant:pathelement path="${pom.dependencyClasspath}"/>	
+		</ant:path> 	 
+		<ant:taskdef 
+			resource="axis-tasks.properties" 
+			classpathref="axis.classpath" />  
+        <ant:axis-wsdl2java
+            output="${maven.build.src}"
+            verbose="true"
+            testcase="false"
+            url="${decisionService.wsdlUrl}">   
+            <!-- we prefix the generated package with 'client' 
+                 otherwise we'd have naming conflicts with the
+                 service classes, normally the service would be
+                 on a different machine or in a different app 
+                 that the consumer (so this wouldn't be necessary) -->
+            <ant:mapping
+                namespace="http://${decisionServicePackage}"
+                package="${decisionServicePackage}.client"/> 
+        </ant:axis-wsdl2java>  	
   	</preGoal>
   	
   	<postGoal name="war:webapp">

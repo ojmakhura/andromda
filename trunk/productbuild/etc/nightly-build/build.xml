@@ -44,7 +44,8 @@
     	<delete dir="${user.home}/.maven"/>
         <delete>
             <fileset dir="${env.MAVEN_HOME}/plugins">
-                <include name="maven-${project.name}-plugin*/**/*"/>
+                <include name="maven-${project.name}*"/>
+            	<include name="maven-androdev*"/>
             </fileset>
         </delete>
     </target>
@@ -85,7 +86,7 @@
         </exec>
         <zip destfile="${build.docs.log.zip}" 
 			 basedir="${basedir}" 
-			 includes="${build.docs.slog}" 
+			 includes="${build.docs.log}" 
 			 filesonly="true"/>
     </target>
     

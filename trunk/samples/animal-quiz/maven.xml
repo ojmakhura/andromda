@@ -23,6 +23,12 @@
 			goals="war:install"/>
 	</goal>	
 	
+	<goal name="webservice">
+		<maven:maven
+			descriptor="${basedir}/webservice/project.xml"
+			goals="war:install"/>
+	</goal>	
+	
 	<goal name="hibernate-ejb">
 		<maven:maven
 			descriptor="${basedir}/hibernate/ejb/project.xml"

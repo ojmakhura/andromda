@@ -3,7 +3,7 @@
 <project>
     <extend>../project.xml</extend>
     <name>Animal Quiz Sample MDA</name>
-    <id>animal-quiz-sample-mda</id>
+    <id>animal-quiz-mda</id>
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
@@ -35,15 +35,30 @@
                 <session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
                 <session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>
             </properties>
-        </dependency>
+        </dependency>  
+        <dependency>
+            <groupId>andromda-cartridges</groupId>
+            <artifactId>andromda-webservice-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <applicationName>${animalQuiz.services.app.name}</applicationName>
+                <wsdlSoapAddress>${animalQuiz.webservice.soap.address}</wsdlSoapAddress>
+                <logical.schemaTypeMappingsUri>XmlSchema</logical.schemaTypeMappingsUri>
+                <webservice-wsdl-outlet>${maven.andromda.webservice.wsdl.dir}</webservice-wsdl-outlet>
+                <webservice-axis-outlet>${maven.andromda.webservice.axis.dir}</webservice-axis-outlet>
+                <webservice-java-outlet>${maven.andromda.java.generated.dir}</webservice-java-outlet>
+                <webservice-axis-test-outlet.ignore/>
+            </properties>
+        </dependency>        
         <dependency>
             <groupId>andromda-cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
                 <exceptions>${maven.andromda.java.generated.dir}</exceptions>
-                <value-objects>${maven.andromda.java.generated.dir}</value-objects>
                 <enumerations>${maven.andromda.java.generated.dir}</enumerations>
+                <value-objects.ignore/>
             </properties>
         </dependency>
         <dependency>
