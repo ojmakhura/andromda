@@ -37,12 +37,12 @@ public class AssociationEndFacadeLogicImpl
     public Object handleGetOtherEnd()
     {
         Collection ends = metaObject.getAssociation().getConnection();
-        for (Iterator i = ends.iterator(); i.hasNext();)
+        for (Iterator endIt = ends.iterator(); endIt.hasNext();)
         {
-            AssociationEnd ae = (AssociationEnd)i.next();
-            if (!metaObject.equals(ae))
+            AssociationEnd end = (AssociationEnd)endIt.next();
+            if (!metaObject.equals(end))
             {
-                return ae;
+                return end;
             }
         }
 
@@ -61,13 +61,28 @@ public class AssociationEndFacadeLogicImpl
             ClassifierFacade type = this.getType();
             name = StringUtils.uncapitalize(StringUtils.trimToEmpty(type
                 .getName()));
-            // if multiplicity > 1 try to adapt name too
-            if (isMany())
+            if (isMany() && this.isPluralizeAssociationEndNames())
             {
                 name = StringUtilsHelper.pluralize(name);
-            }
+            }   
         }
         return name;
+    }
+    
+    /**
+     * Indicates whether or not we should pluralize 
+     * association end names.
+     * @return true/false
+     */
+    private boolean isPluralizeAssociationEndNames()
+    {
+        boolean pluralize = false;
+        Object value = this.getConfiguredProperty("pluralizeAssociationEndNames");
+        if (value != null)
+        {
+            pluralize = Boolean.valueOf(String.valueOf(value)).booleanValue();
+        }
+        return pluralize;
     }
 
     /**
