@@ -99,21 +99,6 @@
                             a parameter to allow nulls, you'd add this stereotype to the parameter.
                           </td>
                     </tr>
-                    <tr>
-                        <a name="Role"/>
-                          <td>
-                              <strong><![CDATA[<<Role>>]]></strong>
-                          </td>
-                        <td>
-                            Actor
-                        </td>
-                          <td>
-                              Defines a role providing access to a given service or service operation.
-                            To designate that the role has access to a service you must draw a dependeny
-                            from the role to the service, to designate the role has access to to a given operation,
-                            you must draw a dependeny from the role to the operation.
-                          </td>
-                    </tr>
                 </table>
             </subsection>
             <subsection name="Supported Tagged Values">
@@ -268,10 +253,11 @@
                         <td>
                             <a href="#Role"><![CDATA[<<Role>>]]></a>
                         </td>
-                          <td>
-                              Optionally allows you to define the name of the role (if it needs
-                            to be different than the name of the actor that defines the role).
-                          </td>
+                        <td>
+                            An actor with a dependency to a 
+                            <a href="Service"><![CDATA[<<Service>>]]></a> or
+                            a <a href="Service"><![CDATA[<<Service>>]]></a> operation.
+                        </td>
                     </tr>
                     <tr>
 						<a name="@andromda.spring.service.remoting.type"/>
@@ -330,6 +316,13 @@
                     Entity query operations (i.e. finders) can be denoted by setting the
                     query flag on the modeled operation to true 
                     (they do not require any stereotypes).
+                </p>
+                <p>
+                    Actors represent roles within your model.  To designate that a role 
+                    has access to a given service you must draw a dependeny from an Actor 
+                    to the <a href="Service"><![CDATA[<<Service>>]]></a>.  To designate the 
+                    role has access to to a given operation, you must draw a dependeny from 
+                    an Actor to the operation.
                 </p>
             </subsection>
         </section>

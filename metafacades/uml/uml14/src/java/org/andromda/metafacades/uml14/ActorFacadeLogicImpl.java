@@ -23,6 +23,9 @@ public class ActorFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ActorFacade#getGeneralizedActors()
+     */
     protected java.util.Collection handleGetGeneralizedActors()
     {
         final Collection parentActors = new ArrayList();
@@ -37,6 +40,9 @@ public class ActorFacadeLogicImpl
         return parentActors;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ActorFacadeLogic#getGeneralizedByActors()
+     */
     protected java.util.Collection handleGetGeneralizedByActors()
     {
         final Collection allActors = getModel().getAllActors();
@@ -63,8 +69,11 @@ public class ActorFacadeLogicImpl
         return childActors;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
-        return getPackage();
+        return this.getPackage();
     }
 }

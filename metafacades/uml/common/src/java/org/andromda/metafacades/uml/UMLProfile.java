@@ -4,7 +4,8 @@ import org.andromda.core.common.Profile;
 
 /**
  * Contains the common UML AndroMDA profile. That is, it contains elements
- * "common" to all AndroMDA components (tagged values, stereotypes, and datatypes).
+ * "common" to all AndroMDA components (tagged values, stereotypes, and
+ * datatypes).
  * 
  * @author Chad Brandon
  */
@@ -113,14 +114,10 @@ public class UMLProfile
     public static final String STEREOTYPE_NULLABLE = profile.get("NULLABLE");
 
     /**
-     * Represents a role played by a user within a system.
-     */
-    public static final String STEREOTYPE_ROLE = profile.get("ROLE");
-
-    /**
      * Represents a manageable classifier.
      */
-    public static final String STEREOTYPE_MANAGEABLE = profile.get("MANAGEABLE");
+    public static final String STEREOTYPE_MANAGEABLE = profile
+        .get("MANAGEABLE");
 
     /* ----------------- Tagged Values -------------------- */
 
@@ -153,10 +150,10 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX = profile
         .get("PERSISTENCE_COLUMN_INDEX");
-    
+
     /**
-     * Used on an association end to indicate whether its owning entity should have its
-     * identifier also be the foreign key to the related entity.
+     * Used on an association end to indicate whether its owning entity should
+     * have its identifier also be the foreign key to the related entity.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER = profile
         .get("PERSISTENCE_FOREIGN_IDENTIFIER");
@@ -223,20 +220,20 @@ public class UMLProfile
     public static final String BOOLEAN_TYPE_NAME = profile.get("BOOLEAN_TYPE");
 
     /**
-     * Used to indentify a file type in the model, any other type that will
-     * be identified as a file type must specialize this type.
+     * Used to indentify a file type in the model, any other type that will be
+     * identified as a file type must specialize this type.
      */
     public static final String FILE_TYPE_NAME = profile.get("FILE_TYPE");
 
     /**
-     * Used to indentify a map type in the model, any other type that will
-     * be identified as a map type must specialize this type.
+     * Used to indentify a map type in the model, any other type that will be
+     * identified as a map type must specialize this type.
      */
     public static final String MAP_TYPE_NAME = profile.get("MAP_TYPE");
-    
+
     /**
-     * Used to indentify a string type in the model, any other type that will
-     * be identified as a string type must specialize this type.
+     * Used to indentify a string type in the model, any other type that will be
+     * identified as a string type must specialize this type.
      */
     public static final String STRING_TYPE_NAME = profile.get("STRING_TYPE");
 }

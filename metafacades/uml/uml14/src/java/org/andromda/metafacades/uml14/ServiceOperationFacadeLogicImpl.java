@@ -85,4 +85,17 @@ public class ServiceOperationFacadeLogicImpl
         return (String)value;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ServiceOperationFacade#handleGetService()
+     */
+    protected Object handleGetService()
+    {
+        ServiceFacade owner = null;
+        if (this.getOwner() instanceof ServiceFacade)
+        {
+            owner = (ServiceFacade)this.getOwner();
+        }
+        return owner;
+    }
+
 }

@@ -171,7 +171,12 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
-            <stereotype>ROLE</stereotype>    
+            <property name="serviceReferencesPresent"/>  
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
+            <property name="serviceOperationReferencesPresent"/>  
         </mapping>
     </metafacade>
     <!-- Entity  metafacades -->
@@ -242,7 +247,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ServiceOperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.metafacades.uml.ServiceFacade</context>      
+            <property name="service"/>     
         </mapping>
     </metafacade>
 </metafacades>
