@@ -2,8 +2,10 @@
 
 <document> 
 	<properties>
-    	<title>Developing a Cartridge</title> 
-    </properties>
+		<author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+		<author email="chdbrandon@yahoo.com">Chad Brandon</author>
+		<title>Developing a Cartridge</title>
+	</properties>
   	<body> 
   		<section name="Developing a Cartridge">
   			<subsection name="Steps To Building Your Own Cartridge">
@@ -20,6 +22,69 @@
 		  			<a href="descriptor-schema.html">XSD Schema</a>.
 		  		</p>
 		  	</subsection>
+			<subsection name="Writing templates for your cartridges">
+				<p class="std"> AndroMDA currently comes with multiple cartridges
+					(i.e. BPM4Struts, Hibernate, EJB, etc.) if these cartridge
+					don't fit your needs, you'll need to write your own and thats
+					where understanding how to write cartridge templates comes into
+					play.
+				</p>
+				<p class="std">
+					<b>The template scripting language</b>
+				</p>
+				<p class="std">
+					Apache's <a href="http://jakarta.apache.org/velocity">Velocity</a> 
+					is the default <a href="../andromda-templateengines/index.html">Template Engine</a> of
+					AndroMDA, and for that we use the Velocity Template Language (VTL). You 
+					can find a reference of this language <a 
+					href="http://jakarta.apache.org/velocity/vtl-reference-guide.html"> 
+					here</a>. This will show you how to write templates in general. 
+					</p>
+				<p class="std">
+					<b>The scripting object model</b>
+				</p>
+				<p class="std"> Different from AndroMDA 2.x, AndroMDA 3.x no longer places
+					any model elements in a template context.  You define the names of elements
+					to make available to the template in your cartridge's andromda-cartridge.xml,
+					like so:
+				</p>
+				<source><![CDATA[
+<template
+    sheet="templates/MetafacadeLogic.vsl"
+    outputPattern="$generatedFile"
+    outlet="facade-logics"
+    overWrite="true">
+    <modelElements variable="metafacade">
+        <modelElement stereotype="metafacade"/>  
+    </modelElements>  
+</template>]]>
+				</source>
+				<p>
+					Notice in the above example that the variable is defined as <code>metafacade</code>,
+					on the <em><![CDATA[<modelElements/>]]></em> element; this means that the 
+					<em>$metafacade</em> variable would be made available to your template during
+					AndroMDA model processing (if you were using the 
+					<a href="../andromda-templateengine-velocity/index.html">VelocityTemplateEngine</a>, 
+					otherwise your variable notation could possibly be different of course).  
+				</p>
+				<p>
+					Also notice the <code>stereotype</code> attribute on the 
+					<em><![CDATA[<modelElement/>]]></em> element.  This stereotype tells 
+					AndroMDA to place each model element with the <em><![CDATA[<<metafacade>>]]></em> 
+					stereotype into a template of its own and process it.  So this means, what used 
+					to be always <code>$class</code> in AndroMDA 2.x is now whatever you 
+					want to name it.
+				</p>
+				<p>
+					Another change to notice is the ouputPattern that's specified in the 
+					above example.  You can see that its defined as <code>$generatedFile</code>.
+					This allows us to set this variable name "$generatedFile" in our template and use the
+					dynamic file name for the outputPattern.  If you want to use the typical
+					output notation of {0}/{1} from AndroMDA 2.x, that is also still available 
+					to you.  If you'll remember from before {0} represents the package name
+					and {1} represents the name of the model element being processed.
+				</p>
+			</subsection>
 		</section>
   	</body> 
 </document>
