@@ -436,7 +436,8 @@
              Copy the distribution to the server.
          ================================================================= -->  
     <goal name="deploy-distribution">
-		<j:set var="rsync_arg1" value="-Coprzn"/>
+		<!-- Add -n to test, just lists out the files that would be xfr'ed -->
+		<j:set var="rsync_arg1" value="-Coprz"/>
 		<j:set var="rsync_arg2" value="--include='/distributions/*.zip'"/>
 		<j:set var="rsync_arg3" value="--exclude='/distributions/*'"/>
 		<j:set var="rsync_arg4" value="${distribution.dir}"/>
