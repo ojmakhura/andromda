@@ -13,7 +13,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.OutputUtils;
 import org.andromda.core.common.Property;
-import org.andromda.core.common.StdoutLogger;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -35,11 +34,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     private CodeGenerationContext context;
 
     private Logger logger = null;
-    
-    public DefaultAndroMDACartridge() {
-        this.resetLogger();   
-    }
-    
+
     /**
      * Cache for saving previous found model elements.
      */
@@ -352,19 +347,19 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
                  
                     String outputString = output.toString();
                     
-                    StdoutLogger.setLogger(this.getDescriptor().getCartridgeName());
+                    this.setLogger(this.getDescriptor().getCartridgeName());
                     //check to see if generateEmptyFiles is true and if outString (when CLEANED)
                     //isn't empty.
                     if (StringUtils.trimToEmpty(outputString).length() > 0 || template.isGenerateEmptyFiles()) 
                     {
                         OutputUtils.writeStringToFile(outputString, outFile, true);
-                        StdoutLogger.info("Output: '" + outFile.toURI() + "'");
+                        this.logger.info("Output: '" + outFile.toURI() + "'");
                     } 
                     else 
                     {
-                        StdoutLogger.info("Empty Output: '" + outFile.toURI() + "' --> not writing");
+                    	this.logger.info("Empty Output: '" + outFile.toURI() + "' --> not writing");
                     }
-                    StdoutLogger.reset();
+                    this.resetLogger();
                 }
            
             }
@@ -374,8 +369,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
             if (outFile != null) 
             {
                 outFile.delete();
-                logger.info("Removed --> '" + outFile + "'");
-                StdoutLogger.info("Removed --> '" + outFile + "'");
+                this.logger.info("Removed --> '" + outFile + "'");
             }
             
             String errMsg = "Error performing " + methodName 
