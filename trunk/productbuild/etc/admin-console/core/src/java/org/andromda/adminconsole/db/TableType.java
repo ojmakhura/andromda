@@ -1,7 +1,8 @@
 package org.andromda.adminconsole.db;
 
+import java.io.Serializable;
 
-public class TableType
+public class TableType implements Serializable
 {
     public final static TableType VIEW = new TableType("VIEW");
     public final static TableType TABLE = new TableType("TABLE");
