@@ -46,6 +46,12 @@
             <ant:fileset dir="${maven.src.dir}/jsp"/>
             <ant:fileset dir="${maven.src.dir}/properties"/>
         </ant:copy>
+        <ant:mkdir dir="${maven.build.src}/WEB-INF/classes"/>
+        <ant:copy todir="${maven.build.src}/WEB-INF/classes" overwrite="true">
+            <ant:fileset dir="${maven.src.dir}/xml">
+                <ant:include name="*.cfg.xml"/>
+            </ant:fileset>
+        </ant:copy>
     </postGoal>
 
     <postGoal name="war:webapp">
