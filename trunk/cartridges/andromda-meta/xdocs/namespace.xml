@@ -68,7 +68,21 @@
 		          	<td>
 		          		Yes (unless <code>ignore</code> is specified for this property)
 		          	</td>
-	        	</tr>	        			        	   	      	        	        		        	        	        	     	             	        	
+	        	</tr>	   
+	        	<tr>
+	        		<td>
+	        			metamodelVersionPackage
+	        		</td>
+	        		<td>
+	        			This is the package to which the metafacade 'Logic' classes are generated.
+	        			For example for the UML 1.4 metafacades we set this property to 
+	        			<em>org.andromda.metafacades.uml14</em>, for UML 1.3 we'd set it to
+	        			<em>org.andromda.metafacades.uml13</em>, etc).  
+	        		</td>
+	        		<td>
+	        			No, defaults to the metafacade package name defined in your model.
+	        		</td>
+	        	</tr>     			        	   	      	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
