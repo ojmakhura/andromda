@@ -79,6 +79,16 @@ for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
                 </li>
                 <li>
                     <p>
+                       <strong>Author References:</strong> If you contribute to a file (code or documentation), 
+                       add yourself to the top of the file (below the existing authors). For java files 
+                       the preferred Javadoc format is:             
+                    </p>
+                    <source>
+                        @author Chad Brandon
+                    </source>
+                </li>
+                <li>
+                    <p>
                         <strong>Exiting Methods:</strong> There should be only a single 
                         point of exit out of a method (i.e. a single return statement).
                     </p>
