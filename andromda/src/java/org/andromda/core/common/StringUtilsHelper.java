@@ -4,6 +4,9 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * A utility object for doing string manipulation operations that are commonly
@@ -365,4 +368,37 @@ public class StringUtilsHelper
         return text.substring(0, maxLength);
     }
 
+    /**
+     * Lists the elements of the Collection, separated by the <code>separator</code>
+     * argument. Both arguments may be <code>null</code> 
+     *
+     * @param collection The collection containing the elements, <code>null</code> will be treated
+     *  as an empty collection
+     * @param separator The separator character, <code>null</code> will append all collection
+     *  arguments without any separator in between. A <code>null</code> element will
+     *  be resolved into an empty String.
+     */
+    public static String toStringList(Collection collection, String separator)
+    {
+        if (collection == null) collection = Collections.EMPTY_LIST;
+        if (separator == null) separator = "";
+
+        final StringBuffer buffer = new StringBuffer();
+        boolean firstElement = true;
+        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+        {
+            if (!firstElement)
+            {
+                buffer.append(separator);
+            }
+            Object object = iterator.next();
+            if (object != null)
+            {
+                buffer.append(object);
+            }
+            firstElement = false;
+        }
+        System.out.println("buffer = " + buffer);
+        return buffer.toString();
+    }
 }
