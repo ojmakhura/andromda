@@ -16,7 +16,7 @@
 #  -f		from cvs filter		value: path to filter
 #  -t		to cvs filter		value: path to filter
 #  -m		update methodology	value: MERGE or COPY
-#  -k		expansion mode		value: b, o, kkv, &c
+#  -k		expansion mode		value: b, o, kv, &c
 #
 #  and value is a single-quote delimited value.
 #
@@ -34,16 +34,16 @@
 #
 # Text files
 #
-*.java -k 'kkv'
-*.properties -k 'kkv'
-*.properties.sample -k 'kkv'
-*.vsl -k 'kkv'
-*.css -k 'kkv'
-*.jsp -k 'kkv'
-*.html -k 'kkv'
-*.dtd -k 'kkv'
-*.xml -k 'kkv'
-*.xsl -k 'kkv'
-*.xsd -k 'kkv'
-*.tld -k 'kkv'
-*.txt -k 'kkv'
+*.java -k 'kv'
+*.properties -k 'kv'
+*.properties.sample -k 'kv'
+*.vsl -k 'kv'
+*.css -k 'kv'
+*.jsp -k 'kv'
+*.html -k 'kv'
+*.dtd -k 'kv'
+*.xml -k 'kv'
+*.xsl -k 'kv'
+*.xsd -k 'kv'
+*.tld -k 'kv'
+*.txt -k 'kv'
