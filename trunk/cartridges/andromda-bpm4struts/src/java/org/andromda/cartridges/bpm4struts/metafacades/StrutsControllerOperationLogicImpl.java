@@ -30,7 +30,7 @@ public class StrutsControllerOperationLogicImpl
     public String handleGetInterfaceName()
     {
         return StringUtilsHelper.upperCamelCaseName(getOwner().getName()) +
-                StringUtilsHelper.upperCamelCaseName(getName()) + "Interface";
+                StringUtilsHelper.upperCamelCaseName(getName());
     }
 
     public String handleGetInterfacePackageName()
