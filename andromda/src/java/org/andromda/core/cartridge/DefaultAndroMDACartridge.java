@@ -40,7 +40,7 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     }
 
     /**
-     * Cache for saving previous found model elements.
+     * Cache for saving previously found model elements.
      */
     private Map elementCache = new HashMap();
 
