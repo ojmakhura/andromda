@@ -51,9 +51,6 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-<!--
-                <xs:element minOccurs="0" ref="documentation"/>
--->
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column-configuration"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
@@ -61,6 +58,7 @@
             <xs:attribute name="maxListSize" type="xs:integer" default="1000"/>
             <xs:attribute name="export" type="xs:boolean" default="true"/>
             <xs:attribute name="displayColumn" type="xs:string"/>
+            <xs:attribute name="insertable" type="xs:boolean" default="true"/>
         </xs:complexType>
     </xs:element>
 
@@ -72,9 +70,6 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-<!--
-                <xs:element minOccurs="0" ref="documentation"/>
--->
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="value"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
@@ -82,7 +77,6 @@
             <xs:attribute name="sortable" type="xs:boolean" default="true"/>
             <xs:attribute name="exportable" type="xs:boolean" default="true"/>
             <xs:attribute name="updateable" type="xs:boolean" default="false"/>
-            <xs:attribute name="insertable" type="xs:boolean" default="true"/>
             <xs:attribute name="size" type="xs:integer" default="15"/>
         </xs:complexType>
     </xs:element>
@@ -90,13 +84,5 @@
     <xs:element name="value" type="xs:string"/>
 
     <xs:element name="url" type="xs:string"/>
-
-    <!--
-    <xs:element name="documentation">
-        <xs:complexType>
-            <xs:simpleContent/>
-        </xs:complexType>
-    </xs:element>
--->
 
 </xs:schema>
