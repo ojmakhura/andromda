@@ -10,7 +10,7 @@
         outputPattern="{0}/{1}.java"
         outlet="services"
         overwrite="true"
-		required="false">
+        required="false">
         <modelElements variable="service">
             <modelElement stereotype="Service"/>  
         </modelElements>       
@@ -21,7 +21,7 @@
         outputPattern="{0}/{1}Impl.java"
         outlet="service-impls"
         overwrite="false"
-		required="false">
+        required="false">
         <modelElements variable="service">
             <modelElement stereotype="Service"/>  
         </modelElements>       
@@ -32,44 +32,44 @@
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
         overwrite="true"
-		required="false">
+        required="false">
         <modelElements variable="class">
             <modelElement stereotype="ValueObject"/>  
         </modelElements>       
     </template>
     
-	<template 
-		path="templates/java/ApplicationException.vsl" 
-		outputPattern="{0}/{1}.java"  
-		outlet="exceptions" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="class">
+    <template 
+        path="templates/java/ApplicationException.vsl" 
+        outputPattern="{0}/{1}.java"  
+        outlet="exceptions" 
+        overwrite="true"
+        required="false">
+        <modelElements variable="class">
             <modelElement stereotype="Exception"/>
             <modelElement stereotype="ApplicationException"/>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
 	
-	<template 
-		path="templates/java/UnexpectedException.vsl" 
-		outputPattern="{0}/{1}.java"  
-		outlet="exceptions" 
-		overwrite="true"
-		required="false">
+    <template 
+        path="templates/java/UnexpectedException.vsl" 
+        outputPattern="{0}/{1}.java"  
+        outlet="exceptions" 
+        overwrite="true"
+        required="false">
 		<modelElements variable="class">
             <modelElement stereotype="UnexpectedException"/>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
 	
-	<template 
-		path="templates/java/Enumeration.vsl" 
-		outputPattern="{0}/{1}.java"  
-		outlet="enumerations" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="class">
+    <template 
+        path="templates/java/Enumeration.vsl" 
+        outputPattern="{0}/{1}.java"  
+        outlet="enumerations" 
+        overwrite="true"
+        required="false">
+        <modelElements variable="class">
             <modelElement stereotype="Enumeration"/>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
 
 </cartridge>
