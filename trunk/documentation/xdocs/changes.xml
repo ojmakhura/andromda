@@ -17,6 +17,46 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Oct 22, 2004</td>
+                    <td valign="top" class="std">Final bpm4struts update before the 3.0 release</td>
+                    <td valign="top" class="std">
+                        This update is the last one that will impact the way users model their Struts application.
+                        A change was needed due to a missing feature: "multibox". In order to properly fix it
+                        some other changes were required too.
+                        <ol>
+                            <li>You can now put any widget in a table, you can do that by simply linking an action
+                                parameter using the <code>@andromda.struts.view.field.tablelink</code>
+                                tagged value to an incoming table collection. You must of course link to an existing
+                                table column.
+                            </li>
+                            <li>Previously performing this step would simply create a hyperlink, now you would need to
+                                set the action parameter's <code>@andromda.struts.view.field.type</code>
+                                tagged value to 'link' in order to achieve that.
+                            </li>
+                            <li>Due to HTML limitations you can only make links to the same table from a single
+                                table. The reason is that there can be only one form around the table. If you still
+                                want to have multiple actions working on the same table you will need to patch in
+                                manually using JavaScript (setting the target action URL).
+                            </li>
+                            <li>If you want to use the
+                                <a href="http://struts.apache.org/userGuide/struts-html.html#multibox">multibox</a>
+                                feature you need first to model a collection or
+                                array page-variable that contains the values against which to match. Next you create
+                                a table link, thereby selecting the table column. Finally you set the field type of the
+                                action parameter to something like this (assuming the multibox collection is
+                                called 'myValues')
+                                <code>@andromda.struts.view.field.type = multibox:myValues</code>
+                            </li>
+                            <li>The online store has been extended with an example of this, just open the model
+                                and check out the 'buy this item' action. The 'test' and 'available' parameters
+                                are rendered as widgets in the table, the 'available' column is a multibox.
+                                Please also note how the multibox collection (called 'availableItems') is preloaded
+                                by the 'loadItems' controller operations.
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Oct 19, 2004</td>
                     <td valign="top" class="std">AndroMDApp Maven Plugin improvement</td>
                     <td valign="top" class="std">
