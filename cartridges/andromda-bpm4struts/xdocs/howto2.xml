@@ -73,8 +73,11 @@
                     you don't want to have the application forward to the next resource. In this case simply don't
                     model an outgoing transition, the Struts action class will return <code>null</code>. Don't forget
                     to write to the HTTP response yourself, you can do this is you defer to a controller operation in
-                    your action state. <em>You'll want to make use of this feature when you want
-                    an action returning a dynamically generated report such as a PDF.</em>
+                    your action state.
+                </p>
+                <p class="highlight">
+                    You'll want to make use of this feature when you want
+                    an action returning a dynamically generated report such as a PDF.
                 </p>
             </subsection>
             <subsection name="Transitions">
@@ -322,7 +325,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                 <p>
                     The generated <code>struts-config.xml</code> descriptor will contain a <code>form-bean</code>
                     entry per generated Form. Here's an example:
-<source language="xml"><!--
+<source language="xml"><![CDATA[
 <form-beans>
     ...
     <form-bean
@@ -330,12 +333,12 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
         type="my.onlinestore.purchase.EnterUserDetailsPurchaseForm" />
     ...
 </form-beans>
---></source>
+]]></source>
                 </p>
                 <p>
                      Each action will have a corresponding
                     <code>action-mapping</code> entry, like this:
-<source language="xml"><!--
+<source language="xml"><![CDATA[
 <action-mappings>
     ...
     <action
@@ -358,7 +361,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
     </action>
     ...
 </action-mappings>
---></source>
+]]></source>
                 </p>
                 <p>
                     A Struts action class and associated form is generated per sequence of transitions between two
@@ -374,7 +377,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     operation. Please notice exception handling is taken care of. Such methods start with an underscore
                     not to cause naming conflicts with existing Struts
                     <a href="http://struts.apache.org/api/org/apache/struts/action/Action.html">Action</a> methods.
-<source language="java"><!--
+<source language="java"><![CDATA[
 private ActionForward _loadItemsForSale(
         ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
     throws Exception
@@ -408,7 +411,7 @@ private ActionForward _loadItemsForSale(
     }
     return forward;
 }
---></source>
+]]></source>
                 </p>
                 <p class="highlight">
                     Action classes and action forms, and <code>struts-config.xml</code> too for that matter, are never
