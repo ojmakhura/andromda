@@ -25,6 +25,8 @@
     <property reference="successMessagesKey" default="org.andromda.bpm4struts.successmessages"/>
     <property reference="exceptionHandlerPattern" default="(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)"/>
     <property reference="exceptionHandlerPackage" default="org.andromda.presentation.bpm4struts"/>
+    <property reference="exceptionHandlerMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
+    <property reference="customResourcesKey" default="custom"/>
 
     <!-- copy resources -->
     <resource

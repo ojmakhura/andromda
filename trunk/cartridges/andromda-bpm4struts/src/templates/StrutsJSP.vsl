@@ -114,7 +114,7 @@
 
             These properties can be used like this:
 
-                <bean:message key="propertyKey" bundle="custom"/>
+                <bean:message key="propertyKey" bundle="$customResourcesKey"/>
         --%>
 
         <div>
