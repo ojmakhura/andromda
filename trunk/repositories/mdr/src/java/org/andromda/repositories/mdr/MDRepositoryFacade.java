@@ -93,6 +93,7 @@ public class MDRepositoryFacade implements RepositoryFacade
     public void close()
     {
         MDRManager.getDefault().getDefaultRepository().endTrans(true);
+        this.model = null;
     }
 
     /**
