@@ -155,7 +155,7 @@ public class ExceptionRecorder
             {
                 cause = throwable;
             }
-            writer.println("Root Exception --> " + cause);
+            writer.println("Root Exception .: " + cause);
             cause.printStackTrace(writer);
             writer.close();
             AndroMDALogger.error("Exception recorded in --> '" + result + "'");
