@@ -185,7 +185,9 @@
                             should be processed by AndroMDA.  If this is not defined, then
                             <strong>ANY</strong> discovered cartridges will be processed.
                             This is useful when you want to restrict the cartridges that will
-                            process the model, in order to speed up the development cycle.
+                            process the model, in order to speed up the development cycle. You can prefix
+                            the list of cartridges using the tilde '~' character, that way
+                            the cartridges that are *not* listed will be processed (negation).
                         </td>
                     </tr>
                     <tr>
