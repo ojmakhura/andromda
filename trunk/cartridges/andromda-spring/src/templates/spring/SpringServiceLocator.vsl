@@ -11,9 +11,6 @@ package $springTypesPackage;
 #set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 /**
  * Locates and provides all available application services.
  */
@@ -27,7 +24,7 @@ public class $serviceLocatorName
     /**
      * The spring application context shared instance.
      */
-    private ClassPathXmlApplicationContext context = null;
+    private org.springframework.context.support.ClassPathXmlApplicationContext context = null;
 
     /**
      * The application context location.
@@ -62,7 +59,7 @@ public class $serviceLocatorName
      *
      * @param contextLocation the location of the context
      */
-    public final synchronized void init(String applicationContextLocation)
+    public synchronized void init(String applicationContextLocation)
     {
         contextLocation = applicationContextLocation;
         context = null;
@@ -71,7 +68,7 @@ public class $serviceLocatorName
     /**
      * Gets the Spring ApplicationContext.
      */
-    protected final synchronized ApplicationContext getContext()
+    protected synchronized org.springframework.context.ApplicationContext getContext()
     {
         if (context == null)
         {
@@ -79,7 +76,7 @@ public class $serviceLocatorName
             {
                 contextLocation = DEFAULT_CONTEXT_LOCATION;
             }
-            context = new ClassPathXmlApplicationContext(contextLocation);
+            context = new org.springframework.context.support.ClassPathXmlApplicationContext(contextLocation);
         }
         return context;
     }

@@ -62,7 +62,7 @@ public class $clientServiceLocatorName
      *
      * @param contextLocation the location of the context
      */
-    public final synchronized void init(String applicationContextLocation)
+    public synchronized void init(String applicationContextLocation)
     {
         contextLocation = applicationContextLocation;
         context = null;
@@ -71,7 +71,7 @@ public class $clientServiceLocatorName
     /**
      * Gets the Spring ApplicationContext.
      */
-    protected final synchronized ApplicationContext getContext()
+    protected synchronized ApplicationContext getContext()
     {
         if (context == null)
         {
@@ -84,7 +84,7 @@ public class $clientServiceLocatorName
             ClassLoader originalClassloader = currentThread.getContextClassLoader();
             try
             {
-                currentThread.setContextClassLoader(getClass().getClassLoader());
+                currentThread.setContextClassLoader(this.getClass().getClassLoader());
 #end
                 context = new ClassPathXmlApplicationContext(contextLocation);
 #if ($clientServiceLocatorClassloaderSwitching == "on")
