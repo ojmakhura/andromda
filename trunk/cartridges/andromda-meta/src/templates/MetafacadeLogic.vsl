@@ -7,6 +7,9 @@
 package $packageName;
 #end
 
+//import org.andromda.translation.validation.OCLCollections;
+//import org.andromda.core.translation.ExpressionKinds;
+
 ## calculate metaclass and superMetafacade
 #if ($metafacade.metaclassDirectDependency)
 #set ($shieldedMetaclassTypeName = $metafacade.metaclass.fullyQualifiedName)
@@ -118,8 +121,7 @@ public abstract class ${metafacade.logicName}
 
 #if ($op.hasReturnType())
 #if ($hasArguments)
-    private final java.util.Map $memberName = 
-        new java.util.HashMap(4);
+    private final java.util.Map $memberName = new java.util.HashMap(4);
 
     private class $innerClassKey
     {
@@ -141,7 +143,11 @@ public abstract class ${metafacade.logicName}
                 $innerClassKey that = ($innerClassKey)object;
                 return true
 #foreach ($param in $op.arguments)
+#if ($param.type.isArrayType() || $param.type.isPrimitiveType())
                     && (this.$param.name == that.$param.name)
+#else
+                    && ( ((this.$param.name==null)&&(that.$param.name==null)) || ((this.$param.name!=null)&&(this.${param.name}.equals(that.$param.name))) )
+#end
 #end
                     ;
             }
@@ -176,6 +182,10 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
+###foreach ($constraint in $op.translateConstraints("pre","validation.Java"))
+##        if (false == $constraint)
+##            throw new RuntimeException("Precondition failed for operation $op.signature: $constraint");
+###end
     }
 
     private void $handleMethodPostCondition
