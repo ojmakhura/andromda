@@ -5,6 +5,7 @@
     <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <stereotype>FINDER_METHOD</stereotype>            
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>   
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
         <property reference="hibernateUseQueryCache" default="false"/>
