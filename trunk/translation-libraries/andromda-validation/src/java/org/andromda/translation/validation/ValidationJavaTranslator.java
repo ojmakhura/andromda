@@ -337,9 +337,8 @@ public class ValidationJavaTranslator
             }
             else if (featureCall instanceof AOcliskindofFeatureCall)
             {
-                this
-                    .handleDotOclIsKindOfFeatureCall((AOcliskindofFeatureCall)node
-                        .getFeatureCall());
+                this.handleDotOclIsKindOfFeatureCall((AOcliskindofFeatureCall)node
+                    .getFeatureCall());
             }
         }
         outADotPropertyCallExpressionTail(node);
@@ -352,11 +351,7 @@ public class ValidationJavaTranslator
         AOcliskindofFeatureCall featureCall)
     {
         write(" instanceof ");
-        StringBuffer pattern = new StringBuffer("\\s*");
-        pattern.append(PATH_SEPERATOR);
-        pattern.append("\\s*");
-        write(TranslationUtils.trimToEmpty(featureCall.getPathName())
-            .replaceAll(pattern.toString(), "."));
+        caseAPathName((APathName)featureCall.getPathName());
     }
 
     /**
@@ -949,7 +944,9 @@ public class ValidationJavaTranslator
     {}
 
     public void caseTScopeOperator(TScopeOperator tScopeOperator)
-    {}
+    {
+        write(".");
+    }
 
     public void caseTSequence(TSequence tSequence)
     {}
@@ -1087,11 +1084,6 @@ public class ValidationJavaTranslator
      * the translated expression).
      */
     private static final String CONTEXT_ELEMENT_NAME = "contextElement";
-
-    /**
-     * Seperates path names in OCL expressions.
-     */
-    private static final String PATH_SEPERATOR = "::";
 
     /**
      * We need to wrap every expression with a converter so that any expressions
