@@ -2,7 +2,6 @@ package org.andromda.adminconsole.db;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 public interface Table extends Refreshable
 {
@@ -34,7 +33,7 @@ public interface Table extends Refreshable
 
     public List findRows(Criterion criterion) throws SQLException;
 
-    public int update(Map columns, Criterion criterion) throws SQLException;
+    public int updateRow(RowData rowData, Criterion criterion) throws SQLException;
 
     public int deleteRow(Criterion criterion) throws SQLException;
 
