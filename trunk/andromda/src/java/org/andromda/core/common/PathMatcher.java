@@ -1,5 +1,7 @@
 package org.andromda.core.common;
 
+import java.util.regex.PatternSyntaxException;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -34,7 +36,14 @@ public class PathMatcher
             pattern = StringUtils.replaceOnce(pattern, doubleStar, replacement);
         }
         pattern = StringUtils.replace(pattern, "*", ".*");
-        matches = path.matches(pattern);
+        try 
+        {
+            matches = path.matches(pattern);            
+        }
+        catch (PatternSyntaxException ex)
+        {
+            matches = false;
+        }
         if (!matchAll)
         {
             matches = matches
