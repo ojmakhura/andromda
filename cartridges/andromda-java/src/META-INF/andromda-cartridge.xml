@@ -41,7 +41,9 @@
         overwrite="true"
         required="false">
         <modelElements variable="class">
-            <modelElement stereotype="VALUE_OBJECT"/>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ValueObjectFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
