@@ -22,6 +22,7 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="impls"
         overWrite="false"
+        generateEmptyFiles="true"
     />
 
     <template
@@ -30,6 +31,7 @@
         outputPattern="{0}/{1}BeanCMP.java"
         outlet="beans"
         overWrite="true"
+        generateEmptyFiles="false"
     />
 
     <template

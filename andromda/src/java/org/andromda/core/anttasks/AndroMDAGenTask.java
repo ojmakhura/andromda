@@ -1,11 +1,13 @@
 package org.andromda.core.anttasks;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
@@ -650,7 +652,8 @@ public class AndroMDAGenTask extends MatchingTask
                                 context,
                                 modelElement,
                                 tc.getSheet(),
-                                outFile);
+                                outFile,
+                                tc.isGenerateEmptyFiles());
                         }
                     }
                     catch (ClassTemplateProcessingException e)
@@ -678,26 +681,36 @@ public class AndroMDAGenTask extends MatchingTask
      *                         generated
      * @param  styleSheetName  name of the Velocity style sheet
      * @param  outFile         file to which to write the output
+     * @param  generateEmptyFile flag, tells whether to generate empty
+     *                         files or not.
      * @throws  ClassTemplateProcessingException  if something goes wrong
      */
     private void processModelElementWithOneTemplate(
         Context context,
         Object modelElement,
         String styleSheetName,
-        File outFile)
+        File outFile,
+        boolean generateEmptyFile)
         throws ClassTemplateProcessingException
     {
         Writer writer = null;
+        ByteArrayOutputStream content = null;
 
         ensureDirectoryFor(outFile);
         String encoding = getTemplateEncoding();
         try
         {
-            writer =
-                new BufferedWriter(
-                    new OutputStreamWriter(
-                        new FileOutputStream(outFile),
-                        encoding));
+            if (generateEmptyFile)
+            {
+                writer =
+                    new BufferedWriter(
+                        new OutputStreamWriter(
+                            new FileOutputStream(outFile),
+                            encoding));
+            } else {
+                content = new ByteArrayOutputStream();
+                writer = new OutputStreamWriter(content, encoding);
+            }
         }
         catch (Exception e)
         {
@@ -747,8 +760,44 @@ public class AndroMDAGenTask extends MatchingTask
                 "Error processing velocity script on " + outFile.getName(),
                 e);
         }
-
-        log("Output: " + outFile, Project.MSG_INFO);
+        
+        // Handle file generation/removal if no files should be generated for
+        // empty output.
+        if (!generateEmptyFile) 
+        {
+            byte[] result = content.toByteArray();
+            if (result.length > 0) 
+            {
+                try
+                {
+                    OutputStream out = new FileOutputStream(outFile);
+                    out.write(result);
+                    log("Output: " + outFile, Project.MSG_INFO);
+                }
+                catch (Exception e)
+                {
+                    throw new ClassTemplateProcessingException(
+                        "Error writing output file " + outFile.getName(),
+                        e);
+                }
+            } 
+            else 
+            {
+                if (outFile.exists()) 
+                {
+                    if (!outFile.delete()) 
+                    {
+                        throw new ClassTemplateProcessingException(
+                            "Error removing output file " + outFile.getName());                                
+                    }
+                    log("Remove: " + outFile, Project.MSG_INFO);
+                }
+            }
+        }
+        else
+        {
+            log("Output: " + outFile, Project.MSG_INFO);
+        }
     }
 
     /**
