@@ -433,51 +433,40 @@ public final class OCLCollections
     }
 
     /**
-     * Returns <code>true</code> if the expression has a unique value for each
-     * element in the source collection.
+     * Returns <code>true</code> if the result of executing the
+     * <code>transformer</code> has a unique value for each element in the
+     * source collection.
      */
-    public static boolean isUnique(Collection collection, String expression)
+    public static boolean isUnique(
+        Collection collection,
+        Transformer transformer)
     {
-        boolean unique = collection != null;
-        Collection filteredCollection = null;
-        if (unique)
+        boolean unique = true;
+        Collection collected = new ArrayList();
+        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
-            final String feature = StringUtils.trimToEmpty(expression);
-            for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+            Object result = transformer.transform(iterator.next());
+            if (collected.contains(result))
             {
-                filteredCollection = new ArrayList(collection);
-                final Object value = OCLIntrospector.invoke(iterator.next(), feature);
-                CollectionUtils.filter(filteredCollection, new Predicate()
-                {
-                    public boolean evaluate(Object object)
-                    {
-                        boolean valid = object != null;
-                        if (valid)
-                        {
-                            Object loopValue = OCLIntrospector.invoke(
-                                object,
-                                feature);
-                            valid = loopValue != null
-                                && loopValue.equals(value);
-                        }
-                        return valid;
-                    }
-                });
+                unique = false;
+                break;
             }
+            collected.add(result);
         }
-        return filteredCollection.size() <= 1;
+        return unique;
     }
 
     /**
-     * Returns <code>true</code> if the expression has a unique value for each
-     * element in the source collection.
+     * Returns <code>true</code> if the result of executing the
+     * <code>transformer</code> has a unique value for each element in the
+     * source collection.
      */
-    public static boolean isUnique(Object collection, String expression)
+    public static boolean isUnique(Object collection, Transformer transformer)
     {
         boolean unique = collection != null;
         if (unique && Collection.class.isAssignableFrom(collection.getClass()))
         {
-            unique = isUnique((Collection)collection, expression);
+            unique = isUnique((Collection)collection, transformer);
         }
         return unique;
     }

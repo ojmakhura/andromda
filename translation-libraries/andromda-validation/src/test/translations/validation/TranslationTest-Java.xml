@@ -280,6 +280,15 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"one2One"))).booleanValue()?(Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"otherEnd.composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"otherEnd.aggregation"))).booleanValue()):true));
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            context WebService inv : operations -> isUnique(name)
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLCollections.isUnique(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"operations"),new org.apache.commons.collections.Transformer(){public Object transform(java.lang.Object object){return org.andromda.translation.validation.OCLIntrospector.invoke(object,"name");}}));
+        </to>
+    </expression>
 
 </translation-test>
 
