@@ -44,7 +44,7 @@
 			</kind>
 		</fragment>
 		
-		<!-- This is what is append when '-> isEmpty()' is encountered in the expression -->
+		<!-- This is what is appended when '-> isEmpty()' is encountered in the expression -->
 		<fragment name="\s*${navigableName}\s*->\s*isEmpty${emptyParentheses}"
 				  handlerMethod="handleIsEmpty">
 			<kind name="body">
