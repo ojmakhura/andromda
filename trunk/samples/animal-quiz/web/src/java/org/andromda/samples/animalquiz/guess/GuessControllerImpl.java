@@ -19,6 +19,11 @@ import javax.xml.rpc.ServiceException;
  */
 final class GuessControllerImpl extends GuessController
 {
+    public void initializeSession(ActionMapping mapping, GuessForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        setGuessSessionState(request, new GuessSessionState());
+    }
+
     /**
      * Fetches the first question from the business tier and
      * returns the prompt string in the form.
