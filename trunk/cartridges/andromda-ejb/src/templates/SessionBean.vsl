@@ -1,16 +1,10 @@
-#set ($packagename = $transform.findPackageName(${class.package}))
+#set ($packagename = $transform.findPackageName($class.package))
 package $packagename;
 
-import javax.ejb.EJBException;
-import javax.ejb.CreateException;
-import javax.ejb.SessionBean;
-import javax.ejb.SessionContext;
-import javax.naming.NamingException;
+#if ($class.dependencies)
 import javax.naming.InitialContext;
-
-import java.util.Collection;
-import java.util.Date;
-import java.math.BigDecimal;
+import javax.naming.NamingException;
+#end
 
 #macro ( generateDocumentation $item $indent)
 #foreach ( $tgv in $item.taggedValues )
@@ -27,24 +21,7 @@ ${indent}* </p>
 #end
 #end
 #end
-
-#set ($primKey = $transform.getPrimaryKeyAttribute($class))
-#set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
-
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-    #set ($class2 = $adata.target.type)
-    #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
-        #if ($class2packagename != $packagename)
-import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
-import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
-        #end
-    #end
-#end
-#end
-
+##
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
     #if ($class2)
@@ -58,11 +35,22 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
         #set ($defaultException = $class2)
     #end
 #end
-
+##
+#if ($class.attributes.size() > 0)
+#set ($stateful = true)
+#else
+#set ($stateful = false)
+#end
+##
 /**
 #generateDocumentation ($class " ")
  *
- * @ejb.bean name="$class.name" type="Stateful"
+ * @ejb.bean name="$class.name"
+#if ($stateful)
+ *       type="Stateful"
+#else
+ *       type="Stateless"
+#end
  *       local-jndi-name="${packagename}/${class.name}/LocalHome"
  *       jndi-name="${packagename}/${class.name}/Home"
  *       view-type="both"
@@ -91,8 +79,9 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
 #end
  *
  */
-public abstract class ${class.name}Bean implements SessionBean {
+public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 
+#if ($stateful)
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes )
 #set ($atttypename = $transform.findFullyQualifiedName($att.type))
@@ -105,30 +94,20 @@ public abstract class ${class.name}Bean implements SessionBean {
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
     *
-#set ($attjdbctype = "")
-#set ($attsqltype = "")
-#set ($attjdbctype = $transform.findAttributeJDBCType($att))
-#set ($attsqltype = $transform.findAttributeSQLType($att))
-#if ($attjdbctype == "")
-    #set ($attjdbctype = $transform.getJDBCType($atttypename))
-#end
-#if ($attsqltype == "")
-    #set ($attsqltype = $transform.getSQLType($atttypename))
-#end
     */
     public $atttypename get${str.upperCaseFirstLetter(${att.name})}() {
-    	return ${att.name};
+        return ${att.name};
     }
    /**
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
     */
     public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue) {
-    	${att.name} = newValue;
+        ${att.name} = newValue;
     }
 
 #end
-
+#end
     // ---------------- business methods  ----------------------
 
 #foreach ( $op in $class.operations)
@@ -141,35 +120,37 @@ public abstract class ${class.name}Bean implements SessionBean {
 #set ($msig = $transform.getOperationSignature($op))
 #if ($defaultException)
     $op.visibility abstract ${msig}
-        throws $defaultException.name; 
+        throws $defaultException.name;
 #else
-    $op.visibility abstract ${msig}; 
-#end    
+    $op.visibility abstract ${msig};
+#end
 #end
 
    // ---------------- create methods -------------------------
-   
+
    /**
     * @ejb.create-method
     * @ejb.transaction type="Required"
     */
     public void ejbCreate ()
-           throws CreateException
+           throws javax.ejb.CreateException
     {
     }
 
     public void ejbPostCreate ()
+           throws javax.ejb.CreateException
     {
     }
-    
+
+#if ($stateful)
    // ---------------- create methods with separate attributes --------------------
-   
+
    /**
     * @ejb.create-method
     * @ejb.transaction type="Required"
     */
     public void ejbCreate $transform.getAttributesAsList($class, true, false)
-           throws CreateException
+           throws javax.ejb.CreateException
     {
 #foreach ( $att in $class.attributes)
         set${str.upperCaseFirstLetter(${att.name})} (${att.name});
@@ -177,12 +158,24 @@ public abstract class ${class.name}Bean implements SessionBean {
     }
 
     public void ejbPostCreate $transform.getAttributesAsList($class, true, false)
-           throws CreateException
+           throws javax.ejb.CreateException
     {
     }
-    
+#end
+   // ---------------- session management -------------------------
 
-    
+    protected javax.ejb.SessionContext _ctx = null;
+
+    public void setSessionContext( javax.ejb.SessionContext ctx )
+    {
+        _ctx = ctx;
+    }
+
+    protected javax.ejb.SessionContext getSessionContext()
+    {
+        return _ctx;
+    }
+
     // ---------------- accessor methods for bean references ---------------
 
 #foreach ( $dep in $class.dependencies )
