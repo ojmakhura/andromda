@@ -278,6 +278,20 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    public boolean handleIsCalendarRequired()
+    {
+        final Collection actionParameters = getActionParameters();
+        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            if (parameter.isCalendarRequired())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String handleGetFormBeanType()
     {
         return getPackageName() + '.' + getFormBeanClassName();
