@@ -114,21 +114,39 @@
                 this version has not yet been released. Nevertheless, if you need a copy you can find
                 a build here:
                 <ul>
-                    <li><a href="http://team.andromda.org/maven/struts/jars/struts-1.2dev-SNAPSHOT.jar">struts-1.2dev-SNAPSHOT.jar</a></li>
-                    <li><a href="http://team.andromda.org/maven/struts/tlds/struts-bean-1.2dev-SNAPSHOT.tld">struts-bean-1.2dev-SNAPSHOT.tld</a></li>
-                    <li><a href="http://team.andromda.org/maven/struts/tlds/struts-html-1.2dev-SNAPSHOT.tld">struts-html-1.2dev-SNAPSHOT.tld</a></li>
-                    <li><a href="http://team.andromda.org/maven/struts/tlds/struts-logic-1.2dev-SNAPSHOT.tld">struts-logic-1.2dev-SNAPSHOT.tld</a></li>
-                    <li><a href="http://team.andromda.org/maven/struts/tlds/struts-nested-1.2dev-SNAPSHOT.tld">struts-nested-1.2dev-SNAPSHOT.tld</a></li>
-                    <li><a href="http://team.andromda.org/maven/struts/tlds/struts-tiles-1.2dev-SNAPSHOT.tld">struts-tiles-1.2dev-SNAPSHOT.tld</a></li>
+                    <li>
+                        <a href="http://team.andromda.org/maven/struts/jars/struts-1.2dev-20040621.jar">struts-1.2dev-20040621.jar</a>
+                    </li>
+                    <li>
+                        <a href="http://team.andromda.org/maven/struts/tlds/struts-bean-1.2dev-20040621.tld">struts-bean-1.2dev-20040621.tld</a>
+                    </li>
+                    <li>
+                        <a href="http://team.andromda.org/maven/struts/tlds/struts-html-1.2dev-20040621.tld">struts-html-1.2dev-20040621.tld</a>
+                    </li>
+                    <li>
+                        <a href="http://team.andromda.org/maven/struts/tlds/struts-logic-1.2dev-20040621.tld">struts-logic-1.2dev-20040621.tld</a>
+                    </li>
+                    <li>
+                        <a href="http://team.andromda.org/maven/struts/tlds/struts-nested-1.2dev-20040621.tld">struts-nested-1.2dev-20040621.tld</a>
+                    </li>
+                    <li>
+                        <a href="http://team.andromda.org/maven/struts/tlds/struts-tiles-1.2dev-20040621.tld">struts-tiles-1.2dev-20040621.tld</a>
+                    </li>
                 </ul>
             </p>
             <p class="std">
                 In order to display tabular data we have chosen to use the 'displaytag' tag libary. This is an open source
                 library that can be used in JSP pages.
                 <ul>
-                    <li><a href="http://www.displaytag.org">Examples</a></li>
-                    <li><a href="http://displaytag.sourceforge.net">Development pages</a></li>
-                    <li><a href="http://displaytag.sourceforge.net/tagreference-displaytag-12.html">Taglib reference</a></li>
+                    <li>
+                        <a href="http://www.displaytag.org">Examples</a>
+                    </li>
+                    <li>
+                        <a href="http://displaytag.sourceforge.net">Development pages</a>
+                    </li>
+                    <li>
+                        <a href="http://displaytag.sourceforge.net/tagreference-displaytag-12.html">Taglib reference</a>
+                    </li>
                 </ul>
                 We are currently using 'displaytag-1.0b3' so you will need to have this dependency when building your
                 web application with andromda-bpm4struts.
@@ -170,8 +188,10 @@
                 In order to port this file to another language you will need to simply:
                 <ul>
                     <li> copy it into the same directory, suffix the filename with something as "_fr", "_nl", "_de"
-                        (see <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html">
-                        java.util.ResourceBundle</a> for more details)</li>
+                        (see
+                        <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html">
+                        java.util.ResourceBundle</a> for more details)
+                    </li>
                     <li> translate all the message values (leave the message keys untouched)</li>
                 </ul>
             </p>
