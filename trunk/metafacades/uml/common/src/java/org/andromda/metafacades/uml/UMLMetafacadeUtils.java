@@ -23,7 +23,7 @@ public class UMLMetafacadeUtils
     public static boolean isType(ClassifierFacade classifier, String typeName)
     {
         boolean isType = false;
-        if (classifier == null || typeName == null)
+        if (classifier != null && typeName != null)
         {
             final String type = StringUtils.trimToEmpty(typeName);
             String name = StringUtils.trimToEmpty(classifier.getFullyQualifiedName(true));
