@@ -267,7 +267,7 @@ public class ModelElementFacadeLogicImpl
             String startParaTag = (htmlStyle) ? "<p>" : "";
             String endParaTag = (htmlStyle) ? "</p>" : "";
             Collection paragraphs =
-                new HTMLAnalyzer().htmlToParagraphs(documentation.toString());
+                new HTMLAnalyzer(lineLength).htmlToParagraphs(documentation.toString());
             if (paragraphs != null && !paragraphs.isEmpty()) {
                 documentation = new StringBuffer();
                 for (Iterator paragraphIt = paragraphs.iterator(); paragraphIt.hasNext();) {
