@@ -379,7 +379,9 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
             }
             
             String errMsg = "Error performing " + methodName 
-                + " with template context '" 
+                + " with template '" 
+                + template.getSheet() 
+                + "', template context '" 
                 + templateContext 
                 + "' and cartridge '" 
                 + this.getDescriptor().getCartridgeName() + "'";
