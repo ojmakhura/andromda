@@ -1,6 +1,5 @@
 package org.andromda.core.mapping;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
