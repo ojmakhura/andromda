@@ -85,8 +85,8 @@ public class MetafacadeCache
 
     /**
      * Adds the <code>metafacade</code> to the cache according to first
-     * <code>mappingObject</code>, second the <code>metafacade</code>,
-     * and finally by the current <code>namespace</code>.
+     * <code>mappingObject</code>, second the <code>metafacade</code>, and
+     * finally by the current <code>namespace</code>.
      * 
      * @param mappingObject the mappingObject for which to cache the metafacade.
      * @param metafacade the metafacade to cache.
