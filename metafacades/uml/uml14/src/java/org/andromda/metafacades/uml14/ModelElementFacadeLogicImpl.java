@@ -209,11 +209,21 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedNamePath()
+     */
+    public String handleGetFullyQualifiedNamePath()
+    {
+        return this.getFullyQualifiedName().replace(
+            UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
+            '/');
+    }
+    
+    /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
      */
     public String handleGetPackagePath()
     {
-        return getPackageName().replace(
+        return this.getPackageName().replace(
             UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
             '/');
     }
