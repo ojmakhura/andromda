@@ -17,7 +17,7 @@ import org.andromda.samples.carrental.inventory.InventoryException;
 import org.andromda.samples.carrental.inventory.InventoryService;
 import org.andromda.samples.carrental.inventory.InventoryServiceHome;
 
-import cirrus.hibernate.HibernateException;
+import net.sf.hibernate.HibernateException;
 
 public class ContractServiceBeanImpl
     extends ContractServiceBean
@@ -27,7 +27,7 @@ public class ContractServiceBeanImpl
     // abstract in class ContractServiceBean ...
 
     protected java.util.Collection handleSearchForReservationsOfCustomer(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         java.lang.String customerId)
         throws ContractException
     {
@@ -68,7 +68,7 @@ public class ContractServiceBeanImpl
     }
 
     protected void handleReserve(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         java.lang.String customerId,
         java.lang.String comfortClass,
         java.util.Date reservationDate)

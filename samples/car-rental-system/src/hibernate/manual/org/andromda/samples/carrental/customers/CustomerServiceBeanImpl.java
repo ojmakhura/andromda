@@ -14,7 +14,7 @@ public class CustomerServiceBeanImpl
     // abstract in class CustomerServiceBean ...
 
     protected java.lang.String handleCreateCustomer(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         java.lang.String name,
         java.lang.String customerNo,
         java.lang.String password)
@@ -33,7 +33,7 @@ public class CustomerServiceBeanImpl
     }
 
     protected java.lang.String handleAddDriver(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         java.lang.String customerId,
         org.andromda.samples.carrental.customers.DriverData driverData)
         throws CustomerException
@@ -45,7 +45,7 @@ public class CustomerServiceBeanImpl
     }
 
     protected java.util.Collection handleSearchAllCustomers(
-        cirrus.hibernate.Session sess)
+        net.sf.hibernate.Session sess)
         throws CustomerException
     {
         try
@@ -78,7 +78,7 @@ public class CustomerServiceBeanImpl
     }
 
     protected java.lang.String handleAuthenticateAsCustomer(
-        cirrus.hibernate.Session sess,
+        net.sf.hibernate.Session sess,
         java.lang.String customerNo,
         java.lang.String password)
         throws CustomerException

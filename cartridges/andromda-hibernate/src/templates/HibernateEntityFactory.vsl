@@ -79,8 +79,8 @@ public abstract class ${class.name}Factory {
      * In Hibernate, this is just a call to load().
      *
      */
-    public static $class.name findByPrimaryKey (cirrus.hibernate.Session sess, $primKeyTypeName ${primKey.name})
-        throws java.sql.SQLException, cirrus.hibernate.HibernateException
+    public static $class.name findByPrimaryKey (net.sf.hibernate.Session sess, $primKeyTypeName ${primKey.name})
+        throws java.sql.SQLException, net.sf.hibernate.HibernateException
     {
         ${class.name} object = (${class.name}) sess.load(${class.name}Impl.class, ${primKey.name});
         return object;
@@ -92,9 +92,9 @@ public abstract class ${class.name}Factory {
 ##
 #set ($parameterList = $transform.getOperationTypedParameterList($op))
 #if ($parameterList.length() == 0)
-#set ($parameters = "cirrus.hibernate.Session sess")
+#set ($parameters = "net.sf.hibernate.Session sess")
 #else
-#set ($parameters = "cirrus.hibernate.Session sess, ${parameterList}")
+#set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 ##
     /**
@@ -104,7 +104,7 @@ public abstract class ${class.name}Factory {
      *
      */
     $op.visibility static $returntype ${op.name} ($parameters)
-        throws java.sql.SQLException, cirrus.hibernate.HibernateException
+        throws java.sql.SQLException, net.sf.hibernate.HibernateException
     {
 ##
 #set($querystring = "")
@@ -122,7 +122,7 @@ public abstract class ${class.name}Factory {
 #end
 #end
 ##
-        cirrus.hibernate.Query q = sess.createQuery("$querystring");
+        net.sf.hibernate.Query q = sess.createQuery("$querystring");
 ##
 #foreach($prm in $op.parameters)
 #set ($index = $velocityCount - 1) 

@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import javax.ejb.EJBException;
 
-import cirrus.hibernate.HibernateException;
-import cirrus.hibernate.Session;
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
 
 
 public class AdminServiceBeanImpl
@@ -77,10 +77,6 @@ public class AdminServiceBeanImpl
             return id;
         }
         catch (HibernateException e)
-        {
-            throw new EJBException(e);
-        }
-        catch (SQLException e)
         {
             throw new EJBException(e);
         }

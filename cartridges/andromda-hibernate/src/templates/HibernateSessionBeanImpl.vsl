@@ -24,9 +24,9 @@ public class ${class.name}BeanImpl
 ##
 #set ($parameterList = $transform.getOperationTypedParameterList($op))
 #if ($parameterList.length() == 0)
-#set ($parameters = "cirrus.hibernate.Session sess")
+#set ($parameters = "net.sf.hibernate.Session sess")
 #else
-#set ($parameters = "cirrus.hibernate.Session sess, ${parameterList}")
+#set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
