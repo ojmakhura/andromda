@@ -279,7 +279,7 @@ public class OperationFacadeLogicImpl
                 // now check for actual exceptions
                 if (!hasException) {
                     ModelElementFacade targetElement = 
-                        dependency.getTargetElement();;
+                        dependency.getTargetElement();
                     hasException = 
                         targetElement != null && 
                         targetElement.hasStereotype(
