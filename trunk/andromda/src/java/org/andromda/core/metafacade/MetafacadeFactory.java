@@ -119,7 +119,6 @@ public class MetafacadeFactory
         Class metafacadeClass)
     {
         // TODO: the source code for this class looks complicated and has to be refactored.
-
         final String methodName = "MetafacadeFactory.internalCreateMetafacade";
 
         ExceptionUtils.checkNull(methodName, "metaobject", metaobject);
@@ -396,7 +395,6 @@ public class MetafacadeFactory
         MetafacadeBase metafacade,
         Map propertyReferences)
     {
-
         final String methodName =
             "MetafacadeFactory.populatePropertyReferences";
         ExceptionUtils.checkNull(methodName, "metafacade", metafacade);
