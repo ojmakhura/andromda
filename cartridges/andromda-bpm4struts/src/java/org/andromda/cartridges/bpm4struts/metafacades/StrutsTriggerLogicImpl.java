@@ -1,9 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -107,6 +108,11 @@ public class StrutsTriggerLogicImpl
         return "You are not allowed to call this action";
     }
 
+    public boolean handleIsActionTrigger()
+    {
+        return getAction() != null;
+    }
+
     // ------------- relations ------------------
 
     protected Object handleGetControllerCall()
@@ -123,5 +129,30 @@ public class StrutsTriggerLogicImpl
         {
             return null;
         }
+    }
+
+    protected Object handleGetAction()
+    {
+        final Collection actionStates = this.getModel().getAllActionStates();
+        for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+        {
+            Object actionStateObject = actionStateIterator.next();
+
+            if (actionStateObject instanceof StrutsJsp)
+            {
+                StrutsJsp jsp = (StrutsJsp)actionStateObject;
+
+                final Collection actions = jsp.getActions();
+                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                {
+                    StrutsAction action = (StrutsAction) actionIterator.next();
+                    if (this.equals(action.getActionTrigger()))
+                    {
+                        return action;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
