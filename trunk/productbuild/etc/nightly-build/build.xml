@@ -115,6 +115,6 @@
     </target>
     
     <!-- checks out a new build, builds it, publishes and mails -->
-    <target name="all" depends="init,clean,checkout,build,copy-docs,copy-artifacts"/>
+    <target name="all" depends="init,clean,checkout,build,copy-docs,copy-artifacts,mail-success,mail-failure"/>
     
 </project>
