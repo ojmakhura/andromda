@@ -167,7 +167,7 @@ public class StrutsForwardLogicImpl
         }
         else
         {
-            messages = getMessages("success", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCES_MESSAGE);
+            messages = getMessages("success", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
         }
 
         return messages;

@@ -27,29 +27,29 @@ public class Bpm4StrutsProfile
 
     /* ----------------- Tagged Values -------------------- */
 
-    public static final String TAGGEDVALUE_ACTION_TYPE = "@andromda.struts.action.type";
-    public static final String TAGGEDVALUE_ACTION_RESETTABLE = "@andromda.struts.action.resettable";
-    public static final String TAGGEDVALUE_ACTION_SUCCES_MESSAGE = "@andromda.struts.action.success.message";
-    public static final String TAGGEDVALUE_ACTION_WARNING_MESSAGE = "@andromda.struts.action.warning.message";
+    public static final String TAGGEDVALUE_ACTION_TYPE = profile.get("ACTION_TYPE");
+    public static final String TAGGEDVALUE_ACTION_RESETTABLE = profile.get("ACTION_RESETTABLE");
+    public static final String TAGGEDVALUE_ACTION_SUCCESS_MESSAGE = profile.get("ACTION_SUCCESS_MESSAGE");
+    public static final String TAGGEDVALUE_ACTION_WARNING_MESSAGE = profile.get("ACTION_WARNING_MESSAGE");
 
-    public static final String TAGGEDVALUE_INPUT_REQUIRED = "@andromda.struts.view.field.required";
-    public static final String TAGGEDVALUE_INPUT_READONLY = "@andromda.struts.view.field.readonly";
-    public static final String TAGGEDVALUE_INPUT_FORMAT = "@andromda.struts.view.field.format";
-    public static final String TAGGEDVALUE_INPUT_TYPE = "@andromda.struts.view.field.type";
-    public static final String TAGGEDVALUE_INPUT_VALIDWHEN = "@andromda.struts.view.field.validwhen";
-    public static final String TAGGEDVALUE_INPUT_CALENDAR = "@andromda.struts.view.field.calendar";
-    public static final String TAGGEDVALUE_INPUT_TABLELINK = "@andromda.struts.view.field.tablelink";
-    public static final String TAGGEDVALUE_INPUT_RESET = "@andromda.struts.view.field.reset";
+    public static final String TAGGEDVALUE_INPUT_REQUIRED = profile.get("INPUT_REQUIRED");
+    public static final String TAGGEDVALUE_INPUT_READONLY = profile.get("INPUT_READONLY");
+    public static final String TAGGEDVALUE_INPUT_FORMAT = profile.get("INPUT_FORMAT");
+    public static final String TAGGEDVALUE_INPUT_TYPE = profile.get("INPUT_TYPE");
+    public static final String TAGGEDVALUE_INPUT_VALIDWHEN = profile.get("INPUT_VALIDWHEN");
+    public static final String TAGGEDVALUE_INPUT_CALENDAR = profile.get("INPUT_CALENDAR");
+    public static final String TAGGEDVALUE_INPUT_TABLELINK = profile.get("INPUT_TABLELINK");
+    public static final String TAGGEDVALUE_INPUT_RESET = profile.get("INPUT_RESET");
 
-    public static final String TAGGEDVALUE_TABLE_COLUMNS = "@andromda.struts.view.table.columns";
-    public static final String TAGGEDVALUE_TABLE_MAXROWS = "@andromda.struts.view.table.maxrows";
-    public static final String TAGGEDVALUE_TABLE_EXPORT = "@andromda.struts.view.table.export";
-    public static final String TAGGEDVALUE_TABLE_SORTABLE = "@andromda.struts.view.table.sortable";
+    public static final String TAGGEDVALUE_TABLE_COLUMNS = profile.get("TABLE_COLUMNS");
+    public static final String TAGGEDVALUE_TABLE_MAXROWS = profile.get("TABLE_MAXROWS");
+    public static final String TAGGEDVALUE_TABLE_EXPORT = profile.get("TABLE_EXPORT");
+    public static final String TAGGEDVALUE_TABLE_SORTABLE = profile.get("TABLE_SORTABLE");
 
-    public static final String TAGGEDVALUE_EXCEPTION_TYPE = "@andromda.struts.exception.type";
-    public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = "@andromda.struts.controller.usecase";
-    public static final String TAGGEDVALUE_USECASE_ACTIVITY = "@andromda.struts.usecase.activity";
-    public static final String TAGGEDVALUE_ACTION_REDIRECT = "@andromda.struts.action.redirect";
+    public static final String TAGGEDVALUE_EXCEPTION_TYPE = profile.get("EXCEPTION_TYPE");
+    public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = profile.get("CONTROLLER_USE_CASE");
+    public static final String TAGGEDVALUE_USECASE_ACTIVITY = profile.get("USECASE_ACTIVITY");
+    public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
 
     /* ----------------- Default Values ------------------- */
     public static final String TAGGEDVALUE_INPUT_DEFAULT_REQUIRED = "true";
