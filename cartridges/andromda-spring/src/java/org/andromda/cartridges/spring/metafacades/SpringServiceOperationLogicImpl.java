@@ -35,8 +35,7 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationName()
     {
-        return this.getImplementationNamePrefix()
-            + StringUtils.capitalize(this.getName());
+        return this.getImplementationOperationName(StringUtils.capitalize(this.getName()));
     }
 
     /**
@@ -44,8 +43,7 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationSignature()
     {
-        return this.getImplementationNamePrefix()
-            + StringUtils.capitalize(this.getSignature());
+        return this.getImplementationOperationName(StringUtils.capitalize(this.getSignature()));
     }
 
     /**
@@ -53,21 +51,22 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationCall()
     {
-        return this.getImplementationNamePrefix()
-            + StringUtils.capitalize(this.getCall());
+        return this.getImplementationOperationName(StringUtils.capitalize(this.getCall()));
     }
-
+    
     /**
-     * Retrieves the implementationNamePrefix property from the namespace.
+     * Retrieves the implementationOperatName by replacing the <code>replacement</code>
+     * in the {@link SpringGlobals#PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN}
      * 
-     * @return the implementation name prefix
+     * @param replacement the replacement string for the pattern.
+     * @return the operation name
      */
-    private String getImplementationNamePrefix()
+    private String getImplementationOperationName(String replacement)
     {
-        return StringUtils
-            .trimToEmpty(String
-                .valueOf(this
-                    .getConfiguredProperty(SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX)));
+        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
+            SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll(
+                "\\{0\\}", 
+                replacement);
     }
 
     /**

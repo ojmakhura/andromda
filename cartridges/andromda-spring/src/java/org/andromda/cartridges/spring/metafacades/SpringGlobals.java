@@ -48,10 +48,10 @@ class SpringGlobals
     final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
 
     /**
-     * The property used to specify the implementation operation name prefix (on
+     * The property used to specify the implementation operation name pattern (on
      * both services and DAOs).
      */
-    static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
+    static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN = "implementationOperationNamePattern";
 
     /**
      * The pattern used to construct the DAO base name.
