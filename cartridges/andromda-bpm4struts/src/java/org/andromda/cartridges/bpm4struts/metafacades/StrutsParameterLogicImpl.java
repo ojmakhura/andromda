@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.cartridge.CartridgeHelper;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -135,7 +136,9 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetGetterName()
     {
-        return "get" + StringUtilsHelper.capitalize(getName());
+        String prefix = isValidatorBoolean(getFullyQualifiedName(true)) ? "is" : "get";
+        return StringUtils.trimToEmpty(prefix)
+            + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
     }
 
     /**
@@ -143,7 +146,7 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetSetterName()
     {
-        return "set" + StringUtilsHelper.capitalize(getName());
+        return "set" + CartridgeHelper.getPropertyAccessorSuffix(this.getName());
     }
 
     /**
