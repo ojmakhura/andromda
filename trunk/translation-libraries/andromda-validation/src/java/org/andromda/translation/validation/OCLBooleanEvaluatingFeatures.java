@@ -6,9 +6,9 @@ import java.util.Collection;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Contains a single operatoin {@link #isBooleanFeature(String)
+ * Contains a single operation {@link #isBooleanFeature(String)
  * that determines if a passed in <code>feature</code> matches
- * the name of a feature that evaulates to boolean.
+ * the name of a feature that should evaulate to boolean.
  * 
  * @author Chad Brandon
  */
