@@ -20,5 +20,5 @@ CVSROOTDIR=/cvsroot/andromda
 CVSROOT=:ext:${USER}@${CVSHOST}:${CVSROOTDIR}
 CVS_RSH=ssh
 export CVSROOT CVS_RSH
-~
+
 
