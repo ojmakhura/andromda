@@ -1,5 +1,7 @@
 package org.andromda.cartridges.interfaces;
 
+import java.util.Properties;
+
 import org.andromda.core.common.CodeGenerationContext;
 
 /**
@@ -11,7 +13,13 @@ import org.andromda.core.common.CodeGenerationContext;
  */
 public interface IAndroMDACartridge
 {
-
+    /**
+     * Initializes the cartridge.
+     * @param velocityExtendedProperties the properties to use when initializing the Velocity engine
+     */
+    public void init (Properties velocityProperties)
+        throws Exception;
+    
     /**
      * Returns the descriptor data of this particular cartridge.
      * 
