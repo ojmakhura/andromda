@@ -149,3 +149,45 @@ br.clr { clear: left; }
 #content div.login input.login { width: 90%; }
 #content div.login p.error { width: 90%; padding: 0.5em; font-weight: bold; color: red;}
 
+/* table classes (<display:*> taglib) */
+
+div.exportlinks { margin-top: 15px; }
+span.export
+{
+	padding: 0 4px 1px 20px;
+	display: inline;
+	cursor: pointer;
+}
+span.excel { background-image: url(excel-file.png); background-repeat: no-repeat; }
+span.csv { background-image: url(csv-file.png); background-repeat: no-repeat; }
+span.xml { background-image: url(xml-file.png); background-repeat: no-repeat; }
+
+table.list { width: 100%; padding-right: 25px; }
+
+tr.odd { background-color: #eef; padding: 2px; }
+tr.even { background-color: #fff; padding: 2px; }
+th.sorted { background-color: #fff; font-weight: bold; }
+th.sorted a, th.sortable a { background-position: right; display: block; }
+th.sortable a { background-image: url(sort-none.png); background-repeat: no-repeat; }
+th.order1 a { background-image: url(sort-descending.png); background-repeat: no-repeat; }
+th.order2 a { background-image: url(sort-ascending.png); background-repeat: no-repeat; }
+
+span.pagebanner
+{
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	margin: 10px 25px 0 0;
+	display: block;
+	border-bottom: none;
+}
+
+span.pagelinks
+{
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	display: block;
+	border-top: none;
+	margin: 0 25px 10px 0;
+}
