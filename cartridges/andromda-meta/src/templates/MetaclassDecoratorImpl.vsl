@@ -28,7 +28,7 @@ ${indent}* </p>
 /**
 #generateDocumentation ($class " ")
  *
- * Metaclass decorator for $extendedMetaclassTypeName
+ * Metaclass decorator implementation for $extendedMetaclassTypeName
  *
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.tag != "documentation")
@@ -42,61 +42,45 @@ ${indent}* </p>
 #end
  *
  */
-public abstract class ${class.name}
-#if ($extendedMetaclassTypeName != "org.omg.uml.foundation.core.ModelElement" && $extendedMetaclassTypeName != "org.omg.uml.UmlPackage")
-       extends    ModelElementDecoratorImpl
-#else
-       extends    DecoratorBase
-#end
-       implements $extendedMetaclassTypeName
+public class ${class.name}Impl extends ${class.name}
 {
-    // -------- link to decorated metaobject ----------
+    // ---------------- constructor -------------------------------
     
-    protected $extendedMetaclassTypeName  metaObject;
-
-    public ${class.name} ($extendedMetaclassTypeName metaObject)
+    public ${class.name}Impl ($extendedMetaclassTypeName metaObject)
     {
         super (metaObject);
-        this.metaObject = metaObject;
-    }
-    
-    // --------------- taggedValues ---------------------
-#foreach ( $att in $class.attributes )
-#set ($atttypename = $transform.findFullyQualifiedName($att.type))
-
-   /**
-#generateDocumentation ($att "    ")
-    *
-    */
-    public abstract $atttypename get${str.upperCaseFirstLetter(${att.name})}();
-#end
-
-
-    // ---------------- decorating methods ----------------------
-    
-#foreach ($dm in $transform.getMethods($extendedMetaclassTypeName))
-    // from $dm.parentInterfaceName
-    $dm.getDeclaration(true)
-    {
-#if ($dm.hasReturnType())
-        return metaObject.${dm.getMethodCall()};
-#else
-        metaObject.${dm.getMethodCall()};
-#end    
     }
 
-#end
-    // ---------------- real business methods ----------------------
+    // -------------------- business methods ----------------------
+
+    // concrete business methods that were declared
+    // abstract in class ${class.name} ...
 
 #foreach ( $op in $class.operations)
-   /**
-#generateDocumentation ($op "    ")
-    *
-    */
+#if ($transform.getStereotype($op.id) != "FinderMethod")
 #set ($msig = $transform.getOperationSignature($op))
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
-    $op.visibility abstract $returntype ${msig};
-    
+#if ($defaultException)
+    $op.visibility $returntype ${msig}
+        throws $defaultException.name {
+#else
+    $op.visibility $returntype ${msig} {
+#end
+        // TODO: put your implementation here.
+#if ("void" != $returntype)
+
+        // Dummy return value, just that the file compiles
+#if (!$str.isPrimitiveType($returntype))
+        return null;
+#elseif ("boolean" == $returntype)
+        return false;
+#else
+        return ($returntype)0;
+#end
+#end
+    }
+
+#end
 #end
     // ------------- relations ------------------
     
@@ -112,8 +96,6 @@ public abstract class ${class.name}
 #set ($utrn = $str.upperCaseFirstLetter($trn))
 ##
 #if ($adata.isOne2Many() || $adata.isMany2Many())
-    protected abstract java.util.Collection handleGet${utrn}();
-    
    /**
 #generateDocumentation ($adata.target.end "    ")
 ##    * multiplicity:     $adata.multiplicities
@@ -121,14 +103,13 @@ public abstract class ${class.name}
 ##    * target navigable: $adata.target.navigable
     *
     */
-    public java.util.Collection get${utrn}()
+    public java.util.Collection handleGet${utrn}()
     {
-        return decoratedElements(handleGet${utrn}());
+        // TODO: add your implementation here!
+        return null;
     }
 #end
 #if ($adata.isOne2One() || $adata.isMany2One())
-    protected abstract ${targettypename} get${utrn}();
-
    /**
 #generateDocumentation ($adata.target.end "    ")
 ##    * multiplicity:     $adata.multiplicities
@@ -136,9 +117,10 @@ public abstract class ${class.name}
 ##    * target navigable: $adata.target.navigable
     *
     */
-    public ${targettypename} get${utrn}()
+    public ${targettypename} handleGet${utrn}()
     {
-        return (${targettypename}) decoratedElement(handleGet${utrn}());
+        // TODO: add your implementation here!
+        return null;
     }
 #end
 
