@@ -16,11 +16,11 @@
 
 <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
 
-<div class="action">
-    <h3>$action.actionTrigger.name</h3>
-    <div class="trigger">
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
+<div class="action">
+    <h3><bean:message key="${messageKey}.${actionTrigger.triggerKey}"/></h3>
+    <div class="trigger">
 #if ($action.isHyperlink())
 #renderHyperlink($action "        ")
 #elseif ($action.isFormPost())
