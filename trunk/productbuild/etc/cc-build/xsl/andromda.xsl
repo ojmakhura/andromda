@@ -111,6 +111,7 @@
             </table>
         </xsl:if>		
         <xsl:variable name="testsuite" select="cruisecontrol/testsuite"/>
+        <xsl:variable name="testsuite.syserr" select="cruisecontrol/testsuite/system-err"/>
         <xsl:variable name="junit.failures" select="$testsuite[@failures!='0']"/>
 
         <xsl:if test="count($junit.failures) > 0">
@@ -147,6 +148,14 @@
             <xsl:apply-templates select="$mavengoal[@name='deploy-build']"/>
         </xsl:if>
 
+			<HR/><H2>System Error Messages</H2>
+            <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
+                 <!-- Style download notifications first -->
+                 <tr class="compile-sectionheader">
+                     <td>Error Messages</td>
+                 </tr>
+                 <xsl:apply-templates select="$testsuite.syserr"/>
+            </table>
 		
         </html>
     </xsl:template>
@@ -175,6 +184,19 @@
         <tr><td>
         <example><xsl:call-template name="break" /></example>
         </td></tr>
+    </xsl:template>
+
+    <xsl:template match="system-err">
+		<xsl:if test="string-length() > 0">
+          <tr><td>
+          <span class="compile-error-data">
+          <xsl:value-of select="@message"/>
+          </span>
+          </td></tr>
+          <tr><td>
+          <example><xsl:call-template name="break" /></example>
+          </td></tr>
+    	</xsl:if>
     </xsl:template>
 
     <xsl:template match="mavengoal[@name='jar:deploy']">
