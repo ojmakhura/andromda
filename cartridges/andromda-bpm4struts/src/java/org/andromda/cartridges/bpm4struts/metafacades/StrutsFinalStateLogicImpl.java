@@ -5,9 +5,9 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.HashSet;
 
 
 /**
@@ -42,8 +42,32 @@ public class StrutsFinalStateLogicImpl
 
     protected String handleGetFullPath()
     {
+        String fullPath = null;
+
         StrutsUseCase useCase = getTargetUseCase();
-        return (useCase != null) ? useCase.getActionPath() : "";
+        if (useCase == null)
+        {
+            // perhaps this final state links outside of the UML model
+            final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_WEBPAGELINK);
+            if (taggedValue == null)
+            {
+                String name = getName();
+                if (name != null && (name.startsWith("/") || name.startsWith("http://")))
+                {
+                    fullPath = name;
+                }
+            }
+            else
+            {
+                fullPath = String.valueOf(taggedValue);
+            }
+        }
+        else
+        {
+            fullPath = useCase.getActionPath() + ".do";
+        }
+
+        return fullPath;
     }
 
     protected Object handleGetTargetUseCase()
