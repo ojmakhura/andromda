@@ -18,23 +18,23 @@
                       <th>Description</th>
                       <th>Required</th>
                 </tr>
-				<tr>
-					<td>
-						serviceLocatorName
-					</td>
-					<td>
-						The name to give to the generated service locator class.
-					</td>
-					<td>
-						No, default is <code>ServiceLocator</code>.
-					</td>
-				</tr>
+                <tr>
+                    <td>
+                        serviceLocatorName
+                    </td>
+                    <td>
+                        The name to give to the generated service locator class.
+                    </td>
+                    <td>
+                        No, default is <code>ServiceLocator</code>.
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         securityRealm
                     </td>
                     <td>
-                        The name of the security realm (i.e. animal-quiz, 
+                        The name of the security realm (i.e. animal-quiz,
                         other, etc).  <strong>NOTE:</strong>This enables EJB security if specified.
                     </td>
                     <td>
@@ -71,7 +71,7 @@
                           session-beans
                     </td>
                     <td>
-                          The directory to which Session EJB service wrappers are 
+                          The directory to which Session EJB service wrappers are
                           generated.  If this property is not specified, Session EJB service
                           wrappers will not be generated.
                     </td>
@@ -136,8 +136,8 @@
                             <li>subclass - table per class in hierarchy.</li>
                             <li>concrete - Table per class.</li>
                             <li>
-                                interface - Root class is defined as an interface and the 
-                                attributes remapped to the subclasses.  This is useful in 
+                                interface - Root class is defined as an interface and the
+                                attributes remapped to the subclasses.  This is useful in
                                 the concrete case because it has limitations in the associations.
                             </li>
                         </ul>
@@ -165,27 +165,38 @@
                         sequenceIdentifierSuffix
                     </td>
                     <td>
-                        The suffix to use for identifier sequences.   
+                        The suffix to use for identifier sequences.
                     </td>
                     <td>
                         No, the default is <code>_SEQ</code>.
                     </td>
                 </tr>
-				<tr>
-					<td>
-						entityNamePattern
-					</td>
-					<td>
-						The pattern to use when constructing an entity name.
-						<em>{0}</em> is used to represent the entity name
-						in the model, so if you specified a value of
-						<code>{0}Entity</code> all the entities generated
-						would have a suffix of "Entity".
-					</td>
-					<td>
-						No, default is <code>{0}</code>.
-					</td>
-				</tr>
+                <tr>
+                    <td>
+                        entityNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing an entity name.
+                        <em>{0}</em> is used to represent the entity name
+                        in the model, so if you specified a value of
+                        <code>{0}Entity</code> all the entities generated
+                        would have a suffix of "Entity".
+                    </td>
+                    <td>
+                        No, default is <code>{0}</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>entityImplementationNamePattern</td>
+                    <td>
+                        The pattern to use when constructing the entity implementation
+                        name.
+                    </td>
+                    <td>
+                        No, default is <code>{0}Impl</code> where <em>{0}</em>
+                        is the name of the modeled entity.
+                    </td>
+                </tr>
                 <tr>
                     <td>
                           enumerationNamePattern
@@ -242,7 +253,7 @@
                     </td>
                     <td>
                         Allows you to turn on/off whether or not composite associations
-                        will define eager loading.  
+                        will define eager loading.
                     </td>
                     <td>
                         No, default is <code>true</code>
@@ -258,17 +269,6 @@
                     </td>
                     <td>
                         No, default is <code>org.andromda.persistence.hibernate</code>
-                    </td>
-                </tr>
-                <tr>
-                    <td>entityImplementationNamePattern</td>
-                    <td>
-                        The pattern to use when constructing the entity implementation
-                        name.
-                    </td>
-                    <td>
-                        No, default is <code>{0}Impl</code> where <em>{0}</em>
-                        is the name of the modeled entity.
                     </td>
                 </tr>
                 <tr>
@@ -643,7 +643,7 @@
                             hibernateEnableAssociationsCache
                         </td>
                         <td>
-                            Enable/disable Hibernate's second level cache feature for entity associations. 
+                            Enable/disable Hibernate's second level cache feature for entity associations.
                             Please <strong>NOTE</strong> that hibernateEnableCache should also be enabled when
                             specifying this property.
                         </td>
