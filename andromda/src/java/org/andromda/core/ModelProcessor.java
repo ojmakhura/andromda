@@ -117,7 +117,7 @@ public class ModelProcessor
             Collection cartridges = PluginDiscoverer.instance().findPlugins(
                 Cartridge.class);
 
-            if (cartridges.size() <= 0)
+            if (cartridges.isEmpty())
             {
                 AndroMDALogger
                     .warn("WARNING! No cartridges found, check your classpath!");
