@@ -28,7 +28,7 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <xhtml>false</xhtml>
-                <breadCrumbs>false</breadCrumbs>
+                <maxBreadCrumbs>0</maxBreadCrumbs>
                 <dummyData>true</dummyData>
                 <onlineHelp>true</onlineHelp>
                 <defaultDateFormat>dd-MM-yyyy</defaultDateFormat>
