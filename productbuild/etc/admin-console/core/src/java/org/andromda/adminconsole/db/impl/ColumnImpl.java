@@ -27,7 +27,7 @@ public class ColumnImpl extends DatabaseObject implements Column
         this.table = table;
         this.name = name;
         this.sqlType = sqlType;
-        this.doRefresh();
+        this.loadMetaData();
     }
 
     protected String getCatalog()
@@ -115,12 +115,7 @@ public class ColumnImpl extends DatabaseObject implements Column
         return this instanceof PrimaryKeyColumn;
     }
 
-    public void refresh()
-    {
-        doRefresh();
-    }
-
-    private void doRefresh()
+    private void loadMetaData()
     {
         try
         {
@@ -136,7 +131,9 @@ public class ColumnImpl extends DatabaseObject implements Column
                     throw new RuntimeException("Unable to retrieve column type: " + name);
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
 
             // REMARKS
             try
@@ -148,7 +145,9 @@ public class ColumnImpl extends DatabaseObject implements Column
                     throw new RuntimeException("Unable to retrieve column remarks: " + name);
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
 
             // ORDINAL POSITION
             try
@@ -160,7 +159,9 @@ public class ColumnImpl extends DatabaseObject implements Column
                     throw new RuntimeException("Unable to retrieve column ordinal position: " + name);
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
 
             // SIZE
             try
@@ -172,7 +173,9 @@ public class ColumnImpl extends DatabaseObject implements Column
                     throw new RuntimeException("Unable to retrieve column size: " + name);
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
 
             // NULLABLE
             try
@@ -184,7 +187,9 @@ public class ColumnImpl extends DatabaseObject implements Column
                     throw new RuntimeException("Unable to retrieve column nullable: " + name);
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
         }
         catch (SQLException e)
         {
