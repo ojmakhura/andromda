@@ -5,15 +5,14 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-class PurchaseController implements PurchaseControllerInterface
+class PurchaseController extends PurchaseControllerInterface
 {
+
     /**
-     * <p/>
-     * This method does not receive any parameters through the form bean.
+     * 
      */
     public final void addItemsToBasket(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-
         /*
          * By default this method populates the complete form, it is up to you to replace this
          * by those fields that are required (this cannot be determined here because it might be
@@ -24,12 +23,10 @@ class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     * <p/>
-     * This method does not receive any parameters through the form bean.
+     * 
      */
     public final void closeUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-
         /*
          * By default this method populates the complete form, it is up to you to replace this
          * by those fields that are required (this cannot be determined here because it might be
@@ -40,12 +37,10 @@ class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     * <p/>
-     * This method does not receive any parameters through the form bean.
+     * 
      */
     public final void loadItems(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-
         /*
          * By default this method populates the complete form, it is up to you to replace this
          * by those fields that are required (this cannot be determined here because it might be
@@ -56,12 +51,10 @@ class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     * <p/>
-     * This method does not receive any parameters through the form bean.
+     * 
      */
     public final void openUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-
         /*
          * By default this method populates the complete form, it is up to you to replace this
          * by those fields that are required (this cannot be determined here because it might be
@@ -72,12 +65,10 @@ class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     * <p/>
-     * This method does not receive any parameters through the form bean.
+     * 
      */
     public final void prepareForShipping(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-
         /*
          * By default this method populates the complete form, it is up to you to replace this
          * by those fields that are required (this cannot be determined here because it might be
@@ -86,7 +77,6 @@ class PurchaseController implements PurchaseControllerInterface
          */
         populateForm(form);
     }
-
 
     /**
      * This method exists solely to make the application work at runtime by populating
@@ -97,18 +87,19 @@ class PurchaseController implements PurchaseControllerInterface
      */
     private void populateForm(PurchaseItemsForm form)
     {
-        form.setProceedPassword("password-test");
-        form.setPurchaseAge((int) 96511);
-        form.setPurchaseEmail("email-test");
+        form.setProceedName("proceedName-test");
+        form.setProceedPassword("proceedPassword-test");
         form.setItemList(itemListDummyList);
-        form.setPurchaseCreditCard("creditCard-test");
-        form.setProceedName("NameTest");
+        form.setProceedSelectedItems(java.util.Arrays.asList(new Object[]{"proceedSelectedItems-1", "proceedSelectedItems-2", "proceedSelectedItems-3", "proceedSelectedItems-4", "proceedSelectedItems-5"}));
+        form.setProceedSelectedItemsBackingList(new Object[]{"proceedSelectedItems-1", "proceedSelectedItems-2", "proceedSelectedItems-3", "proceedSelectedItems-4", "proceedSelectedItems-5"});
         form.setProceedConfirmedLicence(false);
-        form.setProceedSelectedItems(java.util.Arrays.asList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"}));
-        form.setProceedSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
+        form.setBuyThisItemId("buyThisItemId-test");
+        form.setPurchaseEmail("purchaseEmail-test");
+        form.setPurchaseCreditCard("purchaseCreditCard-test");
+        form.setPurchaseAge((int) 633229374);
     }
 
-    private final static java.util.Collection itemListDummyList =
+    private final java.util.Collection itemListDummyList =
             java.util.Arrays.asList(new Object[]{
                 new ItemListDummyItem("id-1", "name-1", "address-1"),
                 new ItemListDummyItem("id-2", "name-2", "address-2"),
@@ -117,7 +108,7 @@ class PurchaseController implements PurchaseControllerInterface
                 new ItemListDummyItem("id-5", "name-5", "address-5")
             });
 
-    public final static class ItemListDummyItem implements java.io.Serializable
+    public final class ItemListDummyItem implements java.io.Serializable
     {
         private String id = null;
         private String name = null;
