@@ -39,8 +39,8 @@ import org.apache.log4j.Logger;
  * a single or multiple <code>MOF</code> models.
  * </p>
  * 
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- * @author <a href="http://www.amowers.com">Anthony Mowers</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
+ * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
  */
 public class ModelProcessor
@@ -86,7 +86,7 @@ public class ModelProcessor
                     + versionPropertyName + "' in '" + versionPropertiesUri
                     + "'");
             }
-            ExceptionRecorder.setAndromdaVersion( VERSION );
+            ExceptionRecorder.setAndromdaVersion(VERSION);
         }
         catch (Throwable th)
         {
@@ -288,13 +288,11 @@ public class ModelProcessor
         }
         catch (Throwable th)
         {
-            String errMsg = "Error performing " + methodName
+            String errorMesssage = "Error performing " + methodName
                 + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
-            logger.error(errMsg);
-            String exceptionFilename = ExceptionRecorder.record( errMsg, th, cartridgeName );
-            logger.error( "Exception recorded in:" + exceptionFilename);
-            throw new ModelProcessorException(errMsg, th);
-
+            logger.error(errorMesssage);
+            ExceptionRecorder.record(errorMesssage, th, cartridgeName);
+            throw new ModelProcessorException(errorMesssage, th);
         }
     }
 
@@ -360,7 +358,7 @@ public class ModelProcessor
      * Indicates whether or not the <code>namespace</code> should be
      * processed. This is determined in conjunction with
      * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code>
-     * is not defined, then this method will <strong>ALWAYS</strong> return
+     * is not defined, then this method will <strong>ALWAYS </strong> return
      * true.
      * 
      * @param namespace the namespace to check whether or not it should be
@@ -386,8 +384,8 @@ public class ModelProcessor
      * </p>
      * <p>
      * If this filter is defined, then any cartridge names found in this list
-     * <strong>will be processed</strong>, while any other discovered
-     * cartridges <strong>will not be processed</strong>.
+     * <strong>will be processed </strong>, while any other discovered
+     * cartridges <strong>will not be processed </strong>.
      * </p>
      * 
      * @param namespaces a comma seperated list of the cartridge namespaces to
