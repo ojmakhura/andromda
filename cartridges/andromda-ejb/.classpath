@@ -3,5 +3,7 @@
     <classpathentry kind="src" path="src"/>
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
     <classpathentry kind="src" path="/andromda"/>
+    <classpathentry kind="lib" path="/andromda/lib/jmi.jar"/>
+    <classpathentry kind="lib" path="/andromda/lib/uml14.jar" sourcepath="/andromda/lib/uml14-src.jar"/>
     <classpathentry kind="output" path="build/classes"/>
 </classpath>
