@@ -505,17 +505,11 @@ public abstract class $entity.daoBaseName
 
 #foreach ($valueObjectRef in $valueObjectReferences)
     /**
-     * Converts this DAO's entity to a value object of type
-     * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
-     */
-    protected abstract $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity);
-
-    /**
      * Transforms a collection of entities to
      * {@link $valueObjectRef.targetElement.fullyQualifiedName} instance. This method does not
      * instantiate a new collection, all transformations occur in-place.
      */
-    protected final void ${valueObjectRef.transformationMethodName}(java.util.Collection entities)
+    public final void ${valueObjectRef.transformationMethodName}(java.util.Collection entities)
     {
         org.apache.commons.collections.CollectionUtils.transform(entities, ${valueObjectRef.transformationAnonymousName});
     }
