@@ -78,6 +78,7 @@
             goals="pom:install"/>
     </goal>
     
+    <j:set var="generatedSourceDir" value="${maven.build.dir}"/>
     <ant:available
         file="${maven.build.src}"
         type="dir"
@@ -105,7 +106,7 @@
                          maven compile path -->
                     <ant:path
                         id="andromda.java.gen.src"
-                        location="${build.src.dir}"/>
+                        location="${generatedSourceDir}"/>
                     <maven:addPath
                         id="maven.compile.src.set"
                         refid="andromda.java.gen.src"/>
