@@ -65,8 +65,7 @@
 			          		Operation
 			          	</td>			       
 			          	<td>
-			          		
-
+			          		Used to tag an EJB create method.
 			          	</td>
 		        	</tr>  
 		        	<tr>
@@ -78,8 +77,19 @@
 			          		Association
 			          	</td>			       
 			          	<td>
-			          		
-
+			          		Used to reference an entity from another entity or service. 
+			          	</td>
+		        	</tr>  
+		        	<tr>
+			          	<td>
+							<a name="ServiceRef"/>
+			          		<strong><![CDATA[<<ServiceRef>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Association
+			          	</td>			       
+			          	<td>
+			          		Used to reference a service from an entity or another service.
 			          	</td>
 		        	</tr>  
 		        	<tr>
@@ -91,8 +101,11 @@
 			          		Association
 			          	</td>			       
 			          	<td>
-			          		
-
+			          		Used to generate an association between an entity and a value object class. 
+			          		Found attributes inside the entity as well as the value object are used to 
+			          		get automatically filled out. 
+			          		The entity will provide the helper method, also for saving a value object to
+			          		an existing entity.
 			          	</td>
 		        	</tr>	  	    				        		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
