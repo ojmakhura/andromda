@@ -9,7 +9,7 @@
          Call AndroMDA to generate code from the model                             
          =================================================================== -->
     <goal name="andromda:run${bootstrap}"
-    	  description="Runs AndroMDA with cartridges defined as dependencies with your POM">
+    	  description="Runs AndroMDA with plugins defined as dependencies with your POM">
     	
     	<j:choose>
     		<j:when test="${maven.andromda.bootstrap.mode}">
