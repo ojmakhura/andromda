@@ -68,6 +68,7 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <xhtml>false</xhtml>
+                <breadCrumbs>true</breadCrumbs>
                 <welcomeFileName>welcome.jsp</welcomeFileName>
                 <clientValidation>true</clientValidation>
                 <serverValidation>true</serverValidation>
