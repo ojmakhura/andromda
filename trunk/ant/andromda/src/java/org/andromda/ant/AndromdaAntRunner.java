@@ -1,21 +1,18 @@
 package org.andromda.ant;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-
+import org.apache.commons.io.CopyUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+
+import java.io.*;
+import java.net.URL;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * @todo: document this class
@@ -23,17 +20,40 @@ import org.apache.velocity.app.Velocity;
  */
 public class AndromdaAntRunner
 {
+    private final static String J2EE_RESOURCES_ZIP = "j2ee-app.zip";
+    private final static String TEMPLATE_SUFFIX = ".vsl";
+    private final static String TEMP_PATH = System.getProperty("user.dir");
+    private final static String TEMP_DIR = "~andromda.ant.tmp";
+
+    private VelocityContext templateContext = null;
+    private File parentDirectory = null;
+
     /**
      * @todo: document this constructor
      */
-    public AndromdaAntRunner()
+    public AndromdaAntRunner() throws Exception
     {
+        Properties properties = new Properties();
+        properties.put("resource.loader", "class");
+        properties.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+
+        Velocity.init(properties);
+        templateContext = new VelocityContext(prompt());
+
+        parentDirectory = new File(String.valueOf(templateContext.get("applicationName")));
     }
 
     public static void main(String[] args)
     {
-        AndromdaAntRunner runner = new AndromdaAntRunner();
-        runner.run();
+        try
+        {
+            AndromdaAntRunner runner = new AndromdaAntRunner();
+            runner.run();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -44,21 +64,30 @@ public class AndromdaAntRunner
         final Map propertiesMap = new HashMap();
 
         String inputValue = null;
-        while (null == (inputValue=promptForInput("application id")));
-        propertiesMap.put("applicationId", inputValue.replaceAll("[\\s]*",""));
+        while (null == (inputValue = promptForInput("application id"))) ;
+        propertiesMap.put("applicationId", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue=promptForInput("application name")));
-        propertiesMap.put("applicationName", inputValue.replaceAll("[\\s]*",""));
+        while (null == (inputValue = promptForInput("application name"))) ;
+        propertiesMap.put("applicationName", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue=promptForInput("application version")));
-        propertiesMap.put("applicationVersion", inputValue.replaceAll("[\\s]*",""));
+        while (null == (inputValue = promptForInput("application version"))) ;
+        propertiesMap.put("applicationVersion", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue=promptForInput("persistence type [ejb,hibernate]"))
-                || (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)));
+        while (null == (inputValue = promptForInput("persistence type [ejb,hibernate]"))
+                || (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)))
+            ;
         propertiesMap.put("persistenceType", inputValue);
+
+/*        inputValue = null;
+        while (null == (inputValue = promptForInput("webservices [y,n]"))
+                || (!"y".equals(inputValue) && !"n".equals(inputValue)))
+            ;
+        propertiesMap.put("webServices", inputValue);
+*/
+        propertiesMap.put("webServices", "n");
 
         return Collections.unmodifiableMap(propertiesMap);
     }
@@ -69,146 +98,147 @@ public class AndromdaAntRunner
     private String promptForInput(String property)
     {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Please enter the "+property+": ");
+        System.out.print("Please enter the " + property + ": ");
         String inputString = null;
         try
         {
             inputString = in.readLine();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             inputString = null;
         }
 
-        return (inputString == null || inputString.trim().length()==0)
-            ? null
-            : inputString;
+        return (inputString == null || inputString.trim().length() == 0)
+                ? null
+                : inputString;
     }
+
     /**
      * @todo: document this method
      */
-    private void run()
+    private void run() throws Exception
     {
+        // unzip j2ee template-bundle & get a collection of template files
+        File[] templates = unzipTemplateBundles();
+
+        // loop over templates
+        for (int i = 0; i < templates.length; i++)
+        {
+            File template = templates[i];
+            processVelocity(template);
+        }
+
+        removeTempFiles();
+
+        showReadMe();
+    }
+
+    private File[] unzipTemplateBundles() throws Exception
+    {
+        URL url = Thread.currentThread().getContextClassLoader().getResource(J2EE_RESOURCES_ZIP);
+        File file = File.createTempFile("j2ee", null);
+        file.deleteOnExit();
+        FileUtils.copyURLToFile(url, file);
+
+        File targetDir = new File(TEMP_PATH, TEMP_DIR);
+        targetDir.mkdirs();
+
+        unzip(new ZipFile(file), targetDir);
+
+        IOFileFilter fileFilter = TrueFileFilter.INSTANCE;
+        IOFileFilter dirFilter = TrueFileFilter.INSTANCE;
+
+        final Collection templateFiles = FileUtils.listFiles(targetDir, fileFilter, dirFilter);
+        return (File[]) templateFiles.toArray(new File[templateFiles.size()]);
+    }
+
+    private void processVelocity(File templateFile) throws Exception
+    {
+        System.out.println("Processing template: " + templateFile.getAbsolutePath());
+
+        String resourceName = templateFile.getAbsolutePath();
+        resourceName = resourceName.substring(resourceName.indexOf(TEMP_DIR));
+
+        String targetFileName = null;
+
+        if (resourceName.endsWith(TEMPLATE_SUFFIX))
+        {
+            targetFileName = resourceName.substring(TEMP_DIR.length() + 1, resourceName.length() - TEMPLATE_SUFFIX.length());
+
+            File target = new File(parentDirectory, targetFileName);
+            target.getParentFile().mkdirs();
+
+            final Template template = Velocity.getTemplate(resourceName);
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(target));
+            template.merge(templateContext, writer);
+            writer.close();
+        }
+        else
+        {
+            targetFileName = resourceName.substring(TEMP_DIR.length() + 1, resourceName.length());
+
+            File target = new File(parentDirectory, targetFileName);
+            target.getParentFile().mkdirs();
+
+            InputStream instream = new FileInputStream(templateFile);
+            Writer writer = new BufferedWriter(new FileWriter(target));
+            CopyUtils.copy(instream, writer);
+            instream.close();
+            writer.close();
+        }
+
+    }
+
+    private void removeTempFiles() throws Exception
+    {
+        FileUtils.deleteDirectory(new File(TEMP_PATH, TEMP_DIR));
+    }
+
+    private void unzip(ZipFile zipFile, File targetDir)
+    {
+        final int BUFFER = 2048;
         try
         {
-            Properties properties = new Properties();
-            properties.put("resource.loader", "class");
-            properties.put("class.resource.loader.class",
-                    "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-
-            Velocity.init(properties);
-
-            VelocityContext context = new VelocityContext(prompt());
-            VelocityContext emptyContext = new VelocityContext();
-
-            Map templatesMap = listTemplates(context);
-
-            File parentDirectory = new File((String) context.get("applicationName"));
-
-            Collection templates = templatesMap.entrySet();
-            for (Iterator iterator = templates.iterator(); iterator.hasNext();)
+            BufferedOutputStream dest = null;
+            BufferedInputStream is = null;
+            ZipEntry entry;
+            Enumeration e = zipFile.entries();
+            while (e.hasMoreElements())
             {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                Template template = Velocity.getTemplate((String) entry.getKey());
-                File target = new File(parentDirectory, (String) entry.getValue());
+                entry = (ZipEntry) e.nextElement();
 
-                target.getParentFile().mkdirs();
-
-                BufferedWriter writer = writer = new BufferedWriter(new FileWriter(target));
-
-                if (entry.getKey().toString().endsWith(".vsl"))
+                if (entry.isDirectory() == false)
                 {
-                    template.merge(context, writer);
+                    is = new BufferedInputStream(zipFile.getInputStream(entry));
+                    int count;
+                    byte data[] = new byte[BUFFER];
+                    File outFile = new File(targetDir, entry.getName());
+                    outFile.getParentFile().mkdirs();
+                    outFile.deleteOnExit();
+                    FileOutputStream fos = new FileOutputStream(outFile);
+                    dest = new BufferedOutputStream(fos, BUFFER);
+                    while ((count = is.read(data, 0, BUFFER)) != -1)
+                    {
+                        dest.write(data, 0, count);
+                    }
+                    dest.flush();
+                    dest.close();
+                    is.close();
                 }
-                else
-                {
-                    // no substitution for these files
-                    template.merge(emptyContext, writer);
-                }
-                writer.flush();
-                writer.close();
-
-                System.out.println("Processed: "+target.getAbsolutePath());
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
-    /**
-     * @todo: document this method
-     * @todo: templates should be picked up automatically
-     * @todo: target paths should be determined automatically
-     */
-    private Map listTemplates(VelocityContext context)
+    private void showReadMe() throws Exception
     {
-        final Map templateMap = new HashMap();
-
-        final String appName = (String)context.get("applicationName");
-
-        templateMap.put("templates/j2ee-app/readme.txt.vsl", "readme.txt");
-        templateMap.put("templates/j2ee-app/build.xml.vsl", "build.xml");
-        templateMap.put("templates/j2ee-app/build.properties.vsl", "build.properties");
-
-        templateMap.put("templates/j2ee-app/web/build.xml.vsl", "web/build.xml");
-        templateMap.put("templates/j2ee-app/web/build.properties.vsl", "web/build.properties");
-
-        templateMap.put("templates/j2ee-app/mda/build.xml.vsl", "mda/build.xml");
-        templateMap.put("templates/j2ee-app/mda/build.properties.vsl", "mda/build.properties");
-        templateMap.put("templates/j2ee-app/mda/src/uml/model.xmi", "mda/src/uml/"+appName+".xmi");
-        templateMap.put("templates/j2ee-app/mda/src/mappings/HypersonicSqlMappings.xml", "mda/src/mappings/HypersonicSqlMappings.xml");
-        templateMap.put("templates/j2ee-app/mda/src/mappings/JavaMappings.xml", "mda/src/mappings/JavaMappings.xml");
-        templateMap.put("templates/j2ee-app/mda/src/mappings/JdbcMappings.xml", "mda/src/mappings/JdbcMappings.xml");
-        templateMap.put("templates/j2ee-app/mda/src/mappings/MySQLMappings.xml", "mda/src/mappings/MySQLMappings.xml");
-        templateMap.put("templates/j2ee-app/mda/src/mappings/Oracle9iMappings.xml", "mda/src/mappings/Oracle9iMappings.xml");
-
-        templateMap.put("templates/j2ee-app/app/build.xml.vsl", "app/build.xml");
-        templateMap.put("templates/j2ee-app/app/build.properties.vsl", "app/build.properties");
-        templateMap.put("templates/j2ee-app/app/src/META-INF/application.xml.vsl", "app/src/META-INF/application.xml");
-        templateMap.put("templates/j2ee-app/app/src/META-INF/jboss-app.xml.vsl", "app/src/META-INF/jboss-app.xml");
-
-        templateMap.put("templates/j2ee-app/common/build.xml.vsl", "common/build.xml");
-        templateMap.put("templates/j2ee-app/common/build.properties.vsl", "common/build.properties");
-
-        if ("hibernate".equals(context.get("persistenceType")))
-        {
-            templateMap.put("templates/j2ee-app/hibernate/build.xml.vsl", "hibernate/build.xml");
-            templateMap.put("templates/j2ee-app/hibernate/build.properties.vsl", "hibernate/build.properties");
-
-            templateMap.put("templates/j2ee-app/hibernate/db/conf/initializeSchema.cmd", "hibernate/db/conf/initializeSchema.cmd");
-            templateMap.put("templates/j2ee-app/hibernate/db/conf/initializeSchema.sh", "hibernate/db/conf/initializeSchema.sh");
-            templateMap.put("templates/j2ee-app/hibernate/db/conf/reInitializeSchema.cmd", "hibernate/db/conf/reInitializeSchema.cmd");
-            templateMap.put("templates/j2ee-app/hibernate/db/conf/reInitializeSchema.sh", "hibernate/db/conf/reInitializeSchema.sh");
-            templateMap.put("templates/j2ee-app/hibernate/db/conf/removeSchema.cmd", "hibernate/db/conf/removeSchema.cmd");
-            templateMap.put("templates/j2ee-app/hibernate/db/conf/removeSchema.sh", "hibernate/db/conf/removeSchema.sh");
-
-            templateMap.put("templates/j2ee-app/hibernate/sar/build.xml.vsl", "hibernate/sar/build.xml");
-            templateMap.put("templates/j2ee-app/hibernate/sar/build.properties.vsl", "hibernate/sar/build.properties");
-            templateMap.put("templates/j2ee-app/hibernate/ejb/build.xml.vsl", "hibernate/ejb/build.xml");
-            templateMap.put("templates/j2ee-app/hibernate/ejb/build.properties.vsl", "hibernate/ejb/build.properties");
-            templateMap.put("templates/j2ee-app/hibernate/ejb/src/META-INF/MANIFEST.MF.vsl", "hibernate/ejb/src/META-INF/MANIFEST.MF");
-        } else
-        {
-            templateMap.put("templates/j2ee-app/ejb/build.xml.vsl", "ejb/build.xml");
-            templateMap.put("templates/j2ee-app/ejb/build.properties.vsl", "ejb/build.properties");
-            templateMap.put("templates/j2ee-app/ejb/src/META-INF/MANIFEST.MF.vsl", "ejb/src/META-INF/MANIFEST.MF");
-        }
-
-        return templateMap;
+        File readmeFile = new File(parentDirectory, "readme.txt");
+        System.out.println("\n-- Information on how to build can be found here: " + readmeFile.getAbsolutePath());
     }
-
-/*
-    private String getTargetName(String rootPath, File file)
-    {
-        String filePath = file.getPath();
-
-        if (filePath.endsWith(".vsl"))
-            filePath = filePath.substring(0, filePath.length() - 4);
-
-        return (filePath.startsWith(rootPath))
-                ? filePath.substring(rootPath.length())
-                : filePath;
-    }
-*/
 }
 
