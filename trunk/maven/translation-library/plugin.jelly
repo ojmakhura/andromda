@@ -163,7 +163,7 @@
         <ant:mkdir dir="${metaInfDir}"/>
 
 		<!-- write the Translation-Library descriptor file -->
-    	<j:set var="translationLibraryFile" value="${metaInfDir}/translation-library.xml"/>
+    	<j:set var="translationLibraryFile" value="${metaInfDir}/andromda-translation-library.xml"/>
         <ant:echo>Generating translation-library descriptor: ${translationLibraryFile}</ant:echo>
        
      	<j:file name="${translationLibraryFile}" trim="false">
