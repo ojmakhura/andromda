@@ -24,7 +24,7 @@ public class StrutsParameterLogicImpl
     private Collection validatorArgs = null;
 
     // ---------------- constructor -------------------------------
-    
+
     public StrutsParameterLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
@@ -52,6 +52,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @todo we need null or zero length when returning ?
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()()
      */
     public java.lang.String getNullValue()
@@ -59,9 +60,9 @@ public class StrutsParameterLogicImpl
         final String type = getFullyQualifiedName();
         if ("boolean".equals(type))
             return "false";
-        else if (isPrimitive())
+        else if (getType().isPrimitiveType())
             return "0";
-//        else if (isArray()) return "new Object[0]";   // todo we need null or zero length ?
+//        else if (isArray()) return "new Object[0]";   //
 //        else if (isCollection()) return "java.util.Collections.EMPTY_LIST";   // same for collection
         else
             return "null";
@@ -73,7 +74,7 @@ public class StrutsParameterLogicImpl
     public boolean mustReset()
     {
         final String type = getFullyQualifiedName();
-        return Boolean.class.getName().equals(type) || "boolean".equals(type) || isArray();
+        return Boolean.class.getName().equals(type) || "boolean".equals(type) || getType().isArrayType();
     }
 
     /**
@@ -112,13 +113,13 @@ public class StrutsParameterLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && widgetType != null) return widgetType;
 
-        final String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
+        final String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE).toString();
 
         if (fieldType == null)
         {
             final String parameterType = getType().getFullyQualifiedName();
             if (isValidatorBoolean(parameterType)) return "checkbox";
-            if (isCollection() || isArray()) return "select";
+            if (getType().isCollectionType() || getType().isArrayType()) return "select";
             widgetType = "text";
         } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
         {
@@ -140,14 +141,14 @@ public class StrutsParameterLogicImpl
             widgetType = "password";
         } else
         {
-            widgetType = (isCollection() || isArray()) ? "select" : "text";
+            widgetType = (getType().isCollectionType() || getType().isArrayType()) ? "select" : "text";
         }
         return widgetType;
     }
 
     public boolean isMultiple()
     {
-        return isArray() || isCollection();
+        return getType().isCollectionType() || getType().isArrayType();
     }
 
     public boolean hasBackingList()
@@ -178,12 +179,12 @@ public class StrutsParameterLogicImpl
 
     public boolean isRequired()
     {
-        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED));
+        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED).toString());
     }
 
     public boolean isReadOnly()
     {
-        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY));
+        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY).toString());
     }
 
     private boolean isTrue(String string)
@@ -210,8 +211,8 @@ public class StrutsParameterLogicImpl
         if ("int".equals(type)) resetValue = "(int)" + name.hashCode();
 
         final String array = constructArray();
-        if (isArray()) resetValue = array;
-        if (isCollection()) resetValue = "java.util.Arrays.asList(" + array + ")";
+        if (getType().isArrayType()) resetValue = array;
+        if (getType().isCollectionType()) resetValue = "java.util.Arrays.asList(" + array + ")";
 
         if (resetValue == null) resetValue = "\"" + name + "-test" + "\"";
         return resetValue;
@@ -219,7 +220,7 @@ public class StrutsParameterLogicImpl
 
     protected String getValidatorFormat()
     {
-        final String format = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_FORMAT);
+        final String format = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_FORMAT).toString();
         return (format == null) ? null : format.trim();
     }
 
@@ -333,7 +334,7 @@ public class StrutsParameterLogicImpl
 
     public java.lang.String getValidWhen()
     {
-        return findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_VALIDWHEN);
+        return findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_VALIDWHEN).toString();
     }
 
     public Collection getOptionKeys()
@@ -349,7 +350,7 @@ public class StrutsParameterLogicImpl
     {
         if ("radio".equals(getWidgetType()))
         {
-            String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
+            String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE).toString();
             if (fieldType.length() > Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length())
             {
                 try
@@ -361,7 +362,7 @@ public class StrutsParameterLogicImpl
                 }
             }
             return 3;
-        } 
+        }
         return 0;
     }
 

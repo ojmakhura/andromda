@@ -24,10 +24,10 @@ import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
-  
+
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -37,7 +37,7 @@ public class ModelElementFacadeLogicImpl
        implements org.andromda.metafacades.uml.ModelElementFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public ModelElementFacadeLogicImpl (org.omg.uml.foundation.core.ModelElement metaObject, String context)
     {
         super (metaObject, context);
@@ -75,52 +75,52 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
-    public java.lang.String getFullyQualifiedName(boolean modelName) 
+    public java.lang.String getFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
-        
+
         String packageName = getPackageName();
 
-        if (StringUtils.isNotEmpty(packageName)) 
+        if (StringUtils.isNotEmpty(packageName))
         {
             fullName = packageName + "." + fullName;
         }
 
-        if (!modelName) 
-        {   
-            if (this.getLanguageMappings() != null) 
+        if (!modelName)
+        {
+            if (this.getLanguageMappings() != null)
             {
                 fullName = StringUtils.deleteWhitespace(
                         this.getLanguageMappings().getTo(fullName));
             }
         }
-        
+
         return fullName;
-    }   
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public java.lang.String getFullyQualifiedName() 
+    public java.lang.String getFullyQualifiedName()
     {
         return this.getFullyQualifiedName(false);
-    }   
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
      */
-    public String findTaggedValue(String name)
+    public Object findTaggedValue(String name)
     {
         name = StringUtils.trimToEmpty(name);
         Collection taggedValues = this.getTaggedValues();
-        String value = null;
-        for (Iterator taggedValueIt = taggedValues.iterator(); 
-             taggedValueIt.hasNext();) 
+        Object value = null;
+        for (Iterator taggedValueIt = taggedValues.iterator();
+             taggedValueIt.hasNext();)
         {
-            TaggedValueFacade taggedValue = 
+            TaggedValueFacade taggedValue =
                 (TaggedValueFacade) taggedValueIt.next();
             String tagName = taggedValue.getName();
-            if (tagName.equals(name)) 
+            if (tagName.equals(name))
             {
                 value = taggedValue.getValue();
                 break;
@@ -130,53 +130,50 @@ public class ModelElementFacadeLogicImpl
         return value;
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#hasStereotype(String)
-     */
     public boolean hasStereotype(final String stereotypeName)
     {
         Collection stereotypes = this.getStereotypes();
 
-        boolean hasStereotype = 
+        boolean hasStereotype =
             StringUtils.isNotBlank(stereotypeName) &&
-            stereotypes != null && 
+            stereotypes != null &&
             !stereotypes.isEmpty();
 
-        if (hasStereotype) 
+        if (hasStereotype)
         {
-            class StereotypeFilter implements Predicate 
+            class StereotypeFilter implements Predicate
             {
-                public boolean evaluate(Object object) 
+                public boolean evaluate(Object object)
                 {
                     boolean valid = false;
                     StereotypeFacade stereotype = (StereotypeFacade)object;
                     String name = StringUtils.trimToEmpty(stereotype.getName());
                     valid = stereotypeName.equals(name);
-                    while (!valid && stereotype != null) 
+                    while (!valid && stereotype != null)
                     {
-                        stereotype = 
+                        stereotype =
                             (StereotypeFacade)stereotype.getGeneralization();
-                        valid = stereotype != null && 
+                        valid = stereotype != null &&
                             StringUtils.trimToEmpty(stereotype.getName()).equals(stereotypeName);
                     }
                     return valid;
                 }
             }
             hasStereotype = CollectionUtils.find(
-                this.getStereotypes(), 
+                this.getStereotypes(),
                 new StereotypeFilter()) != null;
         }
         return hasStereotype;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(java.lang.String)
      */
     public boolean hasExactStereotype(String stereotypeName) {
         return this.getStereotypeNames().contains(
-                StringUtils.trimToEmpty(stereotypeName));        
+                StringUtils.trimToEmpty(stereotypeName));
     }
-   
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getVisibility()
      */
@@ -195,7 +192,7 @@ public class ModelElementFacadeLogicImpl
 		}
 		return visibility.toString();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypeNames()
      */
@@ -203,7 +200,7 @@ public class ModelElementFacadeLogicImpl
         Collection stereotypeNames = new ArrayList();
 
         Collection stereotypes = metaObject.getStereotype();
-        for (Iterator stereotypeIt = stereotypes.iterator(); 
+        for (Iterator stereotypeIt = stereotypes.iterator();
              stereotypeIt.hasNext();) {
             ModelElement stereotype = (ModelElement) stereotypeIt.next();
             stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
@@ -237,7 +234,7 @@ public class ModelElementFacadeLogicImpl
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
-     * 
+     *
      * TODO: the lineLength does not work yet
      */
     public String getDocumentation(String indent, int lineLength, boolean htmlStyle)
@@ -256,10 +253,10 @@ public class ModelElementFacadeLogicImpl
                 if (StringUtils.isEmpty(commentString)) {
                     commentString = StringUtils.trimToEmpty(comment.getName());
                 }
-                // if there still isn't anything, try a tagged value 
+                // if there still isn't anything, try a tagged value
                 if (StringUtils.isEmpty(commentString)) {
                     commentString = StringUtils.trimToEmpty(
-                        this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION));
+                        this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION).toString());
                 }
                 documentation.append(
                         StringUtils.trimToEmpty(commentString));
@@ -292,54 +289,48 @@ public class ModelElementFacadeLogicImpl
                 documentation.append(indent);
             }
         } catch (Throwable th) {
-            final String errMsg = 
+            final String errMsg =
                 "Error performing ModelElementFacadeImpl.getDocumentation";
             logger.error(errMsg, th);
         }
         return documentation.toString();
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getName()
-     */
     public String getName()
     {
         return metaObject.getName();
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getMetaObject()
-     */
     public ModelElement getMetaObject()
     {
         return metaObject;
     }
-    
+
     /**
      * Language specific mappings property reference.
      */
     private static final String LANGUAGE_MAPPINGS_URI = "languageMappingsUri";
-    
+
     /**
-     * Allows the MetaFacadeFactory to populate 
+     * Allows the MetaFacadeFactory to populate
      * the language mappings for this model element.
-     * 
+     *
      * @param mappingsUri the URI of the language mappings resource.
      */
     public void setLanguageMappingsUri(String mappingsUri) {
         try {
             this.registerConfiguredProperty(
-            	LANGUAGE_MAPPINGS_URI, 
+            	LANGUAGE_MAPPINGS_URI,
                 Mappings.getInstance(mappingsUri));
         } catch (Throwable th) {
-            String errMsg = "Error setting '" 
-                + LANGUAGE_MAPPINGS_URI + "' --> '" 
+            String errMsg = "Error setting '"
+                + LANGUAGE_MAPPINGS_URI + "' --> '"
                 + mappingsUri + "'";
             logger.error(errMsg, th);
             //don't throw the exception
         }
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
@@ -347,9 +338,6 @@ public class ModelElementFacadeLogicImpl
         return (Mappings)this.getConfiguredProperty(LANGUAGE_MAPPINGS_URI);
     }
 
-    /**
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#handleGetPackage()
-     */
     protected Object handleGetPackage()
     {
         return metaObject.getNamespace();
@@ -358,9 +346,9 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetRootPackage()
      */
-    protected Object handleGetRootPackage() 
+    protected Object handleGetRootPackage()
     {
-        Collection rootPackages = 
+        Collection rootPackages =
             ((UmlPackage)MetafacadeFactory.getInstance().getModel().getModel())
                 .getModelManagement().refAllPackages();
         return (ModelElement) rootPackages.iterator().next();
@@ -380,7 +368,7 @@ public class ModelElementFacadeLogicImpl
 			}
 		};
 	}
-    
+
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetStereotypes()
      */
@@ -403,24 +391,24 @@ public class ModelElementFacadeLogicImpl
     {
         return MetafacadeFactory.getInstance().getModel().getModel();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetConstraints()
      */
-    protected Collection handleGetConstraints() 
+    protected Collection handleGetConstraints()
     {
-        return this.metaObject.getConstraint();    
+        return this.metaObject.getConstraint();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
      */
-    public String translateConstraint(final String name, String translation) 
+    public String translateConstraint(final String name, String translation)
     {
-        String translatedExpression = "";         
+        String translatedExpression = "";
         ConstraintFacade constraint = (ConstraintFacade)CollectionUtils.find(
             this.getConstraints(),
-            new Predicate() 
+            new Predicate()
             {
                 public boolean evaluate(Object object) {
                     ConstraintFacade constraint = (ConstraintFacade)object;
@@ -429,27 +417,27 @@ public class ModelElementFacadeLogicImpl
                             StringUtils.trimToEmpty(name));
                 }
             });
-        
-        if (constraint != null) 
+
+        if (constraint != null)
         {
-            Expression translatedConstraint = 
+            Expression translatedConstraint =
                 ExpressionTranslator.instance().translate(
-                    translation, 
-                    this.shieldedElement(this.metaObject), 
+                    translation,
+                    this.shieldedElement(this.metaObject),
                     constraint.getBody());
-            translatedExpression = 
+            translatedExpression =
                 translatedConstraint.getTranslatedExpression();
         }
-        return translatedExpression;   
+        return translatedExpression;
     }
-    
+
      /**
       * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String)
       */
      public java.lang.String[] translateConstraints(String translation) {
-        return this.translateConstraints(this.getConstraints(), translation);  
+        return this.translateConstraints(this.getConstraints(), translation);
      }
-     
+
      /**
       * Private helper that translates all the expressions
       * contained in the <code>constraints</code>, and returns
@@ -465,17 +453,17 @@ public class ModelElementFacadeLogicImpl
             translatedExpressions = new String[constraints.size()];
             Iterator constraintIt = constraints.iterator();
             for (int ctr = 0; constraintIt.hasNext(); ctr++) {
-                ConstraintFacade constraint = 
+                ConstraintFacade constraint =
                     (ConstraintFacade)constraintIt.next();
-                Expression translatedConstraint = 
+                Expression translatedConstraint =
                    ExpressionTranslator.instance().translate(
-                       translation, 
-                       this.shieldedElement(this.metaObject), 
+                       translation,
+                       this.shieldedElement(this.metaObject),
                        constraint.getBody());
-                translatedExpressions[ctr] = 
+                translatedExpressions[ctr] =
                    translatedConstraint.getTranslatedExpression();
             }
-        }  
+        }
         return translatedExpressions;
      }
 
@@ -486,7 +474,7 @@ public class ModelElementFacadeLogicImpl
         Collection constraints = this.getConstraints();
         CollectionUtils.filter(
             constraints,
-            new Predicate() 
+            new Predicate()
             {
                 public boolean evaluate(Object object) {
                     ConstraintFacade constraint = (ConstraintFacade)object;
@@ -494,6 +482,6 @@ public class ModelElementFacadeLogicImpl
                         constraint.getBody()).matches(".*\\s" + kind + "\\s*.*");
                 }
             });
-        return this.translateConstraints(constraints, translation);      
+        return this.translateConstraints(constraints, translation);
      }
 }

@@ -1,16 +1,15 @@
 package org.andromda.metafacades.uml14;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.HTMLAnalyzer;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.TagDefinition;
 
+import java.io.IOException;
+import java.util.Collection;
+
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -20,7 +19,7 @@ public class TaggedValueFacadeLogicImpl
        implements org.andromda.metafacades.uml.TaggedValueFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public TaggedValueFacadeLogicImpl (org.omg.uml.foundation.core.TaggedValue metaObject, String context)
     {
         super (metaObject, context);
@@ -46,27 +45,20 @@ public class TaggedValueFacadeLogicImpl
                 }
             }
         }
-        return name;        
+        return name;
     }
 
+    public Collection getValues()
+    {
+        return metaObject.getDataValue();
+    }
 
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.TaggedValueDecorator#getValue()
      */
-    public java.lang.String getValue() {
-        StringBuffer sb = new StringBuffer();
-        for (Iterator i = metaObject.getDataValue().iterator(); i.hasNext(); )
-        {
-            Object v = i.next();
-            sb.append(v.toString());
-            
-            if (i.hasNext())
-            {
-                sb.append(" ");
-            }
-        }
-        
-        return sb.toString();
+    public java.lang.Object getValue() {
+        Collection values = getValues();
+        return (values.isEmpty()) ? null : values.iterator().next();
     }
 
     /* (non-Javadoc)
@@ -76,7 +68,7 @@ public class TaggedValueFacadeLogicImpl
     {
         try
         {
-            return new HTMLAnalyzer().htmlToParagraphs(getValue());
+            return new HTMLAnalyzer().htmlToParagraphs(getValue().toString());
         }
         catch (IOException e)
         {
@@ -86,5 +78,5 @@ public class TaggedValueFacadeLogicImpl
     }
 
     // ------------- relations ------------------
-    
+
 }

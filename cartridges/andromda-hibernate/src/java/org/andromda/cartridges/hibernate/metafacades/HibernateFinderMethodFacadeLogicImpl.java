@@ -19,25 +19,25 @@ public class HibernateFinderMethodFacadeLogicImpl
        implements org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public HibernateFinderMethodFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery()
      */
     public String getQuery() {
- 
+
         // first see if we can retrieve the query from the super class as an OCL
         // translation
         String queryString = super.getQuery("query.Hibernate-QL");
-        
+
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
-            queryString = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-        }        
+            queryString = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY).toString();
+        }
 
         //if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString)) {
@@ -68,5 +68,5 @@ public class HibernateFinderMethodFacadeLogicImpl
         }
         return queryString;
     }
-    
+
 }

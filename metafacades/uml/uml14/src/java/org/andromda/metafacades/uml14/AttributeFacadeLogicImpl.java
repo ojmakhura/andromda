@@ -13,7 +13,7 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -23,7 +23,7 @@ public class AttributeFacadeLogicImpl
        implements org.andromda.metafacades.uml.AttributeFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public AttributeFacadeLogicImpl (org.omg.uml.foundation.core.Attribute metaObject, String context)
     {
         super (metaObject, context);
@@ -58,11 +58,11 @@ public class AttributeFacadeLogicImpl
     {
         return metaObject.getType();
     }
-    
+
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#handleGetOwner()
      */
-    public Object handleGetOwner() 
+    public Object handleGetOwner()
     {
         return this.metaObject.getOwner();
     }
@@ -78,18 +78,18 @@ public class AttributeFacadeLogicImpl
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.AttributeFacade#isStatic()
      */
-    public boolean isStatic() 
+    public boolean isStatic()
     {
         return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject.getOwnerScope());
     }
-    
+
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.AttributeFacade#findTaggedValue(java.lang.String, boolean)
      */
-    public String findTaggedValue(String name, boolean follow) 
+    public Object findTaggedValue(String name, boolean follow)
     {
         name = StringUtils.trimToEmpty(name);
-        String value = findTaggedValue(name);
+        Object value = findTaggedValue(name);
         if (follow) {
             ClassifierFacade type = this.getType();
             while (value == null && type != null) {
@@ -99,17 +99,17 @@ public class AttributeFacadeLogicImpl
         }
         return value;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
      */
 	public boolean isRequired() {
 		int lower = this.getMultiplicityRangeLower();
 		return lower >= 1;
-    }	
+    }
 
 	/**
-	 * Returns the lower range of the multiplicty for the 
+	 * Returns the lower range of the multiplicty for the
 	 * passed in associationEnd
 	 * @return int the lower range of the multiplicty or 1 if
 	 *         it isn't defined.
