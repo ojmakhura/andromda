@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import org.andromda.core.cartridge.AndroMDACartridge;
 import org.andromda.core.cartridge.CartridgeFinder;
@@ -158,8 +157,11 @@ public class AndroMDAGenTask extends MatchingTask
                 // shouldn't lead to problems
                 baseDir = this.getProject().resolveFile(".");
             }
-
-            List cartridges = CartridgeFinder.findCartridges();
+            
+            CartridgeFinder.instance().discoverCartridges();
+            
+            Collection cartridges = 
+                CartridgeFinder.instance().getCartridges();
 
             if (cartridges.size() <= 0)
             {
