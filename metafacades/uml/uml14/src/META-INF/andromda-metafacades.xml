@@ -171,12 +171,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
-            <property name="serviceReferencesPresent"/>  
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
-            <property name="serviceOperationReferencesPresent"/>  
+            <property name="referencesPresent"/>  
         </mapping>
     </metafacade>
     <!-- Entity  metafacades -->
