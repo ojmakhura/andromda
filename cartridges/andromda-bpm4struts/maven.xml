@@ -14,11 +14,12 @@
     </postGoal>
 
     <postGoal name="java:compile">
-        <ant:property name="taglib.name" value="andromda-breadcrumbs-taglib"/>
-        <!-- Include the taglib code into the resources after compilation -->
         <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
-        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${taglib.name}-${pom.currentVersion}.jar"
-            tofile="${maven.build.dest}/resources/WEB-INF/lib/${taglib.name}.jar"/>
+        <!-- Include the taglib code into the resources after compilation -->
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-breadcrumbs-taglib-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-breadcrumbs-taglib.jar"/>
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-formatting-taglib-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-formatting-taglib.jar"/>
     </postGoal>
 
 </project>
