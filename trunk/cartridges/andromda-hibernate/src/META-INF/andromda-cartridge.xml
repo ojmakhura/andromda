@@ -12,9 +12,6 @@
 
     <property reference="ejbViewType" default="local"/>
     <property reference="securityRealm" default=""/>
-    <!-- not really used from the template except to check if it has been defined
-         or not, so that we can determine whether or not we'll generate session ejbs-->
-    <property reference="session-beans" default=""/>
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
@@ -199,6 +196,7 @@
         outputPattern="$generatedFile"
         outlet="session-beans"
         overwrite="true"
+        required="false"
         outputToSingleFile="true">
         <modelElements variable="services">
             <modelElement>
@@ -211,7 +209,8 @@
         path="templates/hibernate/ejb/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
-        overwrite="true">
+        overwrite="true"
+        required="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
@@ -223,7 +222,8 @@
         path="templates/hibernate/ejb/HibernateSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
-        overwrite="false">
+        overwrite="false"
+        required="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>

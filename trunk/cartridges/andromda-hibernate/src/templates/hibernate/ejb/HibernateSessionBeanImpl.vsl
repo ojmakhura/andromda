@@ -1,5 +1,4 @@
 #parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
-#if ($ejbsEnabled)
 package $service.packageName;
 
 /**
@@ -39,4 +38,3 @@ public class ${service.name}BeanImpl
 
 #end
 }
-#end

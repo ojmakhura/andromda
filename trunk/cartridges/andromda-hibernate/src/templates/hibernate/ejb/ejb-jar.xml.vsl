@@ -1,5 +1,4 @@
 #parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
-#if ($ejbsEnabled)
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
                          "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
@@ -111,4 +110,3 @@
     </assembly-descriptor>
 
 </ejb-jar>
-#end
