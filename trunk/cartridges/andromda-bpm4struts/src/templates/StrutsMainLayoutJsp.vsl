@@ -8,7 +8,7 @@
             <tiles:insert attribute="title" flush="true"/>
         </title>
         <html:base/>
-        <link rel="stylesheet" type="text/css" href="<html:rewrite page="/layout/application.css"/>"/>
+        <link rel="stylesheet" type="text/css" href="<html:rewrite page="/layout/default.css"/>"/>
         <tiles:insert attribute="javascript" flush="true"/>
     </head>
 
