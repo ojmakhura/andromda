@@ -135,12 +135,8 @@
     </bean>
 	
 #end
-#set ($entityClass = $entity.fullyQualifiedDaoBaseName)
-#if ($entity.daoImplementationRequired)
-#set ($entityClass = $entity.fullyQualifiedDaoImplementationName)
-#end
     <!-- $entity.name: entity implementation  -->
-    <bean id="$entity.getBeanName($targetBeanSuffix)" class="$entityClass">
+    <bean id="$entity.getBeanName($targetBeanSuffix)" class="$entity.fullyQualifiedDaoImplementationName">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
 #foreach($entityRef in $entity.entityReferences)
         <property name="$entityRef.name"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>

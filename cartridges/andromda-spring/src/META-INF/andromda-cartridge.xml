@@ -112,7 +112,7 @@
 	
 	<template 
 		path="templates/spring/SpringServiceBase.vsl" 
-		outputPattern="{0}/{1}Base.java" 
+		outputPattern="$generatedFile" 
 		outlet="services" 
 		overwrite="true">
 		<modelElements variable="service">
@@ -131,7 +131,7 @@
 	
 	<template 
 		path="templates/spring/SpringServiceImpl.vsl" 
-		outputPattern="{0}/{1}Impl.java" 
+		outputPattern="$generatedFile" 
 		outlet="service-impls" 
 		overwrite="false">
 		<modelElements variable="service">
@@ -155,7 +155,7 @@
 		
 	<template 
 		path="templates/spring/SpringDao.vsl" 
-		outputPattern="{0}/{1}Dao.java" 
+		outputPattern="$generatedFile" 
 		outlet="daos" 
 		overwrite="true"
 		required="false">
@@ -168,7 +168,7 @@
 	
 	<template 
 		path="templates/spring/hibernate/SpringHibernateDaoBase.vsl" 
-		outputPattern="{0}/{1}DaoBase.java" 
+		outputPattern="$generatedFile" 
 		outlet="daos" 
 		overwrite="true"
 		required="false">
@@ -181,7 +181,20 @@
 	
 	<template 
 		path="templates/spring/hibernate/SpringHibernateDaoImpl.vsl" 
-		outputPattern="{0}/{1}DaoImpl.java" 
+		outputPattern="$generatedFile" 
+		outlet="daos" 
+		overwrite="true"
+		required="false">
+		<modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement> 
+		</modelElements>
+	</template>
+    
+	<template 
+		path="templates/spring/hibernate/SpringHibernateDaoImplManual.vsl" 
+		outputPattern="$generatedFile" 
 		outlet="dao-impls" 
 		overwrite="false"
 		required="false">
