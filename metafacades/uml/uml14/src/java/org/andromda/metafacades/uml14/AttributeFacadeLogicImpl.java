@@ -55,7 +55,13 @@ public class AttributeFacadeLogicImpl
 
     public String handleGetDefaultValue()
     {
-        return metaObject.getInitialValue().getBody();
+        String defaultValue = null;
+        if (this.metaObject.getInitialValue() != null) 
+        {
+            defaultValue = 
+                this.metaObject.getInitialValue().getBody();
+        }
+        return defaultValue;
     }
 
     /**
