@@ -1,9 +1,11 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
 
 public class DecoratorFactory
@@ -17,6 +19,23 @@ public class DecoratorFactory
     // just to make sure that nobody instantiates it
     private DecoratorFactory()
     {
+        registerCoreDecoratorClasses();
+    }
+
+    /**
+     * 
+     */
+    private void registerCoreDecoratorClasses()
+    {
+        setActiveNamespace("core");
+        registerDecoratorClass(
+            "org.omg.uml.modelmanagement.UmlPackage$Impl",
+            null,
+            PackageDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.modelmanagement.Model$Impl",
+            null,
+            PackageDecoratorImpl.class.getName());
     }
 
     /**
@@ -98,15 +117,27 @@ public class DecoratorFactory
                 stereotypeName);
         if (decoratorClassName != null)
         {
+            System.out.println(
+                "lookupDecoratorClass: "
+                    + umlMetaClassName
+                    + " -> "
+                    + decoratorClassName);
             return decoratorClassName;
         }
 
         // if not found, lookup in core namespace
         namespace = (HashMap) namespaces.get("core");
-        return internalLookupDecoratorClass(
-            namespace,
-            umlMetaClassName,
-            stereotypeName);
+        decoratorClassName =
+            internalLookupDecoratorClass(
+                namespace,
+                umlMetaClassName,
+                stereotypeName);
+        System.out.println(
+            "lookupDecoratorClass: "
+                + umlMetaClassName
+                + " -> "
+                + decoratorClassName);
+        return decoratorClassName;
     }
 
     /**
@@ -157,15 +188,55 @@ public class DecoratorFactory
         }
         try
         {
-            return (DecoratorBase) Class
-                .forName(decoratorClassName)
-                .newInstance();
+            Class dynamicClass = Class.forName(decoratorClassName);
+            Constructor constructor =
+                findConstructor(dynamicClass, metaobject.getClass());
+
+            Object[] constructorParams = { metaobject };
+            return (DecoratorBase) constructor.newInstance(constructorParams);
         }
         catch (Exception e)
         {
             e.printStackTrace(); // TODO: better logging!
             return null;
         }
+    }
+
+    /**
+     * Finds the right constructor to create an object of class
+     * <code>dynamicClass</code>, using a parameter of type
+     * <code>parameterClass</code>.
+     * 
+     * @param dynamicClass class in which the constructor should be found
+     * @param parameterClass type of parameter that the constructor should accept
+     * @return the appropriate constructor or null
+     */
+    private Constructor findConstructor(
+        Class dynamicClass,
+        Class parameterClass)
+    {
+        Constructor[] c = dynamicClass.getConstructors();
+        for (int i = 0; i < c.length; i++)
+        {
+            Class[] ptypes = c[i].getParameterTypes();
+            if (ptypes.length == 1
+                && ptypes[0].isAssignableFrom(parameterClass))
+            {
+                return c[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Create a decorator for the whole model itself.
+     * 
+     * @param model the model as a package
+     * @return a decorator for the model
+     */
+    public ModelDecorator createDecoratorObject(UmlPackage model)
+    {
+        return new ModelDecoratorImpl(model);
     }
 
     /**
@@ -214,5 +285,4 @@ public class DecoratorFactory
         HashMap namespace = (HashMap) namespaces.get(activeNamespace);
         return namespace.size();
     }
-
 }
