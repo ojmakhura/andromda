@@ -305,15 +305,6 @@ public class StringUtilsHelperTest
         }
     }
 
-    /*
-     * public void testToResourceMessage() { final String[][] fixture = new
-     * String[][] { new String[] { "This is\na multiline\nstring", "This is
-     * \\\na multiline \\\nstring" } }; for (int i = 0; i < fixture.length; i++) {
-     * String[] strings = fixture[i];
-     * assertEquals(StringUtilsHelper.toResourceMessageKey(strings[0]),
-     * strings[1]); } }
-     */
-
     public void testPrefixWithAPredicate()
     {
         final String[][] fixture = new String[][]
@@ -566,19 +557,6 @@ public class StringUtilsHelperTest
             testString + "  ");
     }
 
-    public void testCrunch()
-    {
-    /*
-     * final String[][] fixture = new String[][] { new String[] { "", "" }, new
-     * String[] { " ", " " }, new String[] { "AaaaaBbbbbCccccDdddd", "ABCDdddd" },
-     * new String[] { "ThisIsAnother long filename", "TIA l f" }, new String[] {
-     * "this is a file", "t i a file" } }; for (int i = 0; i < fixture.length;
-     * i++) { String[] strings = fixture[i]; System.out.println(strings[0]+
-     * "::"+strings[1]+" --> "+StringUtilsHelper.crunch(strings[0], 10));
-     * assertEquals(StringUtilsHelper.crunch(strings[0], 10), strings[1]); }
-     */
-    }
-
     public void testPluralize()
     {
         final String[][] fixture = new String[][]
@@ -639,6 +617,26 @@ public class StringUtilsHelperTest
         {
             String[] strings = fixture[i];
             assertEquals(StringUtilsHelper.pluralize(strings[0]), strings[1]);
+        }
+    }
+
+    public void testSeparate()
+    {
+        final String[][] fixture = new String[][]
+        {
+            new String[]
+            {
+                "Transfer from a Critical Access Hospital",
+                "Transfer_from_a_Critical_Access_Hospital"
+            }
+        };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(
+                StringUtilsHelper.separate(strings[0], "_"),
+                strings[1]);
         }
     }
 }
