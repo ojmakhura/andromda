@@ -92,7 +92,7 @@
             descriptor="${maven.src.dir}/../webservice/project.xml"
             goals="war:install"/>
     </goal>
-    
+
 #end
     <!-- ============================================================
              Initializes the database schema for this application
@@ -153,7 +153,7 @@
 
     <!-- ============================================================
              Executes the given DDL script
-         ============================================================ --> 
+         ============================================================ -->
     <goal name="execute-script">
 #set ($condition = '${script != null}')
         <j:if test="$condition">
