@@ -14,18 +14,18 @@ import java.util.List;
 public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
 {
     private String primaryKeyName = null;
-    private final List exportedKeyColumns = new ArrayList();
+//    private final List exportedKeyColumns = new ArrayList();
 
-    public PrimaryKeyColumnImpl(Table table, String name)
+    public PrimaryKeyColumnImpl(Table table, String name, int sqlType)
     {
-        super(table, name);
+        super(table, name, sqlType);
         this.refresh(true);
     }
 
-    public PrimaryKeyColumnImpl(Table table, String name, ForeignKeyColumn[] exportedKeyColumns)
+    public PrimaryKeyColumnImpl(Table table, String name, int sqlType, ForeignKeyColumn[] exportedKeyColumns)
     {
-        super(table, name);
-        this.exportedKeyColumns.addAll(Arrays.asList(exportedKeyColumns));
+        super(table, name, sqlType);
+//        this.exportedKeyColumns.addAll(Arrays.asList(exportedKeyColumns));
         this.refresh(false);
     }
 
@@ -34,10 +34,12 @@ public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
         return primaryKeyName;
     }
 
+/*
     public ForeignKeyColumn[] getExportedKeyColumns()
     {
         return (ForeignKeyColumn[]) exportedKeyColumns.toArray(new ForeignKeyColumn[exportedKeyColumns.size()]);
     }
+*/
 
     private void refresh(boolean exportedKeys)
     {
@@ -64,6 +66,7 @@ public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
             finally
             { close(resultSet); }
 
+/*
             // EXPORTED KEY COLUMNS
             if (exportedKeys)
             {
@@ -92,7 +95,18 @@ public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
                             Column targetColumn = getTable().getDatabase().getPool().findColumn(targetTableName, targetTableColumnName);
                             if (targetColumn == null)
                             {
-                                targetColumn = new ForeignKeyColumnImpl(targetTable, targetTableColumnName, this);
+                                ResultSet columnSet = getMetaData().getColumns(
+                                        getCatalog(), getSchema(), targetTableName, targetTableColumnName);
+                                if (columnSet.next())
+                                {
+                                    int sqlType = columnSet.getInt("DATA_TYPE");
+                                    targetColumn = new ForeignKeyColumnImpl(targetTable, targetTableColumnName, sqlType, this);
+                                }
+                                else
+                                {
+                                    throw new IllegalStateException("An exported key column was found but the " +
+                                            "column could not be loaded: "+targetTableColumnName);
+                                }
                             }
                             exportedKeyColumns.add(targetColumn);
                         }
@@ -101,6 +115,7 @@ public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
                 finally
                 { close(resultSet); }
             }
+*/
         }
         catch (SQLException e)
         {
