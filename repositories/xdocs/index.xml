@@ -20,6 +20,15 @@
 			     is an implementation of the AndroMDA repository for 
 			     <a href="http://mdr.netbeans.org">MDR</a>).
             </p>
+			<p>
+				AndroMDA by default reads models from XMI files.  If you wanted to change 
+				the default behavior of AndroMDA so that it could read a model from another 
+				format, or repository other than MDR, you would implement another
+			    <a href="../andromda-core/apidocs/org/andromda/core/repository/RepositoryFacade.html">RepositoryFacade</a>
+				implementation and place it on your classpath instead of (or before)
+				the default MDR repository jar.  Please <a href="developing.html">Developing a Repository</a>
+				for more information on how to develop and use your own.	
+			</p>
         </section>
 
     </body>

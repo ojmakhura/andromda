@@ -12,7 +12,8 @@ import org.apache.tools.ant.types.Path;
  * which can used within the ant <code>&lt;andromda&gt;</code> tag
  * to configure androMDA to configure the object model repository.
  * 
- * Currently its used as a way of specifying a &lt;moduleSearchPath&gt;
+ * Currently its used as a way of specifying a 
+ * <code>&lt;moduleSearchPath/&gt;</code>.
  * 
  * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  * @author Chad Brandon
