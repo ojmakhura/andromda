@@ -68,6 +68,23 @@ $useCase.titleKey=$useCase.titleValue
 $page.titleKey=$page.titleValue
 $page.documentationKey=$page.documentationValue
 
+#set ($pageVariable = $page.pageVariables)
+#if (!$pageVariables.empty)
+#   PAGE-VARIABLES
+#foreach ($pageVariable in $page.pageVariables)
+${page.titleKey}.${pageVariable.messageKey}=${pageVariable.messageValue}
+#end
+#end
+
+#if ($page.tabbed)
+#   PAGE-TABS
+#set ($tabMap = $page.tabMap)
+#foreach ($tabKey in $tabMap.keySet())
+#set ($tabIndex = $velocityCount - 1)
+${page.messageKey}.tab.${tabKey}=$page.getTabName($tabIndex)
+#end
+#end
+
 #foreach ($action in $page.actions)
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
@@ -83,7 +100,7 @@ ${messageKey}.$actionTrigger.resetTitleKey=$actionTrigger.resetTitleValue
 ${messageKey}.$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllowedTitleValue
 
 #set ($actionParameters = $action.actionParameters)
-#if (!$actionParameters.isEmpty())
+#if (!$actionParameters.empty)
 #   ACTION-PARAMETERS
 #foreach ($field in $action.actionParameters)
 ${messageKey}.$field.messageKey=$field.messageValue
@@ -96,13 +113,13 @@ ${messageKey}.${optionKey}.title=${field.name}-$velocityCount
 
 #end
 #set ($actionExceptions = $action.actionExceptions)
-#if (!$actionExceptions.isEmpty())
+#if (!$actionExceptions.empty)
 #   ACTION-EXCEPTIONS
 #end
 #foreach ($exception in $action.actionExceptions)
 ${messageKey}.$exception.exceptionKey={0} ($exception.exceptionType)
 #end
-#if ($actionExceptions.isEmpty() && !$action.isUseCaseStart())
+#if ($actionExceptions.empty && !$action.useCaseStart)
 ${messageKey}.exception={0} (java.lang.Exception)
 #end
 
