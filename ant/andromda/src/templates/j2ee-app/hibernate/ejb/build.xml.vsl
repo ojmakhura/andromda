@@ -7,22 +7,40 @@
     <property file="${basedir}/build.properties"/>
     <property file="${app.root.dir}/build.properties"/>
 
-    <property name="jar.bundle.name" value="${application.id}-hibernate-ejb-${application.version}.jar"/>
-    <property name="javadoc.bundle.name" value="${application.id}-hibernate-ejb-${application.version}-javadoc.zip"/>
+    <property name="common.jar.bundle.name" value="${application.id}-${ant.project.name}-common-${application.version}.jar"/>
+    <property name="server.jar.bundle.name" value="${application.id}-${ant.project.name}-server-${application.version}.jar"/>
 
-    <property name="xdoclet.gen.dir" value="${xdoclet.build.dir}/ejb"/>
+    <property name="xdoclet.gen.dir" value="target/xdoclet/ejb"/>
     <property name="ejb.descriptor.dir" value="${xdoclet.gen.dir}/META-INF"/>
 
-    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
-    <fileset id="classes" dir="${basedir}/${java.build.dir}" includes="**/*.class"/>
-    <fileset id="bean-sources" dir="${basedir}/${mda.build.dir}" includes="**/*Bean.java"/>
-    <fileset id="mda-java-sources" dir="${basedir}/${mda.build.dir}" includes="**/*.java"/>
-    <fileset id="java-sources" dir="${basedir}/${java.src.dir}" includes="**/*.java"/>
-    <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
+    <fileset id="common.sources" dir="${basedir}/target/src">
+        <include name="**/*.java"/>
+        <exclude name="**/*Bean.java"/>
+    </fileset>
+    <fileset id="server.sources" dir="${basedir}/target/src">
+        <include name="**/*Bean.java"/>
+    </fileset>
+
+    <fileset id="common.classes" dir="${basedir}/target/classes">
+        <include name="**/*.class"/>
+        <exclude name="**/*Impl.class"/>
+    </fileset>
+   <fileset id="server.classes" dir="${basedir}/target/classes">
+        <include name="**/*Impl.class"/>
+    </fileset>
 
     <path id="classpath">
-        <fileset refid="libraries"/>
-        <pathelement path="${basedir}/${java.build.dir}"/>
+        <fileset dir="${app.root.dir}/lib">
+            <include name="xdoclet-*.jar"/>
+            <include name="xjavadoc-*.jar"/>
+            <include name="jboss-j2ee-*.jar"/>
+            <include name="hibernate-*.jar"/>
+            <include name="commons-lang-*.jar"/>
+            <include name="commons-logging-*.jar"/>
+            <include name="commons-collections-*.jar"/>
+        </fileset>
+        <pathelement path="${basedir}/target/classes"/>
+        <pathelement location="${app.root.dir}/dist/${application.id}-common-${application.version}.jar"/>
     </path>
 
     <target name="clean" description="o Clean up the generated directories">
@@ -30,13 +48,13 @@
     </target>
 
     <target name="xdoclet" description="o Run XDoclet EJB">
-        <mkdir dir="${basedir}/${java.src.dir}"/>
-        <mkdir dir="${basedir}/${mda.build.dir}"/>
+        <mkdir dir="${basedir}/src/java"/>
+        <mkdir dir="${basedir}/target/src"/>
         <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
         <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
         <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
         <ejbdoclet destdir="${basedir}/${xdoclet.gen.dir}" ejbspec="2.0" force="false">
-            <fileset refid="bean-sources"/>
+            <fileset refid="server.sources"/>
             <utilobject kind="logical" cacheHomes="true"/>
             <remoteinterface/>
             <homeinterface/>
@@ -45,8 +63,8 @@
             <deploymentdescriptor destdir="${basedir}/${ejb.descriptor.dir}"/>
             <jboss version="3.0"
                    xmlencoding="UTF-8"
-                   typemapping="Hypersonic SQL"
-                   datasource="java:/DefaultDS"
+                   typemapping="${datasource.jboss.mapping}"
+                   datasource="${datasource.jndi}"
                    destdir="${basedir}/${ejb.descriptor.dir}"/>
         </ejbdoclet>
         <!--
@@ -62,53 +80,35 @@
     </target>
 
     <target name="compile" description="o Compile the code" depends="xdoclet">
-        <mkdir dir="${basedir}/${java.build.dir}"/>
-        <javac destdir="${basedir}/${java.build.dir}" classpathref="classpath"
+        <mkdir dir="${basedir}/target/classes"/>
+        <javac destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false">
-            <src path="${basedir}/${mda.build.dir}"/>
-            <src path="${basedir}/${java.src.dir}"/>
+            <src path="${basedir}/target/src"/>
+            <src path="${basedir}/src/java"/>
             <src path="${basedir}/${xdoclet.gen.dir}"/>
         </javac>
     </target>
 
-    <target name="jar" description="o Create the JAR" depends="compile">
+    <target name="jar" description="o Create the JAR bundles" depends="compile">
         <mkdir dir="${basedir}/target"/>
-        <jar jarfile="${basedir}/target/${jar.bundle.name}" manifest="${basedir}/src/META-INF/MANIFEST.MF">
-            <fileset dir="${basedir}/${java.build.dir}"/>
+        <jar jarfile="${basedir}/target/${common.jar.bundle.name}">
+            <fileset refid="common.classes"/>
+        </jar>
+        <jar jarfile="${basedir}/target/${server.jar.bundle.name}">
+            <manifest>
+                <attribute name="Class-Path" value="${application.id}-common-${application.version}.jar ${common.jar.bundle.name} commons-beanutils-1.6.1.jar commons-collections-3.0.jar commons-lang-2.0.jar commons-codec-1.3.jar commons-io-1.0.jar hibernate-2.1.4.jar cglib-2.0-rc2.jar dom4j-1.4.jar odmg-3.0.jar ehcache-0.7.jar asm-1.4.1.jar"/>
+            </manifest>
+            <fileset refid="server.classes"/>
             <fileset dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.xml"/>
         </jar>
     </target>
 
-    <target name="zip" description="o Create the zip" depends="javadoc">
-        <mkdir dir="${basedir}/target"/>
-        <zip destfile="${basedir}/target/${javadoc.bundle.name}" basedir="${basedir}/${javadoc.build.dir}"/>
-    </target>
-
-    <target name="javadoc" description="o Generate javadoc">
-        <mkdir dir="${basedir}/${javadoc.build.dir}"/>
-        <tstamp>
-            <format pattern="2003-yyyy" property="year"/>
-        </tstamp>
-        <property name="copyright" value="Copyright &amp;copy; ${year} ${application.author}. All Rights Reserved."/>
-        <property name="title" value="${application.name} EJB ${application.version} API - ${copyright}"/>
-        <javadoc destdir="${basedir}/${javadoc.build.dir}" use="true" author="true" version="true" windowtitle="${title}"
-                 packagenames="${base.package}" classpathref="classpath">
-            <fileset refid="java-sources"/>
-        </javadoc>
-    </target>
-
-    <target name="dist" description="o Create a distribution" depends="jar,zip">
-        <mkdir dir="${app.root.dir}/${lib.dir}"/>
-        <mkdir dir="${app.root.dir}/${dist.dir}"/>
-        <copy todir="${app.root.dir}/${lib.dir}">
+    <target name="dist" description="o Create a distribution" depends="jar">
+        <mkdir dir="${app.root.dir}/dist"/>
+        <copy todir="${app.root.dir}/dist">
             <fileset dir="${basedir}/target">
-                <include name="${jar.bundle.name}"/>
-            </fileset>
-        </copy>
-        <copy todir="${app.root.dir}/${dist.dir}">
-            <fileset dir="${basedir}/target">
-                <include name="${jar.bundle.name}"/>
-                <include name="${javadoc.bundle.name}"/>
+                <include name="${common.jar.bundle.name}"/>
+                <include name="${server.jar.bundle.name}"/>
             </fileset>
         </copy>
     </target>

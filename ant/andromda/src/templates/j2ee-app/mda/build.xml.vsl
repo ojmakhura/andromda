@@ -7,10 +7,10 @@
     <property file="${basedir}/build.properties"/>
     <property file="${app.root.dir}/build.properties"/>
 
-    <mkdir dir="${app.root.dir}/${lib.dir}"/>
+    <mkdir dir="${app.root.dir}/lib"/>
 
     <path id="classpath">
-        <fileset id="libraries" dir="${app.root.dir}/${lib.dir}">
+        <fileset id="libraries" dir="${app.root.dir}/lib">
             <include name="*.jar"/>
             <exclude name="andromda-meta-cartridge*"/>
             <exclude name="andromda-struts-cartridge*"/>
@@ -25,54 +25,70 @@
     <target name="mda">
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
         <andromda lastModifiedCheck="false">
-            <model url="${uml.model.path}"/>
+            <model url="file:${basedir}/src/uml/model.xmi"/>
             <namespace name="default" ignore="false">
-                <property name="languageMappingsUri" value="file:${basedir}/${mappings.src.dir}/JavaMappings.xml"/>
+                <property name="languageMappingsUri" value="file:${basedir}/src/mappings/JavaMappings.xml"/>
             </namespace>
             <namespace name="java" ignore="false">
-                <property name="exceptions" value="${app.root.dir}/common/${mda.build.dir}"/>
-                <property name="enumerations" value="${app.root.dir}/common/${mda.build.dir}"/>
-                <property name="value-objects" value="${app.root.dir}/common/${mda.build.dir}"/>
+                <property name="exceptions" value="${app.root.dir}/common/target/src"/>
+                <property name="enumerations" value="${app.root.dir}/common/target/src"/>
+                <property name="value-objects" value="${app.root.dir}/common/target/src"/>
             </namespace>
 #if ($persistenceType == 'hibernate')
             <namespace name="hibernate" ignore="false">
 #else
             <namespace name="hibernate" ignore="true">
 #end
-                <property name="jdbcMappingsUri" value="file:${basedir}/${mappings.src.dir}/JdbcMappings.xml"/>
-                <property name="sqlMappingsUri" value="file:${basedir}/${mappings.src.dir}/HypersonicSqlMappings.xml"/>
+                <property name="jdbcMappingsUri" value="file:${basedir}/src/mappings/JdbcMappings.xml"/>
+                <property name="sqlMappingsUri" value="file:${basedir}/src/mappings/${datasource.type}Mappings.xml"/>
                 <property name="foreignKeySuffix" value="_FK"/>
                 <property name="maxSqlNameLength" value="30"/>
-                <property name="entities" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${mda.build.dir}"/>
-                <property name="entity-impls" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${java.src.dir}"/>
-                <property name="session-beans" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${mda.build.dir}"/>
-                <property name="session-impls" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${java.src.dir}"/>
+                <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
+                <property name="entity-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
+                <property name="session-beans" value="${app.root.dir}/hibernate/ejb/target/src"/>
+                <property name="session-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
             </namespace>
 #if ($persistenceType == 'hibernate')
             <namespace name="ejb" ignore="true">
 #else
             <namespace name="ejb" ignore="false">
 #end
-                <property name="jdbcMappingsUri" value="file:${basedir}/${mappings.src.dir}/JdbcMappings.xml"/>
-                <property name="sqlMappingsUri" value="file:${basedir}/${mappings.src.dir}/HypersonicSqlMappings.xml"/>
+                <property name="jdbcMappingsUri" value="file:${basedir}/src/mappings/JdbcMappings.xml"/>
+                <property name="sqlMappingsUri" value="file:${basedir}/src/mappings/${datasource.type}Mappings.xml"/>
                 <property name="foreignKeySuffix" value="_FK"/>
                 <property name="maxSqlNameLength" value="30"/>
-                <property name="entity-beans" value="${app.root.dir}/${ejb.dir}/${mda.build.dir}"/>
-                <property name="entity-impls" value="${app.root.dir}/${ejb.dir}/${java.src.dir}"/>
-                <property name="session-beans" value="${app.root.dir}/${ejb.dir}/${mda.build.dir}"/>
-                <property name="session-impls" value="${app.root.dir}/${ejb.dir}/${java.src.dir}"/>
+                <property name="entity-beans" value="${app.root.dir}/ejb/target/src"/>
+                <property name="entity-impls" value="${app.root.dir}/ejb/src/java"/>
+                <property name="session-beans" value="${app.root.dir}/ejb/target/src"/>
+                <property name="session-impls" value="${app.root.dir}/ejb/src/java"/>
             </namespace>
             <namespace name="bpm4struts" ignore="false">
-                <property name="securityEnabled" value="false"/>
+                <property name="xhtml" value="false"/>
+                <property name="security" value="false"/>
                 <property name="securityRealm" value="other"/>
-                <property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/>
-                <property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-                <property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-                <property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-                <property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/>
-                <property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/>
-                <property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-                <property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/>
+                <property name="pages" value="${app.root.dir}/web/src/jsp"/>
+                <property name="forms" value="${app.root.dir}/web/target/src"/>
+                <property name="actions" value="${app.root.dir}/web/target/src"/>
+                <property name="controllers" value="${app.root.dir}/web/target/src"/>
+                <property name="controller-impls" value="${app.root.dir}/web/src/java"/>
+                <property name="messages" value="${app.root.dir}/web/src/properties"/>
+                <property name="configuration" value="${app.root.dir}/web/target/src"/>
+                <property name="xdoclet-merge" value="${app.root.dir}/web/target/xdoclet-merge"/>
+            </namespace>
+#if ($webServices == "y")
+            <namespace name="webservice" ignore="false">
+#else
+            <namespace name="webservice" ignore="true">
+#end
+                <property name="applicationName" value="${application.name}"/>
+                <property name="wsdlSoapAddress" value="${default.webservices.url}"/>
+                <property name="wsdls" value="${app.root.dir}/webservice/target/wsdl"/>
+                <property name="java-types" value="${app.root.dir}/webservice/target/src" ignore="true"/>
+                <property name="axis-configuration" value="${app.root.dir}/webservice/target/axis"/>
+                <property name="schemaTypeMappingsUri" value="file:${basedir}/src/mappings/XmlSchemaMappings.xml"/>
+                <property name="qualifiedNameLocalPartPattern" value="WS{0}"/>
+                <property name="namespacePattern" value="{0}"/>
+                <property name="reverseNamespace" value="true"/>
             </namespace>
         </andromda>
     </target>

@@ -2,6 +2,30 @@ Development build environment README:
 =====================================
 
 
+------------------ !!! IMPORTANT !!! ------------------
+
+    In order to have everything working you need
+    to do the following things yourself:
+
+        1.  make sure all the sources are here
+            (for example by checking out from CVS)
+        2.  have JDK 1.4+ installed
+        3.  have Ant 1.6.1 installed
+        4.  have the most recent JBoss installed (3.2.4+)
+        5.  copy jboss.properties.sample to
+            jboss.properties and update the
+            location of JBoss
+        6.  type 'ant' in the root
+            directory and watch it build
+        7.  the application will be deployed in the
+            default JBoss server configuration
+        8.  copy the data-source deployment descriptor
+            from /app/etc/*-ds.xml to your JBoss deploy
+            directory (don't forget to also install the
+            corresponding library)
+
+------------------ !!! IMPORTANT !!! ------------------
+
 
 Global Structure
 ----------------

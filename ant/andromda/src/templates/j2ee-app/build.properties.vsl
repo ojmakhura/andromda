@@ -3,37 +3,13 @@ application.name=$applicationName
 application.version=$applicationVersion
 application.author=author
 
-lib.dir=lib
-dist.dir=dist
-build.dir=target
-
-app.dir=app
-mda.dir=mda
-web.dir=web
-common.dir=common
-#if ($persistenceType == 'hibernate')
-hibernate.dir=hibernate
-hibernate.ejb.dir=ejb
-hibernate.sar.dir=sar
-#else
-ejb.dir=ejb
-#end
-
-meta.src.dir=src/META-INF
-jsp.src.dir=src/jsp
-java.src.dir=src/java
-mappings.src.dir=src/mappings
-properties.src.dir=src/properties
-uml.src.dir=src/uml
-mda.build.dir=target/src
-xdoclet.build.dir=target/xdoclet
-xdoclet.merge.dir=target/xdoclet-merge
-javadoc.build.dir=target/javadoc
-java.build.dir=target/classes
-
-proxy.enabled=false
-proxy.host=myproxy.pany.com
-proxy.port=80
-
 # set this property if you want to precompile the jsps during development
 precompile.jsp=false
+
+# use these properties to set the name and the type of data-source
+datasource.jndi=java:/DefaultDS
+datasource.type=HypersonicSql
+datasource.jboss.mapping=Hypersonic SQL
+#if ($persistenceType == 'hibernate')
+datasource.hibernate.dialect=net.sf.hibernate.dialect.HSQLDialect
+#end

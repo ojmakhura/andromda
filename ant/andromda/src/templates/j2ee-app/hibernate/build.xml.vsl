@@ -8,13 +8,13 @@
     <property file="${app.root.dir}/build.properties"/>
 
     <target name="dist">
-        <ant dir="${basedir}/${hibernate.ejb.dir}" target="dist"/>
-        <ant dir="${basedir}/${hibernate.sar.dir}" target="dist"/>
+        <ant dir="${basedir}/ejb" target="dist"/>
+        <ant dir="${basedir}/sar" target="dist"/>
     </target>
 
     <target name="clean">
-        <ant dir="${basedir}/${hibernate.ejb.dir}" target="clean"/>
-        <ant dir="${basedir}/${hibernate.sar.dir}" target="clean"/>
+        <ant dir="${basedir}/ejb" target="clean"/>
+        <ant dir="${basedir}/sar" target="clean"/>
     </target>
 
 </project>
