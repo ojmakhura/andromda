@@ -44,22 +44,13 @@ body
     margin: 0;
 }
 
-#navcolumn li
-{
-    list-style-image: url(images/square.gif);
-}
-
-#navcolumn li.expanded
-{
-    list-style-image: url(images/triangledown.gif);
-}
-#navcolumn li.collapsed
-{
-    list-style-image: url(images/triangleright.gif);
-}
+#navcolumn li { list-style-image: url(images/square.gif); }
+#navcolumn li.expanded { list-style-image: url(images/triangledown.gif); }
+#navcolumn li.collapsed { list-style-image: url(images/triangleright.gif); }
 
 #leftColumn h5
 {
+    margin: 0;
     font-size: 96%;
     font-weight: bold;
     color: #333;
