@@ -87,7 +87,7 @@ public ${abstractModifier}class $entity.daoBaseName
     }
 
 #set ($requiredAttributes = $entity.getRequiredAttributes(true,false))
-#if ($attributes.size() != $requiredAttributes.size())
+#if (!$requiredAttributes.empty && $attributes.size() != $requiredAttributes.size())
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredAttributeTypeList(true, false)})
      */
