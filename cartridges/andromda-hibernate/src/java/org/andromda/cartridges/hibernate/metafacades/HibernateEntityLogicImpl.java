@@ -587,9 +587,13 @@ public class HibernateEntityLogicImpl
     private boolean isRoot()
     {
         final HibernateEntity superEntity = this.getSuperEntity();
-        return this.getSuperEntity() == null
-            || (superEntity.isHibernateInheritanceInterface() || superEntity
-                .isHibernateInheritanceConcrete());
+        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() || this
+            .isHibernateInheritanceInterface())
+            && this.isAbstract();
+        return (this.getSuperEntity() == null || (superEntity
+            .isHibernateInheritanceInterface() || superEntity
+            .isHibernateInheritanceConcrete()))
+            && !abstractConcreteEntity;
     }
 
     /**
@@ -630,6 +634,14 @@ public class HibernateEntityLogicImpl
                 .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
         return Boolean.valueOf(dynamicUpdate).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isMappingRequiresSuperProperties()
+     */
+    protected boolean handleIsMappingRequiresSuperProperties()
+    {
+        return this.isHibernateInheritanceInterface() || (this.isHibernateInheritanceConcrete() && this.isAbstract());
     }
 
 }
