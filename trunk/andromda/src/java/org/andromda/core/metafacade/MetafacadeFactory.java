@@ -359,7 +359,8 @@ public class MetafacadeFactory
      * according to the given <code>key</code> and current active namespace.
      * Metafacades must be cached in order to keep track of the state of its
      * validation. If we keep creating a new one each time, we can never tell
-     * whether or not a metafacade has been previously validated.
+     * whether or not a metafacade has been previously validated.  Not to 
+     * mention tremendous performance gains.
      * </p>
      * 
      * @param metaObject the metaObject for which to cache the metafacade.
