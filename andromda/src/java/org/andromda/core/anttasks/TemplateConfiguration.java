@@ -68,7 +68,7 @@ public class TemplateConfiguration
      * to access the object model.  The class must implement
      * the ScriptHelper interface.
      * 
-     * <p> This an optional parameter and if it is not set
+     * <p> This is an optional parameter and if it is not set
      * it defaults to the default transform class or the
      * one which was configured using the 
      * <code>&lt;repository&gt;</code> tag. </p>

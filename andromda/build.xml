@@ -183,18 +183,26 @@
     <target name="check-environment">
 	<antcall target="check-buildclasspath"/>
 	
+	<available property="mdr.present"
+		classname="org.netbeans.mdr.NBMDRepositoryImpl"
+		classpathref="build.class.path"/>
+	<antcall target="wrong-mdr"/>
+	
 	<available property="velocity.present"
 		   classname="org.apache.velocity.context.Context"
 		   classpathref="build.class.path" />
 	<antcall target="wrong-velocity"/>
+	
 	<available property="junit.present"
 		   classname="junit.framework.TestCase"
 		   classpathref="build.class.path" />
 	<antcall target="wrong-junit"/>
+
 	<available property="ant.present"
 		   classname="org.apache.tools.ant.Project"
 		   classpathref="build.class.path" />
 	<antcall target="wrong-ant"/>
+	
     </target>
 
     <target name="check-buildclasspath" unless="build.classpath">
@@ -214,6 +222,15 @@
 	</fail>
     </target>
 
+	<target name="wrong-mdr" unless="mdr.present">
+	<fail>
+	    Property "build.classpath" is set but it doesn't seem
+	    to contain the necessary MDR jars such as 
+	    mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
+	    uml14.jar, openide-lookup.jar, openide-fs.jar
+	</fail>
+    </target>
+    
     <target name="wrong-junit" unless="junit.present">
 	<fail>
 	    Property "build.classpath" is set but it doesn't seem
