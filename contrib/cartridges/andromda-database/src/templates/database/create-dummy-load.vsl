@@ -41,7 +41,7 @@ insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($
 ##  insert foreign keys
 #set ($columns = $table.foreignKeyColumns)
 #set ($primKeyColumn = $table.primaryKeyColumn)
-#if ($columns.size() > 0)
+#if ($columns.size() > 0 && $table.dummyLoadSize > 0)
 #foreach ($count in [1..$table.dummyLoadSize])
 #if ($primKeyColumn)
 update $table.tableName set #keyValues($columns $count) where $primKeyColumn.columnName=$primKeyColumn.getDummyLoadValue($count);
