@@ -151,21 +151,26 @@ public class ModelProcessor
             // log all the error messages
             Collection messages = MetafacadeFactory.getInstance()
                 .getValidationMessages();
+            StringBuffer totalMessagesMessage = new StringBuffer();
             if (messages != null && !messages.isEmpty())
             {
+                totalMessagesMessage.append(" - ");
+                totalMessagesMessage.append(messages.size());
+                totalMessagesMessage.append(" VALIDATION ERRORS found");
                 messages = this.sortValidationMessages(messages);
                 AndroMDALogger.setSuffix("VALIDATION:ERROR");
                 Iterator messageIt = messages.iterator();
-                while (messageIt.hasNext())
+                for (int ctr = 1; messageIt.hasNext(); ctr++)
                 {
                     ModelValidationMessage message = (ModelValidationMessage)messageIt
                         .next();
-                    AndroMDALogger.error(message);
+                    AndroMDALogger.error(ctr + ") " + message);
                 }
                 AndroMDALogger.reset();
             }
             AndroMDALogger.info("completed model processing, TIME --> "
-                + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]");
+                + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"
+                + totalMessagesMessage);
         }
     }
 
