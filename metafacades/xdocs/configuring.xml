@@ -30,12 +30,88 @@
             </subsection>
 		  	<subsection name="Writing the Metafacades Descriptor">
                 <p>
-                    First of all you'll need to write a file that <strong>MUST</strong>
-                    be named andromda-metafacades.xml and be placed in the META-INF directory
-                    of your cartridge (or shared metafacades library). The following 
-                    describes each element/attribute within the andromda-metafacades.xml file and 
-                    what effect it has on the metafacade configuration process:
-                </p>       
+                    The metafacade descriptor allows the <a href="../andromda-core/index.html">AndroMDA Core</a>
+                    to discover a set of metafacades on the classpath automatically.
+                    The <a href="../andromda-core/index.html">AndroMDA Core</a> also uses this
+                    descriptor to determine what metafacades must be mapped to what meta model
+                    objects.  The metafacades descriptor <strong>must</strong> reside within the 
+                    META-INF subdirectory of your cartridge (or shared metafacades library) 
+                    and <strong>must</strong> be named <em>andromda-metafacades.xml</em>
+                </p>      
+                <p>
+                    Let's have a look at part of a typical metafacades descriptor:
+                <source><![CDATA[
+<metafacades namespace="webservice">
+    ...
+    <property reference="arrayNamePrefix" default="ArrayOf"/>
+    <property reference="schemaTypeMappingsUri"/>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <context>org.andromda.cartridges.webservice.metafacades.WSDLType</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <context>org.andromda.cartridges.webservice.metafacades.WSDLType</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>WEBSERVICE</stereotype>
+        </mapping>
+        <property reference="ejbJndiNamePrefix" default=""/>
+        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
+        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+        <property reference="ejbJndiNamePrefix" default=""/>
+        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
+        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>WEBSERVICE</stereotype>
+        </mapping>
+        <property reference="ejbJndiNamePrefix" default=""/>
+        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
+        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
+    </metafacade>
+    ...
+</metafacades>]]>
+                </source>
+                </p>
+                <p>
+                    The following describes each element/attribute within the andromda-metafacades.xml 
+                    file and what effect it has on the metafacade configuration process:
+                </p>
+                <a name="#metafacades"/> 
                 <h3><![CDATA[<metafacades/>]]></h3>     
                 <p>
                   The <em><![CDATA[<metafacades/>]]></em> element is the root of the andromda-metafacades.xml
@@ -63,13 +139,15 @@
                 <p>
                     The <em><![CDATA[<metafacade/>]]></em> element allows us to configure
                     a mapping (and any applicable namespace properties) to a metafacade class. 
-                    The <code><![CDATA[<metafacade/>]]></code> is nested directly under the root
-                    <code><![CDATA[<metafacades/>]]></code> element.  For example this <code><![CDATA[<metafacade/>]]></code> 
+                    The <em><![CDATA[<metafacade/>]]></em> is nested directly under the root
+                    <a href="#metafacades"><![CDATA[<metafacades/>]]></a> element.  
+                    For example this <em><![CDATA[<metafacade/>]]></em> 
                     element below tells AndroMDA to construct an instance of 
                     <em>org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl</em>
-                    when a metafacade for <em>org.omg.uml.foundation.core.Operation$Impl</em> is created
-                    within the context of <em>org.andromda.cartridges.spring.metafacades.SpringEntity</em>
-                    and has a valid <em>query</em> property.
+                    when AndroMDA finds a meta model element of type <em>org.omg.uml.foundation.core.Operation$Impl</em>, 
+                    created within the context of <em>org.andromda.cartridges.spring.metafacades.SpringEntity</em>
+                    and having a valid <em>query</em> property (valid meaning the property is not-null, true if boolean,
+                    or a non-empty collection if a collection property).
                      <source><![CDATA[
 <metafacades namespace="spring">
     ...    
