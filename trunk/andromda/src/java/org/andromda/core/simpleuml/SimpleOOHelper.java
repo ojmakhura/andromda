@@ -148,7 +148,7 @@ public class SimpleOOHelper extends UMLStaticHelper
      * Returns a string representing the component name
      * for the Bean. It does not append the 'local' suffix 
      * any more (deprecated).
-     * 
+     *
      * @param object
      * @return String
      */
@@ -298,7 +298,7 @@ public class SimpleOOHelper extends UMLStaticHelper
     /**
      * Builds a comma-separated parameter list 
      * (type and name of each parameter) of an operation.
-     * 
+     *
      * @param o the operation
      * @return String the parameter list
      */
@@ -434,7 +434,7 @@ public class SimpleOOHelper extends UMLStaticHelper
         {
             Object type = attribute.getType();
             String typeName = findFullyQualifiedName(type);
-            value = this.typeMappings.getSQLType(typeName, value);
+            value = this.typeMappings.getSQLType(typeName, findAttributeSQLFieldLength(attribute));
         }
         return value;
     }
