@@ -112,6 +112,7 @@
                     <th>Required?</th>
                 </tr>
                 <tr>
+                    <a name="namespace"/>
                     <td>namespace</td>
                     <td>
                         Specifies the name of the namespace to which this set of metafacades applies.  For example:
@@ -121,8 +122,26 @@
                     </td>
                     <td >Yes</td>
                 </tr>
+                <tr>
+                    <td>shared</td>
+                    <td>
+                        Indicates if metafacades described by the metafacades descriptor should be treated as <em>shared</em>.
+                        Shared means: these metafacades will be made available to <strong>ALL</strong> namespaces. For example
+                        we have the UML 1.4 metafacades descriptor defining its metafacades as shared because we want all cartridges
+                        to be able to use the UML metafacades:
+                        <source><![CDATA[
+<metafacades namespace="uml-1.4" shared="true">
+...
+</metafacades>                            
+                        ]]></source>
+                    </td>
+                    <td>
+                        No, if undefined, the metafacades will only be available to the 
+                        namespace defined by the <a href="#namespace">namespace</a> attribute
+                    </td>
+                </tr>
             </table>
-            <a name="metafacadesPropertyReference"/>
+            <a name="namespacePropertyReference"/>
             <h3><![CDATA[<property/>]]></h3>
             <p>
                 If you've read the documentation on <a href="../andromda-cartridges/index.html">AndroMDA Cartridges</a>
@@ -140,18 +159,22 @@
                 For example, this <em>daoNamePattern</em> in this metafacade descriptor snippet here 
                 defines the pattern to use when constructing the DAO name within the 
                 <a href="../andromda-spring-cartridge/index.html">Spring Cartridge</a>. 
+                <a name="namespacePropertyReferenceExample"/>
                 <source><![CDATA[
 <metafacades namespace="spring">
     <property reference="daoNamePattern" default="{0}Dao"/>
     ...
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
-        ...
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENTITY</stereotype>
+        </mapping>
     </metafacade>
     ...
 </metafacades>               
                 ]]></source>       
                 This property can then be retrieved from within a metafacade implementation
                 class contained within the <em>spring</em>, like so:
+                <a name="getConfiguredProperty"/>
                 <source><![CDATA[
 private String getDaoNamePattern()
 {
@@ -191,6 +214,39 @@ private String getDaoNamePattern()
                     </tr>
                 </table>       
             </p> 
+            
+            <h3><![CDATA[<default/>]]></h3>   
+            <p>
+                The root <a href="#metafacades"><![CDATA[<metafacade/>]]></a> element can have one and only one
+                <em><![CDATA[<default/>]]></em> element.  This default element allows us to configure
+                the default metafacade to be applied if no applicable metafacade mapping was found in any of
+                <![CDATA[<metafacade/>]]> mapping definitions.  For example, within the UML 1.4 metafacades
+                descriptor we have the following default configuration defined, which means: apply the model 
+                element facade <em>org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl</em> to any meta 
+                model element that does not have any applicable metafacade mapping available.
+                <source><![CDATA[
+<metafacades namespace="uml-1.4" shared="true">
+    ...
+    <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
+    ...
+</metafacades>
+                ]]></source>
+            </p>
+            <table>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Required?</th>
+                </tr>
+                <tr>
+                    <td>class</td>
+                    <td>
+                        Defines the name of the metafacade implementation class for the default metafacade.
+                    </td>
+                    <td>Yes</td>
+                </tr>
+            </table>   
+            <a name="metafacade"/>
             <h3><![CDATA[<metafacade/>]]></h3>     
             <p>
                 The <em><![CDATA[<metafacade/>]]></em> element allows us to configure
@@ -270,11 +326,28 @@ private String getDaoNamePattern()
                 Each <a href="#metafacade"><![CDATA[<metafacade/>]]></a> can take one or more <![CDATA[<property/>]]> references.
             </p>
             <p>
-                Similar to the namespace <a href="#metafacadesPropertyReference"><![CDATA[<property/>]]></a> references
+                Similar to the namespace <a href="#namespacePropertyReference"><![CDATA[<property/>]]></a> references
                 described above, we also have property references which can be used within the scope of a single
                 metafacade (whereas the namespace property references are available to the entire namespace).  
                 This allows us to narrow the scope of the property, and if applicable be able to configure the property
-                differently per metafacade within the same <em>namespace</em>.
+                differently per metafacade within the same <em>namespace</em>.  For example, this is how we would define
+                the same <em>daoNamePattern</em> property used in the <a name="#namespacePropertyReferenceExample">example</a> above.
+                You'll notice the only difference is the property reference is a child of the <a href="#metafacade"><![CDATA[<metafacade/>]]></a> 
+                instead of the <a href="#metafacades"><![CDATA[<metafacades/>]]></a> element like a 
+                <a href="#namespacePropertyReference">namespace property reference</a>.  These property references can then
+                be retrieved from within the metafacade implementation class (just like <a href="#getConfiguredProperty">above</a>).
+                <source><![CDATA[
+<metafacades namespace="spring">
+    ...
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENTITY</stereotype>
+        </mapping>
+        <property reference="daoNamePattern" default="{0}Dao"/>
+    </metafacade>
+    ...
+</metafacades>               
+                ]]></source> 
             </p>
             <a name="mapping"/>
             <h3><![CDATA[<mapping/>]]></h3>     
