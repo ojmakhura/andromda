@@ -1,5 +1,5 @@
 <cartridge name="webservice">
-    
+
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
@@ -8,10 +8,10 @@
     <!-- The name of the application that this service will run within
          (i.e. Security Services} -->
     <property reference="applicationName"/>
-    
+
     <!-- The location of where the WSDL will reside
          (i.e. "http://localhost:8080/security-service/services") -->
-    <property reference="wsdlSoapAddress"/>   
+    <property reference="wsdlSoapAddress"/>
     <property reference="securityRealm" default=""/>
     <property reference="testServiceLocatorName" default="TestServiceLocator"/>
     <property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
@@ -19,7 +19,7 @@
     <property reference="ejbJndiUrl" default=""/>
     <property reference="ejbNamingContextFactory" default="org.jnp.interfaces.NamingContextFactory"/>
     <property reference="sessionTimeout" default="5"/>
-    
+
     <!-- default namespaces -->
     <property reference="wsdlSoapNamespace" default="http://schemas.xmlsoap.org/wsdl/soap/"/>
     <property reference="xmlSchemaNamespace" default="http://www.w3.org/2001/XMLSchema"/>
@@ -88,7 +88,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/webservice/axis/jboss-web.xml.vsl"
         outputPattern="WEB-INF/jboss-web.xml"
@@ -134,21 +134,21 @@
             </modelElement>
         </modelElements>
     </template>
-   
+
     <template
         path="templates/webservice/axis/WebServiceTestServiceLocator.vsl"
         outputPattern="$generatedFile"
         outlet="axis-tests"
         overwrite="true"
         required="false"
-		outputToSingleFile="true">
+        outputToSingleFile="true">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/webservice/axis/WebServiceTestImpl.vsl"
         outputPattern="$generatedFile"
@@ -161,7 +161,7 @@
             </modelElement>
         </modelElements>
     </template>
-        
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>

@@ -8,14 +8,14 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils"/>
-    <!-- cartridge-templateObject merge-point-->  
-    
+    <!-- cartridge-templateObject merge-point-->
+
     <property reference="securityRealm" default=""/>
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
-	<!-- Only generate the Impl at the leaf, useful when inheritance
-		strategy is class, otherise a table for every Impl is generated -->
+    <!-- Only generate the Impl at the leaf, useful when inheritance
+        strategy is class, otherise a table for every Impl is generated -->
     <property reference="leafImpl" default="false"/>
     <property reference="versionProperty" default=""/>
     <property reference="driver" default=""/>
@@ -43,21 +43,21 @@
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
-	<property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
+    <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
     <property reference="hibernateUseQueryCache" default="false"/>
     <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
     <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
     <property reference="xmlEncoding" default="UTF-8"/>
-    <!-- cartridge-property merge-point-->  
+    <!-- cartridge-property merge-point-->
 
     <!-- cartridge-resource merge-point -->
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
-		outputPattern="$generatedFile" 
+        outputPattern="$generatedFile"
         outlet="entities"
         overwrite="true"
-		required="false">
+        required="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
@@ -67,7 +67,7 @@
 
     <template
         path="templates/hibernate/HibernateEntityImpl.vsl"
-		outputPattern="$generatedFile" 
+        outputPattern="$generatedFile"
         outlet="entity-impls"
         overwrite="false">
         <modelElements variable="entity">
@@ -77,31 +77,31 @@
         </modelElements>
     </template>
 
-	<template 
-		path="templates/hibernate/HibernateEntityImplManual.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="entity-impls" 
-		overwrite="false">
-		<modelElements variable="entity">
+    <template
+        path="templates/hibernate/HibernateEntityImplManual.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
 
-	<template 
-		path="templates/hibernate/hibernate.hbm.xml.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="entities" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
+    <template
+        path="templates/hibernate/hibernate.hbm.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
-		</modelElements>
-	</template>
-	
+        </modelElements>
+    </template>
+
     <template
         path="templates/hibernate/hibernate.cfg.xml.vsl"
         outputPattern="hibernate.cfg.xml"
@@ -129,7 +129,7 @@
         outlet="entities"
         overwrite="true"
         required="false"/>
-        
+
     <template
         path="templates/hibernate/HibernateEnumeration.vsl"
         outputPattern="$generatedFile"
@@ -142,7 +142,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/hibernate/ejb/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
@@ -170,7 +170,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/hibernate/ejb/HibernateSessionEJBLocator.vsl"
         outputPattern="$generatedFile"
@@ -184,7 +184,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/hibernate/ejb/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -236,14 +236,14 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/hibernate/ejb/HibernateUtils.vsl"
         outputPattern="$generatedFile"
         outlet="session-beans"
         overwrite="true"
         required="false"/>
-        
+
     <template
         path="templates/hibernate/ejb/HibernateEntityFactory.vsl"
         outputPattern="{0}/{1}Factory.java"
