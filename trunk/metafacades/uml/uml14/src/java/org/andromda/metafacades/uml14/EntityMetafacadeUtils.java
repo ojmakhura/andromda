@@ -5,6 +5,7 @@ import java.text.StringCharacterIterator;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -34,7 +35,7 @@ public class EntityMetafacadeUtils {
 			"separator",
 			separator);
 
-	    StringBuffer databaseAttributeName = new StringBuffer();
+	    StringBuffer sqlName = new StringBuffer();
 	    StringCharacterIterator iter = new StringCharacterIterator(
 	            StringUtils.uncapitalize(modelElementName));
 
@@ -42,14 +43,18 @@ public class EntityMetafacadeUtils {
 	            character = iter.next()) {
 
 	        if (Character.isUpperCase(character)) {
-	            databaseAttributeName.append(separator);
+	            sqlName.append(separator);
 	        }
 
 	        character = Character.toUpperCase(character);
-	        databaseAttributeName.append(character);
+	        sqlName.append(character);
+            
+            // replace any occurrences of '-'
+            sqlName = new StringBuffer(
+                sqlName.toString().replace('-', '_'));
 	    }
 
-	    return databaseAttributeName.toString();
+	    return StringEscapeUtils.escapeSql(sqlName.toString());
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class EntityMetafacadeUtils {
 		String suffix) {
 		if (element != null) {
             Object value = element.findTaggedValue(name);
-			name = StringUtils.trimToEmpty((value==null)?null:value.toString());
+			name = StringUtils.trimToEmpty((String)value);
 			if (StringUtils.isEmpty(name)) {
 				//if we can't find the tagValue then use the
 				//element name for the name

@@ -29,9 +29,9 @@ public class EntityAttributeFacadeLogicImpl
      */
     public String handleGetColumnName() {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                this,
-                UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                ((EntityFacade)this.getOwner()).getMaxSqlNameLength());
+            this,
+            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+            ((EntityFacade)this.getOwner()).getMaxSqlNameLength());
     }
 
     /**
@@ -40,7 +40,7 @@ public class EntityAttributeFacadeLogicImpl
     public String handleGetColumnLength() {
         Object value = this.findTaggedValue(
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
-        return value == null ? null : value.toString();
+        return (String)value;
     }
 
     /**
