@@ -6,8 +6,8 @@ SET echo ON;
 WHENEVER SQLERROR CONTINUE;
 WHENEVER OSERROR  EXIT;
 
-#foreach ( $entity in $entities )
-@create-table-${entity.name}.sql
+#foreach ( $table in $tables )
+@create-table-${table.name}.sql
 #end
 
 @create-foreign-keys.sql

@@ -1,108 +1,135 @@
 package org.andromda.cartridges.database.metafacades;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.ArrayList;
-
+import org.andromda.cartridges.database.DatabaseProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.database.metafacades.TableFacade.
- * 
- * @see org.andromda.cartridges.database.metafacades.TableFacade
+ * MetafacadeLogic implementation for org.andromda.cartridges.database.metafacades.Table.
+ *
+ * @see org.andromda.cartridges.database.metafacades.Table
  */
 public class TableLogicImpl
-    extends TableLogic
-    implements org.andromda.cartridges.database.metafacades.Table
+       extends TableLogic
+       implements org.andromda.cartridges.database.metafacades.Table
 {
     // ---------------- constructor -------------------------------
 
-    public TableLogicImpl(
-        Object metaObject,
-        String context)
+    public TableLogicImpl (Object metaObject, String context)
     {
-        super(metaObject, context);
+        super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.database.metafacades.TableFacade#getForeignKeyConstraintAssociationEnds()
+     * @see org.andromda.cartridges.database.metafacades.Table#getInitialLoadSize()
      */
-    public java.util.Collection handleGetForeignKeyConstraintAssociationEnds()
+    protected int handleGetInitialLoadSize()
     {
-        return new FilteredCollection(this.getAssociationEnds())
-        {
-            public boolean evaluate(Object object)
-            {
-                AssociationEndFacade end = (AssociationEndFacade)object;
-                AssociationEndFacade otherEnd = end.getOtherEnd();
-                EntityFacade entity = (EntityFacade)otherEnd.getType();
-                return end.isMany2One() || entity.isChild();
-            }
-        };
-    }
+        int initialLoadSize = 0;
 
-    /**
-     * @see org.andromda.cartridges.database.metafacades.TableFacade#hasForeignKeyConstraints()
-     */
-    public boolean handleHasForeignKeyConstraints()
-    {
-        boolean hasForeignKeyConstraints = false;
-        Collection associationEnds = this.getAssociationEnds();
-        if (associationEnds != null && !associationEnds.isEmpty())
+        try
         {
-            Iterator associationEndIt = associationEnds.iterator();
-            while (associationEndIt.hasNext())
-            {
-                AssociationEndFacade end = (AssociationEndFacade)associationEndIt
-                    .next();
-                if (end != null)
-                {
-                    hasForeignKeyConstraints = end.getOtherEnd().isNavigable() 
-                        && (end.isMany2Many() || end.isOne2One() || end 
-                            .isMany2One());
-                    if (hasForeignKeyConstraints)
-                    {
-                        break;
-                    }
-                }
-            }
+            String initialLoadSizeString = (String)findTaggedValue(DatabaseProfile.INITIAL_LOAD_SIZE);
+            initialLoadSize = Integer.parseInt(initialLoadSizeString);
         }
-        return hasForeignKeyConstraints;
-    }
+        catch (Exception e)
+        {
+            initialLoadSize = DatabaseProfile.INITIAL_LOAD_SIZE_DEFAULT;
+        }
 
-    protected Collection handleGetPrimaryKeyColumns()
-    {
-        return getIdentifiers();
+        return initialLoadSize;
     }
-
-    protected Collection handleGetForeignKeyColumns()
+    
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#getForeignKeyColumns()
+     */
+    protected java.util.Collection handleGetForeignKeyColumns()
     {
         Collection foreignKeyColumns = new ArrayList();
 
         Collection associationEnds = getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
         {
-            EntityAssociationEndFacade sourceEnd = (EntityAssociationEndFacade) iterator.next();
-            if (sourceEnd.isMany2One()) // @todo what about many2many ?
+            AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
+            AssociationEndFacade otherAssociationEnd = associationEnd.getOtherEnd();
+            if (associationEnd.isMany2One() && otherAssociationEnd.isNavigable())
             {
-                foreignKeyColumns.add(sourceEnd.getOtherEnd());
+                foreignKeyColumns.add( otherAssociationEnd );
             }
         }
 
         return foreignKeyColumns;
     }
 
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#getPrimaryKeyColumns()
+     */
+    protected Object handleGetPrimaryKeyColumn()
+    {
+        Collection identifiers = getIdentifiers();
+        return (identifiers.isEmpty()) ? null : identifiers.iterator().next();
+    }
+
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#getImportingTables()
+     */
+    protected java.util.Collection handleGetImportingTables()
+    {
+        Collection importingTables = new HashSet();
+
+        Collection associationEnds = getAssociationEnds();
+        for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+        {
+            AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
+            if (associationEnd.isOne2Many())
+            {
+                importingTables.add(associationEnd.getOtherEnd().getType());
+            }
+        }
+
+        return importingTables;
+    }
+
+    /**
+     * @see org.andromda.cartridges.database.metafacades.Table#getImportedTables()
+     */
+    protected java.util.Collection handleGetImportedTables()
+    {
+        Collection importedTables = new HashSet();
+
+        Collection foreignKeyColumns = getForeignKeyColumns();
+        for (Iterator iterator = foreignKeyColumns.iterator(); iterator.hasNext();)
+        {
+            ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) iterator.next();
+            importedTables.add(foreignKeyColumn.getTable());
+        }
+
+        return importedTables;
+    }
+
+    protected boolean handleIsForeignKeyColumnsPresent()
+    {
+        return getForeignKeyColumns().isEmpty() == false;
+    }
+
+    protected String handleGetPrimaryKeyConstraintName()
+    {
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("XPK");
+        buffer.append(getTableName());
+
+        return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
+    }
+
     protected Collection handleGetNonForeignKeyColumns()
     {
         return getAttributes();
-    }
-
-    protected Collection handleGetForeignKeyConstraintsAssociationEnds()
-    {
-        return getAssociationEnds();
     }
 }

@@ -20,7 +20,7 @@
 		outlet="scripts" 
 		overwrite="true"
 		outputToSingleFile="true">
-		<modelElements variable="entities">
+		<modelElements variable="tables">
             <modelElement stereotype="Entity"/>
             <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
@@ -31,7 +31,7 @@
 		outputPattern="create-table-{1}.sql" 
 		outlet="scripts" 
 		overwrite="true">
-		<modelElements variable="entity">
+		<modelElements variable="table">
             <modelElement stereotype="Entity"/>
             <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
@@ -43,7 +43,7 @@
 		outlet="scripts" 
 		overwrite="true"
 		outputToSingleFile="true">
-		<modelElements variable="entities">
+		<modelElements variable="tables">
             <modelElement stereotype="Entity"/>
             <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
@@ -55,7 +55,7 @@
 		outlet="scripts" 
 		overwrite="true"
 		outputToSingleFile="true">
-		<modelElements variable="entities">
+		<modelElements variable="tables">
             <modelElement stereotype="Entity"/>
             <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
@@ -67,7 +67,7 @@
         outlet="scripts"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements variable="entities">
+        <modelElements variable="tables">
             <modelElement stereotype="Entity"/>
             <modelElement stereotype="readOnlyEntity"/>
         </modelElements>
