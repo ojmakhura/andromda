@@ -159,6 +159,25 @@
 		      	<war.bundle>true</war.bundle>
 		    </properties>
 		</dependency>
+        <!-- The next two dependencies (Jasper) are used for precompilation -->
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jasper-compiler</artifactId>
+            <version>4.0.4</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>false</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jasper-runtime</artifactId>
+            <version>4.0.4</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>false</war.bundle>
+            </properties>
+        </dependency>
 	</dependencies>
   	<build>
     	<sourceDirectory>src/java</sourceDirectory>
