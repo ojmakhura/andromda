@@ -339,47 +339,67 @@ public class StringUtilsHelper
     }
 
     /**
-     * Linguistically multiplies a singular noun.
-     * <p>
+     * Linguistically pluralizes a singular noun.
+     * <p/>
      * <ul>
-     *  <li><code>noun</code> becomes <code>nouns</code></li>
-     *  <li><code>key</code> becomes <code>keys</code></li>
-     *  <li><code>word</code> becomes <code>words</code></li>
-     *  <li><code>property</code> becomes <code>properties</code></li>
+     * <li><code>noun</code> becomes <code>nouns</code></li>
+     * <li><code>key</code> becomes <code>keys</code></li>
+     * <li><code>word</code> becomes <code>words</code></li>
+     * <li><code>property</code> becomes <code>properties</code></li>
+     * <li><code>bus</code> becomes <code>busses</code></li>
+     * <li><code>boss</code> becomes <code>bosses</code></li>
      * </ul>
-     * <p>
+     * <p/>
      * Whitespace as well as <code>null></code> arguments will return an empty String.
      *
-     * @param singularNoun A singularNoun to multiply
-     * @return The multiplication of the argument singularNoun
+     * @param singularNoun A singularNoun to pluralize
+     * @return The plural of the argument singularNoun
      */
-    public static String multiply(String singularNoun)
+    public static String pluralize(String singularNoun)
     {
-        singularNoun = trimToEmpty(singularNoun);
+        String pluralNoun = trimToEmpty(singularNoun);
 
-        int nounLength = singularNoun.length();
-        if (singularNoun.endsWith("y"))
+        int nounLength = pluralNoun.length();
+
+        if (nounLength == 1)
         {
-            if (nounLength > 1)
+            pluralNoun = pluralNoun + 's';
+        }
+        else if (nounLength > 1)
+        {
+            char secondToLastChar = pluralNoun.charAt(nounLength - 2);
+
+            if (pluralNoun.endsWith("y"))
             {
-                switch (singularNoun.charAt(nounLength-2))
+                switch (secondToLastChar)
                 {
                     case 'a':
                     case 'e':
                     case 'i':
                     case 'o':
                     case 'u':
-                        singularNoun = singularNoun + 's';
+                        pluralNoun = pluralNoun + 's';
                         break;
                     default :
-                        singularNoun = singularNoun.substring(0, nounLength-1) + "ies";
+                        pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
                 }
             }
+            else if (pluralNoun.endsWith("s"))
+            {
+                switch(secondToLastChar)
+                {
+                    case 's':
+                        pluralNoun = pluralNoun + "es";
+                        break;
+                    default :
+                        pluralNoun = pluralNoun + "ses";
+                }
+            }
+            else
+            {
+                pluralNoun = pluralNoun + 's';
+            }
         }
-        else if (nounLength > 0)
-        {
-            singularNoun = singularNoun + 's';
-        }
-        return singularNoun;
+        return pluralNoun;
     }
 }
