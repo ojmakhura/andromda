@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project>
 
-  	<title>Hibernate Cartridge</title>
+  	<title>Hibernate Cartridge Docs</title>
 
 	<body>
     	<links>
@@ -9,9 +9,13 @@
       		<item name="Cartridges" href="../andromda-cartridges/index.html"/>
       		<item name="AndroMDA" href="../index.html"/>
     	</links>
-    	<menu name="Overview">
+    	<menu name="Documentation">
+            <item name="Introduction" href="/index.html"/>
     		<item name="Modeling" href="modeling.html"/>
     		<item name="Namespace" href="namespace.html"/>
     	</menu>
+        <menu name="How-to">
+            <item name="Second Level Cache" href="howto1.html"/>
+        </menu>
   	</body>
 </project>
