@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
  */
 public class OutputUtils
 {
-
     private static Logger logger = Logger.getLogger(OutputUtils.class);
 
     /**
