@@ -103,9 +103,9 @@ $att.getDocumentation("     * ")
 ##
 #set ($parameterList = $op.typedArgumentList)
 #if ($parameterList.length() == 0)
-#set ($parameters = "net.sf.hibernate.Session sess")
+#set ($parameters = "net.sf.hibernate.Session session")
 #else
-#set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
+#set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 
 #if ($op.hasExceptions())
@@ -128,19 +128,19 @@ $op.getDocumentation("     * ")
     $op.visibility $op.returnType.fullyQualifiedName $msig
 #end
     {
-        Session sess = null;
+        Session session = null;
         try
         {
-            sess = getSession();
+            session = getSession();
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
 #set ($parameterList = $op.argumentNames)
 #if ($parameterList.length() == 0)
-#set ($parameters = "sess")
+#set ($parameters = "session")
 #else
-#set ($parameters = "sess, ${parameterList}")
+#set ($parameters = "session, ${parameterList}")
 #end
 ##
 #if ("void" != $op.returnType.fullyQualifiedName)
@@ -166,12 +166,12 @@ $op.getDocumentation("     * ")
         }
         finally
         {
-            if (sess != null)
+            if (session != null)
             {
                 try
                 {
-                    sess.flush();
-                    sess.close();
+                    session.flush();
+                    session.close();
                 }
                 catch (HibernateException he)
                 {

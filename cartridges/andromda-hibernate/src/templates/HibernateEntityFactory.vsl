@@ -64,10 +64,10 @@ public abstract class ${class.name}Factory {
      * In Hibernate, this is just a call to load().
      *
      */
-    public static $class.name findByPrimaryKey (net.sf.hibernate.Session sess, $primKeyTypeName ${primKey.name})
+    public static $class.name findByPrimaryKey (net.sf.hibernate.Session session, $primKeyTypeName ${primKey.name})
         throws net.sf.hibernate.HibernateException
     {
-        ${class.name} object = (${class.name}) sess.load(${class.name}Impl.class, ${primKey.name});
+        ${class.name} object = (${class.name}) session.load(${class.name}Impl.class, ${primKey.name});
         return object;
     }
 
@@ -76,9 +76,9 @@ public abstract class ${class.name}Factory {
 ##
 #set ($parameterList = $finder.typedArgumentList)
 #if ($parameterList.length() == 0)
-#set ($parameters = "net.sf.hibernate.Session sess")
+#set ($parameters = "net.sf.hibernate.Session session")
 #else
-#set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
+#set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 ##
     /**
@@ -90,14 +90,14 @@ $finder.getDocumentation("     * ")
     $finder.visibility static $returntype ${finder.name} ($parameters)
         throws net.sf.hibernate.HibernateException
     {
-        net.sf.hibernate.Query q = sess.createQuery("$finder.query");
+        net.sf.hibernate.Query query = session.createQuery("$finder.query");
 ##
 #foreach($prm in $finder.arguments)
 #set ($index = $velocityCount - 1)
-		q.set${prm.type.name} (${index}, ${prm.name});
+		query.set${prm.type.name} (${index}, ${prm.name});
 #end
 ##
-        return q.list();
+        return query.list();
     }
 
 #end##foreach operation
