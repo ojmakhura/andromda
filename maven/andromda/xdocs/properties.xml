@@ -6,100 +6,290 @@
   	</properties>
   	<body>
     	<section name="AndroMDA Maven Plug-in Settings">
-	      	<table>
-	        	<tr>
-		          	<th>Property</th>
-		          	<th>Optional?</th>	   	          	
-		          	<th>Description</th>       	
-	        	</tr>
-	        	<tr>
-		          	<td>	
-		          		maven.andromda.model.uri         		
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>
-		          	<td>
-		          		<p>
-                            The URI to the model which will be processed.  If this isn't specified
-		          		    then the <code>maven.andromda.src.dir</code> and 
-		          		    <code>maven.andromda.src.includes</code> properties will be used.		          			
-		          		</p>
-		          	</td>
-	        	</tr>
-	        	<tr>
-		          	<td>	
-		          		maven.andromda.src.dir          		
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>
-		          	<td>
-		          		<p>
-                            The AndroMDA source directory (where any model files to be processed will be 
-		          		    found). Default is <code>${maven.src.dir}/uml</code>.		          			
-		          		</p>
-		          	</td>
-	        	</tr>	    
-	        	<tr>
-	        		<td>
-	        			maven.andromda.src.includes
-	        		</td>
-	        		<td>
-	        			Yes
-	        		</td>
-	        		<td>
-	        			<p>
-                            What model files to include from from the <code>maven.andromda.src.dir</code>.
-	        			    Default is <code>*.xmi,*.xml</code>.	        				
-	        			</p>
-	        		</td>
-	        	</tr>  	   
-	        	<tr>
-	        		<td>
-	        			maven.andromda.src.lastModifiedCheck
-	        		</td>
-	        		<td>
-	        			Yes
-	        		</td>
-	        		<td>
-	        			<p>
-                            Whether or not to perform a check if the model file(s) was modified
-	        			    since the last run occurred. Default is <code>false</code>.
-	        			</p>
-	        			
-	        		</td>
-	        	</tr>    
-	        	<tr>
-	        		<td>
-	        			maven.andromda.modelFacade
-	        		</td>
-	        		<td>
-	        			Yes
-	        		</td>
-	        		<td>
-	        			<p>
-							The ModelFacade implementation to use.  The ModelFacade provides the access to the
-							metafacades implementations during template processing.  
-							Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.UMLModelAccessFacade</code>.	        				
-	        			</p>
-	        		</td>
-	        	</tr>     	 	
-	        	<tr>
-	        		<td>
-	        			maven.andromda.processAllModelPackages
-	        		</td>
-	        		<td>
-	        			Yes
-	        		</td>
-	        		<td>
-	        			<p>
-	        				Whether or not to process all packages of the model.  
-	        				Default is <code>true</code>.
-	        			</p>
-	        		</td>
-	        	</tr>	        	        		        	   	    	        		        	        	        	     	             	        	
-	        </table>
+			<subsection name="andromda:run">
+				<table>
+					<tr>
+						<th>Property</th>
+						<th>Optional?</th>	   	          	
+						<th>Description</th>       	
+					</tr>
+					<tr>
+						<td>	
+							maven.andromda.model.uri         		
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							<p>
+								The URI to the model which will be processed.  If this isn't specified
+								then the <code>maven.andromda.src.dir</code> and 
+								<code>maven.andromda.src.includes</code> properties will be used.		          			
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>	
+							maven.andromda.src.dir          		
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							<p>
+								The AndroMDA source directory (where any model files to be processed will be 
+								found). Default is <code>${maven.src.dir}/uml</code>.		          			
+							</p>
+						</td>
+					</tr>	    
+					<tr>
+						<td>
+							maven.andromda.src.includes
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							<p>
+								What model files to include from from the <code>maven.andromda.src.dir</code>.
+								Default is <code>*.xmi,*.xml</code>.	        				
+							</p>
+						</td>
+					</tr>  	   
+					<tr>
+						<td>
+							maven.andromda.src.lastModifiedCheck
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							<p>
+								Whether or not to perform a check if the model file(s) was modified
+								since the last run occurred. Default is <code>false</code>.
+							</p>
+							
+						</td>
+					</tr>    
+					<tr>
+						<td>
+							maven.andromda.modelFacade
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							<p>
+								The ModelFacade implementation to use.  The ModelFacade provides the access to the
+								metafacades implementations during template processing.  
+								Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.UMLModelAccessFacade</code>.	        				
+							</p>
+						</td>
+					</tr>     	 	
+					<tr>
+						<td>
+							maven.andromda.processAllModelPackages
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							<p>
+								Whether or not to process all packages of the model.  
+								Default is <code>true</code>.
+							</p>
+						</td>
+					</tr>	        	        		        	   	    	        		        	        	        	     	             	        	
+				</table>
+	        </subsection>
+			<subsection name="andromda:schema2xmi">
+				<table>
+					<tr>
+						<th>Property</th>
+						<th>Optional?</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.inputModel
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							The URI to the input model. If this isn't
+							provided, you'll be prompted to enter it.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.schemaUser
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							The schema user name.  If this isn't
+							provided, you'll be prompted to enter it.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.schemaPassword
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							The schema user's password.  If this isn't
+							provided, you'll be prompted to enter it.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.connectionUrl
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							The connection URL for the database 
+							(i.e. <code>jdbc:oracle:thin:@youroraclehost:1521:yoursid</code>).
+                            If this isn't provided, you'll be prompted to enter it.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.driverClass
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							The class name for the JDBC driver.
+							(i.e. <code>oracle.jdbc.driver.OracleDriver</code>).
+                            If this isn't provided, you'll be prompted to enter it.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.mappingsUri
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							The URI to the mappings file, which maps SQL types
+							(and JDBC types) to model types.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.outputModel
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							The location to which the output model will 
+							be written. Default is <code>${maven.build.dir}/schema2xmi/transformed.xmi</code>.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.package
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							Specifies the name of the package to which
+							the model classes will be added. If not
+							specified classes are added directly to 
+							the model itself.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.tablePattern
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							A regular expression pattern for limiting
+							the number of tables matched when reading
+							the schema. (i.e. <code>[\p{Lower}\p{Upper}[_]]*</code>
+							will match all table names having upper or lower
+							case letters, and containing underscores.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.schema
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							 A schema name; must match the schema name as 
+							 it is stored in the database.  If you do
+							 not specifiy it then it will not be used
+							 to narrow the table search.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.classStereotype
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							A comma seperated list of stereotype(s) to 
+							add to the generated model classes. 
+							Default is <code>Entity</code>.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.identifierStereotype
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							A comma seperated list of stereotype(s) to 
+							add to the generated model class identifiers. 
+							Default is <code>PrimaryKey</code>.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.tableTaggedValue
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							The table name tagged value to add to the 
+							generated model classes.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							maven.andromda.schema2xmi.columnTaggedValue
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							The colum name tagged value to add to the 
+							generated model class attributes.
+						</td>
+					</tr>
+				</table>
+			</subsection>
     	</section>
 		<section name="Other Settings">
 			<subsection name="Defining Namespace Properties">
