@@ -11,28 +11,38 @@ public class Bpm4StrutsGlobals
     /**
      * Stores the default date format when dates are formmated.
      */
-    public final static String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";
+    public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";
     
     /**
      * Contains the default value for whether or not all forwards
      * should perform a HTTP redirect or not.
      */
-    public final static String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
+    public static final String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
 
     /**
-     * The namespace property use to identify the pattern used to construct the backend
+     * The namespace property used to identify the pattern used to construct the backend
      * service's accessor.
      */
-    public final static String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
+    public static final String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
 
     /**
-     * The namespace property use to identify the pattern used to construct the backend
+     * The namespace property used to identify the pattern used to construct the backend
      * service's package name.
      */
-    public final static String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
+    public static final String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
 
     /**
-     * The namespace property use to identify the action path prefix, which may very well be empty.
+     * The namespace property used to identify the action path prefix, which may very well be empty.
      */
-    public final static String PROPERTY_ACTION_PATH_PREFIX = "actionPathPrefix";
+    public static final String PROPERTY_ACTION_PATH_PREFIX = "actionPathPrefix";
+
+    /**
+     * The namespace property used to toggle the automatic generation of table decorators for displaytag.
+     */
+    public static final String PROPERTY_GENERATE_TABLE_DECORATORS = "generateTableDecorators";
+
+    /**
+     * The suffix used to append to decorator class names.
+     */
+    public static final String PROPERTY_TABLE_DECORATOR_SUFFIX = "tableDecoratorSuffix"; 
 }

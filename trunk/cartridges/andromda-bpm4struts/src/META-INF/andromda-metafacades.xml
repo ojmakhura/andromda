@@ -56,6 +56,8 @@
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
+        <property reference="generateTableDecorators" default="false"/>
+        <property reference="tableDecoratorSuffix" default="Decorator"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
