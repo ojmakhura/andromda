@@ -14,24 +14,6 @@
             </p>
             <table>
                 <tr>
-                    <th>Property</th>
-                    <th>Description</th>
-                    <th>Required?</th>
-                </tr>
-                <tr>
-                    <td>
-                          languageMappingsUri
-                    </td>
-                    <td>
-                          URI specifying the specific mappings from model types to language types.
-                          (i.e.
-                        <code>file:${basedir}/JavaMappings.xml</code>)
-                    </td>
-                    <td>
-                          Yes
-                    </td>
-                </tr>
-                <tr>
                     <td>
                           hibernateTypeMappingsUri
                     </td>
