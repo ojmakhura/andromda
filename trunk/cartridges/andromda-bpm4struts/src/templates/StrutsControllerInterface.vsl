@@ -25,13 +25,6 @@ $controller.getDocumentation(" * ")
 #set ($serviceName = $service.name)
 #set ($packageName = $service.packageName)
 #set ($ejbRefName = "ejb/${packageName}/${serviceName}")
- * @web.ejb-ref
- *           name="${serviceName}Ref"
- *           type="Session"
- *           home="${packageName}.${serviceName}Home"
- *         remote="${packageName}.${serviceName}"
- *           link="${serviceName}"
- *
  * @jboss.ejb-ref-jndi
  *      ref-name="${serviceName}Ref"
  *     jndi-name="${ejbRefName}/Remote"

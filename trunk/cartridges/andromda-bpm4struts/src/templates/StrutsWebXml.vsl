@@ -55,6 +55,7 @@
 ##
 ##  We don't use security-role-refs at this point, maybe in a later step
 ##
+#foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($useCase in $applicationUseCase.allUseCases)
     <security-constraint>
         <web-resource-collection>
@@ -92,10 +93,26 @@
 #end
 #if ($security == "true")
 #foreach ($user in $applicationUseCase.allUsers)
-  <security-role>
-    <role-name>$user.role</role-name>
-  </security-role>
+    <security-role>
+        <role-name>$user.role</role-name>
+    </security-role>
+#end
 #end
 
 #end
+#foreach ($controller in $controllers)
+#foreach ($service in $controller.services)
+#set ($serviceName = $service.name)
+#set ($packageName = $service.packageName)
+#set ($ejbRefName = "ejb/${packageName}/${serviceName}")
+    <ejb-ref>
+        <ejb-ref-name>${serviceName}Ref</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <home>${packageName}.${serviceName}Home</home>
+        <remote>${packageName}.${serviceName}</remote>
+        <ejb-link>${serviceName}</ejb-link>
+    </ejb-ref>
+#end
+#end
+
 </web-app>

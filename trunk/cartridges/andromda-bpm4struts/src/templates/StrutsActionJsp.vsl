@@ -13,13 +13,6 @@
 <html:xhtml/>
 
 #end
-#if (!$action.useCaseStart)
-#foreach ($incomingAction in $action.input.incomingActions)
-<logic:present name="$incomingAction.formBeanName" scope="$incomingAction.actionScope">
-    <bean:define id="form" name="$incomingAction.formBeanName" type="$incomingAction.formBeanType" scope="$incomingAction.actionScope" toScope="page"/>
-</logic:present>
-#end
-#end
 
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)

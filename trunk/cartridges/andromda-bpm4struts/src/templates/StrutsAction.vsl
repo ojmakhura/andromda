@@ -85,7 +85,7 @@ public final class $action.actionClassName extends Action
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("$action.successMessageKey"));
         saveMessages(request, messages);
 #end
-
+        request.setAttribute("form", form);
         return forward;
     }
 
