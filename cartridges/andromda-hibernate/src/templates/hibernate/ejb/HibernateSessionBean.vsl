@@ -1,5 +1,4 @@
 #parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
-#if ($ejbsEnabled)
 package $service.packageName;
 
 import javax.ejb.EJBException;
@@ -257,4 +256,3 @@ $operation.getDocumentation("     * ")
 
 #end
 }
-#end

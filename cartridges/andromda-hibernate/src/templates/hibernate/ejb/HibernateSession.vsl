@@ -1,5 +1,4 @@
 #parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
-#if ($ejbsEnabled)
 #set ($generatedFile = "${service.fullyQualifiedNamePath}.java")
 //
 // Attention: Generated code! Do not modify by hand!
@@ -43,4 +42,3 @@ $operation.getDocumentation("    * ")
 
 #end
 }
-#end

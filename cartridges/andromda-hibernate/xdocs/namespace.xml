@@ -100,11 +100,12 @@
                           session-beans
                     </td>
                     <td>
-                          The directory to which Session Bean files are generated.
+                          The directory to which Session EJB service wrappers are 
+                          generated.  If this property is not specified, Session EJB service
+                          wrappers will not be generated.
                     </td>
                     <td>
-                          Yes (unless
-                        <code>ignore</code> is specified for this property)
+                          No
                     </td>
                 </tr>
                 <tr>
