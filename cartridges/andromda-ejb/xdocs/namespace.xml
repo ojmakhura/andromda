@@ -156,6 +156,7 @@
 					</td>
 				</tr>   
 				<tr>
+					<a name="jndiNamePrefix"/>
 					<td>
 						jndiNamePrefix
 					</td>
@@ -164,7 +165,7 @@
 		                EJBs to be deployed multiple times in the same container)
 					</td>
 					<td>
-						No
+						No, default is <code>no prefix</code>.
 					</td>
 				</tr>			        	   	      	        	        		        	        	        	     	             	        	
 	        </table>

@@ -143,19 +143,20 @@
 						No, default is <code>public</code>.
 					</td>
 				</tr> 	       	
-					<tr>
-						<td>
-							ejbJndiNamePrefix
-						</td>
-						<td>
-						    The prefix to give to the Session EJB JNDI names (this allows 
-							the same Session EJB to be deployed multiple times in the same 
-							container)
-						</td>
-						<td>
-							No
-						</td>
-					</tr>     	      	        	        		        	        	        	     	             	        	
+				<tr>
+					<a name="ejbJndiNamePrefix"/>
+					<td>
+						ejbJndiNamePrefix
+					</td>
+					<td>
+						The prefix to give to the Session EJB JNDI names (this allows 
+						the same Session EJB to be deployed multiple times in the same 
+						container)
+					</td>
+					<td>
+						No, default is <code>no prefix</code>.
+					</td>
+				</tr>     	      	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
