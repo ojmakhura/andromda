@@ -39,9 +39,10 @@ class MetafacadeUtils
         final String methodName = "MetafacadeMapping.constructKey";
         ExceptionUtils.checkNull(methodName, "object", object);
         StringBuffer key = new StringBuffer(String.valueOf(object));
+        char seperator = ':';
         if (StringUtils.isNotEmpty(suffixHead))
         {
-            key.append(':');
+            key.append(seperator);
             key.append(suffixHead);
         }
         if (suffixes != null)
@@ -53,7 +54,7 @@ class MetafacadeUtils
             for (Iterator suffixIterator = sortedSuffixes.iterator(); suffixIterator
                 .hasNext();)
             {
-                key.append(':');
+                key.append(seperator);
                 key.append(suffixIterator.next());
             }
         }
@@ -101,9 +102,9 @@ class MetafacadeUtils
 
     /**
      * Indicates whether or not the mapping properties (present on the mapping,
-     * if any) are valid on the <code>mappingObject</code>.
+     * if any) are valid on the <code>metafacade</code>.
      * 
-     * @param mappingObject the mapping object on which the properties will be
+     * @param metafacade the metafacade instance on which the properties will be
      *        validated.
      * @param mapping the MetafacadeMapping instance that contains the
      *        properties.
@@ -114,33 +115,46 @@ class MetafacadeUtils
         final MetafacadeMapping mapping)
     {
         boolean valid = false;
-        final Collection properties = mapping.getMappingProperties();
-        if (properties != null && !properties.isEmpty())
+        final Collection propertyGroups = mapping.getMappingPropertyGroups();
+        if (propertyGroups != null && !propertyGroups.isEmpty())
         {
             try
             {
                 if (getLogger().isDebugEnabled())
                     getLogger().debug(
-                        "evaluating " + properties.size() 
-                            + " property(s) on metafacade '"
+                        "evaluating " + propertyGroups.size()
+                            + " property groups(s) on metafacade '"
                             + metafacade + "'");
-                for (Iterator propertyIterator = properties.iterator(); propertyIterator.hasNext();)
+                for (Iterator propertyGroupIterator = propertyGroups.iterator(); propertyGroupIterator
+                    .hasNext();)
                 {
-                    final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator
+                    final MetafacadeMapping.PropertyGroup propertyGroup = (MetafacadeMapping.PropertyGroup)propertyGroupIterator
                         .next();
-                    valid = PropertyUtils.containsValidProperty(
-                        metafacade,
-                        property.getName(),
-                        property.getValue());
-                    if (getLogger().isDebugEnabled())
-                        getLogger().debug(
-                            "property '" + property.getName()
-                                + "', with value '" + property.getValue()
-                                + "' on metafacade '" + metafacade
-                                + "', evaluated to --> '" + valid + "'");
-                    // if the property is invalid, we break out
-                    // of the loop
-                    if (!valid)
+                    for (Iterator propertyIterator = propertyGroup
+                        .getProperties().iterator(); propertyIterator.hasNext();)
+                    {
+                        final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator
+                            .next();
+                        valid = PropertyUtils.containsValidProperty(
+                            metafacade,
+                            property.getName(),
+                            property.getValue());
+                        if (getLogger().isDebugEnabled())
+                            getLogger().debug(
+                                "property '" + property.getName()
+                                    + "', with value '" + property.getValue()
+                                    + "' on metafacade '" + metafacade
+                                    + "', evaluated to --> '" + valid + "'");
+                        // if the property is invalid, we break out
+                        // of the loop (since we're evaluating)
+                        if (!valid)
+                        {
+                            break;
+                        }
+                    }
+                    // we break on the first true value since
+                    // property groups are evaluated as 'OR'
+                    if (valid)
                     {
                         break;
                     }
@@ -158,7 +172,7 @@ class MetafacadeUtils
             }
             if (getLogger().isDebugEnabled())
                 getLogger().debug(
-                    "completed evaluating " + properties.size()
+                    "completed evaluating " + propertyGroups.size()
                         + " properties on metafacade '" + metafacade
                         + "' with a result of --> '" + valid + "'");
         }

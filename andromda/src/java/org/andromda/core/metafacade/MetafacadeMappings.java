@@ -109,7 +109,21 @@ public class MetafacadeMappings
             mappings.getNamespace());
         mappings = (MetafacadeMappings)factory.getObject(mappingsContents);
         mappings.resource = mappingsUri;
+        // indicate this mappings instance has been fully initialized
+        mappings.initialized = true;
         return mappings;
+    }
+
+    private boolean initialized = false;
+
+    /**
+     * Indicates if this MetafacadeMappings instance has been fully initialized.
+     * 
+     * @return true/false
+     */
+    boolean isInitialized()
+    {
+        return initialized;
     }
 
     /**
@@ -168,7 +182,7 @@ public class MetafacadeMappings
      * 
      * @param mapping the MetafacadeMapping instance.
      */
-    public void addMapping(MetafacadeMapping mapping)
+    public void addMapping(final MetafacadeMapping mapping)
     {
         final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
@@ -180,16 +194,34 @@ public class MetafacadeMappings
             mappingClassName);
         ExceptionUtils.checkNull(methodName, "mapping.metafacadeClass", mapping
             .getMetafacadeClass());
-   
         mapping.setMetafacadeMappings(this);
-        this.mappings.add(mapping);
-        mappingsByMetafacadeClass.put(this.getMetafacadeInterface(mapping
-            .getMetafacadeClass()), mapping);
+        // find any mappings that match, if they do we add the properties
+        // from that mapping to the existing matched mapping (so we only
+        // have one mapping containing properties that can be 'OR'ed together.
+        MetafacadeMapping foundMapping = (MetafacadeMapping)CollectionUtils
+            .find(this.mappings, new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return mapping.match((MetafacadeMapping)object);
+                }
+            });
+        if (foundMapping != null)
+        {
+            foundMapping
+                .addMappingPropertyGroup(mapping.getMappingProperties());
+        }
+        else
+        {
+            this.mappings.add(mapping);
+            mappingsByMetafacadeClass.put(this.getMetafacadeInterface(mapping
+                .getMetafacadeClass()), mapping);
+        }
     }
-    
+
     /**
-     * Gets the class of the metafacade interface that belongs
-     * to the given <code>metafacadeClass</code>.
+     * Gets the class of the metafacade interface that belongs to the given
+     * <code>metafacadeClass</code>.
      * 
      * @return the metafacade interface Class.
      */
@@ -209,8 +241,8 @@ public class MetafacadeMappings
     }
 
     /**
-     * Stores mappings by the metafacade class so that we
-     * can retrieve the inherited metafacade classes.
+     * Stores mappings by the metafacade class so that we can retrieve the
+     * inherited metafacade classes.
      */
     private final Map mappingsByMetafacadeClass = new HashMap();
 
@@ -238,45 +270,38 @@ public class MetafacadeMappings
         }
         this.defaultMetafacadeClass = mappings.defaultMetafacadeClass;
     }
-    
+
     /**
-     * Stores the mappings which are 
-     * currently "in process" (within the 
-     * {@link #getMapping(Object, String, Collection)};
-     * This means the mapping is being processed by the 
-     * {@link #getMapping(Object, String, Collection)} operation. 
-     * We store these "in process" mappings in order 
-     * to keep track of the mappings currently being 
-     * evaluated so we avoid stack over flow errors
-     * {@link #getMapping(Object, String, Collection)} when 
-     * finding mappings that are mapped to super metafacade 
-     * properties.
+     * Stores the mappings which are currently "in process" (within the
+     * {@link #getMapping(Object, String, Collection)}. This means the mapping
+     * is being processed by the {@link #getMapping(Object, String, Collection)}
+     * operation. We store these "in process" mappings in order to keep track of
+     * the mappings currently being evaluated so we avoid stack over flow errors
+     * {@link #getMapping(Object, String, Collection)}when finding mappings
+     * that are mapped to super metafacade properties.
      */
     private final Collection inProcessMappings = new ArrayList();
-    
+
     /**
-     * Stores the metafacades which are 
-     * currently "in process" (within the 
-     * {@link #getMapping(Object, String, Collection)};
-     * This means the metafacade being processed by the 
-     * {@link #getMapping(Object, String, Collection)} operation. 
-     * We store these "in process" metafacades in order 
-     * to keep track of the metafacades currently being 
-     * evaluated so we avoid stack over flow errors
-     * {@link #getMapping(Object, String, Collection)} when 
-     * finding metafacades that are mapped to super metafacade 
-     * properties.
+     * Stores the metafacades which are currently "in process" (within the
+     * {@link #getMapping(Object, String, Collection)}. This means the
+     * metafacade being processed by the
+     * {@link #getMapping(Object, String, Collection)}operation. We store these
+     * "in process" metafacades in order to keep track of the metafacades
+     * currently being evaluated so we avoid stack over flow errors
+     * {@link #getMapping(Object, String, Collection)}when finding metafacades
+     * that are mapped to super metafacade properties.
      */
     private final Collection inProcessMetafacades = new ArrayList();
-   
+
     /**
      * <p>
      * Retrieves the MetafacadeMapping belonging to the unique <code>key</code>
-     * created from the <code>mappingObject</code>'s class, <code>context</code> 
-     * and given <code>stereotypes</code>. It's <strong>IMPORTANT</strong> to 
-     * note that contexts have a higher priority than stereotypes.
-     * This allows us to retrieve mappings based on
-     * the following combinations:
+     * created from the <code>mappingObject</code>'s class,
+     * <code>context</code> and given <code>stereotypes</code>. It's
+     * <strong>IMPORTANT </strong> to note that contexts have a higher priority
+     * than stereotypes. This allows us to retrieve mappings based on the
+     * following combinations:
      * <ul>
      * <li>A single stereotype no context</li>
      * <li>A single stereotype with a context</li>
@@ -290,7 +315,8 @@ public class MetafacadeMappings
      * NOTE: mapping properties are inherited from super metafacades.
      * </p>
      * 
-     * @param mappingObject an instance of the class to which the mapping applies.
+     * @param mappingObject an instance of the class to which the mapping
+     *        applies.
      * @param stereotypes the stereotypes to check.
      * @param rootContext the context within the namespace for which the mapping
      *        applies (has 'root' in the name because of the fact that we also
@@ -308,8 +334,7 @@ public class MetafacadeMappings
         // first try to find the mapping by context and stereotypes
         if (context != null && !emptyStereotypes)
         {
-            mapping = 
-                (MetafacadeMapping)CollectionUtils.find(
+            mapping = (MetafacadeMapping)CollectionUtils.find(
                 this.mappings,
                 new Predicate()
                 {
@@ -373,8 +398,8 @@ public class MetafacadeMappings
                         }
                         return valid;
                     }
-                });            
-        }        
+                });
+        }
         // check just the context alone
         if (mapping == null && context != null)
         {
@@ -489,7 +514,10 @@ public class MetafacadeMappings
         // if it's still null, try with the parent
         if (mapping == null && this.parent != null)
         {
-            mapping = this.parent.getMapping(mappingObject, context, stereotypes);
+            mapping = this.parent.getMapping(
+                mappingObject,
+                context,
+                stereotypes);
         }
         // load the inherited property references
         this.loadInheritedPropertyReferences(mapping);
@@ -497,24 +525,25 @@ public class MetafacadeMappings
         this.inProcessMetafacades.clear();
         return mapping;
     }
-    
+
     /**
      * <p>
-     * Loads all property references into the given <code>mapping</code> 
+     * Loads all property references into the given <code>mapping</code>
      * inherited from any super metafacade of the given mapping's metafacade.
      * </p>
      * 
      * @param mapping the MetafacadeMapping to which we'll add the inherited
      *        property references.
-     * @param context the context from which the property references are inherited.
+     * @param context the context from which the property references are
+     *        inherited.
      * @return The MetafacadeMapping with all loaded property references.
      */
-    private void loadInheritedPropertyReferences(
-        MetafacadeMapping mapping)
+    private void loadInheritedPropertyReferences(MetafacadeMapping mapping)
     {
         if (mapping != null)
         {
-            Class[] interfaces = this.getInterfacesReversed(mapping.getMetafacadeClass().getName());
+            Class[] interfaces = this.getInterfacesReversed(mapping
+                .getMetafacadeClass().getName());
             if (interfaces != null && interfaces.length > 0)
             {
                 for (int ctr = 0; ctr < interfaces.length; ctr++)
@@ -532,11 +561,10 @@ public class MetafacadeMappings
             }
         }
     }
-    
+
     /**
-     * The cache containing the hierachies for each
-     * context so that we don't need to retrieve more than
-     * once.
+     * The cache containing the hierachies for each context so that we don't
+     * need to retrieve more than once.
      */
     private final Map contextHierachyCache = new HashMap();
 
@@ -563,27 +591,28 @@ public class MetafacadeMappings
                         return ((Class)object).getName();
                     }
                 });
-            }        
+            }
             this.contextHierachyCache.put(context, contexts);
         }
         return contexts;
     }
     /**
-     * The cache of interfaces for the given className in 
-     * reversed order.
+     * The cache of interfaces for the given className in reversed order.
      */
     private final Map reversedInterfaceArrayCache = new HashMap();
-    
+
     /**
-     * Gets the interfaces for the given <code>className</code>
-     * in reveresed order.
-     * @param className the name of the class for which to retrieve
-     *        the interfaces
+     * Gets the interfaces for the given <code>className</code> in reveresed
+     * order.
+     * 
+     * @param className the name of the class for which to retrieve the
+     *        interfaces
      * @return the array containing the reversed interfaces.
      */
     private Class[] getInterfacesReversed(String className)
     {
-        Class[] interfaces = (Class[])this.reversedInterfaceArrayCache.get(className);
+        Class[] interfaces = (Class[])this.reversedInterfaceArrayCache
+            .get(className);
         if (interfaces == null)
         {
             interfaces = (Class[])this.getInterfaces(className).toArray(
@@ -650,7 +679,8 @@ public class MetafacadeMappings
      */
     public Map getPropertyReferences(String namespace)
     {
-        Map propertyReferences = (Map)namespacePropertyReferences.get(namespace);
+        Map propertyReferences = (Map)namespacePropertyReferences
+            .get(namespace);
         if (propertyReferences == null)
         {
             // first load the property references from
@@ -672,7 +702,8 @@ public class MetafacadeMappings
     /**
      * <p>
      * Attempts to get the MetafacadeMapping identified by the given
-     * <code>mappingClass</code>, <code>context</code> and <code>stereotypes<code>, 
+     * <code>mappingClass</code>,<code>context</code> and
+     * <code>stereotypes<code>, 
      * from the mappings for the given <code>namespace</code>. If it 
      * can <strong>not</strong> be found, it will search the default 
      * mappings and return that instead. 
@@ -698,10 +729,11 @@ public class MetafacadeMappings
     {
         final String methodName = "MetafacadeMappings.getMetafacadeMapping";
         if (this.getLogger().isDebugEnabled())
-            this.getLogger().debug("performing '" + methodName + "' with mappingObject '"
-                + mappingObject + "', stereotypes '" + stereotypes
-                + "', namespace '" + namespace + "' and context '" + context
-                + "'");
+            this.getLogger().debug(
+                "performing '" + methodName + "' with mappingObject '"
+                    + mappingObject + "', stereotypes '" + stereotypes
+                    + "', namespace '" + namespace + "' and context '"
+                    + context + "'");
 
         MetafacadeMappings mappings = this.getNamespaceMappings(namespace);
         MetafacadeMapping mapping = null;
@@ -748,7 +780,8 @@ public class MetafacadeMappings
         if (mapping == null)
         {
             if (this.getLogger().isDebugEnabled())
-                this.getLogger().debug("namespace mapping not found --> finding default");
+                this.getLogger().debug(
+                    "namespace mapping not found --> finding default");
             mapping = this.getMapping(mappingObject, context, stereotypes);
         }
 
@@ -805,8 +838,8 @@ public class MetafacadeMappings
         URL uris[] = ResourceFinder.findResources(METAFACADES_URI);
         if (uris == null || uris.length == 0)
         {
-            this.getLogger()
-                .error("ERROR!! No metafacades found, please check your classpath");
+            this.getLogger().error(
+                "ERROR!! No metafacades found, please check your classpath");
         }
         else
         {
@@ -928,10 +961,9 @@ public class MetafacadeMappings
         this.contextHierachyCache.clear();
         this.reversedInterfaceArrayCache.clear();
     }
-    
+
     /**
-     * Returns the logger instance to be 
-     * used for logging within this class.
+     * Returns the logger instance to be used for logging within this class.
      * 
      * @return the plugin logger
      */

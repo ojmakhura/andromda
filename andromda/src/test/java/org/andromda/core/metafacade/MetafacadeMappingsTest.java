@@ -8,6 +8,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.andromda.core.metafacade.MetafacadeMapping.PropertyGroup;
+
 /**
  * Tests {@link org.andromda.core.mappings.MetafacadeMappings)
  * 
@@ -254,7 +256,8 @@ public class MetafacadeMappingsTest
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_5, mapping.getMetafacadeClass().getName());
-        Collection mappingProperties = mapping.getMappingProperties();
+        PropertyGroup group = mapping.getMappingProperties();
+        Collection mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         assertEquals(
@@ -272,7 +275,8 @@ public class MetafacadeMappingsTest
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_6, mapping.getMetafacadeClass().getName());
-        mappingProperties = mapping.getMappingProperties();
+        group = mapping.getMappingProperties();
+        mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         assertEquals(
@@ -308,7 +312,8 @@ public class MetafacadeMappingsTest
         assertEquals(MAPPING_OBJECT_6.getClass().getName(), mapping
             .getMappingClassName());
         assertEquals(METAFACADE_5, mapping.getContext());
-        mappingProperties = mapping.getMappingProperties();
+        group = mapping.getMappingProperties();
+        mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         assertEquals(
@@ -334,7 +339,8 @@ public class MetafacadeMappingsTest
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_8, mapping.getMetafacadeClass().getName());
-        mappingProperties = mapping.getMappingProperties();
+        group = mapping.getMappingProperties();
+        mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(2, mappingProperties.size());
         Iterator propertyIterator = mappingProperties.iterator();
@@ -357,7 +363,8 @@ public class MetafacadeMappingsTest
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_9, mapping.getMetafacadeClass().getName());
-        mappingProperties = mapping.getMappingProperties();
+        group = mapping.getMappingProperties();
+        mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         propertyIterator = mappingProperties.iterator();
@@ -375,7 +382,8 @@ public class MetafacadeMappingsTest
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_10, mapping.getMetafacadeClass().getName());
-        mappingProperties = mapping.getMappingProperties();
+        group = mapping.getMappingProperties();
+        mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         propertyIterator = mappingProperties.iterator();
