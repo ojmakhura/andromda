@@ -1,5 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,14 +19,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.*;
-import org.apache.commons.collections.Closure;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -523,6 +526,21 @@ public class StrutsActionLogicImpl
                         }
                     }
                 }
+            }
+        }
+
+        // if any action encountered by the execution of the complete action-graph path emits a forward
+        // containing one or more parameters they need to be included as a form field too
+        Collection actionStates = getActionStates();
+        for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+        {
+            StrutsActionState actionState = (StrutsActionState) iterator.next();
+            StrutsForward forward = actionState.getForward();
+            Collection forwardParameters = forward.getForwardParameters();
+            for (Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+            {
+                StrutsParameter forwardParameter = (StrutsParameter) parameterIterator.next();
+                formFieldMap.put(forwardParameter.getName(), forwardParameter);
             }
         }
 
