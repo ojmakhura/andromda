@@ -175,4 +175,10 @@
         </junit>
     </target>
 
+    <target name="copyjar">
+        <copy todir="../../../../migration/andromda-all/andromda/lib">
+            <fileset dir="${build.dir}" includes="metadecorators.jar" />
+        </copy>
+    </target>
+
 </project>
