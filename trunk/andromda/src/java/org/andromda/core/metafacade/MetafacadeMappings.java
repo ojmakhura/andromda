@@ -362,11 +362,9 @@ public class MetafacadeMappings
     {
         if (mapping != null)
         {
-            Class[] interfaces = (Class[])this.getInterfaces(context).toArray(
-                new Class[0]);
+            Class[] interfaces = this.getInterfacesReversed(context);
             if (interfaces != null && interfaces.length > 0)
             {
-                CollectionUtils.reverseArray(interfaces);
                 for (int ctr = 0; ctr < interfaces.length; ctr++)
                 {
                     Class metafacadeClass = interfaces[ctr];
@@ -418,6 +416,35 @@ public class MetafacadeMappings
             this.contextHierachyCache.put(context, contexts);
         }
         return contexts;
+    }
+   
+    /**
+     * The cache of interfaces for the given className in 
+     * reversed order.
+     */
+    private final Map reversedInterfaceArrayCache = new HashMap();
+    
+    /**
+     * Gets the interfaces for the given <code>className</code>
+     * in reveresed order.
+     * @param className the name of the class for which to retrieve
+     *        the interfaces
+     * @return the array containing the reversed interfaces.
+     */
+    private Class[] getInterfacesReversed(String className)
+    {
+        Class[] interfaces = (Class[])this.reversedInterfaceArrayCache.get(className);
+        if (interfaces == null)
+        {
+            interfaces = (Class[])this.getInterfaces(className).toArray(
+                new Class[0]);
+            if (interfaces != null && interfaces.length > 0)
+            {
+                CollectionUtils.reverseArray(interfaces);
+            }
+            this.reversedInterfaceArrayCache.put(className, interfaces);
+        }
+        return interfaces;
     }
 
     /**
@@ -749,6 +776,7 @@ public class MetafacadeMappings
         this.namespacePropertyReferences.clear();
         this.mappingsByMetafacadeClass.clear();
         this.contextHierachyCache.clear();
+        this.reversedInterfaceArrayCache.clear();
     }
     
     /**
