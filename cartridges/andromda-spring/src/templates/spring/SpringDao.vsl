@@ -31,13 +31,12 @@ public interface $entity.daoName
      * an <code>int</code> parameter called <code>transform</code>.
      * <p/>
      * This specific flag denotes entities must be transformed into objects of type
-     * <code>$valueObjectRef.targetElement.fullyQualifiedName</code>.
+     * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
     public final static int $valueObjectRef.transformationConstantName = $velocityCount;
 
     /**
-     * Converts this DAO's entity to a value object of type
-     * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity);
 

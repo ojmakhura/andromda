@@ -432,7 +432,7 @@ public abstract class $entity.daoBaseName
      * Allows transformation of entities into value objects
      * (or something else for that matter), when the <code>transform</code>
      * flag is set to one of the constants defined in <code>$entity.fullyQualifiedDaoName</code>, please note
-     * that the <code>$entity.daoNoTransformationConstantName</code> constant denotes no transformation, so the entity itself
+     * that the {@link #$entity.daoNoTransformationConstantName} constant denotes no transformation, so the entity itself
      * will be returned.
 #if (!$valueObjectReferences.empty)
      * <p/>
@@ -446,9 +446,9 @@ public abstract class $entity.daoBaseName
      * </ul>
 #end
      *
-     * If the argument integer value would be unknown <code>$entity.daoNoTransformationConstantName</code> will be assumed.
+     * If the integer argument value is unknown {@link #${entity.daoNoTransformationConstantName}} is assumed.
      *
-     * @param transform one of the constants declared in <code>$entity.fullyQualifiedDaoName</code>
+     * @param transform one of the constants declared in {@link $entity.fullyQualifiedDaoName}
      * @param entity an entity that was found
      * @return the transformed entity (i.e. new value object, etc)
      * @see #transformEntities(int,java.util.Collection)
@@ -475,7 +475,7 @@ public abstract class $entity.daoBaseName
 
     /**
      * Transforms a collection of entities using the
-     * <code>transformEntity(int,$entity.fullyQualifiedName)</code>
+     * {@link #transformEntity(int,$entity.fullyQualifiedName)}
      * method. This method does not instantiate a new collection.
      * <p/>
      * This method is to be used internally only.
@@ -505,9 +505,7 @@ public abstract class $entity.daoBaseName
 
 #foreach ($valueObjectRef in $valueObjectReferences)
     /**
-     * Transforms a collection of entities to
-     * {@link $valueObjectRef.targetElement.fullyQualifiedName} instance. This method does not
-     * instantiate a new collection, all transformations occur in-place.
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}(java.util.Collection)
      */
     public final void ${valueObjectRef.transformationMethodName}(java.util.Collection entities)
     {
@@ -516,7 +514,7 @@ public abstract class $entity.daoBaseName
 
     /**
      * This anonymous transformer is designed to transform entities to
-     * <code>$valueObjectRef.targetElement.fullyQualifiedName</code>
+     * {@link ${valueObjectRef.targetElement.fullyQualifiedName}}
      * using the Jakarta Commons-Collections Transformation API.
      */
     private final org.apache.commons.collections.Transformer ${valueObjectRef.transformationAnonymousName} =
