@@ -2,7 +2,7 @@
 <!--
   The default Hibernate profile mappings.
 -->
-<mappings name="hibernate"> 
+<mappings name="hibernate">
     <mapping>
         <from>HIBERNATE_QUERY</from>
         <to>@andromda.hibernate.query</to>

@@ -9,8 +9,8 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  */
 public abstract class $entity.entityName
-#if($entity.generalization)  
-	extends $entity.generalization.fullyQualifiedEntityImplementationName
+#if($entity.generalization)
+    extends $entity.generalization.fullyQualifiedEntityImplementationName
 #else
     implements java.io.Serializable
 #end
@@ -39,7 +39,7 @@ $attribute.getDocumentation("     * ")
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
     private $target.getterSetterTypeName $target.name;
-   
+
     /**
 $target.getDocumentation("     * ")
      */
@@ -52,7 +52,7 @@ $target.getDocumentation("     * ")
     {
         this.${target.name} = ${target.name};
     }
-    
+
 #end
 #end
 #foreach ($operation in $entity.entityBusinessOperations)

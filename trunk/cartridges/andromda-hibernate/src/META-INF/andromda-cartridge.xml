@@ -58,9 +58,7 @@
 		required="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="enumeration" value="false"/>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -72,9 +70,7 @@
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="enumeration" value="false"/>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -86,9 +82,7 @@
 		overwrite="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="enumeration" value="false"/>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
 		</modelElements>
 	</template>
@@ -100,9 +94,7 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="enumeration" value="false"/>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -115,9 +107,7 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="enumeration" value="false"/>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
 		</modelElements>
 	</template>
@@ -181,24 +171,14 @@
         required="false"/>
         
     <template
-        path="templates/hibernate/HibernateEnumerationType.vsl"
-        outputPattern="$generatedFile"
-        outlet="entities"
-        overwrite="true"
-        required="false"/>
-
-    <template
         path="templates/hibernate/HibernateEnumeration.vsl"
-        outputPattern="{0}/{1}.java"
+        outputPattern="$generatedFile"
         outlet="entities"
         overwrite="true"
         required="false">
         <modelElements variable="enumeration">
-            <!-- this implies the <<Entity>> and <<Enumeration>> stereotypes -->
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade">
-                    <property name="enumeration" value="true"/>
-                </type>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
             </modelElement>
         </modelElements>
     </template>

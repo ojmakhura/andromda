@@ -32,11 +32,11 @@ import org.apache.commons.lang.StringUtils;
  * </p>
  * <p>
  * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
- *                                 subclasses must then follow the same
- *                                 strategy. NB if the strategy is changed after
- *                                 the initial generation, the impl classes have
- *                                 to be hand modified.
- *                                 </p>
+ * subclasses must then follow the same
+ * strategy. NB if the strategy is changed after
+ * the initial generation, the impl classes have
+ * to be hand modified.
+ * </p>
  * @author Martin West
  * @author Carlos Cuenca
  */
@@ -574,7 +574,7 @@ public class HibernateEntityLogicImpl
     {
         String entityNamePattern = (String)this
             .getConfiguredProperty("entityNamePattern");
-        return MessageFormat.format(entityNamePattern, new String[]
+        return MessageFormat.format(entityNamePattern, new Object[]
         {
             StringUtils.trimToEmpty(this.getName())
         });
@@ -586,6 +586,30 @@ public class HibernateEntityLogicImpl
     protected String handleGetEntityImplementationName()
     {
         return this.getEntityName() + HibernateGlobals.IMPLEMENTATION_SUFFIX;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorColumn()
+     */
+    protected String handleGetHibernateDiscriminatorColumn()
+    {
+        return "class";
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorType()
+     */
+    protected String handleGetHibernateDiscriminatorType()
+    {
+        return "string";
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorLength()
+     */
+    protected int handleGetHibernateDiscriminatorLength()
+    {
+        return 1;
     }
 
 }

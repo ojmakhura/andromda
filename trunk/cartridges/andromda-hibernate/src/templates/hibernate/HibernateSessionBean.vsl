@@ -25,7 +25,7 @@ import ${serviceRef.targetElement.fullyQualifiedName}Home;
 /**
 $service.getDocumentation(" * ")
  *
- * @ejb.bean 
+ * @ejb.bean
  *        name="$service.name"
 #if ($stateful)
  *        type="Stateful"
@@ -35,20 +35,20 @@ $service.getDocumentation(" * ")
  *        jndi-name="$service.jndiName"
  *        local-jndi-name="${service.jndiName}/Local"
  *        view-type="both"
- * @ejb.interface 
+ * @ejb.interface
  *        generate="local,remote"
  *        remote-class="${service.fullyQualifiedName}"
  *        local-class="${service.fullyQualifiedName}Local"
- * @ejb.home 
+ * @ejb.home
  *        generate="local,remote"
  *        remote-class="${service.fullyQualifiedName}Home"
  *        local-class="${service.fullyQualifiedName}LocalHome"
  * @ejb.util generate="physical"
 #foreach ( $serviceRef in $service.serviceReferences )
 #set ($serviceRef = $serviceRef.targetElement)
- * @ejb.ejb-ref 
- *        ejb-name="$serviceRef.name" 
- *        view-type="$serviceRef.viewType" 
+ * @ejb.ejb-ref
+ *        ejb-name="$serviceRef.name"
+ *        view-type="$serviceRef.viewType"
  *        ref-name="ejb/${serviceRef.name}BeanRef"
 #end
 #foreach ( $tgv in $service.taggedValues )
@@ -62,9 +62,9 @@ $service.getDocumentation(" * ")
 #end
 #end
  */
-public abstract class ${service.name}Bean 
-#if ($service.generalization) 
-	extends ${service.generalization.fullyQualifiedName}BeanImpl
+public abstract class ${service.name}Bean
+#if ($service.generalization)
+    extends ${service.generalization.fullyQualifiedName}BeanImpl
 #end
     implements javax.ejb.SessionBean
 {
@@ -83,16 +83,16 @@ $attribute.getDocumentation("     * ")
     * @ejb.transaction      type="Required"
     *
     */
-    public $attributeTypeName ${attribute.getterName}() 
+    public $attributeTypeName ${attribute.getterName}()
     {
         return $attribute.name;
     }
-    
+
    /**
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
     */
-    public void ${attribute.setterName}($attributeTypeName newValue) 
+    public void ${attribute.setterName}($attributeTypeName newValue)
     {
         $attribute.name = newValue;
     }
@@ -183,7 +183,7 @@ $operation.getDocumentation("     * ")
             }
         }
     }
-    
+
 #end
    // ---------------- create methods -------------------------
 
@@ -227,7 +227,7 @@ $operation.getDocumentation("     * ")
     protected javax.ejb.SessionContext _ctx = null;
 
     private static SessionFactory _sessionFactory = null;
-    
+
     public void setSessionContext( javax.ejb.SessionContext ctx )
     {
         _ctx = ctx;
