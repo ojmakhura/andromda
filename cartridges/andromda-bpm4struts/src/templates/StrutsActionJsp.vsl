@@ -126,9 +126,6 @@
 #end
 #end
     </div>
-    <div class="triggerdoc">
-        <bean:message key="$action.documentationKey"/>
-    </div>
 
 #if ($action.tabbed)
         <script type="text/javascript" language="Javascript1.1">
