@@ -14,12 +14,15 @@
 #if (!$constraintDocumentation || $constraintDocumentation.trim().length()==0)
 #set ($constraintDocumentation = $constraintTranslation)
 #end
-        if (!$constraintTranslation)
-            validationMessages.add(
-                new org.andromda.core.metafacade.ModelValidationMessage(
-                    this.getClass(),
-                    this.getName(),
-                    "$str.toSingleLine($constraintDocumentation)"));
+        {
+            $constraintTranslation
+            if (!constraintValid)
+                validationMessages.add(
+                    new org.andromda.core.metafacade.ModelValidationMessage(
+                        this.getClass(),
+                        this.getName(),
+                        "$str.toSingleLine($constraintDocumentation)"));
+        }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
 #end##foreach constraint
 #set ($constraint = false)## reset to make sure we do not reuse the last constraint
