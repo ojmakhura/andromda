@@ -1,10 +1,10 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.ClassifierFacade;
 
 /**
  * <p>
@@ -71,11 +71,10 @@ public class EntityAssociationEndFacadeLogicImpl
         final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
         if (taggedValueObject == null)
         {
-            // no tagged value, construct: FK_TABLENAME_COLUMNNAME
+            // we construct our own foreign key constraint name here
             final StringBuffer buffer = new StringBuffer();
-            buffer.append("FK_");
 
-            ClassifierFacade type = getType();
+            ClassifierFacade type = getOtherEnd().getType();
             if (type instanceof EntityFacade)
             {
                 EntityFacade entity = (EntityFacade) type;
@@ -83,11 +82,13 @@ public class EntityAssociationEndFacadeLogicImpl
             }
             else
             {
-                buffer.append(type.getName().hashCode());
+                // should not happen
+                buffer.append(type.getName().toUpperCase());
             }
 
-            buffer.append("_");
+            buffer.append(getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
             buffer.append(this.getColumnName());
+            buffer.append(getConfiguredProperty(UMLMetafacadeProperties.CONSTRAINT_SUFFIX));
 
             constraintName = buffer.toString();
         }
@@ -97,7 +98,11 @@ public class EntityAssociationEndFacadeLogicImpl
             constraintName = taggedValueObject.toString();
         }
 
-        return constraintName;
+        // we take into consideration the maximum length allowed
+        String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
+        Short maxLength = Short.valueOf(maxLengthString);
+
+        return EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, maxLength);
     }
 
 }
