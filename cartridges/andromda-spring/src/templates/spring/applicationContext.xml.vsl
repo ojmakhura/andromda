@@ -1,0 +1,177 @@
+#parse("templates/spring/SpringGlobals.vm")
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= GENERAL DEFINITIONS ========================= -->
+
+    <!-- Message source for this context, loaded from localized "messages_xx" files -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><value>messages</value></property>										
+    </bean>
+## We define the target bean suffix based on whether or not session-ejbs
+## have been specified, so that we can decide whether or not to define
+## transaction proxies for Spring
+#set ($targetBeanSuffix = true)
+#if ($ejbsEnabled)
+#set ($targetBeanSuffix = false)
+#end
+
+## only generate this stuff if 'daos' has been defined in a namespace
+#if ($daosEnabled)
+#if ($stringUtils.isNotBlank($dataSource))
+    <!-- JNDI DataSource for J2EE environments -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName"><value>${dataSource}</value></property>
+    </bean>
+#else
+    <!-- Local DataSource that works in any environment -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+#if ($stringUtils.isNotBlank($driver))
+        <property name="driverClassName"><value>${driver}</value></property>
+#end
+#if ($stringUtils.isNotBlank($username))
+        <property name="username"><value>${username}</value></property>
+#end
+#if ($stringUtils.isNotBlank($password))
+        <property name="password"><value>${password}</value></property>
+#end
+#if ($stringUtils.isNotBlank($connectionUrl))
+        <property name="url"><value>${connectionUrl}</value></property>
+#end
+    </bean>
+#end
+	
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="${sessionFactory}">
+        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="mappingResources">
+            <list>
+#foreach($entity in $entities)
+#if ($entity.generalizations.empty)
+                <value>${entity.packagePath}/${entity.entityName}.hbm.xml</value>
+#end
+#end
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+#if ($stringUtils.isNotBlank($hibernatePoolSize))
+                <prop key="hibernate.pool.size">${hibernatePoolSize}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateTransactionManagerStrategy))
+                <prop key="hibernate.transaction.manager.strategy">${hibernateTransactionManagerStrategy}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateUserTransactionName))
+                <prop key="hibernate.jta.UserTransaction">${hibernateUserTransactionName}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateTransactionManagerStrategy))
+                <prop key="hibernate.transaction.manager.strategy">${hibernateTransactionManagerStrategy}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateTransactionManagerLookup))
+                <prop key="hibernate.transaction.manager_lookup_class">${hibernateTransactionManagerLookup}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateUseOuterJoin))
+                <prop key="hibernate.use_outer_join">${hibernateUseOuterJoin}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateShowSql))
+                <prop key="hibernate.show_sql">${hibernateShowSql}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateJndiName))
+                <prop key="hibernate.session_factory_name">${hibernateJndiName}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateDialect))
+                <prop key="hibernate.dialect">${hibernateDialect}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateDefaultSchema))
+                <prop key="hibernate.default_schema">${hibernateDefaultSchema}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateMaxFetchDepth))
+                <prop key="hibernate.max_fetch_depth">${hibernateMaxFetchDepth}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcFetchSize))
+                <prop key="hibernate.jdbc.fetch_size">${hibernateJdbcFetchSize}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcBatchSize))
+                <prop key="hibernate.jdbc.batch_size">${hibernateJdbcBatchSize}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcUseScrollableResultSet))
+                <prop key="hibernate.jdbc.use_scrollable_resultset">${hibernateJdbcUseScrollableResultSet}</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcUseStreamsForBinary))
+                <prop key="hibernate.use_streams_for_binary">${hibernateJdbcUseStreamsForBinary}</prop>
+#end
+            </props>
+        </property>
+    </bean>
+#if (!$ejbsEnabled)
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="${transactionManager}">
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>
+	
+#end
+	
+#foreach($entity in $entities)
+#if (!$ejbsEnabled)
+    <!-- $entity.name: transactional proxy  -->
+    <bean id="${entity.getBeanName(false)}" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="transactionManager"/></property>
+        <property name="target"><ref local="${entity.getBeanName(true)}"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+                <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+	
+#end
+#set ($beanClass = $entity.fullyQualifiedDaoBaseName)
+#if (!$entity.operations.empty)
+#set ($beanClass = $entity.fullyQualifiedDaoImplementationName)
+#end	
+    <!-- $entity.name: entity implementation  -->
+    <bean id="${entity.getBeanName($targetBeanSuffix)}" class="${beanClass}">
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+#foreach($entityRef in $entity.entityReferences)
+        <property name="$entityRef.name"><ref bean="${entityRef.targetElement.getBeanName(false)}"/></property>
+#end
+    </bean>
+	
+#end
+#end
+    <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
+		
+#foreach($service in $services)
+#if (!$ejbsEnabled)
+    <!-- Transactional proxy for: $service.name -->
+    <bean id="$service.beanName" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="transactionManager"/></property>
+        <property name="target"><ref local="${service.getBeanName(true)}"/></property>
+        <property name="transactionAttributes">
+            <props>
+			    <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+	
+#end
+    <!-- $service.name: service implementation  -->
+    <bean id="${service.getBeanName($targetBeanSuffix)}" class="${service.fullyQualifiedImplementationName}">
+#foreach($serviceRef in $service.serviceReferences)
+        <property name="$serviceRef.name"><ref bean="$serviceRef.targetElement.beanName"/></property>
+#end
+#if ($daosEnabled)
+#foreach($entityRef in $service.entityReferences)
+        <property name="$entityRef.name"><ref bean="${entityRef.targetElement.getBeanName(false)}"/></property>
+#end
+#end
+    </bean>
+	
+#end
+    <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
+	
+</beans>
