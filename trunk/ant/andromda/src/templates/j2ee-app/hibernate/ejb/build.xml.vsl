@@ -10,7 +10,7 @@
     <property name="common.jar.bundle.name" value="${application.id}-${ant.project.name}-common-${application.version}.jar"/>
     <property name="server.jar.bundle.name" value="${application.id}-${ant.project.name}-server-${application.version}.jar"/>
 
-    <property name="xdoclet.gen.dir" value="target/xdoclet/ejb"/>
+    <property name="xdoclet.gen.dir" value="target/xdoclet"/>
     <property name="ejb.descriptor.dir" value="${xdoclet.gen.dir}/META-INF"/>
 
     <fileset id="common.sources" dir="${basedir}/target/src">
@@ -28,9 +28,15 @@
    <fileset id="server.classes" dir="${basedir}/target/classes">
         <include name="**/*Impl.class"/>
     </fileset>
+    
+    <fileset id="java-sources" dir="${basedir}/../ejb/src/java" includes="**/*.java"/>
+    <fileset id="mda-java-sources" dir="${basedir}/../ejb/target/src" includes="**/*.java"/>
+    <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
 
     <path id="classpath">
-        <fileset dir="${app.root.dir}/lib">
+        <fileset dir="${app.root.dir}/lib">       
+            <include name="dom4j-*.jar"/>
+            <include name="odmg-*.jar"/>
             <include name="xdoclet-*.jar"/>
             <include name="xjavadoc-*.jar"/>
             <include name="jboss-j2ee-*.jar"/>
@@ -47,7 +53,7 @@
         <delete dir="${basedir}/target"/>
     </target>
 
-    <target name="xdoclet" description="o Run XDoclet EJB">
+    <target name="xdoclet-ejb" description="o Run XDoclet EJB">
         <mkdir dir="${basedir}/src/java"/>
         <mkdir dir="${basedir}/target/src"/>
         <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
@@ -78,8 +84,60 @@
         	token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
         </replace>
     </target>
+    
+    <target name="xdoclet-hibernate" description="o Run XDoclet Hibernate">
+        <mkdir dir="${basedir}/src/java"/>
+        <mkdir dir="${basedir}/target/src"/>
+        <mkdir dir="${basedir}/target/classes"/>
+        <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
+        <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
+        <taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask" classpathref="classpath"/>
+        <hibernatedoclet destdir="${basedir}/${xdoclet.gen.dir}">
+            <fileset refid="java-sources"/>
+            <fileset refid="mda-java-sources"/>
+            <hibernate version="2.0" />
+        </hibernatedoclet>
+    </target>
 
-    <target name="compile" description="o Compile the code" depends="xdoclet">
+    <target name="export" description="o Export the schemas">
+        <property name="hibernate.schema.output.dir" value="hibernate/db/target/sql"/>
+        <mkdir dir="${app.root.dir}/${hibernate.schema.output.dir}"/>
+
+        <fileset id="hibernate.mapping.files" dir="${basedir}/${xdoclet.gen.dir}">
+	    	<include name="**/*.hbm.xml"/>
+    	</fileset>
+        <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <classpath refid="classpath" />
+        </java>
+
+        <copy file="${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+              tofile="${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>
+
+        <replaceregexp file="${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+                       match="^(alter table .* drop constraint|drop table)"
+                       replace="-- SKIP \1"
+                       flags="i"
+                       byline="true"/>
+
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-remove.sql"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg value="--drop"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <classpath refid="classpath" />
+        </java>
+    </target>
+
+    <target name="compile" description="o Compile the code" depends="xdoclet-ejb,xdoclet-hibernate,export">
         <mkdir dir="${basedir}/target/classes"/>
         <javac destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false">
@@ -122,6 +180,7 @@
             </manifest>
             <fileset refid="server.classes"/>
             <fileset dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.xml"/>
+            <fileset dir="${basedir}/target/conf" includes="**/*"/>
         </jar>
     </target>
 
