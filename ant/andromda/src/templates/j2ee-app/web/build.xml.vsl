@@ -76,6 +76,7 @@
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/tld"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/tld">
             <fileset dir="${app.root.dir}/lib" includes="*.tld"/>
+            <fileset dir="${basedir}/target/src/WEB-INF/tld" includes="*.tld"/>
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/lib"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/lib">
@@ -85,6 +86,7 @@
                 <include name="struts-*.jar"/>
                 <include name="displaytag-*.jar"/>
             </fileset>
+            <fileset dir="${basedir}/target/src/WEB-INF/lib" includes="*.jar"/>
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/classes"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/classes">
