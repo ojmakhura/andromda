@@ -213,11 +213,49 @@
 						defaultProvider
 					</td>
 					<td>
-						The default provider to use for the webservice, this can
-                        be either <code>EJB</code> or <code>RPC</code>.
+						The default use given all web services (if not defined seperately
+                        on each web service). Possible choices are:  
+                        <ul>
+                            <li>RPC</li>
+                            <li>EJB</li>
+                        </ul>
 					</td>
 					<td>
 						No, default is <code>RPC</code>
+					</td>
+				</tr> 
+				<tr>
+					<td>
+						defaultStyle
+					</td>
+					<td>
+						The default style given all web services (if not defined seperately
+                        on each web service). Possible choices are:                        
+                        <ul>
+                            <li>wrapped</li>
+                            <li>document</li>
+                            <li>rpc</li>
+                        </ul>
+					</td>
+					<td>
+						No, default is <code>wrapped</code>.
+					</td>
+				</tr> 
+				<tr>
+					<td>
+						defaultUse
+					</td>
+					<td>
+						The default use given all web services (if not defined seperately
+                        on each web service). Possible choices are:                       
+                        <ul>
+                            <li>wrapped</li>
+                            <li>document</li>
+                            <li>rpc</li>
+                        </ul>
+					</td>
+					<td>
+						No, default is <code>wrapped</code>.
 					</td>
 				</tr> 
 				<tr>
