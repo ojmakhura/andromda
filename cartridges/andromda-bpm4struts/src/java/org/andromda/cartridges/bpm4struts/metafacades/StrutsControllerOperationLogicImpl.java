@@ -20,8 +20,6 @@ public class StrutsControllerOperationLogicImpl
         extends StrutsControllerOperationLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation
 {
-    private Collection deferringActions = null;
-
     // ---------------- constructor -------------------------------
 
     public StrutsControllerOperationLogicImpl(Object metaObject, String context)
@@ -44,6 +42,8 @@ public class StrutsControllerOperationLogicImpl
     {
         return '/' + getInterfacePackageName().replace('.', '/') + '/' + getInterfaceName();
     }
+
+    private Collection deferringActions = null;
 
     public java.util.Collection handleGetDeferringActions()
     {
@@ -92,7 +92,6 @@ public class StrutsControllerOperationLogicImpl
                     }
                 }
             }
-
             this.deferringActions = deferringActions;
         }
         return deferringActions;
@@ -104,17 +103,22 @@ public class StrutsControllerOperationLogicImpl
         return (owner instanceof StrutsController) ? owner : null;
     }
 
+    private Collection formFields = null;
+
     protected Collection handleGetFormFields()
     {
-        Collection fields = new HashSet();
-
-        Collection actions = getDeferringActions();
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        if (formFields == null)
         {
-            StrutsAction action = (StrutsAction) actionIterator.next();
-            fields.addAll(action.getAllFormFields());
-        }
+            Collection fields = new HashSet();
 
-        return fields;
+            Collection actions = getDeferringActions();
+            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            {
+                StrutsAction action = (StrutsAction) actionIterator.next();
+                fields.addAll(action.getAllFormFields());
+            }
+            formFields = fields;
+        }
+        return formFields;
     }
 }
