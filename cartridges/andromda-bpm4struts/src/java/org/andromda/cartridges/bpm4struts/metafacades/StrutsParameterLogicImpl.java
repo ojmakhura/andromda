@@ -1,15 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.*;
 
 
 /**
@@ -30,52 +26,79 @@ public class StrutsParameterLogicImpl
 
     // -------------------- relations ----------------------
 
+    private boolean isActionCached = false;
+    private Object cachedAction = null;
+
     protected Object handleGetAction()
     {
-        final Collection transitions = getModel().getAllTransitions();
-        for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
+        if (isActionCached == false)
         {
-            Object transitionObject = iterator.next();
-            if (transitionObject instanceof StrutsAction)
+            isActionCached = true;
+            final Collection transitions = getModel().getAllTransitions();
+            for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
             {
-                StrutsAction action = (StrutsAction) transitionObject;
-                Collection parameters = action.getActionParameters();
-                if (parameters != null && parameters.contains(this))
+                Object transitionObject = iterator.next();
+                if (transitionObject instanceof StrutsAction)
                 {
-                    return action;
-                }
-            }
-        }
-        return null;
-    }
-
-    protected Object handleGetJsp()
-    {
-        StrutsAction action = getAction();
-        if (action == null)
-        {
-            Collection actionStates = getModel().getAllActionStates();
-            for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
-            {
-                Object stateObject = iterator.next();
-                if (stateObject instanceof StrutsJsp)
-                {
-                    StrutsJsp jsp = (StrutsJsp) stateObject;
-                    if (jsp.getPageVariables().contains(this))
+                    StrutsAction action = (StrutsAction) transitionObject;
+                    Collection parameters = action.getActionParameters();
+                    if (parameters != null && parameters.contains(this))
                     {
-                        return jsp;
+                        cachedAction = action;
+                        break;
                     }
                 }
             }
         }
-        else
+        return cachedAction;
+    }
+
+    private boolean isJspCached = false;
+    private Object cachedJsp = null;
+
+    protected Object handleGetJsp()
+    {
+        if (isJspCached == false)
         {
-            return action.getInput();
+            isJspCached = true;
+            StrutsAction action = getAction();
+            if (action == null)
+            {
+                Collection actionStates = getModel().getAllActionStates();
+                for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+                {
+                    Object stateObject = iterator.next();
+                    if (stateObject instanceof StrutsJsp)
+                    {
+                        StrutsJsp jsp = (StrutsJsp) stateObject;
+                        if (jsp.getPageVariables().contains(this))
+                        {
+                            cachedJsp = jsp;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                cachedJsp = action.getInput();
+            }
         }
-        return null;
+        return cachedJsp;
     }
 
     // -------------------- business methods ----------------------
+
+    public String getName()
+    {
+        StrutsAction action = getAction();
+        StrutsTrigger trigger = (action == null) ? null : action.getActionTrigger();
+
+        return
+                (trigger == null)
+                ? StringUtilsHelper.lowerCamelCaseName(super.getName())
+                : StringUtilsHelper.lowerCamelCaseName(trigger.getName()) + StringUtilsHelper.upperCamelCaseName(super.getName());
+    }
 
     // concrete business methods that were declared
     // abstract in class StrutsParameter ...
@@ -97,7 +120,6 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @todo we need null or zero length when returning ?
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()()
      */
     public java.lang.String handleGetNullValue()
@@ -108,8 +130,6 @@ public class StrutsParameterLogicImpl
             return "false";
         else if (type.isPrimitiveType())
             return "0";
-//        else if (isArray()) return "new Object[0]";   //
-//        else if (isCollection()) return "java.util.Collections.EMPTY_LIST";   // same for collection
         else
             return "null";
     }
@@ -137,7 +157,7 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetMessageValue()
     {
-        return StringUtilsHelper.toPhrase(getName());
+        return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
     }
 
     /**
@@ -166,9 +186,9 @@ public class StrutsParameterLogicImpl
         boolean isTable = this.getType() != null;
         if (isTable)
         {
-            isTable = (getType().isCollectionType() || 
-                getType().isArrayType()) && 
-                (!getTableColumnNames().isEmpty());
+            isTable = (getType().isCollectionType() ||
+                    getType().isArrayType()) &&
+                    (!getTableColumnNames().isEmpty());
         }
         return isTable;
     }
@@ -197,7 +217,7 @@ public class StrutsParameterLogicImpl
             final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK));
 
             int dotOffset = link.indexOf('.');
-            return (dotOffset == -1 || dotOffset >= link.length() - 1) ? getName() : link.substring(link.indexOf('.') + 1);
+            return (dotOffset == -1 || dotOffset >= link.length() - 1) ? super.getName() : link.substring(link.indexOf('.') + 1);
         }
         return null;
     }
@@ -206,7 +226,7 @@ public class StrutsParameterLogicImpl
     {
         if (isTable())
         {
-            String thisTableName = getName();
+            String thisTableName = super.getName();
             Collection tableLinks = new LinkedList();
 
             StrutsJsp page = getJsp();
