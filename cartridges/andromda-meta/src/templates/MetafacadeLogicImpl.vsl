@@ -31,13 +31,15 @@ public class ${metafacade.logicImplName}
     // --------------- attributes ---------------------
 #foreach ( $attribute in $attributes )
 #set ($methodName = $attribute.getterName)
-#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($handleMethodName = "handle$str.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($returnTypeName = $attribute.type.fullyQualifiedName)
-
-    public $returnTypeName ${handleMethodName}($typedArgumentList) {
+    /**
+     * @see ${metafacade.fullyQualifiedName}#${attribute.getterName}()
+     */
+    public $returnTypeName ${handleMethodName}($typedArgumentList) 
+    {
         // TODO: put your implementation here.
-#if ("void" != $returnTypeName)
 
         // Dummy return value, just that the file compiles
 #if (!$atttribute.type.primitiveType)
@@ -47,37 +49,33 @@ public class ${metafacade.logicImplName}
 #else
         return ($returnTypeName)0;
 #end
-#end
     }
 #end
 #end
 ##
-#set ($ops = $metafacade.operations)
-#if (!$ops.empty)
+#if (!$metafacade.operations.empty)
+
     // -------------------- business methods ----------------------
-#foreach ( $op in $ops)
-##
-#set ($methodName = $op.name)
-#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
-#set ($typedArgumentList = $op.typedArgumentList)
-##
-#set ($msig = $op.signature)
-#set ($returnTypeName = $op.returnType.fullyQualifiedName)
+#foreach ( $operation in $metafacade.operations)
+#set ($methodName = $operation.name)
+#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($typedArgumentList = $operation.typedArgumentList)
+#set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($defaultException)
-    $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList)
+    $operation.visibility $returnTypeName ${handleMethodName}($typedArgumentList)
         throws $defaultException.name {
 #else
     /**
-     * @see ${metafacade.fullyQualifiedName}#${op.name}(${op.argumentTypeNames})
+     * @see ${metafacade.fullyQualifiedName}#${operation.name}(${operation.argumentTypeNames})
      */
-    $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList) 
+    $operation.visibility $returnTypeName ${handleMethodName}($typedArgumentList) 
     {
 #end
         // TODO: put your implementation here.
-#if ("void" != $returnTypeName)
+#if ($operation.hasReturnType())
 
         // Dummy return value, just that the file compiles
-#if (!$op.returnType.primitiveType)
+#if (!$operation.returnType.primitiveType)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;
@@ -90,23 +88,17 @@ public class ${metafacade.logicImplName}
 #end
 #end
 ##
-#set ($assocEnds = $metafacade.associationEnds)
-#if (!$assocEnds.empty)
+#if (!$metafacade.associationEnds.empty)
     // ------------- relations ------------------
 
-#foreach ( $assocEnd in $assocEnds )
-#if ($assocEnd.otherEnd.navigable)
-##
-#set ($memberTypeName = $assocEnd.getterSetterTypeName)
-#set ($methodName = "get$str.upperCaseFirstLetter($assocEnd.otherEnd.name)")
-#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#foreach ( $associationEnd in $metafacade.associationEnds )
+#if ($associationEnd.otherEnd.navigable)
+#set ($memberTypeName = $associationEnd.getterSetterTypeName)
+#set ($methodName = $associationEnd.otherEnd.getterName)
+#set ($handleMethodName = "handle$str.capitalize($methodName)")
 #set ($typedArgumentList = "")
-##
-#set ($trn = $assocEnd.otherEnd.name)
-#set ($utrn = $str.upperCaseFirstLetter($trn))
-##
-#if ($assocEnd.one2Many || $assocEnd.many2Many)
-#set ($returnTypeName = $assocEnd.getterSetterTypeName)
+#if ($associationEnd.otherEnd.many)
+#set ($returnTypeName = $associationEnd.getterSetterTypeName)
 #else
 #set ($returnTypeName = "java.lang.Object")
 #end

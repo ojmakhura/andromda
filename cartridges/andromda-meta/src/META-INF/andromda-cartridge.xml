@@ -1,7 +1,7 @@
 <cartridge name="meta">
 
     <!-- define the template objects that are made availble to the template -->
-    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
 
     <!-- this defines the metamodel version package name 
     	(i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
