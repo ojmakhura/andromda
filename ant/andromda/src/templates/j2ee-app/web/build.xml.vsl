@@ -67,6 +67,7 @@
             </fileset>
             <fileset dir="${basedir}/target/src/WEB-INF/lib" includes="*.jar"/>
         </copy>
+        <mkdir dir="${basedir}/src/properties"/>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/classes"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/classes">
             <fileset dir="${basedir}/target/classes">
