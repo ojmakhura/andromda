@@ -29,8 +29,7 @@ public class StrutsControllerOperationLogicImpl
 
     public String handleGetInterfaceName()
     {
-        return StringUtilsHelper.upperCamelCaseName(getOwner().getName()) +
-                StringUtilsHelper.upperCamelCaseName(getName());
+        return StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
     public String handleGetInterfacePackageName()
