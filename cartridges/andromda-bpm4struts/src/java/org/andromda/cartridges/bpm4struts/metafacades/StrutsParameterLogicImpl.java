@@ -338,11 +338,11 @@ public class StrutsParameterLogicImpl
         if ("byte".equals(type)) return "(byte)" + name.hashCode();
         if ("char".equals(type)) return "(char)" + name.hashCode();
         if ("int".equals(type)) return "(int)" + name.hashCode();
+        if (getType().isDateType()) return "new java.util.Date()";
 
         final String array = constructArray();
         if (getType().isArrayType()) return array;
         if (getType().isCollectionType()) return "java.util.Arrays.asList(" + array + ")";
-        if (getType().isDateType()) return "java.util.Date()";
 
         return "\"" + name + "-test" + "\"";
     }
