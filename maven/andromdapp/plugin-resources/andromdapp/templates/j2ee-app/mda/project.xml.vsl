@@ -89,6 +89,7 @@
                 <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
                 <services>${maven.andromda.core.generated.dir}</services>
                 <service-impls>${maven.andromda.core.manual.dir}</service-impls>
+                <!-- to make use of Spring transactions, comment out the next line -->
                 <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
                 <!-- uncomment to enable EJB security -->
                 <!-- <securityRealm>${pom.groupId}</securityRealm> -->
