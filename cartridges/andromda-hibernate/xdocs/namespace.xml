@@ -791,6 +791,30 @@
                         No, default is <code>true</code>.
                     </td>
                 </tr>
+                <tr>
+                <a name="hibernateAssociationCollectionType"/>
+                    <td>
+                        hibernateAssociationCollectionType
+                    </td>
+                    <td>
+                         Used to define the default mapping for hibernate collections.
+                    </td>
+                    <td>
+                        No, default is <code>set</code>.
+                    </td>
+                </tr>
+                <tr>
+                <a name="hibernateAssociationSortType"/>
+                    <td>
+                        hibernateAssociationSortType
+                    </td>
+                    <td>
+                         Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets).
+                    </td>
+                    <td>
+                        No, default is <code>unsorted</code>.
+                    </td>
+                </tr>
              </table>
             </subsection>
         </section>

@@ -87,4 +87,8 @@
         <from>HIBERNATE_ASSOCIATION_WHERE_CLAUSE</from>
         <to>@andromda.hibernate.whereClause</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_ASSOCIATION_INDEX_COLUMN</from>
+        <to>@andromda.hibernate.collection.index</to>
+    </mapping>
 </mappings>
