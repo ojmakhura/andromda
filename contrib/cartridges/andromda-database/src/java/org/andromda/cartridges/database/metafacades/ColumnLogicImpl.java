@@ -6,12 +6,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.andromda.cartridges.database.DatabaseGlobals;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityAssociationEndFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
@@ -89,47 +93,54 @@ public class ColumnLogicImpl
      */
     protected String handleGetDummyLoadValue(int index)
     {
-        String initialLoadValue = null;
+        String dummyLoadValue = null;
 
-        final String type = getType().getFullyQualifiedName(true);
+        final ClassifierFacade metaType = getType();
+        final String type = metaType.getFullyQualifiedName(true);
 
         if ("datatype.String".equals(type))
         {
-            initialLoadValue = '\'' + getName() + '-' + index + '\'';
+            dummyLoadValue = getName() + '-' + index ;
         }
         else if ("datatype.boolean".equals(type))
         {
-            initialLoadValue = String.valueOf(index % 2 == 0);
+            dummyLoadValue = String.valueOf(index % 2 == 0);
         }
         else if ("datatype.int".equals(type) || "datatype.Integer".equals(type)
             || "datatype.short".equalsIgnoreCase(type)
             || "datatype.long".equalsIgnoreCase(type))
         {
-            initialLoadValue = String.valueOf(index);
+            dummyLoadValue = String.valueOf(index);
         }
         else if ("datatype.float".equalsIgnoreCase(type)
             || "datatype.double".equalsIgnoreCase(type))
         {
-            initialLoadValue = String.valueOf(index) + ".555";
+            dummyLoadValue = String.valueOf(index) + ".555";
         }
         else if ("datatype.char".equals(type)
             || "datatype.Character".equals(type))
         {
-            initialLoadValue = '\'' + Character.toString((char)index) + '\'';
+            dummyLoadValue = Character.toString((char)index);
         }
         else if ("datatype.Date".equals(type)
             || "datatype.DateTime".equals(type))
         {
-            initialLoadValue = '\'' + DATE_FORMATTER.format(new Date()) + '\'';
+            dummyLoadValue = DATE_FORMATTER.format(new Date());
+        }
+        else if (metaType.isEnumeration())
+        {
+            List literals = new ArrayList(getType().getAttributes());
+            AttributeFacade literal = (AttributeFacade)literals.get(index % literals.size());
+            dummyLoadValue = literal.getName();
         }
         else
         {
-            initialLoadValue = "error";
+            dummyLoadValue = "\'error\'";
         }
 
         final String maxLengthString = getColumnLength();
         int maxLength = 0;
-        int dummyValueLength = initialLoadValue.length();
+        int dummyValueLength = dummyLoadValue.length();
 
         try
         {
@@ -142,10 +153,29 @@ public class ColumnLogicImpl
 
         if (maxLength > 0 && dummyValueLength > maxLength)
         {
-            initialLoadValue = initialLoadValue.substring(0, maxLength);
+            int startIndex = dummyLoadValue.length() - maxLength;
+            dummyLoadValue = dummyLoadValue.substring(startIndex);
         }
 
-        return initialLoadValue;
+        if (needsQuotes(metaType))
+        {
+            dummyLoadValue = '\'' + dummyLoadValue + '\'';
+        }
+
+        return dummyLoadValue;
+    }
+
+    private boolean needsQuotes(final ClassifierFacade metaType)
+    {
+        final String type = metaType.getFullyQualifiedName(true);
+        return type == null
+            || "datatype.String".equals(type)
+            || "datatype.boolean".equals(type)
+            || "datatype.char".equals(type)
+            || "datatype.Character".equals(type)
+            || "datatype.Date".equals(type)
+            || "datatype.DateTime".equals(type)
+            || metaType.isEnumeration();
     }
 
     /**
