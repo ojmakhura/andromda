@@ -10,7 +10,12 @@
         <release version="3.0-RC1-SNAPSHOT" date="2004-12-28" description="First release candidate for version 3.0">
             <action dev="draftdog" type="add">
                 Added a compatibility list of UML tools that have been tested, courtesy of
-                Daniel S. Haischt.
+                <a href="http://www.daniel-s-haischt.biz/">Daniel S. Haischt</a>. This list has been added
+                to the website <a href="case-tools.html">here</a>.
+            </action>
+            <action dev="draftdog" type="add">
+                Added the slides used for the presentation at the university of Antwerp, you can download
+                them at the <a href="resources.html">resources</a> page.
             </action>
             <action dev="cwbrandon" type="fix">
                 Fix minor Spring cartridge bug (released with 3.0M3), operations on the service
