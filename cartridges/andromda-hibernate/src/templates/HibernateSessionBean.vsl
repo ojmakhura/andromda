@@ -36,8 +36,8 @@ $class.getDocumentation(" * ")
 #else
  *        type="Stateless"
 #end
- *        jndi-name="ejb/${class.fullyQualifiedName}"
- *        local-jndi-name="ejb/${class.fullyQualifiedName}/Local"
+ *        jndi-name="${class.jndiName}"
+ *        local-jndi-name="${class.jndiName}/Local"
  *        view-type="both"
  * @ejb.interface 
  *        generate="local,remote"
