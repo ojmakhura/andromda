@@ -160,7 +160,6 @@ public class MetafacadeFactory
         {
             return (MetafacadeBase)mappingObject;
         }
-        Class mappingObjectClass = mappingObject.getClass();
         try
         {
             final MetafacadeMappings mappings = MetafacadeMappings.instance();
@@ -191,7 +190,7 @@ public class MetafacadeFactory
                             .getLogger()
                             .debug(
                                 "Meta object model class '"
-                                    + mappingObjectClass
+                                    + mappingObject.getClass()
                                     + "' has no corresponding meta facade class, default is being used --> '"
                                     + metafacadeClass + "'");
                 }
@@ -205,53 +204,14 @@ public class MetafacadeFactory
                         + " or specified as an argument in this method for mappingObject --> '"
                         + mappingObject + "'");
             }
-
-            Object metafacadeCacheKey;
-            if (mapping != null)
-            {
-                metafacadeCacheKey = mapping.getKey();
-            }
-            else
-            {
-                // if there is no mapping, then the metafacadeClass
-                // will be the default metafacade class, so use
-                // that as the cache key
-                metafacadeCacheKey = metafacadeClass;
-            }
-
-            final MetafacadeCache cache = MetafacadeCache.instance();
-
-            // attempt to get the metafacade from the cache
-            // since we don't want to recreate if one already
-            // has been created
-            MetafacadeBase metafacade = cache.get(
-                mappingObject,
+            final MetafacadeBase metafacade = this.constructMetafacade(
                 metafacadeClass,
-                metafacadeCacheKey);
-
-            if (metafacade == null)
-            {
-                if (this.getLogger().isDebugEnabled())
-                    this.getLogger().debug(
-                        "looking up metafacade class: "
-                            + mappingObjectClass.getName() + " --> "
-                            + metafacadeClass);
-
-                metafacade = this.constructMetafacade(
-                    metafacadeClass,
-                    mappingObject,
-                    context,
-                    mappings,
-                    mapping);
-
-                // IMPORTANT: we must add the metafacade to the cache
-                // before validate and initialize are called below, (so ordering
-                // matters here) do NOT call validate or initialize methods
-                // before adding the metafacade to the cache, this will cause
-                // endless loops
-                cache.add(mappingObject, metafacadeCacheKey, metafacade);
-            }
-            // initialize each metafacade ONLY once
+                mappingObject,
+                context,
+                mappings,
+                mapping);
+            // IMPORTANT: initialize each metafacade ONLY once (otherwise we
+            // get stack overflow errors)
             if (metafacade != null && !metafacade.isInitialized())
             {
                 metafacade.setInitialized();
@@ -273,7 +233,7 @@ public class MetafacadeFactory
         {
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with mappingObject of type --> '"
-                + mappingObjectClass + "'";
+                + mappingObject.getClass() + "'";
             this.getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
@@ -292,7 +252,6 @@ public class MetafacadeFactory
         final Object mappingObject,
         final MetafacadeMapping mapping)
     {
-        final Class metafacadeClass = mapping.getMetafacadeClass();
         try
         {
             return this.constructMetafacade(
@@ -305,7 +264,8 @@ public class MetafacadeFactory
         catch (Throwable th)
         {
             String errMsg = "Failed to construct a meta facade of type '"
-                + metafacadeClass + "' with mappingObject of type --> '"
+                + mapping.getMetafacadeClass()
+                + "' with mappingObject of type --> '"
                 + mapping.getMappingClassName() + "'";
             this.getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
@@ -313,8 +273,9 @@ public class MetafacadeFactory
     }
 
     /**
-     * Constructs a new <code>metafacade</code> from the given
-     * <code>metafacadeClass</code> and <code>mappingObject</code>.
+     * Retrieves (if one has already been constructed) or constructs a new
+     * <code>metafacade</code> from the given <code>metafacadeClass</code>
+     * and <code>mappingObject</code>.
      * 
      * @param metafacadeClass the metafacade class.
      * @param mappingObject the object to which the metafacade is mapped.
@@ -333,27 +294,39 @@ public class MetafacadeFactory
         final MetafacadeMappings mappings,
         final MetafacadeMapping mapping) throws Exception
     {
-        MetafacadeBase metafacade = MetafacadeUtils.constructMetafacade(
-            metafacadeClass,
-            mappingObject,
-            context);
-
-        // assign the logger and active namespace
-        metafacade.setLogger(this.getLogger());
-        metafacade.setNamespace(this.getActiveNamespace());
+        // if there is no mapping, then the metafacadeClass
+        // will be the default metafacade class, so use
+        // that as the cache key
+        Object cacheKey = metafacadeClass;
         if (mapping != null)
         {
-            // check to see if the metafacade has a context root
-            // defined (if so, set the context to the interface
-            // name of the metafacade)
-            if (mapping.isContextRoot())
+            cacheKey = mapping.getKey();
+        }
+        final MetafacadeCache cache = MetafacadeCache.instance();
+        MetafacadeBase metafacade = cache.get(
+            mappingObject,
+            metafacadeClass,
+            cacheKey);
+        if (metafacade == null)
+        {
+            metafacade = MetafacadeUtils.constructMetafacade(
+                metafacadeClass,
+                mappingObject,
+                context);
+            this.populateMetafacadeProperties(metafacade, mappings, mapping);
+            // assign the logger and active namespace
+            metafacade.setLogger(this.getLogger());
+            metafacade.setNamespace(this.getActiveNamespace());
+            if (mapping != null)
             {
-                metafacade.setContext(MetafacadeImpls.instance()
-                    .getMetafacadeClass(mapping.getMetafacadeClass().getName())
-                    .getName());
+                // set whether or not this metafacade is a context root
+                metafacade.setContextRoot(mapping.isContextRoot());
+            }
+            if (cacheKey != null)
+            {
+                cache.add(mappingObject, cacheKey, metafacade);
             }
         }
-        this.populateMetafacadeProperties(metafacade, mappings, mapping);
         return metafacade;
     }
 
@@ -430,7 +403,6 @@ public class MetafacadeFactory
                 mappingObject,
                 context,
                 metafacadeClass);
-
             return metafacade;
         }
         catch (Throwable th)

@@ -37,10 +37,10 @@ public abstract class $metafacade.logicName
     private $superMetafacade.fullyQualifiedName super_;
 #end
 
-    public $metafacade.logicName ($metaclassTypeName metaObject, String context)
+    public ${metafacade.logicName}($metaclassTypeName metaObject, String context)
     {
 #if ($metafacade.requiresInheritanceDelegatation)
-        super (metaObject, getContext(context));
+        super(metaObject, getContext(context));
         this.super_ =
            ($superMetafacade.fullyQualifiedName)
             org.andromda.core.metafacade.MetafacadeFactory
@@ -54,7 +54,7 @@ public abstract class $metafacade.logicName
 #if ($constructorRequiresMetaclassCast)
 #set ($metaObjectArgument = "($metafacade.metaclass.fullyQualifiedName)metaObject")
 #end
-        super ($metaObjectArgument, getContext(context));
+        super($metaObjectArgument, getContext(context));
 #end
         this.metaObject = metaObject;
     }
@@ -66,7 +66,7 @@ public abstract class $metafacade.logicName
     {
         if (context == null)
         {
-            context = "${metafacade.fullyQualifiedName}";
+            context = "$metafacade.fullyQualifiedName";
         }
         return context;
     }
@@ -257,6 +257,7 @@ public abstract class $metafacade.logicName
     // from ${method.metafacadeName}
     ${method.buildMethodDeclaration(true)}
     {
+        ((org.andromda.core.metafacade.MetafacadeBase)super_).setMetafacadeContext(this.getMetafacadeContext());
         return super_.${method.buildMethodCall()};
     }
 
@@ -308,16 +309,16 @@ public abstract class $metafacade.logicName
     public String toString()
     {
         StringBuffer toString = new StringBuffer(this.getClass().getName());
+        toString.append("[");
         try
         {
-            toString.append("[");
             toString.append(org.apache.commons.beanutils.PropertyUtils.getProperty(this, "name"));
-            toString.append("]");
         }
         catch (Throwable th)
         {
-             // Just ignore when the metafacade doesn't have a name property
+            // Just ignore when the metafacade doesn't have a name property
         }
+        toString.append("]");
         return toString.toString();
     }
 }

@@ -67,12 +67,12 @@
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod</context>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl">
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl">
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
