@@ -231,8 +231,8 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.nullValue;
 #if ($field.selectable && $field.multiple)
 ## multi-select fields need to be reset to an empty array (http://struts.apache.org/userGuide/struts-html.html#select)
-        this.$field.valueListName = {};
-        this.$field.labelListName = {};
+        this.$field.valueListName = new Object[0];
+        this.$field.labelListName = new Object[0];
 #end
 #end
 #end
