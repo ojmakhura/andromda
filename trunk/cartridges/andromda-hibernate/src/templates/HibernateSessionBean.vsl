@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.rmi.PortableRemoteObject;
 
 import cirrus.hibernate.HibernateException;
 import cirrus.hibernate.Session;
@@ -119,12 +118,24 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 
 #foreach ($op in $class.operations)
 #set ($msig = $transform.getOperationSignature($op))
+
+##
+##  Add one additional parameter to the list of parameters:
+##  a reference to the open Hibernate session.
+##
+#set ($parameterList = $transform.getOperationTypedParameterList($op))
+#if ($parameterList.length() == 0)
+#set ($parameters = "cirrus.hibernate.Session sess")
+#else
+#set ($parameters = "cirrus.hibernate.Session sess, ${parameterList}")
+#end
+
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    protected abstract $returntype handle${str.upperCaseFirstLetter(${msig})}
+    protected abstract $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $defaultException.name;
 #else
-    protected abstract $returntype handle${str.upperCaseFirstLetter(${msig})};
+    protected abstract $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
 #end
 
    /**
@@ -144,11 +155,22 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
         try
         {
             sess = getSession();
+##
+##  Add one additional parameter to the list of parameters:
+##  a reference to the open Hibernate session.
+##
+#set ($parameterList = $transform.getOperationParameterNames($op))
+#if ($parameterList.length() == 0)
+#set ($parameters = "sess")
+#else
+#set ($parameters = "sess, ${parameterList}")
+#end
+##
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ("void" != $returntype)
-            return handle${str.upperCaseFirstLetter(${transform.getOperationCall($op)})};
+            return handle${str.upperCaseFirstLetter($op.name)}($parameters);
 #else
-            handle${str.upperCaseFirstLetter(${transform.getOperationCall($op)})};
+            handle${str.upperCaseFirstLetter($op.name)}($parameters);
 #end
         }
 #if ($defaultException)

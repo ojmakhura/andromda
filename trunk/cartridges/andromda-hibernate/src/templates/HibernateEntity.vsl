@@ -37,6 +37,9 @@ ${indent}* </p>
  * @hibernate.class
  *         table="HIB_$tablename"
  *
+ * @hibernate.discriminator
+ * 
+ *
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.tag != "documentation")
 #if ($tgv.tag == "---")
