@@ -147,67 +147,6 @@ public abstract class ${metafacade.logicName}
 
     $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
-#if ($op.hasReturnType())
-#if ($hasArguments)
-    private final java.util.Map $memberName = new java.util.HashMap(4);
-
-    private class $innerClassKey
-    {
-#foreach ($param in $op.arguments)
-        private $param.type.fullyQualifiedName $param.name;
-#end
-
-        public $innerClassKey($typedArgumentList)
-        {
-#foreach ($param in $op.arguments)
-            this.$param.name = $param.name;
-#end
-        }
-
-        public boolean equals(Object object)
-        {
-            if (object instanceof $innerClassKey)
-            {
-                $innerClassKey that = ($innerClassKey)object;
-                return true
-#foreach ($param in $op.arguments)
-#if ($param.type.isArrayType() || $param.type.isPrimitiveType())
-                    && (this.$param.name == that.$param.name)
-#else
-                    && ( ((this.$param.name==null)&&(that.$param.name==null)) || ((this.$param.name!=null)&&(this.${param.name}.equals(that.$param.name))) )
-#end
-#end
-                    ;
-            }
-            return false;
-        }
-
-        /**
-         * @todo: implement hashCode()
-         */
-    }
-
-    private class $innerClassValue
-    {
-        private $memberTypeName value;
-
-        public $innerClassValue($memberTypeName value)
-        {
-            this.value = value;
-        }
-
-        public $memberTypeName getValue()
-        {
-            return this.value;
-        }
-    }
-
-#else
-    private boolean ${memberName}Set = false;
-    private $memberTypeName $memberName;
-#end
-#end
-
     private void $handleMethodPreCondition
     {
 #renderTranslation ($op "pre")
@@ -220,33 +159,15 @@ public abstract class ${metafacade.logicName}
 
     public final $memberTypeName ${methodName}($typedArgumentList)
     {
+        $handleMethodPreCondition;
 #if($op.hasReturnType())
-#if ($hasArguments)
-        final Object key = new $innerClassKey($op.argumentNames);
-        if (${memberName}.containsKey(key))
-            return (($innerClassValue)${memberName}.get(key)).getValue();
-#else
-        if (${memberName}Set) return $memberName;
-#end
-#end
-        ${handleMethodPreCondition};
-#if($op.hasReturnType())
-#if ($hasArguments)
-        ${memberName}.put(key, new $innerClassValue(${handleMethodName}($op.argumentNames)));
-#else
-        $memberName = ${handleMethodName}($op.argumentNames);
-#end
+        $memberTypeName returnValue = ${handleMethodName}($op.argumentNames);
 #else
         ${handleMethodName}($op.argumentNames);
 #end
         ${handleMethodPostCondition};
 #if($op.hasReturnType())
-#if ($hasArguments)
-        return (($innerClassValue)${memberName}.get(key)).getValue();
-#else
-        ${memberName}Set = true;
-        return $memberName;
-#end
+        return returnValue;
 #end
     }
 
