@@ -1,3 +1,6 @@
+##
+## Package declaration and imports
+##
 package $transform.getPackageName($class);
 
 import org.apache.struts.action.ActionForm;
@@ -8,46 +11,26 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
 
+##
+## Start of the class declaration
+##
 public final class $class.name extends ActionForm implements Serializable
 {
-   private String transition = null;
+   private String trigger = null;
+
+##
+## Each attribute needs to be rendered as a private field
+##
 #foreach ($feature in $class.feature)
-#if ($transform.isAttribute($feature))
-   private String $feature.name = null;
+#if ($transform.staticHelper.isAttribute($feature))
+#set ($attributeTypePackage = $transform.getPackageName($feature.type))
+#if ($attributeTypePackage)
+#set ($attributeTypePackage = "${attributeTypePackage}.")
+#end
+#set ($attributeType = "$attributeTypePackage$feature.type.name")
+   private $attributeType $feature.name = null;
 #end
 #end
-#foreach ($feature in $class.feature)
-#if ($transform.isAttribute($feature))
-
-   public String get$str.upperCaseFirstLetter($feature.name)()
-   {
-      return $feature.name;
-   }
-
-   public void set$str.upperCaseFirstLetter($feature.name)(String $feature.name)
-   {
-      this.$feature.name = $feature.name;
-   }
-#end
-#end
-
-   /**
-    * Returns the value of the transition to follow after the action associated
-    * with this form finishes.
-    */
-   public String getTransition()
-   {
-      return transition;
-   }
-
-   /**
-    * Sets the value of the transition to follow after the action associated
-    * with this form finishes.
-    */
-   public void setTransition(String transition)
-   {
-      this.transition = transition;
-   }
 
    public void reset(ActionMapping mapping, HttpServletRequest request)
    {
@@ -57,4 +40,43 @@ public final class $class.name extends ActionForm implements Serializable
    {
       return null;
    }
+
+   /**
+    * Gets the value of the event that triggered the action.
+    */
+   public String getTrigger()
+   {
+      return trigger;
+   }
+
+   /**
+    * Sets the value of the event that triggered the action.
+    */
+   public void setTrigger(String trigger)
+   {
+      this.trigger = trigger;
+   }
+
+##
+## A getter and setter for each attribute
+##
+#foreach ($feature in $class.feature)
+#if ($transform.staticHelper.isAttribute($feature))
+#set ($attributeTypePackage = $transform.getPackageName($feature.type))
+#if ($attributeTypePackage)
+#set ($attributeTypePackage = "${attributeTypePackage}.")
+#end
+#set ($attributeType = "$attributeTypePackage$feature.type.name")
+   public $attributeType get$str.upperCaseFirstLetter($feature.name)()
+   {
+      return $feature.name;
+   }
+
+   public void set$str.upperCaseFirstLetter($feature.name)($attributeType $feature.name)
+   {
+      this.$feature.name = $feature.name;
+   }
+#end
+#end
+
 }
