@@ -12,7 +12,7 @@
 
         <section name="Building AndroMDA">
 
-            <p class="std">
+            <p>
                 Building AndroMDA from the source is quite easy, just follow these steps:
                 <ol>
                     <li>
@@ -32,15 +32,16 @@
                     </li>
                 </ol>   
             </p>
-            <p class="std">That's it!  The contents will be
-        installed into both your local maven repository (for maven users) and 
-        the target/distributions (for those still using Ant).
+            <p>
+                That's it!  The contents will be
+                installed into both your local maven repository (for maven users) and 
+                the target/distributions (for those still using Ant).
             </p>
             <p class="highlight">
-        The same rules apply if you want to build from CVS version. Just checkout the
+                The same rules apply if you want to build from CVS version. Just checkout the
                 <code>andromda-all</code> module from
                 <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA CVS</a>, and
-        proceed as before.
+                proceed as before.
             </p>
         </section>
 
