@@ -14,7 +14,7 @@
 		</fragment>
 	
 		<!-- The beginning of each query, this is the fragment
-		     inserted when first 'allInstances' is encountered in the expression -->
+		     inserted when first 'allInstances()' is encountered in the expression -->
 		<fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?\s*->\s*select.*"
 				  handlerMethod="handleSelect">
 			<kind name="body">

@@ -213,7 +213,7 @@
 	<![CDATA[<expression>
 		<from>
 			context LegalAgreement 
-			inv: allInstances -> isUnique(documentTitle) 
+			inv: allInstances() -> isUnique(documentTitle) 
 		</from>
 		<to>
 		</to>
@@ -235,25 +235,25 @@
 							Your output should look like the following:
 							<source>
 [junit] 13:36:49,795 INFO  [TraceTranslator] ======================== Tracing Expression ========================
-[junit] 13:36:49,795 INFO  [TraceTranslator] context LegalAgreement inv: allInstances -> isUnique(documentTitle)
+[junit] 13:36:49,795 INFO  [TraceTranslator] context LegalAgreement inv: allInstances() -> isUnique(documentTitle)
 [junit] 13:36:49,805 INFO  [TraceTranslator] ======================== ================== ========================
 [junit] 13:36:50,216 WARN  [Fragment] WARNING! No name has been given to a 'kind' element, please check your translation file.
-[junit] 13:36:50,386 INFO  [TraceTranslator] inAContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,386 INFO  [TraceTranslator] inAClassifierContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,406 INFO  [TraceTranslator] inAClassifierExpressionBody with 'inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,386 INFO  [TraceTranslator] inAContextDeclaration with 'context LegalAgreement inv : allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,386 INFO  [TraceTranslator] inAClassifierContextDeclaration with 'context LegalAgreement inv : allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,406 INFO  [TraceTranslator] inAClassifierExpressionBody with 'inv : allInstances() -> isUnique ( documentTitle )'
 [junit] 13:36:50,416 INFO  [TraceTranslator] inAInvClassifierStereotype with 'inv'
 [junit] 13:36:50,416 INFO  [TraceTranslator] outAInvClassifierStereotype with 'inv'
-[junit] 13:36:50,416 INFO  [TraceTranslator] inAExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,416 INFO  [TraceTranslator] inALogicalExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,416 INFO  [TraceTranslator] inARelationalExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,416 INFO  [TraceTranslator] inAAdditiveExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,416 INFO  [TraceTranslator] inAMultiplicativeExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,426 INFO  [TraceTranslator] inAPostfixUnaryExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,426 INFO  [TraceTranslator] inAPostfixExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,426 INFO  [TraceTranslator] inAFeaturePrimaryExpression with 'allInstances'
-[junit] 13:36:50,426 INFO  [TraceTranslator] inAPathName with 'allInstances'
-[junit] 13:36:50,426 INFO  [TraceTranslator] outAPathName with 'allInstances'
-[junit] 13:36:50,426 INFO  [TraceTranslator] outAFeaturePrimaryExpression with 'allInstances'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inALogicalExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inARelationalExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAAdditiveExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAMultiplicativeExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAPostfixUnaryExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAPostfixExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAFeaturePrimaryExpression with 'allInstances()'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAPathName with 'allInstances()'
+[junit] 13:36:50,426 INFO  [TraceTranslator] outAPathName with 'allInstances()'
+[junit] 13:36:50,426 INFO  [TraceTranslator] outAFeaturePrimaryExpression with 'allInstances()'
 [junit] 13:36:50,446 INFO  [TraceTranslator] inAArrowPostfixExpressionTail with '-> isUnique ( documentTitle )'
 [junit] 13:36:50,446 INFO  [TraceTranslator] inAFeatureCall with 'isUnique ( documentTitle )'
 [junit] 13:36:50,446 INFO  [TraceTranslator] inAPathName with 'isUnique'
@@ -282,25 +282,25 @@
 [junit] 13:36:50,516 INFO  [TraceTranslator] outAFeatureCallParameters with '( documentTitle )'
 [junit] 13:36:50,516 INFO  [TraceTranslator] outAFeatureCall with 'isUnique ( documentTitle )'
 [junit] 13:36:50,516 INFO  [TraceTranslator] outAArrowPostfixExpressionTail with '-> isUnique ( documentTitle )'
-[junit] 13:36:50,546 INFO  [TraceTranslator] outAPostfixExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,546 INFO  [TraceTranslator] outAPostfixUnaryExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,546 INFO  [TraceTranslator] outAMultiplicativeExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,546 INFO  [TraceTranslator] outAAdditiveExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,546 INFO  [TraceTranslator] outARelationalExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,566 INFO  [TraceTranslator] outALogicalExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,566 INFO  [TraceTranslator] outAExpression with 'allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,566 INFO  [TraceTranslator] outAClassifierExpressionBody with 'inv : allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,566 INFO  [TraceTranslator] outAClassifierContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
-[junit] 13:36:50,566 INFO  [TraceTranslator] outAContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAPostfixExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAPostfixUnaryExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAMultiplicativeExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAAdditiveExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outARelationalExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outALogicalExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAExpression with 'allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAClassifierExpressionBody with 'inv : allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAClassifierContextDeclaration with 'context LegalAgreement inv : allInstances() -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAContextDeclaration with 'context LegalAgreement inv : allInstances() -> isUnique ( documentTitle )'
 [junit] 13:36:50,566 INFO  [TraceTranslator] ========================  Tracing Complete  ========================
 							</source>
 						</p>
 						<a name="overridingParserGeneratedMethod"/>
 						<p>
  							In the above output, each method name and its corresponding node value is shown. 
- 							(i.e. <code>inAClassifierExpressionBody with 'allInstances -> isUnique ( documentTitle )'</code>
+ 							(i.e. <code>inAClassifierExpressionBody with 'allInstances() -> isUnique ( documentTitle )'</code>
 							says the method 'inAPostfixExpression' is being executed with value of 
-							<em>'allInstances -> isUnique ( documentTitle )'</em>.)  This means that if you want to 
+							<em>'allInstances() -> isUnique ( documentTitle )'</em>.)  This means that if you want to 
 							handle the 'inAPostfixExpression' output, you would override this method in your 
 							<a href="#constraintTranslator">ConstraintTranslator</a> and call the 
 							<a href="../andromda-core/apidocs/org/andromda/core/translation/BaseTranslator.html#handleTranslationFragment(org.andromda.core.parser.node.Node)">handleTranslationFragment(Node node)</a>. 
@@ -360,11 +360,11 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 								with a name or regular expression that will be matched from the OCL expression
 								during translation.  The <a href="#constraintTranslator">ConstraintTranslator</a> 
 								is what will match these fragments during the translation process.  Since our
-								constraint expression <a href="#constraintExpression"></a> begins with <code>allInstances</code>
-								and we know that <code>allInstances</code> can begin with <code>self.allInstances</code>,
-								<code>${element.name}.allInstances</code>, or just plain old <code>allInstances</code>
+								constraint expression <a href="#constraintExpression"></a> begins with <code>allInstances()</code>
+								and we know that <code>allInstances()</code> can begin with <code>self.allInstances()</code>,
+								<code>${element.name}.allInstances()</code>, or just plain old <code>allInstances()</code>
 								we'll want to give this fragment <code>name</code> a regular expression that will match
-								on one of these three allInstances patterns.
+								on one of these three allInstances() patterns.
 								<strong>NOTE:</strong> There is a goal called 
 								<a href="../maven-androdev-plugin/goals.html#androdev:test-regex">androdev:test-regex</a> that will
 								allow you to test your regular expressions while writing them for your fragment names which
@@ -385,8 +385,8 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 							</li>
 						</ul>
 						<source>
-	<!-- This is the start of the constraint ('self.AllInstances', '<element name>.allInstances', or just 'allInstances') -->
-	<![CDATA[<fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances.*" handlerMethod="handleAllInstances">
+	<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->
+	<![CDATA[<fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
 		<kind name="inv">
 			alter table $constraintTransformer.findTableName($element) add constraint	
 		</kind>	  
@@ -476,7 +476,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 	<![CDATA[<expression>
 		<from>
 			context LegalAgreement 
-			inv: self.allInstances -> isUnique(documentTitle) 
+			inv: self.allInstances() -> isUnique(documentTitle) 
 		</from>
 		<to>
 			alter table LegalAgrmt add constraint UniqueLADT UNIQUE (Document_Title)
@@ -490,7 +490,7 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 							maven goal: <em>androdev:test-translation</em> to see if our 'translated' and 'expected' outputs 
 							match (of course they won't since the only thing we have added to our 
 							<a href="#sqlTranslation">Oracle-SQL.vsl</a> translation file so far is a fragment for 
-							handling the <code>allInstances</code> operation). This time you should at least see that 
+							handling the <code>allInstances()</code> operation). This time you should at least see that 
 							you have a value for your 'expected' output, and this is good, because you have something 
 							to compare against while adding to your translation template 
 							(<a href="#sqlTranslation">Oracle-SQL.vsl</a>) and translator 
