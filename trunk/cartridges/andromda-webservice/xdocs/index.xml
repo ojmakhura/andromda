@@ -29,8 +29,12 @@
 			        Old Java Object) service as the provider  (i.e. if your 
 					<a href="modeling.html#andromda.webService.provider">@andromda.webService.provider</a> 
 					is <code>RPC</code>), you'll need to use this cartridge with
-			        either the <a href="../andromda-java-cartridge/index.html">Java</a> cartridge
-			        since it can generate POJO services for you.					
+			        either the <a href="../andromda-spring-cartridge/index.html">Spring</a> cartridge or the  
+                    <a href="../andromda-java-cartridge/index.html">Java</a> cartridge either can generate
+                    POJO services for you.  
+                    <p class="highlight">
+                        Please note when using the Spring cartridge, you'll need to set the j
+                    </p>					
 				</li>
 			</ul> 
 		</p>
