@@ -10,18 +10,18 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Parameter;
-import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
-import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 import org.omg.uml.foundation.datatypes.CallConcurrencyKind;
 import org.omg.uml.foundation.datatypes.CallConcurrencyKindEnum;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
+import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 /**
  * Metaclass facade implementation.
@@ -477,7 +477,7 @@ public class OperationFacadeLogicImpl
             concurrency = "sequential";
         }
 
-        final Mappings languageMappings = this.getLanguageMappings();
+        final TypeMappings languageMappings = this.getLanguageMappings();
         if (languageMappings != null)
         {
             concurrency = languageMappings.getTo(concurrency);

@@ -63,9 +63,8 @@ public class ModelValidationMessage
     {
         if (this.metafacadeName == null)
         {
-            String seperator = String
-                .valueOf(this.metafacade
-                    .getConfiguredProperty(MetafacadeProperties.VALIDATION_NAME_SEPARATOR));
+            final String seperator = String.valueOf(this.metafacade.getConfiguredProperty(
+                MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
             StringBuffer name = new StringBuffer();
             for (MetafacadeBase metafacade = this.metafacade; metafacade != null; metafacade = (MetafacadeBase)metafacade
                 .getValidationOwner())

@@ -6,13 +6,13 @@ import java.util.Iterator;
 
 import org.andromda.core.common.DocumentationAnalyzer;
 import org.andromda.core.common.Paragraph;
-import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.ExpressionKinds;
@@ -55,12 +55,8 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName()
     {
-        return UMLMetafacadeUtils
-            .getPackageName(
-                this.metaObject,
-                String
-                    .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
+        return UMLMetafacadeUtils.getPackageName(this.metaObject,
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
     }
 
     /**
@@ -74,8 +70,7 @@ public class ModelElementFacadeLogicImpl
         if (StringUtils.isNotBlank(packageName))
         {
             fullName = packageName
-                + this
-                    .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)
+                + this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)
                 + fullName;
         }
 
@@ -248,7 +243,7 @@ public class ModelElementFacadeLogicImpl
             visibility = "package";
         }
 
-        final Mappings languageMappings = this.getLanguageMappings();
+        final TypeMappings languageMappings = this.getLanguageMappings();
         if (languageMappings != null)
         {
             visibility = languageMappings.getTo(visibility);
@@ -415,20 +410,32 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
+     * Gets the array suffix from the configured metafacade properties.
+     * 
+     * @return the array suffix.
+     */
+    private String getArraySuffix()
+    {
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+    }
+    
+    /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
-    protected Mappings handleGetLanguageMappings()
+    protected TypeMappings handleGetLanguageMappings()
     {
         final String propertyName = UMLMetafacadeProperties.LANGUAGE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
             try
             {
-                mappings = Mappings.getInstance(uri);
+                mappings = TypeMappings.getInstance(uri);
+                mappings.setArraySuffix(this.getArraySuffix());
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -441,7 +448,7 @@ public class ModelElementFacadeLogicImpl
         }
         else
         {
-            mappings = (Mappings)property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }
@@ -689,7 +696,7 @@ public class ModelElementFacadeLogicImpl
     {
         StringBuffer validationName = new StringBuffer("");
         Object seperator = this
-            .getConfiguredProperty(MetafacadeProperties.VALIDATION_NAME_SEPARATOR);
+            .getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR);
         for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace
             .getNamespace())
         {

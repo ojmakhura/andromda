@@ -3,13 +3,13 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
@@ -95,7 +95,7 @@ public class ClassifierFacadeLogicImpl
         // If this type has a wrapper then its a primitive,
         // otherwise it isn't
         return this.getWrapperMappings() != null
-            && this.getWrapperMappings().containsFrom(
+            && this.getWrapperMappings().getMappings().containsFrom(
                 this.getFullyQualifiedName());
     }
 
@@ -114,8 +114,8 @@ public class ClassifierFacadeLogicImpl
      */
     private String getArraySuffix()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
 
     /**
@@ -126,7 +126,7 @@ public class ClassifierFacadeLogicImpl
         String wrapperName = null;
         if (this.getWrapperMappings() != null)
         {
-            if (this.getWrapperMappings().containsFrom(
+            if (this.getWrapperMappings().getMappings().containsFrom(
                 this.getFullyQualifiedName()))
             {
                 wrapperName = this.getWrapperMappings().getTo(
@@ -143,18 +143,18 @@ public class ClassifierFacadeLogicImpl
      * 
      * @return the wrapper mappings
      */
-    protected Mappings getWrapperMappings()
+    protected TypeMappings getWrapperMappings()
     {
         final String propertyName = UMLMetafacadeProperties.WRAPPER_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
             try
             {
-                mappings = Mappings.getInstance(uri);
+                mappings = TypeMappings.getInstance(uri);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -167,7 +167,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            mappings = (Mappings)property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }

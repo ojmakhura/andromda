@@ -1,7 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.core.common.ExceptionRecorder;
-import org.andromda.core.mapping.Mappings;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -28,11 +28,11 @@ public class HibernateTypeLogicImpl
     protected String handleGetFullyQualifiedHibernateType()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();
-        Mappings mappings = this.getHibernateTypeMappings();
+        TypeMappings mappings = this.getHibernateTypeMappings();
         if (mappings != null)
         {
             String fullyQualifiedModelName = super.getFullyQualifiedName(true);
-            if (mappings.containsFrom(fullyQualifiedModelName))
+            if (mappings.getMappings().containsFrom(fullyQualifiedModelName))
             {
                 fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);
             }
@@ -43,11 +43,11 @@ public class HibernateTypeLogicImpl
     /**
      * Gets the <code>hibernateTypeMappings</code> for this hibernate type.
      * 
-     * @return the hibernate type Mappings.
+     * @return the hibernate type TypeMappings.
      */
-    protected Mappings getHibernateTypeMappings()
+    protected TypeMappings getHibernateTypeMappings()
     {
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         final String propertyName = "hibernateTypeMappingsUri";
         if (this.isConfiguredProperty(propertyName))
         {
@@ -60,7 +60,7 @@ public class HibernateTypeLogicImpl
                 {
                     try
                     {
-                        mappings = Mappings.getInstance((String)property);
+                        mappings = TypeMappings.getInstance((String)property);
                         this.setProperty(propertyName, mappings);
                     }
                     catch (Throwable th)
@@ -75,7 +75,7 @@ public class HibernateTypeLogicImpl
             }
             else
             {
-                mappings = (Mappings)property;
+                mappings = (TypeMappings)property;
             }
         }
         return mappings;

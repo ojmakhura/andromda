@@ -1,4 +1,4 @@
-package org.andromda.core.mappings;
+package org.andromda.metafacades.uml;
 
 import junit.framework.TestCase;
 
@@ -6,11 +6,11 @@ import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 
 /**
- * Tests {@link org.andromda.core.mappings.Mappings)
+ * Tests {@link org.andromda.metafacades.uml.TypeMappings)
  * 
  * @author Chad Brandon
  */
-public class MappingsTest
+public class TypeMappingsTest
     extends TestCase
 {
     /**
@@ -18,7 +18,7 @@ public class MappingsTest
      * 
      * @param name
      */
-    public MappingsTest(
+    public TypeMappingsTest(
         String name)
     {
         super(name);
@@ -54,25 +54,31 @@ public class MappingsTest
         mapping1.addFrom(FROM_3);
         mapping1.addFrom(FROM_4);
         mappings1.addMapping(mapping1);
+        TypeMappings typeMappings1 = TypeMappings.getInstance(mappings1);
 
         // make sure the to == from when passing in a mappings1 that don't exist
-        assertNotNull(mappings1.getTo(NOT_MAPPED_1));
-        assertEquals(NOT_MAPPED_1, mappings1.getTo(NOT_MAPPED_1));
-        assertEquals(mappings1.getTo(NOT_MAPPED_2), mappings1
+        assertNotNull(typeMappings1.getTo(NOT_MAPPED_1));
+        assertEquals(NOT_MAPPED_1, typeMappings1.getTo(NOT_MAPPED_1));
+        assertEquals(typeMappings1.getTo(NOT_MAPPED_2), typeMappings1
             .getTo(NOT_MAPPED_2));
 
         // make sure we can retrieve the to using a from array.
-        assertNotNull(mappings1.getTo(FROM_1));
-        assertEquals(TO_1, mappings1.getTo(FROM_1));
+        assertNotNull(typeMappings1.getTo(FROM_1));
+        assertEquals(TO_1, typeMappings1.getTo(FROM_1));
 
         // make sure we can retrieve the to using a from non array.
-        assertEquals(TO_1, mappings1.getTo(FROM_4));
+        assertEquals(TO_1, typeMappings1.getTo(FROM_4));
 
         Mappings mappings2 = new Mappings();
         Mapping mapping2 = new Mapping();
         mapping2.setTo(TO_2);
         mapping2.addFrom(FROM_5);
         mappings2.addMapping(mapping2);
-        assertEquals(TO_2, mappings2.getTo(FROM_5));
+        TypeMappings typeMappings2 = TypeMappings.getInstance(mappings2);
+        typeMappings2.setArraySuffix(ARRAY_SUFFIX);
+
+        assertEquals(TO_2, typeMappings2.getTo(FROM_5));
+        assertEquals(TO_2 + ARRAY_SUFFIX, typeMappings2
+            .getTo(FROM_5 + ARRAY_SUFFIX));
     }
 }

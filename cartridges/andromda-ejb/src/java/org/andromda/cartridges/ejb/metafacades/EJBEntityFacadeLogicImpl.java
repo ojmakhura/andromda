@@ -9,12 +9,12 @@ import java.util.List;
 import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionRecorder;
-import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -364,17 +364,17 @@ public class EJBEntityFacadeLogicImpl
      * @param propertyName the property name to register under.
      * @return the Mappings instance.
      */
-    private Mappings getMappingsProperty(final String propertyName)
+    private TypeMappings getMappingsProperty(final String propertyName)
     {
         Object property = this.getConfiguredProperty(propertyName);
-        Mappings mappings = null;
+        TypeMappings mappings = null;
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
             try
             {
-                mappings = Mappings.getInstance(uri);
+                mappings = TypeMappings.getInstance(uri);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -388,7 +388,7 @@ public class EJBEntityFacadeLogicImpl
         }
         else
         {
-            mappings = (Mappings)property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }
@@ -398,8 +398,8 @@ public class EJBEntityFacadeLogicImpl
      */
     protected String handleGetSqlType()
     {
-        String mpSql = getMappingsProperty(
-            UMLMetafacadeProperties.SQL_MAPPINGS_URI).getName();
+        String mpSql = this.getMappingsProperty(
+            UMLMetafacadeProperties.SQL_MAPPINGS_URI).getMappings().getName();
         if (mpSql.startsWith("Oracle"))
         {
             mpSql = "ORACLE";
