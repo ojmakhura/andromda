@@ -7,7 +7,10 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-15" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-16" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="SPRING-37">
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> now generates a valid
+                DAO inheritance hiearchy when inheritance between entities occurs.
             <action dev="cwbrandon" type="update">
                 The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> must now be used in conjunction with the 
                 <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> when using Hibernate persistence.
