@@ -10,7 +10,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 {
     public void caseAContextDeclaration(AContextDeclaration node)
     {
-        
+
         newTranslationLayer();
         {
             Object temp[] = node.getContextDeclaration().toArray();
@@ -26,7 +26,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseAClassifierContextDeclaration(AClassifierContextDeclaration node)
     {
-        // explicity call super method so 
+        // explicity call super method so
         // that we can set the type of the expression
         super.inAClassifierContextDeclaration(node);
         Object temp[] = node.getClassifierExpressionBody().toArray();
@@ -36,7 +36,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseAOperationContextDeclaration(AOperationContextDeclaration node)
     {
-        // explicity call super method so 
+        // explicity call super method so
         // that we can set the type of the expression
         super.inAOperationContextDeclaration(node);
         Object temp[] = node.getOperationExpressionBody().toArray();
@@ -53,16 +53,15 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseAInvClassifierExpressionBody(AInvClassifierExpressionBody node)
     {
-        // explicity call super method so 
+        // explicity call super method so
         // that we can set the type of the expression
         super.inAInvClassifierExpressionBody(node);
         node.getExpression().apply(this);
-        write(";");
     }
 
     public void caseADefClassifierExpressionBody(ADefClassifierExpressionBody node)
     {
-        // explicity call super method so 
+        // explicity call super method so
         // that we can set the type of the expression
         super.inADefClassifierExpressionBody(node);
         node.getDefinitionExpression().apply(this);
@@ -164,27 +163,27 @@ public class ValidationJavaTranslator extends BaseTranslator
             ((PPropertyCallExpressionTail) temp[i]).apply(this);
         mergeTranslationLayerAfter();
     }
-    
+
     public void caseADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         node.getDot().apply(this);
         node.getFeatureCall().apply(this);
     }
-    
-    public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node) 
+
+    public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
         node.getArrow().apply(this);
         this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
     }
-    
+
     /**
-     * Handles an <strong>arrow</strong> feature call.  
-     * Its expected that this <code>featureCall</code>'s parent is a 
+     * Handles an <strong>arrow</strong> feature call.
+     * Its expected that this <code>featureCall</code>'s parent is a
      * AArrowPropertyCallExpressionTail. This is here because
-     * arrow feature calls must be handled differently than 
+     * arrow feature calls must be handled differently than
      * <code>dot<code> feature calls.
-     * 
-     * @param featureCall the <strong>arrow</strong> 
+     *
+     * @param featureCall the <strong>arrow</strong>
      *        <code>featureCall</code> to handle.
      */
     public void handleArrowFeatureCall(AFeatureCall featureCall) {
@@ -222,9 +221,9 @@ public class ValidationJavaTranslator extends BaseTranslator
         {
             parameters.getRParen().apply(this);
         }
-        this.outAFeatureCall(featureCall);    
+        this.outAFeatureCall(featureCall);
     }
-    
+
     public void caseALetExp(ALetExp node)
     {
         node.getLetVariableDelaration().apply(this);
@@ -564,7 +563,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         write(", ");
     }
-    
+
     public void caseTDot(TDot tDot)
     {
         write(".");
