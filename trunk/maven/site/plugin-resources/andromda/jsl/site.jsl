@@ -231,7 +231,7 @@
                                     <j:set var="pdfTitle" value="Download PDF"/>
                                 </j:otherwise>
                             </j:choose>
-                            <a href="${pdfHref}" title="${pdfTitle}">PDF</a>
+                            <a href="${pdfHref}" title="${pdfTitle}"><img src="images/pdf.gif" alt="PDF"/>PDF</a>
                         </div>
                     </j:if>
                     <div class="contentBox">
