@@ -192,9 +192,9 @@ public class MetafacadeFactory
 
             mapping = mappings.getMetafacadeMapping(
                 mappingObjectClassName,
-                stereotypeNames,
                 this.getActiveNamespace(),
-                context);
+                context,
+                stereotypeNames);
 
             if (metafacadeClass == null)
             {
