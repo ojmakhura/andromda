@@ -62,36 +62,52 @@
 			</ant:fileset>
 		</ant:delete>
   	</goal> 
-  	
+  	    
   	<!-- ==================================================================
-  			 Creates the AndroMDA distributions                                                    
+  			 Builds ALL documentation                                                   
   		 ================================================================== --> 
-  	<goal name="dist">
-  		<attainGoal name="dist-bin"/>
-  	</goal>
-  	
-  	<!-- ==================================================================
-  			 Creates the AndroMDA binary distribution                                                     
-  		 ================================================================== --> 	
-    <goal name="dist-bin">
-		<attainGoal name="install"/>	    	
+    <goal name="docs">
+		<maven:maven 
+			descriptor="${basedir}/documentation/project.xml"
+			goals="build"/> 
+    </goal>
+    
+    <!-- ==================== START DISTRIBUTION GOALS ==================== -->
+ 
+	<!-- ==================================================================
+			 Creates the AndroMDA distributions                                                    
+		 ================================================================== --> 
+	<goal name="dist">
+		<attainGoal name="dist-src"/>
+		<attainGoal name="dist-bin"/>
+	</goal>
+		
+	<!-- ==================================================================
+			 Creates the AndroMDA binary distribution                                                     
+		 ================================================================== --> 	
+	<goal name="dist-bin" prereqs="install">
+		    
+		<j:set 
+			var="distName" 
+			value="${pom.groupId}-bin-${pom.currentVersion}"/>	
 		<j:set 
 			var="binaryDistDir" 
-			value="${distribution.dir}/andromda-bin-${pom.currentVersion}"/>
+			value="${distribution.dir}/${distName}"/>
 		<j:set
 			var="binaryDistLibDir"
 			value="${binaryDistDir}/lib"/>
 			
 		<ant:delete dir="${binaryDistDir}"/>
 		<ant:mkdir dir="${binaryDistLibDir}"/>
-		    			
+		
+		<!-- first add the components -->	
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Components: "
 		  includes="${component.includes}"
 		  postProcessing="true"
 		  ignoreFailures="false"/>  
-		  						
+								
 		<j:forEach var="reactorProject" items="${reactorProjects}">			
 			<ant:echo>Adding Component: '${reactorProject}'</ant:echo>
 			<j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
@@ -103,68 +119,100 @@
 				</ant:fileset>				
 			</ant:copy>
 			<j:forEach var="lib" items="${reactorProject.artifacts}">
-				<!-- don't copy 'andromda' dependencies -->
+				 <!-- don't copy 'andromda' dependencies -->
 				<j:if test="${lib.dependency.artifactId.indexOf('andromda') == '-1'}">
 					<ant:copy file="${lib.file}" todir="${binaryDistLibDir}"/>
 				</j:if>
-			</j:forEach>
-		</j:forEach> 	
-					
-    </goal>
-    
-  	<!-- ==================================================================
-  			 Creates the AndroMDA source distribution                                                     
-  		 ================================================================== --> 	
-    <goal name="dist-src">
+			</j:forEach>  
+		</j:forEach>
+		
+		<!-- now add the samples -->
+	
 		<maven:reactor
 		  basedir="${basedir}"
-		  banner="Gathering project list"
-		  includes="**/project.xml"
-		  excludes="${multiproject.install.excludes}"
+		  banner="Gathering Samples: "
+		  includes="${sample.includes}"
 		  postProcessing="true"
-		  ignoreFailures="false"/>  
-		 
-		<j:set 
-			var="sourceDistDir" 
-			value="${distribution.dir}/andromda-src-{pom.currentVersion}"/>
-			
-		<ant:mkdir dir="${sourceDistDir}"/>
-			
-		<j:forEach var="reactorProject" items="${reactorProjects}">			
-			<ant:echo>Processing sub dist: ${reactorProject}</ant:echo>
-			<j:forEach var="lib" items="${pom.artifacts}">
-				<j:set var="dep" value="${lib.dependency}"/>
-			</j:forEach>
-		</j:forEach> 				
-    </goal>
-    
-  	<!-- ==================================================================
-  			 Builds ALL documentation                                                   
-  		 ================================================================== --> 
-    <goal name="docs">
-		<maven:maven 
-			descriptor="${basedir}/documentation/project.xml"
-			goals="build"/> 
-    </goal>
-  	
-  	<!-- =================================================================
-  	         Install all bootstrap artifacts to the local repository
-  	         IMPORTANT: Since bootstrap dependencies depend on each other,
-  	         we need to install them ALL at the end at once (instead of
-  	         one at a time).
-  	     ================================================================= -->
-  	<goal name="bootstrap-install">
- 		<maven:reactor
-     		basedir="${basedir}"
-      		includes="${bootstrap.modules}"
-      		goals="clean:clean,jar:jar"
-      		ignoreFailures="false"
-      		postProcessing="true"
-      		banner="Processing Bootstrap Artifact:"/>    
-      	
-      	<echo>+-------------------------------------------------------------------+</echo>
-      	<echo>|   I N S T A L L I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
-      	<echo>+-------------------------------------------------------------------+</echo>
+		  ignoreFailures="false"/>   
+		
+		<j:forEach var="reactorProject" items="${reactorProjects}" varStatus="counter">		
+			<j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
+			<j:set var="fromDirPresent" value="fromDirPresent${counter}"/>
+			<ant:available 
+				property="${fromDirPresent}" 
+				file="${fromDir}"/>  
+			<j:if test="${context.getVariable(fromDirPresent) != null}">
+				<j:set var="toDirSubDir" value="${reactorProject.file.parentFile.parentFile}"/>
+				<j:while test="${toDirSubDir.name == 'app'}">
+					<j:set var="toDirSubDir" value="${toDirSubDir.parentFile}"/>
+				</j:while>
+				<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${toDirSubDir.name}"/>
+				<!-- only copy the application artifacts -->
+				<ant:copy todir="${toDir}">
+					<ant:fileset dir="${fromDir}">
+						<ant:include name="*.ear"/>
+						<ant:include name="*.sql"/>
+						<ant:include name="*.cmd"/>
+						<ant:include name="*.sh"/>
+					</ant:fileset>				
+				</ant:copy>
+			</j:if> 
+		</j:forEach> 
+		
+		<!-- add docs -->
+		<attainGoal name="docs"/>
+		<ant:copy todir="${binaryDistDir}">
+			<ant:fileset dir="documentation/target">
+				<ant:include name="*.zip"/>
+			</ant:fileset>
+		</ant:copy>
+				
+		<!-- zip it all up -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+		<ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+        </ant:zip>		
+        		
+	</goal>
+		
+	<!-- ==================================================================
+			 Creates the AndroMDA source distribution                                                     
+		 ================================================================== --> 	
+	<goal name="dist-src">
+		<j:set var="distName" value="${pom.groupId}-src-${pom.currentVersion}"/>
+		<ant:mkdir dir="${distribution.dir}"/>
+        <!-- zip everything into the source archive -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+        <ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${basedir}" prefix="${distName}">
+                <ant:include name="**/*" />
+                <ant:exclude name="**/*.log*" />
+                <ant:exclude name="target/**/*"/>
+                <ant:exclude name="${zipFile}" />
+            </ant:zipfileset>
+        </ant:zip>			
+	</goal>
+	
+	<!-- ===================== START BOOTSTRAP GOALS ===================== -->
+	
+	<!-- =================================================================
+			 Install all bootstrap artifacts to the local repository
+			 IMPORTANT: Since bootstrap dependencies depend on each other,
+			 we need to install them ALL at the end at once (instead of
+			 one at a time).
+		 ================================================================= -->
+	<goal name="bootstrap-install">
+		<maven:reactor
+			basedir="${basedir}"
+			includes="${bootstrap.modules}"
+			goals="clean:clean,jar:jar"
+			ignoreFailures="false"
+			postProcessing="true"
+			banner="Processing Bootstrap Artifact:"/>    
+		
+		<echo>+-------------------------------------------------------------------+</echo>
+		<echo>|   I N S T A L L I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
+		<echo>+-------------------------------------------------------------------+</echo>
 		<j:forEach var="reactorProject" items="${reactorProjects}">			
 			<attainGoal name="initialize-bootstrap-properties"/>
 			<ant:copy				
@@ -172,62 +220,62 @@
 				tofile="${repoLocation}/${bootstrapArtifactName}"
 				overwrite="true"/>
 		</j:forEach>
-      			  	    
-  	</goal>
-  	  	
-  	<!-- =================================================================
-  	         Deploys all bootstrap artifacts to the remote repository
-  	         IMPORTANT: Since bootstrap dependencies depend on each other,
-  	         we need to deploy them ALL at the end of the build at once 
-  	         (instead of one at a time).  
-  	         IMPORTANT: Normally the Maven deploy plugin would
-  	         be used, but it isn't possible to use it the way its currently
-  	         implemented as it expects each artifact to be deployed 
-  	         after its built.  This allows us to deploy them all at
-  	         the same time after they've all been built.
-  	     ================================================================= -->
-  	<goal name="bootstrap-deploy"
-  		  description="Deploys a bootstrap jar to the remote repository">
-  		  
-  		<maven:user-check user="${maven.username}"/>
-  		
-  		<j:set var="username" value="${maven.username}"/>
-  		
- 		<maven:reactor
-     		basedir="${basedir}"
-      		includes="${bootstrap.modules}"
-      		goals="clean:clean,jar:jar"
-      		ignoreFailures="false"
-      		postProcessing="true"
-      		banner="Processing Bootstrap Artifact:"/>  	  
-	
-      	<echo>+-----------------------------------------------------------------+</echo>
-      	<echo>|   D E P L O Y I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
-      	<echo>+-----------------------------------------------------------------+</echo>
+						
+	</goal>
+			
+		<!-- =================================================================
+				 Deploys all bootstrap artifacts to the remote repository
+				 IMPORTANT: Since bootstrap dependencies depend on each other,
+				 we need to deploy them ALL at the end of the build at once 
+				 (instead of one at a time).  
+				 IMPORTANT: Normally the Maven deploy plugin would
+				 be used, but it isn't possible to use it the way its currently
+				 implemented as it expects each artifact to be deployed 
+				 after its built.  This allows us to deploy them all at
+				 the same time after they've all been built.
+			 ================================================================= -->
+	<goal name="bootstrap-deploy"
+		  description="Deploys a bootstrap jar to the remote repository">
+			  
+		<maven:user-check user="${maven.username}"/>
+		
+		<j:set var="username" value="${maven.username}"/>
+			
+		<maven:reactor
+			basedir="${basedir}"
+			includes="${bootstrap.modules}"
+			goals="clean:clean,jar:jar"
+			ignoreFailures="false"
+			postProcessing="true"
+			banner="Processing Bootstrap Artifact:"/>  	  
+		
+		<echo>+-----------------------------------------------------------------+</echo>
+		<echo>|   D E P L O Y I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
+		<echo>+-----------------------------------------------------------------+</echo>
 		<j:forEach var="reactorProject" items="${reactorProjects}">		
-				
+					
 			<attainGoal name="initialize-bootstrap-properties"/>				
 			<ant:move				
 				file="${artifactFile}"
 				tofile="${bootstrapArtifactFile}"
 				overwrite="true"/>	
-						
+							
 			<util:replace var="jarToDeploy" oldChar="\" newChar="/">${bootstrapArtifactFile}</util:replace>
 			<util:replace var="forwardSlashBaseDir" oldChar="\" newChar="/" value="${basedir}"/>
 			<j:if test="${!forwardSlashBaseDir.endsWith('/')}">
 			  <j:set var="base" value="${forwardSlashBaseDir}/" />
 			</j:if>
 			<j:set var="relativePath">${jarToDeploy.substring(base.length())}</j:set>
-	
+		
 			<j:set var="siteAddress" value="${maven.repo.central}"/>
 			<j:set var="siteDirectory" value="${maven.repo.central.directory}"/>
 			<j:set 
 				var="resolvedDirectory" 
 				value="${siteDirectory}/${reactorProject.artifactDirectory}/jars"/>
-
+	
 			<j:set var="copier" value="${maven.scp.executable}"/>
 			<j:set var="commander" value="${maven.ssh.executable}"/>
-	
+		
 			<!-- Make sure the destination directory exists. --> 
 			<ant:exec dir="." executable="${commander}">
 			  <ant:arg line="-l ${username} ${siteAddress} 'mkdir -p ${resolvedDirectory}'"/>
@@ -239,26 +287,26 @@
 				<ant:arg value="${relativePath}"/>
 				<ant:arg value="${username}@${siteAddress}:${resolvedDirectory}"/>
 			</ant:exec>
-
+	
 			<j:set 
 				var="siteCommand"
 				value="cd ${resolvedDirectory}; chmod 775 ${bootstrapArtifactName}"/>
-
+	
 			<ant:echo>Executing '${siteCommand}' with the username '${username}' on '${siteAddress}'</ant:echo>
-				
+					
 			<!-- Change the permissions -->
 			<ant:exec dir="." executable="${commander}">
 			  <ant:arg line="-l ${username} ${siteAddress} '${siteCommand}'"/>
 			</ant:exec>
-			
+				
 		</j:forEach>
-	    
-  	</goal>
-  	
-  	<!-- =================================================================
-  	     Initializes the bootstrap properties for each reactorProject
-  	     ================================================================= -->  	
-  	<goal name="initialize-bootstrap-properties">
+			
+	</goal>
+		
+	<!-- =================================================================
+		 Initializes the bootstrap properties for each reactorProject
+		 ================================================================= -->  	
+	<goal name="initialize-bootstrap-properties">
 		<j:set
 			var="repoLocation" 
 			value="${maven.repo.local}/${reactorProject.artifactDirectory}/jars"/>
@@ -277,6 +325,6 @@
 		<j:set 
 			var="bootstrapArtifactFile"
 			value="${artifactDirectory}/${bootstrapArtifactName}"/>
-  	</goal>
+	</goal>
   	  	
 </project>

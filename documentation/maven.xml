@@ -1,10 +1,15 @@
-<project default="build">
+<project default="build" 
+	     xmlns:ant="jelly:ant">
 
   	<!-- ==================================================================
   			Builds all documentation                                                   
   		 ================================================================== -->
   	<goal name="build">
-		<attainGoal name="multiproject:site"/>	
+		<attainGoal name="multiproject:site"/>
+		<!-- zip it all up -->
+		<ant:zip zipfile="${maven.build.dir}/docs.zip" prefix="docs">
+            <ant:zipfileset dir="${maven.docs.dest}"/>
+        </ant:zip>		
   	</goal> 
   	  	
 </project>
