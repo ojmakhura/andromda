@@ -39,7 +39,6 @@ ${indent}* </p>
  * @ejb.home generate="local" local-class="${packagename}.${class.name}LocalHome"
  * @ejb.pk generate="false" class="java.lang.String"
  * @ejb.util generate="physical"
- * @ejb.value-object name="$class.name" match="*" instantiation="eager"
 #foreach ( $dep in $class.dependencies )
 #if ($transform.getStereotype($dep.id) == "ejbref")
  #set ($class2 = $transform.findClassById($dep.targetType))
@@ -224,33 +223,6 @@ public abstract class ${class.name}Bean
 #end
 #end
 
-   // --------------- getter/setter for value objects ------------
-
-   /**
-    * @ejb.interface-method view-type="local"
-    * @ejb.transaction      type="Required"
-    */
-#set ($qualname = $transform.findFullyQualifiedName($class))
-
-    public ${qualname}Data get${class.name}Data ()
-    {
-        ${qualname}Data result = new ${qualname}Data $transform.getAttributesAsList($class, false, true);
-        return result;
-    }
-
-   /**
-    * @ejb.interface-method view-type="local"
-    * @ejb.transaction      type="Required"
-    */
-    public void set${class.name}Data (${qualname}Data value)
-    {
-#foreach ( $att in $class.attributes)
-#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
-         set${str.upperCaseFirstLetter(${att.name})} (value.get${str.upperCaseFirstLetter(${att.name})}());
-#end
-#end
-    }
-
     // ---------------- business methods  ----------------------
 
 #foreach ( $op in $class.operations)
@@ -294,32 +266,6 @@ public abstract class ${class.name}Bean
     }
 
     public void ejbPostCreate $transform.getAttributesAsList($class, true, false)
-           throws javax.ejb.CreateException
-    {
-    }
-
-   // ---------------- create methods using value object --------------------
-
-   /**
-    * @ejb.create-method
-    * @ejb.transaction type="Required"
-    */
-    public $primKeyTypeName ejbCreate (${qualname}Data data)
-           throws javax.ejb.CreateException
-    {
-#foreach ( $att in $class.attributes)
-#if ($transform.getStereotype($att.getId()) != "PrimaryKey")
-        set${str.upperCaseFirstLetter(${att.name})} ( data.get${str.upperCaseFirstLetter(${att.name})}() );
-#end
-#end
-
-        String primaryKey = new java.rmi.server.UID().toString();
-        set${str.upperCaseFirstLetter(${primKey.name})} (primaryKey);
-        return null;  // should not return primaryKey for CMP: see EJB spec,
-                      // chapter 10.5.2 "Bean Provider’s entity bean instance’s view"
-    }
-
-    public void ejbPostCreate (${qualname}Data data)
            throws javax.ejb.CreateException
     {
     }
