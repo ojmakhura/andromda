@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src/common"/>
+    <classpathentry kind="src" path="src/ejb/manual"/>
+    <classpathentry kind="src" path="src/web/servlet/manual"/>
+    <classpathentry kind="src" path="src/ejb/generated"/>
+    <classpathentry kind="src" path="src/web/servlet/generated"/>
+    <classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
+    <classpathentry kind="var" path="STRUTS_HOME/lib/struts.jar"/>
+    <classpathentry kind="var" path="JBOSS_HOME/server/default/lib/javax.servlet.jar"/>
+    <classpathentry kind="var" path="JBOSS_HOME/server/default/lib/jboss-j2ee.jar"/>
+    <classpathentry kind="src" path="/andromda-ejb"/>
+    <classpathentry kind="src" path="/andromda-hibernate"/>
+    <classpathentry kind="src" path="/andromda-struts"/>
+    <classpathentry kind="output" path="build/classes"/>
+</classpath>
