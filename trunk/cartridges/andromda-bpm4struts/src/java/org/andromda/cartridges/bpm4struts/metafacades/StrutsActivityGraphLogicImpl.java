@@ -63,6 +63,35 @@ public class StrutsActivityGraphLogicImpl
         if (Bpm4StrutsProfile.ENABLE_CACHE && controller != null) return controller;
 
         final ModelElementFacade contextElement = getContextElement();
-        return controller = (contextElement instanceof ClassifierFacade) ? contextElement : null;
+        if (contextElement instanceof ClassifierFacade)
+        {
+            controller = contextElement;
+        }
+        else
+        {
+            /*
+             * for those tools not supporting setting the context of an activity graph (such as Poseidon)
+             * an alternative is implemented: a tagged value on the controller, specifying the name of the use-case
+             */
+
+            final String useCaseName = getUseCase().getName();
+
+            // loop over the controllers, looking for the tagged value matching this activity graph's use-case name
+            Collection allClasses = getModel().getRootPackage().getClasses();
+            for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+            {
+                ModelElementFacade element = (ModelElementFacade) classIterator.next();
+                if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
+                {
+                    String taggedValue = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USE_CASE);
+                    if (useCaseName.equalsIgnoreCase(taggedValue))
+                    {
+                        controller = element;
+                    }
+                }
+            }
+        }
+
+        return controller;
     }
 }
