@@ -1,54 +1,50 @@
 <project xmlns:ant="jelly:ant"
-         xmlns:maven="jelly:maven"
-         xmlns:j="jelly:core">
+    xmlns:maven="jelly:maven"
+    xmlns:j="jelly:core">
 
-  	<preGoal name="war:init">
+    <preGoal name="war:init">
 
-  		<j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
+        <j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
 
         <taskdef name="webdoclet"
-				 classname="xdoclet.modules.web.WebDocletTask"
-				 classpathref="maven.dependency.classpath"/>
+            classname="xdoclet.modules.web.WebDocletTask"
+            classpathref="maven.dependency.classpath"/>
 
         <webdoclet destdir="${webInfDir}"
-        	       force="true"
-        	       verbose="true"
-        	       mergedir="${maven.build.src}/merge">
+            force="true"
+            verbose="true"
+            mergedir="${maven.build.src}/merge">
             <fileset dir="${maven.build.src}">
                 <include name="**/*.java"/>
             </fileset>
             <strutsconfigxml version="1.1"/>
             <strutsvalidationxml/>
             <deploymentdescriptor
-            	distributable="false"
-            	servletspec="2.3"/>
+                distributable="false"
+                servletspec="2.3"/>
             <jbosswebxml securitydomain="java:/jaas/other"/>
         </webdoclet>
 
-  		<!-- add the paths of the generated source to the
-  		     maven compile path 
-  		     
-  		     Comment out since everything is generated
-  		     and the source directory is set to the gen src.
-  		     
-	 	<ant:path
-	       	id="andromda.struts.gen.src"
-	       	location="${maven.build.src}"/>
-		<maven:addPath
-	       	id="maven.compile.src.set"
-	       	refid="andromda.struts.gen.src"/> -->
+        <!-- add the paths of the generated source to the
+             maven compile path -->
+        <ant:path
+            id="andromda.struts.gen.src"
+            location="${maven.build.src}"/>
+        <maven:addPath
+            id="maven.compile.src.set"
+            refid="andromda.struts.gen.src"/>
 
-  	</preGoal>
+    </preGoal>
 
-  	<postGoal name="war:webapp">
-		<ant:copy todir="${maven.war.webapp.dir}">
-			<ant:fileset dir="${maven.build.src}">
-				<ant:include name="**/*.jsp"/>
-				<ant:include name="**/*.css"/>
+    <postGoal name="war:webapp">
+        <ant:copy todir="${maven.war.webapp.dir}">
+            <ant:fileset dir="${maven.build.src}">
+                <ant:include name="**/*.jsp"/>
+                <ant:include name="**/*.css"/>
                 <ant:include name="WEB-INF/*.xml"/>
-			</ant:fileset>
-		</ant:copy>
-  	</postGoal>
+            </ant:fileset>
+        </ant:copy>
+    </postGoal>
 
     <!--
         | We are going to make a WAR bundle in which the JSPs have been precompiled,
