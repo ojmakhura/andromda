@@ -16,6 +16,12 @@
     <property reference="testServiceLocatorName" default="TestServiceLocator"/>
     <property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
     <property reference="servicesPath" default="/services/"/>
+    
+    <!-- default namespaces -->
+    <property reference="wsdlSoapNamespace" default="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    <property reference="xmlSchemaNamespace" default="http://www.w3.org/2001/XMLSchema"/>
+    <property reference="wsdlNamespace" default="http://schemas.xmlsoap.org/wsdl/"/>
+    <property reference="documentStyleTransportNamespace" default="http://schemas.xmlsoap.org/soap/http"/>
 
     <!-- if true, causes generation of necessary code that expects
          the request to be signed -->
