@@ -91,11 +91,11 @@ $envEntry.getDocumentation("     * ")
      * @ejb.interface-method
 #end
      */
-    $visibility $attType ${attribute.getterName}(){
+    $visibility $envEntry.type.fullyQualifiedName ${attribute.getterName}(){
         javax.naming.InitialContext initialContext = null;
         try {
             initialContext = new javax.naming.InitialContext();
-            return (${attType}) initialContext.lookup("java:comp/env/$envEntry.name");
+            return (${envEntry.type.fullyQualifiedName}) initialContext.lookup("java:comp/env/$envEntry.name");
         } catch (javax.naming.NamingException cause) {
             RuntimeException ex = new IllegalStateException(
                 "Cannot access environment entry \"$envEntry.name\".");
@@ -151,24 +151,22 @@ $constant.getDocumentation("     * ")
 #if(!$instanceAttributes.empty)
     // --------------- attributes ---------------------
 #foreach ( $attribute in $instanceAttributes)
-#set($attType = $attribute.type.fullyQualifiedName)
-#set ($transactionType = $attribute.findTaggedValue("@andromda.ejb.transactionType", true))
 #set ($visibility = $attribute.visibility)
-    /** The ${attribute.name} property */
-    private ${attType} $attribute.name;
+    /** The $attribute.name property */
+    private $attribute.type.fullyQualifiedName $attribute.name;
 
     /**
      * Get the ${attribute.name} property
 $attribute.getDocumentation("     * ")
      *
-#if ($transactionType)
-     * @ejb.transaction type="$transactionType"
+#if ($attribute.transactionType)
+     * @ejb.transaction type="$attribute.transactionType"
 #end
 #if($visibility == "public")
      * @ejb.interface-method
 #end
      */
-    $visibility $attType ${attribute.getterName}() {
+    $visibility $attribute.type.fullyQualifiedName ${attribute.getterName}() {
        return $attribute.name;
     }
 
@@ -178,16 +176,16 @@ $attribute.getDocumentation("     * ")
 ## method and not in the constructor.
 #if (!$attribute.readOnly)
     /**
-     * Set the ${attribute.name} property
+     * Set the $attribute.name property
      * @param value the new value
 #if($visibility == "public")
      * @ejb.interface-method
 #end
-#if ($transactionType)
-     * @ejb.transaction type="$transactionType"
+#if ($attribute.transactionType)
+     * @ejb.transaction type="$attribute.transactionType"
 #end
      */
-    $visibility void ${attribute.setterName}($attType value) {
+    $visibility void ${attribute.setterName}($attribute.type.fullyQualifiedName value) {
        this.$attribute.name = value;
     }
 
@@ -196,17 +194,15 @@ $attribute.getDocumentation("     * ")
 #end
     // ---------------- business methods  ----------------------
 
-#foreach ( $operation in $service.operations)
-#if (!$operation.hasStereotype("CreateMethod"))
-#set ($transactionType = $operation.findTaggedValue("@andromda.ejb.transactionType", true))
+#foreach ( $operation in $service.businessOperations)
 #set ($visibility = $operation.visibility)
    /**
 $operation.getDocumentation("    * ")
 ## Only public methods have transactions and are exported to the interfaces
 #if ($visibility == "public")
     * @ejb.interface-method
-#if ($transactionType)
-    * @ejb.transaction type="$transactionType"
+#if ($operation.transactionType)
+    * @ejb.transaction type="$operation.transactionType"
 #end
 #end
     */
@@ -219,21 +215,19 @@ $operation.getDocumentation("    * ")
 #end
 
 #end
-#end
 
     // ---------------- create methods --------------------
 ## Handle explicitly defined create methods. Since we can't know
 ## what the user intended to do with the arbitrary parameters to these methods,
 ## we generate an abstract ejbCreate() and delegate the implementation to the user.
 #foreach ( $operation in $service.getCreateMethods(false))
-#set ($transactionType = $operation.findTaggedValue("@andromda.ejb.transactionType", true))
 
     /**
 $operation.getDocumentation("    * ")
      *
      * @ejb.create-method
-#if ($transactionType)
-     * @ejb.transaction type="$transactionType"
+#if ($operation.transactionType)
+     * @ejb.transaction type="$operation.transactionType"
 #end
      */
     public abstract void ejbCreate($operation.typedArgumentList);

@@ -42,8 +42,7 @@ $constant.getDocumentation("     * ")
 #end
 #end
     // ---------------- home methods  ----------------------
-#foreach ( $operation in $entity.operations)
-#if (!$operation.hasStereotype("FinderMethod") && !$operation.hasStereotype("CreateMethod") && !$operation.hasStereotype("SelectMethod"))
+#foreach ( $operation in $entity.businessOperations)
 #set ($visibility = $operation.visibility.toString())
 ## Only expose public static methods (public nonstatic methods go on the
 ## component interface)
@@ -56,7 +55,6 @@ $operation.getDocumentation("    * ")
     public $returnType $operation.signature throws $operation.exceptionList;
 #else
     $visibility $returnType $operation.signature;
-#end
 #end
 #end
 #end

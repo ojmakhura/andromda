@@ -80,8 +80,7 @@ $relation.otherEnd.getDocumentation("    * ")
 
     // ---------------- business methods  ----------------------
 
-#foreach ( $operation in $entity.operations)
-#if (!$operation.hasStereotype("FinderMethod") && !$operation.hasStereotype("CreateMethod") && !$operation.hasStereotype("SelectMethod"))
+#foreach ( $operation in $entity.businessOperations)
 #set ($visibility = $operation.visibility)
 ## Only expose public, nonstatic methods (public static methods go on the home
 ## interface)
@@ -94,7 +93,6 @@ $operation.getDocumentation("    * ")
         throws $operation.exceptionList;
 #else
     $visibility $operation.returnType.fullyQualifiedName $operation.signature;
-#end
 #end
 #end
 #end

@@ -64,8 +64,7 @@ $attribute.getDocumentation("     * ")
 #end
 
     // ---------------- business methods  ----------------------
-#foreach ( $operation in $service.operations)
-#if (!$operation.hasStereotype("CreateMethod"))
+#foreach ( $operation in $service.businessOperations)
 #set ($visibility = $operation.visibility)
 ## Only expose public methods
 #if ($visibility == "public")
@@ -79,7 +78,6 @@ $operation.getDocumentation("    * ")
     throws $operation.exceptionList;
 #else
     $visibility $returnType $operation.signature;
-#end
 #end
 #end
 #end

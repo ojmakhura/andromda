@@ -246,8 +246,8 @@ class EJBMetafacadeUtils
     }
 
     /**
-     * Returns true/false based on whether or not synthetic or auto
-     * generated create methods should be allowed.
+     * Returns true/false based on whether or not synthetic or auto generated
+     * create methods should be allowed.
      * 
      * @param classifier the entity or session EJB.
      * @return true/false

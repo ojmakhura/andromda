@@ -116,7 +116,7 @@ $envEntry.getDocumentation("     * ")
         javax.naming.InitialContext initialContext = null;
         try {
             initialContext = new javax.naming.InitialContext();
-            return (${attType}) initialContext.lookup("java:comp/env/$envEntry.name");
+            return (${envEntry.type.fullyQualifiedName}}) initialContext.lookup("java:comp/env/$envEntry.name");
         } catch (javax.naming.NamingException cause) {
             RuntimeException ex = new IllegalStateException(
                 "Cannot access environment entry \"$envEntry.name\".");
@@ -183,11 +183,9 @@ $constant.getDocumentation("     * ")
 
     // --------------- attributes ---------------------
 #foreach ( $attribute in $entity.attributes)
-#set($attType = $attribute.type.fullyQualifiedName)
-#set ($transactionType = $attribute.findTaggedValue("@ejb.transactionType", true))
-#set ($visibility = $attribute.visibility.toString())
+#set ($visibility = $attribute.visibility)
     /**
-     * Get the ${attribute.name} property
+     * Get the $attribute.name property
 $attribute.getDocumentation("     * ")
      *
 #if ($attribute.identifier)
@@ -197,8 +195,8 @@ $attribute.getDocumentation("     * ")
      *     column-name="${attribute.columnName}"
      *       jdbc-type="${attribute.jdbcType}"
      *        sql-type="${attribute.sqlType}"
-#if ($transactionType)
-     * @ejb.transaction type="$transactionType"
+#if ($attribute.transactionType)
+     * @ejb.transaction type="$attribute.transactionType"
 #end
      *
 ## Only expose the method to the interfaces if it is public. The method
@@ -207,10 +205,10 @@ $attribute.getDocumentation("     * ")
      * @ejb.interface-method
 #end
      */
-    public abstract $attType ${attribute.getterName}();
+    public abstract $attribute.type.fullyQualifiedName ${attribute.getterName}();
 
     /**
-     * Set the ${attribute.name} property
+     * Set the $attribute.name property
      * @param value the new value
 ## We need to generate a public set method even for readonly or proteced
 ## attributes because of CMP semantics.
@@ -218,11 +216,11 @@ $attribute.getDocumentation("     * ")
 #if($visibility == "public" && !$attribute.readOnly)
      * @ejb.interface-method
 #end
-#if ($transactionType)
-     * @ejb.transaction type="$transactionType"
+#if ($attribute.transactionType)
+     * @ejb.transaction type="$attribute.transactionType"
 #end
      */
-    public abstract void ${attribute.setterName}($attType value);
+    public abstract void ${attribute.setterName}($attribute.type.fullyQualifiedName value);
 
 #end
 
@@ -230,126 +228,119 @@ $attribute.getDocumentation("     * ")
 ## If the class is abstract, generate abstract methods for all CMR relations so that they
 ## are accessible in the *BeanImpl class
 #if ($entity.abstract)
-#foreach ( $assoc in $entity.entityRelations) )
-#set ($target = $assoc.otherEnd)
-#if(!($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
-#set ($assocname = $assoc.association.name)
-#set ($targetRoleName = $assoc.otherEnd.name)
-#set ($targetTypeName = $assoc.relationType)
+#foreach ( $associationEnd in $entity.entityRelations) )
+#set ($target = $associationEnd.otherEnd)
+#if(!($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
+#set ($targetRoleName = $associationEnd.otherEnd.name)
+#set ($targetTypeName = $associationEnd.relationType)
 
    /**
-    * Get the ${assoc.otherEnd.name}
-$assoc.otherEnd.getDocumentation("    * ")
+    * Get the ${associationEnd.otherEnd.name}
+$associationEnd.otherEnd.getDocumentation("    * ")
     * @ejb.interface-method
     */
-    public abstract $targetTypeName ${target.getterName}();
+    public abstract $associationEnd.relationType ${target.getterName}();
 
    /**
-    * Set the ${assoc.otherEnd.name}
-#if(!$assoc.otherEnd.readOnly)
+    * Set the ${associationEnd.otherEnd.name}
+#if(!$associationEnd.otherEnd.readOnly)
     * @ejb.interface-method
 #end
     */
-    public abstract void ${target.setterName}($targetTypeName ${assoc.otherEnd.name});
+    public abstract void ${target.setterName}($associationEnd.relationType ${associationEnd.otherEnd.name});
 #end
 #end ## foreach
 
 #end
 ## Generate the real CMR methods.
-#foreach ( $assoc in $entity.allEntityRelations )
-#set ($target = $assoc.otherEnd)
+#foreach ( $associationEnd in $entity.allEntityRelations )
+#set ($target = $associationEnd.otherEnd)
 ## relations not flagged as CMR are generated below under business methods
-#if(!($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
-#set ($assocname = $assoc.association.name)
-#set ($transactionType = $assoc.association.findTaggedValue("@andromda.ejb.transactionType"))
-#set ($targetTypeName = $assoc.relationType)
+#if(!($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
 
    /**
-    * Get the ${assoc.otherEnd.name}
-$assoc.otherEnd.getDocumentation("    * ")
+    * Get the ${associationEnd.otherEnd.name}
+$associationEnd.otherEnd.getDocumentation("    * ")
     *
     * @ejb.interface-method
     * @ejb.relation
-    *    name="$assocname"
-    *    role-name="$assocname:$assoc.name"
-    *    target-ejb="$assoc.otherEnd.type.name"
-#if (!$assoc.navigable)
-    *    target-role-name="$assocname:$assoc.otherEnd.name"
-#if ($assoc.many2One || $assoc.many2Many)
+    *    name="$associationEnd.association.name"
+    *    role-name="${associationEnd.association.name}:${associationEnd.name}"
+    *    target-ejb="$associationEnd.otherEnd.type.name"
+#if (!$associationEnd.navigable)
+    *    target-role-name="${associationEnd.association.name}:${associationEnd.otherEnd.name}"
+#if ($associationEnd.many2One || $associationEnd.many2Many)
     *    target-multiple="true"
 #end
 #end
-#if ($transactionType)
-    * @ejb.transaction type="$transactionType"
+#if ($associationEnd.association.transactionType)
+    * @ejb.transaction type="$associationEnd.association.transactionType"
 #end
     *
-#if ($assoc.one2Many || $assoc.many2Many || $assoc.otherEnd.findTaggedValue("@jboss.autoKeyFields") == "true")
+#if ($associationEnd.one2Many || $associationEnd.many2Many || $associationEnd.otherEnd.findTaggedValue("@jboss.autoKeyFields") == "true")
     * @jboss.auto-key-fields
 #else
-#set ($identifiers = $assoc.otherEnd.type.identifiers)
+#set ($identifiers = $associationEnd.otherEnd.type.identifiers)
 #if (!$identifiers.empty)
 #foreach ($identifier in $identifiers)
 #if ($identifiers.size() == 1)
 #set ($identifierName = $identifier.name)
 #else
-#set ($identifierName = "$assoc.otherEnd.type.name")
+#set ($identifierName = "$associationEnd.otherEnd.type.name")
 #end
     * @jboss.relation
-    *     fk-column="${assoc.otherEnd.columnName}"
+    *     fk-column="${associationEnd.otherEnd.columnName}"
     *     related-pk-field="${identifierName}"
 #end
 #end
 #end
     */
-    public abstract $targetTypeName ${target.getterName}();
+    public abstract $associationEnd.relationType ${target.getterName}();
 
    /**
-    * Set the ${assoc.otherEnd.name}
-#if(!$assoc.otherEnd.readOnly)
+    * Set the ${associationEnd.otherEnd.name}
+#if(!$associationEnd.otherEnd.readOnly)
     * @ejb.interface-method
 #end
-#if ($transactionType)
-    * @ejb.transaction type="$transactionType"
+#if ($associationEnd.association.transactionType)
+    * @ejb.transaction type="$associationEnd.association.transactionType"
 #end
     */
-    public abstract void ${target.setterName}($targetTypeName ${assoc.otherEnd.name});
+    public abstract void ${target.setterName}($associationEnd.relationType ${associationEnd.otherEnd.name});
 #end
 #end ## foreach
 
     // ---------------- business and select methods  ----------------------
 ## Generate business methods for relations flagged as non-CMR even when the class
 ## is abstract. That way, we can implement them in the base class
-#foreach ( $assoc in $entity.entityRelations)
-#set ($target = $assoc.otherEnd)
-#if($assoc.association.findTaggedValue("@andromda.ejb.generateCMR") == "false")
-#set ($transactionType = $assoc.association.findTaggedValue("@andromda.ejb.transactionType"))
-#set ($targetTypeName = $assoc.relationType))
+#foreach ( $associationEnd in $entity.entityRelations)
+#set ($target = $associationEnd.otherEnd)
+#if($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false")
 
    /**
-    * Get the ${assoc.otherEnd.name}
-$assoc.otherEnd.getDocumentation("     * ")
+    * Get the ${associationEnd.otherEnd.name}
+$associationEnd.otherEnd.getDocumentation("     * ")
     *
     * @ejb.interface-method
-#if ($transactionType)
-    * @ejb.transaction type="$transactionType"
+#if ($associationEnd.association.transactionType)
+    * @ejb.transaction type="$associationEnd.association.transactionType"
 #end
     */
-    public abstract $targetTypeName ${target.getterName}();
+    public abstract $associationEnd.relationType ${target.getterName}();
 
    /**
-    * Set the ${assoc.otherEnd.name}
+    * Set the ${associationEnd.otherEnd.name}
     * @ejb.interface-method
-#if ($transactionType)
-    * @ejb.transaction type="$transactionType"
+#if ($associationEnd.association.transactionType)
+    * @ejb.transaction type="$associationEnd.association.transactionType"
 #end
     */
-    public abstract void ${target.setterName}($targetTypeName ${assoc.otherEnd.name});
+    public abstract void ${target.setterName}($associationEnd.relationType ${associationEnd.otherEnd.name});
 #end
 #end ## foreach
 
 #foreach ( $operation in $entity.operations)
-#if (!$operation.hasStereotype("FinderMethod") && !$operation.hasStereotype("CreateMethod") && !$operation.hasStereotype("SelectMethod"))
-#set ($transactionType = $operation.findTaggedValue("@andromda.ejb.transactionType", true))
+#if (!$operation.businessOperation)
 #set ($signature = $operation.signature)
 #set ($interfaceType = "interface")
 #set ($visibility = $operation.visibility.toString())
@@ -365,8 +356,8 @@ $operation.getDocumentation("    * ")
 ## Only public methods have transactions and are exported to the interfaces
 #if ($visibility == "public")
     * @ejb.${interfaceType}-method
-#if ($transactionType)
-    * @ejb.transaction type="$transactionType"
+#if ($operation.transactionType)
+    * @ejb.transaction type="$operation.transactionType"
 #end
 #end
     */
@@ -378,7 +369,7 @@ $operation.getDocumentation("    * ")
     $visibility abstract $returnType $signature;
 #end
 #end
-#if ($operation.hasStereotype("SelectMethod"))
+#if ($operation.selectMethod)
 #set($queryString = "")
 #set($queryString = $operation.findTaggedValue("@andromda.ejb.query"))
 #if($queryString == "")
@@ -411,7 +402,6 @@ $operation.getDocumentation("    * ")
 ## we generate an abstract ejbCreateImpl() and delegate the implementation to
 ## the user.
 #foreach ( $operation in $entity.createMethods(false))
-#set ($transactionType = $operation.findTaggedValue("@andromda.ejb.transactionType", true))
 
     /**
 #if (!$entity.abstract)
