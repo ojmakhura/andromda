@@ -1,144 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <document>
-  	<properties>
-    	<title>Hibernate Cartridge Namespace</title>
-  	</properties>
-  	<body>
-    	<section name="Hibernate Cartridge Namespace Properties">
+    <properties>
+        <title>Hibernate Cartridge Namespace</title>
+    </properties>
+    <body>
+        <section name="Hibernate Cartridge Namespace Properties">
             <p>
-                In addition to the applicable 
-                <a href="../andromda-metafacades-uml/namespaces.html">UML Metafacade</a> namespace 
+                In addition to the applicable
+                <a href="../andromda-metafacades-uml/namespaces.html">UML Metafacade</a> namespace
                 properties which may also be used, this page describes 
                 namespace properties specific to this cartridge only.
             </p>
-	      	<table>
-	        	<tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	</tr>
-	        	<tr>
-		          	<td>
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Required?</th>
+                </tr>
+                <tr>
+                    <td>
 		          		languageMappingsUri
-		          	</td>
-		          	<td>
+                    </td>
+                    <td>
 		          		URI specifying the specific mappings from model types to language types. 
-		          		(i.e. <code>file:${basedir}/JavaMappings.xml</code>)
-		          	</td>
-		          	<td>
+		          		(i.e.
+                        <code>file:${basedir}/JavaMappings.xml</code>)
+                    </td>
+                    <td>
 		          		Yes
-		          	</td>		          	
-	        	</tr>	
-	        	<tr>
-		          	<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 		          		hibernateTypeMappingsUri
-		          	</td>
-		          	<td>
+                    </td>
+                    <td>
 		          		URI specifying the specific mappings from model types to hibernate types. 
-		          		(i.e. <code>file:${basedir}/HibernateTypeMappings.xml</code>). This
+		          		(i.e.
+                        <code>file:${basedir}/HibernateTypeMappings.xml</code>). This
 						is not necessary but useful for defining hibernate user types (when
 						hibernate doesn't support a specific type in the manner needed
-						for your application). 
-		          	</td>
-		          	<td>
+						for your application).
+                    </td>
+                    <td>
 		          		No
-		          	</td>		          	
-	        	</tr>		     
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 						customTypesPackage
-					</td>
-					<td>
+                    </td>
+                    <td>
 						The package to which hibernate custom types contained
 						within the cartridge should be output.
-					</td>
-					<td>
-						No, default is <code>org.andromda.persistence.hibernate</code>
-					</td>
-				</tr>     	
-	        	<tr>
-		          	<td>
+                    </td>
+                    <td>
+						No, default is
+                        <code>org.andromda.persistence.hibernate</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 		          		entities
-		          	</td>
-		          	<td>
+                    </td>
+                    <td>
 		          		The directory to which hibernate entities are generated.
-		          	</td>
-		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
-		          	</td>
-	        	</tr>	
-	        	<tr>
-		          	<td>
+                    </td>
+                    <td>
+		          		Yes (unless
+                        <code>ignore</code> is specified for this property)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 		          		entity-impls
-		          	</td>
-		          	<td>
+                    </td>
+                    <td>
 		          		The location to which hibernate entity implementation files
 		          		are generated.
-		          	</td>
-		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
-		          	</td>
-	        	</tr>		  
-	        	<tr>
-		          	<td>
+                    </td>
+                    <td>
+		          		Yes (unless
+                        <code>ignore</code> is specified for this property)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 		          		session-beans
-		          	</td>
-		          	<td>
+                    </td>
+                    <td>
 		          		The directory to which Session Bean files are generated.
-		          	</td>		         
-		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
-		          	</td>
-	        	</tr>	
-	        	<tr>
-		          	<td>
+                    </td>
+                    <td>
+		          		Yes (unless
+                        <code>ignore</code> is specified for this property)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 		          		session-impls
-		          	</td>
-		          	<td>
+                    </td>
+                    <td>
 		          		The directory to which Session Bean implementation files are generated.
-		          	</td>		         
-		          	<td>
-		          		Yes (unless <code>ignore</code> is specified for this property)
-		          	</td>
-	        	</tr>	       	
-				<tr>
-					<td>
+                    </td>
+                    <td>
+		          		Yes (unless
+                        <code>ignore</code> is specified for this property)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 						defaultIdentifierType
-					</td>
-					<td>
+                    </td>
+                    <td>
 						The type to give default identifiers.
-					</td>
-					<td>
-						No, default is <code>datatype.String</code>.
-					</td>
-				</tr> 	      	
-				<tr>
-					<a name="ejbJndiNamePrefix"/>
-					<td>
+                    </td>
+                    <td>
+						No, default is
+                        <code>datatype.String</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="ejbJndiNamePrefix"/>
+                    <td>
 						ejbJndiNamePrefix
-					</td>
-					<td>
+                    </td>
+                    <td>
 						The prefix to give to the Session EJB JNDI names (this allows 
 						the same Session EJB to be deployed multiple times in the same 
 						container)
-					</td>
-					<td>
-						No, default is <code>no prefix</code>.
-					</td>
-				</tr>     
+                    </td>
+                    <td>
+						No, default is
+                        <code>no prefix</code>.
+                    </td>
+                </tr>
                 <tr>
                     <td>
-                        idGeneratorClass
+                          idGeneratorClass
                     </td>
                     <td>
-                        The class to use for Hibernate ID generation. 
+                          The class to use for Hibernate ID generation.
                     </td>
                     <td>
-                        No, default is <code>uuid.hex</code>
+                          No, default is
+                        <code>uuid.hex</code>
                     </td>
-                </tr>	      	        	        		        	        	        	     	             	        	
-	        </table>
-    	</section>
-  	</body>
+                </tr>
+                <tr>
+                    <td>
+                          tableNamePrefix
+                    </td>
+                    <td>
+                          The string to prepend to each table name. 
+                    </td>
+                    <td>
+                          No, default is the empty string
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </body>
 </document>
