@@ -4,9 +4,9 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.LinkedList;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This controller manages the operations of the 'Purchase' use-case. It is not implemented, this is what is generated
@@ -14,48 +14,11 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:draftdog@users.sourceforge.net">Wouter Zoons</a>
  */
-public class PurchaseController implements PurchaseControllerInterface
+class PurchaseController implements PurchaseControllerInterface
 {
-    private static PurchaseController instance = null;
-
     private final List dummyItemList = new LinkedList();
 
     /**
-     * Singleton constructor
-     */
-    private PurchaseController()
-    {
-        for (int i = 1; i < 18; i++)
-        {
-              dummyItemList.add(new DummyItem("address-"+i, "id-"+i, "name-"+i));
-        }
-    }
-
-    /**
-     * Convenient constructor for child classes. It allows classes
-     * that extend this one to set their own static instance without
-     * the need for a protected variable or overwriting the
-     * <code>getInstance()</code> method.
-     */
-    protected PurchaseController(PurchaseController instance)
-    {
-        PurchaseController.instance = instance;
-    }
-
-    /**
-     * Singleton instance accessor
-     */
-    public static synchronized PurchaseController getInstance()
-    {
-        if (PurchaseController.instance == null)
-        {
-            PurchaseController.instance = new PurchaseController();
-        }
-        return PurchaseController.instance;
-    }
-
-    /**
-     *
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
@@ -72,7 +35,6 @@ public class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     *
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
@@ -89,7 +51,6 @@ public class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     *
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
@@ -106,7 +67,6 @@ public class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     *
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
@@ -123,7 +83,6 @@ public class PurchaseController implements PurchaseControllerInterface
     }
 
     /**
-     *
      * <p/>
      * This method does not receive any parameters through the form bean.
      */
@@ -149,7 +108,7 @@ public class PurchaseController implements PurchaseControllerInterface
     private void populateForm(PurchaseItemsForm form)
     {
         form.setPassword("password-test");
-        form.setAge((int)96511);
+        form.setAge((int) 96511);
         form.setEmail("email-test");
         form.setCreditCard("<change-me>");
         form.setName("Name-test");
