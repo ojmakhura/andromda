@@ -138,13 +138,6 @@
         required="false"/>
         
     <template
-        path="templates/hibernate/HibernateEnumerationType.vsl"
-        outputPattern="$generatedFile"
-        outlet="entities"
-        overwrite="true"
-        required="false"/>
-
-    <template
         path="templates/hibernate/HibernateEnumeration.vsl"
         outputPattern="$generatedFile"
         outlet="entities"

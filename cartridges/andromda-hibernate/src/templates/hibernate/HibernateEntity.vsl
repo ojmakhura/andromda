@@ -23,7 +23,7 @@ $entity.getDocumentation(" * ")
  *      table="$entity.tableName"
  *      mutable="false"
  */
-public final class $entity.name implements java.io.Serializable
+public class $entity.name implements java.io.Serializable
 {
 #set ($identifier = $entity.identifiers.iterator().next())
     private $identifier.type.fullyQualifiedName $identifier.name;
@@ -50,7 +50,8 @@ $identifier.getDocumentation("     * ")
         this.${identifier.name} = $identifier.name;
     }
 
-    private ${entity.enumerationType} value;
+#set ($enumType = "${entity.packageName}.${entity.enumerationName}")
+    private $enumType value;
 
     /**
      * This value holds the enumeration value for this entity.
@@ -58,7 +59,7 @@ $identifier.getDocumentation("     * ")
      * @hibernate.property
      *     name="value"
      *     column="VALUE"
-     *     type="${entity.enumerationType}"
+     *     type="$enumType"
      *     insert="false"
      *     update="false"
      *     unique="true"
@@ -67,12 +68,12 @@ $identifier.getDocumentation("     * ")
      *     name="VALUE"
      *     non-null="true"
      */
-    public ${entity.enumerationType} getValue()
+    public $enumType getValue()
     {
         return this.value;
     }
 
-    public void setValue(${entity.enumerationType} value)
+    public void setValue($enumType value)
     {
         this.value = value;
     }
