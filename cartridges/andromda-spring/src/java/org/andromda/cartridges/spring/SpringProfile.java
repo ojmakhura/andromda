@@ -25,5 +25,10 @@ public class SpringProfile extends UMLProfile {
      * Stores the hibernate generator class.
      */
     public static final String TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS = "@andromda.hibernate.generator.class";
-	
+
+    /**
+     * Stores the hibernate lazy attribute for relationships.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_LAZY = "@andromda.hibernate.lazy";
+
 }
