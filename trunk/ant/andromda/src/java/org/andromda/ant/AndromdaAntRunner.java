@@ -1,11 +1,21 @@
 package org.andromda.ant;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-
-import java.io.*;
-import java.util.*;
 
 /**
  * @todo: document this class
@@ -98,7 +108,7 @@ public class AndromdaAntRunner
             for (Iterator iterator = templates.iterator(); iterator.hasNext();)
             {
                 Map.Entry entry = (Map.Entry) iterator.next();
-                Template template = (Template) Velocity.getTemplate((String) entry.getKey());
+                Template template = Velocity.getTemplate((String) entry.getKey());
                 File target = new File(parentDirectory, (String) entry.getValue());
 
                 target.getParentFile().mkdirs();
