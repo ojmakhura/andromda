@@ -1,48 +1,48 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 
-<html:html locale="true">
+<tiles:insert definition="login.layout">
 
-    <head>
-        <title><bean:message key="main.title"/></title>
-        <html:base/>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default.css"/>"/>
-    </head>
+    <tiles:put name="title" type="string">
+        <bean:message key="login.title"/>
+    </tiles:put>
 
-    <body>
-        <div id="container">
-            <div id="sidebar">
-                <div class="box1">
-                    <h4>How to login</h4>
-                    <p>If you are a registered user you simply enter your
-                       user name and password and click on the submit button</p>
-                    <p>In case this is your first time, you should register
-                       yourself to the system.
-                </div>
-            </div>
-            <div id="content">
-                <h1>Login Screen</h1>
-                <div class="firstcol">
-                    <h3>Register a new user</h3>
-                    <p>This feature is not available yet</p>
-                </div
-                <div class="secondcol">
-                    <h3>Log in a registered user</h3>
-                    <form name="login" action="j_security_check" method="post">
-                        <div><bean:message key="login.username"/> :</div>
-                        <div><input type="text" name="j_username"/></div>
-                        <div><bean:message key="login.password"/> :</div>
-                        <div><input type="password" name="j_password"/></div>
-                        <div>
-                            <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>
-                            &nbsp;&nbsp;&nbsp;
-                            <html:reset titleKey="login.reset.title"><bean:message key="login.reset"/></html:reset>
-                        </div>
-                    </form>
-                </div
+    <tiles:put name="menu" type="string">
+        <div class="box1">
+            <h4><bean:message key="login.howto.title"/></h4>
+            <p><bean:message key="login.howto"/></p>
+        </div>
+    </tiles:put>
+
+    <tiles:put name="body" type="string">
+        <h1><bean:message key="login.title"/></h1>
+        <div class="col-a1">
+            <h3><bean:message key="login.register.user"/></h3>
+            <p><bean:message key="login.na"/></p>
+        </div>
+        <div class="col-a2">
+            <h3><bean:message key="login.login.user"/></h3>
+            <div class="login">
+                <form name="login" action="j_security_check" method="post">
+                    <div><bean:message key="login.username"/> :</div>
+                    <div><input class="login" type="text" name="j_username" title="<bean:message key="login.username"/>"/></div>
+                    <div><bean:message key="login.password"/> :</div>
+                    <div><input class="login" type="password" name="j_password" title="<bean:message key="login.password"/>"/></div>
+                    <br/>
+                    <div class="submit">
+                        <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>
+                        <html:reset titleKey="login.reset.title"><bean:message key="login.reset"/></html:reset>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                <!--
+                    document.login.j_username.focus();
+                    document.login.j_username.select();
+                //-->
+                </script>
             </div>
         </div>
-    </body>
+    </tiles:put>
 
-</html:html>
+</tiles:insert>
