@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts</artifactId>
-			<version>1.1</version>
+			<version>1.2dev-SNAPSHOT</version>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-bean</artifactId>
-			<version>1.1</version>
+			<version>1.2dev-SNAPSHOT</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
@@ -126,7 +126,7 @@
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-html</artifactId>
-			<version>1.1</version>
+			<version>1.2dev-SNAPSHOT</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
@@ -135,7 +135,7 @@
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-logic</artifactId>
-			<version>1.1</version>
+			<version>1.2dev-SNAPSHOT</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
@@ -144,7 +144,7 @@
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-nested</artifactId>
-			<version>1.1</version>
+			<version>1.2dev-SNAPSHOT</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
@@ -152,17 +152,8 @@
 		</dependency>	
 		<dependency>
 			<groupId>struts</groupId>
-			<artifactId>struts-template</artifactId>
-			<version>1.1</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
 			<artifactId>struts-tiles</artifactId>
-			<version>1.1</version>
+			<version>1.2dev-SNAPSHOT</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
