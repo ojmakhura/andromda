@@ -153,7 +153,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
      */
     public Collection getTransitions(StateMachine stateMachine)
     {
-        return getSubvertices(stateMachine, transitionFilter);
+        return stateMachine.getTransitions();
     }
 
     /**
@@ -187,14 +187,16 @@ public class UMLDynamicHelper extends UMLDefaultHelper
         return getSubvertices(stateMachine, objectFlowStateFilter);
     }
 
+    // todo javadoc
     public Collection getGuardedTransitions(StateMachine stateMachine)
     {
-        return getSubvertices(stateMachine, guardedTransitionFilter);
+        return filter(getTransitions(stateMachine), guardedTransitionFilter);
     }
 
+    // todo javadoc
     public Collection getTriggeredTransitions(StateMachine stateMachine)
     {
-        return getSubvertices(stateMachine, triggeredTransitionFilter);
+        return filter(getTransitions(stateMachine), triggeredTransitionFilter);
     }
 
     /**
@@ -228,6 +230,38 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     public Collection getActionStates(StateMachine stateMachine)
     {
         return getSubvertices(stateMachine, actionStateFilter);
+    }
+
+    /**
+     * Returns a Collection containing the states that are
+     * model elements in the argument StateMachine.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.statemachines.State</code>
+     *
+     * @param stateMachine a StateMachine instance, may not be <code>null</code>
+     * @return the State instances found in the argument StateMachine
+     * @see org.omg.uml.behavioralelements.statemachines.State
+     */
+    public Collection getStates(StateMachine stateMachine)
+    {
+        return getSubvertices(stateMachine, stateFilter);
+    }
+
+    /**
+     * Returns a Collection containing the pseudostates that are
+     * model elements in the argument StateMachine.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.statemachines.Pseudostate</code>
+     *
+     * @param stateMachine a StateMachine instance, may not be <code>null</code>
+     * @return the State instances found in the argument StateMachine
+     * @see org.omg.uml.behavioralelements.statemachines.Pseudostate
+     */
+    public Collection getPseudostates(StateMachine stateMachine)
+    {
+        return getSubvertices(stateMachine, pseudostateFilter);
     }
 
     /**
@@ -345,6 +379,30 @@ public class UMLDynamicHelper extends UMLDefaultHelper
         };
 
     /**
+     * A filter used to keep only States.
+     */
+    public final CollectionFilter stateFilter =
+        new CollectionFilter()
+        {
+            public boolean accept(Object object)
+            {
+                return isState(object);
+            }
+        };
+
+    /**
+     * A filter used to keep only States.
+     */
+    public final CollectionFilter pseudostateFilter =
+        new CollectionFilter()
+        {
+            public boolean accept(Object object)
+            {
+                return isPseudostate(object);
+            }
+        };
+
+    /**
      * A filter used to keep only FinalStates.
      */
     public final CollectionFilter finalStateFilter =
@@ -406,7 +464,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
 
     /**
      * Returns the first transition from the argument State that is incoming into another State,
-     * there may be several <i>hops</code> (such as merge points) in between.
+     * there may be several <i>hops</i> (such as merge points) in between.
      *
      * @param state a State, may not be <code>null</code>
      * @return the last transition before entering a new state
@@ -418,7 +476,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
 
     /**
      * Returns the first transition from the argument State that is incoming into another State,
-     * there may be several <i>hops</code> (such as merge points) in between.
+     * there may be several <i>hops</i> (such as merge points) in between.
      *
      * @param pseudostate a Pseudostate, may not be <code>null</code>
      * @return the last transition before entering a new state
@@ -430,7 +488,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
 
     /**
      * Returns the first transition from the argument Transition that is incoming into another State,
-     * there may be several <i>hops</code> (such as merge points) in between.
+     * there may be several <i>hops</i> (such as merge points) in between.
      * <p>
      * If the argument transition targets a State, itself will be returned.
      *
@@ -456,7 +514,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
 
     /**
      * Returns the first transition from the argument StateVertex that is incoming into another State,
-     * there may be several <i>hops</code> (such as merge points) in between.
+     * there may be several <i>hops</i> (such as merge points) in between.
      *
      * @param stateVertex a state vertex, may not be <code>null</code>
      * @return the last transition before entering a new state
@@ -504,6 +562,21 @@ public class UMLDynamicHelper extends UMLDefaultHelper
             Transition nextTransition = getNextStateTransition((Pseudostate)stateVertex);
             return (nextTransition == null) ? null : getStateTarget(nextTransition);
         }
+    }
+
+    // todo javadoc
+    public Transition skipMergePoints(Transition transition)
+    {
+        StateVertex target = transition.getTarget();
+
+        while (isMergePoint(target))
+        {
+            // guarantueed to have one outgoing transition
+            transition = (Transition)target.getOutgoing().iterator().next();
+            target = transition.getTarget();
+        }
+
+        return transition;
     }
 
     /**
@@ -592,8 +665,8 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     private Collection getNextTriggeredTransitionForStateVertex(StateVertex stateVertex)
     {
         Collection transitions = null;
-
         Transition transition = getNextStateTransitionForStateVertex(stateVertex);
+
         Event trigger = transition.getTrigger();
 
         if (trigger == null)
@@ -717,6 +790,10 @@ public class UMLDynamicHelper extends UMLDefaultHelper
      * multiple incoming transitions, but only a single outgoing transition.
      * <p>
      * Such a pseudostate would be used as a merge state in a UML diagram.
+     * <p>
+     * Currently this method will also return <code>true</code> when the object is
+     * is a Pseudostate.JOIN model element instead of the Pseudostate.CHOICE. All other
+     * conditions remain. It is recommended you use the former model element.
      *
      * @param object a choice pseudostate
      * @return <code>true</code> if there is more than 1 incoming transition, <code>false</code> otherwise
@@ -726,7 +803,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     {
         boolean isMergePoint = false;
 
-        if (isChoice(object))
+        if (isChoice(object) || isJoin(object))
         {
             Pseudostate pseudostate = (Pseudostate)object;
             isMergePoint = true;
@@ -742,6 +819,10 @@ public class UMLDynamicHelper extends UMLDefaultHelper
      * multiple outgoing transition, but only a single incoming transition.
      * <p>
      * Such a pseudostate would be used as a decision point in a UML diagram.
+     * <p>
+     * Currently this method will also return <code>true</code> when the object is
+     * is a Pseudostate.FORK modelelement instead of the Pseudostate.CHOICE. All other
+     * conditions remain. It is recommended you use the former modelelement.
      *
      * @param object a choice pseudostate
      * @return <code>true</code> if there is more than 1 outgoing transition, <code>false</code> otherwise
@@ -751,7 +832,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     {
         boolean isDecisionPoint = false;
 
-        if (isChoice(object))
+        if (isChoice(object) || isFork(object))
         {
             Pseudostate pseudostate = (Pseudostate)object;
             isDecisionPoint = true;
@@ -761,6 +842,55 @@ public class UMLDynamicHelper extends UMLDefaultHelper
 
         return isDecisionPoint;
     }
+
+    /**
+     * Checks whether the argument pseudostate has outgoing transitions with a guard, only if all of them
+     * have a guard and the argument is a decision point this method will return <code>true</code>.
+     *
+     * @param pseudostate a decision point
+     * @return <code>true</code> if the argument is indeed a decision point with all outgoing transitions guarded,
+     *  in any other case this method returns <code>false</code>.
+     * @see #isDecisionPoint(Object object)
+     * @see #isGuardedTransition(Object object)
+     */
+    public boolean isGuardedDecisionPoint(Pseudostate pseudostate)
+    {
+        boolean isGuardedDecisionPoint = isDecisionPoint(pseudostate);
+
+        Collection transitions = pseudostate.getOutgoing();
+        for (Iterator iterator = transitions.iterator(); iterator.hasNext() && isGuardedDecisionPoint;)
+        {
+            Transition transition = (Transition) iterator.next();
+            isGuardedDecisionPoint = isGuardedDecisionPoint && isGuardedTransition(transition);
+        }
+
+        return isGuardedDecisionPoint;
+    }
+
+    /**
+     * Checks whether the argument pseudostate has outgoing transitions with a trigger, only if all of them
+     * have a trigger and the argument is a decision point this method will return <code>true</code>.
+     *
+     * @param pseudostate a decision point
+     * @return <code>true</code> if the argument is indeed a decision point with all outgoing transitions triggered,
+     *  in any other case this method returns <code>false</code>.
+     * @see #isDecisionPoint(Object object)
+     * @see #isTriggeredTransition(Object object)
+     */
+    public boolean isTriggeredDecisionPoint(Pseudostate pseudostate)
+    {
+        boolean isTriggeredDecisionPoint = isDecisionPoint(pseudostate);
+
+        Collection transitions = pseudostate.getOutgoing();
+        for (Iterator iterator = transitions.iterator(); iterator.hasNext() && isTriggeredDecisionPoint;)
+        {
+            Transition transition = (Transition) iterator.next();
+            isTriggeredDecisionPoint = isTriggeredDecisionPoint && isTriggeredTransition(transition);
+        }
+
+        return isTriggeredDecisionPoint;
+    }
+
 
     /**
      * Returns a Collection containing the decision points that are
