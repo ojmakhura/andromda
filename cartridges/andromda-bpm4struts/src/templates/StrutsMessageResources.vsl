@@ -8,6 +8,7 @@ menu.title=Other links
 #
 #   Messages for the login page
 #
+login.title=Login
 login.username=User
 login.password=Password
 login.failed=Login failed, please try again
@@ -15,6 +16,18 @@ login.submit=Login
 login.submit.title=Click to submit these credentials
 login.reset=Reset
 login.reset.title=Click to reset these credentials
+
+login.error=Login failed, please try again or register as a new user.
+
+login.howto.title=How to login
+login.howto=If you are a registered user you simply enter your \
+user name and password and click on the submit button. \
+In case this is your first time, you should register yourself to the system.
+
+login.register.user=Register a new user
+login.login.user=Log in a registered user
+
+login.na=This feature is not available yet
 
 #
 #   Messages for the validator plugin
