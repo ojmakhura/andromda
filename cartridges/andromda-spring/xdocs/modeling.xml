@@ -182,20 +182,33 @@
                             Any of the hibernate generator classes may be used.
 			          	</td>
 		        	</tr>
-                      <tr>
-                          <a name="@andromda.hibernate.lazy"/>
-                            <td>
-                              @andromda.hibernate.lazy
-                            </td>
-                          <td>
-                              association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
-                          </td>
-                            <td>
-                                Used to denote how a relationship must be loaded: <code>true</code> for <code>lazy</code>,
-                                <code>false</code> for <code>eager</code>. Defaults to <code>false</code> for composite
-                                relationships and defaults to <code>true</code> for the other kinds.
-                            </td>
-                      </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.lazy"/>
+                        <td>
+                            @andromda.hibernate.lazy
+                        </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                        <td>
+                            Used to denote how a relationship must be loaded: <code>true</code> for <code>lazy</code>,
+                            <code>false</code> for <code>eager</code>. Defaults to <code>false</code> for composite
+                            relationships and defaults to <code>true</code> for the other kinds.
+                        </td>
+                    </tr>
+		        	<tr>
+		        		<a name="@andromda.role.name"/>
+			          	<td>
+			          		@andromda.role.name
+			          	</td>
+						<td>
+							<![CDATA[<<Role>>]]>
+						</td>
+			          	<td>
+			          		Optionally allows you to define the name of the role (if it needs
+                            to be different than the name of the actor that defines the role).
+			          	</td>
+		        	</tr>	
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">

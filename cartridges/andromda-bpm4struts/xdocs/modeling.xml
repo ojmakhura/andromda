@@ -285,6 +285,16 @@
                                 By setting the parameter type you can have any widget rendered into the table.
                             </td>
                         </tr>
+                        <tr>
+                            <a name="@andromda.role.name"/>
+                            <td>@andromda.role.name</td>
+                            <td><![CDATA[<<Role>>]]></td>
+                            <td>N/A</td>
+                            <td>
+                                Optionally allows you to define the name of the role (if it needs
+                                to be different than the name of the actor that defines the role).
+                            </td>
+                        </tr>	
                     </table>
                 </p>
                 <p class="std">

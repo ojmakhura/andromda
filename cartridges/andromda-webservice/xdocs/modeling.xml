@@ -167,7 +167,20 @@
 							then its expected that either the EJB or Hibernate cartridge
 							is being used with this cartridge.
 			          	</td>
-		        	</tr>				        	        	      	        	        		        	        	        	     	             	        	
+		        	</tr>			
+		        	<tr>
+		        		<a name="@andromda.role.name"/>
+			          	<td>
+			          		@andromda.role.name
+			          	</td>
+						<td>
+							<![CDATA[<<Role>>]]>
+						</td>
+			          	<td>
+			          		Optionally allows you to define the name of the role (if it needs
+                            to be different than the name of the actor that defines the role).
+			          	</td>
+		        	</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>	
     	</section>
