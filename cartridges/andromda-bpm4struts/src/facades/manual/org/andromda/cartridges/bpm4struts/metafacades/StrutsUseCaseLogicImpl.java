@@ -28,6 +28,7 @@ public class StrutsUseCaseLogicImpl
     private Collection pages = null;
     private Collection users = null;
     private Collection finalStates = null;
+    private String actionRoles = null;
 
     // ---------------- constructor -------------------------------
     
@@ -39,7 +40,7 @@ public class StrutsUseCaseLogicImpl
     // -------------------- business methods ----------------------
     public String getTitleKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getFullyQualifiedName());
+        return StringUtilsHelper.toResourceMessageKey(getName()) + ".title";
     }
 
     public String getTitleValue()
@@ -85,6 +86,20 @@ public class StrutsUseCaseLogicImpl
     public String getPackagePath()
     {
         return '/' + getPackageName().replace('.', '/');
+    }
+
+    public String getActionRoles()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionRoles != null) return actionRoles;
+
+        final Collection users = getAllUsers();
+        StringBuffer rolesBuffer = new StringBuffer();
+        for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
+        {
+            StrutsUser strutsUser = (StrutsUser) userIterator.next();
+            rolesBuffer.append(strutsUser.getRole() + ' ');
+        }
+        return (actionRoles = StringUtilsHelper.separate(rolesBuffer.toString(), ","));
     }
 
     // ------------- relations ------------------
