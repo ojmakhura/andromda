@@ -48,7 +48,7 @@ public class WebServiceProfile {
      *  the method.
      * </p>   
     */
-   public static final java.lang.String STEREOTYPE_WEBSERVICE_OPERATION = "WebserviceOperation";
+   public static final java.lang.String STEREOTYPE_WEBSERVICE_OPERATION = "WebServiceOperation";
    
     /* ---------------- Tagged Values ------------------- */
     
