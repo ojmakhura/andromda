@@ -2,23 +2,10 @@
     default="jar:install"
     xmlns:ant="jelly:ant"
     xmlns:maven="jelly:maven"
-    xmlns:j="jelly:core">
+    xmlns:j="jelly:core"
+    xmlns:velocity="jelly:velocity">
 
     <preGoal name="jar:jar">
-        <!-- include marked dependencies -->
-        <ant:mkdir dir="${maven.build.dest}"/>
-        <j:forEach var="lib" items="${pom.artifacts}">
-            <j:set var="dep" value="${lib.dependency}"/>
-            <j:if test="${dep.getProperty('jar.bundle')=='true' || dep.getProperty('jar.module')=='true'}">
-                <!--
-                 We know that this dep "wants" to be bundled.
-                -->
-                <ant:echo>Bundling: ${dep.type} - ${dep.id}</ant:echo>
-                <ant:copy todir="${maven.build.dest}">
-                    <ant:fileset dir="${lib.file.parent}" includes="${lib.file.name}"/>
-                </ant:copy>
-            </j:if>
-        </j:forEach>
         <!-- copy shared resources -->
         <ant:copy todir="${maven.build.dest}/templates/j2ee-app/mda/src/mappings">
             <ant:fileset dir="${mappings.location}"/>
@@ -29,10 +16,11 @@
     </preGoal>
     
     <postGoal name="jar:jar">
-    	<!-- copy over the initialization build file -->
-    	<ant:copy todir="${maven.build.dir}">
-    		<ant:fileset dir="${maven.src.dir}/ant"/>
-    	</ant:copy>
+    	<!-- create over the initialization build file -->
+	    <velocity:merge
+			name="${maven.build.dir}/build.xml"
+			basedir="${maven.src.dir}/templates"
+			template="/build.xml.vsl"/> 	
     </postGoal>
 
 </project>
