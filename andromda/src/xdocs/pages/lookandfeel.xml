@@ -169,11 +169,8 @@
         the model.
       </p>
       <p>
-        XMI is not used consistently - it has <i>dialects</i>. Each
-        CASE tool writes XMI a little bit differently. This is why
-        AndroMDA does not read XMI directly but uses an additional
-        XSL step in between. Thus, AndroMDA can easily be adapted to
-        different XMI dialects.
+        XMI is not used consistently - it has <i>dialects</i>. We are working
+        to support as many CASE tools as possible.
       </p>
     </news>
 
@@ -194,14 +191,25 @@
       </p>
     </news>
 
+    <news name="MagicDraw" href="http://www.magicdraw.com">
+      <p>
+      	MagicDraw UML is another UML CASE tool whos native
+      	data format is XMI and it too works very well with
+      	AndroMDA.
+      </p>
+      
+    </news>
+    
     <news name="TogetherJ" href="http://www.togethersoft.com/">
       <p>
         TogetherJ is another CASE tool, a really big one.
         It aims to be a complete model-build-deploy platform
         with everything in it that you would expect from
         a modeling tool packed with an IDE.
-        It is also delivered in different editions and
-        can also write XMI format as an input for AndroMDA.
+      </p>
+      <p>
+        TogetherJ's XMI dialect is not supported in the
+        alpha version of AndroMDA. We plan to support it.
       </p>
     </news>
 
@@ -210,8 +218,12 @@
         Rational Rose was one of the first products in the area of
         CASE tools. Today, it is an award-winning model-driven
         development tool and is part of Rational Software's
-        "Suite". Rose can write XMI, too, so you can use AndroMDA
-        with Rose.
+        "Suite". 
+      </p>
+      <p>
+      	Rose can write XMI, too, but it's XMI dialect is
+      	not supported in the alpha verson of AndroMDA. We plan
+      	to it.
       </p>
     </news>
 
