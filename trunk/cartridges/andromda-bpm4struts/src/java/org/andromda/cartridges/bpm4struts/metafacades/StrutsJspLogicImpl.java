@@ -82,7 +82,7 @@ public class StrutsJspLogicImpl
 
         for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
-            Object object = (Object) iterator.next();
+            Object object = iterator.next();
             if (object instanceof StrutsAction)
                 actions.add(object);
         }
