@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  The base UML Metafacade stereotypes
+-->
+<mappings name="UMLStereotype"> 
+    <mapping>
+        <from>ENTITY</from>
+        <to>Entity</to>
+    </mapping>
+    <mapping>
+        <from>SERVICE</from>
+        <to>Service</to>
+    </mapping>
+    <mapping>
+        <from>FINDER_METHOD</from>
+        <to>FinderMethod</to>
+    </mapping>
+    <mapping>
+        <from>IDENTIFIER</from>
+        <to>PrimaryKey</to>
+    </mapping>
+    <mapping>
+        <from>UNIQUE</from>
+        <to>Unique</to>
+    </mapping>
+    <mapping>
+        <from>VALUE_OBJECT</from>
+        <to>ValueObject</to>
+    </mapping>
+    <mapping>
+        <from>EXCEPTION</from>
+        <to>Exception</to>
+    </mapping>
+    <mapping>
+        <from>APPLICATION_EXCEPTION</from>
+        <to>ApplicationException</to>
+    </mapping>
+    <mapping>
+        <from>UNEXPECTED_EXCEPTION</from>
+        <to>UnexpectedException</to>
+    </mapping>
+    <mapping>
+        <from>ENUMERATION</from>
+        <to>Enumeration</to>
+    </mapping>
+    <mapping>
+        <from>WEBSERVICE</from>
+        <to>WebService</to>
+    </mapping>
+    <mapping>
+        <from>WEBSERVICE_OPERATION</from>
+        <to>WebServiceOperation</to>
+    </mapping>
+    <mapping>
+        <from>NULLABLE</from>
+        <to>Nullable</to>
+    </mapping>
+    <mapping>
+        <from>ROLE</from>
+        <to>Role</to>
+    </mapping>
+</mappings>

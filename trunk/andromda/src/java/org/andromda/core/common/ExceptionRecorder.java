@@ -75,10 +75,10 @@ public class ExceptionRecorder
     {
         return record(errorMessage, throwable, "S");
     }
-    
+
     /**
-     * The default prefix given, if prefix in {@link #record(String, Throwable, String)
-     * is null.
+     * The default prefix given, if prefix in
+     * {@link #record(String, Throwable, String)is null.
      */
     private static final String DEFAULT_PREFIX = "andromda";
 
@@ -207,8 +207,7 @@ public class ExceptionRecorder
     }
 
     /**
-     * Returns the directory to which the exceptions
-     * are written.
+     * Returns the directory to which the exceptions are written.
      * 
      * @return the exception directory as a java.io.File instance.
      */

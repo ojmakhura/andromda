@@ -63,6 +63,7 @@ public class ServiceOperationFacadeLogicImpl
         roles.addAll(operationRoles);
         return roles;
     }
+
     /**
      * @see org.andromda.metafacades.uml.ServiceOperationFacade#getTransactionType()
      */

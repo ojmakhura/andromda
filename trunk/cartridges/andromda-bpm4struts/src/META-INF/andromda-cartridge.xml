@@ -66,7 +66,7 @@
         outlet="actions"
         overwrite="true">
         <modelElements variable="action">
-            <modelElement stereotype="FrontEndEvent"/>
+            <modelElement stereotype="FRONT_END_EVENT"/>
         </modelElements>
     </template>
     
@@ -83,7 +83,7 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="action">
-            <modelElement stereotype="FrontEndEvent"/>
+            <modelElement stereotype="FRONT_END_EVENT"/>
         </modelElements>
     </template>
 
@@ -93,7 +93,7 @@
         outlet="forms"
         overwrite="true">
         <modelElements variable="action">
-            <modelElement stereotype="FrontEndEvent"/>
+            <modelElement stereotype="FRONT_END_EVENT"/>
         </modelElements>
     </template>
 
@@ -117,7 +117,7 @@
         outlet="controller-impls"
         overwrite="false">
         <modelElements variable="controller">
-            <modelElement stereotype="FrontEndController">
+            <modelElement stereotype="FRONT_END_CONTROLLER">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
                     <!-- if this property is not present it's no use generating the controller -->
                     <property name="useCase"/>
@@ -132,7 +132,7 @@
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
-            <modelElement stereotype="FrontEndController">
+            <modelElement stereotype="FRONT_END_CONTROLLER">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
                     <!-- if this property is not present it's no use generating the controller -->
                     <property name="useCase"/>
@@ -147,7 +147,7 @@
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
-            <modelElement stereotype="FrontEndController">
+            <modelElement stereotype="FRONT_END_CONTROLLER">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
                     <!-- if this property is not present it's no use generating the controller -->
                     <property name="useCase"/>
@@ -172,7 +172,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="jsp">
-            <modelElement stereotype="FrontEndView"/>
+            <modelElement stereotype="FRONT_END_VIEW"/>
         </modelElements>
     </template>
     
@@ -182,7 +182,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="jsp">
-            <modelElement stereotype="FrontEndView"/>
+            <modelElement stereotype="FRONT_END_VIEW"/>
         </modelElements>
     </template>
 
@@ -193,7 +193,7 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -204,7 +204,7 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
     
@@ -220,7 +220,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -230,7 +230,7 @@
         outlet="messages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -240,7 +240,7 @@
         outlet="messages"
         overwrite="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -251,8 +251,8 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements>
-            <modelElement stereotype="FrontEndApplication" variable="applicationUseCases"/>
-            <modelElement stereotype="FrontEndController" variable="controllers"/>
+            <modelElement stereotype="FRONT_END_APPLICATION" variable="applicationUseCases"/>
+            <modelElement stereotype="FRONT_END_CONTROLLER" variable="controllers"/>
         </modelElements>
     </template>
     
@@ -268,7 +268,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -278,7 +278,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -288,7 +288,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -298,7 +298,7 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -308,7 +308,7 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -319,7 +319,7 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 -->
@@ -330,7 +330,7 @@
         outlet="configuration"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -340,7 +340,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -350,7 +350,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -361,7 +361,7 @@
         overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="page">
-            <modelElement stereotype="FrontEndView"/>
+            <modelElement stereotype="FRONT_END_VIEW"/>
         </modelElements>
     </template>
 
@@ -371,7 +371,7 @@
         outlet="pages"
         overwrite="true">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -383,7 +383,7 @@
         required="false"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -395,7 +395,7 @@
         required="false"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 
@@ -434,7 +434,7 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="jsp">
-            <modelElement stereotype="FrontEndView"/>
+            <modelElement stereotype="FRONT_END_VIEW"/>
         </modelElements>
     </template>
 
@@ -445,7 +445,7 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
+            <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
 

@@ -45,7 +45,7 @@ public class Merger
 
     /**
      * Stores the cached merge mappings already found (so we don't need to
-     * reconstrut again each time).
+     * reconstruct again each time).
      */
     private Map mergeMappingsCache = new HashMap();
 

@@ -89,11 +89,11 @@ public class UMLModelAccessFacade
         Collection stereoTypeNames = new Vector();
         if (modelElement instanceof ModelElement)
         {
-            ModelElement m = (ModelElement)modelElement;
-            Collection stereotypes = m.getStereotype();
-            for (Iterator i = stereotypes.iterator(); i.hasNext();)
+            ModelElement element = (ModelElement)modelElement;
+            Collection stereotypes = element.getStereotype();
+            for (Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                ModelElement stereotype = (ModelElement)i.next();
+                ModelElement stereotype = (ModelElement)iterator.next();
                 stereoTypeNames.add(stereotype.getName());
             }
         }

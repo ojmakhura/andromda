@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  The default BPM4Struts stereotype mappings.
+-->
+<mappings name="BPM4StrutsStereotype"> 
+    <mapping>
+        <from>FRONT_END_VIEW</from>
+        <to>FrontEndView</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_EVENT</from>
+        <to>FrontEndEvent</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_USER</from>
+        <to>Role</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_USE_CASE</from>
+        <to>FrontEndUseCase</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_APPLICATION</from>
+        <to>FrontEndApplication</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_CONTROLLER</from>
+        <to>FrontEndController</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_EXCEPTION</from>
+        <to>FrontEndException</to>
+    </mapping>
+    <mapping>
+        <from>FRONT_END_SESSION_OBJECT</from>
+        <to>FrontEndSessionObject</to>
+    </mapping>
+</mappings>

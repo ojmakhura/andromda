@@ -4,7 +4,7 @@
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.ejb.metafacades.ValueObjectFacadeLogicImpl"
         contextRoot="true">
-        <stereotype>ValueObject</stereotype>
+        <stereotype>VALUE_OBJECT</stereotype>
         <property reference="valueObjectPackage" default="{0}"/>
         <property reference="valueObjectName" default="{0}"/>
     </metafacade>
@@ -15,25 +15,25 @@
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl" 
         metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
-        <stereotype>FinderMethod</stereotype>
+        <stereotype>FINDER_METHOD</stereotype>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" 
         metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogicImpl">
-        <stereotype>PrimaryKey</stereotype>
+        <stereotype>IDENTIFIER</stereotype>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" 
         contextRoot="true">
-        <stereotype>Entity</stereotype>
+        <stereotype>ENTITY</stereotype>
         <property reference="jndiNamePrefix" default=""/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" 
         contextRoot="true">
-        <stereotype>Entity</stereotype>
+        <stereotype>ENTITY</stereotype>
         <property reference="jndiNamePrefix" default=""/>
     </metafacade>
     <metafacade 

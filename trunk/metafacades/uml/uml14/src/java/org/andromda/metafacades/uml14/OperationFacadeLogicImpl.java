@@ -33,7 +33,7 @@ public class OperationFacadeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */

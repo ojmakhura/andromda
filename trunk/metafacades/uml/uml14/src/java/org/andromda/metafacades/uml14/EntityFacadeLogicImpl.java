@@ -122,10 +122,14 @@ public class EntityFacadeLogicImpl
      */
     private void createIdentifier()
     {
-        Attribute identifier = UMLMetafacadeUtils.createAttribute(this
-            .getDefaultIdentifier(), this.getDefaultIdentifierType(), this
-            .getDefaultIdentifierVisibility(), String.valueOf(this
-            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
+        Attribute identifier = UMLMetafacadeUtils
+            .createAttribute(
+                this.getDefaultIdentifier(),
+                this.getDefaultIdentifierType(),
+                this.getDefaultIdentifierVisibility(),
+                String
+                    .valueOf(this
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
 
         identifier.getStereotype().add(
             UMLMetafacadeUtils
@@ -521,8 +525,9 @@ public class EntityFacadeLogicImpl
      */
     public Short handleGetMaxSqlNameLength()
     {
-        return Short.valueOf((String)this
-            .getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
+        return Short
+            .valueOf((String)this
+                .getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
 
     /**

@@ -41,7 +41,7 @@
         overwrite="true"
         required="false">
         <modelElements variable="class">
-            <modelElement stereotype="ValueObject"/>
+            <modelElement stereotype="VALUE_OBJECT"/>
         </modelElements>
     </template>
 
@@ -52,8 +52,8 @@
         overwrite="true"
         required="false">
         <modelElements variable="class">
-            <modelElement stereotype="Exception"/>
-            <modelElement stereotype="ApplicationException"/>
+            <modelElement stereotype="EXCEPTION"/>
+            <modelElement stereotype="APPLICATION_EXCEPTION"/>
         </modelElements>
     </template>
 
@@ -64,7 +64,7 @@
         overwrite="true"
         required="false">
         <modelElements variable="class">
-            <modelElement stereotype="UnexpectedException"/>
+            <modelElement stereotype="UNEXPECTED_EXCEPTION"/>
         </modelElements>
     </template>
 

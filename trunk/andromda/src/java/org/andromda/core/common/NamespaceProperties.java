@@ -27,4 +27,11 @@ public class NamespaceProperties
      * </p>
      */
     public static final String MERGE_LOCATION = "mergeLocation";
+
+    /**
+     * <p>
+     * The URI to the mappings file containing the AndroMDA stereotypes.
+     * </p>
+     */
+    public static final String STEREOTYPES_URI = "stereotypesUri";
 }

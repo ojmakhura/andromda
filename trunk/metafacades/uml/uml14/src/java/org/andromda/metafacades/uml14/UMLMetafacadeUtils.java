@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.profile.Stereotypes;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -48,11 +49,15 @@ public class UMLMetafacadeUtils
      * <code>fullyQualifiedName</code>. If the model element can <strong>NOT
      * </strong> be found, <code>null</code> will be returned instead.
      * 
-     * @param fullyQualifieName the fully qualified name of the element to search for.
-     * @param seperator the seperator used for qualifying the name (example '::').
+     * @param fullyQualifieName the fully qualified name of the element to
+     *        search for.
+     * @param seperator the seperator used for qualifying the name (example
+     *        '::').
      * @return the found model element
      */
-    static Object findByFullyQualifiedName(String fullyQualifiedName, String seperator)
+    static Object findByFullyQualifiedName(
+        String fullyQualifiedName,
+        String seperator)
     {
         final String methodName = "UMLMetafacadeUtils.findModelElement";
         Object modelElement = null;
@@ -71,8 +76,7 @@ public class UMLMetafacadeUtils
                     rootPackage.getClass());
                 if (rootPackage != null)
                 {
-                    String[] names = fullyQualifiedName.split("\\"
-                        + seperator);
+                    String[] names = fullyQualifiedName.split("\\" + seperator);
                     if (names != null && names.length > 0)
                     {
                         Object element = rootPackage;
@@ -180,6 +184,18 @@ public class UMLMetafacadeUtils
     }
 
     /**
+     * Gets the mapped stereotype name from the profile.
+     * 
+     * @param stereotypeName the stereotype name to retrieve.
+     * @return the mapped stereotype name or <code>stereotypeName</code> iself
+     *         it wasn't mapped.
+     */
+    static String getStereotypeName(String stereotypeName)
+    {
+        return Stereotypes.instance().get(stereotypeName);
+    }
+
+    /**
      * Returns the entire model.
      * 
      * @return org.omg.uml.UmlPackage model instance.
@@ -243,8 +259,9 @@ public class UMLMetafacadeUtils
         attribute.setName(name);
         attribute.setVisibility(UMLMetafacadeUtils
             .getVisibilityKind(visibility));
-        Object type = UMLMetafacadeUtils
-            .findByFullyQualifiedName(fullyQualifiedTypeName, seperator);
+        Object type = UMLMetafacadeUtils.findByFullyQualifiedName(
+            fullyQualifiedTypeName,
+            seperator);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
         {
             attribute.setType((Classifier)type);
@@ -261,6 +278,7 @@ public class UMLMetafacadeUtils
      */
     static Stereotype findOrCreateStereotype(String name)
     {
+        name = getStereotypeName(name);
         Object stereotype = UMLMetafacadeUtils.findByName(name);
         if (stereotype == null
             || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
@@ -463,7 +481,7 @@ public class UMLMetafacadeUtils
             && !stereotypePresent;)
         {
             Stereotype stereotype = (Stereotype)stereotypeIterator.next();
-            if (stereotypeName.equals(stereotype.getName()))
+            if (getStereotypeName(stereotypeName).equals(stereotype.getName()))
             {
                 stereotypePresent = true;
             }

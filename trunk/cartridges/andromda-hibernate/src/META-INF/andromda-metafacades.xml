@@ -7,19 +7,19 @@
 		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
 		contextRoot="true">
-		<stereotype>Entity</stereotype>
+		<stereotype>ENTITY</stereotype>
 	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
 		contextRoot="true">
-		<stereotype>Entity</stereotype>
+		<stereotype>ENTITY</stereotype>
  	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
 		contextRoot="true">
-		<stereotype>Entity</stereotype>
+		<stereotype>ENTITY</stereotype>
 	</metafacade>	
 		
     <metafacade
@@ -32,7 +32,7 @@
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl"
         contextRoot="true">
-        <stereotype>FinderMethod</stereotype>
+        <stereotype>FINDER_METHOD</stereotype>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
     </metafacade>
     <metafacade
@@ -43,13 +43,13 @@
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
-        <stereotype>Service</stereotype>
+        <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
-        <stereotype>Service</stereotype>
+        <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
     </metafacade>
     <metafacade

@@ -149,6 +149,20 @@ public class Mappings
     }
 
     /**
+     * Adds the <code>mappings</code> instance to this Mappings instance
+     * overriding any mappings with duplicate names.
+     * 
+     * @param mappings the Mappings instance to add this instance.
+     */
+    public void addMappings(Mappings mappings)
+    {
+        if (mappings != null && mappings.mappings != null)
+        {
+            this.mappings.putAll(mappings.mappings);
+        }
+    }
+
+    /**
      * The suffix appended to array types.
      */
     private static final String ARRAY_SUFFIX = "[]";
@@ -164,7 +178,7 @@ public class Mappings
      */
     public String getTo(String from)
     {
-        from = StringUtils.deleteWhitespace(from);
+        from = StringUtils.deleteWhitespace(StringUtils.trimToEmpty(from));
         String initialFrom = from;
 
         String to = null;

@@ -9,6 +9,7 @@ import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.MetafacadeProperties;
+import org.andromda.core.profile.Stereotypes;
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
@@ -146,8 +147,10 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
      */
-    public boolean handleHasStereotype(final String stereotypeName)
+    public boolean handleHasStereotype(String stereotypeName)
     {
+        final String stereotype = UMLMetafacadeUtils
+            .getStereotypeName(stereotypeName);
         Collection stereotypes = this.getStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName)
@@ -161,16 +164,15 @@ public class ModelElementFacadeLogicImpl
                 public boolean evaluate(Object object)
                 {
                     boolean valid = false;
-                    StereotypeFacade stereotype = (StereotypeFacade)object;
-                    String name = StringUtils.trimToEmpty(stereotype.getName());
-                    valid = stereotypeName.equals(name);
-                    while (!valid && stereotype != null)
+                    StereotypeFacade facade = (StereotypeFacade)object;
+                    String name = StringUtils.trimToEmpty(facade.getName());
+                    valid = stereotype.equals(name);
+                    while (!valid && facade != null)
                     {
-                        stereotype = (StereotypeFacade)stereotype
-                            .getGeneralization();
-                        valid = stereotype != null
-                            && StringUtils.trimToEmpty(stereotype.getName())
-                                .equals(stereotypeName);
+                        facade = (StereotypeFacade)facade.getGeneralization();
+                        valid = facade != null
+                            && StringUtils.trimToEmpty(facade.getName())
+                                .equals(stereotype);
                     }
                     return valid;
                 }
@@ -196,7 +198,8 @@ public class ModelElementFacadeLogicImpl
     public boolean handleHasExactStereotype(String stereotypeName)
     {
         return this.getStereotypeNames().contains(
-            StringUtils.trimToEmpty(stereotypeName));
+            StringUtils.trimToEmpty(UMLMetafacadeUtils
+                .getStereotypeName(stereotypeName)));
     }
 
     /**
@@ -305,7 +308,7 @@ public class ModelElementFacadeLogicImpl
                 Comment comment = (Comment)commentIt.next();
                 String commentString = StringUtils.trimToEmpty(comment
                     .getBody());
-                //if there isn't anything in the body, try the name
+                // if there isn't anything in the body, try the name
                 if (StringUtils.isEmpty(commentString))
                 {
                     commentString = StringUtils.trimToEmpty(comment.getName());
@@ -399,7 +402,7 @@ public class ModelElementFacadeLogicImpl
                 String errMsg = "Error getting '" + propertyName + "' --> '"
                     + uri + "'";
                 logger.error(errMsg, th);
-                //don't throw the exception
+                // don't throw the exception
             }
         }
         else
