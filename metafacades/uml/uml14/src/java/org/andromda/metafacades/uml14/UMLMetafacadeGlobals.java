@@ -42,4 +42,10 @@ public class UMLMetafacadeGlobals
      */
     public static final String BOOLEAN_TYPE_NAME = "datatype.boolean";
 
+    /**
+     * Used to indentify a file type in the model, any other type
+     * that will be identified as a file type must specialize this type.
+     */
+    public static final String FILE_TYPE_NAME = "datatype.File";
+
 }
