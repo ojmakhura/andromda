@@ -22,6 +22,9 @@ Helpers
   	line_terminator = lf | cr | cr lf;
   	input_character = [all - [cr + lf]];
 
+    not_star = [input_character - '*'] | line_terminator;
+    not_star_not_slash = [input_character - ['*' + '/']] | line_terminator;
+
   	simple_escape_sequence =
   		'\' ''' | '\"' | '\?' | '\\' |
         '\a' | '\b' | '\f' | '\n' | '\r' | '\t' | '\v';
@@ -51,7 +54,9 @@ Helpers
 
 Tokens
 
-  	comment = '--' [[all - 10] - 13]* [10 + 13]?;
+  	single_line_comment = '--' [[all - 10] - 13]* [10 + 13]?;
+  	
+  	multi_line_comment = '/*' not_star+ '*'+ (not_star_not_slash not_star* '*'+)* '/';
 
   	dot = '.';
   	arrow = '->';
@@ -187,7 +192,8 @@ Tokens
 
 Ignored Tokens
 
-  	comment,
+  	single_line_comment,
+  	multi_line_comment,
   	new_line,
   	blank,
  	tab;

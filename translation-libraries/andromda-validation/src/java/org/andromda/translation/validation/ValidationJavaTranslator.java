@@ -419,7 +419,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         write("java.util.Collection ");
     }
 
-    public void caseTComment(TComment tComment)
+    public void caseTComment(TSingleLineComment tSingleLineComment)
     {
         write("// ");
     }
