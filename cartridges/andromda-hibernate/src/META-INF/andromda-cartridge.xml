@@ -32,7 +32,6 @@
     <property reference="hibernateJdbcUseScrollableResultSet" default=""/>
     <property reference="hibernateMaxFetchDepth" default=""/>
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
-    <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
