@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
+import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -353,4 +354,52 @@ public class EJBEntityFacadeLogicImpl
         }
         return false;
     }
+    
+    /**
+     * Gets a Mappings instance from a property registered under the given
+     * <code>propertyName</code>.
+     * 
+     * @param propertyName the property name to register under.
+     * @return the Mappings instance.
+     */
+    private Mappings getMappingsProperty(final String propertyName)
+    {
+        Object property = this.getConfiguredProperty(propertyName);
+        Mappings mappings = null;
+        String uri = null;
+        if (String.class.isAssignableFrom(property.getClass()))
+        {
+            uri = (String)property;
+            try
+            {
+                mappings = Mappings.getInstance(uri);
+                this.setProperty(propertyName, mappings);
+            }
+            catch (Throwable th)
+            {
+                String errMsg = "Error getting '" + propertyName + "' --> '"
+                    + uri + "'";
+                //logger.error(errMsg, th);
+                //don't throw the exception
+            }
+        }
+        else
+        {
+            mappings = (Mappings)property;
+        }
+        return mappings;
+    }
+
+	/* (non-Javadoc)
+	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetSqlType()
+	 */
+	protected String handleGetSqlType() 
+	{
+		String mpSql = getMappingsProperty("sqlMappingsUri").getName();
+		if(mpSql.startsWith("Oracle")) 
+		{
+			mpSql = "ORACLE";
+		}
+		return mpSql;
+	}
 }
