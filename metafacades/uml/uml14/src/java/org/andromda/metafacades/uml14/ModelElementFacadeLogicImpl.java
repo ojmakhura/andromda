@@ -233,8 +233,6 @@ public class ModelElementFacadeLogicImpl
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
-     *
-     * TODO: the lineLength does not work yet
      */
     public String handleGetDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
@@ -295,14 +293,12 @@ public class ModelElementFacadeLogicImpl
         return documentation.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ModelElementFacade#getName()
+     */
     public String handleGetName()
     {
         return metaObject.getName();
-    }
-
-    public ModelElement getMetaObject()
-    {
-        return metaObject;
     }
 
     /**
@@ -337,6 +333,9 @@ public class ModelElementFacadeLogicImpl
         return (Mappings)this.getConfiguredProperty(LANGUAGE_MAPPINGS_URI);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackage()
+     */
     protected Object handleGetPackage()
     {
         return metaObject.getNamespace();
@@ -410,6 +409,9 @@ public class ModelElementFacadeLogicImpl
         return this.metaObject.getConstraint();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints(java.lang.String)
+     */
     public Collection handleGetConstraints(final String kind)
     {
         try
@@ -512,6 +514,14 @@ public class ModelElementFacadeLogicImpl
                 }
             });
         return this.translateConstraints(constraints, translation);
+     }
+
+     /**
+      * @see org.andromda.core.metafacade.MetafacadeBase#handleInvariants(java.util.Collection)
+      */
+     public void handleValidateInvariants(Collection validationMessages)
+     {
+         super.handleInvariants(validationMessages);
      }
 
      /**

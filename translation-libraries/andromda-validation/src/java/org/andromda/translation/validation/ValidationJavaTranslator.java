@@ -1,7 +1,10 @@
 package org.andromda.translation.validation;
 
 import org.andromda.core.translation.BaseTranslator;
+import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.*;
+import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,7 +20,6 @@ public class ValidationJavaTranslator extends BaseTranslator
      */
     public void caseAContextDeclaration(AContextDeclaration node)
     {
-
         newTranslationLayer();
         {
             Object temp[] = node.getContextDeclaration().toArray();
@@ -107,15 +109,6 @@ public class ValidationJavaTranslator extends BaseTranslator
     public void outADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         arrowPropertyCallStack.pop();
-    }
-
-    /**
-     * Renders the path name, instances of 'self' are translated into 'this'.
-     */
-    public void caseAPathName(APathName node)
-    {
-        final String name = node.getName().getText();
-        write("self".equals(name) ? "this" : name);
     }
 
     /**
@@ -261,15 +254,55 @@ public class ValidationJavaTranslator extends BaseTranslator
         Object temp[] = node.getPropertyCallExpressionTail().toArray();
         for (int i = 0; i < temp.length; i++)
             ((PPropertyCallExpressionTail) temp[i]).apply(this);
-        mergeTranslationLayerAfter();
+        mergeTranslationLayerAfter();            
     }
 
     public void caseADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         inADotPropertyCallExpressionTail(node);
-        node.getDot().apply(this);
-        node.getFeatureCall().apply(this);
+        String expression = TranslationUtils.trimToEmpty(node);
+        // we prepend an introspection call if the expression is an operation call
+        if (expression.matches(OCLIntrospector.OPERATION_FEATURE))
+        {
+            this.handleDotFeatureCall((AFeatureCall)node.getFeatureCall());        
+        } 
         outADotPropertyCallExpressionTail(node);
+    }
+    
+    /**
+     * Handles an <strong>dot</strong> feature call.
+     * Its expected that this <code>featureCall</code>'s parent is a
+     * ADotPropertyCallExpressionTail. This is here because
+     * dot feature calls must be handled differently than
+     * <code>arrow<code> feature calls.
+     *
+     * @param featureCall the <strong>dot</strong>
+     *        <code>featureCall</code> to handle.
+     */
+    public void handleDotFeatureCall(AFeatureCall featureCall) 
+    {
+        this.prependToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(");
+        String propertyCallExpression = 
+            TranslationUtils.deleteWhitespace(featureCall.parent().parent());
+        if (propertyCallExpression.matches(".*\\s?self\\..*"))
+        {
+            write("this");
+        }
+        this.appendToTranslationLayer(",\"");
+        this.appendToTranslationLayer(TranslationUtils.deleteWhitespace(featureCall));
+        this.appendToTranslationLayer("\"");
+        if (featureCall.getFeatureCallParameters() != null)
+        {
+            List parameters = ConcreteSyntaxUtils.getParameters(featureCall);
+            if (parameters != null && !parameters.isEmpty())
+            {
+                write(",new Object[]{");
+                this.appendToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(this,\""); 
+                this.appendToTranslationLayer(ConcreteSyntaxUtils.getParameters(featureCall).get(0));
+                this.appendToTranslationLayer("\")}");
+            }
+        }
+        this.appendToTranslationLayer(")");      
     }
 
     public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
@@ -290,13 +323,13 @@ public class ValidationJavaTranslator extends BaseTranslator
         {
             final String variableName = ((APathName)node.getPathName()).getName().getText();
             final String variableValue = getDeclaredLetVariableValue(variableName);
-            final boolean isDeclaredAsLetVariable = (variableValue!=null);
+            final boolean isDeclaredAsLetVariable = (variableValue != null);
 
             if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
             {
                 if (!isDeclaredAsLetVariable)
                 {
-                    write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
+                    //write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
                 }
             }
 
@@ -304,7 +337,32 @@ public class ValidationJavaTranslator extends BaseTranslator
             {
                 write(variableValue);
             }
-            else
+            else if(node.getFeatureCallParameters() == null)
+            {
+                APropertyCallExpression expression = 
+                    (APropertyCallExpression)node.parent();
+                String expressionAsString = 
+                    ConcreteSyntaxUtils.getPrimaryExpression(expression);
+                expressionAsString =
+                    expressionAsString.replaceAll("self\\.|self", "");
+                if (StringUtils.isNotBlank(expressionAsString))
+                {
+                    write("org.andromda.translation.validation.OCLIntrospector.invoke(");
+                    String invokedObject = "this";
+                    // if we're in an arrow call we assume the invoked object
+                    // is the object for which the arrow call applies
+                    if (arrowPropertyCallStack.peek().equals(Boolean.TRUE)) 
+                    {
+                        invokedObject = "object";
+                    }
+                    write(invokedObject);
+                    write(",\"");
+                    // remove any references to 'self.' as we write
+                    write(expressionAsString);
+                    write("\")");                    
+                }
+            } 
+            else 
             {
                 node.getPathName().apply(this);
             }
@@ -313,7 +371,7 @@ public class ValidationJavaTranslator extends BaseTranslator
             {
                 if (!isDeclaredAsLetVariable)
                 {
-                    write("\")");
+                    //write("\")");
                 }
             }
         }
@@ -323,7 +381,8 @@ public class ValidationJavaTranslator extends BaseTranslator
         }
         if(node.getQualifiers() != null)
         {
-            // we use introspection when in an arrow, so passing feature name as a String without parentheses
+            // we use introspection when in an arrow, so passing 
+            // feature name as a String without parentheses
             if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
             {
                 node.getQualifiers().apply(this);
@@ -331,7 +390,8 @@ public class ValidationJavaTranslator extends BaseTranslator
         }
         if(node.getFeatureCallParameters() != null)
         {
-            // we use introspection when in an arrow, so passing feature name as a String without parentheses
+            // we use introspection when in an arrow, 
+            // so passing feature name as a String without parentheses
             if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
             {
                 node.getFeatureCallParameters().apply(this);
@@ -352,32 +412,13 @@ public class ValidationJavaTranslator extends BaseTranslator
      * <code>dot<code> feature calls.
      *
      * @param featureCall the <strong>arrow</strong>
-     *                    <code>featureCall</code> to handle.
+     *        <code>featureCall</code> to handle.
      */
     public void handleArrowFeatureCall(AFeatureCall featureCall)
     {
         AFeatureCallParameters params = (AFeatureCallParameters)featureCall.getFeatureCallParameters();
         AActualParameterList list = (AActualParameterList)params.getActualParameterList();
         boolean arrow = arrowPropertyCallStack.peek().equals(Boolean.TRUE) && !"".equals(String.valueOf(list).trim());
-
-/*
-        {
-            newTranslationLayer();
-            write("OCLCollections.");
-            inAFeatureCall(featureCall);
-            if (featureCall.getPathName() != null)
-            {
-                featureCall.getPathName().apply(this);
-            }
-            this.outAFeatureCall(featureCall);
-
-
-            prependToTranslationLayer("OCLCollections.");
-            write(",new OCLExpression(){public boolean evaluate(Object object){");
-            write("}}");
-        }
-        else
-*/
         {
             newTranslationLayer();
             write("org.andromda.translation.validation.OCLCollections.");
@@ -387,18 +428,16 @@ public class ValidationJavaTranslator extends BaseTranslator
                 featureCall.getPathName().apply(this);
             }
             AFeatureCallParameters parameters =
-                    (AFeatureCallParameters) featureCall.getFeatureCallParameters();
+                (AFeatureCallParameters) featureCall.getFeatureCallParameters();
             if (parameters.getLParen() != null)
             {
                 parameters.getLParen().apply(this);
             }
             mergeTranslationLayerBefore();
             AActualParameterList parameterList =
-                    (AActualParameterList) parameters.getActualParameterList();
+                (AActualParameterList) parameters.getActualParameterList();
             if (parameterList != null)
             {
-
-
                 List expressions = parameterList.getCommaExpression();
 
                 if (parameterList.getExpression() != null)
@@ -879,8 +918,8 @@ public class ValidationJavaTranslator extends BaseTranslator
     private final Stack translationLayers = new Stack();
 
     /**
-     * Contains Boolean.TRUE on the top when the most recent property call was an arrow property call,
-     * contains Boolean.FALSE otherwise.
+     * Contains Boolean.TRUE on the top when the most recent property call 
+     * was an arrow property call, contains Boolean.FALSE otherwise.
      */
     private final Stack arrowPropertyCallStack = new Stack();
 
@@ -991,6 +1030,22 @@ public class ValidationJavaTranslator extends BaseTranslator
     public ValidationJavaTranslator()
     {
         arrowPropertyCallStack.push(Boolean.FALSE);
+    }
+    
+    /**
+     * We need to wrap every expression with a converter
+     * so that any expressions that return just objects
+     * are converted to boolean values.
+     * 
+     * @see org.andromda.core.translation.BaseTranslator#postProcess()
+     */
+    protected void postProcess() 
+    {
+        /*this.getExpression().insertInTranslatedExpression(
+            0,
+            "org.andromda.translation.validation.OCLResultEnsurer.ensure(");
+        this.getExpression().appendToTranslatedExpression(")");*/
+        
     }
 }
 

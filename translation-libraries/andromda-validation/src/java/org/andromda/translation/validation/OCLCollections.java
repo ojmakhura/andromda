@@ -407,6 +407,20 @@ public final class OCLCollections
         }
         return found;
     }
+    
+    /**
+     * <p>
+     *   Returns <code>true</true> if <code>collection</code> is actually
+     *   a Collection instance and if the <code>predicate</code> expression 
+     *   evaluates true for one and only one element in the collection. 
+     *   Returns <code>false</code> otherwise.
+     * </p>
+     */
+    public static boolean one(Object collection, Predicate predicate)
+    {
+        return Collection.class.isAssignableFrom(collection.getClass()) &&
+           one((Collection)collection, predicate);
+    }
 
     /**
      * Returns a subcollection of the source collection containing all elements for which

@@ -1,49 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <project>
-  	<extend>../project.xml</extend>
-  	<id>andromda-query-library</id>
-  	<name>Query Translation-Library</name>
-  	<shortDescription>Query Translation-Library</shortDescription>
-  	<description>
+    <extend>../project.xml</extend>
+    <pomVersion>1</pomVersion>
+    <name>Query Translation-Library</name>
+    <artifactId>andromda-query-library</artifactId>
+    <organization/>
+    <package>org.andromda.translation.query</package>
+    <description>
   		Performs translation of OCL query expressions to different query
   		languages, currently supports Enterprise Java Bean Query Language 
   		and Hibernate Query Language.
   	</description>
-	<package>org.andromda.translation.query</package>
-  	<developers>
-    	<developer>
-      		<name>Chad Brandon</name>
-      		<id>cwbrandon</id>
-      		<email>cwbrandon@users.sourceforge.net</email>
+    <shortDescription>Query Translation-Library</shortDescription>
+    <versions/>
+    <branches/>
+    <mailingLists/>
+    <developers>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
                 <role>Documentation</role>
             </roles>
-    	</developer>
+        </developer>
     </developers>
-	<dependencies>
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>maven-androdev-plugin</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	      	<type>plugin</type>
-	    </dependency>
-    	<dependency>
-	      	<groupId>andromda-translation-libraries</groupId>
-	      	<artifactId>andromda-validation-library</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	    </dependency>
-    	<dependency>
-	      	<groupId>commons-lang</groupId>
-	      	<artifactId>commons-lang</artifactId>
-	      	<version>2.0</version>
-	    </dependency>
-    	<dependency> 
-    		<groupId>log4j</groupId>
-      		<artifactId>log4j</artifactId>
-     		<version>1.2.8</version>
-    	</dependency>	
-	</dependencies>
-  	
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-androdev-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda-translation-libraries</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties/>
+        </dependency>
+    </dependencies>
+    <properties/>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/*Test.java</include>
+	     	</includes>
+			<resources>
+				<resource>
+					<directory>src/test</directory>
+		  			<includes>
+		    			<include>**/*.xml</include>
+		    			<include>**/*.properties</include>
+		  			</includes>
+		  		</resource>
+			</resources>	     	
+    	</unitTest>
+		<resources>
+			<resource>
+				<directory>src/java</directory>
+	  			<includes>
+	    			<include>**/*.xml</include>
+	    			<include>**/*.properties</include>
+	  			</includes>
+	  		</resource>
+	  		<resource>
+				<directory>src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        		<exclude>test/**/*</exclude>
+	        	</excludes>
+	  		</resource>
+		</resources>
+  	</build>
 </project>
