@@ -14,8 +14,10 @@
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
+#if ($xhtml)
 <html:xhtml/>
 
+#end
 <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="session" toScope="page"/>
 
 #set ($messageKey = $action.messageKey)
@@ -111,7 +113,11 @@
 
 #if ($action.tabbed)
         <script type="text/javascript">
+#if ($xhtml)
         //<![CDATA[
+#else
+        //<!--
+#end
             var fieldTab = new Array($action.tabCount);
 #set ($tabMap = $action.tabMap)
 #foreach ($tab in $tabMap.keySet())
@@ -126,7 +132,11 @@
                 fieldTab[tabIndex].style.display = 'block';
             }
             this.selectFieldTab(0);
+#if ($xhtml)
         //]]>
+#else
+        //-->
+#end
         </script>
 #end
 

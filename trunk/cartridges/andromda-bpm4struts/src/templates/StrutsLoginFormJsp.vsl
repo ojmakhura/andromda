@@ -2,8 +2,10 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 
+#if ($xhtml)
 <html:xhtml/>
 
+#end
 <tiles:insert definition="login.layout">
 
     <tiles:put name="title" type="string">
@@ -38,10 +40,18 @@
                     </div>
                 </form>
                 <script type="text/javascript">
-                <![CDATA[
+#if ($xhtml)
+                //<![CDATA[
+#else
+                //<!--
+#end
                     document.login.j_username.focus();
                     document.login.j_username.select();
-                ]]>
+#if ($xhtml)
+                //]]>
+#else
+                //-->
+#end
                 </script>
             </div>
         </div>

@@ -40,10 +40,18 @@
                     </div>
                 </form>
                 <script type="text/javascript">
-                <![CDATA[
+#if ($xhtml)
+                //<![CDATA[
+#else
+                //<!--
+#end
                     document.login.j_username.focus();
                     document.login.j_username.select();
-                ]]>
+#if ($xhtml)
+                //]]>
+#else
+                //-->
+#end
                 </script>
             </div>
         </div>
