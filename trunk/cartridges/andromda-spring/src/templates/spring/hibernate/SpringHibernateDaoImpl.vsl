@@ -43,19 +43,17 @@ public class $entity.daoImplementationName
     }
 	
 #end
+#foreach ($valueObjectRef in $entity.valueObjectReferences)
+#set ($targetElement = $valueObjectRef.targetElement)
     /**
-     * @see ${entity.fullyQualifiedDaoBaseName}#transformEntity($entity.fullyQualifiedName)
-     */ 
-    protected Object transformEntity($entity.fullyQualifiedName entity)
+     * Converts this DAO's entity to a value object of type
+     * <code>$targetElement.fullyQualifiedName</code>.
+     */
+    protected $targetElement.fullyQualifiedName ${valueObjectRef.transformerMethodName}($entity.fullyQualifiedName entity)
     {
-        /* 
-         * This method provides the ability to transform 
-         * any returned entity (from finders or a call to load) 
-         * into value objects.  If you aren't using value objects, 
-         * and just want to return the entities directly, leave 
-         * this method unchanged
-         */
-        return entity;
+        return null;
     }
-    
+
+#end
+
 }
