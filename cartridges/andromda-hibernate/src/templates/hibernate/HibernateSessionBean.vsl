@@ -59,6 +59,9 @@ $class.getDocumentation(" * ")
 #end
  */
 public abstract class ${class.name}Bean 
+#if ($class.generalization) 
+	extends ${class.generalization.fullyQualifiedName}BeanImpl
+#end
     implements javax.ejb.SessionBean
 {
 
