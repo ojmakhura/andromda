@@ -11,7 +11,26 @@ if [ ! -d $ANT_HOME ];then
 fi
 
 export CC_USER=amartinwest
-export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
+
+case "$JDK" in
+  "IBMJava142" )
+     export MAVEN_OPTS="-Xmx512m"
+     export JAVA_HOME=/opt/IBMJava2-142
+  ;;
+  "SUNJava142" )
+     export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
+     export JAVA_HOME=/usr/local/j2sdk1.4.2_03
+  ;;
+  "SUNJava150" )
+     export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
+     export JAVA_HOME=/usr/local/jdk1.5.0_01
+  ;;
+  * )
+  ;;
+esac
+
+export PATH=$JAVA_HOME/bin:$PATH
+
 
 CVSHOST=cvs.sourceforge.net
 CVSROOTDIR=/cvsroot/andromda
