@@ -19,9 +19,9 @@ public class ${class.name}BeanImpl
 ##
 #set ($parameterList = $op.typedArgumentList)
 #if ($parameterList.length() == 0)
-#set ($parameters = "net.sf.hibernate.Session sess")
+#set ($parameters = "net.sf.hibernate.Session session")
 #else
-#set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
+#set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 
 #set ($returntype = $op.returnType.fullyQualifiedName)
