@@ -302,17 +302,23 @@ public class EjbScriptHelper extends SimpleOOHelper {
                 seperator = "-";
             }
         }
+        
+        boolean srcIsAggregate =
+            source.getAggregation() != null
+                && !AggregationKindEnum.AK_NONE.equals(source.getAggregation());
+        boolean targetIsAggregate =
+            target.getAggregation() != null
+                && !AggregationKindEnum.AK_NONE.equals(target.getAggregation());
 
         // Generate the names. Swap sides if necessary.
         if ((source.isNavigable() && !target.isNavigable())
-            || (AggregationKindEnum.AK_NONE.equals(source.getAggregation())
-                && !AggregationKindEnum.AK_NONE.equals(target.getAggregation())
-            || (AggregationKindEnum.AK_NONE.equals(source.getAggregation()) 
+            || (!srcIsAggregate && targetIsAggregate)
+            || (!srcIsAggregate 
                 && source.isNavigable()
                 && target.isNavigable()
                 && source.getParticipant().getName().compareTo(
                     target.getParticipant().getName())
-                    > 0))) {
+                    > 0)) {
             return target.getParticipant().getName()
                 + seperator
                 + sourceName;
