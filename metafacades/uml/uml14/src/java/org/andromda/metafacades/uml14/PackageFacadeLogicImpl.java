@@ -76,7 +76,8 @@ public class PackageFacadeLogicImpl
             {
                 public boolean evaluate(Object object)
                 {
-                    return ((ModelElementFacade)object).getFullyQualifiedName()
+                    return ModelElementFacade.class.isAssignableFrom(object.getClass()) &&  
+                        ((ModelElementFacade)object).getFullyQualifiedName()
                         .equals(StringUtils.trimToEmpty(fullyQualifiedName));
                 }
             });
