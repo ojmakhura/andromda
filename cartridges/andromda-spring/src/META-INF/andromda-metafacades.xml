@@ -14,19 +14,18 @@
     <property reference="serviceRemoteContext" default=""/>
     <property reference="serviceRemoteServer" default="localhost"/>
     <property reference="entityNamePattern" default="{0}"/>
+    <property reference="hibernateQueryUseNamedParameters" default="false"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
             <stereotype>FINDER_METHOD</stereotype>
         </mapping>
-        <property reference="hibernateQueryUseNamedParameters" default="false"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
             <property name="query"/>
         </mapping>
-        <property reference="hibernateQueryUseNamedParameters" default="false"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">

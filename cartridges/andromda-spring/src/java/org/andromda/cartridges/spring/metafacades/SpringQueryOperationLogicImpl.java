@@ -68,7 +68,7 @@ public class SpringQueryOperationLogicImpl
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {
-                            parameter = " = :" + argument.getName();
+                            parameter = ":" + argument.getName();
                         }
                         queryString = queryString + " " + variableName + "."
                             + argument.getName() + " = " + parameter;
