@@ -230,6 +230,38 @@
         </to>
     </expression>
 
+    <expression>
+        <from>
+            context StrutsFinalState::getFullPath()
+            pre: getModel().getAllUseCases()->one(name = 'Prince') = true
+        </from>
+        <to>
+        </to>
+    </expression>
+
+<!--
+    <expression>
+        <from>
+            context StrutsFinalState::getFullPath()
+            pre: getModel().getAllUseCases()->one(item | item.name = 'Prince') = true
+        </from>
+        <to>
+            OCLExpressions.equal(OCLCollections.one(getModel().getAllUseCases(),
+
+            new Filter()
+            {
+                public boolean filter(Object item)
+                {
+                    return OCLExpressions.equal(MethodUtils.invokeMethod(item,"name",null),"Prince");
+                }
+            }
+
+
+            ),true)
+        </to>
+    </expression>
+-->
+
 <!--
     <expression>
         <from>
