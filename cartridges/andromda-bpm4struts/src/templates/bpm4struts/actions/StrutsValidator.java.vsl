@@ -1,5 +1,5 @@
 #set ($className = "StrutsValidator")
-#set ($generatedFile = "$str.replace($validatorPackage, '.', '/')/${className}.java")
+#set ($generatedFile = "$stringUtils.replace($validatorPackage, '.', '/')/${className}.java")
 package $exceptionHandlerPackage;
 
 import java.io.File;

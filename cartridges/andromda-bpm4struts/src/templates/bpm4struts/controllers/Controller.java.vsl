@@ -42,7 +42,7 @@ $operation.getDocumentation("     * ")
 #set ($returnType = false)
 #end
 #foreach ($sessionObject in $sessionObjects)
-#set ($accessorSuffix = $str.capitalize($sessionObject.name))
+#set ($accessorSuffix = $stringUtils.capitalize($sessionObject.name))
     /**
      * Returns the current $sessionObject.name from the session found in the argument request.
      * <p/>
@@ -207,7 +207,7 @@ $operation.getDocumentation("     * ")
     }
 
 #foreach ($serviceRef in $controller.serviceReferences)
-#if ($str.isNotBlank($serviceRef.targetElement.accessorImplementation))
+#if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
     /**
      * Returns a reference to the $serviceRef.name back-end service.
      */

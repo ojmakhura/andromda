@@ -51,8 +51,8 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
         form.${field.setterName}($field.resetValue);
 #end
 #if ($field.selectable)
-#set ($valueListMethod = $str.capitalize($field.valueListName))
-#set ($labelListMethod = $str.capitalize($field.labelListName))
+#set ($valueListMethod = $stringUtils.capitalize($field.valueListName))
+#set ($labelListMethod = $stringUtils.capitalize($field.labelListName))
         form.set${valueListMethod}($field.valueListResetValue);
         form.set${labelListMethod}(form.get${valueListMethod}());
 #end
@@ -92,7 +92,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($constructor = "$constructor$paramSeparator$quote${columnName}-$count$quote")
 #set ($paramSeparator = ', ')
 #end
-            new $str.capitalize($field.name)Dummy($constructor)$itemSeparator
+            new $stringUtils.capitalize($field.name)Dummy($constructor)$itemSeparator
 #end
         } );
 
@@ -101,33 +101,33 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
      * running without any manual programming.
      * You may delete this class when you add you own code in this controller.
      */
-    public final class $str.capitalize($field.name)Dummy implements java.io.Serializable
+    public final class $stringUtils.capitalize($field.name)Dummy implements java.io.Serializable
     {
 #set ($constructor = '')
 #set ($paramSeparator = '')
 #foreach ($columnName in $field.tableColumnNames)
-#set ($columnName = $str.lowerCamelCaseName($columnName))
+#set ($columnName = $stringUtils.lowerCamelCaseName($columnName))
         private String $columnName = null;
 #set ($constructor = "$constructor${paramSeparator}String ${columnName}")
 #set ($paramSeparator = ', ')
 #end
 
-        public $str.capitalize($field.name)Dummy($constructor)
+        public $stringUtils.capitalize($field.name)Dummy($constructor)
         {
 #foreach ($columnName in $field.tableColumnNames)
-#set ($columnName = $str.lowerCamelCaseName($columnName))
+#set ($columnName = $stringUtils.lowerCamelCaseName($columnName))
             this.$columnName = $columnName;
 #end
         }
         
 #foreach ($columnName in $field.tableColumnNames)
-#set ($columnName = $str.lowerCamelCaseName($columnName))
-        public void set$str.capitalize($columnName)(String $columnName)
+#set ($columnName = $stringUtils.lowerCamelCaseName($columnName))
+        public void set$stringUtils.capitalize($columnName)(String $columnName)
         {
             this.$columnName = $columnName;
         }
 
-        public String get$str.capitalize($columnName)()
+        public String get$stringUtils.capitalize($columnName)()
         {
             return this.$columnName;
         }

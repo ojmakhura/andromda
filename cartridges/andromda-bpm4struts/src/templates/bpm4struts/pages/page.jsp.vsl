@@ -158,7 +158,7 @@
                            export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if ($exportable)
 #set ($exportFileName = "${jsp.name}-${variable.name}")
-#set ($exportFileName = "$str.toWebFileName($exportFileName)")
+#set ($exportFileName = "$stringUtils.toWebFileName($exportFileName)")
                     <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
 #end
 #if (!$variable.tableColumnNames.empty)

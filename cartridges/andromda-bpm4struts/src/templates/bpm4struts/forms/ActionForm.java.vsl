@@ -222,11 +222,11 @@ $field.getDocumentation("     * ")
 
 #set ($listType = "Object[]")
 #set ($backingListName = $field.backingListName)
-#set ($backingListMethod = $str.capitalize($backingListName))
+#set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListName = $field.valueListName)
-#set ($valueListMethod = $str.capitalize($valueListName))
+#set ($valueListMethod = $stringUtils.capitalize($valueListName))
 #set ($labelListName = $field.labelListName)
-#set ($labelListMethod = $str.capitalize($labelListName))
+#set ($labelListMethod = $stringUtils.capitalize($labelListName))
     public $listType get${backingListMethod}()
     {
         $listType values = this.${valueListName};
