@@ -151,6 +151,9 @@ $target.getDocumentation("     * ")
      *     column="$associationEnd.columnName"
      * @hibernate.collection-one-to-many
      *     class="$targetTypeName"
+#if($associationEnd.association.hibernateCacheType!="")
+	 * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
+#end
      */
     public java.util.Collection ${target.getterName}()
     {
@@ -307,6 +310,9 @@ $target.getDocumentation("     * ")
      *     column="$associationEnd.columnName"
      * @hibernate.collection-one-to-many
      *     class="$targetTypeName"
+#if($associationEnd.association.hibernateCacheType!="")
+	 * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
+#end
      */
     public java.util.Collection ${target.getterName}()
     {

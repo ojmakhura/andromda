@@ -12,6 +12,9 @@
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
     <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName">
+#if($entity.hibernateCacheType!="")
+    <cache usage="$entity.hibernateCacheType" />
+#end
 
 #set ($identifier = $entity.identifiers.iterator().next())
         <id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
