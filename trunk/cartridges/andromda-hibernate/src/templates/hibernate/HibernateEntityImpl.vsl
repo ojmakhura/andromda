@@ -13,13 +13,12 @@ public abstract class ${entity.name}Impl
 #else
 public class ${entity.name}Impl
 #end
-    extends ${entity.name}
+    extends $entity.name
 {
     // concrete business methods that were declared
-    // abstract in class ${entity.name} ...
+    // abstract in class $entity.name ...
 
 #foreach ( $operation in $entity.businessOperations)
-#set ($msig = $operation.signature)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
 #set ($throws = " throws $operation.exceptionList")
@@ -27,13 +26,13 @@ public class ${entity.name}Impl
 #set ($throws = "")
 #end
 #if ($operation.abstract)
-    $operation.visibility abstract $returnType ${msig}$throws;
+    $operation.visibility abstract $returnType ${$operation.signature}$throws;
 
 #else
-    $operation.visibility $returnType ${msig}$throws
+    $operation.visibility $returnType ${$operation.signature}$throws
     {
         // TODO: put your implementation here.
-#if ("void" != $returnType)
+#if ($operation.returnTypePresent)
 
         // Dummy return value, just that the file compiles
 #if (!$returnType.primitive)

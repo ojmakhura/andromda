@@ -31,7 +31,7 @@ public abstract class ${entity.name}Factory {
     {
         ${entity.name} object = new ${entity.name}Impl();
 
-#foreach ( $attribute in $attributes)
+#foreach ($attribute in $attributes)
 #if (!$attribute.identifier)
         object.${attribute.setterName} ($attribute.name);
 #end
