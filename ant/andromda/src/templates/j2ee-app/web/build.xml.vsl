@@ -76,7 +76,7 @@
             <fileset dir="${app.root.dir}/${lib.dir}">
                 <include name="commons-digester-1.5.jar"/>
                 <include name="commons-validator-1.1.2dev-SNAPSHOT.jar"/>
-                <include name="struts-1.2dev-SNAPSHOT.jar"/>
+                <include name="struts-1.2dev-20040621.jar"/>
                 <include name="displaytag-1.0-b3.jar"/>
             </fileset>
         </copy>

@@ -8,7 +8,7 @@
   	<description>
   		Contains the ${pom.name}'s web module.
   	</description>
-	<dependencies>      
+	<dependencies>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>${pom.groupId}-mda</artifactId>
@@ -38,7 +38,7 @@
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
+			<version>1.2dev-20040621</version>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
@@ -70,22 +70,22 @@
 			<artifactId>jboss-j2ee</artifactId>
 			<version>3.2.3</version>
 		</dependency>
-    	<!-- XDoclet dependencies -->	
+    	<!-- XDoclet dependencies -->
     	<dependency>
     		<groupId>xjavadoc</groupId>
     		<artifactId>xjavadoc</artifactId>
         	<version>1.0.2</version>
-    	</dependency>  
+    	</dependency>
   		<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet</artifactId>
         	<version>1.2</version>
-    	</dependency>   	
+    	</dependency>
   		<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-xdoclet-module</artifactId>
         	<version>1.2</version>
-    	</dependency> 	
+    	</dependency>
     	<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-jboss-module</artifactId>
@@ -112,48 +112,48 @@
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-web-module</artifactId>
         	<version>1.2</version>
-    	</dependency> 
+    	</dependency>
 		<!-- TLDs -->
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-bean</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
+			<version>1.2dev-20040621</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-html</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
+			<version>1.2dev-20040621</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-logic</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
+			<version>1.2dev-20040621</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-nested</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
+			<version>1.2dev-20040621</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>struts</groupId>
 			<artifactId>struts-tiles</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
+			<version>1.2dev-20040621</version>
 			<type>tld</type>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
