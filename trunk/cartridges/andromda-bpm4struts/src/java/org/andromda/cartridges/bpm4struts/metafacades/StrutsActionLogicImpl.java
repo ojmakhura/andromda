@@ -248,7 +248,7 @@ public class StrutsActionLogicImpl
      */
     public String getPackagePath()
     {
-        return getActivityGraph().getUseCase().getPackagePath();
+        return '/' + getActivityGraph().getUseCase().getPackagePath();
     }
 
     public String handleGetFullFormBeanPath()

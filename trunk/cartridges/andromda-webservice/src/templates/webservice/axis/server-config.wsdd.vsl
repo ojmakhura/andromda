@@ -65,12 +65,12 @@ $service.getDocumentation("            ", 64, false)
             type="java:${type.fullyQualifiedName}" 
             xmlns:ns${velocityCount}="${namespace}"
 #set ($serialPrefix = "Bean")
-#if ($typeMapping.type.arrayType)
+#if ($type.arrayType)
 #set ($serialPrefix = "Array")
             qname="ns${velocityCount}:ArrayOf${type.name.replaceAll('\[\]', '')}" 
 #else
             qname="ns${velocityCount}:${type.name}" 
-#if ($typeMapping.type.hasStereotype("Enumeration"))
+#if ($type.enumeration)
 #set ($serialPrefix = "Enum")
 #end
 #end
@@ -78,7 +78,7 @@ $service.getDocumentation("            ", 64, false)
             deserializer="org.apache.axis.encoding.ser.${serialPrefix}DeserializerFactory" 
             encodingStyle="${encodingStyle}">
             <documentation> 
-$typeMapping.getDocumentation("            ", 64, false)
+$type.getDocumentation("            ", 64, false)
             </documentation>
         </typeMapping> 
 ## Handle any type mappings that happen to be associationEnds 	
@@ -91,7 +91,7 @@ $typeMapping.getDocumentation("            ", 64, false)
             deserializer="org.apache.axis.encoding.ser.ArrayDeserializerFactory"
             encodingStyle="${encodingStyle}">
             <documentation> 
-$typeMapping.getDocumentation("            ", 64, false)
+$type.getDocumentation("            ", 64, false)
             </documentation>
         </typeMapping>  
 #end

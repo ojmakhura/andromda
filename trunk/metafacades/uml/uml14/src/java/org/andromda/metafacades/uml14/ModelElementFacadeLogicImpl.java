@@ -10,6 +10,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -212,7 +213,7 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackagePath()
     {
-        return '/' + getPackageName().replace(
+        return getPackageName().replace(
             UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
             '/');
     }

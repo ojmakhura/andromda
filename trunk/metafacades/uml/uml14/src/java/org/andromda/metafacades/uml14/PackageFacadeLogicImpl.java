@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;

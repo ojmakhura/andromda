@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;

@@ -14,7 +14,7 @@
         This collection bundles all pages and resources
         as well as the actions called in the "$useCase.name" use-case
       </description>
-      <url-pattern>${useCase.packagePath}/*</url-pattern>
+      <url-pattern>/${useCase.packagePath}/*</url-pattern>
       <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
