@@ -17,4 +17,5 @@ NOTE: When you build any distribution, all jars (or 'artifacts' as Maven calls t
       installed into your local repository as well.
 
 Good luck!
+
 The AndroMDA Team
