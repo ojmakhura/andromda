@@ -3,11 +3,17 @@ package org.andromda.translation.validation;
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.node.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 public class ValidationJavaTranslator extends BaseTranslator
 {
+    /**
+     * This is the start of a new constraint. We prepare everything by resetting and initializing
+     * the required objects.
+     */
     public void caseAContextDeclaration(AContextDeclaration node)
     {
 
@@ -67,43 +73,92 @@ public class ValidationJavaTranslator extends BaseTranslator
         node.getDefinitionExpression().apply(this);
     }
 
-    public void inALiteralPrimaryExpression(ALiteralPrimaryExpression node)
-    {
-
-    }
-
+    /**
+     * We need to keep track that what follows is in the scope of an arrow feature call,
+     * this is important because it means it is a feature that is implied by the OCL language,
+     * rather than the model on which the constraint applies.
+     */
     public void inAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
         arrowPropertyCallStack.push(Boolean.TRUE);
     }
 
+    /**
+     * Undo the arrow feature call trace.
+     */
     public void outAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
         arrowPropertyCallStack.pop();
     }
 
+    /**
+     * This indicates we have entered a feature call, we need to mark this to counterpart any previous
+     * arrow feature call flags.
+     */
     public void inADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         arrowPropertyCallStack.push(Boolean.FALSE);
     }
 
+    /**
+     * Undo the dot feature call trace.
+     */
     public void outADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         arrowPropertyCallStack.pop();
     }
 
+    /**
+     * Renders the path name, instances of 'self' are translated into 'this'.
+     */
     public void caseAPathName(APathName node)
     {
         final String name = node.getName().getText();
         write("self".equals(name) ? "this" : name);
     }
 
+    /**
+     * Here we need to make sure the equals sign '=' is not translated into the 'equal' keyword.
+     * OCL uses '=' for comparison as well as for assignment, Java uses '==', '=' and .equals() so we override
+     * the default OCL value here to use '=' instead of 'equal'
+     */
+    public void caseALetVariableDeclaration(ALetVariableDeclaration node)
+    {
+        inALetVariableDeclaration(node);
+        if(node.getVariableDeclaration() != null)
+        {
+            node.getVariableDeclaration().apply(this);
+        }
+        if(node.getEqual() != null)
+        {
+            write("=");
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outALetVariableDeclaration(node);
+    }
+
+    /**
+     * In Java we need to end the declaration statement with a semicolon, this is handled here.
+     */
+    public void outALetVariableDeclaration(ALetVariableDeclaration node)
+    {
+        write(";");
+    }
+
+    /**
+     * Renders a variable declaration. Missing types will imply the java.lang.Object type.
+     */
     public void caseAVariableDeclaration(AVariableDeclaration node)
     {
         if (node.getTypeDeclaration() == null)
-            write("Object ");
+            write("java.lang.Object");
         else
             node.getTypeDeclaration().apply(this);
+
+        write(" "); // we need to add a space between the type and the name
 
         node.getName().apply(this);
     }
@@ -205,6 +260,9 @@ public class ValidationJavaTranslator extends BaseTranslator
         outAArrowPropertyCallExpressionTail(node);
     }
 
+    /**
+     * @todo: improve implementation to reduce the code duplication (avoid having two write statements)
+     */
     public void caseAFeaturePrimaryExpression(AFeaturePrimaryExpression node)
     {
         inAFeaturePrimaryExpression(node);
@@ -212,9 +270,37 @@ public class ValidationJavaTranslator extends BaseTranslator
         {
             if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
             {
-                write("object.");
+                final String variableName = ((APathName)node.getPathName()).getName().getText();
+                if (letVariableStack.isEmpty() == false)
+                {
+                    Set variableNames = (Set)letVariableStack.peek();
+                    if (!variableNames.contains(variableName))
+                    {
+                        write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
+                    }
+                }
+                else
+                {
+                    write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
+                }
             }
             node.getPathName().apply(this);
+            if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
+            {
+                final String variableName = ((APathName)node.getPathName()).getName().getText();
+                if (letVariableStack.isEmpty() == false)
+                {
+                    Set variableNames = (Set)letVariableStack.peek();
+                    if (!variableNames.contains(variableName))
+                    {
+                        write("\")");
+                    }
+                }
+                else
+                {
+                    write("\")");
+                }
+            }
         }
         if(node.getIsMarkedPre() != null)
         {
@@ -222,11 +308,19 @@ public class ValidationJavaTranslator extends BaseTranslator
         }
         if(node.getQualifiers() != null)
         {
-            node.getQualifiers().apply(this);
+            // we use introspection when in an arrow, so passing feature name as a String without parentheses
+            if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
+            {
+                node.getQualifiers().apply(this);
+            }
         }
         if(node.getFeatureCallParameters() != null)
         {
-            node.getFeatureCallParameters().apply(this);
+            // we use introspection when in an arrow, so passing feature name as a String without parentheses
+            if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
+            {
+                node.getFeatureCallParameters().apply(this);
+            }
         }
         outAFeaturePrimaryExpression(node);
     }
@@ -294,7 +388,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 
                 if (parameterList.getExpression() != null)
                 {
-                    if (arrow) write(",new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return ");
+                    if (arrow) write(",new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return ");
                     parameterList.getExpression().apply(this);
                 }
                 for (int ctr = 0; ctr < expressions.size(); ctr++)
@@ -321,15 +415,55 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseALetExp(ALetExp node)
     {
-        node.getLetVariableDelaration().apply(this);
-        node.getLetExpSub().apply(this);
+        inALetExp(node);
+        if(node.getLet() != null)
+        {
+            node.getLet().apply(this);
+        }
+        if(node.getLetVariableDeclaration() != null)
+        {
+            node.getLetVariableDeclaration().apply(this);
+        }
+        if(node.getLetExpSub() != null)
+        {
+            node.getLetExpSub().apply(this);
+        }
+        outALetExp(node);
+    }
+
+    /**
+     * We are ready to store a new context of variables
+     */
+    public void inALetExp(ALetExp node)
+    {
+        write("{"); // new block scope to avoid variable collisions in the same Java fragment
+        letVariableStack.push(new HashSet(4));
+    }
+
+    /**
+     * The variables are out of scope, we need to purge their context.
+     */
+    public void outALetExp(ALetExp node)
+    {
+        letVariableStack.pop();
+        write("}"); // end block scope
     }
 
     public void caseAVariableDeclarationLetExpSub(AVariableDeclarationLetExpSub node)
     {
         node.getComma().apply(this);
-        node.getLetVariableDelaration().apply(this);
+        node.getLetVariableDeclaration().apply(this);
         node.getLetExpSub().apply(this);
+    }
+
+    /**
+     * Add a variable to the context.
+     */
+    public void inALetVariableDeclaration(ALetVariableDeclaration node)
+    {
+        Set variables = (Set)letVariableStack.peek();
+        AVariableDeclaration variableDeclaration = (AVariableDeclaration)node.getVariableDeclaration();
+        variables.add(variableDeclaration.getName().getText());
     }
 
     public void caseALogicalExp(ALogicalExp node)
@@ -746,6 +880,15 @@ public class ValidationJavaTranslator extends BaseTranslator
      * contains Boolean.FALSE otherwise.
      */
     private final Stack arrowPropertyCallStack = new Stack();
+
+    /**
+     * This stack contains elements implementing the Set interface. For each definition of variables
+     * a new Set element will be pushed onto the stack. This element contains the variables defined
+     * in the definition.
+     * <p>
+     * The elements contained in the Sets are the names of the variables only (String instances).
+     */
+    private final Stack letVariableStack = new Stack();
 
     // prepare matching for backslashes, single quotes and double quotes
 /*
