@@ -265,7 +265,7 @@ public class UMLMetafacadeUtils
     static boolean isConstraintKind(String expression, String kind)
     {
         Pattern pattern = Pattern.compile(
-            ".*\\s*" + StringUtils.trimToEmpty(kind) + "\\s*:.*",
+            ".*\\s*" + StringUtils.trimToEmpty(kind) + "\\s*\\w*\\s*:.*",
             Pattern.DOTALL);
         Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
         return matcher.matches();
