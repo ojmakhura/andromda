@@ -35,6 +35,7 @@ echo $pid >$dirname/pid
 echo "---------------------------------------"
 echo "Following log, Enter ctl-c to terminate"
 echo "---------------------------------------"
+sleep 5
 tail -f nohup.out
 echo Done $0
 

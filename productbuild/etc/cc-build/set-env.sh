@@ -11,7 +11,7 @@ if [ ! -d $ANT_HOME ];then
     exit
 fi
 
-
+export CC_USER=amartinwest
 export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
 
 CVSHOST=cvs.sourceforge.net

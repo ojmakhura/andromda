@@ -23,10 +23,10 @@ fi
                                                                                                                                                                 
 me=`whoami`
 if [ $me == root ]; then
-  su -l  $CC_USER -c run-maven-cc
+  su -l  $CC_USER -c runcc.sh
 else
   if [ $me == $CC_USER ]; then
-  ./run-maven-cc
+  ./runcc.sh
   else
     echo "Must be root or $CC_USER to run this"
   fi
