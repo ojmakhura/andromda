@@ -24,9 +24,21 @@
   			 Generates the source required to build the cartridges.                                                   
   		 ================================================================== -->
     <goal name="generate-source">
-    	<j:set var="currentBuildDir" value="${maven.build.src}"/>
-    	<!-- keep the generation from executing more than once -->
-    	<j:if test="${lastBuildDir != currentBuildDir}">
+    	
+		<ant:available 
+			file="${maven.build.src}"
+			type="dir" 
+			property="buildSrcAvailable"/> 	
+    	
+    	<j:if test="${buildSrcAvailable}">
+			<ant:uptodate property="generationRequired" 
+						  targetfile="${model.file}" >
+				<ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
+			</ant:uptodate>
+		</j:if>	
+
+		<!-- keep the generation from executing more than once -->
+		<j:if test="${generationRequired or buildSrcAvailable eq null}">
 			
 			<attainGoal name="andromda:run-bootstrap"/>
 			<!-- add the paths of the generated source to the
@@ -39,7 +51,7 @@
 				refid="metafacade.generated.src"/>     	
 			     	
 		</j:if>
-		<j:set var="lastBuildDir" value="${currentBuildDir}"/>
+
     </goal>
     
     <!-- ===================================================================
