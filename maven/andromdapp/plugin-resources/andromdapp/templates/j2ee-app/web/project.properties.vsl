@@ -4,7 +4,8 @@ maven.multiproject.type=war
 
 maven.war.classes.excludes=*/WEB-INF/*
 
-war.precompile.jsp=${maven.war.build.dir}/precompiled
+# set to true if you want to have jsp pages precompiled
+precompileJsps=false
 
 maven.war.src=${maven.build.src}
 maven.war.src.excludes=**/*.java
