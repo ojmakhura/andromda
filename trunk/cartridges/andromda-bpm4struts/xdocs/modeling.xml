@@ -149,7 +149,12 @@
                             <td>@andromda.struts.view.field.validwhen</td>
                             <td>Parameter</td>
                             <td>N/A</td>
-                            <td>Additional validation to be performed</td>
+                            <td>Additional validation to be performed, specify a
+                                Struts-validator condition here (see
+                                <a href="http://struts.apache.org/userGuide/dev_validator.html"
+                                    target="_blank">Struts-Validator</a> and go to the section labeled
+                                <code>http://struts.apache.org/userGuide/dev_validator.html</code>.
+                            </td>
                         </tr>
                         <tr>
                             <td>@andromda.struts.view.field.readonly</td>
