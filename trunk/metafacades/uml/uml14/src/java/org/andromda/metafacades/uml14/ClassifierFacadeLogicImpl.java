@@ -13,6 +13,7 @@ import org.apache.commons.collections.Transformer;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Operation;
 
 
@@ -218,6 +219,16 @@ public class ClassifierFacadeLogicImpl
         
         CollectionUtils.filter(clientDependencies, new AbstractionFilter());
         return clientDependencies;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
+     */
+    public boolean isDatatype() 
+    {
+        return
+            DataType.class.isAssignableFrom(
+                this.metaObject.getClass());
     }
 
 }
