@@ -337,7 +337,7 @@ public class AndroMDAGenTask
      * by package names are the only packages that will be processed.
      * 
      * @param modelPackage the ModelPackage that should/shouldn't be processed.
-     * @see setProcessAllModelPackages(boolean)
+     * @see #setProcessAllModelPackages(boolean)
      */
     public void addModelPackage(ModelPackage modelPackage)
     {
@@ -350,7 +350,7 @@ public class AndroMDAGenTask
      * validated. Sometimes underlying parsers don't support XML Schema
      * validation and in that case, we want to be able to turn it off.
      * 
-     * @param validating true/false on whether we should validate XML resources
+     * @param xmlValidation true/false on whether we should validate XML resources
      *        used by AndroMDA
      */
     public void setXmlValidation(boolean xmlValidation)
@@ -361,7 +361,7 @@ public class AndroMDAGenTask
     /**
      * Sets <code>loggingConfigurationUri</code> for AndroMDA.
      * 
-     * @param the URI to the external logging configuration file.
+     * @param loggingConfigurationUri the URI to the external logging configuration file.
      * @see ModelProcessor#setLoggingConfigurationUri(String)
      */
     public void setLoggingConfigurationUri(String loggingConfigurationUri)
