@@ -49,7 +49,6 @@ public class ${entity.name}Impl
 #end
 ##
 #foreach ( $operation in $businessOperations)
-#set ($msig = $operation.signature)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
 #set ($throws = " throws $operation.exceptionList")
@@ -61,10 +60,10 @@ $operation.getDocumentation("   * ")
    * @return $returnType
    */
 #if ($operation.abstract)
-    $operation.visibility abstract $returnType $msig$throws;
+    $operation.visibility abstract $returnType $operation.signature$throws;
 
 #else
-    $operation.visibility $returnType $msig$throws
+    $operation.visibility $returnType $operation.signature$throws
     {
         // TODO: put your implementation here.
 #if ($operation.returnTypePresent)
