@@ -72,7 +72,7 @@ public abstract class $service.baseName
         throws $operation.exceptionList
 #end
     {
-#if ($serviceParameterRequiredCheck.equalsIgnoreCase('true'))
+#if ($requiredCheckEnabled)
 #foreach ($argument in $operation.arguments)
 #if ($argument.required && !$argument.type.primitive)
         if ($argument.name == null)

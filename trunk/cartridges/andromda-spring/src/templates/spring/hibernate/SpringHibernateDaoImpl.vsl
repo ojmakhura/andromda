@@ -18,7 +18,7 @@ public class $entity.daoImplementationName
 #foreach ($operation in $entity.daoBusinessOperations )
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
-#set ($signature = $operation.signature)
+#set ($signature = $operation.implementationSignature)
 	/**
 	 * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
 	 */

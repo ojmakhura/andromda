@@ -64,7 +64,7 @@ public class SpringServiceOperationLogicImpl
     private String getImplementationNamePrefix()
     {
         return StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty("implementationOperationNamePrefix")));   
+            .getConfiguredProperty(SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX)));   
     }
 
 }

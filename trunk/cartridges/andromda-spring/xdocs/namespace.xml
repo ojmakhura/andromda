@@ -301,10 +301,10 @@
                 </tr>
                 <tr>
                     <td>
-                        serviceParameterRequiredCheck
+                        parameterRequiredCheck
                     </td>
                     <td>
-                        Whether or not code for checking if a service parameter 
+                        Whether or not code for checking if a service or DAO operation parameter 
                         is required is generated.  Its sometimes useful to turn this feature 
                         off if the tool you're using doesn't support stereotypes on parameters.
                     </td>
