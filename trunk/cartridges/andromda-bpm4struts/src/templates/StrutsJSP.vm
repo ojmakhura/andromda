@@ -110,7 +110,7 @@ ${indent}</logic:notPresent>
 ##
 #if ($widgetType == 'radio')
 #if ($field.readOnly)
-#set ($disabled = 'disabled="true"')
+#set ($disabled = 'disabled="disabled"')
 #else
 #set ($disabled = '')
 #end
@@ -118,7 +118,7 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType name="$formBeanName" property="$fieldName" titleKey="${messageKey}.${optionKey}.title" value="$optionKey" $disabled/>
+${indent}            <input type="$widgetType" name="$fieldName" value="$optionKey" title="<bean:message key="${messageKey}.${optionKey}.title"/>" $disabled><bean:write name="$formBeanName" property="$fieldName" scope="page"/></input>
 ${indent}            <bean:message key="${messageKey}.$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -129,47 +129,49 @@ ${indent}</table>
 ##
 #elseif ($widgetType == 'checkbox')
 #if ($field.readOnly)
-#set ($disabled = 'disabled="true"')
+#set ($disabled = 'disabled="disabled"')
 #else
 #set ($disabled = '')
 #end
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" titleKey="${messageKey}.$field.titleKey" $disabled/>
+${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>" title="<bean:message key="${messageKey}.$field.titleKey"/>" $disabled></input>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
 #if ($field.readOnly)
-#set ($readonly = 'readonly="true"')
+#set ($readonly = 'readonly="readonly"')
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" titleKey="${messageKey}.$field.titleKey" $readonly/>
+${indent}<input type="$widgetType" name="$fieldName" title="<bean:message key="${messageKey}.$field.titleKey"/>" $readonly value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
 ##
 ##      T E X T A R E A
 ##
 #elseif ($widgetType == 'textarea')
 #if ($field.readOnly)
-#set ($readonly = 'readonly="true"')
+#set ($readonly = 'readonly="readonly"')
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" titleKey="${messageKey}.$field.titleKey" $readonly/>
+${indent}<$widgetType title="<bean:message key="${messageKey}.$field.titleKey"/>" $readonly>
+${indent}    <bean:write name="$formBeanName" property="$fieldName" scope="page"/>
+${indent}</$widgetType>
 ##
 ##      H I D D E N
 ##
 #elseif ($widgetType == 'hidden')
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" />
+${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
 ##
 ##      C O M B O B O X     &      L I S T
 ##
 #elseif ($widgetType == 'select')
 #if ($field.multiple)
-#set ($multiple = 'multiple="true"')
+#set ($multiple = 'multiple="multiple"')
 #else
 #set ($multiple = '')
 #end
 #if ($field.readOnly)
-#set ($disabled = 'disabled="true"')
+#set ($disabled = 'disabled="disabled"')
 #else
 #set ($disabled = '')
 #end
@@ -178,13 +180,20 @@ ${indent}<html:$widgetType name="$formBeanName" property="$fieldName" />
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<html:select name="$formBeanName" property="$selectProperty" titleKey="${messageKey}.$field.titleKey" $disabled $multiple>
-${indent}    <html:options name="$formBeanName" labelProperty="$field.backingListName" property="$field.backingListName"/>
-${indent}</html:select>
+${indent}<select name="$selectProperty" title="<bean:message key="${messageKey}.$field.titleKey"/>" $disabled $multiple>
+${indent}   <logic:iterate id="option" name="$formBeanName" property="$field.backingListName" scope="page">
+${indent}       <logic:equal name="$formBeanName" property="$selectProperty" value="option" scope="page">
+${indent}           <option selected value="<bean:write name="option" scope="page"/>"><bean:write name="option" scope="page"/></option>
+${indent}       </logic:equal>
+${indent}       <logic:notEqual name="$formBeanName" property="$selectProperty" value="option" scope="page">
+${indent}           <option value="<bean:write name="option" scope="page"/>"><bean:write name="option" scope="page"/></option>
+${indent}       </logic:notEqual>
+${indent}   </logic:iterate>
+${indent}</select>
 ##
 ##      Any other field will be rendered as plain text (no input)
 ##
 #else
-${indent}<bean:write name="$formBeanName" property="$fieldName" scope="session"/>
+${indent}<bean:write name="$formBeanName" property="$fieldName" scope="page"/>
 #end
 #end
