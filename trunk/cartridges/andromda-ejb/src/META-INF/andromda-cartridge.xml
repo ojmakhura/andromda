@@ -29,7 +29,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>    
         </modelElements>
     </template>
@@ -41,8 +43,10 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
-            </modelElement>  
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -53,7 +57,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -65,7 +71,9 @@
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>  
     </template>
