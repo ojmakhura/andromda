@@ -333,7 +333,7 @@ public abstract class $entity.daoBaseName
 #set ($setParameterOperation = "${setParameterOperation}List")
 #end
 #if ($finder.useNamedParameters)
-                queryObject.${setParameterOperation}("$argumentName", $argumentName);
+                queryObject.${setParameterOperation}("$argument.name", $argumentName);
 #else
                 queryObject.${setParameterOperation}($count, $argumentName);
 #end
