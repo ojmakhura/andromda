@@ -28,14 +28,9 @@ public class DecoratorFactory
     private void registerCoreDecoratorClasses()
     {
         setActiveNamespace("core");
-        registerDecoratorClass(
-            "org.omg.uml.modelmanagement.UmlPackage$Impl",
-            null,
-            PackageDecoratorImpl.class.getName());
-        registerDecoratorClass(
-            "org.omg.uml.modelmanagement.Model$Impl",
-            null,
-            PackageDecoratorImpl.class.getName());
+        registerDecoratorClass("org.omg.uml.modelmanagement.UmlPackage$Impl", null, PackageDecoratorImpl.class.getName());
+        registerDecoratorClass("org.omg.uml.modelmanagement.Model$Impl",      null, PackageDecoratorImpl.class.getName());
+        registerDecoratorClass("org.omg.uml.foundation.core.UmlClass$Impl",   null, ClassifierDecoratorImpl.class.getName());
     }
 
     /**
