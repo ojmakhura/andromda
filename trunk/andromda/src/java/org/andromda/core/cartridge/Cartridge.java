@@ -367,7 +367,7 @@ public class Cartridge
             }
             else
             {
-                outFile = this.outputFileFromTemplateConfig(
+                outFile = this.outputFileFromTemplate(
                     modelElementName,
                     modelElementPackage,
                     template,
@@ -532,7 +532,7 @@ public class Cartridge
      * @param template the template.
      * @return File the output file
      */
-    private File outputFileFromTemplateConfig(
+    private File outputFileFromTemplate(
         String modelElementName,
         String packageName,
         Template template,
@@ -606,11 +606,10 @@ public class Cartridge
     {
         return "cartridge";
     }
-    
+
     /**
-     * Override to provide cartridge specific shutdown (i.e.
-     * clean out the element cache so that another model won't 
-     * have the same elements).
+     * Override to provide cartridge specific shutdown (i.e. clean out the
+     * element cache so that another model won't have the same elements).
      * 
      * @see org.andromda.core.common.Plugin#shutdown()
      */
