@@ -352,6 +352,14 @@ public class StrutsParameterLogicImpl
             buffer.append(crlf);
         }
 
+        final String validWhen = getValidWhen();
+        if (validWhen != null)
+        {
+            buffer.append("This field is only valid under specific conditions, more concretely the following " +
+                    "expression must evaluate true: "+validWhen);
+            buffer.append(crlf);
+        }
+
         if (isReadOnly())
         {
             buffer.append("The value of this field cannot be changed, it is read-only");
