@@ -1,6 +1,5 @@
 package org.andromda.core.uml14;
 
-import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.core.AssociationEnd;
 
 /**
