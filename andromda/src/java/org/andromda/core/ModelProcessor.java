@@ -326,7 +326,8 @@ public class ModelProcessor
     private List cartridgeFilter = null;
 
     /**
-     * Denotes whether or not the complement of filtered cartridges should be processed
+     * Denotes whether or not the complement of filtered cartridges should be
+     * processed
      */
     private boolean negateCartridgeFilter = false;
 
@@ -347,10 +348,16 @@ public class ModelProcessor
             || cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
-            shouldProcess = negateCartridgeFilter ^ cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+            shouldProcess = negateCartridgeFilter
+                ^ cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
         }
         return shouldProcess;
     }
+
+    /**
+     * The character used for cartridge filter negation.
+     */
+    private static final String CARTRIDGE_FILTER_NEGATOR = "~";
 
     /**
      * <p>
@@ -372,8 +379,7 @@ public class ModelProcessor
         {
             // remove whitespace
             namespaces = StringUtils.deleteWhitespace(namespaces);
-
-            if (namespaces.startsWith("~"))
+            if (namespaces.startsWith(CARTRIDGE_FILTER_NEGATOR))
             {
                 negateCartridgeFilter = true;
                 namespaces = namespaces.substring(1);
@@ -382,10 +388,10 @@ public class ModelProcessor
             {
                 negateCartridgeFilter = false;
             }
-
             if (StringUtils.isNotBlank(namespaces))
             {
-                cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(namespaces).split(","));
+                cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(
+                    namespaces).split(","));
             }
         }
     }
