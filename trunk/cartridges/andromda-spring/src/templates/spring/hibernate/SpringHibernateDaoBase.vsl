@@ -215,7 +215,7 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-#foreach ( $finder in $finders)
+#foreach ($finder in $finders)
 #set ($returnType = $finder.returnType.fullyQualifiedName)
     /**
      * @see ${entity.fullyQualifiedName}#$finder.getSignature(false)
@@ -231,15 +231,40 @@ public abstract class $entity.daoBaseName
 #end
         return $finderCall
     }
+    
+    /**
+     * @see ${entity.fullyQualifiedName}#${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     */
+    $finder.visibility $returnType ${finder.name}(final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+#set ($finderCall = "this.${finder.name}(false, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+#if (!$finder.returnType.collectionType)
+#set ($finderCall = "($returnType)$finderCall")
+#end
+        return $finderCall
+    }
 
 #if (!$finder.returnType.collectionType)
 #set ($returnType = "Object")
 #end
-##
     /**
-     * @see ${entity.fullyQualifiedName}#${finder.name}(false#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedName}#${finder.name}(boolean#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
     $finder.visibility $returnType ${finder.name}(final boolean transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+        return this.${finder.name}(transform, "$finder.query"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);  
+    }
+    
+    /**
+     * @see ${entity.fullyQualifiedName}#${finder.name}(boolean, java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     */
+    $finder.visibility $returnType ${finder.name}(final boolean transform, final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
@@ -253,7 +278,7 @@ public abstract class $entity.daoBaseName
                 net.sf.hibernate.Query queryObject = 
                     getHibernateTemplate().createQuery(
                         session, 
-                        "$finder.query");
+                        queryString);
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
                 queryObject.setParameter($count, $argument.name);
@@ -275,7 +300,7 @@ public abstract class $entity.daoBaseName
                         throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
                             "More than one instance of '" 
                                 + ${finder.returnType.fullyQualifiedName}.class.getName() 
-                                + "' was found when executing query --> '${finder.query}'");
+                                + "' was found when executing query --> '" + queryString + "'");
 
                     }
                     else if (results.size() == 1)
@@ -295,7 +320,7 @@ public abstract class $entity.daoBaseName
 #end
         return $returnStatement 
     }
-
+    
 #end
     /**
      * @see org.apache.commons.collections.Transformer#transform(java.lang.Object)
