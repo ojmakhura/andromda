@@ -2,7 +2,7 @@
 <!--
   The default costcalculator profile mappings.
 -->
-<mappings name="hibernate">
+<mappings name="costcalculator">
     <mapping>
         <from>ITEM_PRICE</from>
         <to>@andromda.item.price</to>

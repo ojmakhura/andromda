@@ -9,32 +9,32 @@
     <property reference="dependencyPrice"  default="10"/>
     <property reference="packagePrice"     default="5"/>
 
-    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.PackageCosts">
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.PackageCostsLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl">
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.ClassifierCostsImpl">
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.ClassifierCostsLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.AssociationCostsImpl">
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.AssociationCostsLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.OperationCostsImpl">
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.OperationCostsLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.ParameterCostsImpl">
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.ParameterCostsLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.AttributeImpl">
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.AttributeCostsLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
         </mapping>
     </metafacade>

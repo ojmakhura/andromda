@@ -1,14 +1,14 @@
 <cartridge name="costcalculator">
 
     <templateEngine>
-        <macrolibrary name="templates/Spreadsheet.vm"/>
+        <macrolibrary name="templates/SpreadSheet.vm"/>
     </templateEngine>
 
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 
     <template
-        path="templates/Spreadsheet.xml"
+        path="templates/SpreadSheet.vsl"
         outputPattern="ProjectCosts.xls"
         outlet="spreadsheet"
         overwrite="true"

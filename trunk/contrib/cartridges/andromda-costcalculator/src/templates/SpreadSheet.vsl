@@ -1,0 +1,3 @@
+#foreach ($pk in $packages)
+#formatCosts($pk.costs "")
+#end
