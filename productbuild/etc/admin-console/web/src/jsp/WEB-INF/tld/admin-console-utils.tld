@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>acf</short-name>
+    <uri>http://www.andromda.org/admin-console/tags</uri>
+
+    <function>
+        <name>getInsertWidget</name>
+        <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
+        <function-signature>
+            java.lang.String
+                getInsertJsp(
+                    org.andromda.adminconsole.config.AdminConsoleConfigurator,
+                    org.andromda.adminconsole.db.Column,
+                    java.lang.String,
+                    org.andromda.adminconsole.db.RowData )
+        </function-signature>
+    </function>
+
+    <function>
+        <name>getUpdateWidget</name>
+        <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
+        <function-signature>
+            java.lang.String
+                getUpdateJsp(
+                    org.andromda.adminconsole.config.AdminConsoleConfigurator,
+                    org.andromda.adminconsole.db.Column,
+                    java.lang.String,
+                    org.andromda.adminconsole.db.RowData )
+        </function-signature>
+    </function>
+
+    <function>
+        <name>getColumnConfiguration</name>
+        <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
+        <function-signature>
+            org.andromda.adminconsole.config.xml.ColumnConfiguration
+                getConfiguration(
+                    org.andromda.adminconsole.config.AdminConsoleConfigurator,
+                    org.andromda.adminconsole.db.Column )
+        </function-signature>
+    </function>
+
+    <function>
+        <name>getTableConfiguration</name>
+        <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
+        <function-signature>
+            org.andromda.adminconsole.config.xml.TableConfiguration
+                getConfiguration(
+                    org.andromda.adminconsole.config.AdminConsoleConfigurator,
+                    org.andromda.adminconsole.db.Table )
+        </function-signature>
+    </function>
+
+</taglib>
+
+
