@@ -32,18 +32,18 @@
                         </p>
                     </td>
                 </tr>
-                <a name="andromda.cartridge.cartridge.test.archive"/>
+                <a name="andromda.cartridge.test.archive"/>
                 <tr>
                     <td>andromda.cartridge.test.archive</td>
                     <td>                        
-                        Yes, default is <code>${maven.src.dir}/test/compare/comparable.zip</code>                            
+                        Yes, default is <code>${maven.src.dir}/test/expected/cartridge-output.zip</code>                            
                     </td>
                     <td>
                         <p>
                             Specifies the location of the comparable archive. 
                             This archive will be extracted and used for comparison
                             against the output defined by 
-                            <code>andromda.cartridge.cartridge.test.output.dir</code>
+                            <code>andromda.cartridge.test.output.dir</code>
                         </p>
                     </td>
                 </tr>	
