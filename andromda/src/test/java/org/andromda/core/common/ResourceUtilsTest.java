@@ -6,6 +6,8 @@ import java.util.List;
 import junit.framework.TestCase;
 
 /**
+ * JUnit test for {@link org.andromda.core.common.ResourceUtils}
+ * 
  * @author Chad Brandon
  */
 public class ResourceUtilsTest

@@ -2,6 +2,11 @@ package org.andromda.core.common;
 
 import junit.framework.TestCase;
 
+/**
+ * JUnit test for {@link org.andromda.core.common.StringUtilsHelper}
+ * 
+ * @author Wouter Zoons
+ */
 public class StringUtilsHelperTest
     extends TestCase
 {

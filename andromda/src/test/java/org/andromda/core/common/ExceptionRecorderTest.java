@@ -1,7 +1,3 @@
-/*
- * Created on 24-Jan-2005
- *
- */
 package org.andromda.core.common;
 
 import java.io.BufferedReader;
@@ -15,13 +11,12 @@ import junit.framework.TestCase;
 /**
  * A simple test to check the operation of the ExceptionRecorder.
  * 
- * @author martin
- * 
+ * @author Martin West
  */
 public class ExceptionRecorderTest extends TestCase
 {
 
-    /*
+    /**
      * Test that a .exc file is created and it has at least the file header
      * string.
      */

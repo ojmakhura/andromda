@@ -7,7 +7,7 @@ import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
 
 /**
- * JUnit test for org.andromda.core.common.Namespaces
+ * JUnit test for {@link org.andromda.core.common.Namespaces}
  * 
  * @author Chad Brandon
  */
