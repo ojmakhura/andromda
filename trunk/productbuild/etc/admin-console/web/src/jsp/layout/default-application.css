@@ -1,0 +1,275 @@
+
+#container
+{
+    position: relative;
+    text-align: left;
+    margin-right: 2%; margin-left: 2%;
+    background: #fff;
+    border: 1px solid #fff;
+}
+
+div.action { line-height: 1.7em; margin-bottom: 2.5em; }
+div.action span {display: none;}
+div.action h3
+{
+   font-size: 86%; font-weight: bold;
+   letter-spacing: 1px;
+   padding: 0.3em 0.3em 0.3em 2.2em;
+   margin-bottom: 1em;
+   background: #F0F0F0;
+}
+
+div.action div.trigger { border: 0; margin: 0px 20px 15px 0px; }
+div.action div.trigger a:link, .trigger a:visited, .trigger a:hover { border: 1px solid #fff; }
+div.action div.trigger form label { display: inline; }
+div.action div.trigger form field { display: inline; }
+div.action div.trigger form buttons { display: block; }
+
+#messages
+{
+    border-top: 1px dotted #ccc;
+    margin: 1.5em 0 1.5em 0;
+}
+
+#messages div
+{
+    margin: 1.5em 0 1.5em 0;
+    padding: 0 0.5em 0 0.5em;
+    font-size: 86%;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#messages .messages
+{
+    color: green;
+    border: 1px dashed green;
+    background-color: #dfd;
+}
+
+#messages .errors
+{
+    color: red;
+    border: 1px dashed red;
+    background-color: #fee;
+}
+
+#messages .warnings
+{
+    color: #ccc;
+    border: 1px dashed #ffd;
+    background-color: #fdd;
+}
+
+#messages .message, #messages .warning, #messages .error
+{
+    display: block;
+}
+
+.hide { display: none; }
+br.clr { clear: left; }
+
+.hintsClass
+{
+    background-color: #ffd;
+    font-size: 68%;
+    font-weight: normal;
+    border: 1px solid #333;
+    padding: 4px;
+    margin: 0;
+    text-align: left;
+    vertical-align: top;
+}
+
+.important
+{
+    color: red;
+    display: inline;
+    font-weight: bold;
+    font-family: courier;
+}
+
+div.col-a1 { width: 46%; float: left; padding-top: 1.5em; }
+div.col-a2 { width: 46%; float: right; padding-top: 1.5em; }
+div.col-a1 h3, div.col-a2 h3 { color: #043DBC; border-bottom: 1px dotted #3D7DC7; margin-bottom: 1.0em; }
+
+div.login { background-color: #F7F7F7; padding: 0.5em; }
+div.login div.submit { margin: 1.5em 0 0.5em 0; }
+div.login input.login { width: 90%; }
+div.login p.error { width: 90%; padding: 0.5em; font-weight: bold; color: red;}
+
+div.help
+{
+    padding: 0 20px 20px 20px;
+    text-align: left;
+}
+
+div.help #close
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+div.help p
+{
+    padding: 0 20px 0 20px;
+}
+
+div.help .highlight
+{
+    font-weight: bold;
+    border: 2px dotted #ccc;
+    background: url(warning.gif) #ffd no-repeat 20px 50%;
+    text-indent: 20px;
+    padding: 10px 20px 10px 20px;
+    margin: 0 20px 0 20px;
+}
+
+div.help table
+{
+    width: 100%;
+    padding: 0 20px 0 20px;
+}
+
+div.help table th
+{
+    text-align: center;
+    font-weight: bolder;
+}
+
+div.help table td
+{
+    text-align: left;
+    vertical-align: top;
+}
+
+#pageHelp
+{
+    text-align: right;
+    vertical-align: top;
+    margin-left: 480px;
+}
+
+img.calendar
+{
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+}
+
+/* table classes (<display:*> taglib) */
+
+div.exportlinks { margin-top: 15px; }
+span.export
+{
+	padding: 0 4px 1px 20px;
+	display: inline;
+	cursor: pointer;
+}
+span.excel { background-image: url(excel.gif); background-repeat: no-repeat; }
+span.csv { background-image: url(csv.gif); background-repeat: no-repeat; }
+span.xml { background-image: url(xml.gif); background-repeat: no-repeat; }
+
+table.list { width: 100%; padding-right: 25px; }
+
+table#row th { margin: 6px; }
+table#row td { padding: 0 14px 0 14px; }
+
+table#row th a { margin-right: 14px;}
+
+tr.odd { background-color: #eeeeff; padding: 2px; }
+tr.even { background-color: #fffffd; padding: 2px; }
+th.sorted { background-color: #fff; font-weight: bold; }
+th.sorted, th.sortable { background-position: center right; }
+th.sortable { background: url(none.gif) no-repeat center right; }
+th.order1 { background: url(descending.gif) no-repeat center right; }
+th.order2 { background: url(ascending.gif) no-repeat center right; }
+
+span.pagebanner
+{
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	margin: 10px 25px 0 0;
+	display: block;
+	border-bottom: none;
+}
+
+span.pagelinks
+{
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	display: block;
+	border-top: none;
+	margin: 0 25px 10px 0;
+}
+
+/* styles related to tabbed panels */
+
+div.tabs
+{
+	width: 550px;
+    display: block;
+    background-color: #fff;
+}
+
+div.tabs div.tab
+{
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #fff;
+ }
+
+div.tabs div.tab div.tab-header
+{
+    padding-left: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+div.tabs div.tab div.tab-header div.selected-tab
+{
+    display: inline;
+	padding: 1px 0.5em 1px 0.5em;
+    font-weight: bolder;
+	background-color: #fff;
+	border: 1px solid #333;
+	border-bottom: 1px solid #fff;
+	margin: 0px 1px 0px 2px;
+}
+
+div.tabs div.tab div.tab-header div.unselected-tab
+{
+    display: inline;
+	padding: 1px 0.5em 1px 0.5em;
+	background-color: #e0e0e0;
+	border: 1px solid #333;
+	margin: 0px 1px 0px 2px;
+}
+
+div.tabs div.tab div.tab-header div.unselected-tab a
+{
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+div.tabs div.tab div.tab-body
+{
+}
+
+/* styles for the breadcrumbs */
+
+#breadcrumbs
+{
+    font-size: 86%;
+    color: #999;
+    padding-top: 14px;
+    padding-left: 4px;
+    margin: 0;
+}
+
+#breadcrumbs a:link, #bc a:visited, #bc a:hover { border-bottom: 1px solid #fff; }
+
