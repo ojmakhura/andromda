@@ -56,6 +56,11 @@
 	 			<securityEnabled>false</securityEnabled>
 	 			<securityRealm>other</securityRealm>
 	 		</properties>
-		</dependency>		
+		</dependency>	
+		<dependency> 
+			<groupId>andromda-translation-libraries</groupId>
+	  		<artifactId>andromda-validation-library</artifactId>
+	 		<version>${pom.currentVersion}</version>
+		</dependency>	
 	</dependencies>
 </project>
