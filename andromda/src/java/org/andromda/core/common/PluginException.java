@@ -1,8 +1,8 @@
 package org.andromda.core.common;
 
 /**
- * This exception is thrown when an unexpected exception
- * occurs when plugin processing occurs.
+ * This exception is thrown when an unexpected exception occurs when plugin
+ * processing occurs.
  * 
  * @author Chad Brandon
  */
@@ -21,36 +21,35 @@ public class PluginException
     /**
      * Constructor for PluginException.
      * 
-     * @param arg0
+     * @param message
      */
     public PluginException(
-        String arg0)
+        String message)
     {
-        super(arg0);
+        super(message);
     }
 
     /**
      * Constructor for PluginException.
      * 
-     * @param arg0
-     * @param arg1
+     * @param message
+     * @param parent
      */
     public PluginException(
-        String arg0,
-        Throwable arg1)
+        String message,
+        Throwable parent)
     {
-        super(arg0, arg1);
+        super(message, parent);
     }
 
     /**
      * Constructor for PluginException.
      * 
-     * @param arg0
+     * @param message
      */
     public PluginException(
-        Throwable arg0)
+        Throwable message)
     {
-        super(arg0);
+        super(message);
     }
-
 }
