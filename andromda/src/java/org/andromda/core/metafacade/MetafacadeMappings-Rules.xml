@@ -54,6 +54,10 @@
 			<set-properties-rule>
 	 			<alias attr-name="metafacadeClass" prop-name="metafacadeClassName" />
 	 		</set-properties-rule>     
+			
+			<set-properties-rule>
+	 			<alias attr-name="contextRoot" prop-name="contextRoot" />
+	 		</set-properties-rule>    
 	 		
 	      	<call-method-rule 
 	      		pattern="stereotype" 

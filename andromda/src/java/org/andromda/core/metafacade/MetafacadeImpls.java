@@ -1,6 +1,9 @@
 package org.andromda.core.metafacade;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import org.andromda.core.common.ClassUtils;
@@ -23,10 +26,16 @@ public class MetafacadeImpls
         .getLogger(MetafacadeImpls.class);
 
     /**
-     * The properties which contain all the metafacade to metafacade impls
-     * discovered.
+     * Stores all <code>metafacade</code> implementation classes keyed by
+     * <code>metafacade</code> interface class.
      */
-    private Properties properties = null;
+    private Map implsByMetafacades = null;
+
+    /**
+     * Stores all <code>metafacade</code> interface classes keyed by
+     * <code>metafacade</code> implementation class.
+     */
+    private Map metafacadesByImpls = null;
 
     /**
      * This contains a key/value mapping of metafacades to their implementation
@@ -65,10 +74,11 @@ public class MetafacadeImpls
         }
         try
         {
-            properties = new Properties();
+            this.implsByMetafacades = new HashMap();
+            this.metafacadesByImpls = new HashMap();
 
+            Properties properties = new Properties();
             URL resources[] = ResourceFinder.findResources(METAFACADE_IMPLS);
-
             if (resources != null && resources.length > 0)
             {
                 for (int ctr = 0; ctr < resources.length; ctr++)
@@ -81,6 +91,14 @@ public class MetafacadeImpls
                                 + resource + "'");
                     }
                     properties.load(resource.openStream());
+                }
+                Iterator propertyIt = properties.keySet().iterator();
+                while (propertyIt.hasNext())
+                {
+                    String metafacade = (String)propertyIt.next();
+                    String metafacadeImpl = properties.getProperty(metafacade);
+                    this.metafacadesByImpls.put(metafacadeImpl, metafacade);
+                    this.implsByMetafacades.put(metafacade, metafacadeImpl);
                 }
             }
         }
@@ -103,18 +121,18 @@ public class MetafacadeImpls
      */
     public Class getMetafacadeImplClass(String metafacadeClass)
     {
-        final String methodName = "MetafacadeImpls.getMetafacadeImpl";
+        final String methodName = "MetafacadeImpls.getMetafacadeImplClass";
         ExceptionUtils.checkEmpty(
             methodName,
             "metafacadeClass",
             metafacadeClass);
         Class metafacadeImplClass = null;
-        if (this.properties != null)
+        if (this.implsByMetafacades != null)
         {
             try
             {
-                String metafacadeImplClassName = this.properties
-                    .getProperty(metafacadeClass);
+                String metafacadeImplClassName = (String)this.implsByMetafacades
+                    .get(metafacadeClass);
                 if (StringUtils.isEmpty(metafacadeImplClassName))
                 {
                     throw new MetafacadeImplsException(
@@ -133,6 +151,49 @@ public class MetafacadeImpls
             }
         }
         return metafacadeImplClass;
+    }
+
+    /**
+     * Retrieves the metafacade class from the passed in
+     * <code>metafacadeImplClass</code>. Will return a
+     * MetafacadeImplsException if a metafacade class can not be found for the
+     * <code>metafacadeImplClass</code>
+     * 
+     * @param metafacadeImplClass the name of the metafacade implementation
+     *        class.
+     * @return the metafacacade Class
+     */
+    public Class getMetafacadeClass(String metafacadeImplClass)
+    {
+        final String methodName = "MetafacadeImpls.getMetafacadeClass";
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "metafacadeImplClass",
+            metafacadeImplClass);
+        Class metafacadeClass = null;
+        if (this.metafacadesByImpls != null)
+        {
+            try
+            {
+                String metafacadeClassName = (String)this.metafacadesByImpls
+                    .get(metafacadeImplClass);
+                if (StringUtils.isEmpty(metafacadeImplClass))
+                {
+                    throw new MetafacadeImplsException(
+                        "Can not find a metafacade class for --> '"
+                            + metafacadeImplClass
+                            + "', please check your classpath");
+                }
+                metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
+            }
+            catch (Throwable th)
+            {
+                String errMsg = "Error performing " + methodName;
+                logger.error(errMsg, th);
+                throw new MetafacadeImplsException(errMsg, th);
+            }
+        }
+        return metafacadeClass;
     }
 
 }

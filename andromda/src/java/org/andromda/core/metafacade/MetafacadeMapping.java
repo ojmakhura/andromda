@@ -31,6 +31,11 @@ public class MetafacadeMapping
     private String metaobjectClassName = null;
 
     /**
+     * Whether or not this mapping represents a <code>contextRoot</code>.
+     */
+    private boolean contextRoot = false;
+
+    /**
      * The stereotype to which this mapping applies.
      */
     private String stereotype = null;
@@ -113,6 +118,32 @@ public class MetafacadeMapping
             logger.error(errMsg, th);
             throw new MetafacadeMappingsException(errMsg, th);
         }
+    }
+
+    /**
+     * <p>
+     * Gets whether or not this mapping represents a <code>contextRoot</code>,
+     * by default a mapping is <strong>NOT </strong> a contextRoot. You may want
+     * to specify one when other metafacades need to be created within the
+     * context of a metafacade.
+     * </p>
+     * 
+     * @return Returns the contextRoot.
+     */
+    public boolean isContextRoot()
+    {
+        return contextRoot;
+    }
+
+    /**
+     * Sets the name of the <code>contextRoot</code> for this mapping.
+     * 
+     * @param contextRoot The contextRoot to set.
+     * @see #isContextRoot()
+     */
+    public void setContextRoot(boolean contextRoot)
+    {
+        this.contextRoot = contextRoot;
     }
 
     /**

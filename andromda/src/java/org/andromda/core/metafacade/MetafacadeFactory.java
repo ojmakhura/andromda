@@ -11,6 +11,8 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
 import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -238,11 +240,22 @@ public class MetafacadeFactory
 
                 this.populatePropertyReferences(metafacade, mappings
                     .getPropertyReferences(this.getActiveNamespace()));
-                              
-                // now populate any context property references (if
-                // we have any)
+
+                // here we do 2 things:
                 if (mapping != null)
                 {
+                    // 1) check to see if the metafacade has a context root
+                    // defined
+                    //    (if so, set the context to the interface of the
+                    // metafacade)
+                    if (mapping.isContextRoot())
+                    {
+                        metafacade.setContext(MetafacadeImpls.instance()
+                            .getMetafacadeClass(
+                                mapping.getMetafacadeClass().getName())
+                            .getName());
+                    }
+                    // 2) populate any context property references (if any)
                     this.populatePropertyReferences(metafacade, mapping
                         .getPropertyReferences());
                 }
@@ -257,6 +270,26 @@ public class MetafacadeFactory
                     metaobject,
                     metafacadeCacheKey,
                     metafacade);
+            }
+
+            if ("org.andromda.cartridges.spring.metafacades.SpringService"
+                .equals(StringUtils.trimToEmpty(contextName)))
+            {
+                try
+                {
+                    String name = StringUtils.trimToEmpty((String)PropertyUtils
+                        .getProperty(metafacade, "name"));
+                    if (StringUtils.isNotEmpty(name) && name.equals("name"))
+                    {
+                        System.out
+                            .println("constructed metafacade!!!!!!!!!!!: "
+                                + metafacade.getClass());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
             }
 
             return metafacade;
@@ -308,7 +341,6 @@ public class MetafacadeFactory
         Class metafacadeClass = null;
         try
         {
-
             metafacadeClass = MetafacadeImpls.instance()
                 .getMetafacadeImplClass(interfaceName);
 
@@ -401,7 +433,7 @@ public class MetafacadeFactory
             methodName,
             "propertyReferences",
             propertyReferences);
-        
+
         Iterator referenceIt = propertyReferences.keySet().iterator();
         while (referenceIt.hasNext())
         {
@@ -409,8 +441,8 @@ public class MetafacadeFactory
             // ensure that each property is only set once per context
             // for performance reasons
             if (!this.isPropertyRegistered(
-                    metafacade.getPropertyNamespace(),
-                    reference))
+                metafacade.getPropertyNamespace(),
+                reference))
             {
                 String defaultValue = (String)propertyReferences.get(reference);
 
