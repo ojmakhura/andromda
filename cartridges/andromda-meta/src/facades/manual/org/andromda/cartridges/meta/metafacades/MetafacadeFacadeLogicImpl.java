@@ -209,7 +209,7 @@ public class MetafacadeFacadeLogicImpl
                         false,
                         att.getType().getFullyQualifiedName(),
                         att.getGetterName(),
-                        att.getDocumentation("    "));
+                        att.getDocumentation("    * "));
                 map.put(md.buildCharacteristicKey(), md);
             }
     
@@ -241,7 +241,7 @@ public class MetafacadeFacadeLogicImpl
                             false,
                             ae.getGetterSetterTypeName(),
                             otherEnd.getGetterName(),
-                            otherEnd.getDocumentation("    "));
+                            otherEnd.getDocumentation("    * "));
                     map.put(md.buildCharacteristicKey(), md);
                 }
             }

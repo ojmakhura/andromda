@@ -26,7 +26,7 @@ public class UMLOperationData extends MethodData
             op.isAbstract(),
             op.getType().getFullyQualifiedName(),
             op.getName(),
-            op.getDocumentation("    "));
+            op.getDocumentation("    * "));
 
         for (Iterator it = op.getParameters().iterator(); it.hasNext();)
         {
