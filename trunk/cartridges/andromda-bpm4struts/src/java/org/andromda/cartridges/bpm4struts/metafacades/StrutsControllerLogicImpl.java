@@ -76,14 +76,16 @@ public class StrutsControllerLogicImpl
 
     protected Collection handleGetServices()
     {
-        final Collection servicesList = new ArrayList();
+        final Collection servicesList = new HashSet();
         final Collection dependencies = getDependencies();
         for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
         {
             DependencyFacade dependency = (DependencyFacade) iterator.next();
             ModelElementFacade target = dependency.getTargetElement();
             if (target instanceof ServiceFacade)
+            {
                 servicesList.add(target);
+            }
         }
         return servicesList;
     }
