@@ -1,7 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-
 import java.util.Collection;
 
 /**
