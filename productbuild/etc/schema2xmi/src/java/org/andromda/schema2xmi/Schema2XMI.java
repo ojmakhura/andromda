@@ -75,6 +75,18 @@ public class Schema2XMI
      * values.
      */
     private static final String INCLUDE_TAGGED_VALUES = "v";
+    
+    /**
+     * The command line argument specifying the class stereotype
+     * name.
+     */
+    private static final String CLASS_STEREOTYPES = "C";
+    
+    /**
+     * The command line argument specifying the identifier
+     * stereotype name.
+     */
+    private static final String IDENTIFIER_STEREOTYPES = "I";
 
     /**
      * Configure the CLI options.
@@ -147,6 +159,20 @@ public class Schema2XMI
         option.setLongOpt("taggedValues");
         options.addOption(option);
 
+        option = new Option(
+            CLASS_STEREOTYPES,
+            true,
+            "Comma seperated list of stereotype names to add to the created class");
+        option.setLongOpt("classStereotypes");
+        options.addOption(option);
+        
+        option = new Option(
+            IDENTIFIER_STEREOTYPES,
+            true,
+            "Comma seperated list of stereotype names to add to any class identifiers");
+        option.setLongOpt("identifierStereotypes");
+        options.addOption(option);
+        
         option = new Option(
             OUTPUT_NAME,
             true,
@@ -224,7 +250,11 @@ public class Schema2XMI
                 transformer.setIncludeTaggedValues(
                     Boolean.valueOf(
                         commandLine.getOptionValue(INCLUDE_TAGGED_VALUES)).booleanValue());
-
+                transformer.setClassStereotypes(
+                    commandLine.getOptionValue(CLASS_STEREOTYPES));
+                transformer.setIdentifierStereotypes(
+                    commandLine.getOptionValue(IDENTIFIER_STEREOTYPES));
+                
                 String outputLocation = commandLine.getOptionValue(OUTPUT_NAME);
                 transformer.transform(inputModel, outputLocation);
             }
