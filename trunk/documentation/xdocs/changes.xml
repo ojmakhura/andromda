@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-03-15" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="OCL-9">
+                A bug in the OCL query translation library was causing some relational operations (such as 
+                <![CDATA['<>' and '<=') to be incorrectly translated to '>']]>, this has been fixed.
+            </action>
             <action dev="draftdog" type="add">
                 The bpm4struts cartridge now supports exporting to PDF, existing projects will need to include
                 the <a href="http://www.ibiblio.org/maven/itext/jars/itext-0.99.jar">IText v0.99</a> dependency.
