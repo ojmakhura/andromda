@@ -70,9 +70,12 @@
     </goal>
     
     <preGoal name="test:test">
+        <!-- comment out until we figure out how to process more models without
+             running out of memory in our builds
         <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null}">
             <attainGoal name="cartridge:test"/>
         </j:if>     
+         -->
     </preGoal>
     
     <!-- ===================================================================
