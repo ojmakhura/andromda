@@ -1,0 +1,2 @@
+## Define whether security is enabled
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm))

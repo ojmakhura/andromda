@@ -11,13 +11,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
-import org.andromda.cartridges.webservice.WebServiceProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -134,7 +134,7 @@ public class WebServiceLogicImpl
     public java.lang.String handleGetStyle()
     {
         String style = (String)this
-            .findTaggedValue(WebServiceProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
+            .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
         if (StringUtils.isEmpty(style))
         {
             style = DEFAULT_STYLE;
@@ -153,7 +153,7 @@ public class WebServiceLogicImpl
     public java.lang.String handleGetUse()
     {
         String use = (String)this
-            .findTaggedValue(WebServiceProfile.TAGGEDVALUE_WEBSERVICE_USE);
+            .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
         if (StringUtils.isEmpty(use))
         {
             use = DEFAULT_USE;
@@ -261,7 +261,7 @@ public class WebServiceLogicImpl
                     if (nonArrayType != null)
                     {
                         if (nonArrayType
-                            .hasStereotype(WebServiceProfile.STEREOTYPE_VALUE_OBJECT)
+                            .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
                             || nonArrayType.isEnumeration())
                         {
                             // we add the type when its a non array and has
@@ -317,7 +317,7 @@ public class WebServiceLogicImpl
     public java.lang.String handleGetProvider()
     {
         String provider = (String)this
-            .findTaggedValue(WebServiceProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
+            .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
         if (StringUtils.isEmpty(provider))
         {
             provider = (String)this.getConfiguredProperty("defaultProvider");
@@ -593,5 +593,25 @@ public class WebServiceLogicImpl
         return property != null || property.equals(OPERATION_SORT_MODE_NAME)
             ? (String)property
             : OPERATION_SORT_MODE_NONE;
+    }
+
+    private static final String DEFAULT_SECURED = "defaultSecured";
+    
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSecured()
+     */
+    protected boolean handleIsSecured()
+    {
+        boolean secured = !this.getAllowedOperations().isEmpty();
+        if (secured)
+        {
+	        secured = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(DEFAULT_SECURED))).booleanValue();
+	        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_SECURED); 
+	        if (value != null)
+	        {
+	            secured = Boolean.valueOf(String.valueOf(value)).booleanValue();
+	        }
+        }
+        return secured;
     }
 }

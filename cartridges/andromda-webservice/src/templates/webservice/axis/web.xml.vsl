@@ -71,4 +71,38 @@
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.jws</welcome-file>
     </welcome-file-list>
+#parse("templates/webservice/axis/AxisGlobals.vm")    
+#if ($securityEnabled)
+#foreach ($service in $services)
+#if ($service.secured)
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>$service.name</web-resource-name>
+            <description>
+                Secures the $service.name web service.
+            </description>
+            <url-pattern>/services/${service.name}</url-pattern>
+        </web-resource-collection>
+#foreach ($role in $service.roles)
+        <auth-constraint>
+            <role-name>$role.name</role-name>
+        </auth-constraint>
+#end
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+#end
+#end
+#set ($allRoles = $webServiceUtils.getAllRoles($services))
+#foreach ($role in $allRoles)
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>$securityRealm</realm-name>
+    </login-config>
+    <security-role>
+        <role-name>$role.name</role-name>
+    </security-role>
+#end
+#end
 </web-app>
