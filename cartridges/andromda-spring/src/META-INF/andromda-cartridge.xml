@@ -59,10 +59,9 @@
 	<template 
 		path="templates/spring/SpringServiceLocator.vsl" 
 		outputPattern="$generatedFile" 
-		outlet="service-locator" 
+		outlet="services" 
 		overwrite="true"
-		outputToSingleFile="true"
-		required="false">
+		outputToSingleFile="true">
 		<modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -73,10 +72,9 @@
 	<template 
 		path="templates/spring/ejb/SpringSessionEJBLocator.vsl" 
 		outputPattern="$generatedFile" 
-		outlet="service-locator" 
+		outlet="services" 
 		overwrite="true"
-		outputToSingleFile="true"
-		required="false">
+		outputToSingleFile="true">
 		<modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
