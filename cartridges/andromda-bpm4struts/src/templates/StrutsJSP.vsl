@@ -205,38 +205,19 @@
                 title="$str.toPhrase($columnName)"
                 sortable="$sortable" autolink="false" nulls="false"
                 paramId="$columnName" >
-#set ($parameters = $link.action.actionParameters)
-#if ($parameters.size() > 1)
-#set ($mapName = "${columnName}Map")
-            <%
-                java.util.Map ${mapName} = new java.util.HashMap();
-#foreach ($parameter in $parameters)
-#if ($parameter.type.arrayType)
-                Object[] ${parameter.name} = form.${parameter.getterName}();
-                for (int i=0; i<${parameter.name}.length; i++)
-                {
-            %>
-                    ${mapName}.put("${parameter.name}", "<%=${parameter.name}[i]%>");
-            <%
-                }
-#elseif ($parameter.type.collectionType)
-                java.util.Collection ${parameter.name} = form.${parameter.getterName}();
-                for (java.util.Iterator iter = ${parameter.name}.iterator(); iter.hasNext();)
-                {
-            %>
-                    ${mapName}.put("${parameter.name}", "<%=iter.next()%>");
-            <%
-                }
+#foreach ($parameter in $link.action.actionParameters)
+## Only add the parameter to the request if its been explicity set
+## as a table link
+#if (${parameter.tableLinkColumnName})
+#set ($propertyName = "row.${parameter.tableLinkColumnName}")
+#if ($velocityCount == 1)
+                <c:set var="requestString" value="?${parameter.name}=${${propertyName}}"/>
 #else
-                ${mapName}.put("${parameter.name}", String.valueOf(form.${parameter.getterName}()));
+                <c:set var="requestString" value="${requestString}&${parameter.name}=${${propertyName}}"/>
 #end
 #end
-                pageContext.setAttribute("${mapName}", ${mapName}, javax.servlet.jsp.PageContext.PAGE_SCOPE);
-            %>
-                <html:link action="${link.action.actionPath}" paramName="${mapName}" paramScope="page">
-#elseif ($parameters.size() == 1)
-                <html:link action="${link.action.actionPath}" paramName="row" paramProperty="${link.tableLinkColumnName}" paramId="$parameters.iterator().next().name" paramScope="page">
 #end
+                <html:link page="${link.action.actionPath}.do${requestString}">
 #set ($linkName = "row.${link.tableLinkColumnName}")
                     ${${linkName}}
                 </html:link>
