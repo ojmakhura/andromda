@@ -62,7 +62,7 @@ public class MetafacadeImpls
      * Discovers all metafacade-impls.properties files on the classpath. Note
      * that this method must be called before any metafacade implementation
      * classes will be able to be retrieved when calling
-     * getMetafacadeImplClass(java.lang.String)
+     * {@link #getMetafacadeClass(String)} or {@link #getMetafacadeImplClass(String)). 
      */
     public void discoverMetafacadeImpls()
     {
