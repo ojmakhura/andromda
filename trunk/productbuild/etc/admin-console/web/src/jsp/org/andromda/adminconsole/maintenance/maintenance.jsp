@@ -7,9 +7,6 @@
 <%@ include file="/taglib-imports.jspf" %>
 <%@ include file="/org/andromda/adminconsole/maintenance/maintenance-vars.jspf" %>
 
-<breadcrumbs:resize size="5"/>
-<breadcrumbs:add value="maintenance.maintenance.title"/>
-
 <tiles:insert definition="main.layout">
 
     <tiles:put name="title" type="string">
@@ -61,30 +58,22 @@
         --%>
 
         <div>
-            <tiles:insert definition="breadcrumbs.tile" flush="false">
-                <tiles:put name="current.page.title" type="string" value="maintenance.maintenance.title"/>
-            </tiles:insert>
             <h1><bean:message key="maintenance.maintenance.title"/></h1>
         </div>
 
-        <%
-            AdminConsoleConfigurator configurator = (AdminConsoleConfigurator) request.getAttribute("configurator");
-            Table tableMetaData = (Table) request.getAttribute("tableMetaData");
-
-            TableConfiguration tableConfig = configurator.getConfiguration(tableMetaData);
-            pageContext.setAttribute("tableConfig", tableConfig);
-        %>
+        <c:set var="configurator" value="${databaseLoginSession.configurator}"/>
+        <c:set var="currentTable" value="${metaDataSession.currentTable}"/>
+        <c:set var="tableConfig" value="${acf:getTableConfiguration(configurator,currentTable)}"/>
         <display:table name="${tableData}" id="row"
                        requestURI="${pageContext.request.requestURL}"
                        export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
-            <c:forEach items="${tableMetaData.columns}" var="column">
-                <%
-                    Column column = (Column) pageContext.getAttribute("column");
-                    RowData rowData = (RowData) pageContext.getAttribute("row");
-
-                    pageContext.setAttribute("columnConfig", configurator.getConfiguration(column));
-                    pageContext.setAttribute("columnJsp", configurator.getJsp(column, rowData.get(column.getName())) );
-                %>
+            <display:column media="html"
+                title="" autolink="false" nulls="false"
+                sortable="false" paramId="${column.name}">
+                <input type="checkbox" name="delete"/>
+            </display:column>
+            <c:forEach items="${currentTable.columns}" var="column">
+                <c:set var="columnConfig" value="${acf:getColumnConfiguration(configurator,column)}"/>
                 <c:if test="${columnConfig.exportable}">
                     <display:column media="xml excel csv"
                         property="${column.name}" title="${column.name}"
@@ -93,10 +82,12 @@
                 <display:column media="html"
                     title="${column.name}" autolink="false" nulls="false"
                     sortable="${columnConfig.sortable}" paramId="${column.name}">
-                    ${columnJsp}
+                    ${acf:getUpdateWidget(configurator, column, column.name, row)}
                 </display:column>
             </c:forEach>
         </display:table>
+
+        <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-reset.jsp" flush="false"/>
 
