@@ -34,13 +34,13 @@ public class HibernateFinderMethodFacadeLogicImpl
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
             Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-            queryString = value==null?null:value.toString();
+            queryString = (String)value;
         }
 
         //if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString)) {
             queryString =
-                "from c in class  "
+                "from  "
                     + this.getOwner().getFullyQualifiedName()
                     + " as c";
             if (this.getArguments().size() > 0) {
@@ -55,8 +55,7 @@ public class HibernateFinderMethodFacadeLogicImpl
                             queryString
                                 + " c."
                                 + param.getName()
-                                + " = ?"
-                                + ctr;
+                                + " = ?";
                         if (parameterIt.hasNext()) {
                             queryString = queryString + " and";
                         }
