@@ -116,8 +116,8 @@
 #set ($actionForwardName = $transform.toForwardName($finalState))
 #set ($actionForwardPath = $transform.toJavaClassName($transform.getControllerClass($nextUseCase)))
 ##
-## Notice how we redirect instead of forward to the next use case, we explicitly want a new request
-## object to be sent to the provided path
+## In order to allow parameters to be passed onto the next controller we forward instead
+## of redirecting.
 ##
          <forward name="$actionForwardName" path="/${actionForwardPath}.do" redirect="false"/>
 #set ($nextUseCase = false)
