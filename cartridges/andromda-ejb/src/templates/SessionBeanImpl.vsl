@@ -51,8 +51,7 @@ $operation.getDocumentation("     * ")
     $visibility $returnType $signature {
 #end
         //TODO: put your implementation here.
-#if ("void" != $returntype)
-
+#if ($operation.returnTypePresent)
         // Dummy return value, just that the file compiles
 #if (!$operation.returnType.primitive)
         return null;
