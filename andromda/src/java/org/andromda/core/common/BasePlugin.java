@@ -287,7 +287,7 @@ public abstract class BasePlugin
 
     /**
      * @todo get contents needs to work with directories 
-     *       the same as with archives,
+     *       the same as with archives.
      * @see org.andromda.core.common.Plugin#getContents()
      */
     public List getContents()

@@ -66,6 +66,25 @@ public class ModelPackages
     }
 
     /**
+     * Adds all ModelPackages in the given <code>modelPackages</code> to this
+     * ModelPackages instance.
+     * 
+     * @param modelPackages the ModelPackages instance to add.
+     */
+    public void addPackages(ModelPackages modelPackages)
+    {
+        if (modelPackages != null)
+        {
+	        if (this.modelPackages == null)
+	        {
+	            this.modelPackages = new HashMap();
+	        }
+	        modelPackages.init();
+	        this.modelPackages.putAll(modelPackages.modelPackages);
+        } 
+    }
+
+    /**
      * Determines whether or not the <code>packageName</code> should be
      * processed. If <code>processAllModelPackages</code> is true, then this
      * method will return false only if the ModelPackage corresponding to the

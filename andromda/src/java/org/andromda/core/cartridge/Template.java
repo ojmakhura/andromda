@@ -112,6 +112,7 @@ public class Template
      * Sets the model elements that are suported by this template.
      * 
      * @param supportedModelElements the TemplateModelElements instance.
+     * 
      * @see org.andromda.core.cartridge.TemplateModelElements
      */
     public void setSupportedModelElements(

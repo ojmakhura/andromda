@@ -15,6 +15,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
@@ -133,19 +134,14 @@ public class ModelProcessor
                         + RepositoryFacade.class.getName()
                         + " instance on your classpath");
             }
-            repository.open();
 
             if (models != null && cartridges != null)
             {
-                for (int ctr = 0; ctr < models.length; ctr++)
-                {
-                    process(repository, models[ctr], cartridges);
-                }
+                repository.open();
+                process(repository, models, cartridges);
+                repository.close();
+                repository = null;
             }
-
-            repository.close();
-            repository = null;
-
         }
         finally
         {
@@ -180,25 +176,36 @@ public class ModelProcessor
      * 
      * @param repository the RepositoryFacade that will be used to read/load the
      *        model
-     * @param model the Model to process.
+     * @param models the Model(s) to process.
      */
     private void process(
         RepositoryFacade repository,
-        Model model,
+        Model[] models,
         Collection cartridges)
     {
         final String methodName = "ModelProcessor.process";
         try
         {
-            //-- command line status
-            AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
-
-            repository.readModel(model.getUrl(), model.getModuleSearchPath());
-
+	        boolean lastModifiedCheck = true;
+	        ModelPackages modelPackages = new ModelPackages();
+	 
+	        for (int ctr = 0; ctr < models.length; ctr++)
+	        {
+	            Model model = models[ctr];
+	            AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
+	            // read the model into the repository
+	            repository.readModel(model.getUrl(), model.getModuleSearchPath());
+	            // @todo lastModifiedDate needs to be handled correctly for multiple
+	            // models currently if one is set to false, all will be false
+	            lastModifiedCheck = model.isLastModifiedCheck()
+	                && lastModifiedCheck;
+	            modelPackages.addPackages(model.getPackages());
+	        }
+	        
             CodeGenerationContext context = new CodeGenerationContext(
                 repository,
-                model.isLastModifiedCheck(),
-                model.getPackages());
+                lastModifiedCheck,
+                modelPackages);
 
             Namespace defaultNamespace = Namespaces.instance().findNamespace(
                 Namespaces.DEFAULT);
@@ -241,7 +248,7 @@ public class ModelProcessor
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName
-                + " with model --> '" + model.getUrl() + "'";
+                + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
             logger.error(errMsg, th);
             throw new ModelProcessorException(errMsg, th);
 
