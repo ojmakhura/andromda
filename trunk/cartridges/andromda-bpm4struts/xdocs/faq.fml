@@ -347,34 +347,34 @@
                     Using maven you will need to open up /your-project/mda/project.xml and in the bpm4struts
                     namespace set 'security' to true.
                     <source>
-                        &lt;properties&gt;
-                        &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
-                        &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
-                        &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
-                        &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
-                        &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
-                        &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
-                        &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
-                        &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
-                        &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
-                        &lt;securityRealm&gt;other&lt;/securityRealm&gt;
-                        &lt;/properties&gt;
+&lt;properties&gt;
+    &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
+    &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
+    &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
+    &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
+    &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
+    &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
+    &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
+    &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
+    &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
+    &lt;securityRealm&gt;other&lt;/securityRealm&gt;
+&lt;/properties&gt;
                     </source>
                 </p>
                 <p>
                     Using the Ant build it is a property in the
                     MDA build.xml script.
                     <source>
-                        &lt;property name="security" value="false"/&gt;    &lt;---- set to true to enable security
-                        &lt;property name="securityRealm" value="other"/&gt;
-                        &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
-                        &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
-                        &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
-                        &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/&gt;
+    &lt;property name="security" value="false"/&gt;    &lt;---- set to true to enable security
+    &lt;property name="securityRealm" value="other"/&gt;
+    &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
+    &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+    &lt;property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+    &lt;property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+    &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
+    &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
+    &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+    &lt;property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/&gt;
                     </source>
                 </p>
                 <p>
