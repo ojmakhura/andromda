@@ -8,7 +8,7 @@ package $packagename;
 #parse("templates/java/ExceptionUtilsImports.vm")
 
 /** 
-$class.getDocumentation(" ")
+$class.getDocumentation(" * ")
  */
 public class ${class.name} extends RuntimeException {
 
