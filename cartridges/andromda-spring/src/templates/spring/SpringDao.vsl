@@ -179,6 +179,11 @@ public interface $entity.daoName
      * Updates the <code>$argumentName</code> instance in the persistent store.
      */
     public void update($entity.fullyQualifiedEntityName $argumentName);
+    
+    /**
+     * Updates all instances in the <code>entities</code> collection in the persistent store.
+     */
+    public void update(java.util.Collection entities);
 
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.

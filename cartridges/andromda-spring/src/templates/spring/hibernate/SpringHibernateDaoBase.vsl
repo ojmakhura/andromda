@@ -130,27 +130,29 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(int, java.util.Collection)
      */
-   public java.util.Collection create(final int transform, final java.util.Collection entities)
-   {
+    public java.util.Collection create(final int transform, final java.util.Collection entities)
+    {
         if (entities == null)
         {
             throw new IllegalArgumentException(
                 "${entity.name}.create - 'entities' can not be null");
         }
-       this.getHibernateTemplate().execute(new org.springframework.orm.hibernate.HibernateCallback()
-       {
-            public Object doInHibernate(net.sf.hibernate.Session session) 
-                throws net.sf.hibernate.HibernateException
+        this.getHibernateTemplate().execute(
+            new org.springframework.orm.hibernate.HibernateCallback()
             {
-                for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                public Object doInHibernate(net.sf.hibernate.Session session) 
+                    throws net.sf.hibernate.HibernateException
                 {
-                    create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next());
+                    for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                    {
+                        create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next());
+                    }
+                    return null;
                 }
-                return null;
-            }
-        }, true);
-       return entities;
-   }
+            }, 
+            true);
+        return entities;
+    }
 
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
@@ -227,6 +229,32 @@ public abstract class $entity.daoBaseName
                 "${entity.name}.update - '$argumentName' can not be null");
         }
         this.getHibernateTemplate().update($argumentName);
+    }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#update(java.util.Collection)
+     */
+    public void update(final java.util.Collection entities)
+    {
+        if (entities == null)
+        {
+            throw new IllegalArgumentException(
+                "${entity.name}.update - 'entities' can not be null");
+        }
+        this.getHibernateTemplate().execute(
+            new org.springframework.orm.hibernate.HibernateCallback()
+            {
+                public Object doInHibernate(net.sf.hibernate.Session session) 
+                    throws net.sf.hibernate.HibernateException
+                {
+                    for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                    {
+                        update(($entity.fullyQualifiedEntityName)entityIterator.next());
+                    }
+                    return null;
+                }
+            }, 
+            true);
     }
 
     /**
