@@ -398,8 +398,9 @@
                             <a href="#Service"><![CDATA[<<Service>>]]></a>
                         </td>
                         <td>
-                            Defines the view type for a Session EJB.  If not
-                            defined, <code>remote</code> will be assumed.
+                            Defines the view type for a Session EJB.  If undefined, 
+                            the default defined by <a href="namespace.html#ejbViewType">ejbViewType</a>
+                            will be assumed.
                         </td>
                     </tr>
                     <tr>
