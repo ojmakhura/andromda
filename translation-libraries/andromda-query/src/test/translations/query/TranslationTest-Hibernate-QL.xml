@@ -200,13 +200,15 @@
             context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate) 
             body : 
                 allInstances() -> select( certificate | 
-                   certificate.code.toUpper() = code )
+                   certificate.code.toUpper() = code 
+                   and certificate.code.size() > 0 )
             ]]>
         </from>
         <to>
             <![CDATA[
             from org.andromda.contracts.MedicalCertificate as certificate 
             where upper(certificate.code) = :code
+            and length(certificate.code) > 0
             ]]>          
         </to> 
     </expression>
