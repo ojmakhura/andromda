@@ -313,19 +313,7 @@ $target.getDocumentation("    * ")
 #if(!$associationEnd.navigable)
 	* UNIDIRECTIONAL RELATIONSHIP
 	*
-#if($associationEnd.many2One || $associationEnd.one2One) 
-##The one-end is on the other side
-#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-    * @jboss.relation
-    *     fk-column="${associationEnd.otherEnd.columnName}"
-    *     related-pk-field="${identifier.name}"
-    * 
-    * @weblogic.column-map
-    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
-	*	key-column="${identifier.columnName}"
-	*
-#end
-#elseif($associationEnd.many2Many) 
+#if($associationEnd.many2Many) 
 #foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
 	* @jboss.relation 
     *     fk-column = "${associationEnd.otherEnd.columnName}"
@@ -346,8 +334,45 @@ $target.getDocumentation("    * ")
 	*	key-column="${identifier.columnName}"
 	*
 #end
+#elseif($associationEnd.many2One) 
+##The one-end is on the other side
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+    * @jboss.relation
+    *     fk-column="${associationEnd.otherEnd.columnName}"
+    *     related-pk-field="${identifier.name}"
+    * 
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#elseif($associationEnd.one2One) 
+#if($associationEnd.aggregation || $associationEnd.composition)
+## COMPOSITION / AGGREGATION END
+#foreach ($identifier in $associationEnd.type.identifiers)
+	* @jboss.target-relation 
+    *     fk-column = "${associationEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
 #else
-##The one-end is here
+## OTHER END
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+	* @jboss.relation
+    *     fk-column="${associationEnd.otherEnd.columnName}"
+    *     related-pk-field="${identifier.name}"
+    * 
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#end
+#elseif($associationEnd.one2Many)
 #foreach ($identifier in $associationEnd.type.identifiers)
     * @jboss.target-relation 
     *     fk-column = "${associationEnd.columnName}"
@@ -385,15 +410,30 @@ $target.getDocumentation("    * ")
 	*
 #end
 #elseif($associationEnd.one2One)
-#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
-    * @jboss.relation 
-    *     fk-column = "${associationEnd.otherEnd.columnName}"
+#if($associationEnd.aggregation || $associationEnd.composition)
+## COMPOSITION / AGGREGATION END
+#foreach ($identifier in $associationEnd.type.identifiers)
+	* @jboss.target-relation 
+    *     fk-column = "${associationEnd.columnName}"
     *     related-pk-field = "${identifier.name}"
     *
+    * @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#else
+## OTHER END
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+	* @jboss.relation
+    *     fk-column="${associationEnd.otherEnd.columnName}"
+    *     related-pk-field="${identifier.name}"
+    * 
     * @weblogic.column-map
     *   foreign-key-column="${associationEnd.otherEnd.columnName}"
 	*	key-column="${identifier.columnName}"
 	*
+#end
 #end
 #elseif($associationEnd.one2Many)
 ##The one-end is here
@@ -407,30 +447,6 @@ $target.getDocumentation("    * ")
 	*	key-column="${identifier.columnName}"
 	*
 #end
-#end
-#end
-#if(!$associationEnd.navigable && $associationEnd.association.findTaggedValue("@andromda.ejb.generateVOreference") == "true")
-#set ($replacepkg = $associationEnd.otherEnd.type.package.name)
-#set ($idx = $associationEnd.otherEnd.type.packageName.indexOf($replacepkg))
-#set ($remoteParentPackage = $associationEnd.otherEnd.type.packageName.substring(0, $idx))
-#if ($associationEnd.one2Many || $associationEnd.many2Many)
-	* @ejb.value-object
-	*    match="*"
-	*    aggregate="${remoteParentPackage}vo.${associationEnd.otherEnd.type.name}Value"
-	*    aggregate-name="$associationEnd.otherEnd.type.name"
-	*    members="${associationEnd.otherEnd.type.fullyQualifiedName}"
-	*    members-name="$associationEnd.otherEnd.type.name"
-	*    relation="external"
-	*    type="java.util.Collection"
-	*
-#else
-	* @ejb.value-object
-	*    match="*"
-	*    aggregate="${remoteParentPackage}vo.${associationEnd.otherEnd.type.name}Value"
-	*    aggregate-name="$associationEnd.otherEnd.type.name"
-	*    members="${associationEnd.otherEnd.type.fullyQualifiedName}"
-	*    members-name="$associationEnd.otherEnd.type.name"
-	*
 #end
 #end
     */
