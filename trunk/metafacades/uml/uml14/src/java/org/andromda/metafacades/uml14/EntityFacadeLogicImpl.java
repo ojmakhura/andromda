@@ -1,7 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -68,7 +67,7 @@ public class EntityFacadeLogicImpl
      */
     public java.util.Collection handleGetQueryOperations(boolean follow)
     {
-        Collection queryOperations = new HashSet(this.getOperations());
+        Collection queryOperations = this.getOperations();
 
         MetafacadeUtils.filterByType(
             queryOperations,
@@ -81,7 +80,7 @@ public class EntityFacadeLogicImpl
             if (EntityFacade.class.isAssignableFrom(superClass.getClass()))
             {
                 EntityFacade entity = (EntityFacade)superClass;
-                queryOperations.addAll(entity.getQueryOperations(follow));
+                queryOperations.addAll(entity.getQueryOperations());
             }
         }
         return queryOperations;
@@ -112,12 +111,13 @@ public class EntityFacadeLogicImpl
      */
     private void createIdentifier()
     {
-        // first check if the foreign identifier flag is set, and 
+        // first check if the foreign identifier flag is set, and
         // let those taken precedence if so
         if (!this.checkForAndAddForeignIdentifiers())
         {
             this.createIdentifier(this.getDefaultIdentifier(), this
-                .getDefaultIdentifierType(), this.getDefaultIdentifierVisibility());
+                .getDefaultIdentifierType(), this
+                .getDefaultIdentifierVisibility());
         }
     }
 
@@ -143,11 +143,11 @@ public class EntityFacadeLogicImpl
                     String
                         .valueOf(this
                             .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
-    
+
             identifier.getStereotype().add(
                 UMLMetafacadeUtils
                     .findOrCreateStereotype(UMLProfile.STEREOTYPE_IDENTIFIER));
-    
+
             ((Classifier)this.metaObject).getFeature().add(identifier);
         }
     }
@@ -406,7 +406,7 @@ public class EntityFacadeLogicImpl
     {
         final Collection businessOperations = this.getOperations();
         MetafacadeUtils.filterByNotType(
-            businessOperations, 
+            businessOperations,
             EntityQueryOperationFacade.class);
         return businessOperations;
     }
@@ -582,7 +582,7 @@ public class EntityFacadeLogicImpl
         return (String)this
             .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
     }
-    
+
     /**
      * Checks to see if this entity has any associations where the foreign
      * identifier flag may be set, and if so creates and adds identifiers just
@@ -593,26 +593,25 @@ public class EntityFacadeLogicImpl
     private boolean checkForAndAddForeignIdentifiers()
     {
         boolean identifiersAdded = false;
-            EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
-            if (end != null
-                && EntityFacade.class
-                    .isAssignableFrom(end.getType().getClass()))
+        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
+        if (end != null
+            && EntityFacade.class.isAssignableFrom(end.getType().getClass()))
+        {
+            EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
+                .getType();
+            Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
+                foreignEntity,
+                true);
+            for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
+                .hasNext();)
             {
-                EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
-                    .getType();
-                Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
-                    foreignEntity,
-                    true);
-                for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
-                    .hasNext();)
-                {
-                    AttributeFacade identifier = (AttributeFacade)identifierIterator
-                        .next();
-                    this.createIdentifier(identifier.getName(), identifier
-                        .getType().getFullyQualifiedName(true), identifier
-                        .getVisibility());
-                    identifiersAdded = true;
-                }
+                AttributeFacade identifier = (AttributeFacade)identifierIterator
+                    .next();
+                this.createIdentifier(identifier.getName(), identifier
+                    .getType().getFullyQualifiedName(true), identifier
+                    .getVisibility());
+                identifiersAdded = true;
+            }
         }
         return identifiersAdded;
     }
