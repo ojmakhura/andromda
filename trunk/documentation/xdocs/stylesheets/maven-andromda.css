@@ -115,14 +115,12 @@ body
 
 #footer
 {
-display: none;
+    display: none;
     border-top: 1px solid #93A6B4;
     text-align: center;
 }
 
-#footer xright
-{
-}
+#footer xright {}
 
 .highlight
 {
@@ -174,9 +172,9 @@ a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWin
 
 pre.console
 {
-    margin: 10px;
-    border: 1px solid;
-    border-right: 0px;
+  margin: 10px;
+  border: 1px solid;
+  border-right: 0px;
 }
 
 img { vertical-align: bottom; }
@@ -198,3 +196,10 @@ div.redirect h3
   background-repeat: no-repeat;
   padding-left: 34px;
 }
+
+div.screenshot tr.a td, div.screenshot tr.b td
+{
+  border-width:0;
+  background-color: white;
+}
+
