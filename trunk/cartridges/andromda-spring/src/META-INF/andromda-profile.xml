@@ -20,6 +20,10 @@
         <to>@andromda.spring.service.remote.port</to>
     </mapping>
     <mapping>
+        <from>HIBERNATE_CRITERIA_NULLABLE</from>
+        <to>@andromda.hibernate.criteria.nullable</to>
+    </mapping>
+    <mapping>
         <from>HIBERNATE_CRITERIA_ATTRIBUTE</from>
         <to>@andromda.hibernate.criteria.attribute</to>
     </mapping>

@@ -22,6 +22,12 @@ public class SpringProfile extends UMLProfile {
     /* ----------------- Tagged Values -------------------- */
 
     /**
+     * Stores whether a criteria search attribute may be nullable.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE = profile
+            .get("HIBERNATE_CRITERIA_NULLABLE");
+
+    /**
      * Stores a criteria search attribute path.
      */
     public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ATTRIBUTE = profile

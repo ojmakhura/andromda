@@ -384,9 +384,20 @@ public abstract class $entity.daoBaseName
                 new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(
                     ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
                     "$criteriaAttribute.attributeName",
+#if($criteriaAttribute.nullable)
+                    $criteriaAttribute.nullable,
+#end
                     ${springTypesPackage}.${criteriaSearchBaseName}Parameter.${criteriaAttribute.comparatorConstant}));
 #else
-            criteriaSearch.addParameter(new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(${criteriaArgumentName}.${criteriaAttribute.getterName}(), "${criteriaAttribute.attributeName}"));
+            criteriaSearch.addParameter(
+                new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(
+                    ${criteriaArgumentName}.${criteriaAttribute.getterName}(), 
+#if($criteriaAttribute.nullable)
+                    "${criteriaAttribute.attributeName}",
+                    $criteriaAttribute.nullable));
+#else
+                    "${criteriaAttribute.attributeName}"));
+#end
 #end
 #end
             java.util.Collection results = criteriaSearch.execute();
