@@ -10,7 +10,6 @@
     <property name="jar.bundle.name" value="${application.id}-${ant.project.name}-${application.version}.jar"/>
 
     <fileset id="libraries" dir="${app.root.dir}/lib" includes="**/*.jar"/>
-    <fileset id="java-sources" dir="${basedir}/src/java" includes="**/*.java"/>
 
     <path id="classpath">
         <pathelement path="${basedir}/target/classes"/>
