@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="common/target/src"/>
-	<classpathentry kind="src" path="hibernate/ejb/src/java"/>
-	<classpathentry kind="src" path="hibernate/ejb/target/src"/>
 	<classpathentry kind="src" path="web/src/java"/>
 	<classpathentry kind="src" path="web/target/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -12,5 +10,12 @@
 	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-1.2-beta-20040626.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-1.2-beta-3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-jaxrpc-1.2-beta-20040626.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-jaxrpc-1.2-beta-3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-saaj-1.2-beta-20040626.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-saaj-1.2-beta-3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-wsdl4j-1.2-beta-3.jar"/>
 	<classpathentry kind="output" path="target/casses"/>
 </classpath>
