@@ -58,8 +58,10 @@
                 </tr>
                 <tr>
                     <td>server</td>
-                    <td>The location where to store application server specific configuration, such as users.properties
-                        and roles.properties (in case security has been enabled)</td>
+                    <td>
+                        The location where to store application server specific configuration, such as users.properties
+                        and roles.properties (in case security has been enabled)
+                    </td>
                     <td>No</td>
                 </tr>
                 <tr>
@@ -111,8 +113,10 @@
                 </tr>
                 <tr>
                     <td>maxBreadCrumbs</td>
-                    <td>an integer denoting the maximum number of breadcrumbs to appear on a
-                        page, specify zero to disable breadcrumbs</td>
+                    <td>
+                        An integer denoting the maximum number of breadcrumbs to appear on a
+                        page, specify zero to disable breadcrumbs
+                    </td>
                     <td>
                         No, default is
                         <code>5</code>.
@@ -136,7 +140,8 @@
                 </tr>
                 <tr>
                     <td>defaultDateFormat</td>
-                    <td>The default date format to use in case it has not been explicitely
+                    <td>
+                        The default date format to use in case it has not been explicitely
                         specified, for example for action parameters of type Date.
                         Take a look
                         <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html">here</a>
@@ -149,9 +154,11 @@
                 </tr>
                 <tr>
                     <td>warningMessagesKey</td>
-                    <td>The key to lookup warning messages in a scope, the value will be an 
+                    <td>
+                        The key to lookup warning messages in a scope, the value will be an 
                         <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
-                        ActionMessages</a> instance</td>
+                        ActionMessages</a> instance
+                    </td>
                     <td>
                         No, default is
                         <code>org.andromda.bpm4struts.warningmessages</code>.
@@ -159,7 +166,8 @@
                 </tr>
                 <tr>
                     <td>successMessagesKey</td>
-                    <td>The key to lookup success messages in a scope, the value will be an 
+                    <td>
+                        The key to lookup success messages in a scope, the value will be an 
                         <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
                         ActionMessages</a> instance</td>
                     <td>
@@ -215,6 +223,52 @@
                     </td>
                     <td>
                         No, default is <code>{0}</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>exceptionHandlerPattern</td>
+                    <td>
+                        Used to define the pattern used for retriving message resource keys
+                        from exceptions.  Normally you won't need to change this pattern,
+                        however you may want to if you want to change the pattern used.  Currently
+                        the default pattern supports an exception with an embedded <em>{some.resource.key}</em>
+                        type key.
+                    </td>
+                    <tr>
+                        <td>
+                            No, default is <code>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</code>
+                        </td>
+                    </tr>
+                </tr>
+                <tr>
+                    <td>exceptionHandlerPackage</td>
+                    <td>
+                        The package to which the exception handler that retrieves exception keys will 
+                        be generated.
+                    </td>
+                    <td>
+                        No, default is <code>org.andromda.presentation.bpm4struts</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>exceptionHandlerMessagesKey</td>
+                    <td>
+                        The key to lookup error handler messages from within the request scope, the value will be an 
+                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
+                        ActionMessages</a> instance
+                    </td>
+                    <td>
+                        No, default is <code>org.andromda.bpm4struts.errormessages</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>customResourcesKey</td>
+                    <td>
+                        The key used to store the custom message resources (the message resources seperate
+                        from the standard application resources generated by this cartridge).
+                    </td>
+                    <td>
+                        No, default is <code>custom</code>.
                     </td>
                 </tr>
             </table>
