@@ -1,4 +1,6 @@
 #set ($generatedFile = "${controller.fullPath}.java")
+#set ($operations = $controller.operations)
+#if (!$operations.empty)
 ##
 ##  CONSTANTS
 ##
@@ -38,7 +40,7 @@ $controller.getDocumentation(" * ")
  */
 public abstract class ${controller.name} implements java.io.Serializable
 {
-#foreach ($operation in $controller.operations)
+#foreach ($operation in $operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
@@ -77,4 +79,4 @@ public abstract class ${controller.name} implements java.io.Serializable
 
 #end
 }
-
+#end
