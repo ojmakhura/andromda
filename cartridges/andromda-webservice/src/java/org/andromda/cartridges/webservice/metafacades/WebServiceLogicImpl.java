@@ -439,17 +439,6 @@ public class WebServiceLogicImpl
     static final String NAMESPACE_PATTERN = "namespacePattern";
 
     /**
-     * Sets the <code>namespacePattern</code> for this service.
-     * 
-     * @param namespacePattern the pattern to use for creating the namespace.
-     */
-    public void setNamespacePattern(String namespacePattern)
-    {
-        this.registerConfiguredProperty(NAMESPACE_PATTERN, StringUtils
-            .trimToEmpty(namespacePattern));
-    }
-
-    /**
      * Gets the <code>namespacePattern</code> for this service.
      * 
      * @return String the namespace pattern to use.
@@ -460,17 +449,6 @@ public class WebServiceLogicImpl
     }
 
     static final String REVERSE_NAMESPACE = "reverseNamespace";
-
-    /**
-     * Sets the <code>reverseNamespace</code> for this service.
-     * 
-     * @param reverseNamespace the pattern to use for creating the namespace.
-     */
-    public void setReverseNamespace(String reverseNamespace)
-    {
-        this.registerConfiguredProperty(REVERSE_NAMESPACE, StringUtils
-            .trimToEmpty(reverseNamespace));
-    }
 
     /**
      * Gets whether or not <code>reverseNamespace</code> is true/false for
@@ -502,21 +480,7 @@ public class WebServiceLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-
-    private static final String EJB_JNDI_NAME_PREFIX = "ejbJndiNamePrefix";
-
-    /**
-     * Sets the <code>ejbJndiNamePrefix</code> for an EJB provider.
-     * 
-     * @param ejbJndiNamePrefix the prefix to use when binding specifying an EJB
-     *        provider's JNDI name.
-     */
-    public void setEjbJndiNamePrefix(String ejbJndiNamePrefix)
-    {
-        this.registerConfiguredProperty(EJB_JNDI_NAME_PREFIX, StringUtils
-            .trimToEmpty(ejbJndiNamePrefix));
-    }
-
+    
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for an EJB provider.
      * 
@@ -524,7 +488,7 @@ public class WebServiceLogicImpl
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty(EJB_JNDI_NAME_PREFIX);
+        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
     
     /**
@@ -539,20 +503,6 @@ public class WebServiceLogicImpl
         });
     }
 
-    private static final String EJB_HOME_INTERFACE_PATTERN = "ejbHomeInterfacePattern";
-
-    /**
-     * Sets the <code>ejbHomeInterfacePattern</code> for an EJB provider.
-     * 
-     * @param ejbHomeInterfacePattern the pattern to use for the Home interface
-     *        of an EJB provider.
-     */
-    public void setEjbHomeInterfacePattern(String ejbHomeInterfacePattern)
-    {
-        this.registerConfiguredProperty(EJB_HOME_INTERFACE_PATTERN, StringUtils
-            .trimToEmpty(ejbHomeInterfacePattern));
-    }
-
     /**
      * Gets the <code>ejbHomeInterfacePattern</code> for an EJB provider.
      * 
@@ -560,7 +510,7 @@ public class WebServiceLogicImpl
      */
     protected String getEjbHomeInterfacePattern()
     {
-        return (String)this.getConfiguredProperty(EJB_HOME_INTERFACE_PATTERN);
+        return (String)this.getConfiguredProperty("ejbHomeInterfacePattern");
     }
 
     /**
@@ -575,20 +525,6 @@ public class WebServiceLogicImpl
         });
     }
 
-    private static final String EJB_INTERFACE_PATTERN = "ejbInterfacePattern";
-
-    /**
-     * Sets the <code>ejbInterfacePattern</code> for an EJB provider.
-     * 
-     * @param ejbInterfacePattern the pattern to use for the interface of an EJB
-     *        provider.
-     */
-    public void setEjbInterfacePattern(String ejbInterfacePattern)
-    {
-        this.registerConfiguredProperty(EJB_INTERFACE_PATTERN, StringUtils
-            .trimToEmpty(ejbInterfacePattern));
-    }
-
     /**
      * Gets the <code>ejbInterfacePattern</code> for an EJB provider.
      * 
@@ -596,6 +532,6 @@ public class WebServiceLogicImpl
      */
     protected String getEjbInterfacePattern()
     {
-        return (String)this.getConfiguredProperty(EJB_INTERFACE_PATTERN);
+        return (String)this.getConfiguredProperty("ejbInterfacePattern");
     }
 }

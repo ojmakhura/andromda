@@ -11,7 +11,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
 import org.apache.commons.beanutils.ConstructorUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -115,7 +114,7 @@ public class MetafacadeFactory
         String contextName,
         Class metafacadeClass)
     {
-        // TODO: the source code for this class looks complicated and has to be
+        // @todo the source code for this class looks complicated and has to be
         // refactored.
         final String methodName = "MetafacadeFactory.internalCreateMetafacade";
 
@@ -239,7 +238,7 @@ public class MetafacadeFactory
 
                 this.populatePropertyReferences(metafacade, mappings
                     .getPropertyReferences(this.getActiveNamespace()));
-
+                              
                 // now populate any context property references (if
                 // we have any)
                 if (mapping != null)
@@ -331,12 +330,14 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns the metafacade from the metafacade cache. T Metafacades are
+     * <p>
+     * Returns the metafacade from the metafacade cache. The Metafacades are
      * cached first by according to its <code>metaobject</code> and then
      * according to the given <code>key</code> and current active namespace.
      * Metafacades must be cached in order to keep track of the state of its
      * validation. If we keep creating a new one each time, we can never tell
      * whether or not a metafacade has been previously validated.
+     * </p>
      * 
      * @param metaobject the metaobject for which to cache the metafacade.
      * @param key the unique key for the given metaobject
@@ -400,20 +401,17 @@ public class MetafacadeFactory
             methodName,
             "propertyReferences",
             propertyReferences);
-
+        
         Iterator referenceIt = propertyReferences.keySet().iterator();
         while (referenceIt.hasNext())
         {
             String reference = (String)referenceIt.next();
-
             // ensure that each property is only set once per context
             // for performance reasons
-            if (PropertyUtils.isWriteable(metafacade, reference)
-                && !this.isPropertyRegistered(
+            if (!this.isPropertyRegistered(
                     metafacade.getPropertyNamespace(),
                     reference))
             {
-
                 String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
@@ -430,7 +428,6 @@ public class MetafacadeFactory
                         this.getActiveNamespace(),
                         reference,
                         showWarning);
-
                 // don't attempt to set if the property is null, or it's set to
                 // ignore.
                 if (property != null && !property.isIgnore())

@@ -8,24 +8,22 @@ import java.util.Set;
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 
-
 /**
- * 
- *
  * Metaclass facade implementation.
- *
  */
 public class UseCaseFacadeLogicImpl
-       extends UseCaseFacadeLogic
-       implements org.andromda.metafacades.uml.UseCaseFacade
+    extends UseCaseFacadeLogic
+    implements org.andromda.metafacades.uml.UseCaseFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public UseCaseFacadeLogicImpl (org.omg.uml.behavioralelements.usecases.UseCase metaObject, String context)
+
+    public UseCaseFacadeLogicImpl(
+        org.omg.uml.behavioralelements.usecases.UseCase metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
@@ -77,5 +75,5 @@ public class UseCaseFacadeLogicImpl
     }
 
     // ------------- relations ------------------
-    
+
 }

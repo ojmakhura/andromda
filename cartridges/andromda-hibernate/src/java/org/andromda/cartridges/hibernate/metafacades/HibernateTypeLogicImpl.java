@@ -1,7 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for
@@ -40,22 +39,6 @@ public class HibernateTypeLogicImpl
         return fullyQualifiedName;
     }
 
-    private static final String HIBERNATE_TYPE_MAPPINGS = "hibernateTypeMappings";
-
-    /**
-     * Sets the <code>hibernateTypeMappingsUri</code> for this hibernate type.
-     * 
-     * @param hibernateTypeMappingsUri URI to the hibernate type mappings file.
-     */
-    public void setHibernateTypeMappingsUri(String hibernateTypeMappingsUri)
-    {
-        if (StringUtils.isNotBlank(hibernateTypeMappingsUri))
-        {
-            this.registerConfiguredProperty(HIBERNATE_TYPE_MAPPINGS, Mappings
-                .getInstance(hibernateTypeMappingsUri));
-        }
-    }
-
     /**
      * Gets the <code>hibernateTypeMappings</code> for this hibernate type.
      * 
@@ -64,10 +47,31 @@ public class HibernateTypeLogicImpl
     protected Mappings getHibernateTypeMappings()
     {
         Mappings mappings = null;
-        if (this.isConfiguredProperty(HIBERNATE_TYPE_MAPPINGS))
+        final String propertyName = "hibernateTypeMappings";
+        if (this.isConfiguredProperty(propertyName))
         {
-            mappings = (Mappings)this
-                .getConfiguredProperty(HIBERNATE_TYPE_MAPPINGS);
+            Object property = this.getConfiguredProperty(propertyName);
+            String uri = null;
+            if (String.class.isAssignableFrom(property.getClass()))
+            {
+                uri = (String)property;
+                try
+                {
+                    mappings = Mappings.getInstance((String)property);
+                    this.registerConfiguredProperty(propertyName, mappings);
+                }
+                catch (Throwable th)
+                {
+                    String errMsg = "Error getting '" + propertyName + "' --> '"
+                        + uri + "'";
+                    logger.error(errMsg, th);
+                    //don't throw the exception
+                }
+            }
+            else
+            {
+                mappings = (Mappings)property;
+            }
         }
         return mappings;
     }

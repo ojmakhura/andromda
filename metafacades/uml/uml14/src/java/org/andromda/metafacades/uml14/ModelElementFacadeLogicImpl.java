@@ -334,40 +334,37 @@ public class ModelElementFacadeLogicImpl
     {
         return metaObject.getName();
     }
-
-    /**
-     * Language specific mappings property reference.
-     */
-    private static final String LANGUAGE_MAPPINGS_URI = "languageMappingsUri";
-
-    /**
-     * Allows the MetaFacadeFactory to populate the language mappings for this
-     * model element.
-     * 
-     * @param mappingsUri the URI of the language mappings resource.
-     */
-    public void handleSetLanguageMappingsUri(String mappingsUri)
-    {
-        try
-        {
-            this.registerConfiguredProperty(LANGUAGE_MAPPINGS_URI, Mappings
-                .getInstance(mappingsUri));
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error setting '" + LANGUAGE_MAPPINGS_URI
-                + "' --> '" + mappingsUri + "'";
-            logger.error(errMsg, th);
-            //don't throw the exception
-        }
-    }
-
+    
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
     public Mappings handleGetLanguageMappings()
     {
-        return (Mappings)this.getConfiguredProperty(LANGUAGE_MAPPINGS_URI);
+        final String propertyName = "languageMappingsUri";
+        Object property = this.getConfiguredProperty(propertyName);
+        Mappings mappings = null;
+        String uri = null;
+        if (String.class.isAssignableFrom(property.getClass()))
+        {
+            uri = (String)property;
+            try 
+            {
+                mappings = Mappings.getInstance((String)property);
+                this.registerConfiguredProperty(propertyName, mappings);
+            }
+            catch (Throwable th)
+            {
+                String errMsg = "Error getting '" + propertyName
+                    + "' --> '" + uri + "'";
+                logger.error(errMsg, th);
+                //don't throw the exception
+            }  
+        }
+        else 
+        {
+            mappings = (Mappings)property;
+        }
+        return mappings;
     }
 
     /**
@@ -438,37 +435,29 @@ public class ModelElementFacadeLogicImpl
      */
     public Collection handleGetConstraints(final String kind)
     {
-        try
-        {
-            final Collection filteredConstraints = CollectionUtils.select(
-                getConstraints(),
-                new Predicate()
+        final Collection filteredConstraints = CollectionUtils.select(
+            getConstraints(),
+            new Predicate()
+            {
+                public boolean evaluate(Object o)
                 {
-                    public boolean evaluate(Object o)
+                    if (o instanceof ConstraintFacade)
                     {
-                        if (o instanceof ConstraintFacade)
-                        {
-                            ConstraintFacade constraint = (ConstraintFacade)o;
-                            return ((ExpressionKinds.BODY.equals(kind) && constraint
-                                .isBodyExpression())
-                                || (ExpressionKinds.DEF.equals(kind) && constraint
-                                    .isDefinition())
-                                || (ExpressionKinds.INV.equals(kind) && constraint
-                                    .isInvariant())
-                                || (ExpressionKinds.PRE.equals(kind) && constraint
-                                    .isPreCondition()) || (ExpressionKinds.POST
-                                .equals(kind) && constraint.isPostCondition()));
-                        }
-                        return false;
+                        ConstraintFacade constraint = (ConstraintFacade)o;
+                        return ((ExpressionKinds.BODY.equals(kind) && constraint
+                            .isBodyExpression())
+                            || (ExpressionKinds.DEF.equals(kind) && constraint
+                                .isDefinition())
+                            || (ExpressionKinds.INV.equals(kind) && constraint
+                                .isInvariant())
+                            || (ExpressionKinds.PRE.equals(kind) && constraint
+                                .isPreCondition()) || (ExpressionKinds.POST
+                            .equals(kind) && constraint.isPostCondition()));
                     }
-                });
-            return filteredConstraints;
-        }
-        catch (Exception e)
-        {
-            logger.info(e);
-            throw new RuntimeException(e);
-        }
+                    return false;
+                }
+            });
+        return filteredConstraints;
     }
 
     /**

@@ -47,26 +47,11 @@ public class EntityAssociationEndFacadeLogicImpl
     }
 
     /**
-     * The foreign key suffix.
-     */
-    private final static String FOREIGN_KEY_SUFFIX = "foreignKeySuffix";
-
-    /**
-     * Sets the suffix for foreign keys.
-     * 
-     * @param foreignKeySuffix the suffix for foreign keys (i.e. '_FK').
-     */
-    public void handleSetForeignKeySuffix(String foreignKeySuffix)
-    {
-        this.registerConfiguredProperty(FOREIGN_KEY_SUFFIX, foreignKeySuffix);
-    }
-
-    /**
      * Gets the maximum name length SQL names may be
      */
     public String handleGetForeignKeySuffix()
     {
-        return (String)this.getConfiguredProperty(FOREIGN_KEY_SUFFIX);
+        return (String)this.getConfiguredProperty("foreignKeySuffix");
     }
 
     // ------------- relations ------------------
