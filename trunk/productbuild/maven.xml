@@ -72,7 +72,7 @@
 			goals="build"/> 
     </goal>
     
-    <!-- ==================== START DISTRIBUTION GOALS ==================== -->
+    <!-- ======================= DISTRIBUTION GOALS ======================= -->
  
 	<!-- ==================================================================
 			 Creates the AndroMDA distributions                                                    
@@ -193,7 +193,7 @@
         </ant:zip>			
 	</goal>
 	
-	<!-- ===================== START BOOTSTRAP GOALS ===================== -->
+	<!-- ======================== BOOTSTRAP GOALS ======================== -->
 	
 	<!-- =================================================================
 			 Install all bootstrap artifacts to the local repository
