@@ -1,12 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 
-import java.util.Collections;
+import java.util.*;
 
 
 /**
@@ -116,6 +117,47 @@ public class StrutsForwardLogicImpl
         return getSource() instanceof StrutsJsp;
     }
 
+    public boolean handleIsSuccessMessagesPresent()
+    {
+        return getSuccessMessages().isEmpty() == false;
+    }
+
+    public boolean handleIsWarningMessagesPresent()
+    {
+        return getWarningMessages().isEmpty() == false;
+    }
+
+    public String handleGetMessageKey()
+    {
+        String messageKey = getStrutsActivityGraph().getUseCase().getName();
+        return StringUtilsHelper.toResourceMessageKey(messageKey);
+    }
+
+    private Map getMessages(String messageKey, String taggedValue)
+    {
+        Collection taggedValues = findTaggedValues(taggedValue);
+
+        Map messages = new LinkedHashMap();
+
+        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String value = (String) iterator.next();
+            messages.put(messageKey + value.hashCode(), value);
+        }
+
+        return messages;
+    }
+
+    public Map handleGetSuccessMessages()
+    {
+        return getMessages(getMessageKey() + ".success.", Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE);
+    }
+
+    public Map handleGetWarningMessages()
+    {
+        return getMessages(getMessageKey() + ".warning.", Bpm4StrutsProfile.TAGGED_VALUE_ACTION_WARNING_MESSAGE);
+    }
+
     // ------------- relations ------------------
 
     protected java.util.Collection handleGetForwardParameters()
@@ -127,5 +169,11 @@ public class StrutsForwardLogicImpl
     protected Object handleGetDecisionTrigger()
     {
         return getTrigger();
+    }
+
+    protected Object handleGetStrutsActivityGraph()
+    {
+        Object graph = getSource().getActivityGraph();
+        return (graph instanceof StrutsActivityGraph) ? graph : null;
     }
 }
