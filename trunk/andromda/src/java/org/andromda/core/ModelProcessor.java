@@ -344,12 +344,12 @@ public class ModelProcessor
      */
     protected boolean shouldProcess(String namespace)
     {
-        boolean shouldProcess = cartridgeFilter == null
-            || cartridgeFilter.isEmpty();
+        boolean shouldProcess = this.cartridgeFilter == null
+            || this.cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
             shouldProcess = this.negateCartridgeFilter
-                ^ cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+                ^ this.cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
         }
         return shouldProcess;
     }
@@ -377,7 +377,6 @@ public class ModelProcessor
     {
         if (namespaces != null)
         {
-            // remove whitespace
             namespaces = StringUtils.deleteWhitespace(namespaces);
             if (namespaces.startsWith(CARTRIDGE_FILTER_NEGATOR))
             {
@@ -390,8 +389,7 @@ public class ModelProcessor
             }
             if (StringUtils.isNotBlank(namespaces))
             {
-                cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(
-                    namespaces).split(","));
+                this.cartridgeFilter = Arrays.asList(namespaces.split(","));
             }
         }
     }
