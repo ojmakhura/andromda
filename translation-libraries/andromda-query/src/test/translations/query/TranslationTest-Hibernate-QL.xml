@@ -2,120 +2,124 @@
 
 <translation-test>
 
-	<translation name="query.Hibernate-QL"/>
-		
-	<expression>
-		<from>
-			context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement) 
-			body findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
-			legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( lap |
-			StringUtils.isLike(lap.legalParty.legalPartyName,
-			legalPartyName))))
-		</from>   
-		<to>
-			from org.andromda.contracts.LegalAgreement as legalAgreement 
-			join fetch legalAgreement.legalAgreementParties as lap
-			where lower(lap.legalParty.legalPartyName) like :legalPartyName
-		</to>
-	</expression>
-		
-	<expression>
-		<from>
-  			context org::andromda::contracts::Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
-			body findByNameAndNumberBody: allInstances()->select( 
-			project | StringUtils.isLike(project.projectName, name) 
-			and StringUtils.isLike(project.projectNumber, number) )
-		</from>
-		<to>
-			from org.andromda.contracts.Project as project
-			where lower(project.projectName) like :name and lower(project.projectNumber) like :number
-		</to>
-	</expression>   
-	
-	<expression>
-		<from>
-			context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
-				type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType : 
-				allInstances() -> select ( 
-					project | 
-						project.type = type 
-				and project.status = status
-				and project.wentCurrentDate >= wentCurrentDate )
-		</from>
-		<to>
-			from org.andromda.contracts.Project as project
-			where project.type = :type 
-			and project.status = :status
-			and project.wentCurrentDate >= :wentCurrentDate
-		</to>
-	</expression> 
-	
-	<expression>
-		<from>
-			context org::andromda::contracts::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
-			body findByStatusesBody: 
-			    allInstances() -> select( 
-			        la | 
-				agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk) 
-				or agreementStatusPks -> isEmpty()
-				and la.agreementTypePk = anAgreementTypePk ) 
-		</from>
-		<to>	
-			from org.andromda.contracts.LegalAgreement as la
-			where la.agreementStatus.agreementStatusPk in (:agreementStatusPks) or size(:agreementStatusPks) = 0 
-			and la.agreementTypePk = :anAgreementTypePk	
-		</to>
-	</expression> 
-	
-	<expression>
-		<from>
-			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
-			body : LegalAgreement.allInstances()
-		</from>
-		<to>
-			from org.andromda.contracts.LegalAgreement as legalAgreement 
-		</to>
-	</expression>
-		
-	 <expression>
-		<from>
-			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
-				aDocumentTitle:String, 
-				aLegalPartyName:String, 
-				anAgreementTypePk:String, 
-				anAgreementStatusPk:String, 
-				aPersonPk:Long, 
-				aProjectPk:Long):Collection(LegalAgreement) 
-			body : 
-			allInstances()->select( 
-				legalAgreement | 
-					StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) 
-					and legalAgreement.legalAgreementParties -> includesAll(
-						legalAgreement.legalAgreementParties -> 
-							select( legalAgreementParty | 
-								StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName))) 
-					and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) 
-					and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) 
-					and legalAgreement.person.personPk = aPersonPk 
-					and legalAgreement.project.projectPk = aProjectPk)
-		</from>
-		<to>
-			from org.andromda.contracts.LegalAgreement as legalAgreement 
-				join fetch legalAgreement.legalAgreementParties as legalAgreementParty 
-			where lower(legalAgreement.documentTitle) like :aDocumentTitle 
-			and lower(legalAgreementParty.legalParty.legalPartyName) like :aLegalPartyName 
-			and lower(legalAgreement.agreementType.agreementTypePk) like :anAgreementTypePk 
-			and lower(legalAgreement.agreementStatus.agreementStatusPk) like :anAgreementStatusPk 
-			and legalAgreement.person.personPk = :aPersonPk 
-			and legalAgreement.project.projectPk = :aProjectPk
-		</to>
+    <translation name="query.Hibernate-QL"/>
+
+    <expression>
         <from>
-			context org::andromda::contracts::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement) 
-			body : allInstances() -> select( legalAgreement | legalAgreementPks -> exists(legalAgreement.legalAgreementPk))            
+            context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement)
+            body findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
+            legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( lap |
+            StringUtils.isLike(lap.legalParty.legalPartyName,
+            legalPartyName))))
         </from>
         <to>
-			from org.andromda.contracts.LegalAgreement as legalAgreement 
-			where legalAgreement.legalAgreementPk in (:legalAgreementPks)
+            from org.andromda.contracts.LegalAgreement as legalAgreement
+            join fetch legalAgreement.legalAgreementParties as lap
+            where lower(lap.legalParty.legalPartyName) like :legalPartyName
         </to>
-	</expression> 
+    </expression>
+
+    <expression>
+        <from>
+              context org::andromda::contracts::Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
+            body findByNameAndNumberBody: allInstances()->select(
+            project | StringUtils.isLike(project.projectName, name)
+            and StringUtils.isLike(project.projectNumber, number) )
+        </from>
+        <to>
+            from org.andromda.contracts.Project as project
+            where lower(project.projectName) like :name and lower(project.projectNumber) like :number
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
+                type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType :
+                allInstances() -> select (
+                    project |
+                        project.type = type
+                and project.status = status
+                and project.wentCurrentDate >= wentCurrentDate )
+        </from>
+        <to>
+            from org.andromda.contracts.Project as project
+            where project.type = :type
+            and project.status = :status
+            and project.wentCurrentDate >= :wentCurrentDate
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::contracts::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement)
+            body findByStatusesBody:
+                allInstances() -> select(
+                    la |
+                agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk)
+                or agreementStatusPks -> isEmpty()
+                and la.agreementTypePk = anAgreementTypePk )
+        </from>
+        <to>
+            from org.andromda.contracts.LegalAgreement as la
+            where la.agreementStatus.agreementStatusPk in (:agreementStatusPks) or size(:agreementStatusPks) = 0
+            and la.agreementTypePk = :anAgreementTypePk
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+            body : LegalAgreement.allInstances()
+        </from>
+        <to>
+            from org.andromda.contracts.LegalAgreement as legalAgreement
+        </to>
+    </expression>
+
+     <expression>
+        <from>
+            context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
+                aDocumentTitle:String,
+                aLegalPartyName:String,
+                anAgreementTypePk:String,
+                anAgreementStatusPk:String,
+                aPersonPk:Long,
+                aProjectPk:Long):Collection(LegalAgreement)
+            body :
+            allInstances()->select(
+                legalAgreement |
+                    StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle)
+                    and legalAgreement.legalAgreementParties -> includesAll(
+                        legalAgreement.legalAgreementParties ->
+                            select( legalAgreementParty |
+                                StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName)))
+                    and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk)
+                    and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk)
+                    and legalAgreement.person.personPk = aPersonPk
+                    and legalAgreement.project.projectPk = aProjectPk)
+        </from>
+        <to>
+            from org.andromda.contracts.LegalAgreement as legalAgreement
+                join fetch legalAgreement.legalAgreementParties as legalAgreementParty
+            where lower(legalAgreement.documentTitle) like :aDocumentTitle
+            and lower(legalAgreementParty.legalParty.legalPartyName) like :aLegalPartyName
+            and lower(legalAgreement.agreementType.agreementTypePk) like :anAgreementTypePk
+            and lower(legalAgreement.agreementStatus.agreementStatusPk) like :anAgreementStatusPk
+            and legalAgreement.person.personPk = :aPersonPk
+            and legalAgreement.project.projectPk = :aProjectPk
+        </to>
+    </expression>
+
+     <expression>
+        <from>
+            context org::andromda::contracts::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement)
+            body : allInstances() -> select( legalAgreement | legalAgreementPks -> exists(legalAgreement.legalAgreementPk))
+        </from>
+        <to>
+            from org.andromda.contracts.LegalAgreement as legalAgreement
+            where legalAgreement.legalAgreementPk in (:legalAgreementPks)
+        </to>
+    </expression>
+
 </translation-test>
