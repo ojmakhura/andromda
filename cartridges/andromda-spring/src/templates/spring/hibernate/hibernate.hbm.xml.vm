@@ -28,8 +28,7 @@
 ##
 #macro (renderPropertiesAndAssociations $entity)
 #if ($entity.enumeration)
-#set ($enumType = "${entity.packageName}.${entity.enumerationName}")
-        <property name="value" column="VALUE" type="$enumType" not-null="true" unique="true" insert="false" update="false"/>
+        <property name="value" column="VALUE" type="${entity.packageName}.${entity.enumerationName}" not-null="true" unique="true" insert="false" update="false"/>
 #else
 #foreach ($attribute in $entity.attributes)
 #if (!$attribute.identifier)

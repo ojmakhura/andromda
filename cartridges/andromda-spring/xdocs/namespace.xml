@@ -120,6 +120,17 @@
                         No, default is <code>PrincipalStore</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        identifierSequenceSuffix
+                    </td>
+                    <td>
+                        The suffix to use for identifier sequences.   
+                    </td>
+                    <td>
+                        No, the default is <code>_SEQ</code>.
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						serviceLocatorName
