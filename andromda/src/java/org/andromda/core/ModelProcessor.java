@@ -348,7 +348,7 @@ public class ModelProcessor
             || cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
-            shouldProcess = negateCartridgeFilter
+            shouldProcess = this.negateCartridgeFilter
                 ^ cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
         }
         return shouldProcess;
@@ -381,12 +381,12 @@ public class ModelProcessor
             namespaces = StringUtils.deleteWhitespace(namespaces);
             if (namespaces.startsWith(CARTRIDGE_FILTER_NEGATOR))
             {
-                negateCartridgeFilter = true;
+                this.negateCartridgeFilter = true;
                 namespaces = namespaces.substring(1);
             }
             else
             {
-                negateCartridgeFilter = false;
+                this.negateCartridgeFilter = false;
             }
             if (StringUtils.isNotBlank(namespaces))
             {
