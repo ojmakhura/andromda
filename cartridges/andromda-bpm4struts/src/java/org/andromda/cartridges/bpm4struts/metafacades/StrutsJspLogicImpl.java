@@ -402,4 +402,10 @@ public class StrutsJspLogicImpl
         }
         return duplicatePresent;
     }
+
+    protected Collection handleGetTabs()
+    {
+        // @todo: implement
+        return Collections.EMPTY_LIST;
+    }
 }
