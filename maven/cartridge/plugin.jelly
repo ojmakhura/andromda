@@ -6,55 +6,55 @@
          xmlns:maven="jelly:maven">
 
     <!-- ===================================================================
-         Runs cartridge tests                         
-         =================================================================== -->	
+         Runs cartridge tests
+         =================================================================== -->
     <goal name="cartridge:test${bootstrap}"
           description="Runs cartridge tests"
           prereqs="cartridge:initialize-test-resources${bootstrap}">
-          
+
         <j:if test="${!context.getVariable('maven.test.skip')}">
-           
+
             <maven:param-check value="${context.getVariable('andromda.cartridge.test.model.uri')}" fail="true">
     Please define the location of your test model by setting a value for property "andromda.cartridge.test.model.uri".
-            </maven:param-check> 
-            
+            </maven:param-check>
+
             <ant:available
                 file="${context.getVariable('andromda.cartridge.test.archive')}"
-                property="archiveAvailable"/>           
+                property="archiveAvailable"/>
             <maven:param-check value="${archiveAvailable}" fail="true">
     Please define the test archive containing the expected output '${context.getVariable('andromda.cartridge.test.archive')}'
-            </maven:param-check> 
-              
+            </maven:param-check>
+
             <ant:echo>+-------------------------------------------+</ant:echo>
             <ant:echo>|     T E S T I N G   C A R T R I D G E     |</ant:echo>
-            <ant:echo>+-------------------------------------------+</ant:echo> 
-            
+            <ant:echo>+-------------------------------------------+</ant:echo>
+
             <ant:taskdef
                 name="andromda-test"
                 classname="org.andromda.core.anttasks.AndroMDAGenTask">
-                <ant:classpath>		
-                    <ant:path refid="andromda.cartridge.classpath"/> 
-                    <ant:pathelement location="${maven.build.dest}"/>  
+                <ant:classpath>
+                    <ant:path refid="andromda.cartridge.classpath"/>
+                    <ant:pathelement location="${maven.build.dest}"/>
                 </ant:classpath>
-            </ant:taskdef>  
-            
-            <ant:andromda-test 
+            </ant:taskdef>
+
+            <ant:andromda-test
                 lastModifiedCheck="${andromda.cartridge.lastModifiedCheck}"
                 processAllModelPackages="true"
                 failOnModelValidationErrors="false"
                 loggingConfigurationUri="${andromda.cartridge.loggingConfigurationUri}">
-                    
-                <!-- point the mappings search path to the location of the mappings in this plugin -->      
+
+                <!-- point the mappings search path to the location of the mappings in this plugin -->
                 <ant:mappingsSearchPath>
-                    <ant:pathelement location="${plugin.resources}/mappings"/>            
+                    <ant:pathelement location="${plugin.resources}/mappings"/>
                 </ant:mappingsSearchPath>
-    
+
                 <ant:model url="${andromda.cartridge.test.model.uri}"/>
-                                  
-                <!-- set the maximum number of packages that may be set, 
+
+                <!-- set the maximum number of packages that may be set,
                      this can always be increased later, but not sure we would ever need to -->
-                <j:set var="maximum" value="50"/>    
-                
+                <j:set var="maximum" value="50"/>
+
                 <ant:namespace name="default">
                     <j:set var="index" value="0"/>
                     <j:forEach begin="0" end="${maximum}" indexVar="index">
@@ -64,12 +64,12 @@
                         <j:set var="propertyName" value="${context.getVariable(propertyVarName)}"/>
                         <j:set var="valueVarName" value="andromda.cartridge.test.property.${propertyName}"/>
                         <j:set var="propertyValue" value="${context.getVariable(valueVarName)}"/>
-                        <j:if test="${propertyValue != null}">	                
-                            <ant:property name="${propertyName}" value="${propertyValue}"/>  
+                        <j:if test="${propertyValue != null}">
+                            <ant:property name="${propertyName}" value="${propertyValue}"/>
                         </j:if>
-                    </j:forEach>           
-                </ant:namespace>    	
-                
+                    </j:forEach>
+                </ant:namespace>
+
                 <!-- set the repository module search path -->
                 <ant:repository>
                     <ant:moduleSearchPath>
@@ -78,107 +78,107 @@
                             <j:set var="indexVarName" value="andromda.cartridge.repository.moduleSearchPath.location.${index}"/>
                             <j:set var="location" value="${context.getVariable(indexVarName)}"/>
                             <j:if test="${location != null}">
-                            
+
                                 <ant:pathelement>
-                                    <ant:setProperty 
-                                        name="location" 
-                                        value="${location}"/>                                        
+                                    <ant:setProperty
+                                        name="location"
+                                        value="${location}"/>
                                 </ant:pathelement>
-                                 
+
                             </j:if>
                         </j:forEach>
                     </ant:moduleSearchPath>
                 </ant:repository>
-                
+
             </ant:andromda-test>
-            
+
             <!-- set the testcase to run -->
-            <j:set 
-                var="testcase" 
-                value="org.andromda.cartridges.testsuite.CartridgeTest" 
+            <j:set
+                var="testcase"
+                value="org.andromda.cartridges.testsuite.CartridgeTest"
                 scope="parent"/>
-    
-            <j:set 
-                var="maven.junit.fork" 
-                value="true" 
+
+            <j:set
+                var="maven.junit.fork"
+                value="true"
                 scope="parent"/>
-                
-            <j:set 
+
+            <j:set
                 var="maven.junit.usefile"
                 value="${andromda.cartridge.printreport}"
-                scope="parent"/>	
-                
+                scope="parent"/>
+
             <j:set var="expectedDir" value="${andromda.cartridge.test.dir}/expected"/>
-            <ant:unzip 
+            <ant:unzip
                 src="${andromda.cartridge.test.archive}"
                 dest="${expectedDir}"/>
-                
-            <j:set 
+
+            <j:set
                 var="expected.dir"
                 value="${expectedDir}"
                 scope="parent"/>
-                
-            <j:set 
+
+            <j:set
                 var="actual.dir"
                 value="${andromda.cartridge.test.actual.dir}"
                 scope="parent"/>
-                
-            <j:set 
+
+            <j:set
                 var="binary.suffixes"
                 value="${andromda.cartridge.binary.file.suffixes}"
                 scope="parent"/>
-                
-            <j:set 
+
+            <j:set
                 var="maven.junit.sysproperties"
                 value="expected.dir actual.dir binary.suffixes"
                 scope="parent"/>
-                
-              <attainGoal name="test:single"/>	 
-              
+
+              <attainGoal name="test:single"/>
+
         </j:if>
-            
+
     </goal>
-    
+
     <!-- ===================================================================
-         Runs AndroMDA to create cartridge how-to docs from a how to model                         
-         =================================================================== -->	
+         Runs AndroMDA to create cartridge how-to docs from a how to model
+         =================================================================== -->
     <goal name="cartridge:generate-howto-artifacts${bootstrap}"
           description="Runs cartridge tests"
           prereqs="cartridge:initialize-test-resources${bootstrap}">
 
         <maven:param-check value="${context.getVariable('andromda.cartridge.howto.model.uri')}" fail="true">
 Please define the location of your how-to model by setting a value for property "andromda.cartridge.howto.model.uri".
-        </maven:param-check> 
-          
+        </maven:param-check>
+
         <ant:echo>+-------------------------------------------------------------------------------+</ant:echo>
         <ant:echo>|     C R E A T I N G   C A R T R I D G E   H O W - T O   A R T I F A C T S     |</ant:echo>
-        <ant:echo>+-------------------------------------------------------------------------------+</ant:echo> 
-        
+        <ant:echo>+-------------------------------------------------------------------------------+</ant:echo>
+
         <ant:taskdef
             name="andromda-howto"
             classname="org.andromda.core.anttasks.AndroMDAGenTask">
-            <ant:classpath>		
-                <ant:path refid="andromda.cartridge.classpath"/> 
-                <ant:pathelement location="${maven.build.dest}"/>  
+            <ant:classpath>
+                <ant:path refid="andromda.cartridge.classpath"/>
+                <ant:pathelement location="${maven.build.dest}"/>
             </ant:classpath>
-        </ant:taskdef>  
-        
-        <ant:andromda-howto 
+        </ant:taskdef>
+
+        <ant:andromda-howto
             lastModifiedCheck="${andromda.cartridge.lastModifiedCheck}"
             processAllModelPackages="true"
             failOnModelValidationErrors="false">
-                
-            <!-- point the mappings search path to the location of the mappings in this plugin -->      
+
+            <!-- point the mappings search path to the location of the mappings in this plugin -->
             <ant:mappingsSearchPath>
-                <ant:pathelement location="${plugin.resources}/mappings"/>            
+                <ant:pathelement location="${plugin.resources}/mappings"/>
             </ant:mappingsSearchPath>
 
             <ant:model url="${andromda.cartridge.howto.model.uri}"/>
-                              
-            <!-- set the maximum number of packages that may be set, 
+
+            <!-- set the maximum number of packages that may be set,
                  this can always be increased later, but not sure we would ever need to -->
-            <j:set var="maximum" value="50"/>    
-            
+            <j:set var="maximum" value="50"/>
+
             <ant:namespace name="default">
                 <j:set var="index" value="0"/>
                 <j:forEach begin="0" end="${maximum}" indexVar="index">
@@ -188,12 +188,12 @@ Please define the location of your how-to model by setting a value for property 
                     <j:set var="propertyName" value="${context.getVariable(propertyVarName)}"/>
                     <j:set var="valueVarName" value="andromda.cartridge.howto.property.${propertyName}"/>
                     <j:set var="propertyValue" value="${context.getVariable(valueVarName)}"/>
-                    <j:if test="${propertyValue != null}">	                
-                        <ant:property name="${propertyName}" value="${propertyValue}"/>  
+                    <j:if test="${propertyValue != null}">
+                        <ant:property name="${propertyName}" value="${propertyValue}"/>
                     </j:if>
-                </j:forEach>           
-            </ant:namespace>    	
-            
+                </j:forEach>
+            </ant:namespace>
+
             <!-- set the repository module search path -->
             <ant:repository>
                 <ant:moduleSearchPath>
@@ -202,22 +202,22 @@ Please define the location of your how-to model by setting a value for property 
                         <j:set var="indexVarName" value="andromda.cartridge.repository.moduleSearchPath.location.${index}"/>
                         <j:set var="location" value="${context.getVariable(indexVarName)}"/>
                         <j:if test="${location != null}">
-                        
+
                             <ant:pathelement>
-                                <ant:setProperty 
-                                    name="location" 
-                                    value="${location}"/>                                        
+                                <ant:setProperty
+                                    name="location"
+                                    value="${location}"/>
                             </ant:pathelement>
-                             
+
                         </j:if>
                     </j:forEach>
                 </ant:moduleSearchPath>
             </ant:repository>
-            
+
         </ant:andromda-howto>
-            
+
     </goal>
-    
+
     <!-- ================================================================
            Adds model dependencies (since they aren't added by Maven)
          ================================================================ -->
@@ -226,18 +226,18 @@ Please define the location of your how-to model by setting a value for property 
         <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
             <j:set var="dep" value="${artifact.dependency}"/>
             <j:if test="${dep.type == 'xml.zip'}">
-                <j:set var="depPath" 
+                <j:set var="depPath"
                        value="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}"/>
                 <ant:path
                     id="andromda.cartridge.model.path${index}"
-                    location="${depPath}"/>	       	
+                    location="${depPath}"/>
                 <maven:addPath
                     id="andromda.cartridge.classpath"
                     refid="andromda.cartridge.model.path${index}"/>
             </j:if>
-        </j:forEach>	      
+        </j:forEach>
     </goal>
-    
+
     <!-- ================================================================
            Adds test dependencies
          ================================================================ -->
@@ -246,39 +246,39 @@ Please define the location of your how-to model by setting a value for property 
         <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
             <j:set var="dep" value="${artifact.dependency}"/>
             <j:if test="${dep.getProperty('cartridge.testDependency') != null}">
-                <j:set var="depPath" 
+                <j:set var="depPath"
                        value="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}"/>
                 <ant:path
                     id="andromda.cartridge.test.path${index}"
-                    location="${depPath}"/>	     
+                    location="${depPath}"/>
                 <maven:addPath
                     id="andromda.cartridge.classpath"
                     refid="andromda.cartridge.test.path${index}"/>
             </j:if>
-        </j:forEach>	      
+        </j:forEach>
     </goal>
-    
-    
+
+
     <!-- ============================================================================
           Initializes resources required for tests
          ============================================================================ -->
     <goal name="cartridge:initialize-test-resources${bootstrap}"
           description="Internal goal used by plugin">
-          
+
         <path id="andromda.cartridge.classpath">
-            <ant:pathelement path="${plugin.dependencyClasspath}"/>        
+            <ant:pathelement path="${plugin.dependencyClasspath}"/>
          </path>
-         
+
         <!-- add any model dependencies -->
-        <attainGoal name="cartridge:add-model-dependencies${bootstrap}"/>	
-        
+        <attainGoal name="cartridge:add-model-dependencies${bootstrap}"/>
+
         <!-- add any test dependencies -->
         <attainGoal name="cartridge:add-test-dependencies${bootstrap}"/>
-        
+
         <maven:addPath
             id="maven.dependency.classpath"
-            refid="andromda.cartridge.classpath"/>		 
-               
+            refid="andromda.cartridge.classpath"/>
+
     </goal>
-         
+
 </project>

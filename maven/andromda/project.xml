@@ -7,8 +7,8 @@
     <shortDescription>AndroMDA Maven Plugin</shortDescription>
     <description>
         This wraps the AndroMDA framework within a maven plugin, allowing you to get started
-        using all existing cartridges without having to configure an Ant build.xml file or worry about 
-        setting up a classpath, etc. 
+        using all existing cartridges without having to configure an Ant build.xml file or worry about
+        setting up a classpath, etc.
     </description>
     <developers>
         <developer>
@@ -26,17 +26,17 @@
             <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${pom.currentVersion}</version>
-        </dependency>	
+        </dependency>
         <dependency>
             <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${pom.currentVersion}</version>
-        </dependency>	
+        </dependency>
         <dependency>
             <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${pom.currentVersion}</version>
-        </dependency>		
+        </dependency>
         <dependency>
             <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-     		<version>3.1</version>
+             <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
@@ -86,58 +86,58 @@
             <artifactId>commons-logging</artifactId>
             <version>1.0.4</version>
         </dependency>
-        <dependency> 
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
-        </dependency>	
-         <dependency> 
+        </dependency>
+         <dependency>
             <groupId>velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.4</version>
-        </dependency> 
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>jmi</groupId>
             <artifactId>jmiuml</artifactId>
             <version>1.4di</version>
-        </dependency>   
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>jmi</groupId>
             <artifactId>mof</artifactId>
             <version>20030918</version>
-        </dependency>  
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>jmi</groupId>
             <artifactId>jmi</artifactId>
             <version>20030918</version>
-        </dependency>  
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>mdr</groupId>
             <artifactId>jmiutils</artifactId>
             <version>20040826</version>
-        </dependency> 
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>mdr</groupId>
             <artifactId>mdrapi</artifactId>
             <version>20040826</version>
-        </dependency>  
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>mdr</groupId>
             <artifactId>nbmdr</artifactId>
             <version>20040826</version>
-        </dependency>     	
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>mdr</groupId>
             <artifactId>openide-util</artifactId>
             <version>20040826</version>
-        </dependency>  
+        </dependency>
         <dependency>
             <groupId>commons-jelly</groupId>
             <artifactId>commons-jelly-tags-velocity</artifactId>
             <version>1.0</version>
         </dependency>
         <!-- these dependencies are required to Run Schema2XMI -->
-        <dependency> 
+        <dependency>
             <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-schema2xmi</artifactId>
             <version>${pom.currentVersion}</version>
@@ -148,17 +148,17 @@
             <version>1.0</version>
             <properties/>
         </dependency>
-        <dependency> 
+        <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
             <version>1.0</version>
-        </dependency>  
+        </dependency>
         <dependency>
             <groupId>commons-jelly</groupId>
             <artifactId>commons-jelly-tags-interaction</artifactId>
             <version>1.0</version>
         </dependency>
-    </dependencies>	
+    </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
         <resources>
@@ -172,5 +172,5 @@
                 </includes>
             </resource>
         </resources>
-    </build>	
+    </build>
 </project>

@@ -2,7 +2,7 @@
 <!--
   The base UML Profile
 -->
-<mappings name="uml"> 
+<mappings name="uml">
     <!-- stereotypes -->
     <mapping>
         <from>ENTITY</from>
@@ -113,11 +113,11 @@
     <mapping>
         <from>LIST_TYPE</from>
         <to>datatype.List</to>
-    </mapping> 
+    </mapping>
     <mapping>
         <from>SET_TYPE</from>
         <to>datatype.Set</to>
-    </mapping> 
+    </mapping>
     <mapping>
         <from>DATE_TYPE</from>
         <to>datatype.Date</to>
@@ -125,17 +125,17 @@
     <mapping>
         <from>BOOLEAN_TYPE</from>
         <to>datatype.boolean</to>
-    </mapping> 
+    </mapping>
     <mapping>
         <from>FILE_TYPE</from>
         <to>datatype.File</to>
-    </mapping> 
+    </mapping>
     <mapping>
         <from>MAP_TYPE</from>
         <to>datatype.Map</to>
-    </mapping> 
+    </mapping>
     <mapping>
         <from>STRING_TYPE</from>
         <to>datatype.String</to>
-    </mapping> 
+    </mapping>
 </mappings>
