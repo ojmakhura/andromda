@@ -178,12 +178,11 @@
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
-#set ($collectionVariableName = "form.${variable.name}")
         <div id="${variable.name}" class="table">
 #if ($variable.tableAction)
             <html:form action="$variable.tableAction.actionPath">
 #end
-                <display:table name="${${collectionVariableName}}" id="row"
+                <display:table name="${${variable.name}}" id="row"
                            requestURI="${pageContext.request.requestURI}"
                            export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
