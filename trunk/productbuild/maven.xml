@@ -288,6 +288,8 @@
                 <ant:exclude name="**/target/**"/>
                 <ant:exclude name="**/*.bak*"/>
                 <ant:exclude name="**/*.mdr"/>
+                <ant:exclude name="**/.*"/>
+                <ant:exclude name="**/.*/**"/>
             </ant:zipfileset>
         </ant:zip>			
     </goal>
