@@ -385,6 +385,13 @@ public class MetafacadeMappings
     }
 
     /**
+     * The cache containing the hierachies for each
+     * context so that we don't need to retrieve more than
+     * once.
+     */
+    private final Map contextHierachyCache = new HashMap();
+
+    /**
      * Retrieves all inherited contexts (including the root <code>context</code>)
      * from the given <code>context</code> and returns a list containing all
      * of them.
@@ -394,16 +401,21 @@ public class MetafacadeMappings
      */
     private List getContextHierarchy(String context)
     {
-        List contexts = this.getInterfaces(context);
-        if (contexts != null)
+        List contexts = (List)this.contextHierachyCache.get(context);
+        if (contexts == null)
         {
-            CollectionUtils.transform(contexts, new Transformer()
+            contexts = this.getInterfaces(context);
+            if (contexts != null)
             {
-                public Object transform(Object object)
+                CollectionUtils.transform(contexts, new Transformer()
                 {
-                    return ((Class)object).getName();
-                }
-            });
+                    public Object transform(Object object)
+                    {
+                        return ((Class)object).getName();
+                    }
+                });
+            }        
+            this.contextHierachyCache.put(context, contexts);
         }
         return contexts;
     }
@@ -736,6 +748,7 @@ public class MetafacadeMappings
         this.propertyReferences.clear();
         this.namespacePropertyReferences.clear();
         this.mappingsByMetafacadeClass.clear();
+        this.contextHierachyCache.clear();
     }
     
     /**
