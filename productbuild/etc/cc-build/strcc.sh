@@ -15,12 +15,6 @@ if [ -f pid ];then
   exit
 fi
                                                                                 
-if [ -z $CCDIR ]; then
-  echo CCDIR not defined, using /usr/local/cruisecontrol
-  CCDIR=/usr/local/cruisecontrol/main
-  export CCDIR
-fi
-                                                                                                                                                                
 me=`whoami`
 case $me in 
   "root" )
