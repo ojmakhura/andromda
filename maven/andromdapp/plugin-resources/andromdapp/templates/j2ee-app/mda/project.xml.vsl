@@ -53,6 +53,7 @@
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
+                <hibernateInheritanceStrategy>class</hibernateInheritanceStrategy>
                 <customTypesPackage>${pom.package}</customTypesPackage>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
@@ -100,6 +101,7 @@
             <type>jar</type>
             <properties>
                 <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
+                <hibernateInheritanceStrategy>subclass</hibernateInheritanceStrategy>
                 <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
                 <hibernateDefaultCascade>none</hibernateDefaultCascade>
                 <entities>${maven.andromda.core.generated.dir}</entities>
