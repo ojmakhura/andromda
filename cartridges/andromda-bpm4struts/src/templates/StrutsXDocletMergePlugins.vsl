@@ -1,8 +1,20 @@
+#set ($requiresValidation = false)
+#foreach ($useCase in $class.allUseCases)
+#foreach ($page in $useCase.allPages)
+#foreach ($action in $page.actions)
+#if ($action.requiresValidation())
+#set ($requiresValidation = true)
+#end
+#end
+#end
+#end
 
+#if ($requiresValidation)
   <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
     <set-property property="pathnames" value="/WEB-INF/validation.xml,/WEB-INF/validator-rules.xml"/>
     <set-property property="stopOnFirstError" value="true"/>
   </plug-in>
+#end
 
   <plug-in className="org.apache.struts.tiles.TilesPlugin">
     <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
