@@ -4,7 +4,8 @@
 ##
 #if (!$action.useCaseStart)## we don't generate tiles for events that do not have an input page
 ##
-#set ($requiredness = ($clientValidation=='true' || $serverValidation=='true'))
+#set ($clientValidationDesired = ($clientValidation=='true'))
+#set ($requiredness = ($clientValidationDesired || $serverValidation=='true'))
 #set ($formBeanName = $action.formBeanName)
 #set ($hints = $hints.equalsIgnoreCase("true"))
 #set ($formBeanType = $action.formBeanType)## this will be the name of the form, as used in this page
@@ -24,7 +25,7 @@
 #renderHyperlink($action "        ")
 #elseif ($action.formPost)
 #set ($nonTabbedActionParameters = $action.nonTabbedActionParameters)
-#if ($action.validationRequired)
+#if ($clientValidationDesired && $action.validationRequired)
 #set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #else
 #set ($onsubmit = "")
