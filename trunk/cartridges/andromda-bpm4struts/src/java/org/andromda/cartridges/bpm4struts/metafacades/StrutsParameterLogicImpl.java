@@ -163,17 +163,7 @@ public class StrutsParameterLogicImpl
 
     public boolean handleIsTableLink()
     {
-        Object linkObject = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK);
-        if (linkObject != null)
-        {
-            String link = String.valueOf(linkObject);
-            int dotIndex = link.indexOf('.');
-            if ((dotIndex > -1) && (dotIndex < link.length() - 1))
-            {
-                return (link.substring(0, dotIndex).trim().length() > 0) && (link.substring(dotIndex + 1).trim().length() > 0);
-            }
-        }
-        return false;
+        return findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK) != null;
     }
 
     public String handleGetTableLinkTableName()
@@ -181,7 +171,9 @@ public class StrutsParameterLogicImpl
         if (isTableLink())
         {
             final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK));
-            return link.substring(0, link.indexOf('.'));
+
+            int dotOffset = link.indexOf('.');
+            return (dotOffset == -1) ? link : link.substring(0, link.indexOf('.'));
         }
         return null;
     }
@@ -191,7 +183,9 @@ public class StrutsParameterLogicImpl
         if (isTableLink())
         {
             final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK));
-            return link.substring(link.indexOf('.') + 1);
+
+            int dotOffset = link.indexOf('.');
+            return (dotOffset == -1 || dotOffset >= link.length() - 1) ? getName() : link.substring(link.indexOf('.') + 1);
         }
         return null;
     }
@@ -304,7 +298,6 @@ public class StrutsParameterLogicImpl
                 columnNamesCollection.add(property);
             }
         }
-
         return columnNamesCollection;
     }
 
