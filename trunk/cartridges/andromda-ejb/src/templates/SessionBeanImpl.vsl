@@ -45,21 +45,15 @@ public class ${service.name}BeanImpl extends ${service.name}Bean {
     /**
 $operation.getDocumentation("     * ")
      */
+    $visibility $returnType $signature
 #if ($operation.exceptionsPresent)
-    $visibility $returnType $signature throws $operation.exceptionList {
-#else
-    $visibility $returnType $signature {
+        throws $operation.exceptionList 
 #end
+    {
         //TODO: put your implementation here.
 #if ($operation.returnTypePresent)
         // Dummy return value, just that the file compiles
-#if (!$operation.returnType.primitive)
-        return null;
-#elseif ("boolean" == $returnType)
-        return false;
-#else
-        return ($returnType)0;
-#end
+        return $operation.returnType.javaNullString;
 #end
     }
 
