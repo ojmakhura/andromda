@@ -77,4 +77,9 @@ class SpringGlobals
      * both services and DAOs).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
+    
+    /**
+     * Stores the default outerjoin setting for this association end.
+     */
+    static final String PROPERTY_ASSOCIATION_END_OUTERJOIN = "hibernateAssociationEndOuterJoin";
 }

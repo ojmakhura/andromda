@@ -23,6 +23,10 @@
         <from>HIBERNATE_USE_QUERY_CACHE</from>
         <to>@andromda.hibernate.query.useCache</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_OUTER_JOIN</from>
+        <to>@andromda.hibernate.outerjoin</to>
+    </mapping>
      <mapping>
         <from>HIBERNATE_ENTITY_CACHE</from>
         <to>@andromda.hibernate.entity.cache</to>

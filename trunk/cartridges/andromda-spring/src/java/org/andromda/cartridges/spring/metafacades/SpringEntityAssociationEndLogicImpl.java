@@ -166,4 +166,19 @@ public class SpringEntityAssociationEndLogicImpl
         }
         return inverse;
     }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOuterJoin()
+     */
+    protected String handleGetOuterJoin()
+    {
+        Object value = this
+            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_OUTER_JOIN);
+        if (value == null)
+        {
+            value = this
+                .getConfiguredProperty(SpringGlobals.PROPERTY_ASSOCIATION_END_OUTERJOIN);
+        }
+        return StringUtils.trimToEmpty(String.valueOf(value));
+    }
 }

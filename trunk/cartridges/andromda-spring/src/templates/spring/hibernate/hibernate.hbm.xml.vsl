@@ -15,7 +15,6 @@
 #if($entity.hibernateCacheType.length() != 0)
     <cache usage="$entity.hibernateCacheType" />
 #end
-
 #set ($identifier = $entity.identifiers.iterator().next())
         <id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
             <generator class="$entity.hibernateGeneratorClass">
