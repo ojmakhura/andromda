@@ -6,7 +6,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 /**
  * The Spring profile. Contains the profile information (tagged values, and
  * stereotypes) for the Spring cartridge.
- * 
+ *
  * @author Chad Brandon
  * @author Peter Friese
  */
@@ -38,6 +38,12 @@ public class SpringProfile extends UMLProfile {
      */
     public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR = profile
             .get("HIBERNATE_CRITERIA_COMPARATOR");
+
+    /**
+     * Stores a hibernate matchmode.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_MATCHMODE = profile
+            .get("HIBERNATE_CRITERIA_MATCHMODE");
 
     /**
      * Stores a hibernate query.
@@ -100,5 +106,25 @@ public class SpringProfile extends UMLProfile {
      */
     public static final String TAGGEDVALUEVALUE_COMPARATOR_LESS = profile
             .get("LESS_THAN_COMPARATOR");
+
+    /**
+     * The {@link net.sf.hibernate.expression.MatchMode#ANYWHERE} match mode.
+     */
+    public static final Object TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE = profile.get("MATCHMODE_ANYWHERE");
+
+    /**
+     * The {@link net.sf.hibernate.expression.MatchMode#END} match mode.
+     */
+    public static final Object TAGGEDVALUEVALUE_MATCHMODE_END = profile.get("MATCHMODE_END");
+
+    /**
+     * The {@link net.sf.hibernate.expression.MatchMode#EXACT} match mode.
+     */
+    public static final Object TAGGEDVALUEVALUE_MATCHMODE_EXACT = profile.get("MATCHMODE_EXACT");
+
+    /**
+     * The {@link net.sf.hibernate.expression.MatchMode#START} match mode.
+     */
+    public static final Object TAGGEDVALUEVALUE_MATCHMODE_START = profile.get("MATCHMODE_START");
 
 }
