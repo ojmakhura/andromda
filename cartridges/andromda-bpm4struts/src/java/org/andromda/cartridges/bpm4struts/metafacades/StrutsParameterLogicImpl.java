@@ -737,7 +737,9 @@ public class StrutsParameterLogicImpl
 
                 if (!isTableLink())
                 {
-                    if (isValidatorBoolean(parameterType))
+                    if (getType().isFileType())
+                        widgetType = "file";
+                    else if (isValidatorBoolean(parameterType))
                         widgetType = "checkbox";
                     else if (isMultiple())
                         widgetType = "select";
@@ -772,10 +774,6 @@ public class StrutsParameterLogicImpl
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
             {
                 widgetType = "password";
-            }
-            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE.equalsIgnoreCase(fieldType))
-            {
-                widgetType = "file";
             }
             else if (isTableLink())
             {
