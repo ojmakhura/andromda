@@ -7,97 +7,64 @@ import javax.servlet.http.HttpServletResponse;
 
 class PurchaseController extends PurchaseControllerInterface
 {
-
     /**
      * 
      */
-    public final void addItemsToBasket(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void addItemsToBasket(ActionMapping mapping, PurchaseControllerAddItemsToBasketInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        /*
-         * By default this method populates the complete form, it is up to you to replace this
-         * by those fields that are required (this cannot be determined here because it might be
-         * the case that many action call this controller method, each with their own set of
-         * parameters)
-         */
-        populateForm(form);
+        // nothing to be done for this operation, there are not properties that can be set
     }
 
     /**
      * 
      */
-    public final void closeUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void closeUserSession(ActionMapping mapping, PurchaseControllerCloseUserSessionInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        /*
-         * By default this method populates the complete form, it is up to you to replace this
-         * by those fields that are required (this cannot be determined here because it might be
-         * the case that many action call this controller method, each with their own set of
-         * parameters)
-         */
-        populateForm(form);
-    }
-
-    /**
-     * 
-     */
-    public final void loadItems(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        /*
-         * By default this method populates the complete form, it is up to you to replace this
-         * by those fields that are required (this cannot be determined here because it might be
-         * the case that many action call this controller method, each with their own set of
-         * parameters)
-         */
-        populateForm(form);
-    }
-
-    /**
-     * 
-     */
-    public final void openUserSession(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        /*
-         * By default this method populates the complete form, it is up to you to replace this
-         * by those fields that are required (this cannot be determined here because it might be
-         * the case that many action call this controller method, each with their own set of
-         * parameters)
-         */
-        populateForm(form);
-    }
-
-    /**
-     * 
-     */
-    public final void prepareForShipping(ActionMapping mapping, PurchaseItemsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        /*
-         * By default this method populates the complete form, it is up to you to replace this
-         * by those fields that are required (this cannot be determined here because it might be
-         * the case that many action call this controller method, each with their own set of
-         * parameters)
-         */
-        populateForm(form);
-    }
-
-    /**
-     * This method exists solely to make the application work at runtime by populating
-     * the complete form with default values.
-     * <p/>
-     * You may remove everything under here, including this comment. Simply make sure
-     * you properly populate the form when implementing the operations.
-     */
-    private void populateForm(PurchaseItemsForm form)
-    {
-        form.setProceedName("proceedName-test");
-        form.setProceedPassword("proceedPassword-test");
-        form.setItemList(itemListDummyList);
-        form.setProceedSelectedItems(java.util.Arrays.asList(new Object[]{"proceedSelectedItems-1", "proceedSelectedItems-2", "proceedSelectedItems-3", "proceedSelectedItems-4", "proceedSelectedItems-5"}));
-        form.setProceedSelectedItemsBackingList(new Object[]{"proceedSelectedItems-1", "proceedSelectedItems-2", "proceedSelectedItems-3", "proceedSelectedItems-4", "proceedSelectedItems-5"});
-        form.setProceedConfirmedLicence(false);
-        form.setBuyThisItemId("buyThisItemId-test");
+        // all properties receive a default value, just to have the application running properly
         form.setPurchaseEmail("purchaseEmail-test");
-        form.setPurchaseCreditCard("purchaseCreditCard-test");
         form.setPurchaseAge((int) 633229374);
+        form.setPurchaseCreditCard("purchaseCreditCard-test");
     }
+
+    /**
+     * 
+     */
+    public final void loadItems(ActionMapping mapping, PurchaseControllerLoadItemsInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        // all properties receive a default value, just to have the application running properly
+        form.setProceedName("proceedName-test");
+        form.setBuyThisItemId("buyThisItemId-test");
+        form.setProceedPassword("proceedPassword-test");
+        form.setProceedSelectedItems(java.util.Arrays.asList(new Object[]{"proceedSelectedItems-1", "proceedSelectedItems-2", "proceedSelectedItems-3", "proceedSelectedItems-4", "proceedSelectedItems-5"}));
+        form.setProceedConfirmedLicence(false);
+        form.setItemList(itemListDummyList);
+    }
+
+    /**
+     * 
+     */
+    public final void openUserSession(ActionMapping mapping, PurchaseControllerOpenUserSessionInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        // all properties receive a default value, just to have the application running properly
+        form.setProceedName("proceedName-test");
+        form.setBuyThisItemId("buyThisItemId-test");
+        form.setProceedPassword("proceedPassword-test");
+        form.setProceedSelectedItems(java.util.Arrays.asList(new Object[]{"proceedSelectedItems-1", "proceedSelectedItems-2", "proceedSelectedItems-3", "proceedSelectedItems-4", "proceedSelectedItems-5"}));
+        form.setProceedConfirmedLicence(false);
+        form.setItemList(itemListDummyList);
+    }
+
+    /**
+     * 
+     */
+    public final void prepareForShipping(ActionMapping mapping, PurchaseControllerPrepareForShippingInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        // all properties receive a default value, just to have the application running properly
+        form.setPurchaseEmail("purchaseEmail-test");
+        form.setPurchaseAge((int) 633229374);
+        form.setPurchaseCreditCard("purchaseCreditCard-test");
+    }
+
 
     private final java.util.Collection itemListDummyList =
             java.util.Arrays.asList(new Object[]{
@@ -151,5 +118,6 @@ class PurchaseController extends PurchaseControllerInterface
             return this.address;
         }
     }
+
 
 }
