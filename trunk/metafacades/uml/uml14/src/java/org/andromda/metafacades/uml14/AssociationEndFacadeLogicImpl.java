@@ -6,6 +6,8 @@ import java.util.Iterator;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.MetafacadeDataTypes;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
@@ -64,20 +66,21 @@ public class AssociationEndFacadeLogicImpl
             if (isMany() && this.isPluralizeAssociationEndNames())
             {
                 name = StringUtilsHelper.pluralize(name);
-            }   
+            }
         }
         return name;
     }
-    
+
     /**
-     * Indicates whether or not we should pluralize 
-     * association end names.
+     * Indicates whether or not we should pluralize association end names.
+     * 
      * @return true/false
      */
     private boolean isPluralizeAssociationEndNames()
     {
         boolean pluralize = false;
-        Object value = this.getConfiguredProperty("pluralizeAssociationEndNames");
+        Object value = this
+            .getConfiguredProperty(MetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
         if (value != null)
         {
             pluralize = Boolean.valueOf(String.valueOf(value)).booleanValue();
@@ -236,9 +239,9 @@ public class AssociationEndFacadeLogicImpl
         if (this.isMany())
         {
             Mappings mappings = getLanguageMappings();
-            return isOrdered()
-                ? mappings.getTo(UMLMetafacadeGlobals.LIST_TYPE_NAME)
-                : mappings.getTo(UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
+            return isOrdered() ? mappings
+                .getTo(MetafacadeDataTypes.LIST_TYPE_NAME) : mappings
+                .getTo(MetafacadeDataTypes.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type

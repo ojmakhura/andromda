@@ -11,6 +11,7 @@ import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -365,7 +366,7 @@ public class ModelElementFacadeLogicImpl
      */
     public Mappings handleGetLanguageMappings()
     {
-        final String propertyName = "languageMappingsUri";
+        final String propertyName = MetafacadeProperties.LANGUAGE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
         Mappings mappings = null;
         String uri = null;

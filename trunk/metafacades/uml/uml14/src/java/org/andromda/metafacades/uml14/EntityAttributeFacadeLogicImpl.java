@@ -4,6 +4,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
@@ -142,7 +143,7 @@ public class EntityAttributeFacadeLogicImpl
      */
     public Mappings handleGetSqlMappings()
     {
-        return this.getMappingsProperty("sqlMappingsUri");
+        return this.getMappingsProperty(MetafacadeProperties.SQL_MAPPINGS_URI);
     }
 
     /**
@@ -150,7 +151,7 @@ public class EntityAttributeFacadeLogicImpl
      */
     public Mappings handleGetJdbcMappings()
     {
-        return this.getMappingsProperty("jdbcMappingsUri");
+        return this.getMappingsProperty(MetafacadeProperties.JDBC_MAPPINGS_URI);
     }
 
     /**

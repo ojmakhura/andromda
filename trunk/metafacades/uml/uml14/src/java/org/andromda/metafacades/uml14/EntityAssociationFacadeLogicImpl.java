@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
@@ -48,7 +49,7 @@ public class EntityAssociationFacadeLogicImpl
                     String tableNamePrefix = StringUtils
                         .trimToEmpty(String
                             .valueOf(this
-                                .getConfiguredProperty(UMLMetafacadeGlobals.PROPERTY_TABLE_NAME_PREFIX)));
+                                .getConfiguredProperty(MetafacadeProperties.TABLE_NAME_PREFIX)));
                     tableName = EntityMetafacadeUtils
                         .getSqlNameFromTaggedValue(
                             tableNamePrefix,

@@ -8,6 +8,8 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.MetafacadeDataTypes;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -122,7 +124,7 @@ public class ClassifierFacadeLogicImpl
      */
     public Mappings getWrapperMappings()
     {
-        final String propertyName = "wrapperMappingsUri";
+        final String propertyName = MetafacadeProperties.WRAPPER_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
         Mappings mappings = null;
         String uri = null;
@@ -154,7 +156,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsCollectionType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -162,7 +164,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsListType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.LIST_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.LIST_TYPE_NAME);
     }
 
     /**
@@ -170,7 +172,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsSetType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.SET_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.SET_TYPE_NAME);
     }
 
     /**
@@ -178,7 +180,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsDateType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.DATE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.DATE_TYPE_NAME);
     }
 
     /**
@@ -186,7 +188,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsFileType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.FILE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.FILE_TYPE_NAME);
     }
 
     /**
@@ -389,7 +391,7 @@ public class ClassifierFacadeLogicImpl
         String javaNullString = null;
         if (isPrimitive())
         {
-            if (UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.BOOLEAN_TYPE_NAME))
+            if (UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.BOOLEAN_TYPE_NAME))
             {
                 javaNullString = "false";
             }

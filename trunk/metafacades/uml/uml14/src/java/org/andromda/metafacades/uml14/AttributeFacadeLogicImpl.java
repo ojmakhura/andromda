@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.MetafacadeDataTypes;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -36,7 +37,7 @@ public class AttributeFacadeLogicImpl
         {
             prefix = UMLMetafacadeUtils.isType(
                 getType(),
-                UMLMetafacadeGlobals.BOOLEAN_TYPE_NAME) ? "is" : "get";
+                MetafacadeDataTypes.BOOLEAN_TYPE_NAME) ? "is" : "get";
         }
 
         return StringUtils.trimToEmpty(prefix)
