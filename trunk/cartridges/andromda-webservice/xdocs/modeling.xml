@@ -59,7 +59,35 @@
 			          		as a web service (unless you add the
 			          		<a href="#WebService"><![CDATA[<<WebService>>]]></a> stereotype to your class).
 			          	</td>
-		        	</tr>			        	        	      	        	        		        	        	        	     	             	        	
+		        	</tr>	
+		        	<tr>
+		        		<a name="ValueObject"/>
+			          	<td>
+			          		<![CDATA[<<ValueObject>>]]>
+			          	</td>
+						<td>
+							Classifier
+						</td>
+			          	<td>
+			          		Allows the definition of complex types.  These types can be related 
+                            to each other through associations and if the association multiplicity 
+                            is greater than 1, then an array reference will be generated (instead 
+                            of a Collection)
+			          	</td>
+		        	</tr>	
+		        	<tr>
+		        		<a name="Enumeration"/>
+			          	<td>
+			          		<![CDATA[<<Enumeration>>]]>
+			          	</td>
+						<td>
+							Classifier
+						</td>
+			          	<td>
+			          		Allows the definition of enumerated types.  These types <strong>MUST</strong>
+                            define their attributes as <em>frozen</em>.
+			          	</td>
+		        	</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
     		<subsection name="Supported Tagged Values">
