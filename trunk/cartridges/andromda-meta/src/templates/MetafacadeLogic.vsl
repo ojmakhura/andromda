@@ -327,7 +327,7 @@ public abstract class ${metafacade.logicName}
 ##
 
     /**
-     * @see org.andromda.core.metafacades.MetafacadeBase#handleInvariants(java.util.Collection)
+     * @see org.andromda.core.metafacade.MetafacadeBase#handleInvariants(java.util.Collection)
      */
     protected void handleInvariants(java.util.Collection validationMessages)
     {
