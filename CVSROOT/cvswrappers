@@ -19,11 +19,31 @@
 #  -k		expansion mode		value: b, o, kkv, &c
 #
 #  and value is a single-quote delimited value.
-# For example:
+#
+#
+# Binary files
+#
 *.gif -k 'b'
 *.jpg -k 'b'
 *.jar -k 'b'
 *.war -k 'b'
 *.ear -k 'b'
 *.zip -k 'b'
+*.zargo -k 'b'
 *.ppt -k 'b'
+#
+# Text files
+#
+*.java -k 'kkv'
+*.properties -k 'kkv'
+*.properties.sample -k 'kkv'
+*.vsl -k 'kkv'
+*.css -k 'kkv'
+*.jsp -k 'kkv'
+*.html -k 'kkv'
+*.dtd -k 'kkv'
+*.xml -k 'kkv'
+*.xsl -k 'kkv'
+*.xsd -k 'kkv'
+*.tld -k 'kkv'
+*.txt -k 'kkv'
