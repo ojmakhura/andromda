@@ -34,7 +34,7 @@ public class ModelElementFinder
             if (names != null && names.length > 0)
             {
                 Object element = model;
-                for (int ctr = 0; ctr < names.length; ctr++)
+                for (int ctr = 0; ctr < names.length && element != null; ctr++)
                 {
                     String name = names[ctr];
                     if (UmlPackage.class.isAssignableFrom(element.getClass()))
@@ -64,6 +64,31 @@ public class ModelElementFinder
     {
         return CollectionUtils.find(modelPackage.getCore().getModelElement()
             .refAllOfType(), new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                return StringUtils
+                    .trimToEmpty(((ModelElement)object).getName()).equals(name);
+            }
+        });
+    }
+    
+    /**
+     * Finds and returns the first model element having the given
+     * <code>name</code> in the <code>umlPackage</code>, returns
+     * <code>null</code> if not found.
+     * 
+     * @param umlPackage The modelPackage to search
+     * @param name the name to find.
+     * @return the found model element.
+     */
+    public static Object find(
+        org.omg.uml.modelmanagement.UmlPackage umlPackage,
+        final String name)
+    {
+        return CollectionUtils.find(
+            umlPackage.getOwnedElement(), 
+            new Predicate()
         {
             public boolean evaluate(Object object)
             {

@@ -16,4 +16,8 @@
 	  	<from>TIMESTAMP</from>
 	  	<to>datatype::Timestamp</to>
 	</mapping>
+	<mapping>
+	  	<from>BLOB</from>
+	  	<to>datatype::Blob</to>
+	</mapping>
 </mappings>
