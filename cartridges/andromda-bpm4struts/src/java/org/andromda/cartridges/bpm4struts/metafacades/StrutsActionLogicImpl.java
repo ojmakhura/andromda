@@ -115,7 +115,7 @@ public class StrutsActionLogicImpl
         return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
-    public boolean handleHasSuccessMessage()
+    public boolean handleIsSuccessMessagePresent()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE);
         return isTrue(value == null ? null : value.toString());
