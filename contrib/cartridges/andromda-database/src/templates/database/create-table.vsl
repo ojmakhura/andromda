@@ -4,7 +4,7 @@
 CREATE TABLE $table.tableName (
     $primaryKeyColumn.columnName $primaryKeyColumn.sqlType NOT NULL,
 #foreach ( $column in $table.nonForeignKeyColumns )
-#if ($column.primaryKey == false)
+#if (!$column.primaryKey)
 #set ($hasInitialValue = $stringUtils.isNotBlank($column.defaultValue()))
 #set ($initialValue = $databaseTemplateObject.getInitialValue(${attribute}))
 #if ($initialValue.class.name == "java.lang.Boolean")
