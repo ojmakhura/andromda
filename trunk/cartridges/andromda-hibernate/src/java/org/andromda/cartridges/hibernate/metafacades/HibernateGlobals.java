@@ -1,7 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 /**
- * Stores Globals specific to the Spring cartridge.
+ * Stores Globals specific to the Hibernate cartridge.
  * 
  * @author Chad Brandon
  */
