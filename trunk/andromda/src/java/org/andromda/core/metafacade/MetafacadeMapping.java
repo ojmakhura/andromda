@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
-import org.andromda.core.profile.Stereotypes;
+import org.andromda.core.common.Profile;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -171,7 +171,7 @@ public class MetafacadeMapping
      */
     public void setStereotype(String stereotype)
     {
-        this.stereotype = StringUtils.trimToEmpty(Stereotypes.instance().get(
+        this.stereotype = StringUtils.trimToEmpty(Profile.instance().get(
             stereotype));
     }
 

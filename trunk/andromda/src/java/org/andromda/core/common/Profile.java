@@ -1,12 +1,7 @@
-package org.andromda.core.profile;
+package org.andromda.core.common;
 
 import java.net.URL;
 
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.NamespaceProperties;
-import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.Property;
-import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
 
@@ -16,18 +11,43 @@ import org.apache.commons.lang.StringUtils;
  * extend from this class.
  * </p>
  * <p>
- * This class provides the ability to load profile mapping files
- * from default locations as well as easily load profile mappings files 
- * that will override the default profile values. This allows us to decouple
- * all profile information from the actual code and allows users to override 
- * default profile values (i.e. stereotype names can be anything the user would 
- * like, instead of forcing them to user our naming conventions).
+ * This class provides the ability to load profile mapping files from default
+ * locations as well as easily load profile mappings files that will override
+ * the default profile values. This allows us to decouple all profile
+ * information from the actual code and allows users to override default profile
+ * values (i.e. stereotype names can be anything the user would like, instead of
+ * forcing them to user our naming conventions).
  * </p>
  * 
  * @author Chad Brandon
  */
-abstract class ProfileValues
+public class Profile
 {
+
+    /**
+     * The shared instance of this class.
+     */
+    private static final Profile instance = new Profile();
+
+    /**
+     * Gets the shared instance of this class.
+     * 
+     * @return the shared instance.
+     */
+    public static Profile instance()
+    {
+        return instance;
+    }
+
+    /**
+     * The default constructor. NOTE: normally you'll want to retrieve the
+     * shared instance of this class using {@link #instance()}.
+     */
+    public Profile()
+    {
+        this.profileMappings = this.getMappings();
+    }
+
     /**
      * Gets the profile value for the given <code>from</code> value. Returns
      * the <code>from</code> if the profile value can not be found.
@@ -51,30 +71,11 @@ abstract class ProfileValues
     private Mappings profileMappings = null;
 
     /**
-     * Constructs a new instance of ProfileValues with the given
-     * <code>namespaceProperty</code> and <code>defaultFileName</code>.
-     * 
-     * @param mappingsProperty the name of the namespace property that will
-     *        provide the ability to override any default default profile
-     *        values.
-     * @param defaultFileName the name of the file to search for that contains
-     *        the default profile values.
-     */
-    protected ProfileValues(
-        String namespaceProperty,
-        String defaultFileName)
-    {
-        this.profileMappings = this.getMappings(
-            namespaceProperty,
-            defaultFileName);
-    }
-
-    /**
      * The location to which default profiles are stored. If the
      * {@link NamespaceProperties#MERGE_MAPPINGS_URI}isn't defined then profile
      * mappings are found here.
      */
-    private static final String DEFAULT_LOCATION = "META-INF/profile/";
+    private static final String DEFAULT_LOCATION = "META-INF/andromda-profile.xml";
 
     /**
      * Attempts to retrieve the Mappings instance for the given
@@ -86,11 +87,9 @@ abstract class ProfileValues
      * @param defaultFileName the name of the file to search for that contains
      *        the default profile values.
      */
-    private Mappings getMappings(
-        String namespaceProperty,
-        String defaultFileName)
+    private Mappings getMappings()
     {
-        String defaultLocation = DEFAULT_LOCATION + defaultFileName;
+        String defaultLocation = DEFAULT_LOCATION;
         Mappings mappings = null;
         URL[] profileResources = ResourceFinder.findResources(defaultLocation);
         if (profileResources != null && profileResources.length > 0)
@@ -110,7 +109,7 @@ abstract class ProfileValues
         }
         Property mappingsUri = Namespaces.instance().findNamespaceProperty(
             Namespaces.DEFAULT,
-            namespaceProperty,
+            NamespaceProperties.PROFILE_URI,
             false);
         String mappingsUriValue = mappingsUri != null
             ? mappingsUri.getValue()

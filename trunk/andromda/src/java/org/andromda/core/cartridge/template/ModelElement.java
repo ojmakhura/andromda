@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.profile.Stereotypes;
+import org.andromda.core.common.Profile;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -74,7 +74,7 @@ public class ModelElement
     public void setStereotype(String stereotype)
     {
         final String methodName = "ModelElement.setStereotype";
-        this.stereotype = Stereotypes.instance().get(
+        this.stereotype = Profile.instance().get(
             StringUtils.trimToEmpty(stereotype));
         ExceptionUtils.checkEmpty(methodName, "stereotype", this.stereotype);
     }

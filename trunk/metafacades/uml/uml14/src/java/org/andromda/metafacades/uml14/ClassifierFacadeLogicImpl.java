@@ -8,7 +8,6 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.MetafacadeDataTypes;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -168,7 +167,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(
             this,
-            MetafacadeDataTypes.COLLECTION_TYPE_NAME);
+            UMLProfile.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -178,7 +177,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(
             this,
-            MetafacadeDataTypes.LIST_TYPE_NAME);
+            UMLProfile.LIST_TYPE_NAME);
     }
 
     /**
@@ -188,7 +187,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(
             this,
-            MetafacadeDataTypes.SET_TYPE_NAME);
+            UMLProfile.SET_TYPE_NAME);
     }
 
     /**
@@ -198,7 +197,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(
             this,
-            MetafacadeDataTypes.DATE_TYPE_NAME);
+            UMLProfile.DATE_TYPE_NAME);
     }
 
     /**
@@ -208,7 +207,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(
             this,
-            MetafacadeDataTypes.FILE_TYPE_NAME);
+            UMLProfile.FILE_TYPE_NAME);
     }
 
     /**
@@ -218,7 +217,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(
             this,
-            MetafacadeDataTypes.MAP_TYPE_NAME);
+            UMLProfile.MAP_TYPE_NAME);
     }
 
     /**
@@ -424,7 +423,7 @@ public class ClassifierFacadeLogicImpl
         {
             if (UMLMetafacadeUtils.isType(
                 this,
-                MetafacadeDataTypes.BOOLEAN_TYPE_NAME))
+                UMLProfile.BOOLEAN_TYPE_NAME))
             {
                 javaNullString = "false";
             }
