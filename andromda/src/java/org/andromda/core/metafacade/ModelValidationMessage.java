@@ -50,19 +50,9 @@ public class ModelValidationMessage
     private MetafacadeBase metafacade;
 
     /**
-     * Used if a metafacade has no name defined.
-     */
-    private static final String UNDEFINED_NAME = "undefined";
-
-    /**
      * Stores the metafacade name which is only constructed the very first time.
      */
     private String metafacadeName = null;
-
-    /**
-     * Used to seperate the element names.
-     */
-    private static final String NAME_SEPERATOR = "::";
 
     /**
      * Gets the name of the metafacade to which this validation message applies.
@@ -73,23 +63,30 @@ public class ModelValidationMessage
     {
         if (this.metafacadeName == null)
         {
+            String seperator = String.valueOf(MetafacadeProperties.VALIDATION_NAME_SEPERATOR);
             StringBuffer name = new StringBuffer();
-            if (StringUtils.isNotEmpty(this.metafacade.getName()))
-            {
-                name.append(this.metafacade.getName());
-            }
-            else
-            {
-                name = new StringBuffer(UNDEFINED_NAME);
-            }
-            if (this.metafacade.getMetafacadeOwner() != null)
+            if (this.metafacade.getValidationOwner() != null)
             {
                 MetafacadeBase owner = (MetafacadeBase)metafacade
-                    .getMetafacadeOwner();
-                if (StringUtils.isNotEmpty(owner.getName()))
+                    .getValidationOwner();
+                if (StringUtils.isNotEmpty(owner.getValidationName()))
                 {
-                    name.insert(0, NAME_SEPERATOR);
-                    name.insert(0, owner.getName());
+                    name.append(owner.getValidationName());
+                    name.append(seperator);
+                }
+            }
+            if (StringUtils.isNotEmpty(this.metafacade.getValidationName()))
+            {
+                if (name.length() > 0)
+                {
+                    // remove package if we have an owner
+                    name.append(this.metafacade.getValidationName().replaceAll(
+                        "\\w*" + seperator,
+                        ""));
+                }
+                else
+                {
+                    name.append(this.metafacade.getValidationName());
                 }
             }
             this.metafacadeName = name.toString();
@@ -160,5 +157,10 @@ public class ModelValidationMessage
             equals = message.toString().equals(this.toString());
         }
         return equals;
+    }
+
+    public static void main(String args[])
+    {
+        System.out.println("edu::test::org::6yTestMe".replaceAll("\\w*::", ""));
     }
 }

@@ -10,7 +10,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
@@ -399,7 +399,7 @@ public class HibernateEntityLogicImpl
 
     private String getDefaultIdentifier()
     {
-        return (String)getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER);
+        return (String)getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
     }
 
     /**

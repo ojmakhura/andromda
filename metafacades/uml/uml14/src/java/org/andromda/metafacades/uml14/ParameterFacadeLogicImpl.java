@@ -27,9 +27,9 @@ public class ParameterFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
-    public Object getMetafacadeOwner()
+    public Object getValidationOwner()
     {
         return this.getOperation();
     }

@@ -11,7 +11,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -397,7 +397,7 @@ public class EJBEntityFacadeLogicImpl
     protected String handleGetSqlType()
     {
         String mpSql = getMappingsProperty(
-            MetafacadeProperties.SQL_MAPPINGS_URI).getName();
+            UMLMetafacadeProperties.SQL_MAPPINGS_URI).getName();
         if (mpSql.startsWith("Oracle"))
         {
             mpSql = "ORACLE";

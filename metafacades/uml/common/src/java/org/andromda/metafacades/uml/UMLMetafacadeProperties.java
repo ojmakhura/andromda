@@ -6,7 +6,7 @@ package org.andromda.metafacades.uml;
  * 
  * @author Chad Brandon
  */
-public class MetafacadeProperties
+public class UMLMetafacadeProperties
 {
     /**
      * Stores the property containing the URI to the language mappings file.
@@ -74,4 +74,15 @@ public class MetafacadeProperties
      * The visibility to apply to default identifiers.
      */
     public static final String DEFAULT_IDENTIFIER_VISIBILITY = "defaultIdentifierVisibility";
+    
+    /**
+     * The seperator used for packages and element names when constructing
+     * fully qualified names.
+     */
+    public static final String NAMESPACE_SEPERATOR = "namespaceSeperator";
+    
+    /**
+     * Used to seperate the names when constructing the fully qualified validation name.
+     */
+    public static final String UNDEFINED_NAME = "undefinedName";
 }

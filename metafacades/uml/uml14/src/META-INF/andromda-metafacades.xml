@@ -5,6 +5,9 @@
     <property reference="languageMappingsUri" />
     <property reference="wrapperMappingsUri" />
     <property reference="pluralizeAssociationEndNames" default="true"/>
+    <property reference="namespaceSeperator" default="."/>
+    <property reference="validationNameSeperator" default="::"/>
+    <property reference="undefinedName" default="undefined"/>
     <default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <metafacade 
         metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"

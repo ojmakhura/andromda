@@ -543,9 +543,19 @@ public class MockAssociationEndFacade implements AssociationEndFacade {
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getMetafacadeOwner()
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getValidationOwner()
      */
-    public Object getMetafacadeOwner() {
+    public Object getValidationOwner() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getValidationName()
+     */
+    public String getValidationName() {
         // TODO Auto-generated method stub
         return null;
     }
