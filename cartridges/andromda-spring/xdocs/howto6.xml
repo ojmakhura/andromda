@@ -83,9 +83,22 @@
             </p>
             <p>
                 Tagged values may be added to the attributes of such a value object class. This is interesting to
-                wire the attributes to specific properties of the underlying persistence framework. You can
-                also set the comparator for the criteria search (equal, like, less, ...). For more details on these
-                tagged value go here: <a href="modeling.html#Supported_Tagged_Values">Tagged Values</a>.
+                wire the attributes to specific properties of the domain model. You can
+                also set the comparator for the criteria search (equal, like, less, ...). For more details
+                go here: <a href="modeling.html#Supported_Tagged_Values">Tagged Values</a>.
+            </p>
+            <p>
+                These criteria objects allow to set the maximum number of elements to fetch, just do something
+                like this:
+<source language="java"><![CDATA[
+   // we need to find cars with name 'audi' only
+   CarSearchCriteria searchCriteria = new CarSearchCriteria(null, "audi");
+   // after 1200 cars are found we stop searching
+   searchCriteria.setMaximumResultSize(new Integer(1200));
+
+   // initiate the search by calling the DAO
+   List audis = getCarDao().findByCriteria(searchCriteria);
+]]></source>
             </p>
         </section>
         <section name="Nice to know">
