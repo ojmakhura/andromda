@@ -61,4 +61,12 @@ public class AssociationFacadeLogicImpl
         return relationName;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.AssociationFacade#isMany2Many()
+     */
+    protected boolean handleIsMany2Many()
+    {
+        return ((AssociationEndFacade)this.getAssociationEnds().iterator().next()).isMany2Many();
+    }
+
 }
