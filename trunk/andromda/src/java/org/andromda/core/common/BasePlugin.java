@@ -299,5 +299,4 @@ public abstract class BasePlugin
     {
         return ToStringBuilder.reflectionToString(this);
     }
-
 }
