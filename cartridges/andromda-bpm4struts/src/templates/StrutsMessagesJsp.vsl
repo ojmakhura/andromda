@@ -8,7 +8,7 @@
             <p class="error"><bean:write name="error"/></p>
         </html:messages>
         <html:messages id="message" message="true">
-            <p class="message"><bean:write name="message"/></p>
+            <p><bean:write name="message"/></p>
         </html:messages>
     </div>
 </logic:messagesPresent>
