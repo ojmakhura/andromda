@@ -203,14 +203,16 @@
 ## as a table link
 #if (${parameter.tableLinkColumnName})
 #set ($propertyName = "row.${parameter.tableLinkColumnName}")
-#if ($velocityCount == 1)
-                <c:set var="requestString" value="?${parameter.name}=${${propertyName}}"/>
 #else
-                <c:set var="requestString" value="${requestString}&${parameter.name}=${${propertyName}}"/>
+#set ($propertyName = "form.${parameter.name}")
+#end
+#if ($velocityCount == 1)
+#set ($requestPath = "${link.action.actionPath}.do?${parameter.name}=${${propertyName}}")
+#else
+#set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
 #end
 #end
-#end
-                <html:link page="${link.action.actionPath}.do${requestString}">
+                <html:link page="${requestPath}">
 #set ($linkName = "row.${link.tableLinkColumnName}")
                     ${${linkName}}
                 </html:link>
