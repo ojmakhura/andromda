@@ -37,15 +37,13 @@ insert into $table.tableName (#columnNames($columns)) values (#initialLoadValues
 #foreach ($table in $tables)
 ##  insert foreign keys
 #set ($columns = $table.foreignKeyColumns)
-#set ($primKeys = $table.primaryKeyColumns)
+#set ($primKeyColumn = $table.primaryKeyColumn)
 #if ($columns.size() > 0)
 #foreach ($count in [1..$table.initialLoadSize])
-#if ($primKeys.size() > 0)
-update $table.tableName set #keyValues($columns $count) where #keyValues($primKeys $count)
-
+#if ($primKeyColumn)
+update $table.tableName set #keyValues($columns $count) where $primKeyColumn.columnName=$primKeyColumn.getInitialLoadValue($count)
 #else
 update $table.tableName set #keyValues($columns $count)
-
 #end
 #end
 #end
