@@ -8,9 +8,9 @@ package $controller.packageName;
 
 public class ${controller.name}Factory
 {
-    private final static ${controller.name} INSTANCE = new ${controller.name}();
+    private final static ${controller.name}Impl INSTANCE = new ${controller.name}Impl();
 
-    public final static ${controller.name}Interface get${controller.name}Instance()
+    public final static ${controller.name} get${controller.name}Instance()
     {
         return INSTANCE;
     }
