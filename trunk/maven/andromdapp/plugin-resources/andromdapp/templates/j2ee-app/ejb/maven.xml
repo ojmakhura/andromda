@@ -29,7 +29,7 @@
 				version="3.0"
                 xmlencoding="UTF-8"
                 typemapping="Hypersonic SQL"
-                datasource="java:/DefaultDS"
+                datasource="${dataSource}"
                 destdir="${ejb.descriptor.dir}"/>
 
         </ant:ejbdoclet>
