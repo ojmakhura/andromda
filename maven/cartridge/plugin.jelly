@@ -12,6 +12,18 @@
     <goal name="cartridge:test"
           description="Runs cartridge tests"
           prereqs="cartridge:initialize-test-resources">
+          
+        <maven:param-check value="${context.getVariable('andromda.cartridge.model.uri')}" fail="true">
+Please define the location of your model by setting a value for property "andromda.cartridge.model.uri".
+        </maven:param-check> 
+        
+        <ant:available
+            file="${context.getVariable('andromda.cartridge.test.archive')}"
+            property="archiveAvailable"/>           
+        <maven:param-check value="${archiveAvailable}" fail="true">
+Please define the test artifact '${context.getVariable('andromda.cartridge.test.archive')}'
+        </maven:param-check> 
+          
         <ant:echo>+-------------------------------------------+</ant:echo>
         <ant:echo>|     T E S T I N G   C A R T R I D G E     |</ant:echo>
         <ant:echo>+-------------------------------------------+</ant:echo> 
