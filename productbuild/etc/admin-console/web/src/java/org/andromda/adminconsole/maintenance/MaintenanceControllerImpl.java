@@ -21,18 +21,36 @@ public class MaintenanceControllerImpl extends MaintenanceController
      */
     public final void loadTableData(ActionMapping mapping, org.andromda.adminconsole.maintenance.LoadTableDataForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        MetaDataSession metadataSession = getMetaDataSession(request);
+        MetaDataSession metaDataSession = getMetaDataSession(request);
 
-        Table table = (Table)metadataSession.getTables().get( form.getName() );
-        if (table == null)
+        if (form.getName() != null && metaDataSession.getTableNames().contains(form.getName()) == false)
         {
-            table = metadataSession.getCurrentTable();
-            if (table == null)
-                throw new IllegalArgumentException("Table could not be located: "+form.getName());
+            throw new Exception("Trying to load unknown table (contact your System Administrator): "+form.getName());
         }
 
-        metadataSession.setCurrentTable( table );
-        metadataSession.setCurrentTableData( table.findAllRows() );
+        Table table = null;
+
+        if (form.getName() == null) // load default table
+        {
+            // get the current table
+            table = metaDataSession.getCurrentTable();
+
+            if (table == null)
+            {
+                // at least a single table is present, otherwise loadTables() would have throw an exception
+                table = (Table)metaDataSession.getTables().values().iterator().next();
+            }
+        }
+        else
+        {
+            table = (Table)metaDataSession.getTables().get( form.getName() );
+        }
+
+        if (table != null)
+        {
+            metaDataSession.setCurrentTable( table );
+            metaDataSession.setCurrentTableData( table.findAllRows() );
+        }
     }
 
     /**
@@ -77,12 +95,21 @@ public class MaintenanceControllerImpl extends MaintenanceController
         {
             throw new Exception("No tables could be found");
         }
-
     }
 
     public void registerLoginInformation(ActionMapping mapping, RegisterLoginInformationForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         DatabaseLoginSession loginSession = getDatabaseLoginSession(request);
+        AdminConsoleConfigurator configurator = loginSession.getConfigurator();
+
+        if ( configurator.isArbitraryUrlAllowed() == false)
+        {
+            List knownUrls = configurator.getKnownDatabaseUrls();
+            if (knownUrls.contains(StringUtils.trim(form.getUrl())) == false)
+            {
+                throw new Exception("You are not allowed to login into this database (contact your System Administrator): "+form.getUrl());
+            }
+        }
 
         loginSession.setUrl( StringUtils.trim(form.getUrl()) );
         loginSession.setSchema( StringUtils.trimToNull(form.getSchema()) );
