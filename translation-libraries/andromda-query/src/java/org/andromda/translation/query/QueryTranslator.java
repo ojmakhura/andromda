@@ -153,7 +153,7 @@ public class QueryTranslator
         // don't handl all instances here, since it's handled
         // in the property call expression.
         if (!TranslationUtils.trimToEmpty(expression).matches(
-            OCLFeatures.ALL_INSTANCES))
+            OCLPatterns.ALL_INSTANCES))
         {
             this.handleTranslationFragment(expression);
         }
@@ -386,6 +386,17 @@ public class QueryTranslator
         this.getExpression().appendToTranslatedExpression(translation);
     }
 
+    public void handleSize(String translation, Object node)
+    {
+        APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
+        String primaryExpression = ConcreteSyntaxUtils
+            .getPrimaryExpression(propertyCallExpression);
+
+        translation = this.replaceFragment(translation, primaryExpression, 0);
+        this.getExpression().appendSpaceToTranslatedExpression();
+        this.getExpression().appendToTranslatedExpression(translation);
+    }
+
     private StringBuffer sortedByClause;
 
     public void handleSortedBy(String translation, Object node)
@@ -416,13 +427,20 @@ public class QueryTranslator
         String[] leftAndRightExpressions = ConcreteSyntaxUtils
             .getLeftAndRightExpressions((PRelationalExpression)relationalExpressionTail
                 .parent());
-
         String leftExpression = StringUtils
             .deleteWhitespace(leftAndRightExpressions[0]);
         String rightExpression = StringUtils
             .deleteWhitespace(leftAndRightExpressions[1]);
 
+        if (leftExpression.matches(OCLPatterns.ARROW_FEATURE_CALL))
+        {
+            leftExpression = "";
+        }
         translation = this.replaceFragment(translation, leftExpression, 0);
+        if (rightExpression.matches(OCLPatterns.ARROW_FEATURE_CALL))
+        {
+            rightExpression = "";
+        }
         translation = this.replaceFragment(translation, rightExpression, 1);
 
         this.getExpression().appendSpaceToTranslatedExpression();
