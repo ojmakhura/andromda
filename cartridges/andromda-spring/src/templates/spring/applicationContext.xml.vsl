@@ -109,13 +109,13 @@
                 <prop key="hibernate.query.substitutions">$hibernateQuerySubstitutions</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateUseQueryCache))
-                <prop name="hibernate.cache.use_query_cache">$hibernateUseQueryCache</prop>
+                <prop key="hibernate.cache.use_query_cache">$hibernateUseQueryCache</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateCacheProvider))
-                <prop name="hibernate.cache.provider_class">$hibernateCacheProvider</prop>
+                <prop key="hibernate.cache.provider_class">$hibernateCacheProvider</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
-                <prop name="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</prop>
+                <prop key="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</prop>
 #end
             </props>
         </property>
