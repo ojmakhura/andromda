@@ -78,17 +78,7 @@ public class $service.testName
 	$operation.visibility void test${stringUtils.capitalize($operation.name)}() 
 	{
 #foreach ($argument in $operation.arguments)
-#set ($packageName = $argument.type.packageName)
-#if (!$argument.type.dataType)
-#if (!$service.rpcStyle && $argument.type.arrayType)
-#set ($argumentTypeName = "${service.testPackageName}.${argument.type.arrayName}")
-#else
-#set ($argumentTypeName = "${service.testPackageName}.${argument.type.name}")
-#end
-#else
-#set ($argumentTypeName = $argument.type.fullyQualifiedName)
-#end
-#set ($instanceDef = "$argumentTypeName $argument.name")
+#set ($instanceDef = "$argument.testTypeName $argument.name")
 #if(!$argument.type.primitive)
         $instanceDef = null;
 #elseif ($argumentTypeName.equals("boolean"))
