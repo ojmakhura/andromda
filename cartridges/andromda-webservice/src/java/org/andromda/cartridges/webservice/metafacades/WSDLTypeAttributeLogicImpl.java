@@ -22,7 +22,7 @@ public class WSDLTypeAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttribute#isNillable()
      */
-    public boolean handleIsNillable()
+    protected boolean handleIsNillable()
     {
         return !this.isRequired();
     }

@@ -28,7 +28,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getCreateMethods(boolean)
      */
-    public java.util.Collection handleGetCreateMethods(boolean follow)
+    protected java.util.Collection handleGetCreateMethods(boolean follow)
     {
         return EJBMetafacadeUtils.getCreateMethods(this, follow);
     }
@@ -36,7 +36,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getHomeInterfaceName()
      */
-    public java.lang.String handleGetHomeInterfaceName()
+    protected java.lang.String handleGetHomeInterfaceName()
     {
         return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
@@ -44,17 +44,17 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getViewType()
      */
-    public java.lang.String handleGetViewType()
+    protected java.lang.String handleGetViewType()
     {
         return EJBMetafacadeUtils.getViewType(this);
     }
 
-    public List handleGetInheritedInstanceAttributes()
+    protected List handleGetInheritedInstanceAttributes()
     {
         return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
 
-    public List handleGetAllInstanceAttributes()
+    protected List handleGetAllInstanceAttributes()
     {
         return EJBMetafacadeUtils.getAllInstanceAttributes(this);
     }
@@ -62,7 +62,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
      */
-    public Collection handleGetEnvironmentEntries(boolean follow)
+    protected Collection handleGetEnvironmentEntries(boolean follow)
     {
         return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
     }
@@ -70,7 +70,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getConstants(boolean)
      */
-    public Collection handleGetConstants(boolean follow)
+    protected Collection handleGetConstants(boolean follow)
     {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
@@ -78,7 +78,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSession#getJndiName()
      */
-    public java.lang.String handleGetJndiName()
+    protected java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this
@@ -106,7 +106,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#isStateful()
      */
-    public boolean handleIsStateful()
+    protected boolean handleIsStateful()
     {
         return !isStateless();
     }
@@ -114,7 +114,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogic#isStateless()
      */
-    public boolean handleIsStateless()
+    protected boolean handleIsStateless()
     {
         return this.getAllInstanceAttributes() == null
             || this.getAllInstanceAttributes().isEmpty();
@@ -123,7 +123,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getType()
      */
-    public String handleGetType()
+    protected String handleGetType()
     {
         String type = "Stateful";
         if (this.isStateless())
@@ -136,7 +136,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#allowSyntheticCreateMethod()
      */
-    public boolean handleIsSyntheticCreateMethodAllowed()
+    protected boolean handleIsSyntheticCreateMethodAllowed()
     {
         return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
     }
@@ -144,7 +144,7 @@ public class EJBSessionFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
      */
-    public Collection handleGetBusinessOperations()
+    protected Collection handleGetBusinessOperations()
     {
         Collection operations = super.getOperations();
         CollectionUtils.filter(operations, new Predicate()

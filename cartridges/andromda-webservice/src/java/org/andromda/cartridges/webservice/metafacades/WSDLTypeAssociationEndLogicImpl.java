@@ -23,7 +23,7 @@ public class WSDLTypeAssociationEndLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd#isNillable()
      */
-    public boolean handleIsNillable()
+    protected boolean handleIsNillable()
     {
         return !this.isRequired();
     }

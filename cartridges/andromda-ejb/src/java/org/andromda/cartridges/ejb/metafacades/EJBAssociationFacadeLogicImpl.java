@@ -25,7 +25,7 @@ public class EJBAssociationFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade#getTransactionType()
      */
-    public java.lang.String handleGetTransactionType()
+    protected java.lang.String handleGetTransactionType()
     {
         return (String)this
             .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);

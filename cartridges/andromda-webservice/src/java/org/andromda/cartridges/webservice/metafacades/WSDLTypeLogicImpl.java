@@ -121,7 +121,7 @@ public class WSDLTypeLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#getArrayName()
      */
-    public String handleGetArrayName()
+    protected String handleGetArrayName()
     {
         StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(
             this.getQName()).replaceAll("\\[\\]", ""));
@@ -132,7 +132,7 @@ public class WSDLTypeLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getQName()
      */
-    public String handleGetQName()
+    protected String handleGetQName()
     {
         return MessageFormat.format(
             this.getQualfiedNameLocalPartPattern(),
@@ -145,7 +145,7 @@ public class WSDLTypeLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespace()
      */
-    public java.lang.String handleGetNamespace()
+    protected java.lang.String handleGetNamespace()
     {
         String packageName = this.getPackageName();
         if (this.isReverseNamespace())
@@ -171,7 +171,7 @@ public class WSDLTypeLogicImpl
      * 
      * @return the Mappings instance.
      */
-    public Mappings getSchemaTypeMappings()
+    private Mappings getSchemaTypeMappings()
     {
         final String propertyName = PROPERTY_SCHEMA_TYPE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
@@ -203,7 +203,7 @@ public class WSDLTypeLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#handleGetNamespacePrefix()
      */
-    public String handleGetNamespacePrefix()
+    protected String handleGetNamespacePrefix()
     {
         return (String)this
             .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);

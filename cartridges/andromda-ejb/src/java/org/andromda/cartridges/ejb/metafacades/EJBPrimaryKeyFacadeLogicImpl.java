@@ -21,7 +21,7 @@ public class EJBPrimaryKeyFacadeLogicImpl
         super(metaObject, context);
     }
 
-    public boolean handleIsComplex()
+    protected boolean handleIsComplex()
     {
         return getSimplePkField() == null;
     }
