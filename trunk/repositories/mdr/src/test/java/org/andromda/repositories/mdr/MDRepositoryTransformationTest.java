@@ -1,7 +1,3 @@
-/*
- * Created on Jul 27, 2003
- *
- */
 package org.andromda.repositories.mdr;
 
 import java.net.URL;
@@ -19,7 +15,7 @@ import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.ModelManagementPackage;
 
 /**
- * @author <A HREF="httplo://www.amowers.com">Anthony Mowers </A>
+ * @author <A HREF="httplo://www.amowers.com">Anthony Mowers</A>
  */
 public class MDRepositoryTransformationTest
     extends TestCase
