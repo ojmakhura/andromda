@@ -132,7 +132,7 @@
                  <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
                  <messages>${maven.andromda.web.generated.dir}</messages>
                  <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
-                 <securityEnabled>false</securityEnabled>
+                 <security>false</security>
                  <securityRealm>other</securityRealm>
 #if ($spring)
                  <serviceAccessorPattern>${pom.package}.ServiceLocator.instance().get{1}()</serviceAccessorPattern>
