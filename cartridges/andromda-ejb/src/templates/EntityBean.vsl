@@ -504,11 +504,11 @@ public abstract class ${entityname}Bean
      * @param $att.name Value for #firstJavadocParagraph(${att} "lower" "the ${att.name} property")
 #end
      */
-    protected void ejbCreateImpl($transform.getAttributesAsList($allAttributes, true, true))
+    protected void ejbCreateImpl($transform.getAttributesAsList2($allAttributes, true, true))
            throws javax.ejb.CreateException
     {
 #if(!$inheritedAttributes.isEmpty())
-        super.ejbCreateImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
+        super.ejbCreateImpl($transform.getAttributesAsList2($inheritedAttributes, false, true));
 #end
 ##
 ## Implement artificial key generation as a quick hack until
@@ -543,20 +543,20 @@ public abstract class ${entityname}Bean
      * @return <code>null</code> as required by the EJB specification for CMP 
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
-    public $pkclassname ejbCreate($transform.getAttributesAsList($allAttributes, true, true))
+    public $pkclassname ejbCreate($transform.getAttributesAsList2($allAttributes, true, true))
            throws javax.ejb.CreateException
     {
-        ejbCreateImpl($transform.getAttributesAsList($allAttributes, false, true));
+        ejbCreateImpl($transform.getAttributesAsList2($allAttributes, false, true));
         return null;
     }
 #end
 
-    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true))
+    public void ejbPostCreate($transform.getAttributesAsList2($allAttributes, true, true))
            throws javax.ejb.CreateException
     {
 #if(!$inheritedAttributes.isEmpty())
         // Call postCreate method for the super type
-        super.ejbPostCreate($transform.getAttributesAsList($inheritedAttributes, false, true));
+        super.ejbPostCreate($transform.getAttributesAsList2($inheritedAttributes, false, true));
 #end
     }
 #set ($relations = $transform.findEntityRelationsForSource($class))
@@ -575,20 +575,20 @@ public abstract class ${entityname}Bean
      * @return <code>null</code> as required by the EJB specification for CMP 
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
-    public $pkclassname ejbCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.isEmpty()), #end#foreach ($rel in $relations)${transform.getRelationTargetType($rel)} $rel.target.roleName#if($velocityCount != $relations.size()), #end#end)
+    public $pkclassname ejbCreate($transform.getAttributesAsList2($allAttributes, true, true)#if(!$allAttributes.isEmpty()), #end#foreach ($rel in $relations)${transform.getRelationTargetType($rel)} $rel.target.roleName#if($velocityCount != $relations.size()), #end#end)
            throws javax.ejb.CreateException
     {
         // Call ejbCreate method for the CMP attributes
-        ejbCreate($transform.getAttributesAsList($allAttributes, false, true));
+        ejbCreate($transform.getAttributesAsList2($allAttributes, false, true));
         // Relations cannot be set in ejbCreate() - this is done in ejbPostCreate()
         return null;
     }
 
-    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.isEmpty()), #end#foreach ($rel in $relations)${transform.getRelationTargetType($rel)} $rel.target.roleName#if($velocityCount != $relations.size()), #end#end)
+    public void ejbPostCreate($transform.getAttributesAsList2($allAttributes, true, true)#if(!$allAttributes.isEmpty()), #end#foreach ($rel in $relations)${transform.getRelationTargetType($rel)} $rel.target.roleName#if($velocityCount != $relations.size()), #end#end)
            throws javax.ejb.CreateException
     {
         // Call postCreate method for the CMP attributes
-        ejbPostCreate($transform.getAttributesAsList($allAttributes, false, true));
+        ejbPostCreate($transform.getAttributesAsList2($allAttributes, false, true));
         // Set the CMR relations
 #foreach ($rel in $relations)
         set${str.upperCaseFirstLetter($rel.target.roleName)}($rel.target.roleName);
