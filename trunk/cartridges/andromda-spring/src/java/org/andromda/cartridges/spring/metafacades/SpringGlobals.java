@@ -48,23 +48,33 @@ class SpringGlobals
     final static String WEB_SERVICE_DELEGATOR_SUFFIX = "WSDelegator";
 
     /**
+     * The prefix given to transformation method names.
+     */
+    final static String TRANSFORMATION_METHOD_PREFIX = "to";
+
+    /**
+     * Defines the prefix given to the transformation constants.
+     */
+    final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORMATION_";
+
+    /**
      * Represents the hibernate <code>delete</code> cascade option.
      */
-    public static final String HIBERNATE_CASCADE_DELETE = "delete";
+    static final String HIBERNATE_CASCADE_DELETE = "delete";
 
     /**
      * Represents the hibernate <code>all-delete-orphan</code> cascade option.
      */
-    public static final String HIBERNATE_CASCADE_ALL_DELETE_ORPHAN = "all-delete-orphan";
+    static final String HIBERNATE_CASCADE_ALL_DELETE_ORPHAN = "all-delete-orphan";
 
     /**
      * Represents the hibernate <code>save-update</code> cascade option.
      */
-    public static final String HIBERNATE_CASCADE_SAVE_UPDATE = "save-update";
+    static final String HIBERNATE_CASCADE_SAVE_UPDATE = "save-update";
 
     /**
      * The property used to specify the implementation operation name prefix (on
      * both services and DAOs).
      */
-    public static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
+    static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
 }
