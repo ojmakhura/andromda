@@ -44,26 +44,19 @@ public class WebServiceLogicImpl
      */
     public java.util.Collection handleGetAllowedOperations()
     {
-        Collection allowedOperations;
-        boolean allowAll = this.getStereotypeNames().contains(
-            WebServiceProfile.STEREOTYPE_WEBSERVICE);
-        if (allowAll)
+        return new FilteredCollection(this.getOperations())
         {
-            allowedOperations = new ArrayList();
-            allowedOperations.addAll(this.getOperations());
-        }
-        else
-        {
-            allowedOperations = new FilteredCollection(this.getOperations())
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
+                boolean valid = WebServiceOperation.class
+                    .isAssignableFrom(object.getClass());
+                if (valid)
                 {
-                    return ((ModelElementFacade)object)
-                        .hasStereotype(WebServiceProfile.STEREOTYPE_WEBSERVICE_OPERATION);
+                    valid = ((WebServiceOperation)object).isExposed();
                 }
-            };
-        }
-        return allowedOperations;
+                return valid;
+            }
+        };
     }
 
     /**
