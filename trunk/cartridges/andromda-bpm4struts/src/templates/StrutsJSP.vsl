@@ -74,7 +74,7 @@
 #end
             var HINTS_ITEMS = {
 #foreach ($parameter in $jsp.allActionParameters)
-                '$parameter.name':'<formatting:escape language="javascript"><bean:message key="$parameter.titleKey"/></formatting:escape>',
+                '$parameter.titleKey':'<formatting:escape language="javascript"><bean:message key="$parameter.titleKey"/></formatting:escape>',
 #end
 #foreach ($action in $jsp.actions)
 #set ($trigger = $action.actionTrigger)
