@@ -11,15 +11,15 @@
         <section name="Custom Code">
             <p>
                 Now that we have a controller for our use-case, and we have a few operations modeled in that controller,
-                we can start deferring (delegating) control from specific point in our activity graph.
+                we can start deferring (delegating) control from specific points in our activity graph.
             </p>
             <p>
                 There are two different locations from where to defer control: action states and decision points.
             </p>
             <p>
                 We have already seen how to use <a href="howto2.html#Decision_Points">decision points</a>, this is one
-                place where you can defer control. There is a special requirement though: the operation
-                <em>must</em> have a return value.
+                place where you can defer control. For decision points there is a special requirement though:
+                the operation <em>must</em> have a return value.
             </p>
             <p>
                 You must model a <em>call-event</em> trigger on the transition entering the decision point.
