@@ -24,7 +24,7 @@
                  classpathref="classpath"/>
 
         <andromda basedir="."
-                 ejbDestdir="."
+                 genDestdir="."
                  implDestdir="."
                  modelURL="${model.url}"
                  lastModifiedCheck="false"

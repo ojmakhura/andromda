@@ -48,7 +48,7 @@ public class AndroMDAGenTask extends MatchingTask {
 	/**
 	 *  the destination directory
 	 */
-	private File ejbDestDir = null;
+	private File genDestDir = null;
 	/**
 	 *  the destination directory
 	 */
@@ -138,7 +138,7 @@ public class AndroMDAGenTask extends MatchingTask {
 		/**
 		 *  Description of the Field
 		 */
-		public final static int EJBDEST = 1;
+		public final static int GENDEST = 1;
 		/**
 		 *  Description of the Field
 		 */
@@ -176,7 +176,7 @@ public class AndroMDAGenTask extends MatchingTask {
 				"EntityBean",
 				"EntityBean.vsl",
 				"{0}/{1}Bean.java",
-				TemplateDesc.EJBDEST,
+				TemplateDesc.GENDEST,
 				true),
 			new TemplateDesc(
 				"EntityBean",
@@ -188,13 +188,13 @@ public class AndroMDAGenTask extends MatchingTask {
 				"EntityBean",
 				"EntityBeanCMP.vsl",
 				"{0}/{1}BeanCMP.java",
-				TemplateDesc.EJBDEST,
+				TemplateDesc.GENDEST,
 				true),
 			new TemplateDesc(
 				"StatelessSessionBean",
 				"StatelessSessionBean.vsl",
 				"{0}/{1}Bean.java",
-				TemplateDesc.EJBDEST,
+				TemplateDesc.GENDEST,
 				true),
 			new TemplateDesc(
 				"StatelessSessionBean",
@@ -206,7 +206,7 @@ public class AndroMDAGenTask extends MatchingTask {
 				"StatefulSessionBean",
 				"StatefulSessionBean.vsl",
 				"{0}/{1}Bean.java",
-				TemplateDesc.EJBDEST,
+				TemplateDesc.GENDEST,
 				true),
 			new TemplateDesc(
 				"StatefulSessionBean",
@@ -242,14 +242,14 @@ public class AndroMDAGenTask extends MatchingTask {
 	/**
 	 *  <p>
 	 *
-	 *  Sets the destination directory in which most of the resulting EJB files
+	 *  Sets the destination directory in which most of the resulting GEN files
 	 *  should be created.</p>
 	 *
 	 *@param  dir  a <code>File</code> pointing to the destination directory for
-	 *      EJB files
+	 *      GEN files
 	 */
-	public void setEjbDestdir(File dir) {
-		ejbDestDir = dir;
+	public void setGenDestdir(File dir) {
+		genDestDir = dir;
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class AndroMDAGenTask extends MatchingTask {
 	 *  should be created.</p>
 	 *
 	 *@param  dir  a <code>File</code> pointing to the destination directory for
-	 *      EJB implementation files
+	 *      GEN implementation files
 	 */
 	public void setImplDestdir(File dir) {
 		implDestDir = dir;
@@ -395,13 +395,13 @@ public class AndroMDAGenTask extends MatchingTask {
 		for (int i = 0; i < defaultTemplateConfig.length; i++) {
 			TemplateDesc td = defaultTemplateConfig[i];
 			File destDir =
-				(td.whichDest == TemplateDesc.EJBDEST)
-					? ejbDestDir
+				(td.whichDest == TemplateDesc.GENDEST)
+					? genDestDir
 					: implDestDir;
 			if (null == destDir) {
 				throw new BuildException(
-					((td.whichDest == TemplateDesc.EJBDEST)
-						? "EJB"
+					((td.whichDest == TemplateDesc.GENDEST)
+						? "GEN"
 						: "Implementation")
 						+ " destination directory is not defined.");
 			}
@@ -481,7 +481,7 @@ public class AndroMDAGenTask extends MatchingTask {
 		 * PENDING: We should enable this check somehow
 				if (typeMappings == null)
 				{
-					throw new BuildException("The typeMappings attribute of <uml2ejb> has not been set - it is needed for entity bean field to database column mapping.");
+					throw new BuildException("The typeMappings attribute of <uml2GEN> has not been set - it is needed for entity bean field to database column mapping.");
 				}
 		*/
 		if (velocityPropertiesFile == null) {

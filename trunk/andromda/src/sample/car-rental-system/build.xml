@@ -99,7 +99,7 @@
         <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
 
         <andromda basedir="build/model/unzipped"
-                 ejbDestdir="${andromda.ejb.bean.dir}"
+                 genDestdir="${andromda.ejb.bean.dir}"
                  implDestdir="${andromda.ejb.impl.dir}"
                  includes="CarRentalSystem15.xmi"
                  lastModifiedCheck="true"
