@@ -17,12 +17,23 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 28, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts change</td>
+                    <td valign="top" class="std">
+                        The namespace property 'breadCrumbs' (boolean) has been replaced by the property
+                        'maxBreadCrumbs' (integer). To disable breadcrumbs specify zero. In order to properly
+                        use this feature at runtime you will need to include the breadcrumbs taglib, take a look
+                        at the samples' web module dependencies to see how it is done.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 23, 2004</td>
                     <td valign="top" class="std">New Core feature</td>
                     <td valign="top" class="std">
                         A new namespace property has been added that can be used for
-                        <em>any</em> cartridge, its called <code>mergeLocation</code>, for
-                        more information see 
+                        <em>any</em> cartridge, its called
+                        <code>mergeLocation</code>, for
+                        more information see
                         <a href="andromda-cartridges/index.html#mergeLocation">Overriding cartridge resources</a>.
                     </td>
                 </tr>
