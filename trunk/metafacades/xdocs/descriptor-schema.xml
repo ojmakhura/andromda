@@ -26,20 +26,10 @@
     <xs:element name="metafacade">
         <xs:complexType>
             <xs:sequence>
-                <xs:choice>
-                    <!-- deprecated: please use the mapping element instead -->
-                    <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
-                    <!-- deprecated: please use the mapping element instead -->
-                    <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
-                </xs:choice>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="mapping" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
-            <xs:attribute name="class" type="xs:string" use="optional"/>
-            <!-- deprecated: please using the class attribute on the mapping element instead -->
-            <xs:attribute name="metaobjectClass" type="xs:string" use="optional"/>
-            <!-- deprecated: please using the class attribute on the metafacade element instead -->
-            <xs:attribute name="metafacadeClass" type="xs:string" use="required"/>
+            <xs:attribute name="class" type="xs:string" use="required"/>
             <!-- You should set the context root to 'true' when the metafacade mapping
                  will be used as a context for other mappings -->
             <xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
