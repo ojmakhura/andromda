@@ -6,7 +6,7 @@
 <mappings name="Java">
     <mapping>
         <from>package</from>
-        <to></to>
+        <to/>
     </mapping>
     <mapping>
         <from>datatype.String</from>
@@ -21,6 +21,7 @@
         <to>java.sql.Time</to>
     </mapping>
     <mapping>
+        <from>datatype.DateTime</from>
         <from>datatype.Timestamp</from>
         <to>java.sql.Timestamp</to>
     </mapping>
@@ -138,8 +139,8 @@
         <to>void</to>
     </mapping>
     <mapping>
-      <from>datatype.Document</from>
-      <to>org.w3c.dom.Document</to>
+        <from>datatype.Document</from>
+        <to>org.w3c.dom.Document</to>
     </mapping>
     <mapping>
         <from>datatype.ContentHandler</from>
