@@ -1,5 +1,7 @@
 #!/bin/sh 
 
+export JAVA_HOME=/usr/local/jdk1.5.0_01
+export PATH=$JAVA_HOME/bin:$PATH
 
 if [[ -z $ANT_HOME || ! -d $ANT_HOME ]];
 then
