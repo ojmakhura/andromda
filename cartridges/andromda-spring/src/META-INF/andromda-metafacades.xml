@@ -44,5 +44,7 @@
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl"/>	
+        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl">
+        <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+    </metafacade>	
 </metafacades>
