@@ -373,7 +373,7 @@
                         JNDI name bound to the SessionFactory.
                     </td>
                     <td>
-                        No
+                        No, default is <code>java:/hibernate/SessionFactory</code>.
                     </td>
                 </tr>
                 <tr>
