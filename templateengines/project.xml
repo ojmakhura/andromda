@@ -9,7 +9,7 @@
   		The collection of Template Engine implementations.
   	</description>
   	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</connection>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</url>
   	</repository>
   	<build>
