@@ -7,17 +7,35 @@ import org.apache.log4j.Logger;
 public class TestModel
 {
     private static final Logger logger = Logger.getLogger(TestModel.class);
-    
-    public static URL MODEL_URI = null;
-    
-    static {
-        try {
-            MODEL_URI = TestModel.class.getResource("/TestModel.zargo");
-            if (MODEL_URI != null) {
-                MODEL_URI = new URL("jar:" + MODEL_URI.toString() + "!/TestModel.xmi");
+
+    public static URL getModel()
+    {
+        try
+        {
+            String testModel = "/TestModel.zuml";
+            URL modelUri = TestModel.class.getResource(testModel);
+            if (modelUri == null)
+            {
+                throw new RuntimeException("Could not load '" + testModel + "'");
             }
-        } catch (Throwable th) {
-        	logger.error(th);
+            if (modelUri != null)
+            {
+                String jarUrl = "jar:" + modelUri.toString()
+                    + "!/TestModel.xmi";
+                modelUri = new URL(jarUrl);
+                if (modelUri == null)
+                {
+                    throw new RuntimeException("Could not load '" + jarUrl
+                        + "'");
+                }
+            }
+            return modelUri;
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing TestModel.getModel()";
+            logger.error(errMsg, th);
+            throw new RuntimeException(errMsg, th);
         }
     }
 }

@@ -9,10 +9,46 @@
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}</url>
   	</repository>
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>test</type>
+	    </dependency>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml14</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>test</type>
+	    </dependency>		    
+    	<dependency>
+	      	<groupId>commons-collections</groupId>
+	      	<artifactId>commons-collections</artifactId>
+	      	<version>3.0</version>
+	      	<type>test</type>
+	    </dependency>
+    	<dependency>
+	      	<groupId>picocontainer</groupId>
+	      	<artifactId>picocontainer</artifactId>
+	      	<version>1.0-RC-1-SNAPSHOT</version>
+	      	<type>test</type>
+	    </dependency>
+    	<dependency>
+	      	<groupId>commons-collections</groupId>
+	      	<artifactId>commons-collections</artifactId>
+	      	<version>3.0</version>
+	      	<type>test</type>
+	    </dependency>
+	</dependencies>
   	<build>
     	<sourceDirectory>src/java</sourceDirectory>
     	<unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
-    	<!-- Unit test classes -->
     	<unitTest>
 	      	<includes>
 	        	<include>**/*Test.java</include>
@@ -20,17 +56,17 @@
 			<resources>
 				<resource>
 					<directory>src/test/java</directory>
-					<excludes>
-						<exclude>**/*.java</exclude>
-					</excludes>
-				</resource>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
+		  		</resource>
 				<resource>
 					<directory>src/test/uml</directory>
-					<includes>
-						<include>**/*</include>
-					</includes>
-				</resource>
-			</resources>	
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+		  		</resource>
+			</resources>	 
     	</unitTest>
     	<resources>
 	      	<resource>
