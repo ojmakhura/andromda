@@ -19,10 +19,9 @@ public class ${class.name}Impl
     // concrete business methods that were declared
     // abstract in class ${class.name} ...
 
-#foreach ( $op in $class.operations)
+#foreach ( $op in $class.businessOperations)
 #set ($msig = $op.signature)
 #set ($returntype = $op.returnType.fullyQualifiedName)
-#if (!$op.hasStereotype("FinderMethod"))
 #if ($op.hasException())
 #set ($throws = " throws $op.exceptionList")
 #else
@@ -48,7 +47,6 @@ public class ${class.name}Impl
 #end
     }
 
-#end
 #end
 #end
 }

@@ -9,6 +9,7 @@ import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -273,6 +274,21 @@ public class EntityFacadeLogicImpl
             }
         });
         return parentEnds;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     */
+    public Collection handleGetBusinessOperations() 
+    {
+        return new FilteredCollection(this.getOperations()) 
+        {
+            public boolean evaluate(Object object)
+            {
+                return !((ModelElementFacade)object).hasStereotype(
+                    UMLProfile.STEREOTYPE_FINDER_METHOD);
+            }
+        };
     }
 
     /**
