@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.core.metafacade.ModelValidationException;
 import org.andromda.metafacades.uml.*;
 
 import java.util.*;
@@ -26,6 +27,7 @@ public class StrutsActionLogicImpl
     private String actionClassName = null;
     private String actionPathRoot = null;
     private String actionRoles = null;
+    private Collection actionExceptions = null;
     private String formBeanClassName = null;
     private String formBeanName = null;
     private String formBeanType = null;
@@ -335,8 +337,9 @@ public class StrutsActionLogicImpl
 
     protected Collection handleGetActionExceptions()
     {
-        final Collection exceptions = new HashSet();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionExceptions != null) return actionExceptions;
 
+        final Collection exceptions = new HashSet();
         final Collection actionStates = getActionStates();
         for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
@@ -344,7 +347,7 @@ public class StrutsActionLogicImpl
             exceptions.addAll(actionState.getExceptions());
         }
 
-        return exceptions;
+        return actionExceptions = exceptions;
     }
 
     protected java.lang.Object handleGetInput()
@@ -425,5 +428,16 @@ public class StrutsActionLogicImpl
             ParameterFacade parameter = (ParameterFacade) iterator.next();
             fieldMap.put(parameter.getName(), parameter);
         }
+    }
+
+    protected void performValidation() throws ModelValidationException
+    {
+        super.performValidation();
+/*
+
+        final StrutsTrigger actionTrigger = getActionTrigger();
+        if (actionTrigger == null)
+            validationError("Each action must have a trigger");
+*/
     }
 }
