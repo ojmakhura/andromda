@@ -52,8 +52,6 @@ $class.getDocumentation(" * ")
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
 #set ($superclass = $dep.targetElement)
 #set ($viewtype = $class.findTaggedValue("@andromda.ejb.viewType"))
-// $viewtype
-// $superclass.viewType
 #if (!$viewtype || $viewtype == "")
 #set ($viewtype = $superclass.viewType)
 #end
