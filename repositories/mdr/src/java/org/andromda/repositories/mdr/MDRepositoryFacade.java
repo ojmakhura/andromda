@@ -64,7 +64,8 @@ public class MDRepositoryFacade implements RepositoryFacade
         metaModelURL =
             MDRepositoryFacade.class.getResource(metamodelUri);
 
-        if (metaModelURL == null) {
+        if (metaModelURL == null) 
+        {
             throw new RepositoryFacadeException("Could not find meta model --> ' " 
                 + metamodelUri + "'");   
         }
