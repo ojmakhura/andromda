@@ -21,7 +21,7 @@ import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.ModelManagementPackage;
 
 /**
- * Performs the transformation of the ODM to the flat file format.
+ * Performs the transformation of database schema to XMI.
  * 
  * @author Chad Brandon
  */
