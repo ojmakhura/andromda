@@ -34,7 +34,7 @@ public abstract class $entity.name
 {
     // --------------- attributes ---------------------
 #if ($str.isNotBlank($versionProperty))
-#set ($versionPropertyCapitalized = $str.upperCaseFirstLetter($versionProperty))
+#set ($versionPropertyCapitalized = $str.capitalize($versionProperty))
    private int $versionProperty;
 
     /**
