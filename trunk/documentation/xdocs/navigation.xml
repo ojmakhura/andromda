@@ -24,6 +24,7 @@
         <menu name="Usage">
             <item name="Installation" href="/install.html"/>
             <item name="Getting Started" href="/starting.html"/>
+            <item name="Samples" href="/samples.html"/>
             <item name="Ant Task" href="/anttask.html"/>
             <item name="Maven Plugins" href="/andromda-maven-plugins/index.html"/>
             <item name="Schema2XMI" href="/andromda-schema2xmi/index.html"/>
@@ -43,18 +44,8 @@
             <item name="Repositories" href="/andromda-repositories/index.html"/>
             <item name="Template Engines" href="/andromda-templateengines/index.html"/>
         </menu>
-
-        <menu name="The Car Rental Sample">
-            <item name="Intro" href="/sampleintro.html"/>
-            <item name="UML model (browse online)" href="/umldoc/index.html"/>
-        </menu>
-
-        <menu name="The Animal Quiz Sample">
-            <item name="Intro &amp; play online!" href="/animal-quiz.html"/>
-            <item name="UML model (download)" href="/resources/AnimalQuiz.xml.zip"/>
-        </menu>
-
-        <menu name="Downloads" href="/releases.html" collapse="true">
+        
+        <menu name="Downloads">
             <item name="Releases" href="/releases.html"/>
             <item name="Nightly Builds" href="http://team.andromda.org/maven/andromda/distributions"/>
         </menu>
