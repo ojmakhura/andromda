@@ -404,9 +404,11 @@
         <j:set var="rsync_src" value="${basedir}/documentation/target/docs"/>
         <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.directory}"/>
         <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST == 'false'}">
         <ant:exec executable="rsync">
             <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_target}"/>
         </ant:exec>
+        </j:if>
     </goal>
 
     <!-- =================================================================
@@ -417,11 +419,13 @@
              until we figure out were deploy is sending stuff -->
         <j:set var="rsync_arg1" value="-Cvuaz"/>
         <j:set var="rsync_src" value="${maven.home.local}/repository/andromda"/>
-        <j:set var="rsync_target" value="${rsync_target_prefix}maven/repository"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.distribution.home}/maven/repository"/>
         <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST == 'false'}">
         <ant:exec executable="rsync">
             <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_target}"/>
         </ant:exec>
+        </j:if>
     </goal>
 
     <!-- =================================================================
@@ -435,11 +439,13 @@
         <j:set var="rsync_src" value="${distribution.dir}"/>
         <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.distribution.directory}"/>
         <ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST == 'false'}">
         <!-- NB if you specify as individual args someone mangles the arg
             and you get stat errors -->
         <ant:exec executable="rsync">
             <ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_target}"/>
         </ant:exec>
+        </j:if>
     </goal>
 
     <!--
