@@ -8,6 +8,35 @@ package $entity.packageName;
 /**
 $entity.getDocumentation(" * ")
  */
+#if ($entity.enumeration)
+public final class $entity.entityName implements java.io.Serializable
+{
+#set ($identifier = $entity.identifiers.iterator().next())
+    private $identifier.type.fullyQualifiedName $identifier.name;
+
+    public $identifier.type.fullyQualifiedName ${identifier.getterName}()
+    {
+        return this.$identifier.name;
+    }
+
+    public void ${identifier.setterName}($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        this.${identifier.name} = $identifier.name;
+    }
+
+    private ${entity.enumerationType} value;
+
+    public ${entity.enumerationType} getValue()
+    {
+        return this.value;
+    }
+
+    public void setValue(${entity.enumerationType} value)
+    {
+        this.value = value;
+    }
+}
+#else
 public abstract class $entity.entityName
 #if($entity.generalization)  
 	extends ${entity.generalization.fullyQualifiedEntityName}
@@ -70,3 +99,4 @@ $operation.getDocumentation("     * ")
 
 #end
 }
+#end
