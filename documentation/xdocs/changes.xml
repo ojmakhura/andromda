@@ -20,6 +20,17 @@
                     <td valign="top" class="std">Aug 19, 2004</td>
                     <td valign="top" class="std">Bpm4Struts change</td>
                     <td valign="top" class="std">
+                        The table link tagged value changed name:
+                        <code>@andromda.struts.action.tablelink</code> is now
+                        <code>@andromda.struts.view.field.tablelink</code>, the reason is that
+                        the location for this tagged value is the parameter and not the
+                        transition (as in the very beginning).
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Aug 19, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts change</td>
+                    <td valign="top" class="std">
                         Form bean fields now have the name of their action prepended to their
                         name (only for action parameters, page variables are unchanged).
                         Using bpm4struts after this date will require you to update
