@@ -83,12 +83,13 @@
   	<!-- =================================================================
   	         Deploys all bootstrap artifacts to the remote repository
   	         IMPORTANT: Since bootstrap dependencies depend on each other,
-  	         we need to deploy them ALL at the end at once (instead of
-  	         one at a time).  
+  	         we need to deploy them ALL at the end of the build at once 
+  	         (instead of one at a time).  
   	         IMPORTANT: Normally the Maven deploy plugin would
   	         be used, but it isn't possible to use it the way its currently
   	         implemented as it expects each artifact to be deployed 
-  	         after its built.  This allows us to deploy them all at 
+  	         after its built.  This allows us to deploy them all after
+  	         they are all built.
   	     ================================================================= -->
   	<goal name="bootstrap-deploy"
   		  description="Deploys a bootstrap jar to the remote repository">
