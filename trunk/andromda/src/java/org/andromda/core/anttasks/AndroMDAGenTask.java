@@ -9,7 +9,6 @@ import java.util.Iterator;
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
@@ -19,7 +18,6 @@ import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.taskdefs.MatchingTask;
@@ -47,9 +45,6 @@ public class AndroMDAGenTask
     {
         initializeContextClassLoader();
     }
-
-    private static final Logger logger = Logger
-        .getLogger(AndroMDAGenTask.class);
 
     /**
      * the base directory
@@ -81,16 +76,6 @@ public class AndroMDAGenTask
      * transferred to the Namespaces instance before execution starts.
      */
     private Collection namespaces = new ArrayList();
-
-    /**
-     * <p>
-     * Creates a new <code>AndroMDAGenTask</code> instance.
-     * </p>
-     */
-    public AndroMDAGenTask()
-    {
-        AndroMDALogger.configure();
-    }
 
     /**
      * Adds a namespace for a Plugin. Namespace objects are used to configure
@@ -166,7 +151,7 @@ public class AndroMDAGenTask
      */
     public void execute() throws BuildException
     {
-        // initialize before the execute as well in case people
+        // initialize before the execute as well in case we
         // want to execute more than once
         initializeContextClassLoader();
         try
@@ -264,14 +249,13 @@ public class AndroMDAGenTask
         finally
         {
             // Set the context class loader back ot its system class loaders
-            // so that any processes running after (i.e. XDoclet, etc) won't be
-            // trying to use
+            // so that any processes running after won't be trying to use
             // the ContextClassLoader for this class.
             Thread.currentThread().setContextClassLoader(
                 ClassLoader.getSystemClassLoader());
         }
     }
-    
+
     /**
      * Set the context class loader so that any classes using it (the
      * contextContextClassLoader) have access to the correct loader.
@@ -295,13 +279,11 @@ public class AndroMDAGenTask
             public void execute(Object object)
             {
                 Namespace namespace = (Namespace)object;
-                if (logger.isDebugEnabled())
-                    logger.debug("adding namespace --> '" + namespace + "'");
                 Namespaces.instance().addNamespace(namespace);
             }
         });
     }
-
+    
     /**
      * Creates and returns a repository configuration object. This enables an
      * ANT build script to use the &lt;repository&gt; ant subtask to configure
@@ -371,6 +353,18 @@ public class AndroMDAGenTask
     public void setXmlValidation(boolean xmlValidation)
     {
         XmlObjectFactory.setDefaultValidating(xmlValidation);
+    }
+
+    /**
+     * Sets <code>loggingConfigurationUri</code> for AndroMDA.
+     * 
+     * @param the URI to the external logging configuration file.
+     * @see ModelProcessor#setLoggingConfigurationUri(String)
+     */
+    public void setLoggingConfigurationUri(String loggingConfigurationUri)
+    {
+        ModelProcessor.instance().setLoggingConfigurationUri(
+            loggingConfigurationUri);
     }
 
     /**

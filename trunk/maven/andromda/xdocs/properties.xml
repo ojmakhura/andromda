@@ -188,6 +188,18 @@
                     </tr>
                     <tr>
                         <td>
+                            <a name="maven.andromda.loggingConfigurationUri">maven.andromda.logging.configuration.uri</a>
+                        </td>
+                        <td>
+                            Specifies the location of an external logging configuration file.  This is useful if you want
+                            to override the default logging behavior of AndroMDA.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                            maven.andromda.currentPlugin 
                         </td>
                         <td>
