@@ -68,7 +68,9 @@
         outlet="actions"
         overwrite="true">
         <modelElements variable="action">
-            <modelElement stereotype="FRONT_END_EVENT"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -85,7 +87,9 @@
         overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="action">
-            <modelElement stereotype="FRONT_END_EVENT"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -95,7 +99,9 @@
         outlet="forms"
         overwrite="true">
         <modelElements variable="action">
-            <modelElement stereotype="FRONT_END_EVENT"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction"/>
+            </modelElement>
         </modelElements>
     </template>
 
