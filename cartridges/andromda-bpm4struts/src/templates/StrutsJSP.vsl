@@ -20,8 +20,10 @@
 #end
 #end
 
+#if ($maxBreadCrumbs != "0")
 <breadcrumbs:resize size="$maxBreadCrumbs"/>
 <breadcrumbs:add value="$jsp.titleKey"/>
+#end
 
 #if ($xhtml == "true")
 <html:xhtml/>
