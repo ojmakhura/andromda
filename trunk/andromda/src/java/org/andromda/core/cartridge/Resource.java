@@ -192,6 +192,9 @@ public class Resource
     }
 
     /**
+     * Sets the Cartridge parent to which this 
+     * Resource belongs.
+     * 
      * @param cartridge the parent Cartridge to set.
      */
     public void setCartridge(Cartridge cartridge)
