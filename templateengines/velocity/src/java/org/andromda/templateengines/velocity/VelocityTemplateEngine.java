@@ -130,8 +130,8 @@ public class VelocityTemplateEngine
             // we need to reinitialize the velocity engine
             // with the file resource loader path
         }
-        this.velocityEngine.init();
         this.addProperties(pluginName);
+        this.velocityEngine.init();
     }
 
     /**
