@@ -381,7 +381,9 @@
                          <td>
                                 Used to denote how a relationship must be loaded: <code>true</code> for <code>lazy</code>,
                                 <code>false</code> for <code>eager</code>. Defaults to <code>false</code> for composite
-                                relationships and defaults to <code>true</code> for the other kinds.
+                                associations (unless
+                                <a href="namespace.html#compositionDefinesEagerLoading">compositionDefinesEagerLoading</a> is
+                                set to <code>false</code>) and defaults to <code>true</code> for the other kinds.
                          </td>
                       </tr>
                        <tr>
