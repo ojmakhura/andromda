@@ -185,7 +185,6 @@
 		
 		<!-- create the distribution maven files we need for the samples -->
 		<j:set var="templatesDir" value="${basedir}/samples/templates"/>
-		<j:set var="templatesDirPresent" value="tempatesDir${counter}"/>
 		<!-- create the distribution project.xml -->
 		<j:set var="distPom" value="${templatesDir}/distribution-pom.jelly"/>
 		<j:file name="${toDir}/project.xml" trim="false">
