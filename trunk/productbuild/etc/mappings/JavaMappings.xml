@@ -145,4 +145,8 @@
         <from>datatype.ContentHandler</from>
         <to>org.xml.sax.ContentHandler</to>
     </mapping>
+    <mapping>
+        <from>datatype.TreeNode</from>
+        <to>javax.swing.tree.TreeNode</to>
+    </mapping>
 </mappings>
