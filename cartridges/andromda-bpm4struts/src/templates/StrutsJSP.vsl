@@ -14,7 +14,15 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
+#set ($hasTable = false)
+#foreach ($variable in $class.pageVariables)
+#if ($variable.table)
+#set ($hasTable = true)
+#end
+#end
+#if ($hasTable)
 <%@ taglib uri="displaytag-all.tld" prefix="display" %>
+#end
 
 #if ($xhtml == "true")
 <html:xhtml/>
