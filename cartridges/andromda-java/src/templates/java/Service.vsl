@@ -17,7 +17,7 @@ public interface $service.name
 	/**
 $operation.getDocumentation("     * ")  	
 	 */
-#if ($op.hasExceptions())
+#if ($operation.hasExceptions())
 	$operation.visibility $operation.returnType.fullyQualifiedName $operation.signature 
     	throws $operation.exceptionList;
 #else
