@@ -103,6 +103,20 @@ public class WSDLTypeLogicImpl
         }
     }
 
+    private final static String ARRAY_NAME_PREFIX = "ArrayOf";
+
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#getArrayName()
+     */
+    public String handleGetArrayName()
+    {
+        StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(this
+            .getName()).replaceAll("\\[\\]", ""));
+        name.insert(0, ARRAY_NAME_PREFIX);
+        return name.toString();
+    }
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#isEnumeration()
      */

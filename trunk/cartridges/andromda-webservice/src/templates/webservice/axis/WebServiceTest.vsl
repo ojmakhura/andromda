@@ -76,7 +76,7 @@ public class ${testClassName} extends TestCase {
 #if (!$argument.type.datatype)
 #set($packageName = "${packageName}.test")
 #if (!$service.style.equalsIgnoreCase("rpc") && $argument.arrayType)
-#set ($argumentTypeName = "${packageName}.ArrayOf${argument.type.nonArray.name}")
+#set ($argumentTypeName = "${packageName}.${argument.type.arrayName}")
 #else
 #set ($argumentTypeName = "${packageName}.${argument.type.name}")
 #end
