@@ -74,8 +74,7 @@ public class ClassUtils
         }
         catch (Throwable th)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new ClassUtilsException(errMsg, th);
+            throw new ClassUtilsException(th);
         }
         return loadedClass;
     }
