@@ -22,7 +22,7 @@
             <deploymentdescriptor 
             	distributable="false" 
             	servletspec="2.3"/>
-            <jbosswebxml/>
+            <jbosswebxml securitydomain="java:/jaas/other"/>
         </webdoclet>  
   		  		
   		<!-- add the paths of the generated source to the
@@ -85,7 +85,8 @@
         <ant:echo message="Compiling generated java sources"/>
         <ant:javac srcdir="${jsp.precompilation.java}"
             classpathref="jsp.precompilation.classpath"
-            destdir="${jsp.precompilation.webapp}/WEB-INF/classes"/>
+            destdir="${jsp.precompilation.webapp}/WEB-INF/classes"
+            deprecation="on"/>
 
         <!-- merging additional web.xml directives -->
         <ant:echo message="Merging additional web.xml directives"/>
