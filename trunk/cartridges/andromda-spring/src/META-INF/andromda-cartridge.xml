@@ -60,6 +60,8 @@
 		 or not, so that we can determine whether or not we'll use the session
 		 EJBs for transaction management (rather than Spring's transaction framework) -->
 	<property reference="session-ejbs" default=""/>
+    <!-- Whether or not service parameters should be checked if they're required -->
+    <property reference="serviceParameterRequiredCheck" default="true"/>
             	
 	<!-- template definitions -->
 	<template 

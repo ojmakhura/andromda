@@ -299,6 +299,19 @@
                         No, default is <code>{0}Exception</code>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        serviceParameterRequiredCheck
+                    </td>
+                    <td>
+                        Whether or not code for checking if a service parameter 
+                        is required is generated.  Its sometimes useful to turn this feature 
+                        off if the tool you're using doesn't support stereotypes on parameters.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
 			</table>
             <subsection name="Hibernate Specific Properties">
                 <table>
