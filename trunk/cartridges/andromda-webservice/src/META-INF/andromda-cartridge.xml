@@ -14,7 +14,7 @@
     <property reference="wsdlSoapAddress"/>   
     <property reference="securityRealm" default=""/>
     <property reference="testServiceLocatorName" default="TestServiceLocator"/>
-	<property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
+    <property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
     <property reference="servicesPath" default="/services/"/>
 
     <!-- if true, causes generation of necessary code that expects
