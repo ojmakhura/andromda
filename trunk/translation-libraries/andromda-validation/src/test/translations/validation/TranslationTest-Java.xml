@@ -262,6 +262,19 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"getReturnType()")));
         </to>
     </expression>
+    
+    <!-- 
+        @todo OR needs to be handled better (so that this will pass)
+    <expression>
+        <from>
+            context StrutsParameter
+            inv: isTable() implies ((type.isCollectionType()) or (type.isArrayType()))
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"isTable()"))).booleanValue()?(Boolean.valueOf(String.valueOf((org.andromda.translation.validation.OCLIntrospector.invoke(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"type"),"isCollectionType()")))).booleanValue()||(Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"type"),"isArrayType()")))).booleanValue()):true));
+        </to>
+    </expression>
+    -->
 
 </translation-test>
 
