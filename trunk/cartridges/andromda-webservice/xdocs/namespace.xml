@@ -33,7 +33,7 @@
                         (i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
                     </td>
                     <td>
-                        Yes (unless ignore is specified as <code>true</code>)
+                        Yes
                     </td>
                 </tr>
 				<tr>
@@ -61,7 +61,7 @@
 		          		Specifies the directory to which generated WSDL's will be placed.
 		          	</td>
 		          	<td>
-		          		Yes (unless ignore is specified as <code>true</code>)
+		          		Yes
 		          	</td>
 	        	</tr>		
 				<tr>
@@ -72,7 +72,7 @@
 						The directory to which any non implementation Java files will be generated.
 					</td>
 					<td>
-						Yes (unless ignore is specified as <code>true</code>)
+						Yes
 					</td>
 				</tr>    
 				<tr>
@@ -84,9 +84,21 @@
 						are generated (such as the WSDD files, etc).
 					</td>
 					<td>
-						Yes (unless ignore is specified as <code>true</code>)
+						Yes
 					</td>
 				</tr>   
+				<tr>
+					<td>
+						wss4j-configuration
+					</td>
+					<td>
+						The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
+						specific configuration files are generated. 
+					</td>
+					<td>
+						No
+					</td>
+				</tr>
 				<tr>
 					<td>
 						axis-tests
