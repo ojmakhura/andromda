@@ -17,7 +17,7 @@ public interface $entity.daoName
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
 #set ($identifier = $entity.identifiers.iterator().next())
-#set ($argumentName = $entity.name.toLowerCase())   
+#set ($argumentName = $stringUtils.uncapitalize($entity.name))   
     /**
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
      */
@@ -65,6 +65,12 @@ public interface $entity.daoName
 	 * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
 	 */
 	public void remove($entity.fullyQualifiedEntityName $argumentName);
+	
+	/**
+	 * Removes the instance of $entity.fullyQualifiedEntityName having the given 
+	 * <code>identifier</code> from the persistent store.
+	 */
+	public void remove($identifier.type.fullyQualifiedName $identifier.name);
 	
 	/**
 	 * Removes all entities in the given <code>entities<code> collection.
