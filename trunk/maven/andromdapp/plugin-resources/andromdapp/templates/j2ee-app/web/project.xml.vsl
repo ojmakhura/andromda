@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../project.xml</extend>
-  	<artifactId>${projectId}-web</artifactId>
-  	<name>${projectName} Web</name>
-  	<shortDescription>${pom.name} Web Component</shortDescription>
-  	<description>
-  		Contains the ${pom.name}'s web module.
-  	</description>
-	<dependencies>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-mda</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-common</artifactId>
-			<version>${pom.currentVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-core</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-     		<version>3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>1.6</version>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.0.4</version>
-		</dependency>
+    <extend>../project.xml</extend>
+    <artifactId>${projectId}-web</artifactId>
+    <name>${projectName} Web</name>
+    <shortDescription>${pom.name} Web Component</shortDescription>
+    <description>
+        Contains the ${pom.name}'s web module.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-mda</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>pom</type>
+    </dependency>
+    <dependency>
+        <groupId>${pom.groupId}</groupId>
+        <artifactId>${pom.groupId}-common</artifactId>
+        <version>${pom.currentVersion}</version>
+    </dependency>
+    <dependency>
+        <groupId>${pom.groupId}</groupId>
+        <artifactId>${pom.groupId}-core</artifactId>
+        <version>${pom.currentVersion}</version>
+        <type>ejb</type>
+    </dependency>
+    <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.1</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-digester</groupId>
+        <artifactId>commons-digester</artifactId>
+        <version>1.6</version>
+        <properties>
+            <war.bundle>true</war.bundle>
+        </properties>
+    </dependency>
+    <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.0.4</version>
+    </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
@@ -97,11 +97,11 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-		<dependency>
-			<groupId>jboss</groupId>
-			<artifactId>jboss-j2ee</artifactId>
-			<version>3.2.3</version>
-		</dependency>
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>jboss-j2ee</artifactId>
+      <version>3.2.3</version>
+    </dependency>
         <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
@@ -130,16 +130,16 @@
             <artifactId>commons-el</artifactId>
             <version>1.0</version>
         </dependency>
-	</dependencies>
-  	<build>
-    	<sourceDirectory>src/java</sourceDirectory>
-		<resources>
-	      	<resource>
-		        <directory>${maven.build.dir}</directory>
-	        	<excludes>
-	        		<exclude>**/*.java</exclude>
-	        	</excludes>
-	      	</resource>
-    	</resources>
-  	</build>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <resources>
+            <resource>  
+                <directory>${maven.build.dir}</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
 </project>
