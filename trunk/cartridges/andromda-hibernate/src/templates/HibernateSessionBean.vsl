@@ -1,8 +1,6 @@
 #set ($packagename = $transform.findPackageName($class.package))
 package $packagename;
 
-import java.sql.SQLException;
-
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

@@ -1,6 +1,5 @@
 package org.andromda.samples.carrental.admins;
 
-import java.sql.SQLException;
 import java.util.Collection;
 
 import javax.ejb.EJBException;
@@ -53,10 +52,6 @@ public class AdminServiceBeanImpl
             return null;
         }
         catch (HibernateException e)
-        {
-            throw new EJBException(e);
-        }
-        catch (SQLException e)
         {
             throw new EJBException(e);
         }
