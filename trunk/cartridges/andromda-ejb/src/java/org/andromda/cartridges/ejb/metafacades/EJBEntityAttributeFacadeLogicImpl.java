@@ -2,7 +2,7 @@ package org.andromda.cartridges.ejb.metafacades;
 
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.apache.commons.lang.StringUtils;
-import org.omg.uml.foundation.core.Attribute;
+
 
 /**
  * MetafacadeLogic implementation for
@@ -26,6 +26,6 @@ public class EJBEntityAttributeFacadeLogicImpl extends EJBEntityAttributeFacadeL
 	}
 
 	public java.lang.String getGetterName() {
-		return "get" + StringUtils.capitalize(((Attribute)metaObject).getName());
+		return "get" + StringUtils.capitalize(super.getName());
 	}
 }

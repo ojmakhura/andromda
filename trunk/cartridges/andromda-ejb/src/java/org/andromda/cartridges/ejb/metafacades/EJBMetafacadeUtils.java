@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.metafacades.uml.*;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -37,10 +38,10 @@ class EJBMetafacadeUtils
         final String methodName = "EJBMetafacadeUtils.getCreateMethods";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         Collection retval = new ArrayList();
-        EJBEntityFacade entity = null;
+        ClassifierFacade entity = (ClassifierFacade) classifier; 
         do
         {
-            Collection ops = classifier.getOperations();
+        	Collection ops = entity.getOperations(); 
             for (Iterator i = ops.iterator(); i.hasNext();)
             {
                 OperationFacade op = (OperationFacade)i.next();
@@ -51,14 +52,10 @@ class EJBMetafacadeUtils
             }
             if (follow)
             {
-                entity = (EJBEntityFacade)classifier.getGeneralization();
-            }
-            else
-            {
-                break;
+            	entity = (ClassifierFacade)entity.getGeneralization(); 
             }
         }
-        while (entity != null);
+        while (follow && entity != null); 
         return retval;
     }
 
@@ -145,7 +142,11 @@ class EJBMetafacadeUtils
         {
             return new ArrayList();
         }
-        List retval = getInheritedInstanceAttributes(current);
+        List retval = getInheritedInstanceAttributes(current); 
+        
+		if(current.getInstanceAttributes() != null) { 
+			retval.addAll(current.getInstanceAttributes()); 
+		} 
         return retval;
     }
 
