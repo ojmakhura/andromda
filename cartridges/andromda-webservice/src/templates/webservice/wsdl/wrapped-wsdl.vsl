@@ -47,6 +47,7 @@
 #set ($type = $typeMapping)
 #if ($typeMapping.type)
 #set ($type = $typeMapping.type)
+
 #end
 ## Handle any type mappings that happen to be associationEnds 
 #if ($typeMapping.many)
@@ -63,7 +64,7 @@
                 </xsd:sequence>
             </xsd:complexType>
 #else
-#if ($type.hasStereotype("Enumeration"))
+#if ($type.enumeration)
 #foreach ( $attribute in $type.attributes ) 
 #set ($enumType = $attribute.type.schemaType)
 #end
@@ -86,15 +87,15 @@ $type.getDocumentation("                        ", 64, false)
                     <xsd:element name="$attribute.name" nillable="$attribute.required" type="$attribute.type.schemaType"/>
 #end
 #foreach ( $associationEnd in $type.associationEnds) 
-#set ($connectingEnd = $associationEnd.connectingEnd)
-#if ($connectingEnd.navigable)
-#set ($typeName = $connectingEnd.type.name)
-#if ($connectingEnd.many)
+#set ($otherEnd = $associationEnd.otherEnd)
+#if ($otherEnd.navigable)
+#set ($typeName = $otherEnd.type.name)
+#if ($otherEnd.many)
 #set ($schemaType = "${namespacePrefix}:ArrayOf${typeName}")
 #else
 #set ($schemaType = "${namespacePrefix}:${typeName}")
 #end                
-                    <xsd:element name="$connectingEnd.name" nillable="$connectingEnd.required" type="${schemaType}"/>   
+                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.required" type="${schemaType}"/>   
 #end    
 #end
                 </xsd:sequence>
