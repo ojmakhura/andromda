@@ -1,0 +1,116 @@
+<project name="nightly-build" default="all" basedir=".">
+    
+    <description>
+        This build script can be used by a scheduled task such as Crontab
+        to automatically checkout a fresh copy from CVS, build it, publish it
+        and mail a report to a list of recipients.
+        
+        In order for it to work you must use Ant 1.6+.
+        
+        It is recommended to assign a lower priority when running this
+        script on a server since its execution might take a couple of minutes.
+        
+            -- Wouter Zoons
+    </description>
+
+    <!-- increments the build.number by one -->
+    <buildnumber/>
+    
+    <!-- records the current date in two different formats -->
+    <tstamp>
+        <format property="mail.today" pattern="yyyy-MM-dd" locale="en"/>
+    </tstamp>
+    <tstamp>
+        <format property="build.today" pattern="yyyyMMdd" locale="en"/>
+    </tstamp>
+
+    <!-- loads & sets global properties -->
+    <property file="build.properties"/>
+    <property environment="env"/>
+    <property name="build.log" value="build-${build.today}.log"/>
+    <property name="build.log.zip" value="${build.log}.zip"/>
+    
+    <!-- this initialization step is always required -->
+    <target name="init">
+        <mkdir dir="${working.dir}"/>
+    </target>
+    
+    <!-- removes the working dir, the log files and the maven plugin -->
+    <target name="clean">
+        <delete dir="${working.dir}"/>
+        <delete file="build-*.log"/>
+        <delete file="build-*.log.zip"/>
+        <delete>
+            <fileset dir="${env.MAVEN_HOME}/plugins">
+                <include name="maven-${project.name}-plugin*/**/*"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <!-- checks out a fresh copy from cvs -->
+    <target name="checkout">
+        <cvs command="checkout"
+             cvsRoot=":${cvs.protocol}:${cvs.user}@${cvs.server}:/${cvs.root}"
+             dest="${working.dir}"
+             package="${cvs.module}"
+             compression="true"/>
+    </target>
+    
+    <!-- builds the codebase using maven, the output is zipped -->
+    <target name="build">
+        <exec executable="${maven.exe}"
+              dir="${working.dir}/${cvs.module}"
+              output="${build.log}"
+              errorproperty="build.errorcode">
+            <arg value="dist"/>
+        </exec>
+        <zip destfile="${build.log.zip}" basedir="${basedir}" includes="${build.log}" filesonly="true"/>
+    </target>
+    
+    <!-- publishes the documentation online -->
+    <target name="copy-docs">
+        <copy todir="${public.docs}">
+            <fileset dir="${working.dir}/${cvs.module}/${documentation.path}"/>
+        </copy>
+    </target>
+    
+    <!-- copies artifacts and distributions into the online maven repository -->
+    <target name="copy-artifacts">
+        <copy todir="${public.repo}/repository">
+	        <fileset dir="${maven.local.repo}/repository">
+                <include name="${project.name}*/**/*"/>
+            </fileset>
+        </copy>
+        <copy todir="${public.repo}/repository/${project.name}/distributions">
+	        <fileset dir="${working.dir}/${cvs.module}/target/distributions">
+                <include name="${project.name}-*.zip"/>
+	        </fileset>
+	    </copy>
+    </target>
+    
+    <!-- if no errorcode is present a success message is sent -->
+    <target name="mail-success" unless="${build.errorcode}">
+        <mail from="${mail.from}"
+              replyto="${mail.replyto}"
+              tolist="${mail.tolist}"
+              messagefile="${mail.success.messagefile}"
+              files="${build.log.zip}"
+              mailhost="${mail.host}"
+              subject="Nightly build #${build.number}, ${today} successful!"/>
+    </target>
+    
+    <!-- if an errorcode is present a failure message is sent -->
+    <target name="mail-failure" if="${build.errorcode}">
+        <mail from="${mail.from}"
+              replyto="${mail.replyto}"
+              tolist="${mail.tolist}"
+              messagefile="${mail.failure.messagefile}"
+              files="${build.log.zip}"
+              mailhost="${mail.host}"
+              subject="Nightly build #${build.number}, ${mail.today} has FAILED!!!"/>
+    </target>
+    
+    <!-- checks out a new build, builds it, publishes and mails -->
+    <target name="all" depends="init,clean,checkout,build,copy-docs,copy-artifacts,mail-success,mail-failure"/>
+    
+</project>
