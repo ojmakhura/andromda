@@ -18,7 +18,7 @@
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 <div class="action">
-    <h3><bean:message key="${messageKey}.${actionTrigger.triggerKey}"/></h3>
+    <h3><bean:message key="${actionTrigger.triggerKey}"/></h3>
     <div class="trigger">
 #if ($action.isHyperlink())
 #renderHyperlink($action "        ")
@@ -57,7 +57,7 @@
 #else
                             <tr>
                                 <td>
-                                    <bean:message key="${messageKey}.$tabField.messageKey"/>#if ($requiredness) *#end
+                                    <bean:message key="$tabField.messageKey"/>#if ($requiredness) *#end
                                 </td>
                                 <td>
 #renderFormField($action $tabField "                                    ")
@@ -77,7 +77,7 @@
 ##
 
 #foreach ($field in $nonTabbedActionParameters)
-#set ($requiredness = $tabField.required && ($clientValidation=='true' || $serverValidation=='true'))
+#set ($requiredness = $field.required && ($clientValidation=='true' || $serverValidation=='true'))
 #if ($field.widgetType == "hidden")
 #renderFormField($action $field "            ")
 #end
@@ -88,7 +88,7 @@
 #if ($field.widgetType != "hidden")
                     <tr>
                         <td>
-                            <bean:message key="${messageKey}.$field.messageKey"/>#if ($requiredness) *#end
+                            <bean:message key="$field.messageKey"/>#if ($requiredness) *#end
                         </td>
                         <td>
 #renderFormField($action $field "                           ")
