@@ -34,11 +34,7 @@ public class $class.name
 #end
     public ${class.name}${parenthesis}
 #foreach ($property in $class.properties)
-#set ($typeName = $property.type.fullyQualifiedName)
-#if ($property.many)
-#set ($typeName = "java.util.Collection")
-#end
-        $typeName ${property.name}#if($velocityCount != $class.properties.size()),#else)
+        $property.getterSetterTypeName ${property.name}#if($velocityCount != $class.properties.size()),#else)
 #end
 
 #end
@@ -61,26 +57,25 @@ public class $class.name
         }
     }
 
-#foreach ( $attribute in $class.attributes )
-#set ($typeName = $attribute.type.fullyQualifiedName)
-    private $typeName $attribute.name;
+#foreach ($attribute in $class.attributes)
+    private $attribute.getterSetterTypeName $attribute.name;
 
     /**
 $attribute.getDocumentation("     * ")
      */
-    $attribute.visibility $typeName ${attribute.getterName}()
+    $attribute.visibility $attribute.getterSetterTypeName ${attribute.getterName}()
     {
         return this.${attribute.name};
     }
 
-    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name)
+    $attribute.visibility void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
     {
         this.${attribute.name} = $attribute.name;
     }
 
 #end
 ## Generate the relation methods.
-#foreach ( $associationEnd in $class.associationEnds )
+#foreach ($associationEnd in $class.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable)
     private $target.getterSetterTypeName $target.name;
@@ -101,6 +96,7 @@ $target.getDocumentation("     * ")
     {
         this.${target.name} = ${target.name};
     }
+    
 #end
 #end
 }
