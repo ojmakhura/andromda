@@ -142,10 +142,7 @@ public abstract class ${class.name}Logic
 #end
                     ;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         /**
