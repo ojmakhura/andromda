@@ -9,6 +9,12 @@ locale.resolver=org.displaytag.localization.I18nStrutsAdapter
 locale.provider=org.displaytag.localization.I18nStrutsAdapter
 
 #
+# By default we support the PDF export feature, needs the IText dependency
+#
+export.pdf=true
+export.pdf.filename=export.pdf
+
+#
 #   Displaytag properties, http://displaytag.sourceforge.net/configuration.html
 #
 basic.msg.empty_list=Nothing found to display.
