@@ -20,9 +20,9 @@
 <div class="action">
     <h3><bean:message key="${actionTrigger.triggerKey}"/></h3>
     <div class="trigger">
-#if ($action.isHyperlink())
+#if ($action.hyperlink)
 #renderHyperlink($action "        ")
-#elseif ($action.isFormPost())
+#elseif ($action.formPost)
 #set ($nonTabbedActionParameters = $action.nonTabbedActionParameters)
 #if ($action.validationRequired)
 #set ($onsubmit = "return ${action.formValidationMethodName}(this);")
@@ -52,7 +52,8 @@
 #foreach ($tabField in $tabMap.get($tab))
 #if ($tabField.widgetType == "hidden")
 #renderFormField($action $tabField "            ")
-#else
+#elseif (!$tabField.multiboxPropertyName)
+## for now multibox field can only be displayed in tables
                             <tr>
                                 <td><bean:message key="$tabField.messageKey"/>#if ($requiredness && $tabField.required) <div class="important">*</div>#end
 </td>
@@ -81,7 +82,8 @@
             <table>
                 <tbody>
 #foreach ($field in $nonTabbedActionParameters)
-#if ($field.widgetType != "hidden")
+#if (!$field.multiboxPropertyName && ($field.widgetType != "hidden"))
+## for now multibox field can only be displayed in tables
                     <tr>
                         <td><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
 </td>
