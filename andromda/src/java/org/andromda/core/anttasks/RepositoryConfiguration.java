@@ -10,20 +10,9 @@ import org.apache.tools.ant.types.Path;
  * 
  * This class implements the <code>&lt;repository&gt;</code> tag
  * which can used within the ant <code>&lt;andromda&gt;</code> tag
- * to configure androMDA to use a different object model repository.
+ * to configure androMDA to configure the object model repository.
  * 
- * <p> One application of this tag is that it supports the
- * possibility of loading an object model from a source other
- * than an XMI file. It could implemented by: <p>
- * 
- * <ul>
- * <li> introducing a new class that extends 
- * org.andromda.core.mdr.MDRespositoryFacade </li>
- * <li> overriding the readModel(URL) method so
- * that it reads the object model from the new object model source </li>
- * <li> storing the results of the object model
- * read into the MDR UML v1.4 repository </li>
- * </ul>
+ * Currently its used as a way of specifying a &lt;moduleSearchPath&gt;
  * 
  * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  * @author Chad Brandon
