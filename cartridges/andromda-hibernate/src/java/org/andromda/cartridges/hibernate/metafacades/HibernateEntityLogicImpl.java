@@ -440,15 +440,15 @@ public class HibernateEntityLogicImpl
         if (logger.isDebugEnabled())
             logger.debug("*** handleGetIdentifierColumn return:"
                 + (attribute == null ? null : attribute.getColumnName()));
-        columnName = attribute == null
-            ? this.getDefaultIdentifier().toUpperCase()
-            : attribute.getColumnName();
+        columnName = attribute == null ? this.getDefaultIdentifier()
+            .toUpperCase() : attribute.getColumnName();
         return columnName;
     }
 
     private String getDefaultIdentifier()
     {
-        return String.valueOf(getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER));
+        return String
+            .valueOf(getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER));
     }
 
     /**
@@ -675,8 +675,8 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * The namespace property storing default ehCache maxElementsInMemory Parameter
-     * 
+     * The namespace property storing default ehCache maxElementsInMemory
+     * Parameter
      */
     private static final String HIBERNATE_EHCACHE_MAX_ELEMENTS = "ehCacheMaxElementsInMemory";
 
@@ -685,8 +685,8 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetEhCacheMaxElementsInMemory()
     {
-        String maxElements=null; 
-        maxElements= (String)this
+        String maxElements = null;
+        maxElements = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
         if (StringUtils.isBlank(maxElements))
         {
@@ -698,7 +698,6 @@ public class HibernateEntityLogicImpl
 
     /**
      * The namespace property storing default ehCache eternal parameter
-     * 
      */
     private static final String HIBERNATE_EHCACHE_ETERNAL = "ehCacheEternal";
 
@@ -719,7 +718,6 @@ public class HibernateEntityLogicImpl
 
     /**
      * The namespace property storing default ehCache eternal parameter
-     * 
      */
     private static final String HIBERNATE_EHCACHE_TIME_TO_IDLE = "ehCacheTimeToIdleSeconds";
 
@@ -728,8 +726,8 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetEhCacheTimeToIdleSeconds()
     {
-        String timeToIdle=null; 
-        timeToIdle= (String)this
+        String timeToIdle = null;
+        timeToIdle = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
         if (StringUtils.isBlank(timeToIdle))
         {
@@ -741,7 +739,6 @@ public class HibernateEntityLogicImpl
 
     /**
      * The namespace property storing default ehCache eternal parameter
-     * 
      */
     private static final String HIBERNATE_EHCACHE_TIME_TO_LIVE = "ehCacheTimeToLiveSeconds";
 
@@ -750,8 +747,8 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetEhCacheTimeToLiveSeconds()
     {
-        String timeToLive=null; 
-        timeToLive= (String)this
+        String timeToLive = null;
+        timeToLive = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
         if (StringUtils.isBlank(timeToLive))
         {
@@ -763,7 +760,6 @@ public class HibernateEntityLogicImpl
 
     /**
      * The namespace property storing default ehCache eternal parameter
-     * 
      */
     private static final String HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = "ehCacheOverflowToDisk";
 
@@ -773,11 +769,11 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsEhCacheOverflowToDisk()
     {
         String eternal = (String)this
-        .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         if (eternal == null)
         {
             eternal = (String)this
-                .getConfiguredProperty(HIBERNATE_EHCACHE_ETERNAL);
+                .getConfiguredProperty(HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
