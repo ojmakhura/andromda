@@ -31,4 +31,8 @@
         <from>HIBERNATE_ENTITY_CACHE</from>
         <to>@andromda.hibernate.entity.cache</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_GENERATOR_CLASS</from>
+        <to>@andromda.hibernate.generator.class</to>
+    </mapping>
 </mappings>
