@@ -93,15 +93,20 @@ public class TableLogicImpl
     {
         Collection foreignKeyColumns = new ArrayList();
 
-        Collection associationEnds = getAssociationEnds();
+        Collection associationEnds = this.getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
         {
             AssociationEndFacade associationEnd = 
                 (AssociationEndFacade)iterator.next();
             AssociationEndFacade otherAssociationEnd = 
                 associationEnd.getOtherEnd();
-            if (associationEnd.isMany2One()
-                && otherAssociationEnd.isNavigable())
+            boolean thisSideNavigable = associationEnd.isNavigable() &&
+                !otherAssociationEnd.isNavigable();
+            boolean aggregationPresent = associationEnd.isAggregation() || associationEnd.isComposition();
+            boolean otherEndAggregationPresent = otherAssociationEnd.isAggregation() || otherAssociationEnd.isComposition();
+            boolean one2One = associationEnd.isOne2One() && aggregationPresent || (!otherEndAggregationPresent && thisSideNavigable);
+            if ((otherAssociationEnd.isNavigable() && associationEnd.isMany2One())
+                 || one2One)
             {
                 foreignKeyColumns.add(otherAssociationEnd);
             }
@@ -116,7 +121,7 @@ public class TableLogicImpl
     protected Object handleGetPrimaryKeyColumn()
     {
         Collection identifiers = this.getIdentifiers();
-        return (identifiers.isEmpty()) ? null : identifiers.iterator().next();
+        return identifiers.isEmpty() ? null : identifiers.iterator().next();
     }
 
     /**

@@ -93,7 +93,7 @@ public class ForeignKeyColumnLogicImpl
     protected String handleGetConstraintName()
     {
         return this.getIdentifierName(
-                DatabaseGlobals.FOREIGN_KEY_CONSTRAINT_PREFIX);
+            DatabaseGlobals.FOREIGN_KEY_CONSTRAINT_PREFIX);
     }
 
     /**
