@@ -272,6 +272,11 @@ public class HibernateEntityLogicImpl
     }
 
     /**
+     * Namespace property storing the default hibernate generator class.
+     */
+    private static final String DEFAULT_HIBERNATE_GENERATOR_CLASS = "defaultHibernateGeneratorClass";
+
+    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateGeneratorClass()
      */
     protected String handleGetHibernateGeneratorClass()
@@ -291,7 +296,7 @@ public class HibernateEntityLogicImpl
             if (StringUtils.isBlank(hibernateGeneratorClass))
             {
                 hibernateGeneratorClass = (String)this
-                    .getConfiguredProperty("defaultHibernateGeneratorClass");
+                    .getConfiguredProperty(DEFAULT_HIBERNATE_GENERATOR_CLASS);
             }
         }
         return StringUtils.trimToEmpty(hibernateGeneratorClass).toLowerCase();
