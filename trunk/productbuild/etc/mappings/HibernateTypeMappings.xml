@@ -4,12 +4,12 @@
   hibernate types.
 -->
 <mappings name="Hibernate">
-	<mapping>
-	  	<from>datatype.Blob</from>
-	  	<to>org.andromda.persistence.hibernate.HibernateByteBlobType</to>
-	</mapping>
-	<mapping>
-	  	<from>datatype.Clob</from>
-	  	<to>org.andromda.persistence.hibernate.HibernateStringClobType</to>
-	</mapping>
+    <mapping>
+        <from>datatype.Blob</from>
+        <to>org.andromda.persistence.hibernate.HibernateByteBlobType</to>
+    </mapping>
+    <mapping>
+        <from>datatype.Clob</from>
+        <to>org.andromda.persistence.hibernate.HibernateStringClobType</to>
+    </mapping>
 </mappings>
