@@ -62,8 +62,8 @@
                 org.andromda.samples.bpm4struts.onlinestore.purchase
             </p>
             <p class="std">
-                <div>
-                  <img src="images/create-usecase.png" width="450" height="350"/>
+                <div align="center">
+                  <img src="images/create-usecase.png" width="300" height="233"/>
                 </div>
             </p>
             <p class="std">
@@ -79,7 +79,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/add-activity-graph.png" width="450" height="350"/>
+                  <img src="images/add-activity-graph.png" width="300" height="233"/>
                 </div>
             </p>
             <h4>The Initial State</h4>
@@ -107,7 +107,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-action-states.png" width="506" height="613"/>
+                  <img src="images/model-action-states.png" width="307" height="409"/>
                 </div>
             </p>
             <h4>Transitions and Parameters</h4>
@@ -123,11 +123,11 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/add-parameter-edit.png" width="527" height="519"/>
+                  <img src="images/add-parameter-edit.png" width="351" height="346"/>
                 </div>
                 <br/>
                 <div>
-                  <img src="images/add-parameter-add.png" width="505" height="338"/>
+                  <img src="images/add-parameter-add.png" width="337" height="225"/>
                 </div>
             </p>
             <p class="std">
@@ -139,7 +139,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-parameters-0.png" width="506" height="599"/>
+                  <img src="images/model-parameters-0.png" width="337" height="399"/>
                 </div>
             </p>
             <p class="std">
@@ -150,7 +150,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-parameters-1.png" width="531" height="614"/>
+                  <img src="images/model-parameters-1.png" width="354" height="409"/>
                 </div>
             </p>
                 Once you have reached this point it is time to add stereotypes, you will need to tag the
@@ -159,7 +159,7 @@
                 carry the FrontEndEvent stereotype.
             <p class="std">
                 <div>
-                  <img src="images/add-stereotypes-1.png" width="509" height="610"/>
+                  <img src="images/add-stereotypes-1.png" width="339" height="407"/>
                 </div>
             </p>
             <h4>Decision Points</h4>
@@ -194,7 +194,12 @@
                     <li>Create a controller class</li>
                     <li>Give it the FrontEndController stereotype</li>
                     <li>Add operations to this controller class</li>
-                    <li>Assign this controller class as the context of the activity graph</li>
+                    <li>Assign this controller class as the context of the activity graph, if your CASE tool
+                        does not support this directly you can add a tagged value to the controller:
+                        <tt>@andromda.struts.controller.usecase = &lt;usecase-name&gt;</tt>
+                        By specifying the use-case name as the value you will assign this controller to be the
+                        context of the use-case's activity graph.
+                    </li>
                     <li>On the action states, optionally add deferrable events of type 'Call' and
                       reference an operation from the controller.</li>
                 </ul>
@@ -206,15 +211,15 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-controller.png" width="415" height="430"/>
+                  <img src="images/model-controller.png" width="277" height="287"/>
                 </div>
                 <br/>
                 <div>
-                  <img src="images/assign-controller-1.png" width="560" height="621"/>
+                  <img src="images/assign-controller-1.png" width="373" height="414"/>
                 </div>
                 <br/>
                 <div>
-                  <img src="images/assign-controller-2.png" width="439" height="362"/>
+                  <img src="images/assign-controller-2.png" width="293" height="241"/>
                 </div>
             </p>
             <p class="std">
@@ -263,7 +268,7 @@
             </p>
             <p class="std">
                 <div>
-                  <img src="images/model-usecases.png" width="476" height="114"/>
+                  <img src="images/model-usecases.png" width="317" height="76"/>
                 </div>
             </p>
         </section>
