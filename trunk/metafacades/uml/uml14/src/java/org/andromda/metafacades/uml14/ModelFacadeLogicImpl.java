@@ -4,20 +4,17 @@ import java.util.Collection;
 
 
 /**
- *
- *
  * Metaclass facade implementation.
- *
  */
 public class ModelFacadeLogicImpl
-       extends ModelFacadeLogic
-       implements org.andromda.metafacades.uml.ModelFacade
+        extends ModelFacadeLogic
+        implements org.andromda.metafacades.uml.ModelFacade
 {
     // ---------------- constructor -------------------------------
 
-    public ModelFacadeLogicImpl (org.omg.uml.UmlPackage metaObject, String context)
+    public ModelFacadeLogicImpl(org.omg.uml.UmlPackage metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     // -------------------- business methods ----------------------
@@ -30,7 +27,7 @@ public class ModelFacadeLogicImpl
     protected Object handleGetRootPackage()
     {
         Collection rootPackages =
-            metaObject.getModelManagement().getModel().refAllOfType();
+                metaObject.getModelManagement().getModel().refAllOfType();
         return rootPackages.iterator().next();
     }
 
@@ -59,5 +56,10 @@ public class ModelFacadeLogicImpl
     protected Collection handleGetAllActivityGraphs()
     {
         return metaObject.getActivityGraphs().getActivityGraph().refAllOfType();
+    }
+
+    protected Collection handleGetAllTransitions()
+    {
+        return metaObject.getStateMachines().getTransition().refAllOfType();
     }
 }
