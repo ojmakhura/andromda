@@ -249,18 +249,21 @@ public class WebServiceLogicImpl
                     if (!this.containsManyType(types, modelElement))
                     {
                         ClassifierFacade nonArrayType = type;
-                        if (type.isArrayType()
+                        final boolean arrayType = type.isArrayType();
+                        if (arrayType
                             || this.isValidAssociationEnd(modelElement))
                         {
-                            // convert to non-array type since we
-                            // check if that one has the stereotype
-                            nonArrayType = type.getNonArray();
                             types.add(modelElement);
-                            // set the type to the non array type since
-                            // that will have the attributes
-                            type = nonArrayType;
+                            if (arrayType)
+                            {
+                                // convert to non-array type since we
+                                // check if that one has the stereotype
+                                nonArrayType = type.getNonArray();
+                                // set the type to the non array type since
+                                // that will have the attributes
+                                type = nonArrayType;
+                            }
                         }
-
                         if (nonArrayType != null)
                         {
                             if (nonArrayType
@@ -323,8 +326,7 @@ public class WebServiceLogicImpl
         final Object modelElement)
     {
         ClassifierFacade classifier = null;
-        if (AssociationEndFacade.class
-            .isAssignableFrom(modelElement.getClass()))
+        if (modelElement instanceof AssociationEndFacade)
         {
             AssociationEndFacade end = (AssociationEndFacade)modelElement;
             if (end.isMany())
@@ -332,13 +334,11 @@ public class WebServiceLogicImpl
                 classifier = ((AssociationEndFacade)modelElement).getType();
             }
         }
-        else if (ClassifierFacade.class.isAssignableFrom(modelElement
-            .getClass()))
+        else if (modelElement instanceof ClassifierFacade)
         {
             classifier = (ClassifierFacade)modelElement;
         }
-        else if (ParameterFacade.class
-            .isAssignableFrom(modelElement.getClass()))
+        else if (modelElement instanceof ParameterFacade)
         {
             classifier = ((ParameterFacade)modelElement).getType();
         }
@@ -361,8 +361,7 @@ public class WebServiceLogicImpl
                     if (object != null)
                     {
                         ClassifierFacade type = null;
-                        if (AssociationEndFacade.class.isAssignableFrom(object
-                            .getClass()))
+                        if (object instanceof AssociationEndFacade)
                         {
                             AssociationEndFacade end = (AssociationEndFacade)object;
                             if (end.isMany())
@@ -370,8 +369,7 @@ public class WebServiceLogicImpl
                                 type = ((AssociationEndFacade)object).getType();
                             }
                         }
-                        else if (ClassifierFacade.class.isAssignableFrom(object
-                            .getClass()))
+                        else if (object instanceof ClassifierFacade)
                         {
                             type = (ClassifierFacade)object;
                             if (type.isArrayType())
