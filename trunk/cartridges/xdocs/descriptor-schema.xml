@@ -23,6 +23,12 @@
                      When the property name and its value are supplied in the build 
                      file for example, that property is then supplied to the template.  -->
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+				<!-- a resource defines any non template resource included in the cartridge,
+					 these can include things such as files, images, etc, that are copied
+					 to a given outlet, resources are NOT processed by a template engine -->
+			    <xs:element ref="resource" minOccurs="0" maxOccurs="unbounded"/>
+	            <!-- these define the templates a cartridge contains, these are processed
+					 by an AndroMDA template engine -->
                 <xs:element ref="template" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
@@ -61,34 +67,39 @@
             <xs:attribute name="variable" use="optional"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="template">
+	<xs:complexType name="resourceType">
+		<!-- the resource to process -->
+		<xs:attribute name="path" type="xs:string" use="required"/>
+		<xs:attribute name="outlet" type="xs:string" use="required"/>
+		<!-- true/false on whether we should overwrite results of previous run -->
+		<xs:attribute name="overwrite" type="xs:boolean" use="required"/>
+		<!-- if this flag is set to false, then template outlets are not required
+			 to be defined in a namespace, and no warning will be declared,
+			 by default required is true -->
+		<xs:attribute name="required" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:element name="resource" type="resourceType"/>
+    <xs:element name="template">		
         <xs:complexType>
-            <!-- You can have as many modelElements as you want for a template or
-				 you don't even need to add model elements to your template -->
-            <xs:sequence>
-                <xs:element ref="modelElements" minOccurs="0" maxOccurs="1"/>
-            </xs:sequence>
-            <!-- the template to process -->
-            <xs:attribute name="path" type="xs:string" use="required"/>
-            <!-- the pattern to output {0} - represents the package, {1}, 
-                  represents the class name -->
-            <xs:attribute name="outputPattern" type="xs:string" use="required"/>
-            <!-- the location where the output of the run will be generated (this will be
-                 retrieved from a namespace property defined in your build file)-->
-            <xs:attribute name="outlet" type="xs:string" use="required"/>
-            <!-- true/false on whether we should overwrite results of previous run -->
-            <xs:attribute name="overwrite" type="xs:boolean" use="required"/>
-            <!-- true/false on whether we should allow generation of empty files-->
-            <xs:attribute name="generateEmptyFiles" type="xs:boolean"/>
-            <!-- if this flag is set to true, then all model elments
-                 processed by the template will be output to one template as
-                 a collection of model elements (instead of on a per model 
-                 element per file basis) -->
-            <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>
-			<!-- if this flag is set to false, then template outlets are not required
-				 to be defined in a namespace, and no warning will be declared,
-				 by default required is true -->
-            <xs:attribute name="required" type="xs:boolean" use="optional"/>
+		    <xs:complexContent>
+			    <xs:extension base="resourceType">
+                    <!-- You can have as many modelElements as you want for a template or
+				         you don't even need to add model elements to your template -->
+                    <xs:sequence>
+                       <xs:element ref="modelElements" minOccurs="0" maxOccurs="1"/>
+                    </xs:sequence>
+                    <!-- the pattern to output {0} - represents the package, {1}, 
+                         represents the class name -->
+                    <xs:attribute name="outputPattern" type="xs:string" use="required"/>
+                    <!-- true/false on whether we should allow generation of empty files-->
+                    <xs:attribute name="generateEmptyFiles" type="xs:boolean"/>
+                    <!-- if this flag is set to true, then all model elments
+                         processed by the template will be output to one template as
+                         a collection of model elements (instead of on a per model 
+                         element per file basis) -->
+                    <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>				
+			    </xs:extension>
+		    </xs:complexContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="templateObject">
