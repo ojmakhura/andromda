@@ -708,6 +708,10 @@ public class StrutsParameterLogicImpl
             {
                 widgetType = "checkbox";
             }
+            else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "multibox";
+            }
             else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
             {
                 widgetType = "select";

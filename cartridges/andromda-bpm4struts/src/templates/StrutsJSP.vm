@@ -22,7 +22,7 @@ ${indent}<logic:present role="$roles">
 #set ($requestPath = "${requestPath}${separator}${parameter.name}=${${propertyName}}")
 #end
 ${indent}    <p>
-${indent}        <html:link action="${requestPath}" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
+${indent}        <html:link action="${requestPath}" #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
 ${indent}            <bean:message key="$triggerKey"/>
 ${indent}        </html:link>
 ${indent}    </p>
@@ -47,22 +47,22 @@ ${indent}</logic:notPresent>
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
-${indent}   <html:submit onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
+${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
 ${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()">
+${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()"#end>
 ${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
 #if ($securityEnabled)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
-${indent}   <html:submit onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()" disabled="true">
+${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="true">
 ${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()" disabled="true">
+${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()"#end disabled="true">
 ${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
@@ -95,7 +95,7 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType property="$fieldName" value="$optionKey" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
+${indent}            <html:$widgetType property="$fieldName" value="$optionKey" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -110,7 +110,19 @@ ${indent}</table>
 #else
 #set ($disabled = '')
 #end
-${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
+${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled/>
+##
+##      M U L T I B O X 
+##
+#elseif ($widgetType == 'multibox')
+#if ($field.readOnly)
+#set ($disabled = 'disabled="true"')
+#else
+#set ($disabled = '')
+#end
+${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled>
+${indent}    You must complete this multibox implementation
+${indent}</html:$widgetType>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
@@ -120,10 +132,10 @@ ${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$field
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
+${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $readonly/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
 ${indent}<html:link href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
-${indent}   <html:img page="/layout/calendar/calendar.gif" styleClass="calendar" onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"/>
+${indent}   <html:img page="/layout/calendar/calendar.gif" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
 ${indent}</html:link>
 #end
 ##
@@ -135,7 +147,7 @@ ${indent}</html:link>
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
+${indent}<html:$widgetType property="$fieldName" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $readonly/>
 ##
 ##      H I D D E N
 ##
@@ -160,7 +172,7 @@ ${indent}<html:$widgetType property="$fieldName"/>
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<html:select property="$selectProperty" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled $multiple>
+${indent}<html:select property="$selectProperty" #if($hints)onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()"#end $disabled $multiple>
 ${indent}   <html:optionsCollection name="form" property="$field.backingListName" label="label" value="value"/>
 ${indent}</html:select>
 #end
