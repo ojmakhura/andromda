@@ -18,6 +18,7 @@ import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.DataType;
+import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
 
 /**
@@ -327,6 +328,14 @@ public class ClassifierFacadeLogicImpl
         return DataType.class.isAssignableFrom(this.metaObject.getClass());
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
+     */
+    public boolean handleIsInterface()
+    {
+        return Interface.class.isAssignableFrom(this.metaObject.getClass());
+    }
+    
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
      */
