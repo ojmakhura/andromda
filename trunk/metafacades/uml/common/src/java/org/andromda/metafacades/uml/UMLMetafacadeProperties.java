@@ -92,7 +92,7 @@ public class UMLMetafacadeProperties
     public static final String ARRAY_SUFFIX = "arraySuffix";
 
     /**
-     * Stores the suffix given to enumeration types.
+     * Stores the suffix given to persistent enumeration type names.
      */
-    public static final String ENUMERATION_SUFFIX = "enumerationSuffix";
+    public static final String PERSISTENT_ENUMERATION_NAME_SUFFIX = "persistentEnumerationNameSuffix";
 }

@@ -9,7 +9,7 @@
     <property reference="validationNameSeperator" default="::"/>
     <property reference="undefinedName" default="undefined"/>
     <property reference="arraySuffix" default="[]"/>
-    <property reference="enumerationSuffix" default="Enum"/>
+    <property reference="persistentEnumerationNameSuffix" default="Enum"/>
     <default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <metafacade 
         metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"
