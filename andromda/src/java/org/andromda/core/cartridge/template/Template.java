@@ -25,6 +25,8 @@ public class Template
     {
         this.supportedModelElements = new ModelElements();
     }
+    
+    private boolean generateEmptyFiles;
 
     /**
      * Tells us whether output files should be generated if this template does
@@ -119,11 +121,13 @@ public class Template
     {
         this.supportedModelElements = supportedModelElements;
     }
+    
+    private boolean outputToSingleFile = false;
 
     /**
      * If output to single file is <code>true</code> then all model elements
      * found by the processor (i.e. all those having matching modelElements)
-     * will be output to one file.
+     * will aggregated and output to one single file.
      * 
      * @return Returns the outputToSingleFile.
      */
@@ -133,11 +137,51 @@ public class Template
     }
 
     /**
+     * Sets whether or not we should aggregate elements and
+     * output to a single file.
+     * 
      * @param outputToSingleFile The outputToSingleFile to set.
      */
     public void setOutputToSingleFile(boolean outputToSingleFile)
     {
         this.outputToSingleFile = outputToSingleFile;
+    }
+    
+    /**
+     * Indicates whether or not files should be output when
+     * there are no elements when aggregating.
+     */
+    private boolean outputOnEmptyElements = true;
+    
+    /**
+     * Indicates that when there are no elements
+     * in the collection of elements (when 
+     * {@link #isOutputToSingleFile()} is <code>true</code>,
+     * whether or not the file should be output.  Default
+     * is <code>true</code>
+     * 
+     * @return true/false
+     * 
+     * @see #isOutputToSingleFile()
+     */
+    public boolean isOutputOnEmptyElements()
+    {
+        return this.outputOnEmptyElements;
+    }
+    
+    /**
+     * Sets whether or not we should output a file when
+     * no elements exist in the collection of elements
+     * when {@link #isOutputToSingleFile()} returns
+     * <code>true</code>.
+     * 
+     * @param outputOnNoElements the boolean flag.
+     * @see #isOutputOnEmptyElements()
+     * @see #isOutputToSingleFile()
+     */
+    public void setOutputOnEmptyElements(boolean outputOnEmptyElements)
+    {
+        this.outputOnEmptyElements = outputOnEmptyElements;
     }
 
     /**
@@ -149,6 +193,4 @@ public class Template
     }
 
     private ModelElements supportedModelElements = null;
-    private boolean generateEmptyFiles;
-    private boolean outputToSingleFile = false;
 }

@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
  * @see ModelElement
  * @author Chad Brandon
  */
-public class ModelElementType
+public class Type
 {
     private String name;
     private final Collection properties = new ArrayList();

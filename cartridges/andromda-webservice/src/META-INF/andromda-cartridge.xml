@@ -104,7 +104,8 @@
         outputPattern="WEB-INF/server-config.wsdd"
         outlet="axis-configuration"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
@@ -120,7 +121,8 @@
         outlet="wss4j-configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false">
+        required="false"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
@@ -151,7 +153,8 @@
         outlet="axis-tests"
         overwrite="true"
         required="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">

@@ -184,7 +184,8 @@
         outlet="session-beans"
         overwrite="true"
         required="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>

@@ -193,22 +193,23 @@ public class Cartridge
      * @param context the context for the cartridge
      */
     protected void processTemplateWithModelElements(
-        Template template,
-        CodeGenerationContext context)
+        final Template template,
+        final CodeGenerationContext context)
     {
         final String methodName = "Cartridge.processTemplateWithModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "context", context);
 
         if (getLogger().isDebugEnabled())
-            getLogger().debug("performing " + methodName + " with template '"
-                + template + "' and context ' " + context + "'");
+            getLogger().debug(
+                "performing " + methodName + " with template '" + template
+                    + "' and context ' " + context + "'");
 
-        ModelElements modelElements = template.getSupportedModeElements();
+        final ModelElements modelElements = template.getSupportedModeElements();
 
         if (modelElements != null && !modelElements.isEmpty())
         {
-            Property outletProperty = Namespaces.instance()
+            final Property outletProperty = Namespaces.instance()
                 .findNamespaceProperty(
                     this.getName(),
                     template.getOutlet(),
@@ -218,16 +219,19 @@ public class Cartridge
             {
                 try
                 {
-                    Collection allMetafacades = modelElements
+                    final Collection allMetafacades = modelElements
                         .getAllMetafacades();
 
-                    // if isOutputToSingleFile flag is true, then
-                    // we collet the template model elements and
-                    // place them into the template context by their
-                    // variable names.
-                    if (template.isOutputToSingleFile())
+                    // if outputToSingleFile is true AND outputOnEmptyElements
+                    // is true or we have at least one metafacade in the
+                    // allMetafacades collection, then we collect the template
+                    // model elements and place them into the template context
+                    // by their variable names.
+                    if (template.isOutputToSingleFile()
+                        && (template.isOutputOnEmptyElements()
+                        || !allMetafacades.isEmpty()))
                     {
-                        Map templateContext = new HashMap();
+                        final Map templateContext = new HashMap();
 
                         // first place all relevant model elements by the
                         // <modelElements/> variable name. If the variable
@@ -242,11 +246,11 @@ public class Cartridge
                         // now place the collections of elements
                         // by the given variable names. (skip if the variable
                         // was NOT defined)
-                        Iterator modelElementIt = modelElements
+                        final Iterator modelElementIt = modelElements
                             .getModelElements().iterator();
                         while (modelElementIt.hasNext())
                         {
-                            ModelElement modelElement = (ModelElement)modelElementIt
+                            final ModelElement modelElement = (ModelElement)modelElementIt
                                 .next();
                             String variable = modelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
@@ -283,12 +287,12 @@ public class Cartridge
                         // we just place the model element with the default
                         // variable defined on the <modelElements/> into the
                         // template.
-                        Iterator metafacadeIt = allMetafacades.iterator();
+                        final Iterator metafacadeIt = allMetafacades.iterator();
                         while (metafacadeIt.hasNext())
                         {
-                            Map templateContext = new HashMap();
+                            final Map templateContext = new HashMap();
 
-                            Object metafacade = metafacadeIt.next();
+                            final Object metafacade = metafacadeIt.next();
 
                             templateContext.put(
                                 modelElements.getVariable(),
@@ -426,8 +430,9 @@ public class Cartridge
                     else
                     {
                         if (this.getLogger().isDebugEnabled())
-                            this.getLogger().debug("Empty Output: '"
-                                + outFile.toURI() + "' --> not writing");
+                            this.getLogger().debug(
+                                "Empty Output: '" + outFile.toURI()
+                                    + "' --> not writing");
                     }
                     AndroMDALogger.reset();
                 }
