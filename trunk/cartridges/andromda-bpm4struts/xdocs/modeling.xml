@@ -137,6 +137,17 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>@andromda.struts.view.field.multibox</td>
+                            <td>Parameter</td>
+                            <td>the name of a page-variable</td>
+                            <td>
+                                Can only be used in combination with
+                                <code>@andromda.struts.view.field.type=multibox</code> in a table. This tagged value
+                                specified the incoming page-variable that is holding the values to match against. If
+                                a match is found the checkbox will be checked for the corresponding row.
+                            </td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.view.field.reset</td>
                             <td>Parameter</td>
                             <td>false</td>
@@ -225,7 +236,8 @@
                                 tag-library. Each column in this table will be mapped to a property of the object
                                 type contained in the collection. So you will need to make sure all objects
                                 have accessor methods for the property you list in this tagged value.
-                                Properties are separated using a comma ','.
+                                Properties are separated using a comma ','. More than one value maybe be assigned to
+                                this tag, all properties will correctly be resolved.
                             </td>
                         </tr>
                         <tr>
