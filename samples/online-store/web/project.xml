@@ -83,49 +83,6 @@
             <artifactId>jboss-j2ee</artifactId>
             <version>3.2.3</version>
         </dependency>
-        <!-- XDoclet dependencies -->
-        <dependency>
-            <groupId>xjavadoc</groupId>
-            <artifactId>xjavadoc</artifactId>
-            <version>1.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet-xdoclet-module</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet-jboss-module</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet-ejb-module</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- This one is needed because jboss-module depends on it -->
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet-jmx-module</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- ejbdoclet depends on this module for some reason -->
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet-apache-module</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>xdoclet</groupId>
-            <artifactId>xdoclet-web-module</artifactId>
-            <version>1.2</version>
-        </dependency>
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
