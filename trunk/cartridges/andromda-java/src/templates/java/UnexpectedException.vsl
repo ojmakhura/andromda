@@ -5,7 +5,7 @@
 #set ($packagename = $class.packageName)
 package $packagename;
 
-#parse("templates/ExceptionUtilsImports.vm")
+#parse("templates/java/ExceptionUtilsImports.vm")
 
 /** 
 $class.getDocumentation(" ")
@@ -45,6 +45,6 @@ public class ${class.name} extends RuntimeException {
 		super(message, findRootCause(throwable));	
 	}
 	
-#parse("templates/ExceptionUtils.vm")
+#parse("templates/java/ExceptionUtils.vm")
 	
 }
