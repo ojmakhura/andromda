@@ -46,7 +46,7 @@ import org.andromda.core.dbmapping.Mappings;
  *
  *@author    Matthias Bohlen
  */
-public class Uml2EjbGenTask extends MatchingTask
+public class AndroMDAGenTask extends MatchingTask
 {
 	/**
 	 *  the destination directory
@@ -222,9 +222,9 @@ public class Uml2EjbGenTask extends MatchingTask
 	/**
 	 *  <p>
 	 *
-	 *  Creates a new <code>Uml2EjbGenTask</code> instance.</p>
+	 *  Creates a new <code>AndroMDAGenTask</code> instance.</p>
 	 */
-	public Uml2EjbGenTask() { }
+	public AndroMDAGenTask() { }
 
 
 	/**
@@ -922,7 +922,7 @@ public class Uml2EjbGenTask extends MatchingTask
 
 
 	/**
-	 *  Gets the templateEncoding attribute of the Uml2EjbGenTask object
+	 *  Gets the templateEncoding attribute of the AndroMDAGenTask object
 	 *
 	 *@return    The templateEncoding value
 	 */

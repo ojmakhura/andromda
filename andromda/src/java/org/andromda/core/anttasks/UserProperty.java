@@ -3,7 +3,7 @@ package org.andromda.core.anttasks;
 /**
  * This class represents user properties which are defined
  * in the ant build.xml file as nested tags within the 
- * <code>&lt;uml2ejb&gt;</code> tag. Uml2EjbGenTask will collect the
+ * <code>&lt;uml2ejb&gt;</code> tag. AndroMDAGenTask will collect the
  * UserProperty objects and put them into the Velocity
  * context. This makes the name-value-pairs available to
  * templates.
