@@ -57,9 +57,9 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
      */
 #end
 #if ($field.date)
-    public void ${field.setterName}AsString(java.lang.String $fieldName)
+    public void ${field.setterName}(java.lang.String $fieldName)
     {
-        super.${field.setterName}AsString($fieldName);
+        super.${field.setterName}($fieldName);
     }
 #else
     public void ${field.setterName}($fieldType $fieldName)
