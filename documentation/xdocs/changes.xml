@@ -17,14 +17,61 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Sep 02, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts improvement</td>
+                    <td valign="top" class="std">
+                        It is now possible to specify labels and values differently
+                        for selectable parameters such as in comboboxes and lists.
+                        The form containing such a parameter will have two new properties:
+                        'valueList' and 'labelList'. If you do not specify the 'labelList'
+                        property it will assume the values of the 'valueList'.
+                        The backing list has been made readonly
+                        because it will construct a special array to be handled by the Struts tags.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Sep 02, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts major change</td>
+                    <td valign="top" class="std">
+                        Controller implementation do not get form types passed in the argument, instead
+                        there is an interface aggregating common form properties, this way forms
+                        of several different types implementing this interface can be passed in.
+                        This elegantly allows a single controller operation to be called from different
+                        actions (which each have their own form).
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Sep 02, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts major change</td>
+                    <td valign="top" class="std">
+                        A major change has been incorporated into the cartridge, you will have to
+                        be very careful when migrating to a version after this date.
+                        ActionForms are back into the request scope so their properties will not be
+                        persisted into the session as was the case before. Bpm4Struts now is
+                        intelligent enough to determine which properties should be available in which
+                        ActionForm (even in ambiguous cases such as cyclic processes or when
+                        multiple actions target multiple pages without a 1-to-1 mapping.
+                        The reason for this drastic change was a possible bug in the server-side
+                        validation framework. It would happen that forms were not properly recognized on
+                        the server while the client could parse them fine.
+                        In order to properly migrate you should at least need to fix the controller
+                        implementations (you will have compilation errors otherwise), unfortunately
+                        you will need to update all JSP pages. The changes are minimal so you might
+                        consider looking at the differences manually (we are back at using the Struts HTML
+                        tag library instead of the plain old HTML tags directly).
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 29, 2004</td>
                     <td valign="top" class="std">Core change</td>
                     <td valign="top" class="std">
-                        The <code>validating</code> flag has been renamed to the more
-                        appropriate <code>xmlValidation</code>.  At the same time a new
+                        The
+                        <code>validating</code> flag has been renamed to the more
+                        appropriate
+                        <code>xmlValidation</code>.  At the same time a new
                         <code>modelValidation</code> flag has been added that allows us
                         to turn on/off model validation during processing.   By default
-                        model validation occurs, however its sometimes nice to turn it 
+                        model validation occurs, however its sometimes nice to turn it
                         off for performance reasons (i.e. you have a really big model).
                     </td>
                 </tr>
