@@ -40,7 +40,7 @@
 
     <target name="mda">
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
-        <andromda lastModifiedCheck="false">
+        <andromda lastModifiedCheck="false" validating="${andromda.validating}">
             <model url="file:${basedir}/src/uml/model.xmi"/>
             <namespace name="default" ignore="false">
                 <property name="languageMappingsUri" value="file:${basedir}/src/mappings/JavaMappings.xml"/>
