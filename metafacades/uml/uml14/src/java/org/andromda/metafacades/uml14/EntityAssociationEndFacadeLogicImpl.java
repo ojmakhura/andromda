@@ -32,11 +32,17 @@ public class EntityAssociationEndFacadeLogicImpl
      */
     public java.lang.String handleGetColumnName()
     {
-        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            this,
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            ((EntityFacade)this.getType()).getMaxSqlNameLength(),
-            this.getForeignKeySuffix());
+        String columnName = null;
+        // prevent ClassCastException if the association isn't an EntityFacade
+        if (EntityFacade.class.isAssignableFrom(this.getType().getClass()))
+        {
+            columnName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                this,
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                ((EntityFacade)this.getType()).getMaxSqlNameLength(),
+                this.getForeignKeySuffix());            
+        }
+        return columnName;
     }
 
     /**
