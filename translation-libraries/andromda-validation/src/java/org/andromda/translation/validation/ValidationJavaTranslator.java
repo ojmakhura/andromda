@@ -330,9 +330,26 @@ public class ValidationJavaTranslator
         // an operation call
         if (expression.matches(OCLIntrospector.OPERATION_FEATURE))
         {
-            this.handleDotFeatureCall((AFeatureCall)node.getFeatureCall());
+            PFeatureCall featureCall = node.getFeatureCall();
+            if (featureCall instanceof AStandardFeatureCall)
+            {
+                this.handleDotStandardFeatureCall((AStandardFeatureCall)node.getFeatureCall());
+            }
+            else if (featureCall instanceof AOcliskindofFeatureCall)
+            {
+                this.handleDotOclIsKindOfFeatureCall((AOcliskindofFeatureCall)node.getFeatureCall());
+            }
         }
         outADotPropertyCallExpressionTail(node);
+    }
+
+    /**
+     * .oclIsKindOf(type) is a special feature defined by OCL on all objects
+     */
+    private void handleDotOclIsKindOfFeatureCall(AOcliskindofFeatureCall featureCall)
+    {
+        write(" instanceof ");
+        write(((APathName)featureCall.getPathName()).getName().getText());
     }
 
     /**
@@ -344,7 +361,7 @@ public class ValidationJavaTranslator
      * @param featureCall the <strong>dot</strong>
      *        <code>featureCall</code> to handle.
      */
-    public void handleDotFeatureCall(AFeatureCall featureCall)
+    private void handleDotStandardFeatureCall(AStandardFeatureCall featureCall)
     {
         this
             .prependToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(");
@@ -381,7 +398,7 @@ public class ValidationJavaTranslator
     {
         inAArrowPropertyCallExpressionTail(node);
         node.getArrow().apply(this);
-        this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
+        this.handleArrowFeatureCall((AStandardFeatureCall)node.getFeatureCall());
         outAArrowPropertyCallExpressionTail(node);
     }
 
@@ -469,7 +486,7 @@ public class ValidationJavaTranslator
      * @param featureCall the <strong>arrow</strong>
      *        <code>featureCall</code> to handle.
      */
-    public void handleArrowFeatureCall(AFeatureCall featureCall)
+    public void handleArrowFeatureCall(AStandardFeatureCall featureCall)
     {
         AFeatureCallParameters params = (AFeatureCallParameters)featureCall
             .getFeatureCallParameters();
@@ -480,7 +497,7 @@ public class ValidationJavaTranslator
         {
             newTranslationLayer();
             write("org.andromda.translation.validation.OCLCollections.");
-            inAFeatureCall(featureCall);
+            inAStandardFeatureCall(featureCall);
             if (featureCall.getPathName() != null)
             {
                 featureCall.getPathName().apply(this);
@@ -529,7 +546,7 @@ public class ValidationJavaTranslator
             {
                 parameters.getRParen().apply(this);
             }
-            this.outAFeatureCall(featureCall);
+            this.outAStandardFeatureCall(featureCall);
         }
     }
 
