@@ -302,9 +302,6 @@ public class MetafacadeFactory
                 metafacadeClass,
                 mappingObject,
                 context);
-            // assign the logger and active namespace
-            metafacade.setLogger(this.getLogger());
-            metafacade.setNamespace(this.getActiveNamespace());
             if (mapping != null)
             {
                 // set whether or not this metafacade is a context root
@@ -312,6 +309,9 @@ public class MetafacadeFactory
             }
             cache.add(mappingObject, metafacade);
         }
+        // assign the logger and active namespace
+        metafacade.setLogger(this.getLogger());
+        metafacade.setNamespace(this.getActiveNamespace());
         // we need to populate the properties each time (whether or not
         // the metafacade is new (since the same metafacade could have
         // difference property values per namespace)
