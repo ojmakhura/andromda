@@ -75,17 +75,16 @@ public class Expression
     }
 
     /**
-     * Replaces the pattern with the replacement within the translated
-     * expression buffer.
+     * Replaces the regular expressoin <code>pattern</code> with the
+     * replacement within the translated expression buffer.
      * 
-     * @param pattern the pattern to search for.
-     * @param replacement the replacement.
+     * @param pattern the regular expression pattern to replace
+     * @param replacement the replacement string.
      */
     public void replaceInTranslatedExpression(String pattern, String replacement)
     {
-        this.translatedExpression = new StringBuffer(TranslationUtils
-            .replacePattern(
-                this.getTranslatedExpression(),
+        this.translatedExpression = new StringBuffer(this
+            .getTranslatedExpression().toString().replaceAll(
                 pattern,
                 replacement));
     }

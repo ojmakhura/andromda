@@ -262,8 +262,8 @@ public class QueryTranslator
             selectClause.toString());
 
         // remove any extra space from parenthesis
-        this.getExpression().replaceInTranslatedExpression("\\(\\s*", "\\(");
-        this.getExpression().replaceInTranslatedExpression("\\s*\\)", "\\)");
+        this.getExpression().replaceInTranslatedExpression("\\(\\s*", "(");
+        this.getExpression().replaceInTranslatedExpression("\\s*\\)", ")");
     }
 
     /*------------------------- Handler methods ---------------------------------------*/
