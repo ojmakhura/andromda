@@ -109,7 +109,7 @@ public class Profile
         }
         Property mappingsUri = Namespaces.instance().findNamespaceProperty(
             Namespaces.DEFAULT,
-            NamespaceProperties.PROFILE_URI,
+            NamespaceProperties.PROFILE_MAPPINGS_URI,
             false);
         String mappingsUriValue = mappingsUri != null
             ? mappingsUri.getValue()

@@ -35,5 +35,5 @@ public class NamespaceProperties
      * profile values (i.e. stereotype names).
      * </p>
      */
-    public static final String PROFILE_URI = "profileMappingsUri";
+    public static final String PROFILE_MAPPINGS_URI = "profileMappingsUri";
 }
