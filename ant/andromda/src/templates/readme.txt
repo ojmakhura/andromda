@@ -1,5 +1,5 @@
 NOTE: This AndroMDA Ant Tool is an option for those users who don't want to use Maven.
-The maven-andromda-plugin in this distribution has a goal called "andromda:genapp"
+The maven-andromdapp-plugin in this distribution has a goal called "andromdapp:generate"
 which will setup an AndroMDA Maven application.
 
 To generate an AndroMDA Ant J2EE application you must takes the following steps:
