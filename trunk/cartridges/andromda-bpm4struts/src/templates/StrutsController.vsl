@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-class $controller.name implements ${controller.name}Interface
+class $controller.name extends ${controller.name}Interface
 {
 
 #foreach ($operation in $controller.operations)
