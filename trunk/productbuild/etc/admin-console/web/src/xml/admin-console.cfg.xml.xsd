@@ -1,4 +1,8 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<!--    targetNamespace="http://www.andromda.org/admin-console"-->
+
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
 
     <xs:element name="admin-console">
         <xs:annotation>
@@ -8,8 +12,8 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="console-configuration"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="table-configuration"/>
+                <xs:element ref="console-configuration"/>
+                <xs:element ref="tables"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -22,13 +26,32 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="resolve-foreign-keys"/>
-                <xs:element minOccurs="0" ref="database-urls"/>
+                <xs:element ref="database-urls"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="resolve-foreign-keys" type="xs:boolean" default="true"/>
+    <xs:element name="tables">
+        <xs:annotation>
+            <xs:documentation>
+                Configuration concerning the tables
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="allow-unconfigured" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            With this feature enabled the user will be able to manipulate any
+                            table found by the application. Disable this feature when you want
+                            the user to view only those tables that have been configured.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="table-configuration" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:element name="database-urls">
         <xs:annotation>
@@ -38,7 +61,16 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="url"/>
+                <xs:element name="allow-user-specified" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Enable this feature when you want to allow users to enter any arbitrary
+                            JDBC url. You may want to disable this to have the users connect to a single, default
+                            database.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="url" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -51,14 +83,56 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column-configuration"/>
+                <xs:element name="name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The name of the table that is being configured.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="display-column" minOccurs="0" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The value entered here must match the name of a column of this table. When foreign keys
+                            target this table the user interface will not show the table's primary key but the
+                            corresponding value in the argument column.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="page-size" type="xs:integer" minOccurs="0" default="10">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Controles the maximum number of rows that can be presented on the same page.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="max-list-size" type="xs:integer" minOccurs="0" default="1000">
+                    <xs:annotation>
+                        <xs:documentation>
+                            For reasons of performance this feature can be used to control the maximum
+                            number of rows fetched from the database, this means that a search can never yield
+                            more rows than the number specified by this value.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="exportable" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Enable this feature if it should be possible to export the content of this table into
+                            different external formats.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="insertable" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This feature controls whether or not the user is allowed to insert new entries
+                            into this table.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="column-configuration" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="required"/>
-            <xs:attribute name="pageSize" type="xs:integer" default="10"/>
-            <xs:attribute name="maxListSize" type="xs:integer" default="1000"/>
-            <xs:attribute name="export" type="xs:boolean" default="true"/>
-            <xs:attribute name="displayColumn" type="xs:string"/>
-            <xs:attribute name="insertable" type="xs:boolean" default="true"/>
         </xs:complexType>
     </xs:element>
 
@@ -70,19 +144,78 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="value"/>
+                <xs:element name="name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The name of the column being configured.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="resolve-fk" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            If this column is used to import another table (also known as a foreign key colunm)
+                            then you can disable this feature if you don't want a combobox containing all
+                            possible values. A combobox can easily become a performance killer when the imported
+                            column has lots of different values, because for each value an entry is created. This would
+                            mean longer execution times, more HTML downloading and more difficult to select a value.
+                            You might want to disable this feature for those tables that grown over time; all other
+                            tables, with more or less constant content should have this enabled.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="hide" type="xs:boolean" minOccurs="0" default="false">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Enable this column if you want to hide it from the users. If users are allowed to insert
+                            records into the table they will still have a means to introduce values for this column
+                            because the value may be required.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="sortable" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Enable this feature if it should be possible to sort the table according to
+                            this columns content.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="exportable" type="xs:boolean" minOccurs="0" default="true">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Enable this feature if you want this column to be exported, disabling this feaure
+                            will hide this column when the table is exported.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="updateable" type="xs:boolean" minOccurs="0" default="false">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Enabling this feature will allow users to enter new values for values listed in the table.
+                            A button is present that will permit them to persist these new values into the database.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="size" type="xs:integer" minOccurs="0" default="15">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Controls the maximum number of characters being printed for values of this column,
+                            truncated characters will be replaced by an ellipsis (...).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Values can be listed for columns, it will make the application render a combobox from which
+                            to select the appropriate one. An empty value is implicitely present in case you do not
+                            want to set one in this column.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="required"/>
-            <xs:attribute name="hide" type="xs:boolean" default="false"/>
-            <xs:attribute name="sortable" type="xs:boolean" default="true"/>
-            <xs:attribute name="exportable" type="xs:boolean" default="true"/>
-            <xs:attribute name="updateable" type="xs:boolean" default="false"/>
-            <xs:attribute name="size" type="xs:integer" default="15"/>
         </xs:complexType>
     </xs:element>
-
-    <xs:element name="value" type="xs:string"/>
-
-    <xs:element name="url" type="xs:string"/>
 
 </xs:schema>
