@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 
 import java.lang.reflect.Method;
@@ -106,6 +107,25 @@ public class StrutsTriggerLogicImpl
         return "You are not allowed to call this action";
     }
 
+    public boolean handleIsTabbed()
+    {
+        return getTabIndex() >= 0;
+    }
+
+    public int handleGetTabIndex()
+    {
+        final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABINDEX));
+
+        try
+        {
+            return (tabIndex==null) ? -1 : Integer.parseInt(tabIndex);
+        }
+        catch (NumberFormatException e)
+        {
+            return -1;
+        }
+    }
+
     // ------------- relations ------------------
 
     protected Object handleGetControllerCall()
@@ -117,7 +137,8 @@ public class StrutsTriggerLogicImpl
         {
             Method method = metaObject.getClass().getMethod("getOperation", null);
             return method.invoke(metaObject, null);
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             return null;
         }
