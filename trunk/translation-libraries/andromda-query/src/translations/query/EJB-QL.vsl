@@ -39,9 +39,9 @@
             </kind>
         </fragment>
 
-        <!-- This is what is appended when '-> exists(<some expression>)' is encountered in the expression -->
-        <fragment name="\s*${navigableName}\s*->\s*exists${nonEmptyParentheses}"
-                  handlerMethod="handleExists">
+        <!-- This is what is appended when '-> includes(<some expression>)' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*->\s*includes${nonEmptyParentheses}"
+                  handlerMethod="handleIncludes">
             <kind name="body">
                 {0} MEMBER OF {1}
             </kind>

@@ -152,7 +152,7 @@
 			body findByStatusesBody: 
 			    allInstances() -> select( 
                     legalAgreement | 
-				    agreementStatusPks -> exists(legalAgreement.agreementStatus.agreementStatusPk) 
+				    agreementStatusPks -> includes(legalAgreement.agreementStatus.agreementStatusPk) 
 				    or agreementStatusPks -> isEmpty()
 				    and legalAgreement.agreementTypePk = anAgreementTypePk) 
 		</from>

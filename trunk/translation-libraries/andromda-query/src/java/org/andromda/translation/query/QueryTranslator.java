@@ -132,7 +132,7 @@ public class QueryTranslator
     }
 
     /**
-     * Override to handle any propertyCall expressions ( i.e. exists(
+     * Override to handle any propertyCall expressions ( i.e. includes(
      * <expression>), select( <expression>), etc.)
      * 
      * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inAPropertyCallExpression(org.andromda.core.translation.node.APropertyCallExpression)
@@ -352,7 +352,7 @@ public class QueryTranslator
         this.selectClause.append(translation);
     }
 
-    public void handleExists(String translation, Object node)
+    public void handleIncludes(String translation, Object node)
     {
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils
