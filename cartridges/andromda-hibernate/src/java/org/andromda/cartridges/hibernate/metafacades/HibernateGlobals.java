@@ -31,12 +31,12 @@ class HibernateGlobals
      * Represents the hibernate <code>save-update</code> cascade option.
      */
     static final String HIBERNATE_CASCADE_SAVE_UPDATE = "save-update";
-    
+
     /**
      * Represents the hibernate <code>all</code> cascade option.
      */
     static final String HIBERNATE_CASCADE_ALL = "all";
-    
+
     /**
      * Represents the hibernate <code>none</code> cascade option.
      */
@@ -47,7 +47,7 @@ class HibernateGlobals
      * services).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
-    
+
     /**
      * The namespace property storing default ehCache maxElementsInMemory
      * parameter

@@ -17,6 +17,16 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
 {
+
+    // ---------------- constructor -------------------------------
+
+    public HibernateAssociationEndLogicImpl(
+        Object metaObject,
+        String context)
+    {
+        super(metaObject, context);
+    }
+
     /**
      * Value for set
      */
@@ -38,7 +48,7 @@ public class HibernateAssociationEndLogicImpl
     private static final String COLLECTION_TYPE_LIST = "list";
 
     /**
-     * Stores the valid inheritance strategies.
+     * Stores the valid collection types
      */
     private static final Collection collectionTypes = new ArrayList();
 
@@ -48,15 +58,6 @@ public class HibernateAssociationEndLogicImpl
         collectionTypes.add(COLLECTION_TYPE_MAP);
         collectionTypes.add(COLLECTION_TYPE_BAG);
         collectionTypes.add(COLLECTION_TYPE_LIST);
-    }
-
-    // ---------------- constructor -------------------------------
-
-    public HibernateAssociationEndLogicImpl(
-        Object metaObject,
-        String context)
-    {
-        super(metaObject, context);
     }
 
     /**
@@ -174,7 +175,8 @@ public class HibernateAssociationEndLogicImpl
                 && HibernateEntity.class.isAssignableFrom(type.getClass()))
             {
                 HibernateEntity entity = (HibernateEntity)type;
-                final String defaultCascade = entity.getHibernateDefaultCascade();
+                final String defaultCascade = entity
+                    .getHibernateDefaultCascade();
                 if (defaultCascade
                     .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
                     || defaultCascade
@@ -277,11 +279,12 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetCollectionType()
     {
-        String collectionType = (String) this
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+        String collectionType = String
+            .valueOf(this
+                .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE));
         if (!collectionTypes.contains(collectionType))
         {
-            collectionType = (String) this
+            collectionType = (String)this
                 .getConfiguredProperty(HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
         }
         return collectionType;
@@ -293,7 +296,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetSortType()
     {
-        String sortType = (String) this
+        String sortType = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE);
         return sortType;
     }
@@ -303,12 +306,12 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetOrderByColumns()
     {
-        String orderColumns = (String) this
+        String orderColumns = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
         if (orderColumns == null)
         {
-            orderColumns = (String) ((EntityAssociationEndFacade) this.getOtherEnd())
-                .getColumnName();
+            orderColumns = (String)((EntityAssociationEndFacade)this
+                .getOtherEnd()).getColumnName();
 
         }
         return orderColumns;
@@ -319,7 +322,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetWhereClause()
     {
-        String whereClause = (String) this
+        String whereClause = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE);
         return whereClause;
     }
@@ -329,13 +332,13 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsIndexedCollection()
     {
-        boolean indexed=false;
+        boolean indexed = false;
         if (this.isOrdered())
         {
             if (this.getCollectionType().equals(COLLECTION_TYPE_LIST)
-                    || this.getCollectionType().equals(COLLECTION_TYPE_MAP))
+                || this.getCollectionType().equals(COLLECTION_TYPE_MAP))
             {
-                indexed=true;
+                indexed = true;
             }
         }
         return indexed;
@@ -346,7 +349,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetCollectionIndexName()
     {
-        String indexName = (String) this
+        String indexName = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         return indexName;
     }
@@ -356,32 +359,31 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsMap()
     {
-        return this.getCollectionType().equalsIgnoreCase(
-                COLLECTION_TYPE_MAP);
+        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_MAP);
     }
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isList()
      */
-    protected boolean handleIsList() {
-        return this.getCollectionType().equalsIgnoreCase(
-                COLLECTION_TYPE_LIST);
+    protected boolean handleIsList()
+    {
+        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_LIST);
     }
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isSet()
      */
-    protected boolean handleIsSet() {
-        return this.getCollectionType().equalsIgnoreCase(
-                COLLECTION_TYPE_SET);
+    protected boolean handleIsSet()
+    {
+        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_SET);
     }
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isBag()
      */
-    protected boolean handleIsBag() {
-        return this.getCollectionType().equalsIgnoreCase(
-                COLLECTION_TYPE_BAG);
+    protected boolean handleIsBag()
+    {
+        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_BAG);
     }
 
 }

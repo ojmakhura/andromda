@@ -15,15 +15,16 @@ import org.apache.commons.lang.StringUtils;
  */
 class HibernateMetafacadeUtils
 {
-
     /**
-     * Gets the view type for the passed in <code>classifier</code>. If the 
-     * view type can be retrieved from the <code>classifier</code>, then
-     * that is used, otherwise the <code>defaultViewType</code> is returned.
+     * Gets the view type for the passed in <code>classifier</code>. If the
+     * view type can be retrieved from the <code>classifier</code>, then that
+     * is used, otherwise the <code>defaultViewType</code> is returned.
      * 
      * @return String the view type name.
      */
-    static String getViewType(ClassifierFacade classifier, String defaultViewType)
+    static String getViewType(
+        ClassifierFacade classifier,
+        String defaultViewType)
     {
         final String methodName = "HibernateMetafacadeUtils.getViewType";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
@@ -56,6 +57,7 @@ class HibernateMetafacadeUtils
         }
         return viewType.toLowerCase();
     }
+
     /**
      * Creates a fully qualified name from the given <code>packageName</code>,
      * <code>name</code>, and <code>suffix</code>.

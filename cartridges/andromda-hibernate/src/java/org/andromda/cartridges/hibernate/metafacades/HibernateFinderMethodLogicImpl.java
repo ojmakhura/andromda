@@ -7,12 +7,11 @@ import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
 
-/** 
+/**
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade
  *      Metaclass facade implementation.
- *      
  * @author Chad Brandon
- * @author Carlos Cuenca     
+ * @author Carlos Cuenca
  */
 public class HibernateFinderMethodLogicImpl
     extends HibernateFinderMethodLogic
