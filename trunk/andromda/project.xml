@@ -45,7 +45,14 @@
     		<groupId>ant</groupId>
       		<artifactId>ant</artifactId>
      		<version>1.6</version>
-    	</dependency>    
+    	</dependency>  
+    	<!-- test dependencies -->
+    	<dependency> 
+    		<groupId>commons-logging</groupId>
+      		<artifactId>commons-logging</artifactId>
+     		<version>1.0.3</version>
+     		<type>test</type>
+    	</dependency>   
 	</dependencies>
 	
   	<build>
