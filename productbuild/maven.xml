@@ -235,9 +235,14 @@
 		<j:file name="${toDir}/project.xml" trim="false">
 			<j:import file="${distPom}" inherit="true"/>
 		</j:file>	
-		<!-- copy the distribution maven.xml -->
-		<j:set var="distMavenXml" value="${templatesDir}/distribution-maven.xml"/>
-		<ant:copy file="${distMavenXml}" tofile="${toDir}/maven.xml"/>
+		<!-- Copy over the maven.xml files that will be in the dist (they are copied 
+		     over the source distribution ones) -->
+		<ant:copy todir="${toDir}" overwrite="true">
+		    <ant:fileset dir="${templatesDir}">
+		        <ant:exclude name="*.jelly"/>
+		        <ant:exclude name="*.txt"/>
+		    </ant:fileset>
+		</ant:copy>
 	
 		<!-- zip it all up -->
         <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
