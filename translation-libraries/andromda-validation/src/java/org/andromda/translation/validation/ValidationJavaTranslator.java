@@ -1,6 +1,5 @@
 package org.andromda.translation.validation;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.andromda.core.translation.BaseTranslator;
-import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.*;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;

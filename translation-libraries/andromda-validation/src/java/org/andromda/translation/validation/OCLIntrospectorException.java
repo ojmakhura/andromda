@@ -1,8 +1,5 @@
 package org.andromda.translation.validation;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
-
-
 /**
  * Thrown when any unexpected error occurs during execution
  * of the OCLIntrospector.
