@@ -26,7 +26,6 @@ package $springTypesPackage;
  */
 public class ${criteriaSearchBaseName} 
 {
-
     private ${criteriaSearchBaseName}Configuration configuration;
     private net.sf.hibernate.Criteria rootCriteria;
     private java.util.Map childCriteriaMap;
@@ -56,7 +55,8 @@ public class ${criteriaSearchBaseName}
     public java.util.Collection execute() throws net.sf.hibernate.HibernateException 
     {
         // limit the maximum result if configured
-        if (configuration.getMaximumResultSize() != null) {
+        if (configuration.getMaximumResultSize() != null) 
+        {
             rootCriteria.setMaxResults(configuration.getMaximumResultSize().intValue());
         }
         // Hibernate does not support a 'unique' identifier. As a search may contain outer joins,
@@ -256,5 +256,4 @@ public class ${criteriaSearchBaseName}
     {
         return configuration;
     }
-
 }
