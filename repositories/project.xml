@@ -5,7 +5,6 @@
   	<id>andromda-repositories</id>
   	<groupId>andromda</groupId>
   	<name>AndroMDA Repositories</name>
-  	<currentVersion>3.0-SNAPSHOT</currentVersion>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}</url>
