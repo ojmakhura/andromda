@@ -620,8 +620,9 @@ public class StrutsParameterLogicImpl
         return optionKeys;
     }
 
-    private int getOptionCount()
+    public Collection handleGetOptionValues()
     {
+        Collection optionValues = new LinkedList();
         if ("radio".equals(getWidgetType()))
         {
             Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
@@ -629,21 +630,38 @@ public class StrutsParameterLogicImpl
             if (value != null)
             {
                 String valueString = String.valueOf(value).trim();
+                int optionCount = 0;
                 if (valueString.length() > 5)
                 {
                     try
                     {
-                        return Integer.parseInt(valueString.substring(5).trim());
+                        optionCount = Integer.parseInt(valueString.substring(5).trim());
                     }
                     catch (Exception exception)
                     {
-                        // let the next return statement handle this
+                        String[] options = valueString.substring(5).replaceAll("[\\s]+", "").split("[,]");
+                        for (int i = 0; i < options.length; i++)
+                        {
+                            optionValues.add(options[i].trim());
+                        }
+                        return optionValues;
                     }
                 }
+
+                optionCount = 3;
+                String name = getName();
+                for (int i = 1; i <= optionCount; i++)
+                {
+                    optionValues.add(name + '-' + optionCount);
+                }
             }
-            return 3;
         }
-        return 0;
+        return optionValues;
+    }
+
+    public int handleGetOptionCount()
+    {
+        return getOptionValues().size();
     }
 
     // ------------------------------------------
