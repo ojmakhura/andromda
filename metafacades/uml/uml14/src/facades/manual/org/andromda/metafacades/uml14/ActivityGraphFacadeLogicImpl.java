@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.andromda.core.common.CollectionFilter;
+import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
@@ -40,9 +40,9 @@ public class ActivityGraphFacadeLogicImpl
     
     public Collection handleGetInitialStates()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return (object instanceof Pseudostate) &&
                     (PseudostateKindEnum.PK_INITIAL.equals(((Pseudostate)object).getKind()));
@@ -53,9 +53,9 @@ public class ActivityGraphFacadeLogicImpl
 
     public Collection handleGetPseudostates()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return (object instanceof Pseudostate);
             }
@@ -65,9 +65,9 @@ public class ActivityGraphFacadeLogicImpl
 
     public Collection handleGetActionStates()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof ActionState;
             }
@@ -77,9 +77,9 @@ public class ActivityGraphFacadeLogicImpl
 
     public Collection handleGetObjectFlowStates()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof ObjectFlowState;
             }
@@ -89,9 +89,9 @@ public class ActivityGraphFacadeLogicImpl
 
     public Collection handleGetFinalStates()
     {
-        final CollectionFilter filter = new CollectionFilter()
+        final Predicate filter = new Predicate()
         {
-            public boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof FinalState;
             }
@@ -99,19 +99,19 @@ public class ActivityGraphFacadeLogicImpl
         return getSubvertices(filter);
     }
 
-    protected Collection getSubvertices(CollectionFilter collectionFilter)
+    protected Collection getSubvertices(Predicate collectionFilter)
     {
         CompositeState compositeState = (CompositeState) metaObject.getTop();
         return filter(compositeState.getSubvertex(), collectionFilter);
     }
 
-    private Collection filter(Collection collection, CollectionFilter collectionFilter)
+    private Collection filter(Collection collection, Predicate collectionFilter)
     {
         final Set filteredCollection = new LinkedHashSet();
         for (Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
-            if (collectionFilter.accept(object))
+            if (collectionFilter.evaluate(object))
             {
                 filteredCollection.add(object);
             }

@@ -22,6 +22,7 @@ ${target.actionMethodName}(mapping, form, request, response);
 #set ($actionExceptions = $class.actionExceptions)
 #set ($actionStates = $class.actionStates)
 #set ($decisionTransitions = $class.decisionTransitions)
+#set ($security = ($securityEnabled=="true") && ($roles != "") )
 ##
 ##  START TEMPLATE
 ##
@@ -52,7 +53,7 @@ $class.getDocumentation(" * ")
  *    validate="true"
  *       scope="request"
  *     unknown="false"
-#if ($roles != "")
+#if ($security)
  *       roles="$roles"
 #end
  *

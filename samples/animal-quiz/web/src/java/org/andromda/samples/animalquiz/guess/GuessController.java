@@ -119,4 +119,15 @@ public final class GuessController implements GuessControllerInterface {
 
         ds.remove();
     }
+
+    public boolean lastAnswerWasYes(
+        ActionMapping mapping,
+        GuessForm form,
+        HttpServletRequest request,
+        HttpServletResponse reponse)
+        throws Exception {
+
+        return true;
+
+    }
 }

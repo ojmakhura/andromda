@@ -2,15 +2,9 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.*;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Collections;
+import java.util.*;
 
 
 /**
@@ -112,7 +106,7 @@ public class StrutsActionLogicImpl
 
     public boolean hasSuccessMessage()
     {
-        return null != findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE);
+        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE));
     }
 
     public java.lang.String getActionPath()
@@ -197,7 +191,13 @@ public class StrutsActionLogicImpl
 
     public boolean isResettable()
     {
-        return null != findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE);
+        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE));
+    }
+
+    private boolean isTrue(String string)
+    {
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) ||
+               "on".equalsIgnoreCase(string)  || "1".equalsIgnoreCase(string);
     }
 
     public boolean isUseCaseStart()
@@ -272,7 +272,51 @@ public class StrutsActionLogicImpl
 
     protected Collection handleGetActionParameters()
     {
-        StrutsTrigger trigger = getActionTrigger();
-        return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
+        /*
+         * in order to avoid naming collisions when a parameter is passed
+         * around more than once, we keep a map which maps names onto the
+         * corresponding objects
+         */
+        final Map parameterMap = new HashMap();
+
+        // first add the parameters on the trigger
+        final StrutsTrigger trigger = getActionTrigger();
+        if (trigger != null)
+        {
+            collectParameters(trigger.getParameters(), parameterMap);
+        }
+
+        // also add the parameters for any deferred controller operations
+        final Collection actionStates = getActionStates();
+        for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+        {
+            StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
+            Collection controllerCalls = actionState.getControllerCalls();
+            for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+            {
+                OperationFacade operation = (OperationFacade) controllerCallIterator.next();
+                collectParameters(operation.getParameters(), parameterMap);
+            }
+
+            Collection outgoing = actionState.getOutgoing();
+            for (Iterator outgoingIterator = outgoing.iterator(); outgoingIterator.hasNext();)
+            {
+                TransitionFacade transitionFacade = (TransitionFacade) outgoingIterator.next();
+                EventFacade transitionTrigger = transitionFacade.getTrigger();
+                if (transitionTrigger != null)
+                    collectParameters(transitionTrigger.getParameters(), parameterMap);
+            }
+        }
+
+        return parameterMap.values();
+    }
+
+    private void collectParameters(Collection parameters, Map parameterMap)
+    {
+        for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+        {
+            ParameterFacade parameter = (ParameterFacade) iterator.next();
+            parameterMap.put(parameter.getName(), parameter);
+        }
     }
 }

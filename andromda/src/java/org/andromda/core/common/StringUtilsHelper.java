@@ -74,52 +74,6 @@ public class StringUtilsHelper {
     }
 
     /**
-     * <p>Checks if a given type name is a Java primitive type.</p>
-     *
-     * @param name a <code>String</code> with the name of the type
-     * @return <code>true</code> if <code>name</code> is a Java
-     *         primitive type; <code>false</code> if not
-     */
-    public static boolean isPrimitiveType(String name) {
-        return (   "void".equals(name)
-                || "char".equals(name)
-                || "byte".equals(name)
-                || "short".equals(name)
-                || "int".equals(name)
-                || "long".equals(name)
-                || "float".equals(name)
-                || "double".equals(name)
-                || "boolean".equals(name) );
-    }
-
-    /**
-     * <p>Returns the type class name for a Java primitive.</p>
-     *
-     * @param name a <code>String</code> with the name of the type
-     * @return a <code>String</code> with the name of the
-     *         corresponding java.lang wrapper class if
-     *         <code>name</code> is a Java primitive type;
-     *         <code>false</code> if not
-     */
-    public static String getPrimitiveClassName(String name) {
-        if (!isPrimitiveType(name)) {
-            return null;
-        }
-
-        if ("void".equals(name)) {
-            return null;
-        }
-        if ("char".equals(name)) {
-            return "java.lang.Character";
-        }
-        if ("int".equals(name)) {
-            return "java.lang.Integer";
-        }
-
-        return "java.lang."+upperCaseFirstLetter(name);
-    }
-
-    /**
      * <p>Returns the argument string as a Java class name according the Sun coding conventions.</p>
      * <p>Non word characters be removed and the letter following such a character will be uppercased.</p>
      *

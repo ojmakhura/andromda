@@ -187,7 +187,7 @@ public class ModelElementFacadeLogicImpl
     public String getDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
         if (StringUtils.isEmpty(indent)) {
-            indent = " ";
+            indent = "";
         }
         StringBuffer documentation = new StringBuffer();
         Collection comments = this.metaObject.getComment();
