@@ -37,49 +37,63 @@
             <subsection name="web.xml">
                 <p>
                     If you have enabled security the <code>web.xml</code> descriptor will contain sections
-                    describing the security on the level of each individual use-case, the next examples
-                    are taken from an imaginary project.
+                    describing the security on the level of each individual use-case, the use-case and actor
+                    relationships shown in the diagram above would yield output like this:
 <source><![CDATA[
 <security-constraint>
-    ...
     <web-resource-collection>
-        <web-resource-name>Person Search resources</web-resource-name>
+        <web-resource-name>Purchase Items resources</web-resource-name>
         <description>
             This collection bundles all pages and resources
-            as well as the actions called in the "Person Search" use-case
+            as well as the actions called in the "Purchase Items" use-case
         </description>
-        <url-pattern>/my/company/rules/person/search/*</url-pattern>
-        <url-pattern>/PersonSearch/*</url-pattern>
+        <url-pattern>/my/onlinestore/purchase/*</url-pattern>
+        <url-pattern>/PurchaseItems/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
         <role-name>admin</role-name>
-        <role-name>manager</role-name>
-        <role-name>user</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+        <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Login resources</web-resource-name>
+        <description>
+            This collection bundles all pages and resources
+            as well as the actions called in the "Login" use-case
+        </description>
+        <url-pattern>/my/onlinestore/login/*</url-pattern>
+        <url-pattern>/Login/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
         <role-name>guest</role-name>
     </auth-constraint>
     <user-data-constraint>
         <transport-guarantee>NONE</transport-guarantee>
     </user-data-constraint>
-    ...
 </security-constraint>
+
 ]]></source>
                 </p>
                 <p>
                     And the section describing the roles:
 <source><![CDATA[
 <security-role>
-    <role-name>user</role-name>
-</security-role>
-<security-role>
     <role-name>admin</role-name>
 </security-role>
 <security-role>
     <role-name>guest</role-name>
 </security-role>
-<security-role>
-    <role-name>manager</role-name>
-</security-role>
 ]]></source>
+                </p>
+                <p class="highlight">
+                    Please note that you would usually not model the <code>Login</code> use-case, except in those
+                    cases you need very specific functionality that cannot be handled easily using the default
+                    JAAS framework.
                 </p>
                 <p>
                     A login page will always be generated automatically, but this time it will be presented
