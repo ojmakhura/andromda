@@ -107,7 +107,8 @@
                             for other metafacades.  For example this metafacade mapping below is indicating that the
                             metafacade constructed from <em>org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl</em>
                             will be a context root (since it will play the context for the metafacade construced from a
-                            <em>org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl</em> instance).
+                            <em>org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl</em> instance,
+                            which in turn will be a context for some other metafacade).
                             <source><![CDATA[
 ...
 <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
@@ -162,7 +163,8 @@
                     <tr>
                         <td>class</td>
                         <td>
-                            Specifies the meta model class that should be instantiated when this mapping is matched.
+                            Specifies the class of the meta model element to which the metafacade should apply when this 
+                            <a href="#mapping"><![CDATA[<mapping/>]]></a> is matched.
                             For example, you'll see that this mapping indicates that it shall be matched on each
                             occurence of <em>org.omg.uml.foundation.core.Operation$Impl</em> while the model is
                             being processed.
@@ -182,7 +184,56 @@
                 <p>
                     Each <a href="#mapping"><![CDATA[<mapping/>]]></a>
                     can take one or more optional nested <em><![CDATA[<stereotype/>]]></em>
-                    elements.
+                    elements.  Having a single stereotype tells AndroMDA to match the meta model element having that 
+                    stereotype.  For example this here tells AndroMDA to apply
+                    <em>org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl</em>
+                    to any meta model element of type <em>org.omg.uml.foundation.core.Classifier$Impl</em>
+                    having the stereotype <em>SERVICE</em>:
+                    <source><![CDATA[    
+...  
+<metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <stereotype>SERVICE</stereotype>
+    </mapping>
+</metafacade>   
+...                
+                    ]]></source>                  
+                    Having two or more stereotypes means match on the meta model element having all indicated stereotypes. 
+                    For example this here tells AndroMDA to apply
+                    <em>org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl</em>
+                    to any meta model element of type <em>org.omg.uml.foundation.core.UmlClass$Impl</em>
+                    having the stereotype <em>WEBSERVICE</em> <strong>AND</strong> <em>SERVICE</em>:
+                    <source><![CDATA[    
+...
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>WEBSERVICE</stereotype>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+...                    
+                    ]]></source>                     
+                    If you wanted to 'OR' them together, meaning you wanted
+                    the metafacade applied for either stereotype you'd just create more 
+                    <a href="#metafacade"><![CDATA[<metafacade/>]]></a> elements containing the new 
+                    mapping with the new stereotype(s).  For example this here tells AndroMDA to apply
+                    <em>org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl</em> 
+                    to any meta model element of type <em>org.omg.uml.foundation.core.UmlClass$Impl</em>
+                    that has either the <em>WEBSERVICE</em> <strong>OR</strong> <em>SERVICE</em> stereotype.
+                    <source><![CDATA[    
+...
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>WEBSERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+...                    
+                    ]]></source> 
                 </p>
                 <table>
                     <tr>
