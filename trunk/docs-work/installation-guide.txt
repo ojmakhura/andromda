@@ -1,1 +1,90 @@
-initial
+The document provides an installation procedure for AndroMDA. It covers:
+1.  building of AndroMDA project
+2.  building of Sample application
+
+Installation of AndroMDA
+------------------------
+Prerequisite
+- [for the latest cvs version] CVS Client
+- Apache ANT (http://ant.apache.org/)
+
+Recompilation of AndroMDA is very simple three-step process:
+
+1. Download source distribution or CVS Checkout
+You may either download the latest source distribution, or checkout the source
+from cvs. This section describes the procedure to checkout the from the cvs.
+
+    1.1 Set CVSROOT environmental variable
+        for windows:
+        set CVSROOT=:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda
+        for unix/linux:
+        export CVSROOT=:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda
+
+    1.2 login
+        cvs login
+        (use a blank password)
+
+    1.3 checkout
+        cvs checkout andromda
+
+For more information and help, refer to:
+    http://sourceforge.net/cvs/?group_id=73047
+
+//todo: consider to add new module for "java/src"
+
+2. Configure build properties
+After checked out all files, you'll see a directory named "andromda". The
+directory structure is like: [insert screen shot]
+The next step is to configure the build properties. AndroMDA is well-configured
+by default and you should need to change only one or two properties at most.
+
+	2.1 rename build.properties.sample to build.properties
+
+	//todo: why not name it build.properties at the begining?!
+
+ 	2.2 modify build.properties
+ 		- thirdparty.home
+ 			Point it to your Apache ANT directory
+
+    //todo: bundle ant.jar in our package
+    //todo: add a build.bat and build.sh that set the bundled ant library to
+            classpath and run "ant"
+
+3. Run Ant
+    It is as simple as typing "ant" at the command console.
+
+	//todo: if users may call more than one task, make "ant" default to a help
+	    manual, or display "please use 'ant -projecthelp'".
+
+Running the Car Rental Sample
+-----------------------------
+It is highly recommend for you to run the provided car rental sample to make
+sure your AndroMDA is configured properly. It is also an easy task. Procedure is
+as follows:
+
+1. Go to andromda/src/sample/car-rental-system
+
+2. Configure build properties
+	2.1 rename build.properties.sample to build.properties
+
+	2.2 modify build.properties
+		- andromda.home
+			e.g.    c:/andromda/  or
+			        /usr/andromda/ (notice the slash at the end)
+		- thirdparty.home
+		    Point it to your Apache ANT directory
+
+		- j2ee.libs
+		    In case you don't use JBoss/EJB, you may still run the sample.
+		    Please download j2ee library from Sun Microsystem or other sources.
+		    (http://java.sun.com/j2ee/download.html) And configure j2ee.libs
+		    accordingly
+
+		    //todo: add a parameter in Ant to disable the deploy/copy to JBoss
+
+	2.3 copy andromda.jar to the andromda.home
+	//todo: check this
+	//todo: use **/*.jar in Ant classpath definition. Drawback: slower
+
+3. Run Ant
+    It is as simple as typing "ant" at the command console.
