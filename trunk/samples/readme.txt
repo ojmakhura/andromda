@@ -17,7 +17,7 @@ To build the samples, perform the following steps:
    linux/unix) directory.
 3) From this directory, type 'maven', this will build all samples contained within
    this directory.  Check the target directory(s) of each 'app' sub directory for
-   the deployable J2EE ear.
+   the deployable J2EE ear and the SQL scripts.
 
 Good Luck!
 
