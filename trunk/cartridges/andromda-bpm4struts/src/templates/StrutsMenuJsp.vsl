@@ -22,7 +22,7 @@
 #set ($useCases = $applicationUseCase.allUseCases)
 #if ($useCases.size()>1)
 <div class="box2">
-    <h4><bean:message key="menu.title"/></h4>
+    <h4><bean:message key="menu.usecases.title"/></h4>
     <ul>
 #foreach ($useCase in $useCases)
 #set ($roles = $useCase.actionRoles)
