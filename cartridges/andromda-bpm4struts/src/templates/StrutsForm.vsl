@@ -28,7 +28,11 @@ public class $formBeanClassName
 #if ($field.type.arrayType || $field.selectable)
 #set ($arrayPresent = true)
 #end
+#if ($field.file)
+    private org.apache.struts.upload.FormFile $field.name = null;
+#else
     private $field.type.fullyQualifiedName $field.name;
+#end
 #if ($field.date)
     private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
 #end
@@ -51,6 +55,14 @@ public class $formBeanClassName
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        this.$fieldName = $field.nullValue;
+    }
+
 #if ($field.type.collectionType)
     public void ${field.setterName}($fieldType $fieldName)
     {
@@ -81,13 +93,6 @@ $field.getDocumentation("     * ")
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
     
-    /**
-     * Resets the given <code>$fieldName</code>.
-     */
-    public void ${field.resetName}()
-    {
-        this.$fieldName = new java.util.ArrayList();
-    }
 #elseif ($field.date)
     public void ${field.setterName}AsDate($fieldType $fieldName)
     {
@@ -157,14 +162,21 @@ $field.getDocumentation("     * ")
     {
         return ${formBeanClassName}.${fieldName}DateFormatter;
     }
-    
-    /**
-     * Resets the given <code>$fieldName</code>.
-     */
-    public void ${field.resetName}()
+
+#elseif ($field.file)
+    public void ${field.setterName}(org.apache.struts.upload.FormFile $fieldName)
     {
-        this.$fieldName = $field.nullValue;
+        this.$fieldName = $fieldName;
     }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public org.apache.struts.upload.FormFile ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
+
 #else
     public void ${field.setterName}($fieldType $fieldName)
     {
@@ -177,14 +189,6 @@ $field.getDocumentation("     * ")
     public $fieldType ${field.getterName}()
     {
         return this.$fieldName;
-    }
-    
-    /**
-     * Resets the given <code>$fieldName</code>.
-     */
-    public void ${field.resetName}()
-    {
-        this.$fieldName = $field.nullValue;
     }
 #end
 
