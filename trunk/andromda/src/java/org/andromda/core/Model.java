@@ -5,8 +5,7 @@ import java.net.URL;
 import org.andromda.core.common.ModelPackages;
 
 /**
- * Stores the processing information for each model 
- * that AndroMDA will process.
+ * Stores the processing information for each model that AndroMDA will process.
  * 
  * @author Chad Brandon
  */

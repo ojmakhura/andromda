@@ -336,7 +336,7 @@ public class ModelElementFacadeLogicImpl
      * 
      * @param mappingsUri the URI of the language mappings resource.
      */
-    public void setLanguageMappingsUri(String mappingsUri)
+    public void handleSetLanguageMappingsUri(String mappingsUri)
     {
         try
         {

@@ -1,5 +1,7 @@
 package org.andromda.core.metafacade;
 
+import java.util.Collection;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -7,8 +9,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.Collection;
 
 /**
  * Base class for all metaclass facades.
@@ -173,7 +173,12 @@ public class MetafacadeBase
     {
         if (StringUtils.isEmpty(this.propertyNamespace))
         {
-            this.propertyNamespace = this.getContext() + ":property";
+            StringBuffer propertyNamespace = new StringBuffer(this.getContext());
+            propertyNamespace.append(":");
+            propertyNamespace.append(this.getNamespace());
+            propertyNamespace.append(":");
+            propertyNamespace.append(this.getContext());
+            this.propertyNamespace = propertyNamespace.toString();
         }
         return this.propertyNamespace;
     }
