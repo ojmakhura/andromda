@@ -33,10 +33,9 @@ public class HighlightXmlTag extends AbstractHighlightTag
             {
                 output.write(token);
 
-                if (token.equals("]]"))
+                if (token.indexOf("]]") > -1)
                 {
-                    output.write(">");
-                    endTokenHighlight(output);
+                    commentsAwaitClosure = true;
                     inCdata = false;
                 }
             }
@@ -44,7 +43,7 @@ public class HighlightXmlTag extends AbstractHighlightTag
             {
                 output.write(token);
 
-                if (token.equals("--"))
+                if (token.indexOf("--") > -1)
                 {
                     commentsAwaitClosure = true;
                     inComment = false;
@@ -134,7 +133,7 @@ public class HighlightXmlTag extends AbstractHighlightTag
                     inElement = true;
                     wroteOpeningCharacter = false;
                 }
-                else
+                else if (token.equals(">"))
                 {
                     output.write(token);
                     if (commentsAwaitClosure)
@@ -142,6 +141,10 @@ public class HighlightXmlTag extends AbstractHighlightTag
                         commentsAwaitClosure = false;
                         endTokenHighlight(output);
                     }
+                }
+                else
+                {
+                    output.write(token);
                 }
             }
         }
