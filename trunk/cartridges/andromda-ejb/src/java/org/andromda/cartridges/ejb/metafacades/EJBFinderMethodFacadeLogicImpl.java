@@ -29,7 +29,7 @@ public class EJBFinderMethodFacadeLogicImpl
 
     public java.lang.String handleGetQuery() {
 
-         // first see if there is a query stored as a tagged value
+         // first see if there is a query stored as a constraint
         String queryString = super.getQuery("query.EJB-QL");
 
         // otherwise see if there is a query stored as a tagged value
