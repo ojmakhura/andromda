@@ -57,7 +57,7 @@
 
         <!-- This is what is appended when '-> isEmpty()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*->\s*isEmpty${emptyParentheses}"
-                  handlerMethod="handleIsEmpty">
+                  handlerMethod="handleDotOperation">
             <kind name="body">
                 size({0}) = 0
             </kind>
@@ -65,9 +65,25 @@
         
         <!-- This is what is appended when '-> size()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*->\s*size${emptyParentheses}"
-                  handlerMethod="handleSize">
+                  handlerMethod="handleDotOperation">
             <kind name="body">
                 size({0})
+            </kind>
+        </fragment>
+        
+        <!-- This is what is appended when 'string.toLower()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*toLower${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                lower({0})
+            </kind>
+        </fragment>
+        
+        <!-- This is what is appended when 'string.toUpper()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*toUpper${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                upper({0})
             </kind>
         </fragment>
 
