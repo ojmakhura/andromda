@@ -228,14 +228,29 @@ public class SimpleOOHelper extends UMLStaticHelper
         StringBuffer sb = new StringBuffer();
         sb.append(o.getName());
         sb.append("(");
+        sb.append(getOperationParameterNames(o));
+        sb.append(")");
 
+        return sb.toString();
+    }
+
+    /**
+     * Builds a comma-separated list of parameter names of an operation.
+     * 
+     * @param o the operation
+     * @return String the list of parameter names
+     */
+    public String getOperationParameterNames(Operation o)
+    {
+        StringBuffer sb = new StringBuffer();
+        
         Iterator it = o.getParameter().iterator();
-
+        
         boolean commaNeeded = false;
         while (it.hasNext())
         {
             Parameter p = (Parameter) it.next();
-
+        
             if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
             {
                 if (commaNeeded)
@@ -245,10 +260,7 @@ public class SimpleOOHelper extends UMLStaticHelper
                 sb.append(p.getName());
                 commaNeeded = true;
             }
-
         }
-        sb.append(")");
-
         return sb.toString();
     }
 
@@ -273,15 +285,33 @@ public class SimpleOOHelper extends UMLStaticHelper
             return o.getName() + "()";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer(); 
         sb.append(o.getName());
         sb.append("(");
+        sb.append(getOperationTypedParameterList(o));
+        sb.append(")");
 
+        return sb.toString();
+    }
+
+
+    /**
+     * Builds a comma-separated parameter list 
+     * (type and name of each parameter) of an operation.
+     * 
+     * @param o the operation
+     * @return String the parameter list
+     */
+    public String getOperationTypedParameterList(Operation o)
+    {
+        StringBuffer sb = new StringBuffer(); 
+        Iterator it = o.getParameter().iterator();
+        
         boolean commaNeeded = false;
         while (it.hasNext())
         {
             Parameter p = (Parameter) it.next();
-
+        
             if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
             {
                 String type;
@@ -293,7 +323,7 @@ public class SimpleOOHelper extends UMLStaticHelper
                 {
                     type = getFullyQualifiedName(p.getType());
                 }
-
+        
                 if (commaNeeded)
                 {
                     sb.append(", ");
@@ -304,8 +334,6 @@ public class SimpleOOHelper extends UMLStaticHelper
                 commaNeeded = true;
             }
         }
-        sb.append(")");
-
         return sb.toString();
     }
 
