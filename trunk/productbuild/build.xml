@@ -9,7 +9,8 @@
 
     <!-- destination directories -->
     <property name="dist.dir"         value="dist"   />
-    <property name="andromda.home" location="${dist.dir}" />
+    <property name="dist.stage.dir" location="${dist.dir}/predist"/>
+    <property name="andromda.home" location="${dist.stage.dir}" />
 
     <!-- ============================================================= -->
     <!--               Internal targets                                -->
@@ -18,7 +19,7 @@
     <target name="buildComponent">
     	<echo message="buildComponent ${component.name} ${prefix}"/>
         <ant inheritAll="false" dir="${component.name}" target="dist" >
-          <property name="dist.stage.dir" location="${dist.dir}/${prefix}/"/>
+          <property name="dist.stage.dir" location="${dist.stage.dir}/${prefix}/"/>
           <property name="andromda.home" location="${andromda.home}"/>
           <property file="build.properties" />
         </ant>
@@ -43,6 +44,7 @@
     <target name="init">
         <tstamp/>
         <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.stage.dir}"/>
     </target>
 
     <!-- Remove directory structure -->
