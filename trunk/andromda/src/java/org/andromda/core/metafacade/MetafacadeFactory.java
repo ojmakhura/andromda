@@ -27,14 +27,13 @@ public class MetafacadeFactory
     private static MetafacadeFactory factory = new MetafacadeFactory();
 
     /**
-     * The namespace that is currently active (i.e. being
-     * used) within the factory
+     * The namespace that is currently active (i.e. being used) within the
+     * factory
      */
     private String activeNamespace;
-    
+
     /**
-     * The model facade which provides access to the underlying 
-     * meta model.
+     * The model facade which provides access to the underlying meta model.
      */
     private ModelAccessFacade model;
 
@@ -134,11 +133,12 @@ public class MetafacadeFactory
      */
     public MetafacadeBase createMetafacade(Object metaObject, String contextName)
     {
-        return this.internalCreateMetafacade(metaObject, contextName, null);
+        return this.createMetafacade(metaObject, contextName, null);
     }
 
     /**
-     * Internal helper method.
+     * Creates a metafacade given the <code>metaObject</code>,
+     * <code>contextName</code> and <code>metafacadeClass</code>.
      * 
      * @param metaObject the meta model element.
      * @param contextName the name of the context the meta model element is
@@ -150,7 +150,7 @@ public class MetafacadeFactory
      *        null).
      * @return the new metafacade
      */
-    private MetafacadeBase internalCreateMetafacade(
+    private MetafacadeBase createMetafacade(
         Object metaObject,
         String contextName,
         Class metafacadeClass)
@@ -348,7 +348,7 @@ public class MetafacadeFactory
      */
     public MetafacadeBase createMetafacade(Object metaObject)
     {
-        return this.internalCreateMetafacade(metaObject, null, null);
+        return this.createMetafacade(metaObject, null, null);
     }
 
     /**
@@ -378,7 +378,7 @@ public class MetafacadeFactory
             metafacadeClass = MetafacadeImpls.instance()
                 .getMetafacadeImplClass(interfaceName);
 
-            MetafacadeBase metafacade = this.internalCreateMetafacade(
+            MetafacadeBase metafacade = this.createMetafacade(
                 metaObject,
                 contextName,
                 metafacadeClass);
@@ -560,7 +560,7 @@ public class MetafacadeFactory
             Iterator metaObjectIt = metaObjects.iterator();
             while (metaObjectIt.hasNext())
             {
-                metafacades.add(internalCreateMetafacade(
+                metafacades.add(createMetafacade(
                     metaObjectIt.next(),
                     contextName,
                     null));
@@ -605,8 +605,8 @@ public class MetafacadeFactory
     }
 
     /**
-     * Gets the correct logger based on whether
-     * or not an plugin logger should be used
+     * Gets the correct logger based on whether or not an plugin logger should
+     * be used
      * 
      * @return the logger
      */
