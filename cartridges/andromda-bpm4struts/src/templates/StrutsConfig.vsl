@@ -28,12 +28,15 @@
 ## We will take all workflow use-cases and their initial states will determine the global
 ## entry points of the application. For each workflow there will be exactly one global-forward declaration here.
 ##
+## Notice how we redirect instead of forward to the use case, we explicitly want a new request
+## object to be sent to the provided path
+##
    <global-forwards>
 #foreach ($workflow in $allWorkflows)
 #set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getStateMachine($workflow))))
 #set ($firstUseCase = $transform.getFirstFrontEndUseCase($workflow))
 #set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($firstUseCase)))
-      <forward name="$forwardName" path="/${forwardPath}" redirect="false"/>
+      <forward name="$forwardName" path="/${forwardPath}" redirect="true"/>
 #end
    </global-forwards>
 
@@ -61,6 +64,11 @@
 #foreach ($actionState in $actionStates)
 #set ($actionForwardName = $transform.toWebFileName($actionState))
 #set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($actionState))
+##
+## Notice how we forward instead of redirect to the next action, this allows us to reuse the form that
+## is in the request scope. This is interesting when an object flow state sets up some form properties
+## that we want to use in the next page.
+##
          <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="false" />
 #end
 #set ($finalStates = $transform.dynamicHelper.getFinalStates($stateMachine))
@@ -68,7 +76,11 @@
 #set ($actionForwardName = $transform.toForwardName($finalState))
 #set ($nextUseCase = $transform.findNextUseCaseInWorkflow($useCase, $finalState.name))
 #set ($actionForwardPath = $transform.toJavaClassName($transform.getControllerClass($nextUseCase)))
-         <forward name="$actionForwardName" path="/${actionForwardPath}" redirect="false"/>
+##
+## Notice how we redirect instead of forward to the next use case, we explicitly want a new request
+## object to be sent to the provided path
+##
+         <forward name="$actionForwardName" path="/${actionForwardPath}" redirect="true"/>
 #end
       </action>
 #end
