@@ -46,6 +46,40 @@
                 </ol>
             </p>
             <p>
+                <b>Okay, that all sounds fine, but what can AndroMDA do for me *now* ?</b>
+            </p>
+            <p>
+                At the time of this writing AndroMDA is mostly used by developers working with J2EE technologies.
+                Out-of-the-box AndroMDA can setup a new J2EE project from scratch, in which code is generated from a UML
+                model. You can choose to generate code for
+                <a href="andromda-hibernate-cartridge/index.html">Hibernate</a>,
+                <a href="andromda-ejb-cartridge/index.html">EJB</a>,
+                <a href="andromda-spring-cartridge/index.html">Spring</a>,
+                <a href="andromda-webservice-cartridge/index.html">WebServices</a>,
+                and <a href="andromda-bpm4struts-cartridge/index.html">Struts</a>.
+                The generated code is automatically integrated into the build process. In doing so you will only need
+                to spend a little time getting to know AndroMDA and you're good to go, you will see it is very efficient
+                to have the code generated for you, while keeping your focus on business logic.
+            </p>
+            <p>
+                Additionally AndroMDA ships with a few tools to make your life easier:
+            </p>
+            <p>
+                <ul>
+                    <li>As already mentioned, we have a tool to generate project templates such as for J2EE:
+                        <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a>,
+                        this is a maven plugin.</li>
+                    <li><a href="andromda-schema2xmi/index.html">Schema2XMI</a>
+                        is able to read your database and build an XMI file from it,
+                        which can then be used to load as a UML model.</li>
+                    <li>Admin-Console is a web application that can be used for the maintenance of your database
+                        tables. It allows to list, insert, update and delete rows from your database.
+                        It is very configurable so you can present your data in a way that suits the users best.
+                        You could deploy this tool together with your own application and easily and quickly perform
+                        CRUD operations (this tool is still under development and is only available through CVS)</li>
+                </ul>
+            </p>
+            <p>
                 <b>How does AndroMDA work?</b>
             </p>
             <p>
