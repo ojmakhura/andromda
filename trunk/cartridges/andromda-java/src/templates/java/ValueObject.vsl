@@ -22,9 +22,9 @@ public class ${class.name} implements java.io.Serializable
 {
 #if (!$class.properties.empty)
 
-   public ${class.name}()
-   {
-   }
+    public ${class.name}()
+    {
+    }
 #end
 
     /**
@@ -68,7 +68,7 @@ public class ${class.name} implements java.io.Serializable
     private $typeName $attribute.name;
 
     /**
-$attribute.getDocumentation("    * ")
+$attribute.getDocumentation("     * ")
      */
     $attribute.visibility $typeName ${attribute.getterName}()
     {
