@@ -80,11 +80,11 @@ $operation.getDocumentation("     * ")
 #set ($constructor = "$constructor$paramSeparator$quote${columnName}-$count$quote")
 #set ($paramSeparator = ', ')
 #end
-            new $str.upperCaseFirstLetter($field.name)DummyItem($constructor)$itemSeparator
+            new $str.upperCaseFirstLetter($field.name)Dummy($constructor)$itemSeparator
 #end
         } );
 
-    public final class $str.upperCaseFirstLetter($field.name)DummyItem implements java.io.Serializable
+    public final class $str.upperCaseFirstLetter($field.name)Dummy implements java.io.Serializable
     {
 #set ($constructor = '')
 #set ($paramSeparator = '')
@@ -94,7 +94,7 @@ $operation.getDocumentation("     * ")
 #set ($paramSeparator = ', ')
 #end
 
-        public $str.upperCaseFirstLetter($field.name)DummyItem($constructor)
+        public $str.upperCaseFirstLetter($field.name)Dummy($constructor)
         {
 #foreach ($columnName in $field.tableColumnNames)
             this.$columnName = $columnName;
