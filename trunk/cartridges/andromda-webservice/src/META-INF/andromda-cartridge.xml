@@ -10,7 +10,8 @@
     	name="escapeUtils"
     	className="org.apache.commons.lang.StringEscapeUtils"/>      
 		
-	<!-- The location of the WSDL will reside (i.e. "http://localhost:8080/AnimalQuiz/services") -->
+	<!-- The location of where the WSDL will reside 
+		 (i.e. "http://localhost:8080/AnimalQuiz/services") -->
 	<property reference="wsdlSoapAddress"/>
     	
 	<!-- if true, causes generation of necessary code that expects 
