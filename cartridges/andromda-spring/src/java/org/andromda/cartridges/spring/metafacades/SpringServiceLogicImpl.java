@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringServiceLogicImpl
     extends SpringServiceLogic
-    implements org.andromda.cartridges.spring.metafacades.SpringService
 {
     // ---------------- constructor -------------------------------
 
@@ -55,7 +54,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringService#etImplementationName()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getImplementationName()
      */
     protected java.lang.String handleGetImplementationName()
     {
@@ -203,21 +202,15 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotable()
      */
-    protected boolean handleIsServiceRemotable()
+    protected boolean handleIsRemotable()
     {
-        String serviceRemotingType = this.getServiceRemotingType();
-        if (serviceRemotingType != null)
-        {
-            boolean result = !serviceRemotingType.equalsIgnoreCase("none");
-            return result;
-        }
-        return false;
+        return !this.isRemotingTypeNone();
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemotingType()
+     * Gets the remoting type for this service.
      */
-    protected String handleGetServiceRemotingType()
+    private String getRemotingType()
     {
         String serviceRemotingType = StringUtils.trimToEmpty(String
             .valueOf(this.getConfiguredProperty("serviceRemotingType")));
@@ -228,9 +221,9 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemoteServicePort()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemotePort()
      */
-    protected String handleGetServiceRemotePort()
+    protected String handleGetRemotePort()
     {
         String serviceRemotePort = StringUtils.trimToEmpty(String.valueOf(this
             .getConfiguredProperty("serviceRemotePort")));
@@ -240,9 +233,9 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemoteServiceUrl()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemoteUrl()
      */
-    protected String handleGetServiceRemoteUrl()
+    protected String handleGetRemoteUrl()
     {
         String serviceRemoteServer = StringUtils.trimToEmpty(String
             .valueOf(this.getConfiguredProperty("serviceRemoteServer")));
@@ -250,19 +243,16 @@ public class SpringServiceLogicImpl
         String serviceRemoteContext = StringUtils.trimToEmpty(String
             .valueOf(this.getConfiguredProperty("serviceRemoteContext")));
 
-        String serviceRemotePort = this.getServiceRemotePort();
-
-        String serviceRemotingType = this.getServiceRemotingType();
+        String serviceRemotePort = this.getRemotePort();
 
         String result = "";
 
-        if ("none".equalsIgnoreCase(serviceRemotingType))
+        if (this.isRemotingTypeNone())
         {
             // nothing
         }
-        else if ("httpinvoker".equalsIgnoreCase(serviceRemotingType)
-            || "hessian".equalsIgnoreCase(serviceRemotingType)
-            || "burlap".equalsIgnoreCase(serviceRemotingType))
+        else if (this.isRemotingTypeHttpInvoker()
+            || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
         {
             // server
             result = "http://" + serviceRemoteServer;
@@ -279,7 +269,7 @@ public class SpringServiceLogicImpl
             // service name
             result += "/" + getName();
         }
-        else if ("rmi".equalsIgnoreCase(serviceRemotingType))
+        else if (this.isRemotingTypeRmi())
         {
             // server
             result = "rmi://" + serviceRemoteServer;
@@ -341,6 +331,46 @@ public class SpringServiceLogicImpl
             String.valueOf(this
                 .getConfiguredProperty("defaultServiceExceptions")))
             .booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeRmi()
+     */
+    protected boolean handleIsRemotingTypeRmi()
+    {
+        return this.getRemotingType().equalsIgnoreCase("rmi");
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeBurlap()
+     */
+    protected boolean handleIsRemotingTypeBurlap()
+    {
+        return this.getRemotingType().equalsIgnoreCase("burlap");
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeHessian()
+     */
+    protected boolean handleIsRemotingTypeHessian()
+    {
+        return this.getRemotingType().equalsIgnoreCase("hessian");
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeHttpInvoker()
+     */
+    protected boolean handleIsRemotingTypeHttpInvoker()
+    {
+        return this.getRemotingType().equalsIgnoreCase("httpinvoker");
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#isRemotingTypeNone()
+     */
+    protected boolean handleIsRemotingTypeNone()
+    {
+        return this.getRemotingType().equalsIgnoreCase("none");
     }
 
 }

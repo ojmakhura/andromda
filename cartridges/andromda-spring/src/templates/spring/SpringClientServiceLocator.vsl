@@ -39,7 +39,7 @@ public class $clientServiceLocatorName
     }
 
     /**
-     * The shared instance of this ${clientServiceLocatorName}.
+     * The shared instance of this $clientServiceLocatorName.
      */
     private final static $clientServiceLocatorName instance = new $clientServiceLocatorName();
 
@@ -84,13 +84,13 @@ public class $clientServiceLocatorName
     }
 
 #foreach ($service in $services)
-#if($service.serviceRemotable)
+#if($service.remotable)
     /**
-     * Gets an instance of <code>${service.fullyQualifiedName}</code>
+     * Gets an instance of {@link $service.fullyQualifiedName}.
      */
-    public final ${service.fullyQualifiedName} get${service.name}()
+    public final $service.fullyQualifiedName get${service.name}()
     {
-        return (${service.fullyQualifiedName})
+        return ($service.fullyQualifiedName)
             getContext().getBean("$service.beanName");
     }
 
