@@ -59,12 +59,22 @@
   	</goal> 
   	    
   	<!-- ==================================================================
-  			 Builds ALL documentation                                                   
+  			 Builds ALL documentation and inludes it in the binary dist                                          
   		 ================================================================== --> 
-    <goal name="docs">
+    <goal name="docs" prereqs="dist-init">
 		<maven:maven 
 			descriptor="${basedir}/documentation/project.xml"
 			goals="build"/> 
+		<ant:copy todir="${binaryDistDir}">
+			<ant:fileset dir="documentation/target">
+				<ant:include name="*.zip"/>
+			</ant:fileset>
+		</ant:copy>
+		<!-- include it in the binary dist -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+	        <ant:zip zipfile="${zipFile}">
+                <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+            </ant:zip>	 
     </goal>
     
     <!-- ======================= DISTRIBUTION GOALS ======================= -->
@@ -204,15 +214,7 @@
 		<!-- copy the distribution maven.xml -->
 		<j:set var="distMavenXml" value="${templatesDir}/distribution-maven.xml"/>
 		<ant:copy file="${distMavenXml}" tofile="${toDir}/maven.xml"/>
-		
-		<!-- add docs -->
-		<attainGoal name="docs"/>
-		<ant:copy todir="${binaryDistDir}">
-			<ant:fileset dir="documentation/target">
-				<ant:include name="*.zip"/>
-			</ant:fileset>
-		</ant:copy>
- 
+	
 		<!-- zip it all up -->
         <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
 		<ant:zip zipfile="${zipFile}">

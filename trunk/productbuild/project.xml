@@ -1,153 +1,149 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <project>
-  	<pomVersion>3</pomVersion>
-  	<id>andromda-all</id>
-  	<groupId>andromda</groupId>
-  	<name>AndroMDA</name>
-	<currentVersion>3.0M2-SNAPSHOT</currentVersion>
-  	<inceptionYear>2003</inceptionYear>
-	<organization>
-		<name>The AndroMDA Team</name>
-		<url>http://team.andromda.org/docs</url>
-		<logo>http://team.andromda.org/docs/images/andromda-logo.jpg</logo>
-	</organization>
-	<package>org.andromda</package>
-	<description>The top level module for all of AndroMDA</description>
-	<shortDescription>AndroMDA: The Open Source MDA Tool</shortDescription>
-  	<logo>http://sourceforge.net/sflogo.php?group_id=73047&amp;type=5</logo>
-  	<url>http://www.sourceforge.net</url>
-	<issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73047&amp;atid=536545</issueTrackingUrl>
-	<siteAddress>www.andromda.org</siteAddress>
-	<siteDirectory>/team.andromda.org/</siteDirectory>
-	<distributionDirectory>/team.andromda.org/maven/distributions</distributionDirectory>
-  	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda</connection>
-        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot:andromda</developerConnection>    	
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda</url>
-  	</repository>
-  	<versions>
-    	<version>
-      		<id>2.1.2</id>
-      		<name>2.1.2final</name>
-      		<tag>V212_final</tag>
-    	</version>
-    	<version>
-      		<id>2.1.1</id>
-      		<name>2.1.1final</name>
-      		<tag>V211_final</tag>
-    	</version>
-    	<version>
-      		<id>2.1.0</id>
-      		<name>2.1.0final</name>
-      		<tag>V210_final</tag>
-    	</version>
-  	</versions>
-   <branches/>
-   <mailingLists>
+    <pomVersion>3</pomVersion>
+    <name>AndroMDA</name>
+    <groupId>andromda</groupId>
+    <artifactId>andromda-all</artifactId>
+    <currentVersion>3.0M2-SNAPSHOT</currentVersion>
+    <organization>
+        <name>The AndroMDA Team</name>
+        <url>http://team.andromda.org/docs</url>
+        <logo>http://team.andromda.org/docs/images/andromda-logo.jpg</logo>
+    </organization>
+    <inceptionYear>2003</inceptionYear>
+    <package>org.andromda</package>
+    <logo>http://sourceforge.net/sflogo.php?group_id=73047&amp;type=5</logo>
+    <description>The top level module for all of AndroMDA</description>
+    <shortDescription>AndroMDA: The Open Source MDA Tool</shortDescription>
+    <url>http://www.sourceforge.net</url>
+    <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73047&amp;atid=536545</issueTrackingUrl>
+    <siteAddress>www.andromda.org</siteAddress>
+    <siteDirectory>/team.andromda.org/</siteDirectory>
+    <distributionDirectory>/team.andromda.org/maven/distributions</distributionDirectory>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda</connection>
+        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot:andromda</developerConnection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda</url>
+    </repository>
+    <versions>
+        <version>
+            <id>2.1.2</id>
+            <name>2.1.2final</name>
+            <tag>V212_final</tag>
+        </version>
+        <version>
+            <id>2.1.1</id>
+            <name>2.1.1final</name>
+            <tag>V211_final</tag>
+        </version>
+        <version>
+            <id>2.1.0</id>
+            <name>2.1.0final</name>
+            <tag>V210_final</tag>
+        </version>
+    </versions>
+    <branches/>
+    <mailingLists>
         <mailingList>
             <name>AndroMDA User List</name>
             <subscribe>andromda-user@lists.sourceforge.net</subscribe>
-            <unsubscribe/>
             <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-user</archive>
         </mailingList>
         <mailingList>
             <name>AndroMDA Developer List</name>
             <subscribe>andromda-devel@lists.sourceforge.net</subscribe>
-            <unsubscribe/>
             <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-devel</archive>
         </mailingList>
         <mailingList>
             <name>AndroMDA CVS List</name>
             <subscribe>andromda-cvs@lists.sourceforge.net</subscribe>
-            <unsubscribe/>
             <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
         </mailingList>
     </mailingLists>
-  	<developers>
-    	<developer>
-      		<name>Matthias Bohlen</name>
-      		<id>mattes3</id>
-      		<email>mattes3@users.sourceforge.net</email>
+    <developers>
+        <developer>
+            <name>Matthias Bohlen</name>
+            <id>mattes3</id>
+            <email>mattes3@users.sourceforge.net</email>
             <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
                 <role>Project Admin</role>
-                <role>Developer</role>
-                <role>Documentation</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Chad Brandon</name>
-      		<id>cwbrandon</id>
-      		<email>cwbrandon@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
                 <role>Documentation</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Wouter Zoons</name>
-      		<id>draftdog</id>
-      		<email>draftdog@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Wouter Zoons</name>
+            <id>draftdog</id>
+            <email>draftdog@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
                 <role>Documentation</role>
             </roles>
             <timezone>1</timezone>
-    	</developer>
-    	<developer>
-      		<name>Tony Mowers</name>
-      		<id>amowers</id>
-      		<email>amowers@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Tony Mowers</name>
+            <id>amowers</id>
+            <email>amowers@users.sourceforge.net</email>
             <roles>
+                <role>Developer</role>
                 <role>Project Admin</role>
-                <role>Developer</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Juegen Dufner</name>
-      		<id>jdufner</id>
-      		<email>jdufner@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Juegen Dufner</name>
+            <id>jdufner</id>
+            <email>jdufner@users.sourceforge.net</email>
             <roles>
                 <role>Documentation</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Richard Kunze</name>
-      		<id>rkunze</id>
-      		<email>rkunze@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Richard Kunze</name>
+            <id>rkunze</id>
+            <email>rkunze@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Torsten Juergeleit</name>
-      		<id>tjuerge</id>
-      		<email>tjuerge@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Torsten Juergeleit</name>
+            <id>tjuerge</id>
+            <email>tjuerge@users.sourceforge.net</email>
             <roles>
                 <role>Documentation</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Dr. Gernot Stark</name>
-      		<id>zorg42</id>
-      		<email>zorg42@users.sourceforge.net</email>
-    	</developer>
-    	<developer>
-      		<name>Felix Ruessel</name>
-      		<id>felixbert</id>
-      		<email>felixbert@users.sourceforge.net</email>
-      		<role>Developer</role>
-    	</developer>
-    	<developer>
-      		<name>Harald Weyhing</name>
-      		<id>hweyhing</id>
-      		<email>hweyhing@users.sourceforge.net</email>
-      		<role>Developer</role>
-    	</developer>
-  	</developers>
-  	<!-- restrict the reports generated -->
-  	<reports>
-  		<report>maven-faq-plugin</report>
-  		<report>maven-multiproject-plugin</report>
-  	</reports>
+        </developer>
+        <developer>
+            <name>Dr. Gernot Stark</name>
+            <id>zorg42</id>
+            <email>zorg42@users.sourceforge.net</email>
+            <roles/>
+        </developer>
+        <developer>
+            <name>Felix Ruessel</name>
+            <id>felixbert</id>
+            <email>felixbert@users.sourceforge.net</email>
+            <roles/>
+        </developer>
+        <developer>
+            <name>Harald Weyhing</name>
+            <id>hweyhing</id>
+            <email>hweyhing@users.sourceforge.net</email>
+            <roles/>
+        </developer>
+    </developers>
+    <reports>
+        <report>maven-faq-plugin</report>
+        <report>maven-multiproject-plugin</report>
+    </reports>
+    <properties/>
 </project>
