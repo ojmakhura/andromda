@@ -29,7 +29,7 @@
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($sourceEnd.one2One)
-#if ($entity.foreignHibernateGeneratorClass)
+#if ($associationEnd.child && $entity.foreignHibernateGeneratorClass)
 		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$cascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
