@@ -339,7 +339,6 @@ public class HibernateEntityLogicImpl
         {
             result = HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE_CLASS;
         }
-
         return result;
     }
 
@@ -398,7 +397,7 @@ public class HibernateEntityLogicImpl
         return columnName;
     }
 
-    public String getDefaultIdentifier()
+    private String getDefaultIdentifier()
     {
         return (String)getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER);
     }
