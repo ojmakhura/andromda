@@ -6,7 +6,6 @@
 #set ($generatedFile = "$stringUtils.replace($customTypesPackage, '.', '/')/${className}.java")
 package $customTypesPackage;
 
-import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -24,7 +23,7 @@ public class $className
         }
         catch (HibernateException ex)
         {
-            throw new EJBException(ex);
+            throw new RuntimeException(ex);
         }
     }
 

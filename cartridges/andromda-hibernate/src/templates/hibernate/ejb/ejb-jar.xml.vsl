@@ -20,13 +20,13 @@
             </description>
             <ejb-name>$service.name</ejb-name>
 #if ($ejbRemoteView)
-            <remote-home>${service.fullyQualifiedEjbName}Home</remote-home>
-            <remote>$service.fullyQualifiedEjbName</remote>
+            <remote-home>${service.fullyQualifiedName}Home</remote-home>
+            <remote>$service.fullyQualifiedName</remote>
 #else
-            <local-home>${service.fullyQualifiedEjbName}Home</local-home>
-            <local>$service.fullyQualifiedEjbName</local>
+            <local-home>${service.fullyQualifiedName}Home</local-home>
+            <local>$service.fullyQualifiedName</local>
 #end
-            <ejb-class>$service.fullyQualifiedEjbImplementationName</ejb-class>
+            <ejb-class>${service.fullyQualifiedName}BeanImpl</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
         </session>

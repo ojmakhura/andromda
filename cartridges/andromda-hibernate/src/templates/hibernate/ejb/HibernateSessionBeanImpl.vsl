@@ -1,3 +1,5 @@
+#parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
+#if ($ejbsEnabled)
 package $service.packageName;
 
 /**
@@ -7,9 +9,6 @@ public class ${service.name}BeanImpl
     extends ${service.name}Bean
     implements javax.ejb.SessionBean
 {
-    // concrete business methods that were declared
-    // abstract in class ${service.name}Bean ...
-
 #foreach ( $operation in $service.operations)
 ##
 ##  Add one additional parameter to the list of parameters:
@@ -30,36 +29,14 @@ public class ${service.name}BeanImpl
     protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
     {
 #end
-        // TODO: put your implementation here.
+        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
-        // Dummy return value, just that the file compiles
-#if (!$operation.returnType.primitive)
-        return null;
-#elseif ("boolean" == $returnType)
-        return false;
+        return $operation.returnType.javaNullString;
 #else
-        return ($returnType)0;
+        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${operation.signature} Not implemented!");
 #end
-#end
     }
 
 #end
-    // ---------- the usual session bean stuff... ------------
-
-    public void setSessionContext(javax.ejb.SessionContext ctx)
-    {
-        super.setSessionContext (ctx);
-    }
-
-    public void ejbRemove()
-    {
-    }
-
-    public void ejbPassivate()
-    {
-    }
-
-    public void ejbActivate()
-    {
-    }
 }
+#end
