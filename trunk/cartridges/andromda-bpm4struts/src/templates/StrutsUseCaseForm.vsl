@@ -87,4 +87,53 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #end
 #end
     }
+
+#if ($fields.empty == false)
+#set ($separator = '')
+    public String toString()
+    {
+        final StringBuffer buffer = new StringBuffer('[');
+
+#foreach ($field in $fields)
+#if ($field.arrayType || $field.collectionType)
+        buffer.append("${separator}${field.name}=" + toString(this.${field.getterName}()));
+#else
+        buffer.append("${separator}${field.name}=" + String.valueOf(this.${field.getterName}()));
+#end
+#set ($separator = ',')
+#if ($field.hasBackingList())
+        buffer.append("${separator}${field.backingListName}=" + toString(this.get${backingListMethod}()));
+#end
+#end
+
+        return buffer.append(']').toString();
+    }
+#end
+
+    private final static String toString(java.util.Collection objects)
+    {
+        return (objects==null) ? null : toString(objects.toArray());
+    }
+
+    private final static String toString(Object[] objects)
+    {
+        if (objects == null)
+        {
+            return null;
+        }
+        else
+        {
+            final StringBuffer buffer = new StringBuffer('[');
+            String prefix = "";
+            for (int i=0; i<objects.length; i++)
+            {
+                buffer.append(prefix);
+                buffer.append(objects[i]);
+                prefix = ",";
+            }
+            return buffer.append(']').toString();
+        }
+    }
+
+
 }
