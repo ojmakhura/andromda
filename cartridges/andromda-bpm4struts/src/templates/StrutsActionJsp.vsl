@@ -56,8 +56,10 @@
 
 #foreach ($field in $actionParameters)
 #if ($field.widgetType != "hidden")
-            <p><bean:message key="${messageKey}.$field.messageKey"/></p>
+            <p>
+                <bean:message key="${messageKey}.$field.messageKey"/> &nbsp;&nbsp;
 #renderFormField($action $field "                ")
+            </p>
 #end
 #end
             <p class="spacer"/>
