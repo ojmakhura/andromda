@@ -14,6 +14,7 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="displaytag-all.tld" prefix="display" %>
 
 <tiles:insert definition="main.layout">
 
@@ -63,6 +64,7 @@
             <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
         </logic:present>
 #end
+
 #end
 
         <%--
@@ -88,6 +90,25 @@
 #foreach ($action in $actions)
         <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
 
+#end
+#foreach ($variable in $class.pageVariables)
+#if ($variable.table)
+#set ($sortable = $variable.tableSortable)
+#set ($exportable = $variable.tableExportable)
+        <display:table name="requestScope.${formBeanName}.${variable.name}"
+                       requestURI="<%=request.getRequestURL().toString()%>" 
+                       export="$exportable" pagesize="$variable.tableMaxRows">
+#if (!$variable.tableColumnNames.empty)
+#foreach ($columnName in $variable.tableColumnNames)
+            <display:column
+                property="$columnName" title="$str.toPhrase($columnName)"
+                sortable="$sortable" autolink="true" nulls="false"
+                paramId="$columnName" />
+#end
+#end
+        </display:table>
+
+#end
 #end
         <blockquote>
             <bean:message key="$class.documentationKey"/>
