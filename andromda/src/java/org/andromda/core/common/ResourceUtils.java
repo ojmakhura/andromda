@@ -48,7 +48,7 @@ public class ResourceUtils
     /**
      * Loads the resource and returns the contents as a String.
      * 
-     * @param resourceName the name of the resource.
+     * @param resource the name of the resource.
      * @return String
      */
     public static String getContents(URL resource)
@@ -69,7 +69,7 @@ public class ResourceUtils
     /**
      * Loads the resource and returns the contents as a String.
      * 
-     * @param resourceName the name of the resource.
+     * @param resource the name of the resource.
      * @return String
      */
     public static String getContents(Reader resource)
