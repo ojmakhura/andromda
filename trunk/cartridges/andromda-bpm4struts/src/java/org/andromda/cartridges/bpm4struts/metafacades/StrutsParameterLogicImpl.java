@@ -430,6 +430,26 @@ public class StrutsParameterLogicImpl
         return (action == null) ? false : action.getActionParameters().contains(this);
     }
 
+    protected String handleGetCollectionImplementationType()
+    {
+        String typeName = null;
+
+        ClassifierFacade type = getType();
+        if (type.isCollectionType() || type.isListType())
+        {
+            typeName = "java.util.ArrayList";
+        }
+        else if (type.isSetType())
+        {
+            typeName = "java.util.HashSet";
+        }
+        else
+        {
+            typeName = type.getFullyQualifiedName();
+        }
+        return typeName;
+    }
+
     protected boolean handleIsTable()
     {
         boolean isTable = this.getType() != null;
