@@ -30,7 +30,7 @@ public class ${class.name}LogicImpl
 #set ($returnTypeName = $att.type.fullyQualifiedName)
 
    /**
-	* @see ${att.type.fullyQualifiedName}#${att.getterName}()
+    * @see ${att.type.fullyQualifiedName}#${att.getterName}()
     */
     public $returnTypeName ${att.getterName}() {
         // TODO: put your implementation here.
@@ -61,15 +61,15 @@ public class ${class.name}LogicImpl
 #set ($msig = $op.signature)
 #set ($returnTypeName = $op.type.fullyQualifiedName)
 #if ($defaultException)
-	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
-	 */
+    /**
+     * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
+     */
     $op.visibility $returnTypeName ${msig}
         throws $defaultException.name {
 #else
-	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
-	 */
+    /**
+     * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
+     */
     $op.visibility $returnTypeName ${msig} {
 #end
         // TODO: put your implementation here.
@@ -104,9 +104,9 @@ public class ${class.name}LogicImpl
 #else
 #set ($returnTypeName = "java.lang.Object")
 #end
-	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
-	 */
+    /**
+     * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
+     */
     public $returnTypeName handleGet${utrn}()
     {
         // TODO: add your implementation here!
