@@ -111,22 +111,16 @@ public abstract class $service.testName
 	 * @see ${service.fullyQualifiedName}#${operation.signature}
      */ 
 	public void $operation.testSignature
+	    throws java.lang.Exception
 	{
-		try 
-		{
-			${operation.testImplementationCall};
-		} 
-		catch (Throwable th) 
-		{
-			TestCase.fail(th.toString());
-		}
+        ${operation.testImplementationCall};
 	}
 	
 	/**
 	 * Provides the actual test implementation for {@link #${operation.signature}}
 	 */ 
 	protected abstract void ${operation.testImplementationSignature}
-	    throws Exception;
+	    throws java.lang.Exception;
 	
 #end
 }
