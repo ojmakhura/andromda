@@ -51,7 +51,13 @@ public class Schema2XMI
     /**
      * The command line argument to specify the transformed output file.
      */
-    private static final String OUTPUT = "ol";
+    private static final String OUTPUT_NAME = "on";
+    
+    /**
+     * The command line argument specifying the URI to the 
+     * type mappings file.
+     */
+    private static final String TYPE_MAPPINGS_URI = "tmu";
     
     /**
      * The command line argument specifying the package to which 
@@ -64,7 +70,7 @@ public class Schema2XMI
      * match on
      */
     private static final String TABLE_NAME_PATTERN = "tnp";
-
+    
     /**
      * Configure the CLI options.
      */
@@ -104,19 +110,23 @@ public class Schema2XMI
         option = new Option(PASSWORD, true, "JDBC schema user password");
         option.setLongOpt("password");
         options.addOption(option);  
-        
-        option = new Option(PACKAGE, false, "The package to output classifiers");
-        option.setLongOpt("package");
-        options.addOption(option);  
+                
+        option = new Option(TYPE_MAPPINGS_URI, true, "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
+        option.setLongOpt("typeMappingsUri");
+        options.addOption(option); 
         
         option = new Option(TABLE_NAME_PATTERN, false, "The table name pattern of tables to process");
         option.setLongOpt("tableNamePattern");
         options.addOption(option); 
+        
+        option = new Option(PACKAGE, false, "The package to output classifiers");
+        option.setLongOpt("package");
+        options.addOption(option); 
 
         option = new Option(
-            OUTPUT,
+            OUTPUT_NAME,
             true,
-            "Set output location to which the result of the transformation will be written");
+            "Set output name to which the result of the transformation will be written");
         option.setLongOpt("output");
         options.addOption(option);
     }
@@ -163,12 +173,12 @@ public class Schema2XMI
         {
             CommandLine commandLine = schema2Xmi.parseCommands(args);
             if (commandLine.hasOption(HELP) || !commandLine.hasOption(INPUT)
-                || !commandLine.hasOption(OUTPUT))
+                || !commandLine.hasOption(OUTPUT_NAME))
             {
                 Schema2XMI.displayHelp();
             }
             else if (commandLine.hasOption(INPUT)
-                && (commandLine.hasOption(OUTPUT)))
+                && (commandLine.hasOption(OUTPUT_NAME)))
             {
                 String inputModel = commandLine.getOptionValue(INPUT);
                 SchemaTransformer transformer = 
@@ -177,7 +187,13 @@ public class Schema2XMI
                         commandLine.getOptionValue(CONNECTION_URL),
                         commandLine.getOptionValue(USER),
                         commandLine.getOptionValue(PASSWORD));
-                String outputLocation = commandLine.getOptionValue(OUTPUT);
+                
+                // set the extra options
+                transformer.setTypeMappings(commandLine.getOptionValue(TYPE_MAPPINGS_URI));
+                transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
+                transformer.setTableNamePattern(commandLine.getOptionValue(TABLE_NAME_PATTERN));
+                
+                String outputLocation = commandLine.getOptionValue(OUTPUT_NAME);
                 transformer.transform(inputModel, outputLocation);
             }
         }

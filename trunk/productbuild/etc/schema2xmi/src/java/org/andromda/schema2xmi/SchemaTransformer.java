@@ -12,10 +12,13 @@ import java.util.Collection;
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.mapping.Mappings;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
+import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
@@ -71,7 +74,12 @@ public class SchemaTransformer
      * what table names to add to the transformed XMI.
      */
     private String tableNamePattern = null;
-
+    
+    /**
+     * Stores the schema types to model type mappings.
+     */
+    private Mappings typeMappings = null;
+    
     /**
      * Constructs a new instance of this SchemaTransformer.
      */
@@ -150,6 +158,24 @@ public class SchemaTransformer
             repository.close();
         }
     }
+    
+    /**
+     * Sets the <code>mappingsUri</code> which is the URI
+     * to the sql types to model type mappings.
+     * 
+     * @param typeMappings The typeMappings to set.
+     */
+    public void setTypeMappings(String typeMappingsUri) 
+    {
+        try 
+        {
+            this.typeMappings = Mappings.getInstance(typeMappingsUri);
+        }
+        catch (Throwable th)
+        {
+            throw new SchemaTransformerException(th);
+        }
+    }
 
     /**
      * Sets the name of the package to which the model elements will be created.
@@ -171,6 +197,11 @@ public class SchemaTransformer
     {
         this.tableNamePattern = tableNamePattern;
     }
+    
+    /**
+     * The model thats currently being processed
+     */
+    private Model model;
 
     /**
      * Performs the actual translation of the Schema to the XMI and returns the
@@ -184,9 +215,9 @@ public class SchemaTransformer
         ModelManagementPackage modelManagementPackage = umlPackage
             .getModelManagement();
 
-        // A given XMI file can contain multiptle models.
+        // A given XMI file can contain multiple models.
         // Use the first model in the XMI file
-        Model model = (Model)(modelManagementPackage.getModel().refAllOfType()
+        this.model = (Model)(modelManagementPackage.getModel().refAllOfType()
             .iterator().next());
 
         // create the package on the model
@@ -331,15 +362,29 @@ public class SchemaTransformer
         {
             String columnName = columnRs.getString("COLUMN_NAME");
             int nullableVal = columnRs.getInt("NULLABLE");
+            
+            // first we try to find a mapping that mappings to the
+            // database proprietary type
+            String type = this.typeMappings.getTo(
+                columnRs.getString("TYPE_NAME"));
+            Classifier typeClass = (Classifier)ModelElementFinder.find(this.model, type);
+            if (typeClass == null)
+            {
+                // next we see if we can find a type matching a mapping
+                // for a JDBC type
+                type = this.typeMappings.getTo(
+                    JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE")));
+                typeClass = (Classifier)ModelElementFinder.find(this.model, type);
+            }
+            
             boolean required = false;
             // set whether or not the column is required
             if (nullableVal == DatabaseMetaData.attributeNoNulls)
             {
                 required = true;
-            }
-            
+            }   
             String attributeName = this.toAttributeName(columnName);
-            attributes.add(
+            Attribute attribute = 
                 corePackage.getAttribute().createAttribute(
                     attributeName,
                     VisibilityKindEnum.VK_PUBLIC,
@@ -351,8 +396,9 @@ public class SchemaTransformer
                     ChangeableKindEnum.CK_CHANGEABLE,
                     ScopeKindEnum.SK_CLASSIFIER,
                     OrderingKindEnum.OK_UNORDERED,
-                    null));
-            
+                    null);
+            attribute.setType(typeClass);
+            attributes.add(attribute);
             if (logger.isInfoEnabled())
                 logger.info("created attribute --> '" + attributeName + "'");
         }
@@ -372,17 +418,35 @@ public class SchemaTransformer
         DataTypesPackage dataTypes, 
         boolean required)
     { 
-        Multiplicity mult = 
-            dataTypes.getMultiplicity().createMultiplicity();
-        MultiplicityRange range = null;
+        Multiplicity mult = null;
         if (required)
         {
-            range = dataTypes.getMultiplicityRange().createMultiplicityRange(1,1);
+            mult = this.createMultiplicity(dataTypes, 1, 1);
         }
         else 
         {
-            range = dataTypes.getMultiplicityRange().createMultiplicityRange(0,1);
-        }
+            mult = this.createMultiplicity(dataTypes, 0, 1);
+        }  
+        return mult;
+    }
+    
+    /**
+     * Creates a multiplicity, from <code>lower</code> and 
+     * <code>upper</code> ranges.
+     * @param dataTypePa used to create the Multiplicity
+     * @param required whether or not the attribute is required therefore
+     *        determining the multiplicity value created.
+     * @return the new Multiplicity
+     */
+    protected Multiplicity createMultiplicity(
+        DataTypesPackage dataTypes, 
+        int upper,
+        int lower)
+    { 
+        Multiplicity mult = 
+            dataTypes.getMultiplicity().createMultiplicity();
+        MultiplicityRange range = 
+            dataTypes.getMultiplicityRange().createMultiplicityRange(lower,upper);
         mult.getRange().add(range);    
         return mult;
     }
