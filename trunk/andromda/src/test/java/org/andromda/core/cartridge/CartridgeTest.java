@@ -12,7 +12,8 @@ import org.andromda.core.common.XmlObjectFactory;
  * Implements the JUnit test suit for 
  * <code>org.andromda.core.cartridge.Cartridge</code>
  * 
- * @see org.andromda.core.cartridge.CartridgeTest
+ * @see org.andromda.core.cartridge.Cartridge
+ * 
  * @since 01.04.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
