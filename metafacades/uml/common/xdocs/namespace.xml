@@ -81,7 +81,7 @@
                         was '<em>_</em>'.
                     </td>
                     <td>
-                        N/A
+                        Configures any constructed SQL name.
                     </td>
                     <td>
                         No, default is <code>'_'</code>.
@@ -285,7 +285,7 @@
                         The separator used for constructing a relation name between two associations.
                     </td>
                     <td>
-                        EntityAssociationEnd
+                        EntityAssociationFacade
                     </td>
                     <td>
                         No, the default is <code>2</code>.
