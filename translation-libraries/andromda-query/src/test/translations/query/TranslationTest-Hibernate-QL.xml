@@ -31,7 +31,7 @@
             where lower(p.projectName) like :name and lower(p.projectNumber) like :number
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context org::andromda::translation::query::Project::findByProjectTypeStatusAfterWentCurrentDate(
@@ -121,31 +121,31 @@
             where legalAgreement.legalAgreementPk in (:legalAgreementPks)
         </to>
     </expression>
-        
+
     <expression>
         <from>
             <![CDATA[
-            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate) 
-            body findInvalidByPerson : 
-                allInstances() -> select( certificate | 
-                   certificate.person.id = personId 
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate)
+            body findInvalidByPerson :
+                allInstances() -> select( certificate |
+                   certificate.person.id = personId
                    and (certificate.validityStart > date or certificate.validityEnd < date)
-                   or (certificate.validityStart = certificate.validityEnd)) 
+                   or (certificate.validityStart = certificate.validityEnd))
                    -> sortedBy(certificate.person.id)
-                   -> sortedBy(certificate.validityStart) 
+                   -> sortedBy(certificate.validityStart)
             ]]>
         </from>
         <to>
             <![CDATA[
-            from org.andromda.translation.query.MedicalCertificate as certificate 
-            where certificate.person.id = :personId 
-            and (certificate.validityStart > :date or certificate.validityEnd < :date)  
-            or (certificate.validityStart = certificate.validityEnd) 
-            order by certificate.person.id, certificate.validityStart       
-            ]]>          
-        </to> 
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where certificate.person.id = :personId
+            and (certificate.validityStart > :date or certificate.validityEnd < :date)
+            or (certificate.validityStart = certificate.validityEnd)
+            order by certificate.person.id, certificate.validityStart
+            ]]>
+        </to>
     </expression>
-    
+
     <expression>
         <from>
             context org::andromda::translation::query::LegalAgreement::findAll():Collection(LegalAgreement)
@@ -155,123 +155,149 @@
             from org.andromda.translation.query.LegalAgreement as legalAgreement order by documentTitle, expiredDate
         </to>
     </expression>
-    
+
     <expression>
         <from>
             <![CDATA[
-            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate) 
-            body findInvalidByPerson : 
-                allInstances() -> select( certificate | 
-                   certificate.person.id = personId 
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate)
+            body findInvalidByPerson :
+                allInstances() -> select( certificate |
+                   certificate.person.id = personId
                    and (certificate.validityStart > date or certificate.validityEnd < date)
                    and certificate.notes -> size() >= 1)
             ]]>
         </from>
         <to>
             <![CDATA[
-            from org.andromda.translation.query.MedicalCertificate as certificate 
-            where certificate.person.id = :personId 
-            and (certificate.validityStart > :date or certificate.validityEnd < :date)  
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where certificate.person.id = :personId
+            and (certificate.validityStart > :date or certificate.validityEnd < :date)
             and size(certificate.notes) >= 1
-            ]]>          
-        </to> 
+            ]]>
+        </to>
     </expression>
 
     <expression>
         <from>
             <![CDATA[
-            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate) 
-            body : 
-                allInstances() -> select( certificate | 
+            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate |
                    certificate.code.toLower() = code )
             ]]>
         </from>
         <to>
             <![CDATA[
-            from org.andromda.translation.query.MedicalCertificate as certificate 
+            from org.andromda.translation.query.MedicalCertificate as certificate
             where lower(certificate.code) = :code
-            ]]>          
-        </to> 
+            ]]>
+        </to>
     </expression>
-    
+
      <expression>
         <from>
             <![CDATA[
-            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate) 
-            body : 
-                allInstances() -> select( certificate | 
-                   certificate.code.toUpper() = code 
+            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate |
+                   certificate.code.toUpper() = code
                    and certificate.code.size() > 0 )
             ]]>
         </from>
         <to>
             <![CDATA[
-            from org.andromda.translation.query.MedicalCertificate as certificate 
+            from org.andromda.translation.query.MedicalCertificate as certificate
             where upper(certificate.code) = :code
             and length(certificate.code) > 0
-            ]]>          
-        </to> 
+            ]]>
+        </to>
     </expression>
-    
+
      <expression>
         <from>
             <![CDATA[
-            context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate) 
-            body : 
-                allInstances() -> select( certificate | 
-                   code.concat(type) = certificate.code 
+            context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate |
+                   code.concat(type) = certificate.code
                    and certificate.code.substring(1,3) = 'test')
             ]]>
         </from>
         <to>
             <![CDATA[
-            from org.andromda.translation.query.MedicalCertificate as certificate 
+            from org.andromda.translation.query.MedicalCertificate as certificate
             where :code || :type = certificate.code
             and substr(certificate.code, 1, 3) = 'test'
-            ]]>          
-        </to> 
+            ]]>
+        </to>
     </expression>
-    
+
     <expression>
         <from>
             context PersonRoleContext::findByPersonNamespacesRolesAndContexts(
                 personId:String,
-                namespaces:Collection(String), 
+                namespaces:Collection(String),
                 roles:Collection(String),
-                contexts:Collection(String)):PersonRoleContext 
-            body : allInstances() -> select ( 
-                roleContext | 
-                roleContext.personRole.person.id = personId 
-                and namespaces -> includes(roleContext.contextRole.ctx.namespace.name) 
-                and roles -> includes(roleContext.personRole.role.name) 
+                contexts:Collection(String)):PersonRoleContext
+            body : allInstances() -> select (
+                roleContext |
+                roleContext.personRole.person.id = personId
+                and namespaces -> includes(roleContext.contextRole.ctx.namespace.name)
+                and roles -> includes(roleContext.personRole.role.name)
                 and (roleContext.personRole.role.allContexts = true or contexts -> includes(roleContext.contextRole.ctx.identifier)))
         </from>
         <to>
-            from org.andromda.translation.query.PersonRoleContext as roleContext 
-            where roleContext.personRole.person.id = :personId 
-            and roleContext.contextRole.ctx.namespace.name in (:namespaces) 
-            and roleContext.personRole.role.name in (:roles) 
-            and (roleContext.personRole.role.allContexts = true 
+            from org.andromda.translation.query.PersonRoleContext as roleContext
+            where roleContext.personRole.person.id = :personId
+            and roleContext.contextRole.ctx.namespace.name in (:namespaces)
+            and roleContext.personRole.role.name in (:roles)
+            and (roleContext.personRole.role.allContexts = true
             or roleContext.contextRole.ctx.identifier in (:contexts))
         </to>
     </expression>
-    
+
+    <expression>
+        <from>
+            context PersonRole::findByPersonNamespacesRolesAndContexts(
+                personId:String,
+                namespaces:Collection(String),
+                roles:Collection(String),
+                contexts:Collection(String)):Collection(PersonRole)
+            body : allInstances() -> select (
+                personRole |
+                personRole.person.id = personId and namespaces -> includes(personRole.role.namespace.name)
+                and roles -> includes(personRole.role.name)
+                and (personRole.allContexts = true
+                or personRole.roleContexts -> includesAll(
+                    personRole.roleContexts -> select(
+                        roleContext | contexts -> includes( roleContext.contextRole.ctx.identifier )))))
+        </from>
+        <to>
+            from org.andromda.translation.query.PersonRole as personRole join fetch personRole.roleContexts as roleContext
+            where personRole.person.id = :personId
+            and personRole.role.namespace.name in (:namespaces)
+            and personRole.role.name in (:roles)
+            and (personRole.allContexts = true
+            or roleContext.contextRole.ctx.identifier in (:contexts))
+        </to>
+    </expression>
+
     <!--
     <expression>
         <from>
             <![CDATA[
-            context MedicalCertificate::findBySmallestValidateStartDate():Collection(MedicalCertificate) 
-            body : 
+            context MedicalCertificate::findBySmallestValidateStartDate():Collection(MedicalCertificate)
+            body :
                 allInstances() -> select( certificate | certificate.validityStart -> iterate
-                    certificate.validityStart.min(certificate.validityStart)) 
+                    certificate.validityStart.min(certificate.validityStart))
             ]]>
         </from>
         <to>
             <![CDATA[
-            from org.andromda.translation.query.MedicalCertificate as certificate 
-            where min(certificate.validityStart)      
-            ]]>          
-        </to> 
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where min(certificate.validityStart)
+            ]]>
+        </to>
     </expression>
     -->
 
