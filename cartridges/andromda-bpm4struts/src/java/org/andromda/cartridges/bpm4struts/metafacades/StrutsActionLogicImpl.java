@@ -1,11 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
@@ -378,6 +373,88 @@ public class StrutsActionLogicImpl
     {
         final StrutsTrigger trigger = getActionTrigger();
         return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
+    }
+
+    protected Collection handleGetNonTabbedActionParameters()
+    {
+        Collection nonTabbedParameters = new LinkedList();
+        Collection actionParameters = getActionParameters();
+
+        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            if (parameter.getTabIndex() < 0)
+            {
+                nonTabbedParameters.add(parameter);
+            }
+        }
+
+        return nonTabbedParameters;
+    }
+
+    public boolean handleIsTabbed()
+    {
+        Collection actionParameters = getActionParameters();
+        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            if (parameter.getTabIndex() >= 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int handleGetTabCount()
+    {
+        return (isTabbed()) ? getTabMap().keySet().size() : 0;
+    }
+
+    public String handleGetTabName(int tabIndex)
+    {
+        return String.valueOf(tabIndex + 1);
+    }
+
+    public int handleGetTabIndex()
+    {
+        final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABINDEX));
+
+        try
+        {
+            return (tabIndex==null) ? -1 : Integer.parseInt(tabIndex);
+        }
+        catch (NumberFormatException e)
+        {
+            return -1;
+        }
+    }
+
+    public Map handleGetTabMap()
+    {
+        Map tabMap = new LinkedHashMap();
+        Collection actionParameters = getActionParameters();
+
+        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            int tabIndex = parameter.getTabIndex();
+
+            if (tabIndex >= 0)
+            {
+                String tabKey = String.valueOf(tabIndex);
+                Collection tabFields = (Collection)tabMap.get(tabKey);
+
+                if (tabFields == null)
+                {
+                    tabFields = new LinkedList();
+                    tabMap.put(tabKey, tabFields);
+                }
+
+                tabFields.add(parameter);
+            }
+        }
+        return tabMap;
     }
 
     private void collectFields(Collection fields, Map fieldMap)

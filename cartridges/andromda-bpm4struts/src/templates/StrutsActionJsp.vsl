@@ -5,7 +5,7 @@
 #set ($action = $class)
 #if (!$action.isUseCaseStart())## we don't generate tiles for events that do not have an input page
 ##
-#set ($useCase = $class.input.useCase)
+#set ($useCase = $action.input.useCase)
 #set ($formBeanName = $useCase.formBeanName)
 #set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
 #set ($isFocusSet = false)## only one field per JSP page can have focus
@@ -26,7 +26,7 @@
 #if ($action.isHyperlink())
 #renderHyperlink($action "        ")
 #elseif ($action.isFormPost())
-#set ($actionParameters = $action.actionParameters)
+#set ($nonTabbedActionParameters = $action.nonTabbedActionParameters)
 #if ($action.requiresValidation())
 #set ($onsubmit = "this.name='$action.formBeanName'; return ${action.formValidationMethodName}(this);")
 #else
@@ -34,14 +34,56 @@
 #end
         <html:form action="${action.actionPath}" onsubmit="$onsubmit">
 
-#foreach ($field in $actionParameters)
+#if ($action.tabbed)
+#set ($tabMap = $action.tabMap)
+        <div class="tabs">
+#foreach ($tab in $tabMap.keySet())
+            <div id="fieldtab.${tab}" class="tab">
+                <div class="tab-header">
+#foreach ($tabTitle in $tabMap.keySet())
+#if ($tab == $tabTitle)
+                    <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
+#else
+                    <div class="unselected-tab"><a href="javascript:selectFieldTab(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
+#end
+#end
+                </div>
+                <div class="tab-body">
+                    <table>
+                        <tbody>
+#foreach ($tabField in $tabMap.get($tab))
+#if ($tabField.widgetType == "hidden")
+#renderFormField($action $tabField "            ")
+#else
+                            <tr>
+                                <td>
+                                    <bean:message key="${messageKey}.$tabField.messageKey"/>
+                                </td>
+                                <td>
+#renderFormField($action $tabField "                                    ")
+                                </td>
+                            </tr>
+#end
+#end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+#end
+        </div>
+#end
+##
+## process non-tabbed fields and buttons here
+##
+
+#foreach ($field in $nonTabbedActionParameters)
 #if ($field.widgetType == "hidden")
 #renderFormField($action $field "            ")
 #end
 #end
             <table>
                 <tbody>
-#foreach ($field in $actionParameters)
+#foreach ($field in $nonTabbedActionParameters)
 #if ($field.widgetType != "hidden")
                     <tr>
                         <td>
@@ -55,7 +97,7 @@
 #end
                     <tr>
                         <td>
-#renderFormButtons($action "                            ")
+#renderFormButtons($action "                           ")
                         </td>
                     </tr>
                 </tbody>
@@ -66,6 +108,28 @@
     <div class="triggerdoc">
         <bean:message key="$action.documentationKey"/>
     </div>
+
+#if ($action.tabbed)
+        <script type="text/javascript">
+        //<![CDATA[
+            var fieldTab = new Array($action.tabCount);
+#set ($tabMap = $action.tabMap)
+#foreach ($tab in $tabMap.keySet())
+#set ($tabIndex = $velocityCount - 1)
+            fieldTab[$tabIndex] = getDiv('fieldtab.$tab');
+#end
+
+            function selectFieldTab(tabIndex)
+            {
+                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=fieldTab.length) return;
+                for (var i=0; i<fieldTab.length; i++) fieldTab[i].style.display = 'none';
+                fieldTab[tabIndex].style.display = 'block';
+            }
+            this.selectFieldTab(0);
+        //]]>
+        </script>
+#end
+
 </div>
 
 <br class="clr"/>
