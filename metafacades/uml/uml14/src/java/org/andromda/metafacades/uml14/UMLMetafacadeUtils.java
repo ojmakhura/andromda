@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -33,6 +32,7 @@ import org.omg.uml.foundation.core.TaggedValue;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
+import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
 
 /**
@@ -48,73 +48,59 @@ public class UMLMetafacadeUtils
      * <code>fullyQualifiedName</code>. If the model element can <strong>NOT
      * </strong> be found, <code>null</code> will be returned instead.
      * 
-     * @param fullyQualifieName the fully qualified name of the element to
+     * @param fullyQualifiedName the fully qualified name of the element to
      *        search for.
      * @param seperator the seperator used for qualifying the name (example
      *        '::').
      * @return the found model element
      */
     static Object findByFullyQualifiedName(
-        String fullyQualifiedName,
-        String seperator)
+        final String fullyQualifiedName,
+        final String seperator)
     {
-        final String methodName = "UMLMetafacadeUtils.findModelElement";
         Object modelElement = null;
-        Collection rootPackages = UMLMetafacadeUtils.getModel()
-            .getModelManagement().getModel().refAllOfType();
-        Iterator packageIt = rootPackages.iterator();
-        while (packageIt.hasNext())
+        Collection elements = ((org.omg.uml.UmlPackage)MetafacadeFactory
+            .getInstance().getModel().getModel()).getCore().getModelElement()
+            .refAllOfType();
+        modelElement = CollectionUtils.find(elements, new Predicate()
         {
-            Object rootPackage = packageIt.next();
-            if (rootPackage != null)
+            public boolean evaluate(Object object)
             {
-                ExceptionUtils.checkAssignable(
-                    methodName,
-                    UmlPackage.class,
-                    "rootPackage",
-                    rootPackage.getClass());
-                if (rootPackage != null)
+                ModelElement element = (ModelElement)object;
+                StringBuffer fullName = new StringBuffer(getPackageName(
+                    element,
+                    seperator));
+                String name = element.getName();
+                if (StringUtils.isNotBlank(name))
                 {
-                    String[] names = fullyQualifiedName.split("\\" + seperator);
-                    if (names != null && names.length > 0)
-                    {
-                        Object element = rootPackage;
-                        for (int ctr = 0; ctr < names.length && element != null; ctr++)
-                        {
-                            String name = names[ctr];
-                            if (UmlPackage.class.isAssignableFrom(element
-                                .getClass()))
-                            {
-                                element = getElement(((UmlPackage)element)
-                                    .getOwnedElement(), name);
-                            }
-                            modelElement = element;
-                        }
-                    }
+                    fullName.append(seperator);
+                    fullName.append(name);
                 }
+                return fullName.toString().equals(fullyQualifiedName);
             }
-        }
+        });
         return modelElement;
     }
 
     /**
-     * Finds the model element having the <code>name</code> contained within
-     * the <code>elements</code>, returns null if it can't be found.
+     * Constructs the package name for the given <code>metaObject</code>,
+     * seperating the package name by the given <code>seperator</code>.
      * 
-     * @param elements the collection of model elements to search
-     * @param name the name of the model element.
-     * @return the found model element or null if not found.
+     * @param metaObject the Model Element
+     * @return
      */
-    private static Object getElement(Collection elements, final String name)
+    static String getPackageName(ModelElement metaObject, String seperator)
     {
-        return CollectionUtils.find(elements, new Predicate()
+        String packageName = "";
+        for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage)
+            && !(namespace instanceof Model); namespace = namespace
+            .getNamespace())
         {
-            public boolean evaluate(Object object)
-            {
-                return StringUtils
-                    .trimToEmpty(((ModelElement)object).getName()).equals(name);
-            }
-        });
+            packageName = packageName.equals("")
+                ? namespace.getName()
+                : namespace.getName() + seperator + packageName;
+        }
+        return packageName;
     }
 
     /**

@@ -165,9 +165,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsCollectionType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.COLLECTION_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -175,9 +173,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsListType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.LIST_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.LIST_TYPE_NAME);
     }
 
     /**
@@ -185,9 +181,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsSetType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.SET_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.SET_TYPE_NAME);
     }
 
     /**
@@ -195,9 +189,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsDateType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.DATE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.DATE_TYPE_NAME);
     }
 
     /**
@@ -205,9 +197,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsFileType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.FILE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.FILE_TYPE_NAME);
     }
 
     /**
@@ -215,19 +205,15 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsMapType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.MAP_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.MAP_TYPE_NAME);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isStringType()
      */
     protected boolean handleIsStringType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.STRING_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.STRING_TYPE_NAME);
     }
 
     /**
@@ -431,9 +417,7 @@ public class ClassifierFacadeLogicImpl
         String javaNullString = null;
         if (isPrimitive())
         {
-            if (UMLMetafacadeUtils.isType(
-                this,
-                UMLProfile.BOOLEAN_TYPE_NAME))
+            if (UMLMetafacadeUtils.isType(this, UMLProfile.BOOLEAN_TYPE_NAME))
             {
                 javaNullString = "false";
             }

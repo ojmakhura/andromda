@@ -57,19 +57,12 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName()
     {
-        String packageName = "";
-        for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage)
-            && !(namespace instanceof Model); namespace = namespace
-            .getNamespace())
-        {
-            packageName = "".equals(packageName)
-                ? namespace.getName()
-                : namespace.getName()
-                    + this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)
-                    + packageName;
-        }
-        return packageName;
+        return UMLMetafacadeUtils
+            .getPackageName(
+                this.metaObject,
+                String
+                    .valueOf(this
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
     }
 
     /**
@@ -132,14 +125,17 @@ public class ModelElementFacadeLogicImpl
                     for (Iterator valueIterator = taggedValue.getValues()
                         .iterator(); valueIterator.hasNext();)
                     {
-                        // only process tagged values when they actually have a non-empty value
+                        // only process tagged values when they actually have a
+                        // non-empty value
                         Object value = valueIterator.next();
                         if (value != null)
                         {
-                            // if an enumeration literal is referenced we assume its name
+                            // if an enumeration literal is referenced we assume
+                            // its name
                             if (value instanceof EnumerationLiteralFacade)
                             {
-                                values.add(((EnumerationLiteralFacade)value).getValue());
+                                values.add(((EnumerationLiteralFacade)value)
+                                    .getValue());
                             }
                             else if (value instanceof String)
                             {
