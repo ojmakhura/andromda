@@ -62,8 +62,7 @@ public class CartridgeTest
             // In order to find out which one was additionally generated
             // compare each generated file to the appropriate complement in the
             // expected directory. The testcase will report if the expected
-            // doesn't
-            // exist
+            // doesn't exist
             addTests(outputDir, suite);
         }
 

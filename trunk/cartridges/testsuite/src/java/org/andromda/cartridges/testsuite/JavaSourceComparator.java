@@ -30,8 +30,6 @@ public class JavaSourceComparator
 
     public void testAPIEquals()
     {
-        System.out.println("the expected file again!!!!!!!!: "
-            + this.getExpectedFile());
         assertTrue("expected file <" + getExpectedFile().getPath()
             + "> doesn't exist", getExpectedFile().exists());
         assertTrue("actual file <" + getActualFile().getPath()
@@ -46,7 +44,6 @@ public class JavaSourceComparator
 
     private void setExpectedFile(File expectedFile)
     {
-        System.out.println("setting expected file!!!!!!!!!!!: " + expectedFile);
         this.expectedFile = expectedFile;
     }
 
@@ -57,8 +54,6 @@ public class JavaSourceComparator
 
     private void setActualFile(File actualFile)
     {
-        System.out.println("setting the actual file!!!!!!!!!!!!!: "
-            + actualFile);
         this.actualFile = actualFile;
     }
 }
