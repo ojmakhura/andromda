@@ -25,6 +25,8 @@
 		<j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
 		<ant:path id="maven.andromda.classpath">	  		
 			<ant:property name="mavenDependencyClasspath" refid="maven.dependency.classpath"/>
+			<j:set var="mavenDependencyPath" value="${mavenDependencyClasspath}"/>
+			<j:set var="pluginDependencyPath" value="${plugin.dependencyClasspath}"/>
             <j:forEach var="artifact" items="${artifacts}">           	
             	<j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
             	<j:set var="artifactId" value="${pluginUtils.getArtifactId(artifact)}"/>
@@ -54,10 +56,10 @@
 							 in the plugin dependency classpath -->
 						<j:set 
 							var="pluginDependencyPath" 
-							value="${pluginUtils.removeFromPath(plugin.dependencyClasspath, artifactLocation)}"/>
+							value="${pluginUtils.removeFromPath(pluginDependencyPath, artifactLocation)}"/>
 						<j:set 
 							var="mavenDependencyPath" 
-							value="${pluginUtils.removeFromPath(mavenDependencyClasspath, artifactLocation)}"/>
+							value="${pluginUtils.removeFromPath(mavenDependencyPath, artifactLocation)}"/>
 					</j:when>
 					<j:otherwise>
 						<ant:pathelement location="${artifactLocation}"/>
