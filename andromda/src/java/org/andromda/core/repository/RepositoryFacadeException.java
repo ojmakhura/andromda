@@ -1,16 +1,15 @@
 package org.andromda.core.repository;
 
-
 /**
  * An exception thrown whenever an error is encountered while performing
  * processing RepositoryFacade processing.
  * 
  * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
+ * @author Chad Brandon
  */
 public final class RepositoryFacadeException
     extends RuntimeException
 {
-
     /**
      * Constructor for the MetaDataReadException object
      */
@@ -40,8 +39,7 @@ public final class RepositoryFacadeException
         String message,
         Throwable cause)
     {
-        super(message + ": " + cause.getMessage());
-        getRootCause(cause);
+        super(message, getRootCause(cause));
     }
 
     private static Throwable getRootCause(Throwable th)
