@@ -383,8 +383,8 @@ public class ModelProcessor
      * the location of this logging file with this operation.
      * </p>
      * 
-     * @param validating true/false on whether we should validate XML resources
-     *        used by AndroMDA
+     * @param loggingConfigurationUri the URI to the external logging
+     *        configuation file.
      */
     public void setLoggingConfigurationUri(String loggingConfigurationUri)
     {
