@@ -13,8 +13,7 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 /**
  * Metaclass facade implementation.
  */
-public class AttributeFacadeLogicImpl
-    extends AttributeFacadeLogic
+public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
     implements org.andromda.metafacades.uml.AttributeFacade
 {
     // ---------------- constructor -------------------------------
@@ -26,18 +25,28 @@ public class AttributeFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getGetterName()
+     */
     public java.lang.String handleGetGetterName()
     {
         String datatype = getType().getFullyQualifiedName(true);
-        String prefix = ("datatype.boolean".equals(datatype) || "datatype.Boolean".equals(datatype)) ? "is" : "get";
+        String prefix = ("datatype.boolean".equalsIgnoreCase(datatype) 
+        		|| "datatype.Boolean".equals(datatype)) ? "is" : "get";
         return prefix + StringUtils.capitalize(metaObject.getName());
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getSetterName()
+     */
     public java.lang.String handleGetSetterName()
     {
         return "set" + StringUtils.capitalize(metaObject.getName());
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
+     */
     public String handleGetDefaultValue()
     {
         String defaultValue = null;
@@ -48,16 +57,17 @@ public class AttributeFacadeLogicImpl
         return defaultValue;
     }
 
-    public boolean handleIsFrozen()
-    {
-        return ChangeableKindEnum.CK_FROZEN.equals(metaObject.getChangeability());
-    }
-
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isChangeable()
+     */
     public boolean handleIsChangeable()
     {
         return ChangeableKindEnum.CK_CHANGEABLE.equals(metaObject.getChangeability());
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isAddOnly()
+     */
     public boolean handleIsAddOnly()
     {
         return ChangeableKindEnum.CK_ADD_ONLY.equals(metaObject.getChangeability());

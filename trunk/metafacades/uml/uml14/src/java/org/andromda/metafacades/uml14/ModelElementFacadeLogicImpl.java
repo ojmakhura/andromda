@@ -325,28 +325,6 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetName()
     {
-/*
-        String name = null;
-        try
-        {
-            Object maxFileNameLengthObject = this.getConfiguredProperty("maxFileNameLength");
-            int maxFileNameLength = Integer.parseInt(String.valueOf(maxFileNameLengthObject));
-            if (maxFileNameLength > 0)
-            {
-                name = StringUtilsHelper.crunch(metaObject.getName(), maxFileNameLength);
-                name = MetafacadeUtils.createUniqueName(name);
-            }
-            else
-            {
-                name = metaObject.getName();
-            }
-        }
-        catch (Exception e)
-        {
-            name = metaObject.getName();
-        }
-        return name;
-*/
         return metaObject.getName();
     }
 
