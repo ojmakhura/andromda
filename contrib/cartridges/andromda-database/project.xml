@@ -17,6 +17,12 @@
         </developer>
     </developers>
     <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${andromda.version}</version>
+            <type>xml.zip</type>
+        </dependency>
 		<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>maven-andromda-plugin</artifactId>
@@ -61,6 +67,14 @@
             <artifactId>commons-lang</artifactId>
             <version>2.0</version>
         </dependency>  
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
+            <properties/>
+        </dependency>
     </dependencies> 
     <build>
         <sourceDirectory>src/java</sourceDirectory>
