@@ -8,9 +8,6 @@
     <ejb>@application.id@-hibernate-ejb-server-@application.version@.jar</ejb>
   </module>
   <module>
-    <connector>@application.id@-hibernate-sar-@application.version@.sar</connector>
-  </module>
-  <module>
     <connector>@application.id@-hibernate-db-@application.version@.sar</connector>
   </module>
 #else

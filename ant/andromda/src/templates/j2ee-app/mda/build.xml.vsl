@@ -66,10 +66,15 @@
             <namespace name="hibernate" ignore="true">
 #end
                 <property name="hibernateTypeMappingsUri" value="Hibernate"/>
+                <property name="dataSource" value="${datasource.jndi}"/>
+			    <property name="hibernateDialect" value="${hibernate.db.dialect}"/>
+			    <property name="hibernateShowSql" value="true"/>
+			    <property name="hibernateJdbcBatchSize" value="0"/>
                 <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
                 <property name="entity-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
                 <property name="session-beans" value="${app.root.dir}/hibernate/ejb/target/src"/>
                 <property name="session-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
+                <property name="configuration" value="${app.root.dir}/hibernate/ejb/target/conf"/>
             </namespace>
 #if ($persistenceType == 'hibernate')
             <namespace name="ejb" ignore="true">

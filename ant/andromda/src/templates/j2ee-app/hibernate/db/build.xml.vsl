@@ -28,7 +28,7 @@
     </path>
 
     <filter token="datasource.jndi" value="${datasource.jndi}"/>
-    <filter token="datasource.dialect" value="${datasource.hibernate.dialect}"/>
+    <filter token="datasource.dialect" value="${hibernate.db.dialect}"/>
 
     <target name="clean">
         <delete dir="${basedir}/target"/>
