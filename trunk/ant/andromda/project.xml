@@ -48,6 +48,15 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.0</version>
+            <properties>
+                <jar.bundle>true</jar.bundle>
+                <jar.manifest.classpath>true</jar.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
             <groupId>logkit</groupId>
             <artifactId>logkit</artifactId>
             <version>1.0.1</version>
@@ -56,19 +65,19 @@
                 <jar.manifest.classpath>true</jar.manifest.classpath>
             </properties>
         </dependency>
-    	<dependency>
-      		<groupId>commons-jelly</groupId>
-      		<artifactId>commons-jelly-tags-velocity</artifactId>
-      		<version>20030303.205659</version>
-    	</dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-velocity</artifactId>
+            <version>20030303.205659</version>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>src</directory>
+                <directory>target/resources</directory>
                 <includes>
-                    <include>templates/**/*</include>
+                    <include>*.zip</include>
                 </includes>
             </resource>
         </resources>
