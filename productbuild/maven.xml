@@ -179,6 +179,7 @@
 			<ant:copy todir="${toDir}">
 				<ant:fileset dir="${fromDir}">
 					<ant:include name="*.txt"/>
+					<ant:include name="*.xml"/>
 				</ant:fileset>				
 			</ant:copy>
 		</j:forEach>  
@@ -190,8 +191,6 @@
 		<j:file name="${toDir}/project.xml" trim="false">
 			<j:import file="${distPom}" inherit="true"/>
 		</j:file>	
-		<!-- copy the distribution maven.xml -->
-		<ant:copy file="${templatesDir}/distribution-maven.xml" tofile="${toDir}/maven.xml"/>
 		<!-- create the distribution project.properties -->
 		<j:set var="distProperties" value="${templatesDir}/distribution-properties.jelly"/>
 		<j:file name="${toDir}/project.properties" omitXmlDeclaration="true" trim="false">
