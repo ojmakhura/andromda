@@ -1,7 +1,6 @@
 /**
  * Attention: Generated source! Do not modify by hand!
  */
-
 package $entity.packageName;
 
 /**
@@ -10,7 +9,7 @@ package $entity.packageName;
  * Is able to find and create objects of type ${entity.name}.
  * Those can be described as follows:
  * </p>
- * @ see $entity.fullyQualifiedName
+ * @see $entity.fullyQualifiedName
  */
 public abstract class ${entity.name}Factory {
 
@@ -40,9 +39,8 @@ public abstract class ${entity.name}Factory {
 
         return object;
     }
+    
 #end
-
-
     // ---------------- finder methods  ----------------------
 
 #set ($primaryKey = $entity.getIdentifiers(true).iterator().next())

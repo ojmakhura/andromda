@@ -51,8 +51,9 @@ public class HibernateFinderMethodLogicImpl
         //if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
+            String variableName = StringUtils.uncapitalize(this.getOwner().getName());
             queryString = "from " + this.getOwner().getFullyQualifiedName()
-                + " as c";
+                + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
@@ -64,7 +65,8 @@ public class HibernateFinderMethodLogicImpl
                     {
                         Object test = parameterIt.next();
                         ParameterFacade param = (ParameterFacade)test;
-                        queryString = queryString + " c." + param.getName()
+                        queryString = queryString + " " 
+                            + variableName + "." + param.getName()
                             + " = ?";
                         if (parameterIt.hasNext())
                         {

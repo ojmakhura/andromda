@@ -41,6 +41,14 @@ public class HibernateSessionEJBLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB#getViewType()
+     */
+    public java.lang.String handleGetViewType()
+    {
+        return HibernateMetafacadeUtils.getViewType(this);
+    }
 
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for this EJB.
