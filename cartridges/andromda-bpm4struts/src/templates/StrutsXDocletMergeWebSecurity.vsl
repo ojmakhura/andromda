@@ -18,8 +18,8 @@
       <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-#foreach($user in $useCase.users)
-      <role-name>$user.roleName</role-name>
+#foreach ($user in $useCase.allUsers)
+      <role-name>$user.role</role-name>
 #end
     </auth-constraint>
     <user-data-constraint>
@@ -31,6 +31,9 @@
 
   <login-config>
     <auth-method>FORM</auth-method>
+#if ($securityRealm)
+    <realm-name>$securityRealm</realm-name>
+#end
     <form-login-config>
       <form-login-page>/login-form.jsp</form-login-page>
       <form-error-page>/login-error.jsp</form-error-page>
