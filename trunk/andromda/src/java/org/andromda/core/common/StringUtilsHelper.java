@@ -15,6 +15,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringUtilsHelper {
 
+    private final static String crlf = System.getProperty("line.separator");
+
     /**
      * <p>Capitalizes a string.  That is, it returns "Hamburger" when
      * eating a "hamburger".</p>
@@ -194,5 +196,38 @@ public class StringUtilsHelper {
 
         // split on all non-word characters: make sure we send the good parts
         return sb.toString().split("[\\W+]");
+    }
+
+    /**
+     * Suffixes each line with the argument suffix.
+     *
+     * @param multiLines A String, optionally containing many lines
+     * @param suffix The suffix to append to the end of each line
+     * @return String The input String with the suffix appended at the end of each line
+     */
+    public static String suffixLines(String multiLines, String suffix)
+    {
+        final String[] lines = multiLines.split("\n");
+        final StringBuffer linesBuffer = new StringBuffer();
+        for (int i = 0; i < lines.length; i++)
+        {
+            String line = lines[i];
+            linesBuffer.append(line);
+            linesBuffer.append(suffix);
+            linesBuffer.append("\n");
+        }
+        return linesBuffer.toString();
+    }
+
+    /**
+     * Converts any multi-line String into a version that is suitable to be included as-is in
+     * properties resource bundle.
+     *
+     * @param multiLines A String, optionally containing many lines
+     * @return String The input String with a backslash appended at the end of each line
+     */
+    public static String toResourceMessage(String multiLines)
+    {
+        return suffixLines(multiLines, "\\");
     }
 }
