@@ -143,11 +143,11 @@ public class ResourceWriter
      */
     private String getHistoryStorage()
     {
-        StringBuffer historyStorage = new StringBuffer(System.getProperty(
-            "java.io.tmpdir").replace('\\', '/'));
-        if (historyStorage.indexOf("/") == -1)
+        String tmpDir = System.getProperty("java.io.tmpdir").replace('\\', '/');
+        StringBuffer historyStorage = new StringBuffer(tmpDir);
+        if (!historyStorage.toString().endsWith("/"))
         {
-            historyStorage.append('/');
+            historyStorage.append("/");
         }
         historyStorage.append(".andromda/history/");
         historyStorage.append(this.modelFile);
