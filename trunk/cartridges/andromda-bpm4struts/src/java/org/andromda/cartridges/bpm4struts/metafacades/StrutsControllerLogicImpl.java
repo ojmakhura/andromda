@@ -1,10 +1,14 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -71,20 +75,22 @@ public class StrutsControllerLogicImpl
         return objectsList;
     }
 
-    protected Collection handleGetServices()
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getServices()
+     */
+    protected Collection handleGetServiceReferences()
     {
-        final Collection servicesList = new HashSet();
-        final Collection dependencies = getDependencies();
-        for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
+        return new FilteredCollection(this.getDependencies())
         {
-            DependencyFacade dependency = (DependencyFacade) iterator.next();
-            ModelElementFacade target = dependency.getTargetElement();
-            if (target instanceof ServiceFacade)
+            public boolean evaluate(Object object)
             {
-                servicesList.add(target);
+                ModelElementFacade targetElement = ((DependencyFacade)object)
+                    .getTargetElement();
+                return targetElement != null
+                    && ServiceFacade.class.isAssignableFrom(targetElement
+                        .getClass());
             }
-        }
-        return servicesList;
+        };
     }
 
     protected Object handleGetUseCase()

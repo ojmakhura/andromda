@@ -104,12 +104,12 @@ $operation.getDocumentation("     * ")
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
     }
 
-#foreach ($service in $controller.services)
-#if ($str.isNotBlank($service.accessorImplementation))
-    protected final $service.fullyQualifiedName get${service.name}() 
+#foreach ($serviceRef in $controller.serviceReferences)
+#if ($str.isNotBlank($serviceRef.targetElement.accessorImplementation))
+    protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}() 
         throws Exception
     {
-        return $service.accessorImplementation;
+        return $serviceRef.targetElement.accessorImplementation;
     }
 
 #end
