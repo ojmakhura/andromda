@@ -7,7 +7,17 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-16" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-17" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="SPRING-34">
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> now provides Spring remoting
+                support (thanks to Peter Friese).
+            </action>
+            <action dev="cwbrandon" type="add">
+                A new attribute has been introduced on the template element within the cartridge descriptor 
+                (andromda-cartridge.xml).  It's called <a href="andromda-cartridges/index.html#outputOnEmptyElements">outputOnEmptyElements</a>
+                and allows a cartridge writer to determine whether or not a file should be output when there are no elements collected when using the 
+                <a href="andromda-cartridges/index.html#outputToSingleFile">outputToSingleFile</a> flag.
+            </action>
             <action dev="cwbrandon" type="fix" issue="SPRING-37">
                 The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> now generates a valid
                 DAO inheritance hiearchy when inheritance between entities is modeled.
