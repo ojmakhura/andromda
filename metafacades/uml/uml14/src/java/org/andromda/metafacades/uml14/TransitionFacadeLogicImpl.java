@@ -83,4 +83,10 @@ public class TransitionFacadeLogicImpl
     {
         return getTarget() instanceof FinalStateFacade;
     }
+
+    public Object getValidationOwner()
+    {
+        return getTarget().getActivityGraph();
+    }
+
 }

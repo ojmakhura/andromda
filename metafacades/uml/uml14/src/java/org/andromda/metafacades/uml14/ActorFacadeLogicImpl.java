@@ -64,4 +64,8 @@ public class ActorFacadeLogicImpl
         return childActors;
     }
 
+    public Object getValidationOwner()
+    {
+        return getPackage();
+    }
 }
