@@ -30,6 +30,9 @@ public class OCLFeatures
     private static final String CONCAT = "concat\\s*\\(\\s*"
         + OCLPatterns.NAVIGATIONAL_PATH + "\\s*\\)\\s*";
 
+    /**
+     * Matches on any of the features.
+     */
     private static final String ALL_PATTERNS = ALL_INSTANCES + "|"
         + OCL_IS_KIND_OF + "|" + OCL_IS_TYPE_OF + "|" + CONCAT;
 
@@ -87,12 +90,5 @@ public class OCLFeatures
     public static boolean isOclFeature(Object expression)
     {
         return String.valueOf(expression).matches(ALL_PATTERNS);
-    }
-
-    public static void main(String args[])
-    {
-        System.out
-            .println("matches??: "
-                + isOclFeature("oclIsKindOf ( org :: andromda :: metafacades :: uml :: PseudostateFacade )"));
     }
 }
