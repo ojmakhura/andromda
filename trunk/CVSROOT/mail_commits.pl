@@ -65,7 +65,7 @@ $CVSROOT       = $ENV{'CVSROOT'};
 $CVSBIN        = '/usr/bin';
 $PATH          = "$PATH:/bin:/usr/bin";
 $MAIL_CMD      = "| /usr/lib/sendmail -i -t";
-$MAIL_TO       = 'andromda-devel@lists.sourceforge.net';
+$MAIL_TO       = 'andromda-cvs@lists.sourceforge.net';
 #$MAIL_FROM     = "$ENV{'USER'}\@users.sourceforge.net";
 undef $MAIL_FROM;
 $SUBJECT_PRE   = 'CVS update:';
