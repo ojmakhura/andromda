@@ -10,6 +10,17 @@
   		implementations.  These implement the common UML metafacades.
   	</description>
 	<dependencies>
+    	<dependency> 
+    		<groupId>andromda-cartridges</groupId>
+      		<artifactId>andromda-meta-cartridge-bootstrap</artifactId>
+     		<version>3.0-SNAPSHOT</version>
+     		<properties>
+	      		<facades.ignore/>
+	      		<facade-logics>${basedir}/target/src/andromda/meta</facade-logics>
+	      		<facades-to-impls>${basedir}/target/src/andromda/meta</facades-to-impls>
+	      		<facade-logic-impls>${basedir}/src/facades/manual</facade-logic-impls>
+     		</properties>
+    	</dependency> 
     	<dependency>
     	    <groupId>andromda</groupId>
     	    <artifactId>andromda-metafacades-uml</artifactId>
