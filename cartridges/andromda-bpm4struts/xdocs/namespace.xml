@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td>securityRealm</td>
-                    <td>The location to which Struts actions are generated.</td>
+                    <td>The security realm to use when security is enabled.</td>
                     <td>
                         Yes, even if the security is not enabled. If you don't know what to enter here,
                         just type 'other'.
