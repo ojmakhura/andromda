@@ -17,11 +17,21 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Sep 29, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts update</td>
+                    <td valign="top" class="std">
+                        Overloaded a controller method for accessing the session objects, the new
+                        method allows to choose whether ot not to create the session in case it does
+                        not exist yet (default is <code>true</code>). Also implemented some
+                        improvements in handling the session objects and the session itself.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Sep 28, 2004</td>
                     <td valign="top" class="std">New AndroMDA task attribute</td>
                     <td valign="top" class="std">
-                        The andromda task and maven plugin, now support an attribute called 
-                        <code>failOnModelValidationErrors</code> which allows us to 
+                        The andromda task and maven plugin, now support an attribute called
+                        <code>failOnModelValidationErrors</code> which allows us to
                         turn on/off whether or not model processing should fail/stop
                         if <strong>ANY</strong> model validation errors occur.
                     </td>
