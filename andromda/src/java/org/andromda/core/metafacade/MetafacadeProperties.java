@@ -9,8 +9,7 @@ package org.andromda.core.metafacade;
 public class MetafacadeProperties
 {
     /**
-     * When a model element name is unspecified this is the name used (instead
-     * of null).
+     * Used to separate the namespaces between a validation name.
      */
     public static final String VALIDATION_NAME_SEPARATOR = "validationNameSeparator";
 }
