@@ -9,7 +9,11 @@ package $packagename;
 $class.getDocumentation(" * ")
  */
 public class ${class.name} 
+#if($class.generalization)  
+	extends ${class.generalization.fullyQualifiedName}
+#else
     implements java.io.Serializable 
+#end
 {
     private static java.util.Collection values = new java.util.ArrayList();
 
@@ -67,7 +71,9 @@ $attribute.getDocumentation("     * ")
 	 */
     public boolean equals(Object object) 
     {
-        return object == this;
+        return object != null && 
+            object.toString().equals(
+                this.toString());
     }
     
     /**
