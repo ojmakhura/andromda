@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-23" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="CORE-39">
+                Metafacades can now be mapped on the basis that more than one stereotype
+                is required.
+            </action>
             <action dev="cwbrandon" type="update">
                 Completed removed XDoclet from the Hibernate cartridge. 
             </action>
