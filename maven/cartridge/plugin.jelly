@@ -3,8 +3,7 @@
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:util="jelly:util"
-         xmlns:maven="jelly:maven"
-         xmlns:velocity="jelly:velocity">
+         xmlns:maven="jelly:maven">
 
     <!-- ===================================================================
          Runs cartridge translation tests                         
@@ -84,7 +83,7 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
             value="${andromda.cartridge.printreport}"
             scope="parent"/>	
             
-        <j:set var="compareDir" value="${andromda.cartridge.test.dir}/compare-to"/>
+        <j:set var="compareDir" value="${andromda.cartridge.test.dir}/expected"/>
         <ant:unzip 
             src="${andromda.cartridge.test.archive}"
             dest="${compareDir}"/>
