@@ -54,7 +54,7 @@ class HibernateMetafacadeUtils
         {
             viewType = defaultViewType;
         }
-        return viewType;
+        return viewType.toLowerCase();
     }
     /**
      * Creates a fully qualified name from the given <code>packageName</code>,

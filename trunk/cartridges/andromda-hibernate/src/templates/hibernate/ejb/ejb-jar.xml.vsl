@@ -18,13 +18,8 @@
                 ]]>
             </description>
             <ejb-name>$service.name</ejb-name>
-#if ($service.ejbRemoteView)
-            <remote-home>${service.fullyQualifiedName}Home</remote-home>
-            <remote>$service.fullyQualifiedName</remote>
-#else
-            <local-home>${service.fullyQualifiedName}Home</local-home>
-            <local>$service.fullyQualifiedName</local>
-#end
+            <${service.ejbViewType}-home>${service.fullyQualifiedName}Home</${service.ejbViewType}-home>
+            <${service.ejbViewType}>$service.fullyQualifiedName</${service.ejbViewType}>
             <ejb-class>${service.fullyQualifiedName}BeanImpl</ejb-class>
 #if ($service.ejbStateful)
             <session-type>Stateful</session-type>
@@ -34,17 +29,15 @@
             <transaction-type>Container</transaction-type>
 #foreach ($serviceRef in $service.serviceReferences)
 #set ($serviceRef = $serviceRef.targetElement)
-#set ($viewType = "remote")
 #set ($ejbRefTag = "ejb-ref")
 #if (!$service.ejbRemoteView)
 #set ($ejbRefTag = "ejb-local-ref")
-#set ($viewType = "local")
 #end
             <$ejbRefTag>
                 <ejb-ref-name>ejb/${serviceRef.name}Ref</ejb-ref-name>
                 <ejb-ref-type>Session</ejb-ref-type>
-                <${viewType}-home>${serviceRef.fullyQualifiedName}Home</${viewType}-home>
-                <${viewType}>$serviceRef.fullyQualifiedName</${viewType}>
+                <${serviceRef.ejbViewType}-home>${serviceRef.fullyQualifiedName}Home</${serviceRef.ejbViewType}-home>
+                <${serviceRef.ejbViewType}>$serviceRef.fullyQualifiedName</${serviceRef.ejbViewType}>
                 <ejb-link>$serviceRef.name</ejb-link>
             </$ejbRefTag>
 #end
