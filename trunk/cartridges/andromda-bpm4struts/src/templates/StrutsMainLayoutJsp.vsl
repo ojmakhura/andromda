@@ -1,6 +1,9 @@
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html:html locale="true">
 
     <head>
@@ -8,7 +11,8 @@
             <tiles:insert attribute="title" flush="true"/>
         </title>
         <html:base/>
-        <link rel="stylesheet" type="text/css" href="<html:rewrite page="/layout/default.css"/>"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default.css"/>"/>
         <tiles:insert attribute="javascript" flush="true"/>
     </head>
 
