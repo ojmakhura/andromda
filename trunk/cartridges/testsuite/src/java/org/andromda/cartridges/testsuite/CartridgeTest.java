@@ -81,27 +81,10 @@ public class CartridgeTest
             logger.info(ctr + ")");
             logger.info("expected --> '" + expectedFile + "'");
             logger.info("actual   --> '" + actualFile + "'");
-            if (expectedFile.getName().endsWith(".java"))
-            {
-                suite.addTest(new JavaSourceComparator(
-                    "testAPIEquals",
-                    expectedFile,
-                    actualFile));
-            }
-            else if (expectedFile.getName().endsWith(".xml"))
-            {
-                suite.addTest(new XMLComparator(
-                    "testXMLEquals",
-                    expectedFile,
-                    actualFile));
-            }
-            else
-            {
-                suite.addTest(new FileComparator(
-                    "testEquals",
-                    expectedFile,
-                    actualFile));
-            }
+            suite.addTest(new FileComparator(
+                "testEquals",
+                expectedFile,
+                actualFile));
         }
     }
 
