@@ -81,6 +81,19 @@
 						aLegalPartyName)</strong>)))
 					</td>
 				</tr>
+                <tr>
+                    <td>
+                        Sorting results requires use of the <code>sortedBy</code> expression.
+                    </td>
+                    <td>
+                        The <em>sortedBy</em> expression allows you to specify by which properties the query
+                        results should be ordered by.
+                    </td>
+                    <td>
+                        context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+                        body : LegalAgreement.allInstances() <strong>-> sortedBy(documentTitle) -> sortedBy(expiredDate)</strong> 
+                    </td>
+                </tr>
 			</table>
     	</section>
   	</body>
