@@ -249,7 +249,14 @@
         <ant:zip zipfile="${zipFile}">
             <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
         </ant:zip>	
-                
+        
+        <!-- add all libs to the source distribution as well -->
+        <j:set var="distName" value="${pom.groupId}-src-${pom.currentVersion}"/>
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+        <ant:zip zipfile="${zipFile}" update="true">
+            <ant:zipfileset dir="${binaryDistLibDir}" prefix="${distName}/lib"/>
+        </ant:zip>	
+                        
     </goal>
 
     <!-- ==================================================================
@@ -279,6 +286,8 @@
             <ant:zipfileset dir="${basedir}" prefix="${distName}">
                 <ant:exclude name="**/*.log*"/>
                 <ant:exclude name="**/target/**"/>
+                <ant:exclude name="**/*.bak*"/>
+                <ant:exclude name="**/*.mdr"/>
             </ant:zipfileset>
         </ant:zip>			
     </goal>
@@ -286,7 +295,18 @@
     <!-- ==================================================================
              Performs any initalization required for the build                                                 
          ================================================================== -->     
-    <goal name="initialize" prereqs="init-bootstrap"/>
+    <goal name="initialize" prereqs="init-bootstrap">
+        <!-- if we have any artifacts in the lib directory (other than the 
+             bootstrap artifacts) install them into the local repository -->
+        <ant:copy todir="${maven.repo.local}">
+            <ant:fileset dir="${lib.dir}">
+                <ant:exclude name="**/*.txt"/>
+                <!-- don't copy the bootstraps over since they are handeled
+                     seperately -->
+                <ant:exclude name="*bootstrap"/>
+            </ant:fileset>
+        </ant:copy>        
+    </goal>
     
     <!-- ======================== BOOTSTRAP GOALS ======================== -->
     
@@ -302,7 +322,7 @@
         <ant:fileScanner var="bootstrapArtifacts">
             <ant:fileset dir="${lib.dir}">
               <ant:patternset>
-                <ant:include name="andromda-bootstrap/**/*"/>
+                <ant:include name="*bootstrap/**/*"/>
               </ant:patternset>
             </ant:fileset>
         </ant:fileScanner>
