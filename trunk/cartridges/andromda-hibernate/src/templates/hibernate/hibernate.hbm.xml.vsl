@@ -44,9 +44,9 @@
 #if ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
 #foreach ($entity in $entity.specializations)
 #renderSubClass($entity)
-#end ## foreach
-#end ## ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
-#end ## end (!$entity.specializations.empty)
+#end## foreach
+#end## ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
+#end## end (!$entity.specializations.empty)
     </class>
 </hibernate-mapping>
 #end
