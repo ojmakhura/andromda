@@ -83,6 +83,19 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
+            <properties>
+                <cartridge.howtoDependency/>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-hibernate-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <cartridge.howtoDependency/>
+                <entities.ignore/>
+                <entity-impls.ignore/>
+            </properties>
         </dependency>
         <!-- test dependencies -->
         <dependency>
@@ -98,6 +111,7 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <cartridge.testDependency/>
+                <cartridge.howtoDependency/>
             </properties>
         </dependency>
     </dependencies>
