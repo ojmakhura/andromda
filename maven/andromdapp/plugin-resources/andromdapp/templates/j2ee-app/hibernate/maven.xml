@@ -113,9 +113,9 @@
         </ant:java>
         
         <ant:copy todir="${hibernate.schema.output.dir}">
-            <ant:fileset dir="${basedir}">
-                <ant:include name="conf/**/*"/>
-            </ant:fileset>    
+            <ant:fileset dir="${maven.conf.dir}">
+                <ant:include name="**/*"/>
+            </ant:fileset>      
         </ant:copy>
 
     </postGoal>
