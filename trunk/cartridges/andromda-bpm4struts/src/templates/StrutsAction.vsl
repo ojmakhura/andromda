@@ -38,7 +38,12 @@ $class.getDocumentation(" * ")
 #if ($class.isUseCaseStart() == false)
  *       input="${class.input.fullPath}.jsp"
 #end
+#set ($validationDesired = ($serverValidation == 'true'))
+#if ($class.validationRequired && $validationDesired)
  *    validate="true"
+#else
+ *    validate="false"
+#end
  *       scope="session"
  *     unknown="false"
 #if ($security)

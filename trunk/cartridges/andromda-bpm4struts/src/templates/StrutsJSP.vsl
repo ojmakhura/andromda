@@ -42,25 +42,22 @@
 ##
     <tiles:put name="javascript" type="string">
 ## only load the static javascript when it will actually be used
-#set ($loadStaticScript = false)
 #set ($hasTabs = $class.tabbed)
 #foreach ($action in $actions)
 #if ($hasTabs == false)
 #set ($hasTabs = $action.tabbed)
 #end
-#if ($action.validationRequired)
-#set ($loadStaticScript = true)
 #end
-#end
-#if ($loadStaticScript)
+#set ($validationDesired = ($clientValidation=='true'))
+#if ($class.validationRequired && $validationDesired)
         <script type="text/javascript" src="<html:rewrite page="/form-validation.jsp"/>"></script>
-#end
 #foreach ($action in $actions)
 #if ($action.validationRequired)
 #if ($xhtml == "true")
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" cdata="true"/>
 #else
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
+#end
 #end
 #end
 #end

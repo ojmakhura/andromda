@@ -1,6 +1,9 @@
+#set ($validationDesired = ($clientValidation == 'true'))
+#if ($class.applicationValidationRequired && $validationDesired)
 <%@ page contentType="application/x-javascript" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
 /*<![CDATA[*/
 <html:javascript dynamicJavascript="false" staticJavascript="true" htmlComment="false"/>
 /*]]>*/
+#end
