@@ -5,9 +5,9 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
-    <!-- ====================================== -->
-    <!-- Append error messages to a local error log   -->
-    <!-- ====================================== -->
+    <!-- ============================================ 
+          Append error messages to a local error log    
+         ============================================ -->
     <appender name="FILE" class="org.apache.log4j.FileAppender">
         <param name="File" value="andromda.log"/>
         <param name="Threshold" value="INFO"/>
@@ -18,9 +18,9 @@
         </layout>
     </appender>
 
-    <!-- ============================== -->
-    <!-- Append messages to the console -->
-    <!-- ============================== -->
+    <!-- ================================
+          Append messages to the console  
+         ================================ -->
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <param name="Threshold" value="INFO"/>
         <param name="Target" value="System.out"/>
@@ -31,9 +31,9 @@
     </appender>
 
 
-    <!-- ================ -->
-    <!-- Limit categories -->
-    <!-- ================ -->
+    <!-- ==================  
+          Limit categories
+         ================== -->
 
     <category name="org.apache">
         <priority value="INFO" />
@@ -47,9 +47,9 @@
         <priority value="INFO" />
     </category>
 
-    <!-- =======================
-         Setup the Root category 
-         ======================= -->
+    <!-- =========================
+          Setup the Root category 
+         ========================= -->
     <root>
         <priority value="INFO" />
         <appender-ref ref="FILE"/>
