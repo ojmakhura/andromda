@@ -1,0 +1,59 @@
+<cartridge name="struts2">
+   <property name="workflow" value="struts2"/>
+
+   <stereotype name="FrontEndUseCase"/>
+   <stereotype name="FrontEndView"/>
+   <stereotype name="FrontEndPresentation"/>
+   <stereotype name="FrontEndConfiguration"/>
+
+   <outlet name="actions"/>
+   <outlet name="pages"/>
+   <outlet name="forms"/>
+   <outlet name="config"/>
+
+   <template
+      stereotype="FrontEndPresentation"
+      sheet="templates/StrutsForm.vsl"
+      outputPattern="{0}/{1}.java"
+      outlet="forms"
+      overWrite="true"
+      transformClass="org.andromda.cartridges.bpm4struts.StrutsScriptHelper"
+      />
+
+   <template
+      stereotype="FrontEndUseCase"
+      sheet="templates/StrutsAction.vsl"
+      outputPattern="{0}/{1}.java"
+      outlet="actions"
+      overWrite="false"
+      transformClass="org.andromda.cartridges.bpm4struts.StrutsScriptHelper"
+      />
+
+   <template
+      stereotype="FrontEndUseCase"
+      sheet="templates/StrutsActionAbstract.vsl"
+      outputPattern="{0}/{1}Abstract.java"
+      outlet="actions"
+      overWrite="true"
+      transformClass="org.andromda.cartridges.bpm4struts.StrutsScriptHelper"
+      />
+
+   <template
+      stereotype="FrontEndView"
+      sheet="templates/StrutsJSP.vsl"
+      outputPattern="{0}/{1}.jsp"
+      outlet="pages"
+      overWrite="false"
+      transformClass="org.andromda.cartridges.bpm4struts.StrutsScriptHelper"
+      />
+
+   <template
+      stereotype="FrontEndConfiguration"
+      sheet="templates/StrutsConfig.vsl"
+      outputPattern="struts-config.xml"
+      outlet="config"
+      overWrite="true"
+      transformClass="org.andromda.cartridges.bpm4struts.StrutsScriptHelper"
+      />
+
+</cartridge>

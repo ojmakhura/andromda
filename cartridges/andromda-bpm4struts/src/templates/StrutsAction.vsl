@@ -1,0 +1,75 @@
+package $transform.getPackageName($class);
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+#macro ( generateDocumentation $item $indent )
+#set ($tagValue = $transform.findTagValue( $transform.getTaggedValues($item), "documentation"))
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tagValue))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#set ($activityGraph = $transform.getActivityGraphs($class).iterator().next())
+#set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
+#set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
+#if ($controllerFormName == false)
+#set ($controllerFormName = "ActionForm")
+#end
+#set ($className = "${controllerClassName}")
+#set ($parentClassName = "${controllerClassName}Abstract")
+#set ($objectFlowStates = $transform.getObjectFlowStates($activityGraph))
+#set ($choices = $transform.getChoices($activityGraph))
+#set ($actionStates = $transform.getActionStates($activityGraph))
+/**
+#generateDocumentation ( $class " " )
+ */
+public class $className extends $parentClassName
+{
+#foreach ($choice in $choices)
+#set ($methodNameImpl = "$transform.toJavaMethodName($choice)Impl")
+   /**
+#generateDocumentation ( $choice "    " )
+    *
+    * <p>
+    *  This method may return any of the following values:
+    *  <ul>
+#set ($options = $transform.getOutgoingStateTransitions($choice))
+#foreach ($option in $options)
+    *   <li>$transform.toFinalMemberName($option)
+#end
+    *  </ul>
+    * </p>
+    */
+   protected final int $methodNameImpl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+   {
+      // Returning zero should never occur when this method has been properly implemented
+      return 0;
+   }
+
+#end
+#foreach ($objectFlowState in $objectFlowStates)
+#set ($objectFlowType = $transform.toJavaClassName($objectFlowState.type))
+#set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
+#set ($methodName = "set$transform.toJavaClassName($objectFlowStateState)")
+   /**
+    * This method changes the state of the object with name '$objectFlowState.name' to '$objectFlowStateState.name'. The
+    * type of this object is <code>'$transform.toFullyQualifiedJavaClassName($objectFlowState.type)'</code>.
+    * <p>
+    * Values are transferred from and to the form.
+#generateDocumentation ( $objectFlowState "    " )
+    */
+   protected final void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+   {
+//      $objectFlowType $transform.toJavaMethodName($objectFlowState) = null;
+   }
+
+#end
+}

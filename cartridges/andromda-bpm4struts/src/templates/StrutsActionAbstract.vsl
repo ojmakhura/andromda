@@ -1,0 +1,112 @@
+#macro ( processTransition $transition $indent )
+#set ($target = $transform.getLastTransitionTarget($transition.target))
+#if ( $transform.isFinalState($target) || $transform.isActionState($target) )
+#set ($forwardName = $transform.toForwardName($target))
+${indent}return mapping.findForward("$forwardName");
+#elseif ( $transform.isObjectFlowState($target) )
+#set ($objectFlowStateState = $transform.getObjectFlowStateState($target))
+#set ($objectFlowStateStateMethodName = "set$transform.toJavaClassName($objectFlowStateState)")
+${indent}return $objectFlowStateStateMethodName(mapping, form, request, response);
+#elseif ( $transform.isChoice($target) )
+${indent}return $transform.toJavaMethodName($target)(mapping, form, request, response);
+#end
+#end
+package $transform.getPackageName($class);
+
+import org.apache.struts.actions.DispatchAction;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+#set ($activityGraph = $transform.getActivityGraphs($class).iterator().next())
+#set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
+#set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
+#if (!$controllerFormName)
+#set ($controllerFormName = "ActionForm")
+#end
+#set ($className = "${controllerClassName}Abstract")
+public abstract class ${className} extends DispatchAction
+{
+#set ($choiceTransitions = $transform.getActivityGraphChoiceTransitions($activityGraph))
+#foreach ($choiceTransition in $choiceTransitions)
+#set ($choiceTransitionName = $transform.toFinalMemberName($choiceTransition))
+#set ($choiceTransitionValue = $transform.getChoiceOptionFinalMemberValue($choiceTransition))
+   protected static final int $choiceTransitionName = $choiceTransitionName.hashCode();
+#end
+
+#set ($choices = $transform.getChoices($activityGraph))
+#set ($actionStates = $transform.getActionStates($activityGraph))
+#set ($objectFlowStates = $transform.getObjectFlowStates($activityGraph))
+#set ($methodName = $transform.toJavaMethodName($initialState))
+#foreach ($actionState in $actionStates)
+#set ($methodName = $transform.toJavaMethodName($actionState))
+#set ($methodNameImpl = "${methodName}Impl")
+   public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+   {
+#set ($transitions = $actionState.outgoing)
+#if ($transitions.size() > 1)
+#if ($controllerFormName.equals("ActionForm"))
+      final String transition = request.getParameter("transition").toUpperCase();
+#else
+      final String transition = form.getTransition().toUpperCase();
+#end
+#set ($conditionSuffix = ".equals(transition)")
+#foreach ($transition in $transitions)
+      if ("$transform.toFinalMemberName($transition)"$conditionSuffix)
+      {
+#processTransition ( $transition "         " )
+      } else
+#end
+      {
+         // the form property has not been set to a valid value, application bug!
+         return null;
+      }
+#else
+#processTransition ( $transform.getNextStateTransition($actionState) "      " )
+#end
+   }
+
+#end
+#foreach ($choice in $choices)
+#set ($methodName = $transform.toJavaMethodName($choice))
+#set ($returnValue = "${methodName}Value")
+   private ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+   {
+      final int $returnValue = ${methodName}Impl(mapping, form, request, response);
+
+      switch ($returnValue)
+      {
+#set ($choiceTransitions = $choice.outgoing)
+#foreach ($choiceTransition in $choiceTransitions)
+#set ($choiceMemberName = $transform.toFinalMemberName($choiceTransition))
+         case $choiceMemberName :
+#processTransition ( $choiceTransition "            " )
+#end
+         default :
+            return null; // if this occurs ${methodName}Impl is not correctly implemented
+      }
+   }
+
+   protected abstract int ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+#end
+#foreach ($objectFlowState in $objectFlowStates)
+#set ($objectFlowType = $transform.toJavaClassName($objectFlowState.type))
+#set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
+#set ($activityGraph = $transform.getStateMachine($objectFlowState))
+#set ($methodName = "set$transform.toJavaClassName($objectFlowStateState)")
+   public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+   {
+      ${methodName}Impl(mapping,form,request,response);
+
+#set ($transition = $objectFlowState.outgoing.iterator().next())
+#processTransition ( $transition "      " )
+   }
+
+   protected abstract void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+#end
+}
