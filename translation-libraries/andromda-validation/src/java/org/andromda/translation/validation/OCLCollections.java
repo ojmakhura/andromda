@@ -7,6 +7,7 @@ import org.apache.commons.collections.SetUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.Closure;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -88,7 +89,7 @@ public final class OCLCollections
      */
     public static boolean isEmpty(String string)
     {
-        return (string == null) || (string.trim().length() == 0);
+        return StringUtils.isEmpty(string);
     }
 
     /**
@@ -121,7 +122,7 @@ public final class OCLCollections
      */
     public static boolean notEmpty(String string)
     {
-        return (string != null) && (string.trim().length() > 0);
+        return StringUtils.isNotEmpty(string);
     }
     
     /**
