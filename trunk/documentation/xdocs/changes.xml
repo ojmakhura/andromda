@@ -2,7 +2,7 @@
 <document>
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
-		<author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
         <title>Recent AndroMDA changes</title>
         <gennews>no</gennews>
     </properties>
@@ -21,7 +21,7 @@
                     <td valign="top" class="std">Aug 03, 2004</td>
                     <td valign="top" class="std">build update</td>
                     <td valign="top" class="std">
-                        The maven build has been changed 
+                        The maven build has been changed
                         <ul>
                             <li>
                                 All artifacts now reside in the 'andromda' groupId of the maven 
@@ -35,7 +35,7 @@
                                to the current version and copied to the remote repository during the build (
                                they used to be stored remotely).
                             </li>
-                        </ul>  
+                        </ul>
                     </td>
                 </tr>
                 <tr>
@@ -76,6 +76,9 @@
                         comment has been changed to comply to the XHTML standard.
                         You will need an XHTML compatible browser to properly
                         view the pages.
+                        By default bpm4struts generates HTML 4.0 compliant JSPs but
+                        by setting the 'xhtml' namespace property to 'true' it will
+                        render XHTML.
                     </td>
                 </tr>
                 <tr>
@@ -84,6 +87,14 @@
                     <td valign="top" class="std">
                         The 'sheet' attribute in the template element has been
                         renamed to 'path'.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July 03, 2004</td>
+                    <td valign="top" class="std">bpm4struts andromda-cartridge.xml update</td>
+                    <td valign="top" class="std">
+                        In bpm4struts there is a new namesapce property: xhtml. The property
+                        'securityEnabled' has been renamed to 'security'.
                     </td>
                 </tr>
                 <tr>
