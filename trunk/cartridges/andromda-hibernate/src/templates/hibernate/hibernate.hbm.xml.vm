@@ -42,21 +42,31 @@
 #end
 #end
 #if ($sourceEnd.one2Many)
-        <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
+#if ($sourceEnd.set || $sourceEnd.map) 
+        <$sourceEnd.collectionType name="$otherEnd.name" order-by="$otherEnd.orderByColumns" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($otherEnd.sortType) sort="$otherEnd.sortType"#end>
+#elseif ($sourceEnd.bag)
+        <$sourceEnd.collectionType name="$otherEnd.name" order-by="$otherEnd.orderByColumns" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+#elseif ($sourceEnd.list)
+        <$sourceEnd.collectionType name="$otherEnd.name" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+#end
 #if(($hibernateEnableCache == "true") && ($hibernateEnableAssociationsCache == "true"))
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
             <key>
                 <column name="$sourceEnd.columnName"/>
             </key>
+#if ($sourceEnd.indexedCollection)
+##TODO: Maps can only contain strings
+            <index column="$sourceEnd.collectionIndexName"#if($sourceEnd.map) type="java.util.String"#end>
+#end
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
-        </set>
+        </$sourceEnd.collectionType>
 #elseif ($sourceEnd.many2One)
         <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" not-null="$otherEnd.required"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$otherEnd.columnName" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
+        <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
             <key>
                 <column name="$sourceEnd.columnName"/>
             </key>

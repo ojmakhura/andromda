@@ -71,4 +71,20 @@
         <from>HIBERNATE_PROXY</from>
         <to>@andromda.hibernate.entity.proxy</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_ASSOCIATION_COLLECTION_TYPE</from>
+        <to>@andromda.hibernate.collection.type</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_ASSOCIATION_SORT_TYPE</from>
+        <to>@andromda.hibernate.sort.type</to>
+    </mapping>
+    <mapping>
+        <from>TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS</from>
+        <to>@andromda.hibernate.orderByColumns</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_ASSOCIATION_WHERE_CLAUSE</from>
+        <to>@andromda.hibernate.whereClause</to>
+    </mapping>
 </mappings>
