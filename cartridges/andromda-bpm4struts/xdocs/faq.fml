@@ -249,6 +249,29 @@
                 </p>
             </answer>
         </faq>
+
+        <faq id="inter-usecase-data">
+            <question>
+                The session-scoped forms are cleaned on each subsequent entry of that same
+                use-case, how can I transfer data between use-cases ?
+            </question>
+            <answer>
+                <p>
+                    Since the forms are stored in the session scope it is possible to have stale data
+                    in different instances of the same use-case. In order to avoid this we must make sure
+                    the data is removed from the form whenever we re-enter that use-case. But in doing so
+                    we make it more difficult to send data between use-cases, sometimes it is needed to
+                    send an ID or semething to the next use-case, how can we make sure the form cleaning does
+                    not dispose this data ?
+                </p>
+                <p>
+                    The solution is in fact very simple: do not use the forms when transporting values
+                    to another use-case. In fact it is a better idea to simple use
+                    <code>HttpServletRequest.setAttribute(String,Object)</code>, this will put the value
+                    as a request scope variable that is available in the target use-case. 
+                </p>
+            </answer>
+        </faq>
     </part>
 
     <part id="tuning">
