@@ -58,9 +58,9 @@ public class MetafacadeFacadeLogicImpl
      * @param cl the source classifier
      * @return the metaclass object
      */
-    private ClassifierFacade getMetaclass(ClassifierFacade cl)
+    private ClassifierFacade getMetaclass(ClassifierFacade classifier)
     {
-        for (Iterator iter = cl.getDependencies().iterator(); iter.hasNext();)
+        for (Iterator iter = classifier.getTargetDependencies().iterator(); iter.hasNext();)
         {
             DependencyFacade dep = (DependencyFacade)iter.next();
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();
@@ -75,7 +75,7 @@ public class MetafacadeFacadeLogicImpl
             }
         }
 
-        ClassifierFacade superclass = (ClassifierFacade)cl.getGeneralization();
+        ClassifierFacade superclass = (ClassifierFacade)classifier.getGeneralization();
         return (superclass != null) ? getMetaclass(superclass) : null;
     }
 
@@ -85,7 +85,7 @@ public class MetafacadeFacadeLogicImpl
     public boolean handleIsMetaclassDirectDependency()
     {
         boolean isMetaClassDirectDependency = false;
-        Collection dependencies = this.getDependencies();
+        Collection dependencies = this.getTargetDependencies();
         if (dependencies != null && !dependencies.isEmpty())
         {
             // there should be only one.
