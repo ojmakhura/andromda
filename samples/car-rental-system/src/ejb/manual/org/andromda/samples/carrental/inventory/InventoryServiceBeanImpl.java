@@ -27,7 +27,13 @@ public class InventoryServiceBeanImpl
         try
         {
             CarTypeLocalHome cth = getCarTypeLocalHome();
-            return cth.create(typeData).getId();
+            return cth
+                .create(
+                    typeData.getManufacturer(),
+                    typeData.getIdentifier(),
+                    typeData.getOrderNo(),
+                    typeData.getComfortClass())
+                .getId();
         }
         catch (NamingException e)
         {
@@ -53,7 +59,7 @@ public class InventoryServiceBeanImpl
             CarType ctl = ctlh.findByPrimaryKey(carTypeId);
 
             CarLocalHome clh = getCarLocalHome();
-            Car cl = clh.create(carData);
+            Car cl = clh.create(carData.getRegistrationNo(), carData.getInventoryNo());
 
             cl.setType(ctl);
             return cl.getId();
@@ -87,7 +93,7 @@ public class InventoryServiceBeanImpl
             for (Iterator iter = cl.iterator(); iter.hasNext();)
             {
                 Car element = (Car) iter.next();
-                result.add(element.getCarData());
+                result.add(getCarData(element));
             }
             return result;
         }
@@ -99,6 +105,16 @@ public class InventoryServiceBeanImpl
         {
             throw new EJBException(e);
         }
+    }
+    
+    /**
+     * Extracts the data out of a Car object.
+     * @param c the Car
+     * @return CarData
+     */
+    private CarData getCarData(Car c)
+    {
+        return new CarData(c.getId(), c.getRegistrationNo(), c.getInventoryNo());
     }
 
     /**
@@ -115,7 +131,7 @@ public class InventoryServiceBeanImpl
             for (Iterator iter = carTypes.iterator(); iter.hasNext();)
             {
                 CarType element = (CarType) iter.next();
-                result.add(element.getCarTypeData());
+                result.add(getCarTypeData(element));
             }
             return result;
         }
@@ -144,8 +160,8 @@ public class InventoryServiceBeanImpl
                 Car element = (Car) iter.next();
                 result.add(
                     new CarAndTypeData(
-                        element.getCarData(),
-                        element.getType().getCarTypeData()));
+                        getCarData(element),
+                        getCarTypeData(element.getType())));
             }
             return result;
         }
@@ -157,6 +173,16 @@ public class InventoryServiceBeanImpl
         {
             throw new EJBException(e);
         }
+    }
+    
+    /**
+     * Extracts the data from a CarType object.
+     * @param ct the CarType
+     * @return CarTypeData the data
+     */
+    private CarTypeData getCarTypeData(CarType ct)
+    {
+        return new CarTypeData(ct.getId(), ct.getManufacturer(), ct.getIdentifier(), ct.getOrderNo(), ct.getComfortClass());
     }
 
     // ---------- the usual session bean stuff... ------------
