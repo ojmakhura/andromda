@@ -25,7 +25,7 @@ public class OCLIntrospector
     /**
      * Invokes the given <code>feature</code> on the 
      * <code>element</code>. Its expected that the feature
-     * is either an operatoin or a property.
+     * is either an operation or a property.
      */
     public static Object invoke(Object element, String feature)
     {
