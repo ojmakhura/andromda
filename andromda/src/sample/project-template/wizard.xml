@@ -12,7 +12,7 @@
 	<echo message="    project.home = ${project.home}"/>
 	
     <copy todir="${project.home}">
-      <fileset dir="${project-template.dir}ejbProjectTemplate"/>
+      <fileset dir="${project-template.dir}/ejbProjectTemplate"/>
     </copy>
 	
     <replace file="${project.home}/build.properties"
