@@ -5,7 +5,7 @@
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
 		metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
-		<stereotype>FinderMethod</stereotype>
+		<stereotype>FINDER_METHOD</stereotype>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
 	</metafacade>	
 	<metafacade 
@@ -16,7 +16,7 @@
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl">
-        <stereotype>Service</stereotype>
+        <stereotype>SERVICE</stereotype>
 	    <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
@@ -25,7 +25,7 @@
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl">
-        <stereotype>Service</stereotype>
+        <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
@@ -35,7 +35,7 @@
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
 		contextRoot="true">
-        <stereotype>Entity</stereotype>
+        <stereotype>ENTITY</stereotype>
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
@@ -45,7 +45,7 @@
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
 		contextRoot="true">
-        <stereotype>Entity</stereotype>
+        <stereotype>ENTITY</stereotype>
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>

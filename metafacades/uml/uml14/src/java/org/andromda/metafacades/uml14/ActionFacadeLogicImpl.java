@@ -47,10 +47,12 @@ public class ActionFacadeLogicImpl
     {
         ActionState entryState = null;
 
-        Collection allActionStates = UMLMetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
-        for (Iterator iterator = allActionStates.iterator(); iterator.hasNext() && entryState == null;)
+        Collection allActionStates = UMLMetafacadeUtils.getModel()
+            .getActivityGraphs().getActionState().refAllOfType();
+        for (Iterator iterator = allActionStates.iterator(); iterator.hasNext()
+            && entryState == null;)
         {
-            ActionState actionState = (ActionState) iterator.next();
+            ActionState actionState = (ActionState)iterator.next();
             if (metaObject.equals(actionState.getEntry()))
             {
                 entryState = actionState;

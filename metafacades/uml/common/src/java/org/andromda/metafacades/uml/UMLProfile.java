@@ -19,38 +19,32 @@ public class UMLProfile
     /**
      * Represents a persistent entity.
      */
-    public static final String STEREOTYPE_ENTITY = umlProfile
-        .getString("STEREOTYPE_ENTITY");
+    public static final String STEREOTYPE_ENTITY = "ENTITY";
 
     /**
      * Represents a finder method on an entity.
      */
-    public static final String STEREOTYPE_FINDER_METHOD = umlProfile
-        .getString("STEREOTYPE_FINDER_METHOD");
+    public static final String STEREOTYPE_FINDER_METHOD = "FINDER_METHOD";
 
     /**
      * Represents the primary key of an entity.
      */
-    public static final String STEREOTYPE_IDENTIFIER = umlProfile
-        .getString("STEREOTYPE_IDENTIFIER");
+    public static final String STEREOTYPE_IDENTIFIER = "IDENTIFIER";
 
     /**
      * If an attribute has this stereotype, it is considered unique.
      */
-    public static final String STEREOTYPE_UNIQUE = umlProfile
-        .getString("STEREOTYPE_UNIQUE");
+    public static final String STEREOTYPE_UNIQUE = "UNIQUE";
 
     /**
      * Represents a service.
      */
-    public static final String STEREOTYPE_SERVICE = umlProfile
-        .getString("STEREOTYPE_SERVICE");
+    public static final String STEREOTYPE_SERVICE = "SERVICE";
 
     /**
      * Represents a value object.
      */
-    public static final String STEREOTYPE_VALUE_OBJECT = umlProfile
-        .getString("STEREOTYPE_VALUE_OBJECT");
+    public static final String STEREOTYPE_VALUE_OBJECT = "VALUE_OBJECT";
 
     /**
      * <p>
@@ -58,8 +52,7 @@ public class UMLProfile
      * you want everything on the class to be exposed as a web service.
      * </p>
      */
-    public static final java.lang.String STEREOTYPE_WEBSERVICE = umlProfile
-        .getString("STEREOTYPE_WEBSERVICE");
+    public static final java.lang.String STEREOTYPE_WEBSERVICE = "WEBSERVICE";
 
     /**
      * <p>
@@ -67,8 +60,7 @@ public class UMLProfile
      * the operation.
      * </p>
      */
-    public static final java.lang.String STEREOTYPE_WEBSERVICE_OPERATION = umlProfile
-        .getString("STEREOTYPE_WEBSERVICE_OPERATION");
+    public static final java.lang.String STEREOTYPE_WEBSERVICE_OPERATION = "WEBSERVICE_OPERATION";
 
     /**
      * The base exception stereotype. If a model element is stereotyped with
@@ -76,28 +68,24 @@ public class UMLProfile
      * by a cartridge and a dependency to it from an operation will add a throws
      * clause.
      */
-    public static final String STEREOTYPE_EXCEPTION = umlProfile
-        .getString("STEREOTYPE_EXCEPTION");
+    public static final String STEREOTYPE_EXCEPTION = "EXCEPTION";
 
     /**
      * Represents an enumeration type.
      */
-    public static final String STEREOTYPE_ENUMERATION = umlProfile
-        .getString("STEREOTYPE_ENUMERATION");
+    public static final String STEREOTYPE_ENUMERATION = "ENUMERATION";
 
     /**
      * Represents exceptions thrown during normal application processing (such
      * as business exceptions). It extends the base exception stereotype.
      */
-    public static final String STEREOTYPE_APPLICATION_EXCEPTION = umlProfile
-        .getString("STEREOTYPE_APPLICATION_EXCEPTION");
-
+    public static final String STEREOTYPE_APPLICATION_EXCEPTION = "APPLICATION_EXCEPTION";
+    
     /**
      * Represents unexpected exceptions that can occur during application
      * processing. This that a caller isn't expected to handle.
      */
-    public static final String STEREOTYPE_UNEXPECTED_EXCEPTION = umlProfile
-        .getString("STEREOTYPE_UNEXPECTED_EXCEPTION");
+    public static final String STEREOTYPE_UNEXPECTED_EXCEPTION = "UNEXPECTED_EXCEPTION";
 
     /**
      * Represents a reference to an exception model element. Model dependencies
@@ -106,21 +94,18 @@ public class UMLProfile
      * exception itself will not be generated but the references to it will be
      * (i.e. the throws clause within an operation).
      */
-    public static final String STEREOTYPE_EXCEPTION_REF = umlProfile
-        .getString("STEREOTYPE_EXCEPTION_REF");
+    public static final String STEREOTYPE_EXCEPTION_REF = "EXCEPTION_REF";
 
     /**
      * Used to indicate whether or not a parameter is nullable (since parameters
      * do <strong>NOT </strong> allow specification of multiplicity.
      */
-    public static final String STEREOTYPE_NULLABLE = umlProfile
-        .getString("STEREOTYPE_NULLABLE");
+    public static final String STEREOTYPE_NULLABLE = "NULLABLE";
 
     /**
      * Represents a role played by a user within a system.
      */
-    public static final String STEREOTYPE_ROLE = umlProfile
-        .getString("STEREOTYPE_ROLE");
+    public static final String STEREOTYPE_ROLE = "ROLE";
 
     /* ----------------- Tagged Values -------------------- */
 

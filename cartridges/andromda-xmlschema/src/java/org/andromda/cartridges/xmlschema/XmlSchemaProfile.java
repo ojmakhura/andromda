@@ -21,7 +21,7 @@ public class XmlSchemaProfile {
      *  Represents a complex element type.
      * </p>   
     */
-   public static final java.lang.String STEREOTYPE_XML_SCHEMA_TYPE = "XmlSchemaType";
+   public static final java.lang.String STEREOTYPE_XML_SCHEMA_TYPE = "XML_SCHEMA_TYPE";
    
 
     /* ---------------- Tagged Values ------------------- */
@@ -35,6 +35,6 @@ public class XmlSchemaProfile {
      *  instead.
      * </p>   
     */
-   public static final java.lang.String STEREOTYPE_XML_ATTRIBUTE = "XmlAttribute";
+   public static final java.lang.String STEREOTYPE_XML_ATTRIBUTE = "XML_ATTRIBUTE";
    
 }

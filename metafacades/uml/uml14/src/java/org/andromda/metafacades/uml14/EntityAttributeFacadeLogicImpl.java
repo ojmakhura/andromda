@@ -82,30 +82,37 @@ public class EntityAttributeFacadeLogicImpl
             ClassifierFacade type = this.getType();
             if (type != null)
             {
-	            String typeName = type.getFullyQualifiedName(true);
-	            String columnLength = this.getColumnLength();
-	            value = this.getSqlMappings().getTo(typeName);
-	            if (StringUtils.isBlank(value))
-	            {
-	                logger.error("ERROR! missing SQL type mapping for model type '"
-	                    + typeName
-	                    + "' --> please adjust your model or SQL type mappings '"
-	                    + this.getSqlMappings().getResource() + "' accordingly");
-	            }
-	            if (StringUtils.isNotEmpty(columnLength))
-	            {
-	                char beginChar = '(';
-	                char endChar = ')';
-	                int beginIndex = value.indexOf(beginChar);
-	                int endIndex = value.indexOf(endChar);
-	                if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
-	                {
-	                    String replacement = value.substring(beginIndex, endIndex)
-	                        + endChar;
-	                    value = StringUtils.replace(value, replacement, beginChar
-	                        + columnLength + endChar);
-	                }
-	            }
+                String typeName = type.getFullyQualifiedName(true);
+                String columnLength = this.getColumnLength();
+                value = this.getSqlMappings().getTo(typeName);
+                if (StringUtils.isBlank(value))
+                {
+                    logger
+                        .error("ERROR! missing SQL type mapping for model type '"
+                            + typeName
+                            + "' --> please adjust your model or SQL type mappings '"
+                            + this.getSqlMappings().getResource()
+                            + "' accordingly");
+                }
+                if (StringUtils.isNotEmpty(columnLength))
+                {
+                    char beginChar = '(';
+                    char endChar = ')';
+                    int beginIndex = value.indexOf(beginChar);
+                    int endIndex = value.indexOf(endChar);
+                    if (beginIndex != -1 && endIndex != -1
+                        && endIndex > beginIndex)
+                    {
+                        String replacement = value.substring(
+                            beginIndex,
+                            endIndex)
+                            + endChar;
+                        value = StringUtils.replace(
+                            value,
+                            replacement,
+                            beginChar + columnLength + endChar);
+                    }
+                }
             }
         }
         return value;
@@ -146,7 +153,8 @@ public class EntityAttributeFacadeLogicImpl
      */
     public Mappings handleGetSqlMappings()
     {
-        return this.getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI);
+        return this
+            .getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI);
     }
 
     /**
@@ -154,7 +162,8 @@ public class EntityAttributeFacadeLogicImpl
      */
     public Mappings handleGetJdbcMappings()
     {
-        return this.getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI);
+        return this
+            .getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI);
     }
 
     /**
@@ -182,7 +191,7 @@ public class EntityAttributeFacadeLogicImpl
                 String errMsg = "Error getting '" + propertyName + "' --> '"
                     + uri + "'";
                 logger.error(errMsg, th);
-                //don't throw the exception
+                // don't throw the exception
             }
         }
         else

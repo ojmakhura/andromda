@@ -146,13 +146,15 @@ public abstract class BaseTranslator
      * 
      *  
      *   
-     *           &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
-     *                        handlerMethod=&quot;handleAllInstances&quot;&gt;
-     *               &lt;kind name=&quot;body&quot;&gt;
-     *                   from $completeElementName as $lowerCaseElementName 
-     *               &lt;/kind&gt;
-     *           &lt;/fragment&gt;
-     *           
+     *    
+     *            &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
+     *                         handlerMethod=&quot;handleAllInstances&quot;&gt;
+     *                &lt;kind name=&quot;body&quot;&gt;
+     *                    from $completeElementName as $lowerCaseElementName 
+     *                &lt;/kind&gt;
+     *            &lt;/fragment&gt;
+     *            
+     *    
      *   
      *  
      * </pre>

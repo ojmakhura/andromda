@@ -52,10 +52,12 @@ public class EventFacadeLogicImpl
     {
         ActionState eventState = null;
 
-        Collection allActionStates = UMLMetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
-        for (Iterator iterator = allActionStates.iterator(); iterator.hasNext() && eventState == null;)
+        Collection allActionStates = UMLMetafacadeUtils.getModel()
+            .getActivityGraphs().getActionState().refAllOfType();
+        for (Iterator iterator = allActionStates.iterator(); iterator.hasNext()
+            && eventState == null;)
         {
-            ActionState actionState = (ActionState) iterator.next();
+            ActionState actionState = (ActionState)iterator.next();
             if (actionState.getDeferrableEvent().contains(metaObject))
             {
                 eventState = actionState;

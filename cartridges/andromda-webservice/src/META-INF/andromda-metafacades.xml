@@ -45,7 +45,7 @@
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" 
         contextRoot="true">
-        <stereotype>WebService</stereotype>
+        <stereotype>WEBSERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbInterfacePattern" default="{0}.{1}"/>
         <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
@@ -54,7 +54,7 @@
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" 
         contextRoot="true">
-        <stereotype>Service</stereotype>
+        <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbInterfacePattern" default="{0}.{1}"/>
         <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
@@ -63,7 +63,7 @@
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" 
         contextRoot="true">
-        <stereotype>WebService</stereotype>
+        <stereotype>WEBSERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbInterfacePattern" default="{0}.{1}"/>
         <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
@@ -72,7 +72,7 @@
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" 
         contextRoot="true">
-        <stereotype>Service</stereotype>
+        <stereotype>SERVICE</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbInterfacePattern" default="{0}.{1}"/>
         <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
@@ -81,7 +81,7 @@
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" 
         contextRoot="true">
-        <stereotype>WebServiceOperation</stereotype>
+        <stereotype>WEBSERVICE_OPERATION</stereotype>
         <property reference="testImplementationOperationNamePrefix" default="handle"/>
     </metafacade>
     <metafacade 

@@ -26,13 +26,13 @@ public class AttributeFacadeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
     public Object getValidationOwner()
     {
-        return this.getOwner();        
+        return this.getOwner();
     }
 
     /**

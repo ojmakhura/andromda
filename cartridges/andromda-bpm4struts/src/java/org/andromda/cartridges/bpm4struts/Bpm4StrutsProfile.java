@@ -4,13 +4,13 @@ public class Bpm4StrutsProfile
 {
     /* ----------------- Stereotypes -------------------- */
 
-    public static final String STEREOTYPE_VIEW = "FrontEndView";
-    public static final String STEREOTYPE_EVENT = "FrontEndEvent";
-    public static final String STEREOTYPE_USER = "Role";
-    public static final String STEREOTYPE_USECASE = "FrontEndUseCase";
-    public static final String STEREOTYPE_APPLICATION = "FrontEndApplication";
-    public static final String STEREOTYPE_CONTROLLER = "FrontEndController";
-    public static final String STEREOTYPE_EXCEPTION = "FrontEndException";
+    public static final String STEREOTYPE_VIEW = "FRONT_END_VIEW";
+    public static final String STEREOTYPE_EVENT = "FRONT_END_EVENT";
+    public static final String STEREOTYPE_USER = "FRONT_END_USER";
+    public static final String STEREOTYPE_USECASE = "FRONT_END_USE_CASE";
+    public static final String STEREOTYPE_APPLICATION = "FRONT_END_APPLICATION";
+    public static final String STEREOTYPE_CONTROLLER = "FRONT_END_CONTROLLER";
+    public static final String STEREOTYPE_EXCEPTION = "FRONT_END_EXCEPTION";
 
     /* ----------------- Tagged Values -------------------- */
 

@@ -60,7 +60,7 @@
         outlet="java-types"
         overwrite="true">
         <modelElements variable="class">
-            <modelElement stereotype="ValueObject"/>
+            <modelElement stereotype="VALUE_OBJECT"/>
         </modelElements>
     </template>
 

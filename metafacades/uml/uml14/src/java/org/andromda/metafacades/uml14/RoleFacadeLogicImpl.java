@@ -62,8 +62,10 @@ public class RoleFacadeLogicImpl
         else
         {
             name = super.getName();
-            String mask = StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
+            String mask = StringUtils
+                .trimToEmpty(String
+                    .valueOf(this
+                        .getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
             if (!mask.equalsIgnoreCase(MASK_NONE))
             {
                 if (mask.equalsIgnoreCase(MASK_UPPERCASE))

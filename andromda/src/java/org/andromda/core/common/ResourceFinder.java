@@ -39,19 +39,15 @@ public class ResourceFinder
         ExceptionUtils.checkEmpty(methodName, "resource", resource);
 
         URL[] resourceUrls;
-
         try
         {
-
             Collection resources = new ArrayList();
-
             Enumeration resourceEnum = Thread.currentThread()
                 .getContextClassLoader().getResources(resource);
             while (resourceEnum.hasMoreElements())
             {
                 resources.add(resourceEnum.nextElement());
             }
-
             resourceUrls = (URL[])resources.toArray(new URL[0]);
         }
         catch (Exception ex)

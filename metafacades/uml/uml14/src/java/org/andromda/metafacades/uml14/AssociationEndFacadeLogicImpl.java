@@ -32,7 +32,7 @@ public class AssociationEndFacadeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
@@ -64,7 +64,7 @@ public class AssociationEndFacadeLogicImpl
     public String getName()
     {
         String name = super.getName();
-        //if name is empty, then get the name from the type
+        // if name is empty, then get the name from the type
         if (StringUtils.isEmpty(name))
         {
             ClassifierFacade type = this.getType();
@@ -142,7 +142,7 @@ public class AssociationEndFacadeLogicImpl
     {
         boolean isMany = false;
         Multiplicity multiplicity = this.metaObject.getMultiplicity();
-        //we'll say a null multiplicity is 1
+        // we'll say a null multiplicity is 1
         if (multiplicity != null)
         {
             Collection ranges = multiplicity.getRange();
@@ -169,7 +169,7 @@ public class AssociationEndFacadeLogicImpl
         boolean ordered = false;
 
         OrderingKind ordering = metaObject.getOrdering();
-        //no ordering is 'unordered'
+        // no ordering is 'unordered'
         if (ordering != null)
         {
             ordered = ordering.equals(OrderingKindEnum.OK_ORDERED);

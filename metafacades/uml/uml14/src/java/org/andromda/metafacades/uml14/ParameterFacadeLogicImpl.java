@@ -25,7 +25,7 @@ public class ParameterFacadeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
@@ -89,7 +89,7 @@ public class ParameterFacadeLogicImpl
         return parameterOperation;
     }
 
-    /** 
+    /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getEvent()
      */
     protected Object handleGetEvent()
