@@ -47,9 +47,9 @@
 ##
 ##  An action is an hyperlink or a form
 ##
-#content div.action { line-height: 1.7em; margin-bottom: 2.5em; }
-#content div.action span {display: none;}
-#content div.action h3
+div.action { line-height: 1.7em; margin-bottom: 2.5em; }
+div.action span {display: none;}
+div.action h3
 {
    font-size: 86%; font-weight: bold;
    letter-spacing: 1px;
@@ -59,10 +59,12 @@
 }
 
 ## A trigger represents the actual link or button on a form on which one clicks
-#content div.action div.trigger { border: 0; float: left; margin: 0px 20px 15px 0px; }
-#content div.action div.trigger a:link, .trigger a:visited, .trigger a:hover { border: 1px solid #fff; }
-#content div.action div.triggerdoc { padding-left: 320px; }
-
+div.action div.trigger { border: 0; float: left; margin: 0px 20px 15px 0px; }
+div.action div.trigger a:link, .trigger a:visited, .trigger a:hover { border: 1px solid #fff; }
+div.action div.triggerdoc { padding-left: 320px; }
+div.action div.trigger form label { display: inline; }
+div.action div.trigger form field { display: inline; }
+div.action div.trigger form buttons { display: block; }
 ##
 ##  The box of type 1 has a border and is used to take the main attention
 ##
@@ -109,13 +111,13 @@
 }
 #sidebar div.box3 a:link, #sidebar div.box3 a:visited, #sidebar div.box3 a:hover { border: 0; }
 
-#content #messages
+#messages
 {
     border-top: 1px dotted #ccc;
     margin: 1.5em 0 1.5em 0;
 }
 
-#content #messages p
+#messages p
 {
     margin: 1.5em 0 1.5em 0;
     padding: 0.8em 0.5em 0.8em 1em;
@@ -127,7 +129,7 @@
     background-color: #dfd;
 }
 
-#content #messages p.error
+#messages p.error
 {
     color: red;
     border: 1px dashed red;
@@ -137,17 +139,17 @@
 .hide { display: none; }
 br.clr { clear: left; }
 
-#content div.col-a1 { width: 46%; float: left; padding-top: 1.5em; }
-#content div.col-a2 { width: 46%; float: right; padding-top: 1.5em; }
-#content div.col-a1 h3, #content div.col-a2 h3 { color: #043DBC; border-bottom: 1px dotted #3D7DC7; margin-bottom: 1.0em; }
+div.col-a1 { width: 46%; float: left; padding-top: 1.5em; }
+div.col-a2 { width: 46%; float: right; padding-top: 1.5em; }
+div.col-a1 h3, div.col-a2 h3 { color: #043DBC; border-bottom: 1px dotted #3D7DC7; margin-bottom: 1.0em; }
 
 ##
 ##  Styles related to the login pages, there are not to be used elsewhere
 ##
-#content div.login { background-color: #F7F7F7; padding: 0.5em; }
-#content div.login div.submit { margin: 1.5em 0 0.5em 0; }
-#content div.login input.login { width: 90%; }
-#content div.login p.error { width: 90%; padding: 0.5em; font-weight: bold; color: red;}
+div.login { background-color: #F7F7F7; padding: 0.5em; }
+div.login div.submit { margin: 1.5em 0 0.5em 0; }
+div.login input.login { width: 90%; }
+div.login p.error { width: 90%; padding: 0.5em; font-weight: bold; color: red;}
 
 /* table classes (<display:*> taglib) */
 
@@ -191,3 +193,41 @@ span.pagelinks
 	border-top: none;
 	margin: 0 25px 10px 0;
 }
+
+/* styles related to tabbed panels */
+
+div.tabs
+{
+    display: block;
+    background-color: #fff;
+}
+
+div.tabs div.tab
+{
+    position: relative;
+    background-color: #fff;
+}
+
+div.tabs div.tab div.tab-header
+{
+    margin-bottom: 0.5em;
+}
+
+div.tabs div.tab div.tab-header div.unselected-tab
+{
+    display: inline;
+	padding: 0.2em 0.2em 0 0.2em;
+}
+
+div.tabs div.tab-header div.selected-tab
+{
+    display: inline;
+	padding: 0.2em 0.2em 0 0.2em;
+    font-weight: bolder;
+    font-size: 120%;
+}
+
+div.tabs div.tab div.tab-body
+{
+}
+
