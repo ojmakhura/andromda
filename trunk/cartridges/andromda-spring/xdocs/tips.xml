@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - Tips</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Tips for using AndroMDA bpm4struts">
+            <p>
+                This section provides you with some pointers that might prove helpful when using AndroMDA with
+                the Spring cartridge.
+            </p>
+        </section>
+
+        <section name="Exceptions">
+            <p>
+                It's not needed to model exceptions for all the services you model, the Spring cartridge will
+                generate them automatically for you. That way you don't need to keep writing
+                <code>try/catch</code> blocks in the <code>handleXXX</code> methods in the service implementation
+                classes, just throw any error, it will be handled for you.
+            </p>
+            <p>
+                So basically this snippet is a good example of an implementation of a service operation, there is
+                no need to catch any exception and rethrow it:
+<source><![CDATA[
+protected PersonDetails handleGet(Long id) throws Exception
+{
+    return (PersonDetails)getPersonDao().load(PersonDao.TRANSFORM_PERSONDETAILS, id);
+}
+]]></source>
+            </p>
+        </section>
+
+        <section name="Running without EJBs">
+            <p>
+                The Spring cartridge by default uses stateless EJB session beans behind the scenes,
+                so you'll need to deploy in a real J2EE container such as
+                <a href="http://www.jboss.org/">JBoss</a>. If you prefer to deploy applications
+                in <a href="http://jakarta.apache.org/tomcat/">Tomcat</a>, or you just want to make your application
+                lighter by dropping EJBs altogether and making use of the Spring transaction manager you can do so
+                by uncommenting the <code>session-ejbs</code> outlet.
+            </p>
+            <p>
+                If you generated your project using the
+                <a href="../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> Maven plugin you simply
+                need to put the outlet in comment like this (this is done in <code>/mda/project.xml</code>):
+<source><![CDATA[
+<dependency>
+    <groupId>andromda</groupId>
+    <artifactId>andromda-spring-cartridge</artifactId>
+    <version>${andromda}</version>
+    <type>jar</type>
+    <properties>
+        ...
+        <!--
+            <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
+        -->
+        ...
+    </properties>
+</dependency>
+]]></source>
+            </p>
+        </section>
+
+    </body>
+</document>
