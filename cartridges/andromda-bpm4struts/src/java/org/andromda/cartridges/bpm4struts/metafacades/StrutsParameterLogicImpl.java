@@ -4,6 +4,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
@@ -88,6 +89,60 @@ public class StrutsParameterLogicImpl
         return cachedJsp;
     }
 
+    private Object controllerOperation = null;
+    private boolean controllerOperationSet = false;
+    protected Object handleGetControllerOperation()
+    {
+        if (!controllerOperationSet)
+        {
+            Collection allOperations = getModel().getAllOperations();
+            for (Iterator operationIterator = allOperations.iterator(); operationIterator.hasNext();)
+            {
+                OperationFacade operation = (OperationFacade) operationIterator.next();
+                Collection arguments = operation.getArguments();
+                for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext() && !controllerOperationSet;)
+                {
+                    StrutsParameter parameter = (StrutsParameter) argumentIterator.next();
+                    if (this.equals(parameter))
+                    {
+                        controllerOperation = operation;
+                        controllerOperationSet = true;
+                    }
+                }
+            }
+        }
+        return controllerOperation;
+    }
+
+    protected Collection handleGetFormFields()
+    {
+        Collection formFields = null;
+        if (isControllerOperationArgument())
+        {
+            final String name = getName();
+            formFields = new ArrayList();
+            Collection actions = getControllerOperation().getDeferringActions();
+            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            {
+                StrutsAction action = (StrutsAction) actionIterator.next();
+                Collection actionFormFields = action.getActionFormFields();
+                for (Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext();)
+                {
+                    StrutsParameter parameter = (StrutsParameter) fieldIterator.next();
+                    if (name.equals(parameter.getName()))
+                    {
+                        formFields.add(parameter);
+                    }
+                }
+            }
+        }
+        else
+        {
+            formFields = Collections.EMPTY_LIST;
+        }
+        return formFields;
+    }
+
     // -------------------- business methods ----------------------
 
     /**
@@ -129,6 +184,11 @@ public class StrutsParameterLogicImpl
         final ClassifierFacade type = getType();
         final String typeName = type.getFullyQualifiedName(true);
         return isValidatorBoolean(typeName) || type.isArrayType();
+    }
+
+    public boolean handleIsControllerOperationArgument()
+    {
+        return getControllerOperation() != null;
     }
 
     /**
@@ -521,24 +581,51 @@ public class StrutsParameterLogicImpl
 
     public Collection handleGetTableColumnNames()
     {
-        Collection columnNamesCollection = Collections.EMPTY_LIST;
-        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_COLUMNS);
-        if ((taggedValue == null) || (String.valueOf(taggedValue).matches(",")))
+        Collection tableColumnNames = null;
+
+        if (!isActionParameter() && !isControllerOperationArgument())
         {
-            columnNamesCollection = Collections.EMPTY_LIST;
+            Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_COLUMNS);
+            if ((taggedValue == null) || (String.valueOf(taggedValue).matches(",")))
+            {
+                tableColumnNames = Collections.EMPTY_LIST;
+            }
+            else
+            {
+                tableColumnNames = new ArrayList();
+                String columnNames = String.valueOf(taggedValue);
+                String[] properties = columnNames.split(",");
+                for (int i = 0; i < properties.length; i++)
+                {
+                    String property = properties[i];
+                    tableColumnNames.add(StringUtils.trimToEmpty(property));
+                }
+            }
+        }
+        else if (isControllerOperationArgument())
+        {
+            tableColumnNames = new HashSet();
+            final String name = getName();
+            Collection actions = getControllerOperation().getDeferringActions();
+            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            {
+                StrutsAction action = (StrutsAction) actionIterator.next();
+                Collection formFields = action.getActionFormFields();
+                for (Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext();)
+                {
+                    StrutsParameter parameter = (StrutsParameter) fieldIterator.next();
+                    if (name.equals(parameter.getName()))
+                    {
+                        tableColumnNames.addAll(parameter.getTableColumnNames());
+                    }
+                }
+            }
         }
         else
         {
-            columnNamesCollection = new ArrayList();
-            String columnNames = String.valueOf(taggedValue);
-            String[] properties = columnNames.split(",");
-            for (int i = 0; i < properties.length; i++)
-            {
-                String property = properties[i];
-                columnNamesCollection.add(StringUtils.trimToEmpty(property));
-            }
+            tableColumnNames = Collections.EMPTY_LIST;
         }
-        return columnNamesCollection;
+        return tableColumnNames;
     }
 
     public int handleGetTableMaxRows()
@@ -653,7 +740,31 @@ public class StrutsParameterLogicImpl
 
     public boolean handleIsSelectable()
     {
-        return "select".equals(getWidgetType());
+        boolean isSelectable = false;
+
+        if (isActionParameter())
+        {
+            isSelectable = "select".equals(getWidgetType());
+        }
+        else if (isControllerOperationArgument())
+        {
+            final String name = getName();
+            Collection actions = getControllerOperation().getDeferringActions();
+            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            {
+                StrutsAction action = (StrutsAction) actionIterator.next();
+                Collection formFields = action.getActionFormFields();
+                for (Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !isSelectable;)
+                {
+                    StrutsParameter parameter = (StrutsParameter) fieldIterator.next();
+                    if (name.equals(parameter.getName()))
+                    {
+                        isSelectable = parameter.isSelectable();
+                    }
+                }
+            }
+        }
+        return isSelectable;
     }
 
     public String handleGetValueListName()
