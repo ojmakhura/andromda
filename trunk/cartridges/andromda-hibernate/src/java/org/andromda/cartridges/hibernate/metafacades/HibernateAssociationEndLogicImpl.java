@@ -7,6 +7,7 @@ import org.andromda.cartridges.hibernate.HibernateProfile;
  * org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd.
  * 
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd
+ * 
  */
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
@@ -49,6 +50,28 @@ public class HibernateAssociationEndLogicImpl
         }
 
         return lazy;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOuterJoin()
+     */
+    protected String handleGetOuterJoin() 
+    {
+        String outerJoin=null;
+     
+        Object value = this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_OUTER_JOIN);
+        outerJoin= (String)value;
+        if ((outerJoin != null) &&    
+            ((outerJoin.equalsIgnoreCase("true")) || (outerJoin.equalsIgnoreCase("false")) 
+                || (outerJoin.equalsIgnoreCase("auto"))))
+        {
+            return outerJoin;   
+        }
+        else
+        {
+             return null;
+        }
     }
 
 }

@@ -475,7 +475,18 @@
                     <td>
                         No, default is <code>false</code>.
                     </td>
-                </tr>   
+                </tr>
+                                <tr>
+                    <td>
+                        hibernateAssociationOuterJoin
+                    </td>
+                    <td>
+                         This tagged value will determine how Hibernate manages  many to one and one to one associations.
+                    </td>
+                    <td>
+                        Yes, default is <code>auto</code>.
+                    </td>
+                </tr>    
             </table>
         </section>
     </body>

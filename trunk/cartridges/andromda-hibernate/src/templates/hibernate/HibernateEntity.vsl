@@ -197,6 +197,11 @@ $target.getDocumentation("     * ")
 #if($target.required)
      *     not-null="true"
 #end
+#if (!$associationEnd.outerJoin)
+     *     outer-join="${hibernateAssociationOuterJoin}"
+#else
+     *     outer-join="${associationEnd.outerJoin}"
+#end
      */
     public ${targetTypeName} ${target.getterName}()
     {
@@ -357,6 +362,11 @@ $target.getDocumentation("     * ")
 #end
 #if($target.required)
      *     not-null="true"
+#end
+#if (!$associationEnd.outerJoin)
+     *     outer-join="${hibernateAssociationOuterJoin}"
+#else
+     *     outer-join="${associationEnd.outerJoin}"
 #end
      */
     public ${targetTypeName} ${target.getterName}()

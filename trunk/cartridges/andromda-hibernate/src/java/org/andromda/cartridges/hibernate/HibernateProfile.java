@@ -51,5 +51,11 @@ public class HibernateProfile extends UMLProfile
 	public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE_CONCRETE = "concrete";
 	/** Value make Entity an interface, delegate attributes to subclasses. */
 	public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE_INTERFACE = "interface";
+	
+    /**
+     * Defines outer join fetching on many to one and one to one associations
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_OUTER_JOIN = "@andromda.hibernate.outerjoin";
+
 
 }
