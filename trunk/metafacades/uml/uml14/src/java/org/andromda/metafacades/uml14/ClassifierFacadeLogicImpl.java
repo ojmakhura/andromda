@@ -465,13 +465,16 @@ public class ClassifierFacadeLogicImpl
      */
     protected AttributeFacade handleFindAttribute(final String name)
     {
-       return (AttributeFacade)CollectionUtils.find(this
-               .getAttributes(), new Predicate()
-       {
-           public boolean evaluate(Object object)
-           {
-               return ((AttributeFacade)object).getName().equals(name);
-           }
-       });
+        return (AttributeFacade)CollectionUtils.find(
+            this.getAttributes(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    final AttributeFacade attribute = (AttributeFacade)object;
+                    return StringUtils.trimToEmpty(attribute.getName()).equals(
+                        name);
+                }
+            });
     }
 }
