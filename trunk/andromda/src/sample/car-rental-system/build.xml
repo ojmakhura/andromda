@@ -285,7 +285,12 @@
         <antcall target="check-andromda"/>
 
         <antcall target="check-buildclasspath"/>
-
+		
+		<available property="mdr.present"
+			classname="org.netbeans.mdr.NBMDRepositoryImpl"
+			classpathref="build.class.path"/>
+		<antcall target="wrong-mdr"/>
+		
         <available property="velocity.present"
                    classname="org.apache.velocity.context.Context"
                    classpathref="build.class.path" />
@@ -345,7 +350,16 @@
             to contain the andromda jar.
         </fail>
     </target>
-
+    
+	<target name="wrong-mdr" unless="mdr.present">
+	<fail>
+	    Property "build.classpath" is set but it doesn't seem
+	    to contain the necessary MDR jars such as 
+	    mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
+	    uml14.jar, openide-lookup.jar, openide-fs.jar
+	</fail>
+    </target>
+    
     <target name="wrong-velocity" unless="velocity.present">
         <fail>
             Property "build.classpath" is set but it doesn't seem
