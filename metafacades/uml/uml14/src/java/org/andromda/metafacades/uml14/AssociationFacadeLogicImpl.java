@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.andromda.metafacades.uml.*;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -30,6 +31,18 @@ public class AssociationFacadeLogicImpl
     public java.util.Collection handleGetAssociationEnds()
     {
         return metaObject.getConnection();
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    public String getName() {
+        String name = super.getName();      
+        // if the name isn't defined, use the relation name
+    	if (StringUtils.isEmpty(name)) {
+    		name = this.getRelationName();
+        }
+        return name;
     }
     
     /**
