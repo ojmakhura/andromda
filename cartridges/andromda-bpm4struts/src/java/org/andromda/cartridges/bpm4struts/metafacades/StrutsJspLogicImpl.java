@@ -1,6 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
 
@@ -106,36 +105,6 @@ public class StrutsJspLogicImpl
             }
         }
         return false;
-    }
-
-    public String handleGetLinkActionPath(String collectionName, String propertyName)
-    {
-        final String linkValue = collectionName + '.' + propertyName;
-
-        Collection pageVariables = getPageVariables();
-        for (Iterator iterator = pageVariables.iterator(); iterator.hasNext();)
-        {
-            StrutsParameter pageVariable = (StrutsParameter) iterator.next();
-            if (pageVariable.isTable() && pageVariable.getName().equals(collectionName))
-            {
-                // look for an action parameter with the tagged value
-                Collection actionParameters = getAllActionParameters();
-                for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
-                {
-                    StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
-                    Object taggedValue = parameter.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABLELINK);
-                    if (taggedValue.equals(linkValue))
-                    {
-                        StrutsAction action = parameter.getAction();
-                        if (action != null)
-                        {
-                            return action.getActionPath();
-                        }
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     // ------------- relations ------------------
