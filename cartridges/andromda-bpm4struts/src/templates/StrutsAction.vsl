@@ -46,7 +46,7 @@ $action.getDocumentation(" * ")
  *        path="$action.actionPath"
  *        name="$action.actionName"
 #if ($action.useCaseStart == false)
- *       input="${action.input.fullPath}.jsp"
+ *       input="${action.actionPathRoot}${action.actionPathRoot}.do"
 #end
 #set ($validationDesired = ($serverValidation == 'true'))
 #if ($action.validationRequired && $validationDesired)

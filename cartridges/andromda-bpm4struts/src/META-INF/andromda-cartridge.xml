@@ -142,6 +142,16 @@
             <modelElement stereotype="FrontEndView"/>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/StrutsJSPVariables.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="false">
+        <modelElements variable="jsp">
+            <modelElement stereotype="FrontEndView"/>
+        </modelElements>
+    </template>
 
     <template
         path="templates/StrutsFormValidationStaticJavascript.vsl"

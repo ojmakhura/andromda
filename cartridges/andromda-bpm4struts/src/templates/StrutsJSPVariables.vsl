@@ -1,0 +1,8 @@
+#set ($generatedFile = "${jsp.fullPath}-vars.jspf")
+#foreach ($variable in $jsp.pageVariables)
+#set ($variableName = $variable.name)
+#set ($formVariableName = "form.${variableName}")
+<c:if test="${!empty ${formVariableName}}">
+    <c:set var="$variableName" value="${${formVariableName}}"/>
+</c:if>
+#end
