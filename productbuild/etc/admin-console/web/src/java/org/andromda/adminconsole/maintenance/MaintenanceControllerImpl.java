@@ -1,10 +1,7 @@
 package org.andromda.adminconsole.maintenance;
 
 import org.andromda.adminconsole.config.AdminConsoleConfigurator;
-import org.andromda.adminconsole.db.Database;
-import org.andromda.adminconsole.db.DatabaseFactory;
-import org.andromda.adminconsole.db.Table;
-import org.andromda.adminconsole.db.TableType;
+import org.andromda.adminconsole.db.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
 
@@ -13,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * @see org.andromda.adminconsole.maintenance.MaintenanceController
@@ -95,7 +93,16 @@ public class MaintenanceControllerImpl extends MaintenanceController
 
     public void insertRow(ActionMapping mapping, InsertRowForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        Object[] parameters = form.getParametersAsArray();
+        RowData rowData = new RowData();
+
+        Map parameterMap = request.getParameterMap();
+        for (Iterator iterator = parameterMap.entrySet().iterator(); iterator.hasNext();)
+        {
+            Map.Entry parameterPair = (Map.Entry) iterator.next();
+            Object parameterName = parameterPair.getKey();
+            Object[] parameterValues = (Object[])parameterPair.getValue();
+            rowData.put(parameterName, parameterValues[0]);  // minimum array length is 1
+        }
 
         Table table = getMetaDataSession(request).getCurrentTable();
 
@@ -105,7 +112,7 @@ public class MaintenanceControllerImpl extends MaintenanceController
         }
         else
         {
-            table.insertRow(parameters);
+            table.insertRow(rowData);
         }
     }
 }
