@@ -33,7 +33,6 @@ public class $service.ejbImplementationName
         throws $operation.exceptionList
 #end
     {
-
 #if ($ejbSecurityEnabled)
 #set ($principalStoreClassName = "${principalStoreName}")
 #if($stringUtils.isNotEmpty($springTypesPackage))
