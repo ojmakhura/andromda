@@ -18,7 +18,7 @@
             </p>
             <p class="std">
                 The application resembles an online store, the customer logs in, selects some items
-                to buy, and proceeds to the payment. This all is modelled very roughly, the point is
+                to buy, and proceeds to the payment. This all is modeled very roughly, the point is
                 to teach you something about bpm4struts, not about online shopping.
             </p>
             <p class="std">
@@ -39,7 +39,7 @@
                         the order the application returns to the beginning</li>
                 </ul>
                 Each time we travel between pages the application will store this data in a database somewhere
-                (this is transparent for us), but the fact this is done is also modelled in UML.
+                (this is transparent for us), but the fact this is done is also modeled in UML.
             </p>
             <p class="std">
                 Please note that in some cases you will see something slightly different on the images compared to what
@@ -73,7 +73,7 @@
             </p>
             <h3>Specify each use-case in more detail</h3>
             <p class="std">
-                When you have modelled your use-cases you are ready to tell a little more about them, do
+                When you have modeled your use-cases you are ready to tell a little more about them, do
                 this by add one (only one!) activity graph to each of them, give it a good name
                 (however, it will be ignored by the cartridge)
             </p>
@@ -232,14 +232,14 @@
             </p>
             <h4>Final States</h4>
             <p class="std">
-                Final states represent the end of the activity modelled in the activity graph,
+                Final states represent the end of the activity modeled in the activity graph,
                 because we use a single graph to model a use-case a final state represent a
                 possible end of the use-case.
             </p>
             <p class="std">
                 It is perfectly legal to have more than one final state, you might have one for "success"
                 and one for "failure" for example. It is very important that the name of the final state
-                is the same as the name of a use-case. This may be the same use-case as being modelled.
+                is the same as the name of a use-case. This may be the same use-case as being modeled.
             </p>
             <p class="std">
                 We use the name here to interconnect use-cases, for the moment there is no easier or
