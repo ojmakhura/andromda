@@ -3,30 +3,42 @@
          xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:util="jelly:util">
+         
+  	<!-- ==================================================================
+  			 Installs all component libraries into the local repository                                                    
+  		 ================================================================== -->
+  	<goal name="install-components">
+ 		<j:set 
+ 			var="maven.multiproject.includes" 
+ 			value="${component.includes}"/>
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
+  	
+  	<!-- ==================================================================
+  			 Installs all sample libraries into the local repository                                                    
+  		 ================================================================== -->
+  	<goal name="install-samples">
+ 		<j:set 
+ 			var="maven.multiproject.includes" 
+ 			value="${sample.includes}"/>
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
 
   	<!-- ==================================================================
   			 Installs all libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install">
- 		<j:set 
- 			var="maven.multiproject.includes" 
- 			value="**/project.xml"/>
- 		<j:set 
- 			var="maven.multiproject.excludes" 
- 			value="${multiproject.install.excludes}"/>
-		<attainGoal name="multiproject:install"/>	
+ 		<attainGoal name="install-components"/>
+ 		<attainGoal name="install-samples"/>
   	</goal> 
  
   	<!-- ==================================================================
-  			 Installs all libraries into the remote repository                                                    
+  			 Deploys all libraries into the remote repository                                                    
   		 ================================================================== --> 	
   	<goal name="deploy">
  		<j:set 
  			var="maven.multiproject.includes" 
- 			value="**/project.xml"/>
- 		<j:set 
- 			var="maven.multiproject.excludes" 
- 			value="${multiproject.deploy.excludes}"/>
+ 			value="${component.includes}"/>
 		<attainGoal name="multiproject:deploy"/>	  		
   	</goal>
   	
@@ -52,9 +64,58 @@
   	</goal> 
   	
   	<!-- ==================================================================
-  			 Creates the AndroMDA distribution                                                     
+  			 Creates the AndroMDA distributions                                                    
+  		 ================================================================== --> 
+  	<goal name="dist">
+  		<attainGoal name="dist-bin"/>
+  	</goal>
+  	
+  	<!-- ==================================================================
+  			 Creates the AndroMDA binary distribution                                                     
   		 ================================================================== --> 	
     <goal name="dist-bin">
+		<attainGoal name="install"/>	    	
+		<j:set 
+			var="binaryDistDir" 
+			value="${distribution.dir}/andromda-bin-${pom.currentVersion}"/>
+		<j:set
+			var="binaryDistLibDir"
+			value="${binaryDistDir}/lib"/>
+			
+		<ant:delete dir="${binaryDistDir}"/>
+		<ant:mkdir dir="${binaryDistLibDir}"/>
+		    			
+		<maven:reactor
+		  basedir="${basedir}"
+		  banner="Gathering Components: "
+		  includes="${component.includes}"
+		  postProcessing="true"
+		  ignoreFailures="false"/>  
+		  						
+		<j:forEach var="reactorProject" items="${reactorProjects}">			
+			<ant:echo>Adding Component: '${reactorProject}'</ant:echo>
+			<j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
+			<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}"/>
+			<ant:mkdir dir="${toDir}"/>
+			<ant:copy todir="${toDir}">
+				<ant:fileset dir="${fromDir}">
+					<ant:include name="*.jar"/>
+				</ant:fileset>				
+			</ant:copy>
+			<j:forEach var="lib" items="${reactorProject.artifacts}">
+				<!-- don't copy 'andromda' dependencies -->
+				<j:if test="${lib.dependency.artifactId.indexOf('andromda') == '-1'}">
+					<ant:copy file="${lib.file}" todir="${binaryDistLibDir}"/>
+				</j:if>
+			</j:forEach>
+		</j:forEach> 	
+					
+    </goal>
+    
+  	<!-- ==================================================================
+  			 Creates the AndroMDA source distribution                                                     
+  		 ================================================================== --> 	
+    <goal name="dist-src">
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering project list"
@@ -62,8 +123,18 @@
 		  excludes="${multiproject.install.excludes}"
 		  postProcessing="true"
 		  ignoreFailures="false"/>  
+		 
+		<j:set 
+			var="sourceDistDir" 
+			value="${distribution.dir}/andromda-src-{pom.currentVersion}"/>
+			
+		<ant:mkdir dir="${sourceDistDir}"/>
+			
 		<j:forEach var="reactorProject" items="${reactorProjects}">			
 			<ant:echo>Processing sub dist: ${reactorProject}</ant:echo>
+			<j:forEach var="lib" items="${pom.artifacts}">
+				<j:set var="dep" value="${lib.dependency}"/>
+			</j:forEach>
 		</j:forEach> 				
     </goal>
     
