@@ -20,6 +20,32 @@ public class StrutsActionLogicImpl
     private Collection actionForwards = null;
     private Collection decisionTransitions = null;
 
+    private String actionName = null;
+    private String actionInput = null;
+    private String actionPath = null;
+    private String actionClassName = null;
+    private String actionPathRoot = null;
+    private String actionRoles = null;
+    private String formBeanClassName = null;
+    private String formBeanName = null;
+    private String formValidationMethodName = null;
+    private String fullActionPath = null;
+    private String fullFormBeanPath = null;
+    private String messageKey = null;
+    private String successMessageKey = null;
+    private String successMessageValue = null;
+    private String packageName = null;
+    private Boolean hasSuccessMessage = null;
+    private Boolean isHyperlink = null;
+    private Boolean isResettable = null;
+    private Boolean isUseCaseStart = null;
+
+    private Object input = null;
+    private Object activityGraph = null;
+    private Object actionTrigger = null;
+    private Object controller = null;
+    private Collection actionParameters = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsActionLogicImpl(Object metaObject, String context)
@@ -40,18 +66,16 @@ public class StrutsActionLogicImpl
         if (processedTransitions.contains(transition))
         {
             return;
-        }
-        else
+        } else
         {
             processedTransitions.add(transition);
         }
 
         final StateVertexFacade target = transition.getTarget();
-        if ( (target instanceof StrutsJsp) || (target instanceof StrutsFinalState) )
+        if ((target instanceof StrutsJsp) || (target instanceof StrutsFinalState))
         {
             actionForwards.add(transition);
-        }
-        else if ( (target instanceof PseudostateFacade) && ((PseudostateFacade)target).isDecisionPoint() )
+        } else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
             Collection outcomes = target.getOutgoing();
@@ -60,13 +84,11 @@ public class StrutsActionLogicImpl
                 TransitionFacade outcome = (TransitionFacade) iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
-        }
-        else if (target instanceof StrutsActionState)
+        } else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
-            collectTransitions( ((StrutsActionState)target).getForward(), processedTransitions );
-        }
-        else    // all the rest is ignored but outgoing transitions are further processed
+            collectTransitions(((StrutsActionState) target).getForward(), processedTransitions);
+        } else    // all the rest is ignored but outgoing transitions are further processed
         {
             Collection outcomes = target.getOutgoing();
             for (Iterator iterator = outcomes.iterator(); iterator.hasNext();)
@@ -84,13 +106,15 @@ public class StrutsActionLogicImpl
 
     public String getActionName()
     {
-        return getActivityGraph().getUseCase().getFormBeanName();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionName != null) return actionName;
+        return (actionName = getActivityGraph().getUseCase().getFormBeanName());
     }
 
     public String getActionInput()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionInput != null) return actionInput;
         final StateVertexFacade source = getSource();
-        return (source instanceof StrutsJsp) ? ((StrutsJsp)source).getFullPath() : "";
+        return (actionInput = (source instanceof StrutsJsp) ? ((StrutsJsp) source).getFullPath() : "");
     }
 
     public boolean isFormPost()
@@ -100,28 +124,34 @@ public class StrutsActionLogicImpl
 
     public boolean isHyperlink()
     {
-       return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
-               findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE));
+        if (Bpm4StrutsProfile.ENABLE_CACHE && isHyperlink != null) return isHyperlink.booleanValue();
+        boolean condition = Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE));
+        return (isHyperlink = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 
     public boolean hasSuccessMessage()
     {
-        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE));
+        if (Bpm4StrutsProfile.ENABLE_CACHE && hasSuccessMessage != null) return hasSuccessMessage.booleanValue();
+        boolean condition = isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE));
+        return (hasSuccessMessage = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 
     public java.lang.String getActionPath()
     {
-        return getActionPathRoot() + '/' + getActionClassName();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionPath != null) return actionPath;
+        return (actionPath = getActionPathRoot() + '/' + getActionClassName());
     }
 
     public String getActionPathRoot()
     {
-        return '/' + StringUtilsHelper.toJavaClassName(getActivityGraph().getUseCase().getName());
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionPathRoot != null) return actionPathRoot;
+        return (actionPathRoot = '/' + StringUtilsHelper.toJavaClassName(getActivityGraph().getUseCase().getName()));
     }
-
 
     public java.lang.String getActionRoles()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionRoles != null) return actionRoles;
+
         final Collection users = getActivityGraph().getUseCase().getAllUsers();
         StringBuffer rolesBuffer = new StringBuffer();
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
@@ -129,91 +159,107 @@ public class StrutsActionLogicImpl
             StrutsUser strutsUser = (StrutsUser) userIterator.next();
             rolesBuffer.append(strutsUser.getRole() + ' ');
         }
-        return StringUtilsHelper.separate(rolesBuffer.toString(), ",");
+        return (actionRoles = StringUtilsHelper.separate(rolesBuffer.toString(), ","));
     }
 
     public String getActionClassName()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionClassName != null) return actionClassName;
+
         String name = null;
         final StateVertexFacade source = getSource();
 
         if (source instanceof PseudostateFacade)
         {
-            PseudostateFacade pseudostate = (PseudostateFacade)source;
+            PseudostateFacade pseudostate = (PseudostateFacade) source;
             if (pseudostate.isInitialState())
                 name = getActivityGraph().getUseCase().getName();
-        }
-        else
+        } else
         {
             final EventFacade trigger = getTrigger();
             final String suffix = (trigger == null) ? getTarget().getName() : trigger.getName();
             name = getSource().getName() + ' ' + suffix;
         }
-        return StringUtilsHelper.toJavaClassName(name);
+        return (actionClassName = StringUtilsHelper.toJavaClassName(name));
     }
 
     public String getFormBeanClassName()
     {
-        return getActionClassName() + "ActionForm";
+        if (Bpm4StrutsProfile.ENABLE_CACHE && formBeanClassName != null) return formBeanClassName;
+        return (formBeanClassName = getActionClassName() + "ActionForm");
     }
 
     public String getFormBeanName()
     {
-        return StringUtilsHelper.lowerCaseFirstLetter(getFormBeanClassName());
+        if (Bpm4StrutsProfile.ENABLE_CACHE && formBeanName != null) return formBeanName;
+        return (formBeanName = StringUtilsHelper.lowerCaseFirstLetter(getFormBeanClassName()));
     }
 
     public String getFormValidationMethodName()
     {
-        return "validate" + getFormBeanClassName();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && formValidationMethodName != null) return formValidationMethodName;
+        return (formValidationMethodName = "validate" + getFormBeanClassName());
     }
 
     public String getMessageKey()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && messageKey != null) return messageKey;
+
         String messageKey = getActivityGraph().getUseCase().getName() + ' ';
         messageKey += (isUseCaseStart()) ? messageKey : getInput().getName();
-        return StringUtilsHelper.toResourceMessageKey(messageKey);
+        return (messageKey = StringUtilsHelper.toResourceMessageKey(messageKey));
     }
 
     public String getSuccessMessageKey()
     {
-        return getMessageKey() + ".success";
+        if (Bpm4StrutsProfile.ENABLE_CACHE && successMessageKey != null) return successMessageKey;
+        return (successMessageKey = getMessageKey() + ".success");
     }
 
     public String getSuccessMessageValue()
     {
-        return '[' + getMessageKey() + "] succesfully executed on " + getInput().getTitleValue();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && successMessageValue != null) return successMessageValue;
+        return (successMessageValue = '[' + getTrigger().getName() + "] succesfully executed on " + getInput().getTitleValue());
     }
 
     public String getPackageName()
     {
-        return getActivityGraph().getController().getPackageName();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && packageName != null) return packageName;
+        return (packageName = getActivityGraph().getController().getPackageName());
     }
 
     public boolean isResettable()
     {
-        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE));
+        if (Bpm4StrutsProfile.ENABLE_CACHE && isResettable != null) return isResettable.booleanValue();
+        boolean condition = isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE));
+        return (isResettable = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 
     private boolean isTrue(String string)
     {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) ||
-               "on".equalsIgnoreCase(string)  || "1".equalsIgnoreCase(string);
+                "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
     }
 
     public boolean isUseCaseStart()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && isResettable != null) return isUseCaseStart.booleanValue();
+
         StateVertexFacade source = getSource();
-        return source instanceof PseudostateFacade && ((PseudostateFacade)source).isInitialState();
+        boolean condition = source instanceof PseudostateFacade && ((PseudostateFacade) source).isInitialState();
+        return (isUseCaseStart = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 
     public String getFullActionPath()
     {
-        return '/' + (getPackageName() + '/' + getActionClassName()).replace('.','/');
+        if (Bpm4StrutsProfile.ENABLE_CACHE && fullActionPath != null) return fullActionPath;
+        return (fullActionPath = '/' + (getPackageName() + '/' + getActionClassName()).replace('.', '/'));
     }
 
     public String getFullFormBeanPath()
     {
-        return '/' + (getPackageName() + '/' + getFormBeanClassName()).replace('.','/');
+        if (Bpm4StrutsProfile.ENABLE_CACHE && fullFormBeanPath != null) return fullFormBeanPath;
+        return (fullFormBeanPath = '/' + (getPackageName() + '/' + getFormBeanClassName()).replace('.', '/'));
     }
 
     // ------------- relations ------------------
@@ -243,7 +289,7 @@ public class StrutsActionLogicImpl
         final Collection actionStates = getActionStates();
         for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = (StrutsActionState)iterator.next();
+            StrutsActionState actionState = (StrutsActionState) iterator.next();
             exceptions.addAll(actionState.getExceptions());
         }
 
@@ -252,26 +298,32 @@ public class StrutsActionLogicImpl
 
     protected java.lang.Object handleGetInput()
     {
-        return getSource();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && input != null) return input;
+        return (input = getSource());
     }
 
     protected Object handleGetActivityGraph()
     {
-        return getSource().getActivityGraph();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && activityGraph != null) return activityGraph;
+        return (activityGraph = getSource().getActivityGraph());
     }
 
     protected Object handleGetController()
     {
-        return getActivityGraph().getController();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && controller != null) return controller;
+        return (controller = getActivityGraph().getController());
     }
 
     protected Object handleGetActionTrigger()
     {
-        return getTrigger();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionTrigger != null) return actionTrigger;
+        return (actionTrigger = getTrigger());
     }
 
     protected Collection handleGetActionParameters()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionParameters != null) return actionParameters;
+
         /*
          * in order to avoid naming collisions when a parameter is passed
          * around more than once, we keep a map which maps names onto the
@@ -308,7 +360,7 @@ public class StrutsActionLogicImpl
             }
         }
 
-        return parameterMap.values();
+        return (actionParameters = parameterMap.values());
     }
 
     private void collectParameters(Collection parameters, Map parameterMap)

@@ -1,8 +1,9 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -17,6 +18,10 @@ public class StrutsActivityGraphLogicImpl
         extends StrutsActivityGraphLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
 {
+    private Object firstAction = null;
+    private Object useCase = null;
+    private Object controller = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsActivityGraphLogicImpl(java.lang.Object metaObject, java.lang.String context)
@@ -27,22 +32,26 @@ public class StrutsActivityGraphLogicImpl
 
     protected Object handleGetFirstAction()
     {
-        PseudostateFacade initialState = (PseudostateFacade)getInitialStates().iterator().next();
-        return initialState.getOutgoing().iterator().next();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && firstAction != null) return firstAction;
+
+        PseudostateFacade initialState = (PseudostateFacade) getInitialStates().iterator().next();
+        return firstAction = initialState.getOutgoing().iterator().next();
     }
 
     protected Object handleGetUseCase()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && useCase != null) return useCase;
+
         Collection useCases = getModel().getAllUseCases();
         for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
         {
             Object obj = iterator.next();
             if (obj instanceof StrutsUseCase)
             {
-                StrutsUseCase useCase = (StrutsUseCase)obj;
-                if (this.equals(useCase.getActivityGraph()))
+                StrutsUseCase strutsUseCase = (StrutsUseCase) obj;
+                if (this.equals(strutsUseCase.getActivityGraph()))
                 {
-                    return useCase;
+                    return useCase = strutsUseCase;
                 }
             }
         }
@@ -51,7 +60,9 @@ public class StrutsActivityGraphLogicImpl
 
     protected Object handleGetController()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && controller != null) return controller;
+
         final ModelElementFacade contextElement = getContextElement();
-        return (contextElement instanceof ClassifierFacade) ? contextElement : null;
+        return controller = (contextElement instanceof ClassifierFacade) ? contextElement : null;
     }
 }

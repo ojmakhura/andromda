@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 
 
@@ -12,6 +13,8 @@ public class StrutsPseudostateLogicImpl
         extends StrutsPseudostateLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
 {
+    private String actionMethodName = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsPseudostateLogicImpl(java.lang.Object metaObject, java.lang.String context)
@@ -29,8 +32,10 @@ public class StrutsPseudostateLogicImpl
      */
     public java.lang.String getActionMethodName()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionMethodName != null) return actionMethodName;
+
         final String methodName = getName();
-        return (methodName == null) ? "a" + System.currentTimeMillis() : StringUtilsHelper.toJavaMethodName(methodName); 
+        return actionMethodName = (methodName == null) ? "a" + System.currentTimeMillis() : StringUtilsHelper.toJavaMethodName(methodName);
     }
 
     // ------------- relations ------------------
