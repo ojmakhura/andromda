@@ -85,7 +85,7 @@
                     <li>Shorten the name of the JSP page on which the loading fails</li>
                     <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
                         if you set the <code>explodeOnDeploy</code> property to <code>true</code>
-                        in <code>/app/project.properties</code>. The next time you deploy using th maven
+                        in <code>/app/project.properties</code>. The next time you deploy using the maven
                         <code>deploy</code> goal, a directory containing everything be deployed
                         instead of a single EAR bundle.
                     </li>
