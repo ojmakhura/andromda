@@ -4,10 +4,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Attribute;
@@ -175,6 +177,30 @@ public class ClassifierFacadeLogicImpl
         }
         CollectionUtils.filter(attributes, new StaticAttributeFilter());
         return attributes;      
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
+     */
+    public java.util.Collection getProperties() {
+        Collection properties = this.getAttributes();
+        class ConnectingEndTransformer implements Transformer {
+            public Object transform(Object object) {
+                return ((AssociationEndFacade)object).getOtherEnd();              
+            }
+        }
+        Collection connectingEnds = this.getAssociationEnds();
+        CollectionUtils.transform(
+            connectingEnds, 
+            new ConnectingEndTransformer());
+        class NavigableFilter implements Predicate {
+            public boolean evaluate(Object object) {
+                return ((AssociationEndFacade)object).isNavigable();
+            }
+        }
+        CollectionUtils.filter(connectingEnds, new NavigableFilter());
+        properties.addAll(connectingEnds);
+        return properties;
     }
     
     /**
