@@ -314,15 +314,17 @@ public class MetafacadeMappings
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
                         boolean valid = false;
                         if (mapping.getMappingClassName().equals(
-                            mappingObject.getClass().getName())
-                            && !mapping.hasStereotypes()
-                            && mapping.hasContext() 
-                            && mapping.hasMappingProperties())
+                            mappingObject.getClass().getName()))
                         {
-                            valid = MetafacadeMappingsUtils
-                                .mappingPropertiesValid(
-                                    mappingObject,
-                                    mapping);
+                            if (!mapping.hasStereotypes()
+                                && mapping.hasContext()
+                                && mapping.hasMappingProperties())
+                            {
+                                valid = MetafacadeMappingsUtils
+                                    .mappingPropertiesValid(
+                                        mappingObject,
+                                        mapping);
+                            }
                         }
                         return valid;
                     }
@@ -392,15 +394,17 @@ public class MetafacadeMappings
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
                         boolean valid = false;
                         if (mapping.getMappingClassName().equals(
-                            mappingObject.getClass().getName())
-                            && !mapping.hasStereotypes()
-                            && !mapping.hasContext()
-                            && mapping.hasMappingProperties())
+                            mappingObject.getClass().getName()))
                         {
-                            valid = MetafacadeMappingsUtils
-                                .mappingPropertiesValid(
-                                    mappingObject,
-                                    mapping);
+                            if (!mapping.hasStereotypes()
+                                && !mapping.hasContext()
+                                && mapping.hasMappingProperties())
+                            {
+                                valid = MetafacadeMappingsUtils
+                                    .mappingPropertiesValid(
+                                        mappingObject,
+                                        mapping);
+                            }
                         }
                         return valid;
                     }
@@ -415,12 +419,16 @@ public class MetafacadeMappings
                 {
                     public boolean evaluate(Object object)
                     {
+                        boolean valid = false;
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
-                        return mapping.getMappingClassName().equals(
-                            mappingObject.getClass().getName())
-                            && !mapping.hasContext()
-                            && !mapping.hasStereotypes()
-                            && !mapping.hasMappingProperties();
+                        if (mapping.getMappingClassName().equals(
+                            mappingObject.getClass().getName()))
+                        {
+                            valid = !mapping.hasContext()
+                                && !mapping.hasStereotypes()
+                                && !mapping.hasMappingProperties();
+                        }
+                        return valid;
                     }
                 });
         }
