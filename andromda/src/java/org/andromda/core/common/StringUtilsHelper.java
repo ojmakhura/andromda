@@ -1,9 +1,9 @@
 package org.andromda.core.common;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * A utility object for doing string manipulation operations that are commonly
@@ -14,8 +14,6 @@ import org.apache.commons.lang.StringUtils;
  * @author Chad Brandon
  */
 public class StringUtilsHelper {
-
-    private final static String crlf = System.getProperty("line.separator");
 
     /**
      * <p>Capitalizes a string.  That is, it returns "Hamburger" when
@@ -228,6 +226,6 @@ public class StringUtilsHelper {
      */
     public static String toResourceMessage(String multiLines)
     {
-        return suffixLines(multiLines, "\\");
+        return suffixLines(multiLines, " \\");
     }
 }
