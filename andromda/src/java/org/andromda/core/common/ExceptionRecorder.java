@@ -207,7 +207,10 @@ public class ExceptionRecorder
     }
 
     /**
-     * Method getExceptionDirectory.
+     * Returns the directory to which the exceptions
+     * are written.
+     * 
+     * @return the exception directory as a java.io.File instance.
      */
     public static File getExceptionDirectory()
     {
@@ -215,7 +218,9 @@ public class ExceptionRecorder
     }
 
     /**
-     * @return Returns the andromda_version.
+     * Gets the version of AndroMDA.
+     * 
+     * @return Returns the andromdaVersion
      */
     public static String getAndromdaVersion()
     {
@@ -223,7 +228,9 @@ public class ExceptionRecorder
     }
 
     /**
-     * @param andromda_version The andromda_version to set.
+     * Sets the version of AndroMDA.
+     * 
+     * @param andromdaVersion The version of AndroMDA.
      */
     public static void setAndromdaVersion(String andromdaVersion)
     {
