@@ -279,10 +279,10 @@ public abstract class ${metafacade.logicName}
 ##
 #if ($superMetafacade)
     // ----------- delegates to "superMetafacade" ------------
-
 #foreach ( $method in $superMetafacade.getMethodDataForPSM(true) )
     // from ${method.metafacadeName}
-	${method.buildMethodDeclaration(true)} {
+	${method.buildMethodDeclaration(true)} 
+	{
 #if ($method.hasReturnType())
         return super_.${method.buildMethodCall()};
 #else
@@ -290,6 +290,14 @@ public abstract class ${metafacade.logicName}
 #end
 	}
 #end
+
+     /**
+      * @see java.lang.Object#toString()
+      */
+    public String toString() 
+    {
+        return super_.toString();
+    }
 #end
 ##
 }
