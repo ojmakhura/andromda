@@ -23,7 +23,8 @@ public class $service.implementationName
     $operation.visibility $returnType.fullyQualifiedName $signature 
     	throws $operation.exceptionList {
 #else
-    $operation.visibility $returnType.fullyQualifiedName $signature {
+    $operation.visibility $returnType.fullyQualifiedName $signature 
+    {
 #end
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
