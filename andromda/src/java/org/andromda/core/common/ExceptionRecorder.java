@@ -33,12 +33,12 @@ public class ExceptionRecorder
     /** 
      * Run line system constant 
      */
-    static final String RUN_SYSTEM = "Run system .....: ";
+    static final String RUN_SYSTEM = "Run System .....: ";
     
     /** 
      * Run line jdk constant 
      */
-    static final String RUN_JDK = "Run jdk ........: ";
+    static final String RUN_JDK = "Run JDK ........: ";
     
     /** 
      * Information not available constant 
@@ -143,11 +143,11 @@ public class ExceptionRecorder
             writer.println("Error ..........: " + message);
             writer.println("Build ..........: "
                 + buildInformation.getBuildDate());
-            writer.println("Build system ...: "
+            writer.println("Build System ...: "
                 + buildInformation.getBuildSystem());
-            writer.println("Build jdk ......: "
+            writer.println("Build JDK ......: "
                 + buildInformation.getBuildJdk());
-            writer.println("Build builder ..: "
+            writer.println("Build Builder ..: "
                 + buildInformation.getBuildBuilder());
             // Place in try/catch in case system is protected.
             try
