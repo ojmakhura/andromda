@@ -42,7 +42,7 @@
 ##
     <tiles:put name="javascript" type="string">
 ## only load the calendar javascript when actually needed
-#if ($class.dateFieldPresent)
+#if ($class.calendarRequired)
     	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
 #end
 ## only load the static javascript when it will actually be used

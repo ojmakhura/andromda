@@ -144,8 +144,8 @@ ${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$f
 #set ($readonly = '')
 #end
 ${indent}<input type="$widgetType" name="$fieldName" title="<bean:message key="${messageKey}.$field.titleKey"/>" $readonly value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
-#if ( ($widgetType == 'text') && $field.date )
-${indent}<a href="javascript:${action.formBeanName}${fieldName}Calendar.popup();">
+#if ( ($widgetType == 'text') && $field.calendarRequired )
+${indent}<a href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
 ${indent}   <html:img page="/layout/calendar/cal.gif" styleClass="calendar" titleKey="calendar.popup"/>
 ${indent}</a>
 #end
