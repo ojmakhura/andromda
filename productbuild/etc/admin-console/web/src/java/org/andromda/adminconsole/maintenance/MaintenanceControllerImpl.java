@@ -1,12 +1,16 @@
 package org.andromda.adminconsole.maintenance;
 
 import org.andromda.adminconsole.db.*;
+import org.andromda.adminconsole.config.AdminConsoleConfigurator;
 import org.apache.struts.action.ActionMapping;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.InputStreamReader;
 
 /**
  * @see org.andromda.adminconsole.maintenance.MaintenanceController
@@ -84,65 +88,21 @@ public class MaintenanceControllerImpl extends MaintenanceController
         loginSession.setPassword( StringUtils.trimToEmpty(form.getPassword()) );
     }
 
-    public void sortTableData(ActionMapping mapping, SortTableDataForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public void loadConfigurator(ActionMapping mapping, LoadConfiguratorForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final String columnName = form.getColumnName();
-        final Table table = getMetaDataSession(request).getCurrentTable();
+        InputStream instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AdminConsoleConfigurator.FILE_NAME);
+        Reader reader = new InputStreamReader(instream);
+        AdminConsoleConfigurator configurator = new AdminConsoleConfigurator(reader);
+        reader.close();
+        instream.close();
 
-        int columnIndex = findColumnIndex(table, columnName);
-
-        List tableData = table.findAllRows();
-
-        // only sort when we can actually compare values
-        if (table.getColumns()[columnIndex].isComparable())
-        {
-            Comparator comparator = new RowDataComparator(columnIndex);
-            Collections.sort(tableData, comparator);
-        }
-
-        form.setTableMetaData(table);
-        form.setTableData(tableData);
-        form.setTable(table.getName());
-        form.setTableValueList( getMetaDataSession(request).getTableNames().toArray() );
+        getDatabaseLoginSession(request).setConfigurator(configurator);
     }
 
-    private int findColumnIndex(Table table, String columnName)
+    public void getConfigurator(ActionMapping mapping, GetConfiguratorForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        String[] columnNames = table.getColumnNames();
-        for (int i = 0; i < columnNames.length; i++)
-        {
-            String name = columnNames[i];
-            if (columnName.equals(name))
-            {
-                return i;
-            }
-        }
-        return 0;
+        DatabaseLoginSession loginSession = getDatabaseLoginSession(request);
+        form.setConfigurator(loginSession.getConfigurator());
     }
 
-    private class RowDataComparator implements Comparator
-    {
-        private int columnIndex = 0;
-
-        public RowDataComparator()
-        {
-            columnIndex = 0;
-        }
-
-        public RowDataComparator(int columnIndex)
-        {
-            this.columnIndex = columnIndex;
-        }
-
-        public int compare(Object o1, Object o2)
-        {
-            RowData rowData1 = (RowData)o1;
-            RowData rowData2 = (RowData)o2;
-
-            Comparable cell1 = (Comparable)rowData1.getCell(columnIndex);
-            Comparable cell2 = (Comparable)rowData2.getCell(columnIndex);
-
-            return cell1.compareTo(cell2);
-        }
-    }
 }
