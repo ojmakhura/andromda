@@ -56,7 +56,7 @@
 #if(($hibernateEnableCache.equalsIgnoreCase("true")) && ($hibernateEnableAssociationsCache.equalsIgnoreCase("true")))
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
-            <key foreign-key="$otherEnd.foreignKeyConstraintName">
+            <key foreign-key="$sourceEnd.foreignKeyConstraintName">
                 <column name="$sourceEnd.columnName"/>
             </key>
 #if ($otherEnd.indexedCollection)
@@ -70,7 +70,7 @@
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
         <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
-            <key foreign-key="$otherEnd.foreignKeyConstraintName">
+            <key foreign-key="$sourceEnd.foreignKeyConstraintName">
                 <column name="$sourceEnd.columnName"/>
             </key>
             <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" column="$otherEnd.columnName" foreign-key="$otherEnd.foreignKeyConstraintName"/>
