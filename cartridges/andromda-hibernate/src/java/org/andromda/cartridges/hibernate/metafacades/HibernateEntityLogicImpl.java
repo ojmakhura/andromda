@@ -190,9 +190,9 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getInheritanceStrategy()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateInheritanceStrategy()
      */
-    protected String handleGetInheritanceStrategy()
+    protected String handleGetHibernateInheritanceStrategy()
     {
         String result = null;
         if (logger.isDebugEnabled())
@@ -448,38 +448,38 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceClass()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceClass()
      */
-    protected boolean handleIsHibInheritanceClass()
+    protected boolean handleIsHibernateInheritanceClass()
     {
-        String strategy = getInheritanceStrategy();
+        String strategy = getHibernateInheritanceStrategy();
         return INHERITANCE_STRATEGY_CLASS.equals(strategy);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceInterface()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceInterface()
      */
-    protected boolean handleIsHibInheritanceInterface()
+    protected boolean handleIsHibernateInheritanceInterface()
     {
-        String strategy = getInheritanceStrategy();
+        String strategy = getHibernateInheritanceStrategy();
         return INHERITANCE_STRATEGY_INTERFACE.equals(strategy);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceSubclass()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceSubclass()
      */
-    protected boolean handleIsHibInheritanceSubclass()
+    protected boolean handleIsHibernateInheritanceSubclass()
     {
-        String strategy = getInheritanceStrategy();
+        String strategy = getHibernateInheritanceStrategy();
         return INHERITANCE_STRATEGY_SUBCLASS.equals(strategy);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibInheritanceConcrete()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceConcrete()
      */
-    protected boolean handleIsHibInheritanceConcrete()
+    protected boolean handleIsHibernateInheritanceConcrete()
     {
-        String strategy = getInheritanceStrategy();
+        String strategy = getHibernateInheritanceStrategy();
         return INHERITANCE_STRATEGY_CONCRETE.equals(strategy);
     }
 
