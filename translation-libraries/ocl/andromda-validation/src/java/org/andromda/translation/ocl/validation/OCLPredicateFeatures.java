@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Contains a single operation {@link #isPredicateFeature(String)
  * that determines if a passed in <code>feature</code> matches
- * the name of a feature that should should use a predicate when
+ * the name of a feature that should use a predicate when
  * being translated.
  * 
  * @author Chad Brandon
