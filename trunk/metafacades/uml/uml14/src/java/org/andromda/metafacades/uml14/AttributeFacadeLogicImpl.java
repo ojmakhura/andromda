@@ -1,5 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
@@ -7,9 +10,6 @@ import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -209,15 +209,5 @@ public class AttributeFacadeLogicImpl
             }
         }
         return lower;
-    }
-
-    protected Object handleGetEnumeration()
-    {
-        return (isEnumerationLiteral()) ? getOwner() : null;
-    }
-
-    protected boolean handleIsEnumerationLiteral()
-    {
-        return getOwner().isEnumeration();
     }
 }
