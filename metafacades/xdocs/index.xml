@@ -74,7 +74,7 @@
                 A <code>UMLClass</code> metaobject that represents an 
                 <code><![CDATA[<<Entity>>]]></code> could validate itself and check 
                 if it has at least one <code>Attribute</code> metaobject representing a 
-                <code><![CDATA[<<PrimaryKey>>]]></code> - this would be plain,
+                <code><![CDATA[<<Identifier>>]]></code> - this would be plain,
                 clear and simple, right? 
                 Now, why don't we simply write a class <code>EntityClass</code> that 
                 extends the class <code>UMLClass</code>? Just like this:
