@@ -25,12 +25,11 @@
 		</property>
 #end
 #end
-#foreach ($associationEnd in $entity.associationEnds)
-#set ($sourceEnd = $associationEnd)
-#set ($otherEnd = $associationEnd.otherEnd)
-#if ($otherEnd.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
+#foreach ($sourceEnd in $entity.associationEnds)
+#set ($otherEnd = $sourceEnd.otherEnd)
+#if ($otherEnd.navigable || ($sourceEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($sourceEnd.one2One)
-#if (($associationEnd.child && $entity.foreignHibernateGeneratorClass) || $otherEnd.type.foreignHibernateGeneratorClass)
+#if ($sourceEnd.one2OneSecondary)
 		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$cascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
