@@ -25,22 +25,34 @@ public class ExceptionRecorder
     private static final Logger logger = Logger
         .getLogger(ExceptionRecorder.class);
 
-    /** File header constant */
+    /** 
+     * File header constant 
+     */
     static final String FILE_HEADER = "------- AndroMDA Exception Recording -------";
 
-    /** Run line system constant */
+    /** 
+     * Run line system constant 
+     */
     static final String RUN_SYSTEM = "Run system .....: ";
     
-    /** Run line jdk constant */
+    /** 
+     * Run line jdk constant 
+     */
     static final String RUN_JDK = "Run jdk ........: ";
     
-    /** Information not available constant */
+    /** 
+     * Information not available constant 
+     */
     static final String INFORMATION_UNAVAILABLE = " unavailable";
 
-    /** The exceptions directory name:exceptions. */
+    /** 
+     * The exceptions directory name:exceptions. 
+     */
     private static String exceptionDirectoryName = ".";
 
-    /** The exceptions directory, initialized to exceptions. */
+    /** 
+     * The exceptions directory, initialized to exceptions. 
+     */
     private static File exceptionDirectory = null;
 
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat(
@@ -48,7 +60,9 @@ public class ExceptionRecorder
 
     private static final Random random = new Random();
 
-    /** Private constructor, this class is not intended to be instantiated. */
+    /** 
+     * Private constructor, this class is not intended to be instantiated. 
+     */
     private ExceptionRecorder()
     {}
 
@@ -229,7 +243,9 @@ public class ExceptionRecorder
             }
         }
         catch (Throwable th)
-        {}
+        {
+            // ignore
+        }
         finally
         {
             if (exceptionDirectory == null)
