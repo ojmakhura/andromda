@@ -85,16 +85,6 @@
         </javac>
     </target>
 
-    <target name="compile" description="o Compile the code" depends="xdoclet">
-        <mkdir dir="${basedir}/target/classes"/>
-        <javac destdir="${basedir}/target/classes" classpathref="classpath"
-               deprecation="true" debug="true" optimize="false">
-            <src path="${basedir}/target/src"/>
-            <src path="${basedir}/src/java"/>
-            <src path="${basedir}/${xdoclet.gen.dir}"/>
-        </javac>
-    </target>
-
     <target name="-manifest" description="o Prepares the manifest file">
         <fileset id="manifest-deps" dir="${app.root.dir}/lib">
             <include name="commons-beanutils-*.jar"/>
