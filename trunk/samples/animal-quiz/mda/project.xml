@@ -2,8 +2,9 @@
 
 <project>
     <extend>../project.xml</extend>
-    <name>Animal Quiz Sample MDA</name>
-    <id>animal-quiz-mda</id>
+    <name>Animal Quiz Hibernate</name>
+    <artifactId>animal-quiz-mda</artifactId>
+    <shortDescription>The Animal Quiz MDA Component</shortDescription>
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
@@ -57,7 +58,6 @@
             <properties>
                 <exceptions>${maven.andromda.java.generated.dir}</exceptions>
                 <enumerations>${maven.andromda.java.generated.dir}</enumerations>
-                <value-objects.ignore/>
             </properties>
         </dependency>
         <dependency>
