@@ -9,6 +9,14 @@ context LoyaltyAccount::getCustomerName() : String
 context org::Bookpart::findAllParts() : Collection (Bookpart)
     body thisIsUnique :
 	    self.allInstances() -> select(la : Bookpart, la2 : SomeType, la3 : AnotherType | la.title = 'test' and la2.title = 'test')
+	    
+-- DERIVE
+
+context TransactionReportLine::partnerName : String
+    derive: transaction.generatedBy.partner.name
+    
+context TransactionReport::totalEarned : Integer
+    derive: TransactionReport.allInstances().points->sum()
 	
 -- INV
 	
@@ -62,3 +70,7 @@ context Service::upgradePointsEarned(amount: Integer)
     
 context Subject::hasChanged()
     post: observer^update(12, 14)
+    
+context File::save()
+    post: self.project.builders->forAll( b : Builder |
+    b^incrementalBuild() )
