@@ -112,7 +112,7 @@
     function ensureUrl()
     {
         var checkbox = document.forms[0].chooseKnownUrl;
-        if (checkbox.checked)
+        if (checkbox==null || checkbox.checked)
         {
             document.forms[0].url.value = document.forms[0].selectedUrl.value;
         }
