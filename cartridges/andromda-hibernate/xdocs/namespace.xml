@@ -620,6 +620,18 @@
                         No, default is <code>false</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        hibernateQueryUseSpecializedSetters
+                    </td>
+                    <td>
+                        Defines if the finder setters method for parameters will use "setParameter" for all parameters (by default), 
+                        or a specialized setter (setDate,setBoolean...) in case the parameter type has it's own setter method.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                 </tr>
             </table>
             <subsection name="Hibernate Second Level Cache Values">
              <table>
