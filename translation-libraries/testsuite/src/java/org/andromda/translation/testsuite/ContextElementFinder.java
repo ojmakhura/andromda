@@ -154,7 +154,7 @@ public class ContextElementFinder extends BaseTranslator {
             });
         if (modelElements.size() > 1) {
             throw new ContextElementFinderException(
-                "More than one element named ' " 
+                "More than one element named '" 
                 + modelElementName 
                 + "' was found within your model,"
                 + " please give the fully qualified name");    
