@@ -3,8 +3,8 @@ package org.andromda.core.anttasks;
 import java.net.URL;
 
 /**
- * This class implements the <code>&lt;model&gt;</code> element which is
- * used with the Ant <code>&lt;andromda&gt;</code> task to configure a 
+ * This class implements the <code>&lt;model&gt;</code> element which is used
+ * with the Ant <code>&lt;andromda&gt;</code> task to configure a
  * <code>org.andromda.core.Model</code> instance for processing.
  * 
  * @author Chad Brandon
@@ -12,7 +12,7 @@ import java.net.URL;
 public class ModelConfiguration
 {
     private URL url = null;
-    
+
     /**
      * Gets the URL to the model.
      * 
@@ -22,7 +22,7 @@ public class ModelConfiguration
     {
         return url;
     }
-    
+
     /**
      * Sets the URL to the model.
      * 
