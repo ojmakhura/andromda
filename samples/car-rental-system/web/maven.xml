@@ -2,6 +2,18 @@
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
+         
+    <!-- =====================================================================
+            Add the generated code on the classpath
+         ===================================================================== -->
+    <preGoal name="java:compile">
+        <ant:path
+            id="andromda.struts.gen.src"
+            location="${maven.build.src}"/>
+        <maven:addPath
+            id="maven.compile.src.set"
+            refid="andromda.struts.gen.src"/>
+    </preGoal>
 
     <!--
         | We are going to make a WAR bundle in which the JSPs have been precompiled,

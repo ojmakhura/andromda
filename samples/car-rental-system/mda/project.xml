@@ -7,21 +7,16 @@
     <shortDescription>${pom.name} Component</shortDescription>
     <description>Contains the ${pom.name} module</description>
     <dependencies>
-        <!-- dependency>
-            <groupId>andromda-patches</groupId>
-            <artifactId>classcast-diag</artifactId>
-            <version>${andromda}</version>
-        </dependency -->
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-profile</artifactId>
-            <version>${andromda}</version>
+            <version>${pom.currentVersion}</version>
             <type>xml.zip</type>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
              <artifactId>maven-andromda-plugin</artifactId>
-             <version>${andromda}</version>
+             <version>${pom.currentVersion}</version>
              <type>plugin</type>
              <properties>
                  <languageMappingsUri>Java</languageMappingsUri>
@@ -37,7 +32,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ejb-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${pom.currentVersion}</version>
             <properties>
                 <entity-beans>${maven.andromda.core.generated.dir}</entity-beans>
                 <session-beans>${maven.andromda.core.generated.dir}</session-beans>
@@ -48,7 +43,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${pom.currentVersion}</version>
             <properties>
                 <enumerations>${maven.andromda.common.generated.dir}</enumerations>
                 <exceptions>${maven.andromda.common.generated.dir}</exceptions>
@@ -58,7 +53,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${pom.currentVersion}</version>
             <properties>
                  <forms>${maven.andromda.web.generated.dir}</forms>
                  <pages>${maven.andromda.web.generated.dir}</pages>
@@ -74,12 +69,12 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-validation-library</artifactId>
-            <version>${andromda}</version>
+            <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-query-library</artifactId>
-            <version>${andromda}</version>
+            <version>${pom.currentVersion}</version>
         </dependency>
     </dependencies>
 </project>

@@ -11,18 +11,18 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-mda</artifactId>
+            <artifactId>car-rental-system-mda</artifactId>
             <version>${pom.currentVersion}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-common</artifactId>
+            <artifactId>car-rental-system-common</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-core</artifactId>
+            <artifactId>car-rental-system-core</artifactId>
             <version>${pom.currentVersion}</version>
             <type>ejb</type>
        </dependency>
