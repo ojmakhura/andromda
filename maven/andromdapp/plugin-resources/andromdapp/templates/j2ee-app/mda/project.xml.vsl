@@ -68,6 +68,7 @@
             <version>${andromda}</version>
             <type>jar</type>
             <properties>
+                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
                 <dataSource>${dataSource}</dataSource>
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
