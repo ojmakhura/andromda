@@ -1,6 +1,9 @@
 <project name="model-query" default="deploy">
 
    <property file="build.properties" />
+   <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
+   <property name="andromda-ejb.home" location="${andromda.home}/andromda-ejb"/>
+   
    <property file="${andromda-core.home}/andromda-core.properties"/>
    <property file="${andromda-core.home}/xdoclet.properties"/>
    
@@ -8,6 +11,11 @@
    <property name="gensrc.dir" value="${build.dir}/gensrc/"/>
    <property name="classes.dir" value="${build.dir}/classes/"/>
    <property name="dist.dir" value="dist/"/>
+   
+   <path id="j2ee.classpath">
+	  <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
+	  <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
+   </path>
    
    <target name="clean">
      <delete dir="${build.dir}"/>
@@ -19,6 +27,7 @@
      <mkdir dir="${dist.dir}"/>
      <mkdir dir="${classes.dir}"/>
    </target>
+   
    
             
    <target name="compile-uml" depends="init">
@@ -32,8 +41,9 @@
        </classpath>
      </taskdef>
    
+   	 <property name="model" value="jar:file:${basedir}/src/uml/blank-model.zargo!/blank-model.xmi"/>
      <andromda basedir="."
-        modelURL="jar:file:${basedir}/${model}"
+        modelURL="${model}"
         lastModifiedCheck="true"
         typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
         
@@ -54,7 +64,7 @@
            	     classname="xdoclet.modules.ejb.EjbDocletTask">
            <classpath>           
                <pathelement path="${xdoclet.classpath}"/>
-               <pathelement path="${j2ee.classpath}"/>
+               <path refid="j2ee.classpath"/>
            </classpath>
         </taskdef>
 		
@@ -107,7 +117,7 @@
    
    	 <path id="build.classpath">
    	   <pathelement location="${classes.dir}"/>
-   	   <pathelement path="${j2ee.classpath}"/>
+   	   <path refid="j2ee.classpath"/>
    	 </path>
    	 
      <javac debug="true" destdir="${classes.dir}">

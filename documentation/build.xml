@@ -3,13 +3,14 @@
     <!-- ============================================================= -->
     <!--               Directory settings                              -->
     <!-- ============================================================= -->
-
+	<property file="build.properties"/>
+	
     <!-- destination directories -->
     <property name="xdocs.src.dir"    value="xdocs"     />
     <property name="dist.dir"         value="dist"      />
     <property name="build.dir"        value="build"     />
     <property name="build.doc.dir"    value="build/doc" />
-    <property name="core.javadoc.dir" value="../andromda/dist/predist/doc" />
+    <property name="core.javadoc.dir" location="${andromda.home}/andromda-core/doc" />
 
 
     <!-- class path -->
