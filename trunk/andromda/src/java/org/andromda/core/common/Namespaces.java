@@ -96,7 +96,7 @@ public class Namespaces
      * @param namespaceName name of the Plugin to which the namespace applies
      * @param propertyName name of the namespace property to find.
      * @param showWarning true/false if we'd like to display a warning if the
-     *        property can not be found.
+     *        property/namespace can not be found.
      * @return String the namespace property value.
      */
     public Property findNamespaceProperty(
@@ -132,7 +132,7 @@ public class Namespaces
             }
         }
 
-        if (namespace == null)
+        if (namespace == null && showWarning)
         {
             logger.warn("WARNING! No '" + DEFAULT + "' or '" + namespaceName
                 + "' namespace found, " + "--> please define a namespace with"
