@@ -1,4 +1,6 @@
+## Only generate the controller factory if there are operations defined
 #set ($generatedFile = "${class.fullPath}Factory.java")
+#if (!$class.operations.empty)
 ##
 ##  START TEMPLATE
 ##
@@ -13,3 +15,4 @@ public class ${class.name}Factory
         return INSTANCE;
     }
 }
+#end
