@@ -36,18 +36,63 @@
 
     <assembly-descriptor>
 
+#foreach ($role in $springUtils.getAllRoles($services))    
+        <security-role>
+            <description><![CDATA[$role.getDocumentation("", -1, false)]]></description>
+            <role-name>$role.name</role-name>
+        </security-role>
+        
+#end
 #foreach ($service in $services)
         <method-permission>
-            <description><![CDATA[All methods in ${service.name}]]></description>
+            <description><![CDATA[Create method security constraint]]></description>
+#if ($service.roles.empty)           
             <unchecked/>
-            <method>
-                <description><![CDATA[All methods in ${service.name}]]></description>
-                <ejb-name>$service.name</ejb-name>
-                <method-name>*</method-name>
-            </method>
-        </method-permission>
-
+#else
+#foreach ($role in $service.roles)
+            <role-name>$role.name</role-name>
 #end
+#end
+	        <method>
+	            <description><![CDATA[Creates the $service.name Session EJB]]></description>
+	            <ejb-name>$service.name</ejb-name>
+	            <method-intf>Home</method-intf>
+	            <method-name>create</method-name>
+	        </method>
+        </method-permission>
+        
+#foreach ($operation in $service.operations)
+       <method-permission>
+           <description><![CDATA[$operation.signature security constraint]]></description>
+#if ($operation.roles.empty)           
+            <unchecked/>
+#else
+#foreach ($role in $operation.roles)
+            <role-name>$role.name</role-name>
+#end
+#end
+           <method>
+	           <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
+               <ejb-name>$service.name</ejb-name>
+#set ($view = "Local")
+#if ($ejbRemoteView)
+#set ($view = "Remote")
+#end
+               <method-intf>$view</method-intf>
+               <method-name>$operation.name</method-name>
+#if (!$operation.arguments.empty)
+               <method-params>
+#foreach ($argument in $operation.arguments)
+                   <method-param>$argument.type.fullyQualifiedName</method-param>
+#end
+               </method-params>
+#end
+          </method>
+       </method-permission>
+   
+#end
+#end
+
 #foreach ($service in $services)
         <container-transaction>
             <method>
