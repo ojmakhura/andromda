@@ -91,6 +91,11 @@
 
                 <call-param-rule
                     pattern="property"
+                    attrname="value"
+                    paramnumber="1" />
+
+                <call-param-rule
+                    pattern="property"
                     paramnumber="1"/>
 
             </pattern>
