@@ -2,6 +2,7 @@ package org.andromda.core.anttasks;
 
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.repository.RepositoryFacade;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Path;
 
@@ -33,7 +34,6 @@ public class RepositoryConfiguration
     
     private Project project;
     private Path moduleSearchPath = null;
-    private String repositoryClassName = null;
 
     public RepositoryConfiguration(Project project)
     {
@@ -50,7 +50,11 @@ public class RepositoryConfiguration
      */
     public void setClassname(String repositoryClassName)
     {
-        this.repositoryClassName = repositoryClassName;
+        if (StringUtils.isNotBlank(repositoryClassName)) {
+	        ComponentContainer.instance().registerDefaultComponent(
+	            RepositoryFacade.class,
+	            repositoryClassName);
+        }
     }
 
     /**
@@ -61,7 +65,6 @@ public class RepositoryConfiguration
     public RepositoryFacade createRepository()
     {
         return (RepositoryFacade)ComponentContainer.instance().findComponent(
-        	this.repositoryClassName, 
         	RepositoryFacade.class);
     }
 

@@ -33,7 +33,6 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     private Map templateObjects = new HashMap();
     private URL definitionURL;
     private String cartridgeClassName = null;
-    private String templateEngineClassName = null;
     
     /**
      * Returns a new configured instance of this DefaultCartridgeDescriptor as 
@@ -222,7 +221,11 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
      * @param templateEngineClassName
      */
     public void setTemplateEngineClass(String templateEngineClassName) {
-        this.templateEngineClassName = templateEngineClassName; 
+        if (StringUtils.isNotBlank(templateEngineClassName)) {
+	        ComponentContainer.instance().registerDefaultComponent(
+	            TemplateEngine.class,
+	            templateEngineClassName);
+        }
     }
     
     /**
@@ -230,7 +233,6 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
      */
     public TemplateEngine getTemplateEngine() {
         return (TemplateEngine)ComponentContainer.instance().findComponent(
-            	this.templateEngineClassName, 
             	TemplateEngine.class);
     }
     
