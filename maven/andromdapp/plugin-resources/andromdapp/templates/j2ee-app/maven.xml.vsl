@@ -27,7 +27,7 @@
     <!-- ==================================================================
             Deploy the Application
          ================================================================== -->
-    <goal name="deploy-app">
+    <goal name="deploy">
         <maven:maven
             descriptor="${maven.src.dir}/../app/project.xml"
             goals="deploy"/>
@@ -36,7 +36,7 @@
     <!-- ==================================================================
            Undeploy the Application
          ================================================================== -->
-    <goal name="undeploy-app">
+    <goal name="undeploy">
         <maven:maven
             descriptor="${maven.src.dir}/../app/project.xml"
             goals="undeploy"/>
