@@ -86,7 +86,7 @@ $field.getDocumentation("     * ")
      */
     public void ${field.resetName}()
     {
-        $fieldName = new java.util.ArrayList();
+        this.$fieldName = new java.util.ArrayList();
     }
 #elseif ($field.date)
     public void ${field.setterName}AsDate($fieldType $fieldName)
@@ -163,7 +163,7 @@ $field.getDocumentation("     * ")
      */
     public void ${field.resetName}()
     {
-        $fieldName = $field.nullValue;
+        this.$fieldName = $field.nullValue;
     }
 #else
     public void ${field.setterName}($fieldType $fieldName)
@@ -184,7 +184,7 @@ $field.getDocumentation("     * ")
      */
     public void ${field.resetName}()
     {
-        $fieldName = $field.nullValue;
+        this.$fieldName = $field.nullValue;
     }
 #end
 
