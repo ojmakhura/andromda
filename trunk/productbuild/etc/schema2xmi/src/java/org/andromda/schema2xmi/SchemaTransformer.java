@@ -79,10 +79,9 @@ public class SchemaTransformer
      * created.
      */
     private String packageName = null;
-    
+
     /**
-     * Stores the name of the schema where
-     * the tables can be found.
+     * Stores the name of the schema where the tables can be found.
      */
     private String schema = null;
 
@@ -106,28 +105,33 @@ public class SchemaTransformer
      * Stores the foreign keys for each table.
      */
     private Map foreignKeys = new HashMap();
-    
+
     /**
      * Specifies the Class stereotype.
      */
     private String classStereotypes = null;
-    
+
     /**
      * Specifies the identifier stereotype.
      */
     private String identifierStereotypes = null;
-    
+
     /**
-     * Stores the name of the column tagged
-     * value to use for storing the name of the column.
+     * Stores the name of the column tagged value to use for storing the name of
+     * the column.
      */
     private String columnTaggedValue = null;
-    
+
     /**
-     * Stores the name of the table tagged value
-     * to use for storing the name of the table.
+     * Stores the name of the table tagged value to use for storing the name of
+     * the table.
      */
     private String tableTaggedValue = null;
+
+    /**
+     * Stores the version of XMI that will be produced.
+     */
+    private String xmiVersion = null;
 
     /**
      * Constructs a new instance of this SchemaTransformer.
@@ -196,7 +200,10 @@ public class SchemaTransformer
                 this.jdbcConnectionUrl,
                 this.jdbcUser,
                 this.jdbcPassword);
-            repository.writeModel(transform(connection), outputLocation, "1.2");
+            repository.writeModel(
+                transform(connection),
+                outputLocation,
+                this.xmiVersion);
         }
         catch (Throwable th)
         {
@@ -207,10 +214,9 @@ public class SchemaTransformer
             DbUtils.closeQuietly(connection);
             repository.close();
         }
-        logger.info("Completed adding " 
-            + this.classes.size() 
+        logger.info("Completed adding " + this.classes.size()
             + " classes, TIME --> "
-            + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"); 
+            + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]");
     }
 
     /**
@@ -240,10 +246,9 @@ public class SchemaTransformer
     {
         this.packageName = packageName;
     }
-    
+
     /**
-     * Sets the name of the schema (where
-     * the tables can be found).
+     * Sets the name of the schema (where the tables can be found).
      * 
      * @param schema The schema to set.
      */
@@ -262,7 +267,7 @@ public class SchemaTransformer
     {
         this.tableNamePattern = StringUtils.trimToEmpty(tableNamePattern);
     }
-    
+
     /**
      * Sets the stereotype name for the new classes.
      * 
@@ -272,7 +277,7 @@ public class SchemaTransformer
     {
         this.classStereotypes = StringUtils.deleteWhitespace(classStereotypes);
     }
-    
+
     /**
      * Sets the stereotype name for the identifiers on the new classes.
      * 
@@ -280,12 +285,13 @@ public class SchemaTransformer
      */
     public void setIdentifierStereotypes(String identifierStereotypes)
     {
-        this.identifierStereotypes = StringUtils.deleteWhitespace(identifierStereotypes);
+        this.identifierStereotypes = StringUtils
+            .deleteWhitespace(identifierStereotypes);
     }
-    
+
     /**
-     * Sets the name of the column tagged
-     * value to use for storing the name of the column.
+     * Sets the name of the column tagged value to use for storing the name of
+     * the column.
      * 
      * @param columnTaggedValue The columnTaggedValue to set.
      */
@@ -293,16 +299,26 @@ public class SchemaTransformer
     {
         this.columnTaggedValue = StringUtils.trimToEmpty(columnTaggedValue);
     }
-    
+
     /**
-     * Sets the name of the table tagged value
-     * to use for storing the name of the table.
+     * Sets the name of the table tagged value to use for storing the name of
+     * the table.
      * 
      * @param tableTaggedValue The tableTaggedValue to set.
      */
     public void setTableTaggedValue(String tableTaggedValue)
     {
         this.tableTaggedValue = StringUtils.trimToEmpty(tableTaggedValue);
+    }
+
+    /**
+     * Sets the version of XMI that will be produced.
+     * 
+     * @param xmiVersion The xmiVersion to set.
+     */
+    public void setXmiVersion(String xmiVersion)
+    {
+        this.xmiVersion = xmiVersion;
     }
 
     /**
@@ -356,24 +372,24 @@ public class SchemaTransformer
         this.packageName = StringUtils.trimToEmpty(this.packageName);
         if (StringUtils.isNotEmpty(packageName))
         {
-	        String[] packages = this.packageName
-	            .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
-	        if (packages != null && packages.length > 0)
-	        {
-	            for (int ctr = 0; ctr < packages.length; ctr++)
-	            {
-	                org.omg.uml.modelmanagement.UmlPackage umlPackage = modelManagementPackage
-	                    .getUmlPackage().createUmlPackage(
-	                        packages[ctr],
-	                        VisibilityKindEnum.VK_PUBLIC,
-	                        false,
-	                        false,
-	                        false,
-	                        false);
-	                modelPackage.getOwnedElement().add(umlPackage);
-	                modelPackage = umlPackage;
-	            }
-	        }
+            String[] packages = this.packageName
+                .split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
+            if (packages != null && packages.length > 0)
+            {
+                for (int ctr = 0; ctr < packages.length; ctr++)
+                {
+                    org.omg.uml.modelmanagement.UmlPackage umlPackage = modelManagementPackage
+                        .getUmlPackage().createUmlPackage(
+                            packages[ctr],
+                            VisibilityKindEnum.VK_PUBLIC,
+                            false,
+                            false,
+                            false,
+                            false);
+                    modelPackage.getOwnedElement().add(umlPackage);
+                    modelPackage = umlPackage;
+                }
+            }
         }
         return modelPackage;
     }
@@ -392,10 +408,14 @@ public class SchemaTransformer
         throws SQLException
     {
         DatabaseMetaData metadata = connection.getMetaData();
-        ResultSet tableRs = metadata.getTables(null, this.schema, null, new String[]
-        {
-            "TABLE",
-        });
+        ResultSet tableRs = metadata.getTables(
+            null,
+            this.schema,
+            null,
+            new String[]
+            {
+                "TABLE",
+            });
 
         // loop through and create all classes and store then
         // in the classes Map keyed by table
@@ -428,14 +448,13 @@ public class SchemaTransformer
         if (this.classes.isEmpty())
         {
             String schemaName = "";
-            if (StringUtils.isNotEmpty(this.schema)) 
+            if (StringUtils.isNotEmpty(this.schema))
             {
                 schemaName = "'" + this.schema + "' ";
             }
-            logger.warn("WARNING! No tables found in schema " 
-                + schemaName + "matching pattern -->'" 
-                + this.tableNamePattern + "'");
-        } 
+            logger.warn("WARNING! No tables found in schema " + schemaName
+                + "matching pattern -->'" + this.tableNamePattern + "'");
+        }
 
         // add all attributes and associations to the modelPackage
         Iterator tableNameIt = this.classes.keySet().iterator();
@@ -445,7 +464,7 @@ public class SchemaTransformer
             UmlClass umlClass = (UmlClass)classes.get(tableName);
             if (logger.isInfoEnabled())
                 logger.info("created class --> '" + umlClass.getName() + "'");
-            
+
             // create and add all associations to the package
             modelPackage.getOwnedElement().addAll(
                 this.createAssociations(metadata, corePackage, tableName));
@@ -481,10 +500,10 @@ public class SchemaTransformer
             false,
             false,
             false);
-        
+
         umlClass.getStereotype().addAll(
             this.getOrCreateStereotypes(
-                corePackage, 
+                corePackage,
                 this.classStereotypes,
                 "Class"));
 
@@ -500,7 +519,7 @@ public class SchemaTransformer
                 umlClass.getTaggedValue().add(taggedValue);
             }
         }
-        
+
         return umlClass;
     }
 
@@ -519,13 +538,18 @@ public class SchemaTransformer
         String tableName) throws SQLException
     {
         Collection attributes = new ArrayList();
-        ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, null);
-        Collection primaryKeyColumns = 
-            this.getPrimaryKeyColumns(metadata, tableName);
+        ResultSet columnRs = metadata.getColumns(
+            null,
+            this.schema,
+            tableName,
+            null);
+        Collection primaryKeyColumns = this.getPrimaryKeyColumns(
+            metadata,
+            tableName);
         while (columnRs.next())
         {
             String columnName = columnRs.getString("COLUMN_NAME");
-            
+
             // do NOT add foreign key columns as attributes (since
             // they are placed on association ends)
             if (!this.hasForeignKey(tableName, columnName))
@@ -591,8 +615,7 @@ public class SchemaTransformer
                 }
                 attributes.add(attribute);
                 if (logger.isInfoEnabled())
-                    logger
-                        .info("adding attribute --> '" + attributeName + "'");
+                    logger.info("adding attribute --> '" + attributeName + "'");
             }
         }
         DbUtils.closeQuietly(columnRs);
@@ -627,10 +650,10 @@ public class SchemaTransformer
         DbUtils.closeQuietly(columnRs);
         return nullable;
     }
-    
+
     /**
-     * Returns a collection of all primary key column names
-     * for the given <code>tableName</code>.
+     * Returns a collection of all primary key column names for the given
+     * <code>tableName</code>.
      * 
      * @param metadata
      * @param tableName
@@ -641,8 +664,10 @@ public class SchemaTransformer
         String tableName) throws SQLException
     {
         Collection primaryKeys = new HashSet();
-        ResultSet primaryKeyRs = 
-            metadata.getPrimaryKeys(null, this.schema, tableName);
+        ResultSet primaryKeyRs = metadata.getPrimaryKeys(
+            null,
+            this.schema,
+            tableName);
         while (primaryKeyRs.next())
         {
             primaryKeys.add(primaryKeyRs.getString("COLUMN_NAME"));
@@ -667,7 +692,10 @@ public class SchemaTransformer
     {
         Collection primaryKeys = this.getPrimaryKeyColumns(metadata, tableName);
         Collection associations = new ArrayList();
-        ResultSet columnRs = metadata.getImportedKeys(null, this.schema, tableName);
+        ResultSet columnRs = metadata.getImportedKeys(
+            null,
+            this.schema,
+            tableName);
         while (columnRs.next())
         {
             // store the foreign key in the foreignKeys Map
@@ -684,8 +712,8 @@ public class SchemaTransformer
                     false,
                     false,
                     false);
-            
-            // we set the upper range to 1 if the 
+
+            // we set the upper range to 1 if the
             // they primary key of this table is the
             // foreign key of another table (by default
             // its set to a many multiplicity)
@@ -706,7 +734,10 @@ public class SchemaTransformer
                     OrderingKindEnum.OK_UNORDERED,
                     AggregationKindEnum.AK_NONE,
                     ScopeKindEnum.SK_INSTANCE,
-                    this.createMultiplicity(corePackage.getDataTypes(), 0, primaryUpper),
+                    this.createMultiplicity(
+                        corePackage.getDataTypes(),
+                        0,
+                        primaryUpper),
                     ChangeableKindEnum.CK_CHANGEABLE);
             primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
 
@@ -764,13 +795,11 @@ public class SchemaTransformer
                 .get(foreignTableName));
             association.getConnection().add(foreignEnd);
             associations.add(association);
-            
+
             if (logger.isInfoEnabled())
-                logger.info("adding association: '" 
-                    + primaryEnd.getParticipant().getName() 
-                    + " <--> "
-                    + foreignEnd.getParticipant().getName() 
-                    + "'");
+                logger.info("adding association: '"
+                    + primaryEnd.getParticipant().getName() + " <--> "
+                    + foreignEnd.getParticipant().getName() + "'");
         }
         DbUtils.closeQuietly(columnRs);
         return associations;
@@ -807,11 +836,11 @@ public class SchemaTransformer
         }
         return taggedValue;
     }
-    
+
     /**
-     * Gets or creates a stereotypes given the 
-     * specfied comma seperated list of <code>names</code>.  
-     * If any of the stereotypes can't be found, they will be created.
+     * Gets or creates a stereotypes given the specfied comma seperated list of
+     * <code>names</code>. If any of the stereotypes can't be found, they
+     * will be created.
      * 
      * @param names comma seperated list of stereotype names
      * @param baseClass the base class for which the stereotype applies.
@@ -824,31 +853,33 @@ public class SchemaTransformer
     {
         Collection stereotypes = new HashSet();
         String stereotypeNames[] = names.split(",");
-        if (stereotypeNames != null && stereotypeNames.length > 0) 
+        if (stereotypeNames != null && stereotypeNames.length > 0)
         {
             for (int ctr = 0; ctr < stereotypeNames.length; ctr++)
             {
                 String name = StringUtils.trimToEmpty(stereotypeNames[ctr]);
-		        // see if we can find the stereotype first
-		        Object stereotype = ModelElementFinder.find(this.umlPackage, name);
-		        if (stereotype == null
-		            || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
-		        {
-		            Collection baseClasses = new ArrayList();
-		            baseClasses.add(baseClass);
-		            stereotype = 
-		                corePackage.getStereotype().createStereotype(
-		                    name,
-		                    VisibilityKindEnum.VK_PUBLIC,
-		                    false,
-		                    false,
-		                    false,
-		                    false,
-		                    null,
-		                    baseClasses);
-		            this.model.getOwnedElement().add(stereotype);
-		        }
-		        stereotypes.add(stereotype);
+                // see if we can find the stereotype first
+                Object stereotype = ModelElementFinder.find(
+                    this.umlPackage,
+                    name);
+                if (stereotype == null
+                    || !Stereotype.class
+                        .isAssignableFrom(stereotype.getClass()))
+                {
+                    Collection baseClasses = new ArrayList();
+                    baseClasses.add(baseClass);
+                    stereotype = corePackage.getStereotype().createStereotype(
+                        name,
+                        VisibilityKindEnum.VK_PUBLIC,
+                        false,
+                        false,
+                        false,
+                        false,
+                        null,
+                        baseClasses);
+                    this.model.getOwnedElement().add(stereotype);
+                }
+                stereotypes.add(stereotype);
             }
         }
         return stereotypes;

@@ -23,6 +23,12 @@ public class Schema2XMI
      * The command to display help
      */
     private static final String HELP = "h";
+    
+    /**
+     * The command line argument to specify the XMI version
+     * that will be producted.
+     */
+    private static final String XMI_VERSION = "x";
 
     /**
      * The command line argument to specify the input model file.
@@ -121,6 +127,13 @@ public class Schema2XMI
 
         Option option = new Option(HELP, false, "Display help information");
         option.setLongOpt("help");
+        options.addOption(option);
+
+        option = new Option(
+            XMI_VERSION,
+            true,
+            "Specifies the XMI version that will be produced");
+        option.setLongOpt("xmi");
         options.addOption(option);
 
         option = new Option(
@@ -268,6 +281,8 @@ public class Schema2XMI
                     commandLine.getOptionValue(PASSWORD));
 
                 // set the extra options
+                transformer.setXmiVersion(
+                    commandLine.getOptionValue(XMI_VERSION));
                 transformer.setTypeMappings(commandLine
                     .getOptionValue(MAPPINGS));
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
