@@ -83,10 +83,16 @@
           This way the cartridge will try to load resources (templates, images, etc.) from /opt/templates/
           prior to loading them from the cartridge-jar.
       </p>
-      <p class="highlight">
-         Please note that if you're an <strong>Ant</strong> user, you will need to specify the 
-         <code>mergeLocation</code> as a namespace property:
-      </p>
+        <p class="highlight">
+           When loading resources from the merge location you will need to respect the same directory structure
+           as in the cartridge jar. This means that when the cartridge contains <code>templates/SomeTemplate.vsl</code>
+           and your merge location is <code>/opt/custom</code> you will need to copy your new template in
+           <code>/opt/custom/templates/SomeTemplate.vsl</code>, like this you can override all cartridge resources.
+        </p>
+        <p>
+           Please note that if you're an <strong>Ant</strong> user, you will need to specify the
+           <code>mergeLocation</code> as a namespace property:
+        </p>
       <source><![CDATA[
  ...
  <namespace name="hibernate">
