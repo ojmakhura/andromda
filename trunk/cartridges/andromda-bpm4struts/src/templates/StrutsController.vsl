@@ -92,6 +92,7 @@ $operation.getDocumentation("     * ")
 #set ($constructor = '')
 #set ($paramSeparator = '')
 #foreach ($columnName in $field.tableColumnNames)
+#set ($columnName = $str.lowerCamelCaseName($columnName))
         private String $columnName = null;
 #set ($constructor = "$constructor${paramSeparator}String ${columnName}")
 #set ($paramSeparator = ', ')
@@ -100,11 +101,13 @@ $operation.getDocumentation("     * ")
         public $str.upperCaseFirstLetter($field.name)Dummy($constructor)
         {
 #foreach ($columnName in $field.tableColumnNames)
+#set ($columnName = $str.lowerCamelCaseName($columnName))
             this.$columnName = $columnName;
 #end
         }
+        
 #foreach ($columnName in $field.tableColumnNames)
-
+#set ($columnName = $str.lowerCamelCaseName($columnName))
         public void set$str.upperCaseFirstLetter($columnName)(String $columnName)
         {
             this.$columnName = $columnName;
@@ -114,6 +117,7 @@ $operation.getDocumentation("     * ")
         {
             return this.$columnName;
         }
+        
 #end
     }
 #end
