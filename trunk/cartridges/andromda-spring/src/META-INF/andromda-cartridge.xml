@@ -164,8 +164,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -177,8 +179,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -190,8 +194,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
     
@@ -203,8 +209,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -216,8 +224,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
 
@@ -229,8 +239,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
     
@@ -242,8 +254,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -255,8 +269,10 @@
 		required="false">
 		<modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
 		</modelElements>
 	</template>
 	
@@ -321,8 +337,10 @@
 		outputToSingleFile="true">
 		<modelElements>
             <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement> 
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="enumeration" value="false"/>
+                </type>
+            </modelElement>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement> 
@@ -364,6 +382,28 @@
 		overwrite="true"
 		outputToSingleFile="true"/>
         
+    <template
+        path="templates/spring/hibernate/HibernateEnumerationType.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true"
+        required="false"/>
+
+    <template
+        path="templates/spring/hibernate/HibernateEnumeration.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="entities"
+        overwrite="true"
+        required="false">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="true"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <!-- cartridge-template merge-point -->
         	
 </cartridge>
