@@ -10,7 +10,8 @@
     			The page describes the modeling standards one must follow to in order
     			to use the Hibernate Cartridge.
     		</p>
-    		<subsection name="Supported Stereotypes">
+        </section>
+    		<section name="Supported Stereotypes">
 		      	<table>
 		        	<tr>
 			          	<th>Stereotype</th>   
@@ -89,8 +90,9 @@
 			          	</td>
 					</tr>                 				        		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
-		    </subsection>
-    		<subsection name="Supported Tagged Values">
+		    </section>
+    		<section name="Supported Tagged Values">
+		      	<subsection name="Entities Tagged Values">
 		      	<table>
 		        	<tr>
 			          	<th>Tagged Value</th>  
@@ -111,19 +113,6 @@
 							(to keep your model more PIM like).
 			          	</td>
 					</tr>
-		        	<tr>
-						<a name="@andromda.ejb.viewType"/>
-			          	<td>
-			          		@andromda.ejb.viewType
-			          	</td>
-						<td>
-							<a href="#Service"><![CDATA[<<Service>>]]></a>
-						</td>
-			          	<td>
-			          		Defines the view type for a Session EJB.  If not
-                            defined, <code>remote</code> will be assumed.
-			          	</td>
-		        	</tr>	
 					<tr>
 						<td>
 	                        @andromda.persistence.table
@@ -217,21 +206,72 @@
 			          		The name of an index to create on an entity attribute/column.
 			          	</td>
 					</tr>     		        	        	      	        	        		        	        	        	     	             	        	
-                      <tr>
-                          <a name="@andromda.hibernate.lazy"/>
-                            <td>
-                              @andromda.hibernate.lazy
-                            </td>
-                          <td>
+                     <tr>
+                         <a name="@andromda.hibernate.lazy"/>
+                         <td>
+                             @andromda.hibernate.lazy
+                         </td>
+                         <td>
                               association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
-                          </td>
-                            <td>
+                         </td>
+                         <td>
                                 Used to denote how a relationship must be loaded: <code>true</code> for <code>lazy</code>,
                                 <code>false</code> for <code>eager</code>. Defaults to <code>false</code> for composite
                                 relationships and defaults to <code>true</code> for the other kinds.
-                            </td>
+                         </td>
                       </tr>
                       <tr>
+					     <a name="@andromda.hibernate.entity.cache"/>
+						<td>
+	                        @andromda.hibernate.entity.cache
+						</td>
+						<td>
+							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
+						</td>
+						<td>
+							Defines the cache strategy for the Entity. Permited values are:
+							<ol>
+								<li>read-write</li>
+								<li>nonstrict-read-write</li>
+								<li>read-only</li>
+							</ol>
+						</td>
+					   </tr>
+					   <tr>
+						<a name="@andromda.hibernate.query.useCache"/>
+			          	<td>
+			          		@andromda.hibernate.query.useCache
+			          	</td>
+						<td>
+							<a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
+						</td>
+			          	<td>
+			          		Defines is caching is enabled  for this query.
+			          	</td>
+					   </tr>
+					</table>
+					</subsection>
+		        	<subsection name="Services Tagged Values">
+		        	<table>
+		        	  <tr>
+			          	<th>Tagged Value</th>  
+						<th>Used With</th> 
+			          	<th>Description</th>    	     	
+		        	  </tr>
+		        	  <tr>
+						<a name="@andromda.ejb.viewType"/>
+			          	<td>
+			          		@andromda.ejb.viewType
+			          	</td>
+						<td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>
+						</td>
+			          	<td>
+			          		Defines the view type for a Session EJB.  If not
+                            defined, <code>remote</code> will be assumed.
+			          	</td>
+		        	   </tr>	
+					   <tr>
 						<a name="@andromda.transaction.type"/>
 			          	<td>
 			          		@andromda.transaction.type
@@ -250,8 +290,17 @@
                                 <li>Never</li>
 							</ol>
 			          	</td>
-					</tr>
-					<tr>
+					   </tr>
+					  </table>
+					</subsection>
+		        	<subsection name="Association and Association End Tagged Values">
+		        	<table>
+		        	  <tr>
+			          	<th>Tagged Value</th>  
+						<th>Used With</th> 
+			          	<th>Description</th>    	     	
+		        	  </tr>
+					   <tr>
 						<a name="@andromda.hibernate.outerjoin"/>
 			          	<td>
 			          		@andromda.hibernate.outerjoin
@@ -267,37 +316,8 @@
 								<li>false</li>
 							</ol>
 			          	</td>
-					</tr>
-					<tr>
-					     <a name="@andromda.hibernate.entity.cache"/>
-						<td>
-	                        @andromda.hibernate.entity.cache
-						</td>
-						<td>
-							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
-						</td>
-						<td>
-							Defines the cache strategy for the Entity. Permited values are:
-							<ol>
-								<li>read-write</li>
-								<li>nonstrict-read-write</li>
-								<li>read-only</li>
-							</ol>
-						</td>
-					</tr>
-					<tr>
-						<a name="@andromda.hibernate.query.useCache"/>
-			          	<td>
-			          		@andromda.hibernate.query.useCache
-			          	</td>
-						<td>
-							<a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
-						</td>
-			          	<td>
-			          		Defines is caching is enabled  for this query.
-			          	</td>
-					</tr>
-					<tr>
+					   </tr>
+					  <tr>
 					     <a name="@andromda.hibernate.association.cache"/>
 						<td>
 	                        @andromda.hibernate.association.cache
@@ -313,17 +333,17 @@
 								<li>read-only</li>
 							</ol>
 						</td>
-					</tr>
+					   </tr>
 		        </table>
-    		</subsection>	
-            <subsection name="Additional Remarks">
+    		</subsection>
+    		</section>	
+            <section name="Additional Remarks">
                 <p>
                     Dependencies can be used between Services and Entities, they
                     won't need any stereotype assigned to them. These dependencies
                     are used to reference an entity from another entity or service,
                     or to reference a service from an entity or another service.
                 </p>
-            </subsection>
-    	</section>
+            </section>
   	</body>
 </document>
