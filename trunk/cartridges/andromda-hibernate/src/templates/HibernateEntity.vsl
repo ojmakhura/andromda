@@ -2,10 +2,7 @@
  * Attention: Generated source! Do not modify by hand!
  */
 package $class.packageName;
-
 #set ($superclass = $class.generalization)
-#set ($primKey = $class.identifiers().iterator().next())
-#set ($primKeyTypeName = $primKey.type.fullyQualifiedName)
 
 /**
 $class.getDocumentation(" * ")
@@ -30,14 +27,12 @@ $class.getDocumentation(" * ")
  * $tag    $tgv.value
 #end
 #end
- *
  */
 public abstract class ${class.name}
 #if($superclass)
 	extends ${superclass.fullyQualifiedName}Impl
 #end
 {
-
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes )
 #set ($atttypename = $att.type.fullyQualifiedName)
@@ -66,9 +61,9 @@ $att.getDocumentation("     * ")
         return this.${att.name};
     }
 
-    public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue)
+    public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} ${att.name})
     {
-        this.${att.name} = newValue;
+        this.${att.name} = $att.name;
     }
 
 #end
@@ -82,7 +77,7 @@ $att.getDocumentation("     * ")
     #set ($targetTypeName = $targetType.fullyQualifiedName)
 #if ($target.navigable)
     /**
-$target.getDocumentation("    * ")
+$target.getDocumentation("     * ")
      *
 #if ($associationEnd.one2Many)
      * @hibernate.set
@@ -156,7 +151,7 @@ $target.getDocumentation("    * ")
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod"))
     /**
-$op.getDocumentation("    * ")
+$op.getDocumentation("     * ")
      */
 #set ($msig = $op.signature)
 #set ($returntype = $op.returnType.fullyQualifiedName)
