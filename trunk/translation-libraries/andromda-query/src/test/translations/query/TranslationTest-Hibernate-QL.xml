@@ -62,7 +62,7 @@
 		</from>
 		<to>	
 			from org.andromda.contracts.LegalAgreement as la
-			where la.agreementStatus.agreementStatusPk in elements(:agreementStatusPks) or size(:agreementStatusPks) = 0 
+			where la.agreementStatus.agreementStatusPk in (:agreementStatusPks) or size(:agreementStatusPks) = 0 
 			and la.agreementTypePk = :anAgreementTypePk	
 		</to>
 	</expression> 
@@ -70,7 +70,7 @@
 	<expression>
 		<from>
 			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
-			body findAllBody : LegalAgreement.allInstances()
+			body : LegalAgreement.allInstances()
 		</from>
 		<to>
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
@@ -86,7 +86,7 @@
 				anAgreementStatusPk:String, 
 				aPersonPk:Long, 
 				aProjectPk:Long):Collection(LegalAgreement) 
-			body findByTitlePartyTypeStatusPersonProjectBody: 
+			body : 
 			allInstances()->select( 
 				legalAgreement | 
 					StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) 
@@ -109,5 +109,13 @@
 			and legalAgreement.person.personPk = :aPersonPk 
 			and legalAgreement.project.projectPk = :aProjectPk
 		</to>
+        <from>
+			context org::andromda::contracts::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement) 
+			body : allInstances() -> select( legalAgreement | legalAgreementPks -> exists(legalAgreement.legalAgreementPk))            
+        </from>
+        <to>
+			from org.andromda.contracts.LegalAgreement as legalAgreement 
+			where legalAgreement.legalAgreementPk in (:legalAgreementPks)
+        </to>
 	</expression> 
 </translation-test>

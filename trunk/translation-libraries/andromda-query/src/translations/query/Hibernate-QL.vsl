@@ -40,7 +40,7 @@
 		<fragment name="\s*${navigableName}\s*->\s*exists${nonEmptyParentheses}"
 				  handlerMethod="handleExists">
 			<kind name="body">
-				{0} in elements({1})
+				{0} in ({1})
 			</kind>
 		</fragment>
 		

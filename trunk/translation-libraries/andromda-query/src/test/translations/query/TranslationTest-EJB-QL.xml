@@ -151,7 +151,7 @@
 			context org::andromda::contracts::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
 			body findByStatusesBody: 
 			    allInstances() -> select( 
-                                legalAgreement | 
+                    legalAgreement | 
 				    agreementStatusPks -> exists(legalAgreement.agreementStatus.agreementStatusPk) 
 				    or agreementStatusPks -> isEmpty()
 				    and legalAgreement.agreementTypePk = anAgreementTypePk) 
