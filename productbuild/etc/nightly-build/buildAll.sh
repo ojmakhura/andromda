@@ -7,6 +7,5 @@
 cd ~/nightly/build
 
 # execute with the lowest priority and notify using the MailLogger
-nice -n 19 ant -logger org.apache.tools.ant.listener.MailLogger
-
-
+nice -n 19 ant dist -logger org.apache.tools.ant.listener.MailLogger
+nice -n 19 ant docs -logger org.apache.tools.ant.listener.MailLogger
