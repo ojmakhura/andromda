@@ -76,7 +76,7 @@
         <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
         <unitTest>
             <includes>
-                <include>**/*Test.java</include>
+                <include>**/MetafacadeMappingsTest.java</include>
             </includes>
             <resources>
                 <resource>

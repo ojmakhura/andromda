@@ -1,6 +1,7 @@
 package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +52,9 @@ public class MetafacadeMapping
     }
 
     /**
-     * The name of the mapping class for which this mapping applies. 
-     * The {@link #context}, {@link #stereotypes} and this 
-     * name make up the identifying key for this mapping.
+     * The name of the mapping class for which this mapping applies. The
+     * {@link #context},{@link #stereotypes}and this name make up the
+     * identifying key for this mapping.
      */
     private String mappingClassName = null;
 
@@ -86,8 +87,8 @@ public class MetafacadeMapping
      * <p>
      * Gets whether or not this mapping represents a <code>contextRoot</code>,
      * by default a mapping is <strong>NOT </strong> a contextRoot. You'll want
-     * to specify this as true when other metafacades need to be created within the
-     * context of this metafacade.
+     * to specify this as true when other metafacades need to be created within
+     * the context of this metafacade.
      * </p>
      * 
      * @return Returns the contextRoot.
@@ -123,7 +124,7 @@ public class MetafacadeMapping
     {
         this.stereotypes.add(Profile.instance().get(stereotype));
     }
-    
+
     /**
      * Gets the stereotypes which apply to this mapping.
      * 
@@ -133,10 +134,10 @@ public class MetafacadeMapping
     {
         return this.stereotypes;
     }
-    
+
     /**
-     * Indicates whether or not this mapping has any stereotypes
-     * defined.
+     * Indicates whether or not this mapping has any stereotypes defined.
+     * 
      * @return true/false
      */
     boolean hasStereotypes()
@@ -174,7 +175,7 @@ public class MetafacadeMapping
     /**
      * Used to hold the properties that should apply to the mapping element.
      */
-    private final Map mappingProperties = new HashMap();
+    private final Collection mappingProperties = new ArrayList();
 
     /**
      * Adds a mapping property. This are used to narrow the metafacade to which
@@ -186,15 +187,25 @@ public class MetafacadeMapping
      */
     public void addMappingProperty(String name, String value)
     {
-        this.mappingProperties.put(name, value);
+        this.mappingProperties.add(new Property(name, value));
     }
 
     /**
      * Returns all mapping properties for this MetafacadeMapping instance.
      */
-    public Map getMappingProperties()
+    Collection getMappingProperties()
     {
         return this.mappingProperties;
+    }
+
+    /**
+     * Indicates whether or not this mapping contains any mapping properties.
+     * 
+     * @return
+     */
+    boolean hasMappingProperties()
+    {
+        return !this.mappingProperties.isEmpty();
     }
 
     /**
@@ -245,7 +256,7 @@ public class MetafacadeMapping
     {
         this.context = StringUtils.trimToEmpty(context);
     }
-    
+
     /**
      * Gets the context to which this mapping applies.
      * 
@@ -255,7 +266,7 @@ public class MetafacadeMapping
     {
         return this.context;
     }
-    
+
     /**
      * Indicates whether or not this mapping has a context.
      * 
@@ -274,5 +285,45 @@ public class MetafacadeMapping
         return MetafacadeMappingsUtils.constructKey(super.toString(), this
             .getKey())
             + ":" + this.getMetafacadeClass();
+    }
+
+    /**
+     * Stores and provides access to the mapping element's nested
+     * &lt;property/&gt;.
+     */
+    class Property
+    {
+        private String name;
+        private String value;
+
+        Property(
+            String name,
+            String value)
+        {
+            this.name = StringUtils.trimToEmpty(name);
+            this.value = value;
+        }
+
+        /**
+         * Gets the value of the <code>name</code> attribute on the
+         * <code>property</code> element.
+         * 
+         * @return the name
+         */
+        String getName()
+        {
+            return StringUtils.trimToEmpty(this.name);
+        }
+
+        /**
+         * Gets the value of the <code>value</code> attribute defined on the
+         * <code>property</code> element.
+         * 
+         * @return the value
+         */
+        String getValue()
+        {
+            return StringUtils.trimToEmpty(this.value);
+        }
     }
 }

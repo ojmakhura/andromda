@@ -21,7 +21,6 @@
         <mapping class="org.andromda.core.metafacade.MappingObject2">
             <stereotype>ENUMERATION</stereotype>    
             <context>org.andromda.core.metafacade.Metafacade3</context>
-            <property name="mappingProperty">true</property>
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4">
@@ -29,7 +28,6 @@
             <stereotype>APPLICATION_EXCEPTION</stereotype>  
             <stereotype>UNEXPECTED_EXCEPTION</stereotype>  
             <context>org.andromda.core.metafacade.Metafacade3</context>
-            <property name="mappingProperty">true</property>
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3">
@@ -40,6 +38,21 @@
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3">
         <mapping class="org.andromda.core.metafacade.MappingObject3"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade5">
+        <mapping class="org.andromda.core.metafacade.MappingObject3">
+            <property name="mappingProperty">true</property>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade5">
+        <mapping class="org.andromda.core.metafacade.MappingObject5">
+            <property name="mappingProperty"/>           
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade5">
+        <mapping class="org.andromda.core.metafacade.MappingObject4">
+            <property name="mappingProperty">true</property>           
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4">
         <mapping class="org.andromda.core.metafacade.MappingObject2">

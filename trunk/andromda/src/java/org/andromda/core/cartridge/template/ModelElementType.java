@@ -15,7 +15,7 @@ import org.apache.commons.lang.StringUtils;
 public class ModelElementType
 {
     private String name;
-    private Collection properties = new ArrayList();
+    private final Collection properties = new ArrayList();
 
     /**
      * @return Returns the name.
@@ -90,17 +90,6 @@ public class ModelElementType
         String getValue()
         {
             return StringUtils.trimToEmpty(this.value);
-        }
-
-        /**
-         * Returns true if the property has a <code>value</code> attribute
-         * defined within it.
-         * 
-         * @return true/false
-         */
-        boolean hasValue()
-        {
-            return this.value != null;
         }
     }
 }

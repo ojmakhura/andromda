@@ -7,7 +7,7 @@ import java.util.Iterator;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Profile;
-import org.apache.commons.beanutils.PropertyUtils;
+import org.andromda.core.common.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -25,14 +25,8 @@ public class ModelElement
 {
     private String stereotype;
     private String variable;
-    private Collection types = null;
-    private Collection metafacades = null;
-
-    public ModelElement()
-    {
-        this.types = new ArrayList();
-        this.metafacades = new ArrayList();
-    }
+    private final Collection types = new ArrayList();
+    private Collection metafacades = new ArrayList();
 
     /**
      * Gets the stereotype of this modelElement.
@@ -184,32 +178,10 @@ public class ModelElement
                         {
                             final ModelElementType.Property property = (ModelElementType.Property)properties
                                 .next();
-                            if (PropertyUtils.isReadable(metafacade, property
-                                .getName()))
-                            {
-                                final Object value = PropertyUtils.getProperty(
-                                    metafacade,
-                                    property.getName());
-                                accept = value != null;
-                                // if accept is still true, and the property
-                                // has a value defined
-                                if (accept)
-                                {
-                                    final String valueAsString = String
-                                        .valueOf(value);
-                                    if (property.hasValue())
-                                    {
-                                        accept = valueAsString.equals(property
-                                            .getValue());
-                                    }
-                                    else if (Boolean.class
-                                        .isAssignableFrom(value.getClass()))
-                                    {
-                                        accept = Boolean.valueOf(valueAsString)
-                                            .booleanValue();
-                                    }
-                                }
-                            }
+                            accept = PropertyUtils.containsValidProperty(
+                                metafacade,
+                                property.getName(),
+                                property.getValue());
                         }
                     }
                 }

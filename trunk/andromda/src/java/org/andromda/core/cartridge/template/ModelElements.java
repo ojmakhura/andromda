@@ -22,12 +22,7 @@ import org.apache.commons.lang.StringUtils;
 public class ModelElements
 {
     private String variable;
-    private Collection modelElements = null;
-
-    public ModelElements()
-    {
-        this.modelElements = new ArrayList();
-    }
+    private final Collection modelElements = new ArrayList();
 
     /**
      * The variable name to make the model element available to the template
