@@ -2,8 +2,8 @@
 
 <project>
     <extend>../project.xml</extend>
+    <artifactId>admin-console-core</artifactId>
     <name>Administration Console Core</name>
-    <id>admin-console-core</id>
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>

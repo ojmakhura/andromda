@@ -2,8 +2,8 @@
 
 <project>
     <extend>../project.xml</extend>
+    <artifactId>admin-console-mda</artifactId>
     <name>Administration Console MDA</name>
-    <id>admin-console-mda</id>
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>

@@ -2,9 +2,8 @@
 
 <project>
     <extend>../../project.xml</extend>
+    <artifactId>admin-console</artifactId>
     <name>AndroMDA Administration Console</name>
-    <groupId>andromda</groupId>
-    <id>admin-console</id>
     <package>org.andromda.adminconsole</package>
 	<description>
 		Generates a table maintenance user interface by discovering database metadata
