@@ -1,7 +1,5 @@
 andromda.home = ../
 
-java.classpath = c:/ntdev/jdk1.4/lib/tools.jar
-
 thirdparty.home = c:/cygwin/home/tony/projects/timetowork/thirdparty/
 myant.home = ${thirdparty.home}jakarta-ant-1.5.1/
 jaxb.home = ${thirdparty.home}jaxb-1.0-beta/
@@ -17,7 +15,7 @@ xdoclet.home = ${andromda.home}/lib/
 
 andromda.libs = ${andromda.home}andromda.jar:${andromda.home}jaxbfix
 jaxb.libs = ${jaxb.home}lib/jaxb-api.jar:${jaxb.home}lib/jaxb-libs.jar:${jaxb.home}lib/jaxb-ri.jar:${jaxb.home}lib/jaxb-xjc.jar:${jaxb.home}lib/jax-qname.jar
-log4j.libs = ${log4j.home}lib/commons-logging.jar
+log4j.libs = ${log4j.home}lib/commons-logging.jar:${log4j.home}lib/log4j.jar
 velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
 junit.libs = ${junit.home}lib/junit.jar
 ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
