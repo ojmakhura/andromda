@@ -120,11 +120,20 @@ public class HibernateAssociationEndLogicImpl
             && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
             HibernateEntity entity = (HibernateEntity)type;
-            if (entity.getHibernateDefaultCascade().equalsIgnoreCase(
-                HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
-                && this.getOtherEnd().isMany())
+            final String defaultCascade = entity.getHibernateDefaultCascade();
+            if (defaultCascade.equalsIgnoreCase(
+                    HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
+                || defaultCascade.equalsIgnoreCase(
+                    HibernateGlobals.HIBERNATE_CASCADE_ALL))
             {
-                cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
+                if (this.getOtherEnd().isMany())
+                {
+                    cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
+                }
+                else
+                {
+                    cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL;
+                }
             }
         }
         return cascade;

@@ -119,11 +119,20 @@ public class SpringEntityAssociationEndLogicImpl
             && SpringEntity.class.isAssignableFrom(type.getClass()))
         {
             SpringEntity entity = (SpringEntity)type;
-            if (entity.getHibernateDefaultCascade().equalsIgnoreCase(
-                SpringGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
-                && this.getOtherEnd().isMany())
+            final String defaultCascade = entity.getHibernateDefaultCascade();
+            if (defaultCascade.equalsIgnoreCase(
+                    SpringGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
+                || defaultCascade.equalsIgnoreCase(
+                    SpringGlobals.HIBERNATE_CASCADE_ALL))
             {
-                cascade = SpringGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
+                if (this.getOtherEnd().isMany())
+                {
+                    cascade = SpringGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
+                }
+                else
+                {
+                    cascade = SpringGlobals.HIBERNATE_CASCADE_ALL;
+                }
             }
         }
         return cascade;
@@ -140,8 +149,8 @@ public class SpringEntityAssociationEndLogicImpl
         if (inverse)
         {
             inverse = this.isMany2One();
-            // for many-to-many we just put the flag on the side that 
-            // has the lexically longer fully qualified name for 
+            // for many-to-many we just put the flag on the side that
+            // has the lexically longer fully qualified name for
             // it's type
             if (this.isMany2Many() && !inverse)
             {

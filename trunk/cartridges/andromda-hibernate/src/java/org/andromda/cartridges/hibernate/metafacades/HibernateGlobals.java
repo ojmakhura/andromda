@@ -31,6 +31,11 @@ class HibernateGlobals
      * Represents the hibernate <code>save-update</code> cascade option.
      */
     static final String HIBERNATE_CASCADE_SAVE_UPDATE = "save-update";
+    
+    /**
+     * Represents the hibernate <code>all</code> cascade option.
+     */
+    static final String HIBERNATE_CASCADE_ALL = "all";
 
     /**
      * The property used to specify the implementation operation name prefix (on
