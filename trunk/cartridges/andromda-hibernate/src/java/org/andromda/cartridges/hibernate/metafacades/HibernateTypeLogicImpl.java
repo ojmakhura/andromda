@@ -1,6 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.core.mapping.Mappings;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for
@@ -46,8 +47,11 @@ public class HibernateTypeLogicImpl
      */
     public void setHibernateTypeMappingsUri(String hibernateTypeMappingsUri)
     {
-        this.registerConfiguredProperty(HIBERNATE_TYPE_MAPPINGS, Mappings
-            .getInstance(hibernateTypeMappingsUri));
+        if (StringUtils.isNotBlank(hibernateTypeMappingsUri))
+        {
+            this.registerConfiguredProperty(HIBERNATE_TYPE_MAPPINGS, Mappings
+                .getInstance(hibernateTypeMappingsUri));
+        }
     }
 
     /**
