@@ -9,13 +9,14 @@
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-27" description="First release candidate for version 3.0">
             <action dev="draftdog" type="fix" issue="BPM-127">
-                Bpm4Struts now correctly exports to all known displaytag support formats, there was a bug where
+                Bpm4Struts now correctly exports to all known
+                <a href="http://www.displaytag.org/">displaytag</a> supported formats, there was a bug where
                 simple properties were being exported with surrounding HTML tags.
                 <p class="highlight">
                     Caution: the use of
                     <code>@andromda.struts.view.table.export</code> has changed! It is no longer recommended to specify
                     a space separated combination of formats, instead it is now best to specify multiple values
-                    (MagicDraw allows you to add values from a combobox). 
+                    (MagicDraw allows you to add values from a combobox).
                     The previous way is still supported but this might change in the future.
                 </p>
             </action>
@@ -44,7 +45,7 @@
                 configured to be cacheable.
             </action>
             <action dev="carloslcuenca" type="add" issue="HIB-61">
-                The cartridge now supports dynamic-insert and dynamic-update hibernate properties for entities. 
+                The cartridge now supports dynamic-insert and dynamic-update hibernate properties for entities.
             </action>
             <action dev="draftdog" type="add" issue="MISC-24">
                 All existing cartridges emitting Java source code now include a license-header merge point,
@@ -65,9 +66,9 @@
                 support (thanks to Peter Friese).
             </action>
             <action dev="cwbrandon" type="add">
-                A new attribute has been introduced on the template element within the cartridge descriptor 
+                A new attribute has been introduced on the template element within the cartridge descriptor
                 (andromda-cartridge.xml).  It's called <a href="andromda-cartridges/index.html#outputOnEmptyElements">outputOnEmptyElements</a>
-                and allows a cartridge writer to determine whether or not a file should be output when there are no elements collected when using the 
+                and allows a cartridge writer to determine whether or not a file should be output when there are no elements collected when using the
                 <a href="andromda-cartridges/index.html#outputToSingleFile">outputToSingleFile</a> flag.
             </action>
             <action dev="cwbrandon" type="fix" issue="SPRING-37">
@@ -75,7 +76,7 @@
                 DAO inheritance hiearchy when inheritance between entities is modeled.
             </action>
             <action dev="cwbrandon" type="update">
-                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> must now be used in conjunction with the 
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> must now be used in conjunction with the
                 <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> when using Hibernate persistence.
             </action>
             <action dev="cwbrandon" type="update" issue="BPM-136">
@@ -104,14 +105,14 @@
                 constraint has been added to validate this).
             </action>
             <action dev="cwbrandon" type="update" issue="SPRING-33">
-                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and 
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and
                 <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now generate child
-                cascade's correctly based on whether or not the default-cascade for the entity is set to 
+                cascade's correctly based on whether or not the default-cascade for the entity is set to
                 <code>all</code> or <code>save-update</code>.
             </action>
             <action dev="cwbrandon" type="update">
-                The <a href="andromda-meta-cartridge/index.html">Meta Cartridge</a> now generates real 
-                inheritance (not delegated) when the super metafacade class is in the same package.  
+                The <a href="andromda-meta-cartridge/index.html">Meta Cartridge</a> now generates real
+                inheritance (not delegated) when the super metafacade class is in the same package.
                 Delegated inheritance is now only generated when the super metafacade's package is different.
             </action>
             <action dev="draftdog" type="update">
@@ -140,9 +141,9 @@
                 Now it is possible to enable Hibernate proxies for Entities in the hibernate Cartridge.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-16">
-                An external configuration file can now configure logging for AndroMDA.  
+                An external configuration file can now configure logging for AndroMDA.
                 See <a href="anttask.html#loggingConfigurationUri">loggingConfigurationUri</a> for information
-                on how to use it with Ant.  See 
+                on how to use it with Ant.  See
                 <a href="maven-andromda-plugin/properties.html#maven.andromda.loggingConfigurationUri">maven.andromda.loggingConfigurationUri</a>
                 for information on how to use with Maven.
             </action>
@@ -151,7 +152,7 @@
                 is required.
             </action>
             <action dev="cwbrandon" type="update">
-                Completed removed XDoclet from the Hibernate cartridge. 
+                Completed removed XDoclet from the Hibernate cartridge.
             </action>
             <action dev="draftdog" type="add">
                 Added a <a href="andromda-spring-cartridge/howto.html">howto</a> for the Spring cartridge.
@@ -162,7 +163,7 @@
                 for each entity when constructing a new instance).
             </action>
             <action dev="cwbrandon" type="add">
-                Provide the ability to have entity association lazy loading within the service tier 
+                Provide the ability to have entity association lazy loading within the service tier
                 (all entity associations should be able to be lazily loaded within ALL service operations,
                 as well as ALL DAO operations).
             </action>
@@ -172,26 +173,26 @@
                 <a href="andromda-spring-cartridge/modeling.html#Enumeration">Spring</a> cartridges.
             </action>
             <action dev="cwbrandon" type="add" issue="OCL-1">
-                <strong>ALL OCL string operations</strong> are now supported by the 
+                <strong>ALL OCL string operations</strong> are now supported by the
                 <a href="andromda-query-library/index.html">Query Translation Library</a>
             </action>
             <action dev="cwbrandon" type="fix" issue="CORE-38">
                 Template object properties can now be specified more than once in the andromda-cartridge.xml.
             </action>
             <action dev="carloslcuenca" type="add" issue="HIB-34">
-                The <a href="andromda-hibernate-cartridge/index.html">Hibernate</a> and 
+                The <a href="andromda-hibernate-cartridge/index.html">Hibernate</a> and
                 <a href="andromda-hibernate-spring/index.html">Spring</a> cartridges are now able to define query cache settings.
             </action>
             <action dev="cwbrandon" type="fix">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> was using the OCL
                 <em><![CDATA[exists(<expression>)]]></em> expression incorrectly.  Changed to use the
                 correct <em><![CDATA[includes(<expression>)]]></em> expression instead.
-            </action>   
+            </action>
             <action dev="cwbrandon" type="add">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> is now able to correctly handle
                 order by expressions (this is accompished using the standard <em><![CDATA[-> sortedBy(<expression>)]]></em>
                 construct in OCL.
-            </action>            
+            </action>
             <action dev="cwbrandon" type="fix" issue="OCL-7">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> is now able to correctly handle
                 grouped expressions.
@@ -201,7 +202,7 @@
                 be true/false on associations within the hibernate cfg.xml files.
             </action>
             <action dev="draftdog" type="fix">
-                Fixed a *critical* bug in bpm4struts: when an action state would defer to more than one controller 
+                Fixed a *critical* bug in bpm4struts: when an action state would defer to more than one controller
                 operation the action state's forward would be called after each operation call. This is very dangerous
                 in combination with the session because code is not executed in the expected order anymore.
             </action>
@@ -263,7 +264,7 @@
         </release>
         <release version="3.0M3" date="2004-12-26" description="A stable development release for version 3, milestone 3">
             <action dev="carloslcuenca" type="add" issue="HIB-27">
-                The ability to define the OuterJoin association fetching strategy 
+                The ability to define the OuterJoin association fetching strategy
                 within an association end within the Hibernate Cartridge
             </action>
             <action dev="amartinwest" type="add" >
@@ -274,7 +275,7 @@
 				which is used when two or more exceptions occur in the same second.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-33">
-                The ability to filter (or select) the cartridges you want 
+                The ability to filter (or select) the cartridges you want
                 to perform model processing has been introduced.  Please see
                 <a href="maven-andromda-plugin/properties.html#maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a>
                 for more information on how to use this new feature with the maven plugin, or
@@ -287,7 +288,7 @@
                 to defined mapping files for merging.  These files behave just like the
                 other mapping files (i.e. languageMappings, sqlMappings, etc) and can be
                 used within each namespace or within the default namespace. Please see
-                <a href="andromda-cartridges/index.html#mergeMappingsUri">mergeMappingsUri</a> 
+                <a href="andromda-cartridges/index.html#mergeMappingsUri">mergeMappingsUri</a>
                 for more information.
             </action>
             <action dev="cwbrandon" type="add" issue="OCL-5">
@@ -343,14 +344,14 @@
                 </action>
             <action dev="cwbrandon" type="add">
                 The <a href="andromda-spring-cartridge/modeling.html">AndroMDA Spring</a>
-                cartridge can now model (and have generated) full role 
+                cartridge can now model (and have generated) full role
                 based security for the optional Session EJB wrappers.
             </action>
             <action dev="cwbrandon" type="add">
                 The ModelElementFacades association to DependencyFacade has been renamed from
                 <code>dependencies</code> to <code>targetDependencies</code>.
-                This was necessary due to the fact the dependencies returned were 
-                target dependencies only and did not include source dependencies.  
+                This was necessary due to the fact the dependencies returned were
+                target dependencies only and did not include source dependencies.
                 A new association was added to DependencyFacade called
                 <code>sourceDependencies</code> which can retrieve all source dependencies
                 for a model element.
@@ -393,7 +394,7 @@
                 request as a struts action error.  You then place this new key in your custom
                 message resources with a corresponding message, and next time the error occurs
                 this new message will be displayed (instead of the exception).
-                The exception handling pattern and a few other related properties are configurable, 
+                The exception handling pattern and a few other related properties are configurable,
                 you can learn more about them on <a href="andromda-bpm4struts-cartridge/namespace.html">BPM4Struts Namespace Properties</a>.
                 <strong>NOTE:</strong> if the pattern can not be found in an exception processing
                 continues as normal and the exception will be displayed.
