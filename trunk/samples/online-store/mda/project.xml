@@ -26,6 +26,10 @@
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
+                <xhtml>false</xhtml>
+                <security>false</security>
+                <securityRealm>other</securityRealm>
+                <server>${maven.andromda.bpm4struts.generated.dir}</server>
                 <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
                 <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
                 <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
@@ -34,8 +38,6 @@
                 <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
                 <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
                 <xdoclet-merge>${maven.andromda.bpm4struts.generated.dir}/merge</xdoclet-merge>
-                <securityEnabled>false</securityEnabled>
-                <securityRealm>other</securityRealm>
             </properties>
         </dependency>
         <dependency>
