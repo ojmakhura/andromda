@@ -121,6 +121,19 @@
         </modelElements>
     </template>
     
+    <template
+        path="templates/webservice/axis/WebServiceTestImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="axis-test-impls"
+        overwrite="false"
+        required="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
     <!-- cartridge-template merge-point -->
 
 </cartridge>
