@@ -3,6 +3,8 @@
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
 
+    <ant:property environment="env"/>
+
     <!-- ==================================================================
            Builds everything and installs it into the local Maven repository
          ================================================================== -->
@@ -128,5 +130,37 @@
         </j:if>
 
     </preGoal>
+
+    <!-- ==================================================================
+           Database related operations
+         ================================================================== -->
+    <goal name="execute-script">
+        <j:if test="${script != null}">
+            <u:file var="scriptFile" name="${script}"/>
+            <j:if test="${scriptFile.exists()}">
+                <ant:sql driver="${dataSource.driver.class}" src="${scriptFile}"
+                    url="${dataSource.url}" userid="${dataSource.user}" password="${dataSource.password}" >
+                    <ant:classpath>
+                        <ant:pathelement location="${dataSource.driver.jar}"/>
+                    </ant:classpath>
+                </ant:sql>
+            </j:if>
+        </j:if>
+    </goal>
+
+    <goal name="setup-db">
+        <j:set var="script" value="${dataSource.sql.init}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
+    <goal name="teardown-db">
+        <j:set var="script" value="${dataSource.sql.drop}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
+    <goal name="load-dummy-data">
+        <j:set var="script" value="${dataSource.sql.load}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
 
 </project>
