@@ -1,6 +1,6 @@
 #parse("templates/spring/ejb/SpringSessionEJBGlobals.vm")
 #if ($ejbsEnabled)
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="$xmlEncoding"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
                          "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
 

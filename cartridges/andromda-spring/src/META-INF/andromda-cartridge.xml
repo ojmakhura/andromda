@@ -60,6 +60,8 @@
     <property reference="session-ejbs" default=""/>
     <!-- Whether or not parameters should be checked if they're required (on DAOs and services) -->
     <property reference="parameterRequiredCheck" default="true"/>
+    <!-- encoding for xml documents -->
+    <property reference="xmlEncoding" default="UTF-8"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
