@@ -11,67 +11,70 @@
     <session-factory>
         <!-- properties -->
 #if ($str.isNotBlank($driver))
-        <property name="connection.driver_class">${driver}</property>
+        <property name="connection.driver_class">$driver</property>
 #end
 #if ($str.isNotBlank($username))
-        <property name="connection.username">${username}</property>
+        <property name="connection.username">$username</property>
 #end
 #if ($str.isNotBlank($password))
-        <property name="connection.password">${password}</property>
+        <property name="connection.password">$password</property>
 #end
 #if ($str.isNotBlank($dataSource))
-        <property name="connection.datasource">${dataSource}</property>
+        <property name="connection.datasource">$dataSource</property>
 #end
 #if ($str.isNotBlank($connectionUrl))
-        <property name="connection.url">${connectionUrl}</property>
+        <property name="connection.url">$connectionUrl</property>
 #end
 #if ($str.isNotBlank($hibernatePoolSize))
-        <property name="pool.size">${hibernatePoolSize}</property>
+        <property name="pool.size">$hibernatePoolSize</property>
 #end
 #if ($str.isNotBlank($hibernateTransactionManagerStrategy))
-        <property name="transaction.manager.strategy">${hibernateTransactionManagerStrategy}</property>
+        <property name="transaction.manager.strategy">$hibernateTransactionManagerStrategy</property>
 #end
 #if ($str.isNotBlank($hibernateUserTransactionName))
-        <property name="jta.UserTransaction">${hibernateUserTransactionName}</property>
+        <property name="jta.UserTransaction">$hibernateUserTransactionName</property>
 #end
 #if ($str.isNotBlank($hibernateTransactionFactoryClass))
-        <property name="transaction.factory_class">${hibernateTransactionFactoryClass}</property>
+        <property name="transaction.factory_class">$hibernateTransactionFactoryClass</property>
 #end
 #if ($str.isNotBlank($hibernateTransactionManagerLookup))
-        <property name="transaction.manager_lookup_class">${hibernateTransactionManagerLookup}</property>
+        <property name="transaction.manager_lookup_class">$hibernateTransactionManagerLookup</property>
 #end
 #if ($str.isNotBlank($hibernateUseOuterJoin))
-        <property name="use_outer_join">${hibernateUseOuterJoin}</property>
+        <property name="use_outer_join">$hibernateUseOuterJoin</property>
 #end
 #if ($str.isNotBlank($hibernateShowSql))
-        <property name="show_sql">${hibernateShowSql}</property>
+        <property name="show_sql">$hibernateShowSql</property>
 #end
 #if ($str.isNotBlank($hibernateJndiName))
-        <property name="session_factory_name">${hibernateJndiName}</property>
+        <property name="session_factory_name">$hibernateJndiName</property>
 #end
 #if ($str.isNotBlank($hibernateDialect))
-        <property name="dialect">${hibernateDialect}</property>
+        <property name="dialect">$hibernateDialect</property>
 #end
 #if ($str.isNotBlank($hibernateDefaultSchema))
-        <property name="default_schema">${hibernateDefaultSchema}</property>
+        <property name="default_schema">$hibernateDefaultSchema</property>
 #end
 #if ($str.isNotBlank($hibernateMaxFetchDepth))
-        <property name="max_fetch_depth">${hibernateMaxFetchDepth}</property>
+        <property name="max_fetch_depth">$hibernateMaxFetchDepth</property>
 #end
 #if ($str.isNotBlank($hibernateJdbcFetchSize))
-        <property name="jdbc.fetch_size">${hibernateJdbcFetchSize}</property>
+        <property name="jdbc.fetch_size">$hibernateJdbcFetchSize</property>
 #end
 #if ($str.isNotBlank($hibernateJdbcBatchSize))
-        <property name="jdbc.batch_size">${hibernateJdbcBatchSize}</property>
+        <property name="jdbc.batch_size">$hibernateJdbcBatchSize</property>
 #end
 #if ($str.isNotBlank($hibernateJdbcUseScrollableResultSet))
-        <property name="jdbc.use_scrollable_resultset">${hibernateJdbcUseScrollableResultSet}</property>
+        <property name="jdbc.use_scrollable_resultset">$hibernateJdbcUseScrollableResultSet</property>
 #end
 #if ($str.isNotBlank($hibernateJdbcUseStreamsForBinary))
-        <property name="use_streams_for_binary">${hibernateJdbcUseStreamsForBinary}</property>
+        <property name="use_streams_for_binary">$hibernateJdbcUseStreamsForBinary</property>
 #end
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
-        <property name="hibernate.hbm2ddl.auto">${hibernateHbm2DDLAuto}</property>
+        <property name="hibernate.hbm2ddl.auto">$hibernateHbm2DDLAuto</property>
+#end
+#if ($stringUtils.isNotBlank($hibernateQuerySubstitutions))
+        <property name="hibernate.query.substitutions">$hibernateQuerySubstitutions</property>
 #end
         <!-- mapping files -->
 #foreach($entity in $entities)
