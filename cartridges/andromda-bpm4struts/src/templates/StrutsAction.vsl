@@ -47,8 +47,11 @@ public final class $action.actionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        request.getSession().setAttribute("form", form);
         final ActionForward forward = #processTransition($action)
+        if (this.errorsNotPresent(request))
+        {
+            request.getSession().setAttribute("form", form);       
+        }
 #saveMessages($action "        ")
 #if ($resettableActionParameters.empty == false)
 
@@ -82,6 +85,10 @@ $actionState.getDocumentation("     * ")
         {
 #foreach ($controllerCall in $controllerCalls)
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
+            if (this.errorsNotPresent(request))
+            {
+                forward = #processTransition($actionState.forward)
+            }
 #end
         }
         catch (Exception ex)
@@ -92,7 +99,6 @@ $actionState.getDocumentation("     * ")
         finally
         {
 #saveMessages($actionState.forward "            ")
-            forward = #processTransition($actionState.forward)
         }
         if (!errors.isEmpty())
         {
@@ -128,6 +134,21 @@ $decisionTransition.getDocumentation("     * ")
     }
 
 #end
+
+    /**
+     * Returns true if <strong>NO</strong> errors
+     * are present in the request.  This includes default validation
+     * errors produced by the struts framework and the exception 
+     * handler errors caught by the pattern matching 
+     * exception handler.
+     * 
+     * @return true if errors are <strong>not</strong> present, false otherwise.
+     */
+    private boolean errorsNotPresent(HttpServletRequest request)
+    {
+        return this.getExceptionHandlerErrors(request).isEmpty() &&
+        	(this.getErrors(request) == null || this.getErrors(request).isEmpty());
+    }
 
     /**
      * <p>
