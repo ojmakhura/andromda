@@ -51,7 +51,7 @@ public class Cartridge
      * Cache for saving previously found model elements.
      */
     private Map elementCache = new HashMap();
-
+    
     /**
      * Processes all model elements with relevant stereotypes by retrieving the
      * model elements from the model facade contained within the context.
@@ -180,7 +180,7 @@ public class Cartridge
 
                     // if isOutputToSingleFile flag is true, then
                     // we get the collections of templateModelElements and
-                    // place them in the template context by their
+                    // place them into the template context by their
                     // variable names.
                     if (template.isOutputToSingleFile())
                     {
@@ -242,7 +242,7 @@ public class Cartridge
                             null);
                     }
                     else
-                    {
+                    {                        
                         // if outputToSingleFile isn't true, then
                         // we just place the model element with the default
                         // variable defined on the <modelElements/> into the

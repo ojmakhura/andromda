@@ -1,10 +1,11 @@
 package org.andromda.core.cartridge;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -111,9 +112,9 @@ public class TemplateModelElements
      * 
      * @return Collection of all model elements.
      */
-    public Collection getAllModelElements()
+    public Set getAllModelElements()
     {
-        Collection allModelElements = new ArrayList();
+        Set allModelElements = new HashSet();
         Iterator stereotypeNames = this.stereotypeNames();
         while (stereotypeNames.hasNext())
         {
