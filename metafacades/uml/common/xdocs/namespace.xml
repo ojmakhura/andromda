@@ -266,12 +266,44 @@
                     <td>
                         Provides the ability to apply a mask to role names (roles are actors
                         marked with the role stereotype:
-                        currently these are <strong>uppercase</strong>, <strong>lowercase</strong>,
-                        <strong>nospace</strong>, <strong>camelcase</strong>,
-                        and <strong>none</strong>.
+                        currently these are:
+                        <ul>
+                            <li>uppercase</li>
+                            <li>lowercase</li>
+                            <li>upperunderscore</li>
+                            <li>lowerunderscore</li>
+                            <li>underscore</li>
+                            <li>nospace</li>
+                            <li>camelcase</li>
+                            <li>none</li>
+                        </ul>
                     </td>
                     <td>
                         RoleFacade
+                    </td>
+                    <td>
+                        No, the default is <code>none</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        enumerationLiteralNameMask
+                    </td>
+                    <td>
+                        Provides the ability to apply a mask to enumeration literal names.
+                        <ul>
+                            <li>uppercase</li>
+                            <li>lowercase</li>
+                            <li>upperunderscore</li>
+                            <li>lowerunderscore</li>
+                            <li>underscore</li>
+                            <li>nospace</li>
+                            <li>camelcase</li>
+                            <li>none</li>
+                        </ul>
+                    </td>
+                    <td>
+                        Enumeration
                     </td>
                     <td>
                         No, the default is <code>none</code>.

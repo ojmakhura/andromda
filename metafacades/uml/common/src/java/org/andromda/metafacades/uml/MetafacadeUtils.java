@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -144,6 +145,93 @@ public class MetafacadeUtils
             return (roleName + separator + targetRoleName);
         }
         return (targetRoleName + separator + roleName);
+    }
+    
+    /**
+     * The <code>uppercase</code> role name mask.
+     */
+    public static final String MASK_UPPERCASE = "uppercase";
+    
+    /**
+     * The <code>underscore</code> role name mask.
+     */
+    public static final String MASK_UNDERSCORE = "underscore";
+    
+    /**
+     * The <code>upperunderscore</code> role name mask.
+     */
+    public static final String MASK_UPPERUNDERSCORE = "upperunderscore"; 
+
+    /**
+     * The <code>lowercase</code> role name mask.
+     */
+    public static final String MASK_LOWERCASE = "lowercase";
+    
+    /**
+     * The <code>lowerunderscore</code> role name mask.
+     */
+    public static final String MASK_LOWERUNDERSCORE = "lowerunderscore";    
+
+    /**
+     * The <code>camelcase</code> role name mask.
+     */
+    public static final String MASK_CAMELCASE = "camelcase";
+
+    /**
+     * The <code>nospace</code> role name mask.
+     */
+    public static final String MASK_NOSPACE = "nospace";
+
+    /**
+     * The <code>none</code> role name mask.
+     */
+    public static final String MASK_NONE = "none";
+    
+    /**
+     * Returns the name with the appropriate <code>mask</code>
+     * applied.  The mask, must match one of the valid mask properties
+     * or will be ignored.
+     * @param name the name to be masked
+     * @param mask the mask to apply
+     * @return the masked name.
+     */
+    public static String getMaskedName(String name, String mask)
+    {
+        mask = StringUtils.trimToEmpty(mask);
+        name = StringUtils.trimToEmpty(name);
+        if (!mask.equalsIgnoreCase(MASK_NONE))
+        {
+            if (mask.equalsIgnoreCase(MASK_UPPERCASE))
+            {
+                name = name.toUpperCase();
+            }
+            else if (mask.equalsIgnoreCase(MASK_UNDERSCORE))
+            {
+                name = StringUtilsHelper.separate(name, "_");
+            }
+            else if (mask.equalsIgnoreCase(MASK_UPPERUNDERSCORE))
+            {
+                name = StringUtilsHelper.separate(name, "_").toUpperCase();
+            }
+            else if (mask.equalsIgnoreCase(MASK_LOWERCASE))
+            {
+                name = name.toLowerCase();
+            }
+            else if (mask.equalsIgnoreCase(MASK_LOWERUNDERSCORE))
+            {
+                name = StringUtilsHelper.separate(name, "_").toLowerCase();
+            }
+            else if (mask.equalsIgnoreCase(MASK_CAMELCASE))
+            {
+                name = StringUtilsHelper.upperCamelCaseName(name
+                    .toLowerCase());
+            }
+            else if (mask.equalsIgnoreCase(MASK_NOSPACE))
+            {
+                name = StringUtils.deleteWhitespace(name);
+            }
+        }
+        return name;
     }
 
     private final static Map uniqueNames = new HashMap();

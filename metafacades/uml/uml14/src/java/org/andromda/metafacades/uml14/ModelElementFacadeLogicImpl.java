@@ -305,7 +305,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String)
      */
-    public String handleGetDocumentation(String indent)
+    protected String handleGetDocumentation(String indent)
     {
         return getDocumentation(indent, 64);
     }
@@ -314,7 +314,7 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
      *      int)
      */
-    public String handleGetDocumentation(String indent, int lineLength)
+    protected String handleGetDocumentation(String indent, int lineLength)
     {
         return getDocumentation(indent, lineLength, true);
     }
@@ -323,7 +323,7 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
      *      int, boolean)
      */
-    public String handleGetDocumentation(
+    protected String handleGetDocumentation(
         String indent,
         int lineLength,
         boolean htmlStyle)
@@ -409,7 +409,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
-    public String handleGetName()
+    protected String handleGetName()
     {
         return metaObject.getName();
     }
@@ -417,7 +417,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
-    public Mappings handleGetLanguageMappings()
+    protected Mappings handleGetLanguageMappings()
     {
         final String propertyName = UMLMetafacadeProperties.LANGUAGE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
@@ -544,7 +544,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints(java.lang.String)
      */
-    public Collection handleGetConstraints(final String kind)
+    protected Collection handleGetConstraints(final String kind)
     {
         final Collection filteredConstraints = CollectionUtils.select(
             getConstraints(),
@@ -575,7 +575,7 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String,
      *      java.lang.String)
      */
-    public String handleTranslateConstraint(
+    protected String handleTranslateConstraint(
         final String name,
         String translation)
     {
@@ -602,7 +602,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String)
      */
-    public java.lang.String[] handleTranslateConstraints(String translation)
+    protected java.lang.String[] handleTranslateConstraints(String translation)
     {
         return this.translateConstraints(this.getConstraints(), translation);
     }
