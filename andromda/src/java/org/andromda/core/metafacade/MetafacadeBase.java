@@ -55,30 +55,32 @@ public class MetafacadeBase
      * to check whether it is in a valid state.
      * <p>
      * In the lifecycle of a model element facade it is validated only once.
+     * 
+     * @param validationMessages any messages generated during validation.
      */
-    public final void validate()
+    public final void validate(Collection validationMessages)
     {
-        if (!hasBeenValidated)
+        if (!this.hasBeenValidated)
         {
-            hasBeenValidated = true;
-            __handleInvariants();
+            this.hasBeenValidated = true;
+            this.handleInvariants(validationMessages);
         }
     }
 
     /**
      * <p>
      *   The logic of modeled OCL invariants from derived metafacades
-     *   will be generated into this method which is then called by 
-     *   #validate().
+     *   will be generated into this method and validation messages
+     *   created and collected into the <code>messages</code> collection.  
+     *   This method is called by validate #validate().
      * <p>
      * 
      * <p>
      *   By default this method is empty.
      * </p>
      */
-    protected void __handleInvariants()
-    {
-    }
+    protected void handleInvariants(Collection messages)
+    {}
 
     /**
      * Returns a collection of facades for a collection
@@ -287,31 +289,4 @@ public class MetafacadeBase
     {
         logger = l;
     }
-
-    /**
-     * This method handles a validation error.
-     * <p>
-     * From an error cannot be recovered, if the user chooses to continue working with
-     * the result he will most probably experience undefined behavior.
-     *
-     * @param error The error message
-     */
-    protected void validationError(String error)
-    {
-        logger.error("[error] " + metaObject + " : " + error);
-    }
-
-    /**
-     * This method handles a validation warning.
-     * <p>
-     * A warning denotes an issue that can be corrected by the facade itself, although
-     * it is be advisable the user corrects this issue because of a more pleasing end-result.
-     *
-     * @param warning The warning message
-     */
-    protected void validationWarning(String warning)
-    {
-        logger.warn("[warning] " + metaObject + " : " + warning);
-    }
-
 }

@@ -3,6 +3,7 @@ package org.andromda.core.metafacade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -30,6 +31,11 @@ public class MetafacadeFactory
     private ModelAccessFacade model;
     
     /**
+     * Any validation messages stored during processing.
+     */
+    private Collection validationMessages;
+    
+    /**
      * The cache for already created metafacades.
      */
     private Map metafacadeCache;
@@ -45,6 +51,7 @@ public class MetafacadeFactory
     {
         this.metafacadeCache = new HashMap();
         this.registeredProperties = new HashMap();
+        this.validationMessages = new HashSet();
         MetafacadeMappings.instance().discoverMetafacades();
         MetafacadeImpls.instance().discoverMetafacadeImpls();
     }
@@ -157,8 +164,7 @@ public class MetafacadeFactory
                     contextName);
                 
             if (metafacadeClass == null)
-            {
-            
+             {
                 if (mapping != null)
                 {
                     metafacadeClass = mapping.getMetafacadeClass();
@@ -248,9 +254,10 @@ public class MetafacadeFactory
 	                    metafacade,
 	                    mapping.getPropertyReferences());
 	            } 
-	            // validate the meta-facade
-	            metafacade.validate();
-	            
+                // validate the meta-facade and collect the messages
+                Collection validationMessages = new ArrayList();
+	            metafacade.validate(validationMessages);
+	            this.validationMessages.addAll(validationMessages); 
 	            this.addToMetafacadeCache(
 	                metaobject, 
 	                metafacadeCacheKey, 
@@ -590,5 +597,15 @@ public class MetafacadeFactory
         }
         return registeredProperty;
     }
-
+    
+    /**
+     * Gets the validation messages collection during
+     * model processing.
+     * 
+     * @return Returns the validationMessages.
+     */
+    public Collection getValidationMessages()
+    {
+        return validationMessages;
+    }
 }

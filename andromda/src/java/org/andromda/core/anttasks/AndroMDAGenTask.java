@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.Model;
+import org.andromda.core.ModelProcessor;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
@@ -24,12 +26,13 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 
 /**
- * This class represents the <code>&lt;andromda&gt;</code> custom task which can
- * be called from an ant script. 
+ * <p>
+ *   This class wraps the AndroMDA model processor so that AndroMDA can be used as an Ant task. 
+ *   Represents the <code>&lt;andromda&gt;</code> custom task which can be called from an Ant 
+ *   build script. 
+ * </p>
  * 
- * The &lt;andromda&gt; task facilitates Model Driven Architecture by enabling
- * the generation of source code, configuration files, and other such artifacts
- * from a MOF model.
+ * @see org.andromda.core.ModelProcessor
  * 
  * @author    <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author    <A HREF="http://www.amowers.com">Anthony Mowers</A>
@@ -125,10 +128,10 @@ public class AndroMDAGenTask extends MatchingTask
 
     /**
      *  <p>
-     *
      *  Turns on/off last modified checking for generated files. If checking is
      *  turned on, overwritable files are regenerated only when the model is newer
-     *  than the file to be generated. By default, it is on.</p>
+     *  than the file to be generated. By default, it is on.
+     * </p>
      *
      *@param  lastmod  set the modified check, yes or no?
      */
@@ -138,21 +141,22 @@ public class AndroMDAGenTask extends MatchingTask
     }
 
     /**
-     *  <p>
-     *
-     *  Starts the generation of source code from an object model. 
+     * <p>
+     *   Starts the generation of source code from an object model. 
+     * </p>
      * 
-     *  This is the main entry point of the application. It is called by ant whenever 
-     *  the surrounding task is executed (which could be multiple times).</p>
-     *
+     *  <p>
+     *   This is the main entry point of the application when running Ant. 
+     *   It is called  by ant whenever the surrounding task is executed 
+     *   (which could be multiple times).
+     *  </p>
+     * 
      *@throws  BuildException  if something goes wrong
      */
     public void execute() throws BuildException
     {
         try
         {
-            long startTime = System.currentTimeMillis();
-
             this.initNamespaces();
 
             DirectoryScanner scanner;
@@ -165,23 +169,21 @@ public class AndroMDAGenTask extends MatchingTask
                 baseDir = this.getProject().resolveFile(".");
             }
             
-            PluginDiscoverer.instance().discoverPlugins();
-            
-            Collection cartridges = 
-                PluginDiscoverer.instance().findPlugins(Cartridge.class);
+            String[] moduleSearchPath =
+                this.createRepository().createModuleSearchPath().list();
 
-            if (cartridges.size() <= 0)
-            {
-                StdoutLogger.warn(
-                    "WARNING! No cartridges found, check your classpath!");
-            }
-
-            createRepository().createRepository().open();
-
+            Model[] models;
+            // if the modelURL is specified explicitly
+            // then we just set models as the one model
             if (modelURL != null) 
             {
-                // process the model via the explicit modelURL
-                process(modelURL, cartridges);    
+                models = new Model[] {
+                    new Model(
+                        modelURL, 
+                        this.packages, 
+                        this.lastModifiedCheck, 
+                        moduleSearchPath)
+                };
             }
             else
             {
@@ -193,20 +195,22 @@ public class AndroMDAGenTask extends MatchingTask
 
                 if (list.length > 0)
                 {
-                    for (int i = 0; i < list.length; ++i)
+                    models = new Model[list.length];
+                    for (int ctr = 0; ctr < list.length; ++ctr)
                     {
-                        URL url = null;
-                        File inFile = new File(baseDir, list[i]);
-
+                        File inFile = new File(baseDir, list[ctr]);
                         try
                         {
-                            url = inFile.toURL();
-                            process(url, cartridges);
+                            models[ctr] = new Model(
+                                inFile.toURL(),
+                                this.packages,
+                                this.lastModifiedCheck,
+                                moduleSearchPath); 
                         }
                         catch (MalformedURLException mfe)
                         {
                             throw new BuildException(
-                                "Malformed model URI --> '" + url + "'");
+                                "Malformed model URI --> '" + inFile + "'");
                         }
                     }
                 }
@@ -214,14 +218,10 @@ public class AndroMDAGenTask extends MatchingTask
                 {
                     throw new BuildException("Could not find any model input!");
                 }
-            }
-
-            createRepository().createRepository().close();
-            StdoutLogger.info(
-                "completed model processing, TIME --> "
-                    + ((System.currentTimeMillis() - startTime) / 1000.0)
-                    + "[s]");
+            }        
             
+            // pass the loaded model(s) to the ModelProcessor
+            ModelProcessor.instance().process(models);
         }
         finally
         {
@@ -230,78 +230,6 @@ public class AndroMDAGenTask extends MatchingTask
             // the ClassLoader for this class.
             Thread.currentThread().setContextClassLoader(
                 ClassLoader.getSystemClassLoader());
-        }
-    }
-
-    private void process(URL url, Collection cartridges) throws BuildException
-    {
-        final String methodName = "AndroMDAGenTask.process";
-        ExceptionUtils.checkNull(methodName, "url", url);
-        
-        CodeGenerationContext context = null;
-
-        try
-        {
-            //-- command line status
-            StdoutLogger.info("Input model --> '" + url + "'");
-
-            // configure repository
-            RepositoryConfiguration rc = createRepository();
-            RepositoryFacade repository = rc.createRepository();
-            repository.open();
-            repository.readModel(url, rc.createModuleSearchPath().list());
-            
-            context =
-                new CodeGenerationContext(
-                    repository,
-                    lastModifiedCheck,
-                    packages);
-            
-            Namespace defaultNamespace = 
-            	Namespaces.instance().findNamespace(Namespaces.DEFAULT);
-            
-            for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt.hasNext();) 
-            {
-                Cartridge cartridge = (Cartridge)cartridgeIt.next();
-                
-                String cartridgeName = 
-                    cartridge.getName();
-                
-                Namespace namespace = 
-                    Namespaces.instance().findNamespace(cartridgeName);
-                
-                boolean ignoreNamespace = false;
-                if (namespace != null) {
-                    ignoreNamespace = namespace.isIgnore();   
-                }
-                
-                // make sure we ignore the cartridge if the namespace
-                // is set to 'ignore'
-                if ((namespace != null || defaultNamespace != null) && !ignoreNamespace)
-                {
-                    cartridge.init();
-                    cartridge.processModelElements(context);
-                    cartridge.shutdown();
-                } 
-                else 
-                {
-                	StdoutLogger.info("namespace for '" + cartridgeName
-                        + "' cartridge is either not defined, or has the ignore "
-                        + "attribute set to 'true' --> skipping processing");
-                }
-            }
-            repository.close();
-            repository = null;
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error performing " + methodName + 
-                " with model --> '" 
-                + url + "'";
-            logger.error(errMsg, th);
-            throw new BuildException(
-                errMsg, th);
-            
         }
     }
 

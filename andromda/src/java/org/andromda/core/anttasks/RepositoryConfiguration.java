@@ -39,34 +39,6 @@ public class RepositoryConfiguration
     {
         this.project = project;
     }
-    
-    /**
-     * Sets the name of the class to use as the repository.  The
-     * class must implement the RepositoryFacade interface.
-     * 
-     * @see org.andromda.core.repository.RepositoryFacade
-     * 
-     * @param repositoryClassName
-     */
-    public void setClassname(String repositoryClassName)
-    {
-        if (StringUtils.isNotBlank(repositoryClassName)) {
-	        ComponentContainer.instance().registerDefaultComponent(
-	            RepositoryFacade.class,
-	            repositoryClassName);
-        }
-    }
-
-    /**
-     * Creates an instance of the repository.
-     * 
-     * @return RepositoryFacade
-     */
-    public RepositoryFacade createRepository()
-    {
-        return (RepositoryFacade)ComponentContainer.instance().findComponent(
-        	RepositoryFacade.class);
-    }
 
     /**
      * Handles the nested &lt;moduleSearchPath&gt; element.
