@@ -3,7 +3,6 @@ package org.andromda.core.common;
 import java.util.Collection;
 
 import org.andromda.cartridges.interfaces.OutletDictionary;
-import org.apache.velocity.app.VelocityEngine;
 
 /**
  * Conext passed from the core to a cartridge
