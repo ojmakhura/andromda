@@ -59,7 +59,8 @@ public abstract class ${metafacade.logicName}
     private $superMetafacade.fullyQualifiedName super_;
 #end
 
-    public $metafacade.logicName ($shieldedMetaclassTypeName metaObject, String context) {
+    public $metafacade.logicName ($shieldedMetaclassTypeName metaObject, String context) 
+    {
         super (metaObject, getContext(context));
 #if ($superMetafacade)
         this.super_ =
@@ -77,7 +78,8 @@ public abstract class ${metafacade.logicName}
     /**
      * Gets the context for this metafacade logic instance.
      */
-    private static String getContext(String context) {
+    private static String getContext(String context) 
+    {
     	if (context == null) {
             context = "${metafacade.fullyQualifiedName}";
         }
