@@ -12,8 +12,8 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Represents a single template &lt;&lt;modelElement/&gt;gt; nested within the
- * &lt;&lt;modelElements/&gt;gt; element. It stores the actual metafacade
+ * Represents a single template &lt;modelElement/&gt; nested within the
+ * &lt;modelElements/&gt; element. It stores the actual metafacade
  * instances which match the model element criteria (i.e. stereotype, type, etc)
  * defined by this instance.
  * 
