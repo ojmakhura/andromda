@@ -332,7 +332,11 @@ public abstract class $entity.daoBaseName
                         queryString);
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
-                queryObject.setParameter($count, $argument.name);
+#set ($argumentName = $argument.name)
+#if($argument.type.primitive)
+#set ($argumentName = "new ${argument.type.wrapperName}(${argument.name})")
+#end
+                queryObject.setParameter($count, $argumentName);
 #end
                 java.util.Collection results = queryObject.list();
                 if (transform)
