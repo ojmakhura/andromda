@@ -450,8 +450,8 @@
         <a name="modelElement"/>
         <h3><![CDATA[<modelElement/>]]></h3>
         <p>
-            The <code><![CDATA[<modelElement/>]]></code> element is nested directly within 
-            the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> element, it is used to 
+            The <code><![CDATA[<modelElement/>]]></code> is nested directly within 
+            the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a>, it is used to 
             within the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> to instruct each 
             <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
             elements it should process.  For example, using this element you can specify both stereotypes and
@@ -503,6 +503,7 @@
         <modelElement stereotype="Entity" variable="entityEjbs"/>
         <modelElement stereotype="Service" variable="sessionEjbs"/>
     </modelElements>
+</template>
 ...
              ]]></source>
             </td>
