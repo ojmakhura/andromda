@@ -12,7 +12,7 @@
         </fragment>
 
         <!-- This is the beginning of each query ('<element name>.allInstances' or just 'allInstances') -->
-        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?\s*->\s*select.*"
+        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances${emptyParentheses}->\s*select.*"
                   handlerMethod="handleSelect">
             <kind name="body">
                 from $completeElementName as {0}
@@ -20,7 +20,7 @@
         </fragment>
 
         <!-- The beginning of a query that finds allInstances (independent allInstances() query) -->
-        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?(\s*->\s*${excludeSelect}\w+.*)?"
+        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances${emptyParentheses}(\s*->\s*${excludeSelect}\w+.*)?"
                   handlerMethod="handleSelect">
             <kind name="body">
                 from $completeElementName as $lowerCaseElementName
