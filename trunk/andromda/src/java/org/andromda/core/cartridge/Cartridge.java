@@ -404,7 +404,7 @@ public class Cartridge
             if (outFile != null)
             {
                 outFile.delete();
-                this.logger.info("Removed --> '" + outFile + "'");
+                this.logger.info("Removed: '" + outFile + "'");
             }
             String errMsg = "Error performing " + methodName
                 + " with template '" + template.getPath()
@@ -430,6 +430,7 @@ public class Cartridge
             throw new CartridgeException("Could not find resource --> '"
                 + resource.getPath() + "'");
         }
+        File outFile = null;
         try
         {
             Property outletProperty = Namespaces.instance()
@@ -449,7 +450,7 @@ public class Cartridge
                     // remove the extra slash
                     outletLocation = outletLocation.replaceFirst("/", "");
                 }
-                File outFile = new File(outletLocation, uriSuffix);
+                outFile = new File(outletLocation, uriSuffix);
                 OutputUtils.writeUrlToFile(resourceUrl, new File(
                     outletLocation,
                     uriSuffix).toString());
@@ -458,6 +459,11 @@ public class Cartridge
         }
         catch (Throwable th)
         {
+            if (outFile != null)
+            {
+                outFile.delete();
+                this.logger.info("Removed: '" + outFile + "'");
+            }
             String errMsg = "Error performing " + methodName;
             logger.error(errMsg, th);
             throw new CartridgeException(errMsg, th);
