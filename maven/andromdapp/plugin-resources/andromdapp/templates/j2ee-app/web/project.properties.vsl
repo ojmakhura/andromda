@@ -10,5 +10,5 @@ precompileJsps=false
 maven.war.src=${maven.build.src}
 maven.war.src.excludes=**/*.java
 
-#someService.package=some.service.package
-#someService.wsdlUrl=file:${basedir}/../webservice/target/src/wsdl/some/service/package/SomeService.wsdl
+#service.package=some.service.package
+#service.wsdlUrl=file:${basedir}/../webservice/target/src/wsdl/some/service/package/SomeService.wsdl
