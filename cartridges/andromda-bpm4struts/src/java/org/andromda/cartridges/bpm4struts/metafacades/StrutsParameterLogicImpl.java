@@ -1,10 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
@@ -30,79 +30,47 @@ public class StrutsParameterLogicImpl
 
     protected Object handleGetAction()
     {
-        Object action = null;
+        Object actionObject = null;
 
-        final Collection transitions = getModel().getAllTransitions();
-        for (Iterator iterator = transitions.iterator(); iterator.hasNext() && action == null;)
+        TransitionFacade transition = getModel().getParameterTransition(this);
+        if (transition instanceof StrutsAction)
         {
-            Object transitionObject = iterator.next();
-            if (transitionObject instanceof StrutsAction)
-            {
-                StrutsAction someAction = (StrutsAction) transitionObject;
-                Collection parameters = someAction.getActionParameters();
-                if (parameters != null && parameters.contains(this))
-                {
-                    action = someAction;
-                }
-            }
+            actionObject = transition;
         }
-        return action;
+        return actionObject;
     }
 
     protected Object handleGetJsp()
     {
-        Object jsp = null;
+        Object jspObject = null;
 
-        StrutsAction action = getAction();
-        if (action == null)
+        TransitionFacade transition = getModel().getParameterTransition(this);
+        if (transition instanceof StrutsAction)
         {
-            Collection actionStates = getModel().getAllActionStates();
-            for (Iterator iterator = actionStates.iterator(); iterator.hasNext() && jsp == null;)
+            StrutsAction action = (StrutsAction)transition;
+            jspObject = action.getInput();
+        }
+        else if (transition instanceof StrutsForward)
+        {
+            StrutsForward forward = (StrutsForward)transition;
+            if (forward.isTargettingPage())
             {
-                Object stateObject = iterator.next();
-                if (stateObject instanceof StrutsJsp)
-                {
-                    StrutsJsp someJsp = (StrutsJsp) stateObject;
-                    if (someJsp.getPageVariables().contains(this))
-                    {
-                        jsp = someJsp;
-                        break;
-                    }
-                }
+                jspObject = forward.getTarget();
             }
         }
-        else
-        {
-            jsp = action.getInput();
-        }
-        return jsp;
+
+        return jspObject;
     }
 
     protected Object handleGetControllerOperation()
     {
-        Object controllerOperation = null;
-
-        Collection allOperations = getModel().getAllOperations();
-        for (Iterator operationIterator = allOperations.iterator(); operationIterator.hasNext();)
-        {
-            OperationFacade operation = (OperationFacade) operationIterator.next();
-            Collection arguments = operation.getArguments();
-            for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext() && controllerOperation == null;)
-            {
-                StrutsParameter parameter = (StrutsParameter) argumentIterator.next();
-                if (this.equals(parameter))
-                {
-                    controllerOperation = operation;
-                }
-            }
-        }
-        return controllerOperation;
+        return getModel().getParameterOperation(this);
     }
 
     protected Collection handleGetFormFields()
     {
         Collection formFields = null;
-        if (isControllerOperationArgument())
+        if (isControllerOperationArgument() && getName()!=null)
         {
             final String name = getName();
             formFields = new ArrayList();
@@ -494,6 +462,7 @@ public class StrutsParameterLogicImpl
         return findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK) != null;
     }
 
+    // @todo: review this method, since it calls 'getAllActionStates()'
     protected Object handleGetTableAction()
     {
         final String name = getName();

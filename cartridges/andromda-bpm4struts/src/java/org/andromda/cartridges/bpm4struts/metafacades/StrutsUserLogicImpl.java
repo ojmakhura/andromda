@@ -1,12 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.GeneralizationFacade;
 import org.andromda.core.common.StringUtilsHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -27,40 +26,33 @@ public class StrutsUserLogicImpl
     
     protected java.util.Collection handleGetGeneralizedUsers()
     {
-        final Collection parentActors = new ArrayList();
-        final Collection generalizations = getGeneralizations();
-        for (Iterator iterator = generalizations.iterator(); iterator.hasNext();)
+        List generalizedUsers = new ArrayList();
+
+        final Collection parentActors = getGeneralizedActors();
+        for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
         {
-            GeneralizationFacade generalization = (GeneralizationFacade) iterator.next();
-            GeneralizableElementFacade parent = generalization.getParent();
-            if (parent instanceof StrutsUser)
-                parentActors.add(parent);
+            Object object = iterator.next();
+            if (object instanceof StrutsUser)
+            {
+                generalizedUsers.add(object);
+            }
         }
         return parentActors;
     }
 
     protected java.util.Collection handleGetGeneralizedByUsers()
     {
-        final Collection allActors = getModel().getAllActors();
-        final Collection childUsers = new ArrayList();
-        for (Iterator iterator = allActors.iterator(); iterator.hasNext();)
+        List generalizedByUsers = new ArrayList();
+
+        final Collection parentActors = getGeneralizedByActors();
+        for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
             if (object instanceof StrutsUser)
             {
-                StrutsUser anyUser = (StrutsUser) object;
-                Collection generalizedUsers = anyUser.getGeneralizedUsers();
-                for (Iterator userIterator = generalizedUsers.iterator(); userIterator.hasNext();)
-                {
-                    Object strutsUserObject = userIterator.next();
-                    if (this.equals(strutsUserObject))
-                    {
-                        childUsers.add(anyUser);
-                        break;
-                    }
-                }
+                generalizedByUsers.add(object);
             }
         }
-        return childUsers;
+        return parentActors;
     }
 }

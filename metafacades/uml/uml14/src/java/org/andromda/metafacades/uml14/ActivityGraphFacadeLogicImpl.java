@@ -1,10 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
@@ -12,6 +7,11 @@ import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
+
+import java.util.Collection;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Iterator;
 
 
 /**
@@ -118,6 +118,7 @@ public class ActivityGraphFacadeLogicImpl
         }
         return filteredCollection;
     }
+
 
     protected Object handleGetContextElement()
     {

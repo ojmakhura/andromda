@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.metafacades.uml.*;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -95,20 +96,23 @@ public class StrutsControllerLogicImpl
      */
     protected Object handleGetUseCase()
     {
-        StrutsUseCase useCase = null;
+        UseCaseFacade useCase = null;
 
-        final Collection useCases = getModel().getAllUseCases();
-        for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase==null;)
+        ActivityGraphFacade graphContext = getModel().getActivityGraphContext(this);
+
+        if (graphContext == null)
         {
-            Object useCaseObject = iterator.next();
-            if (useCaseObject instanceof StrutsUseCase)
+            Object useCaseTaggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE);
+            if (useCaseTaggedValue != null)
             {
-                StrutsUseCase strutsUseCase = (StrutsUseCase) useCaseObject;
-                if (this.equals(strutsUseCase.getController()))
-                {
-                    useCase = strutsUseCase;
-                }
+                String tag = useCaseTaggedValue.toString();
+                // return the first use-case with this name
+                useCase = getModel().findUseCaseWithNameAndStereotype(tag, Bpm4StrutsProfile.STEREOTYPE_USECASE);
             }
+        }
+        else
+        {
+            useCase = getModel().getUseCase(graphContext);
         }
 
         return useCase;

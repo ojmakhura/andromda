@@ -1,22 +1,14 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
+import java.util.*;
 
 
 /**
@@ -149,6 +141,8 @@ public class StrutsUseCaseLogicImpl
 
     protected java.lang.Object handleGetActivityGraph()
     {
+        ActivityGraphFacade activityGraph = null;
+
         /*
          * In case there is a tagged value pointing to an activity graph, and this graph is found,
          * then return it.
@@ -157,34 +151,24 @@ public class StrutsUseCaseLogicImpl
         if (activity != null)
         {
             String activityName = String.valueOf(activity.toString());
-            Collection activityGraphs = getModel().getAllActivityGraphs();
-            for (Iterator iterator = activityGraphs.iterator(); iterator.hasNext();)
-            {
-                Object obj = iterator.next();
-                if (obj instanceof StrutsActivityGraph)
-                {
-                    StrutsActivityGraph activityGraph = (StrutsActivityGraph) obj;
-                    if (activityName.equalsIgnoreCase(activityGraph.getName()))
-                        return activityGraph;
-                }
-            }
+            activityGraph = getModel().findActivityGraphByName(activityName);
         }
 
         /*
          * Otherwise just take the first one in this use-case's namespace.
          */
-        Collection ownedElements = getOwnedElements();
-        for (Iterator iterator = ownedElements.iterator(); iterator.hasNext();)
+        if (activityGraph == null)
         {
-            Object obj = iterator.next();
-            if (obj instanceof StrutsActivityGraph)
-                return obj;
+            Collection ownedElements = getOwnedElements();
+            for (Iterator iterator = ownedElements.iterator(); iterator.hasNext();)
+            {
+                Object obj = iterator.next();
+                if (obj instanceof StrutsActivityGraph)
+                    return obj;
+            }
         }
 
-        /*
-         * Nothing was found
-         */
-        return null;
+        return activityGraph;
     }
 
     private Collection associatedUsers()
@@ -248,17 +232,16 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetPages()
     {
-        final Collection pagesList = new ArrayList();
+        Collection pagesList = null;
+
         StrutsActivityGraph graph = getActivityGraph();
-        if (graph != null)
+        if (graph == null)
         {
-            final Collection allActionStates = graph.getActionStates();
-            for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
-            {
-                Object actionState = actionStateIterator.next();
-                if (actionState instanceof StrutsJsp)
-                    pagesList.add(actionState);
-            }
+            pagesList = Collections.EMPTY_LIST;
+        }
+        else
+        {
+            pagesList = getModel().getAllActionStatesWithStereotype(graph, Bpm4StrutsProfile.STEREOTYPE_VIEW);
         }
         return pagesList;
     }
@@ -270,7 +253,7 @@ public class StrutsUseCaseLogicImpl
 
         for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
         {
-            Object actionState = shieldedElement(actionStateIterator.next());
+            Object actionState = actionStateIterator.next();
             if (actionState instanceof StrutsJsp)
                 pagesList.add(actionState);
         }
@@ -281,9 +264,9 @@ public class StrutsUseCaseLogicImpl
     {
         final Collection useCases = new ArrayList();
 
-        for (Iterator iterator = getModel().getAllUseCases().iterator(); iterator.hasNext();)
+        for (Iterator useCaseIterator = getModel().getAllUseCases().iterator(); useCaseIterator.hasNext();)
         {
-            Object object = iterator.next();
+            Object object = useCaseIterator.next();
             if (object instanceof StrutsUseCase)
                 useCases.add(object);
         }
@@ -293,7 +276,7 @@ public class StrutsUseCaseLogicImpl
     protected Object handleGetController()
     {
         StrutsActivityGraph graph = getActivityGraph();
-        return (graph == null) ? null :graph.getController();
+        return (graph == null) ? null : graph.getController();
     }
 
     protected Collection handleGetFormFields()
@@ -316,21 +299,6 @@ public class StrutsUseCaseLogicImpl
             }
         }
         return formFields;
-    }
-
-    protected Collection handleGetFinalStates()
-    {
-        final Collection finalStatesList = new ArrayList();
-        final Collection allFinalStates = getModel().getAllFinalStates();
-
-        for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
-        {
-            ModelElementFacade modelElement = (ModelElementFacade) iterator.next();
-            if (getName().equalsIgnoreCase(modelElement.getName()))
-                finalStatesList.add(modelElement);
-        }
-
-        return finalStatesList;
     }
 
     protected boolean handleIsValidationRequired()
@@ -418,17 +386,8 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetReferencingFinalStates()
     {
-        Collection referencingFinalStates = new ArrayList();
-        Collection allFinalStates = getModel().getAllFinalStates();
-        for (Iterator finalStateIterator = allFinalStates.iterator(); finalStateIterator.hasNext();)
-        {
-            StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
-            if (this.equals(finalState.getTargetUseCase()))
-            {
-                referencingFinalStates.add(finalState);
-            }
-        }
-       return referencingFinalStates;
+        Collection referencingFinalStates = getModel().findFinalStatesWithNameOrHyperlink(this);
+        return referencingFinalStates;
     }
 
     protected String handleGetCssFileName()
@@ -453,7 +412,7 @@ public class StrutsUseCaseLogicImpl
             StrutsUseCase useCase = (StrutsUseCase) useCaseIterator.next();
             if (useCase.isApplicationUseCase())
             {
-                UseCaseNode root = (UseCaseNode)useCase.getApplicationHierarchyRoot();
+                UseCaseNode root = (UseCaseNode) useCase.getApplicationHierarchyRoot();
                 hierarchy = findNode(root, this);
             }
         }
@@ -462,7 +421,7 @@ public class StrutsUseCaseLogicImpl
 
     private void createHierarchy(UseCaseNode root)
     {
-        StrutsUseCase useCase = (StrutsUseCase)root.getUserObject();
+        StrutsUseCase useCase = (StrutsUseCase) root.getUserObject();
 
         StrutsActivityGraph graph = useCase.getActivityGraph();
         if (graph != null)
@@ -494,7 +453,7 @@ public class StrutsUseCaseLogicImpl
         }
         while (node.getParent() != null)
         {
-            node = (UseCaseNode)node.getParent();
+            node = (UseCaseNode) node.getParent();
             if (isNodeAncestor(node, ancestorNode))
             {
                 return true;
@@ -508,7 +467,7 @@ public class StrutsUseCaseLogicImpl
         UseCaseNode useCaseNode = null;
 
         List nodeList = Collections.list(root.breadthFirstEnumeration());
-        for (Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode==null;)
+        for (Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
         {
             UseCaseNode node = (UseCaseNode) nodeIterator.next();
             if (useCase.equals(node.getUserObject()))
@@ -528,7 +487,7 @@ public class StrutsUseCaseLogicImpl
 
         public StrutsUseCase getUseCase()
         {
-            return (StrutsUseCase)getUserObject();
+            return (StrutsUseCase) getUserObject();
         }
     }
 }
