@@ -88,18 +88,14 @@ $att.getDocumentation("     * ")
 ## Only expose public methods
 #if ($visibility == "public") 
 #set ($msig = $op.signature)
-#set ($exceptions = $op.findTaggedValue("@andromda.java.throws"))
-#if (!$exceptions)
-#set ($exceptions = $defaultException.fullyQualifiedName)
-#end
 
    /**
 $op.getDocumentation("    * ")
     */
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($exceptions)
+#if ($op.hasExceptions())
     public $returntype ${msig} 
-    throws $exceptions;
+    throws $op.exceptionList;
 #else
     $visibility $returntype ${msig};
 #end

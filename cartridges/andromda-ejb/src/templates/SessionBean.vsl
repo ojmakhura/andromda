@@ -217,11 +217,6 @@ $att.getDocumentation("     * ")
 #set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
 #set ($msig = $op.signature)
 #set ($visibility = $op.visibility)
-#set($exceptions = "")
-#set ($exceptions = $op.findTaggedValue("@andromda.java.throws"))
-#if ($exceptions == "")
-#set ($exceptions = $defaultException.fullyQualifiedName)
-#end
    /**
 $op.getDocumentation("    * ")
 ## Only public methods have transactions and are exported to the interfaces
@@ -233,11 +228,11 @@ $op.getDocumentation("    * ")
 #end
     */
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($exceptions == "")
-    $visibility abstract $returntype ${msig};    
-#else
+#if ($op.hasExceptions())
     $visibility abstract $returntype ${msig}
-        throws $exceptions;
+        throws $op.exceptionList;
+#else
+    $visibility abstract $returntype ${msig};
 #end
 
 #end

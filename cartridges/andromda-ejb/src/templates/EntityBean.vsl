@@ -371,11 +371,6 @@ $assoc.otherEnd.getDocumentation("     * ")
 #set ($msig = $op.signature)
 #set ($interfaceType = "interface")
 #set ($visibility = $op.visibility.toString())
-#set ($exceptions = "")
-#set ($exceptions = $op.findTaggedValue("@andromda.java.throws"))
-#if ($exceptions == "")
-#set ($exceptions = $defaultException.fullyQualifiedName)
-#end
 ## Public static methods are exposed on the home 
 ## interface instead of the component interface
 #if ($visibility == "public" && $op.static) 
@@ -394,11 +389,11 @@ $op.getDocumentation("    * ")
 #end
     */
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($exceptions == "")
-    $visibility abstract $returntype ${msig};    
-#else
+#if ($op.hasExceptions())
     $visibility abstract $returntype ${msig}
-        throws $exceptions;
+        throws $op.exceptionList;    
+#else
+    $visibility abstract $returntype ${msig};
 #end
 #end
 #if ($op.hasStereotype("SelectMethod"))

@@ -108,16 +108,12 @@ $assoc.otherEnd.getDocumentation("    * ")
 ## interface)
 #if ($visibility == "public" && !$op.static) 
 #set ($msig = $op.signature)
-#set ($exceptions = $op.findTaggedValue("@andromda.java.throws"))
-#if (!$exceptions)
-#set ($exceptions = $defaultException.fullyQualifiedName)
-#end
    /**
 $op.getDocumentation("    * ")
     */
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($exceptions)
-    public $returntype ${msig} throws $exceptions;
+#if ($op.hasExceptions())
+    public $returntype ${msig} throws $op.exceptionList;
 #else
     $visibility $returntype ${msig};
 #end

@@ -1,13 +1,8 @@
-
 package $class.packageName;
 
-#foreach ( $dep in $class.dependencies )
-    #set ($class2 = $dep.targetElement)
-    #if ($dep.hasStereotype("Exception"))
-        #set ($defaultException = $class2)
-    #end
-#end
-
+/**
+$class.getDocumentation(" * ")
+ */
 public class ${class.name}BeanImpl
     extends ${class.name}Bean
     implements javax.ejb.SessionBean
@@ -30,9 +25,9 @@ public class ${class.name}BeanImpl
 #end
 
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($defaultException)
+#if ($op.hasExceptions())
     protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
-        throws $defaultException.name {
+        throws $op.exceptionList {
 #else
     protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters) {
 #end

@@ -80,17 +80,13 @@ $att.getDocumentation("     * ")
 ## Only expose public methods
 #if ($op.visibility == "public") 
 #set ($msig = $op.signature)
-#set ($exceptions = $op.findTaggedValue("@andromda.java.throws"))
-#if (!$exceptions)
-#set ($exceptions = $defaultException.fullyQualifiedName)
-#end
 
    /**
 $op.getDocumentation("    * ")
     */
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($exceptions)
-    public $returntype ${msig} throws $exceptions, java.rmi.RemoteException;
+#if ($op.hasExceptions())
+    public $returntype ${msig} throws $op.getExceptionList('java.rmi.RemoteException');
 #else
     public $returntype ${msig} throws java.rmi.RemoteException;
 #end

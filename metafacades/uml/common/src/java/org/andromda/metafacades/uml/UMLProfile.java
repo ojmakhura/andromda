@@ -29,6 +29,11 @@ public class UMLProfile {
 	 * Represents a service.
 	 */
 	public static final String STEREOTYPE_SERVICE = "Service";
+    
+    /**
+     * Represents an exception.
+     */
+    public static final String STEREOTYPE_EXCEPTION = "Exception";
 	
 	/* ----------------- Tagged Values -------------------- */
 	
