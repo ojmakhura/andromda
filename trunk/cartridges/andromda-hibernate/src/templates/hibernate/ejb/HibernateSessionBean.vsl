@@ -6,6 +6,7 @@
 package $service.packageName;
 
 import javax.ejb.EJBException;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import net.sf.hibernate.HibernateException;
