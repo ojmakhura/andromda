@@ -25,6 +25,7 @@ import org.omg.uml.foundation.core.Comment;
 import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
+import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
 /**
  * Metaclass facade implementation.
@@ -228,17 +229,19 @@ public class ModelElementFacadeLogicImpl
     {
         StringBuffer visibility = new StringBuffer();
         VisibilityKind visibilityKind = metaObject.getVisibility();
-        if (visibilityKind != null)
+
+        if (visibilityKind == null)
         {
-            String visibilityString = visibilityKind.toString();
-            visibility.append(visibilityString.substring(3, visibilityString
-                .length()));
-            if (this.getLanguageMappings() != null)
-            {
-                visibility = new StringBuffer(this.getLanguageMappings().getTo(
-                    visibility.toString()));
-            }
+            visibilityKind = VisibilityKindEnum.VK_PRIVATE;
         }
+
+        String visibilityString = visibilityKind.toString();
+        visibility.append(visibilityString.substring(3, visibilityString.length()));
+        if (this.getLanguageMappings() != null)
+        {
+            visibility = new StringBuffer(this.getLanguageMappings().getTo(visibility.toString()));
+        }
+
         return visibility.toString();
     }
 
