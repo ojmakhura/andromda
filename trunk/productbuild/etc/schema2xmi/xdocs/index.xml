@@ -88,6 +88,8 @@ Options:
 	<arg value="org::andromda::sample"/>
 	<arg value="-C"/>
 	<arg value="entity,persistent"/>
+    <ant:arg value="-I"/>
+    <ant:arg value="identifier"/>
 </java>
 ]]></source>
 		</subsection>
