@@ -6,64 +6,18 @@
   	</properties>
   	<body>
     	<section name="EJB Cartridge Namespace Properties">
+            <p>
+                In addition to the applicable 
+                <a href="../andromda-uml-metafacades/namespaces.html">UML Metafacade</a> namespace 
+                properties which may also be used, this page describes 
+                namespace properties specific to this cartridge only.
+            </p>
 	      	<table>
 	        	<tr>
 		          	<th>Property</th>         	
 		          	<th>Description</th>       	
 		          	<th>Required?</th>	   	 
-	        	</tr>
-	        	<tr>
-		          	<td>
-		          		languageMappingsUri
-		          	</td>
-		          	<td>
-		          		URI specifying the specific mappings from model types to language types. 
-		          		(i.e. <code>file:${basedir}/JavaMappings.xml</code>)
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>		          	
-	        	</tr>		
-	        	<tr>
-		          	<td>
-		          		sqlMappingsUri
-		          	</td>
-		          	<td>
-		          		URI specifying the mappings file to use for mapping from model types to SQL types 
-		          		for generated EJB entities. 
-		          		(i.e. <code>file:${basedir}/Oracle9iMappings.xml</code>). 
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>			          	
-	        	</tr>		        	  
-	        	<tr>
-		          	<td>
-		          		jdbcMappingsUri
-		          	</td>
-		          	<td>
-		          		URI specifying the mappings file to use for mapping from model types to JDBC types 
-		          		in the generated Entity EJBs. (i.e. <code>file:${basedir}/JdbcMappings.xml</code>).  
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>			          	
-	        	</tr>	
-	        	<tr>
-	        		<td>
-	        			maxSqlNameLength
-	        		</td>
-	        		<td>
-	        			The maximum length that a SQL name (such as a column name or 
-	        			table name) may be.  This is useful for databases that have a limit
-	        			on the lengh that a name used in DDL may be (like Oracle).  If you set 
-	        			this to <code>30</code> for example, then all names will be truncated 
-	        			after 30 characters when retrieveing the column name or table name.
-	        		</td>
-	        		<td>
-	        			Yes
-	        		</td>
-	        	</tr>	        	
+	        	</tr>      	
 	        	<tr>
 		          	<td>
 		          		entity-beans
@@ -109,52 +63,6 @@
 		          		Yes (unless <code>ignore</code> is specified for this property)
 		          	</td>
 	        	</tr>	      
-				<tr>
-					<td>
-						allowDefaultIdentifiers
-					</td>
-					<td>
-						Specifies whether or not default identifiers should
-						be created for entities that do not have them 
-						modeled.  
-					</td>
-					<td>
-						No, default is <code>true</code>.
-					</td>
-				</tr> 	
-				<tr>
-					<td>
-						defaultIdentifier
-					</td>
-					<td>
-						The name to give default identifiers.
-					</td>
-					<td>
-						No, default is <code>id</code>.
-					</td>
-				</tr> 	
-				<tr>
-					<td>
-						defaultIdentifierType
-					</td>
-					<td>
-						The type to give default identifiers.
-					</td>
-					<td>
-						No, default is <code>datatype.Long</code>.
-					</td>
-				</tr> 	
-				<tr>
-					<td>
-						defaultIdentifierVisibility
-					</td>
-					<td>
-						The visibility to give default identifiers.
-					</td>
-					<td>
-						No, default is <code>public</code>.
-					</td>
-				</tr>   
 				<tr>
 					<a name="jndiNamePrefix"/>
 					<td>
