@@ -110,7 +110,7 @@ public class StrutsActionLogicImpl
     public String getActionName()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && actionName != null) return actionName;
-        return (actionName = getFormBeanName());
+        return (actionName = getActivityGraph().getUseCase().getFormBeanName());
     }
 
     public String getActionInput()
