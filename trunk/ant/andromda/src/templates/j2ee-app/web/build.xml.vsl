@@ -7,39 +7,42 @@
     <property file="${basedir}/build.properties"/>
     <property file="${app.root.dir}/build.properties"/>
 
-    <property name="jar.bundle.name" value="${application.id}-web-${application.version}.war"/>
-    <property name="javadoc.bundle.name" value="${application.id}-web-${application.version}-javadoc.zip"/>
+    <property name="jar.bundle.name" value="${application.id}-${ant.project.name}-${application.version}.war"/>
 
     <condition property="precompile.flag" value="true">
         <istrue value="${precompile.jsp}"/>
     </condition>
 
-    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
-    <fileset id="classes" dir="${basedir}/${java.build.dir}" includes="**/*.class"/>
+    <fileset id="libraries" dir="${app.root.dir}/lib" includes="**/*.jar"/>
+    <fileset id="classes" dir="${basedir}/target/classes" includes="**/*.class"/>
 
-    <fileset id="mda-generated-sources" dir="${basedir}/${mda.build.dir}"/>
-    <fileset id="mda-generated-java-sources" dir="${basedir}/${mda.build.dir}" includes="**/*.java"/>
-    <fileset id="web-java-sources" dir="${basedir}/${java.src.dir}" includes="**/*.java"/>
-    <fileset id="xdoclet-generated-java-sources" dir="${basedir}/${xdoclet.build.dir}" includes="**/*.java"/>
-    <fileset id="xdoclet-generated-configuration-sources" dir="${basedir}/${xdoclet.build.dir}" includes="**/*.xml"/>
+    <fileset id="mda-generated-sources" dir="${basedir}/target/src"/>
+    <fileset id="mda-generated-java-sources" dir="${basedir}/target/src" includes="**/*.java"/>
+    <fileset id="web-java-sources" dir="${basedir}/src/java" includes="**/*.java"/>
+    <fileset id="xdoclet-generated-java-sources" dir="${basedir}/target/xdoclet" includes="**/*.java"/>
+    <fileset id="xdoclet-generated-configuration-sources" dir="${basedir}/target/xdoclet" includes="**/*.xml"/>
 
     <path id="classpath">
         <fileset refid="libraries"/>
-        <pathelement path="${basedir}/${java.build.dir}"/>
+        <pathelement path="${basedir}/target/classes"/>
+        <pathelement location="${app.root.dir}/dist/${application.id}-common-${application.version}.jar"/>
+#if ($webServices == "y")
+        <pathelement location="${app.root.dir}/dist/${application.id}-webservice-${application.version}.jar"/>
+#end
     </path>
 
     <target name="clean" description="o Clean up the generated directories">
-        <delete dir="${basedir}/${build.dir}"/>
+        <delete dir="${basedir}/target"/>
     </target>
 
     <target name="xdoclet" description="o Run XDoclet WEB">
-        <mkdir dir="${basedir}/${java.src.dir}"/>
-        <mkdir dir="${basedir}/${mda.build.dir}"/>
-        <mkdir dir="${basedir}/${java.build.dir}"/>
-        <mkdir dir="${basedir}/${xdoclet.build.dir}"/>
-        <mkdir dir="${basedir}/${xdoclet.merge.dir}"/>
+        <mkdir dir="${basedir}/src/java"/>
+        <mkdir dir="${basedir}/target/src"/>
+        <mkdir dir="${basedir}/target/classes"/>
+        <mkdir dir="${basedir}/target/xdoclet"/>
+        <mkdir dir="${basedir}/target/xdoclet-merge"/>
         <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask" classpathref="classpath"/>
-        <webdoclet destdir="${basedir}/${xdoclet.build.dir}" force="true" verbose="true" mergedir="${basedir}/${xdoclet.merge.dir}">
+        <webdoclet destdir="${basedir}/target/xdoclet" force="true" verbose="true" mergedir="${basedir}/target/xdoclet-merge">
             <fileset refid="mda-generated-java-sources"/>
             <strutsconfigxml version="1.1"/>
             <strutsvalidationxml/>
@@ -49,12 +52,12 @@
       </target>
 
     <target name="compile" description="o Compile the code" depends="xdoclet">
-        <mkdir dir="${basedir}/${java.build.dir}"/>
-        <javac destdir="${basedir}/${java.build.dir}" classpathref="classpath"
+        <mkdir dir="${basedir}/target/classes"/>
+        <javac destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false">
-            <src path="${basedir}/${mda.build.dir}"/>
-            <src path="${basedir}/${java.src.dir}"/>
-            <src path="${basedir}/${xdoclet.build.dir}"/>
+            <src path="${basedir}/target/src"/>
+            <src path="${basedir}/src/java"/>
+            <src path="${basedir}/target/xdoclet"/>
         </javac>
     </target>
 
@@ -69,11 +72,11 @@
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/tld"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/tld">
-            <fileset dir="${app.root.dir}/${lib.dir}" includes="*.tld"/>
+            <fileset dir="${app.root.dir}/lib" includes="*.tld"/>
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/lib"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/lib">
-            <fileset dir="${app.root.dir}/${lib.dir}">
+            <fileset dir="${app.root.dir}/lib">
                 <include name="commons-digester-1.5.jar"/>
                 <include name="commons-validator-1.1.2dev-SNAPSHOT.jar"/>
                 <include name="struts-1.2dev-20040621.jar"/>
@@ -82,7 +85,7 @@
         </copy>
         <mkdir dir="${basedir}/${bundle.dir}/WEB-INF/classes"/>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF/classes">
-            <fileset dir="${basedir}/${java.build.dir}">
+            <fileset dir="${basedir}/target/classes">
                 <include name="**/*.class"/>
             </fileset>
             <fileset dir="${basedir}/src/properties">
@@ -91,17 +94,17 @@
         </copy>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF">
             <fileset refid="xdoclet-generated-configuration-sources"/>
-            <fileset dir="${basedir}/${mda.build.dir}" includes="*.xml"/>
+            <fileset dir="${basedir}/target/src" includes="*.xml"/>
         </copy>
         <antcall target="-precompile"/>
-        <war destfile="${basedir}/${build.dir}/${jar.bundle.name}" webxml="${basedir}/${bundle.dir}/WEB-INF/web.xml">
+        <war destfile="${basedir}/target/${jar.bundle.name}" webxml="${basedir}/${bundle.dir}/WEB-INF/web.xml">
             <fileset dir="${basedir}/${bundle.dir}" excludes="WEB-INF/web.xml"/>
         </war>
     </target>
 
     <target name="-precompile" if="precompile.flag">
         <!-- setting up the directories to work with -->
-        <property name="war.precompile.jsp" value="${basedir}/${build.dir}/precompiled"/>
+        <property name="war.precompile.jsp" value="${basedir}/target/precompiled"/>
         <property name="jsp.precompilation.java" value="${war.precompile.jsp}/jsp-java"/>
         <property name="jsp.precompilation.classes" value="${war.precompile.jsp}/jsp-classes"/>
         <property name="jsp.precompilation.servlets" value="${war.precompile.jsp}/jsp-servlets.xml"/>
@@ -147,36 +150,11 @@
         </delete>
     </target>
 
-    <target name="zip" description="o Create the zip" depends="javadoc">
-        <mkdir dir="${basedir}/${javadoc.build.dir}"/>
-        <zip destfile="${basedir}/${build.dir}/${javadoc.bundle.name}" basedir="${basedir}/${javadoc.build.dir}"/>
-    </target>
-
-    <target name="javadoc" description="o Generate javadoc">
-        <mkdir dir="${basedir}/${javadoc.build.dir}"/>
-        <tstamp>
-            <format pattern="2003-yyyy" property="year"/>
-        </tstamp>
-        <property name="copyright" value="Copyright &amp;copy; ${year} ${application.author}. All Rights Reserved."/>
-        <property name="title" value="${application.name} EJB ${application.version} API - ${copyright}"/>
-        <javadoc destdir="${basedir}/${javadoc.build.dir}" use="true" author="true" version="true" windowtitle="${title}"
-                 packagenames="${web.base.package}" classpathref="classpath">
-            <fileset refid="web-java-sources"/>
-        </javadoc>
-    </target>
-
-    <target name="dist" description="o Create a distribution" depends="jar,zip">
-        <mkdir dir="${app.root.dir}/${lib.dir}"/>
-        <mkdir dir="${app.root.dir}/${dist.dir}"/>
-        <copy todir="${app.root.dir}/${lib.dir}">
-            <fileset dir="${basedir}/${build.dir}">
+    <target name="dist" description="o Create a distribution" depends="jar">
+        <mkdir dir="${app.root.dir}/dist"/>
+        <copy todir="${app.root.dir}/dist">
+            <fileset dir="${basedir}/target">
                 <include name="${jar.bundle.name}"/>
-            </fileset>
-        </copy>
-        <copy todir="${app.root.dir}/${dist.dir}">
-            <fileset dir="${basedir}/${build.dir}">
-                <include name="${jar.bundle.name}"/>
-                <include name="${javadoc.bundle.name}"/>
             </fileset>
         </copy>
     </target>

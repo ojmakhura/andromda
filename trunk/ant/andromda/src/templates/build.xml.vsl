@@ -1,4 +1,4 @@
-<project name="andromda-ant" default="run">
+<project name="andromda-ant" default="run" basedir=".">
     
     <description>
     	
@@ -31,19 +31,17 @@
     </target>
 
     <target name="run" depends="init">
-        <copy todir="${lib.dir}" 
-        	  flatten="true" 
-        	  includeEmptyDirs="false">
+        <copy todir="${lib.dir}" flatten="true" includeEmptyDirs="false">
         	<fileset dir="../lib"/>
         	<fileset dir="../andromda">
         		<exclude name="**maven**"/>
         	</fileset>
-        	<fileset dir="../andromda-cartridges"/>
-        	<fileset dir="../andromda-translation-libraries"/>
-    	</copy>    	
+        	<fileset dir="../andromda/jars"/>
+    	</copy>
         <java classname="org.andromda.ant.AndromdaAntRunner">
             <classpath>
                 <path refid="andromda.ant.classpath"/>
+                <pathelement path="."/>
             </classpath>
         </java>
     </target>

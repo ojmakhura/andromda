@@ -7,14 +7,13 @@
     <property file="${basedir}/build.properties"/>
     <property file="${app.root.dir}/build.properties"/>
 
-    <property name="jar.bundle.name" value="${application.id}-common-${application.version}.jar"/>
-    <property name="javadoc.bundle.name" value="${application.id}-common-${application.version}-javadoc.zip"/>
+    <property name="jar.bundle.name" value="${application.id}-${ant.project.name}-${application.version}.jar"/>
 
-    <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
-    <fileset id="java-sources" dir="${basedir}/${java.src.dir}" includes="**/*.java"/>
+    <fileset id="libraries" dir="${app.root.dir}/lib" includes="**/*.jar"/>
+    <fileset id="java-sources" dir="${basedir}/src/java" includes="**/*.java"/>
 
     <path id="classpath">
-        <pathelement path="${basedir}/${java.build.dir}"/>
+        <pathelement path="${basedir}/target/classes"/>
         <fileset refid="libraries"/>
     </path>
 
@@ -23,48 +22,22 @@
     </target>
 
     <target name="compile" description="o Compile the code">
-        <mkdir dir="${basedir}/${java.src.dir}"/>
-        <mkdir dir="${basedir}/${java.build.dir}"/>
-        <javac srcdir="${basedir}/${java.src.dir}" destdir="${basedir}/${java.build.dir}" classpathref="classpath"
+        <mkdir dir="${basedir}/src/java"/>
+        <mkdir dir="${basedir}/target/classes"/>
+        <javac srcdir="${basedir}/src/java" destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false"/>
     </target>
 
     <target name="jar" description="o Create the JAR" depends="compile">
         <mkdir dir="${basedir}/target"/>
-        <jar jarfile="${basedir}/target/${jar.bundle.name}" basedir="${basedir}/${java.build.dir}"/>
+        <jar jarfile="${basedir}/target/${jar.bundle.name}" basedir="${basedir}/target/classes"/>
     </target>
 
-    <target name="zip" description="o Create the zip" depends="javadoc">
-        <mkdir dir="${basedir}/target"/>
-        <zip destfile="${basedir}/target/${javadoc.bundle.name}" basedir="${basedir}/${java.build.dir}"/>
-    </target>
-
-    <target name="javadoc" description="o Generate javadoc">
-        <mkdir dir="${basedir}/${javadoc.build.dir}"/>
-        <tstamp>
-            <format pattern="2003-yyyy" property="year"/>
-        </tstamp>
-        <property name="copyright" value="Copyright &amp;copy; ${year} ${application.author}. All Rights Reserved."/>
-        <property name="title" value="${application.name} Common ${application.version} API - ${copyright}"/>
-        <javadoc destdir="${basedir}/${javadoc.build.dir}" classpathref="classpath"
-                 use="true" author="true" version="true"
-                 packagenames="${common.base.package}" windowtitle="${title}">
-            <fileset refid="java-sources"/>
-        </javadoc>
-    </target>
-
-    <target name="dist" description="o Create a distribution" depends="jar,zip">
-        <mkdir dir="${app.root.dir}/${lib.dir}"/>
-        <mkdir dir="${app.root.dir}/${dist.dir}"/>
-        <copy todir="${app.root.dir}/${lib.dir}">
+    <target name="dist" description="o Create a distribution" depends="jar">
+        <mkdir dir="${app.root.dir}/dist"/>
+        <copy todir="${app.root.dir}/dist">
             <fileset dir="${basedir}/target">
                 <include name="${jar.bundle.name}"/>
-            </fileset>
-        </copy>
-        <copy todir="${app.root.dir}/${dist.dir}">
-            <fileset dir="${basedir}/target">
-                <include name="${jar.bundle.name}"/>
-                <include name="${javadoc.bundle.name}"/>
             </fileset>
         </copy>
     </target>
