@@ -41,6 +41,8 @@ public class MDRepositoryFacade implements RepositoryFacade
     
     private ModelAccessFacade modelFacade = null;
 
+    private static MDRepository repository = null;
+    
     static 
     {
         // configure MDR to use an in-memory storage implementation
@@ -49,6 +51,7 @@ public class MDRepositoryFacade implements RepositoryFacade
             "org.netbeans.mdr.persistence.memoryimpl.StorageFactoryImpl");
         // set the logging so output does not go to standard out
         System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
+        repository = MDRManager.getDefault().getDefaultRepository();
     }
 
     protected URL metaModelURL;
@@ -82,7 +85,7 @@ public class MDRepositoryFacade implements RepositoryFacade
      */
     public void open()
     {
-         MDRManager.getDefault().getDefaultRepository().beginTrans(true);
+        repository.beginTrans(true);
     }
 
     /**
@@ -95,7 +98,6 @@ public class MDRepositoryFacade implements RepositoryFacade
      */
     public void close()
     {
-        MDRepository repository = MDRManager.getDefault().getDefaultRepository();
         repository.endTrans(false);
         // remove the model from the repository (if there is one)
         RefPackage model = repository.getExtent(EXTENT_NAME);
@@ -119,13 +121,10 @@ public class MDRepositoryFacade implements RepositoryFacade
     	if (logger.isDebugEnabled())
     		logger.debug("creating repository");
 
-        MDRepository repository =
-            MDRManager.getDefault().getDefaultRepository();
-
         try
         {
-            MofPackage metaModel = loadMetaModel(metaModelURL, repository);
-            this.model = loadModel(modelURL, moduleSearchPath, metaModel, repository);
+            MofPackage metaModel = loadMetaModel(metaModelURL);
+            this.model = loadModel(modelURL, moduleSearchPath, metaModel);
         }
         catch (Throwable th) 
         {
@@ -238,8 +237,7 @@ public class MDRepositoryFacade implements RepositoryFacade
      * @exception MalformedXMIException
      */
     private static MofPackage loadMetaModel(
-        URL metaModelURL,
-        MDRepository repository)
+        URL metaModelURL)
         throws CreationFailedException, IOException, MalformedXMIException
     {
     	if (logger.isDebugEnabled()) 
@@ -285,7 +283,6 @@ public class MDRepositoryFacade implements RepositoryFacade
      * given metaModel.
      * 
      * @param modelURL url of model
-     * @param repository netbeans MDR
      * @param metaModel meta model of model
      * @return populated model
      * @exception CreationFailedException unable to create model in repository
@@ -293,8 +290,7 @@ public class MDRepositoryFacade implements RepositoryFacade
     private static RefPackage loadModel(
         URL modelURL,
         String[] moduleSearchPath,
-        MofPackage metaModel,
-        MDRepository repository)
+        MofPackage metaModel)
         throws CreationFailedException
     {
     	if (logger.isDebugEnabled())
