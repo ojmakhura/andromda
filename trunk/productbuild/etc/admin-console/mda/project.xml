@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <name>Administration Console MDA</name>
+    <id>admin-console-mda</id>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>xml.zip</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties>
+                <languageMappingsUri>Java</languageMappingsUri>
+                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
+            </properties>
+        </dependency>
+        <!-- specify and configure our cartridges -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <xhtml>false</xhtml>
+                <breadCrumbs>false</breadCrumbs>
+                <dummyData>true</dummyData>
+                <onlineHelp>true</onlineHelp>
+                <defaultDateFormat>dd-MM-yyyy</defaultDateFormat>
+                <welcomeFileName>index.jsp</welcomeFileName>
+                <clientValidation>true</clientValidation>
+                <serverValidation>true</serverValidation>
+                <security>false</security>
+                <securityRealm>other</securityRealm>
+                <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
+                <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
+                <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
+                <controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
+                <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
+                <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
+                <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+    </dependencies>
+</project>
