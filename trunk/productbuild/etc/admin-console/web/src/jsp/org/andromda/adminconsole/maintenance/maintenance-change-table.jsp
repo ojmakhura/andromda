@@ -4,10 +4,10 @@
     <div class="trigger">
         <html:form action="/Maintenance/MaintenanceChangeTable" onsubmit="return validateMaintenanceChangeTableForm(this);">
             <c:choose>
-               <c:when test="${!empty form.nameBackingList}">
+               <c:when test="${!empty metaDataSession.tableNames}">
                   <c:set var="currentTable" value="${metaDataSession.currentTable}"/>
                   <html:select name="currentTable" property="name" onchange="this.form.submit();" onmouseover="hints.show('maintenance.param.table.title')" onmouseout="hints.hide()"  >
-                      <html:optionsCollection name="form" property="nameBackingList" label="label" value="value"/>
+                      <html:options name="metaDataSession" property="tableNames"/>
                   </html:select>
                </c:when>
                <c:otherwise>
