@@ -31,7 +31,7 @@ public class StrutsParameterLogicImpl
         final Collection transitions = getModel().getAllTransitions();
         for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
         {
-            Object transitionObject = (Object) iterator.next();
+            Object transitionObject = iterator.next();
             if (transitionObject instanceof StrutsAction)
             {
                 StrutsAction action = (StrutsAction) transitionObject;
