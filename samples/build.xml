@@ -47,10 +47,6 @@
         </delete>
         
         <antcall target="cleanComponent">
-          <param name="component.name" value="ejb-template"/>
-        </antcall>
-
-        <antcall target="cleanComponent">
           <param name="component.name" value="car-rental-system"/>
         </antcall>
 
@@ -62,10 +58,6 @@
 
     <target name="dist" depends="clean,init"
             description="Builds all samples">
-
-        <antcall target="buildComponent">
-          <param name="component.name" value="ejb-template"/>
-        </antcall>
 
         <antcall target="buildComponent">
           <param name="component.name" value="car-rental-system"/>
