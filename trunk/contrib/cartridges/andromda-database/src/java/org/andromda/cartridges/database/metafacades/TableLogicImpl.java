@@ -1,6 +1,7 @@
 package org.andromda.cartridges.database.metafacades;
 
 import org.andromda.cartridges.database.DatabaseProfile;
+import org.andromda.cartridges.database.DatabaseGlobals;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 
@@ -31,19 +32,44 @@ public class TableLogicImpl
      */
     protected int handleGetInitialLoadSize()
     {
-        int initialLoadSize = 0;
+        int dummyLoadSize = 0;
+        float dummyLoadMultiplier = 0;
 
+        // first get the initial load size for this table
         try
         {
-            String initialLoadSizeString = (String)findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
-            initialLoadSize = Integer.parseInt(initialLoadSizeString);
+            final String initialLoadSizeString = (String)findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
+            if (initialLoadSizeString != null)
+            {
+                dummyLoadSize = Integer.parseInt(initialLoadSizeString);
+            }
         }
-        catch (Exception e)
+        finally
         {
-            initialLoadSize = DatabaseProfile.DUMMY_LOAD_SIZE_DEFAULT;
+            if (dummyLoadSize <= 0)
+            {
+                dummyLoadSize = DatabaseProfile.DUMMY_LOAD_SIZE_DEFAULT;
+            }
         }
 
-        return initialLoadSize;
+        // if a multiplier has been specified apply it on the load size
+        try
+        {
+            final String multiplierString = (String)getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER);
+            if (multiplierString != null)
+            {
+                dummyLoadMultiplier = Float.parseFloat(multiplierString);
+            }
+        }
+        finally
+        {
+            if (dummyLoadMultiplier <= 0)
+            {
+                dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPIER_DEFAULT;
+            }
+        }
+
+        return (int)(dummyLoadSize * dummyLoadMultiplier);
     }
     
     /**
