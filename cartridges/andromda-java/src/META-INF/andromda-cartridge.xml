@@ -12,7 +12,9 @@
         overwrite="true"
         required="false">
         <modelElements variable="service">
-            <modelElement stereotype="Service"/>  
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement> 
         </modelElements>       
     </template>
 	
@@ -23,7 +25,9 @@
         overwrite="false"
         required="false">
         <modelElements variable="service">
-            <modelElement stereotype="Service"/>  
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement> 
         </modelElements>       
     </template>
 	
@@ -68,7 +72,11 @@
         overwrite="true"
         required="false">
         <modelElements variable="enumeration">
-            <modelElement stereotype="Enumeration"/>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ClassifierFacade">
+                    <property name="enumeration" value="true"/>
+                </type>
+            </modelElement> 
         </modelElements>
     </template>
 
