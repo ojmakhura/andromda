@@ -1,68 +1,24 @@
 <cartridge name="andromda-ejb">
-	<property name="persistence" value="ejb" />
-	
-	<stereotype name="EntityBean" />
-	<stereotype name="StatelessSessionBean" />
-	<stereotype name="StatefulSessionBean" />
-
-    <outlet name="beans" />
-    <outlet name="impls" />
 
     <template
-        stereotype="EntityBean"
         sheet="EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="beans"
-        overWrite="true"
-    />
+        overWrite="true">
+        <modelElements variable="entity">
+            <modelElement stereotype="Entity"/>
+        </modelElements>
+    </template>
 
     <template
-        stereotype="EntityBean"
         sheet="EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="impls"
         overWrite="false"
-        generateEmptyFiles="true"
-    />
-
-    <template
-        stereotype="EntityBean"
-        sheet="EntityBeanCMP.vsl"
-        outputPattern="{0}/{1}BeanCMP.java"
-        outlet="beans"
-        overWrite="true"
-        generateEmptyFiles="false"
-    />
-
-    <template
-        stereotype="StatelessSessionBean"
-        sheet="StatelessSessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
-        overWrite="true"
-    />
-
-    <template
-        stereotype="StatelessSessionBean"
-        sheet="StatelessSessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
-        overWrite="false"
-    />
-
-    <template
-        stereotype="StatefulSessionBean"
-        sheet="StatefulSessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="beans"
-        overWrite="true"
-    />
-
-    <template
-        stereotype="StatefulSessionBean"
-        sheet="StatefulSessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
-        overWrite="false"
-    />
+        generateEmptyFiles="true">
+        <modelElements variable="entity">
+            <modelElement stereotype="Entity"/>
+        </modelElements>
+    </template>
+    
 </cartridge>
