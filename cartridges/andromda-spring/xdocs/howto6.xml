@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - HowTo - Queries</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+        <section name="Queries">
+            <p>
+                All enterprise applications need to perform operations on the underlying datasource, and Hibernate
+                supports this quite well with it's
+                <a href="http://www.hibernate.org/hib_docs/reference/en/html_single/#queryhql">Hibernate Query
+                Language</a>.
+            </p>
+            <p>
+                UML also allows you to specify queries, be it in a more generic language. For this purpose OCL can
+                be used, which supports <code>body</code> constructs since OCL 2.0. Although you can choose
+                to override any generated query using a tagged value specifying your custom query it is
+                strongly recommended to use OCL since this will guarantee your code to remain portable over different
+                technologies. If you don't want to get to know OCL and have no problem sticking to Hibernate
+                then you might consider to use tagged values instead.
+            </p>
+            <p>
+                Finder methods require the <![CDATA[<<FinderMethod>>]]> stereotype, as is shown in the picture below.
+            </p>
+            <p>
+                The documentation discussing the modeling of queries in UML is found here:
+                <a href="../andromda-query-library/modeling.html">Query Translation-Library Modeling</a>.
+                The tagged value overriding queries using Hibernate QL directly is found here:
+                <a href="../andromda-spring-cartridge/modeling.html#@andromda_hibernate_query">@andromda.hibernate.query</a>.
+            </p>
+            <p>
+                <img src="6/uml.png"/>
+            </p>
+            <p class="highlight">
+                A zip bundle containing all these files can be downloaded here:
+                <a href="resources/howto6.zip">howto6.zip</a>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="6/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a href="6/Car.java.html"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="6/CarImpl.java.html"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="6/CarDao.java.html"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="6/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="6/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="6/CarType.java.html"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="6/Person.hbm.xml.html"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a href="6/Person.java.html"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="6/PersonImpl.java.html"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="6/PersonDao.java.html"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="6/PersonDaoBase.java.html"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="6/PersonDaoImpl.java.html"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="6/RentalService.java.html"><code>RentalService.java</code></a></li>
+                    <li class="gen"><a href="6/RentalServiceBase.java.html"><code>RentalServiceBase.java</code></a></li>
+                    <li class="impl"><a href="6/RentalServiceImpl.java.html"><code>RentalServiceImpl.java</code></a></li>
+                    <li class="gen"><a href="6/ejb/RentalService.java.html"><code>ejb/RentalService.java</code></a></li>
+                    <li class="gen"><a href="6/ejb/RentalServiceBean.java.html"><code>ejb/RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="6/ejb/RentalServiceHome.java.html"><code>ejb/RentalServiceHome.java</code></a></li>
+                    <li class="gen"><a href="6/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="6/jboss.xml.html"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="6/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
+                    <li class="gen"><a href="6/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                </ul>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                The final section will cover the modeling of exceptions, click
+                <a href="howto7.html">here</a> to go to that section.
+            </p>
+        </section>
+    </body>
+</document>

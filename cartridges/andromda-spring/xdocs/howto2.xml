@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Spring - HowTo (2)</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+        <section name="Relationships">
+            <p>
+                Most of the business objects that appear in real applications have relationships with other
+                business objects, consider the simple case of a person owning a car. Here we say
+                <code>Person</code> has an <code>owning</code> relationship with the <code>Car</code>, and from
+                the perspective of the person there can be any number of cars that are owned, denoted in UML
+                by <code>[0..*]</code> at the car's end. Make sure the association ends are <code>public</code>
+                (some tools allow to specify the visibility of an association end).
+            </p>
+            <p>
+                In UML relationships are modeled using associations, and associations themselves have different
+                properties, which will be discussed here.
+            </p>
+            <p>
+                Let's model another entity now, call it <code>Person</code> and give it a few attributes,
+                just make sure you given them one of the platform independent datatypes that can be mapped
+                onto a platform specific datatype (you can find them in the <code>datatype</code> package).
+            </p>
+            <p>
+                Draw an association between both entities you have just modeled. Set the multiplicity at the end
+                of the car to <code>[0..*]</code> and name the other end <code>'owner'</code>.
+                Run AndroMDA again on your model, this is what you should see:
+            </p>
+            <p>
+                <img src="2/uml.png"/>
+            </p>
+            <p>
+                In this example we have added two attributes: name of type <code>datatype.String</code>
+                and birthDate of type <code>datatype.Date</code>; please note that also for this entity
+                an identifier will be added by default. If you explicitely want to add an identifier you should
+                add the <![CDATA[<<PrimaryKey>>]]> stereotype to an attribute.
+            </p>
+            <p class="highlight">
+                A zip bundle containing all these files can be downloaded here:
+                <a href="resources/howto2.zip">howto2.zip</a>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="2/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="2/Car.java.html"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="2/CarImpl.java.html"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a href="2/CarDao.java.html"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="2/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="2/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="2/Person.hbm.xml.html"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="2/Person.java.html"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="2/PersonImpl.java.html"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="2/PersonDao.java.html"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="2/PersonDaoBase.java.html"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="2/PersonDaoImpl.java.html"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="2/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="2/jboss.xml.html"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="2/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
+                    <li class="gen"><a href="2/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                </ul>
+            </p>
+            <p>
+                As you can see the relationships have been generated in the code:
+                <ul>
+                    <li>Person.getCars() : Collection</li>
+                    <li>Car.getOwner() : Person</li>
+                </ul>
+                By default AndroMDA will look at the multiplicity to generate a good name for the relationship,
+                a few examples where the multiplicity is greater than one:
+                <ul>
+                    <li>car: cars</li>
+                    <li>property: properties</li>
+                    <li>toy: toys</li>
+                    <li>animal: animals</li>
+                    <li>bus: busses</li>
+                </ul>
+                You can override these names by adding your own names to the association ends, in our example
+                you might set the name of the association end at the side of the person to <code>owner</code>,
+                this will emit the following output during generation:
+                <ul>
+                    <li>Person.getCars() : Collection</li>
+                    <li>Car.getOwner() : Person</li>
+                </ul>
+            </p>
+            <p>
+                Optionally you may indicate the relationship to be an <code>aggregation</code> or a
+                <code>composition</code>. You should use aggregation when an entity is part of another one but the
+                latter one does not need the former to exist.
+                <ul>
+                    <li>aggregation: lazy-loaded, no cascade</li>
+                    <li>composition: eager-loaded, cascade update</li>
+                </ul>
+            </p>
+            <p>
+                Don't forget to properly set the multiplicity on the association ends, this will ensure
+                the proper code to be generated.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                In the next section we'll learn about services, click
+                <a href="howto3.html">here</a> to continue.
+            </p>
+        </section>
+    </body>
+</document>

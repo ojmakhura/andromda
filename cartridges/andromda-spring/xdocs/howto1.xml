@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Spring - HowTo (1)</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+        <section name="Business Objects">
+            <p>
+                With business objects we mean what is usually implemented using Entity Beans or Hibernate POJOs;
+                in the Spring cartridge you will not need to worry about the technology used behind, but
+                you will probably want to know that Hibernate POJOs will be generated for the
+                business objects you model.
+            </p>
+            <p>
+                In order to successfully generate a single business object it is sufficient to simply
+                model a single class and assign it the <![CDATA[<<Entity>>]]> stereotype, this stereotype tells
+                the Spring cartridge to treat this class as a business object.
+            </p>
+            <p>
+                Let's start by modeling a package <code>org.andromda.test</code> and putting a class
+                inside that package, give that class the name <code>Car</code>. Now make sure that entity
+                has the <![CDATA[<<Entity>>]]> stereotype, it depends on your UML tool how you need to do
+                that exactly.
+            </p>
+            <p>
+                <img src="1/uml.png"/>
+            </p>
+            <p>
+                You can now try to generate code
+                from your model and take a look at what is generated. If you don't know how to generate code using
+                AndroMDA then head over to
+                <a href="../starting.html">getting started</a> guide (especially the section explaining
+                <a href="../starting.html#My_first_AndroMDA_project">how to setup your first AndroMDA project</a>).
+            </p>
+            <p>
+                If everything went well all code related to this class has been generated into
+                the <code>/core/target/src</code> project subdirectory, no manual implementation would need
+                to be added at this point.
+            </p>
+            <p class="highlight">
+                A zip bundle containing all these files can be downloaded here:
+                <a href="resources/howto1.zip">howto1.zip</a>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="1/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a href="1/Car.java.html"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="1/CarImpl.java.html"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a href="1/CarDao.java.html"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="1/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="1/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="1/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="1/jboss.xml.html"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="1/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
+                    <li class="gen"><a href="1/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                </ul>
+            </p>
+            <p>
+                The class we have modeled does not have any properties, however, we notice it having an 'id'
+                attribute, where is that coming from ? Well, by default AndroMDA configures the Spring cartridge
+                to generate an identifier when none have been modeled by the user, this identifier is called
+                <code>id</code>, and it is of type <code>datatype.Long</code>. It is possible to override these
+                settings in the
+                <a href="../maven-andromda-plugin/properties.html#Defining_Namespace_Properties">namespace
+                properties for Maven</a> or the
+                <a href="../anttask.html#andromda-example">namespace properties for Ant</a>. Click
+                <a href="../andromda-metafacades-uml/namespace.html">here</a>
+                if you want to know more about the default namespace properties you can set.
+            </p>
+            <p>
+                You may also model operations on an entity, this will generate them as methods in the resulting
+                Java class. Operations that are classifier scoped (<code>static</code> in Java) will go into
+                the corresponding DAO, in UML diagrams those operations are underlined when shown.
+            </p>
+            <p>
+                <img src="1/uml2.png"/>
+            </p>
+            <p>
+                So far we have modeled some very basic stuff, let's add a bit of complexity in the next sections.
+            </p>
+            <subsection name="Unique Attributes">
+                <p>
+                    In case you want an entity's attribute to be unique for all instances of that entity's type you
+                    should assign the <![CDATA[<<Unique>>]]> stereotype to it.
+                </p>
+            </subsection>
+            <subsection name="Nullable Parameters">
+                <p>
+                    If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
+                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                In the next section we'll learn about entity relationships, click
+                <a href="howto2.html">here</a> to continue.
+            </p>
+        </section>
+    </body>
+</document>
