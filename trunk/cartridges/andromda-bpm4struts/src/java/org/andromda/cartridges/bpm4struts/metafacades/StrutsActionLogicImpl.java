@@ -1,15 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.*;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.*;
+
+import java.util.*;
 
 
 /**
@@ -52,7 +47,8 @@ public class StrutsActionLogicImpl
         if ((target instanceof StrutsJsp) || (target instanceof StrutsFinalState))
         {
             actionForwards.add(transition);
-        } else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
+        }
+        else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
             Collection outcomes = target.getOutgoing();
@@ -61,11 +57,13 @@ public class StrutsActionLogicImpl
                 TransitionFacade outcome = (TransitionFacade) iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
-        } else if (target instanceof StrutsActionState)
+        }
+        else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
             collectTransitions(((StrutsActionState) target).getForward(), processedTransitions);
-        } else    // all the rest is ignored but outgoing transitions are further processed
+        }
+        else    // all the rest is ignored but outgoing transitions are further processed
         {
             Collection outcomes = target.getOutgoing();
             for (Iterator iterator = outcomes.iterator(); iterator.hasNext();)
@@ -100,13 +98,13 @@ public class StrutsActionLogicImpl
     public boolean handleIsHyperlink()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE);
-        return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value==null?null:value.toString());
+        return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
     public boolean handleHasSuccessMessage()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE);
-        return isTrue(value==null?null:value.toString());
+        return isTrue(value == null ? null : value.toString());
     }
 
     public java.lang.String handleGetActionPath()
@@ -138,7 +136,7 @@ public class StrutsActionLogicImpl
             TransitionFacade transition = (TransitionFacade) iterator.next();
             if (transition.getTarget() instanceof StrutsFinalState)
             {
-                StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
+                StrutsUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
                 return (useCase != null) ? useCase.getAllUsers() : Collections.EMPTY_LIST;
             }
         }
@@ -155,7 +153,8 @@ public class StrutsActionLogicImpl
             PseudostateFacade pseudostate = (PseudostateFacade) source;
             if (pseudostate.isInitialState())
                 name = getActivityGraph().getUseCase().getName();
-        } else
+        }
+        else
         {
             final EventFacade trigger = getTrigger();
             final String suffix = (trigger == null) ? getTarget().getName() : trigger.getName();
@@ -200,7 +199,7 @@ public class StrutsActionLogicImpl
     /**
      * Overwrites the method defined in the facade parent of StrutsAction, this is done
      * because actions (transitions) are not directly contained in a UML namespace.
-     */ 
+     */
     public String getPackageName()
     {
         return getActivityGraph().getController().getPackageName();
@@ -209,7 +208,7 @@ public class StrutsActionLogicImpl
     public boolean handleIsResettable()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE);
-        return isTrue(value==null?null:value.toString());
+        return isTrue(value == null ? null : value.toString());
     }
 
     private boolean isTrue(String string)
@@ -251,14 +250,16 @@ public class StrutsActionLogicImpl
         return '/' + (getPackageName() + '/' + getFormBeanClassName()).replace('.', '/');
     }
 
-    public boolean handleRequiresValidation()
+    public boolean handleIsValidationRequired()
     {
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
             StrutsParameter parameter = (StrutsParameter) iterator.next();
-            if (!parameter.getValidatorTypes().isEmpty())
+            if (parameter.isValidationRequired())
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -429,7 +430,7 @@ public class StrutsActionLogicImpl
 
         try
         {
-            return (tabIndex==null) ? -1 : Integer.parseInt(tabIndex);
+            return (tabIndex == null) ? -1 : Integer.parseInt(tabIndex);
         }
         catch (NumberFormatException e)
         {
@@ -450,7 +451,7 @@ public class StrutsActionLogicImpl
             if (tabIndex >= 0)
             {
                 String tabKey = String.valueOf(tabIndex);
-                Collection tabFields = (Collection)tabMap.get(tabKey);
+                Collection tabFields = (Collection) tabMap.get(tabKey);
 
                 if (tabFields == null)
                 {

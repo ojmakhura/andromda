@@ -64,6 +64,21 @@ public class StrutsJspLogicImpl
     {
         return '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(getName())).replace('.', '/');
     }
+
+    public boolean handleIsValidationRequired()
+    {
+        final Collection actions = getActions();
+        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        {
+            StrutsAction action = (StrutsAction) actionIterator.next();
+            if (action.isValidationRequired())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ------------- relations ------------------
 
     protected Object handleGetUseCase()
@@ -93,7 +108,7 @@ public class StrutsJspLogicImpl
 
     public StrutsForward getForward()
     {
-        return (StrutsForward)shieldedElement(getOutgoing().iterator().next());
+        return (StrutsForward) shieldedElement(getOutgoing().iterator().next());
     }
 
     protected Collection handleGetPageVariables()
@@ -146,7 +161,7 @@ public class StrutsJspLogicImpl
 
             for (Iterator iterator = actions.iterator(); iterator.hasNext();)
             {
-                StrutsAction action = (StrutsAction)iterator.next();
+                StrutsAction action = (StrutsAction) iterator.next();
                 maxValue = Math.max(maxValue, action.getTabIndex());
             }
             return maxValue + 1;    // we add one because we're counting from [1..n]
@@ -186,7 +201,7 @@ public class StrutsJspLogicImpl
             Object actionObject = iterator.next();
             if (actionObject instanceof StrutsAction)
             {
-                StrutsAction action = (StrutsAction)actionObject;
+                StrutsAction action = (StrutsAction) actionObject;
                 if (action.getTabIndex() >= 0) return true;
             }
         }
@@ -203,7 +218,7 @@ public class StrutsJspLogicImpl
             Object actionObject = iterator.next();
             if (actionObject instanceof StrutsAction)
             {
-                StrutsAction action = (StrutsAction)actionObject;
+                StrutsAction action = (StrutsAction) actionObject;
                 if (!action.isTabbed())
                     nonTabbedActions.add(action);
             }
@@ -233,9 +248,9 @@ public class StrutsJspLogicImpl
         boolean needsSeparator = false;
         for (Iterator iterator = tabActions.iterator(); iterator.hasNext();)
         {
-            if (needsSeparator) buffer.append( " / " );
+            if (needsSeparator) buffer.append(" / ");
             StrutsAction action = (StrutsAction) iterator.next();
-            buffer.append( action.getActionTrigger().getTriggerValue() );
+            buffer.append(action.getActionTrigger().getTriggerValue());
             needsSeparator = true;
         }
 
