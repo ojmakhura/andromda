@@ -28,7 +28,11 @@ public abstract class AbstractHighlightTag extends TagSupport
 
         if (content instanceof Collection)
         {
-            content = ((Collection)content).iterator().next();
+            final Collection collection = (Collection)content;
+            if (collection != null && !collection.isEmpty())
+            {
+                content = collection.iterator().next();                
+            }
         }
 
         if (content instanceof Element)
