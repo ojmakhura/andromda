@@ -6,7 +6,7 @@
   	<groupId>andromda-cartridges</groupId>
   	<name>AndroMDA Cartridges</name>
   	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</connection>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</url>
   	</repository>
   	<dependencies>
