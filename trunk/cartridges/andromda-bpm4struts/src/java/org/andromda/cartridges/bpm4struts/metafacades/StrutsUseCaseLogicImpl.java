@@ -6,6 +6,8 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 
 
@@ -411,5 +413,94 @@ public class StrutsUseCaseLogicImpl
             }
         }
        return referencingFinalStates;
+    }
+
+    protected TreeNode handleGetApplicationHierarchyRoot()
+    {
+        return createHierarchy(new UseCaseNode(this));
+    }
+
+    protected TreeNode handleGetHierarchyRoot()
+    {
+        UseCaseNode hierarchy = null;
+
+        Collection allUseCases = getAllUseCases();
+        for (Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
+        {
+            StrutsUseCase useCase = (StrutsUseCase) useCaseIterator.next();
+            if (useCase.isApplicationUseCase())
+            {
+                UseCaseNode root = (UseCaseNode)useCase.getApplicationHierarchyRoot();
+                hierarchy = findNode(root, this);
+            }
+        }
+        return hierarchy;
+    }
+
+    private UseCaseNode createHierarchy(UseCaseNode root)
+    {
+        StrutsUseCase useCase = (StrutsUseCase)root.getUserObject();
+
+        StrutsActivityGraph graph = useCase.getActivityGraph();
+        if (graph != null)
+        {
+            Collection finalStates = graph.getFinalStates();
+            for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
+            {
+                StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
+                StrutsUseCase targetUseCase = finalState.getTargetUseCase();
+                UseCaseNode useCaseNode = new UseCaseNode(targetUseCase);
+                if (root.isNodeAncestor(useCaseNode) == false)
+                {
+                    root.add(createHierarchy(useCaseNode));
+                }
+            }
+        }
+        return root;
+    }
+
+    private UseCaseNode findNode(UseCaseNode root, StrutsUseCase useCase)
+    {
+        UseCaseNode useCaseNode = null;
+
+        List nodeList = Collections.list(root.breadthFirstEnumeration());
+        for (Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode==null;)
+        {
+            UseCaseNode node = (UseCaseNode) nodeIterator.next();
+            if (useCase.equals(node.getUserObject()))
+            {
+                useCaseNode = node;
+            }
+        }
+        return useCaseNode;
+    }
+
+    private class UseCaseNode extends DefaultMutableTreeNode
+    {
+        public UseCaseNode(StrutsUseCase useCase)
+        {
+            super(useCase);
+        }
+
+        public StrutsUseCase getUseCase()
+        {
+            return (StrutsUseCase)getUserObject();
+        }
+
+        public boolean equals(Object object)
+        {
+            boolean equals = false;
+
+            if (object instanceof UseCaseNode)
+            {
+                UseCaseNode that = (UseCaseNode)object;
+                equals = this.getUserObject().equals(that.getUserObject());
+            }
+            else
+            {
+                equals = false;
+            }
+            return equals;
+        }
     }
 }
