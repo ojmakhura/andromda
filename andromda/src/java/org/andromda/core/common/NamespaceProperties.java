@@ -30,8 +30,10 @@ public class NamespaceProperties
 
     /**
      * <p>
-     * The URI to the mappings file containing the AndroMDA stereotypes.
+     * The URI to the mappings file containing the AndroMDA profile.
+     * This property provides the ability to override the default 
+     * profile values (i.e. stereotype names).
      * </p>
      */
-    public static final String STEREOTYPES_URI = "stereotypesUri";
+    public static final String PROFILE_URI = "profileUri";
 }

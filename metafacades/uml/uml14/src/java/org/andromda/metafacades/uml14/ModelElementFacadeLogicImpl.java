@@ -9,7 +9,6 @@ import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.MetafacadeProperties;
-import org.andromda.core.profile.Stereotypes;
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
@@ -149,8 +148,7 @@ public class ModelElementFacadeLogicImpl
      */
     public boolean handleHasStereotype(String stereotypeName)
     {
-        final String stereotype = UMLMetafacadeUtils
-            .getStereotypeName(stereotypeName);
+        final String stereotype = stereotypeName;
         Collection stereotypes = this.getStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName)
@@ -198,8 +196,7 @@ public class ModelElementFacadeLogicImpl
     public boolean handleHasExactStereotype(String stereotypeName)
     {
         return this.getStereotypeNames().contains(
-            StringUtils.trimToEmpty(UMLMetafacadeUtils
-                .getStereotypeName(stereotypeName)));
+            StringUtils.trimToEmpty(stereotypeName));
     }
 
     /**
@@ -319,8 +316,14 @@ public class ModelElementFacadeLogicImpl
         // if there still isn't anything, try a tagged value
         if (StringUtils.isEmpty(documentation.toString()))
         {
-            documentation.append(StringUtils.trimToEmpty((String)this
-                .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
+            try
+            {
+                documentation.append(StringUtils.trimToEmpty((String)this
+                    .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
+            }catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
         }
         try
         {

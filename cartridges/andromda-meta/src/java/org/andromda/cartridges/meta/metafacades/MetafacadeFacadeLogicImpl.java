@@ -204,18 +204,26 @@ public class MetafacadeFacadeLogicImpl
      */
     protected Collection handleGetMethodDataForPSM(boolean includeSuperclasses)
     {
-        HashMap map = new HashMap();
-        internalGetMethodDataForPSM(map, this);
-        if (includeSuperclasses)
+        ArrayList result = null;
+        try
         {
-            for (ClassifierFacade cd = (ClassifierFacade)getGeneralization(); cd != null; cd = (ClassifierFacade)cd
-                .getGeneralization())
+            HashMap map = new HashMap();
+            internalGetMethodDataForPSM(map, this);
+            if (includeSuperclasses)
             {
-                internalGetMethodDataForPSM(map, (MetafacadeFacade)cd);
+                for (ClassifierFacade cd = (ClassifierFacade)getGeneralization(); cd != null; cd = (ClassifierFacade)cd
+                    .getGeneralization())
+                {
+                    internalGetMethodDataForPSM(map, (MetafacadeFacade)cd);
+                }
             }
+            result = new ArrayList(map.values());
+            Collections.sort(result);
         }
-        ArrayList result = new ArrayList(map.values());
-        Collections.sort(result);
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
         return result;
     }
 

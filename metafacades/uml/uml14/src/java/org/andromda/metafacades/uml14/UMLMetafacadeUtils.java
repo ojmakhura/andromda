@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.profile.Stereotypes;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -184,18 +183,6 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Gets the mapped stereotype name from the profile.
-     * 
-     * @param stereotypeName the stereotype name to retrieve.
-     * @return the mapped stereotype name or <code>stereotypeName</code> iself
-     *         it wasn't mapped.
-     */
-    static String getStereotypeName(String stereotypeName)
-    {
-        return Stereotypes.instance().get(stereotypeName);
-    }
-
-    /**
      * Returns the entire model.
      * 
      * @return org.omg.uml.UmlPackage model instance.
@@ -278,7 +265,6 @@ public class UMLMetafacadeUtils
      */
     static Stereotype findOrCreateStereotype(String name)
     {
-        name = getStereotypeName(name);
         Object stereotype = UMLMetafacadeUtils.findByName(name);
         if (stereotype == null
             || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
@@ -481,7 +467,7 @@ public class UMLMetafacadeUtils
             && !stereotypePresent;)
         {
             Stereotype stereotype = (Stereotype)stereotypeIterator.next();
-            if (getStereotypeName(stereotypeName).equals(stereotype.getName()))
+            if (stereotypeName.equals(stereotype.getName()))
             {
                 stereotypePresent = true;
             }

@@ -1,16 +1,29 @@
 package org.andromda.cartridges.bpm4struts;
 
+import org.andromda.core.common.Profile;
+
+/**
+ * Contains the BPM4Struts profile.
+ * 
+ * @author Wouter Zoons
+ */
 public class Bpm4StrutsProfile
 {
+    
+    /**
+     * The Profile instance from which we retrieve the mapped profile names.
+     */
+    private static final Profile profile = Profile.instance();
+    
     /* ----------------- Stereotypes -------------------- */
 
-    public static final String STEREOTYPE_VIEW = "FRONT_END_VIEW";
-    public static final String STEREOTYPE_EVENT = "FRONT_END_EVENT";
-    public static final String STEREOTYPE_USER = "FRONT_END_USER";
-    public static final String STEREOTYPE_USECASE = "FRONT_END_USE_CASE";
-    public static final String STEREOTYPE_APPLICATION = "FRONT_END_APPLICATION";
-    public static final String STEREOTYPE_CONTROLLER = "FRONT_END_CONTROLLER";
-    public static final String STEREOTYPE_EXCEPTION = "FRONT_END_EXCEPTION";
+    public static final String STEREOTYPE_VIEW = profile.get("FRONT_END_VIEW");
+    public static final String STEREOTYPE_EVENT = profile.get("FRONT_END_EVENT");
+    public static final String STEREOTYPE_USER = profile.get("FRONT_END_USER");
+    public static final String STEREOTYPE_USECASE = profile.get("FRONT_END_USE_CASE");
+    public static final String STEREOTYPE_APPLICATION = profile.get("FRONT_END_APPLICATION");
+    public static final String STEREOTYPE_CONTROLLER = profile.get("FRONT_END_CONTROLLER");
+    public static final String STEREOTYPE_EXCEPTION = profile.get("FRONT_END_EXCEPTION");
 
     /* ----------------- Tagged Values -------------------- */
 

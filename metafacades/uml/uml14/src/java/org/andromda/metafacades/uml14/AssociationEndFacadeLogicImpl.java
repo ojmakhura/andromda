@@ -6,8 +6,8 @@ import java.util.Iterator;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.MetafacadeDataTypes;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
@@ -247,8 +247,8 @@ public class AssociationEndFacadeLogicImpl
         {
             Mappings mappings = getLanguageMappings();
             return isOrdered() ? mappings
-                .getTo(MetafacadeDataTypes.LIST_TYPE_NAME) : mappings
-                .getTo(MetafacadeDataTypes.COLLECTION_TYPE_NAME);
+                .getTo(UMLProfile.LIST_TYPE_NAME) : mappings
+                .getTo(UMLProfile.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type
