@@ -57,6 +57,8 @@
         <!-- welcome-file-list merge-point -->
         <welcome-file>$welcomeFileName</welcome-file>
     </welcome-file-list>
+    
+    <!-- error-page merge-point -->
 
 #if ($security == "true")
 ##
