@@ -52,6 +52,12 @@
         <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
     <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
+        <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>
+        <property reference="serviceOperationTransactionType" default="Required"/>
+    </metafacade>
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgumentLogicImpl">
         <context>org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod</context>

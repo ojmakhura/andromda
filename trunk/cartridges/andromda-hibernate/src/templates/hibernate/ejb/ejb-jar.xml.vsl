@@ -102,15 +102,22 @@
 #end
 #end
 #foreach ($service in $services)
+#foreach ($operation in $service.operations)
         <container-transaction>
             <method>
                 <ejb-name>$service.name</ejb-name>
-                <method-name>*</method-name>
+                <method-name>$operation.name</method-name>
+                <method-params>
+#foreach ($argument in $operation.arguments)
+                    <method-param>$argument.type.fullyQualifiedName</method-param>
+#end
+                </method-params>
             </method>
-            <trans-attribute>REQUIRED</trans-attribute>
+            <trans-attribute>$operation.transactionType</trans-attribute>
         </container-transaction>
 
 #end
+#end
     </assembly-descriptor>
-
+    
 </ejb-jar>

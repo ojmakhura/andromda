@@ -156,10 +156,13 @@
                 </tr>
                 <tr>
                     <td>
-                          idGeneratorClass
+                          defaultHibernateGeneratorClass
                     </td>
                     <td>
-                          The class to use for Hibernate ID generation.
+                          The default class to use for Hibernate ID generation (can be overriden
+                          on a per entity basis with the 
+                          <a href="modeling.html#@andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
+                          tagged value).
                     </td>
                     <td>
                           No, default is
@@ -178,6 +181,29 @@
                     </td>
                     <td>
                           No, default is the empty string
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        serviceOperationTransactionType
+                    </td>
+                    <td>
+                        The default value to use for service operations transaction types.
+                        <ul>
+                            Permitted values are:
+                            <li>NotSupported</li>
+                            <li>Supports</li>
+                            <li>Required</li>
+                            <li>RequiresNew</li>
+                            <li>Mandatory</li>
+                            <li>Never</li>
+                        </ul>
+                        <strong>NOTE:</strong> Can be overriden on a per entity basis with the 
+                        <a href="modeling.html#@andromda.transaction.type">@andromda.transaction.type</a> 
+                        tagged value.
+                    </td>
+                    <td>
+                        No, default is <code>Required</code>.
                     </td>
                 </tr>
                 <tr>

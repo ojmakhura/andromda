@@ -240,15 +240,16 @@
 							Service Method
 						</td>
 			          	<td>
-			          		Defines a transaction type for the method. Permitted values are:
-							<ol>
+			          		Defines a transaction type for the method. 
+							<ul>
+                                Permitted values are:
 								<li>NotSupported</li>
 								<li>Supports</li>
 								<li>Required</li>
 								<li>RequiresNew</li>
                                 <li>Mandatory</li>
                                 <li>Never</li>
-							</ol>
+							</ul>
 			          	</td>
 					</tr>
 					<tr>
@@ -298,6 +299,51 @@
 			          		Defines is caching is enabled  for this query.
 			          	</td>
 					</tr>
+                    <tr>
+                        <a name="@andromda.persistence.foreign.identifier"/>
+                        <td>
+                            @andromda.persistence.foreign.identifier
+                        </td>
+                        <td>
+                            AssociationEnd connecting two entities
+                        </td>
+                        <td>
+                            Indicates whether or not the entity should use 
+                            the identifier of the foreign entity.  This has
+                            the same effect as if you set <em>@andromda.hibernate.generator.class</em> 
+                            to <em>foreign</em>. 
+                            <strong>NOTE:</strong>
+                            that this can only be applied to the child end of a 
+                            parent-child (one end is marked as composition) 
+                            one-to-one association.
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.generator.class"/>
+                        <td>
+                            @andromda.hibernate.generator.class
+                        </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                        <td>
+                            Used to define the generator class used for the hibernate entity.
+                            Any of the hibernate generator classes may be used.  
+                            <ul>
+                                The possible options are:
+                                <li>increment</li>
+                                <li>identity</li>
+                                <li>sequence</li>
+                                <li>hilo</li>
+                                <li>seqhilo</li>
+                                <li>uuid.hex</li>
+                                <li>uuid.string</li>
+                                <li>native</li>
+                                <li>assigned</li>
+                                <li>foreign</li>
+                            </ul>
+                        </td>
+                    </tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
