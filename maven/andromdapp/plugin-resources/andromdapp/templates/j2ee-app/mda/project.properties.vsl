@@ -21,6 +21,6 @@ hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransacti
 hibernate.db.showsql=true
 #if ($spring)
 # The hibernate generator class to use for identifiers
-hibernate.generatorClass=sequence
+hibernate.generatorClass=native
 #end
 #end
