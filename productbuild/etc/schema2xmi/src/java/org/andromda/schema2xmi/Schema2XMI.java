@@ -260,8 +260,7 @@ public class Schema2XMI
         {
             CommandLine commandLine = schema2Xmi.parseCommands(args);
             if (commandLine.hasOption(HELP)
-                || !(commandLine.hasOption(INPUT_MODEL)
-                    && commandLine.hasOption(OUTPUT_MODEL)
+                || !(commandLine.hasOption(OUTPUT_MODEL)
                     && commandLine.hasOption(DRIVER)
                     && commandLine.hasOption(CONNECTION_URL)
                     && commandLine.hasOption(USER) && commandLine

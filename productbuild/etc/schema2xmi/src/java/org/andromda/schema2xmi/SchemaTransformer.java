@@ -198,7 +198,12 @@ public class SchemaTransformer
         Connection connection = null;
         try
         {
-            this.repository.readModel(new URL(inputModel), null);
+            URL url = null;
+            if (StringUtils.isNotBlank(inputModel))
+            {
+                url = new URL(inputModel);
+            }
+            this.repository.readModel(url, null);
             Class.forName(this.jdbcDriver);
             connection = DriverManager.getConnection(
                 this.jdbcConnectionUrl,
@@ -347,11 +352,18 @@ public class SchemaTransformer
         ModelManagementPackage modelManagementPackage = umlPackage
             .getModelManagement();
 
-        // A given XMI file can contain multiple models.
-        // Use the first model in the XMI file
-        this.model = (Model)(modelManagementPackage.getModel().refAllOfType()
-            .iterator().next());
-
+        Collection models = modelManagementPackage.getModel().refAllOfType();
+        if (models != null && !models.isEmpty())
+        {
+            // A given XMI file can contain multiple models.
+            // Use the first model in the XMI file
+            this.model = (Model)models.iterator().next();
+        }
+        else
+        {
+            this.model = modelManagementPackage.getModel().createModel();
+        }
+        
         // create the package on the model
         org.omg.uml.modelmanagement.UmlPackage leafPackage = this
             .getOrCreatePackage(

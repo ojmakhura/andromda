@@ -116,7 +116,6 @@ public class MDRepositoryFacade implements RepositoryFacade
     public void readModel(URL modelURL, String[] moduleSearchPath)
     {
         final String methodName = "MDRepositoryFacade.readModel";
-        ExceptionUtils.checkNull(methodName, "modelURL", modelURL);
         
     	if (logger.isDebugEnabled())
     		logger.debug("creating repository");
@@ -287,7 +286,7 @@ public class MDRepositoryFacade implements RepositoryFacade
      * @return populated model
      * @exception CreationFailedException unable to create model in repository
      */
-    private static RefPackage loadModel(
+    private RefPackage loadModel(
         URL modelURL,
         String[] moduleSearchPath,
         MofPackage metaModel)
@@ -306,26 +305,29 @@ public class MDRepositoryFacade implements RepositoryFacade
                 logger.debug("created model extent");
         }
         
-        XMIReader xmiReader =
-        	XMIReaderFactory.getDefault().createXMIReader(
-        			new MDRXmiReferenceResolver(
-        					new RefPackage[] { model }, moduleSearchPath));
-
-        if (logger.isDebugEnabled())
-        	logger.debug("reading model XMI --> '" + modelURL + "'");
-
-        try
+        if (modelURL != null)
         {
-            xmiReader.read(modelURL.toString(), model);
+	        XMIReader xmiReader =
+	        	XMIReaderFactory.getDefault().createXMIReader(
+	        			new MDRXmiReferenceResolver(
+	        					new RefPackage[] { model }, moduleSearchPath));
+	
+	        if (logger.isDebugEnabled())
+	        	logger.debug("reading model XMI --> '" + modelURL + "'");
+	
+	        try
+	        {
+	            xmiReader.read(modelURL.toString(), model);
+	        }
+	        catch (Throwable th)
+	        {
+	            String errMsg = "Error performing MDRepository.loadModel";
+	            logger.error(errMsg, th);
+	            throw new RepositoryFacadeException(errMsg, th);
+	        }
+	        if (logger.isDebugEnabled()) 
+	        	logger.debug("read XMI and created model");
         }
-        catch (Throwable th)
-        {
-            String errMsg = "Error performing MDRepository.loadModel";
-            logger.error(errMsg, th);
-            throw new RepositoryFacadeException(errMsg, th);
-        }
-        if (logger.isDebugEnabled()) 
-        	logger.debug("read XMI and created model");
         return model;
     }
 

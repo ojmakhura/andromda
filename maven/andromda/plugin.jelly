@@ -180,12 +180,6 @@
          ================================================================ -->
     <goal name="andromda:schema2xmi${bootstrap}"
           description="Runs AndroMDA's Schema2XMI on a given schema">
-        <j:set var="inputModel" value="${maven.andromda.schema2xmi.inputModel}"/>
-          <j:while test="${empty(inputModel)}">
-            <i:ask 
-                question="Please enter the URI to your model:" 
-                answer="inputModel"/>
-        </j:while>	
         <j:set var="schemaUser" value="${maven.andromda.schema2xmi.user}"/>
           <j:while test="${empty(schemaUser)}">
             <i:ask 
@@ -228,8 +222,11 @@
               </ant:classpath>
               <ant:arg value="-x"/>
               <ant:arg value="${maven.andromda.schema2xmi.xmiVersion}"/>
-              <ant:arg value="-i"/>
-              <ant:arg value="${inputModel}"/>
+              <j:set var="inputModel" value="${maven.andromda.schema2xmi.inputModel}"/>
+              <j:if test="${inputModel != null and inputModel != ''}">
+                  <ant:arg value="-i"/>
+                  <ant:arg value="${inputModel}"/>   
+              </j:if>
               <ant:arg value="-u"/>
               <ant:arg value="${schemaUser}"/>
               <ant:arg value="-p"/>
