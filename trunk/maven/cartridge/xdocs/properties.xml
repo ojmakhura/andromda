@@ -6,61 +6,84 @@
   	</properties>
   	<body>
     	<section name="AndroMDA Cartridge Maven Plugin Settings">
-            <table>
-                <tr>
-                    <th>Property</th>
-                    <th>Optional?</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>andromda.cartridge.model.uri</td>
-                    <td>No</td>
-                    <td>
-                        The URI to the model used to run tests.
-                        (i.e.<code>andromda.cartridge.model.uri=jar:file:${maven.src.dir}/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</code>).
-                    </td>
-                </tr>
-                <tr>
-                    <td>andromda.cartridge.printreport</td>
-                    <td>Yes</td>
-                    <td>
-                        <p>
-                            If this value is set to false, test run details will appear 
-                            on the console as the tests are executed. If not, they are stored in a file in 
-                            the test-reports directory. 
-                            Default value is <code>true</code>.
-                        </p>
-                    </td>
-                </tr>
-                <a name="andromda.cartridge.test.archive"/>
-                <tr>
-                    <td>andromda.cartridge.test.archive</td>
-                    <td>                        
-                        Yes, default is <code>${maven.src.dir}/test/expected/cartridge-output.zip</code>                            
-                    </td>
-                    <td>
-                        <p>
-                            Specifies the location of the comparable archive. 
-                            This archive will be extracted and used for comparison
-                            against the output defined by 
-                            <code>andromda.cartridge.test.output.dir</code>
-                        </p>
-                    </td>
-                </tr>	
-                <tr>
-                    <td>andromda.cartridge.test.actual.dir</td>
-                    <td>
-                        Yes, default is <code>${maven.build.dir}/cartridge-test/actual</code>.
-                    </td>
-                    <td>
-                        <p>
-                            Specifies the location of the output that will be
-                            compared against the files extracted from the 
-                            <code>andromda.cartridge.test.archive</code>.
-                        </p>
-                    </td>
-                </tr>  
-            </table>
+            <subsection name="cartridge:test">
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Optional?</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>andromda.cartridge.model.uri</td>
+                        <td>No</td>
+                        <td>
+                            The URI to the model used to run tests.
+                            (i.e.<code>andromda.cartridge.model.uri=jar:file:${maven.src.dir}/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</code>).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>andromda.cartridge.printreport</td>
+                        <td>Yes</td>
+                        <td>
+                            <p>
+                                If this value is set to false, test run details will appear 
+                                on the console as the tests are executed. If not, they are stored in a file in 
+                                the test-reports directory. 
+                                Default value is <code>true</code>.
+                            </p>
+                        </td>
+                    </tr>
+                    <a name="andromda.cartridge.test.archive"/>
+                    <tr>
+                        <td>andromda.cartridge.test.archive</td>
+                        <td>                        
+                            Yes, default is <code>${maven.src.dir}/test/expected/cartridge-output.zip</code>                            
+                        </td>
+                        <td>
+                            <p>
+                                Specifies the location of the comparable archive. 
+                                This archive will be extracted and used for comparison
+                                against the output defined by 
+                                <code>andromda.cartridge.test.output.dir</code>
+                            </p>
+                        </td>
+                    </tr>	
+                    <tr>
+                        <td>andromda.cartridge.test.actual.dir</td>
+                        <td>
+                            Yes, default is <code>${maven.build.dir}/cartridge-test/actual</code>.
+                        </td>
+                        <td>
+                            <p>
+                                Specifies the location of the output that will be
+                                compared against the files extracted from the 
+                                <code>andromda.cartridge.test.archive</code>.
+                            </p>
+                        </td>
+                    </tr>  
+                </table>
+            </subsection>
+			<subsection name="Including additional test dependencies">
+				<p>
+					Its possible to include additional dependencies for cartridge
+                    tests, to do this, you must add the 
+                    <code><![CDATA[<cartridge.testDependency/>]]></code> property
+                    to the <code><![CDATA[<properties/>]]></code> section of the dependency
+                    (or else it will be ignored), like the example below.
+				</p>
+				<source>
+                    <![CDATA[
+<dependency>
+    <groupId>andromda</groupId>
+    <artifactId>andromda-query-library</artifactId>
+    <version>${pom.currentVersion}</version>
+    <properties>
+        <cartridge.testDependency/>
+    </properties>
+</dependency>
+                    ]]>				
+				</source>          
+            </subsection>
     	</section>
   	</body>
 </document>
