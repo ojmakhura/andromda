@@ -7,7 +7,28 @@ import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
-import org.andromda.core.translation.node.*;
+import org.andromda.core.translation.node.AActualParameterList;
+import org.andromda.core.translation.node.AArrowFeatureCall;
+import org.andromda.core.translation.node.ACommaExpression;
+import org.andromda.core.translation.node.ADotFeatureCall;
+import org.andromda.core.translation.node.AFeatureCallParameters;
+import org.andromda.core.translation.node.AOperation;
+import org.andromda.core.translation.node.APropertyCallExpression;
+import org.andromda.core.translation.node.ARelationalExpression;
+import org.andromda.core.translation.node.ARelationalExpressionTail;
+import org.andromda.core.translation.node.AStandardDeclarator;
+import org.andromda.core.translation.node.ATypeDeclaration;
+import org.andromda.core.translation.node.AVariableDeclaration;
+import org.andromda.core.translation.node.AVariableDeclarationList;
+import org.andromda.core.translation.node.AVariableDeclarationListTail;
+import org.andromda.core.translation.node.PActualParameterList;
+import org.andromda.core.translation.node.PEqualExpression;
+import org.andromda.core.translation.node.PFeatureCallParameters;
+import org.andromda.core.translation.node.POperation;
+import org.andromda.core.translation.node.PRelationalExpression;
+import org.andromda.core.translation.node.PVariableDeclaration;
+import org.andromda.core.translation.node.PVariableDeclarationList;
+import org.andromda.core.translation.node.TName;
 import org.andromda.core.translation.syntax.Operation;
 import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.apache.commons.lang.ObjectUtils;
@@ -169,7 +190,7 @@ public class ConcreteSyntaxUtils {
 	}
 
 	/**
-	 * Gets all the parameters from a AFeatureCall instance.
+	 * Gets all the parameters from the <code>featureCall</code> instance.
 	 *
 	 * @param featureCall the featureCall for which to retrieve the parameters
 	 * @return List the list containing any parameters retrieved, or
@@ -178,57 +199,88 @@ public class ConcreteSyntaxUtils {
 	public static List getParameters(ADotFeatureCall featureCall) {
         List parameters = new ArrayList();
         if (featureCall != null) {
-             AFeatureCallParameters callParameters =
-                 (AFeatureCallParameters)
-                     featureCall.getFeatureCallParameters();
-            if (callParameters != null) {
-            	PActualParameterList parameterList =
-                    callParameters.getActualParameterList();
-        		if (parameterList != null) {
-        			AActualParameterList params = (AActualParameterList)parameterList;
-
-        			//add the first param if it exists
-        			String firstParam = TranslationUtils.trimToEmpty(params.getExpression());
-        			if (StringUtils.isNotEmpty(firstParam)) {
-        				parameters.add(firstParam);
-        			}
-
-        			//now add the rest of the params which are contained in the tail
-        			List restOfParams = params.getCommaExpression();
-        			if (restOfParams != null && !restOfParams.isEmpty()) {
-        				Iterator paramIt = restOfParams.iterator();
-        				while (paramIt.hasNext()) {
-        					ACommaExpression parameterListTail =
-        						(ACommaExpression)paramIt.next();
-        					parameters.add(
-                                    TranslationUtils.trimToEmpty(
-        						        parameterListTail.getExpression()));
-        				}
-        			}
-        		}
-            }
+             parameters = getParameters(featureCall.getFeatureCallParameters());
         }
-		return parameters;
+        return parameters;
 	}
 
     /**
-     * Gets all the parameters from a AFeatureCall instance as a comma
-     * seperated String.
+     * Gets all the parameters from the <code>featureCall</code> 
+     * instance as a comma seperated String.
      *
      * @param featureCall the featureCall for which to retrieve the parameters
      * @return String the comma seperated String
      */
     public static String getParametersAsString(ADotFeatureCall featureCall) {
         return StringUtils.join(
-                ConcreteSyntaxUtils.getParameters(
-                    featureCall).iterator(), ",");
+            ConcreteSyntaxUtils.getParameters(
+                featureCall).iterator(), ",");
+    }
+    
+    /**
+     * Gets all the parameters from the <code>featureCall</code> 
+     * instance as a comma seperated String.
+     *
+     * @param featureCall the featureCall for which to retrieve the parameters
+     * @return String the comma seperated String
+     */
+    public static String getParametersAsString(AArrowFeatureCall featureCall) {
+        return StringUtils.join(
+            ConcreteSyntaxUtils.getParameters(
+                featureCall).iterator(), ",");
     }
 
     /**
-     * todo: implement
+     * Gets all the parameters from the <code>callParameters</code> instance.
+     *
+     * @param callParameters the callParameters for which to retrieve the parameters
+     * @return List the list containing any parameters retrieved, or
+     *         an empty array if none could be retrieved
      */
-    public static List getParameters(PArrowFeatureCall featureCall) {
-        throw new UnsupportedOperationException("org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils.getParameters");
+    private static List getParameters(PFeatureCallParameters callParameters) {
+        List parameters = new ArrayList();
+        if (callParameters != null) {
+            PActualParameterList parameterList =
+                ((AFeatureCallParameters)callParameters).getActualParameterList();
+            if (parameterList != null) {
+                AActualParameterList params = (AActualParameterList)parameterList;
+
+                //add the first param if it exists
+                String firstParam = TranslationUtils.trimToEmpty(params.getExpression());
+                if (StringUtils.isNotEmpty(firstParam)) {
+                    parameters.add(firstParam);
+                }
+
+                //now add the rest of the params which are contained in the tail
+                List restOfParams = params.getCommaExpression();
+                if (restOfParams != null && !restOfParams.isEmpty()) {
+                    Iterator paramIt = restOfParams.iterator();
+                    while (paramIt.hasNext()) {
+                        ACommaExpression parameterListTail =
+                            (ACommaExpression)paramIt.next();
+                        parameters.add(
+                            TranslationUtils.trimToEmpty(
+                                parameterListTail.getExpression()));
+                    }
+                }
+            }
+        }
+        return parameters;
+    }
+    
+    /**
+     * Gets all the parameters from the <code>featureCall</code> instance.
+     *
+     * @param featureCall the featureCall for which to retrieve the parameters
+     * @return List the list containing any parameters retrieved, or
+     *         an empty array if none could be retrieved
+     */
+    public static List getParameters(AArrowFeatureCall featureCall) {
+        List parameters = new ArrayList();
+        if (featureCall != null) {
+             parameters = getParameters(featureCall.getFeatureCallParameters());
+        }
+        return parameters;
     }
 
 	/**
@@ -313,7 +365,7 @@ public class ConcreteSyntaxUtils {
      * @param expression the APosfixExpression instance for which to retrieve
      *        the primary expression
      *
-     * @return String the "real" primary expression or the passed in expression.
+     * @return String the "real" primary expression of the passed in expression.
      */
     public static List getFeatureCalls(APropertyCallExpression expression) {
         final String methodName = "ConcreteSyntaxUtils.getFeatureCalls";
@@ -326,9 +378,16 @@ public class ConcreteSyntaxUtils {
         	List tails = expression.getPropertyCallExpressionTail();
             if (tails != null && !tails.isEmpty()) {
             	for (int ctr = 0; ctr < tails.size(); ctr++) {
+                    Object tail = tails.get(ctr);
+                    String featureCall = "dotFeatureCall";
+                    // if the tail isn't a dotFeatureCall it must be an
+                    // arrowFeatureCall                 
+                    if (!TranslationUtils.hasProperty(tail, featureCall)) {
+                        featureCall = "arrowFeatureCall";
+                    }
                     featureCalls.add(
-                            TranslationUtils.getProperty(tails.get(ctr),
-                                    "dotFeatureCall"));
+                        TranslationUtils.getProperty(tail,
+                        featureCall));
                 }
             }
         }

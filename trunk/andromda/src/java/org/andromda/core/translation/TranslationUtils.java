@@ -36,7 +36,7 @@ public class TranslationUtils {
 	 * @return String the string will all replacements
 	 */
 	public static String replacePattern(String string, String pattern, String replaceWith) {
-		String methodName = "replacePattern";
+		final String methodName = "TranslationUtils.replacePattern";
 		if (string != null) {
 			ExceptionUtils.checkNull(methodName, "pattern", pattern);
 			ExceptionUtils.checkNull(methodName, "replaceWith", replaceWith);	
@@ -56,7 +56,7 @@ public class TranslationUtils {
      * @return String the string will all replacements
      */
     public static String replaceFirstPattern(String string, String pattern, String replaceWith) {
-        String methodName = "replacePattern";
+        final String methodName = "TranslationUtils.replacePattern";
         if (string != null) {
             ExceptionUtils.checkNull(methodName, "pattern", pattern);
             ExceptionUtils.checkNull(methodName, "replaceWith", replaceWith);   
@@ -150,17 +150,28 @@ public class TranslationUtils {
 	 * @return Object the value of the property
 	 */
 	public static Object getProperty(Object bean, String property) {
-		String methodName = "getProperty";
+		final String methodName = "TranslationUtils.getProperty";
 		try {
 			Object value = PropertyUtils.getProperty(bean, property);	
 			return value;
 		}catch(Exception ex) {
 			String errMsg = "Error performing " + methodName
-				+ " with bean (" + bean + ") and property (" + property + ")";
+				+ " with bean '" + bean + "' and property '" + property + "'";
 			logger.error(errMsg, ex);
 			throw new TranslatorException(errMsg, ex);
 		}
 	}
+    
+    /**
+     * Returns true/false on whether or not the give <code>bean</code>
+     * has the specified <code>property</code>.
+     * @param bean the bean to check for the property.
+     * @param property the property to check the existence of.
+     * @return boolean
+     */
+    public static boolean hasProperty(Object bean, String property) {
+        return PropertyUtils.isReadable(bean, property);
+    }
     
     /**
      * Just retriieves properties from a bean, but gives

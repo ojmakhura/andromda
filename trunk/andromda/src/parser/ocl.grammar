@@ -364,18 +364,12 @@ Productions
   	dot_feature_call =
     	path_name is_marked_pre? qualifiers? feature_call_parameters? ;
 
-  	arrow_feature_call =
-  	    {empty} arrow_no_parameter_feature_call l_paren r_paren |
-  	    {single} arrow_single_parameter_feature_call l_paren [first_param]:arrow_feature_call_parameter r_paren |
-  	    {double} arrow_double_parameter_feature_call l_paren [first_param]:arrow_feature_call_parameter comma [second_param]:arrow_feature_call_parameter r_paren ;
-
-    arrow_feature_call_parameter =
-        {simple} [expression]:expression |
-        {expression} [expression]:expression bar [option]:expression ;     
-
+    arrow_feature_call = 
+        arrow_feature feature_call_parameters ;
+        
     // todo: what to do with iterate(...) ?
 
-    arrow_no_parameter_feature_call =
+    arrow_feature =
   	    {is_empty} is_empty |
   	    {not_empty} not_empty |
   	    {size} size |
@@ -385,9 +379,7 @@ Productions
   	    {as_sequence} as_sequence |
   	    {as_set} as_set |
   	    {flatten} flatten |
-  	    {last} last ;
-
-    arrow_single_parameter_feature_call =
+  	    {last} last |
   	    {at} at |
   	    {count} count |
   	    {excludes} excludes |
@@ -411,9 +403,7 @@ Productions
     	{one} one |
     	{reject} reject |
     	{select} select |
-    	{sorted_by} sorted_by ;
-
-    arrow_double_parameter_feature_call =
+    	{sorted_by} sorted_by |
         {insert_at} insert_at |
         {sub_ordered_set} sub_ordered_set |
         {sub_sequence} sub_sequence ;
