@@ -253,10 +253,9 @@ public class MetafacadeFactory
             if (metafacade == null)
             {
                 if (internalGetLogger().isDebugEnabled())
-                    if (internalGetLogger().isDebugEnabled())
-                        internalGetLogger().debug(
-                            "lookupFacadeClass: " + metaObjectClassName
-                                + " -> " + metafacadeClass);
+                    internalGetLogger().debug(
+                        "lookupFacadeClass: " + metaObjectClassName
+                            + " -> " + metafacadeClass);
 
                 metafacade = (MetafacadeBase)ConstructorUtils
                     .invokeConstructor(metafacadeClass, new Object[]
