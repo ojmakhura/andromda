@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.omg.uml.foundation.core.Generalization;
 
 
@@ -69,5 +71,25 @@ public class GeneralizableElementFacadeLogicImpl
     protected Collection handleGetGeneralizations()
     {
         return metaObject.getGeneralization();
+    }
+    
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getSpecializations()
+     */
+    public Collection handleGetSpecializations()
+    {
+        Collection specializations = new ArrayList(UMLMetafacadeUtils.getCorePackage().getAParentSpecialization()
+            .getSpecialization(this.metaObject));
+        CollectionUtils.transform(
+            specializations,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return ((Generalization)object).getChild();
+                }
+            });
+        return specializations;
     }
 }

@@ -2,15 +2,15 @@
 
 <project>
     <extend>../../project.xml</extend>
-    <id>andromda-ant</id>
+    <artifactId>andromda-ant</artifactId>
     <name>AndroMDA Ant</name>
-    <shortDescription>AndroMDA Ant development environment generator</shortDescription>
     <description>
 		This application generates an AndroMDA user's working environment for J2EE
         applications. By using this little tool the end-user does not need to take care
         of setting a set of Ant build.xml files and corresponding properties, it will
         be generated.
     </description>
+    <shortDescription>AndroMDA Ant development environment generator</shortDescription>
     <developers>
         <developer>
             <name>Wouter Zoons</name>
