@@ -89,4 +89,20 @@ public class POperation extends PModelElement implements UMLOperation
         
         return ret;
     }
+    
+    public Object getType()
+    {
+        Collection parms = ((Operation)modelElement).getParameter();
+        for (Iterator i = parms.iterator(); i.hasNext(); )
+        {
+            Parameter p = (Parameter) i.next();
+            if ( ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind())) 
+            {
+               return p;
+            }
+        }
+        
+        return null;    
+    }
+    
 }

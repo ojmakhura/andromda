@@ -15,4 +15,5 @@ public interface UMLOperation
 {
 	public VisibilityKind getVisibility();
     public Collection getParameters();
+    public Object getType();
 }
