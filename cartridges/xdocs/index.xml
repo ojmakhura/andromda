@@ -486,7 +486,7 @@
                 the <em>variable</em> from the <code><![CDATA[<modelElements/>]]></code> attribute is sufficient for
                 your templates.  In combination with the <a href="#outputToSingleFile">outputToSingleFile</a> attribute
                 this would allow you to group model elements together and make them available to the template as collections.
-                The below example makes all model elmements stereotyped with <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
+                The below example makes all model elements stereotyped with <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
                 as <em>$entityEjbs</em> and <em>$sessionEjbs</em> respectively (if you're using velocity for your
                 templating language).  It you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice 
                 the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong> 
