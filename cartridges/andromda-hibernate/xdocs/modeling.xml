@@ -82,7 +82,7 @@
 					</tr>
 					<tr>
 						<td>
-	                        @persistence.table
+	                        @andromda.persistence.table
 						</td>
 						<td>
 							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
@@ -93,7 +93,7 @@
 					</tr>	
 					<tr>
 						<td>
-	                        @persistence.column
+	                        @andromda.persistence.column
 						</td>
 						<td>
 							Attribute
@@ -104,7 +104,7 @@
 					</tr>	
 					<tr>
 						<td>
-	                        @persistence.column.length
+	                        @andromda.persistence.column.length
 						</td>
 						<td>
 							Attribute
