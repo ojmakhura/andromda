@@ -146,7 +146,7 @@ public class PurchaseController implements PurchaseControllerInterface
         form.setAge((int)96511);
         form.setEmail("email-test");
         form.setCreditCard("<change-me>");
-        form.setName("name-test");
+        form.setName("Name-test");
         form.setConfirmedLicence(false);
         form.setSelectedItems(java.util.Arrays.asList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"}));
         form.setSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
