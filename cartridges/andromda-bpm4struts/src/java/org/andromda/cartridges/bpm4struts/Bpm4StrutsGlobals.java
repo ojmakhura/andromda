@@ -24,10 +24,15 @@ public class Bpm4StrutsGlobals
      * service's accessor.
      */
     public final static String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
-    
+
     /**
      * The namespace property use to identify the pattern used to construct the backend
      * service's package name.
      */
     public final static String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
+
+    /**
+     * The namespace property use to identify the action path prefix, which may very well be empty.
+     */
+    public final static String PROPERTY_ACTION_PATH_PREFIX = "actionPathPrefix";
 }
