@@ -1,11 +1,19 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.translation.ExpressionKinds;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.ConstraintFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.StereotypeFacade;
+import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -15,22 +23,20 @@ import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import org.omg.uml.modelmanagement.UmlPackage;
 
 /**
  * Metaclass facade implementation.
  */
 public class ModelElementFacadeLogicImpl
-        extends ModelElementFacadeLogic
-        implements org.andromda.metafacades.uml.ModelElementFacade
+    extends ModelElementFacadeLogic
+    implements org.andromda.metafacades.uml.ModelElementFacade
 {
     // ---------------- constructor -------------------------------
 
-    public ModelElementFacadeLogicImpl(org.omg.uml.foundation.core.ModelElement metaObject,
-                                       String context)
+    public ModelElementFacadeLogicImpl(
+        org.omg.uml.foundation.core.ModelElement metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -50,13 +56,13 @@ public class ModelElementFacadeLogicImpl
     {
         String packageName = "";
 
-        for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof org.omg.uml.modelmanagement.UmlPackage)
-                && !(namespace instanceof Model); namespace = namespace
-                        .getNamespace())
+        for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage)
+            && !(namespace instanceof Model); namespace = namespace
+            .getNamespace())
         {
             packageName = "".equals(packageName)
-                    ? namespace.getName()
-                    : namespace.getName() + UMLMetafacadeGlobals.PACKAGE_SEPERATOR
+                ? namespace.getName()
+                : namespace.getName() + UMLMetafacadeGlobals.PACKAGE_SEPERATOR
                     + packageName;
         }
 
@@ -74,7 +80,7 @@ public class ModelElementFacadeLogicImpl
         if (StringUtils.isNotEmpty(packageName))
         {
             fullName = packageName + UMLMetafacadeGlobals.PACKAGE_SEPERATOR
-                    + fullName;
+                + fullName;
         }
 
         if (!modelName)
@@ -82,7 +88,7 @@ public class ModelElementFacadeLogicImpl
             if (this.getLanguageMappings() != null)
             {
                 fullName = StringUtils.deleteWhitespace(this
-                        .getLanguageMappings().getTo(fullName));
+                    .getLanguageMappings().getTo(fullName));
             }
         }
         return fullName;
@@ -96,6 +102,9 @@ public class ModelElementFacadeLogicImpl
         return this.getFullyQualifiedName(false);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValues(java.lang.String)
+     */
     public Collection handleFindTaggedValues(String name)
     {
         Collection values = new ArrayList();
@@ -103,12 +112,15 @@ public class ModelElementFacadeLogicImpl
         {
             name = StringUtils.trimToEmpty(name);
             Collection taggedValues = this.getTaggedValues();
-            for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
+            for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator
+                .hasNext();)
             {
-                TaggedValueFacade taggedValue = (TaggedValueFacade) taggedValueIterator.next();
+                TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator
+                    .next();
                 if (name.equals(taggedValue.getName()))
                 {
-                    for (Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
+                    for (Iterator valueIterator = taggedValue.getValues()
+                        .iterator(); valueIterator.hasNext();)
                     {
                         values.add(valueIterator.next());
                     }
@@ -118,45 +130,60 @@ public class ModelElementFacadeLogicImpl
         return values;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
+     */
     public Object handleFindTaggedValue(String name)
     {
         Collection taggedValues = findTaggedValues(name);
         return (taggedValues.isEmpty()) ? null : taggedValues.iterator().next();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
+     */
     public boolean handleHasStereotype(final String stereotypeName)
     {
         Collection stereotypes = this.getStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName)
-                && stereotypes != null && !stereotypes.isEmpty();
+            && stereotypes != null && !stereotypes.isEmpty();
 
         if (hasStereotype)
         {
             class StereotypeFilter
-                    implements Predicate
+                implements Predicate
             {
                 public boolean evaluate(Object object)
                 {
                     boolean valid = false;
-                    StereotypeFacade stereotype = (StereotypeFacade) object;
+                    StereotypeFacade stereotype = (StereotypeFacade)object;
                     String name = StringUtils.trimToEmpty(stereotype.getName());
                     valid = stereotypeName.equals(name);
                     while (!valid && stereotype != null)
                     {
-                        stereotype = (StereotypeFacade) stereotype
-                                .getGeneralization();
+                        stereotype = (StereotypeFacade)stereotype
+                            .getGeneralization();
                         valid = stereotype != null
-                                && StringUtils.trimToEmpty(stereotype.getName())
+                            && StringUtils.trimToEmpty(stereotype.getName())
                                 .equals(stereotypeName);
                     }
                     return valid;
                 }
             }
-            hasStereotype = CollectionUtils.find(this.getStereotypes(),
-                    new StereotypeFilter()) != null;
+            hasStereotype = CollectionUtils.find(
+                this.getStereotypes(),
+                new StereotypeFilter()) != null;
         }
         return hasStereotype;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getId()
+     */
+    public String handleGetId()
+    {
+        return this.metaObject.refMofId();
     }
 
     /**
@@ -164,7 +191,8 @@ public class ModelElementFacadeLogicImpl
      */
     public boolean handleHasExactStereotype(String stereotypeName)
     {
-        return this.getStereotypeNames().contains(StringUtils.trimToEmpty(stereotypeName));
+        return this.getStereotypeNames().contains(
+            StringUtils.trimToEmpty(stereotypeName));
     }
 
     /**
@@ -178,10 +206,11 @@ public class ModelElementFacadeLogicImpl
         {
             String visibilityString = visibilityKind.toString();
             visibility.append(visibilityString.substring(3, visibilityString
-                    .length()));
+                .length()));
             if (this.getLanguageMappings() != null)
             {
-                visibility = new StringBuffer(this.getLanguageMappings().getTo(visibility.toString()));
+                visibility = new StringBuffer(this.getLanguageMappings().getTo(
+                    visibility.toString()));
             }
         }
         return visibility.toString();
@@ -196,9 +225,9 @@ public class ModelElementFacadeLogicImpl
 
         Collection stereotypes = metaObject.getStereotype();
         for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt
-                .hasNext();)
+            .hasNext();)
         {
-            ModelElement stereotype = (ModelElement) stereotypeIt.next();
+            ModelElement stereotype = (ModelElement)stereotypeIt.next();
             stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
         }
         return stereotypeNames;
@@ -209,8 +238,9 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetFullyQualifiedNamePath()
     {
-        return this.getFullyQualifiedName().replace(UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
-                '/');
+        return this.getFullyQualifiedName().replace(
+            UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
+            '/');
     }
 
     /**
@@ -218,8 +248,9 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackagePath()
     {
-        return this.getPackageName().replace(UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
-                '/');
+        return this.getPackageName().replace(
+            UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
+            '/');
     }
 
     /**
@@ -232,7 +263,7 @@ public class ModelElementFacadeLogicImpl
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
-            *      int)
+     *      int)
      */
     public String handleGetDocumentation(String indent, int lineLength)
     {
@@ -241,11 +272,12 @@ public class ModelElementFacadeLogicImpl
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
-            *      int, boolean)
+     *      int, boolean)
      */
-    public String handleGetDocumentation(String indent,
-                                         int lineLength,
-                                         boolean htmlStyle)
+    public String handleGetDocumentation(
+        String indent,
+        int lineLength,
+        boolean htmlStyle)
     {
         if (StringUtils.isEmpty(indent))
         {
@@ -258,9 +290,9 @@ public class ModelElementFacadeLogicImpl
             Iterator commentIt = comments.iterator();
             while (commentIt.hasNext())
             {
-                Comment comment = (Comment) commentIt.next();
+                Comment comment = (Comment)commentIt.next();
                 String commentString = StringUtils.trimToEmpty(comment
-                        .getBody());
+                    .getBody());
                 //if there isn't anything in the body, try the name
                 if (StringUtils.isEmpty(commentString))
                 {
@@ -272,8 +304,8 @@ public class ModelElementFacadeLogicImpl
         // if there still isn't anything, try a tagged value
         if (StringUtils.isEmpty(documentation.toString()))
         {
-            documentation.append(StringUtils.trimToEmpty((String) this
-                    .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
+            documentation.append(StringUtils.trimToEmpty((String)this
+                .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
         try
         {
@@ -281,14 +313,14 @@ public class ModelElementFacadeLogicImpl
             String startParaTag = (htmlStyle) ? "<p>" : "";
             String endParaTag = (htmlStyle) ? "</p>" : "";
             Collection paragraphs = new HTMLAnalyzer(lineLength)
-                    .htmlToParagraphs(documentation.toString());
+                .htmlToParagraphs(documentation.toString());
             if (paragraphs != null && !paragraphs.isEmpty())
             {
                 documentation = new StringBuffer();
                 for (Iterator paragraphIt = paragraphs.iterator(); paragraphIt
-                        .hasNext();)
+                    .hasNext();)
                 {
-                    HTMLParagraph paragraph = (HTMLParagraph) paragraphIt.next();
+                    HTMLParagraph paragraph = (HTMLParagraph)paragraphIt.next();
                     documentation.append(indent + startParaTag + newLine);
                     Collection lines = paragraph.getLines();
                     if (lines != null && !lines.isEmpty())
@@ -297,7 +329,7 @@ public class ModelElementFacadeLogicImpl
                         while (lineIt.hasNext())
                         {
                             documentation.append(indent + lineIt.next()
-                                    + newLine);
+                                + newLine);
                         }
                     }
                     documentation.append(indent + endParaTag);
@@ -339,7 +371,7 @@ public class ModelElementFacadeLogicImpl
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String) property;
+            uri = (String)property;
             try
             {
                 mappings = Mappings.getInstance(uri);
@@ -348,14 +380,14 @@ public class ModelElementFacadeLogicImpl
             catch (Throwable th)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '"
-                        + uri + "'";
+                    + uri + "'";
                 logger.error(errMsg, th);
                 //don't throw the exception
             }
         }
         else
         {
-            mappings = (Mappings) property;
+            mappings = (Mappings)property;
         }
         return mappings;
     }
@@ -386,7 +418,7 @@ public class ModelElementFacadeLogicImpl
             public boolean evaluate(Object object)
             {
                 return (object instanceof Dependency)
-                        && !(object instanceof Abstraction);
+                    && !(object instanceof Abstraction);
             }
         };
     }
@@ -428,48 +460,51 @@ public class ModelElementFacadeLogicImpl
      */
     public Collection handleGetConstraints(final String kind)
     {
-        final Collection filteredConstraints = CollectionUtils.select(getConstraints(),
-                new Predicate()
+        final Collection filteredConstraints = CollectionUtils.select(
+            getConstraints(),
+            new Predicate()
+            {
+                public boolean evaluate(Object o)
                 {
-                    public boolean evaluate(Object o)
+                    if (o instanceof ConstraintFacade)
                     {
-                        if (o instanceof ConstraintFacade)
-                        {
-                            ConstraintFacade constraint = (ConstraintFacade) o;
-                            return ((ExpressionKinds.BODY.equals(kind) && constraint
-                                    .isBodyExpression())
-                                    || (ExpressionKinds.DEF.equals(kind) && constraint
-                                    .isDefinition())
-                                    || (ExpressionKinds.INV.equals(kind) && constraint
-                                    .isInvariant())
-                                    || (ExpressionKinds.PRE.equals(kind) && constraint
-                                    .isPreCondition()) || (ExpressionKinds.POST
-                                    .equals(kind) && constraint.isPostCondition()));
-                        }
-                        return false;
+                        ConstraintFacade constraint = (ConstraintFacade)o;
+                        return ((ExpressionKinds.BODY.equals(kind) && constraint
+                            .isBodyExpression())
+                            || (ExpressionKinds.DEF.equals(kind) && constraint
+                                .isDefinition())
+                            || (ExpressionKinds.INV.equals(kind) && constraint
+                                .isInvariant())
+                            || (ExpressionKinds.PRE.equals(kind) && constraint
+                                .isPreCondition()) || (ExpressionKinds.POST
+                            .equals(kind) && constraint.isPostCondition()));
                     }
-                });
+                    return false;
+                }
+            });
         return filteredConstraints;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String,
-            *      java.lang.String)
+     *      java.lang.String)
      */
-    public String handleTranslateConstraint(final String name,
-                                            String translation)
+    public String handleTranslateConstraint(
+        final String name,
+        String translation)
     {
         String translatedExpression = "";
-        ConstraintFacade constraint = (ConstraintFacade) CollectionUtils.find(this.getConstraints(),
-                new Predicate()
+        ConstraintFacade constraint = (ConstraintFacade)CollectionUtils.find(
+            this.getConstraints(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
                 {
-                    public boolean evaluate(Object object)
-                    {
-                        ConstraintFacade constraint = (ConstraintFacade) object;
-                        return StringUtils.trimToEmpty(constraint.getName())
-                                .equals(StringUtils.trimToEmpty(name));
-                    }
-                });
+                    ConstraintFacade constraint = (ConstraintFacade)object;
+                    return StringUtils.trimToEmpty(constraint.getName())
+                        .equals(StringUtils.trimToEmpty(name));
+                }
+            });
 
         if (constraint != null)
         {
@@ -490,14 +525,15 @@ public class ModelElementFacadeLogicImpl
      * Private helper that translates all the expressions contained in the
      * <code>constraints</code>, and returns an array of the translated
      * expressions.
-     *
+     * 
      * @param constraints the constraints to translate
      * @param translation the translation to transate <code>to</code>.
      * @return String[] the translated expressions, or null if no constraints
      *         were found
      */
-    private String[] translateConstraints(Collection constraints,
-                                          String translation)
+    private String[] translateConstraints(
+        Collection constraints,
+        String translation)
     {
         String[] translatedExpressions = null;
         if (constraints != null && !constraints.isEmpty())
@@ -506,10 +542,10 @@ public class ModelElementFacadeLogicImpl
             Iterator constraintIt = constraints.iterator();
             for (int ctr = 0; constraintIt.hasNext(); ctr++)
             {
-                ConstraintFacade constraint = (ConstraintFacade) constraintIt
-                        .next();
+                ConstraintFacade constraint = (ConstraintFacade)constraintIt
+                    .next();
                 translatedExpressions[ctr] = constraint
-                        .getTranslation(translation);
+                    .getTranslation(translation);
             }
         }
         return translatedExpressions;
@@ -517,19 +553,21 @@ public class ModelElementFacadeLogicImpl
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String,
-            *      java.lang.String)
+     *      java.lang.String)
      */
-    public java.lang.String[] handleTranslateConstraints(final String kind,
-                                                         String translation)
+    public java.lang.String[] handleTranslateConstraints(
+        final String kind,
+        String translation)
     {
         Collection constraints = this.getConstraints();
         CollectionUtils.filter(constraints, new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                ConstraintFacade constraint = (ConstraintFacade) object;
-                return UMLMetafacadeUtils.isConstraintKind(constraint.getBody(),
-                        kind);
+                ConstraintFacade constraint = (ConstraintFacade)object;
+                return UMLMetafacadeUtils.isConstraintKind(
+                    constraint.getBody(),
+                    kind);
             }
         });
         return this.translateConstraints(constraints, translation);

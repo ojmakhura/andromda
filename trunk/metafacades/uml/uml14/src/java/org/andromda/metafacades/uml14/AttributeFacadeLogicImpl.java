@@ -30,10 +30,16 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
      */
     public java.lang.String handleGetGetterName()
     {
-        String datatype = getType().getFullyQualifiedName(true);
-        String prefix = ("datatype.boolean".equalsIgnoreCase(datatype) 
+        String datatype = null;
+        String prefix = null;
+        if (getType() != null)
+        {
+            datatype = getType().getFullyQualifiedName(true);
+            prefix = ("datatype.boolean".equalsIgnoreCase(datatype) 
         		|| "datatype.Boolean".equals(datatype)) ? "is" : "get";
-        return prefix + StringUtils.capitalize(metaObject.getName());
+        }
+
+        return StringUtils.trimToEmpty(prefix) + StringUtils.capitalize(this.getName());
     }
 
     /**
