@@ -90,7 +90,7 @@
 #foreach ($action in $actions)
         <div class="action">
             <h3>$action.actionTrigger.name</h3>
-            <div>
+            <div class="trigger">
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 #if ($action.isHyperlink())
@@ -146,13 +146,11 @@
                 </html:form>
             </div>
 #end
-            <div class="action-text">
+            <div class="triggerdoc">
                 <bean:message key="$action.documentationKey"/>
             </div>
         </div>
 
-        <hr class="hide"/>
-        <br class="clr"/>
 #end
 
         <blockquote>
