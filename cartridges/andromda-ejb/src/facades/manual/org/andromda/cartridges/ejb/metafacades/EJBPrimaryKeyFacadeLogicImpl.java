@@ -23,20 +23,8 @@ public class EJBPrimaryKeyFacadeLogicImpl
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class PrimaryKeyFacade ...
-
     /**
-     * Check if the primary key for <code>class</code> has been specified
-     * with a dependency to an external class.
-     * 
-     * @param clazz
-     *            the class to check
-     * @return <code>true</code> if the primary key has ben specified by a
-     *         dependency, <code>false</code> if it has been specified by an
-     *         attribute marked as &lt;&lt;PrimaryKey&gt;&/gt;
+     * @see org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacade#isComplex()
      */
     public boolean isComplex() {
         return getSimplePkField() == null;
