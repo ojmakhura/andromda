@@ -511,7 +511,7 @@ public class ConstraintTranslator
 <fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
     <kind name="inv">
         alter table $constraintUtils.findTableName($element) add constraint	
-	</kind>	  
+    </kind>	  
 </fragment>
 ]]>
 						</source>
