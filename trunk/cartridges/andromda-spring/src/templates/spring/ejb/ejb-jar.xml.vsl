@@ -53,7 +53,7 @@
             <role-name>$role.name</role-name>
 #end
 #end
-	        <method>
+            <method>
 	            <description><![CDATA[Creates the $service.name Session EJB]]></description>
 	            <ejb-name>$service.name</ejb-name>
 #set ($homeInterface = "LocalHome")
@@ -66,8 +66,8 @@
         </method-permission>
         
 #foreach ($operation in $service.operations)
-       <method-permission>
-           <description><![CDATA[$operation.signature security constraint]]></description>
+        <method-permission>
+            <description><![CDATA[$operation.signature security constraint]]></description>
 #if ($operation.roles.empty)           
             <unchecked/>
 #else
@@ -75,28 +75,27 @@
             <role-name>$role.name</role-name>
 #end
 #end
-           <method>
-	           <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
-               <ejb-name>$service.name</ejb-name>
+            <method>
+	            <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
+                <ejb-name>$service.name</ejb-name>
 #set ($interface = "Local")
 #if ($ejbRemoteView)
 #set ($interface = "Remote")
 #end
-               <method-intf>$interface</method-intf>
-               <method-name>$operation.name</method-name>
+                <method-intf>$interface</method-intf>
+                <method-name>$operation.name</method-name>
 #if (!$operation.arguments.empty)
-               <method-params>
+                <method-params>
 #foreach ($argument in $operation.arguments)
-                   <method-param>$argument.type.fullyQualifiedName</method-param>
+                    <method-param>$argument.type.fullyQualifiedName</method-param>
 #end
-               </method-params>
+                </method-params>
 #end
-          </method>
-       </method-permission>
+            </method>
+        </method-permission>
    
 #end
 #end
-
 #foreach ($service in $services)
         <container-transaction>
             <method>
