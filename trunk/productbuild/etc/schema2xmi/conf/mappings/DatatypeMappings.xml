@@ -6,14 +6,14 @@
 <mappings name="DatatypeMappings">
 	 <mapping>
 		<from>DECIMAL</from>
-		<to>datatype.Decimal</to>
+		<to>datatype::Decimal</to>
 	 </mapping>
 	<mapping>
 	  	<from>VARCHAR</from>
-	  	<to>datatype.String</to>
+	  	<to>datatype::String</to>
 	</mapping>
 	<mapping>
 	  	<from>TIMESTAMP</from>
-	  	<to>datatype.Timestamp</to>
+	  	<to>datatype::Timestamp</to>
 	</mapping>
 </mappings>
