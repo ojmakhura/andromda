@@ -367,19 +367,23 @@ public class ConcreteSyntaxUtils
             // append the first part of the primary expression
             primaryExpression.append(TranslationUtils.trimToEmpty(expression
                 .getPrimaryExpression()));
+            logger.error("primary expression------------------------'"
+                + primaryExpression);
             List expressionTail = expression.getPropertyCallExpressionTail();
             if (expressionTail.size() > 0)
             {
+                logger.error("the tails!!!!!!!!!!!" + expressionTail);
                 Iterator expressionTailIt = expressionTail.iterator();
                 while (expressionTailIt.hasNext())
                 {
                     Object tail = expressionTailIt.next();
                     String tailAsString = TranslationUtils.trimToEmpty(tail);
-                    // we ignore tails that have arrows or are operations
-                    if (tailAsString.indexOf("->") == -1
-                        && TranslationUtils.trimToEmpty(tail).indexOf('(') == -1)
+                    // we don't attempt to keep appending if its an arrow
+                    // feature call or operation.
+                    if (tailAsString.indexOf("->") != -1
+                        && TranslationUtils.trimToEmpty(tail).indexOf('(') != -1)
                     {
-                        primaryExpression.append(tailAsString);
+                        break;
                     }
                 }
             }
