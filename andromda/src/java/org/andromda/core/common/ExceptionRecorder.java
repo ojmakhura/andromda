@@ -37,7 +37,7 @@ public class ExceptionRecorder
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat(
         "yyMMddHHmmss");
 
-    private static final Random ran = new Random();
+    private static final Random random = new Random();
 
     /** Private constructor, this class is not intended to be instantiated. */
     private ExceptionRecorder()
@@ -159,7 +159,7 @@ public class ExceptionRecorder
             // introduce variability
             try
             {
-                Thread.sleep(Math.abs(ran.nextInt() % 100));
+                Thread.sleep(Math.abs(random.nextInt() % 100));
             }
             catch (InterruptedException e1)
             {
