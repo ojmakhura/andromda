@@ -26,7 +26,7 @@
             <local-home>${service.fullyQualifiedEjbName}Home</local-home>
             <local>$service.fullyQualifiedEjbName</local>
 #end
-            <ejb-class>${service.ejbPackageNamePath}/${service.ejbImplementationName}</ejb-class>
+            <ejb-class>$service.fullyQualifiedEjbImplementationName</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
         </session>
