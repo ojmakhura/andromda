@@ -813,7 +813,7 @@ public class StrutsParameterLogicImpl
 
     private String getPatternValue(String format)
     {
-        return getToken(format, 1, 2);
+        return '^' + getToken(format, 1, 2) + '$';
     }
 
     private String getToken(String string, int index, int limit)

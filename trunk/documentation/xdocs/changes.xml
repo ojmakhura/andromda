@@ -17,6 +17,15 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 20, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts change</td>
+                    <td valign="top" class="std">
+                        Pattern masks for input field validation must not include
+                        the leading '^' and trailing '$' anymore. Some CASE tools
+                        such as MagicDraw don't handle them well.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 19, 2004</td>
                     <td valign="top" class="std">Bpm4Struts change</td>
                     <td valign="top" class="std">
