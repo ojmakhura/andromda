@@ -17,13 +17,13 @@ ${indent}<logic:present role="$roles">
 #foreach ($parameter in $parameters)
 #set ($propertyName = "${formBeanName}.${parameter.name}")
 #if($velocityCount == 1)
-#set ($requestPath = "${action.actionPath}.do?${parameter.name}=${${propertyName}}")
+#set ($requestPath = "${action.actionPath}?${parameter.name}=${${propertyName}}")
 #else
 #set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
 #end
 #end
 ${indent}    <p>
-${indent}        <html:link page="${requestPath}" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
+${indent}        <html:link action="${requestPath}" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
 ${indent}            <bean:message key="$triggerKey"/>:
 ${indent}        </html:link>
 ${indent}    </p>

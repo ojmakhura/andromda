@@ -207,12 +207,12 @@
 #set ($propertyName = "form.${parameter.name}")
 #end
 #if ($velocityCount == 1)
-#set ($requestPath = "${link.action.actionPath}.do?${parameter.name}=${${propertyName}}")
+#set ($requestPath = "${link.action.actionPath}?${parameter.name}=${${propertyName}}")
 #else
 #set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
 #end
 #end
-                <html:link page="${requestPath}">
+                <html:link action="${requestPath}">
 #set ($linkName = "row.${link.tableLinkColumnName}")
                     ${${linkName}}
                 </html:link>

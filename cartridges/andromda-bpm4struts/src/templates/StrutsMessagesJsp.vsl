@@ -8,21 +8,21 @@
     <logic:messagesPresent message="false">
         <div class="errors">
             <html:messages id="error" message="false">
-                <div class="error"><bean:write name="error"/></div>
+                <div class="error">${error}</div>
             </html:messages>
         </div>
     </logic:messagesPresent>
     <logic:messagesPresent name="$warningMessagesKey">
         <div class="warnings">
             <html:messages id="warning" name="$warningMessagesKey">
-                <div class="warning"><bean:write name="warning"/></div>
+                <div class="warning">${warning}</div>
             </html:messages>
         </div>
     </logic:messagesPresent>
-    <logic:messagesPresent name="$successMessagesKey>">
+    <logic:messagesPresent name="$successMessagesKey">
         <div class="messages">
             <html:messages id="message" name="$successMessagesKey">
-                <div class="message"><bean:write name="message"/></div>
+                <div class="message">${message}</div>
             </html:messages>
         </div>
     </logic:messagesPresent>
