@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 
@@ -93,22 +92,5 @@ public class OutputUtils {
 		stream.flush();
 		stream.close();
 		stream = null;
-	}
-	
-	/**
-	 * Takes a StringWriter object in and loads and returns
-	 * a Reader
-	 * @param writer
-	 * @return Reader
-	 */
-	public static Reader stringWriterToReader(StringWriter writer) {
-		final String methodName = "OutputUtils.writerToReader";
-		if (writer == null) {
-			throw new IllegalArgumentException(methodName 
-				+ " - writer can not be null");
-		}
-		return new BufferedReader(
-				new StringReader(writer.toString()));
-		
 	}
 }
