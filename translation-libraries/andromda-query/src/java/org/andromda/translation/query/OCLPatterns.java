@@ -15,5 +15,5 @@ public class OCLPatterns
     /**
      * Matches on a feature call
      */
-    public static final String OPERATION_FEATURE_CALL = "(.*\\s*(->|\\.))?\\s*\\w*\\s*\\(.*\\)";
+    public static final String OPERATION_FEATURE_CALL = "(.*\\s*(->|\\.))?\\s*\\w*\\s*\\([[\\w+|\\.|:|,]|\\s*]*\\)";
 }

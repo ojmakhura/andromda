@@ -6,7 +6,7 @@
 
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String) : Collection (LegalAgreement)
+			context org::andromda::translation::query::LegalAgreement::findByLegalPartyName(legalPartyName:String) : Collection (LegalAgreement)
 			body findByLegalPartyNameBody: allInstances() -> select( la |
 			la.legalAgreementParties->includesAll(la.legalAgreementParties->select( party |
 			StringUtils.isLike(party.legalParty.legalPartyName,
@@ -21,7 +21,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalParty::findByLegalPartyName(name:String) : Collection(LegalParty) 
+			context org::andromda::translation::query::LegalParty::findByLegalPartyName(name:String) : Collection(LegalParty) 
 			body : allInstances() -> select ( 
 			party | StringUtils.isLike(party.legalPartyName , name))
 		</from>
@@ -33,7 +33,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalParty::findByPartyNameSubContractor(name:String, isASubContractor:Boolean):Collection(LegalParty)
+			context org::andromda::translation::query::LegalParty::findByPartyNameSubContractor(name:String, isASubContractor:Boolean):Collection(LegalParty)
 			body findByPartyNameSubContractorBody : allInstances()->select( 
 			legalParty | StringUtils.isLike(legalParty.legalPartyName, name) 
 			and legalParty.isSubContractor = isASubContractor)
@@ -46,7 +46,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
+			context org::andromda::translation::query::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
 				aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String, 
 				anAgreementStatusPk:String, aPersonPk:Long, aProjectPk:Long):Collection(LegalAgreement) 
 			body findByTitlePartyTypeStatusPersonProjectBody : allInstances() -> select( legalAgreement | 
@@ -73,7 +73,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusProject(
+			context org::andromda::translation::query::LegalAgreement::findByTitlePartyTypeStatusProject(
 				aDocumentTitle:String, 
 				aLegalPartyName:String, 
 				anAgreementTypePk:String, 
@@ -103,7 +103,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+			context org::andromda::translation::query::LegalAgreement::findAll():Collection(LegalAgreement)
 			body findAllBody : LegalAgreement.allInstances()
 		</from>
 		<to>
@@ -113,7 +113,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findChildAgreements(primaryKey:Long):Collection(LegalAgreement) 
+			context org::andromda::translation::query::LegalAgreement::findChildAgreements(primaryKey:Long):Collection(LegalAgreement) 
 			body findChildAgreementsBody : allInstances() -> select( 
 				legalAgreement | legalAgreement.legalAgreements -> includesAll ( 
 					legalAgreement.legalAgreements -> select( childLegalAgreement | childLegalAgreement.parentLegalAgreement.legalAgreementPk = primaryKey)))
@@ -129,7 +129,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
+			context org::andromda::translation::query::Project::findByProjectTypeStatusAfterWentCurrentDate(
 				type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType : 
 				allInstances() -> select ( 
 					project | 
@@ -148,7 +148,7 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
+			context org::andromda::translation::query::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
 			body findByStatusesBody: 
 			    allInstances() -> select( 
                     legalAgreement | 
@@ -191,7 +191,7 @@
     
     <expression>
         <from>
-            context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+            context org::andromda::translation::query::LegalAgreement::findAll():Collection(LegalAgreement)
             body : LegalAgreement.allInstances() -> sortedBy(documentTitle) -> sortedBy(expiredDate)
         </from>
         <to>

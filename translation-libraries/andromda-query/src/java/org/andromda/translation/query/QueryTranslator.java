@@ -205,7 +205,9 @@ public class QueryTranslator
      */
     public void caseTLParen(TLParen left)
     {
-        if (this.parenthesis)
+        if (this.parenthesis
+            && !TranslationUtils.trimToEmpty(left.parent()).matches(
+                OCLPatterns.OPERATION_FEATURE_CALL))
         {
             this.getExpression().appendSpaceToTranslatedExpression();
             this.getExpression().appendToTranslatedExpression(left);
