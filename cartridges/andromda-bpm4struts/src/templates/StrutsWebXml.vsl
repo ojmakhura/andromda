@@ -68,7 +68,7 @@
             <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-#foreach ($user in $useCase.allUsers)
+#foreach ($user in $useCase.users)
             <role-name>$user.role</role-name>
 #end
         </auth-constraint>
@@ -98,6 +98,7 @@
 
 #end
 #end
+#if ($backendType == "ejb")
 #foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($service in $applicationUseCase.allServices)
 #set ($serviceName = $service.name)
@@ -110,6 +111,7 @@
         <remote>${packageName}.${serviceName}</remote>
         <ejb-link>${serviceName}</ejb-link>
     </ejb-ref>
+#end
 #end
 #end
 

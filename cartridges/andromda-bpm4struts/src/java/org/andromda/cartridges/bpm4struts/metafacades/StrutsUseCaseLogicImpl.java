@@ -114,14 +114,23 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetActionRoles()
     {
-        final Collection users = getAllUsers();
+        final Collection users = getUsers();
         StringBuffer rolesBuffer = new StringBuffer();
+        boolean first = true;
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                rolesBuffer.append(',');
+            }
             StrutsUser strutsUser = (StrutsUser) userIterator.next();
-            rolesBuffer.append(strutsUser.getRole() + ' ');
+            rolesBuffer.append(strutsUser.getRole());
         }
-        return StringUtilsHelper.separate(rolesBuffer.toString(), ",");
+        return rolesBuffer.toString();
     }
 
     // ------------- relations ------------------
@@ -187,7 +196,7 @@ public class StrutsUseCaseLogicImpl
         return null;
     }
 
-    protected Collection handleGetUsers()
+    private Collection associatedUsers()
     {
         final Collection usersList = new ArrayList();
 
@@ -203,16 +212,32 @@ public class StrutsUseCaseLogicImpl
         return usersList;
     }
 
-    protected Collection handleGetAllUsers()
+    protected Collection handleGetUsers()
     {
         final Collection allUsersList = new HashSet();
-        final Collection associatedUsers = getUsers();
+        final Collection associatedUsers = associatedUsers();
         for (Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
         {
             StrutsUser user = (StrutsUser) iterator.next();
             collectUsers(user, allUsersList);
         }
         return allUsersList;
+    }
+
+    protected Collection handleGetAllUsers()
+    {
+        Collection allUsers = new ArrayList();
+        Collection allActors = getModel().getAllActors();
+
+        for (Iterator actorIterator = allActors.iterator(); actorIterator.hasNext();)
+        {
+            Object actorObject = actorIterator.next();
+            if (actorObject instanceof StrutsUser)
+            {
+                allUsers.add(actorObject);
+            }
+        }
+        return allUsers;
     }
 
     private void collectUsers(StrutsUser user, Collection users)

@@ -150,16 +150,28 @@ public class StrutsActionLogicImpl
 
     private Collection getRoleUsers()
     {
-        for (Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
+        Collection roleUsers = new ArrayList();
+
+        if (isUseCaseStart())
         {
-            TransitionFacade transition = (TransitionFacade) iterator.next();
-            if (transition.getTarget() instanceof StrutsFinalState)
+            roleUsers.addAll(getStrutsActivityGraph().getUseCase().getUsers());
+        }
+        else
+        {
+            for (Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
             {
-                StrutsUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
-                return (useCase != null) ? useCase.getAllUsers() : Collections.EMPTY_LIST;
+                TransitionFacade transition = (TransitionFacade) iterator.next();
+                if (transition.getTarget() instanceof StrutsFinalState)
+                {
+                    StrutsUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
+                    if (useCase != null)
+                    {
+                        roleUsers.addAll( useCase.getUsers() );
+                    }
+                }
             }
         }
-        return getStrutsActivityGraph().getUseCase().getAllUsers();
+        return roleUsers;
     }
 
     protected String handleGetActionClassName()
