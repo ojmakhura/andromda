@@ -779,6 +779,13 @@ public class AndroMDAGenTask extends MatchingTask {
 
 			addUserPropertiesToContext(velocityContext);
 
+            // Re-initialize the engine. This is important - Torsten Juergeleit
+            // reported that Velocity does not re-load the macros from the template
+            // file and sometimes uses a macro from one template file when
+            // processing another template file that contains a macro with the
+            // same name.
+            ve.init();
+
 			// Process the VSL template with the context and write out
 			// the result as the outFile.
 			// get the template to process
