@@ -23,7 +23,7 @@ ${indent}<logic:present role="$roles">
 #end
 ${indent}    <p>
 ${indent}        <html:link action="${requestPath}" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
-${indent}            <bean:message key="$triggerKey"/>:
+${indent}            <bean:message key="$triggerKey"/>
 ${indent}        </html:link>
 ${indent}    </p>
 #if ($securityEnabled)
