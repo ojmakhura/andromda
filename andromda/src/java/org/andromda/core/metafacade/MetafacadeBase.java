@@ -185,12 +185,13 @@ public class MetafacadeBase
     }
 
     /**
-     * Sets the <code>context<code> for this metafacade.
-     * This is used by the {@link MetafacadeFactory} to set the context 
-     * (which is another metafacade's interface)
-     * during metafacade creation when a metafacade represents 
-     * a <code>contextRoot</code>.
-     * @param context the context class to set
+     * Sets the context for this metafacade.  This is used to 
+     * pass the context along from a metafacade specializing this
+     * metafacade (since we use delegate inheritance between
+     * shared and non-shared metafacades), as well as to pass 
+     * the context to a metafacade being created within another.  
+     * 
+     * @param context the metafacade interface name representing the context.
      * @see MetafacadeMapping#isContextRoot()
      * @see MetafacadeFactory#internalCreateMetafacade(Object, String, Class)
      */
@@ -325,6 +326,9 @@ public class MetafacadeBase
         this.logger = logger;
     }
 
+    /**
+     * The flag indicating whether or not this metafacade is a context root.
+     */
     private boolean contextRoot = false;
 
     /**
