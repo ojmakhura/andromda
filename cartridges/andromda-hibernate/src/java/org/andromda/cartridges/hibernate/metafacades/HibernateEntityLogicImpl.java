@@ -83,7 +83,8 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Return all the business operations, used when leafImpl true.
+     * Return all the business operations (ones that are inherited as well as
+     * directly on the entity).
      * 
      * @return all business operations
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getAllBusinessOperations()
@@ -91,7 +92,6 @@ public class HibernateEntityLogicImpl
     protected Collection handleGetAllBusinessOperations()
     {
         EntityFacade superElement = (EntityFacade)this.getGeneralization();
-
         Collection result = super.getBusinessOperations();
         while (superElement != null)
         {
@@ -447,7 +447,7 @@ public class HibernateEntityLogicImpl
             .toUpperCase() : attribute.getColumnName();
         return columnName;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
@@ -482,7 +482,7 @@ public class HibernateEntityLogicImpl
         return String
             .valueOf(getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER));
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceClass()
      */
@@ -600,7 +600,7 @@ public class HibernateEntityLogicImpl
     }
 
     private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isForeignHibernateGeneratorClass()
      */
@@ -623,7 +623,7 @@ public class HibernateEntityLogicImpl
         return this.getHibernateGeneratorClass().equalsIgnoreCase(
             HIBERNATE_GENERATOR_CLASS_SEQUENCE);
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
@@ -693,8 +693,10 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsEntityBusinessOperationsPresent()
     {
-        return this.getEntityBusinessOperations() != null
-            && !this.getEntityBusinessOperations().isEmpty();
+        final Collection allBusinessOperations = this
+            .getAllBusinessOperations();
+        return allBusinessOperations != null
+            && !allBusinessOperations.isEmpty();
     }
 
     /**
