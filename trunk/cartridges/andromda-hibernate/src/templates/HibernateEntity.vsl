@@ -45,7 +45,7 @@ public abstract class ${class.name}
     private $atttypename ${att.name};
 
     /**
-$att.getDocumentation("    * ")
+$att.getDocumentation("     * ")
      *
 #set ($attcolumnname = $att.columnName)
 #set ($attsqltype    = $att.sqlType)
