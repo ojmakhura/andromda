@@ -142,7 +142,8 @@
                             <td>false</td>
                             <td>
                                 Indicates whether or not the field should be reset (to its orginal value)
-                                after the execution of the action.
+                                after the execution of the action.  This is useful when you want only 
+                                some of the parameters reset on the form but not all of them.
                             </td>
                         </tr>
                         <tr>
