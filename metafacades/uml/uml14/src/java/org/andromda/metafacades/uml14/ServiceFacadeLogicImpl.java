@@ -80,7 +80,7 @@ public class ServiceFacadeLogicImpl
                 return dependency != null
                     && dependency.getSourceElement() instanceof RoleFacade;
             }
-        });   
+        });
         CollectionUtils.transform(roles, new Transformer()
         {
             public Object transform(Object object)
