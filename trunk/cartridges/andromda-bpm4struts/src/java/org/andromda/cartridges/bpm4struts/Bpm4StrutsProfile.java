@@ -38,6 +38,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_INPUT_TYPE = profile.get("INPUT_TYPE");
     public static final String TAGGEDVALUE_INPUT_RADIO = profile.get("INPUT_RADIO");
     public static final String TAGGEDVALUE_INPUT_VALIDWHEN = profile.get("INPUT_VALIDWHEN");
+    public static final String TAGGEDVALUE_INPUT_VALIDATORS = profile.get("INPUT_VALIDATORS");
     public static final String TAGGEDVALUE_INPUT_CALENDAR = profile.get("INPUT_CALENDAR");
     public static final String TAGGEDVALUE_INPUT_TABLELINK = profile.get("INPUT_TABLELINK");
     public static final String TAGGEDVALUE_INPUT_RESET = profile.get("INPUT_RESET");
