@@ -25,7 +25,7 @@
 		</id>
 ## If super inheritance == interface, render super properties etc
 #set ( $generalization = $entity.generalization )
-#if($generalization && $generalization.hibInheritanceInterface)
+#if($generalization && $generalization.hibernateInheritanceInterface)
 <!-- Start superclass properties and assocations -->
 #renderPropertiesAndAssociations($generalization)
 <!-- End superclass properties and assocations -->
@@ -34,17 +34,17 @@
 #renderPropertiesAndAssociations($entity)
 ## Provide the specialization if this is a superclass 		
 #if (!$entity.specializations.empty)
-#if ($entity.hibInheritanceClass)
+#if ($entity.hibernateInheritanceClass)
         <discriminator
             column="$entity.discriminatorColumn"
             type="$entity.discriminatorType"/>
-#end ## ($entity.hibInheritanceClass)
+#end ## ($entity.hibernateInheritanceClass)
 ## render the subclass elements if class or subclass strategy.
-#if ( $entity.hibInheritanceClass || $entity.hibInheritanceSubclass )
+#if ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
 #foreach ($entity in $entity.specializations)
 #renderSubClass($entity)
 #end ## foreach
-#end ## ( $entity.hibInheritanceClass || $entity.hibInheritanceSubclass )
+#end ## ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
 #end ## end (!$entity.specializations.empty)
 	</class>         	
 </hibernate-mapping>
