@@ -1,15 +1,15 @@
 <project default="ejb:install"
          xmlns:ant="jelly:ant"
-  		 xmlns:maven="jelly:maven">
+       xmlns:maven="jelly:maven">
 
-  	<postGoal name="ejb:ejb">
-        
+    <postGoal name="ejb:ejb">
+
         <ant:path id="schema.classpath">
             <ant:path refid="maven.dependency.classpath"/>
             <ant:path location="${maven.build.dest}"/>
         </ant:path>
-				
-		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
+
+        <ant:mkdir dir="${hibernate.schema.output.dir}"/>
 
         <ant:fileset id="hibernate.mapping.files" dir="${maven.build.src}">
             <ant:include name="**/*.hbm.xml"/>
@@ -26,10 +26,10 @@
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
-        <ant:copy 
+        <ant:copy
             file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
-            tofile="${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>      
-        
+            tofile="${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>
+
         <ant:replaceregexp file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
                        match="^(alter table .* drop constraint|drop table)"
                        replace="-- SKIP \1"
@@ -46,6 +46,6 @@
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
-  	</postGoal>
-  		 
+    </postGoal>
+
 </project>

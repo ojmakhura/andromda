@@ -1,16 +1,16 @@
 <project default="ejb:install"
          xmlns:ant="jelly:ant"
-  		 xmlns:maven="jelly:maven">
-  		 
-    <preGoal name="java:compile"> 
-    	
+         xmlns:maven="jelly:maven">
+
+    <preGoal name="java:compile">
+
         <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
             <ant:classpath>
-				<ant:path refid="maven.dependency.classpath"/>
-				<ant:pathelement path="${pom.dependencyClasspath}"/>
+                <ant:path refid="maven.dependency.classpath"/>
+                <ant:pathelement path="${pom.dependencyClasspath}"/>
             </ant:classpath>
         </ant:taskdef>
-        
+
         <ejbdoclet destdir="${maven.build.src}"
                    ejbspec="2.0"
                    force="false">
@@ -34,7 +34,7 @@
                    destdir="${ejb.descriptor.dir}"/>
 
         </ejbdoclet>
-        
+
         <!--
              XDoclet stores the *Bean classes into ejb-jar.xml
              but the used andromda templates have created
@@ -42,21 +42,21 @@
              the names in the deployment descriptor so that
              everyone is happy.
          -->
-        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml" 
-        	token="Bean&lt;/ejb-class&gt;"
-        	value="BeanImpl&lt;/ejb-class&gt;">
+        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml"
+          token="Bean&lt;/ejb-class&gt;"
+          value="BeanImpl&lt;/ejb-class&gt;">
         </ant:replace>
-        
+
     </preGoal>
-    
-    <preGoal name="java:compile"> 
+
+    <preGoal name="java:compile">
         <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
             <ant:classpath>
-				<ant:path refid="maven.dependency.classpath"/>
-				<ant:pathelement path="${pom.dependencyClasspath}"/>
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:pathelement path="${pom.dependencyClasspath}"/>
             </ant:classpath>
         </ant:taskdef>
-                
+
         <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
             <fileset dir="${maven.build.src}">
                 <include name="**/*.java" />
@@ -65,17 +65,17 @@
                 <include name="**/*.java" />
             </fileset>
             <hibernate version="2.0" />
-        </hibernatedoclet>    	
+        </hibernatedoclet>
     </preGoal>
 
-  	<postGoal name="ejb:ejb">
-        
+    <postGoal name="ejb:ejb">
+
         <ant:path id="schema.classpath">
             <ant:path refid="maven.dependency.classpath"/>
             <ant:path location="${maven.build.dest}"/>
         </ant:path>
-				
-		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
+
+        <ant:mkdir dir="${hibernate.schema.output.dir}"/>
 
         <ant:fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
             <ant:include name="**/*.hbm.xml"/>
@@ -92,10 +92,10 @@
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
-        <ant:copy 
+        <ant:copy
             file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
-            tofile="${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>      
-        
+            tofile="${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>
+
         <ant:replaceregexp file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
                        match="^(alter table .* drop constraint|drop table)"
                        replace="-- SKIP \1"
@@ -112,6 +112,6 @@
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
-  	</postGoal>
-  		 
+    </postGoal>
+
 </project>
