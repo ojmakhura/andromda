@@ -1,30 +1,33 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-
 /**
  * <p>
- *  Represents an EJB association end.
+ * Represents an EJB association end.
  * </p>
- *
  * Metaclass facade implementation.
- *
  */
 public class EJBAssociationEndFacadeLogicImpl
-       extends EJBAssociationEndFacadeLogic
-       implements org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacade
+    extends EJBAssociationEndFacadeLogic
+    implements org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacade
 {
     // ---------------- constructor -------------------------------
 
-    public EJBAssociationEndFacadeLogicImpl (java.lang.Object metaObject, String context)
+    public EJBAssociationEndFacadeLogicImpl(
+        java.lang.Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
-    public String handleGetRelationType() {
+    public String handleGetRelationType()
+    {
         String targetType;
-        if (this.isMany2Many() || this.isOne2Many()) {
+        if (this.isMany2Many() || this.isOne2Many())
+        {
             targetType = "java.util.Collection";
-        } else {
+        }
+        else
+        {
             targetType = this.getOtherEnd().getType().getFullyQualifiedName();
         }
         return targetType;
