@@ -75,7 +75,6 @@ public class SpringEntityAssociationEndLogicImpl
     {
         String lazyString = (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_LAZY);
         boolean lazy;
-
         if (lazyString == null)
         {
             lazy = !isComposition();
@@ -84,7 +83,6 @@ public class SpringEntityAssociationEndLogicImpl
         {
             lazy = Boolean.valueOf(lazyString).booleanValue();
         }
-
         return lazy;
     }
 
