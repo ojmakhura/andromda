@@ -54,12 +54,13 @@
                     <table>
                         <tbody>
 #foreach ($tabField in $tabMap.get($tab))
+#set ($requiredness = $tabField.required && ($clientValidation=='true' || $serverValidation=='true'))
 #if ($tabField.widgetType == "hidden")
 #renderFormField($action $tabField "            ")
 #else
                             <tr>
                                 <td>
-                                    <bean:message key="${messageKey}.$tabField.messageKey"/>
+                                    <bean:message key="${messageKey}.$tabField.messageKey"/>#if ($requiredness) *#end
                                 </td>
                                 <td>
 #renderFormField($action $tabField "                                    ")
@@ -79,6 +80,7 @@
 ##
 
 #foreach ($field in $nonTabbedActionParameters)
+#set ($requiredness = $tabField.required && ($clientValidation=='true' || $serverValidation=='true'))
 #if ($field.widgetType == "hidden")
 #renderFormField($action $field "            ")
 #end
@@ -89,7 +91,7 @@
 #if ($field.widgetType != "hidden")
                     <tr>
                         <td>
-                            <bean:message key="${messageKey}.$field.messageKey"/>
+                            <bean:message key="${messageKey}.$field.messageKey"/>#if ($requiredness) *#end
                         </td>
                         <td>
 #renderFormField($action $field "                           ")
@@ -132,7 +134,7 @@
     </div>
 
 #if ($action.tabbed)
-        <script type="text/javascript">
+        <script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")
         //<![CDATA[
 #else
