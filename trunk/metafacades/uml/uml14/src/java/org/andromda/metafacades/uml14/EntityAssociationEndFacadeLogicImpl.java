@@ -23,13 +23,8 @@ public class EntityAssociationEndFacadeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class EntityAssociationEndFacade ...
-
     /**
-     * @see edu.duke.dcri.mda.model.metafacade.EntityAssociationEndFacade#getColumnName()()
+     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#getColumnName()()
      */
     public java.lang.String handleGetColumnName()
     {
@@ -41,19 +36,17 @@ public class EntityAssociationEndFacadeLogicImpl
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                 ((EntityFacade)this.getType()).getMaxSqlNameLength(),
-                this.getForeignKeySuffix());            
+                this.getForeignKeySuffix());
         }
         return columnName;
     }
 
     /**
-     * Gets the maximum name length SQL names may be
+     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#getForeignKeySuffix()
      */
     public String handleGetForeignKeySuffix()
     {
         return (String)this.getConfiguredProperty("foreignKeySuffix");
     }
-
-    // ------------- relations ------------------
 
 }

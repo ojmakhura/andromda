@@ -110,7 +110,7 @@ $target.getDocumentation("     * ")
      * @hibernate.set
      *     role="$target.name"
      *     lazy="true"
-#if ($targetType.child)
+#if ($target.child)
      *     cascade="delete"
      *     inverse="true"
 #end

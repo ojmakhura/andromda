@@ -29,21 +29,21 @@
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable)
 #if ($sourceEnd.one2One)
-		<one-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}" cascade="all" constrained="false"/>
+		<one-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}"#if ($otherEnd.child) cascade="delete"#end constrained="false"/>
 #end
 #if ($sourceEnd.one2Many)
-		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true" cascade="all">
+		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="delete"#end>
         	<key>
             	<column name="${sourceEnd.columnName}"/>
             </key>
             <one-to-many class="${otherEnd.type.fullyQualifiedEntityImplementationName}"/>
         </set>    
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}"#if ($sourceEnd.required) not-null="true"#end>
+        <many-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}"#if ($otherEnd.child) cascade="delete"#end#if ($sourceEnd.required) not-null="true"#end >
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="true" inverse="true" cascade="all">
+        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="delete"#end>
             <key>
                 <column name="$otherEnd.columnName"/>
             </key>
