@@ -1,5 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
 
@@ -67,8 +68,9 @@ public class HibernateTypeLogicImpl
                     {
                         String errMsg = "Error getting '" + propertyName
                             + "' --> '" + uri + "'";
-                        logger.error(errMsg, th);
+                        logger.error(errMsg);
                         // don't throw the exception
+                        ExceptionRecorder.record( errMsg, th );
                     }
                 }
             }
