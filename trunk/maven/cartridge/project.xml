@@ -2,12 +2,12 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>maven-androdev-plugin</id>
-  	<name>AndroMDA Maven Development Plugin</name>
-  	<shortDescription>Maven AndroMDA Dev Plugin</shortDescription>
+  	<id>andromda-cartridge-plugin</id>
+  	<name>AndroMDA Cartridge Maven Plugin</name>
+  	<shortDescription>AndroMDA Cartridge Maven Plugin</shortDescription>
   	<description>
-		This is a Maven Plugin which provides the ability to perform AndroMDA development tasks,
-		such as, generating, testing and validating translation-libraries as you write them.
+		This is a Maven Plugin which provides the ability to perform AndroMDA cartridge tasks,
+		such as cartridge testing, etc.
   	</description>
 	<dependencies>
     	<dependency>
@@ -40,6 +40,16 @@
 	      	<artifactId>andromda-library-testsuite</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-cartridge-testsuite</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
 	    <dependency>
 	    	<groupId>picocontainer</groupId>
 	    	<artifactId>picocontainer</artifactId>

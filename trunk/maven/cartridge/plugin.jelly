@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:maven="jelly:maven"
+         xmlns:velocity="jelly:velocity">
+
+    <!-- ===================================================================
+         Runs cartridge translation tests                         
+         =================================================================== -->	
+    <goal name="cartridge:test"
+          description="Runs cartridge tests"
+          prereqs="cartridge:initialize-test-resources">
+        <ant:echo>+-------------------------------------------+</ant:echo>
+        <ant:echo>|     T E S T I N G   C A R T R I D G E     |</ant:echo>
+        <ant:echo>+-------------------------------------------+</ant:echo> 
+        
+        <ant:taskdef
+            name="andromda"
+            classname="org.andromda.core.anttasks.AndroMDAGenTask">
+            <ant:classpath>		
+                <ant:path refid="andromda.cartridge.classpath"/> 
+                <ant:pathelement location="${maven.build.dest}"/> 
+            </ant:classpath>
+        </ant:taskdef>  
+        
+        <ant:andromda basedir="${maven.andromda.src.dir}"
+                      includes="${maven.andromda.src.includes}"
+                      lastModifiedCheck="false"
+                      processAllModelPackages="true">
+                
+            <!-- point the mappings search path to the location of the mappings in this plugin -->      
+            <ant:mappingsSearchPath>
+                <ant:pathelement location="${plugin.resources}/mappings"/>            
+            </ant:mappingsSearchPath>
+
+            <ant:model url="${andromda.cartridge.model.uri}"/>
+                              
+            <!-- set the maximum number of packages that may be set, 
+                 this can always be increased later, but not sure we would ever need to -->
+            <j:set var="maximum" value="50"/>    
+            
+            <ant:namespace name="default">
+                <j:set var="index" value="0"/>
+                <j:forEach begin="0" end="${maximum}" indexVar="index">
+                    <j:set var="propertyVarName" value="andromda.cartridge.test.property.${index}"/>
+                    <j:set var="propertyName" value="${context.getVariable(propertyVarName)}"/>
+                    <j:set var="valueVarName" value="andromda.cartridge.test.property.${propertyName}"/>
+                    <j:set var="propertyValue" value="${context.getVariable(valueVarName)}"/>
+                    <j:if test="${propertyValue != null}">	                
+                        <ant:property name="${propertyName}" value="${propertyValue}"/>  
+                    </j:if>
+                </j:forEach>           
+            </ant:namespace>    	
+            
+        </ant:andromda>
+        
+        <!-- set the testcase to run -->
+        <j:set 
+            var="testcase" 
+            value="org.andromda.cartridges.testsuite.CartridgeTest" 
+            scope="parent"/>
+
+        <j:set 
+            var="maven.junit.fork" 
+            value="true" 
+            scope="parent"/>
+            
+        <j:set 
+            var="maven.junit.usefile"
+            value="${andromda.cartridge.printreport}"
+            scope="parent"/>	
+            
+        <j:set var="compareDir" value="${andromda.cartridge.test.dir}/compare-to"/>
+        <ant:unzip 
+            src="${andromda.cartridge.test.archive}"
+            dest="${compareDir}"/>
+            
+        <j:set 
+            var="compare.dir"
+            value="${compareDir}"
+            scope="parent"/>
+            
+        <j:set 
+            var="output.dir"
+            value="${andromda.cartridge.test.output.dir}"
+            scope="parent"/>
+            
+        <j:set 
+            var="maven.junit.sysproperties"
+            value="compare.dir output.dir"
+            scope="parent"/>
+            
+          <attainGoal name="test:single"/>	      
+    </goal>
+    
+    <!-- ================================================================
+           Adds model dependencies (since they aren't added by Maven)
+         ================================================================ -->
+    <goal name="cartridge:add-model-dependencies"
+          description="Internal goal used by the plugin">
+        <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
+            <j:set var="dep" value="${artifact.dependency}"/>
+            <j:if test="${dep.type == 'xml.zip'}">
+                <j:set var="depPath" 
+                       value="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}"/>
+                <ant:path
+                    id="andromda.cartridge.model.path${index}"
+                    location="${depPath}"/>	       	
+                <maven:addPath
+                    id="andromda.cartridge.classpath"
+                    refid="andromda.cartridge.model.path${index}"/>
+            </j:if>
+        </j:forEach>	      
+    </goal>
+    
+    <!-- ============================================================================
+          Initializes resources required for tests
+         ============================================================================ -->
+    <goal name="cartridge:initialize-test-resources"
+          description="Internal goal used by plugin">
+          
+        <path id="andromda.cartridge.classpath">
+            <ant:pathelement path="${plugin.dependencyClasspath}"/>        
+         </path>
+         
+        <!-- add any model dependencies -->
+        <attainGoal name="cartridge:add-model-dependencies"/>	
+        
+        <maven:addPath
+            id="maven.dependency.classpath"
+            refid="andromda.cartridge.classpath"/>		 
+               
+    </goal>
+         
+</project>

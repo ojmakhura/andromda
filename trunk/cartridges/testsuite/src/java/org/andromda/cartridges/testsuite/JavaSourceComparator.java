@@ -14,7 +14,6 @@ import xjavadoc.codeunit.CodeTestCase;
 public class JavaSourceComparator
     extends CodeTestCase
 {
-
     private File expectedFile;
     private File actualFile;
 
