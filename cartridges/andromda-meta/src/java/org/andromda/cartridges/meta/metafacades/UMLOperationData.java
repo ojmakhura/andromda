@@ -16,17 +16,17 @@ public class UMLOperationData
      * Constructs a MethodData object from an OperationFacade.
      * 
      * @param metafacadeName the name of the parent class
-     * @param op the operation facade
+     * @param operation the operation facade
      */
     public UMLOperationData(
         String metafacadeName,
-        OperationFacade op)
+        OperationFacade operation)
     {
-        super(metafacadeName, op.getVisibility(), op.isAbstract(), op
-            .getReturnType().getFullyQualifiedName(), op.getName(), op
+        super(metafacadeName, operation.getVisibility(), operation.isAbstract(), operation
+            .getReturnType().getFullyQualifiedName(), operation.getName(), operation
             .getDocumentation("    * "));
 
-        for (Iterator it = op.getArguments().iterator(); it.hasNext();)
+        for (Iterator it = operation.getArguments().iterator(); it.hasNext();)
         {
             ParameterFacade p = (ParameterFacade)it.next();
             addArgument(new ArgumentData(p.getType().getFullyQualifiedName(), p
