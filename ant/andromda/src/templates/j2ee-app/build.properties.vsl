@@ -3,8 +3,10 @@ application.name=$applicationName
 application.version=$applicationVersion
 application.author=$author
 
-# set this property when you want AndroMDA to perform additional validation checks
-andromda.validating=false
+# Set this property to false when you don't want AndroMDA validating descriptors
+# against their XSD schemas (you'll want to do this in cases your underlying 
+# parser does NOT support schema validation)
+andromda.validating=true
 
 # set this property if you want to precompile the jsps during development
 precompile.jsp=false
