@@ -2,7 +2,7 @@
 
    <property file="build.properties" />
    <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
-   <property name="andromda-ejb.home" location="${andromda.home}/andromda-ejb"/>
+   <property name="andromda-ejb.home" location="${andromda.home}/cartridges/andromda-ejb"/>
 
    <property file="${andromda-core.home}/andromda-core.properties"/>
    <property file="${andromda-core.home}/xdoclet.properties"/>
