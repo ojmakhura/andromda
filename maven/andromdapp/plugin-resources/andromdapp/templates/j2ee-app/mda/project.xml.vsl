@@ -25,6 +25,7 @@
                  <jdbcMappingsUri>JDBC</jdbcMappingsUri>
                  <maxSqlNameLength>30</maxSqlNameLength>
                  <foreignKeySuffix>_FK</foreignKeySuffix>
+                 <ejbJndiNamePrefix>${application.id}</ejbJndiNamePrefix>
              </properties>
         </dependency>
 #if ($ejb)
