@@ -56,12 +56,12 @@ public class MetafacadeBase
      * <p>
      * In the lifecycle of a model element facade it is validated only once.
      */
-    public final void validate() 
+    public final void validate()
     {
         if (!hasBeenValidated)
         {
             hasBeenValidated = true;
-            performValidation();
+            __handleInvariants();
         }
     }
 
@@ -70,8 +70,14 @@ public class MetafacadeBase
      * override this method.
      * <p>
      * By default this method is empty.
+     *
+     * @deprecated use handleInvariants() instead
      */
-    protected void performValidation() 
+    protected void performValidation()
+    {
+    }
+
+    protected void __handleInvariants()
     {
     }
 
@@ -99,13 +105,13 @@ public class MetafacadeBase
     				MetafacadeBase metafacade = (MetafacadeBase)object;
     				// keep passing the context along from the
     				// very first one (i.e. the first metafacade)
-                    
+
 				    metafacade.setContext(getContext());
     				if (logger.isDebugEnabled())
     					logger.debug("set context as --> '"
     						+ metafacade.getContext()
     						+ "'");
-                    
+
     				return metafacade;
     			}
     		}
@@ -239,7 +245,7 @@ public class MetafacadeBase
 		}
 		return metafacade;
     }
-    
+
     /**
      * Attempts to set the property with <code>name</code>
      * having the specified <code>value</code>
@@ -263,8 +269,8 @@ public class MetafacadeBase
             String errMsg =
                 "Error setting property '"
                     + name
-                    + "' with value '" 
-                    + value 
+                    + "' with value '"
+                    + value
                     + "' on metafacade --> '"
                     + this
                     + "'";
@@ -282,7 +288,7 @@ public class MetafacadeBase
     {
         logger = l;
     }
- 
+
     /**
      * This method handles a validation error.
      * <p>
