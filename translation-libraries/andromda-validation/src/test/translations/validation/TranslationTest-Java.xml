@@ -211,7 +211,7 @@
     <expression>
         <from>
             context StrutsFinalState::getFullPath()
-            pre: getModel().getAllUseCases()->one(name = 'Prince') = true
+            pre: getModel().getAllUseCases()-&gt;one(name = 'Prince') = true
         </from>
         <to>
             org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"name"),"Prince");}}),true)
@@ -221,10 +221,22 @@
     <expression>
         <from>
             context StrutsUseCase
-            inv: let thisName : String = getName() in getModel().getAllUseCases()->one(getName() = thisName)
+            inv: let thisName : String = getName() in getModel().getAllUseCases()-&gt;one(getName() = thisName)
         </from>
         <to>
-            {String thisName=getName();org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"getName"),thisName);}})}
+            org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"getName"),getName());}})
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context StrutsFinalState
+            inv: let finalStateName : String = getName()
+                  in finalStateName-&gt;notEmpty()
+                      and getModel().getAllUseCases()-&gt;one(getName() = finalStateName)
+        </from>
+        <to>
+            org.andromda.translation.validation.OCLCollections.notEmpty(getName())&amp;&amp;org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"getName"),getName());}})
         </to>
     </expression>
 
