@@ -67,16 +67,6 @@ public class UMLProfile {
 	public static final String TAGGEDVALUE_DOCUMENTATION = "documentation";
 	
 	/**
-	 * Represents a JDBC type definition in the model.
-	 */
-	public static final String TAGGEDVALUE_PERSISTENCE_JDBCTYPE = "andromda.persistence.JDBCType";
-	
-	/**
-	 * Represents a SQL type definition in the model.
-	 */
-	public static final String TAGGEDVALUE_PERSISTENCE_SQLTYPE = "andromda.persistence.SQLType";
-	
-	/**
 	 * Represents a SQL table name for entity persistence.
 	 */
 	public static final String TAGGEDVALUE_PERSISTENCE_TABLE = "andromda.persistence.table";
