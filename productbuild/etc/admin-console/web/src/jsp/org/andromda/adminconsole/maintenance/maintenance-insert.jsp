@@ -13,7 +13,7 @@
                 <c:forEach items="${metaDataSession.currentTable.columns}" var="column">
                     <tr>
                         <td>${column.name}</td>
-                        <td>${acf:getInsertWidget(databaseLoginSession.configurator,column,column.name,"")}</td>
+                        <td>${acf:getInsertWidget(databaseLoginSession.configurator,column,"")}</td>
                         <td>
                             <c:if test="${column.foreignKeyColumn}">
                                 <c:set var="foreignTable" value="${column.importedKeyColumn.table}" scope="page"/>
