@@ -320,10 +320,12 @@ public class MetafacadeMappings
                                 && mapping.hasContext()
                                 && mapping.hasMappingProperties())
                             {
-                                valid = MetafacadeMappingsUtils
-                                    .mappingPropertiesValid(
-                                        mappingObject,
-                                        mapping);
+                                valid = getContextHierarchy(context).contains(
+                                    mapping.getContext())
+                                    && MetafacadeMappingsUtils
+                                        .mappingPropertiesValid(
+                                            mappingObject,
+                                            mapping);
                             }
                         }
                         return valid;
