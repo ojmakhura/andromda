@@ -1,11 +1,5 @@
 #! /bin/sh
 
-me=`whoami`
-if [ $me != $CC_USER ]; then
-  echo "Must be run as $CC_USER"
-  exit
-fi
-
 # Runs a normal CC, expects config.xml
 basename=`basename $0`
 if [ $basename != $0 ]; then
@@ -14,15 +8,26 @@ if [ $basename != $0 ]; then
 fi
 # Get absolute directory
 dirname=`pwd`
-echo dirname $dirname
 
+# Set the JDK to use
+# Valid values are IBMJava142, SUNJava142, SUNJava150
+export JDK=IBMJava142
 source set-env.sh
+
+me=`whoami`
+if [[ $me != $CC_USER ]]; then
+  echo "Must be run as $CC_USER"
+  exit
+fi
+
 
 # cd to andromda-all
 cd ../..
 
 # save previous output
-mv --reply=y --backup=t nohup.out nohup.prev
+if [ -f nohup.out ]; then
+  mv --reply=y --backup=t nohup.out nohup.prev
+fi
 
 # For some reason cc/maven doesnt create it
 # automagically.
@@ -32,10 +37,5 @@ mkdir -p ../logs/andromda-all
 nohup cruisecontrol.sh -configfile $dirname/cruisecontrol.xml &
 pid=$!
 echo $pid >$dirname/pid
-echo "---------------------------------------"
-echo "Following log, Enter ctl-c to terminate"
-echo "---------------------------------------"
-sleep 5
-tail -f nohup.out
 echo Done $0
 
