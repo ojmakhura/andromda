@@ -79,6 +79,12 @@ public class SchemaTransformer
      * created.
      */
     private String packageName = null;
+    
+    /**
+     * Stores the name of the schema where
+     * the tables can be found.
+     */
+    private String schema = null;
 
     /**
      * The regular expression pattern to match on when deciding what table names
@@ -234,6 +240,17 @@ public class SchemaTransformer
     {
         this.packageName = packageName;
     }
+    
+    /**
+     * Sets the name of the schema (where
+     * the tables can be found).
+     * 
+     * @param schema The schema to set.
+     */
+    public void setSchema(String schema)
+    {
+        this.schema = schema;
+    }
 
     /**
      * Sets the regular expression pattern to match on when deciding what table
@@ -375,7 +392,7 @@ public class SchemaTransformer
         throws SQLException
     {
         DatabaseMetaData metadata = connection.getMetaData();
-        ResultSet tableRs = metadata.getTables(null, null, null, new String[]
+        ResultSet tableRs = metadata.getTables(null, this.schema, null, new String[]
         {
             "TABLE",
         });
@@ -410,7 +427,13 @@ public class SchemaTransformer
         DbUtils.closeQuietly(tableRs);
         if (this.classes.isEmpty())
         {
-            logger.warn("WARNING! No tables found in schema matching pattern -->'" 
+            String schemaName = "";
+            if (StringUtils.isNotEmpty(this.schema)) 
+            {
+                schemaName = "'" + this.schema + "' ";
+            }
+            logger.warn("WARNING! No tables found in schema " 
+                + schemaName + "matching pattern -->'" 
                 + this.tableNamePattern + "'");
         } 
 
@@ -496,7 +519,7 @@ public class SchemaTransformer
         String tableName) throws SQLException
     {
         Collection attributes = new ArrayList();
-        ResultSet columnRs = metadata.getColumns(null, null, tableName, null);
+        ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, null);
         Collection primaryKeyColumns = 
             this.getPrimaryKeyColumns(metadata, tableName);
         while (columnRs.next())
@@ -594,7 +617,7 @@ public class SchemaTransformer
         boolean nullable = true;
         ResultSet columnRs = metadata.getColumns(
             null,
-            null,
+            this.schema,
             tableName,
             columnName);
         while (columnRs.next())
@@ -619,7 +642,7 @@ public class SchemaTransformer
     {
         Collection primaryKeys = new HashSet();
         ResultSet primaryKeyRs = 
-            metadata.getPrimaryKeys(null, null, tableName);
+            metadata.getPrimaryKeys(null, this.schema, tableName);
         while (primaryKeyRs.next())
         {
             primaryKeys.add(primaryKeyRs.getString("COLUMN_NAME"));
@@ -644,7 +667,7 @@ public class SchemaTransformer
     {
         Collection primaryKeys = this.getPrimaryKeyColumns(metadata, tableName);
         Collection associations = new ArrayList();
-        ResultSet columnRs = metadata.getImportedKeys(null, null, tableName);
+        ResultSet columnRs = metadata.getImportedKeys(null, this.schema, tableName);
         while (columnRs.next())
         {
             // store the foreign key in the foreignKeys Map
