@@ -1,1 +1,0 @@
-This directory will contain the table maintenance admin console.
