@@ -13,28 +13,30 @@
                 <p class="std">
                     Hibernate uses two different caches for objects. The first level cache, and the second level cache.
                 </p>
-                <p class="std">
+                <p>
                     The first level cache is associated with the Session object, while the second level cache is
                     associated
                     with the hibernate SessionFactory object.
                 </p>
-                <p class="std">Currently, the cartridge architecture creates one Session object from the SessionFactory
+                <p>
+                    Currently, the cartridge architecture creates one Session object from the SessionFactory
                     object for each method that is called at the EJB's services.
                     This means that cache will be only used if a method is accessing the same object more than once.
                     This can be improved by activating the second level cache features provided by Hibernate.
                 </p>
-                <p class="std">
+                <p>
                     To achieve this task, the cartridge includes support for generating the Hibernate descriptor files
                     will all the possible cache settings included in the hibernate specification.
                 </p>
-                <p class="std">Additionally, each second level cache manager usually needs its own descriptor file with
+                <p>
+                    Additionally, each second level cache manager usually needs its own descriptor file with
                     cache settings specific to this manager.
                     The cartridge provides a template for creating the EhCache Manager descriptor file.
                     For other managers, this template could be overwritten to generate another manager descriptor file.
                 </p>
             </subsection>
             <subsection name="EHCache">
-                <p class="std">
+                <p>
                     Currently AndroMDA fully supports
                     <a href="http://ehcache.sourceforge.net">EhCache</a>to provide the second level cache features to
                     the cartridge. When enabled, the cartridge will create caches on queries, the Hibernate descriptor
@@ -44,7 +46,7 @@
         </section>
         <section name="Working with Second Level Cache">
             <subsection name="Setup">
-                <p class="std">
+                <p>
                     The cache settings provides support for customize the cache configuration. The namespace properties
                     for the cache settings are the following:
                     <ul>
@@ -65,7 +67,7 @@
                 </p>
             </subsection>
             <subsection name="Activation">
-                <p class="std">
+                <p>
                     To enable cache features on generated files, the following namespace properties should be used.
                     <ul>
                         <li>
@@ -85,7 +87,7 @@
                 </p>
             </subsection>
             <subsection name="Entities">
-                <p class="std">
+                <p>
                     The cartridge provides a default namespace property for each entity cache settings configuration.
                     These properties will be applied by default (that is,
                     if there is no specific tagged value on the entity that overrides the value). Namespace properties
@@ -107,7 +109,7 @@
                     </ul>
                 </p>
                 <h3>EhCache Configuration for Entities</h3>
-                <p class="std">
+                <p>
                     Namespace properties and tagged values are available to customize
                     <a href="http://ehcache.sourceforge.net/documentation/">EhCache Configuration</a>.
                     Namespace properties for EhCache configuration are:
@@ -159,7 +161,7 @@
                 </p>
             </subsection>
             <subsection name="Associations">
-                <p class="std">
+                <p>
                     Associations caching configuration can be configured individually. The namespace default property
                     can be overridden using the tagged value.
                     Namespace property for EhCache configuration is:
@@ -181,7 +183,7 @@
                 </p>
             </subsection>
             <subsection name="Finder Methods">
-                <p class="std">
+                <p>
                     The cartridge provides default namespace properties for activating the cache on one query.
                     When enabled the generated code will contain an additional
                     <code>query.setCacheable(true)</code>line.
