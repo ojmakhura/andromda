@@ -152,8 +152,10 @@
                         </td>
                         <td>
                             Used to override the default hibernate inheritance
-                            strategy of subclass. Permitted values are:
+                            strategy defined by the <a href="namespace.html#hibernateInheritanceStrategy">hibernateInheritanceStrategy</a> 
+                            namespace property.
                             <ul>
+                                Permitted values are:
                                 <li>class - table per hierarchy.</li>
                                 <li>subclass - table per class in hierarchy.</li>
                                 <li>concrete - Table per class.</li>
