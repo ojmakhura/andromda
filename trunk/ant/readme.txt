@@ -1,1 +1,0 @@
-This is the place where ant utilities for running AndroMDA are stored.
