@@ -25,7 +25,7 @@ package $entity.packageName;
  * @deprecated by leafImpl true and this class is not a leaf class.
 #end
  */
-#if ($entity.abstract || !$generateImpl )
+#if ($entity.abstract || !$generateImpl || $entity.hibernateInheritanceInterface)
 public abstract class ${entity.name}Impl
 #else
 public class ${entity.name}Impl
@@ -39,7 +39,7 @@ public class ${entity.name}Impl
 #if ( $generateImpl )
     // concrete business methods that were declared
     // abstract in class ${entity.name} ...
-#if ( $leafImpl == "true" )
+#if ( $leafImpl == "true" ) 
     // and its superclasses ...
 #set ( $businessOperations = $entity.allBusinessOperations )
 #else
