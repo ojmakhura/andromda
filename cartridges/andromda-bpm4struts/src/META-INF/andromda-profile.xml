@@ -70,6 +70,10 @@
         <to>@andromda.struts.view.field.type</to>
     </mapping>
     <mapping>
+        <from>INPUT_MULTIBOX</from>
+        <to>@andromda.struts.view.field.multibox</to>
+    </mapping>
+    <mapping>
         <from>INPUT_RADIO</from>
         <to>@andromda.struts.view.field.radio</to>
     </mapping>
