@@ -1,10 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
-
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.StringUtilsHelper;
 
 
 /**
@@ -136,7 +136,7 @@ public class StrutsTriggerLogicImpl
         final Collection transitions = getModel().getAllTransitions();
         for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
         {
-            Object transitionObject = (Object) iterator.next();
+            Object transitionObject = iterator.next();
             if (transitionObject instanceof StrutsAction)
             {
                 StrutsAction action = (StrutsAction) transitionObject;
