@@ -25,6 +25,7 @@
     </form-beans>
 
     <global-forwards>
+        <!-- global-forwards merge-point -->
 #foreach ($useCase in $useCases)
         <forward
             name="$str.toResourceMessageKey($useCase.name)"
