@@ -186,6 +186,20 @@
                         No, default is <code>false</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>backendType</td>
+                    <td>
+                        With this property it is possible to control the generation of pieces of controller code
+                        that allow referencing the services, for each dependency going from the
+                        &lt;&lt;FrontEndController&gt;&gt; to a &lt;&lt;Service&gt;&gt; an accessor will be generated.
+                        Possible values are: <code>ejb</code>,
+                        <code>webservice</code> and <code>spring</code>. Generated code is compliant with each
+                        corresponding cartridge. Other values might produce uncompilable code.
+                    </td>
+                    <td>
+                        No, default is an empty String (no code is generated).
+                    </td>
+                </tr>
             </table>
         </section>
     </body>

@@ -18,4 +18,10 @@ public class Bpm4StrutsGlobals
      * should perform a HTTP redirect or not.
      */
     public final static String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
+
+    /**
+     * The namespace property use to identify the type of backend services, accessors to those
+     * services will be generated in the front-end controllers.
+     */
+    public final static String PROPERTY_BACKEND_TYPE = "backendType";
 }
