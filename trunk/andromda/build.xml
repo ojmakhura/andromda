@@ -70,7 +70,6 @@
         <!-- create the distribution directory structure -->
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${dist.stage.dir}"/>
-        <mkdir dir="${dist.stage.dir}datadefs/"/>
         <mkdir dir="${dist.stage.dir}doc/"/>
         <mkdir dir="${dist.stage.dir}lib/"/>
         <mkdir dir="${dist.stage.dir}src"/>
@@ -81,10 +80,6 @@
             <fileset dir="." includes="build.xml"/>
             <fileset dir="." includes="build.properties.sample"/>
             <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
-            <fileset dir="${build.jar.dir}" includes="jaxbfix.jar"/>
-            <fileset dir="${xslt.src.dir}" includes="xmi-to-simpleOO.xsl"/>
-            <fileset dir="${template.src.dir}" includes="*.vsl"/>
-            <fileset dir="${template.src.dir}" includes="TypeMapping.xml"/>
             <fileset dir="${license.src.dir}" includes="LICENSE"/>
         </copy>
 
@@ -105,19 +100,13 @@
         <copy todir="${dist.stage.dir}doc/">
             <fileset dir="${build.doc.dir}" includes="**/*"/>
         </copy>
+        
         <copy todir="${dist.stage.dir}src/">
-            <fileset dir="${java.src.dir}" includes="**/*"/>
+            <fileset dir="src" includes="**/*" excludes="sample/**" />
         </copy>
-        <copy todir="${dist.stage.dir}datadefs/">
-            <fileset dir="${jaxb.src.dir}" includes="**/*"/>
-        </copy>
+        
         <copy todir="${dist.stage.dir}sample/">
-            <fileset dir="src/sample" includes="build.xml"/>
-            <fileset dir="src/sample" includes="launchbuild.xml"/>
-            <fileset dir="src/sample" includes="build.properties.sample"/>
-            <fileset dir="src/sample" includes="CarRentalSystem.zargo"/>
-            <fileset dir="src/sample" includes="mySpecialTemplates/**"/>
-            <fileset dir="src/sample" includes="src/**" excludes="src/**/generated/**"/>
+            <fileset dir="src/sample" includes="**/*" excludes="src/**/generated/**" />
         </copy>
 
         <!-- zip everything into the release archives -->

@@ -1,0 +1,80 @@
+#set ($packagename = $transform.findPackageName($class.package))
+package $packagename;
+
+import javax.ejb.EntityBean;
+import javax.ejb.EntityContext;
+import javax.ejb.RemoveException;
+
+import java.util.Collection;
+import java.util.Date;
+import java.math.BigDecimal;
+
+#foreach ( $assoc in $class.associationLinks )
+    #set ($adata = $transform.getAssociationData($assoc))
+#if ($adata.target.navigable == "true")
+    #set ($class2 = $adata.target.type)
+    #set ($class2packagename = $transform.findPackageName(${class2.package}))
+    #if ($class2packagename != $packagename)
+import ${class2packagename}.${class2.name}Local;
+    #end
+#end
+#end
+
+#foreach ( $dep in $class.dependencies )
+    #set ($class2 = $transform.findClassById($dep.targetType))
+    #if ($class2)
+        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #if ($class2packagename != $packagename)
+import ${class2packagename}.${class2.name}Local;
+        #end
+    #end
+#end
+
+public abstract class ${class.name}BeanCMP
+    extends ${class.name}BeanImpl
+    implements EntityBean
+{
+
+    public void ejbLoad()
+    {
+        super.ejbLoad();
+    }
+
+    public void ejbStore()
+    {
+        super.ejbStore();
+    }
+
+    public void ejbActivate()
+    {
+        super.ejbActivate();
+    }
+
+    public void ejbPassivate()
+    {
+        super.ejbPassivate();
+    }
+
+    public void setEntityContext(EntityContext ctx)
+    {
+        super.setEntityContext(ctx);
+    }
+
+    public void unsetEntityContext()
+    {
+        super.unsetEntityContext();
+    }
+
+    public void ejbRemove() throws RemoveException
+    {
+        super.ejbRemove();
+    }
+
+    // --------- getters/setters again so that EJB spec is met ---------
+#foreach ( $att in $class.attributes )
+#set ($typename = $transform.findFullyQualifiedName($att.type))
+    public abstract $typename get${str.upperCaseFirstLetter(${att.name})}();
+    public abstract void set${str.upperCaseFirstLetter(${att.name})}(${typename} newValue);
+
+#end
+}

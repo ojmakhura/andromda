@@ -313,7 +313,7 @@ public class AndroMDAGenTask extends MatchingTask
 
 			JAXBContext jc =
 				JAXBContext.newInstance(
-				"de.mbohlen.tools.uml2ejb.dbmapping");
+				"org.andromda.core.dbmapping");
 
 			Unmarshaller u = jc.createUnmarshaller();
 

@@ -2,8 +2,6 @@ package org.andromda.core.uml14;
 
 import java.util.Iterator;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Vector;
 import java.net.URL;
 import org.andromda.core.mdr.MDRepositoryFacade;
 import org.andromda.core.TestModel;
