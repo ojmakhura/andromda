@@ -575,9 +575,10 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsRequiresMapping()
     {
+        final HibernateEntity superEntity = this.getSuperEntity();
         return this.isRoot()
-            && (!this.isHibernateInheritanceInterface() || this
-                .getSuperEntity().isHibernateInheritanceInterface());
+            && (!this.isHibernateInheritanceInterface() || (superEntity != null
+                && superEntity.isHibernateInheritanceInterface()));
     }
 
     /**

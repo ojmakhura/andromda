@@ -120,7 +120,9 @@
         required="false">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="requiresMapping"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
