@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
  * this class by itself.
  * 
  * @see org.andromda.core.mapping.Mappings
+ * @author Chad Brandon
  */
 public class Mapping {
 	
