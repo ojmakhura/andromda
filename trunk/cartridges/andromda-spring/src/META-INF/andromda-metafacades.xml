@@ -27,6 +27,10 @@
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
         <property reference="defaultServiceExceptions" default="true"/>
+        <property reference="serviceRemotingType" default="none"/>
+        <property reference="serviceRemotePort" default="8080"/>
+        <property reference="serviceRemoteContext" default=""/>
+        <property reference="serviceRemoteServer" default="localhost"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
@@ -36,6 +40,10 @@
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
         <property reference="defaultServiceExceptions" default="true"/>
+        <property reference="serviceRemotingType" default="none"/>
+        <property reference="serviceRemotePort" default="8080"/>
+        <property reference="serviceRemoteContext" default=""/>
+        <property reference="serviceRemoteServer" default="localhost"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">

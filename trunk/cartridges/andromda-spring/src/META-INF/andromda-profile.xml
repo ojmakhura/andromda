@@ -8,31 +8,15 @@
         <to>@andromda.hibernate.query</to>
     </mapping>
     <mapping>
-        <from>HIBERNATE_GENERATOR_CLASS</from>
-        <to>@andromda.hibernate.generator.class</to>
-    </mapping>
-    <mapping>
-        <from>HIBERNATE_LAZY</from>
-        <to>@andromda.hibernate.lazy</to>
-    </mapping>
-    <mapping>
         <from>HIBERNATE_INHERITANCE</from>
         <to>@andromda.hibernate.inheritance</to>
     </mapping>
     <mapping>
-        <from>HIBERNATE_USE_QUERY_CACHE</from>
-        <to>@andromda.hibernate.query.useCache</to>
+        <from>SPRING_SERVICE_REMOTING_TYPE</from>
+        <to>@andromda.spring.service.remoting.type</to>
     </mapping>
     <mapping>
-        <from>HIBERNATE_OUTER_JOIN</from>
-        <to>@andromda.hibernate.outerjoin</to>
-    </mapping>
-     <mapping>
-        <from>HIBERNATE_ENTITY_CACHE</from>
-        <to>@andromda.hibernate.entity.cache</to>
-    </mapping>
-    <mapping>
-        <from>HIBERNATE_ASSOCIATION_CACHE</from>
-        <to>@andromda.hibernate.association.cache</to>
+        <from>SPRING_SERVICE_REMOTE_PORT</from>
+        <to>@andromda.spring.service.remote.port</to>
     </mapping>
 </mappings>

@@ -129,6 +129,17 @@
 				</tr>
 				<tr>
 					<td>
+						clientServiceLocatorName
+					</td>
+					<td>
+						The name to give to the generated client service locator class.
+					</td>
+					<td>
+						No, default is <code>ClientServiceLocator</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
 						daoNamePattern
 					</td>
 					<td>
@@ -272,10 +283,34 @@
                     </td>
                     <td>
                         The name/path of the application context resource
-                        file (i.e. some/path/applicationContex.xml)
+                        file (i.e. some/path/applicationContext.xml)
                     </td>
                     <td>
                         No, default is <code>applicationContext.xml</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        serverContext
+                    </td>
+                    <td>
+                        The name/path of the application context resource
+                        file that contains the remoting exports (i.e. some/path/serverContext.xml)
+                    </td>
+                    <td>
+                        No, default is <code>serverContext.xml</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        clientContext
+                    </td>
+                    <td>
+                        The name/path of the application context resource
+                        file that contains the remoting imports (i.e. some/path/clientContext.xml)
+                    </td>
+                    <td>
+                        No, default is <code>clientContext.xml</code>
                     </td>
                 </tr> 
                 <tr>
@@ -364,6 +399,57 @@
                         No, default is <code>UTF-8</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        serviceRemotingType
+                    </td>
+                    <td>
+                        Determines the type of remoting to be used for Spring services. Can any one of 
+                        <ul>
+                        	<li>none</li>
+                        	<li>rmi</li>
+                        	<li>httpinvoker</li>
+                        	<li>burlap</li>
+                        	<li>hessian</li>
+                        </ul>
+                    </td>
+                    <td>
+                        No, default is <code>none</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        serviceRemotePort
+                    </td>
+                    <td>
+                        The port the exported services get published on.
+                    </td>
+                    <td>
+                        No, default is <code>8080</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        serviceRemoteContext
+                    </td>
+                    <td>
+                        The context the exported services get published on.
+                    </td>
+                    <td>
+                        No.
+                    </td>
+                </tr>                
+                <tr>
+                    <td>
+                        serviceRemoteServer
+                    </td>
+                    <td>
+                        The remote server the Spring services get published on.
+                    </td>
+                    <td>
+                        No, default is <code>localhost</code>
+                    </td>
+                </tr>                
 			</table>
             <subsection name="Hibernate Specific Properties">
                 <table>

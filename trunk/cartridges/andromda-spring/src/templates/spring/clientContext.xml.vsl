@@ -1,0 +1,29 @@
+#parse("templates/spring/SpringGlobals.vm")
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
+
+#foreach($service in $services)
+#if($service.serviceRemotingType != "none")
+    <!-- $service.name Remote Service invoker  -->
+#if($service.serviceRemotingType == "httpinvoker")
+    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+#elseif($service.serviceRemotingType == "hessian")
+    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">	
+#elseif($service.serviceRemotingType == "burlap")
+    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">		
+#elseif($service.serviceRemotingType == "rmi")
+    <bean id="$service.getBeanName(false)" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+#end
+        <property name="serviceUrl"><value>$service.serviceRemoteUrl</value></property>
+        <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
+    </bean>	
+	
+#end
+#end
+    <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
+
+</beans>
