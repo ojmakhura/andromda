@@ -115,7 +115,7 @@
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
                       processAllModelPackages="${maven.andromda.processAllModelPackages}">
              	
-            <!-- set the maximum number of cartridges, and packages that may be set, 
+            <!-- set the maximum number of packages that may be set, 
                  this can always be increased later, but not sure we would ever need to -->
             <j:set var="maximum" value="30"/>
 
@@ -201,6 +201,263 @@
 
         </ant:andromda>
       	
+	</goal>
+	
+
+    <!-- ========================= Application Generator Goals Below Here ============================== -->
+    
+    
+  	<!--==================================================================
+  			Creates an empty deployable application ear project                
+  		==================================================================-->
+	<goal name="andromda:genapp"
+		  prereqs="andromda:genapp-init">
+ 
+        <ant:echo>+---------------------------------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G   A n d r o M D A   J 2 E E   P R O J E C T   |</ant:echo>
+        <ant:echo>+---------------------------------------------------------------------+</ant:echo> 
+                
+        <ant:mkdir dir="${projectId}"/>
+        
+        <ant:copy 
+        	file="${templatesDir}/project.properties" 
+        	tofile="${projectId}/project.properties"/>
+	      
+	    <velocity:merge 
+	      name="${projectId}/.project"
+	      basedir="${templatesDir}"
+	      template="/.project.vm"/>
+	      
+	    <velocity:merge 
+	      name="${projectId}/project.xml"
+	      basedir="${templatesDir}"
+	      template="/project.xml.vm"/>
+	      
+	    <ant:copy
+	    	file="${templatesDir}/maven-${persistenceType}.xml"
+	    	tofile="${projectId}/maven.xml"/>
+	    	
+		<ant:copy todir="${projectId}">
+			<ant:fileset dir="${templatesDir}">
+				<ant:include name="*.properties"/>
+				<ant:include name="*.classpath"/>
+			</ant:fileset>
+		</ant:copy>
+        	
+        <attainGoal name="andromda:generate-app-subproject"/>
+        <attainGoal name="andromda:generate-${peristenceType}-subproject"/>
+        <attainGoal name="andromda:generate-common-subproject"/>
+        <attainGoal name="andromda:generate-mda-subproject"/>
+        <attainGoal name="andromda:generate-web-subproject"/>
+
+        <ant:echo>New J2EE project generated to: '${basedir}/${projectId}'</ant:echo>
+        
+	</goal>
+	
+  	<!--==================================================================
+  			Creates the mda subproject directory.              
+  		==================================================================-->
+	<goal name="andromda:generate-mda-subproject"
+		  prereqs="andromda:genapp-init">
+		
+		<j:set var="mdaDir" value="${projectId}/mda"/>
+		
+		<j:set var="mdaModelDir" value="${mdaDir}/src/uml"/>
+		
+		<j:set var="mdaTemplatesDir" value="${templatesDir}/mda"/>
+		
+		<ant:mkdir dir="${mdaModelDir}"/>
+
+		<!-- process the model file -->
+	    <velocity:merge 
+	      name="${mdaModelDir}/${projectId}-model.xmi"
+	      basedir="${mdaTemplatesDir}"
+	      template="/src/uml/model.xmi.vm"/>	
+		
+	    <velocity:merge 
+	      name="${mdaDir}/project-${persistenceType}.xml"
+	      basedir="${mdaTemplatesDir}"
+	      template="project.xml.vm"/>	
+	      
+	    <velocity:merge 
+	      name="${mdaDir}/project.properties"
+	      basedir="${mdaTemplatesDir}"
+	      template="project.properties.vm"/>		     
+	      
+		<ant:copy todir="${mdaDir}">
+			<ant:fileset dir="${mdaTemplatesDir}">
+				<ant:include name="*.xml"/>
+			</ant:fileset>
+		</ant:copy>
+		
+	</goal>
+	
+  	<!--==================================================================
+  			Creates the app subproject directory.              
+  		==================================================================-->
+	<goal name="andromda:generate-app-subproject"
+		  prereqs="andromda:genapp-init">
+		
+		<j:set var="appDir" value="${generateProjectId}/app"/>
+		
+		<j:set var="appTemplatesDir" value="${templatesDir}/app"/>
+		
+		<ant:mkdir dir="${appDir}"/>
+
+	    <velocity:merge 
+	      name="${appDir}/project.properties"
+	      basedir="${appTemplatesDir}"
+	      template="project.properties.vm"/>	
+	      
+	    <velocity:merge 
+	      name="${appDir}/project.xml"
+	      basedir="${appTemplatesDir}"
+	      template="project-${persistenceType}.xml.vm"/>	
+		
+		<ant:copy todir="${appDir}">
+			<ant:fileset dir="${appTemplatesDir}">
+				<ant:include name="*.xml"/>
+			</ant:fileset>
+		</ant:copy>
+		
+	</goal>
+	
+  	<!--==================================================================
+  			Creates the common subproject directory.              
+  		==================================================================-->
+	<goal name="andromda:generate-common-subproject"
+		  prereqs="andromda:genapp-init">
+				
+		<j:set var="moduleName" value="common"/>
+		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${commonDir}/${moduleName}"/>
+	    <attainGoal name="andromda:generate-module"/>
+		
+	</goal>
+	
+  	<!--==================================================================
+  			Creates the hibernate subproject directory.              
+  		==================================================================-->
+	<goal name="andromda:generate-hibernate-subproject"
+		  prereqs="andromda:genapp-init">
+		
+		<j:set var="hibernateDir" value="${projectId}/hibernate"/>
+		
+		<j:set var="hibernateTemplatesDir" value="${templateDir}/hibernate"/>
+	      
+		<!-- the base hibernate module -->
+		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}"/>
+		<j:set var="moduleDir" value="${hibernateDir}"/>
+	    <attainGoal name="andromda:generate-module"/>
+		
+		<!-- the hibernate/ejb module -->
+		<j:set var="moduleName" value="ejb"/>
+		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
+	    <attainGoal name="andromda:generate-module"/>
+	
+		<!-- the hibernate/sar module -->
+		<j:set var="moduleName" value="sar"/>
+		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
+	    <attainGoal name="andromda:generate-module"/>
+		
+	</goal>
+	
+  	<!--==================================================================
+  			A generic generate module goal. It expects: 
+  			${moduleTemplatesDir} and ${moduleDir} to be specified.          
+  		==================================================================-->
+	<goal name="andromda:generate-module">
+      	<maven:param-check value="${moduleTemplatesDir}" fail="true">
+				Property "moduleTemplatesDir" is not set, please define before running 'andromda:generate-module'
+		</maven:param-check>
+      	<maven:param-check value="${moduleDir}" fail="true">
+				Property "moduleDir" is not set, please define before running 'andromda:generate-module'
+		</maven:param-check>
+		
+		<ant:mkdir dir="${moduleDir}"/>
+		
+	    <velocity:merge 
+	      name="${moduleDir}/project.xml"
+	      basedir="${moduleTemplatesDir}"
+	      template="project.xml.vm"/>
+	      
+		<ant:copy todir="${moduleDir}">
+			<ant:fileset dir="${moduleTemplatesDir}">
+				<ant:include name="*.properties"/>
+				<ant:include name="*.xml"/>
+			</ant:fileset>
+		</ant:copy>		
+	</goal>
+	
+  	<!--==================================================================
+  			Creates the ejb subproject directory.              
+  		==================================================================-->
+	<goal name="andromda:generate-ejb-subproject"
+		  prereqs="andromda:genapp-init">
+		
+		<j:set var="moduleName" value="ejb"/>
+		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
+	    <attainGoal name="andromda:generate-module"/>
+		
+	</goal>
+	
+  	<!--==================================================================
+  			Creates the web subproject directory.              
+  		==================================================================-->
+	<goal name="andromda:generate-web-subproject"
+		  prereqs="andromda:genapp-init">
+		
+		<j:set var="moduleName" value="web"/>
+		<j:set var="moduleTemplatesDir" value="${templateDir}/${moduleName}"/>
+		<j:set var="moduleDir" value="${templateDir}/${moduleName}"/>
+	    <attainGoal name="andromda:generate-module"/>
+		
+	</goal>
+	
+  	<!--==================================================================
+  			Asks the generate questions to get the required input.              
+  		==================================================================-->
+	<goal name="andromda:genapp-init">
+  		<j:while test="${empty(projectName)}">
+        	<i:ask 
+        		question="Please enter the name of your J2EE project (i.e. Animal Quiz):" 
+        		answer="projectName"/>
+    	</j:while>	
+  		<j:while test="${empty(projectId)}">
+        	<i:ask 
+        		question="Please enter the id for your J2EE project (i.e. animalquiz):" 
+        		answer="projectId"/>
+    	</j:while>
+  		<j:while test="${empty(projectId)}">
+        	<i:ask 
+        		question="Please enter the base package name for your J2EE project (i.e. org.andromda.samples):" 
+        		answer="basePackageName"/>
+    	</j:while>
+  		<j:while test="${empty(persistenceType) and 
+  			            (persistenceType ne 'hibernate' or persistenceType ne 'ejb')}">
+        	<i:ask 
+        		question="Please enter the type of persistence package to use (enter 'hibernate' or 'ejb'):" 
+        		answer="persistenceType"/>
+    	</j:while>
+    	
+    	<j:set var="packageName" value="${basePackageName}.${projectId}"/>
+
+      	<j:new 
+      		var="stringUtils" 
+      		className="org.apache.commons.lang.StringUtils"/>
+
+      	<j:set var="capitalizedProjectId" value="${stringUtils.capitalize(projectId)}"/>
+    	
+        <u:replace 
+        	var="packageDir"
+        	value="${packageName}" 
+        	oldChar="." 
+        	newChar="/"/>
+        	
+         <j:set var="templatesDir" value="${plugin.resources}/andromda/templates/j2ee-app"/>
 	</goal>
 	
 </project>
