@@ -1,27 +1,85 @@
-<project xmlns:j="jelly:core"
-  		 xmlns:ant="jelly:ant"
-  		 xmlns:maven="jelly:maven">
-  		 
+<project default="install"
+         xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven">
+           
+    <!-- ==================================================================
+               Installs all libraries in the local repository                                                    
+         ================================================================== -->
+    <goal name="install">
+        <attainGoal name="multiproject:install"/>	
+    </goal> 
+           
     <preGoal name="java:compile"> 
-   		<ant:available 
-   			file="${maven.src.dir}/uml"
-      		type="dir" 
-      		property="hasModel"/>
-		
-		<j:set var="skipProcessing" value="${skip.mda.plugin.processing}"/>
-		<j:if test="${!empty(hasModel) and empty(skipProcessing)}">
-			<attainGoal name="andromda:run"/>						
-	  		<!-- add the paths of the generated source to the
-	  		     maven compile path -->
-	 	 	<ant:path
-		       	id="metafacade.gen.src"
-		       	location="${maven.build.src}/java"/>
-			<maven:addPath
-		       	id="maven.compile.src.set"
-		       	refid="metafacade.gen.src"/>     		        	
-		</j:if>
+        <attainGoal name="generate-source"/>
     </preGoal>
-  		 
+    
+    <!-- ==================================================================
+         Generates the source required to build the cartridges.                                                   
+         ================================================================== -->
+    <goal name="generate-source">
+   
+        <ant:available 
+            file="${maven.build.src}"
+            type="dir" 
+            property="buildSrcAvailable"/> 	
+        
+        <j:if test="${buildSrcAvailable}">
+            <ant:uptodate property="generationRequired" 
+                          targetfile="${model.file}" >
+                <ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
+            </ant:uptodate>
+            <!-- add the paths of the generated source to the
+                 maven compile path -->
+            <ant:path
+                id="metafacade.generated.src"
+                location="${maven.build.src}"/>
+            <maven:addPath
+                id="maven.compile.src.set"
+                refid="metafacade.generated.src"/>     
+        </j:if>	
+
+        <!-- keep the generation from executing more than once -->
+        <j:if test="${generationRequired or buildSrcAvailable eq null}">
+            <ant:available 
+                file="${maven.src.dir}/uml"
+                type="dir" 
+                property="hasModel"/>
+
+            <j:if test="${!empty(hasModel)}">
+                <j:choose>
+                    <j:when test="${maven.andromda.bootstrap.mode}">
+                        <attainGoal name="andromda:run-bootstrap"/>
+                    </j:when>
+                    <j:otherwise>
+                        <attainGoal name="andromda:run"/>						
+                    </j:otherwise>
+                </j:choose>
+                <!-- add the paths of the generated source to the
+                     maven compile path -->
+                <ant:path
+                    id="metafacade.generated.src"
+                    location="${maven.build.src}"/>
+                <maven:addPath
+                    id="maven.compile.src.set"
+                    refid="metafacade.generated.src"/>     		         	
+            </j:if>
+        </j:if>
+    </goal>
+    
+    <preGoal name="test:test">
+        <!-- only process the cartridge tests if we have a test cartridge model defined AND
+             the docs are NOT being built -->
+        <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null and docsBuild eq null}">
+            <j:choose>
+                <j:when test="${maven.andromda.bootstrap.mode}">
+                    <attainGoal name="cartridge:test-bootstrap"/>
+                </j:when>
+                <j:otherwise>
+                    <attainGoal name="cartridge:test"/>						
+                </j:otherwise>
+            </j:choose>
+        </j:if>
+    </preGoal>
+    
 </project>
-
-
