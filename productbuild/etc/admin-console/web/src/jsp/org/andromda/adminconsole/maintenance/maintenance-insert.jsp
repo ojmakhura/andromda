@@ -4,18 +4,16 @@
 <%@ include file="/taglib-imports.jspf" %>
 
 
-<div id="maintenanceInsert" class="action">
+<div id="insert" class="action">
     <h3><bean:message key="maintenance.insert"/></h3>
     <div class="trigger">
         <html:form action="/Maintenance/MaintenanceInsert" onsubmit="">
-
-            <input type="hidden" value="${form.name}"/>
 
             <table>
                 <c:forEach items="${metaDataSession.currentTable.columns}" var="column">
                     <tr>
                         <td>${column.name}</td>
-                        <td>${acf:getInsertWidget(databaseLoginSession.configurator,column,"parametersAsArray","")}</td>
+                        <td>${acf:getInsertWidget(databaseLoginSession.configurator,column,column.name,"")}</td>
                         <td>
                             <c:if test="${column.foreignKeyColumn}">
                                 <c:set var="foreignTable" value="${column.importedKeyColumn.table}" scope="page"/>
