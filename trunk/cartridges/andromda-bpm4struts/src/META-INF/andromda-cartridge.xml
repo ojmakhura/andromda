@@ -43,12 +43,6 @@
         overwrite="true"/>
 
     <resource
-        path="resources/menu/*.*"
-        outputPattern="layout/menu/{0}"
-        outlet="pages"
-        overwrite="true"/>
-
-    <resource
         path="resources/WEB-INF/lib/*.jar"
         outputPattern="lib/{0}"
         outlet="configuration"
@@ -285,17 +279,6 @@
     </template>
 
     <template
-        path="templates/StrutsMenuConfigXml.vsl"
-        outputPattern="menu-config.xml"
-        outlet="configuration"
-        overwrite="true"
-        generateEmptyFiles="false">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/StrutsValidationXml.vsl"
         outputPattern="validation.xml"
         outlet="configuration"
@@ -304,18 +287,6 @@
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
-
-    <!--
-        <template
-            path="templates/StrutsMenuConfig.vsl"
-            outputPattern="menu-config.xml"
-            outlet="configuration"
-            overwrite="true">
-            <modelElements variable="applicationUseCase">
-                <modelElement stereotype="FrontEndApplication"/>
-            </modelElements>
-        </template>
-    -->
 
     <template
         path="templates/StrutsApplicationCss.vsl"
