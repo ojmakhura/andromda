@@ -100,10 +100,11 @@
                     <maven:property var="version" name="maven.xdoc.version" defaultValue="${pom.currentVersion}"/>
                     <j:choose>
                         <j:when test="${version.indexOf('SNAPSHOT') ge 0}">
-                            <a id="serverLink" href="http://www.andromda.org/" title="Documentation for stable releases (updated per release)">Release Site</a>
+                            <a id="serverLink" href="${release.docs.link.url}" title="Documentation for stable releases (updated per release)">Release Site</a>
                         </j:when>
                         <j:otherwise>
-                            <a id="serverLink" href="http://team.andromda.org/docs/" title="Documentation for nightly builds (updated daily)">Nightly Build Site</a>
+                            <j:set var="serverLinkHref" value="${andromda.snapshot.docs.url}"/>
+                            <a id="serverLink" href="${snapshot.docs.link.url}" title="Documentation for nightly builds (updated daily)">Nightly Build Site</a>
                         </j:otherwise>
                     </j:choose>
 
@@ -434,7 +435,7 @@
                     <x:set var="sourceCode" select="."/>
                     <j:set var="language" value="${language.get(0)}"/>
                     <j:if test="${language.value eq 'xml'}">
-                        <pre><syntax:xml var="sourceCode" elementClass="xe" attributeClass="xa" valueClass="xl" cdataClass="xc"/></pre>
+                        <pre><syntax:xml var="sourceCode" elementClass="xe" attributeClass="xa" literalClass="xl" commentClass="xc" cdataClass="xc"/></pre>
                     </j:if>
                     <j:if test="${language.value eq 'java'}">
                         <pre><syntax:java var="sourceCode" keywordClass="jk" literalClass="jl" numericClass="jn"/></pre>
