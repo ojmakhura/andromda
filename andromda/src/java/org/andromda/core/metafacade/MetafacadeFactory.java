@@ -160,14 +160,12 @@ public class MetafacadeFactory
         {
             return (MetafacadeBase)mappingObject;
         }
-
         Class mappingObjectClass = mappingObject.getClass();
         try
         {
             final MetafacadeMappings mappings = MetafacadeMappings.instance();
             final Collection stereotypes = this.getModel().getStereotypeNames(
                 mappingObject);
-
             if (this.getLogger().isDebugEnabled())
                 this.getLogger().debug(
                     "mappingObject stereotypes --> '" + stereotypes + "'");
@@ -177,7 +175,6 @@ public class MetafacadeFactory
                 this.getActiveNamespace(),
                 context,
                 stereotypes);
-
             if (metafacadeClass == null)
             {
                 if (mapping != null)
@@ -337,6 +334,7 @@ public class MetafacadeFactory
             metafacadeClass,
             mappingObject,
             context);
+
         // assign the logger and active namespace
         metafacade.setLogger(this.getLogger());
         metafacade.setNamespace(this.getActiveNamespace());
@@ -578,8 +576,8 @@ public class MetafacadeFactory
     }
 
     /**
-     * Gets the correct logger based on whether or not an namespace logger should
-     * be used
+     * Gets the correct logger based on whether or not an namespace logger
+     * should be used
      * 
      * @return the logger
      */
