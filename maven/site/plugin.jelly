@@ -16,13 +16,13 @@
     <!-- ===================================================================
           Add both the custom JSL style sheet, and the custom CSS files.
          =================================================================== -->
-    <preGoal name="xdoc:copy-resources">
+    <postGoal name="xdoc:copy-resources">
         <ant:copy todir="${maven.build.dir}/jsl">
             <ant:fileset dir="${pluginResources}/jsl"/>
         </ant:copy>
         <ant:copy todir="${maven.docs.dest}/style" overwrite="true">
             <ant:fileset dir="${pluginResources}/style"/>
         </ant:copy>
-    </preGoal>
+    </postGoal>
     
 </project>
