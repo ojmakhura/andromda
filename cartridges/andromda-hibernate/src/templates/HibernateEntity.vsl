@@ -23,27 +23,8 @@ ${indent}* </p>
 #set ($primKey = $transform.getPrimaryKeyAttribute($class))
 #set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
 ##
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-    #set ($class2 = $adata.target.type)
-    #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
-        #if ($class2packagename != $packagename)
-import $transform.findFullyQualifiedName(${class2});
-        #end
-    #end
-#end
-#end
-##
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
-        #if ($class2packagename != $packagename)
-import $transform.findFullyQualifiedName(${class2});
-        #end
-    #end
     #if ($transform.getStereotype($dep.id) == "exception")
         #set ($defaultException = $class2)
     #end
