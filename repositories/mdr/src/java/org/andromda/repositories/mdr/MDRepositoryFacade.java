@@ -1,5 +1,6 @@
 package org.andromda.repositories.mdr;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -15,18 +16,21 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.netbeans.api.mdr.CreationFailedException;
 import org.netbeans.api.mdr.MDRManager;
 import org.netbeans.api.mdr.MDRepository;
 import org.netbeans.api.xmi.XMIReader;
 import org.netbeans.api.xmi.XMIReaderFactory;
+import org.netbeans.api.xmi.XMIWriter;
+import org.netbeans.api.xmi.XMIWriterFactory;
 
 /**
- * Implements an AndroMDA object model repository by using the
- * <a href="http://mdr.netbeans.org">NetBeans MetaDataRepository</a>.
- *
- * @author <A HREF="httplo://www.amowers.com">Anthony Mowers</A>
+ * Implements an AndroMDA object model repository by using the <a
+ * href="http://mdr.netbeans.org">NetBeans MetaDataRepository </a>.
+ * 
+ * @author <A HREF="httplo://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
  */
 public class MDRepositoryFacade implements RepositoryFacade
@@ -70,11 +74,12 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
 
     /**
-     * Opens the reposistory and prepares it to read in models.
-     *
-     * <p> All the file reads are done within the context of a transaction
-     * this seems to speed up the processing. </p>
-     *
+     * Opens the repository and prepares it to read in models.
+     * <p>
+     * All the file reads are done within the context of a transaction this
+     * seems to speed up the processing.
+     * </p>
+     * 
      * @see org.andromda.core.repository.RepositoryFacade#open()
      */
     public void open()
@@ -84,10 +89,11 @@ public class MDRepositoryFacade implements RepositoryFacade
 
     /**
      * Closes the repository and reclaims all resources.
-     *
-     * <p> This should only be called after all the models has been read and all querys
-     * have completed. </p>
-     *
+     * <p>
+     * This should only be called after all the models has been read and all
+     * querys have completed.
+     * </p>
+     * 
      * @see org.andromda.core.repository.RepositoryFacade#close()
      */
     public void close()
@@ -97,7 +103,8 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
+     * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL,
+     *      java.lang.String[])
      */
     public void readModel(URL modelURL, String[] moduleSearchPath)
     {
@@ -126,6 +133,56 @@ public class MDRepositoryFacade implements RepositoryFacade
 
         if (logger.isDebugEnabled())
         	logger.debug("created repository");
+    }
+    
+    /**
+     * The default XMI version if none is specified.
+     */
+    private static final String DEFAULT_XMI_VERSION = "1.2";
+    
+    /**
+     * The default encoding if none is specified
+     */
+    private static final String DEFAULT_ENCODING = "UTF-8";
+    
+    /**
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String, java.lang.String)
+     */
+    public void writeModel(Object model, String outputLocation, String xmiVersion)
+    {
+        this.writeModel(model, outputLocation, xmiVersion, null);
+    }
+     
+    /**
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object,
+     *      java.lang.String, java.lang.String)
+     */
+    public void writeModel(Object model, String outputLocation, String xmiVersion, String encoding)
+    {
+        final String methodName = "MDRepositoryFacade.writeMode";
+        ExceptionUtils.checkNull(methodName, "model", model);
+        ExceptionUtils.checkNull(methodName, "outputLocation", outputLocation);
+        ExceptionUtils.checkAssignable(methodName, RefPackage.class, "model", model.getClass());
+        if (StringUtils.isEmpty(xmiVersion)) {
+            xmiVersion = DEFAULT_XMI_VERSION;
+        }
+        if (StringUtils.isEmpty(encoding))
+        {
+            encoding = DEFAULT_ENCODING;
+        }
+        try  
+        {          
+	        FileOutputStream outputStream = new FileOutputStream(outputLocation);
+	        XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
+	        xmiWriter.getConfiguration().setEncoding("UTF-8");	        
+	        xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion); 
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing MDRepositoryFacade.writeModel";
+            logger.error(errMsg, th);
+            throw new RepositoryFacadeException(errMsg, th);
+        }
     }
 
     /**
@@ -156,7 +213,8 @@ public class MDRepositoryFacade implements RepositoryFacade
     {
         if (this.modelFacade == null) 
         {
-            try {    
+            try 
+            {    
             	this.modelFacade = 
                     (ModelAccessFacade)
         	        ComponentContainer.instance().findComponent(
@@ -167,7 +225,9 @@ public class MDRepositoryFacade implements RepositoryFacade
                         + ModelAccessFacade.class + "'");
                 }
             	this.modelFacade.setModel(this.model);
-            } catch (Throwable th) {
+            } 
+            catch (Throwable th) 
+            {
             	String errMsg = "Error performing MDRepositoryFacade.getModel";
                 logger.error(errMsg, th);
                 throw new RepositoryFacadeException(errMsg, th);
@@ -178,13 +238,12 @@ public class MDRepositoryFacade implements RepositoryFacade
 
     /**
      * Loads a metamodel into the repository.
-     *
-     * @param  repository   MetaDataRepository
+     * 
+     * @param repository MetaDataRepository
      * @return MofPackage for newly loaded metamodel
-     *
-     * @exception  CreationFailedException
-     * @exception  IOException
-     * @exception  MalformedXMIException
+     * @exception CreationFailedException
+     * @exception IOException
+     * @exception MalformedXMIException
      */
     private static MofPackage loadMetaModel(
         URL metaModelURL,
@@ -225,15 +284,14 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
 
     /**
-     * Loads a model into the repository and validates the model against
-     * the given metaModel.
-     *
-     *@param  modelURL                     url of model
-     *@param  repository                   netbeans MDR
-     *@param  metaModel                    meta model of model
-     *@return  populated model
-     *
-     *@exception  CreationFailedException unable to create model in repository
+     * Loads a model into the repository and validates the model against the
+     * given metaModel.
+     * 
+     * @param modelURL url of model
+     * @param repository netbeans MDR
+     * @param metaModel meta model of model
+     * @return populated model
+     * @exception CreationFailedException unable to create model in repository
      */
     private static RefPackage loadModel(
         URL modelURL,
@@ -286,10 +344,10 @@ public class MDRepositoryFacade implements RepositoryFacade
 
     /**
      * Searches a meta model for the specified package.
-     *
-     *@param  packageName name of package for which to search
-     *@param  metaModel   meta model to search
-     *@return MofPackage
+     * 
+     * @param packageName name of package for which to search
+     * @param metaModel meta model to search
+     * @return MofPackage
      */
     private static MofPackage findPackage(
         String packageName,

@@ -1,19 +1,21 @@
 package org.andromda.core.repository;
 
-import java.io.IOException;
 import java.net.URL;
 
 import org.andromda.core.metafacade.ModelAccessFacade;
 
 /**
- * An interface for objects responsible for being a repository into which an object model can 
- * be loaded.
+ * An interface for objects responsible for being a repository into which an 
+ * object model can be loaded.
  * 
- * <p> AndroMDA does code generation from an object model.  There must exist a repository in which
- * the model can be loaded.  The repository must be able to load the object model 
- * given a URL. Any repository that supports this API can be used by AndroMDA. </p>
+ * <p> 
+ *   AndroMDA does code generation from an object model.  There must exist a repository in which
+ *   the model can be loaded.  The repository must be able to load the object model 
+ *   given a URL. Any repository that supports this API can be used by AndroMDA. 
+ * </p>
  * 
- * @author    <A HREF="http://www.amowers.com">Anthony Mowers</A>
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
+ * @author Chad Brandon
  */
 public interface RepositoryFacade
 {
@@ -40,10 +42,32 @@ public interface RepositoryFacade
 	 * @param modelURL url of model
      * @param moduleSearchPath a list of paths from which to search for 
      *        module models (i.e. models that can be used from within other models).
-	 * @throws MetaDataReadException if model syntax is violated
-	 * @throws IOException if io error occurs during file read
 	 */
-	public void readModel(URL modelURL, String[] moduleSearchPath) throws RepositoryFacadeException, IOException;
+	public void readModel(URL modelURL, String[] moduleSearchPath);
+	
+	/**
+	 * Writes the given <code>model</code> to the specified
+	 * <code>outputLocation</code>. 
+	 * 
+	 * @param model the <code>model</code> to write.
+	 * @param outputLocation the location to write the model file.
+	 * @param version the <code>version</code> of the model to be written 
+	 *        (i.e. could be XMI version if the repository writes XMI files).
+	 * @param encoding the encoding of the file to be written. 
+	 */
+	public void writeModel(Object model, String outputLocation, String version, String encoding);
+	
+	/**
+	 * Writes the given <code>model</code> to the specified
+	 * <code>outputLocation</code> using the default encoding provided by
+	 * the model writer.
+	 * 
+	 * @param model the <code>model</code> to write.
+	 * @param outputLocation the location to write the model file.
+	 * @param version the <code>version</code> of the model to be written 
+	 *        (i.e. could be XMI version if the repository writes XMI files).
+	 */
+	public void writeModel(Object model, String outputLocation, String version);
 
 	/**
 	 *  returns the date and time of when the model was last modified
