@@ -108,7 +108,19 @@
         					<code>file:${plugin.resources}/mappings/JavaMappings.xml</code>.
         				</p>
         			</td>
-        		</tr>         		    		
+        		</tr>     
+        		<tr>
+        			<td>maven.androdev.translation.test.model.validation</td>
+        			<td>Yes</td>
+        			<td>
+        				<p>
+        					Allows you to turn on/off model validation when running
+        					translation tests.  If you want to turn off model
+        					validation, you would set this flag to <code>false</code>. 
+        					Default value is <code>true</code>.
+        				</p>
+        			</td>
+        		</tr>    		    		
       		</table>
     	</section>
   	</body>

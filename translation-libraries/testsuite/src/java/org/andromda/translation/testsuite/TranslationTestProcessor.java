@@ -54,6 +54,15 @@ public class TranslationTestProcessor extends TestCase {
      */
     private String translationName =
         StringUtils.trimToEmpty(System.getProperty("translation.name"));
+    
+    /**
+     * Flag indicating whether or not we want to perform model validation
+     * when running the tests.
+     */
+    private boolean modelValidation = 
+        Boolean.valueOf(
+            StringUtils.trimToEmpty(
+                System.getProperty("model.validation"))).booleanValue();
 	
 	private ModelAccessFacade model = null;
 	
@@ -98,8 +107,9 @@ public class TranslationTestProcessor extends TestCase {
 
 	/**
 	 * Finds the classifier having <code>fullyQualifiedName</code> in the model.
-	 * @param fullyqQualifiedName
-	 * @return ElementFacade the facade wrapped classifier.
+	 * @param translation the translation we're using
+     * @param expression the expression from which we'll find the model element.
+	 * @return Object the found model element.
 	 */
 	protected Object findModelElement(String translation, String expression) {
 		final String methodName = "TranslationTestProcessor.findClassifier";
@@ -172,12 +182,19 @@ public class TranslationTestProcessor extends TestCase {
     						(ExpressionTest)expressions.get(fromExpression);
     					String toExpression = expressionConfig.getTo();
     				
+                        Object modelElement = null;
+                        // only find the model element if modelValidation
+                        // is set to true
+                        if (this.modelValidation) {
+                            modelElement = this.findModelElement(
+                                translation,
+                                fromExpression);
+                        }
+                        
     					translated = ExpressionTranslator.instance().translate(
     						translation, 
-    						this.findModelElement(
-                                translation,
-                                fromExpression), 
-							    fromExpression);	
+    						modelElement, 
+							fromExpression);	
     					
                         if(translated != null) {
         					//remove the extra whitespace from both so as to have an accurrate comarison

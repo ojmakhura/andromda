@@ -69,10 +69,15 @@
 			var="languageMappingsUri"
 			value="${maven.androdev.languageMappingsUri}"
 			scope="parent"/>	
+		
+		<j:set
+			var="model.validation"
+			value="${maven.androdev.translation.test.model.validation}"
+			scope="parent"/>
 			
 		<j:set 
 			var="maven.junit.sysproperties"
-			value="model.xmi modelFacade repository trace.expression translation.name languageMappingsUri"
+			value="model.xmi modelFacade model.validation repository trace.expression translation.name languageMappingsUri"
 			scope="parent"/>
 			
       	<attainGoal name="test:single"/>
