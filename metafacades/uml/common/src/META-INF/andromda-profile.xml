@@ -90,6 +90,10 @@
         <to>@andromda.persistence.foreign.identifier</to>
     </mapping>
     <mapping>
+        <from>PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME</from>
+        <to>@andromda.persistence.foreignkey.constraint</to>
+    </mapping>
+    <mapping>
         <from>WEBSERVICE_STYLE</from>
         <to>@andromda.webservice.style</to>
     </mapping>
