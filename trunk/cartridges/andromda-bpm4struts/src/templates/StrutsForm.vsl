@@ -2,8 +2,8 @@
 ##
 ##  CONSTANTS
 ##
-#set ($fields = $action.allFormFields)
-#set ($preloadableFields = $action.preloadableFormFields)
+#set ($fields = $action.actionFormFields)
+#set ($actionParameters = $action.actionParameters)
 #set ($formBeanName = $action.formBeanName)
 #set ($formBeanClassName = $action.formBeanClassName)
 #set ($messageKey = $action.messageKey)
@@ -11,6 +11,7 @@
 ##  MACROS
 ##
 #macro (renderValidation $field)
+#if ($actionParameters.contains($field))
 #set ($validatorTypes = $field.validatorTypes)
 #if (!$validatorTypes.empty)
     /**
@@ -40,25 +41,19 @@
      */
 #end
 #end
+#end
 ##
 ##  START TEMPLATE
 ##
 package $action.formBeanPackageName;
 
-import java.io.Serializable;
-
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.validator.ValidatorForm;
-
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @struts.form
  *      name="$formBeanName"
  */
-public class $formBeanClassName extends ValidatorForm implements Serializable
-    #foreach ($interfaceName in $action.controllerCallInterfaceNames), $interfaceName#end
-
+public class $formBeanClassName
+    extends org.apache.struts.validator.ValidatorForm
+    implements java.io.Serializable
 {
 #set ($collectionPresent = false)
 #set ($arrayPresent = false)
@@ -67,7 +62,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #if ($field.type.collectionType)
 #set ($collectionPresent = true)
 #end
-#if ($field.type.arrayType || $field.backingListPresent)
+#if ($field.type.arrayType || $field.selectable)
 #set ($arrayPresent = true)
 #end
     private $field.type.fullyQualifiedName $field.name;
@@ -94,9 +89,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
 #if ($field.type.collectionType)
-#if ($preloadableFields.contains($field)==false)
 #renderValidation($field)
-#end
     public void ${field.setterName}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
@@ -127,9 +120,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         return this.$fieldName;
     }
 
-#if ($preloadableFields.contains($field)==false)
 #renderValidation($field)
-#end
     public void ${field.setterName}(java.lang.String ${fieldName})
     {
         if (${fieldName} == null || ${fieldName}.trim().length()==0)
@@ -164,9 +155,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         return this.${fieldName}DateFormatter;
     }
 #else
-#if ($preloadableFields.contains($field)==false)
 #renderValidation($field)
-#end
     public void ${field.setterName}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
@@ -235,7 +224,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 
 #end
 #end
-    public void reset(ActionMapping mapping, HttpServletRequest request)
+    public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {
 #foreach ($field in $fields)
 #if ($field.resetRequired)
