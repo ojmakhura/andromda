@@ -4,10 +4,6 @@
 //
 package $entity.packageName;
 
-#set ($abstractModifier = "")
-#if (!$entity.operations.empty)
-#set ($abstractModifier = "abstract ")
-#end
 #set ($superEntity = $entity.generalization)
 /**
  * <p>
@@ -17,7 +13,7 @@ package $entity.packageName;
  *
  * @see $entity.fullyQualifiedEntityName
  */
-public ${abstractModifier}class $entity.daoBaseName
+public abstract class $entity.daoBaseName
 #if($superEntity)
     extends $superEntity.fullyQualifiedDaoBaseName
 #else
@@ -283,7 +279,6 @@ public ${abstractModifier}class $entity.daoBaseName
     }
 
 #end
-#if ($hasFinders)
     /**
      * @see org.apache.commons.collections.Transformer#transform(java.lang.Object)
      */
@@ -301,7 +296,6 @@ public ${abstractModifier}class $entity.daoBaseName
      * @return the transformed entity (i.e. new value object, etc)
      */
     protected abstract Object transformEntity($entity.fullyQualifiedName entity);
-#end
 #foreach ($operation in $entity.businessOperations)
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
