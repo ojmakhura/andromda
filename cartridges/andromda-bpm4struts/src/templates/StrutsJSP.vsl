@@ -101,6 +101,11 @@
         --%>
 
         <div>
+#if ($breadCrumbs == "true")
+            <tiles:insert definition="breadcrumbs.tile" flush="false">
+                <tiles:put name="current.page.title" type="string" value="$jsp.titleKey"/>
+            </tiles:insert>
+#end
             <h1><bean:message key="$jsp.titleKey"/></h1>
         </div>
         
@@ -168,6 +173,11 @@
 #end
 #end
         <div>
+#if ($jsp.validationRequired && ($clientValidation=='true' || $serverValidation=='true'))
+            <blockquote>
+                <bean:message key="required.fields.asterisk"/>
+            </blockquote>
+#end
             <blockquote>
                 <bean:message key="$jsp.documentationKey"/>
             </blockquote>
