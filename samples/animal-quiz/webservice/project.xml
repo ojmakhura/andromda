@@ -7,7 +7,7 @@
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis</artifactId>
-            <version>1.2-beta-20040626</version>
+            <version>1.2-beta-2</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis-jaxrpc</artifactId>
-            <version>1.2-beta-20040626</version>
+            <version>1.2-beta-2</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -31,15 +31,15 @@
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis-saaj</artifactId>
-            <version>1.2-beta-20040626</version>
+            <version>1.2-beta-2</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
         <dependency>
-            <groupId>wsdl4j</groupId>
-            <artifactId>wsdl4j</artifactId>
-            <version>20040602</version>
+            <groupId>axis</groupId>
+            <artifactId>axis-wsdl4j</artifactId>
+            <version>1.2-beta-2</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>

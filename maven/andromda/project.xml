@@ -2,7 +2,7 @@
 
 <project>
     <extend>../project.xml</extend>
-    <artifactId>maven-andromda-plugin${bootstrap}</artifactId>
+    <artifactId>maven-andromda${bootstrap}-plugin</artifactId>
     <name>AndroMDA Maven Plugin</name>
     <shortDescription>AndroMDA Maven Plugin</shortDescription>
     <description>
@@ -23,33 +23,33 @@
     </developers>
     <dependencies>
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-core${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-core</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>	
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-metafacades-uml${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>	
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-metafacades-uml14${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>		
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-repository-mdr${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-repository-mdr</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-templateengine-velocity${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-templateengine-velocity</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>andromda-translation-libraries</groupId>
-            <artifactId>andromda-validation-library${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         ${bootstrapMetaCartridge}
@@ -134,8 +134,8 @@
             <version>20030303.205659</version>
         </dependency>
         <!-- these dependencies are required to Run Schema2XMI -->
-        <dependency>
-            <groupId>andromda</groupId>
+        <dependency> 
+            <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-schema2xmi</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>

@@ -3,7 +3,6 @@
 <project>
 	<extend>../project.xml</extend>
   	<id>andromda-translation-libraries</id>
-  	<groupId>andromda-translation-libraries</groupId>
   	<name>AndroMDA Translation Libraries</name>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</connection>

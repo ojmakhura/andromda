@@ -16,14 +16,14 @@
         <j:set var="bootstrap" value=""/>
         <j:if test="${bootstrapMode}">
             <j:set var="bootstrap" value="-bootstrap"/>		
-            <j:set var="bootstrapPluginId" value="${pom.artifactId}-bootstrap"/>
+            <j:set var="bootstrapPluginId" value="maven-andromda-bootstrap-plugin"/>
             <j:set var="dummy" value="${pom.setArtifactId(bootstrapPluginId)}"/>
             <!-- set the meta cartridge bootstrap dependency 
                  into the bootstap project.xml-->
             <j:set var="bootstrapMetaCartridge" trim="false">
         <dependency> 
-            <groupId>andromda-cartridges</groupId>
-            <artifactId>andromda-meta-cartridge${bootstrap}</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
             </j:set>
