@@ -10,6 +10,7 @@ import java.util.Map;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Profile;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A meta facade mapping class. This class is a child of
@@ -158,7 +159,7 @@ public class MetafacadeMapping
      * 
      * @param reference the name of the reference.
      * @param defaultValue the default value of the property reference.
-     * @see (MetafacadeMappings#
+     * @see MetafacadeMappings#addPropertyReference(String, String)
      */
     public void addPropertyReference(String reference, String defaultValue)
     {
@@ -176,7 +177,7 @@ public class MetafacadeMapping
     /**
      * Used to hold the properties that should apply to the mapping element.
      */
-    private final Collection mappingProperties = new ArrayList();
+    private PropertyGroup mappingProperties = null;
 
     /**
      * Adds a mapping property. This are used to narrow the metafacade to which
@@ -188,13 +189,51 @@ public class MetafacadeMapping
      */
     public void addMappingProperty(String name, String value)
     {
-        this.mappingProperties.add(new Property(name, value));
+        if (this.mappingProperties == null)
+        {
+            this.mappingProperties = new PropertyGroup();
+            // we add the mapping properties to the mappingPropertyGroups
+            // collection only once
+            this.mappingPropertyGroups.add(this.mappingProperties);
+        }
+        this.mappingProperties.addProperty(new Property(name, value));
     }
 
     /**
-     * Returns all mapping properties for this MetafacadeMapping instance.
+     * Stores a collection of all property groups added through
+     * {@link #addPropertyGroup(Collection)}. These are property groups added
+     * from other mappings that return true when executing
+     * {@link #match(MetafacadeMapping)}.
      */
-    Collection getMappingProperties()
+    private final Collection mappingPropertyGroups = new ArrayList();
+
+    /**
+     * Adds the <code>propertyGroup</code> to the existing mapping property
+     * groups within this mapping.
+     * 
+     * @param mappingProperties the collection of mapping properties to add to
+     *        the mapping properties within this mappings instance.
+     */
+    void addMappingPropertyGroup(PropertyGroup propertyGroup)
+    {
+        this.mappingPropertyGroups.add(propertyGroup);
+    }
+
+    /**
+     * Returns all mapping property groups for this MetafacadeMapping instance.
+     */
+    Collection getMappingPropertyGroups()
+    {
+        return this.mappingPropertyGroups;
+    }
+
+    /**
+     * Gets the mapping properties associated this this mapping directly
+     * (contained within a {@link PropertyGroup}instance).
+     * 
+     * @return the mapping property group.
+     */
+    PropertyGroup getMappingProperties()
     {
         return this.mappingProperties;
     }
@@ -202,11 +241,12 @@ public class MetafacadeMapping
     /**
      * Indicates whether or not this mapping contains any mapping properties.
      * 
-     * @return
+     * @return true/false
      */
     boolean hasMappingProperties()
     {
-        return !this.mappingProperties.isEmpty();
+        return this.mappingProperties != null
+            && !this.mappingProperties.getProperties().isEmpty();
     }
 
     /**
@@ -229,11 +269,16 @@ public class MetafacadeMapping
     private String key;
 
     /**
-     * Gets the unique key that identifies this mapping
+     * Gets the unique key that identifies this mapping.
      */
     protected String getKey()
     {
-        if (StringUtils.isEmpty(this.key) && this.mappingClassName != null)
+        final MetafacadeMappings parent = this.getMetafacadeMappings();
+        // we keep constructing the key until the parent MetafacadeMappings
+        // instance is fully initialized becaues we don't know if this
+        // instance is fully initialized until that point.
+        if (this.key == null && parent != null && !parent.isInitialized()
+            && this.mappingClassName != null)
         {
             key = MetafacadeUtils.constructKey(
                 this.mappingClassName,
@@ -241,16 +286,13 @@ public class MetafacadeMapping
                 this.stereotypes);
             if (this.hasMappingProperties())
             {
-                Iterator mappingPropertyIterator = this.mappingProperties
-                    .iterator();
+                Iterator mappingPropertyIterator = this
+                    .getMappingPropertyGroups().iterator();
                 while (mappingPropertyIterator.hasNext())
                 {
-                    Property property = (Property)mappingPropertyIterator
+                    PropertyGroup group = (PropertyGroup)mappingPropertyIterator
                         .next();
-                    key = MetafacadeUtils.constructKey(key, property
-                        .getName());
-                    key = MetafacadeUtils.constructKey(key, property
-                        .getValue());
+                    key = MetafacadeUtils.constructKey(key, group.toString());
                 }
             }
         }
@@ -260,7 +302,7 @@ public class MetafacadeMapping
     /**
      * The context to which this mapping applies.
      */
-    private String context;
+    private String context = "";
 
     /**
      * Sets the context to which this mapping applies.
@@ -291,29 +333,28 @@ public class MetafacadeMapping
     {
         return StringUtils.isNotEmpty(this.context);
     }
-    
+
     /**
      * The "parent" metafacade mappings;
      */
     private MetafacadeMappings mappings;
-    
+
     /**
-     * Sets the metafacade mappings instance to which this
-     * particular mapping belongs. (i.e. the parent)
-     * Note, that this is populated during the call to 
-     * {@link MetafacadeMappings#addMapping(MetafacadeMapping)}.
+     * Sets the metafacade mappings instance to which this particular mapping
+     * belongs. (i.e. the parent) Note, that this is populated during the call
+     * to {@link MetafacadeMappings#addMapping(MetafacadeMapping)}.
      * 
-     * @param mappings the MetacadeMappings instance to which 
-     *        this mapping belongs.
+     * @param mappings the MetacadeMappings instance to which this mapping
+     *        belongs.
      */
     void setMetafacadeMappings(MetafacadeMappings mappings)
     {
         this.mappings = mappings;
     }
-    
+
     /**
-     * Gets the "parent" MetafacadeMappings
-     * instance to which this mapping belongs.
+     * Gets the "parent" MetafacadeMappings instance to which this mapping
+     * belongs.
      * 
      * @return the parent metafacade mappings instance.
      */
@@ -323,13 +364,87 @@ public class MetafacadeMapping
     }
 
     /**
+     * Indicates whether or not the <code>mapping</code> matches this mapping.
+     * It matches on the following:
+     * <ul>
+     * <li>metafacadeClass</li>
+     * <li>mappingClassName</li>
+     * <li>stereotypes</li>
+     * </ul>
+     */
+    boolean match(MetafacadeMapping mapping)
+    {
+        return mapping != null
+            && this.getMetafacadeClass().equals(mapping.getMetafacadeClass())
+            && this.getStereotypes().equals(mapping.getStereotypes())
+            && this.getMappingClassName().equals(mapping.getMappingClassName())
+            && this.getContext().equals(mapping.getContext());
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return MetafacadeUtils.constructKey(super.toString(), this
-            .getKey())
-            + ":" + this.getMetafacadeClass();
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    /**
+     * Represents a group of properties. Properties within a group are evaluated
+     * within an 'AND' expression. PropertyGroups are evaluated together as an
+     * 'OR' expressions (i.e. you 'OR' property groups together, and 'AND'
+     * properties together).
+     * 
+     * @see MetafacadeMappings#addMapping(MetafacadeMapping)
+     */
+    static class PropertyGroup
+    {
+        private final Collection properties = new ArrayList();
+
+        /**
+         * Adds a property to the internal collection of properties.
+         * 
+         * @param property the property to add to this group.
+         */
+        void addProperty(Property property)
+        {
+            this.properties.add(property);
+        }
+
+        /**
+         * Gets the currently internal collection of properties.
+         * 
+         * @return the properties collection.
+         */
+        Collection getProperties()
+        {
+            return this.properties;
+        }
+
+        /**
+         * @see java.lang.Object#toString()
+         */
+        public String toString()
+        {
+            StringBuffer toString = new StringBuffer();
+            Iterator propertyIterator = this.properties.iterator();
+            char seperator = ':';
+            while (propertyIterator.hasNext())
+            {
+                Property property = (Property)propertyIterator.next();
+                toString.append(property.getName());
+                if (StringUtils.isNotEmpty(property.getValue()))
+                {
+                    toString.append(seperator);
+                    toString.append(property.getValue());
+                }
+                if (propertyIterator.hasNext())
+                {
+                    toString.append(seperator);
+                }
+            }
+            return toString.toString();
+        }
     }
 
     /**

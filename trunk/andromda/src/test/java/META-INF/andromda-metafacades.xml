@@ -41,9 +41,6 @@
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject5"/>
     </metafacade>
-    <!-- Note: we map metafacades based on the properties of super metafacades,
-         so Metafacade5Impl extends Metafacade2Impl (which contains the
-         actual property) -->
     <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject5">
             <property name="mappingProperty"/>

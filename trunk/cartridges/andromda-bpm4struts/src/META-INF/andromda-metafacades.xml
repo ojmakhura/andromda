@@ -76,10 +76,16 @@
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
-            <stereotype>FRONT_END_EVENT</stereotype>
+            <property name="exitingInitialState"/>
         </mapping>
     </metafacade>
-
+    
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="exitingPage"/>
+        </mapping>
+    </metafacade>
+    
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <stereotype>FRONT_END_EXCEPTION</stereotype>
