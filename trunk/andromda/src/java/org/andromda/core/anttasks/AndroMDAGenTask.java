@@ -264,9 +264,14 @@ public class AndroMDAGenTask extends MatchingTask
                 Namespace namespace = 
                     Namespaces.instance().findNamespace(cartridgeName);
                 
+                boolean ignoreNamespace = false;
+                if (namespace != null) {
+                    ignoreNamespace = namespace.isIgnore();   
+                }
+                
                 // make sure we ignore the cartridge if the namespace
                 // is set to 'ignore'
-                if (defaultNamespace != null || (namespace != null && !namespace.isIgnore())) 
+                if ((namespace != null || defaultNamespace != null) && !ignoreNamespace)
                 {
                     cartridge.init();
                     cartridge.processModelElements(context);
