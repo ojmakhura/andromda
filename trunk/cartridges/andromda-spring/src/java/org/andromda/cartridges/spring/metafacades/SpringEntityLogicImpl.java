@@ -317,8 +317,9 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsDaoImplementationRequired()
     {
-        return !getValueObjectReferences().isEmpty()
-            || !getDaoBusinessOperations().isEmpty();
+        return !this.getValueObjectReferences().isEmpty()
+            || !this.getDaoBusinessOperations().isEmpty()
+            || !this.getFinders(true).isEmpty();
     }
     
     /**
