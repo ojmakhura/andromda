@@ -10,7 +10,7 @@
   	<goal name="install-components">
  		<j:set 
  			var="maven.multiproject.includes" 
- 			value="${component.includes}"/>
+ 			value="${component.install.includes}"/>
 		<attainGoal name="multiproject:install"/>	
   	</goal> 
   	
@@ -20,7 +20,7 @@
   	<goal name="install-samples">
  		<j:set 
  			var="maven.multiproject.includes" 
- 			value="${sample.includes}"/>
+ 			value="${sample.install.includes}"/>
 		<attainGoal name="multiproject:install"/>	
   	</goal> 
 
@@ -28,7 +28,7 @@
   			 Installs all libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install">
- 		<attainGoal name="install-components"/>
+ 		<!-- <attainGoal name="install-components"/> -->
  		<attainGoal name="install-samples"/>
   	</goal> 
  
@@ -38,7 +38,7 @@
   	<goal name="deploy">
  		<j:set 
  			var="maven.multiproject.includes" 
- 			value="${component.includes}"/>
+ 			value="${component.install.includes}"/>
 		<attainGoal name="multiproject:deploy"/>	  		
   	</goal>
   	
@@ -85,7 +85,7 @@
 	<!-- ==================================================================
 			 Creates the AndroMDA binary distribution                                                     
 		 ================================================================== --> 	
-	<goal name="dist-bin" prereqs="install">
+	<goal name="dist-bin">
 		    
 		<j:set 
 			var="distName" 
@@ -97,25 +97,27 @@
 			var="binaryDistLibDir"
 			value="${binaryDistDir}/lib"/>
 			
-		<ant:delete dir="${binaryDistDir}"/>
+        <ant:delete dir="${binaryDistDir}"/>
+	    <attainGoal name="install-components"/>
 		<ant:mkdir dir="${binaryDistLibDir}"/>
-		
+				
 		<!-- first add the components -->
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Components: "
-		  includes="${component.includes}"
+		  includes="${component.install.includes}"
 		  postProcessing="true"
 		  ignoreFailures="false"/>  
 								
 		<j:forEach var="reactorProject" items="${reactorProjects}">			
 			<ant:echo>Adding Component: '${reactorProject}'</ant:echo>
 			<j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
-			<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}"/>
+			<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/"/>
 			<ant:mkdir dir="${toDir}"/>
 			<ant:copy todir="${toDir}">
 				<ant:fileset dir="${fromDir}">
 					<ant:include name="*.jar"/>
+					<ant:include name="../LICENSE"/>
 				</ant:fileset>				
 			</ant:copy>
 			<j:forEach var="lib" items="${reactorProject.artifacts}">
@@ -124,54 +126,68 @@
 					<ant:copy file="${lib.file}" todir="${binaryDistLibDir}"/>
 				</j:if>
 			</j:forEach>  
-		</j:forEach> -->
+		</j:forEach> 
 		
 		<!-- now add the samples -->
-	
+			
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Samples: "
-		  includes="${sample.includes}"
+		  includes="${sample.dist.includes}"
 		  postProcessing="true"
 		  ignoreFailures="false"/>   
 		
-		<j:forEach var="reactorProject" items="${reactorProjects}" varStatus="counter">		
-			<j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
-			<j:set var="fromDirPresent" value="fromDirPresent${counter}"/>
-			<ant:available 
-				property="${fromDirPresent}" 
-				file="${fromDir}"/>  
-			<j:if test="${context.getVariable(fromDirPresent) != null}">
-				<j:set var="toDirSubDir" value="${reactorProject.file.parentFile.parentFile}"/>
-				<j:while test="${toDirSubDir.name == 'app'}">
-					<j:set var="toDirSubDir" value="${toDirSubDir.parentFile}"/>
-				</j:while>
-				<j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${toDirSubDir.name}"/>
-				<!-- only copy the application artifacts -->
-				<ant:copy todir="${toDir}">
-					<ant:fileset dir="${fromDir}">
-						<ant:include name="*.ear"/>
-						<ant:include name="*.sql"/>
-						<ant:include name="*.cmd"/>
-						<ant:include name="*.sh"/>
-					</ant:fileset>				
-				</ant:copy>
-			</j:if> 
-		</j:forEach> 
+		<j:forEach var="project" items="${reactorProjects}" varStatus="counter">		
+			<j:set var="fromDir" value="${project.file.parentFile}"/>
+			<j:set var="toDir" value="${binaryDistDir}/${fromDir.parentFile.name}/${project.artifactId}"/>
+			<ant:copy todir="${toDir}">
+				<ant:fileset dir="${fromDir}">
+					<ant:exclude name="**/*.log*"/>
+					<ant:exclude name="**/target/**"/>
+				</ant:fileset>				
+			</ant:copy>
+			<j:set var="toDir" value="${binaryDistDir}/${fromDir.parentFile.name}"/>
+			<j:set var="fromDir" value="${project.file.parentFile.parent}"/>
+			<ant:copy todir="${toDir}">
+				<ant:fileset dir="${fromDir}">
+					<ant:include name="*.txt"/>
+				</ant:fileset>				
+			</ant:copy>
+			<!-- create the distribution maven files we need for the samples -->
+			<j:set var="templatesDir" value="${project.file.parentFile.parent}/templates"/>
+			<j:set var="templatesDirPresent" value="tempatesDir${counter}"/>
+			<ant:available
+				property="${templatesDirPresent}"
+				file="${templatesDir}"/>
+			<j:if test="${context.getVariable(templatesDirPresent) != null}">
+				<!-- create the distribution project.xml -->
+				<j:set var="distPom" value="${templatesDir}/distribution-pom.jelly"/>
+				<j:file name="${toDir}/project.xml" trim="false">
+					<j:import file="${distPom}" inherit="true"/>
+				</j:file>	
+				<!-- copy the distribution maven.xml -->
+				<ant:copy file="${templatesDir}/distribution-maven.xml" tofile="${toDir}/maven.xml"/>
+				<!-- create the distribution project.properties -->
+				<j:set var="distProperties" value="${templatesDir}/distribution-properties.jelly"/>
+				<j:file name="${toDir}/project.properties" omitXmlDeclaration="true" trim="false">
+					<j:import file="${distProperties}" inherit="true"/>
+				</j:file>	
+			</j:if>
+		</j:forEach>               	
 		
-		<!-- add docs 
+		<!-- add docs -->
 		<attainGoal name="docs"/>
 		<ant:copy todir="${binaryDistDir}">
 			<ant:fileset dir="documentation/target">
 				<ant:include name="*.zip"/>
 			</ant:fileset>
-		</ant:copy> -->
+		</ant:copy>
 				 
 		<!-- zip it all up -->
         <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
 		<ant:zip zipfile="${zipFile}">
             <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
-        </ant:zip>		
+        </ant:zip>	
         		
 	</goal>
 		
