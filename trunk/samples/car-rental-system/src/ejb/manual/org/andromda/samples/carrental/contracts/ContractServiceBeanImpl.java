@@ -16,7 +16,7 @@ import java.util.Iterator;
 import org.andromda.samples.carrental.inventory.InventoryException;
 import org.andromda.samples.carrental.inventory.InventoryService;
 import org.andromda.samples.carrental.inventory.InventoryServiceHome;
-import org.andromda.samples.carrental.customers.CustomerLocal;
+import org.andromda.samples.carrental.customers.Customer;
 import org.andromda.samples.carrental.customers.CustomerLocalHome;
 
 public class ContractServiceBeanImpl
@@ -42,7 +42,7 @@ public class ContractServiceBeanImpl
             Collection reservations = rlh.findByCustomer(customerId);
             for (Iterator it = reservations.iterator(); it.hasNext();)
             {
-                ReservationLocal r = (ReservationLocal) it.next();
+                Reservation r = (Reservation) it.next();
                 results.add(r.getReservationData());
             }
 
@@ -70,7 +70,7 @@ public class ContractServiceBeanImpl
         try
         {
             CustomerLocalHome clh = this.getCustomerLocalHome();
-            CustomerLocal customer = clh.findByPrimaryKey(customerId);
+            Customer customer = clh.findByPrimaryKey(customerId);
 
             InventoryServiceHome ish = getInventoryServiceHome();
             InventoryService ms = ish.create();
@@ -89,7 +89,7 @@ public class ContractServiceBeanImpl
             }
 
             // Reservation is legal, so let's do it!
-            ReservationLocal res = rlh.create(reservationDate, comfortClass);
+            Reservation res = rlh.create(reservationDate, comfortClass);
             res.setCustomer(customer);
 
             // Service-Bean not used any more

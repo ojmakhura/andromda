@@ -32,7 +32,7 @@ public class AdminServiceBeanImpl
                 administrators = klh.findAll();
                 if (administrators.size() == 0)
                 { // empty database, create 1st admin account
-                    AdministratorLocal al =
+                    Administrator al =
                         klh.create(name, accountNo, password);
                     return al.getId();
                 }
@@ -45,8 +45,8 @@ public class AdminServiceBeanImpl
                         + " could not be found");
             }
 
-            AdministratorLocal theAdministrator =
-                (AdministratorLocal) administrators.iterator().next();
+            Administrator theAdministrator =
+                (Administrator) administrators.iterator().next();
             if (theAdministrator.getPassword().equals(password))
             {
                 return theAdministrator.getId();
