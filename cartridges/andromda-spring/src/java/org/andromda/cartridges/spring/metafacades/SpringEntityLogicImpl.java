@@ -218,4 +218,18 @@ public class SpringEntityLogicImpl
             HIBERNATE_GENERATOR_CLASS_SEQUENCE);
     }
 
+    /**
+     * The namespace property storing the hibernate default-cascade value
+     * for an entity.
+     */
+    private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
+    
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDefaultCascade()
+     */
+    protected String handleGetHibernateDefaultCascade()
+    {
+        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
+    }
+
 }

@@ -37,6 +37,7 @@
         <stereotype>Entity</stereotype>
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
+        <property reference="hibernateDefaultCascade" default="none"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
@@ -45,6 +46,7 @@
         <stereotype>Entity</stereotype>
 		<property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
+        <property reference="hibernateDefaultCascade" default="none"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
