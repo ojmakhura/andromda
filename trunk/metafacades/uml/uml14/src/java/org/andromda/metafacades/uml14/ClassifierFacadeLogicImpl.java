@@ -215,9 +215,9 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getOperationCallFromAttributes(boolean)
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getOperationCallFromAttributes()
      */
-    public String handleGetOperationCallFromAttributes(boolean withTypeNames)
+    public String handleGetOperationCallFromAttributes()
     {
         StringBuffer sb = new StringBuffer();
         String separator = "";
@@ -228,18 +228,10 @@ public class ClassifierFacadeLogicImpl
             AttributeFacade a = (AttributeFacade)it.next();
 
             sb.append(separator);
-            if (withTypeNames)
-            {
-                String typeName = a.getType().getFullyQualifiedName();
-                sb.append(typeName);
-                sb.append(" ");
-                sb.append(a.getName());
-            }
-            else
-            {
-                sb.append(a.getGetterName());
-                sb.append("()");
-            }
+            String typeName = a.getType().getFullyQualifiedName();
+            sb.append(typeName);
+            sb.append(" ");
+            sb.append(a.getName());
             separator = ", ";
         }
         sb.append(")");
