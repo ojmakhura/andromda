@@ -13,12 +13,12 @@ package $entity.packageName;
  *    discriminator-value="${entity.name}Impl"
 #elseif ($inheritance == "subclass")
  * @hibernate.joined-subclass
- *     table="$tableNamePrefix$entity.tableName"
+ *     table="$entity.tableName"
  * @hibernate.joined-subclass-key
  *     column="$entity.identifierColumn"
 #else
  * @hibernate.class
- *     table="$tableNamePrefix$entity.tableName"
+ *     table="$entity.tableName"
 #end
 #else
  * @deprecated by leafImpl true and this class is not a leaf class.
