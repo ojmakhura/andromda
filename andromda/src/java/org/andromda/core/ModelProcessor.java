@@ -122,7 +122,7 @@ public class ModelProcessor
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
                     + "[s]" + totalMessagesMessage + " : "
                     + ResourceWriter.instance().getWrittenCount()
-                    + " resources written");
+                    + " RESOURCES WRITTEN");
                 if (failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelProcessorException(
