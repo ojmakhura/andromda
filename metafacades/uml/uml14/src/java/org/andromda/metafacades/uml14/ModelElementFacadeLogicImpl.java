@@ -349,7 +349,7 @@ public class ModelElementFacadeLogicImpl
             uri = (String)property;
             try 
             {
-                mappings = Mappings.getInstance((String)property);
+                mappings = Mappings.getInstance(uri);
                 this.registerConfiguredProperty(propertyName, mappings);
             }
             catch (Throwable th)
