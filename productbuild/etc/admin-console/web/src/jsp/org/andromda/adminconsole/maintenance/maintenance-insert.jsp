@@ -31,18 +31,23 @@
                 </c:forEach>
                 <tr>
                     <td>
-                        <input type="submit" value="<bean:message key="maintenance.maintenance.insert"/>"
-                               onclick="this.form.name='maintenanceMaintenanceInsertForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceInsert"/>';"/>
-                        <input type="submit" value="<bean:message key="maintenance.maintenance.search"/>"
-                               onclick="this.form.name='maintenanceMaintenanceSearchForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceSearch"/>';"/>
                     </td>
-                    <td>
+                    <td id="exactMatches">
                         <html:checkbox name="form" property="exactMatches"/>
                         <bean:message key="maintenance.maintenance.param.exact.matches"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="<bean:message key="maintenance.maintenance.insert"/>"
+                               onclick="this.form.name='maintenanceMaintenanceInsertForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceInsert"/>';"/>
+                    </td>
+                    <td>
+                        <input type="submit" value="<bean:message key="maintenance.maintenance.search"/>"
+                               onclick="this.form.name='maintenanceMaintenanceSearchForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceSearch"/>';"/>
                     </td>
                 </tr>
             </table>
         </html:form>
     </div>
 </div>
-<br class="clr"/>
