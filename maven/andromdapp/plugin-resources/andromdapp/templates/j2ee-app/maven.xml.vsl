@@ -1,7 +1,8 @@
 <project default="install"
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven"
-         xmlns:j="jelly:core">
+         xmlns:j="jelly:core"
+         xmlns:util="jelly:util">
 
     <ant:property environment="env"/>
 
@@ -137,7 +138,7 @@
     <goal name="execute-script">
 #set ($condition = '${script != null}')
         <j:if test="$condition">
-            <u:file var="scriptFile" name="${script}"/>
+            <util:file var="scriptFile" name="${script}"/>
             <j:if test="${scriptFile.exists()}">
                 <ant:sql driver="${dataSource.driver.class}" src="${scriptFile}"
                     url="${dataSource.url}" userid="${dataSource.user}" password="${dataSource.password}" >
