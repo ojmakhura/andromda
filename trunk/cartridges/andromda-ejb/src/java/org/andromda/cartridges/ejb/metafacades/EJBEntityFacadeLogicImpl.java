@@ -27,7 +27,7 @@ public class EJBEntityFacadeLogicImpl
        implements org.andromda.cartridges.ejb.metafacades.EJBEntityFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public EJBEntityFacadeLogicImpl (java.lang.Object metaObject, String context)
     {
         super (metaObject, context);
@@ -47,7 +47,7 @@ public class EJBEntityFacadeLogicImpl
                 identifiers =
                     ((ClassifierFacade)dep.getTargetElement()).getInstanceAttributes();
                 MetafacadeUtils.filterByStereotype(
-                    identifiers, 
+                    identifiers,
                     EJBProfile.STEREOTYPE_IDENTIFIER);
                 return identifiers;
             }
@@ -91,7 +91,7 @@ public class EJBEntityFacadeLogicImpl
         }
         return result;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getViewType()
      */
@@ -109,14 +109,14 @@ public class EJBEntityFacadeLogicImpl
         Iterator i = this.getAssociationEnds().iterator();
         while (i.hasNext()) {
             EJBAssociationEndFacade assoc =
-                (EJBAssociationEndFacade)i.next(); 
+                (EJBAssociationEndFacade)i.next();
             ClassifierFacade target = assoc.getOtherEnd().getType();
             if (target instanceof EJBEntityFacade
                 && assoc.getOtherEnd().isNavigable()) {
                 // Check the integrity constraint
                 String generateCmr =
                     assoc.getOtherEnd().getAssociation().findTaggedValue(
-                      EJBProfile.TAGGEDVALUE_GENERATE_CMR);
+                      EJBProfile.TAGGEDVALUE_GENERATE_CMR).toString();
                 if (target.isAbstract()
                     && !"false".equalsIgnoreCase(generateCmr)) {
                     throw new IllegalStateException(
@@ -126,27 +126,27 @@ public class EJBEntityFacadeLogicImpl
                             + target.getName()
                             + "'. Abstract targets are not allowed in EJB.");
                 }
-                
+
                 result.add(assoc);
             }
         }
         return result;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getAllInstanceAttributes()
      */
     public List getAllInstanceAttributes() {
-        return EJBMetafacadeUtils.getAllInstanceAttributes(this);  
+        return EJBMetafacadeUtils.getAllInstanceAttributes(this);
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getInheritedInstanceAttributes()
      */
     public List getInheritedInstanceAttributes() {
         return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getCreateMethods(boolean)
      */
@@ -176,7 +176,7 @@ public class EJBEntityFacadeLogicImpl
         } while (entity != null);
         return retval;
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getHomeInterfaceName()
      */
@@ -190,12 +190,12 @@ public class EJBEntityFacadeLogicImpl
     public Collection getEnvironmentEntries(boolean follow) {
         return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
      */
     public Collection getConstants(boolean follow) {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
-    
+
 }

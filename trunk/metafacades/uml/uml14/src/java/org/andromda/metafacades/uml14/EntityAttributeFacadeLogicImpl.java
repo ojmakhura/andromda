@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -18,7 +18,7 @@ public class EntityAttributeFacadeLogicImpl
        implements org.andromda.metafacades.uml.EntityAttributeFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public EntityAttributeFacadeLogicImpl (java.lang.Object metaObject, String context)
     {
         super (metaObject, context);
@@ -31,26 +31,20 @@ public class EntityAttributeFacadeLogicImpl
 
     public java.lang.String getColumnName() {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                this, 
+                this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                 ((EntityFacade)this.getOwner()).getMaxSqlNameLength());
     }
 
     protected String getColumnLength() {
         return this.findTaggedValue(
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
-    }   
-    
-    /**
-     * @see edu.duke.dcri.mda.model.metafacade.EntityAttributeFacade#isIdentifier()()
-     */
+            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH).toString();
+    }
+
     public boolean isIdentifier() {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
-    }   
+    }
 
-    /**
-     * @see edu.duke.dcri.mda.model.metafacade.EntityAttributeFacade#getSqlType()()
-     */
     public java.lang.String getSqlType() {
         String value = null;
         if (this.getSqlMappings() != null) {
@@ -59,11 +53,11 @@ public class EntityAttributeFacadeLogicImpl
             String columnLength = this.getColumnLength();
             value = this.getSqlMappings().getTo(typeName);
             if (StringUtils.isBlank(value)) {
-                logger.error("ERROR! missing SQL type mapping for model type '" 
-                        + typeName 
+                logger.error("ERROR! missing SQL type mapping for model type '"
+                        + typeName
                         + "' --> please adjust your model or SQL type mappings '"
                         + this.getSqlMappings().getResource() + "' accordingly");
-            } 
+            }
             if (StringUtils.isNotEmpty(columnLength)) {
                 char beginChar = '(';
                 char endChar = ')';
@@ -72,18 +66,15 @@ public class EntityAttributeFacadeLogicImpl
                 if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex) {
                     String replacement = value.substring(beginIndex, endIndex) + endChar;
                     value = StringUtils.replace(
-                        value, 
-                        replacement, 
+                        value,
+                        replacement,
                         beginChar + columnLength + endChar);
                 }
             }
         }
         return value;
-    }   
+    }
 
-    /**
-     * @see edu.duke.dcri.mda.model.metafacade.EntityAttributeFacade#getLanguageToSqlType()()
-     */
     public java.lang.String getJdbcType() {
         String value = null;
         if (this.getJdbcMappings() != null) {
@@ -92,8 +83,8 @@ public class EntityAttributeFacadeLogicImpl
                 String typeName = type.getFullyQualifiedName(true);
                 value = this.getJdbcMappings().getTo(typeName);
                 if (StringUtils.isBlank(value)) {
-                    logger.error("ERROR! missing JDBC type mapping for model type '" 
-                            + typeName 
+                    logger.error("ERROR! missing JDBC type mapping for model type '"
+                            + typeName
                             + "' --> please adjust your model or JDBC type mappings '"
                             + this.getJdbcMappings().getResource() + "' accordingly");
                 }
@@ -101,51 +92,51 @@ public class EntityAttributeFacadeLogicImpl
         }
 
         return value;
-    }   
-    
+    }
+
     /**
      * Language specific mappings property reference.
      */
     private static final String SQL_MAPPINGS_URI = "sqlMappingsUri";
-    
+
     /**
-     * Allows the MetafacadeFactory to populate 
+     * Allows the MetafacadeFactory to populate
      * the language mappings for this model element.
-     * 
-     * @param mappingUri the URI of the language mappings resource.
+     *
+     * @param sqlMappingsUri the URI of the language mappings resource.
      */
     public void setSqlMappingsUri(String sqlMappingsUri) {
         try {
             this.registerConfiguredProperty(
-            	SQL_MAPPINGS_URI, 
+            	SQL_MAPPINGS_URI,
                 Mappings.getInstance(sqlMappingsUri));
         } catch (Throwable th) {
-            String errMsg = "Error setting '" 
-                + SQL_MAPPINGS_URI + "' with --> '" 
+            String errMsg = "Error setting '"
+                + SQL_MAPPINGS_URI + "' with --> '"
                 + sqlMappingsUri + "'";
             logger.error(errMsg, th);
             //don't throw the exception
         }
     }
-    
+
     /**
-     * Gets the SQL mappings that have been set 
+     * Gets the SQL mappings that have been set
      * for this entity attribute.
      * @return the SQL Mappings instance.
      */
     public Mappings getSqlMappings() {
         return (Mappings)this.getConfiguredProperty(SQL_MAPPINGS_URI);
     }
-    
+
     /**
      * JDBC type specific mappings property reference.
      */
     private static final String JDBC_MAPPINGS_URI = "jdbcMappingsUri";
-    
+
     /**
-     * Allows the MetafacadeFactory to populate 
+     * Allows the MetafacadeFactory to populate
      * the language mappings for this model element.
-     * 
+     *
      * @param jdbcMappingsUri the URI of the language mappings resource.
      */
     public void setJdbcMappingsUri(String jdbcMappingsUri) {
@@ -153,14 +144,14 @@ public class EntityAttributeFacadeLogicImpl
             this.registerConfiguredProperty(
                 JDBC_MAPPINGS_URI, Mappings.getInstance(jdbcMappingsUri));
         } catch (Throwable th) {
-            String errMsg = "Error setting '" 
-                + JDBC_MAPPINGS_URI + "' --> '" 
+            String errMsg = "Error setting '"
+                + JDBC_MAPPINGS_URI + "' --> '"
                 + jdbcMappingsUri + "'";
             logger.error(errMsg, th);
             //don't throw the exception
         }
     }
-    
+
     /**
      * Gets the JDBC mappings.
      */

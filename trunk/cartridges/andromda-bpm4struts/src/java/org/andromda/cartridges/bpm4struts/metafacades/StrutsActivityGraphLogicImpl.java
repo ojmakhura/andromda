@@ -23,7 +23,7 @@ public class StrutsActivityGraphLogicImpl
     private Object controller = null;
 
     // ---------------- constructor -------------------------------
-    
+
     public StrutsActivityGraphLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
@@ -83,7 +83,7 @@ public class StrutsActivityGraphLogicImpl
                 ModelElementFacade element = (ModelElementFacade) classIterator.next();
                 if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
                 {
-                    String taggedValue = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USE_CASE);
+                    String taggedValue = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USE_CASE).toString();
                     if (useCaseName.equalsIgnoreCase(taggedValue))
                     {
                         controller = element;

@@ -27,9 +27,9 @@ public class MetafacadeFacadeLogicImpl
        implements org.andromda.cartridges.meta.metafacades.MetafacadeFacade
 {
     private static Logger logger = Logger.getLogger(MetafacadeFacadeLogicImpl.class);
-    
+
     // ---------------- constructor -------------------------------
-    
+
     public MetafacadeFacadeLogicImpl (java.lang.Object metaObject, String context)
     {
         super (metaObject, context);
@@ -42,24 +42,24 @@ public class MetafacadeFacadeLogicImpl
 
     public java.lang.String getImplSuperclassName()
     {
-        String taggedValue =
+        Object taggedValue =
             findTaggedValueUpstairs(
                 MetaProfile.TAGGEDVALUE_METAFACADE_BASECLASS);
         return (taggedValue != null)
-            ? taggedValue
+            ? taggedValue.toString()
             : this.getLanguageMappings().getTo("datatype.Object");
     }
 
     /**
      * Finds a tagged value on the current element or on a package
      * in the hierarchy above it.
-     * 
+     *
      * @param taggedValueName the name of the tagged value
      * @return the value of the tagged value
      */
-    private String findTaggedValueUpstairs(String taggedValueName)
+    private Object findTaggedValueUpstairs(String taggedValueName)
     {
-        String taggedValue = null;
+        Object taggedValue = null;
         ModelElementFacade modelElement = this;
         do
         {
@@ -96,7 +96,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * Returns the class tagged with &lt;&lt;metaclass&gt;&gt; that is
      * connected to cl via a dependency.
-     * 
+     *
      * @param cl the source classifier
      * @return the metaclass object
      */
@@ -125,7 +125,7 @@ public class MetafacadeFacadeLogicImpl
         ClassifierFacade superclass = (ClassifierFacade) cl.getGeneralization();
         return (superclass != null) ? getMetaclass(superclass) : null;
     }
-    
+
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isMetaclassDirectDependency()
      */
@@ -134,30 +134,30 @@ public class MetafacadeFacadeLogicImpl
         Collection dependencies = this.getDependencies();
         if (dependencies != null && !dependencies.isEmpty()) {
             // there should be only one.
-            DependencyFacade dependency = 
+            DependencyFacade dependency =
                 (DependencyFacade)dependencies.iterator().next();
             if (dependency != null) {
                 ModelElementFacade targetElement = dependency.getTargetElement();
                 if (targetElement != null) {
-                    isMetaClassDirectDependency = 
+                    isMetaClassDirectDependency =
                         targetElement.hasStereotype(MetaProfile.STEREOTYPE_METACLASS);
                 }
             }
         }
         return isMetaClassDirectDependency;
-    }   
+    }
 
     /* (non-Javadoc)
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getInterfacePackageName()
      */
     public String getInterfacePackageName()
     {
-        String taggedValue =
+        Object taggedValue =
             findTaggedValueUpstairs(
                 MetaProfile.TAGGEDVALUE_METAFACADE_INTERFACEPACKAGE);
         // if the tagged value is not set, return the same package
         // as the current package.
-        return (taggedValue != null) ? taggedValue : getPackageName();
+        return (taggedValue != null) ? taggedValue.toString() : getPackageName();
     }
 
     /* (non-Javadoc)
@@ -191,12 +191,12 @@ public class MetafacadeFacadeLogicImpl
 
     private static void internalGetMethodDataForPSM(HashMap map, MetafacadeFacade facade)
     {
-        final String methodName = 
-            "MetafacadeFacadeLogicImpl.internaleGetMethodDataForPSM";
+        final String methodName =
+            "MetafacadeFacadeLogicImpl.internalGetMethodDataForPSM";
         try {
             final String fullyQualifiedInterfaceName =
                 facade.getFullyQualifiedInterfaceName();
-    
+
             // translate UML attributes to getter methods
             for (Iterator iter = facade.getAttributes().iterator();
                 iter.hasNext();
@@ -213,7 +213,7 @@ public class MetafacadeFacadeLogicImpl
                         att.getDocumentation("    * "));
                 map.put(md.buildCharacteristicKey(), md);
             }
-    
+
             // translate UML operations to methods
             for (Iterator iter = facade.getOperations().iterator();
                  iter.hasNext();
@@ -224,7 +224,7 @@ public class MetafacadeFacadeLogicImpl
                     new UMLOperationData(fullyQualifiedInterfaceName, op);
                 map.put(md.buildCharacteristicKey(), md);
             }
-    
+
             // translate UML associations to getter methods
             for (Iterator iter = facade.getAssociationEnds().iterator();
                 iter.hasNext();

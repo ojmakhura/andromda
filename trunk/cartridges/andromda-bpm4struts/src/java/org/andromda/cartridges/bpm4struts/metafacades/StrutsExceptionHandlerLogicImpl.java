@@ -52,7 +52,7 @@ public class StrutsExceptionHandlerLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && exceptionType != null) return exceptionType;
 
-        String type = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_EXCEPTION_TYPE);
+        String type = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_EXCEPTION_TYPE).toString();
         if (type == null)
         {
             type = Bpm4StrutsProfile.TAGGED_VALUE_EXCEPTION_DEFAULT_TYPE;

@@ -9,11 +9,11 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Utilities for dealing with entity metafacades
- * 
+ *
  * @author Chad Brandon
  */
 public class EntityMetafacadeUtils {
-	
+
     /**
      * <p>Converts a string following the Java naming conventions to a
      * database attribute name.  For example convert customerName to
@@ -23,41 +23,41 @@ public class EntityMetafacadeUtils {
      * @param separator character used to separate words
      * @return string converted to database attribute format
      */
-	protected static String toSqlName(String string, String separator) {
+	protected static String toSqlName(String modelElementName, String separator) {
 		final String methodName = "EntityFacadeUtils.toSqlName";
 		ExceptionUtils.checkEmpty(
-			methodName, 
-			"string", 
-			string);
+			methodName,
+			"string",
+			modelElementName);
 		ExceptionUtils.checkEmpty(
-			methodName, 
-			"separator", 
+			methodName,
+			"separator",
 			separator);
-	
+
 	    StringBuffer databaseAttributeName = new StringBuffer();
 	    StringCharacterIterator iter = new StringCharacterIterator(
-	            StringUtils.uncapitalize(string));
-	
+	            StringUtils.uncapitalize(modelElementName));
+
 	    for (char character = iter.first(); character != CharacterIterator.DONE;
 	            character = iter.next()) {
-	
+
 	        if (Character.isUpperCase(character)) {
 	            databaseAttributeName.append(separator);
 	        }
-	
+
 	        character = Character.toUpperCase(character);
 	        databaseAttributeName.append(character);
 	    }
-	
+
 	    return databaseAttributeName.toString();
 	}
-	
+
 	/**
-	 * Gets the SQL name. (i.e. column name, table name, etc.). 
+	 * Gets the SQL name. (i.e. column name, table name, etc.).
 	 * If it can't find the corresponding tagged value with
 	 * the specified <code>name</code>, then it uses the element
 	 * name by default and just returns that.
-	 * 
+	 *
 	 * @param element from which to retrieve the SQL name.
 	 * @param name the name of the tagged value.
 	 * @param nameMaxLength if this is not null, then the name returned
@@ -65,18 +65,18 @@ public class EntityMetafacadeUtils {
 	 * @return the SQL name as a String.
 	 */
 	protected static String getSqlNameFromTaggedValue(
-			ModelElementFacade element, 
-			String name, 
+			ModelElementFacade element,
+			String name,
 			Short nameMaxLength) {
 		return getSqlNameFromTaggedValue(element, name, nameMaxLength, null);
 	}
-	
+
 	/**
-	 * Gets the SQL name. (i.e. column name, table name, etc.). 
+	 * Gets the SQL name. (i.e. column name, table name, etc.).
 	 * If it can't find the corresponding tagged value with
 	 * the specified <code>name</code>, then it uses the element
 	 * name by default and just returns that.
-	 * 
+	 *
 	 * @param element from which to retrieve the SQL name.
 	 * @param name the name of the tagged value.
 	 * @param nameMaxLength if this is not null, then the name returned
@@ -86,26 +86,26 @@ public class EntityMetafacadeUtils {
 	 * @return the SQL name as a String.
 	 */
 	protected static String getSqlNameFromTaggedValue(
-		ModelElementFacade element, 
-		String name, 
+		ModelElementFacade element,
+		String name,
 		Short nameMaxLength,
 		String suffix) {
 		if (element != null) {
-			name = StringUtils.trimToEmpty(element.findTaggedValue(name));
+			name = StringUtils.trimToEmpty(element.findTaggedValue(name).toString());
 			if (StringUtils.isEmpty(name)) {
 				//if we can't find the tagValue then use the
 				//element name for the name
 				name = element.getName();
-				name = toSqlName(name, "_");			
+				name = toSqlName(name, "_");
 				if (StringUtils.isNotEmpty(suffix)) {
 					name = name + suffix;
 				}
-			}	
+			}
 			name = ensureMaximumNameLength(name, nameMaxLength);
 		}
 		return name;
 	}
-	
+
 	/**
 	 * <p>Trims the passed in value to the maximum name length.</p>
 	 * If no maximum length has been set then this method does nothing.

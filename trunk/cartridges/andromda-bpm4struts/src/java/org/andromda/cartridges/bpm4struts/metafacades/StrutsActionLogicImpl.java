@@ -131,14 +131,14 @@ public class StrutsActionLogicImpl
     public boolean isHyperlink()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && isHyperlink != null) return isHyperlink.booleanValue();
-        boolean condition = Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE));
+        boolean condition = Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE).toString());
         return (isHyperlink = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 
     public boolean hasSuccessMessage()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && hasSuccessMessage != null) return hasSuccessMessage.booleanValue();
-        boolean condition = isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE));
+        boolean condition = isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_SUCCES_MESSAGE).toString());
         return (hasSuccessMessage = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 
@@ -252,7 +252,7 @@ public class StrutsActionLogicImpl
     public boolean isResettable()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && isResettable != null) return isResettable.booleanValue();
-        boolean condition = isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE));
+        boolean condition = isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE).toString());
         return (isResettable = (condition) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
     }
 

@@ -18,7 +18,7 @@ import org.omg.uml.foundation.core.Operation;
 
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -28,7 +28,7 @@ public class ClassifierFacadeLogicImpl
        implements org.andromda.metafacades.uml.ClassifierFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public ClassifierFacadeLogicImpl (org.omg.uml.foundation.core.Classifier metaObject, String context)
     {
         super (metaObject, context);
@@ -70,9 +70,9 @@ public class ClassifierFacadeLogicImpl
             }
         };
     }
-    
+
     /**
-     * 
+     *
      */
     public java.util.Collection handleGetAssociationEnds()
     {
@@ -81,13 +81,13 @@ public class ClassifierFacadeLogicImpl
             .getAParticipantAssociation()
             .getAssociation(metaObject);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitiveType()
      */
     public boolean isPrimitiveType()
     {
-        String name = getName();
+        String name = this.getName();
         return (
             "void".equals(name)
                 || "char".equals(name)
@@ -99,7 +99,33 @@ public class ClassifierFacadeLogicImpl
                 || "double".equals(name)
                 || "boolean".equals(name));
     }
-    
+
+    public boolean isArrayType()
+    {
+        try
+        {
+            return Class.forName(getName()).isArray();
+        }
+        catch(Exception exception)
+        {
+            return false;
+        }
+    }
+
+    public boolean isCollectionType()
+    {
+        try
+        {
+            Class parameterClass = Class.forName(getName());
+            Class collectionClass = Class.forName(Collection.class.getName());
+            return collectionClass.isAssignableFrom(parameterClass);
+        }
+        catch(Exception exception)
+        {
+            return false;
+        }
+    }
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
@@ -109,7 +135,7 @@ public class ClassifierFacadeLogicImpl
 	    	superClass != null && follow;
 	    	superClass = (ClassifierFacade) superClass.getGeneralization()) {
             attributes.addAll(superClass.getAttributes(follow));
-        }   
+        }
         return attributes;
     }
 
@@ -165,7 +191,7 @@ public class ClassifierFacadeLogicImpl
         CollectionUtils.filter(attributes, new StaticAttributeFilter());
         return attributes;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceAttributes()
      */
@@ -177,9 +203,9 @@ public class ClassifierFacadeLogicImpl
             }
         }
         CollectionUtils.filter(attributes, new StaticAttributeFilter());
-        return attributes;      
+        return attributes;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
@@ -187,12 +213,12 @@ public class ClassifierFacadeLogicImpl
         Collection properties = this.getAttributes();
         class ConnectingEndTransformer implements Transformer {
             public Object transform(Object object) {
-                return ((AssociationEndFacade)object).getOtherEnd();              
+                return ((AssociationEndFacade)object).getOtherEnd();
             }
         }
         Collection connectingEnds = this.getAssociationEnds();
         CollectionUtils.transform(
-            connectingEnds, 
+            connectingEnds,
             new ConnectingEndTransformer());
         class NavigableFilter implements Predicate {
             public boolean evaluate(Object object) {
@@ -203,28 +229,28 @@ public class ClassifierFacadeLogicImpl
         properties.addAll(connectingEnds);
         return properties;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAbstractions()
      */
     public Collection getAbstractions() {
         Collection clientDependencies =
             this.getDependencies();
-            
+
         class AbstractionFilter implements Predicate {
             public boolean evaluate(Object object) {
                 return object instanceof Abstraction;
             }
         }
-        
+
         CollectionUtils.filter(clientDependencies, new AbstractionFilter());
         return clientDependencies;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
      */
-    public boolean isDatatype() 
+    public boolean isDatatype()
     {
         return
             DataType.class.isAssignableFrom(
