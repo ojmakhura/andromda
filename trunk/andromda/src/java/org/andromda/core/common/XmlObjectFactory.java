@@ -117,7 +117,7 @@ public class XmlObjectFactory {
             factory = new XmlObjectFactory(objectRulesXml);
             factory.objectClass = objectClass;
             factory.objectRulesXml = objectRulesXml;
-            // TODO: Allow graceful way to ignore schema validation if
+            // @todo Allow graceful way to ignore schema validation if
             // the underlying parser doesn't support it.
             // If the underlying parser doesn't support schema validation 
             // it fails by trying to validate against a non existent DTD (this
