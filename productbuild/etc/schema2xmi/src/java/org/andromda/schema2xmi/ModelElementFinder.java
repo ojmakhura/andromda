@@ -10,7 +10,7 @@ import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
 
 /**
- * Finds model elements by their fully qualified names.
+ * Finds model elements by their names.
  * 
  * @author Chad Brandon
  */
@@ -54,8 +54,8 @@ public class ModelElementFinder
      * <code>name</code> in the <code>modelPackage</code>, returns
      * <code>null</code> if not found.
      * 
-     * @param model The model to search
-     * @param fullyQualifiedName the fully qualified name to find.
+     * @param modelPackage The modelPackage to search
+     * @param name the name to find.
      * @return the found model element.
      */
     public static Object find(

@@ -189,7 +189,7 @@ public class SchemaTransformer
      * Sets the <code>mappingsUri</code> which is the URI to the sql types to
      * model type mappings.
      * 
-     * @param typeMappings The typeMappings to set.
+     * @param typeMappingsUri The typeMappings to set.
      */
     public void setTypeMappings(String typeMappingsUri)
     {
@@ -715,7 +715,7 @@ public class SchemaTransformer
      * then multiplicity is set to 1, if <code>required</code> is false, then
      * multiplicity is set to 0..1.
      * 
-     * @param dataTypePa used to create the Multiplicity
+     * @param dataTypes used to create the Multiplicity
      * @param required whether or not the attribute is required therefore
      *        determining the multiplicity value created.
      * @return the new Multiplicity
@@ -740,9 +740,9 @@ public class SchemaTransformer
      * Creates a multiplicity, from <code>lower</code> and <code>upper</code>
      * ranges.
      * 
-     * @param dataTypePa used to create the Multiplicity
-     * @param required whether or not the attribute is required therefore
-     *        determining the multiplicity value created.
+     * @param dataTypes used to create the Multiplicity
+     * @param upper the upper range of the multiplicity
+     * @param lower the lower range of the multiplicity
      * @return the new Multiplicity
      */
     protected Multiplicity createMultiplicity(

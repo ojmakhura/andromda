@@ -1,6 +1,8 @@
 package org.andromda.schema2xmi;
 
 /**
+ * Contains the Schema2XMI Global variables.
+ * 
  * @author Chad Brandon
  */
 class Schema2XMIGlobals

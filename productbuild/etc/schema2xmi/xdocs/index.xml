@@ -44,12 +44,13 @@ Options:
  -c,--connectionUrl <arg>   JDBC connection URL
  -d,--driver <arg>          JDBC driver class
  -h,--help                  Display help information
- -i,--input                 Input model file to start with
+ -i,--input                 Input model file (to which model elements will
+                            be added)
  -o,--output <arg>          Set output name to which the result of the
                             transformation will be written
  -p,--password <arg>        Schema user password
  -t,--tableNamePattern      The table name pattern of tables to process
-                            regular expression)
+                            (regular expression)
  -u,--user <arg>            Schema user name
  -v,--taggedValues          Whether or not to include persistence tagged
                             values, default is true

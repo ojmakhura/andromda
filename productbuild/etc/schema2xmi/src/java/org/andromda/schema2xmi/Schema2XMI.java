@@ -26,54 +26,54 @@ public class Schema2XMI
     /**
      * The command line argument to specify the input model file.
      */
-    private static final String INPUT_MODEL = "im";
+    private static final String INPUT_MODEL = "i";
 
     /**
      * The command line argument to specify the JDBC driver class
      */
-    private static final String DRIVER = "dc";
+    private static final String DRIVER = "d";
 
     /**
      * The command line argument to specify the schema user.
      */
-    private static final String USER = "un";
+    private static final String USER = "u";
 
     /**
      * The command line argument to specify the schema user password.
      */
-    private static final String PASSWORD = "pw";
+    private static final String PASSWORD = "p";
 
     /**
      * The command line argument to specify the connection URL.
      */
-    private static final String CONNECTION_URL = "cu";
+    private static final String CONNECTION_URL = "c";
 
     /**
      * The command line argument to specify the transformed output file.
      */
-    private static final String OUTPUT_NAME = "on";
+    private static final String OUTPUT_NAME = "o";
 
     /**
      * The command line argument specifying the URI to the type mappings file.
      */
-    private static final String TYPE_MAPPINGS_URI = "tmu";
+    private static final String TYPE_MAPPINGS_URI = "T";
 
     /**
      * The command line argument specifying the package to which the model
      * element will be generated.
      */
-    private static final String PACKAGE = "pkg";
+    private static final String PACKAGE = "P";
 
     /**
      * The command line argument specifying the tables names to match on
      */
-    private static final String TABLE_NAME_PATTERN = "tnp";
+    private static final String TABLE_NAME_PATTERN = "t";
 
     /**
      * The command line argument specifying whether or not to include tagged
      * values.
      */
-    private static final String INCLUDE_TAGGED_VALUES = "itv";
+    private static final String INCLUDE_TAGGED_VALUES = "v";
 
     /**
      * Configure the CLI options.
@@ -98,11 +98,11 @@ public class Schema2XMI
         option = new Option(
             INPUT_MODEL,
             false,
-            "Input model file to start with");
+            "Input model file (to which model elements will be added)");
         option.setLongOpt("input");
         options.addOption(option);
 
-        option = new Option(DRIVER, true, "JDBC driver class to use");
+        option = new Option(DRIVER, true, "JDBC driver class");
         option.setLongOpt("driver");
         options.addOption(option);
 
@@ -110,11 +110,11 @@ public class Schema2XMI
         option.setLongOpt("connectionUrl");
         options.addOption(option);
 
-        option = new Option(USER, true, "JDBC schema user");
+        option = new Option(USER, true, "Schema user name");
         option.setLongOpt("user");
         options.addOption(option);
 
-        option = new Option(PASSWORD, true, "JDBC schema user password");
+        option = new Option(PASSWORD, true, "Schema user password");
         option.setLongOpt("password");
         options.addOption(option);
 
@@ -122,13 +122,13 @@ public class Schema2XMI
             TYPE_MAPPINGS_URI,
             true,
             "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
-        option.setLongOpt("typeMappingsUri");
+        option.setLongOpt("typeMappings");
         options.addOption(option);
 
         option = new Option(
             TABLE_NAME_PATTERN,
             false,
-            "The table name pattern of tables to process");
+            "The table name pattern of tables to process (regular expression)");
         option.setLongOpt("tableNamePattern");
         options.addOption(option);
 
@@ -140,7 +140,7 @@ public class Schema2XMI
             INCLUDE_TAGGED_VALUES,
             false,
             "Whether or not to include persistence tagged values, default is true");
-        option.setLongOpt("includeTaggedValues");
+        option.setLongOpt("taggedValues");
         options.addOption(option);
 
         option = new Option(
@@ -214,6 +214,9 @@ public class Schema2XMI
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
                 transformer.setTableNamePattern(commandLine
                     .getOptionValue(TABLE_NAME_PATTERN));
+                transformer.setIncludeTaggedValues(
+                    Boolean.valueOf(
+                        commandLine.getOptionValue(INCLUDE_TAGGED_VALUES)).booleanValue());
 
                 String outputLocation = commandLine.getOptionValue(OUTPUT_NAME);
                 transformer.transform(inputModel, outputLocation);
