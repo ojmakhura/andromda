@@ -115,8 +115,12 @@
 
         <xsl:variable name="maven.deploy.messages" select="$mavengoal[@name='jar:deploy']"/>
         <xsl:if test="count($maven.deploy.messages) > 0">
-                        <HR/><H2>Deployments</H2>
+                        <HR/><H2>Deployments - Artifacts</H2>
             <xsl:apply-templates select="$mavengoal[@name='jar:deploy']"/>
+        </xsl:if>
+        <xsl:if test="count($maven.deploy.messages) > 0">
+                        <HR/><H2>Deployments - Distributions</H2>
+            <xsl:apply-templates select="$mavengoal[@name='deploy-distribution']"/>
         </xsl:if>
 
 		
@@ -124,6 +128,10 @@
     </xsl:template>
 
     <xsl:template match="mavengoal[@name='jar:deploy']">
+        <xsl:apply-templates select="message[@priority='info']"/>
+    </xsl:template>
+
+    <xsl:template match="mavengoal[@name='deploy-distribution']">
         <xsl:apply-templates select="message[@priority='info']"/>
     </xsl:template>
 
@@ -147,6 +155,16 @@
        <xsl:variable name="infoTest" select="string()" />
         <xsl:choose>
         <xsl:when test="starts-with($infoTest,'Deploying:')">
+      <span class="compile-data">
+        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+      </span>
+        </xsl:when>
+        <xsl:when test="contains($infoTest,'rsync')">
+      <span class="compile-data">
+        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+      </span>
+        </xsl:when>
+        <xsl:when test="contains($infoTest,'[exec]')">
       <span class="compile-data">
         <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
       </span>
