@@ -14,25 +14,23 @@ import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.OrderingKind;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 
-
 /**
- * 
- *
  * Metaclass facade implementation.
- *
  */
 public class AssociationEndFacadeLogicImpl
-       extends AssociationEndFacadeLogic
-       implements org.andromda.metafacades.uml.AssociationEndFacade
+    extends AssociationEndFacadeLogic
+    implements org.andromda.metafacades.uml.AssociationEndFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public AssociationEndFacadeLogicImpl (org.omg.uml.foundation.core.AssociationEnd metaObject, String context)
-    {
-        super (metaObject, context);
-    } 
 
-    /*** 
+    public AssociationEndFacadeLogicImpl(
+        org.omg.uml.foundation.core.AssociationEnd metaObject,
+        String context)
+    {
+        super(metaObject, context);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getOtherEnd()
      */
     public Object handleGetOtherEnd()
@@ -40,7 +38,7 @@ public class AssociationEndFacadeLogicImpl
         Collection ends = metaObject.getAssociation().getConnection();
         for (Iterator i = ends.iterator(); i.hasNext();)
         {
-            AssociationEnd ae = (AssociationEnd) i.next();
+            AssociationEnd ae = (AssociationEnd)i.next();
             if (!metaObject.equals(ae))
             {
                 return ae;
@@ -60,9 +58,8 @@ public class AssociationEndFacadeLogicImpl
         if (StringUtils.isEmpty(name))
         {
             ClassifierFacade type = this.getType();
-            name =
-                StringUtils.uncapitalize(
-                    StringUtils.trimToEmpty(type.getName()));
+            name = StringUtils.uncapitalize(StringUtils.trimToEmpty(type
+                .getName()));
         }
         return name;
     }
@@ -88,8 +85,7 @@ public class AssociationEndFacadeLogicImpl
      */
     public boolean handleIsMany2Many()
     {
-        return this.isMany()
-            && this. getOtherEnd().isMany();
+        return this.isMany() && this.getOtherEnd().isMany();
     }
 
     /**
@@ -97,8 +93,7 @@ public class AssociationEndFacadeLogicImpl
      */
     public boolean handleIsOne2One()
     {
-        return !this.isMany()
-            && !this.getOtherEnd().isMany();
+        return !this.isMany() && !this.getOtherEnd().isMany();
     }
 
     /**
@@ -106,42 +101,50 @@ public class AssociationEndFacadeLogicImpl
      */
     public boolean handleIsMany2One()
     {
-        return this.isMany()
-            && !this.getOtherEnd().isMany();
+        return this.isMany() && !this.getOtherEnd().isMany();
     }
 
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isMany()
      */
-    public boolean handleIsMany() {
+    public boolean handleIsMany()
+    {
         boolean isMultiple = false;
         Multiplicity multiplicity = this.metaObject.getMultiplicity();
         //we'll say a null multiplicity is 1
-        if (multiplicity != null) {
+        if (multiplicity != null)
+        {
             Collection ranges = multiplicity.getRange();
-            if (ranges != null && !ranges.isEmpty()) {
+            if (ranges != null && !ranges.isEmpty())
+            {
                 Iterator rangeIt = ranges.iterator();
-                while (rangeIt.hasNext()) {
-                    MultiplicityRange multiplicityRange =
-                        (MultiplicityRange) rangeIt.next();
+                while (rangeIt.hasNext())
+                {
+                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt
+                        .next();
                     int upper = multiplicityRange.getUpper();
                     int lower = multiplicityRange.getLower();
                     int rangeSize = upper - lower;
-                    if (upper > 1) {
+                    if (upper > 1)
+                    {
                         isMultiple = true;
-                    } else if (rangeSize < 0) {
+                    }
+                    else if (rangeSize < 0)
+                    {
                         isMultiple = true;
-                    } else {
+                    }
+                    else
+                    {
                         isMultiple = false;
                     }
                 }
             }
         }
         return isMultiple;
-    }   
+    }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#isOrdered()
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isOrdered()
      */
     public boolean handleIsOrdered()
     {
@@ -157,31 +160,31 @@ public class AssociationEndFacadeLogicImpl
         return ordered;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#isAggregation()
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isAggregation()
      */
     public boolean handleIsAggregation()
     {
-        return AggregationKindEnum.AK_AGGREGATE.equals(
-            metaObject.getAggregation());
+        return AggregationKindEnum.AK_AGGREGATE.equals(metaObject
+            .getAggregation());
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#isComposition()
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isComposition()
      */
     public boolean handleIsComposition()
     {
-        return AggregationKindEnum.AK_COMPOSITE.equals(
-            metaObject.getAggregation());
+        return AggregationKindEnum.AK_COMPOSITE.equals(metaObject
+            .getAggregation());
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#isReadOnly()
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isReadOnly()
      */
     public boolean handleIsReadOnly()
     {
-        return ChangeableKindEnum.CK_FROZEN.equals(
-            metaObject.getChangeability());
+        return ChangeableKindEnum.CK_FROZEN.equals(metaObject
+            .getChangeability());
     }
 
     /**
@@ -208,8 +211,6 @@ public class AssociationEndFacadeLogicImpl
         return "set" + StringUtils.capitalize(this.getName());
     }
 
-    // relations
-
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getAssociation()
      */
@@ -218,8 +219,10 @@ public class AssociationEndFacadeLogicImpl
         return metaObject.getAssociation();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml.AssociationEndFacade#getGetterSetterTypeName()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     public String handleGetGetterSetterTypeName()
     {
@@ -227,44 +230,47 @@ public class AssociationEndFacadeLogicImpl
         if (isOne2Many() || isMany2Many())
         {
             Mappings lm = getLanguageMappings();
-            return isOrdered()
-                ? lm.getTo("datatype.List")
-                : lm.getTo("datatype.Collection");
+            return isOrdered() ? lm.getTo("datatype.List") : lm
+                .getTo("datatype.Collection");
         }
-        
+
         // if single element, then return the type
         return getOtherEnd().getType().getFullyQualifiedName();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
      */
-    public boolean handleIsRequired() {
-		int lower = this.getMultiplicityRangeLower();
-		return lower >= 1;
-    }
-    
-    /**
-     * Returns the lower range of the multiplicty for the 
-     * passed in associationEnd
-     * @return int the lower range of the multiplicty or 1 if it
-     *         isn't defined.
-     */
-    private int getMultiplicityRangeLower() {
-    	int lower = 1;
-    	Multiplicity multiplicity = this.metaObject.getMultiplicity();
-    	if (multiplicity != null) {
-	    	Collection ranges = multiplicity.getRange();
-	    	if (ranges != null && !ranges.isEmpty()) {
-	    		Iterator rangeIt = ranges.iterator();
-	    		while (rangeIt.hasNext()) {
-	    			MultiplicityRange multiplicityRange =
-	    				(MultiplicityRange) rangeIt.next();
-	    			lower = multiplicityRange.getLower();
-	    		}
-	    	}
-    	}
-    	return lower;
+    public boolean handleIsRequired()
+    {
+        int lower = this.getMultiplicityRangeLower();
+        return lower >= 1;
     }
 
+    /**
+     * Returns the lower range of the multiplicty for the passed in
+     * associationEnd
+     * 
+     * @return int the lower range of the multiplicty or 1 if it isn't defined.
+     */
+    private int getMultiplicityRangeLower()
+    {
+        int lower = 1;
+        Multiplicity multiplicity = this.metaObject.getMultiplicity();
+        if (multiplicity != null)
+        {
+            Collection ranges = multiplicity.getRange();
+            if (ranges != null && !ranges.isEmpty())
+            {
+                Iterator rangeIt = ranges.iterator();
+                while (rangeIt.hasNext())
+                {
+                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt
+                        .next();
+                    lower = multiplicityRange.getLower();
+                }
+            }
+        }
+        return lower;
+    }
 }
