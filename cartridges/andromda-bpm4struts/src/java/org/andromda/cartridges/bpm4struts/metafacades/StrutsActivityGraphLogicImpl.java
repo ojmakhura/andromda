@@ -4,6 +4,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -95,24 +96,27 @@ public class StrutsActivityGraphLogicImpl
          * an alternative is implemented: a tagged value on the controller, specifying the name of the use-case
          */
 
-        final String useCaseName = getUseCase().getName();
-
-        // loop over the controllers, looking for the tagged value matching this activity graph's use-case name
-        Collection allClasses = getModel().getRootPackage().getClasses();
-        for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+        UseCaseFacade useCase = this.getUseCase();
+        if (useCase != null)
         {
-            ModelElementFacade element = (ModelElementFacade) classIterator.next();
-            if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
-            {
-                Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_CONTROLLER_USE_CASE);
-                String taggedValue = value==null?null:value.toString();
-                if (useCaseName.equalsIgnoreCase(taggedValue))
-                {
-                    return element;
-                }
-            }
+	        final String useCaseName = useCase.getName();
+	
+	        // loop over the controllers, looking for the tagged value matching this activity graph's use-case name
+	        Collection allClasses = getModel().getRootPackage().getClasses();
+	        for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+	        {
+	            ModelElementFacade element = (ModelElementFacade) classIterator.next();
+	            if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
+	            {
+	                Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_CONTROLLER_USE_CASE);
+	                String taggedValue = value==null?null:value.toString();
+	                if (useCaseName.equalsIgnoreCase(taggedValue))
+	                {
+	                    return element;
+	                }
+	            }
+	        }
         }
-
         return null;
     }
 }
