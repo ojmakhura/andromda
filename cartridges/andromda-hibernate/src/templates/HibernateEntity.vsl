@@ -68,7 +68,7 @@ public abstract class ${class.name} {
 #set ($attsqltype    = $transform.findAttributeSQLType($att))
 #if ($transform.getStereotype($att.id) == "PrimaryKey")
     * @hibernate.id 
-    *     generator-class="uuid.string"
+    *     generator-class="uuid.hex"
 #else
     * @hibernate.property
 #end
