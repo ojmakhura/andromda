@@ -2,10 +2,10 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateService.
- *
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateService.
+ * 
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateService
  */
 public class HibernateServiceLogicImpl
@@ -13,9 +13,11 @@ public class HibernateServiceLogicImpl
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateServiceLogicImpl (Object metaObject, String context)
+    public HibernateServiceLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -41,7 +43,8 @@ public class HibernateServiceLogicImpl
      */
     protected java.lang.String handleGetEjbViewType()
     {
-        String defaultViewType = String.valueOf(this.getConfiguredProperty("ejbViewType"));
+        String defaultViewType = String.valueOf(this
+            .getConfiguredProperty("ejbViewType"));
         return HibernateMetafacadeUtils.getViewType(this, defaultViewType);
     }
 
@@ -54,18 +57,17 @@ public class HibernateServiceLogicImpl
     {
         return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#isEjbStateful()
      */
-    protected boolean handleIsEjbStateful() 
+    protected boolean handleIsEjbStateful()
     {
         return !this.getAttributes().isEmpty();
     }
-    
+
     /**
-     * The value used to indicate the interfaces for an EJB
-     * are remote.
+     * The value used to indicate the interfaces for an EJB are remote.
      */
     private static final String VIEW_TYPE_REMOTE = "remote";
 
@@ -76,5 +78,5 @@ public class HibernateServiceLogicImpl
     {
         return this.getEjbViewType().equalsIgnoreCase(VIEW_TYPE_REMOTE);
     }
-    
+
 }

@@ -1,6 +1,5 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument.
@@ -27,7 +26,7 @@ public class HibernateFinderMethodArgumentLogicImpl
         StringBuffer setterName = new StringBuffer("setParameter");
         if (this.getType().isCollectionType())
         {
-            setterName.append("List"); 
+            setterName.append("List");
         }
         return setterName.toString();
     }

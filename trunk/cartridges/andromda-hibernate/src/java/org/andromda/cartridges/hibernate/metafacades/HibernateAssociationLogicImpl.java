@@ -3,10 +3,10 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateAssociation.
- *
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateAssociation.
+ * 
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation
  */
 public class HibernateAssociationLogicImpl
@@ -14,9 +14,11 @@ public class HibernateAssociationLogicImpl
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateAssociationLogicImpl (Object metaObject, String context)
+    public HibernateAssociationLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -27,7 +29,7 @@ public class HibernateAssociationLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getHibernateCacheType()
      */
-    protected java.lang.String handleGetHibernateCacheType() 
+    protected java.lang.String handleGetHibernateCacheType()
     {
         String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
         if (cacheType == null)
@@ -37,7 +39,7 @@ public class HibernateAssociationLogicImpl
         }
         return cacheType;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheMaxElementsInMemory()
      */
