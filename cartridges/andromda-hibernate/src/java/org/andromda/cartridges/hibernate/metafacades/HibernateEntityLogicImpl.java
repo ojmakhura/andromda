@@ -31,13 +31,6 @@ import org.apache.commons.lang.StringUtils;
  * Also provides support for not generating the impls which is useful when using
  * subclass mode.
  * </p>
- * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
- *                                 subclasses must then follow the same
- *                                 strategy. NB if the strategy is changed after
- *                                 the initial generation, the impl classes have
- *                                 to be hand modified.
- *                                 </p>
  * @author Martin West
  * @author Carlos Cuenca
  */
