@@ -160,6 +160,22 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isListType()
+     */
+    public boolean handleIsListType()
+    {
+        return this.isType(UMLMetafacadeGlobals.LIST_TYPE_NAME);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isSetType()
+     */
+    public boolean handleIsSetType()
+    {
+        return this.isType(UMLMetafacadeGlobals.SET_TYPE_NAME);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDateType()
      */
     public boolean handleIsDateType()
