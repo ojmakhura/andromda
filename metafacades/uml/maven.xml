@@ -3,12 +3,16 @@
            xmlns:ant="jelly:ant"
            xmlns:maven="jelly:maven">
 
-      <!-- ==================================================================
-               Installs all libraries in the local repository
-           ================================================================== -->
-      <goal name="install">
-        <attainGoal name="multiproject:install"/>
-      </goal>
+    <!-- ==================================================================
+           Installs all libraries in the local repository
+         ================================================================== -->
+    <goal name="install">
+      <attainGoal name="multiproject:install"/>
+    </goal>
+    
+    <goal name="clean">
+      <attainGoal name="multiproject:clean"/>
+    </goal>
 
     <preGoal name="java:compile">
            <attainGoal name="generate-source"/>
