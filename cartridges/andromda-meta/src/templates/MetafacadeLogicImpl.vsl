@@ -89,12 +89,12 @@ public class ${metafacade.logicImplName}
 #if (!$metafacade.associationEnds.empty)
 #foreach ( $associationEnd in $metafacade.associationEnds )
 #if ($associationEnd.otherEnd.navigable)
-#set ($memberTypeName = $associationEnd.getterSetterTypeName)
+#set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
 #set ($methodName = $associationEnd.otherEnd.getterName)
 #set ($handleMethodName = "handle$str.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #if ($associationEnd.otherEnd.many)
-#set ($returnTypeName = $associationEnd.getterSetterTypeName)
+#set ($returnTypeName = $associationEnd.otherEnd.getterSetterTypeName)
 #else
 #set ($returnTypeName = "java.lang.Object")
 #end

@@ -233,16 +233,16 @@ public class AssociationEndFacadeLogicImpl
     public String handleGetGetterSetterTypeName()
     {
         // if many, then list or collection
-        if (isOne2Many() || isMany2Many())
+        if (this.isMany())
         {
-            Mappings lm = getLanguageMappings();
+            Mappings mappings = getLanguageMappings();
             return isOrdered()
-                ? lm.getTo(UMLMetafacadeGlobals.LIST_TYPE_NAME)
-                : lm.getTo(UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
+                ? mappings.getTo(UMLMetafacadeGlobals.LIST_TYPE_NAME)
+                : mappings.getTo(UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type
-        return getOtherEnd().getType().getFullyQualifiedName();
+        return getType().getFullyQualifiedName();
     }
 
     /**
