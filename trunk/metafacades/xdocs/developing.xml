@@ -15,12 +15,12 @@
             </p>
             <p>
                 The next section assumes you have brewed a good cup of coffee
-                (or tea or whatever) and have at least two hours of time
+                (or tea or whatever) and have at least two hours of time.
                 Take a deep breath and start to prepare your working environment.
             </p>  		    
         </section>
 
-  		<section name="Preparing the working environment">
+  		<section name="Prepare the working environment">
   		    <p>
   		        First, make sure you have the correct directory structure
   		        on disk to keep all the artifacts you need to develop an
@@ -33,11 +33,11 @@
   		        After you copied the cartridge, you will see a directory
   		        structure like this:
   		    </p>
-  		    <source>
+<source>
 src/java
 src/templates
 src/uml
-  		    </source>
+</source>
   		    <p>
   		        Metafacades are generated from a UML model. Put this UML model 
   		        in a file into the <code>src/uml</code> directory. Open 
@@ -45,9 +45,10 @@ src/uml
   		        shipped with AndroMDA. These basic metafacades for UML are in 
   		        the model file <code>andromda/xml.zips/UMLMetafacadeModel-*.xml.zip</code> 
 				located in the AndroMDA binary distribution.
-  		        You import them using the "File, Import..." menu in MagicDraw. After the import, you should be 
-  		        able to see the basic facade classes (like ClassifierFacade, 
-  		        etc.) but MagicDraw should show them as read-only.
+  		        You import them using the "File, Use Profile/Module..." menu in MagicDraw. 
+  		        After using the module, you should be able to see the basic facade 
+  		        classes (like ClassifierFacade, etc.) but MagicDraw should show 
+  		        them as read-only.
   		    </p>
   		    <p>
   		        The next step is to model your own metafacades.
@@ -55,7 +56,13 @@ src/uml
   		    
 		</section>
 
-  		<section name="Modeling rules for your own metafacades">
+  		<section name="Model and generate your own metafacades">
+  		    <p>
+  		        A few rules apply if you want to make AndroMDA generate
+  		        the metafacades for you. You will see that they are easy
+  		        to remember and that they make sense. After a short recap
+  		        to clarify the terminology, the rules will be shown here.
+  		    </p>
   		    <subsection name="Recap about how metafacades work">
       		    <p>
       		        Later, the user of your cartridge will load a model into 
@@ -80,19 +87,32 @@ src/uml
                     So, don't confuse a metafacade class with a metaclass!
                 </p>
             </subsection>
+
             <subsection name="Modeling rules">
                 <p>
-                    Now, there is a rule that tells you how to shield a metaclass
-                    with a metafacade. A metafacade class must choose exactly one
-                    of two ways to relate to a metaclass:
+                    There are rules that tell you how to shield a metaclass
+                    with a metafacade. Metafacades and metaclasses can relate
+                    to each other in the following ways:
                 </p>
-                <ul>
-                    <li>The metafacade class has a direct dependency on the metaclass.</li>
-                    <li>The metafacade class specializes another metafacade
-                        class and (in this case) must not have a dependency
-                        to a metaclass (because the topmost of the superclasses of
-                        the metafacade class already has the dependency).</li>
-                </ul>        
+                <ol>
+                    <li>A metafacade class can have a direct dependency on a metaclass.</li>
+                    <li>A metafacade class can specialize another metafacade
+                        class and (in this case) may omit the dependency
+                        to a metaclass (because one of the superclasses of
+                        the metafacade class already has such a dependency).</li>
+                    <li>If (in point 2 above) a metafacade class MF2
+                        specializes another metafacade class MF1 <b>and</b> (at the same time)
+                        has a direct dependency to a metaclass M2, then
+                        the metaclass M2 must specialize the metaclass M1 that
+                        is referenced by MF1 as a direct dependency.</li>
+                    <li>If you think point 3 is too cryptic then simply think of
+                        parallel class hierarchies: the class ordering in the 
+                        metafacade class hierarchy must be similar to the
+                        class ordering in the metaclass hierarchy.</li>
+                    <li>The root metafacade class in the hierarchy
+                        <b>must</b> depend on some metaclass. Other metafacade
+                        classes may or may not depend on a metaclass.</li>
+                </ol>        
                 <p>
                     There are two rules how to add stereotypes to the classes:
                 </p>
@@ -107,11 +127,16 @@ src/uml
             
 		</section>
 
-        <section name="What you will get from the metafacade model">
+        <section name="Look at what you get from the metafacade model">
+            <p>
+                Here, you see a picture of some typical metafacades:
+            </p>
+            <img src="images/MetafacadePIM.jpg" />
             <p>
                 A metafacade can have attributes, operations and associations
-                to other metafacade classes. It can also specialize another
-                metafacade class. Let's talk about what it means if you add
+                to other metafacade classes. It can also depend on a metaclass
+                or specialize another metafacade class. 
+                Let's talk about what it means if you add
                 various things to a metafacade class.
             </p>
             <p>
@@ -123,15 +148,18 @@ src/uml
                 model element will be translated to which Java element:
             </p>
             <table>
-                <tr><th>Model element</th><th>Java element</th></tr>
+                <tr><th>Model element</th><th>Java element(s)</th></tr>
+                <tr><td>Metafacade class</td>
+                    <td>Interface, plumbing and implementation classes</td>
+                </tr>
                 <tr><td>Attribute</td>
-                    <td>Pair of abstract getter/setter</td>
+                    <td>Abstract getter</td>
                 </tr>
                 <tr><td>Operation</td>
                     <td>Abstract method</td>
                 </tr>
                 <tr><td>Association</td>
-                    <td>Pair of abstract getter/setter</td>
+                    <td>Abstract getter</td>
                 </tr>
                 <tr><td>Dependency</td>
                     <td>Ignored except when the target of the dependency
@@ -152,11 +180,94 @@ src/uml
                 <li>An interface with the method signatures of all
                     generated methods in the metafacade.</li>
                 <li>A class with automatically generated plumbing logic.
-                    This is called the "logic" class.</li>
-                <li>An implementation class which is hand-written.</li>
+                    This is called the "Logic" class.</li>
+                <li>An implementation class which is hand-written.
+                    This is called the "LogicImpl" class.</li>
             </ul>
             <p>
-                To be continued...
+                <i>//TODO: Add pictures of generated metafacades here...</i><br />
+                <i>//TODO: Describe what the responsibilities of the three classes are...</i>
+            </p>
+        </section>
+
+        <section name="Write the metafacade implementations">
+            <p>
+                Basically, after having generated all those nice metafacade
+                classes, you will want to implement their real functionality,
+                right? To do that, start your favourite Java IDE (e.g. Eclipse).
+            </p>
+            <subsection name="Setting up a project in the IDE">
+                <p>
+                    Open a project that references all the source files,
+                    generated as well as hand-written. Make the IDE project
+                    reference the standard, basic metafacade project in the 
+                    <code>metafacades/uml</code>
+                    directory. <i>//TODO: Chad, where are those files in the binary
+                    distribution? Metafacade developers should possibly reference a jar file here
+                    instead of the source code tree, right?</i>
+                </p>
+            </subsection>
+            <subsection name="Implementing the LogicImpl classes">
+                <p>    
+                    Now, watch out for all
+                    those classes that end with "LogicImpl" in their names. These
+                    classes have been generated for you but will never be touched by
+                    the generator again. This is the place where you can implement
+                    your own logic.
+                </p>
+                <p> 
+                    Watch out for the "//TODO" tags in the files.
+                    You will notice that getters for attributes and associations
+                    are there to be filled by hand. This is the place where the facade
+                    does its work - you will want to refer to the contents of the
+                    metaobject that is shielded by this facade and translate it in
+                    some way so that you can return it from one of those getters.
+                    Operations in the metafacade model are translated to abstract
+                    Java methods - you will also want to implement these in the
+                    LogicImpl class.
+                </p>
+            </subsection>
+
+            <subsection name="The role of the metafacade factory">
+                <p>
+                    <i>//TODO: Describe how to create new metafacade objects
+                    and how the factory knows which one to instantiate,
+                    depending on stereotype and context.
+                    </i>
+                </p>
+                <p>
+                    <i>//TODO: Insert reference to <a href="configuring.html">Configuring metafacades</a>
+                    so that we explain everything only once.
+                    </i>
+                </p>
+            </subsection>
+
+            <subsection name="Returning references to other metafacades ">
+                <p>
+                    <i>//TODO: Describe how to shield a metaobject
+                    with a metafacade object.</i>
+                </p>
+            </subsection>
+
+            <subsection name="Accessing metafacade namespaces">
+                <p>
+                    <i>//TODO: Describe how to get parameters from the
+                    metafacade's namespace in order to control code generation.
+                    </i>
+                </p>
+            </subsection>
+
+        </section>
+
+        <section name="Deploy the metafacades with your cartridge">
+            <p>
+                After you have modeled, generated and implemented your
+                metafacades, you can deploy them with your cartridge.
+                To make this work, you need to configure an XML file.
+                Read 
+                <a href="configuring.html">Configuring metafacades</a>
+                to see how to make AndroMDA use your metafacades 
+                at the right time.
             </p>
         </section>
 
