@@ -9,7 +9,7 @@
   			 Installs all component libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install-components">
- 		<j:set 
+ 		<maven:set 
  			var="maven.multiproject.includes" 
  			value="${component.install.includes}"/>
 		<attainGoal name="multiproject:install"/>	
@@ -19,7 +19,7 @@
   			 Installs all sample libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install-samples">
- 		<j:set 
+ 		<maven:set 
  			var="maven.multiproject.includes" 
  			value="${sample.install.includes}"/>
 		<attainGoal name="multiproject:install"/>	
@@ -37,7 +37,7 @@
   			 Deploys all libraries into the remote repository                                                    
   		 ================================================================== --> 	
   	<goal name="deploy">
- 		<j:set 
+ 		<maven:set 
  			var="maven.multiproject.includes" 
  			value="${component.install.includes}"/>
 		<attainGoal name="multiproject:deploy"/>	  		
@@ -47,10 +47,10 @@
   			 Clean                                                     
   		 ================================================================== -->
   	<goal name="clean">  		
- 		<j:set 
+ 		<maven:set 
  			var="maven.multiproject.includes" 
  			value="**/project.xml"/>
- 		<j:set 
+ 		<maven:set 
  			var="maven.multiproject.excludes" 
  			value="project.xml,**/target/**"/>
 		<attainGoal name="multiproject:clean"/>
