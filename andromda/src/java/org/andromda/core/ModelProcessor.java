@@ -106,7 +106,7 @@ public class ModelProcessor
     }
 
     /**
-     * Processes all <code>models</code> with the the discovered plugins.
+     * Processes all <code>models</code> with the discovered plugins.
      * 
      * @param models an array of URLs to models.
      */
