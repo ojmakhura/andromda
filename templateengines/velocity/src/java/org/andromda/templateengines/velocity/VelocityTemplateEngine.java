@@ -87,60 +87,50 @@ public class VelocityTemplateEngine
     {
         this.initLogger(pluginName);
 
-        // perform only this initialization only once
-        if (this.velocityEngine == null)
+        ExtendedProperties engineProperties = new ExtendedProperties();
+
+        // Tell VelocityTemplateEngine it should also use the
+        // classpath when searching for templates
+        // IMPORTANT: file,andromda.plugins the ordering of these
+        // two things matters, the ordering allows files to override
+        // the resources found on the classpath.
+        engineProperties.setProperty(
+            VelocityEngine.RESOURCE_LOADER,
+            "file,classpath");
+
+        engineProperties.setProperty("file." + VelocityEngine.RESOURCE_LOADER
+            + ".class", FileResourceLoader.class.getName());
+
+        engineProperties.setProperty(
+            "classpath." + VelocityEngine.RESOURCE_LOADER + ".class",
+            ClasspathResourceLoader.class.getName());
+
+        // Tell VelocityTemplateEngine not to use its own logger
+        // the logger but to use of this plugin.
+        engineProperties.setProperty(
+            VelocityEngine.RUNTIME_LOG_LOGSYSTEM,
+            new VelocityLoggingReceiver());
+
+        // Let this template engine know about the macro libraries.
+        for (Iterator iter = getMacroLibraries().iterator(); iter.hasNext();)
         {
-            this.velocityEngine = new VelocityEngine();
-
-            ExtendedProperties properties = new ExtendedProperties();
-
-            // Tell VelocityTemplateEngine it should also use the
-            // classpath when searching for templates
-            // IMPORTANT: file,andromda.plugins the ordering of these
-            // two things matters, the ordering allows files to override
-            // the resources found on the classpath.
-            velocityEngine.addProperty(
-                VelocityEngine.RESOURCE_LOADER,
-                "file,classpath");
-
-            properties.setProperty(
-                "file.resource.loader.class",
-                FileResourceLoader.class.getName());
-
-            properties.setProperty(
-                "classpath.resource.loader.class",
-                ClasspathResourceLoader.class.getName());
-
-            // Tell VelocityTemplateEngine not to use its own logger
-            // the logger but to use of this plugin.
-            properties.setProperty(
-                VelocityEngine.RUNTIME_LOG_LOGSYSTEM,
-                new VelocityLoggingReceiver());
-
-            // Let VelocityTemplateEngine know about the macro libraries.
-            for (Iterator iter = getMacroLibraries().iterator(); iter.hasNext();)
-            {
-                String libraryName = (String)iter.next();
-                properties.addProperty(VelocityEngine.VM_LIBRARY, libraryName);
-            }
-
-            velocityEngine.setExtendedProperties(properties);
-            velocityEngine.init();
+            String libraryName = (String)iter.next();
+            engineProperties
+                .addProperty(VelocityEngine.VM_LIBRARY, libraryName);
         }
 
-        String fileResourcePathProperty = "file.resource.loader.path";
-        if (this.mergeLocation == null)
+        this.velocityEngine = new VelocityEngine();
+        this.velocityEngine.setExtendedProperties(engineProperties);
+        if (this.mergeLocation != null)
         {
-            // clear out any merge location (if one is in the engine)
-            velocityEngine.clearProperty(fileResourcePathProperty);
-        }
-        else
-        {
-            // set the file resource path (the merge location)
+            // set the file resource path (to the merge location)
             velocityEngine.addProperty(
-                fileResourcePathProperty,
+                VelocityEngine.FILE_RESOURCE_LOADER_PATH,
                 this.mergeLocation);
+            // we need to reinitialize the velocity engine
+            // with the file resource loader path
         }
+        this.velocityEngine.init();
         this.addProperties(pluginName);
     }
 
@@ -179,25 +169,6 @@ public class VelocityTemplateEngine
     }
 
     /**
-     * Clears all properties loaded from
-     * META-INF/'plugin-name'-velocity.properties during initialization.
-     */
-    private void removeProperties()
-    {
-        if (this.properties != null)
-        {
-            Iterator propertyIt = this.properties.keySet().iterator();
-            while (propertyIt.hasNext())
-            {
-                String property = (String)propertyIt.next();
-                if (logger.isDebugEnabled())
-                    logger.debug("removing property --> '" + property + "'");
-                this.velocityEngine.clearProperty(property);
-            }
-        }
-    }
-
-    /**
      * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String,
      *      java.util.Map, java.io.StringWriter)
      */
@@ -213,7 +184,6 @@ public class VelocityTemplateEngine
                 + "'");
         ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
         ExceptionUtils.checkNull(methodName, "output", output);
-
         this.velocityContext = new VelocityContext();
 
         //copy the templateObjects to the velocityContext
@@ -227,7 +197,7 @@ public class VelocityTemplateEngine
                 velocityContext.put(name, value);
             }
         }
-        Template template = velocityEngine.getTemplate(templateFile);
+        Template template = this.velocityEngine.getTemplate(templateFile);
         template.merge(velocityContext, output);
     }
 
@@ -242,7 +212,7 @@ public class VelocityTemplateEngine
             try
             {
                 StringWriter writer = new StringWriter();
-                velocityEngine.evaluate(
+                this.velocityEngine.evaluate(
                     this.velocityContext,
                     writer,
                     "mylogtag",
@@ -337,8 +307,8 @@ public class VelocityTemplateEngine
      */
     public void shutdown()
     {
-        this.removeProperties();
         this.shutdownLogger();
+        this.velocityEngine = null;
     }
 
     /**

@@ -86,6 +86,64 @@ public class ComponentContainer
     }
 
     /**
+     * Creates a new component of the given <code>implementation</code> (if it
+     * isn't null or empty), otherwise attempts to find the default
+     * implementation of the given <code>type</code> by searching the
+     * <code>META-INF/services</code> directory for the default
+     * implementation.
+     * 
+     * @return a new instance of the given <code>type</code>
+     */
+    public Object newComponent(String implementation, Class type)
+    {
+        Object component = null;
+        implementation = StringUtils.trimToEmpty(implementation);
+        if (StringUtils.isBlank(implementation))
+        {
+            component = this.newDefaultComponent(type);
+        }
+        else
+        {
+            component = ClassUtils.newInstance(implementation);
+        }
+        return component;
+    }
+
+    /**
+     * Creates a new component of the given <code>type</code> by searching the
+     * <code>META-INF/services</code> directory and finding its default
+     * implementation.
+     * 
+     * @return a new instance of the given <code>type</code>
+     */
+    public Object newDefaultComponent(Class type)
+    {
+        final String methodName = "Component.newComponent";
+        ExceptionUtils.checkNull(methodName, "type", type);
+        Object component = null;
+        try
+        {
+            String implementation = this.getDefaultImplementation(type
+                .getName());
+            if (StringUtils.isBlank(implementation))
+            {
+                throw new ComponentContainerException(
+                    "No default implementation found for type '"
+                        + type.getName() + "', please check your '" + SERVICES
+                        + "' directory");
+            }
+            component = ClassUtils.loadClass(implementation).newInstance();
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, th);
+            throw new ComponentContainerException(errMsg, th);
+        }
+        return component;
+    }
+
+    /**
      * Finds the component with the specified Class <code>key</code>. If the
      * component wasn't explicitly registered then the META-INF/services
      * directory on the classpath will be searched in order to find the default
@@ -125,13 +183,12 @@ public class ComponentContainer
                 String typeName = type.getName();
                 component = this.container.getComponentInstance(typeName);
                 //if the component doesn't have a default already
-                //(componet == null), then see if we can find the default
+                //(i.e. componet == null), then see if we can find the default
                 //configuration file.
                 if (component == null)
                 {
-                    String defaultImpl = StringUtils.trimToEmpty(ResourceUtils
-                        .getContents(SERVICES + type.getName()));
-
+                    String defaultImpl = this.getDefaultImplementation(type
+                        .getName());
                     if (StringUtils.isNotEmpty(defaultImpl))
                     {
                         component = this.registerDefaultComponent(ClassUtils
@@ -154,6 +211,21 @@ public class ComponentContainer
             logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
+    }
+
+    /**
+     * Attempts to find the default implementation from the
+     * <code>META-INF/services</code> directory. Returns an empty String if
+     * none is found.
+     * 
+     * @param typeName the name of the type (i.e.
+     *        org.andromda.core.templateengine.TemplateEngine)
+     * @return
+     */
+    private String getDefaultImplementation(String typeName)
+    {
+        return StringUtils.trimToEmpty(ResourceUtils.getContents(SERVICES
+            + typeName));
     }
 
     /**
