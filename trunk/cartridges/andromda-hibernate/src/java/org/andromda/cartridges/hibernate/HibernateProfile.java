@@ -76,4 +76,9 @@ public class HibernateProfile
      * Defines the cache type for an association
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE = profile.get("HIBERNATE_ASSOCIATION_CACHE");
+    /**
+     * Defines if the entity has a proxy
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_PROXY = profile.get("HIBERNATE_PROXY");
+
 }

@@ -39,4 +39,8 @@
         <from>HIBERNATE_GENERATOR_CLASS</from>
         <to>@andromda.hibernate.generator.class</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_PROXY</from>
+        <to>@andromda.hibernate.entity.proxy</to>
+    </mapping>
 </mappings>

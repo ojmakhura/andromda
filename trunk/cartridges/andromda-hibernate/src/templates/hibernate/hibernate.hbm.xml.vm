@@ -4,10 +4,10 @@
 #macro (renderSubClass $entity)
 ## Should only get get invoked for inheritance class or subclass.
 #if ($entity.hibernateInheritanceClass)
-        <subclass name="$entity.fullyQualifiedEntityImplementationName" discriminator-value="$entity.entityImplementationName">
+        <subclass name="$entity.fullyQualifiedEntityImplementationName" discriminator-value="$entity.entityImplementationName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end>
 #set ($subClassEndTag = "subclass")
 #else
-        <joined-subclass name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName">
+        <joined-subclass name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end>
             <key column="$entity.identifierColumn"/>
 #set ($subClassEndTag = "joined-subclass")
 #end
