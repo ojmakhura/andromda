@@ -67,7 +67,9 @@
                 </p>
                 <p class="highlight">
                     Using AndroMDA in combination with Maven (instead of Ant) will save you a considerable amount of
-                    time and effort if you've never used AndroMDA before.
+                    time and effort if you've never used AndroMDA before. Just make sure you are using the latest
+                    version, Maven 1.0.2 or higher is recommended, earlier versions are less performance and contain
+                    critical bugs.
                 </p>
                 <p>
                     The AndroMDA team puts out updates to their library components on a regular basis, in order for
@@ -424,7 +426,23 @@ BUILD SUCCESSFUL
             <p>
                 <ol>
                     <li>Go into the created <code>andromdaexample</code> subdirectory</li>
-                    <li>Call <code>maven</code> here, it will download all dependencies and build your project</li>
+                    <li>Call <code>maven</code> here, it will download all dependencies and build your project. Here
+                        are a few commands you can call:
+                        <ul>
+                            <li>maven <em>(runs the default goal: 'install')</em></li>
+                            <li>maven install <em>(builds all components, an .ear bundle can be found in /app/target)
+                                </em></li>
+                            <li>maven mda <em>(runs AndroMDA on the UML model)</em></li>
+                            <li>maven mda -Dfilter=spring,java <em>(runs AndroMDA, only using the spring and java
+                                cartridges, in that order)</em></li>
+                            <li>maven core <em>(builds the core component, usually hibernate,ejb or spring)</em></li>
+                            <li>maven web <em>(builds the web component)</em></li>
+                            <li>maven core web <em>(builds the core and web components, in that order)</em></li>
+                        </ul>
+                        For more goals take a look in <code>/maven.xml</code>.
+                    </li>
+                    <li>All components will build an artifact, check out the <code>/target</code> directory
+                        in each separate component.</li>
                     <li>All required J2EE and other dependencies will be downloaded, after a while the build
                         should successfully end. This process might take a while to complete, 3-4 minutes if you have
                         a fast internet connection.
