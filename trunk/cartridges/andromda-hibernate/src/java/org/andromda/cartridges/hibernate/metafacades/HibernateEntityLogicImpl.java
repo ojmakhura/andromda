@@ -11,7 +11,9 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -610,6 +612,34 @@ public class HibernateEntityLogicImpl
     protected int handleGetHibernateDiscriminatorLength()
     {
         return 1;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityBusinessOperations()
+     */
+    protected Collection handleGetEntityBusinessOperations()
+    {
+        // operations that are not finders and not static
+        Collection finders = getFinders();
+        Collection operations = getOperations();
+
+        Collection nonFinders = CollectionUtils.subtract(operations, finders);
+        return new FilteredCollection(nonFinders)
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((OperationFacade)object).isStatic() == false;
+            }
+        };
+    }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEntityBusinessOperationsPresent()
+     */
+    protected boolean handleIsEntityBusinessOperationsPresent()
+    {
+        return this.getEntityBusinessOperations() != null
+            && !this.getEntityBusinessOperations().isEmpty();
     }
 
 }

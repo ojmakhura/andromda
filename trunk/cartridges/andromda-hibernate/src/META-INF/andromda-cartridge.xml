@@ -78,7 +78,7 @@
 	<template 
 		path="templates/hibernate/HibernateEntityImplManual.vsl" 
 		outputPattern="$generatedFile" 
-		outlet="man-impls" 
+		outlet="entity-impls" 
 		overwrite="false">
 		<modelElements variable="entity">
             <modelElement>
