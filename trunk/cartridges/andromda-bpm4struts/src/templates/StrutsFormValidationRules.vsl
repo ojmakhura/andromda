@@ -218,8 +218,13 @@
               depends=""
                   msg="errors.email"/>
 
+      <!-- This replaces the default URL validator
+           bundled with struts, to use the default 
+           struts validator for URL validation just use this 
+           'org.apache.struts.validator.FieldChecks' for the
+           class name below -->
       <validator name="url"
-            classname="org.apache.struts.validator.FieldChecks"
+            classname="${validatorPackage}.StrutsValidator"
                method="validateUrl"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,

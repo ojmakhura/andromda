@@ -262,6 +262,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>validatorPackage</td>
+                    <td>
+                        The package to which the validator (containing extra commons-validator
+                        handlers) will be generated.              
+                    </td>
+                    <td>
+                        No, default is <code>org.andromda.presentation.bpm4struts</code>.
+                    </td>
+                </tr>
+                <tr>
                     <td>customResourcesKey</td>
                     <td>
                         The key used to store the custom message resources (the message resources seperate
