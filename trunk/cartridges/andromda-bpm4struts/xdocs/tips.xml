@@ -43,11 +43,21 @@
                 during generation will be reflected automatically in the abstract parent classes. The implementation
                 classes extending them will require a manual update.
             </p>
+        </section>
+
+        <section name="The copy-over feature">
             <p>
                 So what about JSPs ? The most efficient and effective way of maintaining manually edited changes
                 in JSP files seems to be to copy the generated JSPs into your source directory (and subsequently
                 adding it to your <code>Control Versioning System</code>), making your changes and copying them
                 over the generated ones prior to building the WAR bundle.
+            </p>
+            <p>
+                If you have generated your project build structure using
+                <a href="../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> you will have a section
+                in <code>/web/maven.xml</code> that is commented out, it is a <code>preGoal</code> to
+                <code>war:init</code>, just uncomment it in order to have files in <code>/web/src/jsp</code> copied
+                over the existing ones in the <code>.war</code> bundle.
             </p>
         </section>
 
