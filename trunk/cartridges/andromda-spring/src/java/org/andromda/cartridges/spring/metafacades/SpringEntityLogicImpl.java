@@ -7,6 +7,7 @@ import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -250,26 +251,22 @@ public class SpringEntityLogicImpl
     }
     
     /**
-     * Defines the location of where entity operations will be placed.
-     */
-    private static final String ENTITY_BUSINESS_OPERATION_LOCATION = "entityBusinessOperationLocation";
-    
-    /**
-     * Defines the <code>entity</code> business operation location.
-     */
-    private static final String OPERATION_LOCATION_ENTITY = "entity";
-    
-    /**
-     * Defines the <code>dao</code> business operation location.
-     */
-    private static final String OPERATION_LOCATION_DAO = "dao";
-
-    /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoBusinessOperations()
      */
     protected Collection handleGetDaoBusinessOperations()
     {
-        return this.getBusinessOperationsByEntityLocation(OPERATION_LOCATION_DAO);
+        // those operations that are no finders and static
+        Collection finders = getFinders();
+        Collection operations = getOperations();
+
+        Collection nonFinders = CollectionUtils.subtract(operations, finders);
+        return new FilteredCollection(nonFinders)
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((OperationFacade)object).isStatic();
+            }
+        };
     }
 
     /**
@@ -277,37 +274,19 @@ public class SpringEntityLogicImpl
      */
     protected Collection handleGetEntityBusinessOperations()
     {
-        return this.getBusinessOperationsByEntityLocation(OPERATION_LOCATION_ENTITY);
+        // those operations that are no finders and not static
+        Collection finders = getFinders();
+        Collection operations = getOperations();
+
+        Collection nonFinders = CollectionUtils.subtract(operations, finders);
+        return new FilteredCollection(nonFinders)
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((OperationFacade)object).isStatic() == false;
+            }
+        };
     }
     
-    /**
-     * Finds all operations from the current business operations of this
-     * entity that belong on the defined <code>entityLocation</code>.
-     * 
-     * @param entityLocation the entity location (either 'dao' or 'entity').
-     * @return the filtered collection of operations for the specified location.
-     */
-    private Collection getBusinessOperationsByEntityLocation(final String entityLocation)
-    {
-        Collection operations = this.getBusinessOperations();
-        final String defaultLocation = 
-            StringUtils.trimToEmpty(String.valueOf(
-                this.getConfiguredProperty(ENTITY_BUSINESS_OPERATION_LOCATION)));
-        CollectionUtils.filter(operations,
-            new Predicate(){
-                public boolean evaluate(Object object)
-                {
-                    String location = defaultLocation;
-                    Object value = ((OperationFacade)object).findTaggedValue(
-                        SpringProfile.TAGGEDVALUE_ENTITY_OPERATION_LOCATION);
-                    if (value != null)
-                    {
-                        location = StringUtils.trimToEmpty(String.valueOf(value));
-                    }
-                    return location.equalsIgnoreCase(entityLocation);
-                }
-            });
-        return operations;
-    }
 
 }
