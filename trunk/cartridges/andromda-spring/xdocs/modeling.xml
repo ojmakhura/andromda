@@ -55,8 +55,9 @@
 			          		Identifies an <strong>entity</strong> operation as a finder method.  
                             Finder method queries can be defined as an OCL body
 							expression using the <a href="../andromda-query-library/index.html">
-							AndroMDA Query Library</a> or directly as a Hibernate QL using the 
+							AndroMDA Query Library</a> or directly as Hibernate QL using the 
 							<a href="#@andromda.hibernate.query">@andromda.hibernate.query</a> tagged value.
+                            <strong>NOTE:</strong> finders can always be overriden at the DAO level as well.
 			          	</td>
 		        	</tr>	  
 		        	<tr>
