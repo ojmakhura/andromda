@@ -25,18 +25,11 @@
         <pathelement path="${basedir}/${java.build.dir}"/>
     </path>
 
-    <condition property="useProxy">
-        <equals arg1="true" arg2="${proxy.enabled}" casesensitive="false"/>
-    </condition>
-    <target name="init-proxy">
-        <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
-    </target>
-
     <target name="clean" description="o Clean up the generated directories">
         <delete dir="${basedir}/target"/>
     </target>
 
-    <target name="xdoclet" description="o Run XDoclet EJB" depends="get-deps">
+    <target name="xdoclet" description="o Run XDoclet EJB">
         <mkdir dir="${basedir}/${java.src.dir}"/>
         <mkdir dir="${basedir}/${mda.build.dir}"/>
         <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
@@ -118,28 +111,6 @@
                 <include name="${javadoc.bundle.name}"/>
             </fileset>
         </copy>
-    </target>
-
-    <target name="get-deps" depends="init-proxy">
-        <get dest="${app.root.dir}/${lib.dir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/jboss-j2ee-3.2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jboss/jars/jboss-j2ee-3.2.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xjavadoc-1.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xjavadoc/jars/xjavadoc-1.0.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-xdoclet-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-xdoclet-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-ejb-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-ejb-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jboss-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jboss-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-jmx-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-jmx-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/xdoclet-web-module-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xdoclet/jars/xdoclet-web-module-1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-beanutils-1.6.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/hibernate-2.1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hibernate/jars/hibernate-2.1.2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/cglib-2.0-rc2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/cglib/jars/cglib-2.0-rc2.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/dom4j-1.4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/odmg-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/odmg/jars/odmg-3.0.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/ehcache-0.7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ehcache/jars/ehcache-0.7.jar"/>
-        <get dest="${app.root.dir}/${lib.dir}/asm-1.4.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/asm/jars/asm-1.4.1.jar"/>
     </target>
 
 </project>
