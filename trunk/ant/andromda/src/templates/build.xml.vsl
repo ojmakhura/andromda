@@ -49,7 +49,6 @@
                 <path refid="andromda.ant.classpath"/>
             </classpath>
         </java>
-        <delete dir="${lib.dir}"/>
     </target>
 
 </project>
