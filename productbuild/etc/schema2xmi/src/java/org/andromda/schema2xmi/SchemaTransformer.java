@@ -6,6 +6,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ComponentContainer;
@@ -16,6 +18,9 @@ import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.UmlClass;
+import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
+import org.omg.uml.foundation.datatypes.OrderingKindEnum;
+import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.ModelManagementPackage;
@@ -251,15 +256,19 @@ public class SchemaTransformer
             {
                 if (name.matches(this.tableNamePattern))
                 {
-                   if (logger.isInfoEnabled())
-                       logger.info("adding table --> '" + name + "' to model");
-                   UmlClass umlClass = this.createClass(corePackage, name);
+                   UmlClass umlClass = this.createClass(
+                       metadata, 
+                       corePackage, 
+                       name);                   
                    modelPackage.getOwnedElement().add(umlClass);
                 }              
             }
             else 
             {
-                UmlClass umlClass = this.createClass(corePackage, name); 
+                UmlClass umlClass = this.createClass(
+                    metadata, 
+                    corePackage, 
+                    name);  
                 modelPackage.getOwnedElement().add(umlClass);
             }
         }
@@ -272,16 +281,91 @@ public class SchemaTransformer
      * @param name the name to create the class with
      * @return the UmlClass
      */
-    private UmlClass createClass(CorePackage corePackage, String name)
+    private UmlClass createClass(
+        DatabaseMetaData metadata,
+        CorePackage corePackage, 
+        String name) throws SQLException
     {
-        return corePackage.getUmlClass().createUmlClass(
-            toClassName(name),
-            VisibilityKindEnum.VK_PUBLIC,
-            false,
-            false,
-            false,
-            false,
-            false);
+        String className = toClassName(name);
+        UmlClass umlClass =
+            corePackage.getUmlClass().createUmlClass(
+	            className,
+	            VisibilityKindEnum.VK_PUBLIC,
+	            false,
+	            false,
+	            false,
+	            false,
+	            false);
+        // create and all all the attributes 
+        umlClass.getOwnedElement().addAll(
+            this.createAttributes(
+                metadata, 
+                corePackage, 
+                name));
+        if (logger.isInfoEnabled())
+            logger.info("created attribute --> '" + className + "'");
+        return umlClass;
+    }
+    
+    /**
+     * Creates and returns a collection of attributes from
+     * creating an attribute from every column on the table
+     * having the give <code>tableName</code>.
+     * 
+     * @param metadata the DatabaseMetaData from which to retrieve
+     *        the columns.
+     * @param corePackage used to create the class.
+     * @param tableName the tableName for which to find columns.
+     * @return the collection of new attributes.
+     */
+    private Collection createAttributes(
+        DatabaseMetaData metadata, 
+        CorePackage corePackage, 
+        String tableName) throws SQLException
+    {
+        Collection attributes = new ArrayList();
+        ResultSet columnRs = metadata.getColumns(null, null, tableName, null);
+        while (columnRs.next())
+        {
+            String columnName = columnRs.getString("COLUMN_NAME");
+            String attributeName = this.toAttributeName(columnName);
+            attributes.add(
+                corePackage.getAttribute().createAttribute(
+                    attributeName,
+                    VisibilityKindEnum.VK_PUBLIC,
+                    false,
+                    ScopeKindEnum.SK_CLASSIFIER,
+                    null,
+                    ChangeableKindEnum.CK_CHANGEABLE,
+                    ScopeKindEnum.SK_CLASSIFIER,
+                    OrderingKindEnum.OK_UNORDERED,
+                    null));
+            if (logger.isInfoEnabled())
+                logger.info("created attribute --> '" + attributeName + "'");
+        }
+        return attributes;
+    }
+    
+    /**
+     * Converts a table name to an class name.
+     * 
+     * @param name the name of the table.
+     * @return the new class name.
+     */
+    private String toClassName(String name)
+    {
+        return toCamelCase(name);
+    }
+    
+    /**
+     * Converts a column name to an attribute name.
+     * 
+     * @param name the name of the column
+     * @return the new attribute name.
+     */
+    private String toAttributeName(String name)
+    {
+        return StringUtils.uncapitalize(toClassName(name));
     }
     
     /**
@@ -290,7 +374,7 @@ public class SchemaTransformer
      * @param name the table name.
      * @return the new class name.
      */
-    private String toClassName(String name)
+    private String toCamelCase(String name)
     {
         StringBuffer buffer = new StringBuffer();
         String[] tokens = name.split("_");
