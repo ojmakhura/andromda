@@ -99,15 +99,11 @@ public class EntityFacadeLogicImpl
      */
     public java.util.Collection handleGetIdentifiers(boolean follow)
     {
-        // first check if foreign identifiers are defined
-        Collection identifiers = this.getForeignIdentifiers(follow);
-
-        // if no foreign identifiers, then we need to get this entity's
-        // identifiers.
-        if (identifiers == null)
-        {
-            identifiers = EntityMetafacadeUtils.getIdentifiers(this, follow);
-        }
+        // first check if foreign identifiers are defined and add them if so
+        this.checkForAndAddForeignIdentifiers(follow);
+        Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
+            this,
+            follow);
         return identifiers;
     }
 
@@ -117,11 +113,25 @@ public class EntityFacadeLogicImpl
      */
     private void createIdentifier()
     {
+        this.createIdentifier(this.getDefaultIdentifier(), this
+            .getDefaultIdentifierType(), this.getDefaultIdentifierVisibility());
+    }
+
+    /**
+     * Creates a new identifier and adds it to the underlying meta model
+     * classifier instance.
+     * 
+     * @param name the name to give the identifier
+     * @param type the type to give the identifier
+     * @param visibility the visibility to give the identifier
+     */
+    private void createIdentifier(String name, String type, String visibility)
+    {
         Attribute identifier = UMLMetafacadeUtils
             .createAttribute(
-                this.getDefaultIdentifier(),
-                this.getDefaultIdentifierType(),
-                this.getDefaultIdentifierVisibility(),
+                name,
+                type,
+                visibility,
                 String
                     .valueOf(this
                         .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
@@ -569,10 +579,10 @@ public class EntityFacadeLogicImpl
 
     /**
      * Checks to see if this entity has any associations where the foreign
-     * identifier flag may be set, and if so returns the identifier(s) of the
-     * foreign entity.
+     * identifier flag may be set, and if so creates and adds identifiers just
+     * like the foreign entity to this entity.
      */
-    private Collection getForeignIdentifiers(boolean follow)
+    private void checkForAndAddForeignIdentifiers(boolean follow)
     {
         Collection identifiers = null;
         EntityAssociationEndFacade end = (EntityAssociationEndFacade)CollectionUtils
@@ -599,7 +609,15 @@ public class EntityFacadeLogicImpl
             identifiers = EntityMetafacadeUtils.getIdentifiers(
                 foreignEntity,
                 follow);
+            for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
+                .hasNext();)
+            {
+                AttributeFacade identifier = (AttributeFacade)identifierIterator
+                    .next();
+                this.createIdentifier(identifier.getName(), identifier
+                    .getType().getFullyQualifiedName(true), identifier
+                    .getVisibility());
+            }
         }
-        return identifiers;
     }
 }
