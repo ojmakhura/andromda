@@ -2,10 +2,8 @@
 
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
-	  	 xmlns:util="jelly:util"
-         xmlns:maven="jelly:maven"
-		 xmlns:license="license"
-		 xmlns:x="jelly:xml">
+         xmlns:util="jelly:util"
+         xmlns:maven="jelly:maven">
 
     <!-- ===================================================================
          Runs the translator tests                         
@@ -16,14 +14,14 @@
         <ant:echo>|   T E S T I N G   T R A N S L A T I O N   |</ant:echo>
         <ant:echo>+-------------------------------------------+</ant:echo> 
 
-		<path id="androdev.classpath">
+        <path id="androdev.classpath">
             <ant:path refid="maven.dependency.classpath"/>
             <ant:pathelement path="${plugin.dependencyClasspath}"/>        
-		</path>
+         </path>
 	
-		<maven:addPath
-	       	id="maven.dependency.classpath"
-	       	refid="androdev.classpath"/>	
+         <maven:addPath
+            id="maven.dependency.classpath"
+            refid="androdev.classpath"/>	
 		
 		<!-- set the testcase to run -->
 		<j:set 
