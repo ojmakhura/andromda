@@ -25,7 +25,10 @@
             </p>
             <p>
                 Finder methods require the <code>query flag</code> to be set, usually operations with this flag have
-                the commercial at symbol '@' in front of their name when displayed in diagrams.
+                the commercial at symbol '@' in front of their name when displayed in diagrams. Make sure you
+                model the operation in <em>classifier scope</em>, in diagrams this will show them as underlined.
+                Actually, classifier scoped operations go into the DAO while instance scoped operations go into the
+                entity's implementation class (they are considered to be business operations).
             </p>
             <p>
                 The documentation discussing the modeling of queries in UML is found here:
