@@ -215,6 +215,11 @@ public class MDRepositoryFacade implements RepositoryFacade
                         + ModelAccessFacade.class + "'");
                 }
             } 
+            catch (RepositoryFacadeException th) 
+            {
+                // Dont do anything with our own exceptions.
+                throw th;
+            } 
             catch (Throwable th) 
             {
             	String errMsg = "Error performing MDRepositoryFacade.getModel";
