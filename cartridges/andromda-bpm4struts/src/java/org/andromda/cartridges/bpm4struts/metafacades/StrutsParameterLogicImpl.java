@@ -647,7 +647,7 @@ public class StrutsParameterLogicImpl
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT);
         if (taggedValues.isEmpty())
         {
-            exportTypes = "xml csv excel";
+            exportTypes = "xml csv excel pdf";
         }
         else
         {
