@@ -24,7 +24,7 @@ $entity.getDocumentation(" * ")
  *
  * @ejb.interface generate="false" local-class="${entity.fullyQualifiedName}"
  * @ejb.home generate="false" local-class="${entity.fullyQualifiedName}LocalHome"
- * @ejb.pk generate = "false" class = "$identifier.type.fullyQualifiedName"
+ * @ejb.pk generate="false" class="$identifier.type.fullyQualifiedName"
  *
 ## Only generate persistence tags for concrete EJBs.
 #if(!$entity.abstract)
