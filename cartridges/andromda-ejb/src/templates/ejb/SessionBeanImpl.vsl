@@ -1,5 +1,7 @@
 // license-header java merge-point
+#if ($service.packageName)
 package $service.packageName;
+#end
 
 import javax.ejb.SessionContext;
 

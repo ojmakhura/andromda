@@ -98,7 +98,9 @@
         generateEmptyFiles="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">local</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -111,7 +113,9 @@
         generateEmptyFiles="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -124,7 +128,9 @@
         generateEmptyFiles="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">local</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -137,7 +143,9 @@
         generateEmptyFiles="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
