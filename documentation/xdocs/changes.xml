@@ -18,10 +18,18 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 10, 2004</td>
+                    <td valign="top" class="std">New Bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        Date input field now have a popup calendar to choose the date from
+                        and have it automaitcally rendered into the appropriate format.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 08, 2004</td>
                     <td valign="top" class="std">New Core Feature</td>
                     <td valign="top" class="std">
-                        Cartridges now allow generation based on metafacade 
+                        Cartridges now allow generation based on metafacade
                         type (and optionally its properties), in addition to stereotypes.
                     </td>
                 </tr>
@@ -70,7 +78,8 @@
                     <td valign="top" class="std">new Bpm4Struts feature</td>
                     <td valign="top" class="std">
                         Enabled support for tools that do not allow putting graphs inside use-cases. It is now
-                        sufficient to put the <code>@andromda.struts.usecase.activity</code>
+                        sufficient to put the
+                        <code>@andromda.struts.usecase.activity</code>
                         tagged value on the use-case and assign it the name of an activity graph.
                     </td>
                 </tr>
@@ -79,7 +88,8 @@
                     <td valign="top" class="std">new Bpm4Struts feature</td>
                     <td valign="top" class="std">
                         Enabled support for tools that do not allow assigning model elements to classifiers.
-                        It is now possible to put a <code>@andromda.struts.controller.usecase</code> tagged value
+                        It is now possible to put a
+                        <code>@andromda.struts.controller.usecase</code> tagged value
                         on the controller and assigning it the name of a use-case.
                     </td>
                 </tr>
