@@ -4,7 +4,7 @@
 html body
 {
     font-family: trebuchet ms, verdana, tahoma, arial;
-	font-size: 82%;
+	font-size: 12px;
 	line-height: 1.5em;
 	color: #333;
 	margin: 0px;
@@ -12,7 +12,7 @@ html body
     text-align: center;
 }
 
-td { padding: 3px; text-align: left; }
+td, th { font-size: 12px; padding: 3px; line-height: 15px; }
 
 ##
 ##  Hyperlinks
@@ -140,7 +140,6 @@ p.author
 {
    text-align: right;
    color: #999;
-   font-size: 86%;
    line-height: 1.2em;
    margin-right: 10px;
 }
