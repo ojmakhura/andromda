@@ -276,6 +276,28 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"age") instanceof java.lang.Integer);
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            context Customer
+            inv: age.oclIsTypeOf(java::lang::Integer)
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"age").getClass().getName().equals(java.lang.Integer.class.getName()));
+        </to>
+    </expression>
+    
+    <!--
+    <expression>
+        <from>
+            context CustomerCard
+            inv: printedName = customer.title.concat(customer.name)
+        </from>
+        <to>
+            org.andromda.translation.validation.OCLExpressions.equal(printedName,customer.title.concat(customer.name))
+        </to>
+    </expression>
+    -->
 
 </translation-test>
 

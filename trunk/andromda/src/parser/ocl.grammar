@@ -61,8 +61,6 @@ Tokens
   	dot = '.';
   	arrow = '->';
 
-    ocl_is_kind_of = 'oclIsKindOf';
-
   	is_sent_operator = '^';
   	message_operator = '^^';
 
@@ -325,8 +323,7 @@ Productions
     	{range} range expression ;
 
   	feature_call =
-        {ocliskindof} ocl_is_kind_of l_paren path_name r_paren |
-    	{standard} path_name is_marked_pre? qualifiers? feature_call_parameters? ;
+    	path_name is_marked_pre? qualifiers? feature_call_parameters? ;
 
  	qualifiers =
     	l_bracket actual_parameter_list r_bracket ;

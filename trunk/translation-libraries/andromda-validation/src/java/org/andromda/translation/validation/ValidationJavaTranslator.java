@@ -329,16 +329,20 @@ public class ValidationJavaTranslator
         // an operation call
         if (expression.matches(OCLIntrospector.OPERATION_FEATURE))
         {
-            PFeatureCall featureCall = node.getFeatureCall();
-            if (featureCall instanceof AStandardFeatureCall)
+            AFeatureCall featureCall = (AFeatureCall)node.getFeatureCall();
+            String featureCallExpression = TranslationUtils.trimToEmpty(node
+                .getFeatureCall());
+            if (featureCallExpression.matches(OCLFeatures.OCL_IS_KIND_OF))
             {
-                this.handleDotStandardFeatureCall((AStandardFeatureCall)node
-                    .getFeatureCall());
+                this.handleOclIsKindOf(featureCall);
             }
-            else if (featureCall instanceof AOcliskindofFeatureCall)
+            else if (featureCallExpression.matches(OCLFeatures.OCL_IS_TYPE_OF))
             {
-                this.handleDotOclIsKindOfFeatureCall((AOcliskindofFeatureCall)node
-                    .getFeatureCall());
+                this.handleOclIsTypeOf(featureCall);
+            }
+            else
+            {
+                this.handleDotFeatureCall(featureCall);
             }
         }
         outADotPropertyCallExpressionTail(node);
@@ -347,11 +351,22 @@ public class ValidationJavaTranslator
     /**
      * oclIsKindOf(type) is a special feature defined by OCL on all objects.
      */
-    private void handleDotOclIsKindOfFeatureCall(
-        AOcliskindofFeatureCall featureCall)
+    private void handleOclIsKindOf(AFeatureCall featureCall)
     {
         write(" instanceof ");
-        caseAPathName((APathName)featureCall.getPathName());
+        write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
+            .replaceAll("\\s*::\\s*", "."));
+    }
+
+    /**
+     * oclIsTypeOf(type) is a special feature defined by OCL on all objects.
+     */
+    private void handleOclIsTypeOf(AFeatureCall featureCall)
+    {
+        write(".getClass().getName().equals(");
+        write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
+            .replaceAll("\\s*::\\s*", "."));
+        write(".class.getName())");
     }
 
     /**
@@ -363,7 +378,7 @@ public class ValidationJavaTranslator
      * @param featureCall the <strong>dot</strong>
      *        <code>featureCall</code> to handle.
      */
-    private void handleDotStandardFeatureCall(AStandardFeatureCall featureCall)
+    public void handleDotFeatureCall(AFeatureCall featureCall)
     {
         this
             .prependToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(");
@@ -400,8 +415,7 @@ public class ValidationJavaTranslator
     {
         inAArrowPropertyCallExpressionTail(node);
         node.getArrow().apply(this);
-        this
-            .handleArrowFeatureCall((AStandardFeatureCall)node.getFeatureCall());
+        this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
         outAArrowPropertyCallExpressionTail(node);
     }
 
@@ -489,7 +503,7 @@ public class ValidationJavaTranslator
      * @param featureCall the <strong>arrow</strong>
      *        <code>featureCall</code> to handle.
      */
-    public void handleArrowFeatureCall(AStandardFeatureCall featureCall)
+    public void handleArrowFeatureCall(AFeatureCall featureCall)
     {
         AFeatureCallParameters params = (AFeatureCallParameters)featureCall
             .getFeatureCallParameters();
@@ -500,7 +514,7 @@ public class ValidationJavaTranslator
         {
             newTranslationLayer();
             write("org.andromda.translation.validation.OCLCollections.");
-            inAStandardFeatureCall(featureCall);
+            inAFeatureCall(featureCall);
             if (featureCall.getPathName() != null)
             {
                 featureCall.getPathName().apply(this);
@@ -549,7 +563,7 @@ public class ValidationJavaTranslator
             {
                 parameters.getRParen().apply(this);
             }
-            this.outAStandardFeatureCall(featureCall);
+            this.outAFeatureCall(featureCall);
         }
     }
 
@@ -1079,10 +1093,6 @@ public class ValidationJavaTranslator
         arrowPropertyCallStack.push(Boolean.FALSE);
     }
 
-    /**
-     * Stores the actual element that is the context of the expression (within
-     * the translated expression).
-     */
     private static final String CONTEXT_ELEMENT_NAME = "contextElement";
 
     /**

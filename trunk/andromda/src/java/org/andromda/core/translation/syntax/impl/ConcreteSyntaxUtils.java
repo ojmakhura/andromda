@@ -9,13 +9,13 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AActualParameterList;
 import org.andromda.core.translation.node.ACommaExpression;
+import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.AFeatureCallParameters;
 import org.andromda.core.translation.node.AOperation;
 import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.node.ARelationalExpression;
 import org.andromda.core.translation.node.ARelationalExpressionTail;
 import org.andromda.core.translation.node.AStandardDeclarator;
-import org.andromda.core.translation.node.AStandardFeatureCall;
 import org.andromda.core.translation.node.ATypeDeclaration;
 import org.andromda.core.translation.node.AVariableDeclaration;
 import org.andromda.core.translation.node.AVariableDeclarationList;
@@ -227,7 +227,7 @@ public class ConcreteSyntaxUtils
      * @return List the list containing any parameters retrieved, or an empty
      *         array if none could be retrieved
      */
-    public static List getParameters(AStandardFeatureCall featureCall)
+    public static List getParameters(AFeatureCall featureCall)
     {
         List parameters = new ArrayList();
         if (featureCall != null)
@@ -244,7 +244,7 @@ public class ConcreteSyntaxUtils
      * @param featureCall the featureCall for which to retrieve the parameters
      * @return String the comma seperated String
      */
-    public static String getParametersAsString(AStandardFeatureCall featureCall)
+    public static String getParametersAsString(AFeatureCall featureCall)
     {
         return StringUtils.join(ConcreteSyntaxUtils.getParameters(featureCall)
             .iterator(), ",");
