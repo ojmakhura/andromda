@@ -59,4 +59,10 @@
             <context>org.andromda.core.metafacade.Metafacade1</context>   
         </mapping>  
     </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4">
+        <mapping class="org.andromda.core.metafacade.MappingObject6">
+            <context>org.andromda.core.metafacade.Metafacade5</context>   
+            <property name="mappingProperty"/>
+        </mapping>  
+    </metafacade>
 </metafacades>

@@ -249,6 +249,8 @@ public class MetafacadeMappings
      * <ul>
      * <li>A single stereotype no context</li>
      * <li>A single stereotype with a context</li>
+     * <li>mappingObject properties no context</li>
+     * <li>mappingObject properties with a context</code>
      * <li>multiple stereotypes no context</li>
      * <li>multiple stereotypes with a context</li>
      * </ul>
@@ -290,19 +292,42 @@ public class MetafacadeMappings
                                 && mapping.hasStereotypes()
                                 && !mapping.hasMappingProperties())
                             {
-                                if (context != null)
-                                {
-                                    valid = getContextHierarchy(context)
-                                        .contains(mapping.getContext())
-                                        && stereotypes.containsAll(mapping
-                                            .getStereotypes());
-                                }
+                                valid = getContextHierarchy(context)
+                                    .contains(mapping.getContext())
+                                    && stereotypes.containsAll(mapping
+                                        .getStereotypes());
                             }
                         }
                         return valid;
                     }
             });
         }
+        // check for context and properties
+        if (mapping == null && context != null)
+        {
+            mapping = (MetafacadeMapping)CollectionUtils.find(
+                this.mappings,
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        boolean valid = false;
+                        if (mapping.getMappingClassName().equals(
+                            mappingObject.getClass().getName())
+                            && !mapping.hasStereotypes()
+                            && mapping.hasContext() 
+                            && mapping.hasMappingProperties())
+                        {
+                            valid = MetafacadeMappingsUtils
+                                .mappingPropertiesValid(
+                                    mappingObject,
+                                    mapping);
+                        }
+                        return valid;
+                    }
+                });            
+        }        
         // check just the context alone
         if (mapping == null && context != null)
         {
@@ -347,11 +372,8 @@ public class MetafacadeMappings
                                 && !mapping.hasContext()
                                 && !mapping.hasMappingProperties())
                             {
-                                if (stereotypes != null)
-                                {
-                                    valid = stereotypes.containsAll(mapping
-                                        .getStereotypes());
-                                }
+                                valid = stereotypes.containsAll(mapping
+                                    .getStereotypes());
                             }
                         }
                         return valid;
@@ -372,15 +394,13 @@ public class MetafacadeMappings
                         if (mapping.getMappingClassName().equals(
                             mappingObject.getClass().getName())
                             && !mapping.hasStereotypes()
-                            && !mapping.hasContext())
+                            && !mapping.hasContext()
+                            && mapping.hasMappingProperties())
                         {
-                            if (mapping.hasMappingProperties())
-                            {
-                                valid = MetafacadeMappingsUtils
-                                    .mappingPropertiesValid(
-                                        mappingObject,
-                                        mapping);
-                            }
+                            valid = MetafacadeMappingsUtils
+                                .mappingPropertiesValid(
+                                    mappingObject,
+                                    mapping);
                         }
                         return valid;
                     }
