@@ -6,7 +6,7 @@
    <preGoal name="jar:jar">
        
         <!-- The following builds the the bootstrap plugin. 
-             You build the bootrap plugin, by supplying the 
+             You build the bootstrap plugin, by supplying the 
              property 'maven.andromda.bootstrap.mode=true'-->
         <j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
         <j:if test="${bootstrapMode == null or bootstrapMode == ''}">
