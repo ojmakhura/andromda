@@ -1,6 +1,6 @@
 <cartridge name="java">
 
-<!-- the official template definitions -->
+	<!-- template definitions -->
     <template
         sheet="templates/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
@@ -10,5 +10,26 @@
             <modelElement stereotype="ValueObject"/>  
         </modelElements>       
     </template>
+    
+	<template 
+		sheet="templates/ApplicationException.vsl" 
+		outputPattern="{0}/{1}.java"  
+		outlet="exceptions" 
+		overWrite="true">
+		<modelElements variable="class">
+            <modelElement stereotype="Exception"/>
+            <modelElement stereotype="ApplicationException"/>
+		</modelElements>
+	</template>
+	
+	<template 
+		sheet="templates/UnexpectedException.vsl" 
+		outputPattern="{0}/{1}.java"  
+		outlet="exceptions" 
+		overWrite="true">
+		<modelElements variable="class">
+            <modelElement stereotype="UnexpectedException"/>
+		</modelElements>
+	</template>
 
 </cartridge>
