@@ -255,11 +255,11 @@ public class ModelElementFacadeLogicImpl
                 }
                 // if there still isn't anything, try a tagged value
                 if (StringUtils.isEmpty(commentString)) {
-                    commentString = StringUtils.trimToEmpty(
-                        this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION).toString());
+                    commentString = StringUtils.trimToEmpty((String)
+                        this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION));
                 }
                 documentation.append(
-                        StringUtils.trimToEmpty(commentString));
+                    StringUtils.trimToEmpty(commentString));
             }
         }
         try {
