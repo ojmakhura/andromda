@@ -7,7 +7,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 
 
 /**
- * 
+ *
  *
  * Metaclass facade implementation.
  *
@@ -17,25 +17,20 @@ public class EJBPrimaryKeyFacadeLogicImpl
        implements org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public EJBPrimaryKeyFacadeLogicImpl (java.lang.Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
-    /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacade#isComplex()
-     */
-    public boolean isComplex() {
+    public boolean handleIsComplex() {
         return getSimplePkField() == null;
     }
 
     /**
      * If this <code>object</code> does not have a complex primary key, get
      * the (unqiue) attribute that is used as the primary key.
-     * 
-     * @param object
-     *            the class to check
+     *
      * @return the attribute used as primary key, or <code>null</code> if
      *         there is none or the class has a complex primary key.
      */

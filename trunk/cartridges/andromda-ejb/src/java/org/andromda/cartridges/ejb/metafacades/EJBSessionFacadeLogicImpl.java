@@ -14,7 +14,7 @@ public class EJBSessionFacadeLogicImpl
        implements org.andromda.cartridges.ejb.metafacades.EJBSessionFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public EJBSessionFacadeLogicImpl (java.lang.Object metaObject, java.lang.String context)
     {
         super (metaObject, context);
@@ -28,50 +28,44 @@ public class EJBSessionFacadeLogicImpl
 	/**
 	 * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getCreateMethods(boolean)
 	 */
-    public java.util.Collection getCreateMethods(boolean follow) {
+    public java.util.Collection handleGetCreateMethods(boolean follow) {
         return EJBMetafacadeUtils.getCreateMethods(this, follow);
     }
 
 	/**
 	 * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getHomeInterfaceName()
 	 */
-    public java.lang.String getHomeInterfaceName() {
+    public java.lang.String handleGetHomeInterfaceName() {
         return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
 
 	/**
 	 * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getViewType()
 	 */
-    public java.lang.String getViewType() {
+    public java.lang.String handleGetViewType() {
         return EJBMetafacadeUtils.getViewType(this);
     }
-    
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBSessionFacade#getInheritedInstanceAttributes()
-     */
-    public List getInheritedInstanceAttributes() {
+
+    public List handleGetInheritedInstanceAttributes() {
         return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
-    
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBSessionFacade#getAllInstanceAttributes()
-     */
-    public List getAllInstanceAttributes() {
-        return EJBMetafacadeUtils.getAllInstanceAttributes(this);  
-    }    
+
+    public List handleGetAllInstanceAttributes() {
+        return EJBMetafacadeUtils.getAllInstanceAttributes(this);
+    }
 
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
      */
-    public Collection getEnvironmentEntries(boolean follow) {
+    public Collection handleGetEnvironmentEntries(boolean follow) {
         return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getConstants(boolean)
      */
-    public Collection getConstants(boolean follow) {
+    public Collection handleGetConstants(boolean follow) {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
-    
+
 }

@@ -1,6 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -18,13 +17,8 @@ public class StrutsActionStateLogicImpl
         extends StrutsActionStateLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState
 {
-    private String actionMethodName = null;
-    private Collection controllerCalls = null;
-    private Object forward = null;
-    private Collection exceptions = null;
-
     // ---------------- constructor -------------------------------
-    
+
     public StrutsActionStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
@@ -38,18 +32,15 @@ public class StrutsActionStateLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState#getActionMethodName()()
      */
-    public java.lang.String getActionMethodName()
+    public java.lang.String handleGetActionMethodName()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && actionMethodName != null) return actionMethodName;
-        return actionMethodName = StringUtilsHelper.toJavaMethodName(getName());
+        return StringUtilsHelper.toJavaMethodName(getName());
     }
 
     // ------------- relations ------------------
 
     protected Collection handleGetControllerCalls()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && controllerCalls != null) return controllerCalls;
-
         final Collection controllerCallsList = new LinkedList();
         final Collection deferrableEvents = getDeferrableEvents();
         for (Iterator iterator = deferrableEvents.iterator(); iterator.hasNext();)
@@ -63,7 +54,7 @@ public class StrutsActionStateLogicImpl
                 controllerCallsList.add(((StrutsTrigger) event).getControllerCall());
             }
         }
-        return controllerCalls = controllerCallsList;
+        return controllerCallsList;
     }
 
     /**
@@ -71,14 +62,12 @@ public class StrutsActionStateLogicImpl
      */
     protected java.lang.Object handleGetForward()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && forward != null) return forward;
-
         final Collection outgoing = getOutgoing();
         for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
             TransitionFacade transition = (TransitionFacade) iterator.next();
             if (!(transition instanceof StrutsExceptionHandler))
-                return forward = transition;
+                return transition;
         }
         return null;
     }
@@ -88,8 +77,6 @@ public class StrutsActionStateLogicImpl
      */
     protected java.util.Collection handleGetExceptions()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && exceptions != null) return exceptions;
-
         final Map exceptionsMap = new HashMap();
         final Collection outgoing = getOutgoing();
         for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
@@ -100,6 +87,6 @@ public class StrutsActionStateLogicImpl
                 exceptionsMap.put(((StrutsExceptionHandler) transition).getExceptionKey(), transition);
             }
         }
-        return exceptions = exceptionsMap.values();
+        return exceptionsMap.values();
     }
 }

@@ -1,13 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 
-import java.util.Collection;
 import java.util.Collections;
 
 
@@ -20,21 +18,8 @@ public class StrutsForwardLogicImpl
         extends StrutsForwardLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
 {
-    private String actionMethodName = null;
-    private String forwardName = null;
-    private String forwardPath = null;
-    private String guardName = null;
-
-    private Object decisionTrigger = null;
-    private Collection forwardParameters = null;
-
-    private Boolean isTargettingActionState = null;
-    private Boolean isTargettingDecisionPoint = null;
-    private Boolean isTargettingFinalState = null;
-    private Boolean isTargettingPage = null;
-
     // ---------------- constructor -------------------------------
-    
+
     public StrutsForwardLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
@@ -45,64 +30,54 @@ public class StrutsForwardLogicImpl
     // concrete business methods that were declared
     // abstract in class StrutsForward ...
 
-    public String getGuardName()
+    public String handleGetGuardName()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && guardName != null) return guardName;
-
         final GuardFacade guard = getGuard();
-        return guardName = (guard == null) ? null : guard.getName();
+        return (guard == null) ? null : guard.getName();
     }
 
-    public boolean isTargettingActionState()
+    public boolean handleIsTargettingActionState()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && isTargettingActionState != null) return isTargettingActionState.booleanValue();
-        return (isTargettingActionState = (getTarget() instanceof StrutsActionState) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
+        return getTarget() instanceof StrutsActionState;
     }
 
-    public boolean isTargettingFinalState()
+    public boolean handleIsTargettingFinalState()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && isTargettingFinalState != null) return isTargettingFinalState.booleanValue();
-        return (isTargettingFinalState = (getTarget() instanceof StrutsFinalState) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
+        return getTarget() instanceof StrutsFinalState;
     }
 
-    public boolean isTargettingDecisionPoint()
+    public boolean handleIsTargettingDecisionPoint()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && isTargettingDecisionPoint != null) return isTargettingDecisionPoint.booleanValue();
         final StateVertexFacade target = getTarget();
-        return (isTargettingDecisionPoint = (target instanceof PseudostateFacade && ((PseudostateFacade) target).isDecisionPoint()) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
+        return target instanceof PseudostateFacade && ((PseudostateFacade) target).isDecisionPoint();
     }
 
-    public boolean isTargettingPage()
+    public boolean handleIsTargettingPage()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && isTargettingPage != null) return isTargettingPage.booleanValue();
-        return (isTargettingPage = (getTarget() instanceof StrutsJsp) ? Boolean.TRUE : Boolean.FALSE).booleanValue();
+        return getTarget() instanceof StrutsJsp;
     }
 
-    public java.lang.String getForwardName()
+    public java.lang.String handleGetForwardName()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && forwardName != null) return forwardName;
-        return forwardName = StringUtilsHelper.toResourceMessageKey(resolveName());
+        return StringUtilsHelper.toResourceMessageKey(resolveName());
     }
 
-    public java.lang.String getForwardPath()
+    public java.lang.String handleGetForwardPath()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && forwardPath != null) return forwardPath;
-
         final StateVertexFacade target = getTarget();
         if (target instanceof StrutsJsp)
         {
-            return forwardPath = ((StrutsJsp) target).getFullPath() + ".jsp";
+            return ((StrutsJsp) target).getFullPath() + ".jsp";
         } else if (target instanceof StrutsFinalState)
         {
-            return forwardPath = ((StrutsFinalState) target).getFullPath() + ".do";
+            return ((StrutsFinalState) target).getFullPath() + ".do";
         } else
             return null;
     }
 
-    public String getActionMethodName()
+    public String handleGetActionMethodName()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && actionMethodName != null) return actionMethodName;
-        return actionMethodName = StringUtilsHelper.toJavaMethodName(resolveName());
+        return StringUtilsHelper.toJavaMethodName(resolveName());
     }
 
     private String resolveName()
@@ -125,15 +100,12 @@ public class StrutsForwardLogicImpl
 
     protected java.util.Collection handleGetForwardParameters()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && forwardParameters != null) return forwardParameters;
-
         final EventFacade trigger = getTrigger();
-        return forwardParameters = (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
+        return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
     }
 
     protected Object handleGetDecisionTrigger()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && decisionTrigger != null) return decisionTrigger;
-        return decisionTrigger = getTrigger();
+        return getTrigger();
     }
 }

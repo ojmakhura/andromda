@@ -1,5 +1,5 @@
 //
-// Attention: generated code (by Metafacade.vsl) - do not modify!
+// Attention: generated code (by MetafacadeLogic.vsl) - do not modify!
 //
 #set ($packagename = $class.package.fullyQualifiedName)
 package $packagename;
@@ -30,7 +30,7 @@ public abstract class ${class.name}Logic
     public ${class.name}Logic ($shieldedMetaclassTypeName metaObject, java.lang.String context) {
         super (metaObject, getContext(context));
 #if ($superclass)
-        this.super_ = 
+        this.super_ =
            (${superclass.fullyQualifiedInterfaceName})
             org.andromda.core.metafacade.MetafacadeFactory
                 .getInstance()
@@ -41,7 +41,7 @@ public abstract class ${class.name}Logic
 #end
         this.metaObject = metaObject;
     }
-    
+
     /**
      * Gets the context for this metafacade logic instance.
      */
@@ -51,19 +51,46 @@ public abstract class ${class.name}Logic
         }
         return context;
     }
-   
+
 ##
 
 #set ($atts = $class.attributes)
 #if ($atts.size() > 0)
     // --------------- attributes ---------------------
 #foreach ( $att in $atts )
-#set ($atttypename = $att.type.fullyQualifiedName)
-
+##
+#set ($memberTypeName = $att.type.fullyQualifiedName)
+#set ($methodName = $att.getterName)
+#set ($memberName = "a_$att.name")## prefixed with a_ to indicate attribute member (to avoid collisions with other members)
+#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($typedArgumentList = "")
+##
    /**
-	* @see ${att.type.fullyQualifiedName}#${att.getterName}()
+	* @see ${memberTypeName}#${methodName}()
     */
-    public abstract $atttypename ${att.getterName}();
+    public abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+
+    private boolean ${memberName}Set = false;
+    private $memberTypeName $memberName;
+
+    private void ${handleMethodName}PreCondition()
+    {
+    }
+
+    private void ${handleMethodName}PostCondition()
+    {
+    }
+
+    public final $memberTypeName ${methodName}()
+    {
+        if (${memberName}Set) return $memberName;
+        ${handleMethodName}PreCondition();
+        $memberName = ${handleMethodName}($typedArgumentList);
+        ${memberName}Set = true;
+        ${handleMethodName}PostCondition();
+        return $memberName;
+    }
+
 #end
 #end
 
@@ -72,47 +99,81 @@ public abstract class ${class.name}Logic
     // ---------------- real business methods ----------------------
 
 #foreach ( $op in $ops)
-	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
-	 */
-    $op.visibility abstract $op.type.fullyQualifiedName ${op.signature};
-    
+#set ($memberTypeName = $op.type.fullyQualifiedName)
+#set ($methodName = $op.name)
+#set ($memberName = "m_$methodName")## prefixed with m_ to indicate method member (to avoid collisions with other members)
+#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($typedArgumentList = $op.typedArgumentList)
+
+    $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+
+    private boolean ${memberName}Set = false;
+    private $memberTypeName $memberName;
+
+    private void ${handleMethodName}PreCondition()
+    {
+    }
+
+    private void ${handleMethodName}PostCondition()
+    {
+    }
+
+    public final $memberTypeName ${methodName}($typedArgumentList)
+    {
+        if (${memberName}Set) return $memberName;
+        ${handleMethodName}PreCondition();
+        $memberName = ${handleMethodName}($op.argumentNames);
+        ${memberName}Set = true;
+        ${handleMethodName}PostCondition();
+        return $memberName;
+    }
+
 #end
 #end
 ##
 #set ($assocEnds = $class.associationEnds)
 #if ($assocEnds.size() > 0)
     // ------------- relations ------------------
-    
+
 #foreach ( $assocEnd in $assocEnds )
 #if ($assocEnd.otherEnd.navigable)
 ##
-#set ($trn = $assocEnd.otherEnd.name)
-#set ($utrn = $str.upperCaseFirstLetter($trn))
+#set ($memberTypeName = $assocEnd.getterSetterTypeName)
+#set ($methodName = "get$str.upperCaseFirstLetter($assocEnd.otherEnd.name)")
+#set ($memberName = "r_$methodName")## prefixed with r_ to indicate relation member (to avoid collisions with other members)
+#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($typedArgumentList = "")
 ##
-#set ($returnTypeName = $assocEnd.getterSetterTypeName)
-##
-#if ($assocEnd.one2Many || $assocEnd.many2Many) 
-    protected abstract $returnTypeName handleGet${utrn}();
-    
-	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
-	 */
-    public $returnTypeName get${utrn}() {
-        return shieldedElements(handleGet${utrn}());
+    private boolean ${memberName}Set = false;
+    private $memberTypeName $memberName;
+
+    private void ${handleMethodName}PreCondition()
+    {
     }
+
+    private void ${handleMethodName}PostCondition()
+    {
+    }
+
+#if ($assocEnd.one2Many || $assocEnd.many2Many)
+    protected abstract java.util.Collection ${handleMethodName}($typedArgumentList);
 #else
-    protected abstract java.lang.Object handleGet${utrn}();
-    
-	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
-	 */
-    public $returnTypeName get${utrn}() {
-        return 
-            (${returnTypeName})
-            shieldedElement(handleGet${utrn}());
-    }
+    protected abstract java.lang.Object ${handleMethodName}($typedArgumentList);
 #end
+
+    public final $memberTypeName ${methodName}()
+    {
+        if (${memberName}Set) return $memberName;
+        ${handleMethodName}PreCondition();
+#if ($assocEnd.one2Many || $assocEnd.many2Many)
+        $memberName = ($memberTypeName)shieldedElements(${handleMethodName}($typedArgumentList));
+#else
+        $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
+#end
+        ${memberName}Set = true;
+        ${handleMethodName}PostCondition();
+        return ($memberTypeName)$memberName;
+    }
 
 #end
 #end
@@ -120,7 +181,7 @@ public abstract class ${class.name}Logic
 ##
 #if ($superclass)
     // ----------- delegates to "superclass" ------------
-    
+
 #foreach ( $method in $superclass.getMethodDataForPSM(true) )
     // from ${method.interfaceName}
 	${method.buildMethodDeclaration(true)} {

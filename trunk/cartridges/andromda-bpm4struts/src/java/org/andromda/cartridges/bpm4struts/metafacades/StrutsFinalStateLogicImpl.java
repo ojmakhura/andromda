@@ -17,29 +17,22 @@ public class StrutsFinalStateLogicImpl
         extends StrutsFinalStateLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState
 {
-    private String fullPath = null;
-    private Object targetUseCase = null;
-
     // ---------------- constructor -------------------------------
-    
+
     public StrutsFinalStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
 
     // ------------- relations ------------------
-    public String getFullPath()
+    public String handleGetFullPath()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && fullPath != null) return fullPath;
-
         StrutsUseCase useCase = getTargetUseCase();
         return (useCase != null) ? useCase.getActionPath() : "";
     }
 
     protected Object handleGetTargetUseCase()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && targetUseCase != null) return targetUseCase;
-
         Object useCaseObject = null;
         final String name = getName();
 
@@ -65,6 +58,6 @@ public class StrutsFinalStateLogicImpl
                 useCaseObject = facade;
         }
 
-        return targetUseCase = useCaseObject;
+        return useCaseObject;
     }
 }

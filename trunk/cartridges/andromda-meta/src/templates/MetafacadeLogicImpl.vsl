@@ -5,7 +5,7 @@ package $packagename;
 #set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
 #else
 #set ($shieldedMetaclassTypeName = "java.lang.Object")
-#end 
+#end
 
 /**
  * MetafacadeLogic implementation for $class.fullyQualifiedInterfaceName.
@@ -17,7 +17,7 @@ public class ${class.name}LogicImpl
        implements ${class.fullyQualifiedInterfaceName}
 {
     // ---------------- constructor -------------------------------
-    
+
     public ${class.name}LogicImpl ($shieldedMetaclassTypeName metaObject, java.lang.String context)
     {
         super (metaObject, context);
@@ -27,12 +27,12 @@ public class ${class.name}LogicImpl
 
     // --------------- attributes ---------------------
 #foreach ( $att in $atts )
+#set ($methodName = $att.name)
+#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($typedArgumentList = "")
 #set ($returnTypeName = $att.type.fullyQualifiedName)
 
-   /**
-    * @see ${att.type.fullyQualifiedName}#${att.getterName}()
-    */
-    public $returnTypeName ${att.getterName}() {
+    public $returnTypeName ${handleMethodName}($typedArgumentList) {
         // TODO: put your implementation here.
 #if ("void" != $returnTypeName)
 
@@ -58,19 +58,21 @@ public class ${class.name}LogicImpl
     // abstract in class ${class.name} ...
 
 #foreach ( $op in $ops)
+##
+#set ($methodName = $op.name)
+#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($typedArgumentList = $op.typedArgumentList)
+##
 #set ($msig = $op.signature)
 #set ($returnTypeName = $op.type.fullyQualifiedName)
 #if ($defaultException)
-    /**
-     * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
-     */
-    $op.visibility $returnTypeName ${msig}
+    $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList)
         throws $defaultException.name {
 #else
     /**
      * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
      */
-    $op.visibility $returnTypeName ${msig} {
+    $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList) {
 #end
         // TODO: put your implementation here.
 #if ("void" != $returnTypeName)
@@ -92,9 +94,14 @@ public class ${class.name}LogicImpl
 #set ($assocEnds = $class.associationEnds)
 #if ($assocEnds.size() > 0)
     // ------------- relations ------------------
-    
+
 #foreach ( $assocEnd in $assocEnds )
 #if ($assocEnd.otherEnd.navigable)
+##
+#set ($memberTypeName = $assocEnd.getterSetterTypeName)
+#set ($methodName = "get$str.upperCaseFirstLetter($assocEnd.otherEnd.name)")
+#set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
+#set ($typedArgumentList = "")
 ##
 #set ($trn = $assocEnd.otherEnd.name)
 #set ($utrn = $str.upperCaseFirstLetter($trn))
@@ -104,10 +111,7 @@ public class ${class.name}LogicImpl
 #else
 #set ($returnTypeName = "java.lang.Object")
 #end
-    /**
-     * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
-     */
-    public $returnTypeName handleGet${utrn}()
+    public $returnTypeName ${handleMethodName}($typedArgumentList)
     {
         // TODO: add your implementation here!
         return null;
