@@ -43,4 +43,9 @@
         </mapping>
     </metafacade>
 
+    <metafacade class="org.andromda.cartridges.costcalculator.metafacades.DependencyCostsLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Dependency$Impl">
+        </mapping>
+    </metafacade>
+
 </metafacades>

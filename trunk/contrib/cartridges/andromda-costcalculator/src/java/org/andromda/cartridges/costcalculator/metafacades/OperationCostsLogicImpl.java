@@ -35,11 +35,14 @@ public class OperationCostsLogicImpl extends OperationCostsLogic
         CompositeCostPosition result = new CompositeCostPosition(
                 this.getName(), operationPrice);
 
-        Collection attributes = this.getParameters();
-        for (Iterator iter = attributes.iterator(); iter.hasNext();)
+        Collection parameters = this.getParameters();
+        for (Iterator iter = parameters.iterator(); iter.hasNext();)
         {
             ParameterCosts element = (ParameterCosts) iter.next();
-            result.addSubPosition(element.getCosts());
+            if (!element.isReturn())
+            {
+                result.addSubPosition(element.getCosts());
+            }
         }
 
         return result;

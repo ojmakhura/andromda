@@ -9,10 +9,9 @@ import java.util.List;
  * @since 21.03.2005
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  */
-public class SimpleCostPosition implements CostPosition
+public class SimpleCostPosition extends AbstractCostPosition implements
+        CostPosition
 {
-
-    private String name;
 
     private double price;
 
@@ -26,18 +25,8 @@ public class SimpleCostPosition implements CostPosition
      */
     public SimpleCostPosition(String name, double price)
     {
-        this.name = name;
+        super(name);
         this.price = price;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.andromda.cartridges.costcalculator.psm.CostPosition#getName()
-     */
-    public String getName()
-    {
-        return this.name;
     }
 
     /*
@@ -50,7 +39,9 @@ public class SimpleCostPosition implements CostPosition
         return this.price;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.cartridges.costcalculator.psm.CostPosition#getSubPositions()
      */
     public List getSubPositions()
