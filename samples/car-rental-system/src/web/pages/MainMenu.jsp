@@ -23,7 +23,7 @@
 <a href="CustomerLoginPage.jsp"><bean:message key="prompt.MainMenu.customerLogin"/></a><br/>
 
 <hr>
-<h5>&copy; 2002 John Doe</h5>
+<h5>&copy; 2002-2003 Matthias Bohlen and the AndroMDA team</h5>
 
 </body>
 
