@@ -198,6 +198,7 @@ span.pagelinks
 
 div.tabs
 {
+	width: 550px;
     display: block;
     background-color: #fff;
 }
@@ -210,25 +211,36 @@ div.tabs div.tab
 
 div.tabs div.tab div.tab-header
 {
+    padding-left: 10px;
     margin-bottom: 0.5em;
-    border-bottom: 1px dotted #ccc;
-}
-
-div.tabs div.tab div.tab-header div.unselected-tab
-{
-    display: inline;
-	padding: 0.2em 0.2em 0 0.2em;
+    border-bottom: 1px solid #333;
 }
 
 div.tabs div.tab div.tab-header div.selected-tab
 {
     display: inline;
-	padding: 0.2em 0.2em 0 0.2em;
+	padding: 0.2em 0.5em 1px 0.5em;
     font-weight: bolder;
-    font-size: 120%;
+	background-color: #fff;
+	border: 1px solid #333;
+	border-bottom: 1px solid #fff;
+}
+
+div.tabs div.tab div.tab-header div.unselected-tab
+{
+    display: inline;
+	padding: 0.2em 0.5em 1px 0.5em;
+	background-color: #e0e0e0;
+	border: 1px solid #333;
+}
+
+div.tabs div.tab div.tab-header div.unselected-tab a
+{
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 div.tabs div.tab div.tab-body
 {
 }
-
