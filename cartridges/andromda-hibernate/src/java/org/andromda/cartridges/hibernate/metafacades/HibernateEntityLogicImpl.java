@@ -560,7 +560,6 @@ public class HibernateEntityLogicImpl
     protected String handleGetSubclassKeyColumn()
     {
         String column = null;
-        // first we seach for an explicit identifier on the entity
         final HibernateEntity superEntity = this.getSuperEntity();
         if (superEntity != null && superEntity.isHibernateInheritanceSubclass())
         {
