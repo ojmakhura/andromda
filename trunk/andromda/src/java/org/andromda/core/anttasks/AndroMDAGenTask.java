@@ -284,22 +284,29 @@ public class AndroMDAGenTask extends MatchingTask
 
             // get a list of files to work on
             list = scanner.getIncludedFiles();
-            for (int i = 0; i < list.length; ++i)
+			
+            if (list.length > 0)
             {
-                URL modelURL = null;
-                File inFile = new File(baseDir, list[i]);
-
-                try
+                for (int i = 0; i < list.length; ++i)
                 {
-                    modelURL = inFile.toURL();
-                    process(modelURL);
-                }
-                catch (MalformedURLException mfe)
-                {
-                    throw new BuildException(
-                        "Malformed model file URL: " + modelURL);
-                }
+                    URL modelURL = null;
+                    File inFile = new File(baseDir, list[i]);
 
+                    try
+                    {
+                        modelURL = inFile.toURL();
+                        process(modelURL);
+                    }
+                    catch (MalformedURLException mfe)
+                    {
+                        throw new BuildException(
+                            "Malformed model file URL: " + modelURL);
+                    }
+                }
+            }
+            else
+            {
+                throw new BuildException("Couldn't find any input xmi.");
             }
         }
         else
@@ -428,21 +435,29 @@ public class AndroMDAGenTask extends MatchingTask
         try
         {
             List cartridges = CartridgeFinder.findCartridges();
-            cartridgeDictionary = new CartridgeDictionary();
-            for (Iterator cartridgeIterator = cartridges.iterator();
-                cartridgeIterator.hasNext();
-                )
+            
+            if (cartridges.size() <= 0)
             {
-                IAndroMDACartridge cartridge =
-                    (IAndroMDACartridge) cartridgeIterator.next();
-                List stereotypes =
-                    cartridge.getDescriptor().getSupportedStereotypes();
-                for (Iterator stereotypeIterator = stereotypes.iterator();
-                    stereotypeIterator.hasNext();
+                log("Warning: No cartridges found, check configuration!", Project.MSG_INFO);
+            }
+            else
+            {
+                cartridgeDictionary = new CartridgeDictionary();
+                for (Iterator cartridgeIterator = cartridges.iterator();
+                    cartridgeIterator.hasNext();
                     )
                 {
-                    String stType = (String) stereotypeIterator.next();
-                    cartridgeDictionary.addCartridge(stType, cartridge);
+                    IAndroMDACartridge cartridge =
+                        (IAndroMDACartridge) cartridgeIterator.next();
+                    List stereotypes =
+                        cartridge.getDescriptor().getSupportedStereotypes();
+                    for (Iterator stereotypeIterator = stereotypes.iterator();
+                        stereotypeIterator.hasNext();
+                        )
+                    {
+                        String stType = (String) stereotypeIterator.next();
+                        cartridgeDictionary.addCartridge(stType, cartridge);
+                    }
                 }
             }
         }
