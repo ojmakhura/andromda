@@ -173,6 +173,8 @@
                    certificate.person.id = personId 
                    and (certificate.validityStart > date or certificate.validityEnd < date)
                    or (certificate.validityStart = certificate.validityEnd)) 
+                   -> sortedBy(certificate.person.id)
+                   -> sortedBy(certificate.validityStart) 
             ]]>
         </from>
         <to>
@@ -181,9 +183,22 @@
 			FROM MedicalCertificate certificate
 			WHERE certificate.person.id = ?1 
 			AND (certificate.validityStart > ?2 OR certificate.validityEnd < ?2)
-            OR (certificate.validityStart = certificate.validityEnd)   
+            OR (certificate.validityStart = certificate.validityEnd)  
+            ORDER BY certificate.person.id, certificate.validityStart
             ]]>          
         </to> 
+    </expression>
+    
+    <expression>
+        <from>
+            context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+            body : LegalAgreement.allInstances() -> sortedBy(documentTitle) -> sortedBy(expiredDate)
+        </from>
+        <to>
+            SELECT DISTINCT OBJECT(legalAgreement) 
+            FROM LegalAgreement legalAgreement 
+            ORDER BY documentTitle, expiredDate
+        </to>
     </expression>
     
 </translation-test>
