@@ -1,7 +1,7 @@
 <cartridge name="hibernate">
     
     <!-- define the template objects that are made availble to the template -->
-    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
 	
 	<property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
 

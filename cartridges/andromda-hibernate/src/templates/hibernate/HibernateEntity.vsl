@@ -55,10 +55,10 @@ $attribute.getDocumentation("     * ")
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
     {
-        return this.${attribute.name};
+        return this.$attribute.name;
     }
 
-    public void ${attribute.setterName}(${attribute.type.fullyQualifiedName} ${attribute.name})
+    public void ${attribute.setterName}($attribute.type.fullyQualifiedName $attribute.name)
     {
         this.${attribute.name} = $attribute.name;
     }
@@ -90,12 +90,12 @@ $target.getDocumentation("     * ")
         return this.${target.name};
     }
 
-    public void ${target.setterName}(java.util.Collection ${target.name})
+    public void ${target.setterName}(java.util.Collection $target.name)
     {
-        this.${target.name} = ${target.name};
+        this.$target.name = $target.name;
     }
 
-    private java.util.Collection ${target.name};
+    private java.util.Collection $target.name;
 
 #end
 #if ($associationEnd.many2Many)
@@ -114,12 +114,12 @@ $target.getDocumentation("     * ")
         return this.${target.name};
     }
 
-    public void ${target.setterName}(java.util.Collection ${target.name})
+    public void ${target.setterName}(java.util.Collection $target.name)
     {
-        this.${target.name} = ${target.name};
+        this.$target.name = $target.name;
     }
 
-    private java.util.Collection ${target.name};
+    private java.util.Collection $target.name;
 
 #end
 #if ($associationEnd.one2One || $associationEnd.many2One)
@@ -132,12 +132,12 @@ $target.getDocumentation("     * ")
         return this.${target.name};
     }
 
-    public void ${target.setterName}(${targetTypeName} ${target.name})
+    public void ${target.setterName}(${targetTypeName} $target.name)
     {
-        this.${target.name} = ${target.name};
+        this.$target.name = $target.name;
     }
 
-    private ${targetTypeName} ${target.name};
+    private $targetTypeName $target.name;
 
 #end
 #end
@@ -149,13 +149,12 @@ $target.getDocumentation("     * ")
     /**
 $operation.getDocumentation("     * ")
      */
-#set ($msig = $operation.signature)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.hasExceptions())
-    $operation.visibility abstract $returnType ${msig}
+    $operation.visibility abstract $returnType ${operation.signature}
         throws $operation.exceptionList;
 #else
-    $operation.visibility abstract $returnType ${msig};
+    $operation.visibility abstract $returnType ${operation.signature};
 #end
 #end
 
