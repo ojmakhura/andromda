@@ -13,7 +13,27 @@ public interface $entity.daoName
     extends $superclass.fullyQualifiedDaoName
 #end
 {
+    /**
+     * This constant is used as a transformation flag; entities can be converted automatically into value objects
+     * or other types, different methods in a class implementing this interface support this feature: look for
+     * an <code>int</code> parameter called <code>transform</code>.
+     * <p/>
+     * This specific flag denotes no transformation will occur.
+     */
+    public final static int $entity.daoNoTransformationConstantName = 0;
 
+#foreach ($valueObjectRef in $entity.valueObjectReferences)
+    /**
+     * This constant is used as a transformation flag; entities can be converted automatically into value objects
+     * or other types, different methods in a class implementing this interface support this feature: look for
+     * an <code>int</code> parameter called <code>transform</code>.
+     * <p/>
+     * This specific flag denotes entities must be transformed into objects of type
+     * <code>$valueObjectRef.targetElement.fullyQualifiedName</code>.
+     */
+    public final static int $valueObjectRef.transformationConstantName = $velocityCount;
+
+#end
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
 #set ($identifier = $entity.identifiers.iterator().next())
@@ -26,14 +46,14 @@ public interface $entity.daoName
     /**
      * <p>
      *   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
-     *   additional flag called <code>transform</code>.  If this flag is set to <code>false</code> then
-     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is <code>true</code>
-     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
+     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entity (into a value object for example).  By default, transformation does 
      *   not occur.
      * </p>
      */
-    public Object create(boolean transform, $entity.fullyQualifiedEntityName $argumentName);
+    public Object create(int transform, $entity.fullyQualifiedEntityName $argumentName);
 
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
@@ -53,15 +73,15 @@ public interface $entity.daoName
     /**
      * <p>
      *   Does the same thing as {@link #create($entity.getAttributeTypeList(true,false))} with an
-     *   additional flag called <code>transform</code>.  If this flag is set to <code>false</code> then
-     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is <code>true</code>
-     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
-     *   transform the entity (into a value object for example).  By default, transformation does 
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
+     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
      */
     public Object create(
-        boolean transform,
+        int transform,
 #foreach($attribute in $attributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
 
@@ -85,15 +105,15 @@ public interface $entity.daoName
     /**
      * <p>
      *   Does the same thing as {@link #create($entity.getRequiredAttributeTypeList(true,false))} with an
-     *   additional flag called <code>transform</code>.  If this flag is set to <code>false</code> then
-     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is <code>true</code>
-     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
-     *   transform the entity (into a value object for example).  By default, transformation does 
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
+     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
      */
     public Object create(
-        boolean transform,
+        int transform,
 #foreach($attribute in $requiredAttributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else);#end
 
@@ -114,20 +134,17 @@ public interface $entity.daoName
     /**
      *  <p> 
      *    Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
-     *    additional flag called <code>transform</code>. 
-     *  </p>
-     *  <p>
-     *    if this flag is set to <code>false</code> then
-     *    the returned entity will <strong>not</strong> be transformed during retrieval.  If this flag is 
-     *    <code>true</code> then the entity <strong>WILL BE</strong> passed through an operation 
-     *    which can optionally transform the entity (into a value object for example).  By default, 
-     *    transformation does not occur.
+     *    additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *    the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
+     *    defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *    transform the entity (into a value object for example).  By default, transformation does
+     *    not occur.
      *  </p>
      * 
      * @param $identifier.name the identifier of the entity to load.
      * @return either the entity or the object transformed from the entity.
      */
-     public Object load(boolean transform, $identifier.type.fullyQualifiedName $identifier.name);
+     public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
 
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
@@ -179,32 +196,33 @@ $operation.getDocumentation("     * ")
     /**
      * <p>
      *   Does the same thing as {@link #${operation.getSignature(false)}} with an
-     *   additional flag called <code>transform</code>.  Ff this flag is set to <code>false</code> then
-     *   finder results will not be transformed during retrieval.  If this flag is <code>true</code>
+     *   additional flag called <code>transform</code>.  Ff this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   finder results will <strong>NOT</strong> be transformed during retrieval.
+     *   If this flag is any of the other constants defined here
      *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
      *   transform the entities (into value objects for example).  By default, transformation does 
      *   not occur.
      * </p>
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
     /**
      * <p>
      *   Does the same thing as {@link #${operation.name}(boolean#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #${operation.name}(boolean, ${operation.argumentTypeNames})}. 
+     *   argument allows you to override the query string defined in {@link #${operation.name}(int, ${operation.argumentTypeNames})}.
      * </p>
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(boolean transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(boolean transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
 #end
