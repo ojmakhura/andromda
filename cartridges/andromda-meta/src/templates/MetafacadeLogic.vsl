@@ -22,7 +22,7 @@
 #set ($constraintKindString = "postcondition")
 #end
         if (false == $constraintTranslation)
-            throw new ModelValidationException(${modelElement.class.name}, "While checking for $elementKind $constraintKindString", "$str.toSingleLine($constraintDocumentation)");
+            throw new ModelValidationException(this.getClass(), "While checking for $elementKind $constraintKindString", "$str.toSingleLine($constraintDocumentation)");
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
 #end##foreach constraint
 #set ($constraint = false)## reset to make sure we do not reuse the last constraint
