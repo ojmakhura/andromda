@@ -72,6 +72,8 @@
                Builds ALL documentation and inludes it in the binary dist                                          
          ================================================================== -->
     <goal name="docs" prereqs="dist-init,initialize">
+        <echo> Dev ${pom.repository.developerConnection}</echo>
+        <echo> Con ${pom.repository.connection}</echo>
         <maven:maven descriptor="${basedir}/documentation/project.xml" goals="build"/>
         <ant:copy todir="${binaryDistDir}">
             <ant:fileset dir="documentation/target">
@@ -446,6 +448,23 @@
                 <ant:delete file="${workingDir}/${xmiName}"/>
             </j:forEach>
         </j:if>
+    </goal>
+
+    <goal name="check-compile-options">
+       <ant:echo message="compile.source:${maven.compile.source}"/>
+       <ant:echo message="compile.target:${maven.compile.target}"/>
+    </goal>
+
+    <goal name="maven-file-activity-plugin:report">
+       <echo>maven-file-activity-plugin:report nooped</echo>
+    </goal>
+
+    <goal name="maven-changelog-plugin:report">
+       <echo>maven-changelog-plugin:report nooped</echo>
+    </goal>
+
+    <goal name="maven-developer-activity-plugin:report">
+       <echo>maven-developer-activity-plugin:report nooped</echo>
     </goal>
 
 </project>
