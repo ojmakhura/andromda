@@ -8,6 +8,7 @@
 ##  START TEMPLATE
 ##
 <%@ include file="/taglib-imports.jspf" %>
+<%@ include file="${jsp.fullPath}-vars.jspf" %>
 #set ($hasTable = false)
 #foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
@@ -93,20 +94,7 @@
 ##  SETS THE BODY OF THIS PAGE
 ##
     <tiles:put name="body" type="string">
-    
-#foreach ($variable in $jsp.pageVariables)
-#set ($variableName = $variable.name)
-#set ($variableType = $variable.type.fullyQualifiedName)
-        <logic:present name="form" property="$variableName" scope="request">
-#if ($variable.type.getFullyQualifiedName(true) == "datatype.Date")
-            <bean:define id="$variableName" name="form" property="$variableName" type="java.lang.String" scope="request" toScope="page"/>
-#else
-            <bean:define id="$variableName" name="form" property="$variableName" type="$variableType" scope="request" toScope="page"/>
-#end
-        </logic:present>
-
-#end
-
+   
         <%--
             If you want your own custom messages to be displayed
             you do just need to edit the custom.properties resource bundle.
