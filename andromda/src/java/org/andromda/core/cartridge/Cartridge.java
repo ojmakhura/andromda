@@ -191,10 +191,14 @@ public class Cartridge
                         allModelElements = new HashSet(allModelElements);
 
                         // first place all relevant model elements by the
-                        // <modelElements/> variable name
-                        templateContext.put(
-                            templateModelElements.getVariable(),
-                            allModelElements);
+                        // <modelElements/> variable name (if the variable
+                        // isn't defined (which is possible, then ignore)
+                        if (StringUtils.isNotBlank(templateModelElements.getVariable()))
+                        {
+                            templateContext.put(
+                                templateModelElements.getVariable(),
+                                allModelElements);                            
+                        }                            
 
                         // now place the collections of stereotyped elements
                         // by the given variable names. (skip it the variable
