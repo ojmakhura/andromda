@@ -10,7 +10,7 @@
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-16" description="First release candidate for version 3.0">
             <action dev="cwbrandon" type="fix" issue="SPRING-37">
                 The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> now generates a valid
-                DAO inheritance hiearchy when inheritance between entities occurs.
+                DAO inheritance hiearchy when inheritance between entities is modeled.
             </action>
             <action dev="cwbrandon" type="update">
                 The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> must now be used in conjunction with the 
