@@ -495,4 +495,21 @@ public class ModelElementFacadeLogicImpl
             });
         return this.translateConstraints(constraints, translation);
      }     
+     
+     /**
+      * @see java.lang.Object#toString()
+      */
+     public String toString() 
+     {
+         StringBuffer toString = 
+             new StringBuffer(this.getClass().getName());
+         String name = this.getFullyQualifiedName(true);
+         if (StringUtils.isNotEmpty(name)) 
+         {
+             toString.append("[");
+             toString.append(name);
+             toString.append("]");
+         }    
+         return toString.toString();
+     }
 }
