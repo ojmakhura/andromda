@@ -2,9 +2,12 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.HashSet;
 
 
 /**
@@ -37,35 +40,34 @@ public class StrutsFinalStateLogicImpl
         return name;
     }
 
-    public String handleGetFullPath()
+    protected String handleGetFullPath()
     {
         StrutsUseCase useCase = getTargetUseCase();
         return (useCase != null) ? useCase.getActionPath() : "";
     }
 
-    private Object targetUseCase = null;
     protected Object handleGetTargetUseCase()
     {
-        if (targetUseCase == null)
-        {
-            // first check if there is a hyperlink from this final state to a use-case
-            // this works at least in MagicDraw
-            final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
-            if (taggedValue != null)
-            {
-                if (taggedValue instanceof StrutsActivityGraph)
-                {
-                    return ((StrutsActivityGraph) taggedValue).getUseCase();
-                }
-                else if (taggedValue instanceof StrutsUseCase)
-                {
-                    return taggedValue;
-                }
-            }
+        Object targetUseCase = null;
 
-            // maybe the name points to a use-case ?
+        // first check if there is a hyperlink from this final state to a use-case
+        // this works at least in MagicDraw
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
+        if (taggedValue != null)
+        {
+            if (taggedValue instanceof StrutsActivityGraph)
+            {
+                targetUseCase = ((StrutsActivityGraph) taggedValue).getUseCase();
+            }
+            else if (taggedValue instanceof StrutsUseCase)
+            {
+                targetUseCase = taggedValue;
+            }
+        }
+        else // maybe the name points to a use-case ?
+        {
             final String name = super.getName();
-            if (name != null)
+            if (StringUtils.isNotBlank(name))
             {
                 final Collection useCases = getModel().getAllUseCases();
                 for (Iterator iterator = useCases.iterator(); (targetUseCase == null && iterator.hasNext());)
@@ -80,5 +82,18 @@ public class StrutsFinalStateLogicImpl
             }
         }
         return targetUseCase;
+    }
+
+    protected Collection handleGetActions()
+    {
+        Set actions = new HashSet();
+        Collection incoming = this.getIncoming();
+
+        for (Iterator incomingIterator = incoming.iterator(); incomingIterator.hasNext();)
+        {
+            StrutsForward forward = (StrutsForward) incomingIterator.next();
+            actions.addAll(forward.getActions());
+        }
+        return actions;
     }
 }
