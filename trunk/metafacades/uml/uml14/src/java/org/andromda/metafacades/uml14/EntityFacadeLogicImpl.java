@@ -55,22 +55,22 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getFinders
+     * @see org.andromda.metafacades.uml.EntityFacade#getQueryOperations()
      */
-    public java.util.Collection handleGetFinders()
+    public java.util.Collection handleGetQueryOperations()
     {
-        return this.getFinders(false);
+        return this.getQueryOperations(false);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getFinders(boolean)
+     * @see org.andromda.metafacades.uml.EntityFacade#getQueryOperations(boolean)
      */
-    public java.util.Collection handleGetFinders(boolean follow)
+    public java.util.Collection handleGetQueryOperations(boolean follow)
     {
-        Collection finders = this.getOperations();
+        Collection queryOperations = this.getOperations();
 
         MetafacadeUtils.filterByStereotype(
-            finders,
+            queryOperations,
             UMLProfile.STEREOTYPE_FINDER_METHOD);
 
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
@@ -80,10 +80,10 @@ public class EntityFacadeLogicImpl
             if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
             {
                 EntityFacade entity = (EntityFacade)superClass;
-                finders.addAll(entity.getFinders(follow));
+                queryOperations.addAll(entity.getQueryOperations(follow));
             }
         }
-        return finders;
+        return queryOperations;
     }
 
     /**

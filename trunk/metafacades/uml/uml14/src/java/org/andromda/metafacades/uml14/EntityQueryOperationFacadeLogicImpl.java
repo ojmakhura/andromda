@@ -6,13 +6,13 @@ import org.andromda.core.translation.ExpressionKinds;
 /**
  * Metaclass facade implementation.
  */
-public class EntityFinderMethodFacadeLogicImpl
-    extends EntityFinderMethodFacadeLogic
-    implements org.andromda.metafacades.uml.EntityFinderMethodFacade
+public class EntityQueryOperationFacadeLogicImpl
+    extends EntityQueryOperationFacadeLogic
+    implements org.andromda.metafacades.uml.EntityQueryOperationFacade
 {
     // ---------------- constructor -------------------------------
 
-    public EntityFinderMethodFacadeLogicImpl(
+    public EntityQueryOperationFacadeLogicImpl(
         java.lang.Object metaObject,
         String context)
     {

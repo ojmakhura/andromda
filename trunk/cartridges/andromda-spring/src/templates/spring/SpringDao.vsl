@@ -170,7 +170,7 @@ public interface $entity.daoName
      */
     public void remove(java.util.Collection entities);
 
-#foreach ( $operation in $entity.finders )
+#foreach ( $operation in $entity.queryOperations )
 #set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")

@@ -64,7 +64,7 @@ public abstract class ${entity.name}Factory {
         return object;
     }
 
-#foreach ( $finder in $entity.getFinders(true))
+#foreach ( $finder in $entity.getQueryOperations(true))
 #set ($returnType = $finder.returnType.fullyQualifiedName)
 ##
 #set ($parameterList = $finder.typedArgumentList)

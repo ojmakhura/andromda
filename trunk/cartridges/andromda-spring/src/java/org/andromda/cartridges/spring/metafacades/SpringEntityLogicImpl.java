@@ -314,8 +314,8 @@ public class SpringEntityLogicImpl
     protected Collection handleGetDaoBusinessOperations()
     {
         // operations that are not finders and static
-        Collection finders = getFinders();
-        Collection operations = getOperations();
+        Collection finders = this.getQueryOperations();
+        Collection operations = this.getOperations();
 
         Collection nonFinders = CollectionUtils.subtract(operations, finders);
         return new FilteredCollection(nonFinders)
@@ -333,15 +333,15 @@ public class SpringEntityLogicImpl
     protected Collection handleGetEntityBusinessOperations()
     {
         // operations that are not finders and not static
-        Collection finders = getFinders();
-        Collection operations = getOperations();
+        Collection finders = this.getQueryOperations();
+        Collection operations = this.getOperations();
 
         Collection nonFinders = CollectionUtils.subtract(operations, finders);
         return new FilteredCollection(nonFinders)
         {
             public boolean evaluate(Object object)
             {
-                return ((OperationFacade)object).isStatic() == false;
+                return !((OperationFacade)object).isStatic();
             }
         };
     }
@@ -371,7 +371,7 @@ public class SpringEntityLogicImpl
     {
         return !this.getValueObjectReferences().isEmpty()
             || !this.getDaoBusinessOperations().isEmpty()
-            || !this.getFinders(true).isEmpty();
+            || !this.getQueryOperations(true).isEmpty();
     }
 
     /**
