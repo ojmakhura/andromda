@@ -55,7 +55,7 @@ public class ContextElementFinder
      * The operation that is set if the context of the constraint happens to be
      * an operation.
      */
-    private OperationDeclaration operation = null;
+    protected OperationDeclaration operation = null;
 
     /**
      * The found context type.
@@ -164,7 +164,7 @@ public class ContextElementFinder
      * @param facadeOperation a metafacade Operation
      * @return boolean whether the arguments match.
      */
-    private boolean argumentsMatch(
+    protected boolean argumentsMatch(
         OperationDeclaration oclOperation,
         OperationFacade facadeOperation)
     {
