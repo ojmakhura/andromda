@@ -17,25 +17,25 @@
 						applicationName
 					</td>
 					<td>
-						The name of the web application for which these services will be deploy
+						The name of the web application for which these services will be deployed
 						(i.e. Security Web Services).
 					</td>
 					<td>
 						Yes
 					</td>
 				</tr>
-	        	<tr>
-		          	<td>
-		          		schemaTypeMappingsUri
-		          	</td>
-		          	<td>
-		          		URI specifying the specific mappings from model types to WSDL Schema types. 
-		          		(i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>
-	        	</tr>	
+                <tr>
+                    <td>
+                        schemaTypeMappingsUri
+                    </td>
+                    <td>
+                        URI specifying the specific mappings from model types to WSDL Schema types.
+                        (i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
+                    </td>
+                    <td>
+                        Yes (unless ignore is specified as <code>true</code>)
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						wsdlSoapAddress
@@ -53,18 +53,6 @@
 						Yes
 					</td>
 				</tr>
-	        	<tr>
-		          	<td>
-		          		schemaTypeMappingsUri
-		          	</td>
-		          	<td>
-		          		URI specifying the specific mappings from model types to WSDL Schema types. 
-		          		(i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
-		          	</td>
-		          	<td>
-		          		Yes (unless ignore is specified as <code>true</code>)
-		          	</td>
-	        	</tr>	
 	        	<tr>
 		          	<td>
 		          		wsdls
