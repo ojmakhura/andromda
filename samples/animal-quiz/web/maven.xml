@@ -72,7 +72,7 @@
                 <ant:include name="**/*.jsp"/>
                 <ant:include name="**/*.jspf"/>
                 <ant:include name="**/*.css"/>
-                <ant:include name="WEB-INF/*.xml"/>
+                <ant:include name="WEB-INF/**/*"/>
             </ant:fileset>
         </ant:copy>
     </postGoal>
