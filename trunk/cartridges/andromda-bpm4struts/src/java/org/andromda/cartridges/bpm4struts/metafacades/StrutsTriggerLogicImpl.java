@@ -140,7 +140,8 @@ public class StrutsTriggerLogicImpl
             if (transitionObject instanceof StrutsAction)
             {
                 StrutsAction action = (StrutsAction) transitionObject;
-                if (action.getActionTrigger().equals(this))
+                StrutsTrigger trigger = action.getActionTrigger();
+                if (trigger != null && trigger.equals(this))
                 {
                     return action;
                 }
