@@ -90,31 +90,6 @@ public class MaintenanceControllerImpl extends MaintenanceController
         getDatabaseLoginSession(request).setConfigurator(new AdminConsoleConfigurator());
     }
 
-    public void insertRow(ActionMapping mapping, InsertRowForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        RowData rowData = new RowData();
-
-        Map parameterMap = request.getParameterMap();
-        for (Iterator iterator = parameterMap.entrySet().iterator(); iterator.hasNext();)
-        {
-            Map.Entry parameterPair = (Map.Entry) iterator.next();
-            Object parameterName = parameterPair.getKey();
-            Object[] parameterValues = (Object[])parameterPair.getValue();
-            rowData.put(parameterName, parameterValues[0]);  // minimum array length is 1
-        }
-
-        Table table = getMetaDataSession(request).getCurrentTable();
-
-        if (table==null)
-        {
-            throw new Exception("Unable to insert row in table: current table not specified");
-        }
-        else
-        {
-            table.insertRow(rowData);
-        }
-    }
-
     private final static String COOKIE_NAME = "admin.console";
     private final static String COOKIE_VALUE_SEPARATOR = "::::";
 
@@ -156,83 +131,100 @@ public class MaintenanceControllerImpl extends MaintenanceController
         response.addCookie(cookie);
     }
 
-    public void applyChanges(ActionMapping mapping, ApplyChangesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public void deleteRows(ActionMapping mapping, DeleteRowsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        // get the kind of change to apply (delete/update)
-        String kind = form.getKind();
+        // the list of rows selected for deletion
+        Object[] rowNumbers = form.getSelectedRowsAsArray();
+
+        // was something selected for deletion ?
+        if (rowNumbers == null || rowNumbers.length==0)
+        {
+            return;
+        }
 
         // the current metadata
         MetaDataSession metaDataSession = getMetaDataSession(request);
         List tableData = metaDataSession.getCurrentTableData();
-
-        // the list of rows selected for change
-        Object[] rowNumbers = form.getSelectedRowsAsArray();
 
         // if the table has a primary key use it to identify the row, otherwise use all columns
         Table table = metaDataSession.getCurrentTable();
         final Column[] identityColumns =
                 (table.getPrimaryKeyColumnCount() > 0) ? table.getPrimaryKeyColumns() : table.getColumns();
 
-        // user wants to delete the selected rows
-        if ("delete".equals(kind))
+        // collect all selected rows in a list
+        List selectedData = new ArrayList();
+        for (int i = 0; i < rowNumbers.length; i++)
         {
-            // collect all selected rows in a list
-            List selectedData = new ArrayList();
-            for (int i = 0; i < rowNumbers.length; i++)
-            {
-                int rowNumber = Integer.parseInt((String)rowNumbers[i]);
-                selectedData.add( tableData.get(rowNumber) );
-            }
-
-            for (int i = 0; i < selectedData.size(); i++)
-            {
-                RowData rowData = (RowData) selectedData.get(i);
-                // find out how this row is uniquely identified in its table
-                Criterion identityCriterion = createCriterion(identityColumns, rowData);
-                // delete this row
-                table.deleteRow(identityCriterion);
-            }
+            int rowNumber = Integer.parseInt((String)rowNumbers[i]);
+            selectedData.add( tableData.get(rowNumber) );
         }
-        // user wants to update the selected rows
-        else if ("update".equals(kind))
+
+        for (int i = 0; i < selectedData.size(); i++)
         {
-            // get the columns we might need to set
-            Column[] tableColumns = table.getColumns();
+            RowData rowData = (RowData) selectedData.get(i);
+            // find out how this row is uniquely identified in its table
+            Criterion identityCriterion = createCriterion(identityColumns, rowData);
+            // delete this row
+            table.deleteRow(identityCriterion);
+        }
+    }
 
-            // this object represents the new data we will persist
-            RowData newRowData = new RowData();
+    public void updateRows(ActionMapping mapping, UpdateRowsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        // the list of rows selected for update
+        Object[] rowNumbers = form.getSelectedRowsAsArray();
 
-            // get the configurator to find out which column is updateable
-            AdminConsoleConfigurator configurator = getDatabaseLoginSession(request).getConfigurator();
+        // was something selected for update ?
+        if (rowNumbers == null || rowNumbers.length==0)
+        {
+            return;
+        }
 
-            // loop over the rows the user selected for update
-            for (int i = 0; i < rowNumbers.length; i++)
+        // the current metadata
+        MetaDataSession metaDataSession = getMetaDataSession(request);
+        List tableData = metaDataSession.getCurrentTableData();
+
+        // if the table has a primary key use it to identify the row, otherwise use all columns
+        Table table = metaDataSession.getCurrentTable();
+        final Column[] identityColumns =
+                (table.getPrimaryKeyColumnCount() > 0) ? table.getPrimaryKeyColumns() : table.getColumns();
+
+        // get the columns we might need to set
+        Column[] tableColumns = table.getColumns();
+
+        // this object represents the new data we will persist
+        RowData newRowData = new RowData();
+
+        // get the configurator to find out which column is updateable
+        AdminConsoleConfigurator configurator = getDatabaseLoginSession(request).getConfigurator();
+
+        // loop over the rows the user selected for update
+        for (int i = 0; i < rowNumbers.length; i++)
+        {
+            int rowNumber = Integer.parseInt((String)rowNumbers[i]);
+            RowData rowData = (RowData) tableData.get(rowNumber);
+
+            for (int j = 0; j < tableColumns.length; j++)
             {
-                int rowNumber = Integer.parseInt((String)rowNumbers[i]);
-                RowData rowData = (RowData) tableData.get(rowNumber);
+                Column column = tableColumns[j];
+                ColumnConfiguration columnConfiguration = configurator.getConfiguration(column);
 
-                for (int j = 0; j < tableColumns.length; j++)
+                // only record the parameter when it is allowed for update
+                if (columnConfiguration.getUpdateable())
                 {
-                    Column column = tableColumns[j];
-                    ColumnConfiguration columnConfiguration = configurator.getConfiguration(column);
-
-                    // only record the parameter when it is allowed for update
-                    if (columnConfiguration.getUpdateable())
-                    {
-                        String parameter = request.getParameter(rowNumber + ":" + column.getName());
-                        newRowData.put(column.getName(), parameter); // @todo type conversion ???
-                    }
+                    String parameter = request.getParameter(rowNumber + ":" + column.getName());
+                    newRowData.put(column.getName(), parameter); // @todo type conversion ???
                 }
-
-                // create the criterion used to uniquely identify the selected row in its table
-                Criterion identityCriterion = createCriterion(identityColumns, rowData);
-
-                // update the old row by setting only the updateable fields
-                table.updateRow(newRowData, identityCriterion);
             }
 
+            // create the criterion used to uniquely identify the selected row in its table
+            Criterion identityCriterion = createCriterion(identityColumns, rowData);
 
+            // update the old row by setting only the updateable fields
+            table.updateRow(newRowData, identityCriterion);
         }
+
+        metaDataSession.setCurrentTableData(table.findAllRows());
     }
 
     private Criterion createCriterion(Column[] columns, RowData rowData)
@@ -249,5 +241,88 @@ public class MaintenanceControllerImpl extends MaintenanceController
             }
         }
         return criterion;
+    }
+
+    public void insertRow(ActionMapping mapping, InsertRowForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        RowData rowData = new RowData();
+
+        Map parameterMap = request.getParameterMap();
+        for (Iterator iterator = parameterMap.entrySet().iterator(); iterator.hasNext();)
+        {
+            Map.Entry parameterPair = (Map.Entry) iterator.next();
+            String parameterName = (String)parameterPair.getKey();
+            Object[] parameterValues = (Object[])parameterPair.getValue();
+            rowData.put(parameterName, parameterValues[0]);  // minimum array length is 1
+        }
+
+        Table table = getMetaDataSession(request).getCurrentTable();
+
+        if (table==null)
+        {
+            throw new Exception("Unable to insert row in table: current table not specified");
+        }
+        else
+        {
+            table.insertRow(rowData);
+            getMetaDataSession(request).setCurrentTableData(table.findAllRows());
+        }
+    }
+
+    public void searchTableData(ActionMapping mapping, SearchTableDataForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        MetaDataSession metaDataSession = getMetaDataSession(request);
+        Table table = metaDataSession.getCurrentTable();
+
+        if (table==null)
+        {
+            throw new Exception("Unable to find rows in table: current table not specified");
+        }
+
+        Map parameterMap = request.getParameterMap();
+
+        if (parameterMap.size() == 0)
+        {
+            metaDataSession.setCurrentTableData( table.findAllRows() );
+        }
+        else
+        {
+            Criterion criterion = null;
+
+            Column[] columns = table.getColumns();
+            for (int i = 0; i < columns.length; i++)
+            {
+                Column column = columns[i];
+                String parameter = request.getParameter(column.getName());
+
+/*
+                // if column is a foreign key column then we need to find its display name and search on its value
+                if (column.isForeignKeyColumn())
+                {
+                    ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) column;
+                    foreignKeyColumn.getImportedKeyColumn().getTable().get
+                    ColumnConfiguration configuration = getDatabaseLoginSession(request).getConfigurator().getConfiguration(column);
+                    if (configuration.get)
+                }
+*/
+                // only included those parameters that contain an actual value
+                if (StringUtils.isNotBlank(parameter))
+                {
+                    Criterion lastCriterion =
+                            (form.getExactMatches())
+                                ? Expression.equal(column, parameter)
+                                : Expression.like(column, '%' + parameter + '%');
+                    criterion =  (criterion == null) ? lastCriterion : Expression.and(criterion, lastCriterion);
+                }
+            }
+
+            List currentTableData = (criterion == null) ? table.findAllRows() : table.findRows(criterion);
+            metaDataSession.setCurrentTableData( currentTableData );
+        }
+    }
+
+    public void deleteUnreferencedRows(ActionMapping mapping, DeleteUnreferencedRowsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+
     }
 }
