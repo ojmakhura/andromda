@@ -11,14 +11,11 @@ import org.omg.uml.behavioralelements.statemachines.State;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.behavioralelements.statemachines.StateVertex;
 import org.omg.uml.behavioralelements.statemachines.Transition;
-import org.omg.uml.behavioralelements.statemachines.Guard;
-import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.datatypes.PseudostateKind;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -463,108 +460,14 @@ public class UMLDynamicHelper extends UMLDefaultHelper
         };
 
     /**
-     * Returns the first transition from the argument State that is incoming into another State,
-     * there may be several <i>hops</i> (such as merge points) in between.
+     * This method will take the given transition and return the last transition after travelling through
+     * all the merge points it encounters, if one of the vertices is not a merge point this method returns
+     * the most recent transition followed.
      *
-     * @param state a State, may not be <code>null</code>
-     * @return the last transition before entering a new state
+     * @param transition a Transition
+     * @return the last Transition after going through all encountered merge points
+     * @see #isMergePoint
      */
-    public Transition getNextStateTransition(State state)
-    {
-        return getNextStateTransitionForStateVertex(state);
-    }
-
-    /**
-     * Returns the first transition from the argument State that is incoming into another State,
-     * there may be several <i>hops</i> (such as merge points) in between.
-     *
-     * @param pseudostate a Pseudostate, may not be <code>null</code>
-     * @return the last transition before entering a new state
-     */
-    public Transition getNextStateTransition(Pseudostate pseudostate)
-    {
-        return getNextStateTransitionForStateVertex(pseudostate);
-    }
-
-    /**
-     * Returns the first transition from the argument Transition that is incoming into another State,
-     * there may be several <i>hops</i> (such as merge points) in between.
-     * <p>
-     * If the argument transition targets a State, itself will be returned.
-     *
-     * @param transition a Transition, may not be <code>null</code>
-     * @return the last transition before entering a new state
-     */
-    public Transition getNextStateTransition(Transition transition)
-    {
-        Transition nextTransition = null;
-        StateVertex target = transition.getTarget();
-
-        if (isState(target))
-        {
-            nextTransition = transition;
-        }
-        else
-        {
-            nextTransition = getNextStateTransition((Pseudostate)target);
-        }
-
-        return nextTransition;
-    }
-
-    /**
-     * Returns the first transition from the argument StateVertex that is incoming into another State,
-     * there may be several <i>hops</i> (such as merge points) in between.
-     *
-     * @param stateVertex a state vertex, may not be <code>null</code>
-     * @return the last transition before entering a new state
-     */
-    private Transition getNextStateTransitionForStateVertex(StateVertex stateVertex)
-    {
-        Transition nextStateTransition = null;
-
-        Collection outgoing = stateVertex.getOutgoing();
-        if (outgoing.size() > 0)
-        {
-            Transition transition = (Transition)outgoing.iterator().next();
-            StateVertex target = transition.getTarget();
-
-            if (isState(target) || isDecisionPoint(target))
-            {
-                nextStateTransition = transition;
-            }
-            else
-            {
-                nextStateTransition = getNextStateTransition((Pseudostate)target);
-            }
-        }
-
-        return nextStateTransition;
-    }
-
-    /**
-     * Returns the state entered after following the argument transition, there may be several other transitions
-     * before the state is actually entered.
-     *
-     * @param transition a Transition, may not be <code>null</code>
-     * @return the first State which is entered when following the argument transition
-     */
-    public State getStateTarget(Transition transition)
-    {
-        StateVertex stateVertex = transition.getTarget();
-
-        if (isState(stateVertex))
-        {
-            return (State)stateVertex;
-        }
-        else
-        {
-            Transition nextTransition = getNextStateTransition((Pseudostate)stateVertex);
-            return (nextTransition == null) ? null : getStateTarget(nextTransition);
-        }
-    }
-
-    // todo javadoc
     public Transition skipMergePoints(Transition transition)
     {
         StateVertex target = transition.getTarget();
@@ -578,117 +481,6 @@ public class UMLDynamicHelper extends UMLDefaultHelper
 
         return transition;
     }
-
-    /**
-     * Gets the collection of transitions with a guard that are outgoing to the argument state.
-     *
-     * @param state a State, may not be <code>null</code>
-     * @return a Collection containing Transitions that have a guard, never <code>null</code>
-     */
-    public Collection getNextGuardedTransitions(State state)
-    {
-        return getNextGuardedTransitionsForStateVertex(state);
-    }
-
-    /**
-     * Gets the collection of transitions with a guard that are outgoing to the argument pseudostate.
-     *
-     * @param pseudostate a Pseudostate, may not be <code>null</code>
-     * @return a Collection containing Transitions that have a guard, never <code>null</code>
-     */
-    public Collection getNextGuardedTransitions(Pseudostate pseudostate)
-    {
-        return getNextGuardedTransitionsForStateVertex(pseudostate);
-    }
-
-    /**
-     * Gets the collection of transitions with a guard that are outgoing to the argument state-vertex.
-     *
-     * @param stateVertex a StateVertex, may not be <code>null</code>
-     * @return a Collection containing Transitions that have a guard, never <code>null</code>
-     */
-    private Collection getNextGuardedTransitionsForStateVertex(StateVertex stateVertex)
-    {
-        Collection transitions = null;
-
-        Transition transition = getNextStateTransitionForStateVertex(stateVertex);
-        Guard guard = transition.getGuard();
-
-        if (guard == null)
-        {
-            StateVertex target = transition.getTarget();
-            if (isDecisionPoint(target))
-            {
-                transitions = target.getOutgoing();
-            }
-            else
-            {
-                transitions = Collections.EMPTY_LIST;
-            }
-        }
-        else
-        {
-            transitions = Collections.singleton(transition);
-        }
-
-        return transitions;
-    }
-
-    /**
-     * Gets the collection of transitions with a trigger that are outgoing to the argument state.
-     *
-     * @param state a State, may not be <code>null</code>
-     * @return a Collection containing Transitions that have a trigger, never <code>null</code>
-     */
-    public Collection getNextTriggeredTransitions(State state)
-    {
-        return getNextTriggeredTransitionForStateVertex(state);
-    }
-
-    /**
-     * Gets the collection of transitions with a trigger that are outgoing to the argument pseudostate.
-     *
-     * @param pseudostate a Pseudostate, may not be <code>null</code>
-     * @return a Collection containing Transitions that have a trigger, never <code>null</code>
-     */
-    public Collection getNextTriggeredTransitions(Pseudostate pseudostate)
-    {
-        return getNextTriggeredTransitionForStateVertex(pseudostate);
-    }
-
-    /**
-     * Gets the collection of transitions with a trigger that are outgoing to the argument state-vertex.
-     *
-     * @param stateVertex a StateVertex, may not be <code>null</code>
-     * @return a Collection containing Transitions that have a trigger, never <code>null</code>
-     */
-    private Collection getNextTriggeredTransitionForStateVertex(StateVertex stateVertex)
-    {
-        Collection transitions = null;
-        Transition transition = getNextStateTransitionForStateVertex(stateVertex);
-
-        Event trigger = transition.getTrigger();
-
-        if (trigger == null)
-        {
-            StateVertex target = transition.getTarget();
-            if (isDecisionPoint(target))
-            {
-                transitions = target.getOutgoing();
-            }
-            else
-            {
-                transitions = Collections.EMPTY_LIST;
-            }
-        }
-        else
-        {
-            transitions = Collections.singleton(transition);
-        }
-
-        return transitions;
-    }
-
 
     /**
      * Returns <code>true</code> if the argument is a Transition instance, <code>false</code>
@@ -871,17 +663,17 @@ public class UMLDynamicHelper extends UMLDefaultHelper
      * Checks whether the argument pseudostate has outgoing transitions with a trigger, only if all of them
      * have a trigger and the argument is a decision point this method will return <code>true</code>.
      *
-     * @param pseudostate a decision point
+     * @param stateVertex a state vertex
      * @return <code>true</code> if the argument is indeed a decision point with all outgoing transitions triggered,
      *  in any other case this method returns <code>false</code>.
      * @see #isDecisionPoint(Object object)
      * @see #isTriggeredTransition(Object object)
      */
-    public boolean isTriggeredDecisionPoint(Pseudostate pseudostate)
+    public boolean isTriggeredDecisionPoint(StateVertex stateVertex)
     {
-        boolean isTriggeredDecisionPoint = isDecisionPoint(pseudostate);
+        boolean isTriggeredDecisionPoint = isDecisionPoint(stateVertex);
 
-        Collection transitions = pseudostate.getOutgoing();
+        Collection transitions = stateVertex.getOutgoing();
         for (Iterator iterator = transitions.iterator(); iterator.hasNext() && isTriggeredDecisionPoint;)
         {
             Transition transition = (Transition) iterator.next();
