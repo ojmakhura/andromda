@@ -264,7 +264,8 @@ public class WebServiceLogicImpl
                                 type = nonArrayType;
                             }
                         }
-                        if (nonArrayType != null)
+                        if (nonArrayType != null
+                            && !(modelElement instanceof AssociationEndFacade))
                         {
                             if (nonArrayType
                                 .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
