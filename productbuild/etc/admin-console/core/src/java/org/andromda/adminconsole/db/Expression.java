@@ -109,5 +109,10 @@ public class Expression
         {
             return sqlString;
         }
+
+        public String toString()
+        {
+            return toSqlString();
+        }
     }
 }
