@@ -184,11 +184,14 @@ public class AndroMDAGenTask
                 {
                     ModelConfiguration modelConfig = (ModelConfiguration)modelIt
                         .next();
-                    models[ctr] = new Model(
-                        modelConfig.getUrl(),
-                        this.packages,
-                        this.lastModifiedCheck,
-                        moduleSearchPath);
+                    if (modelConfig.getUrl() != null)
+                    {
+                        models[ctr] = new Model(
+                            modelConfig.getUrl(),
+                            this.packages,
+                            this.lastModifiedCheck,
+                            moduleSearchPath);
+                    }
                 }
             }
             else
