@@ -1,9 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -90,24 +87,20 @@ public class StrutsControllerLogicImpl
         return servicesList;
     }
 
-    private Object useCase = null;
-    private boolean useCaseFound = false;
-
     protected Object handleGetUseCase()
     {
-        if (useCaseFound == false)
+        StrutsUseCase useCase = null;
+
+        final Collection useCases = getModel().getAllUseCases();
+        for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase==null;)
         {
-            final Collection useCases = getModel().getAllUseCases();
-            for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+            StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
+            if (this.equals(strutsUseCase.getController()))
             {
-                StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
-                if (this.equals(strutsUseCase.getController()))
-                {
-                    useCase = strutsUseCase;
-                    useCaseFound = true;
-                }
+                useCase = strutsUseCase;
             }
         }
+
         return useCase;
     }
 
@@ -129,4 +122,30 @@ public class StrutsControllerLogicImpl
 
         return allArguments;
     }
+
+/* @todo: delete or use
+    protected boolean handleIsUniqueOperationNames()
+    {
+        boolean unique = true;
+
+        Collection operations = getOperations();
+        HashSet names = new HashSet();
+
+        for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext() && unique;)
+        {
+            StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
+            String name = operation.getName();
+
+            if (names.contains(name))
+            {
+                unique = false;
+            }
+            else
+            {
+                names.add(name);
+            }
+        }
+        return unique;
+    }
+*/
 }
