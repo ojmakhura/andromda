@@ -3,8 +3,7 @@ package org.andromda.schema2xmi;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Provides formatting functions, when 
- * converting SQL names to model names.
+ * Provides formatting functions, when converting SQL names to model names.
  * 
  * @author Chad Brandon
  */
@@ -20,7 +19,7 @@ public class SqlToModelNameFormatter
     {
         return toCamelCase(name);
     }
-    
+
     /**
      * Converts a column name to an attribute name.
      * 
@@ -31,7 +30,7 @@ public class SqlToModelNameFormatter
     {
         return StringUtils.uncapitalize(toClassName(name));
     }
-    
+
     /**
      * Turns a table name into a model element class name.
      * 
@@ -46,13 +45,14 @@ public class SqlToModelNameFormatter
         {
             for (int ctr = 0; ctr < tokens.length; ctr++)
             {
-                buffer.append(StringUtils.capitalize(tokens[ctr].toLowerCase()));
+                buffer
+                    .append(StringUtils.capitalize(tokens[ctr].toLowerCase()));
             }
-        } 
-        else 
+        }
+        else
         {
             buffer.append(StringUtils.capitalize(name.toLowerCase()));
         }
-        return buffer.toString();    
+        return buffer.toString();
     }
 }
