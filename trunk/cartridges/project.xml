@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-	<extend>../project.xml</extend>
-  	<id>andromda-cartridges</id>
-  	<groupId>andromda-cartridges</groupId>
-  	<name>AndroMDA Cartridges</name>
-  	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</connection>
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</url>
-  	</repository>
-  	<dependencies>
-    	<dependency>
-	      	<groupId>commons-lang</groupId>
-	      	<artifactId>commons-lang</artifactId>
-	      	<version>2.0</version>
-	    </dependency>      	    
-	</dependencies>
-  	<build>
-    	<sourceDirectory>src/java</sourceDirectory>
-    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    
-    	<!-- Unit test classes -->
-    	<unitTest>
-	      	<includes>
-	        	<include>**/Test*.java</include>
-	     	</includes>
-    	</unitTest>  
-		<resources>
-			<resource>
-				<directory>src/java</directory>
-	  			<includes>
-	    			<include>**/*.xml</include>
-	    			<include>**/*.properties</include>
-	  			</includes>
-	  		</resource>
-	  		<resource>
-				<directory>src</directory>
-	        	<excludes>
-	        		<exclude>**/*.java</exclude>
-	        		<exclude>uml/**/*</exclude>
-	        		<exclude>test/**/*</exclude>
-	        	</excludes>
-	  		</resource>
-	  		<resource>
-				<directory>target/src</directory>
-	        	<excludes>
-	        		<exclude>**/*.java</exclude>
-	        	</excludes>
-	  		</resource>
-		</resources>
-  	</build>
-  	<reports>
-  		<report>maven-jxr-plugin</report>
-  		<report>maven-javadoc-plugin</report>
-  	    <report>maven-simian-plugin</report>
-  	    <report>maven-pmd-plugin</report>
-    	<report>maven-jdepend-plugin</report>
-    	<report>maven-faq-plugin</report>
-    	<report>maven-tasklist-plugin</report>
-    	<report>maven-file-activity-plugin</report>
-    	<report>maven-developer-activity-plugin</report>
-    	<report>maven-junit-report-plugin</report>
-  	</reports>
+    <extend>../project.xml</extend>
+    <id>andromda-cartridges</id>
+    <groupId>andromda-cartridges</groupId>
+    <name>AndroMDA Cartridges</name>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</url>
+    </repository>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda-translation-libraries</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+        <!-- Unit test classes -->
+        <unitTest>
+            <includes>
+                <include>**/Test*.java</include>
+            </includes>
+        </unitTest>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                    <exclude>uml/**/*</exclude>
+                    <exclude>test/**/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>target/src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+    </reports>
 </project>
