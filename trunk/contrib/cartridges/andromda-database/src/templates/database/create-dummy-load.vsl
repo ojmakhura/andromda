@@ -3,6 +3,7 @@
 --  hibernate-inheritance tables and many-to-many relationships
 --  (because a join table must be present - cannot be found in the model)
 --
+#set ($tableMap = $databaseUtils.resolveOrderedTableMap($tables))
 
 ##
 ##      M A C R O S
@@ -24,10 +25,14 @@
 ##
 ##  For each table render the sql statements
 ##
-#foreach ($table in $tables)
-#if (!$table.enumeration)
-##  insert plain data
-#set ($columns = $table.nonForeignKeyColumns)
+#foreach ($tableEntry in $tableMap.entrySet())
+#set ($table = $tableEntry.key)
+#if ($table.enumeration)
+#foreach ($literal in $table.literals)
+insert into $table.tableName (VALUE,ID) values ('$literal.enumerationValue',$velocityCount);
+#end
+#else
+#set ($columns = $databaseUtils.getOtherColumns($table, $tableEntry.value))
 #if ($columns.size() > 0 && $table.dummyLoadSize > 0)
 #foreach ($count in [1..$table.dummyLoadSize])
 insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($columns $count));
@@ -36,12 +41,16 @@ insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($
 #end
 #end
 
-#foreach ($table in $tables)
-#if (!$table.enumeration)
-##  insert foreign keys
-#set ($columns = $table.foreignKeyColumns)
-#set ($primKeyColumn = $table.primaryKeyColumn)
+##
+##  Update remaining foreign keys
+##
+#foreach ($tableEntry in $tableMap.entrySet())
+#set ($table = $tableEntry.key)
+#set ($insertAll = $tableEntry.value)
+#if ($table.enumeration==false && $tableEntry.value)
+#set ($columns = $tableEntry.value)
 #if ($columns.size() > 0 && $table.dummyLoadSize > 0)
+#set ($primKeyColumn = $table.primaryKeyColumn)
 #foreach ($count in [1..$table.dummyLoadSize])
 #if ($primKeyColumn)
 update $table.tableName set #keyValues($columns $count) where $primKeyColumn.columnName=$primKeyColumn.getDummyLoadValue($count);
@@ -49,14 +58,6 @@ update $table.tableName set #keyValues($columns $count) where $primKeyColumn.col
 update $table.tableName set #keyValues($columns $count);
 #end
 #end
-#end
-#end
-#end
-
-#foreach ($table in $tables)
-#if ($table.enumeration)
-#foreach ($literal in $table.literals)
-insert into $table.tableName (VALUE,ID) values ('$literal.enumerationValue',$velocityCount);
 #end
 #end
 #end
