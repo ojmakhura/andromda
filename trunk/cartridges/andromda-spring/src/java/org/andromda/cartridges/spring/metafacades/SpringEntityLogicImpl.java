@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -357,7 +356,7 @@ public class SpringEntityLogicImpl
      * Return all the business operations, used when leafImpl true.
      * 
      * @return all business operations
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getAllBusinessOperations()
+     * @see org.andromda.cartridges.hibernate.metafacades.SpringEntity#getAllBusinessOperations()
      */
     protected Collection handleGetAllBusinessOperations()
     {
@@ -368,44 +367,6 @@ public class SpringEntityLogicImpl
         {
             result.addAll(superElement.getBusinessOperations());
             superElement = (EntityFacade)superElement.getGeneralization();
-        }
-        return result;
-    }
-
-    /**
-     * Return true if this Entity is a root in terms of Hibernate, eq has a
-     * hbm.xml file. interface - false
-     * 
-     * @return true if this Entity is a root
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isRootInheritanceEntity()
-     */
-    protected boolean handleIsRootInheritanceEntity()
-    {
-        boolean result = false;
-        GeneralizableElementFacade superElement = this.getGeneralization();
-        if (superElement == null)
-        {
-            String inheritance = this.getInheritance(this);
-            // We are a root if we are the base class and not interface
-            // inheritance
-            result = (inheritance == null)
-                || !inheritance.equals(INHERITANCE_STRATEGY_INTERFACE);
-        }
-        else
-        {
-            // We are a subclass
-            GeneralizableElementFacade root = getRootInheritanceEntity();
-            String inheritance = getInheritance(root);
-            // Are we the subclass element
-            result = root.getFullyQualifiedName().equals(
-                getFullyQualifiedName());
-            if (!result && inheritance != null
-                && inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
-            {
-                // If not check if we are a subclass
-                result = superElement.getFullyQualifiedName().equals(
-                    root.getFullyQualifiedName());
-            }
         }
         return result;
     }
@@ -427,238 +388,52 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * Return the entity which is the root in Hibernate terms. If we have class
-     * there is one table from where the first Entity which is defined as class.
-     * If subclass there are 1 + number of subclasses tables. So if we are the
-     * subclass defined Entity or the subclass of a subclass defined Entity we
-     * are a root. If concrete we are a root.
+     * Stores the default hibernate inheritance strategy.
      */
-    private GeneralizableElementFacade getRootInheritanceEntity()
-    {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
-                + getInheritance(this));
-        GeneralizableElementFacade result = null;
-        GeneralizableElementFacade superElement = this.getGeneralization();
-        ArrayList hierarchy = new ArrayList();
-        while (superElement != null)
-        {
-            hierarchy.add(superElement);
-            superElement = superElement.getGeneralization();
-        }
-        String inheritance;
-        GeneralizableElementFacade[] superclasses;
-        superclasses = new GeneralizableElementFacade[hierarchy.size()];
-        superclasses = (GeneralizableElementFacade[])hierarchy
-            .toArray(superclasses);
-        int rootIndex = hierarchy.size() - 1;
-        for (int ctr = rootIndex; ctr > -1; ctr--)
-        {
-            inheritance = getInheritance(superclasses[ctr]);
-            if (inheritance == null)
-            {
-                // Default = class
-                result = superclasses[ctr];
-                break;
-            }
-            if (inheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
-            {
-                result = superclasses[ctr];
-                break;
-            }
-            if (inheritance.equals(INHERITANCE_STRATEGY_CLASS))
-            {
-                result = superclasses[ctr];
-                break;
-            }
-        }
-        if (result == null)
-        {
-            // Must be all concrete, odd
-            result = this;
-        }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< getRootInheritanceEntity return:" + result);
-        return result;
-    }
+    private static final String INHERITANCE_STRATEGY = "hibernateInheritanceStrategy";
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getInheritanceStrategy()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateInheritanceStrategy()
      */
     protected String handleGetHibernateInheritanceStrategy()
     {
-        String result = this.getSuperInheritance();
-        if (!inheritanceStrategies.contains(result))
+        String inheritance = this.getInheritance(this);
+        for (SpringEntity superEntity = this.getSuperEntity(); superEntity != null
+            && StringUtils.isBlank(inheritance);)
         {
-            result = this.getInheritance(this);
+            inheritance = superEntity.getHibernateInheritanceStrategy();
         }
-        if (!inheritanceStrategies.contains(result))
+        if (StringUtils.isBlank(inheritance)
+            || !inheritanceStrategies.contains(inheritance))
         {
-            result = INHERITANCE_STRATEGY_CLASS;
+            inheritance = this.getDefaultInheritanceStrategy();
         }
-        return result;
+        return inheritance;
     }
 
     /**
-     * Scan back up the generalization hierarchy looking for a INHERITANCE
-     * strategy specification. Cases: super subclass CLASS None Allowed SUBCLASS
-     * None Allowed CONCRETE CLASS | SUBCLASS
+     * Gets the default hibernate inhertance strategy.
      * 
-     * @return the super inheritance strategy
+     * @return the default hibernate inheritance strategy.
      */
-    private String getSuperInheritance()
+    private String getDefaultInheritanceStrategy()
     {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> getSuperInheritance start:" + this + " : "
-                + getInheritance(this));
-        String rootInheritance = null;
-        GeneralizableElementFacade root = this.getRootInheritanceEntity();
-        GeneralizableElementFacade[] superclasses;
-        superclasses = this.getSuperClassList();
-        rootInheritance = this.getInheritance(root);
-        if (rootInheritance == null
-            || rootInheritance.equals(INHERITANCE_STRATEGY_CLASS))
-        {
-            validateNoInheritance(superclasses, root);
-        }
-        else if (rootInheritance.equals(INHERITANCE_STRATEGY_SUBCLASS))
-        {
-            validateNoInheritance(superclasses, root);
-        }
-        else if (rootInheritance.equals(INHERITANCE_STRATEGY_CONCRETE))
-        {
-            rootInheritance = this.validateConcreteInheritance(superclasses);
-        }
-        else if (rootInheritance.equals(INHERITANCE_STRATEGY_INTERFACE))
-        {
-            rootInheritance = this.validateInterfaceInheritance(superclasses);
-        }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< getSuperInheritance return:" + rootInheritance);
-        return rootInheritance;
+        return String.valueOf(this.getConfiguredProperty(INHERITANCE_STRATEGY));
     }
 
     /**
-     * Check no classes have an inheritance tag.
+     * Return the inheritance tagged value for for given <code>entity</code>.
      * 
-     * @param superclasses
-     */
-    private void validateNoInheritance(
-        GeneralizableElementFacade[] superclasses,
-        GeneralizableElementFacade root)
-    {
-        for (int ctr = 0; ctr < superclasses.length - 1; ctr++)
-        {
-            // Scan until the logical root in hibernate terms
-            if (root == superclasses[ctr])
-            {
-                break;
-            }
-            String inheritance = getInheritance(superclasses[ctr]);
-            if (inheritance != null)
-            {
-                AndroMDALogger.warn("Inheritance tagged value:" + inheritance
-                    + " on " + superclasses[ctr] + " ignored.");
-            }
-        }
-    }
-
-    /**
-     * Check if an intermediate class has a class or subclass tag, if so return
-     * that as the inheritance strategy. This is the only permitted mixed case.
-     * Also check subclass/class mixes.
-     * 
-     * @param superclasses
-     * @return String inheritance strategy
-     */
-    private String validateConcreteInheritance(
-        GeneralizableElementFacade[] superclasses)
-    {
-        if (logger.isDebugEnabled())
-            logger.debug(">>> validateConcreteInheritance:" + this);
-        String result = null;
-        String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
-        // Search from root class but 1 to lowest.
-        for (int ctr = superclasses.length - 1; ctr > -1; ctr--)
-        {
-            String inheritance = getInheritance(superclasses[ctr]);
-            if (inheritance != null)
-            {
-                if (result == null)
-                {
-                    // Dont at this point care which strategy is specified.
-                    result = inheritance;
-                }
-                else
-                {
-                    if (!result.equals(inheritance))
-                    {
-                        // If we are still on concrete we can change
-                        if (!result.equals(rootInheritance))
-                        {
-                            AndroMDALogger
-                                .warn("Cannot mix inheritance super inheritance:"
-                                    + result
-                                    + " with "
-                                    + inheritance
-                                    + " on "
-                                    + superclasses[ctr] + " ignored.");
-                        }
-                        else
-                        {
-                            result = inheritance;
-                        }
-                    }
-                }
-            }
-        }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< validateConcreteInheritance:" + result);
-        return result;
-    }
-
-    /**
-     * Get the inheritance below the interface inheritance class, currently only
-     * support one level of interface.
-     * 
-     * @param superclasses
-     * @return String inheritance strategy
-     */
-    private String validateInterfaceInheritance(
-        GeneralizableElementFacade[] superclasses)
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug(">>> validateInterfaceInheritance:" + this);
-            logger.debug("*** validateInterfaceInheritance superclasses:"
-                + superclasses.length);
-        }
-        String result = null;
-        int rootSubclassIndex = superclasses.length - 2;
-        if (rootSubclassIndex > 0)
-        {
-            result = getInheritance(superclasses[rootSubclassIndex]);
-            if (logger.isDebugEnabled())
-                logger.debug("*** validateInterfaceInheritance rootSubclass:"
-                    + result);
-        }
-        if (logger.isDebugEnabled())
-            logger.debug("<<< validateInterfaceInheritance:" + result);
-        return result;
-    }
-
-    /**
-     * Return the inheritance tagged value for facade.
-     * 
-     * @param facade
+     * @param the SpringEntity from which to retrieve the inheritance tagged
+     *        value.
      * @return String inheritance tagged value.
      */
-    private String getInheritance(GeneralizableElementFacade facade)
+    private String getInheritance(SpringEntity entity)
     {
         String inheritance = null;
-        if (facade != null)
+        if (entity != null)
         {
-            Object value = facade
+            Object value = entity
                 .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
             if (value != null)
             {
@@ -666,6 +441,51 @@ public class SpringEntityLogicImpl
             }
         }
         return inheritance;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.SpringEntity#isRequiresHibernateMapping()
+     */
+    protected boolean handleIsRequiresHibernateMapping()
+    {
+        final SpringEntity superEntity = this.getSuperEntity();
+        return this.isRoot()
+            && (!this.isHibernateInheritanceInterface() || (superEntity != null && superEntity
+                .isHibernateInheritanceInterface()));
+    }
+
+    /**
+     * Indicates if this entity as a <code>root</code> entity (meaning it
+     * doesn't specialize anything).
+     */
+    private boolean isRoot()
+    {
+        final SpringEntity superEntity = this.getSuperEntity();
+        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() || this
+            .isHibernateInheritanceInterface())
+            && this.isAbstract();
+        return (this.getSuperEntity() == null || (superEntity
+            .isHibernateInheritanceInterface() || superEntity
+            .isHibernateInheritanceConcrete()))
+            && !abstractConcreteEntity;
+    }
+
+    /**
+     * Gets the super entity for this entity (if one exists). If a
+     * generalization does not exist OR if it's not an instance of SpringEntity
+     * then return null.
+     * 
+     * @return the super entity or null if one doesn't exist.
+     */
+    private SpringEntity getSuperEntity()
+    {
+        SpringEntity superEntity = null;
+        if (this.getGeneralization() != null
+            && this.getGeneralization() instanceof SpringEntity)
+        {
+            superEntity = (SpringEntity)this.getGeneralization();
+        }
+        return superEntity;
     }
 
 }
