@@ -1,10 +1,9 @@
-package org.andromda.metafacades.uml14;
+package org.andromda.metafacades.uml;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -25,7 +24,7 @@ public class EntityMetafacadeUtils
      * @param separator character used to separate words
      * @return string converted to database attribute format
      */
-    protected static String toSqlName(String modelElementName, String separator)
+    public static String toSqlName(String modelElementName, String separator)
     {
         final String methodName = "EntityFacadeUtils.toSqlName";
         ExceptionUtils.checkEmpty(methodName, "string", modelElementName);
@@ -65,7 +64,7 @@ public class EntityMetafacadeUtils
      *        trimmed to this length (if it happens to be longer).
      * @return the SQL name as a String.
      */
-    protected static String getSqlNameFromTaggedValue(
+    public static String getSqlNameFromTaggedValue(
         ModelElementFacade element,
         String name,
         Short nameMaxLength)
@@ -86,7 +85,7 @@ public class EntityMetafacadeUtils
      *        key suffix, etc.)
      * @return the SQL name as a String.
      */
-    protected static String getSqlNameFromTaggedValue(
+    public static String getSqlNameFromTaggedValue(
         ModelElementFacade element,
         String name,
         Short nameMaxLength,

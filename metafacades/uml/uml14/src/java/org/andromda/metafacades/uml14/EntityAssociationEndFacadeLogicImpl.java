@@ -1,6 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 
 /**
