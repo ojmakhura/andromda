@@ -1,6 +1,10 @@
 package org.andromda.core.metadecorators.uml14;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
+import org.omg.uml.foundation.core.ModelElement;
 
 /**
  * Base class for all metaclass decorators.
@@ -9,24 +13,44 @@ public class DecoratorBase
 {
     private Object metaObject;
 
-    public DecoratorBase (Object metaObject)
+    public DecoratorBase(Object metaObject)
     {
         this.metaObject = metaObject;
     }
-    
-   /**
-    * Returns a collection of decorators for a collection
-    * of metaobjects. Contacts the DecoratorFactory to manufacture
-    * the proper decorators.
-    * @see DecoratorFactory
-    * 
-    * @param metaobjects 
-    * @return Collection of DecoratorBase-derived objects
-    */
+
+    /**
+     * Returns a collection of decorators for a collection
+     * of metaobjects. Contacts the DecoratorFactory to manufacture
+     * the proper decorators.
+     * @see DecoratorFactory
+     * 
+     * @param metaobjects the objects to decorate
+     * @return Collection of DecoratorBase-derived objects
+     */
     public static Collection decoratedElements(Collection metaobjects)
     {
-        // TODO Auto-generated method stub
-        return null;
+        ArrayList result = new ArrayList(metaobjects.size());
+        DecoratorFactory df = DecoratorFactory.getInstance();
+
+        for (Iterator iter = metaobjects.iterator(); iter.hasNext();)
+        {
+            ModelElement element = (ModelElement) iter.next();
+            result.add(df.createDecoratorObject(element));
+        }
+        return result;
     }
 
+    /**
+     * Returns one decorator for a particular metaobject. Contacts 
+     * the DecoratorFactory to manufacture the proper decorator.
+     * 
+     * @see DecoratorFactory
+     * @param metaObject the object to decorate
+     * @return DecoratorBase the decorator
+     */
+    public static DecoratorBase decoratedElement(ModelElement metaObject)
+    {
+        return DecoratorFactory.getInstance().createDecoratorObject(
+            metaObject);
+    }
 }
