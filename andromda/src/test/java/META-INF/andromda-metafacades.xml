@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- contains the hibernate cartridge metafacade mappings -->
+<metafacades namespace="andromda-test-metafacades" shared="true">
+    <default className="org.andromda.core.metafacade.Metafacade1"/>
+    <property reference="namespacePropertyOne" default="false"/>
+    <property reference="namespacePropertyTwo" default="true"/>
+    <metafacade class="org.andromda.core.metafacade.Metafacade1">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <stereotype>FINDER_METHOD</stereotype>            
+        </mapping>
+        <property reference="metafacadeProperteryOne" default="true"/>
+        <property reference="metafacadeProperteryTwo" default="false"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade2">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENUMERATION</stereotype>    
+        </mapping>  
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade3">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>APPLICATION_EXCEPTION</stereotype>  
+            <stereotype>UNEXPECTED_EXCEPTION</stereotype>   
+        </mapping>  
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade3">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <context>org.andromda.core.metafacade.Metafacade1</context>   
+        </mapping>  
+    </metafacade>
+</metafacades>

@@ -10,7 +10,7 @@ import org.andromda.core.common.XmlObjectFactory;
 
 /**
  * Implements the JUnit test suit for
- * <code>org.andromda.core.cartridge.Cartridge</code>
+ * {@link org.andromda.core.cartridge.Cartridge}
  * 
  * @see org.andromda.core.cartridge.Cartridge
  * @since 01.04.2003
