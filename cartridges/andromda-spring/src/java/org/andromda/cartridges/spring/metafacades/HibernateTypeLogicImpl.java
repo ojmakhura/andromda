@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class HibernateTypeLogicImpl
     extends HibernateTypeLogic
-    implements org.andromda.cartridges.spring.metafacades.HibernateType
 {
     // ---------------- constructor -------------------------------
 

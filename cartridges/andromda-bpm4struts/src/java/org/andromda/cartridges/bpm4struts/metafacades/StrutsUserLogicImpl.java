@@ -12,8 +12,7 @@ import java.util.List;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUser
  */
 public class StrutsUserLogicImpl
-        extends StrutsUserLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsUser
+    extends StrutsUserLogic
 {
     // ---------------- constructor -------------------------------
 

@@ -11,8 +11,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringServiceOperationLogicImpl
     extends SpringServiceOperationLogic
-    implements
-    org.andromda.cartridges.spring.metafacades.SpringServiceOperation
 {
     // ---------------- constructor -------------------------------
 

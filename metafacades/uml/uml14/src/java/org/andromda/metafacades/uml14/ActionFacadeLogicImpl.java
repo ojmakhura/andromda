@@ -13,7 +13,6 @@ import org.omg.uml.behavioralelements.statemachines.Transition;
  */
 public class ActionFacadeLogicImpl
     extends ActionFacadeLogic
-    implements org.andromda.metafacades.uml.ActionFacade
 {
     // ---------------- constructor -------------------------------
 

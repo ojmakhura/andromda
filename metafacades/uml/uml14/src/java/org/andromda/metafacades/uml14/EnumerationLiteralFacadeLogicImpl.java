@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EnumerationLiteralFacadeLogicImpl
     extends EnumerationLiteralFacadeLogic
-    implements org.andromda.metafacades.uml.EnumerationLiteralFacade
 {
     // ---------------- constructor -------------------------------
 
@@ -23,11 +22,11 @@ public class EnumerationLiteralFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String getName()
+    public String handleGetName()
     {
-        return StringUtilsHelper.separate(super.getName(), "_").toUpperCase();
+        return StringUtilsHelper.separate(super.handleGetName(), "_").toUpperCase();
     }
 
     /**
@@ -43,6 +42,6 @@ public class EnumerationLiteralFacadeLogicImpl
      */
     protected String handleGetValue()
     {
-        return StringUtils.trimToEmpty(super.getName());
+        return StringUtils.trimToEmpty(super.handleGetName());
     }
 }

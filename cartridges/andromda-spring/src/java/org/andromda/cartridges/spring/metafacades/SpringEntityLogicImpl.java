@@ -29,7 +29,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringEntityLogicImpl
     extends SpringEntityLogic
-    implements org.andromda.cartridges.spring.metafacades.SpringEntity
 {
     // ---------------- constructor -------------------------------
 

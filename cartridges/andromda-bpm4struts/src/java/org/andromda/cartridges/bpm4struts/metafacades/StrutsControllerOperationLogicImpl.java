@@ -17,8 +17,7 @@ import java.util.Iterator;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation
  */
 public class StrutsControllerOperationLogicImpl
-        extends StrutsControllerOperationLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation
+    extends StrutsControllerOperationLogic
 {
     // ---------------- constructor -------------------------------
 

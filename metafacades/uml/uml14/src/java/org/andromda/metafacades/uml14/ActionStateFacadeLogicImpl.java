@@ -7,7 +7,6 @@ import java.util.Collection;
  */
 public class ActionStateFacadeLogicImpl
     extends ActionStateFacadeLogic
-    implements org.andromda.metafacades.uml.ActionStateFacade
 {
     // ---------------- constructor -------------------------------
 

@@ -13,7 +13,6 @@ import org.omg.uml.foundation.core.TagDefinition;
  */
 public class TaggedValueFacadeLogicImpl
     extends TaggedValueFacadeLogic
-    implements org.andromda.metafacades.uml.TaggedValueFacade
 {
     // ---------------- constructor -------------------------------
 
@@ -25,11 +24,11 @@ public class TaggedValueFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.core.metadecorators.uml14.ModelElement#getName()
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String getName()
+    public String handleGetName()
     {
-        String name = super.getName();
+        String name = super.handleGetName();
         if (StringUtils.isEmpty(name))
         {
             TagDefinition type = this.metaObject.getType();

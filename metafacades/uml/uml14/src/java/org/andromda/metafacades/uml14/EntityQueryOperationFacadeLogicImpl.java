@@ -8,7 +8,6 @@ import org.andromda.core.translation.ExpressionKinds;
  */
 public class EntityQueryOperationFacadeLogicImpl
     extends EntityQueryOperationFacadeLogic
-    implements org.andromda.metafacades.uml.EntityQueryOperationFacade
 {
     // ---------------- constructor -------------------------------
 

@@ -15,7 +15,6 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * Metaclass facade implementation.
@@ -24,11 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeFacadeLogicImpl
     extends MetafacadeFacadeLogic
-    implements org.andromda.cartridges.meta.metafacades.MetafacadeFacade
 {
-    private static Logger logger = Logger
-        .getLogger(MetafacadeFacadeLogicImpl.class);
-
     // ---------------- constructor -------------------------------
 
     public MetafacadeFacadeLogicImpl(
@@ -138,13 +133,13 @@ public class MetafacadeFacadeLogicImpl
     {
         return this.getMetafacadeSupportClassName(this.getLogicName());
     }
-    
+
     /**
-     * This defines the metamodel version package name 
-     * (i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) 
-     * used by this cartridge to create the generated impl package name, if
-     * left empty then the impl package will be the same as the metafacade
-     * package (therefore we default to an empty name)
+     * This defines the metamodel version package name (i.e.
+     * org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) used
+     * by this cartridge to create the generated impl package name, if left
+     * empty then the impl package will be the same as the metafacade package
+     * (therefore we default to an empty name)
      */
     private static final String METAMODEL_VERSION_PACKAGE = "metamodelVersionPackage";
 
@@ -153,20 +148,20 @@ public class MetafacadeFacadeLogicImpl
      */
     protected String handleGetLogicFile()
     {
-        return this.getFullyQualifiedLogicName()
-            .replace('.', '/')
-            + ".java";
+        return this.getFullyQualifiedLogicName().replace('.', '/') + ".java";
     }
-    
+
     /**
-     * Gets the metamodel version package name (i.e. org.andromda.metafacades.uml14, 
-     * org.andromda.metafacades.um20, etc) used by this cartridge to create the 
-     * generated impl package name, if left empty then the impl package will 
-     * be the same as the metafacade package (therefore we default to an empty name)
+     * Gets the metamodel version package name (i.e.
+     * org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) used
+     * by this cartridge to create the generated impl package name, if left
+     * empty then the impl package will be the same as the metafacade package
+     * (therefore we default to an empty name)
      */
     private String getMetaModelVersionPackage()
     {
-        return String.valueOf(this.getConfiguredProperty(METAMODEL_VERSION_PACKAGE));
+        return String.valueOf(this
+            .getConfiguredProperty(METAMODEL_VERSION_PACKAGE));
     }
 
     /**
@@ -187,8 +182,7 @@ public class MetafacadeFacadeLogicImpl
      */
     protected String handleGetLogicImplFile()
     {
-        return this.getFullyQualifiedLogicImplName()
-            .replace('.', '/')
+        return this.getFullyQualifiedLogicImplName().replace('.', '/')
             + ".java";
     }
 
@@ -201,8 +195,7 @@ public class MetafacadeFacadeLogicImpl
      * @param the name of the class to append to the package.
      * @return the new metafacade support class name.
      */
-    private String getMetafacadeSupportClassName(
-        String name)
+    private String getMetafacadeSupportClassName(String name)
     {
         StringBuffer fullyQualifiedName = new StringBuffer(this
             .getLogicPackageName());
@@ -235,7 +228,7 @@ public class MetafacadeFacadeLogicImpl
         return result;
     }
 
-    private static void internalGetMethodDataForPSM(
+    private void internalGetMethodDataForPSM(
         HashMap map,
         MetafacadeFacade facade)
     {
@@ -245,20 +238,20 @@ public class MetafacadeFacadeLogicImpl
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes to getter methods
-            for (Iterator iter = facade.getAttributes().iterator(); iter
+            for (Iterator attributeIterator = facade.getAttributes().iterator(); attributeIterator
                 .hasNext();)
             {
-                AttributeFacade att = (AttributeFacade)iter.next();
-                final MethodData md = new MethodData(
+                AttributeFacade attribute = (AttributeFacade)attributeIterator
+                    .next();
+                final MethodData methodData = new MethodData(
                     fullyQualifiedName,
                     "public",
                     false,
-                    att.getType().getFullyQualifiedName(),
-                    att.getGetterName(),
-                    att.getDocumentation("    * "));
-                map.put(md.buildCharacteristicKey(), md);
+                    attribute.getType().getFullyQualifiedName(),
+                    attribute.getGetterName(),
+                    attribute.getDocumentation("    * "));
+                map.put(methodData.buildCharacteristicKey(), methodData);
             }
-
             // translate UML operations to methods
             for (Iterator iter = facade.getOperations().iterator(); iter
                 .hasNext();)
@@ -271,18 +264,19 @@ public class MetafacadeFacadeLogicImpl
             }
 
             // translate UML associations to getter methods
-            for (Iterator iter = facade.getAssociationEnds().iterator(); iter
+            for (Iterator endIterator = facade.getAssociationEnds().iterator(); endIterator
                 .hasNext();)
             {
-                AssociationEndFacade ae = (AssociationEndFacade)iter.next();
-                AssociationEndFacade otherEnd = ae.getOtherEnd();
+                AssociationEndFacade end = (AssociationEndFacade)endIterator
+                    .next();
+                AssociationEndFacade otherEnd = end.getOtherEnd();
                 if (otherEnd.isNavigable())
                 {
                     final MethodData md = new MethodData(
                         fullyQualifiedName,
                         "public",
                         false,
-                        ae.getOtherEnd().getGetterSetterTypeName(),
+                        otherEnd.getGetterSetterTypeName(),
                         otherEnd.getGetterName(),
                         otherEnd.getDocumentation("    * "));
                     map.put(md.buildCharacteristicKey(), md);
@@ -297,6 +291,36 @@ public class MetafacadeFacadeLogicImpl
         }
     }
 
-    // ------------------------------------------------------------
+    /**
+     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isRequiresInheritanceDelegatation()
+     */
+    protected boolean handleIsRequiresInheritanceDelegatation()
+    {
+        boolean requiresInheritanceDelegation = false;
+        ModelElementFacade superMetafacade = this.getGeneralization();
+        if (superMetafacade != null)
+        {
+            requiresInheritanceDelegation = !superMetafacade.getPackageName()
+                .equals(this.getPackageName());
+        }
+        return requiresInheritanceDelegation;
+    }
+
+    /**
+     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isConstructorRequiresMetaclassCast()
+     */
+    protected boolean handleIsConstructorRequiresMetaclassCast()
+    {
+        boolean requiresCast = false;
+        MetafacadeFacade superMetafacade = (MetafacadeFacade)this
+            .getGeneralization();
+        if (superMetafacade != null)
+        {
+            requiresCast = superMetafacade.isMetaclassDirectDependency()
+                && !this.isRequiresInheritanceDelegatation();
+
+        }
+        return requiresCast;
+    }
 
 }

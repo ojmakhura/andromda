@@ -15,8 +15,7 @@ import java.util.Iterator;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController
  */
 public class StrutsControllerLogicImpl
-        extends StrutsControllerLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsController
+    extends StrutsControllerLogic
 {
     // ---------------- constructor -------------------------------
 

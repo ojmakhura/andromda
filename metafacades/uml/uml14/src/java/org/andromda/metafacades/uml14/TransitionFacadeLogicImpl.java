@@ -10,7 +10,6 @@ import org.andromda.metafacades.uml.StateVertexFacade;
  */
 public class TransitionFacadeLogicImpl
     extends TransitionFacadeLogic
-    implements org.andromda.metafacades.uml.TransitionFacade
 {
     // ---------------- constructor -------------------------------
 

@@ -11,7 +11,6 @@ import org.andromda.metafacades.uml.UMLProfile;
  */
 public class EJBOperationFacadeLogicImpl
     extends EJBOperationFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBOperationFacade
 {
     // ---------------- constructor -------------------------------
 

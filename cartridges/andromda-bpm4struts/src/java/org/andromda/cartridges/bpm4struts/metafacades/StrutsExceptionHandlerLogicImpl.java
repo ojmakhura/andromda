@@ -11,8 +11,7 @@ import org.andromda.metafacades.uml.StateVertexFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler
  */
 public class StrutsExceptionHandlerLogicImpl
-        extends StrutsExceptionHandlerLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler
+    extends StrutsExceptionHandlerLogic
 {
     // ---------------- constructor -------------------------------
 

@@ -4,8 +4,7 @@ import org.andromda.core.common.StringUtilsHelper;
 
 
 public class StrutsSessionObjectLogicImpl
-        extends StrutsSessionObjectLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObject
+    extends StrutsSessionObjectLogic
 {
     public StrutsSessionObjectLogicImpl(Object metaObject, String context)
     {

@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class DependencyFacadeLogicImpl
     extends DependencyFacadeLogic
-    implements org.andromda.metafacades.uml.DependencyFacade
 {
     // ---------------- constructor -------------------------------
 
@@ -30,9 +29,9 @@ public class DependencyFacadeLogicImpl
      * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
-    public String getName()
+    public String handleGetName()
     {
-        String name = super.getName();
+        String name = super.handleGetName();
         if (StringUtils.isBlank(name) && this.getTargetElement() != null)
         {
             name = StringUtils.uncapitalize(this.getTargetElement().getName());

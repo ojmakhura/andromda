@@ -9,8 +9,7 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateService
  */
 public class HibernateServiceLogicImpl
-       extends HibernateServiceLogic
-       implements org.andromda.cartridges.hibernate.metafacades.HibernateService
+    extends HibernateServiceLogic
 {
     // ---------------- constructor -------------------------------
 

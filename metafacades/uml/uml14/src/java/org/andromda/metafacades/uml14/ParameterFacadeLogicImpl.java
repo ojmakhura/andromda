@@ -15,7 +15,6 @@ import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
  */
 public class ParameterFacadeLogicImpl
     extends ParameterFacadeLogic
-    implements org.andromda.metafacades.uml.ParameterFacade
 {
     // ---------------- constructor -------------------------------
 

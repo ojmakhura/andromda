@@ -8,7 +8,6 @@ package org.andromda.metafacades.uml14;
  */
 public class EnumerationFacadeLogicImpl
     extends EnumerationFacadeLogic
-    implements org.andromda.metafacades.uml.EnumerationFacade
 {
     // ---------------- constructor -------------------------------
 

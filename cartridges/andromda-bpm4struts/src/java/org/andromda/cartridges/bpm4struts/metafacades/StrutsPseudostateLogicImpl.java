@@ -9,8 +9,7 @@ import org.andromda.core.common.StringUtilsHelper;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
  */
 public class StrutsPseudostateLogicImpl
-        extends StrutsPseudostateLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
+    extends StrutsPseudostateLogic
 {
     // ---------------- constructor -------------------------------
 

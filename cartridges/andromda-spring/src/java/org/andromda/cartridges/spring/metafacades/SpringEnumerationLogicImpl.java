@@ -7,8 +7,7 @@ package org.andromda.cartridges.spring.metafacades;
  * @see org.andromda.cartridges.spring.metafacades.SpringEnumeration
  */
 public class SpringEnumerationLogicImpl
-       extends SpringEnumerationLogic
-       implements org.andromda.cartridges.spring.metafacades.SpringEnumeration
+    extends SpringEnumerationLogic
 {
     // ---------------- constructor -------------------------------
 

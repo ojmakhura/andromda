@@ -8,7 +8,6 @@ import org.omg.uml.behavioralelements.statemachines.StateMachine;
  */
 public class ObjectFlowStateFacadeLogicImpl
     extends ObjectFlowStateFacadeLogic
-    implements org.andromda.metafacades.uml.ObjectFlowStateFacade
 {
     // ---------------- constructor -------------------------------
 

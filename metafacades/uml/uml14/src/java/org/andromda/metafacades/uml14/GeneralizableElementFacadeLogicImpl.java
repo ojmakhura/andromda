@@ -16,7 +16,6 @@ import org.omg.uml.foundation.core.Generalization;
  */
 public class GeneralizableElementFacadeLogicImpl
     extends GeneralizableElementFacadeLogic
-    implements org.andromda.metafacades.uml.GeneralizableElementFacade
 {
     // ---------------- constructor -------------------------------
 

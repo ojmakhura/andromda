@@ -16,7 +16,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringDependencyLogicImpl
     extends SpringDependencyLogic
-    implements org.andromda.cartridges.spring.metafacades.SpringDependency
 {
     // ---------------- constructor -------------------------------
 

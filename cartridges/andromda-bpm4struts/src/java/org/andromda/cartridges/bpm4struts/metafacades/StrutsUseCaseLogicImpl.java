@@ -17,8 +17,7 @@ import java.util.*;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
  */
 public class StrutsUseCaseLogicImpl
-        extends StrutsUseCaseLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
+    extends StrutsUseCaseLogic
 {
     // ---------------- constructor -------------------------------
 

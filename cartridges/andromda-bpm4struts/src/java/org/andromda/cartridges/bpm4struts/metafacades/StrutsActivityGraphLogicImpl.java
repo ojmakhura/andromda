@@ -14,8 +14,7 @@ import java.util.Collection;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
  */
 public class StrutsActivityGraphLogicImpl
-        extends StrutsActivityGraphLogic
-        implements org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
+    extends StrutsActivityGraphLogic
 {
     // ---------------- constructor -------------------------------
 

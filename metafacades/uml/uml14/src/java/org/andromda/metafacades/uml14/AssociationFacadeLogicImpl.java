@@ -33,11 +33,11 @@ public class AssociationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String getName()
+    public String handleGetName()
     {
-        String name = super.getName();
+        String name = super.handleGetName();
         // if the name isn't defined, use the relation name
         if (StringUtils.isEmpty(name))
         {

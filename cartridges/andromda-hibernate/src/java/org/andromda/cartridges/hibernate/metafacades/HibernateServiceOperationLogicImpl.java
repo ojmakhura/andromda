@@ -9,8 +9,7 @@ import org.andromda.metafacades.uml.UMLProfile;
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation
  */
 public class HibernateServiceOperationLogicImpl
-       extends HibernateServiceOperationLogic
-       implements org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation
+    extends HibernateServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 

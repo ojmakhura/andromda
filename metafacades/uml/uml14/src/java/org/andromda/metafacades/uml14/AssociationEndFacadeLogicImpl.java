@@ -59,11 +59,11 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getName()
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String getName()
+    public String handleGetName()
     {
-        String name = super.getName();
+        String name = super.handleGetName();
         // if name is empty, then get the name from the type
         if (StringUtils.isEmpty(name))
         {

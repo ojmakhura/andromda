@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EntityAttributeFacadeLogicImpl
     extends EntityAttributeFacadeLogic
-    implements org.andromda.metafacades.uml.EntityAttributeFacade
 {
     // ---------------- constructor -------------------------------
 

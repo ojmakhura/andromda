@@ -27,7 +27,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EJBEntityFacadeLogicImpl
     extends EJBEntityFacadeLogic
-    implements org.andromda.cartridges.ejb.metafacades.EJBEntityFacade
 {
     // ---------------- constructor -------------------------------
 

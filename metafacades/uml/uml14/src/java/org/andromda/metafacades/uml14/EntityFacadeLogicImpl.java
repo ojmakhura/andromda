@@ -30,7 +30,6 @@ import org.omg.uml.foundation.core.Classifier;
  */
 public class EntityFacadeLogicImpl
     extends EntityFacadeLogic
-    implements org.andromda.metafacades.uml.EntityFacade
 {
     // ---------------- constructor -------------------------------
 

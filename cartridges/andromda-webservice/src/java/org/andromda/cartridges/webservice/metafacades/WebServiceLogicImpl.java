@@ -35,7 +35,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class WebServiceLogicImpl
     extends WebServiceLogic
-    implements org.andromda.cartridges.webservice.metafacades.WebService
 {
     // ---------------- constructor -------------------------------
 

@@ -23,7 +23,6 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
  */
 public class OperationFacadeLogicImpl
     extends OperationFacadeLogic
-    implements org.andromda.metafacades.uml.OperationFacade
 {
     // ---------------- constructor -------------------------------
 

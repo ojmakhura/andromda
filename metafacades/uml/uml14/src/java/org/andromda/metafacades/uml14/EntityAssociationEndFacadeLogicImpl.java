@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.UMLProfile;
  */
 public class EntityAssociationEndFacadeLogicImpl
     extends EntityAssociationEndFacadeLogic
-    implements org.andromda.metafacades.uml.EntityAssociationEndFacade
 {
     // ---------------- constructor -------------------------------
 
