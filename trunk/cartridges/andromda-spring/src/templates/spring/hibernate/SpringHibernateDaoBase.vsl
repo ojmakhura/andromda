@@ -328,7 +328,7 @@ public abstract class $entity.daoBaseName
 #end
 #end
 
-                java.util.Collection results = queryObject.list();
+                java.util.List results = queryObject.list();
 #if (!$finder.returnType.collectionType)
                 Object result = null;
                 if (results != null)
@@ -350,7 +350,11 @@ public abstract class $entity.daoBaseName
                 return result;
 #else
                 transformEntities(transform, results);
-                return results;
+#set ($returnValue = "results")
+#if ($finder.returnType.setType)
+#set ($returnValue = "new java.util.HashSet($returnValue)")
+#end
+                return $returnValue;
 #end
         }
         catch (net.sf.hibernate.HibernateException ex) 
