@@ -1,342 +1,247 @@
 <project name="andromda" default="build">
 
-    <!-- This script compiles and jars the ANDROMDA code generator. -->
+	<!-- This script compiles and jars the ANDROMDA code generator. -->
 
-    <!-- Load user environment parameters -->
-    <!-- This should define build classpath -->
-    <property file="build.properties" />
+	<!-- Load user environment parameters -->
+	<!-- This should define build classpath -->
+	<property file="build.properties" />
 
-    <property name="version" value="2.0.1" />
-    <property name="version.suffix" value="201alpha" />
-
-
-    <!-- ============================================================= -->
-    <!--              Define the directory layout                      -->
-    <!-- ============================================================= -->
-
-    <!-- Source directories -->
-    <property name="src.dir" value="src/" />
-    <property name="java.src.dir" value="${src.dir}/java/" />
-    <property name="xsd.src.dir" value="${src.dir}/xsd/" />
-    <property name="xslt.src.dir" value="${src.dir}/xsl/" />
-    <property name="template.src.dir" value="${src.dir}/templates/" />
-    <property name="license.src.dir" value="./" />
-    <property name="xdocs.src.dir" value="${src.dir}/xdocs/" />
-    <property name="buildutils.src.dir" value="${src.dir}/bin/" />
-
-    <!-- Build directories -->
-    <property name="build.dir" value="build/" />
-    <property name="build.gensrc.dir" value="${build.dir}gensrc/" />
-    <property name="build.classes.dir" value="${build.dir}classes/" />
-    <property name="build.doc.dir" value="${build.dir}doc/" />
-    <property name="build.jar.dir" value="${build.dir}" />
-
-    <!-- Distribution directories -->
-    <property name="dist.dir" value="dist/" />
-    <property name="dist.stage.dir" value="${dist.dir}predist/" />
+	<property name="version" value="2.0.1" />
+	<property name="version.suffix" value="201alpha" />
 
 
-    <path id="build.class.path">
-        <pathelement location="${build.classes.dir}" />
-        <pathelement location="${buildutils.src.dir}/java2html.jar"/>
-        <pathelement path="${build.classpath}"/>
-    </path>
+	<!-- ============================================================= -->
+	<!--			  Define the directory layout					   -->
+	<!-- ============================================================= -->
 
-    <path id="src.path.list">
-        <pathelement location="${java.src.dir}"/>
-        <pathelement location="${build.gensrc.dir}"/>
-    </path>
+	<!-- Source directories -->
+	<property name="src.dir" value="src/" />
+	<property name="java.src.dir" value="${src.dir}/java/" />
+	<property name="xsd.src.dir" value="${src.dir}/xsd/" />
+	<property name="xslt.src.dir" value="${src.dir}/xsl/" />
+	<property name="template.src.dir" value="${src.dir}/templates/" />
+	<property name="license.src.dir" value="./" />
+	<property name="buildutils.src.dir" value="${src.dir}/bin/" />
 
+	<!-- Build directories -->
+	<property name="build.dir" value="build/" />
+	<property name="build.gensrc.dir" value="${build.dir}gensrc/" />
+	<property name="build.classes.dir" value="${build.dir}classes/" />
+	<property name="build.doc.dir" value="${build.dir}doc/" />
+	<property name="build.jar.dir" value="${build.dir}" />
 
-    <!-- ============================================================= -->
-    <!--               Highlevel user tasks                            -->
-    <!-- ============================================================= -->
-
-    <target name="build" depends="jar,javadoc"
-            description="Builds the andromda jar plus accompanying javadoc" />
-
-    <target name="clean" description="Delete all built files">
-        <delete includeEmptyDirs="true" quiet="true">
-            <fileset dir="${build.dir}"/>
-            <fileset dir="${dist.dir}"/>
-        </delete>
-    </target>
-
-    <!--
-         Clean up everything, so the distribution has a clear start.
-         Compile all Java classes, make JAR file and ZIP everything
-         to make a distribution unit.
-         This is mostly intended to be run from a CVS checkout and
-         let Matthias make a new release.
-    -->
-
-    <target name="dist" depends="dist2"
-            description="Deletes old built files and creates a distribution zip from scratch"
-    />
-
-    <target name="dist1" depends="clean,build"
-            description="Deletes old built files and prepares a staging structure for the distribution zip">
-        <!-- create the distribution directory structure -->
-        <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.stage.dir}"/>
-        <mkdir dir="${dist.stage.dir}doc/"/>
-        <mkdir dir="${dist.stage.dir}lib/"/>
-        <mkdir dir="${dist.stage.dir}src"/>
-        <mkdir dir="${dist.stage.dir}sample"/>
-
-        <!-- copy everything into the stage dir -->
-        <copy todir="${dist.stage.dir}">
-            <fileset dir="." includes="build.xml"/>
-            <fileset dir="." includes="build.properties.sample"/>
-            <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
-            <fileset dir="${license.src.dir}" includes="LICENSE"/>
-        </copy>
-
-        <copy todir="${dist.stage.dir}src/">
-            <fileset dir="${src.dir}">
-               <exclude name="sample/**" />
-               <exclude name="xdocs/car-rental-umldoc.zip" />
-               <!-- do not include GPL'ed software because ouor license is BSD! -->
-               <exclude name="bin/java2html.jar" />
-            </fileset>
-        </copy>
-
-        <!-- do not zip from source tree, but ... -->
-        <!-- keep dist.stage.dir an exact copy of the two zips -->
-        <copy todir="${dist.stage.dir}lib/">
-            <fileset dir="lib" includes="*"/>
-        </copy>
-
-	    <!-- copy examples into distribution staging area -->
-        <copy todir="${dist.stage.dir}sample/">
-            <fileset dir="${src.dir}/sample">
-               <exclude name="**/generated/**" />
-               <exclude name="**/build/**" />
-               <exclude name="**/dist/**" />
-            </fileset>
-        </copy>
-        
-    </target>
-
-    <target name="dist2" depends="website"
-            description="Pack distribution zips">
-        
-        <copy todir="${dist.stage.dir}doc/">
-              <fileset dir="${build.doc.dir}" includes="**/*"/>
-        </copy>
-
-        <!-- zip everything into the release archives -->
-        <zip zipfile="${dist.dir}andromda_${version.suffix}.zip">
-            <fileset dir="${dist.stage.dir}">
-               <exclude name="lib/**" />
-            </fileset>
-        </zip>
-        <zip zipfile="${dist.dir}andromda_libs_${version.suffix}.zip">
-            <fileset dir="${dist.stage.dir}" includes="lib/*" />
-        </zip>
-    </target>
+	<!-- Distribution directories -->
+	<property name="dist.dir" value="dist/" />
+	<property name="dist.stage.dir" value="${dist.dir}predist/" />
 
 
-    <!-- ============================================================= -->
-    <!--               Internal subtasks                               -->
-    <!-- ============================================================= -->
+	<path id="build.class.path">
+		<pathelement location="${build.classes.dir}" />
+		<pathelement location="${buildutils.src.dir}/java2html.jar"/>
+		<pathelement path="${build.classpath}"/>
+	</path>
 
-    <!-- Let CASTOR compile the XML schema files into Java classes -->
-    <target name="castor" depends="init">
-      <echo message="Compiling the XML schemas..."/>
-
-      <java fork="true" classname="org.exolab.castor.builder.SourceGenerator">
-        <arg line="-f -i ${xsd.src.dir}/TypeMapping.xsd"/>
-        <arg line="-package org.andromda.core.dbmapping -types j2 -dest ${build.gensrc.dir}"/>
-        <classpath refid="build.class.path"/>
-      </java>
-    </target>
-
-    <target name="compile-xsd" depends="castor" >
-    </target>
-
-    <target name="compile" depends="compile-xsd,compile-nogen" />
-
-    <target name="compile-nogen" depends="init">
-        <property name="classpath" refid="build.class.path"/>
-        <echo message=" path=${classpath}"/>
-        <javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
-            <src refid="src.path.list"/>
-            <classpath refid="build.class.path"/>
-        </javac>
-    </target>
+	<path id="src.path.list">
+		<pathelement location="${java.src.dir}"/>
+		<pathelement location="${build.gensrc.dir}"/>
+	</path>
 
 
-    <target name="jar" depends="compile-xsd,jar-nogen" />
+	<!-- ============================================================= -->
+	<!--			   Highlevel user tasks 						   -->
+	<!-- ============================================================= -->
 
-    <target name="jar-nogen" depends="compile-nogen">
-        <jar jarfile="${build.jar.dir}andromda.jar">
-            <fileset dir="${build.classes.dir}" includes="**/*.class" />
-        </jar>
-    </target>
+	<target name="build" depends="jar,javadoc"
+			description="Builds the andromda jar plus accompanying javadoc" />
 
+	<target name="clean" description="Delete all built files">
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+		</delete>
+	</target>
 
-    <target name="javadoc" depends="compile">
-        <javadoc
-            destdir="${build.doc.dir}javadoc"
-            access="public" use="true" notree="false" nonavbar="false"
-            noindex="false" splitindex="true" author="true"
-            version="true" nodeprecatedlist="false" nodeprecated="false"
-            classpathref="build.class.path">
+	<!--
+		 Clean up everything, so the distribution has a clear start.
+		 Compile all Java classes, make JAR file and ZIP everything
+		 to make a distribution unit.
+		 This is mostly intended to be run from a CVS checkout and
+		 let Matthias make a new release.
+	-->
 
-            <fileset dir="${java.src.dir}"/>
-            <fileset dir="${build.gensrc.dir}"/>
+	<target name="dist" depends="clean,build"
+			description="Deletes old built files and prepares a staging structure for the distribution zip">
+		<!-- create the distribution directory structure -->
+		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${dist.stage.dir}"/>
+		<mkdir dir="${dist.stage.dir}doc/"/>
+		<mkdir dir="${dist.stage.dir}doc/javadoc/"/>
+		<mkdir dir="${dist.stage.dir}lib/"/>
+		<mkdir dir="${dist.stage.dir}src"/>
 
-        </javadoc>
-    </target>
+		<!-- copy everything into the stage dir -->
+		<copy todir="${dist.stage.dir}">
+			<fileset dir="." includes="build.xml"/>
+			<fileset dir="." includes="build.properties.sample"/>
+			<fileset dir="${build.jar.dir}" includes="andromda.jar"/>
+			<fileset dir="${license.src.dir}" includes="LICENSE"/>
+		</copy>
 
-    <target name="docpages" depends="init">
-        <taskdef name="anakia"
-                 classname="org.apache.velocity.anakia.AnakiaTask"
-                 classpathref="build.class.path"
-        />
+		<copy todir="${dist.stage.dir}src/">
+			<fileset dir="${src.dir}">
+			   <exclude name="sample/**" />
+			   <exclude name="xdocs/**" />
+			   <!-- do not include GPL'ed software because ouor license is BSD! -->
+			   <exclude name="bin/java2html.jar" />
+			</fileset>
+		</copy>
 
-        <anakia basedir="${xdocs.src.dir}" destdir="${build.doc.dir}"
-             extension=".html" style="./site.vsl"
-             projectFile="./stylesheets/project.xml"
-             excludes="**/stylesheets/**"
-             includes="**/*.xml"
-             lastModifiedCheck="true"
-             templatePath="${xdocs.src.dir}/stylesheets"
-        />
+		<copy todir="${dist.stage.dir}doc/javadoc">
+			<fileset dir="${build.doc.dir}javadoc">
+			</fileset>
+		</copy>
 
-        <copy todir="${build.doc.dir}/images" filtering="no">
-            <fileset dir="${xdocs.src.dir}/images">
-                <include name="**/*.gif"/>
-                <include name="**/*.jpeg"/>
-                <include name="**/*.jpg"/>
-            </fileset>
-        </copy>
+		<!-- do not zip from source tree, but ... -->
+		<!-- keep dist.stage.dir an exact copy of the two zips -->
+		<copy todir="${dist.stage.dir}lib/">
+			<fileset dir="lib" includes="*"/>
+		</copy>
 
-        <copy todir="${build.doc.dir}/styles" filtering="no">
-            <fileset dir="${xdocs.src.dir}/styles">
-                <include name="**/*.css"/>
-            </fileset>
-        </copy>
-    </target>
-
-    <!--
-         Creates the web pages of www.andromda.org and copies them
-         as part of the AndroMDA distribution into the subdirectory
-         "doc".
-         Runs sample Java source code through a Java2HTML converter.
-         Runs website *.xml pages through Anakia to get *.html pages.
-         Copies images and stylesheet.
-    -->
-    <target name="website" depends="dist1,docpages">
-
-        <!--
-             build sample first so that the sample source code files
-             are there. We need those to convert them to HTML to create
-             the website files.
-
-             Matthias: I have just introduced a dependency from this
-                       build.xml file to the sample build.xml file.
-                       This sucks, but I don't know a better way, yet!
-        -->
-
-        <ant inheritAll="false" dir="${src.dir}/sample/car-rental-system"/>
-
-        <taskdef name="java2html"
-                 classname="de.java2html.anttasks.J2HTask"
-                 classpathref="build.class.path"
-        />
-
-        <java2html
-             srcdir="${src.dir}/sample/car-rental-system/src/ejb/generated/org/andromda/samples/carrental/customers"
-             destdir="${build.doc.dir}/java2html"
-             includes="*.java"
-             outputFormat="html"
-             tabs="4" />
-
-        <java2html
-             srcdir="${src.dir}/sample/car-rental-system/src/ejb/manual/org/andromda/samples/carrental/customers"
-             destdir="${build.doc.dir}/java2html"
-             includes="*.java"
-             outputFormat="html"
-             tabs="4" />
-
-        <!-- unzip the HTML source files generated by the UMLDOC plugin of Poseidon Professional Edition -->
-        <unzip src="${xdocs.src.dir}/car-rental-umldoc.zip" dest="${build.doc.dir}" />
-
-    </target>
+		<!-- zip everything into the release archives -->
+		<zip zipfile="${dist.dir}andromda_${version.suffix}.zip">
+			<fileset dir="${dist.stage.dir}">
+			   <exclude name="lib/**" />
+			</fileset>
+		</zip>
+		<zip zipfile="${dist.dir}andromda_libs_${version.suffix}.zip">
+			<fileset dir="${dist.stage.dir}" includes="lib/*" />
+		</zip>
+	</target>
 
 
-    <target name="init" depends="check-environment">
-        <tstamp/>
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${build.gensrc.dir}"/>
-        <mkdir dir="${build.classes.dir}"/>
-    </target>
+	<!-- ============================================================= -->
+	<!--			   Internal subtasks							   -->
+	<!-- ============================================================= -->
 
-    <target name="check-environment">
-        <antcall target="check-buildclasspath"/>
+	<!-- Let CASTOR compile the XML schema files into Java classes -->
+	<target name="castor" depends="init">
+	  <echo message="Compiling the XML schemas..."/>
 
-        <available property="mdr.present"
-                classname="org.netbeans.mdr.NBMDRepositoryImpl"
-                classpathref="build.class.path"/>
-        <antcall target="wrong-mdr"/>
+	  <java fork="true" classname="org.exolab.castor.builder.SourceGenerator">
+		<arg line="-f -i ${xsd.src.dir}/TypeMapping.xsd"/>
+		<arg line="-package org.andromda.core.dbmapping -types j2 -dest ${build.gensrc.dir}"/>
+		<classpath refid="build.class.path"/>
+	  </java>
+	</target>
 
-        <available property="velocity.present"
-                   classname="org.apache.velocity.context.Context"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-velocity"/>
+	<target name="compile-xsd" depends="castor" >
+	</target>
 
-        <available property="junit.present"
-                   classname="junit.framework.TestCase"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-junit"/>
+	<target name="compile" depends="compile-xsd,compile-nogen" />
 
-        <available property="ant.present"
-                   classname="org.apache.tools.ant.Project"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-ant"/>
+	<target name="compile-nogen" depends="init">
+		<property name="classpath" refid="build.class.path"/>
+		<echo message=" path=${classpath}"/>
+		<javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
+			<src refid="src.path.list"/>
+			<classpath refid="build.class.path"/>
+		</javac>
+	</target>
 
-    </target>
 
-    <target name="check-buildclasspath" unless="build.classpath">
-        <fail>
-            Property "build.classpath" is not set. Please use the file
-            "build.properties" in the directory ${basedir} to set
-            this property. It must list all external jars required
-            for the build to succeed.  "build.properties.sample"
-            provides an example on how to set it up.
-        </fail>
-    </target>
+	<target name="jar" depends="compile-xsd,jar-nogen" />
 
-    <target name="wrong-velocity" unless="velocity.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the Velocity jar.
-        </fail>
-    </target>
+	<target name="jar-nogen" depends="compile-nogen">
+		<jar jarfile="${build.jar.dir}andromda.jar">
+			<fileset dir="${build.classes.dir}" includes="**/*.class" />
+		</jar>
+	</target>
 
-    <target name="wrong-mdr" unless="mdr.present">
-      <fail>
-          Property "build.classpath" is set but it doesn't seem
-          to contain the necessary MDR jars such as
-          mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
-          uml14.jar, openide-lookup.jar, openide-fs.jar
-      </fail>
-    </target>
 
-    <target name="wrong-junit" unless="junit.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the JUnit jar.
-        </fail>
-    </target>
+	<target name="javadoc" depends="compile">
+		<javadoc
+			destdir="${build.doc.dir}javadoc"
+			access="public" use="true" notree="false" nonavbar="false"
+			noindex="false" splitindex="true" author="true"
+			version="true" nodeprecatedlist="false" nodeprecated="false"
+			classpathref="build.class.path">
 
-    <target name="wrong-ant" unless="ant.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the ant jar.
-        </fail>
-    </target>
+			<fileset dir="${java.src.dir}"/>
+			<fileset dir="${build.gensrc.dir}"/>
+
+		</javadoc>
+	</target>
+
+	<target name="init" depends="check-environment">
+		<tstamp/>
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.gensrc.dir}"/>
+		<mkdir dir="${build.classes.dir}"/>
+	</target>
+
+	<target name="check-environment">
+		<antcall target="check-buildclasspath"/>
+
+		<available property="mdr.present"
+				classname="org.netbeans.mdr.NBMDRepositoryImpl"
+				classpathref="build.class.path"/>
+		<antcall target="wrong-mdr"/>
+
+		<available property="velocity.present"
+				   classname="org.apache.velocity.context.Context"
+				   classpathref="build.class.path" />
+		<antcall target="wrong-velocity"/>
+
+		<available property="junit.present"
+				   classname="junit.framework.TestCase"
+				   classpathref="build.class.path" />
+		<antcall target="wrong-junit"/>
+
+		<available property="ant.present"
+				   classname="org.apache.tools.ant.Project"
+				   classpathref="build.class.path" />
+		<antcall target="wrong-ant"/>
+
+	</target>
+
+	<target name="check-buildclasspath" unless="build.classpath">
+		<fail>
+			Property "build.classpath" is not set. Please use the file
+			"build.properties" in the directory ${basedir} to set
+			this property. It must list all external jars required
+			for the build to succeed.  "build.properties.sample"
+			provides an example on how to set it up.
+		</fail>
+	</target>
+
+	<target name="wrong-velocity" unless="velocity.present">
+		<fail>
+			Property "build.classpath" is set but it doesn't seem
+			to contain the Velocity jar.
+		</fail>
+	</target>
+
+	<target name="wrong-mdr" unless="mdr.present">
+	  <fail>
+		  Property "build.classpath" is set but it doesn't seem
+		  to contain the necessary MDR jars such as
+		  mdrapi.jar, nbmdr.jar, jmi.jar, jmiutils.jar, jmitooolkit.jar, mof.jar,
+		  uml14.jar, openide-lookup.jar, openide-fs.jar
+	  </fail>
+	</target>
+
+	<target name="wrong-junit" unless="junit.present">
+		<fail>
+			Property "build.classpath" is set but it doesn't seem
+			to contain the JUnit jar.
+		</fail>
+	</target>
+
+	<target name="wrong-ant" unless="ant.present">
+		<fail>
+			Property "build.classpath" is set but it doesn't seem
+			to contain the ant jar.
+		</fail>
+	</target>
 
 </project>
