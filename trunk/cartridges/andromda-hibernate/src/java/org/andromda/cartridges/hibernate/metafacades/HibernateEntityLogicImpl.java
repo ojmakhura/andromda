@@ -28,10 +28,11 @@ import org.apache.commons.collections.Predicate;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> 
- * is set on the base/root class. All subclasses must then follow 
- * the same strategy. NB if the strategy is changed after the initial
- * generation, the impl classes have to be hand  modified.
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on 
+ * the base/root class. All subclasses must then follow the same
+ * strategy. NB if the strategy is changed after
+ * the initial generation, the impl classes have
+ * to be hand modified.
  * </p>
  * @author Martin West
  */
@@ -51,8 +52,9 @@ public class HibernateEntityLogicImpl
      * Return all the business operations, used when leafImpl true.
      * 
      * @return all business operations
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getAllBusinessOperations()
      */
-    public Collection handleGetAllBusinessOperations()
+    protected Collection handleGetAllBusinessOperations()
     {
         EntityFacade superElement = (EntityFacade)this.getGeneralization();
 
@@ -70,8 +72,9 @@ public class HibernateEntityLogicImpl
      * hbm.xml file. interface - false
      * 
      * @return true if this Entity is a root
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isRootInheritanceEntity()
      */
-    public boolean handleIsRootInheritanceEntity()
+    protected boolean handleIsRootInheritanceEntity()
     {
         logger.info(">>> handleIsRootInheritanceEntity start:" + this + " : "
             + getInheritance(this));
@@ -196,11 +199,11 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Scan back up the generalization hierarchy to the looking for a
+     * Scan back up the generalization hierarchy looking for a
      * INHERITANCE strategy specification. Cases: super subclass CLASS None
      * Allowed SUBCLASS None Allowed CONCRETE CLASS | SUBCLASS
      * 
-     * @return
+     * @return the super inheritance strategy
      */
     private String getSuperInheritance()
     {
@@ -361,7 +364,7 @@ public class HibernateEntityLogicImpl
      * @return String the name of the SQL id column
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getIdentifierColumn()
      */
-    public String handleGetIdentifierColumn()
+    protected String handleGetIdentifierColumn()
     {
         EntityAttributeFacade attribute = null;
         String columnName = null;

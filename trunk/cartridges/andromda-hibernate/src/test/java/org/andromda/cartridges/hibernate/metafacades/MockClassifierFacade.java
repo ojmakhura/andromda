@@ -5,524 +5,735 @@ import java.util.Collection;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.*;
 
-
 /**
- *
  * @since 25.10.2004
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  */
-public class MockClassifierFacade implements ClassifierFacade {
+public class MockClassifierFacade
+    implements ClassifierFacade
+{
 
     private String name;
-    
-    public MockClassifierFacade (String name) {
+
+    public MockClassifierFacade(
+        String name)
+    {
         this.name = name;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAbstractions()
      */
-    public Collection getAbstractions() {
+    public Collection getAbstractions()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getArray()
      */
-    public ClassifierFacade getArray() {
+    public ClassifierFacade getArray()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAssociationEnds()
      */
-    public Collection getAssociationEnds() {
+    public Collection getAssociationEnds()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes()
      */
-    public Collection getAttributes() {
+    public Collection getAttributes()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
-    public Collection getAttributes(boolean follow) {
+    public Collection getAttributes(boolean follow)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceAttributes()
      */
-    public Collection getInstanceAttributes() {
+    public Collection getInstanceAttributes()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
      */
-    public String getJavaNullString() {
+    public String getJavaNullString()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
      */
-    public ClassifierFacade getNonArray() {
+    public ClassifierFacade getNonArray()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperationCallFromAttributes()
      */
-    public String getOperationCallFromAttributes() {
+    public String getOperationCallFromAttributes()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
-    public Collection getOperations() {
+    public Collection getOperations()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    public Collection getProperties() {
+    public Collection getProperties()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticAttributes()
      */
-    public Collection getStaticAttributes() {
+    public Collection getStaticAttributes()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#getWrapperName()
      */
-    public String getWrapperName() {
+    public String getWrapperName()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isAbstract()
      */
-    public boolean isAbstract() {
+    public boolean isAbstract()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isArrayType()
      */
-    public boolean isArrayType() {
+    public boolean isArrayType()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isCollectionType()
      */
-    public boolean isCollectionType() {
+    public boolean isCollectionType()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDataType()
      */
-    public boolean isDataType() {
+    public boolean isDataType()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDateType()
      */
-    public boolean isDateType() {
+    public boolean isDateType()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isEnumeration()
      */
-    public boolean isEnumeration() {
+    public boolean isEnumeration()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isInterface()
      */
-    public boolean isInterface() {
+    public boolean isInterface()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isListType()
      */
-    public boolean isListType() {
+    public boolean isListType()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitive()
      */
-    public boolean isPrimitive() {
+    public boolean isPrimitive()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ClassifierFacade#isSetType()
      */
-    public boolean isSetType() {
+    public boolean isSetType()
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getAllGeneralizations()
      */
-    public Collection getAllGeneralizations() {
+    public Collection getAllGeneralizations()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralization()
      */
-    public GeneralizableElementFacade getGeneralization() {
+    public GeneralizableElementFacade getGeneralization()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizations()
      */
-    public Collection getGeneralizations() {
+    public Collection getGeneralizations()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getSpecializations()
      */
-    public Collection getSpecializations() {
+    public Collection getSpecializations()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#initialize()
      */
-    public void initialize() {
-        // TODO Auto-generated method stub
+    public void initialize()
+    {
+    // TODO Auto-generated method stub
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#validateInvariants(java.util.Collection)
      */
-    public void validateInvariants(Collection validationMessages) {
-        // TODO Auto-generated method stub
+    public void validateInvariants(Collection validationMessages)
+    {
+    // TODO Auto-generated method stub
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
      */
-    public Object findTaggedValue(String tagName) {
+    public Object findTaggedValue(String tagName)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValues(java.lang.String)
      */
-    public Collection findTaggedValues(String tagName) {
+    public Collection findTaggedValues(String tagName)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints()
      */
-    public Collection getConstraints() {
+    public Collection getConstraints()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints(java.lang.String)
      */
-    public Collection getConstraints(String kind) {
+    public Collection getConstraints(String kind)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getTargetDependencies()
      */
-    public Collection getTargetDependencies() {
+    public Collection getTargetDependencies()
+    {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getSourceDependencies()
      */
-    public Collection getSourceDependencies() {
+    public Collection getSourceDependencies()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
+     *      int, boolean)
      */
-    public String getDocumentation(String indent, int lineLength,
-            boolean htmlStyle) {
+    public String getDocumentation(
+        String indent,
+        int lineLength,
+        boolean htmlStyle)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
+     *      int)
      */
-    public String getDocumentation(String indent, int lineLength) {
+    public String getDocumentation(String indent, int lineLength)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String)
      */
-    public String getDocumentation(String indent) {
+    public String getDocumentation(String indent)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
-    public String getFullyQualifiedName(boolean modelName) {
+    public String getFullyQualifiedName(boolean modelName)
+    {
         return name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public String getFullyQualifiedName() {
+    public String getFullyQualifiedName()
+    {
         return name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedNamePath()
      */
-    public String getFullyQualifiedNamePath() {
+    public String getFullyQualifiedNamePath()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getId()
      */
-    public String getId() {
+    public String getId()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
-    public Mappings getLanguageMappings() {
+    public Mappings getLanguageMappings()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getModel()
      */
-    public ModelFacade getModel() {
+    public ModelFacade getModel()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getNameSpace()
      */
-    public NamespaceFacade getNameSpace() {
+    public NamespaceFacade getNameSpace()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackage()
      */
-    public ModelElementFacade getPackage() {
+    public ModelElementFacade getPackage()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
-    public String getPackageName() {
+    public String getPackageName()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
      */
-    public String getPackagePath() {
+    public String getPackagePath()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getRootPackage()
      */
-    public PackageFacade getRootPackage() {
+    public PackageFacade getRootPackage()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypeNames()
      */
-    public Collection getStereotypeNames() {
+    public Collection getStereotypeNames()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypes()
      */
-    public Collection getStereotypes() {
+    public Collection getStereotypes()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getTaggedValues()
      */
-    public Collection getTaggedValues() {
+    public Collection getTaggedValues()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#getVisibility()
      */
-    public String getVisibility() {
+    public String getVisibility()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(java.lang.String)
      */
-    public boolean hasExactStereotype(String stereotypeName) {
+    public boolean hasExactStereotype(String stereotypeName)
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
      */
-    public boolean hasStereotype(String stereotypeName) {
+    public boolean hasStereotype(String stereotypeName)
+    {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String,
+     *      java.lang.String)
      */
-    public String translateConstraint(String name, String translation) {
+    public String translateConstraint(String name, String translation)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String)
      */
-    public String[] translateConstraints(String translation) {
+    public String[] translateConstraints(String translation)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String,
+     *      java.lang.String)
      */
-    public String[] translateConstraints(String kind, String translation) {
+    public String[] translateConstraints(String kind, String translation)
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public boolean isFileType() {
+    public boolean isFileType()
+    {
         return false;
     }
 
-    public ActivityGraphFacade getActivityGraphContext() {
+    public ActivityGraphFacade getActivityGraphContext()
+    {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     /*
      * (non-Javadoc)
      * 
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getValidationOwner()
      */
-    public Object getValidationOwner() {
+    public Object getValidationOwner()
+    {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     /*
      * (non-Javadoc)
      * 
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getValidationName()
      */
-    public String getValidationName() {
+    public String getValidationName()
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public Collection getInstanceOperations() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getInstanceOperations()
+     */
+    public Collection getInstanceOperations()
+    {
         return null;
     }
 
-    public Collection getStaticOperations() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getStaticOperations()
+     */
+    public Collection getStaticOperations()
+    {
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isMapType()
+     */
+    public boolean isMapType()
+    {
+        return false;
     }
 }

@@ -43,4 +43,9 @@ public class MetafacadeDataTypes
      */
     public static final String FILE_TYPE_NAME = "datatype.File";
     
+    /**
+     * Used to indentify a Map type in the model, any other type
+     * that will be identified as a Map type must specialize this type.
+     */
+    public static final String MAP_TYPE_NAME = "datatype.Map";
 }
