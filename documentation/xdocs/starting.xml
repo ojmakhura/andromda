@@ -16,8 +16,12 @@
                 AndroMDA 2.x and AndroMDA 3.x are used differently, please go to
                 their respective documentation page:
                 <ul>
-                    <li><a href="#andromda2">Getting started with AndroMDA 2.x</a></li>
-                    <li><a href="#andromda3">Getting started with AndroMDA 3.x</a></li>
+                    <li>
+                        <a href="#andromda2">Getting started with AndroMDA 2.x</a>
+                    </li>
+                    <li>
+                        <a href="#andromda3">Getting started with AndroMDA 3.x</a>
+                    </li>
                 </ul>
             </p>
         </section>
@@ -167,7 +171,7 @@
             <a name="andromda3"/>
             <h3>Maven</h3>
             <p class="std">
-                Make sure you have both Maven and the 
+                Make sure you have both Maven and the
                 <a href="maven-andromdapp-plugin/index.html">AndroMDApp Maven Plugin</a>
                 installed.
             </p>
@@ -213,7 +217,7 @@
                 By default the application will generate an EJB backend (optionally with a
                 Hibernate persistence layer) and a Struts front-end.
             </p>
-			<a name="starting-with-ant"/>
+            <a name="starting-with-ant"/>
             <h3>Ant</h3>
             <p class="std">
                 Download the AndroMDA 3.0 binary distribution from the AndroMDA SourceForge.net
@@ -233,30 +237,14 @@
             <p class="std">
 				To successfully build your new application, you must do two things:
                 <ol>
-					<li>
-						Copy the resulting lib directory to the directory of your newly generated application. 
-					</li>
-					<li>
+                    <li>
+						Copy the resulting lib directory to the directory of your newly generated application.
+                    </li>
+                    <li>
 				        Change to your newly generated application directory and type 'ant' and you'll
-                        see your AndroMDA powered Ant application application being built!	
-					</li>
+                        see your AndroMDA powered Ant application application being built!
+                    </li>
                 </ol>
-            </p>
-            <p class="std">
-                Please note:
-                <ul>
-                    <li>
-                        The default UML model is not empty, it contains the Animal-Quiz sample
-                        (see the samples), this application is modeled using entity inheritance and
-                        only be deployed using Hibernate as persistence layer.
-                        It is up to you to model your application instead of this sample, it is simply provided
-                        as a convenience.
-                    </li>
-                    <li>
-                        An empty UML model will currently result in a build failure, we hope to solve this issue
-                        shortly.
-                    </li>
-                </ul>
             </p>
         </section>
 
