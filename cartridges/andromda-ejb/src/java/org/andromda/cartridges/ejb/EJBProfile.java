@@ -19,6 +19,11 @@ public class EJBProfile extends UMLProfile {
 	
 	public static final String STEREOTYPE_ENV_ENTRY = "EnvEntry";
 	
+	/**
+     * Represents a reference to a value object.
+     */
+    public static final String STEREOTYPE_VALUE_REF = "ValueRef";
+	
 	/* ----------------- Tagged Values -------------------- */
 
 	public static final String TAGGEDVALUE_GENERATE_CMR = "@andromda.ejb.generateCMR";
