@@ -105,7 +105,7 @@ public abstract class ${metafacade.logicName}
    /**
 	* @see ${memberTypeName}#${methodName}()
     */
-    public abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+    protected abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
     private void $handleMethodPreCondition
     {
@@ -117,20 +117,20 @@ public abstract class ${metafacade.logicName}
 #renderTranslation ($attribute "post")
     }
 
-#if ($attribute.frozen)
+#if ($attribute.readOnly)
     private $memberTypeName __$memberName;
     private boolean __${memberName}Set = false;
 
 #end
     public final $memberTypeName ${methodName}()
     {
-#if ($attribute.frozen)
-        if (!__${memberName}Set)
+#if ($attribute.readOnly)
+        if (!this.__${memberName}Set)
         {
             ${handleMethodPreCondition};
             this.__$memberName = ${handleMethodName}($typedArgumentList);
             ${handleMethodPostCondition};
-            __${memberName}Set = true;
+            this.__${memberName}Set = true;
         }
         return this.__$memberName;
 #else
@@ -155,7 +155,7 @@ public abstract class ${metafacade.logicName}
 #set ($typedArgumentList = $operation.typedArgumentList)
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
-    $operation.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+    protected abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
     private void $handleMethodPreCondition
     {
@@ -167,7 +167,7 @@ public abstract class ${metafacade.logicName}
 #renderTranslation ($operation "post")
     }
 
-    public final $memberTypeName ${methodName}($typedArgumentList)
+    $operation.visibility $memberTypeName ${methodName}($typedArgumentList)
     {
         $handleMethodPreCondition;
 #if($operation.returnTypePresent)
@@ -198,8 +198,6 @@ public abstract class ${metafacade.logicName}
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
 ##
-    private $memberTypeName $memberName;
-
     private void $handleMethodPreCondition
     {
 #renderTranslation ($associationEnd "pre")
@@ -210,23 +208,43 @@ public abstract class ${metafacade.logicName}
 #renderTranslation ($associationEnd "post")
     }
 
+#if ($associationEnd.readOnly)
+    private $memberTypeName __$memberName;
+    private boolean __${memberName}Set = false;
+
+#end
+    public final $memberTypeName ${methodName}()
+    {
+#if ($associationEnd.readOnly)
+        if (!this.__${memberName}Set)
+        {
+            ${handleMethodPreCondition};
+#if ($associationEnd.otherEnd.many)
+            this.__$memberName = shieldedElements(${handleMethodName}($typedArgumentList));
+#else
+            this.__$memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
+#end
+            ${handleMethodPostCondition};
+            this.__${memberName}Set = true;
+        }
+        return this.__$memberName;
+#else
+        ${handleMethodPreCondition};
+#if ($associationEnd.otherEnd.many)
+        $memberTypeName $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
+#else
+        $memberTypeName $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
+#end
+        ${handleMethodPostCondition};
+        return $memberName;
+#end
+    }
+
 #if ($associationEnd.otherEnd.many)
     protected abstract java.util.Collection ${handleMethodName}($typedArgumentList);
 #else
     protected abstract java.lang.Object ${handleMethodName}($typedArgumentList);
 #end
-
-    public final $memberTypeName ${methodName}()
-    {
-        ${handleMethodPreCondition};
-#if ($associationEnd.otherEnd.many)
-        $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
-#else
-        $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
-#end
-        ${handleMethodPostCondition};
-        return $memberName;
-    }
 
 #end
 #end
