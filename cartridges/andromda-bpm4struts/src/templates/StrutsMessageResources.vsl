@@ -136,8 +136,13 @@ ${page.messageKey}.tab.${tab}=$page.getTabName($tabIndex)
 #   ACTION:     $action.actionTrigger.triggerValue
 $action.onlineHelpKey=$action.onlineHelpValue
 $action.documentationKey=$action.documentationValue
-#if ($action.successMessagePresent)
-$action.successMessageKey=$action.successMessageValue
+#foreach ($transition in $action.transitions)
+#foreach ($message in $transition.successMessages.entrySet())
+$message.key=$message.value
+#end
+#foreach ($message in $transition.warningMessages.entrySet())
+$message.key=$message.value
+#end
 #end
 $actionTrigger.triggerKey=$actionTrigger.triggerValue
 $actionTrigger.titleKey=$actionTrigger.titleValue
