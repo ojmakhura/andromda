@@ -1,4 +1,6 @@
+## Only generate the controller impl if there are operations defined
 #set ($generatedFile = "${class.fullPath}.java")
+#if (!$class.operations.empty)
 ##
 ##  CONSTANTS
 ##
@@ -131,4 +133,4 @@ $operation.getDocumentation("     * ")
 #end
     }
 }
-
+#end
