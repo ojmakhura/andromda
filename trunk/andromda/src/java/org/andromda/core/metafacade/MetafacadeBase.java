@@ -2,9 +2,6 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
-import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
@@ -173,8 +170,7 @@ public class MetafacadeBase
     {
         if (StringUtils.isEmpty(this.propertyNamespace))
         {
-            StringBuffer propertyNamespace = new StringBuffer(this.getContext());
-            propertyNamespace.append(":");
+            StringBuffer propertyNamespace = new StringBuffer();
             propertyNamespace.append(this.getNamespace());
             propertyNamespace.append(":");
             propertyNamespace.append(this.getContext());
@@ -288,24 +284,7 @@ public class MetafacadeBase
      */
     protected void setProperty(String name, Object value)
     {
-        final String methodName = "MetafacadeBase.setProperty";
-        ExceptionUtils.checkEmpty(methodName, "name", name);
-
-        try
-        {
-            if (PropertyUtils.isWriteable(this, name))
-            {
-                BeanUtils.setProperty(this, name, value);
-            }
-        }
-        catch (Exception ex)
-        {
-            String errMsg = "Error setting property '" + name
-                + "' with value '" + value + "' on metafacade --> '" + this
-                + "'";
-            this.logger.error(errMsg, ex);
-            //don't throw the exception
-        }
+        this.registerConfiguredProperty(name, value);
     }
 
     /**

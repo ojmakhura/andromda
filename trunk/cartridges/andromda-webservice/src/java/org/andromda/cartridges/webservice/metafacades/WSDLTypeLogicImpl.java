@@ -116,35 +116,6 @@ public class WSDLTypeLogicImpl
         name.insert(0, ARRAY_NAME_PREFIX);
         return name.toString();
     }
-
-    /**
-     * Schema type mappings property reference.
-     */
-    private static final String SCHEMA_TYPE_MAPPINGS_URI = "schemaTypeMappingsUri";
-
-    /**
-     * Allows the MetafacadeFactory to populate the schemaType mappings for this
-     * model element.
-     * 
-     * @param mappingUri the URI of the schemaType mappings resource.
-     */
-    public void setSchemaTypeMappingsUri(String mappingUri)
-    {
-        try
-        {
-            // register the mappings with the component container.
-            this.registerConfiguredProperty(SCHEMA_TYPE_MAPPINGS_URI, Mappings
-                .getInstance(mappingUri));
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error setting '" + SCHEMA_TYPE_MAPPINGS_URI
-                + "' --> '" + mappingUri + "'";
-            logger.error(errMsg, th);
-            //don't throw the exception
-        }
-    }
-
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getQName()
      */
@@ -183,21 +154,33 @@ public class WSDLTypeLogicImpl
      */
     public Mappings getSchemaTypeMappings()
     {
-        return (Mappings)this.getConfiguredProperty(SCHEMA_TYPE_MAPPINGS_URI);
+        final String propertyName = "schemaTypeMappingsUri";
+        Object property = this.getConfiguredProperty(propertyName);
+        Mappings mappings = null;
+        String uri = null;
+        if (String.class.isAssignableFrom(property.getClass()))
+        {
+            uri = (String)property;
+            try 
+            {
+                mappings = Mappings.getInstance((String)property);
+                this.registerConfiguredProperty(propertyName, mappings);
+            }
+            catch (Throwable th)
+            {
+                String errMsg = "Error getting '" + propertyName
+                    + "' --> '" + uri + "'";
+                logger.error(errMsg, th);
+                //don't throw the exception
+            }  
+        }
+        else 
+        {
+            mappings = (Mappings)property;
+        }
+        return mappings;
     }
-
-    /**
-     * Sets the <code>namespacePrefix</code> for the WSDLs type.
-     * 
-     * @param namespacePrefix the namespace prefix to use for these types.
-     */
-    public void setNamespacePrefix(String namespacePrefix)
-    {
-        this.registerConfiguredProperty(
-            WebServiceLogicImpl.NAMESPACE_PREFIX,
-            StringUtils.trimToEmpty(namespacePrefix));
-    }
-
+    
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#handleGetNamespacePrefix()
      */
@@ -206,21 +189,7 @@ public class WSDLTypeLogicImpl
         return (String)this
             .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
     }
-
-    /**
-     * Sets the <code>qualifiedNameLocalPartPattern</code> for this service.
-     * 
-     * @param qualifiedNameLocalPartPattern the name prefix to use for these
-     *        types.
-     */
-    public void setQualifiedNameLocalPartPattern(
-        String qualifiedNameLocalPartPattern)
-    {
-        this.registerConfiguredProperty(
-            WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN,
-            StringUtils.trimToEmpty(qualifiedNameLocalPartPattern));
-    }
-
+    
     /**
      * Gets the <code>qualifiedNameLocalPartPattern</code> for this service.
      */
@@ -231,18 +200,6 @@ public class WSDLTypeLogicImpl
     }
 
     /**
-     * Sets the <code>namespacePattern</code> for the WSDLs type.
-     * 
-     * @param namespacePattern the name prefix to use for this types.
-     */
-    public void setNamespacePattern(String namespacePattern)
-    {
-        this.registerConfiguredProperty(
-            WebServiceLogicImpl.NAMESPACE_PATTERN,
-            StringUtils.trimToEmpty(namespacePattern));
-    }
-
-    /**
      * Gets the <code <namespacePattern</code> for this type.
      */
     protected String getNamespacePattern()
@@ -250,20 +207,7 @@ public class WSDLTypeLogicImpl
         return (String)this
             .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
     }
-
-    /**
-     * Sets the <code>reverseNamespace</code> for this service.
-     * 
-     * @param reverseNamespace whether or not to reverse the ordering of the
-     *        namespace.
-     */
-    public void setReverseNamespace(String reverseNamespace)
-    {
-        this.registerConfiguredProperty(
-            WebServiceLogicImpl.REVERSE_NAMESPACE,
-            StringUtils.trimToEmpty(reverseNamespace));
-    }
-
+    
     /**
      * Gets whether or not <code>reverseNamespace</code> is true/false for
      * this type.

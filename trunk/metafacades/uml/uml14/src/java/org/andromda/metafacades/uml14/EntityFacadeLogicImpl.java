@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 
@@ -307,45 +306,13 @@ public class EntityFacadeLogicImpl
             }
         };
     }
-
-    /**
-     * SQL type specific mappings property reference.
-     */
-    private final static String MAX_SQL_NAME_LENGTH = "maxSqlNameLength";
-
-    /**
-     * Sets the maximum lenght to which a persistent SQL name may be.
-     * 
-     * @param maxSqlNameLength the maximum length a SQL name may be.
-     */
-    public void setMaxSqlNameLength(Short maxSqlNameLength)
-    {
-        this.registerConfiguredProperty(MAX_SQL_NAME_LENGTH, maxSqlNameLength);
-    }
-
+    
     /**
      * Gets the maximum name length SQL names may be
      */
     public Short handleGetMaxSqlNameLength()
     {
-        return (Short)this.getConfiguredProperty(MAX_SQL_NAME_LENGTH);
-    }
-
-    /**
-     * Name of the allow default identifiers property.
-     */
-    private final static String ALLOW_DEFAULT_IDENTIFIERS = "allowDefaultIdentifiers";
-
-    /**
-     * Sets whether or not to allow default identifier creation.
-     * 
-     * @param allowDefaultIdentifiers true/false on whether to allow default
-     *        identifiers.
-     */
-    public void setAllowDefaultIdentifiers(String allowDefaultIdentifiers)
-    {
-        this.registerConfiguredProperty(ALLOW_DEFAULT_IDENTIFIERS, Boolean
-            .valueOf(StringUtils.trimToEmpty(allowDefaultIdentifiers)));
+        return Short.valueOf((String)this.getConfiguredProperty("maxSqlNameLength"));
     }
 
     /**
@@ -353,23 +320,8 @@ public class EntityFacadeLogicImpl
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return ((Boolean)this.getConfiguredProperty(ALLOW_DEFAULT_IDENTIFIERS))
+        return Boolean.valueOf((String)this.getConfiguredProperty("allowDefaultIdentifiers"))
             .booleanValue();
-    }
-
-    /**
-     * The default identifier name.
-     */
-    private final static String DEFAULT_IDENTIFIER = "defaultIdentifier";
-
-    /**
-     * Sets the name to give a default identifier.
-     * 
-     * @param defaultIdentifier the default identifier.
-     */
-    public void setDefaultIdentifier(String defaultIdentifier)
-    {
-        this.registerConfiguredProperty(DEFAULT_IDENTIFIER, defaultIdentifier);
     }
 
     /**
@@ -377,24 +329,7 @@ public class EntityFacadeLogicImpl
      */
     public String getDefaultIdentifier()
     {
-        return (String)this.getConfiguredProperty(DEFAULT_IDENTIFIER);
-    }
-
-    /**
-     * The default identifier type.
-     */
-    private final static String DEFAULT_IDENTIFIER_TYPE = "defaultIdentifierType";
-
-    /**
-     * Sets the default identifier type name.
-     * 
-     * @param defaultIdentifierType the default identifier type.
-     */
-    public void setDefaultIdentifierType(String defaultIdentifierType)
-    {
-        this.registerConfiguredProperty(
-            DEFAULT_IDENTIFIER_TYPE,
-            defaultIdentifierType);
+        return (String)this.getConfiguredProperty("defaultIdentifier");
     }
 
     /**
@@ -402,25 +337,7 @@ public class EntityFacadeLogicImpl
      */
     private String getDefaultIdentifierType()
     {
-        return (String)this.getConfiguredProperty(DEFAULT_IDENTIFIER_TYPE);
-    }
-
-    /**
-     * The default identifier visibility.
-     */
-    private final static String DEFAULT_IDENTIFIER_VISIBILITY = "defaultIdentifierVisibility";
-
-    /**
-     * Sets the default identifier visibility.
-     * 
-     * @param defaultIdentifierVisibility the default identifier visibility.
-     */
-    public void setDefaultIdentifierVisibility(
-        String defaultIdentifierVisibility)
-    {
-        this.registerConfiguredProperty(
-            DEFAULT_IDENTIFIER_VISIBILITY,
-            defaultIdentifierVisibility);
+        return (String)this.getConfiguredProperty("defaultIdentifierType");
     }
 
     /**
@@ -429,6 +346,6 @@ public class EntityFacadeLogicImpl
     private String getDefaultIdentifierVisibility()
     {
         return (String)this
-            .getConfiguredProperty(DEFAULT_IDENTIFIER_VISIBILITY);
+            .getConfiguredProperty("defaultIdentifierVisibility");
     }
 }

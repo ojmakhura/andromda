@@ -270,5 +270,4 @@ public class UMLMetafacadeUtils
         Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
         return matcher.matches();
     }
-
 }
