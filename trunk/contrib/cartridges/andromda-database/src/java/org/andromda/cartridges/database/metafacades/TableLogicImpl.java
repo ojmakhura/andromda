@@ -129,12 +129,12 @@ public class TableLogicImpl
                     && ((aggregationPresent && !otherEnd.isForeignIdentifier())
                     || column.isForeignIdentifier()
                     || (!otherEndAggregationPresent && thisSideNavigable));
-                if ((otherEnd.isNavigable() && end.isMany2One()) || one2One)
+                if (end.isMany2One() || one2One)
                 {
                     if (column.isForeignIdentifier())
                     {
-                        Column columntest = (Column)this.getIdentifierForeignKeyColumns().iterator().next();
-                        foreignKeyColumns.add(columntest);
+                        Column foreignColumn = (Column)this.getIdentifierForeignKeyColumns().iterator().next();
+                        foreignKeyColumns.add(foreignColumn );
                     }
                     else
                     {
