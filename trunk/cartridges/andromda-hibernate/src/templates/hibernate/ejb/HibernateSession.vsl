@@ -22,7 +22,7 @@ public interface $service.name
     // ---------------- business methods  ----------------------
 #foreach ($operation in $service.operations)
 ## Only expose public methods
-#if ($operation.visibility == "public")
+#if ($operation.visibility.equalsIgnoreCase("public"))
 #set ($throwsList = $operation.exceptionList)
 #if ($service.ejbRemoteView)
 #set ($throwsList = $operation.getExceptionList('java.rmi.RemoteException'))

@@ -31,7 +31,7 @@ public class $service.implementationName
 #if ($operation.returnTypePresent)
 #if (!$operation.returnType.primitive)
         return null;
-#elseif ("boolean" == $returnTypeName)
+#elseif ($returnTypeName.equals("boolean"))
         return false;
 #else
         return ($returnTypeName)0;

@@ -49,7 +49,7 @@
 #elseif ($otherEnd.list)
         <$otherEnd.collectionType name="$otherEnd.name" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
 #end
-#if(($hibernateEnableCache == "true") && ($hibernateEnableAssociationsCache == "true"))
+#if(($hibernateEnableCache.equalsIgnoreCase("true")) && ($hibernateEnableAssociationsCache.equalsIgnoreCase("true")))
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
             <key>
