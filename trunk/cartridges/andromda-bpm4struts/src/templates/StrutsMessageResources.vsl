@@ -60,7 +60,7 @@ errors.email={0} is an invalid e-mail address.
 #
 $useCase.titleKey=$useCase.titleValue
 
-#foreach ($page in $useCase.allPages)
+#foreach ($page in $useCase.pages)
 #
 #   PAGE:       $page.titleValue
 #
@@ -112,4 +112,4 @@ ${messageKey}.exception={0} (java.lang.Exception)
 
 
 
-#end
+#end ## for each use-case
