@@ -1,82 +1,79 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <document>
-
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
         <author email="cwbrandon@users.sourceforge.new">Chad Brandon</author>
         <title>AndroMDA - Installation</title>
     </properties>
-
     <body>
-
         <section name="Getting started with AndroMDA">
             <h3>Maven</h3>
-            <p class="std">
-                Make sure you have both Maven and the
+            <p>
+                Make sure you have both <a href="http://maven.apache.org">Maven</a> and the
                 <a href="maven-andromdapp-plugin/download.html">AndroMDApp Maven Plugin</a>
                 installed.
             </p>
-            <p class="std">
+            <p>
                 Go into a directory in which you want to create your working directory.
                 For example, suppose you want to work in C:\development\java\my-project, then
                 simply go into C:\development\java\
             </p>
-            <p class="std">
+            <p>
                 At the console type:
                 <source>
 C:\development\java> maven andromdapp:generate
                 </source>
             </p>
-            <p class="std">
+            <p>
                 Answer the questions you are prompted to answer
             </p>
-            <p class="std">
+            <p>
                 Giving your project the id 'my-project' will create a subdirectory
                 with the same name, so you'll have C:\development\java\my-project.
             </p>
-            <p class="std">
+            <p>
                 C:\development\java\my-project\mda\src\uml will contain an empty XMI
                 document, you can use it to get started modeling your application
             </p>
-            <p class="std">
+            <p>
                 Simply typing 'maven' in C:\development\java\my-project will build your
                 application and it will put all the binaries into your local
                 Maven repository (by default, this is the .maven directory in your 
                 user home, i.e. $HOME for linux/unix, %USERPROFILE% for windows).
             </p>
-            <p class="std">
+            <p>
                 Optionally you can go into a subdirectory to build it separately from
                 the others, this is much quicker and it will make it easy to focus on
                 only a part of your application.
             </p>
-            <p class="std">
+            <p>
                 If your application 'my-project' has been built succesfully you can find
                 the binaries here: %USERPROFILE%\.maven\repository\my-project\
                 (for *nix users: $USER_HOME\.maven\repository\my-project\)
             </p>
-            <p class="std">
+            <p>
                 By default the application will generate an EJB backend (optionally with a
                 Hibernate persistence layer) and a Struts front-end.
             </p>
             <a name="starting-with-ant"/>
             <h3>Ant</h3>
-            <p class="std">
-                Download the AndroMDA 3.x binary distribution from the AndroMDA SourceForge.net
-                <a href="http://sourceforge.net/project/showfiles.php?group_id=73047" target="_blank">files</a>
-                page.
+            <p>
+                Make sure you have <a href="http://ant.apache.org">Ant</a> installed.
+                Download the AndroMDA 3.x binary distribution from the AndroMDA Sourceforge
+                <a href="http://sourceforge.net/project/showfiles.php?group_id=73047&amp;package_id=117392" target="_blank">site</a>.
             </p>
-            <p class="std">
+            <p>
                 Unzip into any location and go into the 'ant' subdirectory. Type 'ant' there to invoke
                 the Ant build process. (You will need to have Ant installed of course)
             </p>
-            <p class="std">
+            <p>
                 Answer the questions, a little later you will have your environment
                 setup for you. It consists of a hierarchy of build.xml files and
                 corresponding property files.  In addition, it will create a directory 
 				called 'lib' containing all necessary dependencies for your newly generated application.			
             </p>
-            <p class="std">
+            <p>
 				To successfully build your new application, you must do two things:
                 <ol>
                     <li>
@@ -89,6 +86,5 @@ C:\development\java> maven andromdapp:generate
                 </ol>
             </p>
         </section>
-
     </body>
 </document>
