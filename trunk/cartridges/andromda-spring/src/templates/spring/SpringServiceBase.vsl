@@ -110,7 +110,7 @@ public abstract class $service.baseName
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
+    protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception;
 
 #end
