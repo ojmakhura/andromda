@@ -44,6 +44,7 @@ body
     margin: 0;
 }
 
+#navcolumn ul { margin-top: 0; }
 #navcolumn li { list-style-image: url(images/square.gif); }
 #navcolumn li.expanded { list-style-image: url(images/triangledown.gif); }
 #navcolumn li.collapsed { list-style-image: url(images/triangleright.gif); }
@@ -51,6 +52,7 @@ body
 #leftColumn h5
 {
     margin: 0;
+    padding: 0;
     font-size: 96%;
     font-weight: bold;
     color: #333;
@@ -209,8 +211,25 @@ div.screenshot tr.a td, div.screenshot tr.b td
 div.source { font-size: 92%; }
 div.jk, div.vk { color: #008; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity reserved keyword */
 div.jl, div.vl { color: #080; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity literal */
-div.jn, div.vn { color: #00F; display: inline; font-size: 92%; font-weight: normal; } /* java,velocity number */
+div.jc, div.vc { color: #888; display: inline; font-size: 92%; font-style: italic; } /* java,velocity comment */
+div.jn, div.vn { color: #00F; display: inline; font-size: 92%; } /* java,velocity number */
 div.xe { color: #008; display: inline; font-size: 92%; font-weight: bold; } /* xml element */
 div.xl { color: #080; display: inline; font-size: 92%; font-weight: bold; } /* xml attribute literal (value) */
 div.xa { color: #00F; display: inline; font-size: 92%; font-weight: bold; } /* xml attribute name */
 div.xc { color: #888; display: inline; font-size: 92%; font-style: italic; } /* xml CDATA and comment sections */
+
+div#pdf
+{
+    text-align: right;
+    width: 16px;
+    font-size: 68%;
+    position: absolute;
+    top: 30px;
+    right: 60px;
+}
+
+div#pdf a
+{
+    padding-top: 17px;
+    background: url(images/pdf.gif) top no-repeat;
+}
