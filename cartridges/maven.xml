@@ -88,9 +88,10 @@
 		<j:set var="dummy" value="${pom.build.setSourceDirectory(previousSourceDirectory)}"/>
 		
 		<!-- move the xref docs to the correct location -->
-		<j:set var="javaSourceJxr" value="${maven.jxr.destdir}/src/java"/>
-		<j:set var="manualSourceJxr" value="${maven.jxr.destdir}/src/facades/manual"/>
-		<j:set var="generatedSourceJxr" value="${maven.jxr.destdir}/target/src/andromda/meta"/>
+		<j:set var="jxrDestDir" value="${maven.docs.dest}/xref"/>
+		<j:set var="javaSourceJxr" value="${jxrDestDir}/src/java"/>
+		<j:set var="manualSourceJxr" value="${jxrDestDir}/src/facades/manual"/>
+		<j:set var="generatedSourceJxr" value="${jxrDestDir}/target/src/andromda/meta"/>
 		<ant:available 
 			property="javaJxrPresent" 
 			file="${javaSourceJxr}"/>  
@@ -100,8 +101,7 @@
 		<ant:available 
 			property="generatedJxrPresent" 
 			file="${generatedSourceJxr}"/>  
-		<ant:move todir="${maven.jxr.destdir}">
-			<ant:fileset dir="${maven.jxr.destdir}/src/java"/>
+		<ant:move todir="${jxrDestDir}">
 			<j:if test="${javaJxrPresent}">
 				<ant:fileset dir="${javaSourceJxr}"/>
 			</j:if>			
