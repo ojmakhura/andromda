@@ -1196,6 +1196,18 @@ public class StrutsParameterLogicImpl
         {
             args.add("${var:maxlength}");
         }
+        else if ("date".equals(validatorType))
+        {
+            final String validatorFormat = getValidatorFormat();
+            if (validatorFormat!=null && isStrictDateFormat(validatorFormat))
+            {
+                args.add("${var:datePatternStrict}");
+            }
+            else
+            {
+                args.add("${var:datePattern}");
+            }
+        }
 
         // custom (paramterized) validators are allowed here
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
