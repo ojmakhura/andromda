@@ -17,7 +17,7 @@ class MetafacadeMappingsUtils
     /**
      * Constructs the unique key format expected for this mapping. Note that the
      * only argument required is the <code>metaobjectClass</code>,
-     * <code>suffixe</code> is optional.
+     * <code>suffix</code> is optional.
      * 
      * @param metaobjectClass the begining of the ky
      * @param suffix the suffix to append

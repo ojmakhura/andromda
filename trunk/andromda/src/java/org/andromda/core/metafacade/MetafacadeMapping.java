@@ -8,8 +8,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * A meta facade mapping class. This class is a child of the
- * {@link MetafacadeMappings}class.
+ * A meta facade mapping class. This class is a child of
+ * {@link MetafacadeMappings}.
  * 
  * @author Chad Brandon
  */
@@ -147,6 +147,17 @@ public class MetafacadeMapping
     }
 
     /**
+     * Returns <code>true</code> if this mapping has a stereotype defined,
+     * <code>false</code> otherwise.
+     * 
+     * @return true/false
+     */
+    boolean hasStereotype()
+    {
+        return StringUtils.isNotEmpty(this.stereotype);
+    }
+
+    /**
      * Adds a <code>stereotype</code> to the stereotypes for which the
      * <code>metafacadeClass</code> should be instead.
      * 
@@ -179,6 +190,20 @@ public class MetafacadeMapping
     }
 
     /**
+     * Adds all <code>propertyReferences</code> to the property references
+     * contained in this MetafacadeMapping instance.
+     * 
+     * @param propertyReferences the property references to add.
+     */
+    public void addPropertyReferences(Map propertyReferences)
+    {
+        if (propertyReferences != null)
+        {
+            this.propertyReferences.putAll(propertyReferences);
+        }
+    }
+
+    /**
      * Sets the MetafacadeMappings to which this MetafacadeMapping belongs.
      * 
      * @param mappings
@@ -205,7 +230,7 @@ public class MetafacadeMapping
     {
         if (StringUtils.isEmpty(this.key))
         {
-            if (StringUtils.isEmpty(this.context))
+            if (this.hasStereotype())
             {
                 key = MetafacadeMappingsUtils.constructKey(
                     this.metaobjectClassName,
@@ -213,9 +238,7 @@ public class MetafacadeMapping
             }
             else
             {
-                key = MetafacadeMappingsUtils.constructKey(
-                    this.metaobjectClassName,
-                    this.context);
+                key = this.metaobjectClassName;
             }
         }
         return key;
@@ -229,6 +252,18 @@ public class MetafacadeMapping
     public void setContext(String context)
     {
         this.context = StringUtils.trimToEmpty(context);
+    }
+
+    /**
+     * <p>
+     * Gets the <code>context</code> of this mapping. The <code>context</code>
+     * is the context in which the <code>metafacade</code> represented by this
+     * mapping will be created.
+     * </p>
+     */
+    String getContext()
+    {
+        return this.context;
     }
 
     /**
