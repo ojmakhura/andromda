@@ -23,11 +23,25 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="resolve-foreign-keys"/>
+                <xs:element minOccurs="0" ref="database-urls"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="resolve-foreign-keys" type="xs:boolean" default="true"/>
+
+    <xs:element name="database-urls">
+        <xs:annotation>
+            <xs:documentation>
+                Lists known database URLs
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="url"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:element name="table-configuration">
         <xs:annotation>
@@ -74,6 +88,8 @@
     </xs:element>
 
     <xs:element name="value" type="xs:string"/>
+
+    <xs:element name="url" type="xs:string"/>
 
     <!--
     <xs:element name="documentation">
