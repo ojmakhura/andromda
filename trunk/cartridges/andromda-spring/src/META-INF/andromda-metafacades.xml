@@ -10,6 +10,14 @@
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
         <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>   
+            <property name="query"/>              
+        </mapping>
+        <property reference="hibernateQueryUseNamedParameters" default="false"/>
+        <property reference="hibernateUseQueryCache" default="false"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
         <property reference="hibernateTypeMappingsUri" default=""/>

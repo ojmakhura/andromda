@@ -12,7 +12,7 @@ public interface ${service.name}
     extends $service.fullyQualifiedName
 #else
     extends javax.ejb.EJBObject
-#end 
+#end
 {
     // -- accessors for environment entries --
 #foreach($envEntry in $service.getEnvironmentEntries(true))
@@ -43,7 +43,7 @@ $constant.getDocumentation("     * ")
      * Get the ${attribute.name} property
 $attribute.getDocumentation("     * ")
      */
-    public $attribute.type.fullyQualifiedName ${attribute.getterName}() 
+    public $attribute.type.fullyQualifiedName ${attribute.getterName}()
         throws java.rmi.RemoteException;
 
 #if(!$attribute.readOnly)
@@ -51,7 +51,7 @@ $attribute.getDocumentation("     * ")
      * Set the $attribute.name property
      * @param value the new value
      */
-    public void ${attribute.setterName}($attribute.type.fullyQualifiedName value) 
+    public void ${attribute.setterName}($attribute.type.fullyQualifiedName value)
         throws java.rmi.RemoteException;
 #end
 #end
@@ -66,10 +66,10 @@ $operation.getDocumentation("    * ")
     */
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
-    public $returnType $operation.signature 
+    public $returnType $operation.signature
         throws $operation.getExceptionList('java.rmi.RemoteException');
 #else
-    public $returnType $operation.signature 
+    public $returnType $operation.signature
         throws java.rmi.RemoteException;
 #end
 #end

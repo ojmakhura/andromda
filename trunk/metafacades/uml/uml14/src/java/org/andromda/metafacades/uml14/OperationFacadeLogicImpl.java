@@ -230,6 +230,14 @@ public class OperationFacadeLogicImpl
     {
         return metaObject.isAbstract();
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#isQuery()
+     */
+    public boolean handleIsQuery()
+    {
+        return metaObject.isQuery();
+    }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasExceptions()

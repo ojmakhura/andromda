@@ -13,8 +13,8 @@ $service.getDocumentation(" * ")
  */
 public class ${service.name}BeanImpl extends ${service.name}Bean {
     //private static Logger log = Logger.getLogger(${service.name}BeanImpl.class);
-	private SessionContext context;
-    
+    private SessionContext context;
+
     public void setSessionContext(SessionContext ctx) {
         //if(log.isDebugEnabled()) log.debug("${service.name}BeanImpl.setSessionContext...");
         context = ctx;
@@ -47,7 +47,7 @@ $operation.getDocumentation("     * ")
      */
     $visibility $returnType $signature
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList 
+        throws $operation.exceptionList
 #end
     {
         //TODO: put your implementation here.
