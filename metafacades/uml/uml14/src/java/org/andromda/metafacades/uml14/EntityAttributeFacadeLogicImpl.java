@@ -59,6 +59,16 @@ public class EntityAttributeFacadeLogicImpl
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnIndex()
+     */
+    public java.lang.String handleGetColumnIndex()
+    {
+        String index = (String)this
+            .findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+        return index != null ? StringUtils.trimToEmpty(index) : null;
+    }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#getSqlType()

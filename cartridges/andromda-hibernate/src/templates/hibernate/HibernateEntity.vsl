@@ -80,8 +80,8 @@ $attribute.getDocumentation("     * ")
 #if($attribute.unique)
      *     unique="$attribute.unique"
 #end
-#if($attribute.index)
-     *     index="$attribute.index"
+#if($attribute.columnIndex)
+     *     index="$attribute.columnIndex"
 #end
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
