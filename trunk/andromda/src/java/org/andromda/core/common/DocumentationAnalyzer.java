@@ -13,28 +13,22 @@ import javax.swing.text.html.parser.ParserDelegator;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
- * A utility object useful for reading an HTML string (originating from the
- * contents of an XMI documentation element) and for translating that string
- * into an HTML paragraph.
+ * A utility object useful for reading an documentation string (originating from
+ * the contents of an XMI documentation element) and for translating that string
+ * into a paragraph.
  * <p>
  * The list of paragraphs can be used in a VelocityTemplateEngine template to
  * generate JavaDoc documentation for a class, an attribute or a method.
- * </p>
- * <p>
- * This is a very simple HTML analyzer class that builds upon the Swing
- * HTMLEditor toolkit.
  * </p>
  * 
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
-public class HTMLAnalyzer
+public class DocumentationAnalyzer
 {
     /**
-     * Specifes the line width to enforce.
-     * Note: this member is protected to improve
-     * access performance within inner class 
-     * {@link HTMLParserCallback}
+     * Specifes the line width to enforce. Note: this member is protected to
+     * improve access performance within inner class {@link HTMLParserCallback}
      */
     protected int lineLength;
 
@@ -44,21 +38,21 @@ public class HTMLAnalyzer
     private static final int DEFAULT_LINE_WIDTH = 66;
 
     /**
-     * Constructs a new instance of this HTMLAnalyzer using the default line
-     * width.
+     * Constructs a new instance of this DocumentationAnalyzer using the default
+     * line width.
      */
-    public HTMLAnalyzer()
+    public DocumentationAnalyzer()
     {
         this(DEFAULT_LINE_WIDTH);
     }
 
     /**
-     * Constructs a new instance of this HTMLAnalyzer specifying the
+     * Constructs a new instance of this DocumentationAnalyzer specifying the
      * <code>lineLength</code> to enforce.
      * 
      * @param lineLength the width of the lines before they are wrapped.
      */
-    public HTMLAnalyzer(
+    public DocumentationAnalyzer(
         int lineLength)
     {
         this.lineLength = lineLength;
@@ -66,18 +60,23 @@ public class HTMLAnalyzer
 
     /**
      * <p>
-     * Translates an HTML string into a list of HTMLParagraphs.
+     * Translates a string into a list of Paragraphs.
      * </p>
      * 
-     * @param html the HTML string to be analyzed
-     * @return Collection the list of paragraphs found in the HTML string
+     * @param line the line of documentation to be analyzed
+     * @param html whether or not HTML should be handled.
+     * @return Collection the list of paragraphs found in the text string
      * @throws IOException if something goes wrong
      */
-    public Collection htmlToParagraphs(String html) throws IOException
+    public Collection toParagraphs(String line, boolean html)
+        throws IOException
     {
-        ParserDelegator pd = new ParserDelegator();
-        html = StringEscapeUtils.escapeHtml(html);
-        pd.parse(new StringReader(html), new HTMLParserCallback(), true);
+        ParserDelegator delegator = new ParserDelegator();
+        if (html)
+        {
+            line = StringEscapeUtils.escapeHtml(line);
+        }
+        delegator.parse(new StringReader(line), new HTMLParserCallback(), true);
         return paragraphs;
     }
 
@@ -88,8 +87,8 @@ public class HTMLAnalyzer
     private class HTMLParserCallback
         extends ParserCallback
     {
-        private HTMLParagraph currentParagraph = null;
-        private HTMLParagraph nonHtmlParagraph = null;
+        private Paragraph currentParagraph = null;
+        private Paragraph nonHtmlParagraph = null;
 
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleSimpleTag(javax.swing.text.html.HTML.Tag,
@@ -111,7 +110,7 @@ public class HTMLAnalyzer
         {
             if (tag.equals(Tag.P))
             {
-                currentParagraph = new HTMLParagraph(lineLength);
+                currentParagraph = new Paragraph(lineLength);
             }
             else
             {
@@ -145,7 +144,7 @@ public class HTMLAnalyzer
             // handle instances where we may not have html in the text.
             if (currentParagraph == null)
             {
-                nonHtmlParagraph = new HTMLParagraph(lineLength);
+                nonHtmlParagraph = new Paragraph(lineLength);
                 nonHtmlParagraph.appendText(new String(text));
                 paragraphs.add(nonHtmlParagraph);
             }
