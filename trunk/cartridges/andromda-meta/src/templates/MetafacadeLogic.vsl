@@ -14,7 +14,7 @@ package $packagename;
 #set ($superclass = $class.generalization)
 ##
 /**
- * MetafacadeLogic for $shieldedMetaclassTypeName
+ * MetafacadeLogic for $class.fullyQualifiedInterfaceName
  *
  * @see $class.fullyQualifiedInterfaceName
  */
