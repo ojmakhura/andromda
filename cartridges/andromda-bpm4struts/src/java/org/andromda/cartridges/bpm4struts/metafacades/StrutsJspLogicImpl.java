@@ -79,6 +79,20 @@ public class StrutsJspLogicImpl
         return false;
     }
 
+    public boolean handleIsDateFieldPresent()
+    {
+        final Collection actions = getActions();
+        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        {
+            StrutsAction action = (StrutsAction) actionIterator.next();
+            if (action.isDateFieldPresent())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ------------- relations ------------------
 
     protected Object handleGetUseCase()
