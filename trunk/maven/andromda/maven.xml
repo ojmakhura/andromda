@@ -33,6 +33,9 @@
         	token="$${bootstrap}"
         	value="${bootstrap}">
         </ant:replace> 
+    	<!-- replace the ${pom.currentVersion} in these
+    		 files so we don't need to maintain them between
+    		 different releases -->
 		<velocity:merge
 			name="${maven.build.dest}/plugin.properties"
 			basedir="${basedir}"
@@ -56,13 +59,13 @@
 			var="mdaTemplatesDir" 
 			value="${basedir}/${mdaResourcesDir}"/>
 	    <velocity:merge
-			name="${maven.build.dest}/${mdaResourcesDir}/project-ejb.xml.vm"
+			name="${maven.build.dest}/${mdaResourcesDir}/project-ejb.xml.vsl"
 			basedir="${mdaTemplatesDir}"
-			template="/project-ejb.xml.vm"/>  
+			template="/project-ejb.xml.vsl"/>  
 	    <velocity:merge
-			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vm"
+			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vsl"
 			basedir="${mdaTemplatesDir}"
-			template="/project-hibernate.xml.vm"/> 	
+			template="/project-hibernate.xml.vsl"/> 	
 		
 		<!-- copy over the mappings -->
 		<ant:copy todir="${maven.build.dest}/${pluginResources}/mappings">
