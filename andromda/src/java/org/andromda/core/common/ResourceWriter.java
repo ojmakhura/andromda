@@ -92,7 +92,7 @@ public class ResourceWriter
         {
             parent.mkdirs();
         }
-        string = Merger.instance().getMergedString(string);
+        string = Merger.instance().getMergedString(string, namespace);
         FileOutputStream stream = new FileOutputStream(file);
         stream.write(string.getBytes());
         stream.flush();

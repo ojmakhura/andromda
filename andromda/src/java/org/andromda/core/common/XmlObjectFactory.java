@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -226,8 +224,6 @@ public class XmlObjectFactory
     {
         return getObject(ResourceUtils.getContents(objectXml));
     }
-    
-    private static final Collection mergedStringCache = new ArrayList();
 
     /**
      * Returns a configured Object based on the objectXml configuration file
@@ -236,7 +232,7 @@ public class XmlObjectFactory
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */
-    private Object getObject(String objectXml)
+    public Object getObject(String objectXml)
     {
         final String methodName = "XmlObjectFactoryException.getObject";
         if (logger.isDebugEnabled())

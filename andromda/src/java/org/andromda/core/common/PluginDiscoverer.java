@@ -116,8 +116,14 @@ public class PluginDiscoverer {
                     {
 					
 						URL pluginUri = pluginResources[ctr];
-						Plugin plugin = (Plugin)XmlObjectFactory.getInstance(
-                            pluginClass).getObject(pluginUri);
+						XmlObjectFactory factory = XmlObjectFactory.getInstance(
+                            pluginClass);
+						Plugin plugin = (Plugin)factory.getObject(pluginUri);
+						// perform the merge of the configuration file since
+						// we now know the namespace
+						String pluginUriContents = Merger.instance().getMergedString(
+						    ResourceUtils.getContents(pluginUri), plugin.getName());
+						plugin = (Plugin)factory.getObject(pluginUriContents);
                         plugin.setResource(pluginUri);
                         
                         if (!ComponentContainer.instance().isRegistered(plugin.getName())) 
