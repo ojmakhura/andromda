@@ -8,12 +8,12 @@ import java.io.*;
 import java.util.*;
 
 /**
- * @ todo: document this class
+ * @todo: document this class
  */
 public class AndromdaAntRunner
 {
     /**
-     * @ todo: document this constructor
+     * @todo: document this constructor
      */
     public AndromdaAntRunner()
     {
@@ -26,7 +26,7 @@ public class AndromdaAntRunner
     }
 
     /**
-     * @ todo: document this method
+     * @todo: document this method
      */
     private Map prompt()
     {
@@ -53,7 +53,7 @@ public class AndromdaAntRunner
     }
 
     /**
-     * @ todo: document this method
+     * @todo: document this method
      */
     private String promptForInput(String property)
     {
@@ -73,7 +73,7 @@ public class AndromdaAntRunner
             : inputString;
     }
     /**
-     * @ todo: document this method
+     * @todo: document this method
      */
     private void run()
     {
@@ -125,7 +125,9 @@ public class AndromdaAntRunner
     }
 
     /**
-     * @ todo: document this method
+     * @todo: document this method
+     * @todo: templates should be picked up automatically
+     * @todo: target paths should be determined automatically
      */
     private Map listTemplates(VelocityContext context)
     {
@@ -182,7 +184,7 @@ public class AndromdaAntRunner
     }
 
     /**
-     * @ todo: document this method
+     * @todo: document this method
      */
     private String getTargetName(String rootPath, File file)
     {
