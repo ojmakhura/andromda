@@ -25,17 +25,23 @@ public class ParameterFacadeLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     */
+    public Object getMetafacadeOwner()
+    {
+        return this.getOperation();
+    }
 
     /**
-     * @see org.andromda.metafacades.uml14.ParameterFacade#getDefaultValue()
+     * @see org.andromda.metafacades.uml.ParameterFacade#getDefaultValue()
      */
     public String handleGetDefaultValue()
     {
         final Expression expression = metaObject.getDefaultValue();
         return (expression == null) ? "" : expression.getBody();
     }
-
-    // ------------- relations ------------------
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getType()
@@ -63,12 +69,12 @@ public class ParameterFacadeLogicImpl
         return !this.hasStereotype(UMLProfile.STEREOTYPE_NULLABLE);
     }
 
-    // ------------------------------------------------------------
-
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#getOperation()
+     */
     protected Object handleGetOperation()
     {
         Operation parameterOperation = null;
-
         Collection allOperations = UMLMetafacadeUtils.getModel().getCore()
             .getOperation().refAllOfType();
         for (Iterator iterator = allOperations.iterator(); iterator.hasNext()
@@ -80,14 +86,15 @@ public class ParameterFacadeLogicImpl
                 parameterOperation = operation;
             }
         }
-
         return parameterOperation;
     }
 
+    /** 
+     * @see org.andromda.metafacades.uml.ParameterFacade#getEvent()
+     */
     protected Object handleGetEvent()
     {
         SignalEvent parameterSignalEvent = null;
-
         Collection allSignalEvents = UMLMetafacadeUtils.getModel()
             .getStateMachines().getSignalEvent().refAllOfType();
         for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext()
@@ -99,7 +106,6 @@ public class ParameterFacadeLogicImpl
                 parameterSignalEvent = signalEvent;
             }
         }
-
         return parameterSignalEvent;
     }
 }

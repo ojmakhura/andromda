@@ -33,6 +33,14 @@ public class OperationFacadeLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     */
+    public Object getMetafacadeOwner()
+    {
+        return this.getOwner();
+    }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature()

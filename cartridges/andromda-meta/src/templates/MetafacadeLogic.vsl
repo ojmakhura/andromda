@@ -47,8 +47,8 @@ package $packageName;
  * @see $metafacade.fullyQualifiedName
  */
 public abstract class ${metafacade.logicName}
-       extends        org.andromda.core.metafacade.MetafacadeBase
-       implements     $metafacade.fullyQualifiedName
+    extends org.andromda.core.metafacade.MetafacadeBase
+    implements $metafacade.fullyQualifiedName
 {
     protected $shieldedMetaclassTypeName metaObject;
 #if ($superMetafacade)
@@ -272,6 +272,18 @@ public abstract class ${metafacade.logicName}
 #if ($superMetafacade)
         super_.initialize();
 #end 
+    }
+    
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     */
+    public Object getMetafacadeOwner()
+    {
+#if ($superMetafacade)
+        return super_.getMetafacadeOwner();
+#else
+        return super.getMetafacadeOwner();
+#end
     }
     
     /**

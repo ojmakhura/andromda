@@ -21,6 +21,12 @@ public interface $metafacade.name
     void initialize();
     
     /**
+     * Gets the metafacade that acts as the <code>owner</code> of this metafacade.
+     * (for example: an operation is an owner of its parameters, etc).
+     */
+    public Object getMetafacadeOwner();
+    
+    /**
      * Performs validation of any invariants found on this model element 
      * and stores the messages within the <code>validationMessages</code>
      * collection.
