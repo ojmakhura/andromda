@@ -15,6 +15,12 @@
                 form.
             </action>
             <action dev="draftdog" type="fix">
+                Bpm4Struts internal plumbing has significantly improved, this will be most
+                noticeable in the performance. This fix is the first part of a series of
+                improvements in order to support large and complex models which would yield
+                JVM overflow errors.
+            </action>
+            <action dev="draftdog" type="fix">
                 In bpm4struts you must now draw dependencies from the
                 <![CDATA[FrontEndController]]> to the associated
                 <![CDATA[FrontEndSessionObject]]> classes instead of simply using
