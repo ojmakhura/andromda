@@ -186,10 +186,10 @@ public class StrutsParameterLogicImpl
                     : " (use this lenient format: " + getDateFormat() + ")";
         }
 
-        String documentation = getDocumentation("", 64, true);
+        String documentation = getDocumentation("", 64, false);
         return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
                 ? super.getName() + requiredSuffix + dateSuffix
-                : documentation.replaceAll("\n", "\n<br/>"));
+                : documentation.trim().replaceAll("\n", "\n<br/>"));
     }
 
     public boolean handleIsCalendarRequired()
