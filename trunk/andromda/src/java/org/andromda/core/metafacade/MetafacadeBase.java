@@ -17,6 +17,7 @@ public class MetafacadeBase
 {
     private   Object metaObject;
     protected Logger logger;
+    private boolean hasBeenValidated = false;
 
     public MetafacadeBase(Object metaObject, String context)
     {
@@ -52,10 +53,27 @@ public class MetafacadeBase
      * <p>
      * Classes that extend this base class may choose the override this method
      * to check whether it is in a valid state.
+     * <p>
+     * In the lifecycle of a model element facade it is validated only once.
      *
      * @throws ModelValidationException
      */
-    public void validate() throws ModelValidationException
+    public final void validate() throws ModelValidationException
+    {
+        if (!hasBeenValidated)
+        {
+            hasBeenValidated = true;
+            performValidation();
+        }
+    }
+
+    /**
+     * Derived classes that want to implement validation routines should
+     * override this method.
+     * <p>
+     * By default this method is empty.
+     */
+    protected void performValidation() throws ModelValidationException
     {
     }
 
