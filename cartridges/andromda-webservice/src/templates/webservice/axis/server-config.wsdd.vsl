@@ -55,7 +55,12 @@ $service.getDocumentation("            ", 64, false)
         </operation>
 #end
 #foreach ( $typeMapping in $service.typeMappingElements )
+## By default set the type as the typeMapping itself,
+## however if it has a type, use that instead
+#set ($type = $typeMapping)
+#if ($typeMapping.type)
 #set ($type = $typeMapping.type)
+#end
         <typeMapping 
             type="java:${type.fullyQualifiedName}" 
             xmlns:ns${velocityCount}="${namespace}"
