@@ -298,6 +298,26 @@
         </modelElements>
     </template>
 
+    <template
+        path="templates/StrutsConfigXml.vsl"
+        outputPattern="struts-config.xml"
+        outlet="configuration"
+        overwrite="true">
+        <modelElements variable="applicationUseCase">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/StrutsValidationXml.vsl"
+        outputPattern="validation.xml"
+        outlet="configuration"
+        overwrite="true">
+        <modelElements variable="applicationUseCase">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
     <!--
         <template
             path="templates/StrutsMenuConfig.vsl"
