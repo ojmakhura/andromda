@@ -249,6 +249,38 @@
                 </p>
             </answer>
         </faq>
+
+        <faq id="session-scope">
+            <question>I want to reuse data in my forms between requests. Why aren't the forms stored in session scope ?</question>
+            <answer>
+                <p>
+                    When you put your forms in the session and reuse them across different pages and actions you expose
+                    your application to the risk of showing data which is outdated, it might happen that some data
+                    from the persistence layer has changed while your session still keeps the previous values. In this
+                    case you will manually need to synchronize the objects. This might not seem a big problem at first
+                    but it can quickly become a maintenance nightmare.
+                </p>
+                <p>
+                    A better approach is to have your container handle the caching strategy for your
+                    application. From the presentation layer you simply call your services each time again, even if the
+                    requests are exactly the same. It is up to the container to determine if an actual lookup
+                    is required. So basically don't bother thinking about it when developing your presentation layer
+                    (unless you have some exceptional requirements that would annul this solution).
+                </p>
+                <p>
+                    Although performing the exact same operation in a short interval of time looks like a
+                    performance bottleneck it in fact leads to very efficient, stable,
+                    and maintainable code, keeping the caching logic cleanly separated from your application code.
+                    Hibernate seems to be a very good choice when implementing this kind of strategy.
+                </p>
+                <p>
+                    This does not mean you should never use the session, it just applies to the form beans that are
+                    passed from page to action and back again. Sessions are still interesting for implementing
+                    wizards or online stores, in these cases you will create and manipulate session objects manually.
+                </p>
+            </answer>
+        </faq>
+
     </part>
 
     <part id="other">
