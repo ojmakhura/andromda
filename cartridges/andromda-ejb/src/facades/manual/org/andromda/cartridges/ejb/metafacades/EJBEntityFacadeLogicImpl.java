@@ -137,22 +137,14 @@ public class EJBEntityFacadeLogicImpl
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getAllInstanceAttributes()
      */
     public List getAllInstanceAttributes() {
-        List retval = this.getInheritedInstanceAttributes();
-        retval.addAll(this.getInstanceAttributes());
-        return retval;      
+        return EJBMetafacadeUtils.getAllInstanceAttributes(this);  
     }
     
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getInheritedInstanceAttributes()
      */
     public List getInheritedInstanceAttributes() {
-        EJBEntityFacade current = (EJBEntityFacade)this.getGeneralization();
-        if (current == null) {
-            return new ArrayList();
-        } else {
-            List retval = current.getInheritedInstanceAttributes();
-            return retval;
-        }
+        return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
     
     /**

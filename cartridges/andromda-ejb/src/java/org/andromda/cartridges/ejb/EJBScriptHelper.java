@@ -9,20 +9,23 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 
 /**
  * Transform class for the EJB cartridge.
+ * 
  * @author Richard Kunze
+ * @author Chad Brandon
  */
 public class EJBScriptHelper {
 
-    /** Create a comma seperated list of attributes.
+    /** 
+     * Create a comma seperated list of attributes.
+     * 
      * This method can be used to generated e.g. argument lists for 
      * constructors, method calls etc.
+     * 
      * @param attributes a collection of {@link Attribute} objects
      * @param includeTypes if <code>true</code>, the type names of 
      * the attributes are included.
      * @param includeNames if <code>true</code>, the 
      * names of the attributes are included
-     * 
-     * @author richard
      */
     public String getAttributesAsList(Collection attributes,
     		boolean includeTypes,
@@ -49,10 +52,13 @@ public class EJBScriptHelper {
     	return sb.toString();
     }
     
-    /** Filter a list of model elements by visibility
+    /** 
+     * Filter a list of model elements by visibility.
+     * 
      * @param list the original list
      * @param visibility the visibility - "public" "protected", "private" or the
      * empty string (for package visibility)
+     * 
      * @return a list with all elements from the original list that have 
      * a matching visibility.
      */

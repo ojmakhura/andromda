@@ -27,11 +27,9 @@ public class EJBFinderMethodFacadeLogicImpl
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class EJBFinderMethodFacade ...
-
+    /**
+     * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery()
+     */
     public java.lang.String getQuery() {
 
         // first see if we can retrieve the query from the super class.

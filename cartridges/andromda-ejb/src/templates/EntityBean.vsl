@@ -49,7 +49,7 @@ $class.getDocumentation(" * ")
 ## as <<EnvEntry>>
 #foreach($att in $class.staticAttributes)
 #if ($att.hasStereotype("EnvEntry"))
-#set ($value = $att.initialValue.body)
+#set ($value = $att.defaultValue.body)
 ## Add string delimiters if they are not already present
 #if (!$value.startsWith('"') || !$value.endsWith('"'))
 #set ($value = "$value")
@@ -101,13 +101,13 @@ $class.getDocumentation(" * ")
 #foreach ( $finder in $class.getFinders(true))
 #if($finder.findTaggedValue("@andromda.ejb.query.dialect") == "JBossQL")
  *
- * @ejb.finder signature="${finder.type.fullyQualifiedName} ${finder.signature}"
+ * @ejb.finder signature="$finder.type.fullyQualifiedName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
- * @jboss.query signature="${finder.type.fullyQualifiedName} ${finder.signature}"
+ * @jboss.query signature="$finder.type.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #else
  *
- * @ejb.finder signature="${finder.type.fullyQualifiedName} ${finder.signature}"
+ * @ejb.finder signature="$finder.type.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #end
 #end##operation.finders
