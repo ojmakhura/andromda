@@ -126,8 +126,6 @@ extends $parentInterface#foreach($intf in $transform.getAbstractions($class.id))
     // --------------- attributes ---------------------
 #foreach ( $att in $transform.getInstanceAttributes($class))
 #set ($visibility = $transform.getVisibility($att))
-## Only expose the method to the component interface if it is public.
-#if($visibility == "public")
 #set($attType = $transform.getFullyQualifiedName($att.type))    
 #set($AttName = $str.upperCaseFirstLetter($att.name))
     /**
@@ -144,15 +142,13 @@ extends $parentInterface#foreach($intf in $transform.getAbstractions($class.id))
     public void set$AttName($attType value) throws java.rmi.RemoteException;
 #end
 #end
-#end
 
     // ---------------- business methods  ----------------------
 #foreach ( $op in $class.operations)
 #if ($transform.getStereotype($op.id) != "CreateMethod")
 #set ($visibility = $transform.getVisibility($op))
-## Only expose public, nonstatic methods (public static methods go on the home
-## interface)
-#if ($visibility == "public" && !$transform.isStatic($op)) 
+## Only expose public methods
+#if ($visibility == "public") 
 #set ($msig = $transform.getOperationSignature($op))
 #set ($exceptions = $transform.findTagValue($op, "@andromda.java.throws"))
 #if (!$exceptions)

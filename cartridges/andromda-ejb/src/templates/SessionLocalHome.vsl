@@ -103,50 +103,6 @@ package $packagename;
 #copyTaggedValues($class " " [ "@andromda.ejb.viewType", "@andromda.ejb.transactionType" ])
  */
 public interface ${servicename}LocalHome  extends $parentInterface {
-    // -- accessors for environment entries and constants --
-	public static final String COMP_NAME="java:comp/env/ejb/${servicename}Local";
-	public static final String JNDI_NAME="ejb/$packagename/${servicename}/Local";
-
-#foreach($att in $transform.getStaticAttributes($class))
-#set ($visibility = $transform.getVisibility($att))
-## Only expose the method to the home interface if it is public.
-#if($visibility == "public")
-#set($attType = $transform.getFullyQualifiedName($att.type))
-#set($AttName = $str.upperCaseFirstLetter($att.name))
-
-    /**
-#if($transform.getStereotype($att) == "EnvEntry")
-     * Get #firstJavadocParagraph(${att} "lower" "the ${att.name} environment entry")
-#else
-#set ($ATT_NAME = $str.toDatabaseAttributeName($att.name, '_'))
-     * Get #firstJavadocParagraph(${att} "lower" "the $ATT_NAME constant")
-#end
-#remainingJavadocParagraphs($att "     ")
-     */
-    public $attType get$AttName();
-#end
-#end
-    // ---------------- home methods  ----------------------
-#foreach ( $op in $class.operations)
-#if ($transform.getStereotype($op.id) != "CreateMethod")
-#set ($visibility = $transform.getVisibility($op))
-## Only expose public static methods (public nonstatic methods go on the
-## component interface)
-#if ($visibility == "public" && $transform.isStatic($op)) 
-#set ($msig = $transform.getOperationSignature($op))
-   /**
-#generateDocumentation ($op "    ")
-    */
-#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
-#if ($defaultException)
-    public $returntype ${msig} throws $defaultException.name;
-#else
-    $visibility $returntype ${msig};
-#end
-#end
-#end
-#end
-## Only expose create methods on concrete EJBs.
 #if (!$class.isAbstract())
 
     // ---------------- create methods --------------------
