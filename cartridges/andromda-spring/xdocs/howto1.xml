@@ -8,17 +8,18 @@
     </properties>
 
     <body>
-        <section name="Business Objects">
+        <section name="Entities">
             <p>
-                With business objects we mean what is usually implemented using Entity Beans or Hibernate POJOs;
+                With entities we mean what is usually implemented using Entity Beans or Hibernate POJOs (i.e. a
+                persistent entity like a Company or Person for example);
                 in the Spring cartridge you will not need to worry about the technology used behind, but
                 you will probably want to know that Hibernate POJOs will be generated for the
-                business objects you model.
+                entities you model.
             </p>
             <p>
-                In order to successfully generate a single business object it is sufficient to simply
+                In order to successfully generate a single entity it is sufficient to simply
                 model a single class and assign it the <![CDATA[<<Entity>>]]> stereotype, this stereotype tells
-                the Spring cartridge to treat this class as a business object.
+                the Spring cartridge to treat this class as a entity.
             </p>
             <p>
                 Let's start by modeling a package <code>org.andromda.test</code> and putting a class
