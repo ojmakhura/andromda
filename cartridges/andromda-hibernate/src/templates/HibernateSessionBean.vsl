@@ -1,0 +1,225 @@
+#set ($packagename = $transform.findPackageName($class.package))
+package $packagename;
+
+import javax.rmi.PortableRemoteObject;
+import java.rmi.RemoteException;
+import javax.naming.NamingException;
+import javax.naming.InitialContext;
+
+import cirrus.hibernate.SessionFactory;
+import cirrus.hibernate.Session;
+import cirrus.hibernate.LockMode;
+
+#macro ( generateDocumentation $item $indent)
+#foreach ( $tgv in $item.taggedValues )
+#if ($tgv.tag == "documentation")
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#end
+#end
+##
+#foreach ( $dep in $class.dependencies )
+    #set ($class2 = $transform.findClassById($dep.targetType))
+    #if ($transform.getStereotype($dep.id) == "exception")
+        #set ($defaultException = $class2)
+    #end
+#end
+##
+#if ($class.attributes.size() > 0)
+#set ($stateful = true)
+#else
+#set ($stateful = false)
+#end
+##
+/**
+#generateDocumentation ($class " ")
+ *
+ * @ejb.bean name="$class.name"
+#if ($stateful)
+ *       type="Stateful"
+#else
+ *       type="Stateless"
+#end
+ *       local-jndi-name="${packagename}/${class.name}/LocalHome"
+ *           jndi-name="${packagename}/${class.name}/Home"
+ *       view-type="both"
+ * @ejb.interface generate="local,remote"
+ *        remote-class="${packagename}.${class.name}"
+ *        local-class="${packagename}.${class.name}Local"
+ * @ejb.home generate="local, remote"
+ *        remote-class="${packagename}.${class.name}Home"
+ *        local-class="${packagename}.${class.name}LocalHome"
+ * @ejb.util generate="physical"
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.tag != "documentation")
+#if ($tgv.tag == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.tag)
+#end
+ * $tag    $tgv.value
+#end
+#end
+ *
+ */
+public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
+
+#if ($stateful)
+    // --------------- attributes ---------------------
+#foreach ( $att in $class.attributes )
+#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+
+   protected ${atttypename} ${att.name};
+
+   /**
+#generateDocumentation ($att "    ")
+    *
+    * @ejb.interface-method view-type="both"
+    * @ejb.transaction      type="Required"
+    *
+    */
+    public $atttypename get${str.upperCaseFirstLetter(${att.name})}() {
+        return ${att.name};
+    }
+   /**
+    * @ejb.interface-method view-type="both"
+    * @ejb.transaction      type="Required"
+    */
+    public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue) {
+        ${att.name} = newValue;
+    }
+
+#end
+#end
+    // ---------------- business methods  ----------------------
+
+#foreach ($op in $class.operations)
+#set ($msig = $transform.getOperationSignature($op))
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+#if ($defaultException)
+    $op.visibility abstract $returntype handle${str.upperCaseFirstLetter(${msig})}
+        throws $defaultException.name;
+#else
+    $op.visibility abstract $returntype handle${str.upperCaseFirstLetter(${msig})};
+#end
+
+   /**
+#generateDocumentation ($op "    ")
+    *
+    * @ejb.interface-method view-type="both"
+    * @ejb.transaction type="Required"
+    */
+#if ($defaultException)
+    $op.visibility $returntype $msig
+        throws $defaultException.name
+#else
+    $op.visibility $returntype $msig
+#end
+    {
+        Session sess = null;
+        try
+        {
+            sess = getSession();
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+#if ("void" != $returntype)
+            return handle${str.upperCaseFirstLetter(${transform.getOperationCall($op)})};
+#else
+            handle${str.upperCaseFirstLetter(${transform.getOperationCall($op)})};
+#end
+        }
+#if ($defaultException)
+        catch ($defaultException.name e)
+        {
+           _ctx.setRollbackOnly();
+           throw e;
+        }
+#end
+        finally
+        {
+           if (sess != null)
+           {
+               sess.flush();
+               sess.close();
+           }
+        }
+    }
+#end
+
+   // ---------------- create methods -------------------------
+
+   /**
+    * @ejb.create-method
+    * @ejb.transaction type="Required"
+    */
+    public void ejbCreate ()
+           throws javax.ejb.CreateException
+    {
+    }
+
+    public void ejbPostCreate ()
+           throws javax.ejb.CreateException
+    {
+    }
+
+#if ($stateful)
+   // ---------------- create methods with separate attributes --------------------
+
+   /**
+    * @ejb.create-method
+    * @ejb.transaction type="Required"
+    */
+    public void ejbCreate $transform.getAttributesAsList($class, true, false)
+           throws javax.ejb.CreateException
+    {
+#foreach ( $att in $class.attributes)
+        set${str.upperCaseFirstLetter(${att.name})} (${att.name});
+#end
+    }
+
+    public void ejbPostCreate $transform.getAttributesAsList($class, true, false)
+           throws javax.ejb.CreateException
+    {
+    }
+
+#end
+   // ---------------- Hibernate helpers -------------------------
+
+    protected javax.ejb.SessionContext _ctx = null;
+
+    private SessionFactory _sessionFactory = null;
+
+    public void setSessionContext( javax.ejb.SessionContext ctx )
+    {
+        _ctx = ctx;
+        _sessionFactory = null;
+    }
+
+    private SessionFactory getSessionFactory() throws NamingException
+    {
+        if( _sessionFactory == null )
+        {
+            InitialContext ic = new InitialContext();
+
+            _sessionFactory = ( SessionFactory )
+                              PortableRemoteObject.narrow(
+                                    ic.lookup( "java:/hibernate/SessionFactory" ),
+                                    SessionFactory.class
+                              );
+        }
+
+        return _sessionFactory;
+    }
+
+    private Session getSession() throws java.sql.SQLException, NamingException
+    {
+        return getSessionFactory().openSession();
+    }
+}

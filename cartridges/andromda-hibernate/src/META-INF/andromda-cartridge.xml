@@ -2,33 +2,49 @@
     This is the descriptor for the AndroMDA cartridge for
     the O/R mapper "Hibernate".
 
-    We describe only entities here, so that the process model
-    can be chosen independently.
-
     Matthias Bohlen, April 2003
 -->
 
 <cartridge name="hibernate">
     <property name="persistence" value="hibernate" />
 
-    <stereotype name="entity" />
+    <stereotype name="EntityBean" />
+    <stereotype name="StatelessSessionBean" />
 
-    <outlet name="pojos" />
-    <outlet name="impls" />
+    <outlet name="entities" />
+    <outlet name="entity-impls" />
+    <outlet name="session-beans" />
+    <outlet name="session-impls" />
 
     <template
-        stereotype="entity"
+        stereotype="EntityBean"
         sheet="templates/HibernateEntity.vsl"
         outputPattern="{0}/{1}.java"
-        outlet="pojos"
+        outlet="entities"
         overWrite="true"
     />
 
     <template
-        stereotype="entity"
+        stereotype="EntityBean"
         sheet="templates/HibernateEntityImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
-        outlet="impls"
+        outlet="entity-impls"
+        overWrite="false"
+    />
+
+    <template
+        stereotype="StatelessSessionBean"
+        sheet="templates/HibernateSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="session-beans"
+        overWrite="true"
+    />
+
+    <template
+        stereotype="StatelessSessionBean"
+        sheet="templates/HibernateSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="session-impls"
         overWrite="false"
     />
 
