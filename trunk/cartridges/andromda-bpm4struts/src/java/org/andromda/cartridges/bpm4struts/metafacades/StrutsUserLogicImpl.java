@@ -1,7 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
