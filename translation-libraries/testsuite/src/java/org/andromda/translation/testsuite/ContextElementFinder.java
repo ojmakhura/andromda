@@ -271,16 +271,20 @@ public class ContextElementFinder
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade modelElement = (ModelElementFacade)object;
-                String elementName = StringUtils.trimToEmpty(modelElement
-                    .getName());
-                String name = StringUtils.trimToEmpty(modelElementName);
-                boolean valid = elementName.equals(name);
-                if (!valid)
+                boolean valid = false;
+                if (ModelElementFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    elementName = StringUtils.trimToEmpty(modelElement
-                        .getFullyQualifiedName());
+                    ModelElementFacade modelElement = (ModelElementFacade)object;
+                    String elementName = StringUtils.trimToEmpty(modelElement
+                        .getName());
+                    String name = StringUtils.trimToEmpty(modelElementName);
                     valid = elementName.equals(name);
+                    if (!valid)
+                    {
+                        elementName = StringUtils.trimToEmpty(modelElement
+                            .getFullyQualifiedName());
+                        valid = elementName.equals(name);
+                    }
                 }
                 return valid;
             }
