@@ -60,17 +60,29 @@
             <modelElement stereotype="readOnlyEntity"/>
 		</modelElements>
 	</template>
-		
-	<template 
-		path="templates/database/create-foreign-keys.vsl" 
-		outputPattern="create-foreign-keys.sql" 
-		outlet="scripts" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="entities">
+
+    <template
+        path="templates/database/create-foreign-keys.vsl"
+        outputPattern="create-foreign-keys.sql"
+        outlet="scripts"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
             <modelElement stereotype="Entity"/>
             <modelElement stereotype="readOnlyEntity"/>
-		</modelElements>
-	</template>
-		
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/database/create-initial-load.vsl"
+        outputPattern="create-initial-load.sql"
+        outlet="scripts"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="tables">
+            <modelElement stereotype="Entity"/>
+            <modelElement stereotype="readOnlyEntity"/>
+        </modelElements>
+    </template>
+
 </cartridge>
