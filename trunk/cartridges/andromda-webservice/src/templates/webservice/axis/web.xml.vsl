@@ -46,18 +46,18 @@
 		<url-pattern>/SOAPMonitor</url-pattern>
 	</servlet-mapping>
 	<!-- uncomment this if you want the admin servlet -->
-  <servlet-mapping>
-    <servlet-name>AdminServlet</servlet-name>
-    <url-pattern>/servlet/AdminServlet</url-pattern>
-  </servlet-mapping>
- -->
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/servlet/AdminServlet</url-pattern>
+    </servlet-mapping>
+    -->
 	<session-config>
 		<!-- Default to 5 minute session timeouts -->
 		<session-timeout>5</session-timeout>
 	</session-config>
 	<!-- currently the W3C havent settled on a media type for WSDL;
-    http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
-    for now we go with the basic 'it's XML' response -->
+         http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
+         for now we go with the basic 'it's XML' response -->
 	<mime-mapping>
 		<extension>wsdl</extension>
 		<mime-type>text/xml</mime-type>

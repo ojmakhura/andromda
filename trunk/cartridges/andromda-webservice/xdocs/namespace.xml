@@ -12,6 +12,18 @@
 		          	<th>Description</th>       	
 		          	<th>Required?</th>	   	 
 	        	</tr>
+				<tr>
+					<td>
+						applicationName
+					</td>
+					<td>
+						The name of the web application for which these services will be deploy
+						(i.e. Security Web Services).
+					</td>
+					<td>
+						Yes
+					</td>
+				</tr>
 	        	<tr>
 		          	<td>
 		          		schemaTypeMappingsUri
