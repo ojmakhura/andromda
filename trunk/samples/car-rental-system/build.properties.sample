@@ -10,7 +10,7 @@ junit.home = ${andromda.home}
 mdr.home = ${andromda.home}
 xdoclet.home = ${andromda.home}/lib/
 castor.home = ${andromda.home}
-collections.home = ${andromda.home}
+commons.home = ${andromda.home}
 
 ejb-cartridge.home = ../../cartridges/andromda-ejb/dist/
 hibernate-cartridge.home = ../../cartridges/andromda-hibernate/dist/
@@ -22,7 +22,7 @@ struts-cartridge.libs=${struts-cartridge.home}andromda-struts.jar:${struts-cartr
 
 castor.libs = ${andromda.home}lib/castor-0.9.4.3.jar
 andromda.libs = ${andromda.home}andromda.jar
-collections.libs = ${collections.home}/lib/commons-collections.jar 
+commons.libs = ${commons.home}lib/commons-digester.jar:${commons.home}lib/commons-beanutils.jar:${commons.home}lib/commons-collections.jar:${commons.home}lib/commons-logging.jar
 log4j.libs = ${log4j.home}lib/commons-logging.jar;${log4j.home}lib/log4j.jar
 velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
 junit.libs = ${junit.home}lib/junit.jar
@@ -44,4 +44,4 @@ ${xdoclet.home}/xdoclet-xjavadoc-1.2b2.jar:\
 ${xdoclet.home}/xdoclet-xjavadoc-uc-1.2b2.jar
 
 cartridges.libs=${ejb-cartridge.libs}:${struts-cartridge.libs}:${hibernate-cartridge.libs}
-build.classpath = ${cartridges.libs}:${andromda.libs}:${xdoclet.libs}:${collections.libs}:${castor.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
+build.classpath = ${cartridges.libs}:${andromda.libs}:${xdoclet.libs}:${commons.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
