@@ -590,7 +590,7 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Indicates if this entity as a <code>root</code> entity (meaning it
+     * Indicates if this entity is a <code>root</code> entity (meaning it
      * doesn't specialize anything).
      */
     private boolean isRoot()
