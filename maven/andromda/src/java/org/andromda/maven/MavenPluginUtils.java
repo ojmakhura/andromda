@@ -9,10 +9,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.andromda.core.anttasks.AndroMDAGenTask;
-import org.andromda.core.cartridge.AndroMDACartridge;
-import org.andromda.core.cartridge.CartridgeDescriptor;
-import org.andromda.core.cartridge.CartridgeFinder;
+import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
@@ -282,21 +281,17 @@ public class MavenPluginUtils {
      */
     private void initializeCartridgeNames() {
         this.cartridgeNames = new HashMap();
-        CartridgeFinder.instance().discoverCartridges(false);
+        PluginDiscoverer.instance().discoverPlugins(false);
         Collection cartridges = 
-            CartridgeFinder.instance().getCartridges();
+            PluginDiscoverer.instance().findPlugins(Cartridge.class);
         if (cartridges != null && !cartridges.isEmpty()) {
             Iterator cartridgeIt = cartridges.iterator();
             while (cartridgeIt.hasNext()) {
-	            AndroMDACartridge cartridge = 
-	                (AndroMDACartridge)cartridgeIt.next();
-	            CartridgeDescriptor descriptor = 
-	                cartridge.getDescriptor();
-	            if (descriptor != null) {
-	                cartridgeNames.put(
-	                    descriptor.getDefinitionURL(), 
-	                    descriptor.getCartridgeName());		                    
-	            }
+	            Cartridge cartridge = 
+	                (Cartridge)cartridgeIt.next();
+                cartridgeNames.put(
+                    cartridge.getResource(), 
+                    cartridge.getName());		                    
             }
         }
     }

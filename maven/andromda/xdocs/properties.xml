@@ -2,10 +2,10 @@
 
 <document>
   	<properties>
-    	<title>Maven AndroMDA Plug-in Properties</title>
+    	<title>AndroMDA Maven Plug-in Properties</title>
   	</properties>
   	<body>
-    	<section name="Maven AndroMDA Plug-in Settings">
+    	<section name="AndroMDA Maven Plug-in Settings">
 	      	<table>
 	        	<tr>
 		          	<th>Property</th>
@@ -20,9 +20,11 @@
 		          		Yes
 		          	</td>
 		          	<td>
-		          		The URI to the model which will be processed.  If this isn't specified
-		          		then the <code>maven.andromda.src.dir</code> and 
-		          		<code>maven.andromda.src.includes</code> properties will be used.
+		          		<p>
+                            The URI to the model which will be processed.  If this isn't specified
+		          		    then the <code>maven.andromda.src.dir</code> and 
+		          		    <code>maven.andromda.src.includes</code> properties will be used.		          			
+		          		</p>
 		          	</td>
 	        	</tr>
 	        	<tr>
@@ -33,8 +35,10 @@
 		          		Yes
 		          	</td>
 		          	<td>
-		          		The AndroMDA source directory (where any model files to be processed will be 
-		          		found). Default is <code>${maven.src.dir}/uml</code>.
+		          		<p>
+                            The AndroMDA source directory (where any model files to be processed will be 
+		          		    found). Default is <code>${maven.src.dir}/uml</code>.		          			
+		          		</p>
 		          	</td>
 	        	</tr>	    
 	        	<tr>
@@ -45,8 +49,10 @@
 	        			Yes
 	        		</td>
 	        		<td>
-	        			What model files to include from from the <code>maven.andromda.src.dir</code>.
-	        			Default is <code>*.xmi,*.xml</code>.
+	        			<p>
+                            What model files to include from from the <code>maven.andromda.src.dir</code>.
+	        			    Default is <code>*.xmi,*.xml</code>.	        				
+	        			</p>
 	        		</td>
 	        	</tr>  	   
 	        	<tr>
@@ -57,8 +63,11 @@
 	        			Yes
 	        		</td>
 	        		<td>
-	        			Whether or not to perform a check if the model file(s) was modified
-	        			since the last run occurred. Default is <code>false</code>.
+	        			<p>
+                            Whether or not to perform a check if the model file(s) was modified
+	        			    since the last run occurred. Default is <code>false</code>.
+	        			</p>
+	        			
 	        		</td>
 	        	</tr>   
 	        	<tr>
@@ -69,8 +78,10 @@
 	        			Yes
 	        		</td>
 	        		<td>
-	        			The Repository implementation to use for reading/loading/processing of the model. Default is 
-	        			<em>org.andromda.repositories.mdr.MDRepositoryFacade</em>.
+	        			<p>
+                            The Repository implementation to use for reading/loading/processing of the model. 
+                            Default is <em>org.andromda.repositories.mdr.MDRepositoryFacade</em>.	        				
+	        			</p>
 	        		</td>
 	        	</tr>  	  
 	        	<tr>
@@ -81,11 +92,27 @@
 	        			Yes
 	        		</td>
 	        		<td>
-	        			The ModelFacade implementation to use.  The ModelFacade provides the access to the
-	        			metafacades implementations during template processing.  
-	        			Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.UMLModelAccessFacade</code>.
+	        			<p>
+							The ModelFacade implementation to use.  The ModelFacade provides the access to the
+							metafacades implementations during template processing.  
+							Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.UMLModelAccessFacade</code>.	        				
+	        			</p>
 	        		</td>
-	        	</tr>     	 		        	        		        	   	    	        		        	        	        	     	             	        	
+	        	</tr>     	 	
+	        	<tr>
+	        		<td>
+	        			maven.andromda.processAllModelPackages
+	        		</td>
+	        		<td>
+	        			Yes
+	        		</td>
+	        		<td>
+	        			<p>
+	        				Whether or not to process all packages of the model.  
+	        				Default is <code>true</code>.
+	        			</p>
+	        		</td>
+	        	</tr>	        	        		        	   	    	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>

@@ -154,17 +154,17 @@
 	    <velocity:merge 
 			name="${projectId}/.project"
 			basedir="${templatesDir}"
-			template="/.project.vm"/>
+			template="/.project.vsl"/>
 	      
 	    <velocity:merge
 			name="${projectId}/.classpath"
 			basedir="${templatesDir}"
-			template="/.classpath-${persistenceType}.vm"/>
+			template="/.classpath-${persistenceType}.vsl"/>
 	      
 	    <velocity:merge 
 	        name="${projectId}/project.xml"
 	        basedir="${templatesDir}"
-	        template="/project.xml.vm"/>
+	        template="/project.xml.vsl"/>
 	      
 	    <ant:copy
 	    	file="${templatesDir}/maven-${persistenceType}.xml"
@@ -205,17 +205,17 @@
 	    <velocity:merge 
 	      name="${mdaModelDir}/${stringUtils.deleteWhitespace(projectName)}.xmi"
 	      basedir="${mdaTemplatesDir}"
-	      template="/src/uml/model.xmi.vm"/>	
+	      template="/src/uml/model.xmi.vsl"/>	
 		
 	    <velocity:merge 
 	      name="${mdaDir}/project.xml"
 	      basedir="${mdaTemplatesDir}"
-	      template="project-${persistenceType}.xml.vm"/>	
+	      template="project-${persistenceType}.xml.vsl"/>	
 	      
 	    <velocity:merge 
 	      name="${mdaDir}/project.properties"
 	      basedir="${mdaTemplatesDir}"
-	      template="project-${persistenceType}.properties.vm"/>		     
+	      template="project-${persistenceType}.properties.vsl"/>		     
 	      
 		<ant:copy todir="${mdaDir}">
 			<ant:fileset dir="${mdaTemplatesDir}">
@@ -241,12 +241,12 @@
 	    <velocity:merge 
 	      name="${appDir}/project.properties"
 	      basedir="${appTemplatesDir}"
-	      template="project.properties.vm"/>	
+	      template="project.properties.vsl"/>	
 	      
 	    <velocity:merge 
 	      name="${appDir}/project.xml"
 	      basedir="${appTemplatesDir}"
-	      template="project-${persistenceType}.xml.vm"/>	
+	      template="project-${persistenceType}.xml.vsl"/>	
 		
 		<ant:copy todir="${appDir}">
 			<ant:fileset dir="${appTemplatesDir}">
@@ -307,6 +307,10 @@
 		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
+        <ant:replace file="${moduleDir}/maven.xml" 
+        	token="$${projectName}"
+        	value="${projectName.replaceAll(' ', '')}">
+        </ant:replace>   
 	   
 	</goal>
 	
@@ -328,7 +332,7 @@
 	    <velocity:merge 
 	      name="${moduleDir}/project.xml"
 	      basedir="${moduleTemplatesDir}"
-	      template="project.xml.vm"/>
+	      template="project.xml.vsl"/>
 	      
 		<ant:copy todir="${moduleDir}">
 			<ant:fileset dir="${moduleTemplatesDir}">
