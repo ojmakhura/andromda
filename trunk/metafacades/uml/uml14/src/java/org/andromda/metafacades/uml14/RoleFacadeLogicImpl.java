@@ -1,7 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.core.metafacade.MetafacadeFactoryException;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.andromda.metafacades.uml.ServiceOperationFacade;
@@ -67,19 +66,10 @@ public class RoleFacadeLogicImpl
         else
         {
             name = super.handleGetName();
-            String mask = null;
-
-            try
-            {
-                mask = StringUtils.trimToEmpty(String.valueOf(
-                        this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK) ));
-            }
-            catch (MetafacadeFactoryException mffe)
-            {
-                // if the property has not been registered use the default value
-                mask = MASK_NONE;
-            }
-
+            String mask = StringUtils
+                .trimToEmpty(String
+                    .valueOf(this
+                        .getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
             if (!mask.equalsIgnoreCase(MASK_NONE))
             {
                 if (mask.equalsIgnoreCase(MASK_UPPERCASE))
