@@ -104,19 +104,19 @@ public class AndroMDALogger
     }
 
     /**
-     * Retrieves the plugin logger (if one is available) otherwise returns the
+     * Retrieves the namespace logger (if one is available) otherwise returns the
      * root logger.
      * 
-     * @param pluginName the name of the plugin for which we'll retrieve the
+     * @param namespaceName the name of the namespace for which we'll retrieve the
      *        logger instance.
-     * @return the plugin or root logger instance.
+     * @return the namespace or root logger instance.
      */
-    public static Logger getPluginLogger(String pluginName)
+    public static Logger getNamespaceLogger(String namespaceName)
     {
         Logger logger;
-        if (pluginName != null && !Namespaces.DEFAULT.equals(pluginName))
+        if (namespaceName != null && !Namespaces.DEFAULT.equals(namespaceName))
         {
-            logger = Logger.getLogger(getPluginLoggerName(pluginName));
+            logger = Logger.getLogger(getNamespaceLoggerName(namespaceName));
         }
         else
         {
@@ -128,23 +128,23 @@ public class AndroMDALogger
     /**
      * Gets the name of the logger.
      * 
-     * @param pluginName the name of the plugin for which this logger is used.
+     * @param namespace the name of the namespace for which this logger is used.
      * @return the logger name.
      */
-    public static String getPluginLoggerName(String pluginName)
+    public static String getNamespaceLoggerName(String namespace)
     {
-        return "org.andromda.plugins." + pluginName;
+        return "org.andromda.namespaces." + namespace;
     }
 
     /**
-     * Gets the name of the file to which plugin logging output will be written.
+     * Gets the name of the file to which namespace logging output will be written.
      * 
-     * @param pluginName the name of the plugin for which this logger is used.
-     * @return the plugin logging file name.
+     * @param namespace the name of the namespace for which this logger is used.
+     * @return the namespace logging file name.
      */
-    public static String getPluginLogFileName(String pluginName)
+    public static String getNamespaceLogFileName(String namespace)
     {
-        return "andromda-" + pluginName + ".log";
+        return "andromda-" + namespace + ".log";
     }
 
     /**

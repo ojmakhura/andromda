@@ -318,11 +318,11 @@ public class VelocityTemplateEngine
      */
     private void initLogger(String pluginName) throws IOException
     {
-        logger = AndroMDALogger.getPluginLogger(pluginName);
+        logger = AndroMDALogger.getNamespaceLogger(pluginName);
         logger.setAdditivity(false);
         FileAppender appender = new FileAppender(
             new PatternLayout("%-5p %d - %m%n"),
-            AndroMDALogger.getPluginLogFileName(pluginName),
+            AndroMDALogger.getNamespaceLogFileName(pluginName),
             true);
         logger.addAppender(appender);
     }

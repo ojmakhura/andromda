@@ -937,7 +937,7 @@ public class MetafacadeMappings
      */
     private Logger getLogger()
     {
-        return AndroMDALogger.getPluginLogger(this.namespace);
+        return AndroMDALogger.getNamespaceLogger(this.namespace);
     }
 
     /**
