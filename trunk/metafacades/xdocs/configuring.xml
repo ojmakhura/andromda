@@ -495,7 +495,7 @@ private String getDaoNamePattern()
                 ]]></source>   
                 As you know, a context can be combined with one or more stereotypes like you saw 
                 in the example <a href="#contextAndStereotypeExample">above</a>.  It can also be 
-                combined with one or more <a href="#mappingProperty">propeties</a> within a 
+                combined with one or more <a href="#mappingProperty">properties</a> within a 
                 <a href="#mapping"><![CDATA[<mapping/>]]></a> as well.  For example, this here
                 is used to construct the EntityQueryOperationFacade, it tells AndroMDA to apply
                 <em>org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl</em> to 
