@@ -72,6 +72,12 @@ public class Schema2XMI
     private static final String TABLE_NAME_PATTERN = "tnp";
     
     /**
+     * The command line argument specifying whether or not
+     * to include tagged values.
+     */
+    private static final String INCLUDE_TAGGED_VALUES = "itv";
+    
+    /**
      * Configure the CLI options.
      */
     static
@@ -121,6 +127,10 @@ public class Schema2XMI
         
         option = new Option(PACKAGE, false, "The package to output classifiers");
         option.setLongOpt("package");
+        options.addOption(option); 
+        
+        option = new Option(INCLUDE_TAGGED_VALUES, false, "Whether or not to include persistence tagged values, default is true");
+        option.setLongOpt("includeTaggedValues");
         options.addOption(option); 
 
         option = new Option(
