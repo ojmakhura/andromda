@@ -59,7 +59,7 @@ div.action h3
 }
 
 ## A trigger represents the actual link or button on a form on which one clicks
-div.action div.trigger { border: 0; float: left; margin: 0px 20px 15px 0px; }
+div.action div.trigger { border: 0; margin: 0px 20px 15px 0px; }
 div.action div.trigger a:link, .trigger a:visited, .trigger a:hover { border: 1px solid #fff; }
 div.action div.triggerdoc { padding-left: 320px; }
 div.action div.trigger form label { display: inline; }
@@ -207,31 +207,34 @@ div.tabs div.tab
 {
     position: relative;
     background-color: #fff;
-}
+    border: 1px solid #fff;
+ }
 
 div.tabs div.tab div.tab-header
 {
     padding-left: 10px;
-    margin-bottom: 0.5em;
+    margin-bottom: 15px;
     border-bottom: 1px solid #333;
 }
 
 div.tabs div.tab div.tab-header div.selected-tab
 {
     display: inline;
-	padding: 0.2em 0.5em 1px 0.5em;
+	padding: 1px 0.5em 1px 0.5em;
     font-weight: bolder;
 	background-color: #fff;
 	border: 1px solid #333;
 	border-bottom: 1px solid #fff;
+	margin: 0px 1px 0px 2px;
 }
 
 div.tabs div.tab div.tab-header div.unselected-tab
 {
     display: inline;
-	padding: 0.2em 0.5em 1px 0.5em;
+	padding: 1px 0.5em 1px 0.5em;
 	background-color: #e0e0e0;
 	border: 1px solid #333;
+	margin: 0px 1px 0px 2px;
 }
 
 div.tabs div.tab div.tab-header div.unselected-tab a
