@@ -1,38 +1,38 @@
 <project default="dist" xmlns:maven="jelly:maven" xmlns:j="jelly:core"
     xmlns:ant="jelly:ant" xmlns:util="jelly:util" xmlns:artifact="artifact">
-    
+
     <!-- ==================================================================
-               Installs all component libraries into the local repository                                                    
+               Installs all component libraries into the local repository
          ================================================================== -->
     <goal name="install-components" prereqs="initialize">
         <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
         <attainGoal name="multiproject:install"/>
-    </goal> 
-    
+    </goal>
+
     <!-- ==================================================================
-               Installs all sample libraries into the local repository                                                    
+               Installs all sample libraries into the local repository
          ================================================================== -->
     <goal name="install-samples" prereqs="initialize">
         <j:set var="maven.multiproject.includes" value="${sample.install.includes}"/>
         <attainGoal name="multiproject:install"/>
     </goal>
-    
+
     <!-- ==================================================================
-               Installs all libraries into the local repository                                                    
+               Installs all libraries into the local repository
          ================================================================== -->
     <goal name="install" prereqs="initialize">
         <j:set var="maven.multiproject.includes" value="${component.install.includes},${sample.install.includes}"/>
         <attainGoal name="multiproject:install"/>
     </goal>
-        
+
     <!-- ==================================================================
-               Deploys all libraries into the remote repository                                                    
+               Deploys all libraries into the remote repository
          ================================================================== -->
     <goal name="deploy" prereqs="initialize">
         <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
         <attainGoal name="multiproject:deploy"/>
     </goal>
-    
+
     <!-- ==================================================================
                Transfer distribution to team server.
          ================================================================== -->
@@ -40,19 +40,19 @@
         <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
         <attainGoal name="multiproject:deploy"/>
     </goal>
-    
+
     <!-- ==================================================================
-               Deploys all libraries into the remote repository while 
-               skipping all tests (allows deploys to occurr faster).                                                   
+               Deploys all libraries into the remote repository while
+               skipping all tests (allows deploys to occurr faster).
          ================================================================== -->
     <goal name="deploy-no-tests" prereqs="initialize">
         <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
         <j:set var="maven.test.skip" value="true" scope="parent"/>
         <attainGoal name="multiproject:deploy"/>
     </goal>
-    
+
     <!-- ==================================================================
-               Clean                                                     
+               Clean
          ================================================================== -->
     <goal name="clean">
         <j:set var="maven.multiproject.includes" value="${clean.includes}"/>
@@ -67,9 +67,9 @@
             </ant:fileset>
         </ant:delete>
     </goal>
-    
+
     <!-- ==================================================================
-               Builds ALL documentation and inludes it in the binary dist                                          
+               Builds ALL documentation and inludes it in the binary dist
          ================================================================== -->
     <goal name="docs" prereqs="dist-init,initialize">
         <echo> Dev ${pom.repository.developerConnection}</echo>
@@ -86,18 +86,18 @@
             <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
         </ant:zip>
     </goal>
-    
+
     <!-- ======================= DISTRIBUTION GOALS ======================= -->
     <!-- ==================================================================
-             Creates the AndroMDA distributions                                                    
+             Creates the AndroMDA distributions
          ================================================================== -->
     <goal name="dist">
         <attainGoal name="dist-src"/>
         <attainGoal name="dist-bin"/>
     </goal>
-    
+
     <!-- ==================================================================
-             Creates the AndroMDA binary distribution                                                     
+             Creates the AndroMDA binary distribution
          ================================================================== -->
     <goal name="dist-bin" prereqs="dist-init">
         <ant:delete dir="${binaryDistDir}"/>
@@ -114,7 +114,7 @@
                 <j:set var="type" value="jar"/>
             </j:if>
             <j:choose>
-                <!-- we handle the andromda-ant module a little different 
+                <!-- we handle the andromda-ant module a little different
                     (we don't want it bundled maven style) -->
                 <j:when test="${reactorProject.artifactId.indexOf('andromda-ant') ne '-1'}">
                     <j:set var="toDir" value="${binaryDistDir}/ant"/>
@@ -219,7 +219,7 @@
         <j:file name="${toDir}/project.xml" trim="false">
             <j:import file="${distPom}" inherit="true"/>
         </j:file>
-        <!-- Copy over the maven.xml files that will be in the dist (they are copied 
+        <!-- Copy over the maven.xml files that will be in the dist (they are copied
              over the source distribution ones) -->
         <ant:copy todir="${toDir}" overwrite="true">
             <ant:fileset dir="${templatesDir}">
@@ -239,18 +239,18 @@
             <ant:zipfileset dir="${binaryDistLibDir}" prefix="${distName}/lib"/>
         </ant:zip>
     </goal>
-    
+
     <!-- ==================================================================
-             Performs the distribution initialization                                                   
+             Performs the distribution initialization
          ================================================================== -->
     <goal name="dist-init">
         <j:set var="distName" value="${pom.groupId}-bin-${pom.currentVersion}"/>
         <j:set var="binaryDistDir" value="${distribution.dir}/${distName}"/>
         <j:set var="binaryDistLibDir" value="${binaryDistDir}/lib"/>
     </goal>
-    
+
     <!-- ==================================================================
-             Creates the AndroMDA source distribution                                                     
+             Creates the AndroMDA source distribution
          ================================================================== -->
     <goal name="dist-src">
         <j:set var="distName" value="${pom.groupId}-src-${pom.currentVersion}"/>
@@ -268,12 +268,12 @@
             </ant:zipfileset>
         </ant:zip>
     </goal>
-    
+
     <!-- ==================================================================
-             Performs any initalization required for the build                                                 
+             Performs any initalization required for the build
          ================================================================== -->
     <goal name="initialize" prereqs="init-bootstrap">
-        <!-- if we have any artifacts in the lib directory (other than the 
+        <!-- if we have any artifacts in the lib directory (other than the
              bootstrap artifacts) install them into the local repository -->
         <ant:copy todir="${maven.repo.local}">
             <ant:fileset dir="${lib.dir}">
@@ -284,15 +284,15 @@
             </ant:fileset>
         </ant:copy>
     </goal>
-    
+
     <!-- ======================== BOOTSTRAP GOALS ======================== -->
     <!-- The version of bootstrap artifacts -->
     <j:set var="bootstrapVersion" value="bootstrap"/>
-    
+
     <!-- ==================================================================
-             Initializes the bootstrap artifacts (copies them to 
-             the local repository and renames each artifact version 
-             to the current version of the app)                                                  
+             Initializes the bootstrap artifacts (copies them to
+             the local repository and renames each artifact version
+             to the current version of the app)
          ================================================================== -->
     <goal name="init-bootstrap">
         <ant:fileScanner var="bootstrapArtifacts">
@@ -313,7 +313,7 @@
             </j:if>
         </j:forEach>
     </goal>
-    
+
     <!-- =================================================================
              Install all bootstrap artifacts to the local repository
              IMPORTANT: Since bootstrap dependencies depend on each other,
@@ -323,7 +323,7 @@
     <goal name="bootstrap-install" prereqs="initialize">
         <attainGoal name="preprocess-bootstrap-modules"/>
         <echo>+-------------------------------------------------------------------+</echo>
-        <echo>| I N S T A L L I N G B O O T S T R A P A R T I F A C T S |</echo>
+        <echo>|  I N S T A L L I N G     B O O T S T R A P     A R T I F A C T S  |</echo>
         <echo>+-------------------------------------------------------------------+</echo>
         <j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">
             <j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
@@ -342,7 +342,7 @@
             <ant:copy file="${artifactFile}" tofile="${lib.dir}/${bootstrapProject.groupId}/${bootstrapTypes.get(index)}s/${newArtifactFile}"/>
         </j:forEach>
     </goal>
-    
+
     <!-- =================================================================
              Performs preprocessing on the bootstrap modules, basically
              executes them and loads the modules and their types into lists.
@@ -370,7 +370,7 @@
             </j:forEach>
         </j:forEach>
     </goal>
-        
+
     <!-- =================================================================
              Copy the distribution to the server.
          ================================================================= -->
@@ -379,7 +379,7 @@
        <attainGoal name="deploy-repository"/>
        <attainGoal name="deploy-build"/>
     </goal>
-        
+
     <!-- =================================================================
              Copy the repository artifacts to the server.
          ================================================================= -->
@@ -395,11 +395,12 @@
             <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_tgt}"/>
         </ant:exec>
     </goal>
+
     <!-- =================================================================
              Copy the repository artifacts to the server.
          ================================================================= -->
     <goal name="deploy-repository">
-        <!-- rsync the local maven andromda repository 
+        <!-- rsync the local maven andromda repository
              until we figure out were deploy is sending stuff -->
         <j:set var="rsync_arg1" value="-Cvuaz"/>
         <j:set var="rsync_src" value="${maven.home.local}/repository/andromda"/>
@@ -409,6 +410,7 @@
             <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_tgt}"/>
         </ant:exec>
     </goal>
+
     <!-- =================================================================
              Copy the build artifacts to the server.
          ================================================================= -->
@@ -421,7 +423,7 @@
         <j:set var="rsync_tgt" value="${andromda.distribution.username}@${andromda.distribution.server}:${andromda.server.distribution.directory}"/>
         <ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_tgt}"/>
         <!-- NB if you specify as individual args someone mangles the arg
-			and you get stat errors -->
+            and you get stat errors -->
         <ant:exec executable="rsync">
             <ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_tgt}"/>
         </ant:exec>
@@ -456,7 +458,7 @@
                     <ant:include name="${xmiName}"/>
                 </ant:replace>
                 <!-- zip it up again, only updating the XMI inside the zip, this allows us not to touch
-                     the file when nothing is changed, and it will not remove any other files present 
+                     the file when nothing is changed, and it will not remove any other files present
                      in the zip -->
                 <ant:zip destfile="${model}" update="true">
                     <ant:fileset dir="${workingDir}">
@@ -468,22 +470,5 @@
             </j:forEach>
         </j:if>
     </goal>
-
-    <goal name="check-compile-options">
-       <ant:echo message="compile.source:${maven.compile.source}"/>
-       <ant:echo message="compile.target:${maven.compile.target}"/>
-    </goal>
-
-    <goal name="maven-file-activity-plugin:report">
-       <echo>maven-file-activity-plugin:report nooped</echo>
-    </goal>
-
-    <goal name="maven-changelog-plugin:report">
-       <echo>maven-changelog-plugin:report nooped</echo>
-    </goal>
-
-    <goal name="maven-developer-activity-plugin:report">
-       <echo>maven-developer-activity-plugin:report nooped</echo>
-    </goal>
-
+    
 </project>
