@@ -87,11 +87,19 @@ public class StrutsActionStateLogicImpl
             EventFacade event = (EventFacade) iterator.next();
             if (event instanceof CallEventFacade)
             {
-                controllerCallsList.add(((CallEventFacade) event).getOperation());
+                Object operationObject = ((CallEventFacade) event).getOperation();
+                if (operationObject != null)
+                {
+                    controllerCallsList.add(operationObject);
+                }
             }
             else if (event instanceof StrutsTrigger)
             {
-                controllerCallsList.add(((StrutsTrigger) event).getControllerCall());
+                Object callObject = ((StrutsTrigger) event).getControllerCall();
+                if (callObject != null)
+                {
+                    controllerCallsList.add(callObject);
+                }
             }
         }
         return controllerCallsList;

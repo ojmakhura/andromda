@@ -242,115 +242,6 @@ public class StrutsJspLogicImpl
         return incomingActionsList;
     }
 
-    public int handleGetTabCount()
-    {
-        if (this.isTabbed())
-        {
-            final Collection actions = this.getActions();
-            int maxValue = 0;
-
-            for (Iterator iterator = actions.iterator(); iterator.hasNext();)
-            {
-                StrutsAction action = (StrutsAction) iterator.next();
-                maxValue = Math.max(maxValue, action.getTabIndex());
-            }
-            return maxValue + 1;    // we add one because we're counting from [1..n]
-        }
-        return 0;
-    }
-
-    public Collection handleGetTabActions(int index)
-    {
-        if (index < 0)
-            throw new IndexOutOfBoundsException("Minimum tab-index value is zero");
-
-        if (index >= this.getTabCount())
-            throw new IndexOutOfBoundsException("Maximum tab-index value is the number of available tabs minus one");
-
-        final Collection actions = this.getActions();
-        final Collection tabActions = new ArrayList();
-
-        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
-        {
-            StrutsAction action = (StrutsAction) iterator.next();
-            if (action.getTabIndex() == index)
-            {
-                tabActions.add(action);
-            }
-        }
-
-        return tabActions;
-    }
-
-    public boolean handleIsTabbed()
-    {
-        final Collection actions = this.getActions();
-
-        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
-        {
-            Object actionObject = iterator.next();
-            if (actionObject instanceof StrutsAction)
-            {
-                StrutsAction action = (StrutsAction) actionObject;
-                if (action.getTabIndex() >= 0) return true;
-            }
-        }
-        return false;
-    }
-
-    public Collection handleGetNonTabActions()
-    {
-        final Collection nonTabbedActions = new ArrayList();
-        final Collection actions = this.getActions();
-
-        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
-        {
-            Object actionObject = iterator.next();
-            if (actionObject instanceof StrutsAction)
-            {
-                StrutsAction action = (StrutsAction) actionObject;
-                if (!action.isTabbed())
-                    nonTabbedActions.add(action);
-            }
-        }
-        return nonTabbedActions;
-    }
-
-    public Map handleGetTabMap()
-    {
-        final Map tabMap = new LinkedHashMap();
-
-        final int tabCount = this.getTabCount();
-        for (int i = 0; i < tabCount; i++)
-        {
-            final Collection tabActions = this.getTabActions(i);
-            tabMap.put(String.valueOf(i), tabActions);
-        }
-
-        return tabMap;
-    }
-
-    public String handleGetTabName(int tabIndex)
-    {
-        final Collection tabActions = this.getTabActions(tabIndex);
-        final StringBuffer buffer = new StringBuffer();
-
-        boolean needsSeparator = false;
-        for (Iterator iterator = tabActions.iterator(); iterator.hasNext();)
-        {
-            if (needsSeparator) buffer.append(" / ");
-            StrutsAction action = (StrutsAction) iterator.next();
-            buffer.append(action.getActionTrigger().getTriggerValue());
-            needsSeparator = true;
-        }
-
-        if (buffer.length() == 0)
-        {
-            buffer.append(String.valueOf(tabIndex + 1));
-        }
-        return buffer.toString();
-    }
-
     private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions, Collection actions)
     {
         final Collection incomingTransitions = stateVertex.getIncoming();
@@ -420,12 +311,6 @@ public class StrutsJspLogicImpl
             }
         }
         return duplicatePresent;
-    }
-
-    protected Collection handleGetTabs()
-    {
-        // @todo: implement
-        return Collections.EMPTY_LIST;
     }
 
     protected String handleGetCssFileName()

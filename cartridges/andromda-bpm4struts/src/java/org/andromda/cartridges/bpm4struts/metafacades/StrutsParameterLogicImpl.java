@@ -698,24 +698,6 @@ public class StrutsParameterLogicImpl
         return pageSize;
     }
 
-    protected int handleGetTabIndex()
-    {
-        final String tabIndex = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABINDEX));
-
-        if (tabIndex == null)
-        {
-            return -1;
-        }
-        try
-        {
-            return Integer.parseInt(tabIndex);
-        }
-        catch (NumberFormatException e)
-        {
-            return -1;
-        }
-    }
-
     protected String handleGetWidgetType()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);

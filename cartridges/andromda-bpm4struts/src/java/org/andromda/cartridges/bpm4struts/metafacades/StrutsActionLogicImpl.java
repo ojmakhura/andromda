@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -482,11 +481,6 @@ public class StrutsActionLogicImpl
         return input;
     }
 
-    protected Object handleGetActivityGraph()
-    {
-        return getSource().getActivityGraph();
-    }
-
     protected Object handleGetController()
     {
         return getStrutsActivityGraph().getController();
@@ -621,100 +615,6 @@ public class StrutsActionLogicImpl
         return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
     }
 
-    protected Collection handleGetNonTabbedActionParameters()
-    {
-        Collection nonTabbedParameters = new ArrayList();
-        Collection actionParameters = getActionParameters();
-
-        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
-        {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
-            if (parameter.getTabIndex() < 0)
-            {
-                nonTabbedParameters.add(parameter);
-            }
-        }
-
-        return nonTabbedParameters;
-    }
-
-    protected boolean handleIsTabbed()
-    {
-        Collection actionParameters = getActionParameters();
-        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
-        {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
-            if (parameter.getTabIndex() >= 0)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabCount()
-     */
-    protected int handleGetTabCount()
-    {
-        return (isTabbed()) ? getTabMap().keySet().size() : 0;
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabName(int)
-     */
-    protected String handleGetTabName(int tabIndex)
-    {
-        return String.valueOf(tabIndex + 1);
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabIndex()
-     */
-    protected int handleGetTabIndex()
-    {
-        final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABINDEX));
-
-        try
-        {
-            return (tabIndex == null) ? -1 : Integer.parseInt(tabIndex);
-        }
-        catch (NumberFormatException e)
-        {
-            return -1;
-        }
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabMap()
-     */
-    protected Map handleGetTabMap()
-    {
-        Map tabMap = new LinkedHashMap();
-        Collection actionParameters = getActionParameters();
-
-        for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
-        {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
-            int tabIndex = parameter.getTabIndex();
-
-            if (!parameter.isTableLink() && tabIndex >= 0)
-            {
-                String tabKey = String.valueOf(tabIndex);
-                Collection tabFields = (Collection) tabMap.get(tabKey);
-
-                if (tabFields == null)
-                {
-                    tabFields = new ArrayList();
-                    tabMap.put(tabKey, tabFields);
-                }
-
-                tabFields.add(parameter);
-            }
-        }
-        return tabMap;
-    }
-
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTargetPages()
      */
@@ -735,21 +635,6 @@ public class StrutsActionLogicImpl
         return targetPages;
     }
 
-    protected Collection handleGetPageVariables()
-    {
-        Collection preloadFields = new HashSet();
-
-        Collection pages = getTargetPages();
-        for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
-        {
-            StrutsJsp jsp = (StrutsJsp) pageIterator.next();
-            Collection actionParameters = jsp.getAllActionParameters();
-            preloadFields.addAll(actionParameters);
-        }
-
-        return preloadFields;
-    }
-
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#getTransitions()
      */
@@ -760,15 +645,6 @@ public class StrutsActionLogicImpl
             initializeCollections();
         }
         return transitions;
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabs()
-     */
-    protected Collection handleGetTabs()
-    {
-        // @todo: implement
-        return Collections.EMPTY_LIST;
     }
 
     /**

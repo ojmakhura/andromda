@@ -7,6 +7,7 @@
 #set ($clientValidationDesired = ($clientValidation=='true'))
 #set ($requiredness = ($clientValidationDesired || $serverValidation=='true'))
 #set ($formBeanName = $action.formBeanName)
+#set ($actionParameters = $action.actionParameters)
 #set ($hints = $hints.equalsIgnoreCase("true"))
 #set ($formBeanType = $action.formBeanType)## this will be the name of the form, as used in this page
 <%@ include file="/taglib-imports.jspf" %>
@@ -24,7 +25,6 @@
 #if ($action.hyperlink)
 #renderHyperlink($action "        ")
 #elseif ($action.formPost)
-#set ($nonTabbedActionParameters = $action.nonTabbedActionParameters)
 #if ($clientValidationDesired && $action.validationRequired)
 #set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #else
@@ -32,57 +32,14 @@
 #end
         <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
 
-#if ($action.tabbed)
-#set ($tabSwitchFunction = "select${actionTrigger.name}FieldTab")
-#set ($tabMap = $action.tabMap)
-        <div class="tabs">
-#foreach ($tab in $tabMap.keySet())
-            <div id="fieldtab.${tab}" class="tab">
-                <div class="tab-header">
-#foreach ($tabTitle in $tabMap.keySet())
-#if ($tab == $tabTitle)
-                    <div class="selected-tab"><bean:message key="${action.messageKey}.tab.${tabTitle}"/></div>
-#else
-                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${action.messageKey}.tab.${tabTitle}"/></a></div>
-#end
-#end
-                </div>
-                <div class="tab-body">
-                    <table>
-                        <tbody>
-#foreach ($tabField in $tabMap.get($tab))
-#if ($tabField.widgetType == "hidden")
-#renderFormField($action $tabField "            ")
-#elseif (!$tabField.multiboxPropertyName)
-## for now multibox field can only be displayed in tables
-                            <tr>
-                                <td><bean:message key="$tabField.messageKey"/>#if ($requiredness && $tabField.required) <div class="important">*</div>#end
-</td>
-                                <td>
-#renderFormField($action $tabField "                                    ")
-                                </td>
-                            </tr>
-#end
-#end
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-#end
-        </div>
-#end
-##
-## process non-tabbed fields and buttons here
-##
-
-#foreach ($field in $nonTabbedActionParameters)
+#foreach ($field in $actionParameters)
 #if ($field.widgetType == "hidden")
 #renderFormField($action $field "            ")
 #end
 #end
             <table>
                 <tbody>
-#foreach ($field in $nonTabbedActionParameters)
+#foreach ($field in $actionParameters)
 #if (!$field.multiboxPropertyName && ($field.widgetType != "hidden"))
 ## for now multibox field can only be displayed in tables
                     <tr class="$field.name">
@@ -109,7 +66,7 @@
 #else
         //<!--
 #end
-#foreach ($field in $action.actionParameters)
+#foreach ($field in $actionParameters)
 #if ($field.calendarRequired)
            var ${action.formBeanName}_${field.name}Calendar = new calendar1(document.forms['$action.formBeanName'].elements['$field.name']);
            ${action.formBeanName}_${field.name}Calendar.date_format = '$field.dateFormat';
@@ -124,36 +81,6 @@
 #end
 #end
     </div>
-
-#if ($action.tabbed)
-        <script type="text/javascript" language="Javascript1.1">
-#if ($xhtml == "true")
-        //<![CDATA[
-#else
-        //<!--
-#end
-#set ($tabSwitchArray = "${actionTrigger.name}FieldTab")
-            var ${tabSwitchArray} = new Array($action.tabCount);
-#set ($tabMap = $action.tabMap)
-#foreach ($tab in $tabMap.keySet())
-#set ($tabIndex = $velocityCount - 1)
-            ${tabSwitchArray}[$tabIndex] = getDiv('fieldtab.$tab');
-#end
-
-            function ${tabSwitchFunction}(tabIndex)
-            {
-                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=${tabSwitchArray}.length) return;
-                for (var i=0; i<${tabSwitchArray}.length; i++) ${tabSwitchArray}[i].style.display = 'none';
-                ${tabSwitchArray}[tabIndex].style.display = 'block';
-            }
-            this.${tabSwitchFunction}(0);
-#if ($xhtml == "true")
-        //]]>
-#else
-        //-->
-#end
-        </script>
-#end
 
 </div>
 
