@@ -298,6 +298,7 @@ public abstract class BaseTranslator
                 + translationName + "'," + " contextElement '" + contextElement
                 + "' and expression --> '" + expression + "'"
                 + "\nMESSAGE --> '" + ex.getMessage() + "'";
+            logger.error(errMsg);
             throw new TranslatorException(errMsg, ex);
         }
         return translatedExpression;
