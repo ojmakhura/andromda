@@ -1,0 +1,1 @@
+This directory contains Maven jelly templates for use when building the binary distribution.

@@ -1,0 +1,13 @@
+<!-- This is the distribution POM (so we can build the samples) -->
+<project xmlns:j="jelly:core">
+	
+<j:whitespace trim="no" xmlns="dummy">
+<project>
+	<id>andromda-samples</id>
+	<name>AndroMDA Samples</name>
+	<groupId>andromda-samples</groupId>
+	<currentVersion>${pom.currentVersion}</currentVersion>
+</project> 	
+</j:whitespace>
+
+</project>
