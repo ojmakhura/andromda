@@ -5,31 +5,64 @@
 package $entity.packageName;
 
 /**
+#set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
+#set ($inheritance = $entity.inheritanceStrategy)
+#if ( $generateImpl )
+#if ($inheritance == "class" )
  * @hibernate.subclass
  *    discriminator-value="${entity.name}Impl"
+#elseif ($inheritance == "subclass")
+ * @hibernate.joined-subclass
+ *     table="$tableNamePrefix$entity.tableName"
+ * @hibernate.joined-subclass-key
+ *     column="$entity.identifierColumn"
+#else
+ * @hibernate.class
+ *     table="$tableNamePrefix$entity.tableName"
+#end
+#else
+ * @deprecated by leafImpl true and this class is not a leaf class.
+#end
  */
-#if ($entity.abstract)
+#if ($entity.abstract || !$generateImpl )
 public abstract class ${entity.name}Impl
 #else
 public class ${entity.name}Impl
 #end
-    extends $entity.name
+#if ($inheritance == "interface" )
+    implements ${entity.name}
+#else
+    extends ${entity.name}
+#end
 {
+#if ( $generateImpl )
     // concrete business methods that were declared
-    // abstract in class $entity.name ...
-
-#foreach ( $operation in $entity.businessOperations)
+    // abstract in class ${entity.name} ...
+#if ( $leafImpl == "true" ) 
+    // and its superclasses ...
+#end
+#set ( $businessOperations = $entity.allBusinessOperations )
+#else
+#set ( $businessOperations = $entity.businessOperations )
+#end
+##
+#foreach ( $operation in $businessOperations)
+#set ($msig = $operation.signature)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
 #set ($throws = " throws $operation.exceptionList")
 #else
 #set ($throws = "")
 #end
+  /**
+$operation.getDocumentation("   * ")
+   * @return $returnType
+   */
 #if ($operation.abstract)
-    $operation.visibility abstract $returnType ${$operation.signature}$throws;
+    $operation.visibility abstract $returnType $msig$throws;
 
 #else
-    $operation.visibility $returnType ${$operation.signature}$throws
+    $operation.visibility $returnType $msig$throws
     {
         // TODO: put your implementation here.
 #if ($operation.returnTypePresent)
@@ -45,6 +78,6 @@ public class ${entity.name}Impl
 #end
     }
 
-#end
-#end
+#end ## operation.abstract
+#end ## foreach
 }

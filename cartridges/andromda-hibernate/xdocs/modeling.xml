@@ -137,7 +137,52 @@
 						<td>
 							Represents the column length for entity persistence.
 						</td>
-					</tr>		
+					</tr>				        	        	      	        	        		        	        	        	     	             	        	
+					<tr>
+						<a name="@andromda.hibernate.strategy"/>
+						<td>
+	                        @andromda.inheritance.strategy
+						</td>
+						<td>
+							Attribute
+						</td>
+						<td>
+							Used to override the default hibernate inheritance
+							strategy of subclass. Permitted values are:
+							<ol>
+								<li>class - table per hierarchy.</li>
+								<li>subclass - table per class in hierarchy.</li>
+								<li>concrete - Table per class.</li>
+								<li>interface - Root class is defined as
+					an interface and the attributes remapped to the subclasses.
+					This is useful in the concrete case becuase it has limitations
+					in the associations.</li>
+							</ol>
+							<p>The tagged value of @andromda.hibernate.inheritance
+								 is set on the base/root class.
+								 All subclasses must then follow the same strategy unless
+								 inheritance or concrete is the predecessor strategy.
+								 NB if the strategy is changed after the initial generation,
+								 the impl classes have to be hand modified.
+							</p>
+						</td>
+					</tr>				        	        	      	        	        		        	        	        	     	             	        	
+		        	<tr>
+						<a name="@andromda.hibernate.leafimpl"/>
+			          	<td>
+			          		@andromda.hibernate.leafimpl
+			          	</td>
+						<td>
+							Attribute
+						</td>
+			          	<td>
+			          		Controls whether intermediate or leaf impl classes
+							are generated. With inheritance strategy subclass or
+							concrete it is not efficient to generate impls at
+							intermediate levels which require individual tables.
+							Default: false.
+			          	</td>
+		        	</tr>	
 		        	<tr>
 						<a name="@andromda.persistence.column.index"/>
 			          	<td>

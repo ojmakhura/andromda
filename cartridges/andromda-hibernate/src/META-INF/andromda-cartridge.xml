@@ -7,6 +7,9 @@
 
     <!-- externalise the hibernate ID generator class see the hibernate doc for details -->
     <property reference="idGeneratorClass" default="uuid.hex"/>
+	<!-- Only generate the Impl at the leaf, useful when inheritance
+		strategy is class, otherise a table for every Impl is generated -->
+    <property reference="leafImpl" default="false"/>
     <property reference="versionProperty" default=""/>
     <property reference="driver" default=""/>
     <property reference="username" default=""/>
@@ -99,7 +102,9 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="entities">
-            <modelElement stereotype="Entity"/>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
