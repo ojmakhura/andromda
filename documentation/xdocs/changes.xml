@@ -7,11 +7,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-10" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-18" description="First release candidate for version 3.0">
             <action dev="cwbrandon" type="add">
                 Provide the ability to have entity association lazy loading within the service tier 
                 (all entity associations should be able to be lazily loaded within ALL service operations,
                 as well as ALL DAO operations).
+            </action>
             <action dev="draftdog" type="fix" issue="HIB-15">
                 Implemented enumeration support for the
                 <a href="andromda-hibernate-cartridge/modeling.html#Enumeration">Hibernate</a> and
