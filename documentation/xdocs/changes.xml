@@ -26,7 +26,7 @@
                 <code>@andromda.persistence.foreignkey.constraint</code> tagged value can be used to override the
                 default name.
             </action>
-            <action dev="draftdog" type="add" >
+            <action dev="draftdog" type="add" issue="BPM-154">
                 It is now possible to model page-to-page transitions with the bpm4struts cartridge. An intermediate
                 Struts action will transparently be generated.
             </action>
