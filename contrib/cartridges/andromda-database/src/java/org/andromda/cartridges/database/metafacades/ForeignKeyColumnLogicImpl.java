@@ -5,6 +5,8 @@ import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.cartridges.database.DatabaseProfile;
 
+import java.util.Random;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.database.metafacades.ForeignKeyColumn.
@@ -15,6 +17,8 @@ public class ForeignKeyColumnLogicImpl
        extends ForeignKeyColumnLogic
        implements org.andromda.cartridges.database.metafacades.ForeignKeyColumn
 {
+    private final static Random RANDOM = new Random();
+
     // ---------------- constructor -------------------------------
 
     public ForeignKeyColumnLogicImpl (Object metaObject, String context)
@@ -86,7 +90,8 @@ public class ForeignKeyColumnLogicImpl
 
         if (importedColumn != null)
         {
-            initialLoadValue = importedColumn.getInitialLoadValue(index);
+            int randomValue = RANDOM.nextInt(importedColumn.getTable().getInitialLoadSize()) + 1;
+            initialLoadValue = importedColumn.getInitialLoadValue(randomValue);
         }
 
         return initialLoadValue;
