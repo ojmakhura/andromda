@@ -246,6 +246,12 @@
     </template>
     
     <template
+        path="templates/StrutsJbossWebXml.vsl"
+        outputPattern="jboss-web.xml"
+        outlet="configuration"
+        overwrite="true"/>
+    
+    <template
         path="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
         outlet="pages"

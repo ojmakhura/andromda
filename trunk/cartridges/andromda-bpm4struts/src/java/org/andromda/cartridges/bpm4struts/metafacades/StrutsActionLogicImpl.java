@@ -13,6 +13,8 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -152,16 +154,22 @@ public class StrutsActionLogicImpl
         return "request";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionRoles()
+     */
     protected java.lang.String handleGetActionRoles()
     {
         final Collection users = getRoleUsers();
-        StringBuffer rolesBuffer = new StringBuffer();
+        StringBuffer roles = new StringBuffer();
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
-            StrutsUser strutsUser = (StrutsUser) userIterator.next();
-            rolesBuffer.append(strutsUser.getName() + ' ');
+            roles.append(((ModelElementFacade)userIterator.next()).getName());
+            if (userIterator.hasNext())
+            {
+                roles.append(",");
+            }
         }
-        return StringUtilsHelper.separate(rolesBuffer.toString(), ",");
+        return roles.toString();
     }
 
     private Collection getRoleUsers()
