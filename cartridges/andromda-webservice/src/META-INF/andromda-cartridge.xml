@@ -1,18 +1,16 @@
 <cartridge name="webservice">
-
-  <!-- the templateObjects -->
+    
+    <templateObject
+        name="stringUtils"
+        className="org.apache.commons.lang.StringUtils"/>
 
     <templateObject
-      name="stringUtils"
-      className="org.apache.commons.lang.StringUtils"/>
-
-    <templateObject
-      name="escapeUtils"
-      className="org.apache.commons.lang.StringEscapeUtils"/>
+        name="escapeUtils"
+        className="org.apache.commons.lang.StringEscapeUtils"/>
       
     <templateObject
-      name="webServiceUtils"
-      className="org.andromda.cartridges.webservice.WebServiceUtils"/>
+        name="webServiceUtils"
+        className="org.andromda.cartridges.webservice.WebServiceUtils"/>
 
     <!-- The name of the application that this service will run within
          (i.e. Security Services} -->
