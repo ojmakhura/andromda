@@ -50,10 +50,10 @@
 				</p>
 				<source><![CDATA[
 <template
-    sheet="templates/MetafacadeLogic.vsl"
+    path="templates/MetafacadeLogic.vsl"
     outputPattern="$generatedFile"
     outlet="facade-logics"
-    overWrite="true">
+    overwrite="true">
     <modelElements variable="metafacade">
         <modelElement stereotype="metafacade"/>  
     </modelElements>  
