@@ -3,16 +3,15 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Operation;
 
@@ -39,7 +38,7 @@ public class ClassifierFacadeLogicImpl
     {
         return new FilteredCollection(metaObject.getFeature())
         {
-            protected boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof Operation;
             }
@@ -53,9 +52,9 @@ public class ClassifierFacadeLogicImpl
     {
         return new FilteredCollection(metaObject.getFeature())
         {
-            protected boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
-                return (object instanceof Attribute);
+                return object instanceof Attribute;
             }
         };
     }
@@ -65,9 +64,8 @@ public class ClassifierFacadeLogicImpl
      */
     public java.util.Collection handleGetAssociationEnds()
     {
-        return ((UmlPackage)MetafacadeFactory.getInstance().getModel()
-            .getModel()).getCore().getAParticipantAssociation().getAssociation(
-            metaObject);
+        return UMLMetafacadeUtils.getCorePackage().getAParticipantAssociation()
+            .getAssociation(metaObject);
     }
 
     /**
@@ -82,7 +80,7 @@ public class ClassifierFacadeLogicImpl
             || "float".equals(name) || "double".equals(name) || "boolean"
             .equals(name));
     }
-    
+
     /**
      * The suffix of an array type.
      */
@@ -172,17 +170,13 @@ public class ClassifierFacadeLogicImpl
      */
     public Collection handleGetStaticAttributes()
     {
-        Collection attributes = this.getAttributes();
-        class StaticAttributeFilter
-            implements Predicate
+        return new FilteredCollection(this.getAttributes())
         {
             public boolean evaluate(Object object)
             {
                 return ((AttributeFacade)object).isStatic();
             }
-        }
-        CollectionUtils.filter(attributes, new StaticAttributeFilter());
-        return attributes;
+        };
     }
 
     /**
@@ -190,17 +184,13 @@ public class ClassifierFacadeLogicImpl
      */
     public java.util.Collection handleGetInstanceAttributes()
     {
-        Collection attributes = this.getAttributes();
-        class StaticAttributeFilter
-            implements Predicate
+        return new FilteredCollection(this.getAttributes())
         {
             public boolean evaluate(Object object)
             {
                 return !((AttributeFacade)object).isStatic();
             }
-        }
-        CollectionUtils.filter(attributes, new StaticAttributeFilter());
-        return attributes;
+        };
     }
 
     /**
@@ -239,19 +229,13 @@ public class ClassifierFacadeLogicImpl
      */
     public Collection handleGetAbstractions()
     {
-        Collection clientDependencies = this.getDependencies();
-
-        class AbstractionFilter
-            implements Predicate
+        return new FilteredCollection(this.metaObject.getClientDependency())
         {
             public boolean evaluate(Object object)
             {
                 return object instanceof Abstraction;
             }
-        }
-
-        CollectionUtils.filter(clientDependencies, new AbstractionFilter());
-        return clientDependencies;
+        };
     }
 
     /**
@@ -291,5 +275,22 @@ public class ClassifierFacadeLogicImpl
                 .findModelElement(name);
         }
         return arrayType;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacade#addAttribute(java.lang.String,
+     *      java.lang.String, java.lang.String)
+     */
+    public void handleAddAttribute(
+        String name,
+        String fullyQualifiedType,
+        String visibility)
+    {
+        CorePackage corePackage = UMLMetafacadeUtils.getCorePackage();
+        Attribute attribute = corePackage.getAttribute().createAttribute();
+        attribute.setName(name);
+        attribute.setVisibility(UMLMetafacadeUtils
+            .getVisibilityKind(visibility));
+        this.metaObject.getFeature().add(attribute);
     }
 }

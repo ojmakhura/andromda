@@ -1,42 +1,39 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Vector;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 /**
- * Filters a collection of objects so that the collection
- * contains only those objects that pass the 'accept' test.
- *
- * <p>It is useful for filtering the results of a query.</p>
- *
- *@author    Anthony Mowers
+ * Filters a collection of objects so that the collection contains only those
+ * objects that pass the <code>evaluate</code> test.
+ * <p>
+ * It is useful for filtering the results of a query.
+ * </p>
+ * 
+ * @author Anthony Mowers
+ * @author Chad Brandon
  */
-public abstract class FilteredCollection extends Vector
+public abstract class FilteredCollection
+    extends ArrayList
+    implements Predicate
 {
     /**
-     *  Constructor for the FilterCollection object
-     *
-     *@param  c  Description of the Parameter
+     * Constructor for the FilterCollection object
+     * 
+     * @param collection
      */
-    public FilteredCollection(Collection c)
+    public FilteredCollection(
+        Collection collection)
     {
-        for (Iterator i = c.iterator(); i.hasNext();)
-        {
-            Object object = i.next();
-            if (accept(object))
-            {
-                add(object);
-            }
-        }
+        this.addAll(collection);
+        CollectionUtils.filter(this, this);
     }
 
     /**
-     * Evaluates if an element should be added to a
-     * filtered collection.
-     *
-     *@param  object  the element
-     *@return         boolean true, if element should be added
+     * @see org.apache.commons.collections.Predicate#evaluate(java.lang.Object)
      */
-    protected abstract boolean accept(Object object);
+    public abstract boolean evaluate(Object object);
 }
