@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.foundation.datatypes.BooleanExpression;
+
 /**
  * MetafacadeLogic implementation.
  * 
@@ -22,6 +24,12 @@ public class GuardFacadeLogicImpl
     protected Object handleGetTransition()
     {
         return metaObject.getTransition();
+    }
+
+    protected String handleGetBody()
+    {
+        final BooleanExpression expression = metaObject.getExpression();
+        return (expression == null) ? null : expression.getBody();
     }
 
     public Object getValidationOwner()
