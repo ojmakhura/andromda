@@ -32,8 +32,6 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeMappings
 {
-    private Logger logger = Logger.getLogger(MetafacadeMappings.class);
-
     /**
      * Contains the mappings XML used for mapping Metafacades.
      */
@@ -221,9 +219,9 @@ public class MetafacadeMappings
     /**
      * <p>
      * Retrieves the MetafacadeMapping belonging to the unique <code>key</code>
-     * created from the <code>mappingClass</code>, <code>context</code> and given
-     * <code>stereotypes</code>. It's <strong>IMPORTANT</strong> to note that
-     * contexts have a higher priority than stereotypes.
+     * created from the <code>mappingObject</code>'s class, <code>context</code> 
+     * and given <code>stereotypes</code>. It's <strong>IMPORTANT</strong> to 
+     * note that contexts have a higher priority than stereotypes.
      * This allows us to retrieve mappings based on
      * the following combinations:
      * <ul>
@@ -237,7 +235,7 @@ public class MetafacadeMappings
      * NOTE: mapping properties are inherited from super metafacades.
      * </p>
      * 
-     * @param mappingClass the class name of the meta model object.
+     * @param mappingObject the object to which this mapping applies.
      * @param stereotypes the stereotypes to check.
      * @param rootContext the context within the namespace for which the mapping
      *        applies (has 'root' in the name because of the fact that we also
@@ -246,11 +244,12 @@ public class MetafacadeMappings
      * @return MetafacadeMapping
      */
     protected MetafacadeMapping getMapping(
-        final String mappingClass,
+        final Object mappingObject,
         final String rootContext,
         final Collection stereotypes)
     {
         MetafacadeMapping mapping = null;
+        final String mappingClass = mappingObject.getClass().getName();
         List contextHierarchy = this.getContextHierarchy(rootContext);
         Iterator contextIterator = contextHierarchy.iterator();
         while (contextIterator.hasNext() && mapping == null)
@@ -503,15 +502,15 @@ public class MetafacadeMappings
      *        the mapping for the given <code>mappingClass</code> is defined for it.
      */
     public MetafacadeMapping getMetafacadeMapping(
-        String mappingClass,
+        Object mappingObject,
         String namespace,
         String context,
         Collection stereotypes)
     {
         final String methodName = "MetafacadeMappings.getMetafacadeMapping";
-        if (logger.isDebugEnabled())
-            logger.debug("performing '" + methodName + "' with mappingClass '"
-                + mappingClass + "', stereotypes '" + stereotypes
+        if (this.getLogger().isDebugEnabled())
+            this.getLogger().debug("performing '" + methodName + "' with mappingObject '"
+                + mappingObject + "', stereotypes '" + stereotypes
                 + "', namespace '" + namespace + "' and context '" + context
                 + "'");
 
@@ -521,7 +520,7 @@ public class MetafacadeMappings
         // first try the namespace mappings
         if (mappings != null)
         {
-            mapping = mappings.getMapping(mappingClass, context, stereotypes);
+            mapping = mappings.getMapping(mappingObject, context, stereotypes);
         }
 
         // if we've found a namespace mapping, try to get any shared mappings
@@ -531,7 +530,7 @@ public class MetafacadeMappings
         {
             Map propertyReferences = mapping.getPropertyReferences();
             MetafacadeMapping defaultMapping = this.getMapping(
-                mappingClass,
+                mappingObject,
                 context,
                 stereotypes);
             if (defaultMapping != null)
@@ -559,13 +558,13 @@ public class MetafacadeMappings
         // if the namespace mappings weren't found, try the default
         if (mapping == null)
         {
-            if (logger.isDebugEnabled())
-                logger.debug("namespace mapping not found --> finding default");
-            mapping = this.getMapping(mappingClass, context, stereotypes);
+            if (this.getLogger().isDebugEnabled())
+                this.getLogger().debug("namespace mapping not found --> finding default");
+            mapping = this.getMapping(mappingObject, context, stereotypes);
         }
 
-        if (logger.isDebugEnabled())
-            logger.debug("found mapping --> '" + mapping + "'");
+        if (this.getLogger().isDebugEnabled())
+            this.getLogger().debug("found mapping --> '" + mapping + "'");
         return mapping;
     }
 
@@ -617,7 +616,7 @@ public class MetafacadeMappings
         URL uris[] = ResourceFinder.findResources(METAFACADES_URI);
         if (uris == null || uris.length == 0)
         {
-            logger
+            this.getLogger()
                 .error("ERROR!! No metafacades found, please check your classpath");
         }
         else
@@ -675,7 +674,7 @@ public class MetafacadeMappings
             catch (Throwable th)
             {
                 String errMsg = "Error performing " + methodName;
-                logger.error(errMsg, th);
+                this.getLogger().error(errMsg, th);
                 throw new MetafacadeMappingsException(errMsg, th);
             }
             if (StringUtils.isEmpty(this.namespace))
@@ -737,6 +736,17 @@ public class MetafacadeMappings
         this.propertyReferences.clear();
         this.namespacePropertyReferences.clear();
         this.mappingsByMetafacadeClass.clear();
+    }
+    
+    /**
+     * Returns the logger instance to be 
+     * used for logging within this class.
+     * 
+     * @return the plugin logger
+     */
+    private Logger getLogger()
+    {
+        return AndroMDALogger.getPluginLogger(this.namespace);
     }
 
     /**

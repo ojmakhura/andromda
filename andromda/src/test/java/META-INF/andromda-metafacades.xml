@@ -6,26 +6,26 @@
     <property reference="namespacePropertyOne" default="false"/>
     <property reference="namespacePropertyTwo" default="true"/>
     <metafacade class="org.andromda.core.metafacade.Metafacade1">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject1">
             <stereotype>FINDER_METHOD</stereotype>            
         </mapping>
         <property reference="metafacadeProperteryOne" default="true"/>
         <property reference="metafacadeProperteryTwo" default="false"/>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade1">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject1">
             <stereotype>QUERY_METHOD</stereotype>            
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade2">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
             <stereotype>ENUMERATION</stereotype>    
             <context>org.andromda.core.metafacade.Metafacade3</context>
             <property name="mappingProperty">true</property>
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
             <stereotype>APPLICATION_EXCEPTION</stereotype>  
             <stereotype>UNEXPECTED_EXCEPTION</stereotype>  
             <context>org.andromda.core.metafacade.Metafacade3</context>
@@ -33,16 +33,16 @@
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
             <stereotype>APPLICATION_EXCEPTION</stereotype>  
             <stereotype>UNEXPECTED_EXCEPTION</stereotype>   
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3">
-        <mapping class="org.omg.uml.foundation.core.UmlTest$Impl"/>
+        <mapping class="org.andromda.core.metafacade.MappingObject3"/>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
             <context>org.andromda.core.metafacade.Metafacade1</context>   
         </mapping>  
     </metafacade>
