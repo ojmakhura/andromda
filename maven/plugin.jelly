@@ -164,7 +164,7 @@
             </j:forEach>
             
             <!-- set the repository module search path -->
-            <repository>
+            <repository classname="${maven.andromda.repository}">
 			    <moduleSearchPath>
                     <j:set var="index" value="0"/>
                     <j:forEach begin="0" end="${maximum}" indexVar="index">
