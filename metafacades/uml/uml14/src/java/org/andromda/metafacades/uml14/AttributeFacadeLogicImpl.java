@@ -29,6 +29,14 @@ public class AttributeFacadeLogicImpl
         super (metaObject, context);
     }
 
+    /**
+     * This method is overridden to make sure the parameter name will result in uncompilable Java code.
+     */
+    public String getName()
+    {
+        return StringUtilsHelper.toJavaMethodName(super.getName());
+    }
+
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared

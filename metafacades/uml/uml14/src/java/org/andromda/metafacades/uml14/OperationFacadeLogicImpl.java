@@ -10,6 +10,7 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -33,6 +34,14 @@ public class OperationFacadeLogicImpl
     public OperationFacadeLogicImpl (org.omg.uml.foundation.core.Operation metaObject, String context)
     {
         super (metaObject, context);
+    }
+
+    /**
+     * This method is overridden to make sure the parameter name will result in uncompilable Java code.
+     */
+    public String getName()
+    {
+        return StringUtilsHelper.toJavaMethodName(super.getName());
     }
 
     /**
