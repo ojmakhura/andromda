@@ -8,10 +8,26 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="0" ref="console-configuration"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="table-configuration"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="console-configuration">
+        <xs:annotation>
+            <xs:documentation>
+                Configures specific console features
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="resolve-foreign-keys"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="resolve-foreign-keys" type="xs:boolean" default="true"/>
 
     <xs:element name="table-configuration">
         <xs:annotation>
@@ -27,9 +43,10 @@
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column-configuration"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
-            <xs:attribute name="pageSize" type="xs:integer" default="15"/>
+            <xs:attribute name="pageSize" type="xs:integer" default="5"/>
             <xs:attribute name="maxListSize" type="xs:integer" default="1000"/>
             <xs:attribute name="export" type="xs:boolean" default="true"/>
+            <xs:attribute name="displayColumn" type="xs:string"/>
         </xs:complexType>
     </xs:element>
 
@@ -50,31 +67,13 @@
             <xs:attribute name="hide" type="xs:boolean" default="false"/>
             <xs:attribute name="sortable" type="xs:boolean" default="true"/>
             <xs:attribute name="exportable" type="xs:boolean" default="true"/>
-            <xs:attribute name="editable" type="xs:boolean" default="true"/>
+            <xs:attribute name="updateable" type="xs:boolean" default="false"/>
+            <xs:attribute name="insertable" type="xs:boolean" default="true"/>
             <xs:attribute name="size" type="xs:integer" default="15"/>
-            <xs:attribute name="widget" default="plain">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="plain"/>
-                        <xs:enumeration value="textfield"/>
-                        <xs:enumeration value="select"/>
-                        <xs:enumeration value="checkbox"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="value">
-        <xs:annotation>
-            <xs:documentation>
-                A value to be used somewhere.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attribute name="name" type="xs:string" use="required"/>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="value" type="xs:string"/>
 
     <!--
     <xs:element name="documentation">
