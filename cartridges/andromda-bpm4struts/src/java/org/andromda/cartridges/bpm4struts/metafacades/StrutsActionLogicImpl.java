@@ -177,7 +177,7 @@ public class StrutsActionLogicImpl
     public String handleGetFormBeanName()
     {
         final String useCaseName = getActivityGraph().getUseCase().getName();
-        return StringUtilsHelper.lowerCaseFirstLetter(useCaseName + getFormBeanClassName());
+        return StringUtilsHelper.toJavaMethodName(useCaseName) + getFormBeanClassName();
     }
 
     public String handleGetFormValidationMethodName()
