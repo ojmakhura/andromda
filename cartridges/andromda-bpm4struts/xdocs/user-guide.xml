@@ -172,13 +172,13 @@
                 are being sent to the server more hyperlinks will be rendered.
             </p>
             <p class="std">
-                In short, for each action parameter tagged as a 'select' parameter (and thus having a
+                In short, for each event parameter tagged as a 'select' parameter (and thus having a
                 list to back it up) the cartridge will loop of the backinglist, all other parameters are
                 sent as they are found.
             </p>
             <p class="std">
                 Example: you have a list of items and you want a link for each item in the list, simply
-                create an action parameter 'item' and tag it as 'select' (which will always create a list
+                create an event parameter 'item' and tag it as 'select' (which will always create a list
                 to backup the 'item'). If the action is a hyperlink action the JSP will be rendered as desired.
             </p>
             <p class="std">

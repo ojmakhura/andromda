@@ -92,9 +92,9 @@
                     the exception has been triggered.
                 </p>
             </subsection>
-            <subsection name="Action Parameters">
+            <subsection name="Event Parameters">
                 <p>
-                    Action parameters are parameters modeled on transitions exiting client-side action states
+                    Event parameters are parameters modeled on transitions exiting client-side action states
                     (the ones with the <![CDATA[<<FrontEndView>>]]> stereotype). Whenever you model such a transition
                     it represents a call to the server from a webpage, usually by submitting a form. The parameters
                     you model will represent the form fields.
@@ -105,10 +105,10 @@
                     not support setting the type of the trigger.
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/action-parameters.gif"/>
+                    <img src="resources/howto/org/andromda/test/event-parameters.gif"/>
                 </p>
                 <p>
-                    Different tagged values exist to control the generation of the type of the action parameter.
+                    Different tagged values exist to control the generation of the type of the event parameter.
                 </p>
                 <div class="indented">
                     <table>
@@ -117,12 +117,12 @@
                         </td></tr>
                         <tr><td>
                             <p>
-                                Action parameters can be made selectable so that the user can select one or more values
+                                Event parameters can be made selectable so that the user can select one or more values
                                 from a list and send them to the server. In order to achieve this we need to make the
                                 distinction between two types of data: the complete list and the selected value(s).
                             </p>
                             <p>
-                                The action parameter you model should represent the one that is sent to the server,
+                                The event parameter you model should represent the one that is sent to the server,
                                 this typically is a String but could also be a Collection, List, int, etc...
                                 Add the following tagged value to this parameter:
                                 <code>@andromda.struts.view.field.type=select</code>.
@@ -136,10 +136,10 @@
                                 the user.
                             </p>
                             <p>
-                                Any action that is entering the page on which this parameter is an action parameter
+                                Any action that is entering the page on which this parameter is an event parameter
                                 will have the possiblity to populate the list. In order to do this you would simply
                                 defer to a controller operation which has as argument a parameter with the exact same
-                                name and type as the action parameter, defer to this operation somewhere <em>before</em>
+                                name and type as the event parameter, defer to this operation somewhere <em>before</em>
                                 entering the <![CDATA[<<FrontEndView>>]]> action state. This will result in
                                 the controller having the possiblity to set the values and labels for the
                                 selectable field.
@@ -156,7 +156,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                             </p>
                             <p>
                                 Notice how the <code>form</code> allows setting the values and labels to back up
-                                the selectable action parameter. In this case the action parameter had been named
+                                the selectable event parameter. In this case the event parameter had been named
                                 <code>'number'</code>. Most of the time the data that will go into the list is coming
                                 from the back-end, in this example the list contents never change.
                             </p>
@@ -171,7 +171,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         <tr><td>
                             <p>
                                 Simply add the <code>@andromda.struts.view.field.type=password</code> tagged value to the
-                                action parameter. This will render a regular text input field in which the characters
+                                event parameter. This will render a regular text input field in which the characters
                                 are masked behind asterisks.
                             </p>
                         </td></tr>
@@ -181,7 +181,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         <tr><td>
                             <p>
                                 Simply add the <code>@andromda.struts.view.field.type=textarea</code> tagged value to the
-                                action parameter. The generated input field will allow more than a single row.
+                                event parameter. The generated input field will allow more than a single row.
                             </p>
                         </td></tr>
                         <tr><td>
@@ -190,7 +190,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         <tr><td>
                             <p>
                                 Simply add the <code>@andromda.struts.view.field.type=radio</code> tagged value to the
-                                action parameter. This will render a set of radiobuttons from which the user may choose
+                                event parameter. This will render a set of radiobuttons from which the user may choose
                                 one. By default 3 radiobuttons are rendered, but this number can be changed by using the
                                 <code>@andromda.struts.view.field.radio</code> tagged value, which either takes
                                 a positive integer value or a comma-separated list of values from which to select.
@@ -218,7 +218,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         <tr><td>
                             <p>
                                 Simply add the <code>@andromda.struts.view.field.type=multibox</code> tagged value to
-                                the action parameter. An additional tagged value must be set:
+                                the event parameter. An additional tagged value must be set:
                                 <code>@andromda.struts.view.field.multibox</code>, the value must match a variable
                                 which holds a collection or array.
                             </p>
@@ -234,7 +234,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
             </subsection>
             <subsection name="Page Variables">
                 <p>
-                    Page variables are modeled the same way action parameters are, the only difference is that
+                    Page variables are modeled the same way event parameters are, the only difference is that
                     you model them on transitions <em>entering</em> a <![CDATA[<<FrontEndView>>]]> action state.
                     In doing so the modeled parameters will be available in the generated JSP page.
                 </p>
