@@ -55,7 +55,7 @@ public class ModelElementType
     }
 
     /**
-     * Just stores the type properties.
+     * Stores and provides access to the type's &lt;property/&gt; elements.
      */
     class Property
     {
@@ -67,17 +67,22 @@ public class ModelElementType
             String value)
         {
             this.name = StringUtils.trimToEmpty(name);
-            this.value = StringUtils.trimToEmpty(value);
+            this.value = value;
         }
 
         String getName()
         {
-            return this.name;
+            return StringUtils.trimToEmpty(this.name);
         }
 
         String getValue()
         {
-            return this.value;
+            return StringUtils.trimToEmpty(this.value);
+        }
+
+        boolean hasValue()
+        {
+            return this.value != null;
         }
     }
 }

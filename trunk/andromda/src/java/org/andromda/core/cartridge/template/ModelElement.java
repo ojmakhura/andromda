@@ -185,7 +185,9 @@ public class ModelElement
                             accept = PropertyUtils.isReadable(
                                 metafacade,
                                 property.getName());
-                            if (accept)
+                            // if accept is still true, and the property
+                            // has a value defined
+                            if (accept && property.hasValue())
                             {
                                 Object value = PropertyUtils.getProperty(
                                     metafacade,
