@@ -261,7 +261,9 @@ public class AttributeFacadeLogicImpl
      */
     protected String handleGetName()
     {
-        String name = super.handleGetName();
+        final String nameMask = String.valueOf(
+            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+        String name = NameMasker.mask(super.handleGetName(), nameMask);
         if (this.getOwner() instanceof EnumerationFacade)
         {
             final String mask = String
@@ -269,9 +271,7 @@ public class AttributeFacadeLogicImpl
                     .getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
             name = NameMasker.mask(name, mask);
         }
-        final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
-        return NameMasker.mask(name, nameMask);
+        return name;
     }
 
     /**
