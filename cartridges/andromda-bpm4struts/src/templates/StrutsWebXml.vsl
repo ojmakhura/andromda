@@ -3,28 +3,29 @@
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
+         version="2.4"
+         id="webapp">
          
     <!-- context-param merge-point -->
 
     <!-- filter merge-point -->
-    <filter>
+    <filter id="filter_1">
         <filter-name>ResponseOverrideFilter</filter-name>
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
     </filter>
 
     <!-- filter-mapping merge-point -->
-    <filter-mapping>
+    <filter-mapping id="filter_mapping_1">
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
-    <filter-mapping>
+    <filter-mapping id="filter_mapping_2">
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
     <!-- servlet merge-point -->
-    <servlet>
+    <servlet id="servlet_struts">
         <servlet-name>action</servlet-name>
         <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
         <init-param>
@@ -48,12 +49,12 @@
 
     <!-- precompilation merge-point -->
     <!-- servlet-mapping merge-point -->
-    <servlet-mapping>
+    <servlet-mapping id="servlet_mapping_default">
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
+    <welcome-file-list id="welcome_file_list">
         <!-- welcome-file-list merge-point -->
         <welcome-file>$welcomeFileName</welcome-file>
     </welcome-file-list>
@@ -65,9 +66,11 @@
 ## We don't use security-role-refs at this point, maybe in a later step
 ##
     <!-- security-constraint merge-point -->
+#set ($counter = 0)
 #foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($useCase in $applicationUseCase.allUseCases)
-    <security-constraint>
+#set ($counter = $counter + 1)
+    <security-constraint id="security_constraint_$counter>
         <web-resource-collection>
             <web-resource-name>$useCase.name resources</web-resource-name>
             <description>
@@ -89,7 +92,7 @@
 
 #end
 
-    <login-config>
+    <login-config id="login_config">
         <auth-method>FORM</auth-method>
 #if ($securityRealm)
         <realm-name>$securityRealm</realm-name>
@@ -101,8 +104,10 @@
     </login-config>
 
     <!-- security-role merge-point -->
+#set ($counter = 0)
 #foreach ($user in $applicationUseCase.allUsers)
-    <security-role>
+#set ($counter = $counter + 1)
+    <security-role id="security_role_$counter">
         <role-name>$user.name</role-name>
     </security-role>
 #end
