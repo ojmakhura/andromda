@@ -64,7 +64,11 @@
 		<!-- copy over the mappings -->
 		<ant:copy todir="${maven.build.dest}/${pluginResources}/mappings">
 			<ant:fileset dir="${mappings.location}"/>
-		</ant:copy>			
+		</ant:copy>		
+		<!-- copy over the db initialization scripts for hibernate -->
+        <ant:copy todir="${maven.build.dest}/templates/j2ee-app/hibernate/db/conf">
+            <ant:fileset dir="${hibernate.db.conf.location}"/>
+        </ant:copy>	
    </preGoal>
   	
   	<!-- this is here because the plugin:install goal from the
