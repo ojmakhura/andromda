@@ -42,11 +42,13 @@
 			basedir="${basedir}"
 			template="/project.xml"/>     
 				
+        <j:set var="pluginResources" value="plugin-resources/andromda"/>
+				
   		<!-- perform the below merges so we can add the 
   			 current version of AndroMDA to the mda genapp module -->
 		<j:set 
 			var="mdaResourcesDir" 
-			value="plugin-resources/andromda/templates/j2ee-app/mda"/>
+			value="${pluginResources}/templates/j2ee-app/mda"/>
 		<j:set 
 			var="mdaTemplatesDir" 
 			value="${basedir}/${mdaResourcesDir}"/>
@@ -58,7 +60,11 @@
 			name="${maven.build.dest}/${mdaResourcesDir}/project-hibernate.xml.vm"
 			basedir="${mdaTemplatesDir}"
 			template="/project-hibernate.xml.vm"/> 	
-					
+		
+		<!-- copy over the mappings -->
+		<ant:copy todir="${maven.build.dest}/${pluginResources}/mappings">
+			<ant:fileset dir="${mappings.location}"/>
+		</ant:copy>			
    </preGoal>
   	
   	<!-- this is here because the plugin:install goal from the
