@@ -24,18 +24,17 @@ public class MaintenanceControllerImpl extends MaintenanceController
     {
         MetaDataSession metadataSession = getMetaDataSession(request);
 
-        final Table table = (Table)metadataSession.getTables().get( form.getTable() );
+        Table table = (Table)metadataSession.getTables().get( form.getTable() );
         if (table == null)
         {
-            throw new IllegalArgumentException("Table could not be located: "+form.getTable());
-        }
-        else
-        {
-            metadataSession.setCurrentTable( table );
-            form.setTableData( table.findAllRows() );
+            table = metadataSession.getCurrentTable();
+            if (table == null)
+                throw new IllegalArgumentException("Table could not be located: "+form.getTable());
         }
 
-        form.setTableMetaData(table);
+        metadataSession.setCurrentTable( table );
+        form.setTableData( table.findAllRows() );
+
         form.setTableValueList( getMetaDataSession(request).getTableNames().toArray() );
     }
 
@@ -99,10 +98,19 @@ public class MaintenanceControllerImpl extends MaintenanceController
         getDatabaseLoginSession(request).setConfigurator(configurator);
     }
 
-    public void getConfigurator(ActionMapping mapping, GetConfiguratorForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public void insertRow(ActionMapping mapping, InsertRowForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        DatabaseLoginSession loginSession = getDatabaseLoginSession(request);
-        form.setConfigurator(loginSession.getConfigurator());
-    }
+        Object[] parameters = form.getParametersAsArray();
 
+        Table table = getMetaDataSession(request).getCurrentTable();
+
+        if (table==null)
+        {
+            throw new Exception("Unable to insert row in table: current table not specified");
+        }
+        else
+        {
+            table.insertRow(parameters);
+        }
+    }
 }
