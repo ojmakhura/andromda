@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ServiceFacade;
 import org.andromda.metafacades.uml.ServiceOperationFacade;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * Contains utilities used within the WebService cartridge.
@@ -22,27 +24,18 @@ public class SpringUtils
      */
     public Collection getAllRoles(Collection services)
     {
-        Collection allRoles = new HashSet();
-        for (Iterator serviceIt = services.iterator(); serviceIt.hasNext();)
+        final Collection allRoles = new HashSet();
+        CollectionUtils.forAllDo(services, new Closure()
         {
-            Object element = serviceIt.next();
-            if (ServiceFacade.class.isAssignableFrom(element.getClass()))
+            public void execute(Object object)
             {
-                ServiceFacade service = (ServiceFacade)element;
-                allRoles.addAll(service.getRoles());
-                for (Iterator operationIt = service.getOperations().iterator(); operationIt
-                    .hasNext();)
+                if (object != null
+                    && ServiceFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    Object operation = operationIt.next();
-                    if (ServiceOperationFacade.class.isAssignableFrom(operation
-                        .getClass()))
-                    {
-                        allRoles.addAll(((ServiceOperationFacade)operation)
-                            .getRoles());
-                    }
+                    allRoles.addAll(((ServiceFacade)object).getAllRoles());
                 }
             }
-        }
+        });
         return allRoles;
     }
 }
