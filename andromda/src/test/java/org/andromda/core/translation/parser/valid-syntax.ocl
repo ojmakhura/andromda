@@ -1,9 +1,13 @@
--- This OCL file contains valid OCL syntax which the parser should 
--- be able to successfully parse.
+/* This OCL file contains valid OCL syntax which the parser should 
+   be able to successfully parse. */
+
+-- BODY
 
 context org::Bookpart::findAllParts() : Collection (Bookpart)
 body thisIsUnique :
 	self.allInstances() -> select(la : Bookpart, la2 : SomeType, la3 : AnotherType | la.title = 'test' and la2.title = 'test')
+	
+-- INV
 	
 context Person
 inv: Person::allInstances()->isUnique(socSecNr)
@@ -11,16 +15,12 @@ inv: Person::allInstances()->isUnique(socSecNr)
 context ProgramPartner
 inv totalPoints:
 deliveredServices.transactions.points->sum() < 10000
-
-context Person::getMortgage(security : House)
-    pre: self.mortgages.monthlyPayment -> sum() <= self.salary * 0.30
-   
-context Person::getMortgage(security : House)
-    pre: security.value >= security.mortgages.principal -> sum()
     
--- the following invariant states that the maximum number of points
--- that may be earned by all services of a program partner is equal
--- to 10,000
+/* 
+    The following invariant states that the maximum number of points
+    that may be earned by all services of a program partner is equal
+    to 10,000 
+*/
 context ProgramPartner
     inv totalPointsEarning:
         deliveredServices.transactions   -- all transactions
@@ -38,6 +38,17 @@ context CustomerCard
         else
             correctDate = true
         endif
+
+-- PRE AND POST
+        
+context Person::getMortgage(security : House)
+    pre: self.mortgages.monthlyPayment -> sum() <= self.salary * 0.30
+   
+context Person::getMortgage(security : House)
+    pre: security.value >= security.mortgages.principal -> sum()
+        
+context LoyaltyAccount::isAccountEmpty() : Boolean
+    post: result = (points = 0)
         
 context LoyaltyProgram::enroll(c : Customer)
     pre : c.name <> ''
