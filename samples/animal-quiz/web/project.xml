@@ -10,18 +10,18 @@
   	</description>
 	<dependencies>      
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-mda</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-hibernate-ejb</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>

@@ -18,7 +18,7 @@
 			<type>plugin</type>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-hibernate-ejb</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
@@ -27,7 +27,7 @@
 	     	</properties>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-hibernate-sar</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>sar</type>
@@ -36,7 +36,7 @@
 	     	</properties>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-web</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>war</type>
@@ -46,7 +46,7 @@
 	     	</properties>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
 	      	<properties>
