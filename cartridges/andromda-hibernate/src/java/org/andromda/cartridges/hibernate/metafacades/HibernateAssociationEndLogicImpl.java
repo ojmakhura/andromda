@@ -129,25 +129,29 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetHibernateCascade()
     {
-        String cascade = HibernateGlobals.HIBERNATE_CASCADE_DELETE;
-        Object type = this.getType();
-        if (type != null
-            && HibernateEntity.class.isAssignableFrom(type.getClass()))
+        String cascade = HibernateGlobals.HIBERNATE_CASCADE_NONE;
+        if (this.isChild())
         {
-            HibernateEntity entity = (HibernateEntity)type;
-            final String defaultCascade = entity.getHibernateDefaultCascade();
-            if (defaultCascade
-                .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
-                || defaultCascade
-                    .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_ALL))
+            cascade = HibernateGlobals.HIBERNATE_CASCADE_DELETE;
+            Object type = this.getType();
+            if (type != null
+                && HibernateEntity.class.isAssignableFrom(type.getClass()))
             {
-                if (this.getOtherEnd().isMany())
+                HibernateEntity entity = (HibernateEntity)type;
+                final String defaultCascade = entity.getHibernateDefaultCascade();
+                if (defaultCascade
+                    .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE)
+                    || defaultCascade
+                        .equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_ALL))
                 {
-                    cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
-                }
-                else
-                {
-                    cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL;
+                    if (this.isMany())
+                    {
+                        cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL_DELETE_ORPHAN;
+                    }
+                    else
+                    {
+                        cascade = HibernateGlobals.HIBERNATE_CASCADE_ALL;
+                    }
                 }
             }
         }
