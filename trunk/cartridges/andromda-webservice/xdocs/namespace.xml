@@ -352,6 +352,17 @@
 				</tr> 
                 <tr>
                     <td>
+                        arrayNamePrefix
+                    </td>
+                    <td>
+                        Specifies the prefix to give to names of WSDL array elements.
+                    </td>
+                    <td>
+                        No, default is <code>ArrayOf</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         securityRealm
                     </td>
                     <td>

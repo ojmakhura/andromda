@@ -1,9 +1,8 @@
 package org.andromda.cartridges.webservice.metafacades;
 
-import java.text.MessageFormat;
-
+import org.andromda.cartridges.webservice.WebServiceGlobals;
+import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.mapping.Mappings;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -41,82 +40,15 @@ public class WSDLTypeLogicImpl
         boolean withPrefix,
         boolean preserveArray)
     {
-        StringBuffer schemaType = new StringBuffer();
-        String modelName = this.getFullyQualifiedName(true);
-        if (this.getSchemaTypeMappings() != null)
-        {
-            String namespacePrefix = this.getNamespacePrefix() + ':';
-
-            String mappedValue = this.getSchemaTypeMappings().getTo(modelName);
-            if (!mappedValue.equals(modelName))
-            {
-                schemaType.append(mappedValue);
-            }
-            else
-            {
-                if (withPrefix)
-                {
-                    schemaType.append(namespacePrefix);
-                }
-                if (this.isArrayType())
-                {
-                    ClassifierFacade nonArray = this.getNonArray();
-                    if (nonArray != null)
-                    {
-                        if (WSDLType.class
-                            .isAssignableFrom(nonArray.getClass()))
-                        {
-                            schemaType.append(((WSDLType)nonArray).getQName());
-                        }
-                    }
-                }
-                else
-                {
-                    schemaType.append(this.getQName());
-                }
-            }
-            // remove any array '[]' suffix
-            schemaType = new StringBuffer(schemaType.toString().replaceAll(
-                "\\[\\]",
-                ""));
-            if (preserveArray && this.isArrayType())
-            {
-                int insertIndex = namespacePrefix.length();
-                if (!schemaType.toString().startsWith(namespacePrefix))
-                {
-                    if (withPrefix)
-                    {
-                        // add the prefix for any normal XSD types
-                        // that may not have been set above
-                        schemaType.insert(0, namespacePrefix);
-                    }
-                    else
-                    {
-                        // since we aren't adding the prefix, set
-                        // the correct insert index
-                        insertIndex = 0;
-                    }
-                }
-                schemaType.insert(insertIndex, ARRAY_NAME_PREFIX);
-            }
-            if (withPrefix
-                && !schemaType.toString().startsWith(namespacePrefix))
-            {
-                schemaType.insert(0, XSD_NAMESPACE_PREFIX);
-            }
-        }
-        return schemaType.toString();
+        return WebServiceUtils.getSchemaType(
+            this, 
+            this.getSchemaTypeMappings(), 
+            this.getNamespacePrefix(), 
+            this.getQName(), 
+            this.getArrayNamePrefix(), 
+            withPrefix, 
+            preserveArray);
     }
-
-    /**
-     * The prefix for the XSD namespace.
-     */
-    private final static String XSD_NAMESPACE_PREFIX = "xsd:";
-
-    /**
-     * The prefix given to array names of WSDL types.
-     */
-    private final static String ARRAY_NAME_PREFIX = "ArrayOf";
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#getArrayName()
@@ -125,8 +57,17 @@ public class WSDLTypeLogicImpl
     {
         StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(
             this.getQName()).replaceAll("\\[\\]", ""));
-        name.insert(0, ARRAY_NAME_PREFIX);
+        name.insert(0, this.getArrayNamePrefix());
         return name.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getArrayNamePrefix()
+     */
+    protected String handleGetArrayNamePrefix()
+    {
+        return String.valueOf(this
+            .getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX));
     }
 
     /**
@@ -134,12 +75,9 @@ public class WSDLTypeLogicImpl
      */
     protected String handleGetQName()
     {
-        return MessageFormat.format(
-            this.getQualfiedNameLocalPartPattern(),
-            new String[]
-            {
-                StringUtils.trimToEmpty(this.getName())
-            });
+        return this.getQualfiedNameLocalPartPattern().replaceAll(
+            "\\{0\\}",
+            StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -150,21 +88,10 @@ public class WSDLTypeLogicImpl
         String packageName = this.getPackageName();
         if (this.isReverseNamespace())
         {
-            packageName = StringUtils.reverseDelimited(
-                packageName,
-                WebServiceLogicImpl.NAMESPACE_DELIM);
+            packageName = WebServiceUtils.reversePackage(packageName);
         }
-        return MessageFormat.format(this.getNamespacePattern(), new String[]
-        {
-            StringUtils.trimToEmpty(packageName)
-        });
+        return this.getNamespacePattern().replaceAll("\\{0\\}", StringUtils.trimToEmpty(packageName));
     }
-
-    /**
-     * Defines the property that stores the location of the schema type mappings
-     * URI.
-     */
-    private static final String PROPERTY_SCHEMA_TYPE_MAPPINGS_URI = "schemaTypeMappingsUri";
 
     /**
      * Gets the schemaType mappings that have been set for this schema type.
@@ -173,7 +100,7 @@ public class WSDLTypeLogicImpl
      */
     private Mappings getSchemaTypeMappings()
     {
-        final String propertyName = PROPERTY_SCHEMA_TYPE_MAPPINGS_URI;
+        final String propertyName = WebServiceGlobals.SCHEMA_TYPE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
         Mappings mappings = null;
         String uri = null;
@@ -210,7 +137,7 @@ public class WSDLTypeLogicImpl
     }
 
     /**
-     * Gets the <code>qualifiedNameLocalPartPattern</code> for this service.
+     * Gets the <code>qualifiedNameLocalPartPattern</code> for this WSDL type.
      */
     protected String getQualfiedNameLocalPartPattern()
     {
@@ -233,7 +160,7 @@ public class WSDLTypeLogicImpl
      * 
      * @return boolean true/false
      */
-    protected boolean isReverseNamespace()
+    private boolean isReverseNamespace()
     {
         return Boolean.valueOf(
             String.valueOf(this
