@@ -67,6 +67,11 @@ public class Cartridge
     private static final String MERGE_LOCATION = "mergeLocation";
 
     /**
+     * The current cartridge merge location.
+     */
+    private String mergeLocation;
+
+    /**
      * Processes all model elements with relevant stereotypes by retrieving the
      * model elements from the model facade contained within the context.
      * 
@@ -90,16 +95,13 @@ public class Cartridge
 
             String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
-            
+
             // set the template engine merge location
-            Property mergeProperty = Namespaces.instance().findNamespaceProperty(
-                this.getName(),
-                MERGE_LOCATION,
-                false);
-            String mergeLocation = mergeProperty != null
-                ? mergeProperty.getName()
-                : null;
-            this.getTemplateEngine().setMergeLocation(mergeLocation);
+            Property mergeProperty = Namespaces.instance()
+                .findNamespaceProperty(this.getName(), MERGE_LOCATION, false);
+            this.mergeLocation = mergeProperty != null ? mergeProperty
+                .getName() : null;
+            this.getTemplateEngine().setMergeLocation(this.mergeLocation);
 
             Iterator resourceIt = resources.iterator();
             while (resourceIt.hasNext())
@@ -458,12 +460,15 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processResource";
         ExceptionUtils.checkNull(methodName, "resource", resource);
-        URL resourceUrl = ResourceUtils.getResource(resource.getPath());
+
+        URL resourceUrl = ResourceUtils.getResource(
+            resource.getPath(),
+            this.mergeLocation);
         if (resourceUrl == null)
         {
             // if the resourceUrl is null, the path is probably a regular
             // expression pattern so we'll see if we can match it against
-            // the contents of the plugin and write any contents that do
+            // the contents of the plugin and write any contents that do match
             List contents = this.getContents();
             if (contents != null)
             {
@@ -477,7 +482,9 @@ public class Cartridge
                         if (PathMatcher.wildcardMatch(content, resource
                             .getPath()))
                         {
-                            resourceUrl = ResourceUtils.getResource(content);
+                            resourceUrl = ResourceUtils.getResource(
+                                content,
+                                this.mergeLocation);
                             this.writeResource(resource, resourceUrl);
                         }
                     }
