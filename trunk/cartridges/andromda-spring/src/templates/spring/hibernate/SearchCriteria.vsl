@@ -98,30 +98,25 @@ $attribute.getDocumentation("     * ")
 ## Generate the relation methods.
 #foreach ( $associationEnd in $class.associationEnds )
 #set ($target = $associationEnd.otherEnd)
-#set ($targetType = $target.type)
-#set ($targetTypeFQName = $targetType.fullyQualifiedName)
 #if ($target.navigable)
-#if ($target.many)
-#set($targetTypeFQName = "java.util.Collection")
-#end
-    private $targetTypeFQName $target.name;
+    private $target.getterSetterTypeName $target.name;
 
     /**
-     * Get the ${target.name}
+     * Get the $target.name
 $target.getDocumentation("     * ")
      */
-    public $targetTypeFQName ${target.getterName}()
+    public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
 
     /**
-     * Set the ${target.name}
+     * Set the $target.name
      */
-    public void ${target.setterName}($targetTypeFQName ${target.name})
+    public void ${target.setterName}($target.getterSetterTypeName $target.name)
     {
         this.${target.name} = ${target.name};
     }
 #end
-#end ## foreach
+#end
 }
