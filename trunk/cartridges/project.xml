@@ -18,8 +18,7 @@
 	      	<includes>
 	        	<include>**/Test*.java</include>
 	     	</includes>
-    	</unitTest>
-    
+    	</unitTest>  
 		<resources>
 			<resource>
 				<directory>src/java</directory>
@@ -44,8 +43,6 @@
 	  		</resource>
 		</resources>
   	</build>
-  	
-  	<!-- restrict the reports generated -->
   	<reports>
   		<report>maven-jxr-plugin</report>
   		<report>maven-javadoc-plugin</report>
@@ -58,5 +55,4 @@
     	<report>maven-developer-activity-plugin</report>
     	<report>maven-junit-report-plugin</report>
   	</reports>
-
 </project>
