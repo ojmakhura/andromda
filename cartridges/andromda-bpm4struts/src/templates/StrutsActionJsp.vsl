@@ -4,6 +4,7 @@
 ##
 #if (!$action.useCaseStart)## we don't generate tiles for events that do not have an input page
 ##
+#set ($requiredness = ($clientValidation=='true' || $serverValidation=='true'))
 #set ($useCase = $action.input.useCase)
 #set ($formBeanName = $useCase.formBeanName)
 #set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
@@ -51,13 +52,12 @@
                     <table>
                         <tbody>
 #foreach ($tabField in $tabMap.get($tab))
-#set ($requiredness = $tabField.required && ($clientValidation=='true' || $serverValidation=='true'))
 #if ($tabField.widgetType == "hidden")
 #renderFormField($action $tabField "            ")
 #else
                             <tr>
                                 <td>
-                                    <bean:message key="$tabField.messageKey"/>#if ($requiredness) <p class="important">*</p>#end
+                                    <bean:message key="$tabField.messageKey"/>#if ($requiredness && $tabField.required) <div class="important">*</div>#end
                                 </td>
                                 <td>
 #renderFormField($action $tabField "                                    ")
@@ -77,7 +77,6 @@
 ##
 
 #foreach ($field in $nonTabbedActionParameters)
-#set ($requiredness = $field.required && ($clientValidation=='true' || $serverValidation=='true'))
 #if ($field.widgetType == "hidden")
 #renderFormField($action $field "            ")
 #end
@@ -88,7 +87,7 @@
 #if ($field.widgetType != "hidden")
                     <tr>
                         <td>
-                            <bean:message key="$field.messageKey"/>#if ($requiredness) <p class="important">*</p>#end
+                            <bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
                         </td>
                         <td>
 #renderFormField($action $field "                           ")
