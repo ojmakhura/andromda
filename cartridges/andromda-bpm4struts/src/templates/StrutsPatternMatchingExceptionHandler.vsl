@@ -47,31 +47,30 @@ public class $className
      */
     public String handleException(Exception exception) throws Exception
     {
-        exception = (Exception)this.findRootCause(exception);
+        final Throwable cause =  this.findRootCause(exception);
         String matched = null;
-        if (exception != null && exception.getMessage() != null)
+        if (cause != null && cause.getMessage() != null)
         {
             Matcher matcher = compiledPattern.matcher(
-                exception.getMessage().replaceAll("[$\\s]+", " "));
+                cause.getMessage().replaceAll("[\\s]+", " "));
             try
             {
                 if (matcher.matches())
                 {
                     matched = matcher.group(3);
                 }
-                if (matched == null)
-                {
-                    throw exception;
-                }
             }
             catch (IllegalStateException ex)
             {
-                // no match was found rethrow the exception
-                throw exception;
+                // no match was found ignore
             }
             return matched;
         }
-        throw exception;
+        if (cause instanceof Exception)
+        {
+            throw (Exception)cause;
+        }
+        throw new Exception(cause);
     }
     
 	/**
