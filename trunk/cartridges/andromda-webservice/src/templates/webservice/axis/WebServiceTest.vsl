@@ -39,7 +39,8 @@ public abstract class $service.testName
 	/**
 	 * Sets up the ${service.name} client.
 	 */
-	public void setUp() {
+	public void setUp() throws Exception
+	{
 		try 
 		{
 			this.service = ${fullyQualifiedTestServiceLocator}.instance().get${service.name}();	
