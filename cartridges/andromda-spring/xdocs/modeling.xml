@@ -71,7 +71,21 @@
 			          	<td>
 			          		Identifies an attribute as unique.
 			          	</td>
-					</tr>   	        	      	        	        		        	        	        	     	             	        	
+					</tr>   	      
+		        	<tr>
+		        		<a name="Nullable"/>
+			          	<td>
+			          		<![CDATA[<<Nullable>>]]>
+			          	</td>
+						<td>
+							Parameter
+						</td>
+			          	<td>
+			          		Allows you to define whether or not service operation parameters can be nullable.
+                            By default all service operation parameters are checked for null, if you want
+                            a parameter to allow nulls, you'd add this stereotype to the parameter.
+			          	</td>
+		        	</tr>  	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
     		<subsection name="Supported Tagged Values">

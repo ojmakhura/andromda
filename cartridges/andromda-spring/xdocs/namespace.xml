@@ -244,9 +244,21 @@
                         wrappers)
                     </td>
                     <td>
-                        No, default is beanRefFactory
+                        No, default is <code>beanRefFactory</code>
                     </td>
                 </tr>     
+                <tr>
+                    <td>
+                        implementationOperationNamePrefix
+                    </td>
+                    <td>
+                        The prefix to the give the implementation operations (i.e.
+                        the operations that actually perform the handling of the logic).
+                    </td>
+                    <td>
+                        No, default is <code>handle</code>.
+                    </td>
+                </tr>  
 			</table>
             <subsection name="Hibernate Specific Properties">
                 <table>

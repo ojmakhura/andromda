@@ -62,4 +62,36 @@ public abstract class $service.baseName
     }
         
 #end
+#foreach ( $operation in $service.operations )
+	/**
+	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+	 */
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.exceptionsPresent)
+    	throws $operation.exceptionList 
+#end
+    {
+#foreach ($argument in $operation.arguments)
+#if (!$argument.type.primitive)
+        if ($argument.name == null) 
+        {
+            throw new IllegalArgumentException(
+                "${service.fullyQualifiedName}.${operation.signature} - '${argument.name}' can not be null");
+        }
+#end
+#end
+#set ($call = "this.${operation.implementationCall};")
+#if ($operation.returnTypePresent)
+        return $call
+#else
+        $call
+#end 
+    }
+    
+     /**
+      * Performs the core logic for {@link #${operation.getSignature(false)}}
+      */
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName ${operation.implementationSignature};
+	
+#end
 }

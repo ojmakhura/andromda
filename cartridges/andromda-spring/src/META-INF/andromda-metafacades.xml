@@ -51,5 +51,6 @@
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
+        <property reference="implementationOperationNamePrefix" default="handle"/>
     </metafacade>		
 </metafacades>
