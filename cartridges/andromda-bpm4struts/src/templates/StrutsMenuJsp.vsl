@@ -35,9 +35,9 @@
         <logic:notPresent role="$roles">
             <li><bean:message key="$useCase.titleKey"/></li>
         </logic:notPresent>
+#end
+#end
     </ul>
-#end
-#end
 </div>
 #end
 
