@@ -280,9 +280,9 @@ public class ClassifierFacadeLogicImpl
     private static String ARRAY_SUFFIX = "[]";
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArrayType()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
      */
-    public Object handleGetNonArrayType()
+    public Object handleGetNonArray()
     {
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(ARRAY_SUFFIX) != -1)
@@ -295,9 +295,9 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getArrayType()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getArray()
      */
-    public Object handleGetArrayType()
+    public Object handleGetArray()
     {
         ClassifierFacade arrayType = this;
         String name = this.getFullyQualifiedName();
