@@ -16,12 +16,6 @@ Development build environment README:
             location of your JBoss installation
         6.  type 'ant' in the root
             directory and watch it build
-        7.  the application will be deployed in the
-            default JBoss server configuration
-        8.  copy the data-source deployment descriptor
-            from /app/etc/*-ds.xml to your JBoss deploy
-            directory (don't forget to also install the
-            corresponding library)
 
 ------------------ !!! IMPORTANT !!! ------------------
 
