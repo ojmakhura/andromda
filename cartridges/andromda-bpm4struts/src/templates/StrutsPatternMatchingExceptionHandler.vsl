@@ -81,12 +81,11 @@ public class $className
     {
     	if (th != null) 
     	{
-            // Reflectively get any JMX or EJB exception causes.
+            // Reflectively get any exception causes.
             try 
             {
                 Throwable targetException = null;
                 // java.lang.reflect.InvocationTargetException 
-                // or javax.management.ReflectionException
                 String exceptionProperty = "targetException";
                 if (PropertyUtils.isReadable(th, exceptionProperty)) 
                 {
