@@ -1171,7 +1171,6 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
                 }
         }
 
-        System.out.println("target.getName() = " + target.getName());
         return target;
     }
 
