@@ -128,7 +128,7 @@ public class Profile
         }
         if (mappings == null)
         {
-            AndroMDALogger.error("Profile resources could not be found --> '"
+            AndroMDALogger.warn("Profile resources could not be found --> '"
                 + defaultLocation + "'");
         }
         return mappings;
