@@ -84,7 +84,7 @@
 						<UML:Stereotype xmi.id='_d860307_1079709642412_102506_37' name='FinderMethod'>
 							<UML:Stereotype.baseClass>Operation</UML:Stereotype.baseClass>
 							<UML:Stereotype.definedTag>
-								<UML:TagDefinition xmi.id='_d860307_1079709791036_381129_62' name='@hibernate.query' tagType='String'>
+								<UML:TagDefinition xmi.id='_d860307_1079709791036_381129_62' name='@andromda.hibernate.query' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_d860307_1079709884640_927827_63'>
 											<UML:Multiplicity.range>
@@ -104,7 +104,7 @@
 						<UML:Stereotype xmi.id='_d860307_1079856005482_427605_186' name='ServiceRef'>
 							<UML:Stereotype.baseClass>Dependency</UML:Stereotype.baseClass>
 						</UML:Stereotype>
-						<UML:TagDefinition xmi.id='_8a70287_1079894053764_804885_24' name='@struts.view.field.required' tagType='String'>
+						<UML:TagDefinition xmi.id='_8a70287_1079894053764_804885_24' name='@andromda.struts.view.field.required' tagType='String'>
 							<UML:TagDefinition.multiplicity>
 								<UML:Multiplicity xmi.id='_8a70287_1079894187847_804040_26'>
 									<UML:Multiplicity.range>
@@ -117,7 +117,7 @@
 								<TagDefinition.createTaggedValue xmi.value='false'/>
 							</XMI.extension>
 						</UML:TagDefinition>
-						<UML:TagDefinition xmi.id='_8a70287_1079894132728_865469_25' name='@struts.view.field.format' tagType='String'>
+						<UML:TagDefinition xmi.id='_8a70287_1079894132728_865469_25' name='@andromda.struts.view.field.format' tagType='String'>
 							<UML:TagDefinition.multiplicity>
 								<UML:Multiplicity xmi.id='_8a70287_1079894187847_726481_28'>
 									<UML:Multiplicity.range>
@@ -130,7 +130,7 @@
 								<TagDefinition.createTaggedValue xmi.value='false'/>
 							</XMI.extension>
 						</UML:TagDefinition>
-						<UML:TagDefinition xmi.id='_8a70287_1079894353215_529474_32' name='@struts.action.success.message' tagType='String'>
+						<UML:TagDefinition xmi.id='_8a70287_1079894353215_529474_32' name='@andromda.struts.action.success.message' tagType='String'>
 							<UML:TagDefinition.multiplicity>
 								<UML:Multiplicity xmi.id='_8a70287_1079894365272_517601_33'>
 									<UML:Multiplicity.range>
@@ -298,7 +298,7 @@
 														<UML:Comment xmi.id='_8a70287_1080667275118_858796_11' name='Enter a differentiator question indicating the difference between the last animal and the one you had in mind.'/>
 													</UML:ModelElement.comment>
 													<UML:ModelElement.taggedValue>
-														<UML:TaggedValue xmi.id='_8a70287_1079894365272_941552_35' name='@struts.action.success.message' type='_8a70287_1079894353215_529474_32'>
+														<UML:TaggedValue xmi.id='_8a70287_1079894365272_941552_35' name='@andromda.struts.action.success.message' type='_8a70287_1079894353215_529474_32'>
 															<UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
 														</UML:TaggedValue>
 													</UML:ModelElement.taggedValue>
@@ -400,7 +400,7 @@
 											<UML:Event.parameter>
 												<UML:Parameter xmi.id='_8a70287_1078874652333_91852_724' name='question' type='_24400562_1076994099335_876795_42'>
 													<UML:ModelElement.taggedValue>
-														<UML:TaggedValue xmi.id='_8a70287_1079894187857_938092_30' name='@struts.view.field.required' type='_8a70287_1079894053764_804885_24'>
+														<UML:TaggedValue xmi.id='_8a70287_1079894187857_938092_30' name='@andromda.struts.view.field.required' type='_8a70287_1079894053764_804885_24'>
 															<UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
 														</UML:TaggedValue>
 													</UML:ModelElement.taggedValue>
@@ -411,7 +411,7 @@
 											<UML:Event.parameter>
 												<UML:Parameter xmi.id='_8a70287_1078874617923_768950_723' name='animal' type='_24400562_1076994099335_876795_42'>
 													<UML:ModelElement.taggedValue>
-														<UML:TaggedValue xmi.id='_8a70287_1079894187867_348975_31' name='@struts.view.field.required' type='_8a70287_1079894053764_804885_24'>
+														<UML:TaggedValue xmi.id='_8a70287_1079894187867_348975_31' name='@andromda.struts.view.field.required' type='_8a70287_1079894053764_804885_24'>
 															<UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
 														</UML:TaggedValue>
 													</UML:ModelElement.taggedValue>
@@ -473,7 +473,7 @@
 												<UML:Comment xmi.id='_d860307_1079715649490_479625_126' name='Returns a collection with one element: the root of the decision tree.'/>
 											</UML:ModelElement.comment>
 											<UML:ModelElement.taggedValue>
-												<UML:TaggedValue xmi.id='_d860307_1079716446035_580788_127' name='@hibernate.query' type='_d860307_1079709791036_381129_62'>
+												<UML:TaggedValue xmi.id='_d860307_1079716446035_580788_127' name='@andromda.hibernate.query' type='_d860307_1079709791036_381129_62'>
 													<UML:TaggedValue.dataValue>from di in class org.andromda.samples.animalquiz.decisiontree.DecisionItem  where di.rootItem = true</UML:TaggedValue.dataValue>
 												</UML:TaggedValue>
 											</UML:ModelElement.taggedValue>
@@ -1438,7 +1438,7 @@
 										<mdElement elementClass='TextBoxView' xmi.id='_8a70287_1078874196858_543074_710'>
 											<editable xmi.value='false'/>
 											<geometry>460, 920, 254, 15</geometry>
-											<text>{@struts.action.success.message}</text>
+											<text>{@andromda.struts.action.success.message}</text>
 										</mdElement>
 									</mdOwnedViews>
 									<linkConstraintID xmi.idref='_8a70287_1078874196858_629668_706'/>

@@ -52,7 +52,7 @@
 							method queries can be defined as an OCL body
 							expression using the <a href="../andromda-query-library/index.html">
 							AndroMDA Query Library</a> or directly as a EJB QL using the 
-							<a href="#@ejb.query">@ejb.query</a> tagged value.
+							<a href="#@andromda.ejb.query">@andromda.ejb.query</a> tagged value.
 			          	</td>
 		        	</tr>	  	    				        		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
@@ -65,9 +65,9 @@
 			          	<th>Description</th>    	     	
 		        	</tr>
 		        	<tr>
-						<a name="@ejb.query"/>
+						<a name="@andromda.ejb.query"/>
 			          	<td>
-			          		@ejb.query
+			          		@andromda.ejb.query
 			          	</td>
 						<td>
 							<a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
