@@ -117,7 +117,6 @@ class PurchaseController implements PurchaseControllerInterface
         form.setSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
 
         form.setItemList(dummyItemList);
-        form.setItemListAsArray(dummyItemList.toArray());
     }
 
     public final class DummyItem implements Serializable
