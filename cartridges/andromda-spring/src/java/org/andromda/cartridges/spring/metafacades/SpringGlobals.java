@@ -18,21 +18,6 @@ class SpringGlobals
     final static String EJB_IMPLEMENTATION_SUFFIX = "Bean";
 
     /**
-     * DAO implementation class suffix.
-     */
-    final static String DAO_IMPLEMENTATION_SUFFIX = "DaoImpl";
-
-    /**
-     * The DAO class suffix.
-     */
-    final static String DAO_SUFFIX = "Dao";
-
-    /**
-     * The DAO base class suffix.
-     */
-    final static String DAO_BASE_SUFFIX = "DaoBase";
-
-    /**
      * The service base class suffix.
      */
     final static String SERVICE_BASE_SUFFIX = "Base";
@@ -82,4 +67,19 @@ class SpringGlobals
      * Stores the default outerjoin setting for this association end.
      */
     static final String PROPERTY_ASSOCIATION_END_OUTERJOIN = "hibernateAssociationEndOuterJoin";
+    
+    /**
+     * The pattern used to construct the DAO base name.
+     */
+    static final String PROPERTY_DAO_BASE_PATTERN = "daoBaseNamePattern";
+    
+    /**
+     * The pattern used to construct the DAO name.
+     */
+    static final String PROPERTY_DAO_PATTERN = "daoNamePattern";
+    
+    /**
+     * The pattern used to construct the DAO implementation name.
+     */
+    static final String PROPERTY_DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
 }

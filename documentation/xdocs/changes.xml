@@ -7,7 +7,10 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-02" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-04" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="SPRING-23">
+                Spring DAO names are now completely configurable.
+            </action>
             <action dev="cwbrandon" type="add" issue="UMLMETA-13">
                 Entity query operations (i.e. finders) can now be determined though modeling the query
                 flag as true on the operation (for now the finder method stereotype still works, however it is now

@@ -156,6 +156,51 @@
 				</tr>
 				<tr>
 					<td>
+						daoNamePattern
+					</td>
+					<td>
+						The pattern to use when constructing the DAO name.
+						<em>{0}</em> is used to represent the entity name
+						in the model, so if you specified a value of
+						<code>{0}Dao</code> all the entities generated
+						would have a suffix of "Dao".
+					</td>
+					<td>
+						No, default is <code>{0}Dao</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						daoBaseNamePattern
+					</td>
+					<td>
+						The pattern to use when constructing the base DAO's name.
+						<em>{0}</em> is used to represent the entity name
+						in the model, so if you specified a value of
+						<code>{0}DaoBase</code> all the entities generated
+						would have a suffix of "DaoBase".
+					</td>
+					<td>
+						No, default is <code>{0}DaoBase</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						daoImplementationNamePattern
+					</td>
+					<td>
+						The pattern to use when constructing the DAO's 
+                        implementation name. <em>{0}</em> is used to represent 
+                        the entity name in the model, so if you specified a value of
+						<code>{0}DaoImpl</code> all the entities generated
+						would have a suffix of "DaoImpl".
+					</td>
+					<td>
+						No, default is <code>{0}DaoImpl</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
                         driver
 					</td>
 					<td>

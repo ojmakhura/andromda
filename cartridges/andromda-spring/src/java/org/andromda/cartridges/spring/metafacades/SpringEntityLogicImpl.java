@@ -39,7 +39,7 @@ public class SpringEntityLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Value for one Table per root class
      */
@@ -59,12 +59,12 @@ public class SpringEntityLogicImpl
      * Value make Entity an interface, delegate attributes to subclasses.
      */
     private static final String INHERITANCE_STRATEGY_INTERFACE = "interface";
-    
+
     /**
      * Stores the valid inheritance strategies.
      */
     private static final Collection inheritanceStrategies = new ArrayList();
-    
+
     static
     {
         inheritanceStrategies.add(INHERITANCE_STRATEGY_CLASS);
@@ -78,7 +78,18 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoName()
     {
-        return this.getName() + SpringGlobals.DAO_SUFFIX;
+        return this.getDaoNamePattern().replaceAll("\\{0\\}", this.getName());
+    }
+
+    /**
+     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_PATTERN}
+     * 
+     * @return the DAO name pattern.
+     */
+    private String getDaoNamePattern()
+    {
+        return String.valueOf(this
+            .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
     }
 
     /**
@@ -87,7 +98,7 @@ public class SpringEntityLogicImpl
     protected java.lang.String handleGetFullyQualifiedDaoName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getPackageName(), this.getName(), SpringGlobals.DAO_SUFFIX);
+            .getPackageName(), this.getDaoName());
     }
 
     /**
@@ -95,7 +106,22 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoImplementationName()
     {
-        return this.getName() + SpringGlobals.DAO_IMPLEMENTATION_SUFFIX;
+        return this.getDaoImplementationNamePattern().replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+
+    /**
+     * Gets the value of the
+     * {@link SpringGlobals#PROPERTY_DAO_IMPLEMENTATION_PATTERN}
+     * 
+     * @return the DAO implementation name pattern.
+     */
+    private String getDaoImplementationNamePattern()
+    {
+        return String
+            .valueOf(this
+                .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_IMPLEMENTATION_PATTERN));
     }
 
     /**
@@ -103,10 +129,8 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(
-            this.getPackageName(),
-            this.getName(),
-            SpringGlobals.DAO_IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this
+            .getPackageName(), this.getDaoImplementationName());
     }
 
     /**
@@ -114,7 +138,20 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoBaseName()
     {
-        return this.getName() + SpringGlobals.DAO_BASE_SUFFIX;
+        return this.getDaoBaseNamePattern().replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+
+    /**
+     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_BASE_PATTERN}
+     * 
+     * @return the DAO base name pattern.
+     */
+    private String getDaoBaseNamePattern()
+    {
+        return String.valueOf(this
+            .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_BASE_PATTERN));
     }
 
     /**
@@ -123,7 +160,7 @@ public class SpringEntityLogicImpl
     protected java.lang.String handleGetFullyQualifiedDaoBaseName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getPackageName(), this.getName(), SpringGlobals.DAO_BASE_SUFFIX);
+            .getPackageName(), this.getDaoBaseName());
     }
 
     /**
@@ -152,7 +189,9 @@ public class SpringEntityLogicImpl
     {
         StringBuffer beanName = new StringBuffer(StringUtils
             .uncapitalize(StringUtils.trimToEmpty(this.getName())));
-        beanName.append(SpringGlobals.DAO_SUFFIX);
+        beanName = new StringBuffer(this.getDaoNamePattern().replaceAll(
+            "\\{0\\}",
+            beanName.toString()));
         if (targetSuffix)
         {
             beanName.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
@@ -734,7 +773,7 @@ public class SpringEntityLogicImpl
         if (facade != null)
         {
             Object value = facade
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+                .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
             if (value != null)
             {
                 inheritance = String.valueOf(value);
