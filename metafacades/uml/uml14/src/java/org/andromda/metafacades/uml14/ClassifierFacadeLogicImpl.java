@@ -39,7 +39,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetOperations()
+     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getOperations()
      */
     public java.util.Collection handleGetOperations()
     {
@@ -53,7 +53,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetAttributes()
+     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getAttributes()
      */
     public java.util.Collection handleGetAttributes()
     {
@@ -67,7 +67,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetAssociationEnds()
+     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getAssociationEnds()
      */
     public java.util.Collection handleGetAssociationEnds()
     {
@@ -148,7 +148,7 @@ public class ClassifierFacadeLogicImpl
         }
         return wrapperName;
     }
-   
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#hasWrapper()
      */
