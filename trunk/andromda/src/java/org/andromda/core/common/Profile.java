@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
  * the default profile values. This allows us to decouple all profile
  * information from the actual code and allows users to override default profile
  * values (i.e. stereotype names can be anything the user would like, instead of
- * forcing them to user our naming conventions).
+ * forcing them to users our naming conventions).
  * </p>
  * 
  * @author Chad Brandon
@@ -58,7 +58,7 @@ public class Profile
         {
             value = this.profileMappings.getTo(from);
         }
-        return value;
+        return StringUtils.trimToEmpty(value);
     }
 
     /**
