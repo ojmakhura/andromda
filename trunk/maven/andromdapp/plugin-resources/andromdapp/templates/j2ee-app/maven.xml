@@ -77,14 +77,20 @@
             descriptor="${basedir}/mda/project.xml"
             goals="pom:install"/>
     </goal>
+    
+    <ant:available
+        file="${maven.build.src}"
+        type="dir"
+        property="generatedSrcAvailable"/>
 
      <!-- ==================================================================
-            Adds the generated source to the compile path (if any exists)
+            Adds the generated source to the compile path for each subproject 
+            (if any exists)
           ================================================================== -->
     <preGoal name="java:compile">
 
-        <!-- only attempt to add the generated source if we have a source
-             directory -->
+        <!-- only attempt to add the generated source to the classpath 
+             if we have a source directory -->
         <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
         <j:if test="${sourceDirectory != null and sourceDirectory != ''}">
 
@@ -94,18 +100,12 @@
                 property="srcAvailable"/>
 
             <j:if test="${srcAvailable != null}">
-                <!-- only attempt to add the generated source if it exists -->
-                <j:set var="generatedSrc" value="${maven.build.src}"/>              
-                <ant:available
-                    file="${generatedSrc}"
-                    type="dir"
-                    property="generatedSrcAvailable"/>
                 <j:if test="${generatedSrcAvailable != null}">
                     <!-- add the paths of the generated source to the
                          maven compile path -->
                     <ant:path
                         id="andromda.java.gen.src"
-                        location="${generatedSrc}"/>
+                        location="${build.src.dir}"/>
                     <maven:addPath
                         id="maven.compile.src.set"
                         refid="andromda.java.gen.src"/>

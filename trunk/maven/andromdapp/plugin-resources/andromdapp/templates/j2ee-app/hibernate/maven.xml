@@ -1,71 +1,77 @@
 <project default="ejb:install"
          xmlns:ant="jelly:ant"
-         xmlns:maven="jelly:maven">
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core">
 
     <preGoal name="java:compile">
 
-        <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
-            <ant:classpath>
-                <ant:path refid="maven.dependency.classpath"/>
-                <ant:pathelement path="${pom.dependencyClasspath}"/>
-            </ant:classpath>
-        </ant:taskdef>
-
-        <ejbdoclet destdir="${maven.build.src}"
-                   ejbspec="2.0"
-                   force="false">
-
-            <fileset dir="${maven.build.src}">
-                <include name="**/*Bean.java" />
-            </fileset>
-
-            <utilobject kind="logical" cacheHomes="true"/>
-
-            <remoteinterface/>
-            <homeinterface/>
-            <localinterface/>
-            <localhomeinterface/>
-
-            <deploymentdescriptor
-                destdir="${ejb.descriptor.dir}"/>
-
-            <jboss version="3.0"
-                   xmlencoding="UTF-8"
-                   destdir="${ejb.descriptor.dir}"/>
-
-        </ejbdoclet>
-
-        <!--
-             XDoclet stores the *Bean classes into ejb-jar.xml
-             but the used andromda templates have created
-             subclasses *BeanImpl.  Replace
-             the names in the deployment descriptor so that
-             everyone is happy.
-         -->
-        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml"
-          token="Bean&lt;/ejb-class&gt;"
-          value="BeanImpl&lt;/ejb-class&gt;">
-        </ant:replace>
+        <!-- only attempt if we have generated source available -->
+        <j:if test="${generatedSrcAvailable != null}">
+            <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
+                <ant:classpath>
+                    <ant:path refid="maven.dependency.classpath"/>
+                    <ant:pathelement path="${pom.dependencyClasspath}"/>
+                </ant:classpath>
+            </ant:taskdef>
+    
+            <ejbdoclet destdir="${maven.build.src}"
+                       ejbspec="2.0"
+                       force="false">
+    
+                <fileset dir="${maven.build.src}">
+                    <include name="**/*Bean.java" />
+                </fileset>
+    
+                <utilobject kind="logical" cacheHomes="true"/>
+    
+                <remoteinterface/>
+                <homeinterface/>
+                <localinterface/>
+                <localhomeinterface/>
+    
+                <deploymentdescriptor destdir="${ejb.descriptor.dir}"/>
+    
+                <jboss version="3.0"
+                       xmlencoding="UTF-8"
+                       destdir="${ejb.descriptor.dir}"/>
+    
+            </ejbdoclet>
+    
+            <!--
+                 XDoclet stores the *Bean classes into ejb-jar.xml
+                 but the used andromda templates have created
+                 subclasses *BeanImpl.  Replace
+                 the names in the deployment descriptor so that
+                 everyone is happy.
+             -->
+            <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml"
+              token="Bean&lt;/ejb-class&gt;"
+              value="BeanImpl&lt;/ejb-class&gt;">
+            </ant:replace>
+        </j:if>
 
     </preGoal>
 
     <preGoal name="java:compile">
-        <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
-            <ant:classpath>
-        <ant:path refid="maven.dependency.classpath"/>
-        <ant:pathelement path="${pom.dependencyClasspath}"/>
-            </ant:classpath>
-        </ant:taskdef>
-
-        <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
-            <fileset dir="${maven.build.src}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${maven.src.dir}/java">
-                <include name="**/*.java" />
-            </fileset>
-            <hibernate version="2.0" />
-        </hibernatedoclet>
+        <!-- only attempt if we have generated source available -->
+        <j:if test="${generatedSrcAvailable != null}">
+            <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
+                <ant:classpath>
+            <ant:path refid="maven.dependency.classpath"/>
+            <ant:pathelement path="${pom.dependencyClasspath}"/>
+                </ant:classpath>
+            </ant:taskdef>
+    
+            <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
+                <fileset dir="${maven.build.src}">
+                    <include name="**/*.java" />
+                </fileset>
+                <fileset dir="${maven.src.dir}/java">
+                    <include name="**/*.java" />
+                </fileset>
+                <hibernate version="2.0" />
+            </hibernatedoclet>
+        </j:if>
     </preGoal>
 
     <postGoal name="ejb:ejb">
@@ -111,11 +117,11 @@
             <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
             <ant:classpath refid="schema.classpath" />
         </ant:java>
-        
+
         <ant:copy todir="${hibernate.schema.output.dir}">
             <ant:fileset dir="${maven.conf.dir}">
                 <ant:include name="**/*"/>
-            </ant:fileset>      
+            </ant:fileset>
         </ant:copy>
 
     </postGoal>
