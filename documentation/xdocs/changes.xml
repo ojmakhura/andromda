@@ -18,10 +18,12 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">Aug 28, 2004</td>
-                    <td valign="top" class="std">Bpm4Struts change</td>
+                    <td valign="top" class="std">Bpm4Struts changes</td>
                     <td valign="top" class="std">
                         The namespace property 'breadCrumbs' (boolean) has been replaced by the property
                         'maxBreadCrumbs' (integer). To disable breadcrumbs specify zero.
+                        Additionally the tabledecorator has been removed, it was only used to render
+                        specific HTML code but a more elegant solution has been put in place.
                     </td>
                 </tr>
                 <tr>
