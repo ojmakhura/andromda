@@ -1,189 +1,8 @@
+#parse("templates/StrutsJSP.vm")
 #set ($generatedFile = "${class.fullPath}.jsp")
 ##
+##  TAGLIBS
 ##
-##      This macro takes care of rendering the appropriate Struts
-##      HTML hyperlink tags for the argument action
-##
-##
-#macro ( renderHyperlink $action $indent )
-#set ($roles = $action.actionRoles)
-#set ($triggerKey = $action.actionTrigger.triggerKey)
-#set ($parameters = $action.actionParameters)
-#set ($formBeanName = $action.activityGraph.useCase.formBeanName)
-#set ($security = ($securityEnabled=="true") && ($roles != "") )
-#if ($security)
-${indent}<logic:present role="$roles">
-#end
-#set ($mapName = "$str.toJavaMethodName($triggerKey)Parameters")
-${indent}<%
-${indent}  java.util.Map $mapName = new java.util.HashMap();
-${indent}  pageContext.setAttribute("$mapName", $mapName, javax.servlet.jsp.PageContext.PAGE_SCOPE);
-${indent}%>
-${indent}<table>
-#foreach ($parameter in $parameters)
-#if ($parameter.hasBackingList())
-${indent}    <logic:iterate id="$parameter.name" name="$formBeanName" property="$parameter.backingListName" scope="page">
-${indent}    <%
-${indent}        ${mapName}.put("$parameter.name", $parameter.name);
-${indent}    %>
-#else
-${indent}    <%
-${indent}        ${mapName}.put("$parameter.name", ${formBeanName}.${parameter.getterName}());
-${indent}    %>
-#end
-#end
-${indent}        <tr>
-${indent}            <td>
-${indent}                <html:link action="$action.actionPath" titleKey="${action.messageKey}.$triggerKey" name="$mapName" scope="page">
-${indent}                    <bean:message key="${action.messageKey}.$triggerKey"/>:
-${indent}                    <bean:write name="$mapName" scope="page"/>
-${indent}                </html:link>
-${indent}            </td>
-${indent}        </tr>
-#foreach ($parameter in $parameters)
-#if ($parameter.hasBackingList())
-${indent}    </logic:iterate>
-#end
-#end
-${indent}</table>
-#if ($security)
-${indent}</logic:present>
-${indent}<logic:notPresent role="$roles">
-${indent}   <bean:message key="${action.messageKey}.$triggerKey"/> <br/>
-${indent}</logic:notPresent>
-#end
-#end
-##
-##
-##      This macro takes care of rendering the appropriate Struts
-##      HTML button tags for the argument action
-##
-##
-#macro ( renderFormButtons $action $indent )
-#set ($messageKey = $action.messageKey)
-#set ($trigger = $action.actionTrigger)
-#set ($roles = $action.actionRoles)
-#set ($security = ($securityEnabled=="true") && ($roles != "") )
-#if ($security)
-${indent}<logic:present role="$roles">
-#end
-${indent}   <html:submit titleKey="${messageKey}.$trigger.titleKey">
-${indent}       <bean:message key="${messageKey}.$trigger.triggerKey"/>
-${indent}   </html:submit>
-#if ($action.isResettable())
-${indent}   <html:reset titleKey="${messageKey}.$trigger.resetTitleKey">
-${indent}       <bean:message key="${messageKey}.$trigger.resetMessageKey"/>
-${indent}   </html:reset>
-#end
-#if ($security)
-${indent}</logic:present>
-${indent}<logic:notPresent role="$roles">
-${indent}   <html:submit titleKey="${messageKey}.$trigger.notAllowedTitleKey" disabled="true">
-${indent}       <bean:message key="${messageKey}.$trigger.triggerKey"/>
-${indent}   </html:submit>
-#if ($action.isResettable())
-${indent}   <html:reset titleKey="${messageKey}.$trigger.resetNotAllowedTitleKey" disabled="true">
-${indent}       <bean:message key="${messageKey}.$trigger.resetMessageKey"/>
-${indent}   </html:reset>
-#end
-${indent}</logic:notPresent>
-#end
-#end
-##
-##
-##      This macro takes care of rendering the appropriate Struts tags
-##      for the argument form field
-##
-##
-#macro ( renderFormField $action $field $indent)
-#set ($widgetType = $field.widgetType)
-#set ($formBeanName = $action.activityGraph.useCase.formBeanName)
-##
-##  Depending on the type of the input field we render a different widget
-##
-##
-##      R A D I O B U T T O N
-##
-#if ($widgetType == 'radio')
-#if ($field.isReadOnly())
-#set ($disabled = 'disabled="true"')
-#else
-#set ($disabled = '')
-#end
-${indent}<table>
-#foreach ($optionKey in $field.optionKeys)
-${indent}    <tr>
-${indent}        <td>
-${indent}            <html:$widgetType property="$field.name" titleKey="${messageKey}.${optionKey}.title" value="$optionKey" $disabled/>
-${indent}            <bean:message key="${messageKey}.$optionKey"/>
-${indent}        </td>
-${indent}    </tr>
-#end
-${indent}</table>
-##
-##      C H E C K B O X
-##
-#elseif ($widgetType == 'checkbox')
-#if ($field.isReadOnly())
-#set ($disabled = 'disabled="true"')
-#else
-#set ($disabled = '')
-#end
-${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $disabled/>
-##
-##      T E X T F I E L D       &       P A S S W O R D
-##
-#elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
-#if ($field.isReadOnly())
-#set ($readonly = 'readonly="true"')
-#else
-#set ($readonly = '')
-#end
-${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
-##
-##      T E X T A R E A
-##
-#elseif ($widgetType == 'textarea')
-#if ($field.isReadOnly())
-#set ($readonly = 'readonly="true"')
-#else
-#set ($readonly = '')
-#end
-${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
-##
-##      H I D D E N
-##
-#elseif ($widgetType == 'hidden')
-${indent}<html:$widgetType property="$field.name" />
-##
-##      C O M B O B O X     &      L I S T
-##
-#elseif ($widgetType == 'select')
-#if ($field.isMultiple())
-#set ($multiple = 'multiple="true"')
-#else
-#set ($multiple = '')
-#end
-#if ($field.isReadOnly())
-#set ($disabled = 'disabled="true"')
-#else
-#set ($disabled = '')
-#end
-#if ($field.isCollection())
-#set ($selectProperty = "${field.name}AsArray")
-#else
-#set ($selectProperty = "$field.name")
-#end
-${indent}<html:select property="$selectProperty" titleKey="${messageKey}.$field.titleKey" $disabled $multiple>
-${indent}    <html:options property="$field.backingListName"/>
-${indent}</html:select>
-##
-##      Any other field will be rendered as plain text (no input)
-##
-#else
-${indent}<bean:write name="$action.actionName" property="$field.name" scope="request"/>
-#end
-#end
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
@@ -191,6 +10,7 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 ##  CONSTANTS
 ##
 #set ($actions = $class.actions)
+#set ($incomingActions = $class.incomingActions)
 #set ($useCase = $class.useCase)
 #set ($formBeanName = $useCase.formBeanName)
 #set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
@@ -198,11 +18,13 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 ##  START TEMPLATE
 ##
 
+#if ($incomingActions.size()>1)
 <%--
     Only one of the following logic:present tags should evaluate true, simply
     because you can only can from one page at a time.
 --%>
-#foreach ($action in $class.incomingActions)
+#end
+#foreach ($action in $incomingActions)
 <logic:present name="$action.formBeanName" scope="request">
     <bean:define id="$formBeanName" name="$action.formBeanName" type="$action.formBeanType" scope="request" toScope="page"/>
 </logic:present>
@@ -227,7 +49,16 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
     <head>
         <title><bean:message key="$class.titleKey"/></title>
         <html:base/>
+## only load the static javascript when it will actually be used
+#set ($loadStaticScript = false)
+#foreach ($action in $actions)
+#if ($action.requiresValidation())
+#set ($loadStaticScript = true)
+#end
+#end
+#if ($loadStaticScript)
         <script type="text/javascript" src="<html:rewrite page="/form-validation.jsp"/>"></script>
+#end
 #foreach ($action in $actions)
 #if ($action.requiresValidation())
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>

@@ -1,17 +1,5 @@
+#parse("templates/StrutsAction.vm")
 #set ($generatedFile = "${class.fullActionPath}.java")
-##
-##  MACROS
-##
-#macro (processTransition $transition)
-#set ($target = $transition.target)
-#if ($transition.isTargettingFinalState() || $transition.isTargettingPage())
-mapping.findForward("$transition.forwardName");
-#elseif ($transition.isTargettingDecisionPoint())
-${transition.decisionTrigger.controllerCall.name}(mapping, form, request, response);
-#else
-${target.actionMethodName}(mapping, form, request, response);
-#end
-#end
 ##
 ##  CONSTANTS
 ##
