@@ -74,7 +74,7 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <xhtml>false</xhtml>
-                <breadCrumbs>true</breadCrumbs>
+                <maxBreadCrumbs>4</maxBreadCrumbs>
                 <dummyData>true</dummyData>
                 <onlineHelp>true</onlineHelp>
                 <welcomeFileName>welcome.jsp</welcomeFileName>
