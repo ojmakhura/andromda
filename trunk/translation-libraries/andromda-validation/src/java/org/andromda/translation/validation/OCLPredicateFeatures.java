@@ -6,19 +6,20 @@ import java.util.Collection;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Contains a single operation {@link #isBooleanFeature(String)
+ * Contains a single operation {@link #isPredicateFeature(String)
  * that determines if a passed in <code>feature</code> matches
- * the name of a feature that should evaulate to boolean.
+ * the name of a feature that should should use a predicate when
+ * being translated.
  * 
  * @author Chad Brandon
  */
-public class OCLBooleanEvaluatingFeatures
+class OCLPredicateFeatures
 {
     /**
      * Contains the names of feature calls that are
-     * expected to evaluate to boolean expressions.
+     * expected to use predicates while being translated.
      */
-    private static final String[] BOOLEAN_EVALUATING_FEATURES = new String[]
+    private static final String[] PREDICATE_FEATURES = new String[]
     {
         "one",
         "forAll",
@@ -28,7 +29,7 @@ public class OCLBooleanEvaluatingFeatures
         "exists",
     };
     
-    private static final Collection features = Arrays.asList(BOOLEAN_EVALUATING_FEATURES);
+    private static final Collection features = Arrays.asList(PREDICATE_FEATURES);
     
     /**
      * Indicates whether or not the passed in <code>feature</code>
@@ -37,7 +38,7 @@ public class OCLBooleanEvaluatingFeatures
      * @param feature
      * @return true/false
      */
-    public static final boolean isBooleanFeature(final String feature)
+    static final boolean isPredicateFeature(final String feature)
     {
         return features.contains(StringUtils.trimToEmpty(feature));
     }
