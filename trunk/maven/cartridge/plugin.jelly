@@ -40,7 +40,8 @@
             
             <ant:andromda-test 
                 lastModifiedCheck="${andromda.cartridge.lastModifiedCheck}"
-                processAllModelPackages="true">
+                processAllModelPackages="true"
+                failOnModelValidationErrors="false">
                     
                 <!-- point the mappings search path to the location of the mappings in this plugin -->      
                 <ant:mappingsSearchPath>

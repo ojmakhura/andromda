@@ -320,6 +320,18 @@ public class AndroMDAGenTask
     {
         XmlObjectFactory.setDefaultValidating(xmlValidation);
     }
+    
+    /**
+     * Sets <code>failOnModelValidationErrors</code> to be true/false. This defines whether
+     * processing should fail if model validation errors are present, default is <code>true</code>.
+     * 
+     * @param failOnModelValidationErrors true/false on whether AndroMDA should fail when model validation
+     *        errors occurr.
+     */
+    public void setFailOnModelValidationErrors(boolean failOnModelValidationErrors)
+    {
+        ModelProcessor.instance().setFailOnValidationErrors(failOnModelValidationErrors);
+    }
 
     /**
      * Sets <code>modelValidation</code> to be true/false. This defines

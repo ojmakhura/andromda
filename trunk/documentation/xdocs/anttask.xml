@@ -158,6 +158,18 @@
                         <code>true</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td valign="top" class="std">
+                        <a name="failOnModelValidationErrors">failOnModelValidationErrors</a>
+                    </td>
+                    <td valign="top" class="std">
+                        Specifies whether or not model processing should fail when <strong>ANY</strong>
+                        model validation errors are present.
+                    </td>
+                    <td>
+                        No, defaults to <code>true</code>.
+                    </td>
+                </tr>
             </table>
             <table>
                 <h2>
