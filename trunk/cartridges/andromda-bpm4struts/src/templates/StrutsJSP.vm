@@ -14,13 +14,12 @@
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
+#set ($requestPath = "${action.actionPath}")
+#set ($separator = "?")
 #foreach ($parameter in $parameters)
 #set ($propertyName = "${formBeanName}.${parameter.name}")
-#if($velocityCount == 1)
-#set ($requestPath = "${action.actionPath}?${parameter.name}=${${propertyName}}")
-#else
-#set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
-#end
+#if($velocityCount > 1)#set($separator = "&")#end
+#set ($requestPath = "${requestPath}${separator}${parameter.name}=${${propertyName}}")
 #end
 ${indent}    <p>
 ${indent}        <html:link action="${requestPath}" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
