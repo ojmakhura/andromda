@@ -100,7 +100,6 @@
             <ant:path refid="maven.dependency.classpath"/>
             <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/classes"/>
             <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/lib/andromda-breadcrumbs-taglib.jar"/>
-            <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/tld/andromda-breadcrumbs-taglib.tld"/>
         </ant:path>
 
         <!-- generating java code from the JSPs -->
