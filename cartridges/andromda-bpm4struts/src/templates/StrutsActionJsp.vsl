@@ -57,7 +57,7 @@
 #else
                             <tr>
                                 <td>
-                                    <bean:message key="$tabField.messageKey"/>#if ($requiredness) *#end
+                                    <bean:message key="$tabField.messageKey"/>#if ($requiredness) <p class="important-text">*</p>#end
                                 </td>
                                 <td>
 #renderFormField($action $tabField "                                    ")
@@ -88,7 +88,7 @@
 #if ($field.widgetType != "hidden")
                     <tr>
                         <td>
-                            <bean:message key="$field.messageKey"/>#if ($requiredness) *#end
+                            <bean:message key="$field.messageKey"/>#if ($requiredness) <p class="important-text">*</p>#end
                         </td>
                         <td>
 #renderFormField($action $field "                           ")
