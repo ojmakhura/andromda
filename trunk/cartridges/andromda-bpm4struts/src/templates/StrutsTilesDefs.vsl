@@ -3,12 +3,17 @@
     "http://jakarta.apache.org/struts/dtds/tiles-config.dtd">
 
 <tiles-definitions>
+
     <definition name="main.layout" page="/layout/main-layout.jsp">
         <put name="title" value=""/>
         <put name="javascript" value=""/>
-        <put name="header" value="/layout/header.jsp"/>
         <put name="menu" value="/layout/menu.jsp"/>
         <put name="body" value=""/>
         <put name="messages" value="/layout/messages.jsp"/>
     </definition>
+
+    <definition name="login.layout" extends="main.layout">
+        <put name="messages" value=""/>
+    </definition>
+
 </tiles-definitions>
