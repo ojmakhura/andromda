@@ -1,7 +1,7 @@
 <project xmlns:ant="jelly:ant">
 
     <!-- ==================================================================
-             Installs all libraries in the local repository
+             Generator the PDF documentation
          ================================================================== -->
     <postGoal name="xdoc">
         <!-- copy over the online store example model -->
