@@ -272,6 +272,18 @@
                 </p>
             </answer>
         </faq>
+        <faq id="controller-generation">
+			<question>
+				I've noticed that sometimes my Controller implementation is generated and 
+				sometimes not, what's going on?
+			</question>
+			<answer>
+				<p>
+					Controllers are not generated (the implementation that is) until you
+				    give it at least one operation (since it would be pointless otherwise).
+				</p>
+			</answer>
+        </faq>
     </part>
 
     <part id="tuning">
