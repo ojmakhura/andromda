@@ -1,7 +1,7 @@
 ##
 ## Set global invariants
 ##
-#set ($activityGraph = $transform.getActivityGraph($class))
+#set ($stateMachine = $transform.getStateMachine($class))
 #set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
 #set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
 #if ($controllerFormName == false)
@@ -38,9 +38,9 @@ ${indent}* </p>
 ## Set collections from which methods will be rendered, we convert them to sets
 ## because we don't want to render doubles (just to make sure)
 ##
-#set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($activityGraph)))
-#set ($choices = $transform.toSet($transform.dynamicHelper.getChoices($activityGraph)))
-#set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($activityGraph)))
+#set ($guardNames = $transform.toSet($transform.getGuardNames($stateMachine)))
+#set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($stateMachine)))
+#set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($stateMachine)))
 /**
 #generateDocumentation ( $class " " )
  */
@@ -49,30 +49,12 @@ ${indent}* </p>
 ##
 public class $className extends $parentClassName
 {
-##
-## Decision points need to be implemented manually, for each outgoing transition there is an 'int'
-## return value
-##
-#foreach ($choice in $choices)
-#set ($methodNameImpl = "$transform.toJavaMethodName($choice)Impl")
-   /**
-#generateDocumentation ( $choice "    " )
-    *
-    * <p>
-    *  This method may return any of the following values:
-    *  <ul>
-#set ($options = $transform.getOutgoingStateTransitions($choice))
-#foreach ($option in $options)
-    *   <li>$transform.toFinalMemberName($option)
-#end
-    *  </ul>
-    * </p>
-    */
-   protected final int $methodNameImpl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
-   {
-      // Returning zero should never occur when this method has been properly implemented
-      return 0;
-   }
+#foreach ($guardName in $guardNames)
+    protected final boolean ${guardName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response)
+    {
+        // todo: implement this guard
+        return false;
+    }
 
 #end
 ##
