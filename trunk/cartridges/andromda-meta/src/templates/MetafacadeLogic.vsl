@@ -55,7 +55,7 @@ public abstract class ${metafacade.logicName}
     private $superMetafacade.fullyQualifiedName super_;
 #end
 
-    public $metafacade.logicName ($shieldedMetaclassTypeName metaObject, String context) 
+    public $metafacade.logicName ($shieldedMetaclassTypeName metaObject, String context)
     {
         super (metaObject, getContext(context));
 #if ($superMetafacade)
@@ -74,9 +74,10 @@ public abstract class ${metafacade.logicName}
     /**
      * Gets the context for this metafacade logic instance.
      */
-    private static String getContext(String context) 
+    private static String getContext(String context)
     {
-    	if (context == null) {
+        if (context == null)
+        {
             context = "${metafacade.fullyQualifiedName}";
         }
         return context;
@@ -85,10 +86,11 @@ public abstract class ${metafacade.logicName}
 ##
 #if (!$metafacade.attributes.empty)
     // --------------- attributes ---------------------
-    
+
 #foreach ( $attribute in $metafacade.attributes )
 ##
 #set ($memberTypeName = $attribute.type.fullyQualifiedName)
+#set ($memberType = $attribute.type)
 ##set ($methodName = $attribute.getterName)
 #set ($fqname = $attribute.type.getFullyQualifiedName(true))
 #if ($fqname == "datatype.boolean")
@@ -102,7 +104,7 @@ public abstract class ${metafacade.logicName}
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
    /**
-	* @see ${metafacade.fullyQualifiedName}#${methodName}()
+    * @see ${metafacade.fullyQualifiedName}#${methodName}()
     */
     protected abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
@@ -124,20 +126,23 @@ public abstract class ${metafacade.logicName}
     public final $memberTypeName ${methodName}()
     {
 #if ($attribute.readOnly)
+        $memberTypeName $memberName = this.__$memberName;
         if (!this.__${memberName}Set)
         {
-            ${handleMethodPreCondition};
-            this.__$memberName = ${handleMethodName}($typedArgumentList);
-            ${handleMethodPostCondition};
+#set ($indent = "    ")
+#else
+        $memberTypeName $memberName = $memberType.javaNullString;
+#set ($indent = "")
+#end
+        ${indent}$handleMethodPreCondition;
+        ${indent}$memberName = ${handleMethodName}($typedArgumentList);
+        ${indent}$handleMethodPostCondition;
+#if ($attribute.readOnly)
+            this.__$memberName = $memberName;
             this.__${memberName}Set = true;
         }
-        return this.__$memberName;
-#else
-        ${handleMethodPreCondition};
-        $memberTypeName $memberName = ${handleMethodName}($typedArgumentList);
-        ${handleMethodPostCondition};
-        return $memberName;
 #end
+        return $memberName;
     }
 
 #end
@@ -190,10 +195,7 @@ public abstract class ${metafacade.logicName}
 #if ($associationEnd.otherEnd.navigable)
 ##
 #set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
-#set ($shieldedElementsCast = "")
-#if ($associationEnd.otherEnd.many && $associationEnd.otherEnd.ordered)
-#set ($shieldedElementsCast = "(java.util.List)")
-#end
+#set ($memberType = $associationEnd.otherEnd.type)
 #set ($methodName = $associationEnd.otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.capitalize($methodName)")
@@ -219,28 +221,36 @@ public abstract class ${metafacade.logicName}
     public final $memberTypeName ${methodName}()
     {
 #if ($associationEnd.otherEnd.readOnly)
+        $memberTypeName $memberName = this.__$memberName;
         if (!this.__${memberName}Set)
         {
-            ${handleMethodPreCondition};
-#if ($associationEnd.otherEnd.many)
-            this.__$memberName = ${shieldedElementsCast}shieldedElements(${handleMethodName}($typedArgumentList));
+#set ($indent = "    ")
 #else
-            this.__$memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
+#set ($indent = "")
+        $memberTypeName $memberName = $memberType.javaNullString;
 #end
-            ${handleMethodPostCondition};
+        ${indent}$handleMethodPreCondition;
+#if ($associationEnd.otherEnd.many)
+        ${indent}Object result = this.shieldedElements(${handleMethodName}($typedArgumentList));
+#else
+        ${indent}Object result = this.shieldedElement(${handleMethodName}($typedArgumentList));
+#end
+        ${indent}try
+        ${indent}{
+        ${indent}    $memberName = ($memberTypeName)result;
+        ${indent}}
+        ${indent}catch (ClassCastException ex)
+        ${indent}{
+        ${indent}    // ignore since the metafacade shouldn't
+        ${indent}    // be set if its not of the correct type
+        ${indent}}
+        ${indent}$handleMethodPostCondition;
+#if ($associationEnd.otherEnd.readOnly)
+            this.__$memberName = $memberName;
             this.__${memberName}Set = true;
         }
-        return this.__$memberName;
-#else
-        ${handleMethodPreCondition};
-#if ($associationEnd.otherEnd.many)
-        $memberTypeName $memberName = ${shieldedElementsCast}shieldedElements(${handleMethodName}($typedArgumentList));
-#else
-        $memberTypeName $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
 #end
-        ${handleMethodPostCondition};
         return $memberName;
-#end
     }
 
 #if ($associationEnd.otherEnd.many)
@@ -257,12 +267,12 @@ public abstract class ${metafacade.logicName}
     // ----------- delegates to $superMetafacade.fullyQualifiedName ------------
 #foreach ( $method in $superMetafacade.getMethodDataForPSM(true) )
     // from ${method.metafacadeName}
-	${method.buildMethodDeclaration(true)}
-	{
+    ${method.buildMethodDeclaration(true)}
+    {
         return super_.${method.buildMethodCall()};
-	}
-	
-#end    
+    }
+
+#end
 #end
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
@@ -271,9 +281,9 @@ public abstract class ${metafacade.logicName}
     {
 #if ($superMetafacade)
         super_.initialize();
-#end 
+#end
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
@@ -285,7 +295,7 @@ public abstract class ${metafacade.logicName}
         return super.getValidationOwner();
 #end
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
      */
@@ -297,7 +307,7 @@ public abstract class ${metafacade.logicName}
         return super.getValidationName();
 #end
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#validateInvariants(java.util.Collection)
      */
@@ -308,7 +318,7 @@ public abstract class ${metafacade.logicName}
 #end
 #renderTranslation ($metafacade "inv")
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -319,12 +329,12 @@ public abstract class ${metafacade.logicName}
         {
             toString.append("[");
             toString.append(org.apache.commons.beanutils.PropertyUtils.getProperty(this, "name"));
-            toString.append("]");  
-        } 
+            toString.append("]");
+        }
         catch (Throwable th)
         {
              // Just ignore when the metafacade doesn't have a name property
-        }      
+        }
         return toString.toString();
-    }      
+    }
 }
