@@ -4,5 +4,5 @@ public interface PrimaryKeyColumn extends Column
 {
     public String getPrimaryKeyName();
 
-//    public ForeignKeyColumn[] getExportedKeyColumns();
+    public ForeignKeyColumn[] getExportedKeyColumns();
 }
