@@ -1,6 +1,7 @@
 package org.andromda.adminconsole.taglib;
 
 import org.andromda.adminconsole.config.AdminConsoleConfigurator;
+import org.andromda.adminconsole.config.WidgetRenderer;
 import org.andromda.adminconsole.config.xml.ColumnConfiguration;
 import org.andromda.adminconsole.config.xml.TableConfiguration;
 import org.andromda.adminconsole.db.Column;
@@ -18,23 +19,25 @@ public class JspUtilFunctions
 
     public final static String getInsertJsp(AdminConsoleConfigurator configurator, Column column, Object value)
     {
-        return configurator.getInsertJsp(column, column.getName(), value, null);
+        ColumnConfiguration columnConfiguration = getConfiguration(configurator, column);
+        return WidgetRenderer.getInsertJsp(column, columnConfiguration, column.getName(), value, null);
     }
 
     public final static String getUpdateJsp(AdminConsoleConfigurator configurator, Column column, RowData rowData, Integer index)
     {
-        return configurator.getUpdateJsp(
-                column, index.intValue() + ":" + column.getName(), rowData,
+        ColumnConfiguration columnConfiguration = getConfiguration(configurator, column);
+        return WidgetRenderer.getUpdateJsp(
+                column, columnConfiguration, index.intValue() + ":" + column.getName(), rowData,
                 "onchange='document.getElementById(\"change-"+index+"\").checked=true;'");
     }
 
     public final static ColumnConfiguration getConfiguration(AdminConsoleConfigurator configurator, Column column)
     {
-        return configurator.getConfiguration(column);
+        return configurator.getColumnConfiguration(column.getTable().getName(), column.getName());
     }
 
     public final static TableConfiguration getConfiguration(AdminConsoleConfigurator configurator, Table table)
     {
-        return configurator.getConfiguration(table);
+        return configurator.getTableConfiguration(table.getName());
     }
 }
