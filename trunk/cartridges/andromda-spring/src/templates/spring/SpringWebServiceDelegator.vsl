@@ -1,4 +1,3 @@
-#if ($service.webService || !$service.webServiceOperations.empty)
 package $service.packageName;
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedWebServiceDelegatorName,'.','/')}.java")
 
@@ -41,4 +40,3 @@ public class $service.webServiceDelegatorName
 
 #end
 }
-#end

@@ -1,4 +1,3 @@
-#if (!$services.empty)
 #parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
 //
 // Attention: Generated code! Do not modify by hand!
@@ -92,4 +91,3 @@ public class $serviceLocatorName
 
 #end
 }
-#end

@@ -1,9 +1,9 @@
 <cartridge name="andromda-test-cartridge">
-	
+
     <!-- define template external properties -->
     <property reference="propertyReferenceWithDefault" default="aDefaultValue"/>
     <property reference="propertyReferenceNoDefault"/>
-    
+
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 
@@ -18,14 +18,19 @@
     </template>
 
     <template
-        path="EntityBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="impls"
-        overwrite="false"
-        generateEmptyFiles="true">
-        <modelElements variable="entity">
-            <modelElement stereotype="Entity"/>
+        path="templates/webservice/axis/server-config.wsdd.vsl"
+        outputPattern="WEB-INF/server-config.wsdd"
+        outlet="axis-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
-    
+
 </cartridge>

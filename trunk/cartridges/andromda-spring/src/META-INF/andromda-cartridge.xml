@@ -70,7 +70,8 @@
         outputPattern="$generatedFile"
         outlet="services"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -83,7 +84,8 @@
         outputPattern="$generatedFile"
         outlet="services"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -110,7 +112,14 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="webService"/>
+                </type>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="webServiceOperations"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -153,7 +162,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="allowDefaultServiceException"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

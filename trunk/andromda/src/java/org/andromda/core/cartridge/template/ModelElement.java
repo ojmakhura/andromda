@@ -77,9 +77,9 @@ public class ModelElement
      * Adds the <code>type</code> to the collection of types belonging to this
      * model element.
      * 
-     * @param type the ModelElementType instance.
+     * @param type the {@link Type} instance.
      */
-    public void addType(ModelElementType type)
+    public void addType(Type type)
     {
         final String methodName = "ModelElement.addType";
         ExceptionUtils.checkNull(methodName, "type", type);
@@ -124,7 +124,7 @@ public class ModelElement
      * Gets the metafacades that belong to this ModelElement instance. These are
      * the actual elements from the model.
      * 
-     * @return the collection of model elements.
+     * @return the collection of metafacades.
      */
     public Collection getMetafacades()
     {
@@ -163,7 +163,7 @@ public class ModelElement
         boolean accept = true;
         while (typeIt.hasNext() && accept)
         {
-            ModelElementType type = (ModelElementType)typeIt.next();
+            Type type = (Type)typeIt.next();
             if (StringUtils.isNotBlank(type.getName()))
             {
                 try
@@ -176,7 +176,7 @@ public class ModelElement
                         Iterator properties = type.getProperties().iterator();
                         while (properties.hasNext())
                         {
-                            final ModelElementType.Property property = (ModelElementType.Property)properties
+                            final Type.Property property = (Type.Property)properties
                                 .next();
                             accept = PropertyUtils.containsValidProperty(
                                 metafacade,

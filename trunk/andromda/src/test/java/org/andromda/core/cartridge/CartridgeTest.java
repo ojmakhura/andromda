@@ -1,10 +1,13 @@
 package org.andromda.core.cartridge;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.andromda.core.cartridge.template.ModelElement;
+import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.XmlObjectFactory;
 
@@ -63,8 +66,46 @@ public class CartridgeTest
 
     public void testGetResources()
     {
-        assertNotNull(this.cartridge.getResources());
-        assertEquals(2, this.cartridge.getResources().size());
+        Collection resources = this.cartridge.getResources();
+        assertNotNull(resources);
+        assertEquals(2, resources.size());
+
+        // first template
+        final Iterator templateIterator = resources.iterator();
+        Template template = (Template)templateIterator.next();
+        assertEquals("EntityBean.vsl", template.getPath());
+        assertEquals("{0}/{1}Bean.java", template.getOutputPattern());
+        assertEquals("beans", template.getOutlet());
+        assertTrue(template.isOverwrite());
+        assertNotNull(template.getSupportedModeElements());
+        assertEquals("entity", template.getSupportedModeElements()
+            .getVariable());
+        Collection modelElements = template.getSupportedModeElements()
+            .getModelElements();
+        assertNotNull(modelElements);
+        assertEquals(1, modelElements.size());
+        ModelElement element = (ModelElement)modelElements.iterator().next();
+        assertEquals("Entity", element.getStereotype());
+
+        // second template
+        template = (Template)templateIterator.next();
+        assertEquals(
+            "templates/webservice/axis/server-config.wsdd.vsl",
+            template.getPath());
+        assertEquals("WEB-INF/server-config.wsdd", template.getOutputPattern());
+        assertEquals("axis-configuration", template.getOutlet());
+        assertTrue(template.isOverwrite());
+        assertTrue(template.isOutputToSingleFile());
+        assertFalse(template.isOutputOnEmptyElements());
+        assertNotNull(template.getSupportedModeElements());
+        assertEquals("services", template.getSupportedModeElements()
+            .getVariable());
+        modelElements = template.getSupportedModeElements().getModelElements();
+        assertNotNull(modelElements);
+        assertEquals(1, modelElements.size());
+        element = (ModelElement)modelElements.iterator().next();
+        assertNull(element.getVariable());
+        assertNull(element.getStereotype());
     }
 
     public void testGetPropertyReferences()

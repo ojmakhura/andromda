@@ -13,8 +13,7 @@
              <alias attr-name="name" prop-name="name" />
         </set-properties-rule>
 
-           <!-- add the TemplateEngine implementation to the Cartridge -->
-
+        <!-- add the TemplateEngine implementation to the Cartridge -->
         <pattern value="templateEngine">
 
             <set-properties-rule>
@@ -110,8 +109,7 @@
 
         </pattern>
 
-           <!-- add a template to the cartridge -->
-
+        <!-- add a template to the cartridge -->
         <pattern value="template">
 
             <object-create-rule
@@ -139,6 +137,10 @@
 
             <set-properties-rule>
                  <alias attr-name="outputToSingleFile" prop-name="outputToSingleFile" />
+            </set-properties-rule>
+
+            <set-properties-rule>
+                 <alias attr-name="outputOnEmptyElements" prop-name="outputOnEmptyElements" />
             </set-properties-rule>
 
             <set-properties-rule>
@@ -170,7 +172,7 @@
                     <pattern value="type">
 
                         <object-create-rule
-                            classname="org.andromda.core.cartridge.template.ModelElementType" />
+                            classname="org.andromda.core.cartridge.template.Type" />
 
                         <set-properties-rule>
                             <alias attr-name="name" prop-name="name" />

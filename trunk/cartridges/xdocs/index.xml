@@ -467,15 +467,32 @@
                   outputToSingleFile
               </td>
               <td>
-                  Specifies whether you want to output all stereotyped
+                  Specifies whether you want to output all aggregated
                   model elements to a single file.  This is useful for example
                   if you wanted to generated a SQL script that had tables for
                   all entities in your model.  This also allows you to group
-                  more than one type of model element into multiple collections
+                  more than one type of model element into multiple collection variables
                   which are then made available to your templates.
               </td>
               <td>
                   No, default is <code>false</code>.
+              </td>
+          </tr>
+          <tr>
+            <a name="outputOnEmptyElements"/>
+              <td>
+                  outputOnEmptyElements
+              </td>
+              <td>
+                  This attribute only makes sense when 
+                  <a href="#outputToSingleFile">outputToSingleFile</a>
+                  is set to <code>true</code>.
+                  Indicates that when there are no elements 
+                  in the collected elements (i.e. an <em>empty</em> collection)
+                  whether or not the file should still be output.
+              </td>
+              <td>
+                  No, default is <code>true</code>.
               </td>
           </tr>
           <tr>
