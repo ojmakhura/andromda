@@ -62,4 +62,9 @@ public class ModelFacadeLogicImpl
     {
         return metaObject.getStateMachines().getTransition().refAllOfType();
     }
+
+    protected Collection handleGetAllOperations()
+    {
+        return metaObject.getCore().getOperation().refAllOfType();
+    }
 }
