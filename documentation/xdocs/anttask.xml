@@ -107,7 +107,7 @@
 				</tr>
 				<tr>
 					<td valign="top" class="std">
-						<a name="processAllPackages">processAllPackages</a>
+						<a name="processAllModelPackages">processAllModelPackages</a>
 					</td>
 					<td valign="top" class="std">
 						Specifies whether or not to process/generate from all packages 
@@ -237,7 +237,7 @@
 			<table>
 				<p class="std">
 					The <code><![CDATA[<modelPackage>]]></code> is used in 
-					conjunction with the <code><a href="#processAllPackages">processAllPackages</a></code> 
+					conjunction with the <code><a href="#processAllModelPackages">processAllModelPackages</a></code> 
 					attribute of the <code><a href="#andromda"><![CDATA[<andromda>]]></a></code>
 				    task.  By default all packages are processed. Therefore it is recommended to 
 					turn off the packages which should be not processed.  In other words,
