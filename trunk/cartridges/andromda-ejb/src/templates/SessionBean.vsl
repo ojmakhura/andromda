@@ -41,9 +41,9 @@ $class.getDocumentation(" * ")
 #set ($value = "$value")
 #end
  * @ejb.env-entry 
- *     name = "$envEntry.name"
- *     type = "$envEntry.type.fullyQualifiedName"
- *     value = $value
+ *     name="$envEntry.name"
+ *     type="$envEntry.type.fullyQualifiedName"
+ *     value=$value
  *
 #end
 #foreach ( $dep in $class.dependencies )
@@ -52,7 +52,7 @@ $class.getDocumentation(" * ")
 #set ($viewtype = "")
 #set ($viewtype = $superclass.findTaggedValue("@andromda.ejb.viewType"))
 #if ($viewtype == "")
-#set ($viewtype = ${superclass.type.viewType})
+#set ($viewtype = ${superclass.viewType})
 #end
  *
  * @ejb.ejb-ref 
