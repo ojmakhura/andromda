@@ -28,6 +28,7 @@ public class StrutsActionLogicImpl
     private String actionRoles = null;
     private String formBeanClassName = null;
     private String formBeanName = null;
+    private String formBeanType = null;
     private String formValidationMethodName = null;
     private String fullActionPath = null;
     private String fullFormBeanPath = null;
@@ -109,7 +110,7 @@ public class StrutsActionLogicImpl
     public String getActionName()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && actionName != null) return actionName;
-        return (actionName = getActivityGraph().getUseCase().getFormBeanName());
+        return (actionName = getFormBeanName());
     }
 
     public String getActionInput()
@@ -290,6 +291,12 @@ public class StrutsActionLogicImpl
                 return (requiresValidation = Boolean.TRUE).booleanValue();
         }
         return (requiresValidation = Boolean.FALSE).booleanValue();
+    }
+
+    public String getFormBeanType()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && formBeanType != null) return formBeanType;
+        return getPackageName() + '.' + getFormBeanClassName();
     }
 
     // ------------- relations ------------------
