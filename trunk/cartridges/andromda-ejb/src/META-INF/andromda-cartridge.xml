@@ -10,7 +10,7 @@
     <!-- cartridge-resource merge-point -->
 
     <template
-        path="templates/ValueObject.vsl"
+        path="templates/ejb/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
         overwrite="true"
@@ -23,7 +23,7 @@
     </template>
 
     <template
-        path="templates/EntityBean.vsl"
+        path="templates/ejb/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
         overwrite="true">
@@ -35,7 +35,7 @@
     </template>
 
     <template
-        path="templates/EntityLocal.vsl"
+        path="templates/ejb/EntityLocal.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entity-beans"
         overwrite="true">
@@ -47,7 +47,7 @@
     </template>
 
     <template
-        path="templates/EntityHome.vsl"
+        path="templates/ejb/EntityHome.vsl"
         outputPattern="{0}/{1}LocalHome.java"
         outlet="entity-beans"
         overwrite="true">
@@ -59,7 +59,7 @@
     </template>
 
     <template
-        path="templates/EntityBeanImpl.vsl"
+        path="templates/ejb/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
         overwrite="false">
@@ -79,7 +79,7 @@
 -->
 
     <template
-        path="templates/SessionBean.vsl"
+        path="templates/ejb/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overwrite="true">
@@ -91,7 +91,7 @@
     </template>
 
     <template
-        path="templates/SessionLocal.vsl"
+        path="templates/ejb/SessionLocal.vsl"
         outputPattern="{0}/{1}Local.java"
         outlet="session-beans"
         overwrite="true"
@@ -104,7 +104,7 @@
     </template>
 
     <template
-        path="templates/SessionRemote.vsl"
+        path="templates/ejb/SessionRemote.vsl"
         outputPattern="{0}/{1}.java"
         outlet="session-beans"
         overwrite="true"
@@ -117,7 +117,7 @@
     </template>
 
     <template
-        path="templates/SessionLocalHome.vsl"
+        path="templates/ejb/SessionLocalHome.vsl"
         outputPattern="{0}/{1}LocalHome.java"
         outlet="session-beans"
         overwrite="true"
@@ -130,7 +130,7 @@
     </template>
 
     <template
-        path="templates/SessionRemoteHome.vsl"
+        path="templates/ejb/SessionRemoteHome.vsl"
         outputPattern="{0}/{1}Home.java"
         outlet="session-beans"
         overwrite="true"
@@ -143,7 +143,7 @@
     </template>
 
     <template
-        path="templates/SessionBeanImpl.vsl"
+        path="templates/ejb/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overwrite="false">
