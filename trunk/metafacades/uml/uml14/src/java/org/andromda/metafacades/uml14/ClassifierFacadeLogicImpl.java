@@ -240,15 +240,15 @@ public class ClassifierFacadeLogicImpl
         String separator = "";
         sb.append("(");
 
-        for (Iterator it = getAttributes().iterator(); it.hasNext();)
+        for (Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
         {
-            AttributeFacade a = (AttributeFacade)it.next();
+            AttributeFacade attribute = (AttributeFacade)iterator.next();
 
             sb.append(separator);
-            String typeName = a.getType().getFullyQualifiedName();
+            String typeName = attribute.getType().getFullyQualifiedName();
             sb.append(typeName);
             sb.append(" ");
-            sb.append(a.getName());
+            sb.append(attribute.getName());
             separator = ", ";
         }
         sb.append(")");
