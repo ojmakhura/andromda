@@ -39,9 +39,7 @@
             </ant:taskdef>  
             
             <ant:andromda-test 
-                basedir="${maven.andromda.src.dir}"
-                includes="${maven.andromda.src.includes}"
-                lastModifiedCheck="false"
+                lastModifiedCheck="${andromda.cartridge.lastModifiedCheck}"
                 processAllModelPackages="true">
                     
                 <!-- point the mappings search path to the location of the mappings in this plugin -->      
