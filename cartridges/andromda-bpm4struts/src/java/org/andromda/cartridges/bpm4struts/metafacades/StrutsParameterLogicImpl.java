@@ -306,12 +306,6 @@ public class StrutsParameterLogicImpl
             buffer.append(crlf);
         }
 
-        if (isUrlFormat(format))
-        {
-            buffer.append("The value of this field should reflect a URL");
-            buffer.append(crlf);
-        }
-
         String datatype = getFullyQualifiedName(true);
         if (isValidatorBoolean(datatype))
         {
@@ -369,6 +363,14 @@ public class StrutsParameterLogicImpl
                     "target=\"_jdk\">short integer</a> value");
             buffer.append(crlf);
         }
+        else if (isValidatorUrl(datatype))
+        {
+            buffer.append("The value of this field should reflect a " +
+                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/net/URL.html\" " +
+                    "target=\"_jdk\">URL</a> value");
+            buffer.append(crlf);
+        }
+
 
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
@@ -748,11 +750,17 @@ public class StrutsParameterLogicImpl
             validatorTypesList.add("byte");
         else if (isValidatorShort(type))
             validatorTypesList.add("short");
+        else if (isValidatorInteger(type))
+            validatorTypesList.add("integer");
         else if (isValidatorLong(type))
             validatorTypesList.add("long");
+        else if (isValidatorFloat(type))
+            validatorTypesList.add("float");
+        else if (isValidatorDouble(type))
+            validatorTypesList.add("double");
         else if (isValidatorDate(type))
             validatorTypesList.add("date");
-        else if (isValidatorUrl(type) && isUrlFormat(format))
+        else if (isValidatorUrl(type))
             validatorTypesList.add("url");
 
         if (isRangeFormat)
@@ -880,7 +888,7 @@ public class StrutsParameterLogicImpl
             if (value != null)
             {
                 String valueString = String.valueOf(value).trim();
-                int optionCount = 0;
+                int optionCount = Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT;
                 if (valueString.length() > 5)
                 {
                     try
@@ -898,7 +906,6 @@ public class StrutsParameterLogicImpl
                     }
                 }
 
-                optionCount = Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT;
                 String name = getName();
                 for (int i = 1; i <= optionCount; i++)
                 {
@@ -968,11 +975,6 @@ public class StrutsParameterLogicImpl
     private boolean isValidatorString(String type)
     {
         return "datatype.String".equals(type);
-    }
-
-    private boolean isUrlFormat(String format)
-    {
-        return "url".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isEmailFormat(String format)
