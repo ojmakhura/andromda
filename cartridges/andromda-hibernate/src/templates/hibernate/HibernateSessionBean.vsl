@@ -203,7 +203,7 @@ $operation.getDocumentation("     * ")
     * @ejb.create-method
     * @ejb.transaction type="Required"
     */
-    public void ejbCreate $service.getOperationCallFromAttributes(true)
+    public void ejbCreate $service.operationCallFromAttributes
            throws javax.ejb.CreateException
     {
 #foreach ( $attribute in $service.attributes)
@@ -211,7 +211,7 @@ $operation.getDocumentation("     * ")
 #end
     }
 
-    public void ejbPostCreate $service.getOperationCallFromAttributes(true)
+    public void ejbPostCreate $service.operationCallFromAttributes
            throws javax.ejb.CreateException
     {
     }

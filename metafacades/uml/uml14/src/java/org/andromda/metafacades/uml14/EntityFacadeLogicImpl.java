@@ -152,22 +152,19 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean,
-     *      boolean)
+     * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean)
      */
     public String handleGetOperationCallFromAttributes(
-        boolean withTypeNames,
         boolean withIdentifiers)
     {
-        return this.getOperationCallFromAttributes(withTypeNames, withIdentifiers, false);
+        return this.getOperationCallFromAttributes(withIdentifiers, false);
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean,
-     *      boolean, boolean)
+     *      boolean)
      */
     public String handleGetOperationCallFromAttributes(
-        boolean withTypeNames,
         boolean withIdentifiers,
         boolean follow)
     {
@@ -198,19 +195,11 @@ public class EntityFacadeLogicImpl
                 if (withIdentifiers || !attribute.isIdentifier())
                 {
                     buffer.append(separator);
-                    if (withTypeNames)
-                    {
-                        String typeName = attribute.getType()
-                            .getFullyQualifiedName();
-                        buffer.append(typeName);
-                        buffer.append(" ");
-                        buffer.append(attribute.getName());
-                    }
-                    else
-                    {
-                        buffer.append(attribute.getGetterName());
-                        buffer.append("()");
-                    }
+                    String typeName = attribute.getType()
+                        .getFullyQualifiedName();
+                    buffer.append(typeName);
+                    buffer.append(" ");
+                    buffer.append(attribute.getName());
                     separator = ", ";
                 }
             }
@@ -218,7 +207,97 @@ public class EntityFacadeLogicImpl
         buffer.append(")");
         return buffer.toString();
     }
-
+    
+    /** 
+     * @see org.andromda.metafacades.uml.EntityFacadeLogic#getAttributeTypeList(boolean, boolean)
+     */
+    public String handleGetAttributeTypeList(boolean follow, boolean withIdentifiers)
+    {
+        return this.getAttributeTypeList(this.getAttributes(follow, withIdentifiers));
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getAttributeNameList(boolean, boolean)
+     */
+    public String handleGetAttributeNameList(boolean follow, boolean withIdentifiers)
+    {
+        return this.getAttributeNameList(this.getAttributes(follow, withIdentifiers));
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacadeLogic#getRequiredAttributeTypeList(boolean, boolean)
+     */
+    public String handleGetRequiredAttributeTypeList(boolean follow, boolean withIdentifiers)
+    {
+        return this.getAttributeTypeList(this.getRequiredAttributes(follow, withIdentifiers));
+    }  
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacadeLogic#getRequiredAttributeNameList(boolean, boolean)
+     */
+    public String handleGetRequiredAttributeNameList(boolean follow, boolean withIdentifiers)
+    {
+        return this.getAttributeNameList(this.getRequiredAttributes(follow, withIdentifiers));
+    }    
+    
+    /**
+     * Constructs a comma seperated list of attribute type
+     * names from the passed in collection of <code>attributes</code>.
+     * 
+     * @param attributes the attributes to construct the list from.
+     * 
+     * @return the comma seperated list of attribute types.
+     */
+    private String getAttributeTypeList(Collection attributes)
+    {
+        final StringBuffer list = new StringBuffer();  
+        final String comma = ", ";
+        CollectionUtils.forAllDo(
+            attributes,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    list.append(((AttributeFacade)object).getType().getFullyQualifiedName());
+                    list.append(comma);
+                }
+            }); 
+        if (list.toString().endsWith(comma))
+        {
+            list.delete(list.lastIndexOf(comma), list.length());
+        }
+        return list.toString();         
+    }
+    
+    /**
+     * Constructs a comma seperated list of attribute
+     * names from the passed in collection of <code>attributes</code>.
+     * 
+     * @param attributes the attributes to construct the list from.
+     * 
+     * @return the comma seperated list of attribute names.
+     */
+    private String getAttributeNameList(Collection attributes)
+    {
+        final StringBuffer list = new StringBuffer();  
+        final String comma = ", ";
+        CollectionUtils.forAllDo(
+            attributes,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    list.append(((AttributeFacade)object).getName());
+                    list.append(comma);
+                }
+            }); 
+        if (list.toString().endsWith(comma))
+        {
+            list.delete(list.lastIndexOf(comma), list.length());
+        }
+        return list.toString();         
+    }
+    
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#isChild()
      */
