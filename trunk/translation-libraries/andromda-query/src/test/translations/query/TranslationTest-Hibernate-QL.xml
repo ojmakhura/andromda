@@ -121,7 +121,7 @@
             where legalAgreement.legalAgreementPk in (:legalAgreementPks)
         </to>
     </expression>
-    
+        
     <expression>
         <from>
             <![CDATA[
@@ -131,6 +131,8 @@
                    certificate.person.id = personId 
                    and (certificate.validityStart > date or certificate.validityEnd < date)
                    or (certificate.validityStart = certificate.validityEnd)) 
+                   -> sortedBy(certificate.person.id)
+                   -> sortedBy(certificate.validityStart) 
             ]]>
         </from>
         <to>
@@ -138,9 +140,39 @@
             from org.andromda.contracts.MedicalCertificate as certificate 
             where certificate.person.id = :personId 
             and (certificate.validityStart > :date or certificate.validityEnd < :date)  
-            or (certificate.validityStart = certificate.validityEnd)        
+            or (certificate.validityStart = certificate.validityEnd) 
+            order by certificate.person.id, certificate.validityStart       
             ]]>          
         </to> 
     </expression>
+    
+    <expression>
+        <from>
+            context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+            body : LegalAgreement.allInstances() -> sortedBy(documentTitle) -> sortedBy(expiredDate)
+        </from>
+        <to>
+            from org.andromda.contracts.LegalAgreement as legalAgreement order by documentTitle, expiredDate
+        </to>
+    </expression>
+    
+    <!--
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findBySmallestValidateStartDate():Collection(MedicalCertificate) 
+            body : 
+                allInstances() -> select( certificate | certificate.validityStart -> iterate
+                    certificate.validityStart.min(certificate.validityStart)) 
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.contracts.MedicalCertificate as certificate 
+            where min(certificate.validityStart)      
+            ]]>          
+        </to> 
+    </expression>
+    -->
 
 </translation-test>
