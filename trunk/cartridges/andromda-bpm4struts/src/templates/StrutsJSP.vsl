@@ -193,12 +193,20 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 #set ($actions = $class.actions)
 #set ($useCase = $class.useCase)
 #set ($formBeanName = $useCase.formBeanName)
-#set ($formBeanType = $useCase.formBeanType)
+#set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
 ##
 ##  START TEMPLATE
 ##
 
-<bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+<%--
+    Only one of the following logic:present tags should evaluate true, simply
+    because you can only can from one page at a time.
+--%>
+#foreach ($action in $class.incomingActions)
+<logic:present name="$action.formBeanName" scope="request">
+    <bean:define id="$formBeanName" name="$action.formBeanName" type="$action.formBeanType" scope="request" toScope="page"/>
+</logic:present>
+#end
 
 #foreach ($variable in $class.pageVariables)
 #set ($variableName = $variable.name)
