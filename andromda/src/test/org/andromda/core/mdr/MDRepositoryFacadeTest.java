@@ -1,11 +1,8 @@
 package org.andromda.core.mdr;
 
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import junit.framework.TestCase;
-import javax.jmi.reflect.RefPackage;
 import org.omg.uml.UmlPackage;
 
 import org.andromda.core.TestModel;

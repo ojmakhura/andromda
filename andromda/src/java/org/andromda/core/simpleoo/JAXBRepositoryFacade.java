@@ -40,7 +40,7 @@ public class JAXBRepositoryFacade
 		{
 			// let JAXB read the XML file and unmarshal it into a model tree
 			JAXBContext jc =
-				JAXBContext.newInstance("de.mbohlen.tools.uml2ejb.xml");
+				JAXBContext.newInstance("org.andromda.core.xml");
 
 			Unmarshaller u = jc.createUnmarshaller();
 
