@@ -192,6 +192,10 @@
                                 Validator values look like this: <code>myValidator</code>,
                                 <code>myValidator(myVar,myArg)</code>, <code>myValidator(myVar2,myArg2)</code>, etc...
                                 Specify each validator using a new value, don't specify all of them in a single value.
+                                Be careful when using multiple validators with the same 'var' name, the last one
+                                found will be used! Normally speaking this should not happen, so try to avoid it 
+                                (I recommend not using names used by known validators: minlength,
+                                test, datePattern, ...)
                             </td>
                         </tr>
                         <tr>
