@@ -4,7 +4,7 @@
 ##  CONSTANTS
 ##
 #set ($controllerClass = $action.controller)
-#set ($formBeanClassName = $action.activityGraph.useCase.formBeanClassName)
+#set ($formBeanClassName = $action.formBeanClassName)
 #set ($roles = $action.actionRoles)
 #set ($actionForwards = $action.actionForwards)
 #set ($actionExceptions = $action.actionExceptions)
@@ -50,7 +50,7 @@ $action.getDocumentation(" * ")
 #else
  *    validate="false"
 #end
- *       scope="session"
+ *       scope="$action.actionScope"
  *     unknown="false"
 #if ($security)
  *       roles="$roles"
@@ -84,16 +84,6 @@ public final class $action.actionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-#if ($action.useCaseStart)
-        /*
-         * Since this action is the first one for this use-case, we need to clean the session-scoped
-         * form from any stale data. It is not a good idea to keep data floating between use-cases.
-         * If you really need to transfer data between use-cases you should use the
-         * HttpServletRequest.setAttribute(String,Object) method for that.
-         */
-        (($formBeanClassName)form).clean();
-
-#end
         final ActionForward forward = #processTransition($action)
 #if ($action.successMessagePresent)
 

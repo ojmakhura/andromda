@@ -4,6 +4,7 @@ import org.andromda.metafacades.uml.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 
@@ -37,6 +38,19 @@ public class StrutsControllerLogicImpl
     }
 
     // ------------- relations ------------------
+
+    protected Collection handleGetDeferringActions()
+    {
+        Collection deferringActions = new HashSet();
+
+        Collection operations = getOperations();
+        for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+        {
+            StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
+            deferringActions.addAll(operation.getDeferringActions());
+        }
+        return deferringActions;
+    }
 
     protected Collection handleGetSessionObjects()
     {

@@ -6,10 +6,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 
 /**
@@ -104,6 +101,11 @@ public class StrutsUseCaseLogicImpl
     }
 
     // ------------- relations ------------------
+    public Collection getOperations()
+    {
+        return Collections.EMPTY_LIST;
+    }
+
     protected Collection handleGetAllServices()
     {
         // find all controller dependencies on <<Service>> classes

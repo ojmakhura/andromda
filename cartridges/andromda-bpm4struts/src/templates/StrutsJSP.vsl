@@ -4,9 +4,6 @@
 ##  CONSTANTS
 ##
 #set ($actions = $jsp.actions)
-#set ($useCase = $jsp.useCase)
-#set ($formBeanName = $useCase.formBeanName)
-#set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
 ##
 ##  START TEMPLATE
 ##
@@ -96,18 +93,22 @@
 ##  SETS THE BODY OF THIS PAGE
 ##
     <tiles:put name="body" type="string">
-        <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="session" toScope="page"/>
+#foreach ($action in $jsp.incomingActions)
+        <logic:present name="$action.formBeanName" scope="$action.actionScope">
+            <bean:define id="form" name="$action.formBeanName" type="$action.formBeanType" scope="$action.actionScope" toScope="page"/>
+        </logic:present>
+#end
 
 #foreach ($variable in $jsp.pageVariables)
 #set ($variableName = $variable.name)
 #set ($variableType = $variable.type.fullyQualifiedName)
-        <logic:present name="$formBeanName" property="$variableName" scope="page">
-            <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variableType" scope="page" toScope="page"/>
+        <logic:present name="form" property="$variableName" scope="page">
+            <bean:define id="$variableName" name="form" property="$variableName" type="$variableType" scope="page" toScope="page"/>
         </logic:present>
 #if ($variable.backingListPresent)
 #set ($variableName = $variable.backingListName)
-        <logic:present name="$formBeanName" property="$variableName" scope="page">
-            <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
+        <logic:present name="form" property="$variableName" scope="page">
+            <bean:define id="$variableName" name="form" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
         </logic:present>
 #end
 
@@ -181,7 +182,7 @@
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
-        <display:table name="sessionScope.${formBeanName}.${variable.name}" id="row"
+        <display:table name="pageScope.form.${variable.name}" id="row"
                        requestURI="<%=request.getRequestURL().toString()%>"
                        export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
@@ -208,7 +209,7 @@
                 java.util.Map ${mapName} = new java.util.HashMap();
 #foreach ($parameter in $parameters)
 #if ($parameter.type.arrayType)
-                Object[] ${parameter.name} = ${formBeanName}.${parameter.getterName}();
+                Object[] ${parameter.name} = form.${parameter.getterName}();
                 for (int i=0; i<${parameter.name}.length; i++)
                 {
             %>
@@ -216,7 +217,7 @@
             <%
                 }
 #elseif ($parameter.type.collectionType)
-                java.util.Collection ${parameter.name} = ${formBeanName}.${parameter.getterName}();
+                java.util.Collection ${parameter.name} = form.${parameter.getterName}();
                 for (java.util.Iterator iter = ${parameter.name}.iterator(); iter.hasNext();)
                 {
             %>
@@ -224,14 +225,14 @@
             <%
                 }
 #else
-                ${mapName}.put("${parameter.name}", String.valueOf(${formBeanName}.${parameter.getterName}()));
+                ${mapName}.put("${parameter.name}", String.valueOf(form.${parameter.getterName}()));
 #end
 #end
                 pageContext.setAttribute("${mapName}", ${mapName}, javax.servlet.jsp.PageContext.PAGE_SCOPE);
             %>
                 <html:link action="${link.action.actionPath}" paramName="${mapName}" paramScope="page">
 #elseif ($parameters.size() == 1)
-                <html:link action="${link.action.actionPath}" paramName="$formBeanName" paramProperty="$parameters.iterator().next().name" paramScope="page">
+                <html:link action="${link.action.actionPath}" paramName="form" paramProperty="$parameters.iterator().next().name" paramScope="page">
 #end
                     <bean:write name="row" property="$link.tableLinkColumnName" scope="page"/>
                 </html:link>
