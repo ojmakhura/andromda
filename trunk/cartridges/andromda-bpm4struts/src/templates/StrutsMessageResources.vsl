@@ -84,9 +84,12 @@ ${messageKey}.${optionKey}.title=${field.name}-$velocityCount
 #set ($actionExceptions = $action.actionExceptions)
 #if (!$actionExceptions.isEmpty())
 #   ACTION-EXCEPTIONS
+#end
 #foreach ($exception in $action.actionExceptions)
 ${messageKey}.$exception.exceptionKey={0} ($exception.exceptionType)
 #end
+#if ($actionExceptions.isEmpty() && !$action.isUseCaseStart())
+${messageKey}.exception={0} (java.lang.Exception)
 #end
 
 #end ## for each action
