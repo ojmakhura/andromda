@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
+ * This class provides statistics on how the build.
  * 
  * @author martin
  *
@@ -18,9 +19,13 @@ import java.util.Properties;
 public class BuildInformation
 {
 
+    /** The build timestamp */
     static final String BUILD_DATE;
+    /** The build operating system and version */
     static final String BUILD_SYSTEM;
+    /** The JDK details used to build the system */
     static final String BUILD_JDK;
+    /** The name of the user that built the system */
     static final String BUILD_BUILDER;
     
     static
