@@ -43,9 +43,7 @@ public abstract class ${controller.name} implements java.io.Serializable
 #if (!$returnType)
 #set ($returnType = "void")
 #end
-#foreach ($action in $operation.deferringActions)
-    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $action.formBeanType form, HttpServletRequest request, HttpServletResponse response) throws Exception;
-#end
+    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #set ($returnType = false)
 #end
