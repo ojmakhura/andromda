@@ -36,7 +36,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the parameter name 
+     * This method is overridden to make sure the parameter name
      * will result in uncompilable Java code.
      */
     public String getName()
@@ -89,7 +89,7 @@ public class OperationFacadeLogicImpl
                 {
                     this.logger.error("ERROR! No type specified for parameter --> '"
                         + p.getName() + "' on operation --> '"
-                        + this.getName() + "', please chek your model");
+                        + this.getName() + "', please check your model");
                 }
                 else
                 {
