@@ -79,7 +79,7 @@ public class StrutsForwardLogicImpl
 
     public String handleGetActionMethodName()
     {
-        return StringUtilsHelper.toJavaMethodName(resolveName());
+        return StringUtilsHelper.lowerCamelCaseName(resolveName());
     }
 
     public String handleGetTargetNameKey()

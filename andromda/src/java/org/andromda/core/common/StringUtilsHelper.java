@@ -75,8 +75,8 @@ public class StringUtilsHelper
 
     /**
      * <p>
-     * Returns the argument string as a Java class name according the Sun coding
-     * conventions.
+     * Returns the argument string as a camel cased name beginning
+     * with an uppercased letter.
      * </p>
      * <p>
      * Non word characters be removed and the letter following such a character
@@ -84,15 +84,15 @@ public class StringUtilsHelper
      * </p>
      * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a
-     *         Java class
+     * @return the string converted to a camel cased name beginning with a lower cased
+     *         letter.
      */
-    public static String toJavaClassName(String string)
+    public static String upperCamelCaseName(String string)
     {
         if (StringUtils.isEmpty(string))
             return string;
 
-        final String[] parts = splitAtCapitalization(string);
+        final String[] parts = splitAtNonWordCharacters(string);
         final StringBuffer conversionBuffer = new StringBuffer();
         for (int i = 0; i < parts.length; i++)
         {
@@ -135,8 +135,8 @@ public class StringUtilsHelper
 
     /**
      * <p>
-     * Returns the argument string as a Java method name according the Sun
-     * coding conventions.
+     * Returns the argument string as a camel cased name beginning
+     * with a lowercased letter.
      * </p>
      * <p>
      * Non word characters be removed and the letter following such a character
@@ -144,12 +144,12 @@ public class StringUtilsHelper
      * </p>
      * 
      * @param string any string
-     * @return the string converted to a value that would be well-suited for a
-     *         Java method
+     * @return the string converted to a camel cased name beginning with a lower cased
+     *         letter.
      */
-    public static String toJavaMethodName(String string)
+    public static String lowerCamelCaseName(String string)
     {
-        return lowerCaseFirstLetter(toJavaClassName(string));
+        return lowerCaseFirstLetter(upperCamelCaseName(string));
     }
 
     /**
@@ -201,7 +201,7 @@ public class StringUtilsHelper
         if (StringUtils.isBlank(string))
             return string;
 
-        final String[] parts = splitAtCapitalization(string);
+        final String[] parts = splitAtNonWordCharacters(string);
         final StringBuffer buffer = new StringBuffer();
 
         for (int i = 0; i < parts.length - 1; i++)
@@ -216,7 +216,7 @@ public class StringUtilsHelper
      * Splits at each sequence of non-word characters. <p/>Sequences of capitals
      * will be left untouched.
      */
-    private static String[] splitAtCapitalization(String string)
+    private static String[] splitAtNonWordCharacters(String string)
     {
         Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
         Matcher matcher = capitalSequencePattern.matcher(StringUtils

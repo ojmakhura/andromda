@@ -17,6 +17,15 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 19, 2004</td>
+                    <td valign="top" class="std">Core API change</td>
+                    <td valign="top" class="std">
+                        toJavaClassName and toJavaMethodName in StringUtilsHelper have been
+                        renamed to more language generic "upperCamelCaseName"
+                        and "lowerCamelCaseName".
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 16, 2004</td>
                     <td valign="top" class="std">New Hibernate feature</td>
                     <td valign="top" class="std">

@@ -34,7 +34,7 @@ public class StrutsActionStateLogicImpl
      */
     public java.lang.String handleGetActionMethodName()
     {
-        return StringUtilsHelper.toJavaMethodName(getName());
+        return StringUtilsHelper.lowerCamelCaseName(getName());
     }
 
     // ------------- relations ------------------
