@@ -6,38 +6,43 @@
     <head>
         <title><bean:message key="main.title"/></title>
         <html:base/>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default.css"/>"/>
     </head>
 
     <body>
-
-        <form name="login" action="j_security_check" method="post">
-            <table>
-                <tr>
-                    <td><bean:message key="login.username"/> :</td>
-                    <td><input type="text" name="j_username"/></td>
-                </tr>
-                <tr>
-                    <td><bean:message key="login.password"/> :</td>
-                    <td><input type="password" name="j_password"/></td>
-                </tr>
-                <tr>
-                    <td>
-                        <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>
-                    </td>
-                    <td>
-                        <html:reset titleKey="login.reset.title"><bean:message key="login.reset"/></html:reset>
-                    </td>
-                </tr>
-            </table>
-        </form>
-
-        <script type="text/javascript">
-        <!--
-            document.login.j_username.focus();
-            document.login.j_username.select();
-        //-->
-        </script>
-
+        <div id="container">
+            <div id="sidebar">
+                <div class="box1">
+                    <h4>How to login</h4>
+                    <p>If you are a registered user you simply enter your
+                       user name and password and click on the submit button</p>
+                    <p>In case this is your first time, you should register
+                       yourself to the system.
+                </div>
+            </div>
+            <div id="content">
+                <h1>Login Screen</h1>
+                <div class="firstcol">
+                    <h3>Register a new user</h3>
+                    <p>This feature is not available yet</p>
+                </div
+                <div class="secondcol">
+                    <h3>Log in a registered user</h3>
+                    <form name="login" action="j_security_check" method="post">
+                        <div><bean:message key="login.username"/> :</div>
+                        <div><input type="text" name="j_username"/></div>
+                        <div><bean:message key="login.password"/> :</div>
+                        <div><input type="password" name="j_password"/></div>
+                        <div>
+                            <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>
+                            &nbsp;&nbsp;&nbsp;
+                            <html:reset titleKey="login.reset.title"><bean:message key="login.reset"/></html:reset>
+                        </div>
+                    </form>
+                </div
+            </div>
+        </div>
     </body>
 
 </html:html>
