@@ -14,8 +14,8 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="packages">
+        <modelElements variable="packages">
+            <modelElement>
                 <type name="org.andromda.cartridges.costcalculator.metafacades.PackageCosts"/>
             </modelElement>
         </modelElements>

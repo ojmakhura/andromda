@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.andromda.cartridges.costcalculator.CostCalculatorGlobals;
 import org.andromda.cartridges.costcalculator.psm.CompositeCostPosition;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.apache.log4j.Priority;
 
 /**
  * MetafacadeLogic implementation for
@@ -54,7 +55,16 @@ public class ClassifierCostsLogicImpl extends ClassifierCostsLogic
         Collection associationEnds = this.getAssociationEnds();
         for (Iterator iter = operations.iterator(); iter.hasNext();)
         {
-            AssociationEndFacade aef = (AssociationEndFacade) iter.next();
+            Object o = iter.next();
+            if (!(o instanceof AssociationEndFacade))
+            {
+                this.logger.log(Priority.ERROR,
+                        "ClassifierCostsLogicImpl: cannot cast type '"
+                                + o.getClass().getName()
+                                + "' to AssociationEndFacade");
+            }
+
+            AssociationEndFacade aef = (AssociationEndFacade) o;
             AssociationCosts element = (AssociationCosts) aef.getAssociation();
             result.addSubPosition(element.getCosts());
         }
@@ -65,7 +75,6 @@ public class ClassifierCostsLogicImpl extends ClassifierCostsLogic
             DependencyCosts element = (DependencyCosts) iter.next();
             result.addSubPosition(element.getCosts());
         }
-
 
         return result;
     }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.andromda.cartridges.costcalculator.CostCalculatorGlobals;
 import org.andromda.cartridges.costcalculator.psm.CompositeCostPosition;
 import org.andromda.cartridges.costcalculator.psm.SimpleCostPosition;
+import org.apache.log4j.Priority;
 
 /**
  * MetafacadeLogic implementation for
@@ -28,24 +29,44 @@ public class PackageCostsLogicImpl extends PackageCostsLogic
      */
     protected org.andromda.cartridges.costcalculator.psm.CostPosition handleGetCosts()
     {
-        Object configuredPrice = this
-                .getConfiguredProperty(CostCalculatorGlobals.PACKAGE_PRICE);
-        double packagePrice = Double.valueOf(String.valueOf(configuredPrice)).doubleValue();
+        try
+        {
+            Object configuredPrice = this
+                    .getConfiguredProperty(CostCalculatorGlobals.PACKAGE_PRICE);
+            double packagePrice = Double.valueOf(
+                    String.valueOf(configuredPrice)).doubleValue();
 
-        Collection classes = this.getClasses();
-        if (classes.size() == 0)
-        {
-            return new SimpleCostPosition(this.getFullyQualifiedName(), packagePrice);
+            Collection classes = this.getClasses();
+            if (classes.size() == 0)
+            {
+                return new SimpleCostPosition(this.getFullyQualifiedName(),
+                        packagePrice);
+            }
+
+            CompositeCostPosition result = new CompositeCostPosition(this
+                    .getFullyQualifiedName(), packagePrice);
+            for (Iterator iter = classes.iterator(); iter.hasNext();)
+            {
+                Object o = iter.next();
+                if (!(o instanceof ClassifierCosts))
+                {
+                    this.logger.log(Priority.ERROR, "cannot cast "
+                            + o.getClass().getName() + " to ClassifierCosts!");
+                }
+                else
+                {
+                    ClassifierCosts element = (ClassifierCosts) o;
+                    result.addSubPosition(element.getCosts());
+                }
+            }
+
+            return result;
         }
-        
-        CompositeCostPosition result = new CompositeCostPosition(this.getFullyQualifiedName(), packagePrice);
-        for (Iterator iter = classes.iterator(); iter.hasNext();)
+        catch (RuntimeException e)
         {
-            ClassifierCosts element = (ClassifierCosts) iter.next();
-            result.addSubPosition(element.getCosts());
+            this.logger.log(Priority.ERROR, "exception in handleGetCosts()", e);
+            throw e;
         }
-        
-        return result;
     }
 
 }
