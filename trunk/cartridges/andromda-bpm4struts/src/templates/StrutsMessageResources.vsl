@@ -148,9 +148,14 @@ ${messageKey}.$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllo
 #end
 ${messageKey}.$field.messageKey=$field.messageValue
 ${messageKey}.$field.titleKey=$field.titleValue$requiredSuffix$fieldComment
-#foreach ($optionKey in $field.optionKeys)
-${messageKey}.$optionKey=${field.name}-$velocityCount
-${messageKey}.${optionKey}.title=${field.name}-$velocityCount
+#if ($field.optionCount > 0)
+#set ($optionKeys = $field.optionKeys)
+#set ($optionValues = $field.optionValues)
+#foreach ($optionKey in $optionKeys)
+#set ($count = $velocityCount - 1)
+${messageKey}.$optionKey=$optionValues.get($count)
+${messageKey}.${optionKey}.title=$optionValues.get($count)
+#end
 #end
 #end
 
