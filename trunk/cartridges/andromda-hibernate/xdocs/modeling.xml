@@ -80,6 +80,19 @@
 							(to keep your model more PIM like).
 			          	</td>
 					</tr>
+		        	<tr>
+						<a name="@andromda.ejb.viewType"/>
+			          	<td>
+			          		@andromda.ejb.viewType
+			          	</td>
+						<td>
+							<a href="#Service"><![CDATA[<<Service>>]]></a>
+						</td>
+			          	<td>
+			          		Defines the view type for a Session EJB.  If not
+                            defined, <code>remote</code> will be assumed.
+			          	</td>
+		        	</tr>	
 					<tr>
 						<td>
 	                        @andromda.persistence.table
