@@ -1,5 +1,10 @@
 <cartridge name="hibernate">
 
+    <templateEngine>
+        <macrolibrary name="templates/hibernate/hibernate.hbm.xml.vm" />
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils"/>
