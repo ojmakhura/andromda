@@ -135,7 +135,8 @@
            Database related operations
          ================================================================== -->
     <goal name="execute-script">
-        <j:if test="${script != null}">
+#set ($condition = '${script != null}')
+        <j:if test="$condition">
             <u:file var="scriptFile" name="${script}"/>
             <j:if test="${scriptFile.exists()}">
                 <ant:sql driver="${dataSource.driver.class}" src="${scriptFile}"
