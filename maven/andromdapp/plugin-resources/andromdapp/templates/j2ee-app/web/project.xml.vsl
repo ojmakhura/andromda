@@ -102,7 +102,8 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!-- commons validator depends on antlr and oro for 'validwhen' -->
+        <!-- commons validator depends on antlr and oro for 
+             certain validation types -->
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
