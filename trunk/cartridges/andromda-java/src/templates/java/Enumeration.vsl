@@ -106,7 +106,7 @@ $literal.getDocumentation("     * ")
 #foreach ($literal in $enumeration.literals)
 #set ($value = "${literal.name}.value")
 #if($literal.type.primitive)
-#set ($value = "new ${literal.type.wrapperName}(value);")
+#set ($value = "new ${literal.type.wrapperName}(value)")
 #end
         values.put($value, $literal.name);
         literals.add($value);
