@@ -23,7 +23,7 @@
             tofile="${projectId}/project.properties"/>
           
         <velocity:merge 
-            name="${projectId}/project"
+            name="${projectId}/.project"
             basedir="${templatesDir}"
             template="/eclipse-project.vsl"/>
           
