@@ -18,8 +18,8 @@
 	      	<properties>
 	      		<logical.languageMappingsUri>Java</logical.languageMappingsUri>
 	      		<facades.ignore/>
-	      		<facade-logics>${basedir}/target/src/andromda/meta</facade-logics>
-	      		<facades-to-impls>${basedir}/target/src/andromda/meta</facades-to-impls>
+	      		<facade-logics>${basedir}/target/src</facade-logics>
+	      		<facades-to-impls>${basedir}/target/src</facades-to-impls>
 	      		<facade-logic-impls>${basedir}/src/java</facade-logic-impls>
 	      	</properties>
 	    </dependency>

@@ -10,7 +10,7 @@
 		<attainGoal name="multiproject:install"/>	
   	</goal> 
   		 
-  	<j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}/andromda/meta"/>
+  	<j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}"/>
   		 
     <preGoal name="java:compile"> 
    		<attainGoal name="generate-source"/>
@@ -56,15 +56,36 @@
     </goal>
     
     <!-- ===================================================================
-         Intercept the set goal so that we can fake out the javadoc and
-         jxr plugins into thinking the basedir is our source directory 
-         (since they only handle one source directory per project).  
-         The report plugins  really should support multiple source directories but 
-         right now the don't so we do this to get around it.                         
+         Intercept the 'site' goal so that we can fake out the reports 
+         by copying our real source to a temp directory and then setting the 
+         pom's source directory to point to that one (since the reports only 
+         handle one source directory per project).  The report plugins  
+         really should support multiple source directories but right now 
+         the don't so we do this to get around it.                         
          =================================================================== -->
     <preGoal name="site">
-		<j:set var="previousSourceDirectory" value="${pom.build.sourceDirectory}"/>
-		<j:set var="dummy" value="${pom.build.setSourceDirectory(basedir)}"/>    	
+    	<!-- the temp directory to copy all the source -->
+    	<j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
+    	<ant:delete dir="${reportBuildSrcDir}"/>
+    	<j:set var="buildSrcDir" value="${maven.build.src}"/>
+		<j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
+		<ant:available
+			property="sourceDirectoryPresent"
+			file="${sourceDirectory}"/>
+		<j:if test="${sourceDirectoryPresent}">
+			<ant:copy todir="${reportBuildSrcDir}">
+				<ant:fileset dir="${sourceDirectory}"/>
+			</ant:copy>
+		</j:if>
+		<ant:available
+			property="buildSrcDirPresent"
+			file="${buildSrcDir}"/>
+		<j:if test="${buildSrcDirPresent}">
+			<ant:copy todir="${reportBuildSrcDir}">
+				<ant:fileset dir="${buildSrcDir}"/>
+			</ant:copy>
+		</j:if>
+		<j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>    	
     </preGoal>
     
     <!-- ===================================================================
@@ -72,35 +93,8 @@
     	 that we're done with the javadoc and jxr reports.
          =================================================================== -->
     <postGoal name="site">
-    	<j:set var="dummy" value="${pom.build.setSourceDirectory(previousSourceDirectory)}"/>
+    	<j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
     </postGoal>
-	
-    <!-- ===================================================================
-    	 Copy the jxr sources to the correct location since the jxr plugin
-    	 won't place them in the correct location since we are saying
-    	 the basedir is the sourcedirectory.
-         =================================================================== -->	    	
-	<postGoal name="maven-jxr-plugin:report">
-		
-		<!-- move the xref docs to the correct location -->
-		<j:set var="jxrDestDir" value="${maven.docs.dest}/xref"/>
-		<j:set var="javaSourceJxr" value="${jxrDestDir}/src/java"/>
-		<j:set var="generatedSourceJxr" value="${jxrDestDir}/target/src/andromda/meta"/>
-		<ant:available 
-			property="javaJxrPresent" 
-			file="${javaSourceJxr}"/>     
-		<ant:available 
-			property="generatedJxrPresent" 
-			file="${generatedSourceJxr}"/>  
-		<ant:move todir="${jxrDestDir}">
-			<j:if test="${javaJxrPresent}">
-				<ant:fileset dir="${javaSourceJxr}"/>
-			</j:if>			
-			<j:if test="${generatedJxrPresent}">
-				<ant:fileset dir="${generatedSourceJxr}"/>
-			</j:if>
-		</ant:move>
-	</postGoal>
   		 
 </project>
 
