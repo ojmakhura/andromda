@@ -151,4 +151,14 @@ public class UMLMetafacadeProperties
      * The seperator to use when constructing SQL names.
      */
     public static final String SQL_NAME_SEPARATOR = "sqlNameSeparator";
+    
+    /**
+     * The pattern used for constructing operations that handle precondition constraints.
+     */
+    public static final String PRECONDITION_NAME_PATTERN = "preconditionNamePattern";
+    
+    /**
+     * The pattern used for constructing operations that handle postcondition constraints.
+     */
+    public static final String POSTCONDITION_NAME_PATTERN = "postconditionNamePattern";
 }

@@ -485,4 +485,24 @@ public class OperationFacadeLogicImpl
 
         return concurrency;
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getPreconditionName()
+     */
+    protected String handleGetPreconditionName()
+    {
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.PRECONDITION_NAME_PATTERN)).replaceAll(
+                "\\{0\\}", this.getName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getPostconditionName()
+     */
+    protected String handleGetPostconditionName()
+    {
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.POSTCONDITION_NAME_PATTERN)).replaceAll(
+                "\\{0\\}", this.getName());
+    }
 }

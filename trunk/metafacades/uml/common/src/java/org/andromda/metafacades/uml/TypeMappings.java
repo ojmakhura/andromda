@@ -1,7 +1,5 @@
 package org.andromda.metafacades.uml;
 
-import java.net.MalformedURLException;
-
 import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
