@@ -59,10 +59,16 @@ public final class $action.actionClassName extends Action
 
 #end
         final ActionForward forward = #processTransition($action)
+#if (!$action.formScopeNone)
         if (this.errorsNotPresent(request))
         {
-            request.getSession().setAttribute("form", form);       
+#if ($action.formScopeRequest)
+            request.setAttribute("form", form);
+#else
+            request.getSession().setAttribute("form", form);
+#end
         }
+#end
 #saveMessages($action "        ")
 #if ($resettableActionParameters.empty == false)
 
@@ -152,16 +158,16 @@ $decisionTransition.getDocumentation("     * ")
     /**
      * Returns true if <strong>NO</strong> errors
      * are present in the request.  This includes default validation
-     * errors produced by the struts framework and the exception 
-     * handler errors caught by the pattern matching 
+     * errors produced by the struts framework and the exception
+     * handler errors caught by the pattern matching
      * exception handler.
-     * 
+     *
      * @return true if errors are <strong>not</strong> present, false otherwise.
      */
     private boolean errorsNotPresent(HttpServletRequest request)
     {
         return this.getExceptionHandlerErrors(request).isEmpty() &&
-        	(this.getErrors(request) == null || this.getErrors(request).isEmpty());
+            (this.getErrors(request) == null || this.getErrors(request).isEmpty());
     }
 
     /**
@@ -172,7 +178,7 @@ $decisionTransition.getDocumentation("     * ")
      */
     private org.apache.struts.action.ActionMessages getExceptionHandlerErrors(HttpServletRequest request)
     {
-        org.apache.struts.action.ActionMessages errors = 
+        org.apache.struts.action.ActionMessages errors =
             (org.apache.struts.action.ActionMessages)request.getAttribute(
                 "$errorMessagesKey");
         if (errors == null)

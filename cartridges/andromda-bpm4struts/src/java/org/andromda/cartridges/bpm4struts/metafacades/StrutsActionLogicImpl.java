@@ -708,4 +708,58 @@ public class StrutsActionLogicImpl
             }
         };
     }
+    
+    /**
+     * The "session" action form scope.
+     */
+    private static final String FORM_SCOPE_SESSION = "session";
+    
+    /**
+     * The "request" action form scope.
+     */
+    private static final String FORM_SCOPE_REQUEST = "request";
+    
+    /**
+     * The "none" action form scope.
+     */
+    private static final String FORM_SCOPE_NONE = "none";
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getFormScope()
+     */
+    protected String handleGetFormScope()
+    {
+        String actionFormScope = String.valueOf(this.getConfiguredProperty(
+            Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
+        Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_SCOPE);
+        if (value != null)
+        {
+            actionFormScope = String.valueOf(value);
+        }
+        return StringUtils.trimToEmpty(actionFormScope);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isFormScopeSession()
+     */
+    protected boolean handleIsFormScopeSession()
+    {
+        return this.getFormScope().equalsIgnoreCase(FORM_SCOPE_SESSION);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isFormScopeRequest()
+     */
+    protected boolean handleIsFormScopeRequest()
+    {
+        return this.getFormScope().equalsIgnoreCase(FORM_SCOPE_REQUEST);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isFormScopeNone()
+     */
+    protected boolean handleIsFormScopeNone()
+    {
+        return this.getFormScope().equalsIgnoreCase(FORM_SCOPE_NONE);
+    }
 }

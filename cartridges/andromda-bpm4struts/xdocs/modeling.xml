@@ -112,6 +112,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <a name="andromda.struts.action.form.scope"/>
+                            <td>andromda.struts.action.form.scope</td>
+                            <td>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</td>
+                            <td>session</td>
+                            <td>
+                                This allows one to override the action form scope defined 
+                                by the <a href="namespace.html#actionFormScope">actionFormScope</a> namespace property.
+                            </td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.view.field.type</td>
                             <td>Parameter</td>
                             <td>text</td>
