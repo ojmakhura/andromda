@@ -3,7 +3,6 @@
 <project>
   	<extend>../project.xml</extend>
   	<id>andromda-metafacades</id>
-  	<groupId>andromda</groupId>
   	<name>AndroMDA Metafacades</name>
   	<shortDescription>Metafacade Libraries</shortDescription>
   	<description>
@@ -12,4 +11,12 @@
   		meta model.  This allows us to switch out the metafacade implementatin without
   		worrying about breaking cartridge funciontionality.
   	</description>
+  	<!-- restrict the reports generated -->
+  	<reports>
+  		<report>maven-jxr-plugin</report>
+  		<report>maven-javadoc-plugin</report>
+  	    <report>maven-simian-plugin</report>
+  	    <report>maven-pmd-plugin</report>
+    	<report>maven-jdepend-plugin</report>
+  	</reports>
 </project>

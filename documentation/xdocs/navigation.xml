@@ -24,7 +24,6 @@
             <item name="Maven Plugin" href="/maven-andromda-plugin/index.html"/>
             <item name="AndroMDA Wiki" href="http://team.andromda.org/tiki"/>
             <item name="Building AndroMDA" href="building.html"/>
-			<item name="Download" href="download.html" collapse="true"/>
         </menu>
 
 		<menu name="Components">
@@ -39,12 +38,11 @@
             <item name="Intro" href="sampleintro.html"/>
             <item name="UML model" href="/umldoc/index.html"/>
         </menu>
-
-        <menu name="Downloads">
-            <item name="distributions" href="http://team.andromda.org/maven/andromda/distributions"/>
-            <item name="plugins" href="http://team.andromda.org/maven/andromda/plugins"/>
-            <item name="jars" href="http://team.andromda.org/maven/andromda/jars"/>
-        </menu>
+        
+		 <menu name="Downloads" href="releases.html" collapse="true">
+			 <item name="Releases" href="releases.html"/>
+			 <item name="Nightly Builds" href="http://team.andromda.org/maven/andromda/distributions"/>
+		</menu>
 
         <menu name="Professional services">
             <item name="Consulting" href="consulting.html"/>
