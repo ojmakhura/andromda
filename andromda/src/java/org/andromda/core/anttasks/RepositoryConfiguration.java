@@ -61,8 +61,8 @@ public class RepositoryConfiguration
     public RepositoryFacade createRepository()
     {
         return (RepositoryFacade)ComponentContainer.instance().findComponent(
-                	this.repositoryClassName, 
-                	RepositoryFacade.class);
+        	this.repositoryClassName, 
+        	RepositoryFacade.class);
     }
 
     /**
