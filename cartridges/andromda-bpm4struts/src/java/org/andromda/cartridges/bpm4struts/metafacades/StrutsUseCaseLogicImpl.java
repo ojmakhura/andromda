@@ -139,23 +139,6 @@ public class StrutsUseCaseLogicImpl
         return Collections.EMPTY_LIST;
     }
 
-    protected Collection handleGetAllServices()
-    {
-        final Collection services = new HashSet();
-        // find all controller dependencies on <<Service>> classes
-        final Collection useCases = getAllUseCases();
-        for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
-        {
-            StrutsUseCase useCase = (StrutsUseCase) iterator.next();
-            StrutsController controller = useCase.getController();
-            if (controller != null)
-            {
-                services.addAll(controller.getServices());
-            }
-        }
-        return services;
-    }
-
     protected java.lang.Object handleGetActivityGraph()
     {
         /*
