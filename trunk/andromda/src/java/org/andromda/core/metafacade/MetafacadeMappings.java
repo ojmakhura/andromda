@@ -522,9 +522,7 @@ public class MetafacadeMappings
         }
 
         if (logger.isDebugEnabled())
-            logger.debug("found mapping --> '" + mapping
-                + "' with metafacadeClass --> '" + mapping.getMetafacadeClass()
-                + "'");
+            logger.debug("found mapping --> '" + mapping + "'");
 
         return mapping;
     }
