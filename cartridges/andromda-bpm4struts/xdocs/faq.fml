@@ -102,6 +102,21 @@
             </answer>
         </faq>
 
+        <faq id="magicdraw-exceptions">
+            <question>
+                I am using MagicDraw, and I am getting NullPointerExceptions in .getForwardPath(),
+                although my UML model seem to be correct.
+            </question>
+            <answer>
+                <p>
+                    Did you make sure your action states all have names ? in magicdraw you really need to click
+                    'open specification...' in order to e   nter the name, if you typed the name in the diagram
+                    directly you have not entered the name, rather a label. So click 'open specification...'
+                    (right-click --&gt; context menu) on all your action states to make sure their names are not-empty.                 
+                </p>
+            </answer>
+        </faq>
+
         <faq id="stereotypes">
             <question>Do I really need to tag elements with stereotypes ?</question>
             <answer>
