@@ -98,7 +98,22 @@
 						</td>
 			          	<td>
 			          		Allows you to define whether or not operation parameters can be nullable
-                            or <em>nillable</em> (in WSDL terms).
+                            or <em>nillable</em> (in WSDL terms).  If this is <strong>NOT</strong>
+                            defined on a parameter, then a null check will be generated for that
+                            parameter on the service operation.                           
+			          	</td>
+		        	</tr>	
+		        	<tr>
+		        		<a name="Role"/>
+			          	<td>
+			          		<![CDATA[<<Role>>]]>
+			          	</td>
+						<td>
+							Actor
+						</td>
+			          	<td>
+			          		Defines the role providing access to a given web service.  You must associate
+                            this role to the web service for which the role will provide access.
 			          	</td>
 		        	</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
