@@ -89,7 +89,13 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_SERVICE_REF = umlProfile
         .getString("STEREOTYPE_SERVICE_REF");
-
+	
+    /**
+     * Represents a reference to a value object.
+     */
+    public static final String STEREOTYPE_VALUE_REF = umlProfile
+        .getString("STEREOTYPE_VALUE_REF");
+    
     /* ----------------- Tagged Values -------------------- */
 
     /**
