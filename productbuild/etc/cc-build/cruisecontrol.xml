@@ -23,6 +23,7 @@
       </currentbuildstatuspublisher>
       <htmlemail logdir="/work/andromda/logs/andromda-all" 
            mailhost="localhost" 
+		   spamwhilebroken="false"
            subjectprefix="[BUILD]" 
            returnaddress="cwbrandon@users.sourceforge.net" 
            defaultsuffix="@users.sourceforge.net" 
@@ -38,7 +39,7 @@
         <map address="amartinwest@users.sourceforge.net" alias="amartinwest">
         </map>
         <map address="carloslcuenca@users.sourceforge.net" alias="carloslcuenca"/>
-        <failure address="cwbrandon@users.sourceforge.net"/>
+        <failure address="chdbrandon@yahoo.com"/>
         <always address="martin.west@dsl.pipex.com"/>
       </htmlemail>
     </publishers>
