@@ -32,7 +32,7 @@
         
         <j:if test="${buildSrcAvailable}">
             <ant:uptodate property="generationRequired" 
-                          targetfile="${model.file}" >
+                          targetfile="${metafacade.model.file}" >
                 <ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
             </ant:uptodate>
             <!-- add the paths of the generated source to the
