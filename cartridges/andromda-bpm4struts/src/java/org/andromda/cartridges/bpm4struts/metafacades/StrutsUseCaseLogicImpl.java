@@ -215,7 +215,7 @@ public class StrutsUseCaseLogicImpl
 
         for (Iterator iterator = getModel().getAllUseCases().iterator(); iterator.hasNext();)
         {
-            Object object = (Object) iterator.next();
+            Object object = iterator.next();
             if (object instanceof StrutsUseCase)
                 useCases.add(object);
         }
