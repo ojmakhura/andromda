@@ -11,6 +11,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -354,7 +355,7 @@ public class EJBEntityFacadeLogicImpl
         }
         return false;
     }
-    
+
     /**
      * Gets a Mappings instance from a property registered under the given
      * <code>propertyName</code>.
@@ -379,8 +380,8 @@ public class EJBEntityFacadeLogicImpl
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '"
                     + uri + "'";
-                //logger.error(errMsg, th);
-                //don't throw the exception
+                logger.error(errMsg, th);
+                // don't throw the exception
             }
         }
         else
@@ -390,16 +391,17 @@ public class EJBEntityFacadeLogicImpl
         return mappings;
     }
 
-	/* (non-Javadoc)
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetSqlType()
-	 */
-	protected String handleGetSqlType() 
-	{
-		String mpSql = getMappingsProperty("sqlMappingsUri").getName();
-		if(mpSql.startsWith("Oracle")) 
-		{
-			mpSql = "ORACLE";
-		}
-		return mpSql;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getSqlType()
+     */
+    protected String handleGetSqlType()
+    {
+        String mpSql = getMappingsProperty(
+            MetafacadeProperties.SQL_MAPPINGS_URI).getName();
+        if (mpSql.startsWith("Oracle"))
+        {
+            mpSql = "ORACLE";
+        }
+        return mpSql;
+    }
 }

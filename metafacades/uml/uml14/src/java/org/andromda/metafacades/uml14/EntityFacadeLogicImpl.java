@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -148,7 +149,7 @@ public class EntityFacadeLogicImpl
     {
         String tableNamePrefix =
             StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-        	    UMLMetafacadeGlobals.PROPERTY_TABLE_NAME_PREFIX)));
+        	    MetafacadeProperties.TABLE_NAME_PREFIX)));
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             	tableNamePrefix,
                 this,

@@ -99,6 +99,12 @@
       <type>plugin</type>
     </dependency>
     <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.8</version>
+      <properties/>
+    </dependency>
+    <dependency>
       <groupId>andromda</groupId>
       <artifactId>andromda-query-library</artifactId>
       <version>${pom.currentVersion}</version>
