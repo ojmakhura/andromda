@@ -6,6 +6,28 @@
          Install the model into the repository
          =================================================================== -->
   	<postGoal name="jar:install">
+  	    <attainGoal name="xml.zip:prepare"/>
+	    <artifact:install
+	        artifact="${maven.xml.zip.final.name}.xml.zip"
+	        type="xml.zip"
+	        project="${pom}"/> 
+  	</postGoal>
+  	
+    <!-- ===================================================================
+         Deploy the model into the remote repository
+         =================================================================== -->
+  	<postGoal name="jar:deploy">
+  	    <attainGoal name="xml.zip:prepare"/>
+	    <artifact:deploy
+	        artifact="${maven.xml.zip.final.name}.xml.zip"
+	        type="xml.zip"
+	        project="${pom}"/>   	
+  	</postGoal>
+  	
+    <!-- ===================================================================
+         Prepare the xml.zip for install/deploy
+         =================================================================== --> 	
+  	<goal name="xml.zip:prepare">
   	   <j:set var="modelName" value="UMLMetafacadeModel"/>
 	   <j:set var="maven.xml.zip.final.name" 
 	          value="${maven.build.dir}/${modelName}-${pom.currentVersion}"/>
@@ -20,10 +42,6 @@
 	             basedir="${maven.build.dir}"
 	             includes="*.xml"/>	 	
 	    <j:set var="dummy" value="${pom.setArtifactId(modelName)}"/>	
-	    <artifact:install
-	        artifact="${maven.xml.zip.final.name}.xml.zip"
-	        type="xml.zip"
-	        project="${pom}"/> 
-  	</postGoal>
+  	</goal>
 
 </project>
