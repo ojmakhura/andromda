@@ -52,6 +52,10 @@ public class DecoratorBase
      */
     public static DecoratorBase decoratedElement(ModelElement metaObject)
     {
+        if (metaObject == null)
+        {
+            return null;
+        }
         return DecoratorFactory.getInstance().createDecoratorObject(
             metaObject);
     }
