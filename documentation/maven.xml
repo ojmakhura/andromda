@@ -7,9 +7,7 @@
             Builds all documentation
          ================================================================== -->
     <goal name="build">
-        <attainGoal name="copy-jsl"/>
         <attainGoal name="multiproject:site"/>
-        <attainGoal name="add-style"/>
         <j:set var="samples.dir" value="${basedir}/../samples"/>
         <!-- copy the animal-quiz model into the resources directory -->
         <ant:copy file="${samples.dir}/animal-quiz/mda/src/uml/AnimalQuiz.xml.zip" todir="${maven.docs.dest}/resources"/>
@@ -24,56 +22,7 @@
             <ant:zipfileset dir="${maven.docs.dest}"/>
         </ant:zip>
     </goal>
-
-    <!-- ===================================================================
-          Iterate over each subproject and copy master CSS to
-          ${subproject.location}/xdocs/style;
-          This is done after subproject's the documentation has been generated
-         =================================================================== -->
-    <goal name="add-style">
-        <ant:fileScanner var="projects">
-            <ant:fileset dir="${maven.docs.dest}">
-                <ant:patternset>
-                    <ant:include name="**/*maven-base.css"/>
-                </ant:patternset>
-            </ant:fileset>
-        </ant:fileScanner>
-        <j:forEach var="project" items="${projects.iterator()}">
-            <ant:copy todir="${project.parent}" overwrite="true">
-                <ant:fileset dir="${maven.docs.dest}/style"/>
-            </ant:copy>
-        </j:forEach>
-    </goal>
-
-    <!-- ===================================================================
-          Iterate over each subproject and copy the XDOC site template to
-          ${subproject.location}/target/jsl
-          We need to have the site template available to all subprojects that
-          are part of the multi-project proessing.
-          This is done prior to the generation of the documentation.
-         =================================================================== -->
-    <goal name="copy-jsl">
-        <ant:fileScanner var="projects">
-            <ant:fileset dir="${maven.multiproject.basedir}"
-                includes="${maven.multiproject.includes}"
-                excludes="${maven.multiproject.excludes}"/>
-        </ant:fileScanner>
-        <j:forEach var="project" items="${projects.iterator()}">
-            <ant:copy todir="${project.parent}/target/jsl">
-                <ant:fileset dir="${maven.docs.src}/jsl"/>
-            </ant:copy>
-        </j:forEach>
-    </goal>
-
-    <!-- ==================================================================
-            Copies the jsl to the actually documentation directory
-         ================================================================== -->   
-    <preGoal name="xdoc:copy-resources">
-        <ant:copy todir="${maven.build.dir}/jsl">
-            <ant:fileset dir="${maven.docs.src}/jsl"/>
-        </ant:copy>
-    </preGoal>
-
+    
     <!-- ==================================================================
             Cleans all documentation
          ================================================================== -->    

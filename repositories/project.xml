@@ -15,6 +15,12 @@
 	      	<artifactId>andromda-core</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	    </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
     	<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-metafacades-uml</artifactId>

@@ -2,21 +2,21 @@
 
 <!--
  * ========================================================================
- * 
+ *
  * Copyright 2004 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * ========================================================================
 -->
 <!-- stylesheet to be used -->
@@ -29,6 +29,7 @@
   xmlns:x="jelly:xml"
   xmlns:doc="doc"
   xmlns:maven="jelly:maven"
+  xmlns:syntax="jelly:org.andromda.maven.site.SyntaxHighlightingTaglib"
   xmlns="dummy"
   trim="true">
   <jsl:template match="document" trim="true">
@@ -38,7 +39,7 @@
     <!-- Stores location for publish date / version -->
     <j:set var="date">${maven.xdoc.date}</j:set>
 	<j:setProperties object="${navbean}" document="${doc}" location="${location}"/>
-	
+
     <x:doctype name="html" publicId="-//W3C//DTD XHTML 1.0 Transitional//EN" systemId="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <html>
       <head>
@@ -52,7 +53,7 @@
 
         <j:set var="themeUrl" value="${maven.xdoc.theme.url}"/>
         <util:file var="projectCssFile" name="${maven.docs.src}/style/project.css"/>
-        
+
         <style type="text/css" media="all"><![CDATA[
           @import url("${relativePath}/style/maven-base.css");
           ]]>
@@ -66,7 +67,7 @@
 				    @import url("${relativePath}/style/project.css");
 			    ]]></j:if>
         </style>
-        
+
         <link rel="stylesheet" type="text/css" href="${relativePath}/style/print.css" media="print"/>
         <meta http-equiv="Content-Type" content="text/html; charset=${outputencoding}"/>
         <meta name="Description" content="AndroMDA is an open source code generation framework that follows the Model Driven Architecture (MDA) paradigm."></meta>
@@ -76,9 +77,9 @@
           <meta name="author" content="${author.text}"/>
           <meta name="email" content="${author.attribute('email').value}"/>
         </x:forEach>
-        
+
         <jsl:applyTemplates select="$doc/document/head/*"/>
-        
+
       </head>
 
       <x:element name="body"><j:whitespace trim="true">
@@ -151,7 +152,7 @@
                 </div>
                 <div class="clear"><hr /></div>
         </div>
-        
+
         <!-- left column start -->
         <div id="leftColumn">
           <div id="navcolumn">
@@ -192,7 +193,7 @@
           </div>
        </div>
        <!-- left column end -->
-              
+
        <!-- body start -->
        <div id="bodyColumn">
          <div class="contentBox">
@@ -204,10 +205,10 @@
        </div>
        <div class="clear"><hr /></div>
        <!-- body end -->
-        
-              
-       <!-- footer start -->    
-       <div id="footer">  
+
+
+       <!-- footer start -->
+       <div id="footer">
           <jsl:applyTemplates select="$nav/body/footer"/>
           <div class="xright">
             <j:if test="${!empty(pom.organization.name)}">
@@ -229,9 +230,9 @@
           </div>
           <div class="clear"><hr /></div>
         </div>
-        <!-- footer end --> 
-              
-        
+        <!-- footer end -->
+
+
       </x:element>
     </html>
   </jsl:template>
@@ -258,7 +259,7 @@
         </div>
       </j:otherwise>
     </j:choose>
-    
+
   </jsl:template>
 
   <jsl:template match="item" trim="true">
@@ -360,9 +361,91 @@
   </jsl:template>
 
   <jsl:template match="source" trim="false">
-    <div class="source"><pre><jsl:applyTemplates /></pre></div>
+    <div class="source">
+        <x:forEach var="comment" select="comment()">
+            <x:if select="@language='xml'">
+                <pre><syntax:xml elementClass="xe" attributeClass="xa" valueClass="xv" cdataClass="xc">${comment.text}</syntax:xml></pre>
+            </x:if>
+            <x:if select="@language='java'">
+                <pre><syntax:java keywordClass="jk" literalClass="jl" numericClass="jn">${comment.text}</syntax:java></pre>
+            </x:if>
+            <x:if select="@language='velocity'">
+                <pre><syntax:velocity keywordClass="vk" literalClass="vl" numericClass="vn">${comment.text}</syntax:velocity></pre>
+            </x:if>
+        </x:forEach>
+
+<!--
+        <j:invokeStatic var="code" method="highlightJavaSyntaxForHtml" className="org.andromda.core.common.StringUtilsHelper">
+            <j:arg type="java.lang.String" value="${comment.text}"/>
+            <j:arg type="java.lang.String" value="javaKeyword"/>
+            <j:arg type="java.lang.String" value="javaLiteral"/>
+            <j:arg type="java.lang.String" value="javaNumeric"/>
+        </j:invokeStatic>
+        <pre>${code}</pre>
+-->
+
+        <!--
+                    <j:new var="tokenizer" className="java.util.StringTokenizer">
+                            <j:arg type="java.lang.String" value="${comment.text}"/>
+                            <j:arg type="java.lang.String" value=" "/>
+                            <j:arg type="boolean" value="true"/>
+                    </j:new>
+                    <x:if select="@language='java'">
+                        <pre>
+                            <j:while test="${tokenizer.hasMoreTokens()}">
+                                <j:set var="token" value="${tokenizer.nextToken()}"/>
+                                <j:choose>
+                                    <j:when test="${token eq 'package' || token eq 'if' || token eq 'private' || token eq 'this' || token eq 'abstract' || token eq 'default' || token eq 'goto' || token eq 'synchronized' || token eq 'boolean' || token eq 'do' || token eq 'break' || token eq 'double' || token eq 'implements' || token eq 'protected' || token eq 'throw' || token eq 'byte' || token eq 'else' || token eq 'import' || token eq 'public' || token eq 'throws' || token eq 'case' || token eq 'enum' || token eq 'instanceof' || token eq 'return' || token eq 'transient' || token eq 'catch' || token eq 'extends' || token eq 'int' || token eq 'short' || token eq 'try' || token eq 'char' || token eq 'final' || token eq 'interface' || token eq 'static' || token eq 'void' || token eq 'class' || token eq 'finally' || token eq 'long' || token eq 'strictfp' || token eq 'volatile' || token eq 'const' || token eq 'float' || token eq 'native' || token eq 'super' || token eq 'while' || token eq 'continue' || token eq 'for' || token eq 'new' || token eq 'switch'}">
+                                        <div class="javaKeyword">${token}</div>
+                                    </j:when>
+                                    <j:otherwise>${token}</j:otherwise>
+                                </j:choose>
+                            </j:while>
+                        </pre>
+                    </x:if>
+                    <x:if select="@language='xml'">
+                        <pre>
+                            <j:while test="${tokenizer.hasMoreTokens()}">
+                                <j:set var="token" value="${tokenizer.nextToken()}"/>
+                                <j:choose>
+                                    <j:when test="${token eq 'package' || token eq 'if' || token eq 'private' || token eq 'this' || token eq 'abstract' || token eq 'default' || token eq 'goto' || token eq 'synchronized' || token eq 'boolean' || token eq 'do' || token eq 'break' || token eq 'double' || token eq 'implements' || token eq 'protected' || token eq 'throw' || token eq 'byte' || token eq 'else' || token eq 'import' || token eq 'public' || token eq 'throws' || token eq 'case' || token eq 'enum' || token eq 'instanceof' || token eq 'return' || token eq 'transient' || token eq 'catch' || token eq 'extends' || token eq 'int' || token eq 'short' || token eq 'try' || token eq 'char' || token eq 'final' || token eq 'interface' || token eq 'static' || token eq 'void' || token eq 'class' || token eq 'finally' || token eq 'long' || token eq 'strictfp' || token eq 'volatile' || token eq 'const' || token eq 'float' || token eq 'native' || token eq 'super' || token eq 'while' || token eq 'continue' || token eq 'for' || token eq 'new' || token eq 'switch'}">
+                                        <div class="javaKeyword">${token}</div>
+                                    </j:when>
+                                    <j:otherwise>${token}</j:otherwise>
+                                </j:choose>
+                            </j:while>
+                        </pre>
+                    </x:if>
+        -->
+
+        <!--
+        <pre><x:forEach var="comment" select="comment()"><j:new var="tokenizer" className="java.util.StringTokenizer"><j:arg type="java.lang.String" value="${comment.text}"/><j:arg type="java.lang.String" value=" "/><j:arg type="boolean" value="true"/></j:new><j:while test="${tokenizer.hasMoreTokens()}"><j:set var="token" value="${tokenizer.nextToken()}"/><j:choose><j:when test="${token eq 'package' || token eq 'if' || token eq 'private' || token eq 'this' || token eq 'abstract' || token eq 'default' || token eq 'goto' || token eq 'synchronized' || token eq 'boolean' || token eq 'do' || token eq 'break' || token eq 'double' || token eq 'implements' || token eq 'protected' || token eq 'throw' || token eq 'byte' || token eq 'else' || token eq 'import' || token eq 'public' || token eq 'throws' || token eq 'case' || token eq 'enum' || token eq 'instanceof' || token eq 'return' || token eq 'transient' || token eq 'catch' || token eq 'extends' || token eq 'int' || token eq 'short' || token eq 'try' || token eq 'char' || token eq 'final' || token eq 'interface' || token eq 'static' || token eq 'void' || token eq 'class' || token eq 'finally' || token eq 'long' || token eq 'strictfp' || token eq 'volatile' || token eq 'const' || token eq 'float' || token eq 'native' || token eq 'super' || token eq 'while' || token eq 'continue' || token eq 'for' || token eq 'new' || token eq 'switch'}"><div class="javaKeyword">${token}</div></j:when><j:otherwise>${token}</j:otherwise></j:choose></j:while></x:forEach></pre>
+-->
+
+<!--
+            <j:set var="public"><div class="javaKeyword">public</div></j:set>
+            <pre>
+                <x:forEach var="comment" select="comment()">
+                    <j:out value="${comment.text.replaceAll('public',public)}"/>
+                </x:forEach>
+            </pre>
+-->
+
+
+<!-- &lt;div class=javaKeyword&gt;public&lt;/div&gt;
+                <util:tokenize var="tokens" delim=" " trim="true">${comment.text}</util:tokenize>
+                <j:forEach var="token" items="${tokens}">
+                    <j:choose>
+                        <j:when test="${token eq 'package' || token eq 'if' || token eq 'private' || token eq 'this' || token eq 'abstract' || token eq 'default' || token eq 'goto' || token eq 'synchronized' || token eq 'boolean' || token eq 'do' || token eq 'break' || token eq 'double' || token eq 'implements' || token eq 'protected' || token eq 'throw' || token eq 'byte' || token eq 'else' || token eq 'import' || token eq 'public' || token eq 'throws' || token eq 'case' || token eq 'enum' || token eq 'instanceof' || token eq 'return' || token eq 'transient' || token eq 'catch' || token eq 'extends' || token eq 'int' || token eq 'short' || token eq 'try' || token eq 'char' || token eq 'final' || token eq 'interface' || token eq 'static' || token eq 'void' || token eq 'class' || token eq 'finally' || token eq 'long' || token eq 'strictfp' || token eq 'volatile' || token eq 'const' || token eq 'float' || token eq 'native' || token eq 'super' || token eq 'while' || token eq 'continue' || token eq 'for' || token eq 'new' || token eq 'switch'}">
+                            <div class="javaKeyword">${token}</div>
+                        </j:when>
+                        <j:otherwise>${token}</j:otherwise>
+                    </j:choose>
+                </j:forEach>
+-->
+    </div>
   </jsl:template>
-  
+
   <!-- preserve whitespace in the following elements -->
   <jsl:template match="pre | script | style" trim="true">
     <x:set var="nodename" select="name()"/>
@@ -373,7 +456,7 @@
       <j:whitespace trim="false"><jsl:applyTemplates /></j:whitespace>
     </x:element>
   </jsl:template>
-  
+
   <!-- xhtml fixup: add missing alt attribute for images -->
   <jsl:template match="img" trim="true">
     <x:element name="img">
@@ -436,7 +519,7 @@
           </table>
         </div>
       </jsl:template>
-      
+
       <!-- a goal -->
       <jsl:template match="goal" trim="true">
         <j:choose>
@@ -447,15 +530,15 @@
             <j:set var="rowMode" value="a"/>
           </j:otherwise>
         </j:choose>
-        
+
         <x:element name="tr"><j:whitespace trim="true">
           <x:attribute name="class">${rowMode}</x:attribute>
           <j:set var="_goalName"><x:expr select="./name" /></j:set>
           <td style="width:20%"><a name="${_goalName}"/>${_goalName}</td>
           <td ><jsl:applyTemplates select="description" /></td>
 </j:whitespace></x:element>
-      </jsl:template>   
-      
+      </jsl:template>
+
       <jsl:template match="description">
         <jsl:applyTemplates trim="false"/>
       </jsl:template>
@@ -467,7 +550,7 @@
         <j:choose>
           <j:when test="${attr.name == 'href'}">
             <j:set var="href" value="${attr.value}" />
-            <j:choose>                 
+            <j:choose>
               <j:when test="${href.startsWith('#')}">
               	<x:attribute name="href">
               	  <doc:escapeNameToken value="${href}"/>
@@ -477,7 +560,7 @@
                 <x:attribute name="href">${href}</x:attribute>
               	<x:attribute name="class">externalLink</x:attribute>
               	<x:attribute name="title">External Link</x:attribute>
-              </j:when>                  
+              </j:when>
               <j:otherwise>
                 <x:attribute name="href">${href}</x:attribute>
               </j:otherwise>
@@ -488,7 +571,7 @@
             <j:if test="${!empty(target) and target.equals('_blank')}">
               <x:attribute name="class">newWindow</x:attribute>
               <x:attribute name="title">New Window</x:attribute>
-            </j:if>              
+            </j:if>
             <x:attribute name="target">${target}</x:attribute>
           </j:when>
           <j:when test="${attr.name == 'name'}">
@@ -504,10 +587,10 @@
       <jsl:applyTemplates/>
     </x:element>
   </jsl:template>
-   
+
   <!-- copy any other elements through -->
   <jsl:template match="*" trim="false"><jsl:copy trim="false"><jsl:applyTemplates trim="false"/></jsl:copy></jsl:template>
-   
+
   <!-- element values don't pass through as text -->
   <jsl:template match="@*"/>
 

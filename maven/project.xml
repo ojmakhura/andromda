@@ -15,6 +15,14 @@
         <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/maven</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/maven/</url>
     </repository>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}-bootstrap</groupId>
+            <artifactId>andromda-site-bootstrap-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+    </dependencies>
     <reports>
         <report>maven-jxr-plugin</report>
         <report>maven-javadoc-plugin</report>

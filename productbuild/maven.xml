@@ -72,8 +72,6 @@
                Builds ALL documentation and inludes it in the binary dist
          ================================================================== -->
     <goal name="docs" prereqs="dist-init,initialize">
-        <echo> Dev ${pom.repository.developerConnection}</echo>
-        <echo> Con ${pom.repository.connection}</echo>
         <maven:maven descriptor="${basedir}/documentation/project.xml" goals="build"/>
         <ant:copy todir="${binaryDistDir}">
             <ant:fileset dir="documentation/target">
