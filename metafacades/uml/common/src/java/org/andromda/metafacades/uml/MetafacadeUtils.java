@@ -97,6 +97,13 @@ public class MetafacadeUtils
 
     private final static Map uniqueNames = new HashMap();
 
+    /**
+     * Registers the argument name and updates it if necessary so it is unique
+     * among all the registered names so far.
+     *
+     * @param name the name to register
+     * @return the argument, possible tranformed in case it was already registered
+     */
     public static String createUniqueName(String name)
     {
         if (StringUtils.isBlank(name)) return name;
