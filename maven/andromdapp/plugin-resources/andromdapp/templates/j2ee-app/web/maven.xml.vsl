@@ -106,18 +106,23 @@
 
                 <!-- add ids to the servlets -->
                 <j:set var="counter" value="1"/>
-                <j:while test="${webXmlFragment.indexOf('&lt;servlet&gt;') >= 0}">
+#set ($counterIncrement = "counter+1")
+#set ($tokenSearch = "webXmlFragment.indexOf('&lt;servlet&gt;') >= 0")
+#set ($replaceCall = "webXmlFragment.replaceFirst('&lt;servlet&gt;',replaceValue)")
+                <j:while test="${${tokenSearch}}">
                     <j:set var="replaceValue" value="&lt;servlet id=&quot;servlet_jspc_${counter}&quot;&gt;"/>
-                    <j:set var="webXmlFragment" value="${webXmlFragment.replaceFirst('&lt;servlet&gt;',replaceValue)}"/>
-                    <j:set var="counter" value="${counter+1}"/>
+                    <j:set var="webXmlFragment" value="${${replaceCall}}"/>
+                    <j:set var="counter" value="${${counterIncrement}}"/>
                 </j:while>
 
                 <!-- add ids to the servlet-mappings -->
                 <j:set var="counter" value="1"/>
-                <j:while test="${webXmlFragment.indexOf('&lt;servlet-mapping&gt;') >= 0}">
+#set ($tokenSearch = "webXmlFragment.indexOf('&lt;servlet-mapping&gt;') >= 0")
+#set ($replaceCall = "webXmlFragment.replaceFirst('&lt;servlet-mapping&gt;',replaceValue)")
+                <j:while test="${${tokenSearch}}">
                     <j:set var="replaceValue" value="&lt;servlet-mapping id=&quot;servlet_mapping_jspc_${counter}&quot;&gt;"/>
-                    <j:set var="webXmlFragment" value="${webXmlFragment.replaceFirst('&lt;servlet-mapping&gt;',replaceValue)}"/>
-                    <j:set var="counter" value="${counter+1}"/>
+                    <j:set var="webXmlFragment" value="${${replaceCall}}"/>
+                    <j:set var="counter" value="${${counterIncrement}}"/>
                 </j:while>
 
                 <!-- write the text back to file -->
