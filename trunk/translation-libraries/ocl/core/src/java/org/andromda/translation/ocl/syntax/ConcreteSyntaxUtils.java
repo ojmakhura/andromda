@@ -443,9 +443,7 @@ public class ConcreteSyntaxUtils
         APropertyCallExpression expression)
     {
         StringBuffer path = new StringBuffer();
-        final String expressionAsString = TranslationUtils
-            .trimToEmpty(expression);
-        if (expressionAsString.indexOf(ARROW_FEATURE_CALL) != -1)
+        if (OCLPatterns.isCollectionOperationResultNavigationalPath(expression))
         {
             List featureCalls = getFeatureCalls(expression);
             int size = featureCalls.size();
@@ -455,6 +453,10 @@ public class ConcreteSyntaxUtils
                 {
                     String featureCall = TranslationUtils
                         .trimToEmpty(featureCalls.get(ctr));
+                    if (featureCall.indexOf(ARROW_FEATURE_CALL) != -1 || featureCall.indexOf('(') != -1)
+                    {
+                        break;
+                    }
                     path.append(featureCall);
                     if (ctr != size - 1)
                     {

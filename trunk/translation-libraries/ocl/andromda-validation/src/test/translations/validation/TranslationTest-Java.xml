@@ -98,8 +98,10 @@
 
     <expression>
         <from>
+            <![CDATA[
             context LoyaltyProgram
-            inv: partners.deliveredServices.transaction.points->sum() &lt; 10000
+            inv: partners.deliveredServices.transaction.points->sum() < 10000
+            ]]>
         </from>
         <to>
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.less(org.andromda.translation.ocl.validation.OCLCollections.sum(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices.transaction.points")),10000));
@@ -354,18 +356,16 @@
             ]]>                
         </to>
     </expression>
-    
-    <!-- todo: make this expression work
+
     <expression>
         <from>
             context EnumerationFacade
             inv: let literalTypeName : String = attributes->first().type.fullyQualifiedName in attributes->forAll(type.fullyQualifiedName = literalTypeName)
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.fullyQualifiedName"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLCollections.first(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement, "attributes")),"type.fullyQualifiedName")))).booleanValue();}}));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.fullyQualifiedName"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLCollections.first(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes")),"type.fullyQualifiedName")))).booleanValue();}}));
         </to>
     </expression>
-    -->
    
    <!-- 
     <expression>

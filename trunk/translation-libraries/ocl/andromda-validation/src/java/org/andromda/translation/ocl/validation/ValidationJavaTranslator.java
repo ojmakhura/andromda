@@ -15,6 +15,8 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.translation.ocl.BaseTranslator;
 import org.andromda.translation.ocl.node.*;
 import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
+import org.andromda.translation.ocl.syntax.OCLFeatures;
+import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -53,7 +55,7 @@ public class ValidationJavaTranslator
             throw new ValidationTranslatorException(th);
         }
     }
-    
+
     /**
      * The package to which the OCL translator classes belong.
      */
@@ -500,6 +502,7 @@ public class ValidationJavaTranslator
                     .parent();
                 String expressionAsString = ConcreteSyntaxUtils
                     .getPrimaryExpression(expression);
+                // remove any references to 'self.' as we write
                 expressionAsString = expressionAsString.replaceAll(
                     "self\\.|self",
                     "");
@@ -539,7 +542,6 @@ public class ValidationJavaTranslator
                         }
                         write(invokedObject);
                         write(",\"");
-                        // remove any references to 'self.' as we write
                         write(expressionAsString);
                         write("\")");
                         if (convertToBoolean)
@@ -594,6 +596,19 @@ public class ValidationJavaTranslator
             && !String.valueOf(list).trim().equals("");
         {
             newTranslationLayer();
+            final String navigationalPath = ConcreteSyntaxUtils
+                .getArrowFeatureCallResultNavigationalPath((APropertyCallExpression)featureCall
+                    .parent().parent());
+            // if the result of an arrow feature (collection operation) has a
+            // navigational
+            // path, retrieve it and wrap the current expression with an OCL
+            // introspector call
+            boolean resultNavigationalPath = StringUtils
+                .isNotBlank(navigationalPath);
+            if (resultNavigationalPath)
+            {
+                write(OCL_INTROSPECTOR_INVOKE_PREFIX);
+            }
             write(OCL_TRANSLATOR_PACKAGE);
             write(".OCLCollections.");
             inAFeatureCall(featureCall);
@@ -654,6 +669,16 @@ public class ValidationJavaTranslator
             if (parameters.getRParen() != null)
             {
                 parameters.getRParen().apply(this);
+            }
+            // now since we have a navigational path off of the
+            // result we need to write the path and close off
+            // the call to the OCL introspector.
+            if (resultNavigationalPath)
+            {
+                write(",\"");
+                write(navigationalPath);
+                write("\"");
+                write(")");
             }
             this.outAFeatureCall(featureCall);
         }
@@ -1207,7 +1232,8 @@ public class ValidationJavaTranslator
      * The prefix for calling the OCLIntrospector to invoke a property or method
      * on an element.
      */
-    private static final String OCL_INTROSPECTOR_INVOKE_PREFIX = OCL_TRANSLATOR_PACKAGE + ".OCLIntrospector.invoke(";
+    private static final String OCL_INTROSPECTOR_INVOKE_PREFIX = OCL_TRANSLATOR_PACKAGE
+        + ".OCLIntrospector.invoke(";
 
     /**
      * The prefix for converting expressions to boolean expressions

@@ -1,4 +1,6 @@
-package org.andromda.translation.ocl.validation;
+package org.andromda.translation.ocl.syntax;
+
+import org.andromda.core.translation.TranslationUtils;
 
 /**
  * Contains the patterns matching reserved features of the OCL language.
@@ -44,7 +46,8 @@ public class OCLFeatures
      */
     public static boolean isAllInstances(Object expression)
     {
-        return String.valueOf(expression).matches(OCLFeatures.ALL_INSTANCES);
+        return TranslationUtils.deleteWhitespace(expression).matches(
+            OCLFeatures.ALL_INSTANCES);
     }
 
     /**
@@ -55,7 +58,8 @@ public class OCLFeatures
      */
     public static boolean isConcat(Object expression)
     {
-        return String.valueOf(expression).matches(OCLFeatures.CONCAT);
+        return TranslationUtils.deleteWhitespace(expression).matches(
+            OCLFeatures.CONCAT);
     }
 
     /**
@@ -66,7 +70,8 @@ public class OCLFeatures
      */
     public static boolean isOclIsTypeOf(Object expression)
     {
-        return String.valueOf(expression).matches(OCLFeatures.OCL_IS_TYPE_OF);
+        return TranslationUtils.deleteWhitespace(expression).matches(
+            OCLFeatures.OCL_IS_TYPE_OF);
     }
 
     /**
@@ -77,7 +82,8 @@ public class OCLFeatures
      */
     public static boolean isOclIsKindOf(Object expression)
     {
-        return String.valueOf(expression).matches(OCLFeatures.OCL_IS_KIND_OF);
+        return TranslationUtils.deleteWhitespace(expression).matches(
+            OCLFeatures.OCL_IS_KIND_OF);
     }
 
     /**
@@ -89,6 +95,7 @@ public class OCLFeatures
      */
     public static boolean isOclFeature(Object expression)
     {
-        return String.valueOf(expression).matches(ALL_PATTERNS);
+        return TranslationUtils.deleteWhitespace(expression).matches(
+            ALL_PATTERNS);
     }
 }

@@ -3,6 +3,7 @@ package org.andromda.translation.ocl.validation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -63,7 +64,6 @@ public class OCLIntrospector
                 // error messages as the stack unwinds.
                 throw (OCLIntrospectorException)cause;
             }
-            logger.error(message);
             throw new OCLIntrospectorException(cause);
         }
         return result;
