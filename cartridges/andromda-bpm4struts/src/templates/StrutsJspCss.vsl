@@ -3,10 +3,19 @@
 #set ($hash = "#")
 ## start template
 #foreach ($action in $page.actions)
-#if ($action.useCaseStart == false)
-${hash}${action.styleId}.action
-{
-}
+## only real forms need styles
+#if ($action.useCaseStart == false && $action.formPost && $action.tableLinkPresent == false)
+${hash}${action.styleId}.action {}
+${hash}${action.styleId}.action #form_submit {}
+#if ($action.resettable)
+${hash}${action.styleId}.action #form_reset {}
+#end
+
+#foreach ($field in $action.actionParameters)
+${hash}${action.styleId}.action .${field.name} {}
+${hash}${action.styleId}.action .${field.name} .label {}
+${hash}${action.styleId}.action .${field.name} .field {}
+#end
 
 #end
 #end
