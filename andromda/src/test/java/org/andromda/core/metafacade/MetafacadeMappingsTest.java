@@ -44,6 +44,8 @@ public class MetafacadeMappingsTest
     private static final String METAFACADE_CLASS_5 = "org.andromda.core.metafacade.Metafacade5";
     private static final Object MAPPING_OBJECT_5 = new MappingObject5();
 
+    private static final Object MAPPING_OBJECT_6 = new MappingObject6();
+    
     private static final String NAMESPACE_PROPERTY_1 = "namespacePropertyOne";
     private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
     private static final String NAMESPACE_PROPERTY_2 = "namespacePropertyTwo";
@@ -245,5 +247,31 @@ public class MetafacadeMappingsTest
         assertEquals(1, mappingProperties.size());
         assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
         assertEquals("true", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
+        
+        // get a mapping by context and property
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_OBJECT_6,
+            namespace,
+            METAFACADE_CLASS_5,
+            null);
+        assertNotNull(mapping);
+        assertEquals(
+            MAPPING_OBJECT_6.getClass().getName(), 
+            mapping.getMappingClassName());
+        assertEquals(METAFACADE_CLASS_5, mapping.getContext());
+        mappingProperties = mapping.getMappingProperties();
+        assertNotNull(mappingProperties);
+        assertEquals(1, mappingProperties.size());
+        assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
+        assertEquals("", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
+        
+        /*
+    <metafacade class="org.andromda.core.metafacade.Metafacade4">
+        <mapping class="org.andromda.core.metafacade.MappingObject4">
+            <context>org.andromda.core.metafacade.Metafacade5</context>   
+            <property name="mappingProperty"/>
+        </mapping>  
+    </metafacade>
+         */
     }
 }
