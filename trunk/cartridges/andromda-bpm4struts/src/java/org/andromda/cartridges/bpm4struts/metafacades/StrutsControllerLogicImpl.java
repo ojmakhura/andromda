@@ -1,11 +1,17 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.ServiceFacade;
 
 
 /**
