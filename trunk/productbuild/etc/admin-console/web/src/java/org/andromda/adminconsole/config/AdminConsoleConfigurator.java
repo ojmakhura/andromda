@@ -98,25 +98,67 @@ public class AdminConsoleConfigurator implements Serializable
         return columnConfiguration;
     }
 
-    private String getJsp(Column column, String parameterName, Object value, boolean readOnly)
+    private String getJsp(Column column, String parameterName, Object value, boolean readOnly, String custom)
     {
         String displayJsp = null;
 
         if (column.isBooleanType())
         {
-            displayJsp = widgetRenderer.renderCheckbox(parameterName, value, readOnly);
+            displayJsp = widgetRenderer.renderCheckbox(parameterName, value, readOnly, custom);
         }
         else
         {
             if (readOnly)
             {
-                displayJsp = String.valueOf(value);
+                if (column.isForeignKeyColumn())
+                {
+                    ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) column;
+                    PrimaryKeyColumn primaryKeyColumn = foreignKeyColumn.getImportedKeyColumn();
+                    Table pkTable = primaryKeyColumn.getTable();
+                    TableConfiguration pkTableConfig = getConfiguration(pkTable);
+
+                    String displayColumnName = pkTableConfig.getDisplayColumn();
+
+                    if (displayColumnName == null)
+                    {
+                        displayJsp = String.valueOf(value);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            List rows = pkTable.findRows(Expression.equal(primaryKeyColumn, value));
+                            if (rows.isEmpty())
+                            {
+                                displayJsp = "?";
+                            }
+                            else if (rows.size() > 1)
+                            {
+                                // @todo: verify this for composite keys (I think it will not work)
+                                throw new RuntimeException("Too many rows found for foreign key");
+                            }
+                            else
+                            {
+                                RowData rowData = (RowData) rows.get(0);
+                                displayJsp = String.valueOf(rowData.get(displayColumnName));
+                            }
+                        }
+                        catch (SQLException e)
+                        {
+                            throw new RuntimeException("Unable to load primary key table rows: "+pkTable.getName());
+                        }
+                    }
+                }
+                else
+                {
+                    displayJsp = String.valueOf(value);
+                }
             }
             else
             {
                 ColumnConfiguration configuration = getConfiguration(column);
 
-                if (column instanceof ForeignKeyColumn)
+                if (column.isForeignKeyColumn())
                 {
                     boolean resolveForeignKeys = this.configuration.getConsoleConfiguration().getResolveForeignKeys();
 
@@ -142,7 +184,7 @@ public class AdminConsoleConfigurator implements Serializable
                                     RowData rowData = (RowData) rows.get(i);
                                     values[i] = rowData.get(primaryKeyColumnName);
                                 }
-                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly);
+                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly, custom);
                             }
                             else
                             {
@@ -154,7 +196,7 @@ public class AdminConsoleConfigurator implements Serializable
                                     values[i] = rowData.get(primaryKeyColumnName);
                                     labels[i] = rowData.get(displayColumnName);
                                 }
-                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, labels, readOnly);
+                                displayJsp = widgetRenderer.renderSelect(parameterName, value, values, labels, readOnly, custom);
                             }
                         }
                         catch (SQLException e)
@@ -164,39 +206,37 @@ public class AdminConsoleConfigurator implements Serializable
                     }
                     else
                     {
-                        displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly);
+                        displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly, custom);
                     }
                 }
                 else if (configuration.getValueCount() > 0)
                 {
                     Object[] values = configuration.getValue();
-                    displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly);
+                    displayJsp = widgetRenderer.renderSelect(parameterName, value, values, values, readOnly, custom);
                 }
                 else
                 {
-                    displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly);
+                    displayJsp = widgetRenderer.renderTextfield(parameterName, value, readOnly, custom);
                 }
             }
         }
         return displayJsp;
     }
 
-    public String getUpdateJsp(Column column, String parameterName, RowData rowData)
+    public String getUpdateJsp(Column column, String parameterName, RowData rowData, String custom)
     {
         ColumnConfiguration configuration = getConfiguration(column);
-        return getJsp(column, parameterName, rowData.get(column.getName()), !configuration.getUpdateable());
+        return getJsp(column, parameterName, rowData.get(column.getName()), !configuration.getUpdateable(), custom);
     }
 
-    public String getInsertJsp(Column column, String parameterName)
+    public String getInsertJsp(Column column, String parameterName, String custom)
     {
-        ColumnConfiguration configuration = getConfiguration(column);
-        return getJsp(column, parameterName, "", !configuration.getInsertable());
+        return getJsp(column, parameterName, "", false, custom);
     }
 
-    public String getInsertJsp(Column column, String parameterName, RowData rowData)
+    public String getInsertJsp(Column column, String parameterName, RowData rowData, String custom)
     {
-        ColumnConfiguration configuration = getConfiguration(column);
-        return getJsp(column, parameterName, (rowData==null)?"":rowData.get(column.getName()), !configuration.getInsertable());
+        return getJsp(column, parameterName, (rowData==null)?"":rowData.get(column.getName()), false, custom);
     }
 
     private AdminConsole loadConfiguration(String fileName) throws IOException
