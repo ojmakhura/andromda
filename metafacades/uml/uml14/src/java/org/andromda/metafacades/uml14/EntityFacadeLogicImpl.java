@@ -584,29 +584,13 @@ public class EntityFacadeLogicImpl
      */
     private void checkForAndAddForeignIdentifiers(boolean follow)
     {
-        Collection identifiers = null;
-        EntityAssociationEndFacade end = (EntityAssociationEndFacade)CollectionUtils
-            .find(this.getAssociationEnds(), new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    boolean valid = false;
-                    if (object != null
-                        && EntityAssociationEndFacade.class
-                            .isAssignableFrom(object.getClass()))
-                    {
-                        EntityAssociationEndFacade end = (EntityAssociationEndFacade)object;
-                        valid = end.isForeignIdentifier();
-                    }
-                    return valid;
-                }
-            });
+        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
         if (end != null
             && EntityFacade.class.isAssignableFrom(end.getType().getClass()))
         {
             EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
                 .getType();
-            identifiers = EntityMetafacadeUtils.getIdentifiers(
+            Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
                 foreignEntity,
                 follow);
             for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
@@ -619,5 +603,37 @@ public class EntityFacadeLogicImpl
                     .getVisibility());
             }
         }
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.EntityFacadeLogic#handleIsUsingForeignIdentifier()
+     */
+    protected boolean handleIsUsingForeignIdentifier()
+    {
+        return this.getForeignIdentifierEnd() != null;
+    }
+    
+    /**
+     * Gets the association end that is flagged as having the 
+     * foreign identifier set (or null if none is).
+     */
+    private EntityAssociationEndFacade getForeignIdentifierEnd()
+    {
+        return (EntityAssociationEndFacade)CollectionUtils
+        .find(this.getAssociationEnds(), new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                boolean valid = false;
+                if (object != null
+                    && EntityAssociationEndFacade.class
+                        .isAssignableFrom(object.getClass()))
+                {
+                    EntityAssociationEndFacade end = (EntityAssociationEndFacade)object;
+                    valid = end.isForeignIdentifier();
+                }
+                return valid;
+            }
+        });        
     }
 }

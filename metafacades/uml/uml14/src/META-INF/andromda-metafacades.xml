@@ -29,6 +29,9 @@
         metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl"/>
     <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.EnumerationLiteral$Impl"
+        metafacadeClass="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl"/>
+    <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
         <stereotype>ENUMERATION</stereotype>

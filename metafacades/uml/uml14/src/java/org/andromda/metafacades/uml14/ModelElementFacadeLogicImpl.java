@@ -131,12 +131,14 @@ public class ModelElementFacadeLogicImpl
                         {
                             // if an enumeration literal is referenced we assume
                             // its name
-                            if (value instanceof EnumerationLiteralFacade)
+                            if (EnumerationLiteralFacade.class
+                                .isAssignableFrom(value.getClass()))
                             {
                                 values.add(((EnumerationLiteralFacade)value)
                                     .getValue());
                             }
-                            else if (value instanceof String)
+                            else if (String.class.isAssignableFrom(value
+                                .getClass()))
                             {
                                 // only add String when they are not blank
                                 String valueString = (String)value;
@@ -163,7 +165,7 @@ public class ModelElementFacadeLogicImpl
     public Object handleFindTaggedValue(String name)
     {
         Collection taggedValues = findTaggedValues(name);
-        return (taggedValues.isEmpty()) ? null : taggedValues.iterator().next();
+        return taggedValues.isEmpty() ? null : taggedValues.iterator().next();
     }
 
     /**
@@ -236,10 +238,12 @@ public class ModelElementFacadeLogicImpl
         }
 
         String visibilityString = visibilityKind.toString();
-        visibility.append(visibilityString.substring(3, visibilityString.length()));
+        visibility.append(visibilityString.substring(3, visibilityString
+            .length()));
         if (this.getLanguageMappings() != null)
         {
-            visibility = new StringBuffer(this.getLanguageMappings().getTo(visibility.toString()));
+            visibility = new StringBuffer(this.getLanguageMappings().getTo(
+                visibility.toString()));
         }
 
         return visibility.toString();

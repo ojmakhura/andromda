@@ -175,12 +175,23 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetHibernateGeneratorClass()
     {
-        String hibernateGeneratorClass = (String)this
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
-        if (StringUtils.isBlank(hibernateGeneratorClass))
+        String hibernateGeneratorClass;
+        // if the entity is using a foreign identifier, then
+        // we automatically set the identifier generator 
+        // class to be foreign
+        if (this.isUsingForeignIdentifier())
+        {
+            hibernateGeneratorClass = HIBERNATE_GENERATOR_CLASS_FOREIGN;
+        }
+        else
         {
             hibernateGeneratorClass = (String)this
-                .getConfiguredProperty("defaultHibernateGeneratorClass");
+                .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
+            if (StringUtils.isBlank(hibernateGeneratorClass))
+            {
+                hibernateGeneratorClass = (String)this
+                    .getConfiguredProperty("defaultHibernateGeneratorClass");
+            }
         }
         return hibernateGeneratorClass;
     }
@@ -234,7 +245,10 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsForeignHibernateGeneratorClass()
     {
-        return this.getHibernateGeneratorClass().equalsIgnoreCase(
+        // check to see if the entity is using a foreign identifier
+        // OR if the actual hibernate generator class is set to foreign
+        return this.isUsingForeignIdentifier() || 
+             this.getHibernateGeneratorClass().equalsIgnoreCase(
             HIBERNATE_GENERATOR_CLASS_FOREIGN);
     }
 
