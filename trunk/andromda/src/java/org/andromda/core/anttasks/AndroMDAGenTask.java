@@ -163,7 +163,7 @@ public class AndroMDAGenTask
                 .createModuleSearchPath().list();
 
             Model[] models;
-            // if the modelURL is specified explicitly
+            // if the model is specified explicitly
             // then we create the Model instances from the
             // ModelConfiguration instances.
             if (!this.models.isEmpty())
