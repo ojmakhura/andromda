@@ -40,7 +40,7 @@
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl" 
         metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">
         <context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
-		<property reference="foreignKeySuffix"/>
+		<property reference="foreignKeySuffix" default="_FK"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl" 
