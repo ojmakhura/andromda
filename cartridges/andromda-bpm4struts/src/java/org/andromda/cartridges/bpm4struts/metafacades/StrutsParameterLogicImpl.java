@@ -165,9 +165,26 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsResetRequired()
     {
-        final ClassifierFacade type = getType();
-        final String typeName = type.getFullyQualifiedName(true);
-        return isValidatorBoolean(typeName) || type.isArrayType();
+        boolean resetRequired = false;
+
+        if (isSelectable())
+        {
+            resetRequired = true;
+        }
+        else
+        {
+            final ClassifierFacade type = getType();
+            if (type.isArrayType())
+            {
+                resetRequired = true;
+            }
+            else
+            {
+                final String typeName = type.getFullyQualifiedName(true);
+                resetRequired = isValidatorBoolean(typeName);
+            }
+        }
+        return resetRequired;
     }
 
     protected boolean handleIsControllerOperationArgument()
@@ -795,7 +812,7 @@ public class StrutsParameterLogicImpl
 
         if (isActionParameter())
         {
-            selectable = "select".equals(getWidgetType());
+            selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(getWidgetType());
 
             if (!selectable)
             {
@@ -818,7 +835,7 @@ public class StrutsParameterLogicImpl
                         String parameterType = parameter.getType().getFullyQualifiedName();
                         if (name.equals(parameterName) && type.equals(parameterType))
                         {
-                            selectable = "select".equals(parameter.getWidgetType());
+                            selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(parameter.getWidgetType());
                         }
                     }
                 }
