@@ -46,7 +46,7 @@ public class $className
     public String handleException(Exception exception) throws Exception
     {
         String matched = null;
-        if (exception != null)
+        if (exception != null && exception.getMessage() != null)
         {
             Matcher matcher = compiledPattern.matcher(
                 exception.getMessage().replaceAll("[$\\s]+", " "));
