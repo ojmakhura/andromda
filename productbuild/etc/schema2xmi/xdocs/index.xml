@@ -43,6 +43,8 @@ Options:
  -I,--identifierStereotypes <arg>   Comma seperated list of stereotype
                                     names to add to any class identifiers
  -P,--package <arg>                 The package to output classifiers
+ -V,--tableTaggedValue <arg>        The tagged value to use for storing
+                                    the table name
  -c,--connectionUrl <arg>           JDBC connection URL
  -d,--driver <arg>                  JDBC driver class
  -h,--help                          Display help information
@@ -56,8 +58,8 @@ Options:
  -t,--tablePattern <arg>            The table name pattern of tables to
                                     process (regular expression)
  -u,--user <arg>                    Schema user name
- -v,--taggedValues <arg>            Whether or not to include persistence
-                                    tagged values, default is true
+ -v,--columnTaggedValue <arg>       The tagged value to use for storing
+                                    the column name
 ]]></source>
         <p>
 			Here's an example of how you could use Schema2XMI with 
@@ -65,31 +67,35 @@ Options:
         </p>
 <source><![CDATA[
 <java classname="org.andromda.schema2xmi.Schema2XMI" fork="true">
-	<classpath>
-		 <path refid="schema2xmi.classpath"/>
-	</classpath>
-	<arg value="-i"/>
-	<arg value="jar:file:${maven.src.dir}/test/uml/SomeModel.xml.zip!/SomeModel.xml"/>
-	<arg value="-u"/>
-	<arg value="someuser"/>
-	<arg value="-p"/>
-	<arg value="somepassword"/>
-	<arg value="-c"/>
-	<arg value="jdbc:oracle:oci:@yoursid"/>
-	<arg value="-d"/>
-	<arg value="oracle.jdbc.driver.OracleDriver"/>
-	<arg value="-m"/>
-	<arg value="file:${maven.conf.dir}/mappings/DatatypeMappings.xml"/>
-	<arg value="-o"/>
-	<arg value="${maven.build.dir}/schema2xmi/transformed.xmi"/>
-	<arg value="-t"/>
-	<arg value="[p{Lower}\p{Upper}[_]]*"/>
-	<arg value="-P"/>
-	<arg value="org::andromda::sample"/>
-	<arg value="-C"/>
-	<arg value="entity,persistent"/>
+    <classpath>
+        <path refid="schema2xmi.classpath"/>
+    </classpath>
+    <arg value="-i"/>
+    <arg value="jar:file:${maven.src.dir}/test/uml/SomeModel.xml.zip!/SomeModel.xml"/>
+    <arg value="-u"/>
+    <arg value="someuser"/>
+    <arg value="-p"/>
+    <arg value="somepassword"/>
+    <arg value="-c"/>
+    <arg value="jdbc:oracle:oci:@yoursid"/>
+    <arg value="-d"/>
+    <arg value="oracle.jdbc.driver.OracleDriver"/>
+    <arg value="-m"/>
+    <arg value="file:${maven.conf.dir}/mappings/DatatypeMappings.xml"/>
+    <arg value="-o"/>
+    <arg value="${maven.build.dir}/schema2xmi/transformed.xmi"/>
+    <arg value="-t"/>
+    <arg value="[p{Lower}\p{Upper}[_]]*"/>
+    <arg value="-P"/>
+    <arg value="org::andromda::sample"/>
+    <arg value="-C"/>
+    <arg value="entity,persistent"/>
     <ant:arg value="-I"/>
     <ant:arg value="identifier"/>
+    <ant:arg value="-V"/>
+    <ant:arg value="@persistence.table"/>
+    <ant:arg value="-v"/>
+    <ant:arg value="@persistence.column"/>
 </java>
 ]]></source>
 		</subsection>
