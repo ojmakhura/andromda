@@ -1,0 +1,1 @@
+This is the place where Maven plugins for running AndroMDA will be store.
