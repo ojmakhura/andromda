@@ -5,10 +5,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 
 /**
@@ -25,6 +22,26 @@ public class StrutsParameterLogicImpl
     public StrutsParameterLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
+    }
+
+    // -------------------- relations ----------------------
+
+    protected Object handleGetAction()
+    {
+        final Collection transitions = getModel().getAllTransitions();
+        for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
+        {
+            Object transitionObject = (Object) iterator.next();
+            if (transitionObject instanceof StrutsAction)
+            {
+                StrutsAction action = (StrutsAction) transitionObject;
+                if (action.getActionParameters().contains(this))
+                {
+                    return action;
+                }
+            }
+        }
+        return null;
     }
 
     // -------------------- business methods ----------------------
@@ -108,6 +125,11 @@ public class StrutsParameterLogicImpl
         return getMessageValue();
     }
 
+    public boolean handleIsCalendarRequired()
+    {
+        return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_CALENDAR)).equals("true");
+    }
+
     public boolean handleIsTable()
     {
         return (getType().isCollectionType() || getType().isArrayType()) && (!getTableColumnNames().isEmpty());
@@ -128,10 +150,10 @@ public class StrutsParameterLogicImpl
         final byte HTML = 0x04;
         final byte EXCEL = 0x08;
 
-        if (formats.indexOf("xml") >= 0) types |= XML;
-        if (formats.indexOf("csv") >= 0) types |= CSV;
-        if (formats.indexOf("html") >= 0) types |= HTML;
-        if (formats.indexOf("excel") >= 0) types |= EXCEL;
+        if (formats.indexOf("xml") > -1) types |= XML;
+        if (formats.indexOf("csv") > -1) types |= CSV;
+        if (formats.indexOf("html") > -1) types |= HTML;
+        if (formats.indexOf("excel") > -1) types |= EXCEL;
 
         if (types == 0x0F) return "all";
 
