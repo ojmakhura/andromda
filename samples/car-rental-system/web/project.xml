@@ -10,18 +10,18 @@
   	</description>
 	<dependencies>      
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-mda</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-ejb</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>

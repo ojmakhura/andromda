@@ -1,6 +1,7 @@
 <project xmlns:ant="jelly:ant"
   		 xmlns:maven="jelly:maven"
-  		 xmlns:j="jelly:core">
+  		 xmlns:j="jelly:core"
+  		 xmlns:artifact="artifact">
   		 
     <preGoal name="java:compile"> 
     	
@@ -104,28 +105,12 @@
          maven-sar-plugin (when there is, the below goals should be removed).
          This goals are used by the sample modules.                     
          =================================================================== -->
-	<ant:property 
-		name="jar.file"
-  		value="${maven.final.name}.jar"/>
-	<ant:property 
-  		name="sar.file"
-  		value="${maven.final.name}.sar"/>
-  	<postGoal name="jar:jar">	
-  		<j:set var="jarLocation" value="${maven.build.dir}/${jar.file}"/>
-  		<j:set var="sarLocation" value="${maven.build.dir}/${sar.file}"/>
-      	<ant:copy
-      		file="${jarLocation}"
-      		toFile="${sarLocation}"/>
-  		<ant:echo>Renamed '${jarLocation}' to '${sarLocation}'</ant:echo>
-  	</postGoal>
-  
-  	<postGoal name="jar:install">
-  		<j:set var="jarLocation" value="${maven.repo.local}/${pom.artifactDirectory}/jars/${jar.file}"/>
-  		<j:set var="sarLocation" value="${maven.repo.local}/${pom.artifactDirectory}/sars/${sar.file}"/>
-      	<ant:move 
-      		file="${jarLocation}"
-      		toFile="${sarLocation}"/>
-  		<ant:echo>Renamed '${jarLocation}' to '${sarLocation}'</ant:echo>
-  	</postGoal>
+    <goal name="sar:install">
+    	<attainGoal name="jar:jar"/>
+		<artifact:install 
+			artifact="${maven.build.dir}/${maven.final.name}.jar" 
+			type="sar" 
+			project="${pom}"/>		
+    </goal>
       		 
 </project>

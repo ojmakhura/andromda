@@ -19,7 +19,7 @@
 			<type>plugin</type>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-hibernate-ejb</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
@@ -28,7 +28,7 @@
 	     	</properties>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-common</artifactId>
 			<version>${pom.currentVersion}</version>
 	      	<properties>
@@ -36,7 +36,7 @@
 	     	</properties>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-hibernate-sar</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>sar</type>
@@ -45,7 +45,7 @@
 	     	</properties>
 		</dependency>
 		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>car-rental-sample-web</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>war</type>
