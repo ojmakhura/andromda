@@ -329,7 +329,6 @@
                         &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
                         &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
                         &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
-                        &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
                         &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
                         &lt;securityRealm&gt;other&lt;/securityRealm&gt;
                         &lt;/properties&gt;
@@ -348,7 +347,6 @@
                         &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
                         &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
                         &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="xdoclet-merge" value="${app.root.dir}/${web.dir}/${xdoclet.merge.dir}"/&gt;
                     </source>
                 </p>
                 <p>
