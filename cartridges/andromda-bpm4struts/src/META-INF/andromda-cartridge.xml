@@ -264,7 +264,7 @@
         path="templates/StrutsTilesDefs.vsl"
         outputPattern="tiles-defs.xml"
         outlet="configuration"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
