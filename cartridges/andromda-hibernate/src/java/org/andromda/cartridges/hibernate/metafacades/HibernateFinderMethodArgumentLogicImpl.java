@@ -22,7 +22,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     }
     
     /**
-     * Defines if specific setters methods will be created for primite tpyes and dates
+     * Defines if specific setters methods will be created for primite types and dates
      */
     private static final String USE_SPECIALIZED_SETTERS="hibernateQueryUseSpecializedSetters";
     
