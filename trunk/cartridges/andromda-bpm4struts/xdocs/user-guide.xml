@@ -96,6 +96,14 @@
                 and targetting a page. Such transitions should be tagged with the FrontEndException stereotype.
             </p>
             <p class="std">
+                To make it easier for the modeller using bpm4struts we implemented the convention that in case
+                no exception handler is specified a default one will be implied. This means that if an action
+                throws a java.lang.Exception it will be handled and the message will be forwarded to the
+                page which triggered the action, so you will simply return back to the page. This default
+                exception handler will not be implied if there is at least one exception handler
+                explicitely specified.
+            </p>
+            <p class="std">
                 For bpm4struts you must make sure that all transitions coming out of an initial state or an action
                 state marked with the FrontEndView stereotype must be marked with the FrontEndEvent stereotype.
                 This will tell the cartridge to treat what follows as the logic that is executed in a single
