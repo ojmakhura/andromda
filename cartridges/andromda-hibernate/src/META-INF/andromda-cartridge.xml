@@ -36,6 +36,9 @@
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
+    <property reference="hibernateUseQueryCache" default="true"/>
+    <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
+    <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
     <!-- cartridge-property merge-point-->  
 
     <!-- cartridge-resource merge-point -->

@@ -13,6 +13,11 @@
                 namespace properties specific to this cartridge only.
             </p>
             <table>
+                  <tr>
+		          	<th>Property</th>         	
+		          	<th>Description</th>       	
+		          	<th>Required?</th>	   	 
+	        	</tr>
                 <tr>
                     <td>
                           hibernateTypeMappingsUri
@@ -490,6 +495,54 @@
                     </td>
                     <td>
                         No, default is <code>auto</code>.
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        hibernateUseQueryCache
+                    </td>
+                    <td>
+                         Enables or disables the usage of the query cache. Posible values are:
+                         <ul>
+                            <li>true</li>
+                            <li>false</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        hibernateCacheProvider
+                    </td>
+                    <td>
+                         Defines Hibernate Cache Provider implementation class. Possible values are:
+                         <ul>
+                            <li>net.sf.hibernate.cache.EhCacheProvider</li>
+                            <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
+                            <li>net.sf.hibernate.cache.JCSCacheProvider</li>
+                            <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
+                            <li>net.sf.hibernate.cache.TreeCacheProvider</li>
+                            <li>net.sf.hibernate.cache.OSCacheProvider</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        hibernateQueryCacheFactory
+                    </td>
+                    <td>
+                         Defines Hibernate Query Cache Factory implementation class. Possible values are:
+                         <ul>
+                            <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>.
                     </td>
                 </tr>    
             </table>

@@ -76,6 +76,15 @@
 #if ($stringUtils.isNotBlank($hibernateQuerySubstitutions))
         <property name="hibernate.query.substitutions">$hibernateQuerySubstitutions</property>
 #end
+#if ($stringUtils.isNotBlank($hibernateUseQueryCache))
+        <property name="hibernate.cache.use_query_cache">$hibernateUseQueryCache</property>
+#end
+#if ($stringUtils.isNotBlank($hibernateCacheProvider))
+        <property name="hibernate.cache.provider_class">$hibernateCacheProvider</property>
+#end
+#if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
+        <property name="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</property>
+#end
         <!-- mapping files -->
 #foreach($entity in $entities)
 ## Check if the entity is a root in hibernate terms
