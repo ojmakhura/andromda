@@ -3,13 +3,13 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
-    <!-- cartridge-templateObject merge-point-->  
-	
-    <!-- cartridge-property merge-point-->  
+    <!-- cartridge-templateObject merge-point-->
+
+    <!-- cartridge-property merge-point-->
 
     <!-- cartridge-resource merge-point -->
-    
-	<template
+
+    <template
         path="templates/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
@@ -18,7 +18,7 @@
         <modelElements variable="class">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.ValueObjectFacade"/>
-            </modelElement>    
+            </modelElement>
         </modelElements>
     </template>
 
@@ -30,7 +30,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
-            </modelElement>    
+            </modelElement>
         </modelElements>
     </template>
 
@@ -42,7 +42,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
-            </modelElement>  
+            </modelElement>
         </modelElements>
     </template>
 
@@ -57,7 +57,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
@@ -67,9 +67,9 @@
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
             </modelElement>
-        </modelElements>  
+        </modelElements>
     </template>
-    
+
 <!--
      The following definitions map services to session beans.
      The templates map a service to a session bean
@@ -87,20 +87,20 @@
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
             </modelElement>
-        </modelElements> 
+        </modelElements>
     </template>
-    
+
     <template
         path="templates/SessionLocal.vsl"
         outputPattern="{0}/{1}Local.java"
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="service">        
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
             </modelElement>
-        </modelElements>       
+        </modelElements>
     </template>
 
     <template
@@ -109,11 +109,11 @@
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="service">            
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
             </modelElement>
-        </modelElements> 
+        </modelElements>
     </template>
 
     <template
@@ -122,11 +122,11 @@
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="service">           
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
             </modelElement>
-        </modelElements>   
+        </modelElements>
     </template>
 
     <template
@@ -135,11 +135,11 @@
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="service">               
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
             </modelElement>
-        </modelElements>  
+        </modelElements>
     </template>
 
     <template
@@ -147,13 +147,13 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overwrite="false">
-        <modelElements variable="service">          
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
             </modelElement>
-        </modelElements> 
+        </modelElements>
     </template>
-    
+
     <!-- cartridge-template merge-point -->
-    
+
 </cartridge>

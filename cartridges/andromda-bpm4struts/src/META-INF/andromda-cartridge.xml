@@ -30,7 +30,7 @@
     <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
     <property reference="customResourcesKey" default="custom"/>
-    <!-- generated xml's encoding --> 
+    <!-- generated xml's encoding -->
     <property reference="xmlEncoding" default="UTF-8"/>
     <!-- cartridge-property merge-point -->
 
@@ -40,13 +40,13 @@
         outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
-        
+
     <resource
         path="resources/hints/*.*"
         outputPattern="layout/hints/{0}"
         outlet="pages"
         overwrite="true"/>
-        
+
     <resource
         path="resources/calendar/*.*"
         outputPattern="layout/calendar/{0}"
@@ -58,7 +58,7 @@
         outputPattern="lib/{0}"
         outlet="configuration"
         overwrite="true"/>
-     
+
     <!-- cartridge-resource merge-point -->
 
     <!-- process templates on model elements -->
@@ -71,7 +71,7 @@
             <modelElement stereotype="FRONT_END_EVENT"/>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/StrutsPatternMatchingExceptionHandler.vsl"
         outputPattern="$generatedFile"
@@ -177,7 +177,7 @@
             <modelElement stereotype="FRONT_END_VIEW"/>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/StrutsJSPVariables.vsl"
         outputPattern="$generatedFile"
@@ -209,7 +209,7 @@
             <modelElement stereotype="FRONT_END_APPLICATION"/>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/StrutsValidator.vsl"
         outputPattern="$generatedFile"
@@ -257,13 +257,13 @@
             <modelElement stereotype="FRONT_END_CONTROLLER" variable="controllers"/>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/StrutsJbossWebXml.vsl"
         outputPattern="jboss-web.xml"
         outlet="configuration"
         overwrite="true"/>
-    
+
     <template
         path="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
@@ -457,7 +457,7 @@
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"/>
-        
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>
