@@ -137,7 +137,7 @@ public abstract class ${metafacade.logicName}
 
 #foreach ($op in $ops)
 #set ($hasArguments = (!$op.arguments.empty))
-#set ($memberTypeName = $op.type.fullyQualifiedName)
+#set ($memberTypeName = $op.returnType.fullyQualifiedName)
 #set ($methodName = $op.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")

@@ -109,10 +109,10 @@ $att.getDocumentation("     * ")
 #end
 
 #if ($op.hasExceptions())
-    protected abstract $op.type.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
+    protected abstract $op.returnType.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $op.exceptionList;
 #else
-    protected abstract $op.type.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
+    protected abstract $op.returnType.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
 #end
 
     /**
@@ -122,10 +122,10 @@ $op.getDocumentation("     * ")
      * @ejb.transaction type="Required"
      */
 #if ($op.hasExceptions())
-    $op.visibility $op.type.fullyQualifiedName $msig
+    $op.visibility $op.returnType.fullyQualifiedName $msig
         throws $op.exceptionList
 #else
-    $op.visibility $op.type.fullyQualifiedName $msig
+    $op.visibility $op.returnType.fullyQualifiedName $msig
 #end
     {
         Session sess = null;
@@ -143,7 +143,7 @@ $op.getDocumentation("     * ")
 #set ($parameters = "sess, ${parameterList}")
 #end
 ##
-#if ("void" != $op.type.fullyQualifiedName)
+#if ("void" != $op.returnType.fullyQualifiedName)
             return handle${str.upperCaseFirstLetter($op.name)}($parameters);
 #else
             handle${str.upperCaseFirstLetter($op.name)}($parameters);

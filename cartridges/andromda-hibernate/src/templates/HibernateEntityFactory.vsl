@@ -1,7 +1,7 @@
 /**
  * Attention: Generated source! Do not modify by hand!
  */
- 
+
 package $class.packageName;
 
 /**
@@ -27,7 +27,7 @@ public abstract class ${class.name}Factory {
 
 #if (!$class.abstract)
    // ---------------- create method --------------------
-   
+
    /**
     * Creates a(n) ${class.name} object.
     *
@@ -42,7 +42,7 @@ public abstract class ${class.name}Factory {
     public static ${class.name} create $class.getAttributesAsList(true, false, true)
     {
         ${class.name} object = new ${class.name}Impl();
-        
+
 #foreach ( $att in $attributes)
 #if (!$att.identifier)
         object.${att.setterName} (${att.name});
@@ -70,9 +70,9 @@ public abstract class ${class.name}Factory {
         ${class.name} object = (${class.name}) sess.load(${class.name}Impl.class, ${primKey.name});
         return object;
     }
-    
+
 #foreach ( $finder in $class.getFinders(true))
-#set ($returntype = $finder.type.fullyQualifiedName)
+#set ($returntype = $finder.returnType.fullyQualifiedName)
 ##
 #set ($parameterList = $finder.typedArgumentList)
 #if ($parameterList.length() == 0)
@@ -93,10 +93,10 @@ $finder.getDocumentation("     * ")
         net.sf.hibernate.Query q = sess.createQuery("$finder.query");
 ##
 #foreach($prm in $finder.arguments)
-#set ($index = $velocityCount - 1) 
+#set ($index = $velocityCount - 1)
 		q.set${prm.type.name} (${index}, ${prm.name});
 #end
-##    
+##
         return q.list();
     }
 

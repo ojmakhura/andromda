@@ -39,7 +39,7 @@ public interface ${class.name}Interface
 #foreach ($operation in $class.operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
-#set ($returnType = $operation.type.fullyQualifiedName)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
 #if (!$returnType)
 #set ($returnType = "void")
 #end

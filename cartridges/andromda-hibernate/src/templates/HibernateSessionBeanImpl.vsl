@@ -24,7 +24,7 @@ public class ${class.name}BeanImpl
 #set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasExceptions())
     protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $op.exceptionList {

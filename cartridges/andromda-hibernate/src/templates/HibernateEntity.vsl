@@ -10,7 +10,7 @@ package $class.packageName;
 /**
 $class.getDocumentation(" * ")
  *
-#if($superclass)  
+#if($superclass)
  * @hibernate.subclass
  *    discriminator-value="${class.name}"
 #else
@@ -19,7 +19,7 @@ $class.getDocumentation(" * ")
  * @hibernate.discriminator
  *     column="class"
 #end
- * 
+ *
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.name != "documentation")
 #if ($tgv.name == "---")
@@ -32,8 +32,8 @@ $class.getDocumentation(" * ")
 #end
  *
  */
-public abstract class ${class.name} 
-#if($superclass)  
+public abstract class ${class.name}
+#if($superclass)
 	extends ${superclass.fullyQualifiedName}Impl
 #end
 {
@@ -43,14 +43,14 @@ public abstract class ${class.name}
 #set ($atttypename = $att.type.fullyQualifiedName)
 
     private $atttypename ${att.name};
-   
+
    /**
 $att.getDocumentation("    * ")
     *
 #set ($attcolumnname = $att.columnName)
 #set ($attsqltype    = $att.sqlType)
 #if ($att.identifier)
-    * @hibernate.id 
+    * @hibernate.id
     *     generator-class="uuid.hex"
 #else
     * @hibernate.property
@@ -66,12 +66,12 @@ $att.getDocumentation("    * ")
     {
         return this.${att.name};
     }
-    
+
     public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue)
     {
         this.${att.name} = newValue;
     }
-    
+
 #end
 
     // ------------- relations ------------------
@@ -105,7 +105,7 @@ $target.getDocumentation("    * ")
     }
 
     private java.util.Collection ${target.name};
-    
+
 #end
 #if ($associationEnd.many2Many)
 ##
@@ -129,7 +129,7 @@ $target.getDocumentation("    * ")
     }
 
     private java.util.Collection ${target.name};
-    
+
 #end
 #if ($associationEnd.one2One || $associationEnd.many2One)
     * @hibernate.many-to-one
@@ -140,7 +140,7 @@ $target.getDocumentation("    * ")
     {
         return this.${target.name};
     }
-    
+
     public void ${target.setterName}(${targetTypeName} ${target.name})
     {
         this.${target.name} = ${target.name};
@@ -153,14 +153,14 @@ $target.getDocumentation("    * ")
 #end
 
     // ---------------- business methods  ----------------------
-    
+
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod"))
    /**
 $op.getDocumentation("    * ")
     */
 #set ($msig = $op.signature)
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasExceptions())
     $op.visibility abstract $returntype ${msig}
         throws $op.exceptionList;

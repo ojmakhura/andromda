@@ -18,7 +18,7 @@ $class.getDocumentation(" * ")
  * @ejb.bean generate="true"
 #end
  *     name="$entityname"
- *     type="CMP" 
+ *     type="CMP"
  *     cmp-version="2.x"
  *     view-type="local"
  *     local-jndi-name = "${ejbRefName}/Local"
@@ -35,10 +35,10 @@ $class.getDocumentation(" * ")
 #if(!$class.abstract)
  * @ejb.persistence table-name="$class.tableName"
  *
-## Project specific stuff: Generate an environment entry for the 
+## Project specific stuff: Generate an environment entry for the
 ## primary key sequence if this entity is a concrete EJB and has an IntegerIdPk
 #if ($pkclassname == "de.tivano.labdb.datalayer.IntegerIdPK")
- * @ejb.env-entry 
+ * @ejb.env-entry
  *     name = "PrimaryKeySequence"
  *     type = "java.lang.String"
  *     value = "${class.tableName}_SEQ"
@@ -51,7 +51,7 @@ $class.getDocumentation(" * ")
 #if (!$value.startsWith('"') || !$value.endsWith('"'))
 #set ($value = "$value")
 #end
- * @ejb.env-entry 
+ * @ejb.env-entry
  *     name="$envEntry.name"
  *     type="$envEntry.type.fullyQualifiedName"
  *     value=$value
@@ -67,9 +67,9 @@ $class.getDocumentation(" * ")
 #set ($viewtype = $superclass.viewType)
 #end
  *
- * @ejb.ejb-ref 
- *     ejb-name="${superclass.name}" 
- *     view-type="$viewtype" 
+ * @ejb.ejb-ref
+ *     ejb-name="${superclass.name}"
+ *     view-type="$viewtype"
  *     ref-name="ejb/${superclass.name}BeanRef"
 #end
 #if ($dep.hasStereotype("ResourceRef"))
@@ -84,35 +84,35 @@ $class.getDocumentation(" * ")
 #set ($resName = $superclass.name)
 #end
  *
- * @ejb.resource-ref 
- *     res-ref-name="resource/$resName" 
- *     res-type="$superclass.type.fullyQualifiedName" 
+ * @ejb.resource-ref
+ *     res-ref-name="resource/$resName"
+ *     res-type="$superclass.type.fullyQualifiedName"
  *     res-auth="$resAuth"
 #if ($jndiRef)
  *
- * @jboss.resource-ref 
- *     res-ref-name="resource/$resName" 
- *     jndi-name="$jndiRef" 
+ * @jboss.resource-ref
+ *     res-ref-name="resource/$resName"
+ *     jndi-name="$jndiRef"
 #end
 #end
 #end
 #foreach ( $finder in $class.getFinders(true))
 #if($finder.findTaggedValue("@ejb.query.dialect") == "JBossQL")
  *
- * @ejb.finder signature="$finder.type.fullyQualifiedName $finder.signature"
+ * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
- * @jboss.query signature="$finder.type.fullyQualifiedName $finder.signature"
+ * @jboss.query signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #else
  *
- * @ejb.finder signature="$finder.type.fullyQualifiedName $finder.signature"
+ * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #end
 #end##operation.finders
 #copyTaggedValues($class " " [ "@ejb.viewType", "@ejb.transactionType",  "@ejb.noSyntheticCreateMethod" ])
  *
  */
-public abstract class ${entityname}Bean 
+public abstract class ${entityname}Bean
        extends $beanparentclass
        implements javax.ejb.EntityBean
 {
@@ -120,7 +120,7 @@ public abstract class ${entityname}Bean
 #foreach($constant in $class.getConstants(true))
     private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #end
-    
+
     // -- accessors for environment entries --
 #foreach($envEntry in $class.getEnvironmentEntries(true))
     /**
@@ -145,7 +145,7 @@ $envEntry.getDocumentation("     * ")
             // a bit of reflection magic here...
             try {
                 java.lang.reflect.Method initCause =
-                  ex.getClass().getMethod("initCause", 
+                  ex.getClass().getMethod("initCause",
                                         new Class[] {Throwable.class});
                 initCause.invoke(ex, new Object[] { cause });
             } catch (Throwable t) {
@@ -159,7 +159,7 @@ $envEntry.getDocumentation("     * ")
                 // Silently ignore naming exceptions at cleanup time
             }
         }
-        
+
 ## If the env-entry is public, expose it to the home interface as well
 #if($envEntry.visibility == "public")
 
@@ -186,7 +186,7 @@ $constant.getDocumentation("     * ")
     $constant.visibility $constant.type.fullyQualifiedName ${constant.getterName}(){
         return $constant.name;
     }
-    
+
 ## If the constant is public, expose it to the home interface as well
 #if($constant.visibility == "public")
 
@@ -203,7 +203,7 @@ $constant.getDocumentation("     * ")
 
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes)
-#set($attType = $att.type.fullyQualifiedName)    
+#set($attType = $att.type.fullyQualifiedName)
 #set ($transactionType = $att.findTaggedValue("@ejb.transactionType", true))
 #set ($visibility = $att.visibility.toString())
     /**
@@ -224,7 +224,7 @@ $att.getDocumentation("     * ")
 ## Only expose the method to the interfaces if it is public. The method
 ## visibility must be public because of CMP semantics
 #if($visibility == "public")
-     * @ejb.interface-method 
+     * @ejb.interface-method
 #end
      */
     public abstract $attType ${att.getterName}();
@@ -233,17 +233,17 @@ $att.getDocumentation("     * ")
      * Set the ${att.name} property
      * @param value the new value
 ## We need to generate a public set method even for readonly or proteced
-## attributes because of CMP semantics. 
+## attributes because of CMP semantics.
 ## But we don't need to expose it on the interface
 #if($visibility == "public" && !$att.readOnly)
-     * @ejb.interface-method 
-#end     
+     * @ejb.interface-method
+#end
 #if ($transactionType)
      * @ejb.transaction type="$transactionType"
 #end
      */
     public abstract void ${att.setterName}($attType value);
-    
+
 #end
 
     // ------------- CMR relations ------------------
@@ -260,14 +260,14 @@ $att.getDocumentation("     * ")
    /**
     * Get the ${assoc.otherEnd.name}
 $assoc.otherEnd.getDocumentation("    * ")
-    * @ejb.interface-method 
+    * @ejb.interface-method
     */
     public abstract $targetTypeName ${target.getterName}();
 
    /**
     * Set the ${assoc.otherEnd.name}
 #if(!$assoc.otherEnd.readOnly)
-    * @ejb.interface-method 
+    * @ejb.interface-method
 #end
     */
     public abstract void ${target.setterName}($targetTypeName ${assoc.otherEnd.name});
@@ -288,7 +288,7 @@ $assoc.otherEnd.getDocumentation("    * ")
     * Get the ${assoc.otherEnd.name}
 $assoc.otherEnd.getDocumentation("    * ")
     *
-    * @ejb.interface-method 
+    * @ejb.interface-method
     * @ejb.relation
     *    name="$assocname"
     *    role-name="$assocname:$assoc.name"
@@ -314,7 +314,7 @@ $assoc.otherEnd.getDocumentation("    * ")
 #else
 #set ($identifierName = "$assoc.otherEnd.type.name")
 #end
-    * @jboss.relation 
+    * @jboss.relation
     *     fk-column="${assoc.otherEnd.columnName}"
     *     related-pk-field="${identifierName}"
 #end
@@ -326,7 +326,7 @@ $assoc.otherEnd.getDocumentation("    * ")
    /**
     * Set the ${assoc.otherEnd.name}
 #if(!$assoc.otherEnd.readOnly)
-    * @ejb.interface-method 
+    * @ejb.interface-method
 #end
 #if ($transactionType)
     * @ejb.transaction type="$transactionType"
@@ -334,7 +334,7 @@ $assoc.otherEnd.getDocumentation("    * ")
     */
     public abstract void ${target.setterName}($targetTypeName ${assoc.otherEnd.name});
 #end
-#end ## foreach 
+#end ## foreach
 
     // ---------------- business and select methods  ----------------------
 ## Generate business methods for relations flagged as non-CMR even when the class
@@ -349,7 +349,7 @@ $assoc.otherEnd.getDocumentation("    * ")
     * Get the ${assoc.otherEnd.name}
 $assoc.otherEnd.getDocumentation("     * ")
     *
-    * @ejb.interface-method 
+    * @ejb.interface-method
 #if ($transactionType)
     * @ejb.transaction type="$transactionType"
 #end
@@ -358,14 +358,14 @@ $assoc.otherEnd.getDocumentation("     * ")
 
    /**
     * Set the ${assoc.otherEnd.name}
-    * @ejb.interface-method 
+    * @ejb.interface-method
 #if ($transactionType)
     * @ejb.transaction type="$transactionType"
 #end
     */
     public abstract void ${target.setterName}($targetTypeName ${assoc.otherEnd.name});
 #end
-#end ## foreach 
+#end ## foreach
 
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod") && !$op.hasStereotype("CreateMethod") && !$op.hasStereotype("SelectMethod"))
@@ -373,9 +373,9 @@ $assoc.otherEnd.getDocumentation("     * ")
 #set ($msig = $op.signature)
 #set ($interfaceType = "interface")
 #set ($visibility = $op.visibility.toString())
-## Public static methods are exposed on the home 
+## Public static methods are exposed on the home
 ## interface instead of the component interface
-#if ($visibility == "public" && $op.static) 
+#if ($visibility == "public" && $op.static)
 #set ($interfaceType = "home")
 #set ($msig = "ejbHome${str.upperCaseFirstLetter($msig)}")
 #end
@@ -384,16 +384,16 @@ $op.getDocumentation("    * ")
     *
 ## Only public methods have transactions and are exported to the interfaces
 #if ($visibility == "public")
-    * @ejb.${interfaceType}-method 
+    * @ejb.${interfaceType}-method
 #if ($transactionType)
     * @ejb.transaction type="$transactionType"
 #end
 #end
     */
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasExceptions())
     $visibility abstract $returntype ${msig}
-        throws $op.exceptionList;    
+        throws $op.exceptionList;
 #else
     $visibility abstract $returntype ${msig};
 #end
@@ -413,47 +413,47 @@ $op.getDocumentation("    * ")
 #end
 #end
 #end
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
    /**
 $op.getDocumentation("    * ")
     *
     * @ejb.select query="$querystring"
     */
-    public abstract $returntype $op.signature 
+    public abstract $returntype $op.signature
     throws javax.ejb.FinderException;
 #end##if op.stereotype = "SelectMethod"
 
 #end
 
     // ---------------- create methods --------------------
-## Handle explicitly defined create methods. Since we can't know 
+## Handle explicitly defined create methods. Since we can't know
 ## what the user intended to do with the arbitrary parameters to these methods,
-## we generate an abstract ejbCreateImpl() and delegate the implementation to 
+## we generate an abstract ejbCreateImpl() and delegate the implementation to
 ## the user.
 #foreach ( $op in $class.createMethods(false))
 #set ($transactionType = $op.findTaggedValue("@ejb.transactionType", true))
 
     /**
 #if (!$class.abstract)
-     * Implementation for the 
-     * {@link #ejbCreate($op.argumentTypeNames)} 
+     * Implementation for the
+     * {@link #ejbCreate($op.argumentTypeNames)}
      * create method.
 #else
      * Implementation for create methods in derived classes. This method will be called from
-     * the autogenerated  <code>ejbCreate($op.argumentTypeNames)</code> 
+     * the autogenerated  <code>ejbCreate($op.argumentTypeNames)</code>
      * methods in concrete subclasses of this abstract EJB.
 #end
      *
-     * This extra implementation method is necessary to avoid 
+     * This extra implementation method is necessary to avoid
      * problems with different primary key classes.
-	 *     
+	 *
      */
     protected abstract void ejbCreateImpl${op.typedArgumentList}
            throws javax.ejb.CreateException;
 
     public void ejbPostCreate${op.typedArgumentList} {
     }
-#end    
+#end
 #if (!$class.abstract)
 #foreach ( $op in $class.createMethods(true))
 
@@ -481,9 +481,9 @@ $op.getDocumentation("    * ")
      * values provided by the parameters. Override this method in the
      * implementation class if you need different behaviour.
      *
-     * This extra implementation method is necessary to avoid 
+     * This extra implementation method is necessary to avoid
      * problems with different primary key classes.
-	 *     
+	 *
 #foreach($att in $allAttributes)
      * @param $att.name Value for the ${att.name} property
 #end
@@ -514,7 +514,7 @@ $op.getDocumentation("    * ")
 #end
     }
 
-## Only generate create methods with all CMP and CMR fields for concrete EJBs, 
+## Only generate create methods with all CMP and CMR fields for concrete EJBs,
 ## and only if it is not explicitly switched off
 #if (!$class.abstract && !$class.findTaggedValue("@ejb.noSyntheticCreateMethod"))
     /**
@@ -524,7 +524,7 @@ $op.getDocumentation("    * ")
 #end
      * @ejb.create-method
      * @ejb.transaction type="Required"
-     * @return <code>null</code> as required by the EJB specification for CMP 
+     * @return <code>null</code> as required by the EJB specification for CMP
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
     public $pkclassname ejbCreate($transform.getAttributesAsList($allAttributes, true, true))
@@ -556,7 +556,7 @@ $op.getDocumentation("    * ")
 #end
      * @ejb.create-method
      * @ejb.transaction type="Required"
-     * @return <code>null</code> as required by the EJB specification for CMP 
+     * @return <code>null</code> as required by the EJB specification for CMP
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
     public $pkclassname ejbCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($rel in $relations)${rel.relationType} $rel.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
@@ -595,17 +595,17 @@ $op.getDocumentation("    * ")
 #set ($fqHomeInterfaceName = "${referencedClass.fullyQualifiedName}LocalHome")
     /**
      * Get the local home interface of the ${referencedClass.name} bean.
-     * The home interface is obtained from the initial context 
+     * The home interface is obtained from the initial context
      * by looking up the bean reference name.
-     * @return local home interface for ${referencedClass.name}. 
+     * @return local home interface for ${referencedClass.name}.
      */
     protected static ${fqHomeInterfaceName} get${homeInterfaceName}() throws javax.naming.NamingException
     {
-        javax.naming.InitialContext initialContext = 
+        javax.naming.InitialContext initialContext =
             new javax.naming.InitialContext();
         try {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
-            ${fqHomeInterfaceName} home = 
+            ${fqHomeInterfaceName} home =
                 (${fqHomeInterfaceName}) initialContext.lookup("java:/comp/env/ejb/${referencedClass.name}BeanRef");
             return home;
         } finally {
@@ -618,19 +618,19 @@ $op.getDocumentation("    * ")
 #set ($fqHomeInterfaceName = "${referencedClass.fullyQualifiedName}Home")
     /**
      * Get the remote home interface of the ${referencedClass.name} bean.
-     * The home interface is obtained from the initial context 
+     * The home interface is obtained from the initial context
      * by looking up the bean reference name.
      * @return remote home interface for ${referencedClass.name}. Lookup using bean ref name.
      */
     protected static ${fqHomeInterfaceName} get${homeInterfaceName}() throws javax.naming.NamingException
     {
-        javax.naming.InitialContext initialContext = 
+        javax.naming.InitialContext initialContext =
             new javax.naming.InitialContext();
         try {
-            Object home = 
+            Object home =
                  initialContext.lookup("java:/comp/env/ejb/${referencedClass.name}BeanRef");
-            return ($fqHomeInterfaceName) 
-                   javax.rmi.PortableRemoteObject.narrow(home, 
+            return ($fqHomeInterfaceName)
+                   javax.rmi.PortableRemoteObject.narrow(home,
                    ${fqHomeInterfaceName}.class);
         } finally {
             initialContext.close();
@@ -646,17 +646,17 @@ $op.getDocumentation("    * ")
 #set ($resName = $referencedClass.name)
 #end
     /**
-     * Get the ${resName} resource. 
+     * Get the ${resName} resource.
      * The resource is obtained by looking up
      * <code>java:/comp/env/resource/$resName</code> in JNDI
      * @return the ${resName} resource
      */
     protected static ${resClassName} get${str.upperCaseFirstLetter($resName)}() throws javax.naming.NamingException
     {
-        javax.naming.InitialContext initialContext = 
+        javax.naming.InitialContext initialContext =
             new javax.naming.InitialContext();
         try {
-            Object resource = 
+            Object resource =
                  initialContext.lookup("java:/comp/env/resource/$resName");
             return ($resClassName) resource;
         } finally {

@@ -22,7 +22,7 @@ public class ${class.name}Impl
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod"))
 #set ($msig = $op.signature)
-#set ($returntype = $op.type.fullyQualifiedName)
+#set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasException())
 #set ($throws = " throws $op.exceptionList")
 #else
@@ -30,8 +30,8 @@ public class ${class.name}Impl
 #end
 #if ($op.abstract)
     $op.visibility abstract $returntype ${msig}$throws;
-    
-#else 
+
+#else
     $op.visibility $returntype ${msig}$throws
     {
         // TODO: put your implementation here.
