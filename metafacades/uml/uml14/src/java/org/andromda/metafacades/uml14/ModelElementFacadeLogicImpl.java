@@ -542,7 +542,7 @@ public class ModelElementFacadeLogicImpl
             {
                 ConstraintFacade constraint = (ConstraintFacade)object;
                 return StringUtils.trimToEmpty(constraint.getBody()).matches(
-                    ".*\\s" + kind + "\\s*.*");
+                    ".*\\s" + kind + "\\s*.*:.*");
             }
         });
         return this.translateConstraints(constraints, translation);
