@@ -7,10 +7,14 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2004-12-27" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2004-12-28" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add">
+                Added a compatibility list of UML tools that have been tested, courtesy of
+                Daniel S. Haischt.
+            </action>
             <action dev="cwbrandon" type="fix">
                 Fix minor Spring cartridge bug (released with 3.0M3), operations on the service
-                base class now have the correct protected access. 
+                base class now have the correct protected access.
             </action>
             <action dev="draftdog" type="update" issue="BPM-112">
                 Bpm4Struts now properly supports <code>datatype.File</code> in controller operations too, this was
