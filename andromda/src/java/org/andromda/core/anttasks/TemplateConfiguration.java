@@ -11,9 +11,9 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * Objects of this class are instantiated when
- * the <code>&lt;template&gt;</code> tag occurs in the build.xml file
- * as a nested tag within the <code>&lt;andromda&gt;</code> tag.
+ * This class implements the <code>&lt;template&gt;</code> tag
+ * which can used within the ant <code>&lt;andromda&gt;</code> 
+ * tag to add additional code generation templates to androMDA.
  * 
  * @author Matthias Bohlen
  *
@@ -53,7 +53,8 @@ public class TemplateConfiguration
     /**
      * Sets a reference to the ant project.
      * Is used when the TemplateConfiguration object is added to the
-     * collection of templates in the uml2ejb ant task.
+     * collection of templates in the AndroMDA ant task.
+     * 
      * @param p the project
      */
     void setProject(Project p)
@@ -61,7 +62,26 @@ public class TemplateConfiguration
         this.project = p;
     }
     
-   
+   /**
+     * Sets the class name of object that the
+     * template code generation scripts will use
+     * to access the object model.  The class must implement
+     * the ScriptHelper interface.
+     * 
+     * <p> This an optional parameter and if it is not set
+     * it defaults to the default transform class or the
+     * one which was configured using the 
+     * <code>&lt;repository&gt;</code> tag. </p>
+     *  
+     * <p> By writing ones own transformer class some of the
+     * more complicated code generation logic can be moved from
+     * the code generation script and into the transformer
+     * implementation. </p>
+     * 
+     * @see org.andromda.core.common.ScriptHelper
+     * 
+     * @param scriptHelperClassName
+     */
     public void setTransformClassname(String scriptHelperClassName)
     {
          try {
@@ -74,6 +94,13 @@ public class TemplateConfiguration
     }
 
 
+    /**
+     * Returns the class of the transform object
+     * that will be used to the code generation templates
+     * to access the object model.
+     * 
+     * @return Class	
+     */
 	public Class getTransformClass()
     {
     	return transformClass;
