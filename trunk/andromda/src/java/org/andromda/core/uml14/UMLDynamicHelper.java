@@ -1,23 +1,22 @@
 package org.andromda.core.uml14;
 
-import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
+import org.andromda.core.common.CollectionFilter;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
-import org.omg.uml.behavioralelements.statemachines.StateVertex;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
+import org.omg.uml.behavioralelements.statemachines.StateVertex;
+import org.omg.uml.behavioralelements.statemachines.Transition;
 import org.omg.uml.behavioralelements.usecases.UseCase;
-import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 import org.omg.uml.foundation.datatypes.PseudostateKind;
-import org.omg.uml.foundation.core.ModelElement;
-import org.omg.uml.foundation.core.Stereotype;
-import org.andromda.core.common.CollectionFilter;
+import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Extends the UMLDefaultHelper with a set of operations that are useful
@@ -56,6 +55,20 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     }
 
     /**
+     * Returns a collection containing all the action states found in the
+     * UML model.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.activitygraphs.ActionState</code>.
+     *
+     * @return the ActionState instances found in the UML model
+     */
+    public Collection getAllActionStates()
+    {
+        return model.getActivityGraphs().getActionState().refAllOfType();
+    }
+
+    /**
      * Returns a collection containing all the activity graphs found associated
      * with the argument use-case.
      * <p>
@@ -71,35 +84,12 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     }
 
     /**
-     * Filters the argument non-null collection from all objects that are no ModelElement instances that do not have
-     * a stereotype with the argument stereotype name.
-     *
-     * @param collection A collection of objects that will be filtered, any Object may be found inside, even
-     *  <code>null</code>.
-     * @param stereotypeName The name of the stereotype on which to filter the collection
-     * @return A Collection of that is a subset of the argument collection, all elements are guarantueed
-     *  to be ModelElement instances that have at least one Stereotype with the specified name.
-     */
-    public Collection filterWithStereotypeName(Collection collection, final String stereotypeName)
-    {
-        final CollectionFilter stereotypeFilter =
-            new CollectionFilter()
-            {
-                public boolean accept(Object object)
-                {
-                    return hasStereotypeWithName(object, stereotypeName);
-                }
-            };
-        return filter(collection, stereotypeFilter);
-    }
-
-    /**
      * Returns the state machine (such as an activity graph) to which the argument state vertex belongs.
      *
      * @param stateVertex may not be <code>null</code>
      * @return the associated state machine
      */
-    public StateMachine getStateMachine(StateVertex stateVertex)
+    public StateMachine getStateMachineContext(StateVertex stateVertex)
     {
         return stateVertex.getContainer().getStateMachine();
     }
@@ -117,6 +107,21 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     public Collection getFinalStates(ActivityGraph activityGraph)
     {
         return getSubvertices(activityGraph, finalStateFilter);
+    }
+
+    /**
+     * Returns the collection of Transition instances found in the argument activity graph.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.statemachines.Transition</code>
+     *
+     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
+     * @return the Transition instances found in the activity graph
+     * @see org.omg.uml.behavioralelements.statemachines.Transition
+     */
+    public Collection getTransitions(ActivityGraph activityGraph)
+    {
+        return getSubvertices(activityGraph, transitionFilter);
     }
 
     /**
@@ -283,6 +288,18 @@ public class UMLDynamicHelper extends UMLDefaultHelper
         };
 
     /**
+     * A filter used to keep only Transitions.
+     */
+    public final CollectionFilter transitionFilter =
+        new CollectionFilter()
+        {
+            public boolean accept(Object object)
+            {
+                return isTransition(object);
+            }
+        };
+
+    /**
      * A filter used to keep only ActivityGraphs.
      */
     public final CollectionFilter activityGraphFilter =
@@ -293,6 +310,77 @@ public class UMLDynamicHelper extends UMLDefaultHelper
                 return isActivityGraph(object);
             }
         };
+
+    /**
+     * Returns the first outgoing transition.
+     */
+    public Transition getNextStateTransition(StateVertex stateVertex)
+    {
+        return (Transition) stateVertex.getOutgoing().iterator().next();
+    }
+
+    /**
+     * Basically the same as
+     * <code>getNextStateTransition(StateVertex stateVertex)</code>, but ignores
+     * any Pseudostates.
+     * <p>
+     * This way you can more easily get the actual Pseudostate.Choice, ObjectFlowState, FinalState
+     * or ActionState.
+     * <p>
+     * This is actually a workaround for the fact that there is no support for recursion
+     * in VTL: any number of joins may be connected like this.
+     *
+     * @param stateVertex A state with only one outgoing transition,
+     * @return the last state reached starting from the argument state
+     * @see #getNextStateTransition(StateVertex stateVertex)
+     */
+    public StateVertex getLastTransitionTarget(StateVertex stateVertex)
+    {
+        if (isActionState(stateVertex) || isChoice(stateVertex) ||
+            isObjectFlowState(stateVertex) || isFinalState(stateVertex))
+        {
+            return stateVertex;
+        }
+        else
+        {
+            return getLastTransitionTarget(getNextStateTransition(stateVertex).getTarget());
+        }
+    }
+
+    /**
+     * Basically the same as <code>getLastTransitionTarget(StateVertex stateVertex)</code>, but this method will
+     * only stop when it meets either an action state or a final state.
+     *
+     * @param stateVertex A state with only one outgoing transition,
+     * @return the last action state or final state reached starting from the argument state
+     * @see #getLastTransitionTarget(StateVertex stateVertex)
+     */
+    public StateVertex getLastTransitionState(StateVertex stateVertex)
+    {
+        StateVertex end = getLastTransitionTarget(stateVertex);
+
+        if (isActionState(end) || isFinalState(end))
+        {
+            return end;
+        }
+        else
+        {
+            return getLastTransitionState(getNextStateTransition(end).getTarget());
+        }
+    }
+
+    /**
+     * Returns <code>true</code> if the argument is a Transition instance, <code>false</code>
+     * in any other case.
+     *
+     * @param object an argument to test
+     * @return <code>true</code> if the argument is a Transition instance, <code>false</code>
+     *    in any other case.
+     */
+    public boolean isTransition(Object object)
+    {
+        return (object instanceof Transition);
+    }
 
     /**
      * Returns <code>true</code> if the argument is an ActivityGraph instance, <code>false</code>
@@ -398,25 +486,27 @@ public class UMLDynamicHelper extends UMLDefaultHelper
         return PseudostateKindEnum.PK_FORK.equals(getPseudostateKind(object));
     }
 
-    public boolean hasStereotypeWithName(Object object, String stereotypeName)
+    /**
+     * Returns <code>true</code> if the argument is a StateVertex instance
+     * of kind 'fork', <code>false</code> in any other case.
+     *
+     * @param object an argument to test
+     * @return <code>true</code> if the argument is a StateVertex instance
+     *    of kind 'fork', <code>false</code> in any other case.
+     */
+    public boolean isStateVertex(Object object)
     {
-        if ((object instanceof ModelElement) && (stereotypeName != null))
-        {
-            ModelElement modelElement = (ModelElement) object;
-            Stereotype stereotype = (Stereotype) modelElement.getStereotype().iterator().next();
-            if (stereotype == null)
-            {
-                return false;
-            }
-            else
-            {
-                return (stereotypeName.equals(stereotype.getName()));
-            }
-        }
-        else
-        {
-            return false;
-        }
+        return (object instanceof StateVertex);
+    }
+
+    public boolean isStateMachine(Object object)
+    {
+        return (object instanceof StateMachine);
+    }
+
+    public boolean isUseCase(Object object)
+    {
+        return (object instanceof UseCase);
     }
 
     /**
