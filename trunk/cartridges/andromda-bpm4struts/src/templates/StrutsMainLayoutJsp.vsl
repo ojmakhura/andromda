@@ -4,29 +4,23 @@
 <html:html locale="true">
 
     <head>
-        <html:base/>
         <title>
             <tiles:insert attribute="title" flush="true"/>
         </title>
+        <html:base/>
+        <link rel="stylesheet" type="text/css" href="<html:rewrite page="/layout/application.css"/>"/>
         <tiles:insert attribute="javascript" flush="true"/>
     </head>
 
     <body>
-        <table rules="all" cellpadding="10">
-            <tr>
-                <td colspan="2">
-                    <tiles:insert attribute="header" flush="true"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <tiles:insert attribute="menu" flush="true"/>
-                </td>
-                <td>
-                    <tiles:insert attribute="body" flush="true"/>
-                </td>
-            </tr>
-        </table>
+        <div id="container">
+            <div id="sidebar">
+                <tiles:insert attribute="menu" flush="true"/>
+            </div>
+            <div id="content">
+                <tiles:insert attribute="body" flush="true"/>
+            </div>
+        </div>
     </body>
 
 </html:html>
