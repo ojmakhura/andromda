@@ -80,29 +80,32 @@ public class EntityAttributeFacadeLogicImpl
         if (this.getSqlMappings() != null)
         {
             ClassifierFacade type = this.getType();
-            String typeName = type.getFullyQualifiedName(true);
-            String columnLength = this.getColumnLength();
-            value = this.getSqlMappings().getTo(typeName);
-            if (StringUtils.isBlank(value))
+            if (type != null)
             {
-                logger.error("ERROR! missing SQL type mapping for model type '"
-                    + typeName
-                    + "' --> please adjust your model or SQL type mappings '"
-                    + this.getSqlMappings().getResource() + "' accordingly");
-            }
-            if (StringUtils.isNotEmpty(columnLength))
-            {
-                char beginChar = '(';
-                char endChar = ')';
-                int beginIndex = value.indexOf(beginChar);
-                int endIndex = value.indexOf(endChar);
-                if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
-                {
-                    String replacement = value.substring(beginIndex, endIndex)
-                        + endChar;
-                    value = StringUtils.replace(value, replacement, beginChar
-                        + columnLength + endChar);
-                }
+	            String typeName = type.getFullyQualifiedName(true);
+	            String columnLength = this.getColumnLength();
+	            value = this.getSqlMappings().getTo(typeName);
+	            if (StringUtils.isBlank(value))
+	            {
+	                logger.error("ERROR! missing SQL type mapping for model type '"
+	                    + typeName
+	                    + "' --> please adjust your model or SQL type mappings '"
+	                    + this.getSqlMappings().getResource() + "' accordingly");
+	            }
+	            if (StringUtils.isNotEmpty(columnLength))
+	            {
+	                char beginChar = '(';
+	                char endChar = ')';
+	                int beginIndex = value.indexOf(beginChar);
+	                int endIndex = value.indexOf(endChar);
+	                if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
+	                {
+	                    String replacement = value.substring(beginIndex, endIndex)
+	                        + endChar;
+	                    value = StringUtils.replace(value, replacement, beginChar
+	                        + columnLength + endChar);
+	                }
+	            }
             }
         }
         return value;
