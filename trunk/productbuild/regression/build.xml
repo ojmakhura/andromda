@@ -1,0 +1,310 @@
+<project name="regression" default="all">
+
+    <!-- This script compiles and runs AndroMDA regression test -->
+    
+    <property name="andromda-core.home" value="../andromda"/>
+    <property name="samples.home" value="../samples"/>
+    <property name="cartridge.home" value="../cartridges"/>
+    <property name="andromda-java.home" value="${cartridge.home}/andromda-java"/>
+    <property name="andromda-ejb.home" value="${cartridge.home}/andromda-ejb"/>
+    <property name="andromda-hibernate.home" value="${cartridge.home}/andromda-hibernate"/>
+    <property name="andromda-struts.home" value="${cartridge.home}/andromda-struts"/>
+
+    <!-- Load user environment parameters -->
+    <property file="build.properties" />
+    <property file="regression.properties"/>
+	<property file="${andromda-core.home}/andromda-core.properties"/>
+	<property file="${andromda-core.home}/xdoclet.properties"/>
+    
+    <path id="j2ee.classpath">
+      <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
+      <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
+    </path>
+    
+    <path id="andromda-core.classpath">
+    	<pathelement path="${andromda-core.classpath}"/>
+    	<pathelement location="${andromda-core.home}/build/classes"/>
+    </path>
+    
+    <path id="xdoclet.classpath">
+		<pathelement path="${xdoclet.classpath}"/>
+    </path>
+    
+    <path id="andromda-java.classpath">
+      <pathelement location="${andromda-java.home}/src"/>
+    </path>
+    
+    <path id="andromda-ejb.classpath">
+       <pathelement location="${andromda-ejb.home}/src"/>
+       <pathelement location="${andromda-ejb.home}/build/classes"/>
+    </path>
+    
+    <path id="andromda-hibernate.classpath">
+       <pathelement location="${andromda-hibernate.home}/src"/>
+    </path>
+    
+    <path id="andromda-struts.classpath">
+       <pathelement location="${andromda-struts.home}/src"/>
+    </path>
+    
+    <path id="build.classpath">
+        <path path="${andromda-regression.classpath}"/>
+    </path>
+    
+    <!-- ============================================================= -->
+    <!--                      Define the directory layout              -->
+    <!-- ============================================================= -->
+
+    <!-- Source directories -->
+    <property name="src.dir" value="src" />
+    <property name="test.src.dir" value="${src.dir}/test/" />
+
+    <!-- Build directories -->
+    <property name="build.dir" value="build" />
+    <property name="build.classes.dir" value="${build.dir}/classes/" />
+    <property name="build.reports.dir" value="${build.dir}/reports/" />
+	<property name="build.compare.dir" value="${build.dir}/drafts/"/>
+	<property name="build.generated.dir" value="${build.dir}/generated/"/>
+	
+	<!-- ============================================================= -->
+	<!--                     Regression Properties                     -->
+	<!-- ============================================================= -->
+	
+	<!-- Defines the directory where we will retrieve the generated 
+	     compare data (.xml and .java files) for the test -->
+    <property name="compare.data.home" value="${samples.home}/car-rental-system"/>
+    <property name="compare.xml.dir" value="${compare.data.home}/build"/>
+    <property name="compare.java.dir" value="${compare.data.home}/src"/>
+
+    <!-- ============================================================= -->
+    <!--                       Internal subtasks                       -->
+    <!-- ============================================================= -->
+    
+    <path id="build.class.path">
+        <pathelement location="${build.classes.dir}" />
+        <path refid="build.classpath"/>
+    </path>
+    
+     <!-- Cleans all build files from this module -->
+    <target name="clean" description="Delete all built files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${build.dir}"/>
+        </delete>
+    </target>
+    
+    <!-- Cleans everything (including dependant projects) -->
+    <target name="clean-all" depends="clean">
+		<!-- clean core -->
+		<ant dir="${andromda-core.home}" target="clean" inheritAll="false"/>
+		
+		<!-- clean cartridges -->
+		<ant dir="${cartridge.home}" target="clean" inheritAll="false"/>
+		
+		<!-- clean compare data directory -->
+		<ant dir="${compare.data.home}" target="clean" inheritAll="false"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <property name="classpath" refid="build.classpath"/>
+        <echo message=" path=${classpath}"/>
+        <javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
+            <src location="${test.src.dir}"/>
+            <classpath>
+            	<path refid="build.classpath"/>
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="all" depends="compile,generate-compare-data">
+ 		<available file="${build.compare.dir}" property="compare.data"/>
+ 		<antcall target="copy-drafts-dir"/>
+ 		<antcall target="run-test"/>
+    </target>
+    
+    <!-- copies over initial drafts into directory if it doesn't exist -->
+    <target name="copy-drafts-dir" unless="compare.data">
+      	<antcall target="copy-data">
+      		<param name="copy.to.dir" value="${build.compare.dir}"/>
+      	</antcall>
+        <echo>+---------------------------------------------------+</echo>
+        <echo>|                                                   |</echo>
+        <echo>|   C R E A T E D   I N I T I A L   D R A F T S     |</echo>
+        <echo>|                                                   |</echo>
+        <echo>+---------------------------------------------------+</echo>
+    </target>
+    
+    <target name="copy-data">
+      	<copy todir="${copy.to.dir}">
+         	<fileset dir="${compare.xml.dir}">
+            	<include name="**/*.xml" />
+         	</fileset>
+      	</copy>
+      	<!-- copy over generated java files -->
+       	<copy todir="${copy.to.dir}">
+         	<fileset dir="${compare.java.dir}">
+            	<include name="**/manual/**/*.java" />
+            	<include name="**/generated/**/*.java" />
+         	</fileset>
+      	</copy>
+    </target>
+
+	<!-- runs the CodeUnit regression test -->
+	<target name="run-test" if="compare.data">
+		<!-- clean and then copy over the generated data that will be compared to the existing 
+		     drafts dir data -->
+		<delete dir="${build.generated.dir}"/>
+      	<antcall target="copy-data">
+      		<param name="copy.to.dir" value="${build.generated.dir}"/>
+      	</antcall>
+        <echo>+---------------------------------------------------+</echo>
+        <echo>|                                                   |</echo>
+        <echo>|   R U N N I N G   R E G R E S S I O N   T E S T   |</echo>
+        <echo>|                                                   |</echo>
+        <echo>+---------------------------------------------------+</echo>
+        <junit printsummary="yes" haltonfailure="false">
+       
+            <classpath>
+                <path refid="build.class.path"/>
+            </classpath>
+		
+			<formatter type="plain"/>
+			
+            <sysproperty key="andromda.draft.dir" value="${build.compare.dir}"/>
+            <sysproperty key="andromda.out.dir" value="${build.generated.dir}"/>	
+            
+		  	<test name="org.andromda.cartridges.regression.RegressionTest"
+		  		  todir="${build.reports.dir}">	  	
+		  	</test>
+        </junit>
+	</target>
+	
+	<target name="generate-compare-data" depends="init">
+		
+		<!-- build core -->
+		<ant dir="${andromda-core.home}" target="compile" inheritAll="false"/>
+		
+		<!-- build cartridges -->
+		<ant dir="${andromda-java.home}" inheritAll="false"/>
+		<ant dir="${andromda-ejb.home}" inheritAll="false">
+			<reference refid="andromda-core.classpath" torefid="build.classpath"/>
+		</ant>
+		<ant dir="${andromda-hibernate.home}" inheritAll="false"/>
+		<ant dir="${andromda-struts.home}" inheritAll="false"/> 
+		
+		<!-- generate files from ejb cartridges -->
+		<antcall target="generate">
+			<param name="generate-target" value="genejbcomp"/>
+		</antcall>
+		
+		<!-- generate files from hibernate cartridges -->
+		<antcall target="generate">
+			<param name="generate-target" value="genhibernate"/>
+		</antcall>
+	</target>
+	
+	<!-- path used for the generation process -->
+	<path id="generate.classpath">
+		<path refid="andromda-core.classpath"/>
+		<path refid="xdoclet.classpath"/>
+		<path refid="j2ee.classpath"/>
+   		<path refid="andromda-java.classpath"/>
+   		<path refid="andromda-ejb.classpath"/>
+   		<path refid="andromda-hibernate.classpath"/>
+   		<path refid="andromda-struts.classpath"/>
+	</path>
+	
+	<!-- generates the test data -->
+	<target name="generate">
+		<ant dir="${compare.data.home}" target="${generate-target}" inheritAll="false">
+			<!-- override the required classpath -->
+			<reference refid="generate.classpath" torefid="andromda.classpath"/>
+			<!-- override the references to AndroMDA home -->
+			<property name="andromda.home" value="${andromda-core.home}"/>
+			<property name="andromda-core.home" value="../${andromda-core.home}"/>
+          	<property file="build.properties" />
+		</ant>	
+	</target>
+	
+    <target name="init" depends="check-environment">
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${build.reports.dir}"/>
+    </target>
+
+    <target name="check-environment">
+
+        <property name="buildclasspath" refid="build.classpath"/>
+        
+        <echo message="classpath = ${buildclasspath}" />
+        
+        <available property="collections.missing"
+               classname="org.apache.commons.collections.Predicate"
+               classpathref="build.class.path" />
+        <antcall target="missing-collections"/>
+        
+        <available property="xjavadoc.missing"
+               classname="xjavadoc.codeunit.CodeTestCase"
+               classpathref="build.class.path" />
+        <antcall target="missing-xjavadoc"/>
+      
+        <available property="xmlunit.missing"
+               classname="org.custommonkey.xmlunit.XMLTestCase"
+               classpathref="build.class.path" />
+        <antcall target="missing-xmlunit"/>
+
+        <available property="junit.missing"
+               classname="junit.framework.TestCase"
+               classpathref="build.class.path" />
+        <antcall target="missing-junit"/>
+
+        <available property="ant.missing"
+               classname="org.apache.tools.ant.Project"
+               classpathref="build.class.path" />
+        <antcall target="missing-ant"/>
+
+    </target>
+
+    <target name="check-buildclasspath" unless="build.classpath">
+        <fail>
+            Property "build.classpath" is not set. Please use the file
+            "build.properties" in the directory ${basedir} to set
+            this property. It must list all external jars required
+            for the build to succeed.
+        </fail>
+    </target>
+
+    <target name="missing-xjavadoc" unless="xjavadoc.missing">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the XJavadoc jar.
+        </fail>
+    </target>
+
+    <target name="missing-xmlunit" unless="xmlunit.missing">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the XmlUnit jar.
+        </fail>
+    </target>
+    
+    <target name="missing-junit" unless="junit.missing">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the JUnit jar.
+        </fail>
+    </target>
+
+    <target name="missing-ant" unless="ant.missing">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the ant jar.
+        </fail>
+    </target>
+    
+    <target name="missing-collections" unless="collections.missing">
+        <fail>
+            Property "build.classpath" is set but it doesn't seem
+            to contain the apache commons collections jar.
+        </fail>
+    </target>
+
+</project>
