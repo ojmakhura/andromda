@@ -35,6 +35,7 @@
     <property reference="hibernateMaxFetchDepth" default=""/>
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
+    <property reference="hibernateQuerySubstitutions" default=""/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"

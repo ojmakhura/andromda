@@ -58,52 +58,55 @@
         <property name="hibernateProperties">
             <props>
 #if ($stringUtils.isNotBlank($hibernatePoolSize))
-                <prop key="hibernate.pool.size">${hibernatePoolSize}</prop>
+                <prop key="hibernate.pool.size">$hibernatePoolSize</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateTransactionManagerStrategy))
-                <prop key="hibernate.transaction.manager.strategy">${hibernateTransactionManagerStrategy}</prop>
+                <prop key="hibernate.transaction.manager.strategy">$hibernateTransactionManagerStrategy</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateUserTransactionName))
-                <prop key="hibernate.jta.UserTransaction">${hibernateUserTransactionName}</prop>
+                <prop key="hibernate.jta.UserTransaction">$hibernateUserTransactionName</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateTransactionManagerStrategy))
-                <prop key="hibernate.transaction.manager.strategy">${hibernateTransactionManagerStrategy}</prop>
+                <prop key="hibernate.transaction.manager.strategy">$hibernateTransactionManagerStrategy</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateTransactionManagerLookup))
-                <prop key="hibernate.transaction.manager_lookup_class">${hibernateTransactionManagerLookup}</prop>
+                <prop key="hibernate.transaction.manager_lookup_class">$hibernateTransactionManagerLookup</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateUseOuterJoin))
-                <prop key="hibernate.use_outer_join">${hibernateUseOuterJoin}</prop>
+                <prop key="hibernate.use_outer_join">$hibernateUseOuterJoin</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateShowSql))
-                <prop key="hibernate.show_sql">${hibernateShowSql}</prop>
+                <prop key="hibernate.show_sql">$hibernateShowSql</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateJndiName))
-                <prop key="hibernate.session_factory_name">${hibernateJndiName}</prop>
+                <prop key="hibernate.session_factory_name">$hibernateJndiName</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateDialect))
-                <prop key="hibernate.dialect">${hibernateDialect}</prop>
+                <prop key="hibernate.dialect">$hibernateDialect</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateDefaultSchema))
-                <prop key="hibernate.default_schema">${hibernateDefaultSchema}</prop>
+                <prop key="hibernate.default_schema">$hibernateDefaultSchema</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateMaxFetchDepth))
-                <prop key="hibernate.max_fetch_depth">${hibernateMaxFetchDepth}</prop>
+                <prop key="hibernate.max_fetch_depth">$hibernateMaxFetchDepth</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateJdbcFetchSize))
-                <prop key="hibernate.jdbc.fetch_size">${hibernateJdbcFetchSize}</prop>
+                <prop key="hibernate.jdbc.fetch_size">$hibernateJdbcFetchSize</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateJdbcBatchSize))
-                <prop key="hibernate.jdbc.batch_size">${hibernateJdbcBatchSize}</prop>
+                <prop key="hibernate.jdbc.batch_size">$hibernateJdbcBatchSize</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateJdbcUseScrollableResultSet))
-                <prop key="hibernate.jdbc.use_scrollable_resultset">${hibernateJdbcUseScrollableResultSet}</prop>
+                <prop key="hibernate.jdbc.use_scrollable_resultset">$hibernateJdbcUseScrollableResultSet</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateJdbcUseStreamsForBinary))
-                <prop key="hibernate.use_streams_for_binary">${hibernateJdbcUseStreamsForBinary}</prop>
+                <prop key="hibernate.use_streams_for_binary">$hibernateJdbcUseStreamsForBinary</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
-                <prop key="hibernate.hbm2ddl.auto">${hibernateHbm2DDLAuto}</prop>
+                <prop key="hibernate.hbm2ddl.auto">$hibernateHbm2DDLAuto</prop>
+#end
+#if ($stringUtils.isNotBlank($hibernateQuerySubstitutions))
+                <prop key="hibernate.query.substitutions">$hibernateQuerySubstitutions</prop>
 #end
             </props>
         </property>
