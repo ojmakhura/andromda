@@ -38,8 +38,8 @@ import org.apache.log4j.Logger;
  * a single or multiple <code>MOF</code> models.
  * </p>
  * 
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
- * @author <a href="http://www.amowers.com">Anthony Mowers </a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.amowers.com">Anthony Mowers</a>
  * @author Chad Brandon
  */
 public class ModelProcessor
@@ -308,9 +308,9 @@ public class ModelProcessor
      * to true, then package elements should be specified if you want to keep
      * certain packages from being processed. If this is set to false, then you
      * would want to define package elements to specify which packages
-     * <strong>SHOULD BE</strong> processed. This is useful if you need to
+     * <strong>SHOULD BE </strong> processed. This is useful if you need to
      * reference model elements from other packages but you don't want to
-     * perform any generation from them. The default is <strong>true</strong>.
+     * perform any generation from them. The default is <strong>true </strong>.
      * 
      * @param processAllModelPackages The processAllModelPackages to set.
      */
@@ -355,7 +355,7 @@ public class ModelProcessor
      * Indicates whether or not the <code>namespace</code> should be
      * processed. This is determined in conjunction with
      * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code>
-     * is not defined, then this method will <strong>ALWAYS </strong> return
+     * is not defined, then this method will <strong>ALWAYS</strong> return
      * true.
      * 
      * @param namespace the namespace to check whether or not it should be
@@ -364,10 +364,12 @@ public class ModelProcessor
      */
     protected boolean shouldProcess(String namespace)
     {
-        boolean shouldProcess = cartridgeFilter == null || cartridgeFilter.isEmpty();
+        boolean shouldProcess = cartridgeFilter == null
+            || cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
-            shouldProcess = cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+            shouldProcess = cartridgeFilter.contains(StringUtils
+                .trimToEmpty(namespace));
         }
         return shouldProcess;
     }
@@ -383,15 +385,15 @@ public class ModelProcessor
      * cartridges <strong>will not be processed</strong>.
      * </p>
      * 
-     * @param namespaces a comma seperated list of the cartridge namespaces
-     *        to be processed.
+     * @param namespaces a comma seperated list of the cartridge namespaces to
+     *        be processed.
      */
     public void setCartridgeFilter(String namespaces)
     {
         if (StringUtils.isNotBlank(namespaces))
         {
-	        cartridgeFilter = Arrays.asList(StringUtils
-	            .deleteWhitespace(namespaces).split(","));
+            cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(
+                namespaces).split(","));
         }
     }
 
