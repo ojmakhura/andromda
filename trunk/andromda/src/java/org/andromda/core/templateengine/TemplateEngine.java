@@ -57,13 +57,13 @@ public interface TemplateEngine
      * @param macroLibrary
      */
     public void addMacroLibrary(String macroLibrary);
-    
+
     /**
-     * Sets the location of <code>merge</code> templates.  These
-     * are templates that will be merged into cartridges during processing
-     * from an external location.  This allows the ability to define
-     * templates external to plugins so that these templates can override
-     * plugin templates in order to provide customization.
+     * Sets the location of <code>merge</code> templates. These are templates
+     * that will be merged into cartridges during processing from an external
+     * location. This allows the ability to define templates external to plugins
+     * so that these templates can override plugin templates in order to provide
+     * customization.
      * 
      * @param the location of the merge files.
      */

@@ -144,7 +144,21 @@
 							can be any number of paths to search, <em>n</em> starts
 							with 0. (i.e. maven.andromda.repository.moduleSearchPath.location.0=${basedir}/../../metafacades/uml/common/src/uml)
 						</td>
-					</tr>     		        	   	    	        		        	        	        	     	             	        	
+					</tr>   
+                    <tr>
+                        <td>
+                            maven.andromda.modelValidation
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                        <td>
+                            Specifies whether or not models loaded by AndroMDA will be
+                            validated.  Sometimes its nice to turn off validation for performance 
+                            reasons (i.e. you have very large model(s) being processed). 
+                            Default is <code>true</code>.
+                        </td>
+                    </tr> 		        	   	    	        		        	        	        	     	             	        	
 				</table>
 	        </subsection>
 			<a name="schema2xmi"/>

@@ -49,9 +49,13 @@ public class MetafacadeFactory
         this.metafacadeCache = new HashMap();
         this.registeredProperties = new HashMap();
         this.validationMessages = new HashSet();
-        MetafacadeMappings.instance().discoverMetafacades();
-        MetafacadeImpls.instance().discoverMetafacadeImpls();
     }
+
+    /**
+     * Whether or not model validation should be performed during metafacade
+     * creation
+     */
+    private boolean modelValidation = true;
 
     /**
      * Returns the facade factory singleton.
@@ -82,6 +86,20 @@ public class MetafacadeFactory
     public String getActiveNamespace()
     {
         return this.activeNamespace;
+    }
+
+    /**
+     * Sets whether or not model validation should occur during
+     * <code>metafacade</code> creation. This is useful for performance
+     * reasons (i.e. if you have a large model it can significatly descrease the
+     * amount of time it takes for AndroMDA to process a model). By default this
+     * is set to <code>true</code>.
+     * 
+     * @param modelValidation The modelValidation to set.
+     */
+    public void setModelValidation(boolean modelValidation)
+    {
+        this.modelValidation = modelValidation;
     }
 
     /**
@@ -287,10 +305,13 @@ public class MetafacadeFactory
                     metafacadeClass,
                     metafacadeCacheKey,
                     metafacade);
-                // validate the meta-facade and collect the messages
-                Collection validationMessages = new ArrayList();
-                metafacade.validate(validationMessages);
-                this.validationMessages.addAll(validationMessages);
+                if (this.modelValidation)
+                {
+                    // validate the meta-facade and collect the messages
+                    Collection validationMessages = new ArrayList();
+                    metafacade.validate(validationMessages);
+                    this.validationMessages.addAll(validationMessages);
+                }
             }
             return metafacade;
         }

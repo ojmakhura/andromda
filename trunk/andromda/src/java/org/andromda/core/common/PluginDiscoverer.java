@@ -26,11 +26,14 @@ public class PluginDiscoverer {
      */
     private static final Properties pluginResources = new Properties();
        
-    static {
+    static 
+    {
         final String ANDROMDA_PLUGINS = "META-INF/andromda-plugins.properties";
-        try {
+        try 
+        {
             URL andromdaPluginsUri = ResourceUtils.getResource(ANDROMDA_PLUGINS);
-            if (andromdaPluginsUri == null) {
+            if (andromdaPluginsUri == null) 
+            {
                 String errMsg = "Could not find --> '" + ANDROMDA_PLUGINS + "'";                
                 logger.error(errMsg); 
                 throw new PluginDiscovererException(errMsg);
@@ -39,7 +42,9 @@ public class PluginDiscoverer {
             pluginResources.load(stream);
             stream.close();
             stream = null;
-        } catch (Throwable th) {
+        } 
+        catch (Throwable th) 
+        {
             String errMsg = "Error loading --> '" + ANDROMDA_PLUGINS + "'";
             logger.error(errMsg, th);
             throw new PluginDiscovererException(errMsg, th);
@@ -82,9 +87,7 @@ public class PluginDiscoverer {
 	public void discoverPlugins(boolean showPlugins) 
     {
 		final String methodName = "PluginDiscoverer.discoverPlugins";
-		if (logger.isDebugEnabled())
-			logger.debug("performing " + methodName);
-			
+        AndroMDALogger.info("-- discovering plugins --");
 		try 
 		{	
 			Enumeration pluginEnum = pluginResources.keys();

@@ -571,6 +571,7 @@ public class MetafacadeMappings
         }
         else
         {
+            AndroMDALogger.info("-- discovering metafacades --");
             try
             {
                 // will store all namespaces (other than default)

@@ -18,7 +18,7 @@ public class LibraryTranslationFinder
 
     private static Logger logger = Logger
         .getLogger(LibraryTranslationFinder.class);
-    
+
     protected static Map libraryTranslations = new HashMap();
 
     /**

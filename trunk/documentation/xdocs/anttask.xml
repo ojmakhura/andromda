@@ -130,7 +130,22 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-                        <a name="validating">validating</a>
+                        <a name="modelValidation">modelValidation</a>
+                    </td>
+                    <td valign="top" class="std">
+                        Specifies whether or not models loaded by AndroMDA will be
+                        validated.  By default models <strong>WILL</strong> be validated, 
+                        however sometimes its nice to turn off validation for performance 
+                        reasons (i.e. you have very large model(s) being processed).
+                    </td>
+                    <td>
+                        No, defaults to
+                        <code>true</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">
+                        <a name="xmlValidation">xmlValidation</a>
                     </td>
                     <td valign="top" class="std">
                         Specifies whether or not XML resources loaded by AndroMDA will be

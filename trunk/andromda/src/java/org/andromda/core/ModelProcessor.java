@@ -22,6 +22,8 @@ import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.metafacade.MetafacadeImpls;
+import org.andromda.core.metafacade.MetafacadeMappings;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.collections.comparators.ComparatorChain;
@@ -121,6 +123,8 @@ public class ModelProcessor
         try
         {
             PluginDiscoverer.instance().discoverPlugins();
+            MetafacadeMappings.instance().discoverMetafacades();
+            MetafacadeImpls.instance().discoverMetafacadeImpls();
 
             Collection cartridges = PluginDiscoverer.instance().findPlugins(
                 Cartridge.class);
@@ -298,6 +302,19 @@ public class ModelProcessor
     public void setProcessAllModelPackages(boolean processAllModelPackages)
     {
         this.processAllModelPackages = processAllModelPackages;
+    }
+
+    /**
+     * Sets <code>modelValidation</code> to be true/false. This defines
+     * whether model validation should occur when AndroMDA processes model(s).
+     * 
+     * @param modelValidation true/false on whether model validation should be
+     *        performed or not.
+     * @see org.andromda.core.metafacade.MetafacadeFactory#setModelValidation(boolean)
+     */
+    public void setModelValidation(boolean modelValidation)
+    {
+        MetafacadeFactory.getInstance().setModelValidation(modelValidation);
     }
 
     /**

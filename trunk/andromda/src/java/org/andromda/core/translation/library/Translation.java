@@ -55,8 +55,8 @@ public class Translation
         //should never happen, but it doesn't hurt to be safe
         if (this.libraryTranslation == null)
         {
-            throw new LibraryException(
-                methodName + " - libraryTranslation can not be null");
+            throw new LibraryException(methodName
+                + " - libraryTranslation can not be null");
         }
         return libraryTranslation;
     }
@@ -64,8 +64,8 @@ public class Translation
     /**
      * Sets the LibraryTranslation to which this Translation belongs.
      * 
-     * @param translation
-     *            the LibraryTranslation to which this Translation belongs.
+     * @param translation the LibraryTranslation to which this Translation
+     *        belongs.
      */
     protected void setLibraryTranslation(LibraryTranslation translation)
     {
@@ -76,8 +76,7 @@ public class Translation
      * Gets the fragment matching (using regular expressions) the specified
      * name.
      * 
-     * @param name
-     *            the name of the fragment to retrieve.
+     * @param name the name of the fragment to retrieve.
      * @return Fragment
      */
     protected Fragment getFragment(String name)
@@ -143,8 +142,7 @@ public class Translation
     /**
      * Adds an <code>ignorePattern</code> to the Collection of ignorePatterns.
      * 
-     * @param ignorePattern
-     *            the pattern to ignore.
+     * @param ignorePattern the pattern to ignore.
      */
     public void addIgnorePattern(String ignorePattern)
     {
@@ -155,8 +153,7 @@ public class Translation
      * Adds an <code>validatePattern</code> to the Collection of
      * validatePatterns.
      * 
-     * @param validatePattern
-     *            the pattern to validate.
+     * @param validatePattern the pattern to validate.
      */
     public void addValidatePattern(String validatePattern)
     {
@@ -198,10 +195,8 @@ public class Translation
      * retrieves the fragment body for the name of this fragment and replaces
      * any fragment references with other fragment bodies (if they exist)
      * 
-     * @param name
-     *            the name of the fragment.
-     * @param kind
-     *            the kind of the fragment.
+     * @param name the name of the fragment.
+     * @param kind the kind of the fragment.
      * @return String the translated body of the fragment kind.
      */
     protected String getTranslated(String name, String kind)
@@ -235,8 +230,7 @@ public class Translation
                 {
                     fragmentName = fragmentName.substring(0, endIndex);
                 }
-                StringBuffer toReplace = new StringBuffer(
-                    begin);
+                StringBuffer toReplace = new StringBuffer(begin);
                 toReplace.append(fragmentName);
                 toReplace.append(end);
                 translated = StringUtils.replace(translated, toReplace

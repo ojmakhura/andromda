@@ -42,10 +42,9 @@ public class Mappings
      * within the from type mapping XML file.
      */
     private Map mappings = new HashMap();
-    
+
     /**
-     * A static mapping containing all logical mappings currently
-     * available.
+     * A static mapping containing all logical mappings currently available.
      */
     private static Map logicalMappings = new HashMap();
 
@@ -207,12 +206,12 @@ public class Mappings
     }
 
     /**
-     * Adds a mapping to the globally available mappings, these
-     * are used by this class to instatiate mappings from 
-     * logical names as opposed to physical names.
+     * Adds a mapping to the globally available mappings, these are used by this
+     * class to instatiate mappings from logical names as opposed to physical
+     * names.
      * 
-     * @param mappings the Mappings to add to the globally available
-     *        Mapping instances.
+     * @param mappings the Mappings to add to the globally available Mapping
+     *        instances.
      */
     public static void addLogicalMappings(Mappings mappings)
     {

@@ -121,10 +121,8 @@ public class LibraryTranslation
     public Translator getTranslator()
     {
         final String methodName = "LibraryTranslation.getTranslator";
-        Translator translator = 
-            (Translator)ComponentContainer.instance().findComponent(
-                this.translatorClass, 
-                Translator.class);
+        Translator translator = (Translator)ComponentContainer.instance()
+            .findComponent(this.translatorClass, Translator.class);
         if (translator == null)
         {
             throw new LibraryException(methodName
@@ -142,12 +140,9 @@ public class LibraryTranslation
      * second argument (the node being parsed that we may need to retrieve any
      * additional information from).
      * 
-     * @param name
-     *            the name of the fragment to retrieve.
-     * @param node
-     *            the node Object which from the parsed expression.
-     * @param kind
-     *            the kind of the translation fragment to handle.
+     * @param name the name of the fragment to retrieve.
+     * @param node the node Object which from the parsed expression.
+     * @param kind the kind of the translation fragment to handle.
      */
     public void handleTranslationFragment(String name, String kind, Object node)
     {
@@ -161,8 +156,8 @@ public class LibraryTranslation
             //translation template
             if (StringUtils.isNotEmpty(translation))
             {
-                String handlerMethod = 
-                    this.translation.getFragment(name).getHandlerMethod();
+                String handlerMethod = this.translation.getFragment(name)
+                    .getHandlerMethod();
                 if (StringUtils.isNotEmpty(handlerMethod))
                 {
                     Class[] argTypes = new Class[]
@@ -214,11 +209,9 @@ public class LibraryTranslation
      * Gets the current "translated" value of this fragmentName for resulting
      * from the last processTranslation method
      * 
-     * @param name
-     *            the name of the fragment to retrieve.
-     * @param kind
-     *            the kind or type of fragment to retrieve (this is the based on
-     *            the expression type: body, inv, post, pre, etc).
+     * @param name the name of the fragment to retrieve.
+     * @param kind the kind or type of fragment to retrieve (this is the based
+     *        on the expression type: body, inv, post, pre, etc).
      * @return String the value of the translated fragment or null of one wasn't
      *         found with the specified name.
      */
@@ -263,9 +256,8 @@ public class LibraryTranslation
      * the Translation objects. If <code>template</code> hasn't been set (i.e.
      * is null, then this method won't do anything but return a null value).
      * 
-     * @param templateContext
-     *            any key/value pairs that should be passed to the
-     *            TemplateEngine while processing the translation template.
+     * @param templateContext any key/value pairs that should be passed to the
+     *        TemplateEngine while processing the translation template.
      * @return Translation the Translation created from the processing the
      *         translation template.
      */
