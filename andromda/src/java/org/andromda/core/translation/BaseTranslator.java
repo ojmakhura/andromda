@@ -146,14 +146,12 @@ public abstract class BaseTranslator
      * 
      *  
      *   
-     *    
-     *            &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
-     *                         handlerMethod=&quot;handleAllInstances&quot;&gt;
-     *                &lt;kind name=&quot;body&quot;&gt;
-     *                    from $completeElementName as $lowerCaseElementName 
-     *                &lt;/kind&gt;
-     *            &lt;/fragment&gt;
-     *            
+     *              &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
+     *                           handlerMethod=&quot;handleAllInstances&quot;&gt;
+     *                  &lt;kind name=&quot;body&quot;&gt;
+     *                      from $completeElementName as $lowerCaseElementName 
+     *                  &lt;/kind&gt;
+     *              &lt;/fragment&gt;
      *    
      *   
      *  
@@ -296,19 +294,11 @@ public abstract class BaseTranslator
         }
         catch (Exception ex)
         {
-            String errMsg = "Error performing " + methodName
-                + " with translationName '" + translationName
-                + "', contextElement '" + contextElement
-                + "' and expression --> '" + expression + "'";
-
-            // if the exception is something other than a parser
-            // error wrap in a TranslatorException, otherwise
-            // just print the error so its more user friendly.
-            if (!OclParserException.class.isAssignableFrom(ex.getClass()))
-            {
-                throw new TranslatorException(errMsg, ex);
-            }
-            logger.error(errMsg + "\n MESSAGE --> '" + ex.getMessage() + "'");
+            String errMsg = "Error translating with translation '"
+                + translationName + "'," + " contextElement '" + contextElement
+                + "' and expression --> '" + expression + "'"
+                + "\nMESSAGE --> '" + ex.getMessage() + "'";
+            throw new TranslatorException(errMsg, ex);
         }
         return translatedExpression;
     }
