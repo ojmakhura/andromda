@@ -273,8 +273,8 @@ public class MDRepositoryFacade implements RepositoryFacade
 
 	
 	// a method for logging that is stubbed out now
-    
 	static private void log(Object object)
 	{
+        
 	}
 }

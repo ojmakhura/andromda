@@ -1,9 +1,10 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.modelmanagement.UmlPackage;
@@ -12,13 +13,13 @@ import org.omg.uml.modelmanagement.UmlPackage;
  * @author Anthony Mowers
  *
  */
-public class PackageProxy 
-    extends ModelElementProxy 
+public class PPackage 
+    extends PModelElement 
     implements UMLPackage 
 {
 
     public static UmlPackage newInstance(
-        UMLScriptHelper scriptHelper,
+        UMLStaticHelper scriptHelper,
         UmlPackage umlPackage)
     {
         Class[] interfaces = new Class[]
@@ -30,21 +31,18 @@ public class PackageProxy
         return (UmlPackage)java.lang.reflect.Proxy.newProxyInstance(
             umlPackage.getClass().getClassLoader(),
             interfaces,
-            new PackageProxy(umlPackage, scriptHelper));
+            new PPackage(umlPackage, scriptHelper));
     }
 
 
     
-    private PackageProxy(
+    private PPackage(
         UmlPackage umlPackage,
-        UMLScriptHelper scriptHelper)
+        UMLStaticHelper scriptHelper)
     {
         super(umlPackage,scriptHelper);
     }
 
-	/**
-	 * @see org.andromda.core.uml14.UMLPackage#getClasses()
-	 */
 	public Collection getClasses() 
     {
         UmlPackage umlPackage = (UmlPackage)modelElement;
@@ -56,7 +54,7 @@ public class PackageProxy
             Object o = i.next();
             if (o instanceof UmlClass)
             {
-                o = ClassifierProxy.newInstance(scriptHelper,(Classifier)o);
+                o = PClassifier.newInstance(scriptHelper,(Classifier)o);
                 classProxies.add(o);
             }
         }

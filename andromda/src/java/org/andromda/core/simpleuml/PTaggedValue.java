@@ -1,6 +1,8 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 import java.util.Iterator;
+
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.TaggedValue;
 
 /**
@@ -8,13 +10,13 @@ import org.omg.uml.foundation.core.TaggedValue;
  *
  * 
  */
-public class TaggedValueProxy
-	extends ModelElementProxy
+public class PTaggedValue
+	extends PModelElement
 	implements UMLTaggedValue
 {
 	
 	public static Object newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		TaggedValue taggedValue)
 	{
 		Class[] interfaces = {
@@ -25,14 +27,14 @@ public class TaggedValueProxy
 		return java.lang.reflect.Proxy.newProxyInstance(
 			taggedValue.getClass().getClassLoader(),
 			interfaces,
-			new TaggedValueProxy(taggedValue, scriptHelper));
+			new PTaggedValue(taggedValue, scriptHelper));
 	}
 
 
 	
-	protected TaggedValueProxy(
+	protected PTaggedValue(
 		TaggedValue taggedValue,
-		UMLScriptHelper scriptHelper)
+		UMLStaticHelper scriptHelper)
 	{
 		super(taggedValue,scriptHelper);
 	}

@@ -38,7 +38,7 @@ public class UMLBaseHelperTest extends TestCase
 	private final static String STEREOTYPE_NAME = 
         TestModel.CLASSA_STEREOTYPE_NAME;
 
-    private UMLBaseHelper helper = null;
+    private UMLDefaultHelper helper = null;
     
 	protected URL modelURL = null;
 	protected MDRepositoryFacade repository = null;
@@ -149,11 +149,11 @@ public class UMLBaseHelperTest extends TestCase
 		}
 	}
 
-    protected UMLBaseHelper getHelper()
+    protected UMLDefaultHelper getHelper()
     {
         if (helper == null)
         {
-            helper = new UMLBaseHelper();
+            helper = new UMLDefaultHelper();
         }
         
         return helper;

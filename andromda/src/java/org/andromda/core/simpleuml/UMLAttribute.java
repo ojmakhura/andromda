@@ -1,4 +1,4 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 /**
  *  Description of the Interface

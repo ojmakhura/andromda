@@ -12,7 +12,7 @@ public class DirectionalAssociationDescriptorTest
 	extends UMLBaseHelperTest
 	implements TestModel
 {
-    private UMLScriptHelper helper;
+    private UMLStaticHelper helper;
     
 	protected AssociationEnd one2many;
 	protected AssociationEnd many2many;
@@ -93,11 +93,11 @@ public class DirectionalAssociationDescriptorTest
 
 	}
     
-    protected UMLBaseHelper getHelper()
+    protected UMLDefaultHelper getHelper()
     {
         if (helper == null)
         {
-            helper = new UMLScriptHelper();
+            helper = new UMLStaticHelper();
         }
         
         return helper;

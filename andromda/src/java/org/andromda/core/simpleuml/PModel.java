@@ -1,28 +1,26 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.UmlPackage;
 
 /**
  * @author amowers
  *.
  */
-public class ModelProxy 
+public class PModel 
     implements 
         UMLModel,
         java.lang.reflect.InvocationHandler 
 {
     
     private UmlPackage model;
-    private UMLScriptHelper scriptHelper;
+    private UMLStaticHelper scriptHelper;
 
-	/**
-	 * @see org.andromda.core.uml14.UMLModel#getPackages()
-	 */
 	public Collection getPackages() {
         Collection packages = 
             model.getModelManagement().getUmlPackage().refAllOfType();
@@ -32,7 +30,7 @@ public class ModelProxy
         {
             org.omg.uml.modelmanagement.UmlPackage o = 
                 (org.omg.uml.modelmanagement.UmlPackage)i.next();
-            o = PackageProxy.newInstance(scriptHelper,o);
+            o = PPackage.newInstance(scriptHelper,o);
             packageProxies.add(o);
         }
         
@@ -40,7 +38,7 @@ public class ModelProxy
 	}
 
     public static UmlPackage newInstance(
-        UMLScriptHelper scriptHelper,
+        UMLStaticHelper scriptHelper,
         UmlPackage model)
     {
         Class[] interfaces = new Class[]
@@ -52,14 +50,14 @@ public class ModelProxy
         return (UmlPackage)java.lang.reflect.Proxy.newProxyInstance(
             model.getClass().getClassLoader(),
             interfaces,
-            new ModelProxy(model, scriptHelper));
+            new PModel(model, scriptHelper));
     }
 
 
     
-    private ModelProxy(
+    private PModel(
         UmlPackage model,
-        UMLScriptHelper scriptHelper)
+        UMLStaticHelper scriptHelper)
     {
         this.model = model;
         this.scriptHelper = scriptHelper;

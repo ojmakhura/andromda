@@ -1,5 +1,6 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Classifier;
 
@@ -8,12 +9,12 @@ import org.omg.uml.foundation.core.Classifier;
  *
  * 
  */
-public class AssociationEndProxy
-	extends ModelElementProxy
+public class PAssociationEnd
+	extends PModelElement
 	implements UMLAssociationEnd
 {
 	public static AssociationEnd newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		AssociationEnd associationEnd)
 	{
 		Class[] interfaces = {
@@ -24,14 +25,14 @@ public class AssociationEndProxy
 		return (AssociationEnd)java.lang.reflect.Proxy.newProxyInstance(
 			associationEnd.getClass().getClassLoader(),
 			interfaces,
-			new AssociationEndProxy(associationEnd, scriptHelper));
+			new PAssociationEnd(associationEnd, scriptHelper));
 	}
 
 
 	
-	protected AssociationEndProxy(
+	protected PAssociationEnd(
 		AssociationEnd associationEnd,
-		UMLScriptHelper scriptHelper)
+		UMLStaticHelper scriptHelper)
 	{
 		super(associationEnd,scriptHelper);
 	}
@@ -52,7 +53,7 @@ public class AssociationEndProxy
 	{
 		AssociationEnd ae = (AssociationEnd)modelElement;
 		
-		return ClassifierProxy.newInstance(
+		return PClassifier.newInstance(
 			scriptHelper, ae.getParticipant());
 	}
 	

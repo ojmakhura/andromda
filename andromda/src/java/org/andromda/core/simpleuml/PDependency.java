@@ -1,5 +1,6 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Dependency;
@@ -11,13 +12,13 @@ import org.omg.uml.foundation.core.Operation;
  *
  * 
  */
-public class DependencyProxy 
-	extends ModelElementProxy 
+public class PDependency 
+	extends PModelElement 
 	implements UMLDependency
 {
 
 	public static Dependency newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		Dependency dependency)
 	{
 		Class[] interfaces = {
@@ -28,14 +29,14 @@ public class DependencyProxy
 		return (Dependency)java.lang.reflect.Proxy.newProxyInstance(
 			dependency.getClass().getClassLoader(),
 			interfaces,
-			new DependencyProxy(dependency, scriptHelper));
+			new PDependency(dependency, scriptHelper));
 	}
 
 
 	
-	protected DependencyProxy(
+	protected PDependency(
 		Dependency dependency,
-		UMLScriptHelper scriptHelper)
+		UMLStaticHelper scriptHelper)
 	{
 		super(dependency,scriptHelper);
 	}
@@ -52,23 +53,23 @@ public class DependencyProxy
 		
 		if (supplier instanceof Attribute)
 		{
-			return AttributeProxy.newInstance(
+			return PAttribute.newInstance(
 				scriptHelper, (Attribute)supplier );
 		}
 			
 		if (supplier instanceof Operation)
 		{
-			return OperationProxy.newInstance(
+			return POperation.newInstance(
 				scriptHelper, (Operation)supplier );
 		}
 		
 		if (supplier instanceof Classifier)
 		{
-			return ClassifierProxy.newInstance(
+			return PClassifier.newInstance(
 				scriptHelper, (Classifier)supplier );
 		}
 		
-		return ModelElementProxy.newInstance(
+		return PModelElement.newInstance(
 			scriptHelper,supplier );
 				
 	}

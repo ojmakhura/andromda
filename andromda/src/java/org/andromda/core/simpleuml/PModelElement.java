@@ -1,10 +1,11 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.TaggedValue;
 
@@ -14,16 +15,16 @@ import org.omg.uml.foundation.core.TaggedValue;
  *
  *@author    Anthony Mowers
  */
-public class ModelElementProxy
+public class PModelElement
 	 implements 
 	 	java.lang.reflect.InvocationHandler, 
 	 	UMLModelElement
 {	
 	protected ModelElement modelElement;
-	protected UMLScriptHelper scriptHelper;
+	protected UMLStaticHelper scriptHelper;
 	
 	public static ModelElement newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		ModelElement modelElement)
 	{
 		Class[] interfaces = {
@@ -34,12 +35,12 @@ public class ModelElementProxy
 		return (ModelElement)java.lang.reflect.Proxy.newProxyInstance(
 			modelElement.getClass().getClassLoader(),
 			interfaces,
-			new ModelElementProxy(modelElement, scriptHelper));
+			new PModelElement(modelElement, scriptHelper));
 	}
 
-	protected ModelElementProxy(
+	protected PModelElement(
 		ModelElement modelElement,
-		UMLScriptHelper scriptHelper)
+		UMLStaticHelper scriptHelper)
 	{
 		this.scriptHelper = scriptHelper;
 		this.modelElement = modelElement;
@@ -75,7 +76,7 @@ public class ModelElementProxy
 		{
 			TaggedValue taggedValue = (TaggedValue)i.next();
 			taggedValueProxies.add(
-				TaggedValueProxy.newInstance(scriptHelper,taggedValue) 
+				PTaggedValue.newInstance(scriptHelper,taggedValue) 
 				);
 		}
 		
