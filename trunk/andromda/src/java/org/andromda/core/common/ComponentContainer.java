@@ -113,6 +113,8 @@ public class ComponentContainer {
      * directory on your classpath.
      * 
      * @param key the unique key of the component.
+     * @param type the default type to retrieve if the component can
+     *        not be found.
      * @return Object the component instance.
      */
     public Object findComponent(String key, Class type) {
@@ -291,6 +293,36 @@ public class ComponentContainer {
      * Registers the "default" for the specified componentInterface.
      * 
      * @param componentInterface the interface for the component.
+     * @param defaultTypeName the name of the "default" type of the 
+     *        implementation to use for the componentInterface. Its expected
+     *        that this is the name of a class.
+     * @return Object the registered component.
+     */
+    public Object registerDefaultComponent(Class componentInterface, String defaultTypeName) {
+        final String methodName = "ComponentContainer.registerDefaultComponent";        
+        ExceptionUtils.checkNull(
+                methodName, 
+                "componentInterface", 
+                componentInterface);
+            ExceptionUtils.checkEmpty(
+                methodName, 
+                "defaultTypeName", 
+                defaultTypeName);   
+        try {
+	        return this.registerDefaultComponent(
+	            componentInterface, 
+	            ClassUtils.loadClass(defaultTypeName));
+        } catch (Throwable th) {
+        	String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, th);
+            throw new ComponentContainerException(errMsg, th);
+        }
+    }
+    
+    /**
+     * Registers the "default" for the specified componentInterface.
+     * 
+     * @param componentInterface the interface for the component.
      * @param defaultType the "default" implementation to use for the
      *        componentInterface.
      * @return Object the registered component.
@@ -314,7 +346,7 @@ public class ComponentContainer {
                 defaultType.newInstance()).getComponentInstance();
         } catch (Throwable th) {
         	String errMsg = "Error performing " + methodName;
-            logger.error(errMsg);
+            logger.error(errMsg, th);
             throw new ComponentContainerException(errMsg, th);
         }
     }
