@@ -5,13 +5,13 @@
     <!-- ==================================================================
          Deploy/Undeploy the Application
         ================================================================== -->
-    <goal name="deploy-app">
+    <goal name="deploy">
         <maven:maven
             descriptor="${basedir}/app/project.xml"
             goals="deploy"/>
     </goal>
 
-    <goal name="undeploy-app">
+    <goal name="undeploy">
         <maven:maven
             descriptor="${basedir}/app/project.xml"
             goals="undeploy"/>
