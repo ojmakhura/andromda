@@ -111,7 +111,7 @@ public class StrutsJspLogicImpl
 
     protected Collection handleGetAllActionParameters()
     {
-        final Collection actionParameters = new LinkedList();
+        final Collection actionParameters = new ArrayList();
         final Collection actions = getActions();
         for (Iterator iterator = actions.iterator(); iterator.hasNext();)
         {
@@ -133,7 +133,7 @@ public class StrutsJspLogicImpl
 
     protected Collection handleGetActions()
     {
-        final Collection actions = new LinkedList();
+        final Collection actions = new ArrayList();
         final Collection outgoing = getOutgoing();
 
         for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
@@ -178,7 +178,7 @@ public class StrutsJspLogicImpl
 
     protected Collection handleGetIncomingActions()
     {
-        final Collection incomingActionsList = new LinkedList();
+        final Collection incomingActionsList = new ArrayList();
         collectIncomingActions(this, new HashSet(), incomingActionsList);
         return incomingActionsList;
     }
@@ -209,7 +209,7 @@ public class StrutsJspLogicImpl
             throw new IndexOutOfBoundsException("Maximum tab-index value is the number of available tabs minus one");
 
         final Collection actions = this.getActions();
-        final Collection tabActions = new LinkedList();
+        final Collection tabActions = new ArrayList();
 
         for (Iterator iterator = actions.iterator(); iterator.hasNext();)
         {
@@ -241,7 +241,7 @@ public class StrutsJspLogicImpl
 
     public Collection handleGetNonTabActions()
     {
-        final Collection nonTabbedActions = new LinkedList();
+        final Collection nonTabbedActions = new ArrayList();
         final Collection actions = this.getActions();
 
         for (Iterator iterator = actions.iterator(); iterator.hasNext();)

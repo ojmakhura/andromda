@@ -6,10 +6,10 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 
 /**
@@ -142,7 +142,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetUsers()
     {
-        final Collection usersList = new LinkedList();
+        final Collection usersList = new ArrayList();
 
         final Collection associationEnds = getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
@@ -185,7 +185,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetPages()
     {
-        final Collection pagesList = new LinkedList();
+        final Collection pagesList = new ArrayList();
         final Collection allActionStates = getActivityGraph().getActionStates();
 
         for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
@@ -199,7 +199,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetAllPages()
     {
-        final Collection pagesList = new LinkedList();
+        final Collection pagesList = new ArrayList();
         final Collection allActionStates = getModel().getAllActionStates();
 
         for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
@@ -213,7 +213,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetAllUseCases()
     {
-        final Collection useCases = new LinkedList();
+        final Collection useCases = new ArrayList();
 
         for (Iterator iterator = getModel().getAllUseCases().iterator(); iterator.hasNext();)
         {
@@ -231,7 +231,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetFormFields()
     {
-        final Collection formFields = new LinkedList(); // parameter names are supposed to be unique
+        final Collection formFields = new ArrayList(); // parameter names are supposed to be unique
 
         final Collection pages = getPages();
         for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
@@ -253,7 +253,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetFinalStates()
     {
-        final Collection finalStatesList = new LinkedList();
+        final Collection finalStatesList = new ArrayList();
         final Collection allFinalStates = getModel().getAllFinalStates();
 
         for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)

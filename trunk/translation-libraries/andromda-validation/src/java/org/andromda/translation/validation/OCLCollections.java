@@ -1,23 +1,10 @@
 package org.andromda.translation.validation;
 
+import org.apache.commons.collections.*;
 import org.apache.commons.collections.bag.HashBag;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Bag;
-import org.apache.commons.collections.SetUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
-import org.apache.commons.collections.Closure;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.LinkedList;
-import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public final class OCLCollections
 {
@@ -110,7 +97,7 @@ public final class OCLCollections
         {
             if (Collection.class.isAssignableFrom(object.getClass()))
             {
-                notEmpty = !((Collection)object).isEmpty();
+                notEmpty = !((Collection) object).isEmpty();
             }
         }
         return notEmpty;
@@ -124,12 +111,13 @@ public final class OCLCollections
     {
         return StringUtils.isNotEmpty(string);
     }
-    
+
     /**
      * Checks the instance of the <code>object</code>
      * and makes sure its a Collection, if the object is a collection
      * the size is checked and returned, if its NOT a collection,
      * 0 is returned.
+     *
      * @param object the object to check.
      * @return the size of the collection
      */
@@ -138,7 +126,7 @@ public final class OCLCollections
         int size = 0;
         if (object != null && Collection.class.isAssignableFrom(object.getClass()))
         {
-            size = size((Collection)object);
+            size = size((Collection) object);
         }
         return size;
     }
@@ -171,10 +159,10 @@ public final class OCLCollections
         {
             Object object = iterator.next();
             if (object instanceof Number)
-                sum += ((Number)object).doubleValue();
+                sum += ((Number) object).doubleValue();
             else
                 throw new UnsupportedOperationException("In order to calculate the sum of a collection\'s elements " +
-                        "all of them must extend java.lang.Number, found: "+object.getClass().getName());
+                        "all of them must extend java.lang.Number, found: " + object.getClass().getName());
         }
 
         return sum;
@@ -231,7 +219,7 @@ public final class OCLCollections
      */
     public static List asSequence(Collection collection)
     {
-        return new LinkedList(collection);
+        return new ArrayList(collection);
     }
 
     /**
@@ -276,13 +264,13 @@ public final class OCLCollections
      */
     public static Collection flatten(Collection collection)
     {
-        Collection flattenedCollection = new LinkedList();
+        Collection flattenedCollection = new ArrayList();
 
         for (Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
             if (object instanceof Collection)
-                flattenedCollection.addAll(flatten((Collection)object));
+                flattenedCollection.addAll(flatten((Collection) object));
             else
                 flattenedCollection.add(object);
         }
@@ -329,12 +317,12 @@ public final class OCLCollections
      */
     public static Object last(List collection)
     {
-        return (collection.isEmpty()) ? null : collection.get(collection.size()-1);
+        return (collection.isEmpty()) ? null : collection.get(collection.size() - 1);
     }
 
     /**
      * Returns those element that are contained in only one of both collections.
-     */ 
+     */
     public static Collection symmetricDifference(Collection first, Collection second)
     {
         return CollectionUtils.disjunction(first, second);
@@ -345,7 +333,7 @@ public final class OCLCollections
      */
     public static Set subOrderedSet(Set collection)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".subOrderedSet");
+        throw new UnsupportedOperationException(OCLCollections.class.getName() + ".subOrderedSet");
     }
 
     /**
@@ -353,7 +341,7 @@ public final class OCLCollections
      */
     public static List subSequence(List collection)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".subSequence");
+        throw new UnsupportedOperationException(OCLCollections.class.getName() + ".subSequence");
     }
 
     /**
@@ -364,8 +352,8 @@ public final class OCLCollections
         final List selectedElements = new ArrayList(select(collection, predicate));
         Random random = new Random(System.currentTimeMillis());
         return selectedElements.isEmpty()
-            ? null
-            : selectedElements.get(random.nextInt(selectedElements.size()));
+                ? null
+                : selectedElements.get(random.nextInt(selectedElements.size()));
     }
 
     /**
@@ -382,12 +370,12 @@ public final class OCLCollections
      */
     public static Collection collectNested(Collection collection)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".collectNested");
+        throw new UnsupportedOperationException(OCLCollections.class.getName() + ".collectNested");
     }
 
     /**
      * Returns true if a predicate is true for at least one element of a collection.
-     * <p>
+     * <p/>
      * A null collection or predicate returns false.
      */
     public static boolean exists(Collection collection, Predicate predicate)
@@ -397,7 +385,7 @@ public final class OCLCollections
 
     /**
      * Executes the given closure on each element in the collection.
-     * <p>
+     * <p/>
      * If the input collection or closure is null, there is no change made.
      */
     public static void forAll(Collection collection, Closure closure)
@@ -408,11 +396,12 @@ public final class OCLCollections
     /**
      * Returns <code>true</code> if the expression has a unique value for each
      * element in the source collection.
+     *
      * @todo: implement
      */
     public static Collection isUnique(Collection collection, OCLExpression expression)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".isUnique");
+        throw new UnsupportedOperationException(OCLCollections.class.getName() + ".isUnique");
     }
 
     /**
@@ -420,7 +409,7 @@ public final class OCLCollections
      */
     public static Collection iterate(Collection collection)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".iterate");
+        throw new UnsupportedOperationException(OCLCollections.class.getName() + ".iterate");
     }
 
     /**
@@ -434,24 +423,25 @@ public final class OCLCollections
         {
             if (predicate.evaluate(iterator.next()))
             {
-                if (found) return false; found = true;
+                if (found) return false;
+                found = true;
             }
         }
         return found;
     }
-    
+
     /**
-     * <p>
-     *   Returns <code>true</true> if <code>collection</code> is actually
-     *   a Collection instance and if the <code>predicate</code> expression 
-     *   evaluates true for one and only one element in the collection. 
-     *   Returns <code>false</code> otherwise.
+     * <p/>
+     * Returns <code>true</true> if <code>collection</code> is actually
+     * a Collection instance and if the <code>predicate</code> expression
+     * evaluates true for one and only one element in the collection.
+     * Returns <code>false</code> otherwise.
      * </p>
      */
     public static boolean one(Object collection, Predicate predicate)
     {
         return Collection.class.isAssignableFrom(collection.getClass()) &&
-           one((Collection)collection, predicate);
+                one((Collection) collection, predicate);
     }
 
     /**
@@ -477,6 +467,6 @@ public final class OCLCollections
      */
     public static Collection sortedBy(Collection collection)
     {
-        throw new UnsupportedOperationException(OCLCollections.class.getName()+".sortedBy");
+        throw new UnsupportedOperationException(OCLCollections.class.getName() + ".sortedBy");
     }
 }
