@@ -44,7 +44,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature()
      */
-    public String handleGetSignature()
+    protected String handleGetSignature()
     {
         return this.getSignature(true);
     }
@@ -52,7 +52,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature(boolean)
      */
-    public String handleGetSignature(boolean withArgumentNames)
+    protected String handleGetSignature(boolean withArgumentNames)
     {
         return this.getSignature(withArgumentNames, null);
     }
@@ -60,7 +60,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList()
      */
-    public String handleGetTypedArgumentList()
+    protected String handleGetTypedArgumentList()
     {
         return this.getTypedArgumentList(true);
     }
@@ -73,7 +73,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#handleGetCall()
      */
-    public String handleGetCall()
+    protected String handleGetCall()
     {
         StringBuffer sb = new StringBuffer();
         sb.append(metaObject.getName());
@@ -87,7 +87,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacadeLogic#getArgumentNames()
      */
-    public String handleGetArgumentNames()
+    protected String handleGetArgumentNames()
     {
         StringBuffer sb = new StringBuffer();
 
@@ -114,7 +114,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacadeLogic#getArgumentTypeNames()
      */
-    public String handleGetArgumentTypeNames()
+    protected String handleGetArgumentTypeNames()
     {
         StringBuffer sb = new StringBuffer();
 
@@ -162,7 +162,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacadeLogic#getArguments()
      */
-    public Collection handleGetArguments()
+    protected Collection handleGetArguments()
     {
         Collection arguments = new ArrayList(metaObject.getParameter());
 
@@ -174,13 +174,13 @@ public class OperationFacadeLogicImpl
                     .equals(((Parameter)object).getKind());
             }
         });
-        return this.shieldedElements(arguments);
+        return arguments;
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacadeLogic#getOwner()
      */
-    public Object handleGetOwner()
+    protected Object handleGetOwner()
     {
         return this.metaObject.getOwner();
     }
@@ -197,7 +197,7 @@ public class OperationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.OperationFacadeLogic#findTaggedValue(java.lang.String,
      *      boolean)
      */
-    public Object handleFindTaggedValue(String name, boolean follow)
+    protected Object handleFindTaggedValue(String name, boolean follow)
     {
         name = StringUtils.trimToEmpty(name);
         Object value = findTaggedValue(name);
@@ -216,7 +216,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml14.OperationFacade#isStatic()
      */
-    public boolean handleIsStatic()
+    protected boolean handleIsStatic()
     {
         return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject
             .getOwnerScope());
@@ -225,7 +225,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isAbstract()
      */
-    public boolean handleIsAbstract()
+    protected boolean handleIsAbstract()
     {
         return metaObject.isAbstract();
     }
@@ -233,7 +233,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isQuery()
      */
-    public boolean handleIsQuery()
+    protected boolean handleIsQuery()
     {
         return metaObject.isQuery();
     }
@@ -241,7 +241,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasExceptions()
      */
-    public boolean handleIsExceptionsPresent()
+    protected boolean handleIsExceptionsPresent()
     {
         return !this.getExceptions().isEmpty();
     }
@@ -249,7 +249,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptions()
      */
-    public Collection handleGetExceptions()
+    protected Collection handleGetExceptions()
     {
         Collection exceptions = new HashSet();
 
@@ -310,7 +310,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList()
      */
-    public String handleGetExceptionList()
+    protected String handleGetExceptionList()
     {
         return this.getExceptionList(null);
     }
@@ -318,7 +318,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasReturnType()
      */
-    public boolean handleIsReturnTypePresent()
+    protected boolean handleIsReturnTypePresent()
     {
         boolean hasReturnType = true;
         if (this.getReturnType() != null)
@@ -332,7 +332,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList(java.lang.String)
      */
-    public String handleGetExceptionList(String initialExceptions)
+    protected String handleGetExceptionList(String initialExceptions)
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
         StringBuffer exceptionList = new StringBuffer(initialExceptions);
@@ -362,7 +362,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList(java.lang.String)
      */
-    public String handleGetTypedArgumentList(String modifier)
+    protected String handleGetTypedArgumentList(String modifier)
     {
         return this.getTypedArgumentList(true, modifier);
     }
@@ -370,7 +370,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature(java.lang.String)
      */
-    public String handleGetSignature(String argumentModifier)
+    protected String handleGetSignature(String argumentModifier)
     {
         return this.getSignature(true, argumentModifier);
     }
