@@ -41,6 +41,11 @@
 #end
 #end
     </ul>
+#if ($onlineHelp == "true")
+    <a href="" style="display:inline;" onclick="window.open('<html:rewrite page="/application-help.jsp"/>','onlinehelp','width=760,height=540,scrollbars=yes,resizable=yes,toolbar=no,directories=no,status=no,menubar=no,copyhistory=no,location=no'); return false;">
+        <bean:message key="online.help.href"/>
+    </a>
+#end
 </div>
 #end
 
