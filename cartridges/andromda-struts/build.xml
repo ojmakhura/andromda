@@ -1,0 +1,78 @@
+<project name="andromda-struts" default="dist">
+
+    <!-- ============================================================= -->
+    <!--               Directory settings                              -->
+    <!-- ============================================================= -->
+
+    <property name="src.dir"          value="src" />
+    <property name="java.dir"         value="src/java" />
+    <property name="lib.dir"          value="lib" />
+    <property name="build.dir"        value="build" />
+    <property name="classes.dir"      value="build/classes" />
+    <property name="dist.dir"         value="dist" />
+    <property name="dist.stage.dir"   value="dist/predist" />
+
+    <!-- Define our class path -->
+    <path id="build.class.path">
+        <pathelement location="${lib.dir}/struts.jar"/>
+    </path>
+
+    <!-- Setup directory structure -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.stage.dir}"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <!-- Remove directory structure structure -->
+    <target name="clean" description="Removes all generated files">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dist.stage.dir}"/>
+            <fileset dir="${dist.dir}"/>
+            <fileset dir="${classes.dir}"/>
+            <fileset dir="${build.dir}"/>
+        </delete>
+    </target>
+
+    <!-- compile java files -->
+    <target name="compile" depends="init">
+      <javac destdir="${classes.dir}" includes="**/*.java"
+             includeAntRuntime="false">
+          <src path="${java.dir}" />
+          <classpath refid="build.class.path"/>
+      </javac>
+    </target>
+
+    <!-- ============================================================= -->
+    <!--               Highlevel user tasks                            -->
+    <!-- ============================================================= -->
+
+    <!-- build distribution zip file -->
+    <target name="dist" depends="build"
+            description="Builds the distribution structure">
+      <copy todir="${dist.stage.dir}/" >
+          <fileset dir="${build.dir}" includes="*.jar" />
+      </copy>
+      <copy todir="${dist.stage.dir}/lib" >
+          <fileset dir="${lib.dir}" includes="**/*" />
+      </copy>
+      <zip zipfile="${dist.dir}/andromda-struts.zip">
+          <fileset dir="${dist.stage.dir}" includes="**/*" />
+      </zip>
+    </target>
+
+    <!-- build cartridge jar file only -->
+    <target name="build" depends="compile"
+            description="Builds the objects from the sources">
+        <jar jarfile="${build.dir}/andromda-struts.jar">
+            <fileset dir="${src.dir}">
+                <include name="templates/*" />
+                <include name="META-INF/*" />
+            </fileset>
+            <fileset dir="${classes.dir}" includes="**/*" />
+        </jar>
+    </target>
+
+</project>
