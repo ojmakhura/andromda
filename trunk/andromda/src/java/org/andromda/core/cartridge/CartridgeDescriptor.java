@@ -3,7 +3,6 @@ package org.andromda.core.cartridge;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.andromda.core.templateengine.TemplateEngine;
 
@@ -21,14 +20,6 @@ public interface CartridgeDescriptor {
      */
     public String getCartridgeName();
 
-    /**
-     * Returns the property values which are set for this cartridge. Example:
-     * @andromda.persistence="ejb".
-     * 
-     * @return List the properties
-     */
-    public Map getProperties();
-    
     /**
      * Returns the propery references supplised with this
      * cartridge. Property references are references to 

@@ -4,9 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
@@ -27,7 +25,6 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
 {
     
     private String cartridgeName;
-    private Map properties = new HashMap();
     private Collection propertyReferences = new ArrayList();
     private List templates = new ArrayList();
     private List templateObjects = new ArrayList();
@@ -79,31 +76,11 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     }
 
     /**
-     * @see org.andromda.core.cartridge.CartridgeDescriptor#getProperties()
-     */
-    public Map getProperties()
-    {
-        return properties;
-    }
-
-    /**
      * @see org.andromda.core.cartridge.CartridgeDescriptor#getTemplateConfigurations()
      */
     public List getTemplateConfigurations()
     {
         return templates;
-    }
-    
-    /**
-     * Adds a property to the list of properties of this cartridge. Properties
-     * may be used to designate implementations for architectural aspects.
-     * 
-     * @param propertyName the name of the property
-     * @param propertyValue the value of the property
-     */
-    public void addProperty(String propertyName, String propertyValue)
-    {
-        properties.put(propertyName, propertyValue);
     }
     
     /** 
