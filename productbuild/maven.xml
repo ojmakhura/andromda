@@ -85,18 +85,8 @@
 	<!-- ==================================================================
 			 Creates the AndroMDA binary distribution                                                     
 		 ================================================================== --> 	
-	<goal name="dist-bin">
-		    
-		<j:set 
-			var="distName" 
-			value="${pom.groupId}-bin-${pom.currentVersion}"/>	
-		<j:set 
-			var="binaryDistDir" 
-			value="${distribution.dir}/${distName}"/>
-		<j:set
-			var="binaryDistLibDir"
-			value="${binaryDistDir}/lib"/>
-			
+	<goal name="dist-bin" prereqs="dist-init">
+		    			
         <ant:delete dir="${binaryDistDir}"/>
 	    <attainGoal name="install-components"/>
 		<ant:mkdir dir="${binaryDistLibDir}"/>
@@ -117,8 +107,10 @@
 			<ant:copy todir="${toDir}">
 				<ant:fileset dir="${fromDir}">
 					<ant:include name="*.jar"/>
-					<ant:include name="../LICENSE"/>
 				</ant:fileset>				
+				<ant:fileset dir="${fromDir}/..">
+					<ant:include name="LICENSE"/>
+				</ant:fileset>
 			</ant:copy>
 			<j:forEach var="lib" items="${reactorProject.artifacts}">
 				<!-- don't copy 'andromda' dependencies -->
@@ -129,7 +121,43 @@
 		</j:forEach> 
 		
 		<!-- now add the samples -->
-			
+		<attainGoal name="dist-samples"/>         	
+		
+		<!-- add docs -->
+		<attainGoal name="docs"/>
+		<ant:copy todir="${binaryDistDir}">
+			<ant:fileset dir="documentation/target">
+				<ant:include name="*.zip"/>
+			</ant:fileset>
+		</ant:copy>
+				 
+		<!-- zip it all up -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+		<ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+        </ant:zip>	
+        		
+	</goal>
+	
+	<!-- ==================================================================
+	         Performs the distribution initialization                                                   
+		 ================================================================== --> 	
+	<goal name="dist-init">
+		<j:set 
+			var="distName" 
+			value="${pom.groupId}-bin-${pom.currentVersion}"/>	
+		<j:set 
+			var="binaryDistDir" 
+			value="${distribution.dir}/${distName}"/>
+		<j:set
+			var="binaryDistLibDir"
+			value="${binaryDistDir}/lib"/>
+	</goal>
+	
+	<!-- ==================================================================
+	         Adds the samples to the distribution                                                   
+		 ================================================================== --> 
+	<goal name="dist-samples" prereqs="dist-init">
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Samples: "
@@ -153,42 +181,24 @@
 					<ant:include name="*.txt"/>
 				</ant:fileset>				
 			</ant:copy>
-			<!-- create the distribution maven files we need for the samples -->
-			<j:set var="templatesDir" value="${project.file.parentFile.parent}/templates"/>
-			<j:set var="templatesDirPresent" value="tempatesDir${counter}"/>
-			<ant:available
-				property="${templatesDirPresent}"
-				file="${templatesDir}"/>
-			<j:if test="${context.getVariable(templatesDirPresent) != null}">
-				<!-- create the distribution project.xml -->
-				<j:set var="distPom" value="${templatesDir}/distribution-pom.jelly"/>
-				<j:file name="${toDir}/project.xml" trim="false">
-					<j:import file="${distPom}" inherit="true"/>
-				</j:file>	
-				<!-- copy the distribution maven.xml -->
-				<ant:copy file="${templatesDir}/distribution-maven.xml" tofile="${toDir}/maven.xml"/>
-				<!-- create the distribution project.properties -->
-				<j:set var="distProperties" value="${templatesDir}/distribution-properties.jelly"/>
-				<j:file name="${toDir}/project.properties" omitXmlDeclaration="true" trim="false">
-					<j:import file="${distProperties}" inherit="true"/>
-				</j:file>	
-			</j:if>
-		</j:forEach>               	
+		</j:forEach>  
 		
-		<!-- add docs -->
-		<attainGoal name="docs"/>
-		<ant:copy todir="${binaryDistDir}">
-			<ant:fileset dir="documentation/target">
-				<ant:include name="*.zip"/>
-			</ant:fileset>
-		</ant:copy>
-				 
-		<!-- zip it all up -->
-        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
-		<ant:zip zipfile="${zipFile}">
-            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
-        </ant:zip>	
-        		
+		<!-- create the distribution maven files we need for the samples -->
+		<j:set var="templatesDir" value="${basedir}/samples/templates"/>
+		<j:set var="templatesDirPresent" value="tempatesDir${counter}"/>
+		<!-- create the distribution project.xml -->
+		<j:set var="distPom" value="${templatesDir}/distribution-pom.jelly"/>
+		<j:file name="${toDir}/project.xml" trim="false">
+			<j:import file="${distPom}" inherit="true"/>
+		</j:file>	
+		<!-- copy the distribution maven.xml -->
+		<ant:copy file="${templatesDir}/distribution-maven.xml" tofile="${toDir}/maven.xml"/>
+		<!-- create the distribution project.properties -->
+		<j:set var="distProperties" value="${templatesDir}/distribution-properties.jelly"/>
+		<j:file name="${toDir}/project.properties" omitXmlDeclaration="true" trim="false">
+			<j:import file="${distProperties}" inherit="true"/>
+		</j:file>	
+		
 	</goal>
 		
 	<!-- ==================================================================
