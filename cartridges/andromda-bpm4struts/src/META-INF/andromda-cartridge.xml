@@ -19,8 +19,13 @@
 
     <!-- copy resources -->
     <resource
-        path="resources/*.png"
+        path="resources/**/*.png"
         outputPattern="layout/{0}"
+        outlet="pages"
+        overwrite="true"/>
+    <resource
+        path="resources/calendar/*.gif"
+        outputPattern="layout/calendar/{0}"
         outlet="pages"
         overwrite="true"/>
     <resource
@@ -394,6 +399,22 @@
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
+    </template>
+
+    <template
+        path="templates/StrutsCalendarJs.vsl"
+        outputPattern="layout/calendar-js.jsp"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
+    </template>
+
+    <template
+        path="templates/StrutsCalendarJsp.vsl"
+        outputPattern="layout/calendar.jsp"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
     </template>
 
 </cartridge>
