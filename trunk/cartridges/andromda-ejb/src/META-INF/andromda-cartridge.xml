@@ -18,6 +18,43 @@
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
         overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+    />
+
+    <template
+        stereotype="Entity"
+        sheet="templates/EntityAttrIntf.vsl"
+        outputPattern="{0}/{1}Attr.java"
+        outlet="entity-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+    />
+
+    <template
+        stereotype="Entity"
+        sheet="templates/EntityLocalIntf.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="entity-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+    />
+
+    <template
+        stereotype="Entity"
+        sheet="templates/EntityValue.vsl"
+        outputPattern="{0}/{1}Value.java"
+        outlet="entity-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+    />
+    
+    <template
+        stereotype="Entity"
+        sheet="templates/EntityHome.vsl"
+        outputPattern="{0}/{1}LocalHome.java"
+        outlet="entity-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
     />
 
     <template
@@ -26,18 +63,11 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
         overWrite="false"
-    />
-
-    <template
-        stereotype="Entity"
-        sheet="templates/EntityBeanCMP.vsl"
-        outputPattern="{0}/{1}BeanCMP.java"
-        outlet="entity-beans"
-        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
     />
 
 <!--
-     The following two definitions map services to stateless session beans.
+     The following two definitions map services to session beans.
      The templates map a service to a session bean
      and the template itself decides to generate a stateless or stateful
      session bean, based on the fact that the UML class contains attributes or not.
@@ -49,6 +79,47 @@
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+    />
+
+    <template
+        stereotype="Service"
+        sheet="templates/SessionLocalIntf.vsl"
+        outputPattern="{0}/{1}Local.java"
+        outlet="session-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+        generateEmptyFiles="false"
+    />
+
+    <template
+        stereotype="Service"
+        sheet="templates/SessionRemoteIntf.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="session-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+        generateEmptyFiles="false"
+    />
+
+    <template
+        stereotype="Service"
+        sheet="templates/SessionLocalHome.vsl"
+        outputPattern="{0}/{1}LocalHome.java"
+        outlet="session-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+        generateEmptyFiles="false"
+    />
+
+    <template
+        stereotype="Service"
+        sheet="templates/SessionRemoteHome.vsl"
+        outputPattern="{0}/{1}Home.java"
+        outlet="session-beans"
+        overWrite="true"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
+        generateEmptyFiles="false"
     />
 
     <template
@@ -57,6 +128,7 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overWrite="false"
+        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
     />
-
+    
 </cartridge>
