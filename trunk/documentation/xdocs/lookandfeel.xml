@@ -35,7 +35,7 @@
             One class diagram from a UML model of this system might
             look like this:
           </p>
-          <img src="../images/CarRentalCustomers.gif" width="624" height="590" />
+          <img src="images/CarRentalCustomers.gif" width="624" height="590" />
           <p class="std">
             Save the model to an XMI-formatted file. Some CASE tools will
             call this an "export", others will not, as it is their native
@@ -119,33 +119,33 @@
             From the customer part of the car rental system model above,
             AndroMDA (with andromda-ejb) and XDoclet will generate
             the following files for you. Bean classes are marked with
-            <img src="../images/ejb.gif" align="middle" />,
+            <img src="images/ejb.gif" align="middle" />,
             the other classes are marked with
-            <img src="../images/class.gif" align="middle" />. You can
+            <img src="images/class.gif" align="middle" />. You can
             click on a file name to see the contents of the file.
           </p>
           <table border="0" cellpadding="2" cellspacing="2">
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/Customer.java.html">Customer.java</a></td>          <td class="news">Local interface</td> </tr>
-            <tr><td><img src="../images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBean.java.html">CustomerBean.java</a></td>      <td class="news">Bean class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBeanCMP.java.html">CustomerBeanCMP.java</a></td>   <td class="news">Container-managed persistent attributes</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBeanImpl.java.html">CustomerBeanImpl.java</a></td>  <td class="news">Implementation class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerData.java.html">CustomerData.java</a></td>      <td class="news">Value object class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerLocalHome.java.html">CustomerLocalHome.java</a></td> <td class="news">Local home interface</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerUtil.java.html">CustomerUtil.java</a></td>      <td class="news">Utility class to find home interfaces</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/Customer.java.html">Customer.java</a></td>          <td class="news">Local interface</td> </tr>
+            <tr><td><img src="images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBean.java.html">CustomerBean.java</a></td>      <td class="news">Bean class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBeanCMP.java.html">CustomerBeanCMP.java</a></td>   <td class="news">Container-managed persistent attributes</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerBeanImpl.java.html">CustomerBeanImpl.java</a></td>  <td class="news">Implementation class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerData.java.html">CustomerData.java</a></td>      <td class="news">Value object class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerLocalHome.java.html">CustomerLocalHome.java</a></td> <td class="news">Local home interface</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerUtil.java.html">CustomerUtil.java</a></td>      <td class="news">Utility class to find home interfaces</td> </tr>
 
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerService.java.html">CustomerService.java</a></td>   <td class="news">Remote interface</td> </tr>
-            <tr><td><img src="../images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceBean.java.html">CustomerServiceBean.java</a></td>  <td class="news">Bean class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceBeanImpl.java.html">CustomerServiceBeanImpl.java</a></td>  <td class="news">Implementation class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceHome.java.html">CustomerServiceHome.java</a></td> <td class="news">Home interface</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceUtil.java.html">CustomerServiceUtil.java</a></td> <td class="news">Utility class to find home interfaces</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerService.java.html">CustomerService.java</a></td>   <td class="news">Remote interface</td> </tr>
+            <tr><td><img src="images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceBean.java.html">CustomerServiceBean.java</a></td>  <td class="news">Bean class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceBeanImpl.java.html">CustomerServiceBeanImpl.java</a></td>  <td class="news">Implementation class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceHome.java.html">CustomerServiceHome.java</a></td> <td class="news">Home interface</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/CustomerServiceUtil.java.html">CustomerServiceUtil.java</a></td> <td class="news">Utility class to find home interfaces</td> </tr>
 
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/Driver.java.html">Driver.java</a></td> <td class="news">Local interface</td> </tr>
-            <tr><td><img src="../images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBean.java.html">DriverBean.java</a></td> <td class="news">Bean class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBeanCMP.java.html">DriverBeanCMP.java</a></td> <td class="news">Container-managed persistent attributes</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBeanImpl.java.html">DriverBeanImpl.java</a></td> <td class="news">Implementation class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverData.java.html">DriverData.java</a></td> <td class="news">Value object class</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverLocalHome.java.html">DriverLocalHome.java</a></td> <td class="news">Local home interface</td> </tr>
-            <tr><td><img src="../images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverUtil.java.html">DriverUtil.java</a></td> <td class="news">Utility class to find home interfaces</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/Driver.java.html">Driver.java</a></td> <td class="news">Local interface</td> </tr>
+            <tr><td><img src="images/ejb.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBean.java.html">DriverBean.java</a></td> <td class="news">Bean class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBeanCMP.java.html">DriverBeanCMP.java</a></td> <td class="news">Container-managed persistent attributes</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverBeanImpl.java.html">DriverBeanImpl.java</a></td> <td class="news">Implementation class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverData.java.html">DriverData.java</a></td> <td class="news">Value object class</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverLocalHome.java.html">DriverLocalHome.java</a></td> <td class="news">Local home interface</td> </tr>
+            <tr><td><img src="images/class.gif" align="middle" /></td><td class="news"><a href="../java2html/DriverUtil.java.html">DriverUtil.java</a></td> <td class="news">Utility class to find home interfaces</td> </tr>
           </table>
           <p class="std">
             <b>Writing the business methods</b>
