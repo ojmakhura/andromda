@@ -42,6 +42,10 @@ public class DecoratorFactory
             null,
             ClassifierDecoratorImpl.class.getName());
         registerDecoratorClass(
+            "org.omg.uml.foundation.core.DataType$Impl",
+            null,
+            ClassifierDecoratorImpl.class.getName());
+        registerDecoratorClass(
             "org.omg.uml.foundation.core.AssociationEnd$Impl",
             null,
             AssociationEndDecoratorImpl.class.getName());
@@ -314,8 +318,10 @@ public class DecoratorFactory
 
     private Logger internalGetLogger()
     {
-        return Logger.getLogger(
-            "org.andromda.cartridges." + activeNamespace);
+        if (!"core".equals(activeNamespace))
+            return Logger.getLogger(
+                "org.andromda.cartridges." + activeNamespace);
+        return Logger.getRootLogger();
     }
 
     // ----------- these methods support unit testing --------------- 
