@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 #end
 
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
 /**
 $controller.getDocumentation(" * ")
  *
@@ -82,5 +85,27 @@ public abstract class ${controller.name} implements java.io.Serializable
     }
 
 #end
+
+    protected final void saveWarningMessage(HttpServletRequest request, String message)
+    {
+        ActionMessages messages = (ActionMessages)request.getAttribute("$warningMessagesKey");
+        if (messages == null)
+        {
+            messages = new ActionMessages();
+            request.setAttribute("$warningMessagesKey", messages);
+        }
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
+    }
+
+    protected final void saveSuccessMessage(HttpServletRequest request, String message)
+    {
+        ActionMessages messages = (ActionMessages)request.getAttribute("$successMessagesKey");
+        if (messages == null)
+        {
+            messages = new ActionMessages();
+            request.setAttribute("$successMessagesKey", messages);
+        }
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
+    }
 }
 #end
