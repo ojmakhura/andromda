@@ -49,13 +49,13 @@ public interface CartridgeDescriptor {
     public List getTemplateConfigurations();
     
     /**
-     * Returns the Map of template objects made available to
+     * Returns the List of template objects made available to
      * the templates.  (i.e. stringUtils of type org.apache.commons.lang.StringUtils
      * can be defined in the cartridge as a template object and made
      * available to the template at processing time).
-     * @return the Map of template objects keyed by name.
+     * @return the List of template objects.
      */
-    public Map getTemplateObjects();
+    public List getTemplateObjects();
         
     /**
      * Gets the URL where this descriptor data came from.

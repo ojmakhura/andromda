@@ -30,7 +30,7 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
     private Map properties = new HashMap();
     private Collection propertyReferences = new ArrayList();
     private List templates = new ArrayList();
-    private Map templateObjects = new HashMap();
+    private List templateObjects = new ArrayList();
     private URL definitionURL;
     private String cartridgeClassName = null;
     
@@ -202,15 +202,13 @@ public class DefaultCartridgeDescriptor implements CartridgeDescriptor
         ExceptionUtils.checkNull(methodName, "templateObject", templateObject);
         templateObject.setResource(this.getDefinitionURL());
         templateObject.setNamespace(this.getCartridgeName());
-        this.templateObjects.put(
-            templateObject.getName(), 
-            templateObject.getTemplateObject());
+        this.templateObjects.add(templateObject);
     }
     
     /**
      * @see org.andromda.core.cartridge.CartridgeDescriptor#getTemplateObjects()
      */
-    public Map getTemplateObjects() 
+    public List getTemplateObjects() 
     {
         return this.templateObjects;
     }

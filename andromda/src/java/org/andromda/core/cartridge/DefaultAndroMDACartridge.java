@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.CodeGenerationContext;
@@ -308,7 +309,17 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
             this.addPropertiesToContext(templateContext);
             
             // add all the TemplateObject objects to the template context
-            templateContext.putAll(this.getDescriptor().getTemplateObjects());
+            List templateObjects = this.getDescriptor().getTemplateObjects();
+            if (templateObjects != null && !templateObjects.isEmpty()) {
+            	Iterator templateObjectIt = templateObjects.iterator();
+            	while (templateObjectIt.hasNext()) {
+            		TemplateObject templateObject = (TemplateObject)
+            			templateObjectIt.next();
+            		templateContext.put(
+            	        templateObject.getName(), 
+						templateObject.getTemplateObject());
+            	}
+            }
 
             StringWriter output = new StringWriter();
             
