@@ -25,11 +25,15 @@
 #if ($security)
         <logic:present role="$roles">
 #end
-            <li><html:link action="$useCase.actionPath" titleKey="$useCase.titleKey">$useCase.name</html:link></li>
+            <li>
+                <html:link action="$useCase.actionPath" titleKey="$useCase.titleKey">
+                    <bean:message key="$useCase.titleKey"/>
+                </html:link>
+            </li>
 #if ($security)
         </logic:present>
         <logic:notPresent role="$roles">
-            <li>$useCase.name</li>
+            <li><bean:message key="$useCase.titleKey"/></li>
         </logic:notPresent>
     </ul>
 #end
