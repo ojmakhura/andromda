@@ -155,10 +155,7 @@ public class StrutsJspLogicImpl
             }
             return maxValue + 1;    // we add one because we're counting from [1..n]
         }
-        else
-        {
-            return 0;
-        }
+        return 0;
     }
 
     public Collection handleGetTabActions(int index)
