@@ -4,7 +4,7 @@
 <%@ include file="/taglib-imports.jspf" %>
 
 <div id="insert" class="action">
-    <h3><bean:message key="maintenance.insert"/></h3>
+    <h3><bean:message key="maintenance.maintenance.insert"/></h3>
     <div class="trigger">
         <html:form action="/Maintenance/MaintenanceInsert" onsubmit="">
             <table>
@@ -31,17 +31,14 @@
                 </c:forEach>
                 <tr>
                     <td>
-                        <input type="submit" onmouseover="hints.show('insert')" onmouseout="hints.hide()"
-                               onclick="this.form.name='maintenanceMaintenanceInsertForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceInsert"/>';"
-                               value="<bean:message key="maintenance.insert"/>"/>
-                        <input type="submit" onmouseover="hints.show('search')" onmouseout="hints.hide()"
-                               onclick="this.form.name='maintenanceMaintenanceSearchForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceSearch"/>';"
-                               value="<bean:message key="maintenance.search"/>"/>
+                        <input type="submit" value="<bean:message key="maintenance.maintenance.insert"/>"
+                               onclick="this.form.name='maintenanceMaintenanceInsertForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceInsert"/>';"/>
+                        <input type="submit" value="<bean:message key="maintenance.maintenance.search"/>"
+                               onclick="this.form.name='maintenanceMaintenanceSearchForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceSearch"/>';"/>
                     </td>
                     <td>
-                        <html:checkbox onmouseover="hints.show('maintenance.param.exact.matches.title')"
-                                       onmouseout="hints.hide()" name="form" property="exactMatches"/>
-                        <bean:message key="maintenance.param.exact.matches"/>
+                        <html:checkbox name="form" property="exactMatches"/>
+                        <bean:message key="maintenance.maintenance.param.exact.matches"/>
                     </td>
                 </tr>
             </table>

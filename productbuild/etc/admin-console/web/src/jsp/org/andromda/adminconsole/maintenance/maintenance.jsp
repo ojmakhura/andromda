@@ -19,26 +19,6 @@
     <tiles:put name="javascript" type="string">
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
         <html:javascript formName="maintenanceMaintenanceChangeTableForm" method="validateMaintenanceChangeTableForm" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
-    	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/hints.js"/>"></script>
-    	<script type="text/javascript" language="Javascript1.1">
-        //<!--
-            var HINTS_ITEMS = {
-                'maintenance.param.table.title':'<formatting:escape language="javascript"><bean:message key="maintenance.param.table.title"/></formatting:escape>',
-                'maintenance.param.column.name.title':'<formatting:escape language="javascript"><bean:message key="maintenance.param.column.name.title"/></formatting:escape>',
-                'reset':'<formatting:escape language="javascript"><bean:message key="maintenance.reset.title"/></formatting:escape>',
-                'reset_no':'<formatting:escape language="javascript"><bean:message key="maintenance.reset.title.notallowed"/></formatting:escape>',
-                'reset_reset':'<formatting:escape language="javascript"><bean:message key="maintenance.reset.title.reset"/></formatting:escape>',
-                'reset_noreset':'<formatting:escape language="javascript"><bean:message key="maintenance.reset.title.reset.not.allowed"/></formatting:escape>',
-                'change table':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title"/></formatting:escape>',
-                'change table_no':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title.notallowed"/></formatting:escape>',
-                'change table_reset':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title.reset"/></formatting:escape>',
-                'change table_noreset':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title.reset.not.allowed"/></formatting:escape>',
-                'calendar.popup':'<formatting:escape language="javascript"><bean:message key="calendar.popup"/></formatting:escape>'
-            };
-
-            var hints = new THints (HINTS_CFG, HINTS_ITEMS);
-        //-->
-    	</script>
     </tiles:put>
 
     <tiles:put name="body" type="string">
@@ -84,12 +64,11 @@
                         </display:column>
                     </c:forEach>
                 </display:table>
-                <input type="submit" onmouseover="hints.show('delete')" onmouseout="hints.hide()"
-                       onclick="this.form.name='maintenanceMaintenanceDeleteForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceDelete"/>';"
-                       value="<bean:message key="maintenance.delete"/>"/>
-                <input type="submit" onmouseover="hints.show('update')" onmouseout="hints.hide()"
-                       onclick="this.form.name='maintenanceMaintenanceUpdateForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceUpdate"/>';"
-                       value="<bean:message key="maintenance.update"/>"/>
+                <input type="submit" value="<bean:message key="maintenance.maintenance.delete"/>"
+                       onclick="this.form.name='maintenanceMaintenanceDeleteForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceDelete"/>';"/>
+
+                <input type="submit" value="<bean:message key="maintenance.maintenance.update"/>"
+                       onclick="this.form.name='maintenanceMaintenanceUpdateForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceUpdate"/>';"/>
             </html:form>
 <%--
         </div>
