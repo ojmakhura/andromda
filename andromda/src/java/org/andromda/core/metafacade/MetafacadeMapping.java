@@ -235,7 +235,7 @@ public class MetafacadeMapping
     {
         if (StringUtils.isEmpty(this.key) && this.mappingClassName != null)
         {
-            key = MetafacadeMappingsUtils.constructKey(
+            key = MetafacadeUtils.constructKey(
                 this.mappingClassName,
                 this.context,
                 this.stereotypes);
@@ -247,9 +247,9 @@ public class MetafacadeMapping
                 {
                     Property property = (Property)mappingPropertyIterator
                         .next();
-                    key = MetafacadeMappingsUtils.constructKey(key, property
+                    key = MetafacadeUtils.constructKey(key, property
                         .getName());
-                    key = MetafacadeMappingsUtils.constructKey(key, property
+                    key = MetafacadeUtils.constructKey(key, property
                         .getValue());
                 }
             }
@@ -297,7 +297,7 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return MetafacadeMappingsUtils.constructKey(super.toString(), this
+        return MetafacadeUtils.constructKey(super.toString(), this
             .getKey())
             + ":" + this.getMetafacadeClass();
     }

@@ -237,7 +237,37 @@ public class MetafacadeMappings
         }
         this.defaultMetafacadeClass = mappings.defaultMetafacadeClass;
     }
-
+    
+    /**
+     * Stores the mappings which are 
+     * currently "in process" (within the 
+     * {@link #getMapping(Object, String, Collection)};
+     * This means the mapping is being processed by the 
+     * {@link #getMapping(Object, String, Collection)} operation. 
+     * We store these "in process" mappings in order 
+     * to keep track of the mappings currently being 
+     * evaluated so we avoid stack over flow errors
+     * {@link #getMapping(Object, String, Collection)} when 
+     * finding mappings that are mapped to super metafacade 
+     * properties.
+     */
+    private final Collection inProcessMappings = new ArrayList();
+    
+    /**
+     * Stores the metafacades which are 
+     * currently "in process" (within the 
+     * {@link #getMapping(Object, String, Collection)};
+     * This means the metafacade being processed by the 
+     * {@link #getMapping(Object, String, Collection)} operation. 
+     * We store these "in process" metafacades in order 
+     * to keep track of the metafacades currently being 
+     * evaluated so we avoid stack over flow errors
+     * {@link #getMapping(Object, String, Collection)} when 
+     * finding metafacades that are mapped to super metafacade 
+     * properties.
+     */
+    private final Collection inProcessMetafacades = new ArrayList();
+   
     /**
      * <p>
      * Retrieves the MetafacadeMapping belonging to the unique <code>key</code>
@@ -278,10 +308,11 @@ public class MetafacadeMappings
         if (context != null && !emptyStereotypes)
         {
             mapping = 
-                (MetafacadeMapping)CollectionUtils.find(this.mappings, 
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
+                (MetafacadeMapping)CollectionUtils.find(
+                this.mappings,
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
                     {
                         boolean valid = false;
                         MetafacadeMapping mapping = (MetafacadeMapping)object;
@@ -292,17 +323,17 @@ public class MetafacadeMappings
                                 && mapping.hasStereotypes()
                                 && !mapping.hasMappingProperties())
                             {
-                                valid = getContextHierarchy(context)
-                                    .contains(mapping.getContext())
+                                valid = getContextHierarchy(context).contains(
+                                    mapping.getContext())
                                     && stereotypes.containsAll(mapping
                                         .getStereotypes());
                             }
                         }
                         return valid;
                     }
-            });
+                });
         }
-        // check for context and properties
+        // check for context and super metafacade properties
         if (mapping == null && context != null)
         {
             mapping = (MetafacadeMapping)CollectionUtils.find(
@@ -318,14 +349,24 @@ public class MetafacadeMappings
                         {
                             if (!mapping.hasStereotypes()
                                 && mapping.hasContext()
-                                && mapping.hasMappingProperties())
+                                && mapping.hasMappingProperties()
+                                && !inProcessMappings.contains(mapping)
+                                && inProcessMetafacades.isEmpty())
                             {
-                                valid = getContextHierarchy(context).contains(
-                                    mapping.getContext())
-                                    && MetafacadeMappingsUtils
-                                        .mappingPropertiesValid(
-                                            mappingObject,
-                                            mapping);
+                                if (getContextHierarchy(context).contains(
+                                    mapping.getContext()))
+                                {
+                                    inProcessMappings.add(mapping);
+                                    MetafacadeBase metafacade = MetafacadeFactory.getInstance().createMetafacade(
+                                        mappingObject, context);
+                                    inProcessMetafacades.add(metafacade);
+                                    // reset the "in process" mappings
+                                    inProcessMappings.clear();
+                                    valid = MetafacadeUtils
+                                            .propertiesValid(
+                                                metafacade,
+                                                mapping);
+                                }
                             }
                         }
                         return valid;
@@ -384,7 +425,7 @@ public class MetafacadeMappings
                     }
                 });
         }
-        // now check for mappings with any properties
+        // now check for only super metafacade properties
         if (mapping == null)
         {
             mapping = (MetafacadeMapping)CollectionUtils.find(
@@ -400,17 +441,26 @@ public class MetafacadeMappings
                         {
                             if (!mapping.hasStereotypes()
                                 && !mapping.hasContext()
-                                && mapping.hasMappingProperties())
+                                && mapping.hasMappingProperties()
+                                && !inProcessMappings.contains(mapping)
+                                && inProcessMetafacades.isEmpty())
                             {
-                                valid = MetafacadeMappingsUtils
-                                    .mappingPropertiesValid(
+                                inProcessMappings.add(mapping);
+                                MetafacadeBase metafacade = MetafacadeFactory
+                                    .getInstance().createMetafacade(
                                         mappingObject,
-                                        mapping);
+                                        context);
+                                inProcessMetafacades.add(metafacade);
+                                // reset the "in process" mappings
+                                inProcessMappings.clear();
+                                valid = MetafacadeUtils.propertiesValid(
+                                    metafacade,
+                                    mapping);
                             }
                         }
                         return valid;
                     }
-                });            
+                });
         }
         // finally find the mapping with just the class
         if (mapping == null)
@@ -441,6 +491,8 @@ public class MetafacadeMappings
         }
         // load the inherited property references
         this.loadInheritedPropertyReferences(mapping);
+        // reset the "in process" metafacades
+        this.inProcessMetafacades.clear();
         return mapping;
     }
     

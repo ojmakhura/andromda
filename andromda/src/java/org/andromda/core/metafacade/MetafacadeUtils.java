@@ -12,28 +12,31 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * Contains static utility methods for dealing with MetafacadeMappings
- * instances.
+ * Contains static utility methods for dealing with metafacade instances.
+ * 
+ * @author Chad Brandon
  */
-class MetafacadeMappingsUtils
+class MetafacadeUtils
 {
 
-    private static Logger logger = Logger
-        .getLogger(MetafacadeMappingsUtils.class);
+    private static Logger logger = Logger.getLogger(MetafacadeUtils.class);
 
     /**
      * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>, <code>suffixHead</code>
-     * and <code>suffixes</code> is optional.
+     * only argument required is the <code>object</code>,
+     * <code>suffixHead</code> and <code>suffixes</code> is optional.
      * 
      * @param object the begining of the key
-     * @param suffixHead the head of the suffix list.  This allows
-     *        us to specify a value as the head of the suffix list, 
-     *        which is necessary as the list is sorted alphabetically.
+     * @param suffixHead the head of the suffix list. This allows us to specify
+     *        a value as the head of the suffix list, which is necessary as the
+     *        list is sorted alphabetically.
      * @param suffixes a collection of suffixes to append
      * @return the constructed key
      */
-    static String constructKey(Object object, String suffixHead, Collection suffixes)
+    static String constructKey(
+        Object object,
+        String suffixHead,
+        Collection suffixes)
     {
         final String methodName = "MetafacadeMapping.constructKey";
         ExceptionUtils.checkNull(methodName, "object", object);
@@ -61,15 +64,15 @@ class MetafacadeMappingsUtils
                 + "'");
         return key.toString();
     }
-    
+
     /**
      * Constructs the unique key format expected for this mapping. Note that the
      * only argument required is the <code>object</code>,
      * <code>suffixHead</code> and <code>suffix</code> are optional.
      * 
      * @param object the begining of the key
-     * @param suffixHead the head of the suffix. This value
-     *        will be appended before the suffix.
+     * @param suffixHead the head of the suffix. This value will be appended
+     *        before the suffix.
      * @param suffix a single suffix to append
      * @return the constructed key
      */
@@ -86,8 +89,8 @@ class MetafacadeMappingsUtils
 
     /**
      * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,
-     * <code>suffix</code> is optional.
+     * only argument required is the <code>object</code>,<code>suffix</code>
+     * is optional.
      * 
      * @param object the begining of the key
      * @param suffix a single suffix to append
@@ -97,17 +100,18 @@ class MetafacadeMappingsUtils
     {
         return constructKey(object, suffix, (String)null);
     }
-    
+
     /**
-     * Indicates whether or not the mapping properties (present on the 
-     * mapping, if any) are valid on the <code>mappingObject</code>.
+     * Indicates whether or not the mapping properties (present on the mapping,
+     * if any) are valid on the <code>mappingObject</code>.
      * 
-     * @param mappingObject the mapping object on which the properties will
-     *        be validated.
-     * @param mapping the MetafacadeMapping instance that contains the properties.
+     * @param mappingObject the mapping object on which the properties will be
+     *        validated.
+     * @param mapping the MetafacadeMapping instance that contains the
+     *        properties.
      * @return true/false
      */
-    static boolean mappingPropertiesValid(Object mappingObject, MetafacadeMapping mapping)
+    static boolean propertiesValid(Object object, MetafacadeMapping mapping)
     {
         boolean valid = false;
         try
@@ -117,11 +121,13 @@ class MetafacadeMappingsUtils
             {
                 final MetafacadeMapping.Property property = (MetafacadeMapping.Property)properties
                     .next();
-                valid = PropertyUtils.containsValidProperty(mappingObject, property.getName(), property.getValue());
+                valid = PropertyUtils.containsValidProperty(object, property
+                    .getName(), property.getValue());
             }
         }
         catch (Throwable th)
         {
+            th.printStackTrace();
             valid = false;
         }
         return valid;

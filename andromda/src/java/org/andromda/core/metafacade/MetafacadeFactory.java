@@ -24,8 +24,6 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeFactory
 {
-    private static MetafacadeFactory factory = new MetafacadeFactory();
-
     /**
      * The namespace that is currently active (i.e. being used) within the
      * factory
@@ -46,10 +44,15 @@ public class MetafacadeFactory
      * Caches the registered properties used within metafacades.
      */
     private final Map registeredProperties = new HashMap();
+    
+    /**
+     * The shared instance of this factory.
+     */
+    private static final MetafacadeFactory instance = new MetafacadeFactory();
 
     private MetafacadeFactory()
     {
-    // make sure nobody instantiates
+        //make sure that nobody instantiates it
     }
 
     /**
@@ -65,7 +68,7 @@ public class MetafacadeFactory
      */
     public static MetafacadeFactory getInstance()
     {
-        return factory;
+        return instance;
     }
 
     /**
@@ -82,12 +85,12 @@ public class MetafacadeFactory
      * Sets the active namespace. The AndroMDA core and each cartridge have
      * their own namespace for metafacade registration.
      * 
-     * @param namespace the name of the active namespace.
+     * @param activeNamespace the name of the active namespace.
      */
     public void setActiveNamespace(String activeNamespace)
     {
         this.activeNamespace = activeNamespace;
-        MetafacadeCache.instance().setNamespace(activeNamespace);
+        MetafacadeCache.instance().setNamespace(this.activeNamespace);
     }
 
     /**
@@ -153,9 +156,7 @@ public class MetafacadeFactory
         final String methodName = "MetafacadeFactory.createMetafacade";
         ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
 
-        // if the mappingObject is REALLY a metafacade, get the mappingObject
-        // from the metafacade since we don't want to try and create a
-        // metafacade from a metafacade.
+        // if the mappingObject is REALLY a metafacade, just return it
         if (MetafacadeBase.class.isAssignableFrom(mappingObject.getClass()))
         {
             return (MetafacadeBase)mappingObject;
@@ -165,7 +166,6 @@ public class MetafacadeFactory
         try
         {
             final MetafacadeMappings mappings = MetafacadeMappings.instance();
-
             final Collection stereotypes = this.getModel().getStereotypeNames(
                 mappingObject);
 
@@ -191,13 +191,11 @@ public class MetafacadeFactory
                     metafacadeClass = mappings
                         .getDefaultMetafacadeClass(this.activeNamespace);
                     if (this.getLogger().isDebugEnabled())
-                        this
-                            .getLogger()
-                            .debug(
-                                "Meta object model class '"
-                                    + mappingObjectClass
-                                    + "' has no corresponding meta facade class, default is being used --> '"
-                                    + metafacadeClass + "'");
+                        this.getLogger().debug(
+                            "Meta object model class '"
+                                + mappingObjectClass
+                                + "' has no corresponding meta facade class, default is being used --> '"
+                                + metafacadeClass + "'");
                 }
             }
 
@@ -224,7 +222,7 @@ public class MetafacadeFactory
             }
 
             final MetafacadeCache cache = MetafacadeCache.instance();
-
+            
             // attempt to get the metafacade from the cache
             // since we don't want to recreate if one already
             // has been created
@@ -235,8 +233,8 @@ public class MetafacadeFactory
 
             if (metafacade == null)
             {
-                if (getLogger().isDebugEnabled())
-                    getLogger().debug(
+                if (this.getLogger().isDebugEnabled())
+                    this.getLogger().debug(
                         "looking up metafacade class: "
                             + mappingObjectClass.getName() + " --> "
                             + metafacadeClass);
@@ -254,7 +252,7 @@ public class MetafacadeFactory
 
                 // make sure that the facade has a proper logger associated
                 // with it.
-                metafacade.setLogger(getLogger());
+                metafacade.setLogger(this.getLogger());
 
                 // set the metafacade's namespace to the active namespace
                 metafacade.setNamespace(this.getActiveNamespace());
@@ -278,7 +276,10 @@ public class MetafacadeFactory
                 // matters here) do NOT call validate or initialize methods
                 // before adding the metafacade to the cache, this will cause
                 // endless loops
-                cache.add(mappingObject, metafacadeCacheKey, metafacade);
+                cache.add(
+                    mappingObject,
+                    metafacadeCacheKey,
+                    metafacade);
                 metafacade.initialize();
                 if (this.modelValidation)
                 {
@@ -287,6 +288,7 @@ public class MetafacadeFactory
                     metafacade.validate(validationMessages);
                     this.validationMessages.addAll(validationMessages);
                 }
+                
                 // Populate the global metafacade properties
                 // NOTE: ordering here matters, we populate the global
                 // properties BEFORE the context properties so that the
