@@ -218,6 +218,22 @@
 
                 <!-- body start -->
                 <div id="bodyColumn">
+                    <x:set var="pdfHref" select="$doc/document/body/pdf/@href"/>
+                    <j:if test="${!empty pdfHref}">
+                        <div id="pdf">
+                            <j:set var="pdfHref" value="${pdfHref.get(0).value}"/>
+                            <x:set var="pdfTitle" select="$doc/document/body/pdf/@title"/>
+                            <j:choose>
+                                <j:when test="${!empty pdfTitle}">
+                                    <j:set var="pdfTitle" value="${pdfTitle.get(0).value}"/>
+                                </j:when>
+                                <j:otherwise>
+                                    <j:set var="pdfTitle" value="Download PDF"/>
+                                </j:otherwise>
+                            </j:choose>
+                            <a href="${pdfHref}" title="${pdfTitle}">PDF</a>
+                        </div>
+                    </j:if>
                     <div class="contentBox">
                         <!-- FIXME really shouldn't use $doc, but jelly loses it's context again -->
                         <jsl:applyTemplates select="$doc/document/body/section"/>
@@ -424,7 +440,7 @@
         <div class="source">
             <!--
                 due to the buggy nature of Jelly we are forced to use crap constructions like this
-                it could be done in 4 lines otherwise
+                it could be done in 4 lines otherwise, using <x:if select="... on the language attribute
             -->
             <x:set var="language" select="@language"/>
             <j:choose>
@@ -435,13 +451,13 @@
                     <x:set var="sourceCode" select="."/>
                     <j:set var="language" value="${language.get(0)}"/>
                     <j:if test="${language.value eq 'xml'}">
-                        <pre><syntax:xml var="sourceCode" elementClass="xe" attributeClass="xa" literalClass="xl" commentClass="xc" cdataClass="xc"/></pre>
+                        <pre><syntax:xml value="sourceCode" elementClass="xe" attributeClass="xa" literalClass="xl" commentClass="xc" cdataClass="xc"/></pre>
                     </j:if>
                     <j:if test="${language.value eq 'java'}">
-                        <pre><syntax:java var="sourceCode" keywordClass="jk" literalClass="jl" numericClass="jn"/></pre>
+                        <pre><syntax:java value="sourceCode" keywordClass="jk" stringLiteralClass="jl" numericLiteralClass="jn" commentClass="vc"/></pre>
                     </j:if>
                     <j:if test="${language.value eq 'velocity'}">
-                        <pre><syntax:velocity var="sourceCode" keywordClass="vk" literalClass="vl" numericClass="vn"/></pre>
+                        <pre><syntax:velocity value="sourceCode" keywordClass="vk" stringLiteralClass="vl" numericLiteralClass="vn" commentClass="vc"/></pre>
                     </j:if>
                 </j:otherwise>
             </j:choose>
