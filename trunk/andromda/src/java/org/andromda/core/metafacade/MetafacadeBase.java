@@ -406,8 +406,8 @@ public class MetafacadeBase
     {
         if (metafacadePropertyCachingEnabled == null)
         {
-            Object enableCache = getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
-            metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache.toString().trim());
+            String enableCache = (String)getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
+            metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
         return metafacadePropertyCachingEnabled.booleanValue();
     }
