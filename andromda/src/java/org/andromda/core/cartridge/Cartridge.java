@@ -89,19 +89,11 @@ public class Cartridge
 
         if (resources != null && !resources.isEmpty())
         {
-            MetafacadeFactory factory = MetafacadeFactory.getInstance();       
+            MetafacadeFactory factory = MetafacadeFactory.getInstance();
             factory.setModel(context.getModelFacade());
 
             String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
-
-            // set the template engine merge location
-            Property mergeProperty = Namespaces.instance()
-                .findNamespaceProperty(this.getName(), MERGE_LOCATION, false);
-            this.mergeLocation = mergeProperty != null ? mergeProperty
-                .getValue() : null;
-            this.getTemplateEngine().setMergeLocation(this.mergeLocation);
-
             Iterator resourceIt = resources.iterator();
             while (resourceIt.hasNext())
             {
@@ -118,6 +110,25 @@ public class Cartridge
             //set the namespace back
             factory.setActiveNamespace(previousNamespace);
         }
+    }
+
+    /**
+     * @see org.andromda.core.common.Plugin#init()
+     */
+    public void init() throws Exception
+    {
+        // set the template engine merge location (this needs to be
+        // set before the template engine is initialized) so that the
+        // merge property can be set once on the template engine.
+        Property mergeProperty = Namespaces.instance().findNamespaceProperty(
+            this.getName(),
+            MERGE_LOCATION,
+            false);
+        this.mergeLocation = mergeProperty != null
+            ? mergeProperty.getValue()
+            : null;
+        this.getTemplateEngine().setMergeLocation(this.mergeLocation);
+        super.init();
     }
 
     /**
