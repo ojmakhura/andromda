@@ -17,6 +17,13 @@
         <ant:unzip src="${maven.docs.dest}/resources/car-rental-umldoc.zip" dest="${maven.docs.dest}"/>
         <!-- unpack the JMI 1.4 API so developers can browse the pages -->
         <ant:unzip src="${maven.docs.dest}/resources/jmi-uml1.4.zip" dest="${maven.docs.dest}"/>
+        <!-- copy the mappings so the users can see them online -->
+        <ant:mkdir dir="${maven.docs.dest}/mappings"/>
+        <ant:copy todir="${maven.docs.dest}/mappings">
+            <ant:fileset dir="${basedir}/../etc/mappings">
+                <include name="*Mappings.xml"/>
+            </ant:fileset>
+        </ant:copy>
         <!-- zip it all up -->
         <ant:zip zipfile="${maven.build.dir}/docs.zip" prefix="docs">
             <ant:zipfileset dir="${maven.docs.dest}"/>
