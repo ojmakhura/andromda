@@ -233,9 +233,11 @@ public class EntityLogicImpl
                 if (withIdentifiers || !attribute.isIdentifier())
                 {
                     buffer.append(separator);
-                    String typeName = attribute.getType()
-                        .getFullyQualifiedName();
-                    buffer.append(typeName);
+                    if (attribute.getType() != null)
+                    {
+                        buffer.append(attribute.getType()
+                            .getFullyQualifiedName());
+                    }
                     buffer.append(" ");
                     buffer.append(attribute.getName());
                     separator = ", ";
@@ -610,8 +612,7 @@ public class EntityLogicImpl
     {
         boolean identifiersAdded = false;
         EntityAssociationEnd end = this.getForeignIdentifierEnd();
-        if (end != null
-            && Entity.class.isAssignableFrom(end.getType().getClass()))
+        if (end != null && end.getType() instanceof Entity)
         {
             Entity foreignEntity = (Entity)end.getOtherEnd()
                 .getType();
