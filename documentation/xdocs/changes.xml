@@ -7,7 +7,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-04" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-10" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add">
+                Bpm4struts is now able to generate <code>id</code> attributes in the web.xml descriptor, just use
+                the <a href="andromda-bpm4struts-cartridge/namespace.html">generateWebXmlIds</a> namespace property.
+            </action>
             <action dev="cwbrandon" type="add" issue="SPRING-23">
                 Spring DAO names are now completely configurable. Patterns can be configured in the
                 <a href="andromda-spring-cartridge/namespace.html">namespace properties</a> section.
