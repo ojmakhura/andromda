@@ -1,4 +1,3 @@
-#if ($entity.entityBusinessOperationsPresent)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityImplementationName}.java")
 /**
  * This is only generated once! It will never be overwritten.
@@ -34,4 +33,3 @@ public class $entity.entityImplementationName
 
 #end
 }
-#end

@@ -1,4 +1,3 @@
-#if (!$entity.entityBusinessOperationsPresent)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityImplementationName}.java")
 //
 // Attention: Generated code! Do not modify by hand!
@@ -13,4 +12,3 @@ public class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
 }
-#end

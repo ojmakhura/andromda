@@ -71,11 +71,13 @@
     <template
         path="templates/hibernate/HibernateEntityImpl.vsl"
         outputPattern="$generatedFile"
-        outlet="entity-impls"
+        outlet="entities"
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="entityBusinessOperationsPresent">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -87,7 +89,9 @@
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="entityBusinessOperationsPresent"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
