@@ -36,7 +36,6 @@ public class $service.ejbImplementationName
 #if ($ejbSecurityEnabled)
         (($service.fullyQualifiedBaseName)this.$businessObject).setPrincipal(super.getSessionContext().getCallerPrincipal());
 #end
-#set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
         return this.${businessObject}.${operation.call};
 #else
