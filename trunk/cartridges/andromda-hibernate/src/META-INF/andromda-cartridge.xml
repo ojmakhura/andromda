@@ -33,6 +33,14 @@
     />
 
     <template
+        stereotype="Entity"
+        sheet="templates/HibernateEntityFactory.vsl"
+        outputPattern="{0}/{1}Factory.java"
+        outlet="entities"
+        overWrite="true"
+    />
+
+    <template
         stereotype="Service"
         sheet="templates/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
