@@ -1,7 +1,7 @@
 <cartridge name="spring">
 
     <templateEngine>
-        <macrolibrary name="templates/spring/hibernate/hibernate.hbm.xml.vm" />
+        <macrolibrary name="templates/spring/hibernate/hibernate.hbm.xml.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
@@ -104,7 +104,7 @@
         </modelElements>
     </template>
 
-     <template
+    <template
         path="templates/spring/SpringWebServiceDelegator.vsl"
         outputPattern="$generatedFile"
         outlet="services"
@@ -122,7 +122,7 @@
         outlet="services"
         overwrite="true">
         <modelElements variable="service">
-              <modelElement>
+            <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
@@ -340,7 +340,7 @@
         required="false"
         outputToSingleFile="true">
         <modelElements variable="services">
-           <modelElement>
+            <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
