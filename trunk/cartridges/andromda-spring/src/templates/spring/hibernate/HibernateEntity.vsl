@@ -9,7 +9,8 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  */
 #if ($entity.enumeration)
-public class $entity.entityName implements java.io.Serializable
+public class $entity.entityName 
+    implements java.io.Serializable
 {
 #set ($identifier = $entity.identifiers.iterator().next())
     private $identifier.type.fullyQualifiedName $identifier.name;
