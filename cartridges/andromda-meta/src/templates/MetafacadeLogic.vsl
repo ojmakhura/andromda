@@ -188,7 +188,7 @@ public abstract class ${metafacade.logicName}
     {
 #foreach ($constraint in $op.translateConstraints("pre","validation.Java"))
         if (false == $constraint)
-            throw new ModelValidationException(${metafacade.logicName}.class, "$handleMethodPreCondition", "$constraint");
+            throw new ModelValidationException(${metafacade.logicName}.class, "While checking for operation preconditions", "$constraint");
 #end
     }
 
@@ -307,9 +307,9 @@ public abstract class ${metafacade.logicName}
 
     protected void __handleInvariants()
     {
-#foreach ($constraint in $op.translateConstraints("inv","validation.Java"))
+#foreach ($constraint in $metafacade.translateConstraints("inv","validation.Java"))
         if (false == $constraint)
-            throw new ModelValidationException(${metafacade.logicName}.class, "handleInvariants", "$constraint");
+            throw new ModelValidationException(${metafacade.logicName}.class, "While checking for class invariants", "$constraint");
 #end
     }
 }
