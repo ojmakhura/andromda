@@ -428,7 +428,7 @@ public abstract class $entity.daoBaseName
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
+    protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception; 
            
 #end
