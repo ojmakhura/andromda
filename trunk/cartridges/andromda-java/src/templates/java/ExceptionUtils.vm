@@ -6,20 +6,13 @@
     private static Throwable findRootCause(Throwable th) 
     {
     	if (th != null) 
-    	{
-            final String methodName = "${class.name}.findRootCause";
-            if (th == null) 
-            {
-                throw new IllegalArgumentException(methodName + 
-                    " 'throwable can not be null"); 
-            }
-            
+    	{   
             // Lets reflectively get any JMX or EJB exception causes.
             try 
             {
                 Throwable targetException = null;
-                //java.lang.reflect.InvocationTargetException 
-                //or javax.management.ReflectionException
+                // java.lang.reflect.InvocationTargetException 
+                // or javax.management.ReflectionException
                 String exceptionProperty = "targetException";
                 if (PropertyUtils.isReadable(th, exceptionProperty)) 
                 {
