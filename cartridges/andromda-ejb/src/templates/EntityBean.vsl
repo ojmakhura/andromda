@@ -144,7 +144,7 @@ $envEntry.getDocumentation("     * ")
 #if($envEntry.visibility == "public")
 
     /**
-     * Home interface method for accessing {@link #${att.getterName}}.
+     * Home interface method for accessing {@link #${attribute.getterName}}.
      * @ejb.home-method
      * @see #${envEntry.getterName}
      */
@@ -171,7 +171,7 @@ $constant.getDocumentation("     * ")
 #if($constant.visibility == "public")
 
     /**
-     * Home interface method for accessing {@link #${att.getterName}}.
+     * Home interface method for accessing {@link #${attribute.getterName}}.
      * @ejb.home-method
      * @see #${constant.getterName}
      */
@@ -182,21 +182,21 @@ $constant.getDocumentation("     * ")
 #end
 
     // --------------- attributes ---------------------
-#foreach ( $att in $entity.attributes)
-#set($attType = $att.type.fullyQualifiedName)
-#set ($transactionType = $att.findTaggedValue("@ejb.transactionType", true))
-#set ($visibility = $att.visibility.toString())
+#foreach ( $attribute in $entity.attributes)
+#set($attType = $attribute.type.fullyQualifiedName)
+#set ($transactionType = $attribute.findTaggedValue("@ejb.transactionType", true))
+#set ($visibility = $attribute.visibility.toString())
     /**
-     * Get the ${att.name} property
-$att.getDocumentation("     * ")
+     * Get the ${attribute.name} property
+$attribute.getDocumentation("     * ")
      *
-#if ($att.identifier)
+#if ($attribute.identifier)
      * @ejb.pk-field
 #end
      * @ejb.persistence
-     *     column-name="${att.columnName}"
-     *       jdbc-type="${att.jdbcType}"
-     *        sql-type="${att.sqlType}"
+     *     column-name="${attribute.columnName}"
+     *       jdbc-type="${attribute.jdbcType}"
+     *        sql-type="${attribute.sqlType}"
 #if ($transactionType)
      * @ejb.transaction type="$transactionType"
 #end
@@ -207,22 +207,22 @@ $att.getDocumentation("     * ")
      * @ejb.interface-method
 #end
      */
-    public abstract $attType ${att.getterName}();
+    public abstract $attType ${attribute.getterName}();
 
     /**
-     * Set the ${att.name} property
+     * Set the ${attribute.name} property
      * @param value the new value
 ## We need to generate a public set method even for readonly or proteced
 ## attributes because of CMP semantics.
 ## But we don't need to expose it on the interface
-#if($visibility == "public" && !$att.readOnly)
+#if($visibility == "public" && !$attribute.readOnly)
      * @ejb.interface-method
 #end
 #if ($transactionType)
      * @ejb.transaction type="$transactionType"
 #end
      */
-    public abstract void ${att.setterName}($attType value);
+    public abstract void ${attribute.setterName}($attType value);
 
 #end
 
@@ -347,20 +347,20 @@ $assoc.otherEnd.getDocumentation("     * ")
 #end
 #end ## foreach
 
-#foreach ( $op in $entity.operations)
-#if (!$op.hasStereotype("FinderMethod") && !$op.hasStereotype("CreateMethod") && !$op.hasStereotype("SelectMethod"))
-#set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
-#set ($signature = $op.signature)
+#foreach ( $operation in $entity.operations)
+#if (!$operation.hasStereotype("FinderMethod") && !$operation.hasStereotype("CreateMethod") && !$operation.hasStereotype("SelectMethod"))
+#set ($transactionType = $operation.findTaggedValue("@andromda.ejb.transactionType", true))
+#set ($signature = $operation.signature)
 #set ($interfaceType = "interface")
-#set ($visibility = $op.visibility.toString())
+#set ($visibility = $operation.visibility.toString())
 ## Public static methods are exposed on the home
 ## interface instead of the component interface
-#if ($visibility == "public" && $op.static)
+#if ($visibility == "public" && $operation.static)
 #set ($interfaceType = "home")
 #set ($signature = "ejbHome${str.capitalize($signature)}")
 #end
    /**
-$op.getDocumentation("    * ")
+$operation.getDocumentation("    * ")
     *
 ## Only public methods have transactions and are exported to the interfaces
 #if ($visibility == "public")
@@ -370,38 +370,38 @@ $op.getDocumentation("    * ")
 #end
 #end
     */
-#set ($returnType = $op.returnType.fullyQualifiedName)
-#if ($op.hasExceptions())
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#if ($operation.hasExceptions())
     $visibility abstract $returnType $signature
-        throws $op.exceptionList;
+        throws $operation.exceptionList;
 #else
     $visibility abstract $returnType $signature;
 #end
 #end
-#if ($op.hasStereotype("SelectMethod"))
+#if ($operation.hasStereotype("SelectMethod"))
 #set($queryString = "")
-#set($queryString = $op.findTaggedValue("@andromda.ejb.query"))
+#set($queryString = $operation.findTaggedValue("@andromda.ejb.query"))
 #if($queryString == "")
 #set($queryString = "SELECT DISTINCT OBJECT(c) FROM $entity.name AS c")
-#if($op.arguments.size() >0 )
+#if($operation.arguments.size() >0 )
 #set($queryString = "${queryString} WHERE")
-#foreach($prm in $op.arguments)
+#foreach($prm in $operation.arguments)
 #set($queryString="${queryString} c.$prm.name = ?$velocityCount")
-#if($velocityCount != $op.arguments.size())
+#if($velocityCount != $operation.arguments.size())
 #set($queryString = "${queryString} AND")
 #end
 #end
 #end
 #end
-#set ($returnType = $op.returnType.fullyQualifiedName)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
    /**
-$op.getDocumentation("    * ")
+$operation.getDocumentation("    * ")
     *
     * @ejb.select query="$queryString"
     */
-    public abstract $returnType $op.signature
+    public abstract $returnType $operation.signature
     throws javax.ejb.FinderException;
-#end##if op.stereotype = "SelectMethod"
+#end##if operation.stereotype = "SelectMethod"
 
 #end
 
@@ -410,40 +410,40 @@ $op.getDocumentation("    * ")
 ## what the user intended to do with the arbitrary parameters to these methods,
 ## we generate an abstract ejbCreateImpl() and delegate the implementation to
 ## the user.
-#foreach ( $op in $entity.createMethods(false))
-#set ($transactionType = $op.findTaggedValue("@andromda.ejb.transactionType", true))
+#foreach ( $operation in $entity.createMethods(false))
+#set ($transactionType = $operation.findTaggedValue("@andromda.ejb.transactionType", true))
 
     /**
 #if (!$entity.abstract)
      * Implementation for the
-     * {@link #ejbCreate($op.argumentTypeNames)}
+     * {@link #ejbCreate($operation.argumentTypeNames)}
      * create method.
 #else
      * Implementation for create methods in derived classes. This method will be called from
-     * the autogenerated  <code>ejbCreate($op.argumentTypeNames)</code>
+     * the autogenerated  <code>ejbCreate($operation.argumentTypeNames)</code>
      * methods in concrete subclasses of this abstract EJB.
 #end
      *
      * This extra implementation method is necessary to avoid
      * problems with different primary key classes.
-	 *
      */
-    protected abstract void ejbCreateImpl${op.typedArgumentList}
+    protected abstract void ejbCreateImpl${operation.typedArgumentList}
            throws javax.ejb.CreateException;
 
-    public void ejbPostCreate${op.typedArgumentList} {
+    public void ejbPostCreate${operation.typedArgumentList} 
+    {
     }
 #end
 #if (!$entity.abstract)
-#foreach ( $op in $entity.createMethods(true))
+#foreach ( $operation in $entity.createMethods(true))
 
     /**
-$op.getDocumentation("    * ")
-     *
+$operation.getDocumentation("    * ")
      */
-    public $identifier.type.fullyQualifiedName ejbCreate${op.typedArgumentList}
-           throws javax.ejb.CreateException {
-       ejbCreateImpl($op.argumentNames);
+    public $identifier.type.fullyQualifiedName ejbCreate${operation.typedArgumentList}
+           throws javax.ejb.CreateException 
+    {
+       ejbCreateImpl($operation.argumentNames);
        return null;
     }
 #end
@@ -464,8 +464,8 @@ $op.getDocumentation("    * ")
      * This extra implementation method is necessary to avoid
      * problems with different primary key classes.
 	 *
-#foreach($att in $allAttributes)
-     * @param $att.name Value for the ${att.name} property
+#foreach($attribute in $allAttributes)
+     * @param $attribute.name Value for the ${attribute.name} property
 #end
      */
     protected void ejbCreateImpl($transform.getAttributesAsList($allAttributes, true, true))
@@ -474,15 +474,10 @@ $op.getDocumentation("    * ")
 #if(!$inheritedAttributes.empty)
         super.ejbCreateImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
 #end
-##
-## Implement artificial key generation as a quick hack until
-## Richard returns and tells us how to do it properly without
-## breaking usability of the PIM with the Hibernate cartridge.
-## (Matthias Bohlen)
-##
 #if (!$identifier.complex)
 #if ($identifier.type.fullyQualifiedName == "java.lang.String")
-        if ($identifier.name == null) {
+        if ($identifier.name == null) 
+        {
             $identifier.name = new java.rmi.server.UID().toString();
         }
 
@@ -495,7 +490,7 @@ $op.getDocumentation("    * ")
 
 ## Only generate create methods with all CMP and CMR fields for concrete EJBs,
 ## and only if it is not explicitly switched off
-#if (!$entity.abstract && !$entity.findTaggedValue("@andromda.ejb.noSyntheticCreateMethod"))
+#if ($entity.allowSyntheticCreateMethod())
     /**
      * Create method with all CMP attribute values.
 #foreach($attribute in $allAttributes)
@@ -524,7 +519,8 @@ $op.getDocumentation("    * ")
     }
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
-#if (!$entity.abstract && !$entity.findTaggedValue("@andromda.ejb.noSyntheticCreateMethod"))
+#if ($entity.allowSyntheticCreateMethod())
+
     /**
      * Create method with all CMP attribute values and CMR relations.
 #foreach($attribute in $allAttributes)

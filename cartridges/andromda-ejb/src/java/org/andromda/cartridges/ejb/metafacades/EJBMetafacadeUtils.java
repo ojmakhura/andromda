@@ -245,4 +245,20 @@ class EJBMetafacadeUtils
         return attributes;
     }
 
+    /**
+     * Returns true/false based on whether or not synthetic or auto
+     * generated create methods should be allowed.
+     * 
+     * @param classifier the entity or session EJB.
+     * @return true/false
+     */
+    static boolean allowSyntheticCreateMethod(ClassifierFacade classifier)
+    {
+        final String methodName = "EJBMetafacadeUtils.allowSyntheticCreateMethod";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        return !classifier.isAbstract()
+            && classifier
+                .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD) == null;
+    }
+
 }
