@@ -10,6 +10,7 @@ public class Expression
         buffer.append(left);
         buffer.append(" AND ");
         buffer.append(right);
+
         return new CriterionImpl(buffer.toString());
     }
 
@@ -19,6 +20,7 @@ public class Expression
         buffer.append(left);
         buffer.append(" OR ");
         buffer.append(right);
+
         return new CriterionImpl(buffer.toString());
     }
 
@@ -28,10 +30,10 @@ public class Expression
         buffer.append(column.getName());
         buffer.append(" LIKE ");
         buffer.append('\'');
-        buffer.append(value);
+        buffer.append(StringEscapeUtils.escapeSql(String.valueOf(value)));
         buffer.append('\'');
 
-        return new CriterionImpl(StringEscapeUtils.escapeSql(buffer.toString()));
+        return new CriterionImpl(buffer.toString());
     }
 
     public static Criterion isNull(Column column)
@@ -40,7 +42,7 @@ public class Expression
         buffer.append(column.getName());
         buffer.append(" IS NULL");
 
-        return new CriterionImpl(StringEscapeUtils.escapeSql(buffer.toString()));
+        return new CriterionImpl(buffer.toString());
     }
 
     public static Criterion notNull(Column column)
@@ -49,7 +51,7 @@ public class Expression
         buffer.append(column.getName());
         buffer.append(" IS NOT NULL");
 
-        return new CriterionImpl(StringEscapeUtils.escapeSql(buffer.toString()));
+        return new CriterionImpl(buffer.toString());
     }
 
     public static Criterion equal(Column column, Object value)
@@ -84,16 +86,16 @@ public class Expression
 
     private static Criterion doLogical(Column column, Object value, String comparator)
     {
-        boolean string = String.class.equals(column.getType());
+        boolean string = String.class.equals(column.getType()) || Character.class.equals(column.getType());
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(column.getName());
         buffer.append(comparator);
         if (string) buffer.append('\'');
-        buffer.append(value);
+        buffer.append(StringEscapeUtils.escapeSql(String.valueOf(value)));
         if (string) buffer.append('\'');
 
-        return new CriterionImpl(StringEscapeUtils.escapeSql(buffer.toString()));
+        return new CriterionImpl(buffer.toString());
     }
 
     public static class CriterionImpl implements Criterion
