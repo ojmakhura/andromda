@@ -239,7 +239,7 @@ public class StringUtilsHelperTest extends TestCase
 */
     }
 
-    public void testMultiply()
+    public void testPluralize()
     {
         final String[][] fixture = new String[][]
         {
@@ -249,13 +249,16 @@ public class StringUtilsHelperTest extends TestCase
             new String[] { "key", "keys" },
             new String[] { "word", "words" },
             new String[] { "property", "properties" },
+            new String[] { "bus", "busses" },
+            new String[] { "cross", "crosses" },
+            new String[] { "lackey", "lackeys" },
             new String[] { "noun", "nouns" }
         };
 
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
-            assertEquals(StringUtilsHelper.multiply(strings[0]), strings[1]);
+            assertEquals(StringUtilsHelper.pluralize(strings[0]), strings[1]);
         }
     }
 }
