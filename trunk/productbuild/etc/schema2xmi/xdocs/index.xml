@@ -38,21 +38,21 @@
 usage: org.andromda.schema2xmi.Schema2XMI [options] ...]]
 
 Options:
- -P,--package               The package to output classifiers
- -T,--typeMappings <arg>    The type mappings URI (i.e.
-                            file:${basedir}/DataypeMappings.xml)
+ -P,--package <arg>         The package to output classifiers
  -c,--connectionUrl <arg>   JDBC connection URL
  -d,--driver <arg>          JDBC driver class
  -h,--help                  Display help information
- -i,--input                 Input model file (to which model elements will
+ -i,--input <arg>           Input model file (to which model elements will
                             be added)
+ -m,--mappings <arg>        The type mappings URI (i.e.
+                            file:${basedir}/DataypeMappings.xml)
  -o,--output <arg>          Set output name to which the result of the
                             transformation will be written
  -p,--password <arg>        Schema user password
- -t,--tableNamePattern      The table name pattern of tables to process
+ -t,--tablePattern <arg>    The table name pattern of tables to process
                             (regular expression)
  -u,--user <arg>            Schema user name
- -v,--taggedValues          Whether or not to include persistence tagged
+ -v,--taggedValues <arg>    Whether or not to include persistence tagged
                             values, default is true
 ]]></source>
 		</subsection>
