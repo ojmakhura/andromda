@@ -118,6 +118,7 @@
 					    <ant:fileset dir="${fromDir}">
 						    <ant:include name="*.jar"/>
 						    <ant:include name="*.xml"/>
+						    <ant:include name="*.txt"/>
 					    </ant:fileset>				
 				    </ant:copy>
 				</j:when>
