@@ -28,7 +28,7 @@ public class UMLOperationData extends MethodData
             op.getName(),
             op.getDocumentation("    * "));
 
-        for (Iterator it = op.getParameters().iterator(); it.hasNext();)
+        for (Iterator it = op.getArguments().iterator(); it.hasNext();)
         {
             ParameterFacade p = (ParameterFacade) it.next();
             addArgument(

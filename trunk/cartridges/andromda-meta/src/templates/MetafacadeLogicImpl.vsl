@@ -62,13 +62,13 @@ public class ${class.name}LogicImpl
 #set ($returnTypeName = $op.type.fullyQualifiedName)
 #if ($defaultException)
 	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.parameterTypeNames})
+	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
 	 */
     $op.visibility $returnTypeName ${msig}
         throws $defaultException.name {
 #else
 	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.parameterTypeNames})
+	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.argumentTypeNames})
 	 */
     $op.visibility $returnTypeName ${msig} {
 #end

@@ -44,9 +44,9 @@ public class HibernateFinderMethodFacadeLogicImpl
                 "from c in class  "
                     + this.getOwner().getFullyQualifiedName()
                     + " as c";
-            if (this.getParameters().size() > 0) {
+            if (this.getArguments().size() > 0) {
                 queryString = queryString + " where";
-                Collection parameters = this.getParameters();
+                Collection parameters = this.getArguments();
                 if (parameters != null && !parameters.isEmpty()) {
                     Iterator parameterIt = parameters.iterator();
                     for (int ctr = 0; parameterIt.hasNext(); ctr++) {

@@ -38,7 +38,7 @@ $class.getDocumentation(" * ")
 public interface ${class.name}Interface
 {
 #foreach ($operation in $class.operations)
-#set ($parameters = $operation.parameters)
+#set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
 #set ($returnType = $operation.type.fullyQualifiedName)
 #if (!$returnType)

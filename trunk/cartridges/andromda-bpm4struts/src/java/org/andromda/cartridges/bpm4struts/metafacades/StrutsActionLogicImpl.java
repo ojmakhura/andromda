@@ -416,7 +416,7 @@ public class StrutsActionLogicImpl
             for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
             {
                 OperationFacade operation = (OperationFacade) controllerCallIterator.next();
-                collectFields(operation.getParameters(), fieldMap);
+                collectFields(operation.getArguments(), fieldMap);
             }
 
             // any parameters passed between 'internal' action states are also recorded
