@@ -61,6 +61,12 @@
                 There are a few other things you can do with these services, these features will be presented
                 in the sections ahead.
             </p>
+            <subsection name="Nullable Parameters">
+                <p>
+                    If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
+                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter.
+                </p>
+            </subsection>
         </section>
         <section name="Next">
             <p>
