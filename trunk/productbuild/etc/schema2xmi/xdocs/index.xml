@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+    <title>AndroMDA - Schema2XMI</title>
+  </properties>
+
+  <body>
+
+    <section name="What is Schema2XMI?">
+        <p>
+			Schema2XMI is a generator that will read a database
+			schema and write your schema's into an XMI model.
+			This is useful for a couple of reasons:
+			<ul>
+				<li>
+					Your company wants your DBA(s) to design your
+					schema.
+				</li>
+				<li>
+					Your application already has an existing schema.
+				</li>
+				<li>
+					You want to move an legacy application to AndroMDA.
+				</li>
+			</ul>
+        </p>
+		<subsectoin name="How do I use Schema2XMI?">
+			<p>
+				Schema2XMI is a command line tool that you'll
+				pass arguments to and then execute the main
+				<a href="apidocs/org/andromda/schema2xmi/Schema2XMI.html">Schema2XMI</a> class.
+			</p>
+		</subsectoin>
+    </section>
+
+  </body>
+</document>
