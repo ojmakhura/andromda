@@ -18,13 +18,13 @@ package $springTypesPackage;
  * The <code>${criteriaSearchBaseName}</code> is expected to be a general solution for a basic search with
  * parameters connected by logical <b>and</b>. This search does <b>not</b> provide ordering nor
  * grouping.
- * 
+ *
  * @author Stefan Reichert
  * @author Peter Friese
  * @see net.sf.hibernate.Criteria
  * @see net.sf.hibernate.expression.Expression
  */
-public class ${criteriaSearchBaseName} 
+public class ${criteriaSearchBaseName}
 {
     private ${criteriaSearchBaseName}Configuration configuration;
     private net.sf.hibernate.Criteria rootCriteria;
@@ -33,11 +33,11 @@ public class ${criteriaSearchBaseName}
     /**
      * Constructor for ${criteriaSearchBaseName}. Creates a <code>${criteriaSearchBaseName}</code> with a default
      * <code>${criteriaSearchBaseName}Configuration</code>.
-     * 
+     *
      * @param session The Hibernate session.
      * @param resultType The <code>Class</code> of the result.
      */
-    public ${criteriaSearchBaseName}(net.sf.hibernate.Session session, Class resultType) 
+    public ${criteriaSearchBaseName}(net.sf.hibernate.Session session, Class resultType)
     {
         super();
         configuration = new ${criteriaSearchBaseName}Configuration();
@@ -48,14 +48,14 @@ public class ${criteriaSearchBaseName}
     /**
      * Executes a <code>HibernateQuery</code> using the currently defined
      * <code>${criteriaSearchBaseName}Parameter</code>s.
-     * 
+     *
      * @return result The result of the query.
      * @throws net.sf.hibernate.HibernateException
      */
-    public java.util.Collection execute() throws net.sf.hibernate.HibernateException 
+    public java.util.Collection execute() throws net.sf.hibernate.HibernateException
     {
         // limit the maximum result if configured
-        if (configuration.getMaximumResultSize() != null) 
+        if (configuration.getMaximumResultSize() != null)
         {
             rootCriteria.setMaxResults(configuration.getMaximumResultSize().intValue());
         }
@@ -70,12 +70,12 @@ public class ${criteriaSearchBaseName}
      * the search by logical <b>and</b>. It is not considered if the value is <code>null</code>.
      * If the value is not <code>null</code> it is compared using the
      * <code>${criteriaSearchBaseName}Parameter.EQUALS_COMPARATOR</code>.
-     * 
+     *
      * @param parameterValue The value of the parameter.
      * @param parameterPattern The pattern of the parameter (dot-seperated path e.g. person.address.street).
      * @throws net.sf.hibernate.HibernateException
      */
-    public void addParameter(Object parameterValue, String parameterPattern) throws net.sf.hibernate.HibernateException 
+    public void addParameter(Object parameterValue, String parameterPattern) throws net.sf.hibernate.HibernateException
     {
         addParameter(new ${criteriaSearchBaseName}Parameter(parameterValue, parameterPattern));
     }
@@ -85,12 +85,12 @@ public class ${criteriaSearchBaseName}
      * the search by logical <b>and</b>. It is not considered if the value is <code>null</code> or
      * if the <code>String</code> empty. If the value is not <code>null</code> it is compared
      * using the <code>${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR</code>.
-     * 
+     *
      * @param parameterValue The value of the parameter.
      * @param parameterPattern The pattern of the parameter (dot-seperated path e.g. person.address.street).
      * @throws net.sf.hibernate.HibernateException
      */
-    public void addParameter(String parameterValue, String parameterPattern) throws net.sf.hibernate.HibernateException 
+    public void addParameter(String parameterValue, String parameterPattern) throws net.sf.hibernate.HibernateException
     {
         addParameter(new ${criteriaSearchBaseName}Parameter(parameterValue, parameterPattern));
     }
@@ -98,26 +98,26 @@ public class ${criteriaSearchBaseName}
     /**
      * Adds a <code>${criteriaSearchBaseName}Parameter</code> to this search. The parameter is connected to
      * the search by logical <b>and</b>.
-     * 
+     *
      * @param parameter The <code>${criteriaSearchBaseName}Parameter</code> to add.
      * @throws net.sf.hibernate.HibernateException
      */
-    public void addParameter(${criteriaSearchBaseName}Parameter parameter) throws net.sf.hibernate.HibernateException 
+    public void addParameter(${criteriaSearchBaseName}Parameter parameter) throws net.sf.hibernate.HibernateException
     {
-        if (considerParameter(parameter)) 
+        if (considerParameter(parameter))
         {
             // parsing the patter of the parameter
             String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameter.getParameterPattern());
             String parameterName = path[path.length - 1];
             net.sf.hibernate.Criteria parameterCriteria = rootCriteria;
-            if (path.length > 1) 
+            if (path.length > 1)
             {
                 // We have a parameter affacting an attribute of an inner childEntity object so we need
                 // to travers to get the right criteria object
                 String childEntityName;
                 net.sf.hibernate.Criteria childEntityCriteria = rootCriteria;
                 // Evaluating the proper criteria object for the defined parameter
-                for (int index = 0; index < (path.length - 1); index++) 
+                for (int index = 0; index < (path.length - 1); index++)
                 {
                     childEntityName = path[index];
                     childEntityCriteria = locateCriteria(childEntityName, childEntityCriteria);
@@ -125,9 +125,9 @@ public class ${criteriaSearchBaseName}
                 // We now have the right criteria object
                 parameterCriteria = childEntityCriteria;
             }
-            addExpression(parameterCriteria, 
-                    parameterName, 
-                    parameter.getParameterValue(), 
+            addExpression(parameterCriteria,
+                    parameterName,
+                    parameter.getParameterValue(),
                     parameter.getComparatorID());
         }
     }
@@ -137,18 +137,18 @@ public class ${criteriaSearchBaseName}
      * value of the <code>parameterValue</code> and <code>searchIfIsNull</code>. A
      * <code>parameterValue</code> of the type <code>String</code> is considered
      * <code>null</code> if being a <code>NullPointer</code> or empty.
-     * 
+     *
      * @param parameter The parameter to check.
      */
-    private boolean considerParameter(${criteriaSearchBaseName}Parameter parameter) 
+    private boolean considerParameter(${criteriaSearchBaseName}Parameter parameter)
     {
-        if (parameter.getParameterValue() instanceof String) 
+        if (parameter.getParameterValue() instanceof String)
         {
             String stringParameterValue = (String) parameter.getParameterValue();
-            return (parameter.isSearchIfIsNull() 
+            return (parameter.isSearchIfIsNull()
                     || (stringParameterValue != null && stringParameterValue.length() > 0));
         }
-        else 
+        else
         {
             return (parameter.isSearchIfIsNull() || (parameter.getParameterValue() != null));
         }
@@ -156,7 +156,7 @@ public class ${criteriaSearchBaseName}
 
     /**
      * Adds an <code>Expression</code> to a <code>Criteria</code>.
-     * 
+     *
      * @param criteria
      * @param parameterName
      * @param parameterValue
@@ -167,51 +167,51 @@ public class ${criteriaSearchBaseName}
             net.sf.hibernate.Criteria criteria,
             String parameterName,
             Object parameterValue,
-            int comparatorID) 
+            int comparatorID)
     {
-        if (parameterValue != null) 
+        if (parameterValue != null)
         {
-            switch (comparatorID) 
+            switch (comparatorID)
             {
-                case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR: 
+                case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR:
                 {
                     criteria.add(net.sf.hibernate.expression.Expression.like(parameterName, parameterValue));
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR: 
+                case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:
                 {
                     criteria.add(net.sf.hibernate.expression.Expression.eq(parameterName, parameterValue));
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.GREATER_THAN_OR_EQUAL_COMPARATOR: 
+                case ${criteriaSearchBaseName}Parameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
                 {
                     criteria.add(net.sf.hibernate.expression.Expression.ge(parameterName, parameterValue));
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.GREATER_THAN_COMPARATOR: 
+                case ${criteriaSearchBaseName}Parameter.GREATER_THAN_COMPARATOR:
                 {
                     criteria.add(net.sf.hibernate.expression.Expression.gt(parameterName, parameterValue));
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.LESS_THAN_OR_EQUAL_COMPARATOR: 
+                case ${criteriaSearchBaseName}Parameter.LESS_THAN_OR_EQUAL_COMPARATOR:
                 {
                     criteria.add(net.sf.hibernate.expression.Expression.le(parameterName, parameterValue));
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.LESS_THAN_COMPARATOR: 
+                case ${criteriaSearchBaseName}Parameter.LESS_THAN_COMPARATOR:
                 {
                     criteria.add(net.sf.hibernate.expression.Expression.lt(parameterName, parameterValue));
                     break;
                 }
             }
         }
-        else if (parameterValue instanceof String) 
+        else if (parameterValue instanceof String)
         {
             criteria.add(net.sf.hibernate.expression.Expression.or(
-                net.sf.hibernate.expression.Expression.isNull(parameterName), 
+                net.sf.hibernate.expression.Expression.isNull(parameterName),
                 net.sf.hibernate.expression.Expression.like(parameterName, new String())));
         }
-        else 
+        else
         {
             criteria.add(net.sf.hibernate.expression.Expression.isNull(parameterName));
         }
@@ -223,22 +223,22 @@ public class ${criteriaSearchBaseName}
      * <code>Criteria</code> exists for the <code>childEntityName</code>, it is returned. If
      * not, one is created and referenced in the <code>childCriteriaMap</code> under the
      * <code>childEntityName</code>.
-     * 
+     *
      * @param childEntityName
      * @param parentCriteria
      * @return criteria The Criteria for the childEntityName.
      * @throws net.sf.hibernate.HibernateException
      */
-    private net.sf.hibernate.Criteria locateCriteria(String childEntityName, net.sf.hibernate.Criteria parentCriteria) throws net.sf.hibernate.HibernateException 
+    private net.sf.hibernate.Criteria locateCriteria(String childEntityName, net.sf.hibernate.Criteria parentCriteria) throws net.sf.hibernate.HibernateException
     {
-        if (childCriteriaMap.containsKey(childEntityName)) 
+        if (childCriteriaMap.containsKey(childEntityName))
         {
             return (net.sf.hibernate.Criteria) childCriteriaMap.get(childEntityName);
         }
-        else 
+        else
         {
             net.sf.hibernate.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
-            if (configuration.isForceEagerLoading()) 
+            if (configuration.isForceEagerLoading())
             {
                 parentCriteria.setFetchMode(childEntityName, net.sf.hibernate.FetchMode.EAGER);
             }
@@ -249,10 +249,10 @@ public class ${criteriaSearchBaseName}
 
     /**
      * Returns the configuration of this search.
-     * 
+     *
      * @return configuration
      */
-    public ${criteriaSearchBaseName}Configuration getConfiguration() 
+    public ${criteriaSearchBaseName}Configuration getConfiguration()
     {
         return configuration;
     }

@@ -12,18 +12,18 @@ package $springTypesPackage;
 
 /**
  * Contains configuration parameters for a <code>${criteriaSearchBaseName}</code>.
- * 
+ *
  * @author Stefan Reichert
  * @author Peter Friese
  */
-public class ${criteriaSearchBaseName}Configuration 
+public class ${criteriaSearchBaseName}Configuration
 {
 
-	/**
-	 * If a parameter refers to a childEntity and <code>forceEagerLoading</code> is
-	 * <code>true</code>, the childEntity is always loaded. If <code>forceEagerLoading</code> is
-	 * <code>false</code>, the loading depends on the persister-configuration of the parentEntity.
-	 */
+    /**
+     * If a parameter refers to a childEntity and <code>forceEagerLoading</code> is
+     * <code>true</code>, the childEntity is always loaded. If <code>forceEagerLoading</code> is
+     * <code>false</code>, the loading depends on the persister-configuration of the parentEntity.
+     */
     private boolean forceEagerLoading;
 
     /**
@@ -32,29 +32,29 @@ public class ${criteriaSearchBaseName}Configuration
      */
     private Integer maximumResultSize;
 
-    public ${criteriaSearchBaseName}Configuration() 
+    public ${criteriaSearchBaseName}Configuration()
     {
         super();
         forceEagerLoading = false;
         maximumResultSize = null;
     }
 
-    public boolean isForceEagerLoading() 
+    public boolean isForceEagerLoading()
     {
         return forceEagerLoading;
     }
 
-    public void setForceEagerLoading(boolean forceFetch) 
+    public void setForceEagerLoading(boolean forceFetch)
     {
         this.forceEagerLoading = forceFetch;
     }
 
-    public Integer getMaximumResultSize() 
+    public Integer getMaximumResultSize()
     {
         return maximumResultSize;
     }
 
-    public void setMaximumResultSize(Integer resultSize) 
+    public void setMaximumResultSize(Integer resultSize)
     {
         this.maximumResultSize = resultSize;
     }

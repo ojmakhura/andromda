@@ -56,10 +56,10 @@ public class $class.name
 #end
         }
     }
-	
+
     /** The maximum size of the result set. */
-	private java.lang.Integer maximumResultSize;
-	
+    private java.lang.Integer maximumResultSize;
+
     /**
      * Returns the maximum size of the search result.
      */
@@ -69,10 +69,10 @@ public class $class.name
     }
 
     /**
-	 * Sets the maxmimum size of the result.
-	 * @param maximumResultSize A number indicating how many results will be returned.
-	 */
-	public void setMaximumResultSize(java.lang.Integer maximumResultSize)
+     * Sets the maxmimum size of the result.
+     * @param maximumResultSize A number indicating how many results will be returned.
+     */
+    public void setMaximumResultSize(java.lang.Integer maximumResultSize)
     {
         this.maximumResultSize = maximumResultSize;
     }
