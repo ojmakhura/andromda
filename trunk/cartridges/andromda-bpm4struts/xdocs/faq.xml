@@ -1,75 +1,42 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<faqs title="Frequently Asked Questions">
 
-    <properties>
-        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
-        <title>AndroMDA - Bpm4Struts - FAQ</title>
-        <gennews>no</gennews>
-    </properties>
+    <part id="general">
+        <title>General</title>
 
-    <body>
+        <faq id="what">
+            <question>What does bpm4struts stand for ?</question>
+            <answer>
+                <p>
+                     Bpm4Struts stands for: Business Modelling for Struts. It means you will be
+                     able to create your Struts web application by modelling business processes.
+                     Business processes in a Struts application typically involve displaying JSP pages and
+                     sending requests to the server by means of actions performed on those pages, such
+                     as button clicks or navigating using hyperlinks. These actions mostly result in code being executed
+                     on the server (in the action itself, or better yet: delegated to the business layer),
+                     it is this code which contains the business logic.
+                </p>
+            </answer>
+        </faq>
 
-        <section name="Frequently Asked Questions">
-            <p class="std">
-                This page contains answer to common questions about bpm4struts. Feel free to send your
-                questions to the user list, I will make sure they will be posted here too.
-                <blockquote>
-                    <ol>
-                        <li><a href="#q1">What does bpm4struts stand for ?</a></li>
-                        <li><a href="#q2">There is another Struts cartridge shipping with AndroMDA, why is that ?</a></li>
-                        <li><a href="#q3">When I try to run AndroMDA on my model I get an exception!</a></li>
-                        <li><a href="#q4">Is there a way to validate the correctness of my model ?</a></li>
-                        <li><a href="#q5">Why do I need to tag elements with stereotypes ?</a></li>
-                        <li><a href="#q6">Do I need to tag elements with tagged values ?</a></li>
-                        <li><a href="#q7">What tools can I use to model ?</a></li>
-                        <li><a href="#q8">I am not happy with the generated code, can I change it ?</a></li>
-                        <li><a href="#q9">I don't want a Struts application, I like Webwork better!</a></li>
-                        <li><a href="#q10">Can bpm4struts generate Java Server Faces too ?</a></li>
-                        <li><a href="#q11">Where is the online documentation ?</a></li>
-                        <li><a href="#q12">I still have more questions!</a></li>
-                    </ol>
-                </blockquote>
-            </p>
-        </section>
-
-        <section name="Answers">
-            <p class="std">
-                <a name="q1"/>1. What does bpm4struts stand for ?
-                <blockquote>
-                    Bpm4Struts stands for: Business Modelling for Struts. It means you will be
-                    able to create your Struts web application by modelling business processes.
-                    Business processes in a Struts application typically involve displaying JSP pages and
-                    sending requests to the server by means of actions performed on those pages, such
-                    as button clicks or navigating using hyperlinks. These actions mostly result in code being executed
-                    on the server (in the action itself, or better yet: delegated to the business layer),
-                    it is this code which contains the business logic.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q2"/>2. There is another Struts cartridge shipping with AndroMDA, why is that ?
-                <blockquote>
-                    The original Struts cartridge is legacy is only uses UML classes to model the application.
+        <faq id="other-struts">
+            <question>There is another Struts cartridge shipping with AndroMDA, why is that ?</question>
+            <answer>
+                <p>
+                    The original Struts cartridge is legacy and only uses UML classes to model the application.
                     While it is possible to work this way it makes more sense to use the dynamic modelling model
                     elements available in modelling languages such as UML.
                     Bpm4Struts is now the preferred cartridge to use. The other one
                     should be considered deprecated.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q3"/>3. When I try to run AndroMDA on my model I get an exception, what's going on ?
-                <blockquote>
-                    You have to make sure your model complies with the constraints as documented
-                    in the user guide. Failing to do so will
-                    confuse the cartridge and might have unpredicatable behavior such as exceptions or
-                    undeployable Struts code.
-                    A typical example would to forget to tag the first transition in an activity
-                    graph with the FrontEndEvent stereotype.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q4"/>4. Is there a way to validate the correctness of my model ?
-                <blockquote>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="model-validation">
+            <question>Is there a way to validate the correctness of my model ?</question>
+            <answer>
+                <p>
                     Yes, and doing so will avoid problems with the code-generation process. Validating
                     the model is not enabled yet in the cartridge code, but it should happen soon enough.
                     What will happen is that when the model is loaded by AndroMDA each element
@@ -77,75 +44,156 @@
                     invariants are met. For each error or warning a message will be displayed to the user.
                     Model validation will be enabled by default and it will be possible to
                     switch it off using a property.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q5"/>5. Why do I need to tag elements with stereotypes ?
-                <blockquote>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="tools">
+            <question>What tools can I use to model ?</question>
+            <answer>
+                <p>
+                    Currently only MagicDraw has been extensively tested, unfortunately this
+                    is commercial software and requires a licence to run. Support for a
+                    free tool such as Poseidon is underway.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="docs">
+            <question>Where is the online documentation ?</question>
+            <answer>
+                <p>
+                    There is the general documentation Bpm4Struts, there is a user-guide
+                    and there is the how-to which serves as a small tutorial describing an example application.
+                    All of this is hosted
+                    <a href="http://team.andromda.org/docs/andromda-bpm4struts-cartridge/index.html">here</a>.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="more-questions">
+            <question>I still have more questions! What now ?</question>
+            <answer>
+                <p>
+                    Subscribe to the mailing lists, there is one for the regular user community, and
+                    there is one for the developers. Feel free to subscribe to both lists, but note
+                    that the developer list can be quite active from time to time.
+                    Go here:
+                    <a href="http://sourceforge.net/mail/?group_id=73047">AndroMDA mailing lists</a>
+                </p>
+            </answer>
+        </faq>
+    </part>
+
+    <part id="using">
+        <title>Using bpm4struts</title>
+
+        <faq id="exceptions">
+            <question>When I try to run AndroMDA on my model I get an exception, what's going on ?</question>
+            <answer>
+                <p>
+                    You have to make sure your model complies with the constraints as documented
+                    in the user guide. Failing to do so will
+                    confuse the cartridge and might have unpredicatable behavior such as exceptions or
+                    undeployable Struts code.
+                    A typical example would to forget to tag the first transition in an activity
+                    graph with the FrontEndEvent stereotype.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="stereotypes">
+            <question>Do I really need to tag elements with stereotypes ?</question>
+            <answer>
+                <p>
                     Yes, and the reason is very simple: the cartridge maps stereotypes to templates.
                     This is a way of telling which files should be generated from what elements.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q6"/>6. Do I need to tag elements with tagged values ?
-                <blockquote>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="tagged-values">
+            <question>Do I need to tag elements with tagged values ?</question>
+            <answer>
+                <p>
                     No, but failing to do so will not enable some of the more interesting cartridge
                     features. Using tagged values you can enable the validation of form
                     input fields, for example. It depends on the context of the specific model
                     element whether or not a tagged value would be needed.
                     All tagged values have a default value, so if you don't
                     add one it' value will be implied.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q7"/>7. What tools can I use to model ?
-                <blockquote>
-                    Currently only MagicDraw has been extensively tested, unfortunately this
-                    is commercial software and requires a licence to run. Support for a
-                    free tool such as Poseidon is underway.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q8"/>8. I am not happy with the generated code, can I change it ?
-                <blockquote>
+                </p>
+            </answer>
+        </faq>
+
+    </part>
+
+    <part id="tuning">
+        <title>Tuning bpm4struts</title>
+
+        <faq id="changing">
+            <question>I am not happy with the generated code, can I change it ?</question>
+            <answer>
+                <p>
                     Sure you can, openup the cartridge and go into the 'templates' directory.
                     You will find a bunch of templates, how they map onto files can be found
                     in the deployment-descriptor in the 'META-INF' subdirectory (next to 'templates').
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q9"/>9. I don't want a Struts application, I like Webwork better ... is bpm4struts for me ?
-                <blockquote>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="precompilation">
+            <question>I want to precompile my JSP pages, can it be done ?</question>
+            <answer>
+                <p>
+                    Sure it can, just put the compiled JSPs in your WAR bundle under WEB-INF/classes.
+                </p>
+                <p>
+                    If you have set up your environment using the andromda:genapp goal you can go into
+                    the 'web' directory and open the maven.xml file. Somewhere you'll find a goal called
+                    'ignore::war:war', simply rename it to 'war::war'. Doing so will enable precompilation.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="precompilation-error">
+            <question>I am precompiling my JSP pages, but I got an error ?</question>
+            <answer>
+                <p>
+                    It is possible AndroMDA generates servlets with a path that is too
+                    long for the Windows filesystem when it is read from the ear bundle.
+                    In that case it is sufficient to explode
+                    you ear or war when you deploy, this will cause the path to the file to be shortened.
+                    This problem manifests itself by means of a java.lang.ClassNotFoundException.
+                </p>
+            </answer>
+        </faq>
+    </part>
+
+    <part id="other">
+        <title>Other technologies</title>
+
+        <faq id="webwork">
+            <question>I don't want a Struts application, I like Webwork better ... is bpm4struts for me ?</question>
+            <answer>
+                <p>
                     Not really, at this point there is no cartridge for Webwork, but it can easily
                     be written. Taking a look at how bpm4struts is designed will make it straightforward
                     to implement the same thing for Webwork.
                     This new cartridge could be called bpm4webwork ...
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q10"/>10. Can bpm4struts generate Java Server Faces too ?
-                <blockquote>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="jsf">
+            <question>Can bpm4struts generate Java Server Faces too ?</question>
+            <answer>
+                <p>
                     No, JSF is not Struts. For more information go here:
                     <a href="http://jakarta.apache.org/struts/faqs/kickstart.html#jsf">Apache Struts JSF Faq</a>
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q11"/>11. Where is the online documentation ?
-                <blockquote>
-                    There is the general documentation Bpm4Struts, there is a user-guide
-                    and there is the how-to which serves as a small tutorial describing an example application.
-                </blockquote>
-            </p>
-            <p class="std">
-                <a name="q12"/>12. I still have more questions!
-                <blockquote>
-                    Subscribe to the mailing lists, there is one for the regular user community, and
-                    there is one for the developers. Feel free to subscribe to both lists, but note
-                    that the developer list can be quite active from time to time.
-                    Go here: <a href="http://sourceforge.net/mail/?group_id=73047">AndroMDA mailing lists</a>
-                </blockquote>
-            </p>
-        </section>
+                </p>
+            </answer>
+        </faq>
+    </part>
 
-    </body>
-</document>
+</faqs>
