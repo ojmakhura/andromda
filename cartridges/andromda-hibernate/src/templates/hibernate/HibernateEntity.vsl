@@ -1,5 +1,5 @@
 /**
- * Attention: Generated source! Do not modify by hand!
+ * Attention: Generated source (HibernateEntity.vsl)! Do not modify by hand!
  */
 package $entity.packageName;
 
@@ -112,6 +112,8 @@ $target.getDocumentation("     * ")
      *     lazy="true"
 #if ($target.child)
      *     cascade="delete"
+#end
+#if (!$associationEnd.managesRelationalLink)
      *     inverse="true"
 #end
      * @hibernate.collection-key
@@ -137,6 +139,9 @@ $target.getDocumentation("     * ")
      * @hibernate.set
      *     lazy="true"
      *     table="$tableNamePrefix${associationEnd.association.tableName}"
+#if (!$associationEnd.managesRelationalLink)
+     *     inverse="true"
+#end
      * @hibernate.collection-key
      *     column="$associationEnd.columnName"
      * @hibernate.collection-many-to-many
@@ -160,7 +165,10 @@ $target.getDocumentation("     * ")
      * @hibernate.many-to-one
      *     column="$target.columnName"
      *     class="$targetTypeName"
-#if ($targetType.child)
+#if (!$associationEnd.managesRelationalLink)
+     *     inverse="true"
+#end
+#if ($target.child)
      *     cascade="delete"
 #end
 #if($target.required)
