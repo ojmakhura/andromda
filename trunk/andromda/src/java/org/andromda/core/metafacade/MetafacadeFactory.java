@@ -583,7 +583,7 @@ public class MetafacadeFactory
      */
     Logger getLogger()
     {
-        return AndroMDALogger.getNamespaceLogger(activeNamespace);
+        return AndroMDALogger.getNamespaceLogger(this.getActiveNamespace());
     }
 
     /**
