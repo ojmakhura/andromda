@@ -13,7 +13,6 @@ public interface $entity.name
     extends javax.ejb.EJBLocalObject
 #end
 {
-
     // -- accessors for environment entries --
 #foreach($envEntry in $entity.getEnvironmentEntries(true))
 #if($envEntry.visibility == "public")
@@ -39,7 +38,6 @@ $constant.getDocumentation("     * ")
 #end
 
     // ------------- attributes ----------------
-
 #foreach ( $attribute in $entity.instanceAttributes)
 #set ($visibility = $attribute.visibility)
 ## Only expose the method to the component interface if it is public.
@@ -60,7 +58,6 @@ $attribute.getDocumentation("     * ")
 #end
 #end
 #end
-
     // ------------- relations ------------------
 
 #foreach ( $relation in $entity.entityRelations)
