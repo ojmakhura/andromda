@@ -1,8 +1,14 @@
 package org.andromda.core.simpleuml;
 
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
+
 import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.Operation;
+import org.omg.uml.foundation.core.Parameter;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
@@ -67,4 +73,20 @@ public class POperation extends PModelElement implements UMLOperation
 		return JavaVisibilityEnum.PACKAGE;
 	}
 
+    public Collection getParameters()
+    {
+        Collection parms = ((Operation)modelElement).getParameter();
+        Vector ret = new Vector();
+     
+        for (Iterator i = parms.iterator(); i.hasNext(); )
+        {
+            Parameter p = (Parameter) i.next();
+            if ( !ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind())) 
+            {
+                ret.add(p);
+            }
+        }
+        
+        return ret;
+    }
 }

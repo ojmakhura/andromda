@@ -183,9 +183,8 @@ public class MDRepositoryFacade implements RepositoryFacade
 		{
 			XMIReader xmiReader =
 				XMIReaderFactory.getDefault().createXMIReader();
-
-			xmiReader.read(metaModelURL.toExternalForm(), metaModelExtent);
-
+			xmiReader.read(metaModelURL.toExternalForm(),metaModelExtent);
+            
 			// locate the UML package definition that was just loaded in
 			metaModelPackage = findPackage(META_PACKAGE, metaModelExtent);
 		}
