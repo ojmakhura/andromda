@@ -26,7 +26,7 @@ import org.netbeans.api.xmi.XMIReaderFactory;
  */
 public class MDRepositoryFacade implements RepositoryFacade
 {
-	private final static String META_PACKAGE = "UML";
+	protected final static String META_PACKAGE = "UML";
 
 	static {
 		// configure MDR to use an in-memory storage implementation
@@ -37,9 +37,9 @@ public class MDRepositoryFacade implements RepositoryFacade
 		System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
 	};
 
-	private URL metaModelURL;
-	private URL modelURL;
-	private RefPackage model;
+	protected URL metaModelURL;
+	protected URL modelURL;
+	protected RefPackage model;
 
 	/**
 	 * Constructs a Facade around a netbeans MDR (MetaDataRepository).
