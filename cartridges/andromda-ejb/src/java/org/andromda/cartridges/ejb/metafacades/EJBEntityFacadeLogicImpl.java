@@ -1,9 +1,17 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -14,235 +22,345 @@ import org.apache.commons.lang.StringUtils;
  * </p>
  * Metaclass facade implementation.
  */
-public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic implements
-		org.andromda.cartridges.ejb.metafacades.EJBEntityFacade {
-	// ---------------- constructor -------------------------------
+public class EJBEntityFacadeLogicImpl
+    extends EJBEntityFacadeLogic
+    implements org.andromda.cartridges.ejb.metafacades.EJBEntityFacade
+{
+    // ---------------- constructor -------------------------------
 
-	public EJBEntityFacadeLogicImpl(java.lang.Object metaObject, String context) {
-		super(metaObject, context);
-	}
+    public EJBEntityFacadeLogicImpl(
+        java.lang.Object metaObject,
+        String context)
+    {
+        super(metaObject, context);
+    }
 
-	public Collection handleGetIdentifiers() {
+    public Collection handleGetIdentifiers()
+    {
+        Collection identifiers = new ArrayList();
+        Iterator iter = this.getDependencies().iterator();
+        while (iter.hasNext())
+        {
+            DependencyFacade dep = (DependencyFacade)iter.next();
+            if (dep.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER))
+            {
+                identifiers = ((ClassifierFacade)dep.getTargetElement())
+                    .getInstanceAttributes();
+                MetafacadeUtils.filterByStereotype(
+                    identifiers,
+                    EJBProfile.STEREOTYPE_IDENTIFIER);
+                return identifiers;
+            }
+        }
 
-		Collection identifiers = new ArrayList();
-		Iterator iter = this.getDependencies().iterator();
-		while (iter.hasNext()) {
-			DependencyFacade dep = (DependencyFacade) iter.next();
-			if (dep.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER)) {
-				identifiers = ((ClassifierFacade) dep.getTargetElement()).getInstanceAttributes();
-				MetafacadeUtils.filterByStereotype(identifiers, EJBProfile.STEREOTYPE_IDENTIFIER);
-				return identifiers;
-			}
-		}
+        // No PK dependency found - try a PK attribute
+        if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty())
+        {
+            AttributeFacade attr = (AttributeFacade)super.getIdentifiers()
+                .iterator().next();
+            identifiers.add(attr);
+            return identifiers;
+        }
 
-		// No PK dependency found - try a PK attribute
-		if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty()) {
-			AttributeFacade attr = (AttributeFacade) super.getIdentifiers().iterator().next();
-			identifiers.add(attr);
-			return identifiers;
-		}
+        // Still nothing found - recurse up the inheritance tree
+        EJBEntityFacade decorator = (EJBEntityFacade)this.getGeneralization();
+        return decorator.getIdentifiers();
+    }
 
-		// Still nothing found - recurse up the inheritance tree
-		EJBEntityFacade decorator = (EJBEntityFacade) this.getGeneralization();
-		return decorator.getIdentifiers();
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getAllEntityRelations()
+     */
+    public java.util.Collection handleGetAllEntityRelations()
+    {
 
-	public java.util.Collection handleGetAllEntityRelations() {
+        // Only concrete entities may have EJB relations. Return
+        // an empty collection for everything else
+        if (this.isAbstract())
+        {
+            return Collections.EMPTY_LIST;
+        }
 
-		// Only concrete entities may have EJB relations. Return
-		// an empty collection for everything else
-		if (this.isAbstract()) { return Collections.EMPTY_LIST; }
+        Collection result = new ArrayList();
+        result.addAll(getEntityRelations());
 
-		Collection result = new ArrayList();
-		result.addAll(getEntityRelations());
+        ClassifierFacade classifier = (ClassifierFacade)this
+            .getGeneralization();
+        while (classifier != null && classifier instanceof EJBEntityFacade
+            && classifier.isAbstract())
+        {
+            EJBEntityFacade entity = (EJBEntityFacade)classifier;
+            result.addAll(entity.getEntityRelations());
+            classifier = (ClassifierFacade)classifier.getGeneralization();
+        }
+        return result;
+    }
 
-		ClassifierFacade classifier = (ClassifierFacade) this.getGeneralization();
-		while (classifier != null && classifier instanceof EJBEntityFacade && classifier.isAbstract()) {
-			EJBEntityFacade entity = (EJBEntityFacade) classifier;
-			result.addAll(entity.getEntityRelations());
-			classifier = (ClassifierFacade) classifier.getGeneralization();
-		}
-		return result;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getViewType()
+     */
+    public String handleGetViewType()
+    {
+        return EJBMetafacadeUtils.getViewType(this);
+    }
 
-	public String handleGetViewType() {
-		return EJBMetafacadeUtils.getViewType(this);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEntityRelations()
+     */
+    public java.util.Collection handleGetEntityRelations()
+    {
+        Collection result = new ArrayList();
+        try
+        {
+            Iterator endIt = this.getAssociationEnds().iterator();
+            while (endIt.hasNext())
+            {
+                EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade)endIt
+                    .next();
+                ClassifierFacade target = associationEnd.getOtherEnd()
+                    .getType();
+                if (target instanceof EJBEntityFacade
+                    && associationEnd.getOtherEnd().isNavigable())
+                {
+                    // Check the integrity constraint
+                    Object value = associationEnd.getOtherEnd()
+                        .getAssociation().findTaggedValue(
+                            EJBProfile.TAGGEDVALUE_GENERATE_CMR);
+                    String generateCmr = value == null ? null : value
+                        .toString();
+                    if (target.isAbstract()
+                        && !"false".equalsIgnoreCase(generateCmr))
+                    {
+                        throw new IllegalStateException("Relation '"
+                            + associationEnd.getAssociation().getName()
+                            + "' has the abstract target '" + target.getName()
+                            + "'. Abstract targets are not allowed in EJB.");
+                    }
+                    result.add(associationEnd);
+                }
+            }
+        }
+        catch (Throwable th)
+        {
+            th.printStackTrace();
+            throw new RuntimeException(th);
+        }
+        return result;
+    }
 
-	public java.util.Collection handleGetEntityRelations() {
-		Collection result = new ArrayList();
-		try {
-			Iterator endIt = this.getAssociationEnds().iterator();
-			while (endIt.hasNext()) {
-				EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade) endIt.next();
-				ClassifierFacade target = associationEnd.getOtherEnd().getType();
-				if (target instanceof EJBEntityFacade && associationEnd.getOtherEnd().isNavigable()) {
-					// Check the integrity constraint
-					Object value = associationEnd.getOtherEnd().getAssociation().findTaggedValue(
-							EJBProfile.TAGGEDVALUE_GENERATE_CMR);
-					String generateCmr = value == null ? null : value.toString();
-					if (target.isAbstract() && !"false".equalsIgnoreCase(generateCmr)) { 
-						throw new IllegalStateException(
-							"Relation '" + associationEnd.getAssociation().getName() + "' has the abstract target '"
-							+ target.getName() + "'. Abstract targets are not allowed in EJB."); 
-					}
-					result.add(associationEnd);
-				}
-			}
-		} catch (Throwable th) {
-			th.printStackTrace();
-			throw new RuntimeException(th);
-		}
-		return result;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getAllInstanceAttributes()
+     */
+    public List handleGetAllInstanceAttributes()
+    {
+        return EJBMetafacadeUtils.getAllInstanceAttributes(this);
+    }
 
-	public List handleGetAllInstanceAttributes() {
-		return EJBMetafacadeUtils.getAllInstanceAttributes(this);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getInheritedInstanceAttributes()
+     */
+    public List handleGetInheritedInstanceAttributes()
+    {
+        return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
+    }
 
-	public List handleGetInheritedInstanceAttributes() {
-		return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getCreateMethods(boolean)
+     */
+    public Collection handleGetCreateMethods(boolean follow)
+    {
+        return EJBMetafacadeUtils.getCreateMethods(this, follow);
+    }
 
-	public Collection handleGetCreateMethods(boolean follow) {
-		return EJBMetafacadeUtils.getCreateMethods(this, follow);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getSelectMethods(boolean)
+     */
+    public Collection handleGetSelectMethods(boolean follow)
+    {
+        Collection retval = new ArrayList();
+        EJBEntityFacade entity = null;
+        do
+        {
+            Collection ops = this.getOperations();
+            for (Iterator i = ops.iterator(); i.hasNext();)
+            {
+                OperationFacade op = (OperationFacade)i.next();
+                if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD))
+                {
+                    retval.add(op);
+                }
+            }
+            if (follow)
+            {
+                entity = (EJBEntityFacade)this.getGeneralization();
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (entity != null);
+        return retval;
+    }
 
-	public Collection handleGetSelectMethods(boolean follow) {
-		Collection retval = new ArrayList();
-		EJBEntityFacade entity = null;
-		do {
-			Collection ops = this.getOperations();
-			for (Iterator i = ops.iterator(); i.hasNext();) {
-				OperationFacade op = (OperationFacade) i.next();
-				if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD)) {
-					retval.add(op);
-				}
-			}
-			if (follow) {
-				entity = (EJBEntityFacade) this.getGeneralization();
-			} else {
-				break;
-			}
-		} while (entity != null);
-		return retval;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getHomeInterfaceName()
+     */
+    public String handleGetHomeInterfaceName()
+    {
+        return EJBMetafacadeUtils.getHomeInterfaceName(this);
+    }
 
-	public String handleGetHomeInterfaceName() {
-		return EJBMetafacadeUtils.getHomeInterfaceName(this);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEnvironmentEntries(boolean)
+     */
+    public Collection handleGetEnvironmentEntries(boolean follow)
+    {
+        return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
+    }
 
-	public Collection handleGetEnvironmentEntries(boolean follow) {
-		return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getConstants(boolean)
+     */
+    public Collection handleGetConstants(boolean follow)
+    {
+        return EJBMetafacadeUtils.getConstants(this, follow);
+    }
 
-	public Collection handleGetConstants(boolean follow) {
-		return EJBMetafacadeUtils.getConstants(this, follow);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntity#getJndiName()
+     */
+    public java.lang.String handleGetJndiName()
+    {
+        StringBuffer jndiName = new StringBuffer();
+        String jndiNamePrefix = StringUtils.trimToEmpty(this
+            .getJndiNamePrefix());
+        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        {
+            jndiName.append(jndiNamePrefix);
+            jndiName.append("/");
+        }
+        jndiName.append("ejb/");
+        jndiName.append(this.getFullyQualifiedName());
+        return jndiName.toString();
+    }
 
-	/**
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntity#getJndiName()
-	 */
-	public java.lang.String handleGetJndiName() {
-		StringBuffer jndiName = new StringBuffer();
-		String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
-		if (StringUtils.isNotEmpty(jndiNamePrefix)) {
-			jndiName.append(jndiNamePrefix);
-			jndiName.append("/");
-		}
-		jndiName.append("ejb/");
-		jndiName.append(this.getFullyQualifiedName());
-		return jndiName.toString();
-	}
+    /**
+     * Gets the <code>jndiNamePrefix</code> for this EJB.
+     * 
+     * @return the EJB Jndi name prefix.
+     */
+    protected String getJndiNamePrefix()
+    {
+        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+    }
 
-	/**
-	 * Gets the <code>jndiNamePrefix</code> for this EJB.
-	 * 
-	 * @return the EJB Jndi name prefix.
-	 */
-	protected String getJndiNamePrefix() {
-		return (String) this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#allowSyntheticCreateMethod()
+     */
+    public boolean handleIsSyntheticCreateMethodAllowed()
+    {
+        return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
+    }
 
-	/**
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#allowSyntheticCreateMethod()
-	 */
-	public boolean handleIsSyntheticCreateMethodAllowed() {
-		return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
-	}
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     */
+    public Collection getBusinessOperations()
+    {
+        Collection operations = super.getBusinessOperations();
+        CollectionUtils.filter(operations, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                boolean businessOperation = false;
+                if (EJBOperationFacade.class
+                    .isAssignableFrom(object.getClass()))
+                {
+                    businessOperation = ((EJBOperationFacade)object)
+                        .isBusinessOperation();
+                }
+                return businessOperation;
+            }
+        });
+        return operations;
+    }
 
-	/**
-	 * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
-	 */
-	public Collection getBusinessOperations() {
-		Collection operations = super.getBusinessOperations();
-		CollectionUtils.filter(operations, new Predicate() {
-			public boolean evaluate(Object object) {
-				boolean businessOperation = false;
-				if (EJBOperationFacade.class.isAssignableFrom(object.getClass())) {
-					businessOperation = ((EJBOperationFacade) object).isBusinessOperation();
-				}
-				return businessOperation;
-			}
-		});
-		return operations;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getValueDependencies()
+     */
+    public Collection handleGetValueDependencies()
+    {
+        Collection dependencies = super.getDependencies();
+        CollectionUtils.filter(dependencies, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                boolean isValueRef = false;
+                if (object instanceof DependencyFacade)
+                {
+                    DependencyFacade dep = (DependencyFacade)object;
+                    isValueRef = dep.getStereotypeNames().contains(
+                        EJBProfile.STEREOTYPE_VALUE_REF)
+                        && dep.getTargetElement().hasExactStereotype(
+                            EJBProfile.STEREOTYPE_VALUE_OBJECT);
+                }
+                return isValueRef;
+            }
+        });
+        return dependencies;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetValueDependencies()
-	 */
-	public Collection handleGetValueDependencies() {
-		Collection dependencies = super.getDependencies();
-		CollectionUtils.filter(dependencies, new Predicate() {
-			public boolean evaluate(Object object) {
-				boolean isValueRef = false;
-				if (object instanceof DependencyFacade) {
-					DependencyFacade dep = (DependencyFacade) object;
-					isValueRef = dep.getStereotypeNames().contains(EJBProfile.STEREOTYPE_VALUE_REF)
-							&& dep.getTargetElement().hasExactStereotype(EJBProfile.STEREOTYPE_VALUE_OBJECT);
-				}
-				return isValueRef;
-			}
-		});
-		return dependencies;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#containsIdentifier(java.lang.String)
+     */
+    public boolean handleIsIdentifierPresent(String identifier)
+    {
+        Collection collIdentifier = this.getIdentifiers(true);
+        Iterator it = collIdentifier.iterator();
+        while (it.hasNext())
+        {
+            AttributeFacade attr = (AttributeFacade)it.next();
+            if (attr.getName().equalsIgnoreCase(identifier))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsIdentifier(java.lang.String)
-	 */
-	public boolean handleIsIdentifierPresent(String identifier) {
-		Collection collIdentifier = this.getIdentifiers(true);
-		Iterator it = collIdentifier.iterator();
-		while (it.hasNext()) {
-			AttributeFacade attr = (AttributeFacade) it.next();
-			if (attr.getName().equalsIgnoreCase(identifier)) { return true; }
-		}
-		return false;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#containsAttribute(java.lang.String)
+     */
+    public boolean handleIsAttributePresent(String strAttr)
+    {
+        Collection collAttrib = this.getAttributes(true);
+        Iterator it = collAttrib.iterator();
+        while (it.hasNext())
+        {
+            AttributeFacade attr = (AttributeFacade)it.next();
+            if (attr.getName().equalsIgnoreCase(strAttr))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsAttribute(java.lang.String)
-	 */
-	public boolean handleIsAttributePresent(String strAttr) {
-		Collection collAttrib = this.getAttributes(true);
-		Iterator it = collAttrib.iterator();
-		while (it.hasNext()) {
-			AttributeFacade attr = (AttributeFacade) it.next();
-			if (attr.getName().equalsIgnoreCase(strAttr)) { return true; }
-		}
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsOperation(java.lang.String)
-	 */
-	public boolean handleIsOperationPresent(String op) {
-		Collection collOps = this.getOperations();
-		Iterator it = collOps.iterator();
-		while (it.hasNext()) {
-			OperationFacade operation = (OperationFacade) it.next();
-			if (operation.getName().equalsIgnoreCase(op)) { return true; }
-		}
-		return false;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#containsOperation(java.lang.String)
+     */
+    public boolean handleIsOperationPresent(String op)
+    {
+        Collection collOps = this.getOperations();
+        Iterator it = collOps.iterator();
+        while (it.hasNext())
+        {
+            OperationFacade operation = (OperationFacade)it.next();
+            if (operation.getName().equalsIgnoreCase(op))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
