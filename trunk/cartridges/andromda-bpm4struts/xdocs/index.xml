@@ -122,6 +122,17 @@
                     <li><a href="http://team.andromda.org/maven/struts/tlds/struts-tiles-1.2dev-SNAPSHOT.tld">struts-tiles-1.2dev-SNAPSHOT.tld</a></li>
                 </ul>
             </p>
+            <p class="std">
+                In order to display tabular data we have chosen to use the 'displaytag' tag libary. This is an open source
+                library that can be used in JSP pages.
+                <ul>
+                    <li><a href="http://www.displaytag.org">Examples</a></li>
+                    <li><a href="http://displaytag.sourceforge.net">Development pages</a></li>
+                    <li><a href="http://displaytag.sourceforge.net/tagreference-displaytag-12.html">Taglib reference</a></li>
+                </ul>
+                We are currently using 'displaytag-1.0b3' so you will need to have this dependency when building your
+                web application with andromda-bpm4struts.
+            </p>
         </section>
 
         <section name="Features">
@@ -199,6 +210,17 @@
                 layout from the content of the pages. All pages will be rendered in a similar style, it will
                 be sufficient to update or extend the existing style in order to customize the look
                 and feel of the application.
+            </p>
+            <h3>Tabular resultsets</h3>
+            <p class="std">
+                A very common feature in web pages is the displaying of tabular data. Bbpm4struts directly supports
+                this feature through the use of the 'displaytag' tag library. You will be able to have control
+                over the following features:
+                <ul>
+                    <li>Paging: by default pages of 15 entries are rendered, this value can be changed</li>
+                    <li>Exporting: the data can be exported to XML, CSV or Excel</li>
+                    <li>Sorting: you will be able to sort any column you want</li>
+                </ul>
             </p>
         </section>
 
