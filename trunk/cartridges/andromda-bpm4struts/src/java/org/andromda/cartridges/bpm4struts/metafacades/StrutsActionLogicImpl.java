@@ -670,7 +670,7 @@ public class StrutsActionLogicImpl
         return Collections.EMPTY_LIST;
     }
 
-    protected String handleGetStyleClass()
+    protected String handleGetStyleId()
     {
         return StringUtilsHelper.lowerCamelCaseName(getActionClassName());
     }
