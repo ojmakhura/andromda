@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../project.xml</extend>
-  	<id>andromda-java-cartridge</id>
-  	<name>Java Cartridge</name>
-  	<shortDescription>Java Cartridge</shortDescription>
-  	<description>
+    <extend>../project.xml</extend>
+    <id>andromda-java-cartridge</id>
+    <name>Java Cartridge</name>
+    <shortDescription>Java Cartridge</shortDescription>
+    <description>
 		Produces java value objects.
-  	</description>
-  	<developers>
-    	<developer>
-      		<name>Matthias Bohlen</name>
-      		<id>mattes3</id>
-      		<email>mattes3@sourceforge.users.net</email>
+    </description>
+    <developers>
+        <developer>
+            <name>Matthias Bohlen</name>
+            <id>mattes3</id>
+            <email>mattes3@sourceforge.users.net</email>
             <roles>
                 <role>Developer</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Chad Brandon</name>
-      		<id>cwbrandon</id>
-      		<email>cwbrandon@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
                 <role>Documentation</role>
             </roles>
-    	</developer>
-  	</developers>
+        </developer>
+    </developers>
     <contributors>
         <contributor>
             <name>Kunal Parikh</name>
@@ -39,4 +39,16 @@
             <timezone>10</timezone>
         </contributor>
     </contributors>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+    </reports>
 </project>

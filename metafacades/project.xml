@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../project.xml</extend>
-  	<artifactId>andromda-metafacades</artifactId>
-  	<name>AndroMDA Metafacades</name>
-  	<shortDescription>Metafacade Libraries</shortDescription>
-  	<description>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-metafacades</artifactId>
+    <name>AndroMDA Metafacades</name>
+    <shortDescription>Metafacade Libraries</shortDescription>
+    <description>
   		The metafacade libraries.  Each group of metafacade libraries (i.e. UML, etc)
   		are used to provide access to, and insulate cartridges from, the underlying
   		meta model.  This allows us to switch out the metafacade implementation without
   		worrying about breaking cartridge functionality.
-  	</description>
-  	<!-- restrict the reports generated -->
-  	<reports>
-  		<report>maven-jxr-plugin</report>
-  		<report>maven-javadoc-plugin</report>
-  	    <report>maven-simian-plugin</report>
-  	    <report>maven-pmd-plugin</report>
-    	<report>maven-jdepend-plugin</report>
-    	<report>maven-faq-plugin</report>
-    	<report>maven-tasklist-plugin</report>
-    	<report>maven-file-activity-plugin</report>
-    	<report>maven-developer-activity-plugin</report>
-    	<report>maven-junit-report-plugin</report>
-  	</reports>
+    </description>
+    <issueTrackingUrl>http://team.andromda.org:8080/jira/BrowseProject.jspa?id=10004&amp;decorator=none</issueTrackingUrl>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/metafacades</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/metafacades/</url>
+    </repository>
+    <!-- restrict the reports generated -->
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-jira-plugin</report>
+    </reports>
 </project>

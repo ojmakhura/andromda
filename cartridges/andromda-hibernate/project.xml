@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../project.xml</extend>
-  	<id>andromda-hibernate-cartridge</id>
-  	<name>Hibernate Cartridge</name>
-  	<shortDescription>Hibernate Cartridge</shortDescription>
-  	<description>
+    <extend>../project.xml</extend>
+    <id>andromda-hibernate-cartridge</id>
+    <name>Hibernate Cartridge</name>
+    <shortDescription>Hibernate Cartridge</shortDescription>
+    <description>
 		Produces Hibernate entities wrapped with Session EJB facades.
 		More to be written by Matthias!
-  	</description>
-  	<developers>
-    	<developer>
-      		<name>Matthias Bohlen</name>
-      		<id>mattes3</id>
-      		<email>mattes3@sourceforge.users.net</email>
+    </description>
+    <issueTrackingUrl>http://team.andromda.org:8080/jira/BrowseProject.jspa?id=10012&amp;decorator=none</issueTrackingUrl>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/andromda-hibernate</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/andromda-hibernate/</url>
+    </repository>
+    <developers>
+        <developer>
+            <name>Matthias Bohlen</name>
+            <id>mattes3</id>
+            <email>mattes3@sourceforge.users.net</email>
             <roles>
                 <role>Developer</role>
             </roles>
-    	</developer>
-    	<developer>
-      		<name>Chad Brandon</name>
-      		<id>cwbrandon</id>
-      		<email>cwbrandon@users.sourceforge.net</email>
+        </developer>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
             </roles>
-    	</developer>
-  	</developers>
- 	<dependencies> 
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>maven-andromda-plugin</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	      	<type>plugin</type>
-	      	<properties>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties>
                 <languageMappingsUri>Java</languageMappingsUri>
                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-	      		<facades>${basedir}/target/src</facades>
-	      		<facade-logics>${basedir}/target/src</facade-logics>
-	      		<facades-to-impls>${basedir}/target/src</facades-to-impls>
-	      		<facade-logic-impls>${basedir}/src/java</facade-logic-impls>
-	      	</properties>
-	    </dependency>
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-core</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	    </dependency>
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-metafacades-uml</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	    </dependency>  
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-metafacades-uml14</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	    </dependency>  
-    	<dependency>
-	      	<groupId>andromda</groupId>
-	      	<artifactId>andromda-meta-cartridge</artifactId>
-	      	<version>${pom.currentVersion}</version>
-	    </dependency> 
+                <facades>${basedir}/target/src</facades>
+                <facade-logics>${basedir}/target/src</facade-logics>
+                <facades-to-impls>${basedir}/target/src</facades-to-impls>
+                <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-validation-library</artifactId>
@@ -81,12 +86,25 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
             <properties/>
         </dependency>
-	</dependencies>
+    </dependencies>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-jira-plugin</report>
+    </reports>
 </project>
