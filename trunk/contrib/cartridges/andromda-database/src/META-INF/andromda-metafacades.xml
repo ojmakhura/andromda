@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <metafacades namespace="database">
+    <property reference="primaryKeyConstraintPrefix" default="XPK"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
