@@ -30,6 +30,20 @@
         <to>string</to>
     </mapping>
     <mapping>
+        <from>datatype.Time</from>
+        <to>time</to>
+    </mapping>
+    <mapping>
+        <from>datatype.Date</from>
+        <to>date</to>
+    </mapping>
+    <mapping>
+        <from>datatype.Calendar</from>
+        <from>datatype.DateTime</from>
+        <from>datatype.Timestamp</from>
+        <to>dateTime</to>
+    </mapping>
+    <mapping>
         <from>datatype.int</from>
         <from>datatype.char</from>
         <to>int</to>
@@ -38,13 +52,6 @@
         <from>datatype.Integer</from>
         <from>datatype.BigInteger</from>
         <to>integer</to>
-    </mapping>
-    <mapping>
-        <from>datatype.Date</from>
-        <from>datatype.Calendar</from>
-        <from>datatype.DateTime</from>
-        <from>datatype.Timestamp</from>
-        <to>dateTime</to>
     </mapping>
     <mapping>
         <from>datatype.Decimal</from>
