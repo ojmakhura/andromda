@@ -322,8 +322,25 @@ public class StrutsActionLogicImpl
 
     public String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         return (value == null) ? "" : value;
+    }
+
+    public String handleGetOnlineHelpKey()
+    {
+        return getActionTrigger().getTriggerKey() + ".online.help";
+    }
+
+    public String handleGetOnlineHelpValue()
+    {
+        final String crlf = "<br/>";
+        StringBuffer buffer = new StringBuffer();
+
+        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        buffer.append((value == null) ? "No action documentation has been specified" : value);
+        buffer.append(crlf);
+
+        return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
     /**

@@ -39,6 +39,11 @@ public class StrutsJspLogicImpl
         return StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName());
     }
 
+    public String handleGetMessageValue()
+    {
+        return StringUtilsHelper.toPhrase(getName());
+    }
+
     public String handleGetTitleKey()
     {
         return getMessageKey() + ".title";
@@ -58,6 +63,24 @@ public class StrutsJspLogicImpl
     {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
         return (value == null) ? "" : value;
+    }
+
+    public String handleGetOnlineHelpKey()
+    {
+        return getMessageKey() + ".online.help";
+    }
+
+    public String handleGetOnlineHelpValue()
+    {
+        final String crlf = "<br/>";
+        StringBuffer buffer = new StringBuffer();
+
+        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        buffer.append((value == null) ? "No page documentation has been specified" : value);
+        buffer.append(crlf);
+        buffer.append(crlf);
+
+        return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
     public String handleGetFullPath()

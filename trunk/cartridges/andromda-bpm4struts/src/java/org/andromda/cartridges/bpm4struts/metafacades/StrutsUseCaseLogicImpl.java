@@ -39,6 +39,23 @@ public class StrutsUseCaseLogicImpl
         return StringUtilsHelper.toPhrase(getName());
     }
 
+    public String handleGetOnlineHelpKey()
+    {
+        return StringUtilsHelper.toResourceMessageKey(getName()) + ".online.help";
+    }
+
+    public String handleGetOnlineHelpValue()
+    {
+        final String crlf = "<br/>";
+        StringBuffer buffer = new StringBuffer();
+
+        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        buffer.append((value == null) ? "No use-case documentation has been specified" : value);
+        buffer.append(crlf);
+
+        return StringUtilsHelper.toResourceMessage(buffer.toString());
+    }
+
     public String handleGetActionPath()
     {
         return getActivityGraph().getFirstAction().getActionPath();
