@@ -142,7 +142,7 @@ public class EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#hasIdentifiers()
+     * @see org.andromda.metafacades.uml.EntityFacade#isIdentifiersPresent()
      */
     public boolean handleIsIdentifiersPresent()
     {
@@ -594,6 +594,13 @@ public class EntityFacadeLogicImpl
         }
 
         return literals;
+    }
+
+    protected String handleGetEnumerationName()
+    {
+        return (isEnumeration())
+                ? getName() + getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_SUFFIX)
+                : null;
     }
 
 }
