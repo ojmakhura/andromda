@@ -235,7 +235,8 @@
 #elseif ($parameters.size() == 1)
                 <html:link action="${link.action.actionPath}" paramName="form" paramProperty="$parameters.iterator().next().name" paramScope="page">
 #end
-                    <bean:write name="row" property="$link.tableLinkColumnName" scope="page"/>
+#set ($linkName = "row.${link.tableLinkColumnName}")
+                    ${${linkName}}
                 </html:link>
             </display:column>
 #else
