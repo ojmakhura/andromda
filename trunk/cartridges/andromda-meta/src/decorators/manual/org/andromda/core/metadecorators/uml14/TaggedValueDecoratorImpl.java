@@ -79,8 +79,7 @@ public class TaggedValueDecoratorImpl extends TaggedValueDecorator
         }
         catch (IOException e)
         {
-            // TODO: Better exception handling!
-            e.printStackTrace();
+            logger.error(e);
             return null;
         }
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
 import org.omg.uml.foundation.core.ModelElement;
 
 /**
@@ -11,7 +12,8 @@ import org.omg.uml.foundation.core.ModelElement;
  */
 public class DecoratorBase
 {
-    private Object metaObject;
+    private   Object metaObject;
+    protected Logger logger;
 
     public DecoratorBase(Object metaObject)
     {
@@ -52,5 +54,15 @@ public class DecoratorBase
     {
         return DecoratorFactory.getInstance().createDecoratorObject(
             metaObject);
+    }
+    
+    /**
+     * Package-local setter, called by decorator factory.
+     * Sets the logger to use inside the decorator's code.
+     * @param l the logger to set
+     */
+    void setLogger(Logger l)
+    {
+        logger = l;
     }
 }
