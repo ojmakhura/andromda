@@ -326,6 +326,11 @@ public class ModelProcessor
     private List cartridgeFilter = null;
 
     /**
+     * Denotes whether or not the complement of filtered cartridges should be processed
+     */
+    private boolean negateCartridgeFilter = false;
+
+    /**
      * Indicates whether or not the <code>namespace</code> should be
      * processed. This is determined in conjunction with
      * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code>
@@ -342,8 +347,7 @@ public class ModelProcessor
             || cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
-            shouldProcess = cartridgeFilter.contains(StringUtils
-                .trimToEmpty(namespace));
+            shouldProcess = negateCartridgeFilter ^ cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
         }
         return shouldProcess;
     }
@@ -364,10 +368,29 @@ public class ModelProcessor
      */
     public void setCartridgeFilter(String namespaces)
     {
-        if (StringUtils.isNotBlank(namespaces))
+        logger.info(namespaces);
+        if (namespaces != null)
         {
-            cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(
-                namespaces).split(","));
+            // remove whitespace
+            namespaces = StringUtils.deleteWhitespace(namespaces);
+            logger.info(namespaces);
+
+            if (namespaces.startsWith("~"))
+            {
+                negateCartridgeFilter = true;
+                namespaces = namespaces.substring(1);
+                logger.info(namespaces);
+            }
+            else
+            {
+                negateCartridgeFilter = false;
+            }
+
+            if (StringUtils.isNotBlank(namespaces))
+            {
+                cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(namespaces).split(","));
+                logger.info(cartridgeFilter);
+            }
         }
     }
 
