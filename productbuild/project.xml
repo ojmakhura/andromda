@@ -40,6 +40,11 @@
             <name>2.1.0final</name>
             <tag>V210_final</tag>
         </version>
+        <version>
+            <id>3.0M1</id>
+            <name>3.0M1</name>
+            <tag>V3_0Ml</tag>
+        </version>
     </versions>
     <branches/>
     <mailingLists>
@@ -149,6 +154,7 @@
         <report>maven-faq-plugin</report>
         <report>maven-multiproject-plugin</report>
         <report>maven-license-plugin</report>
+        <report>maven-changes-plugin</report>
     </reports>
     <properties/>
 </project>
