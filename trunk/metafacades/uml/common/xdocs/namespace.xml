@@ -250,7 +250,7 @@
                     </td>
                     <td>
                         Used to seperate namespaces within the generated code.  For example
-                        setting this to '/' causes fully qualified names to be defined as
+                        setting this to <code>'.'</code> causes fully qualified names to be defined as
                         <em>some.package.name.SomeClass</em>.
                     </td>
                     <td>
