@@ -38,7 +38,6 @@
         <to>date</to>
     </mapping>
     <mapping>
-        <from>datatype.Calendar</from>
         <from>datatype.DateTime</from>
         <from>datatype.Timestamp</from>
         <to>dateTime</to>
@@ -50,12 +49,10 @@
     </mapping>
     <mapping>
         <from>datatype.Integer</from>
-        <from>datatype.BigInteger</from>
         <to>integer</to>
     </mapping>
     <mapping>
         <from>datatype.Decimal</from>
-        <from>datatype.BigDecimal</from>
         <to>decimal</to>
     </mapping>
     <mapping>
