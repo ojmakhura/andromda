@@ -1,5 +1,6 @@
 package org.andromda.cartridges.spring.metafacades;
 
+
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd.
@@ -21,40 +22,24 @@ public class SpringEntityAssociationEndLogicImpl
     }
 
     /**
-     * Flag keeping track of whether or a not a foreign key has been defined, we
-     * assume when getColumnName() is accessed the foreign key is defined.
-     */
-    private boolean foreignKeyDefined = false;
-
-    /**
-     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#getColumnName()
-     */
-    public String getColumnName()
-    {
-        this.foreignKeyDefined = true;
-        return super.getColumnName();
-    }
-
-    /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#isOne2OnePrimary()
      */
     public boolean handleIsOne2OnePrimary()
     {
-        boolean one2One = super.isOne2One();
+        boolean primaryOne2One = super.isOne2One();
         SpringEntityAssociationEndLogicImpl otherEnd = (SpringEntityAssociationEndLogicImpl)this
             .getOtherEnd();
-        boolean otherEndForeignKeyDefined = otherEnd.foreignKeyDefined;
-        if (one2One && !otherEndForeignKeyDefined)
+        if (primaryOne2One)
         {
-            one2One = super.isAggregation() || this.isComposition();
+            primaryOne2One = super.isAggregation() || this.isComposition();
         }
-        // if the flag is false delegage to the super class
-        if (!one2One && !otherEndForeignKeyDefined)
+        // if the flag is false delegate to the super class
+        if (!primaryOne2One)
         {
-            one2One = super.isOne2One() && !otherEnd.isAggregation()
+            primaryOne2One = super.isOne2One() && !otherEnd.isAggregation()
                 && !otherEnd.isComposition();
         }
-        return one2One;
+        return primaryOne2One;
     }
 
 }
