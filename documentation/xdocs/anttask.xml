@@ -161,8 +161,9 @@
 		<property name="session-impls" value="${gen.src.dir}" ignore="true"/> 
 	</namespace> 
 	<namespace name="bpm4struts" ignore="false"> 
-		<property name="securityEnabled" value="false"/> 
-		<property name="pages" value="${gen.src.dir}"/> 
+		<property name="securityEnabled" value="false"/>
+		<property name="securityRealm" value="other"/> 
+		<property name="pages" value="${gen.src.dir}"/>
 		<property name="forms" value="${gen.src.dir}"/> 
 		<property name="actions" value="${gen.src.dir}"/> 
 		<property name="controllers" value="${gen.src.dir}"/> 
