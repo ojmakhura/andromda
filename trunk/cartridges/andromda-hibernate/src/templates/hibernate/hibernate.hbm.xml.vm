@@ -57,7 +57,7 @@
             </key>
 #if ($sourceEnd.indexedCollection)
 ##TODO: Maps can only contain strings
-            <index column="$sourceEnd.collectionIndexName"#if($sourceEnd.map) type="java.util.String"#end>
+            <index column="$sourceEnd.collectionIndexName"#if($sourceEnd.map) type="java.lang.String"#end>
 #end
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </$sourceEnd.collectionType>
