@@ -14,6 +14,7 @@ import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.*;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -358,8 +359,18 @@ public class ValidationJavaTranslator
     private void handleOclIsKindOf(AFeatureCall featureCall)
     {
         write(" instanceof ");
-        write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
-            .replaceAll("\\s*::\\s*", "."));
+        String type = ConcreteSyntaxUtils.getParametersAsString(featureCall)
+            .replaceAll("\\s*::\\s*", ".");
+        // if we don't have a package define, attempt to find the model element
+        // in the same package as the context element.
+        if (type.indexOf(".") == -1)
+        {
+            if (this.getModelElement() != null)
+            {
+                type = this.getModelElement().getPackageName() + "." + type;
+            }
+        }
+        write(type);
     }
 
     /**
@@ -1114,6 +1125,17 @@ public class ValidationJavaTranslator
         String variableValue)
     {
         ((Map)letVariableStack.peek()).put(variableName, variableValue);
+    }
+
+    /**
+     * Gets the current context element as a
+     * {@link org.andromda.uml.metafacades.ModelElementFacade}.
+     * 
+     * @return the context element as a model element facade
+     */
+    private ModelElementFacade getModelElement()
+    {
+        return (ModelElementFacade)this.getContextElement();
     }
 
     public ValidationJavaTranslator()
