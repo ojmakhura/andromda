@@ -108,7 +108,7 @@
 
         <!-- copy the db scripts over to the app target directory -->
         <copy todir="${app.root.dir}/${hibernate.schema.output.dir}">
-        	<fileset dir="${basedir}/../db/src"/>
+        	<fileset dir="${basedir}/../db/conf"/>
         </copy>
 
     </target>
