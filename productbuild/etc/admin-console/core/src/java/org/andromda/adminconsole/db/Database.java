@@ -1,9 +1,9 @@
 package org.andromda.adminconsole.db;
 
+import java.io.Serializable;
 import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
 
-public interface Database
+public interface Database extends Serializable
 {
     public String getCatalog();
 
@@ -13,7 +13,5 @@ public interface Database
 
     public DatabasePool getPool();
 
-    public Table[] getTables(TableType type) throws SQLException;
-
-    public Table[] getTables(TableType[] types) throws SQLException;
+    public Table[] getTables();
 }
