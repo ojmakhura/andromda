@@ -1,8 +1,5 @@
 body
 {
-    font-size: 86%;
-    color: #333;
-    background-color: #fff;
     margin: 0;
 }
 
@@ -28,25 +25,24 @@ body
 #leftColumn
 {
     position: absolute;
-    top: 135px;
+    top: 140px;
     left: 0;
-    width: 230px;
-    padding-left: 25px;
-    padding-bottom: 25px;
-    background-color: #E6E5E1;
-    border-right: 1px solid #93A6B4;
-    border-bottom: 1px solid #93A6B4;
+    width: 180px;
+    padding: 20px 5px 0 25px;
+    background-color: #fff;
     margin: 0;
 }
 
 #leftColumn li
 {
-    list-style-type: none;
+    list-style-image: url(images/square-bullet.jpg);
 }
 
 #leftColumn h5
 {
-    text-transform: uppercase;
+    font-size: 96%;
+    font-weight: bold;
+    color: #333;
 }
 
 #leftColumn a, #leftColumn a:link, #leftColumn a:active, #leftColumn a:visited
@@ -75,33 +71,12 @@ body
 #bodyColumn
 {
     position: absolute;
-    top: 135px;
-    left: 256px;
+    top: 140px;
+    left: 200px;
     right: 0;
     background-color: #fff;
-    border-top: 1px solid #93A6B4;
     padding: 25px;
     margin: 0;
-}
-
-img
-{
-    border: 0;
-}
-
-h2
-{
-    border-bottom: 1px solid;
-}
-
-h3
-{
-    font-weight: bold;
-}
-
-blockquote
-{
-    border: 2px dotted;
 }
 
 .clear
@@ -122,6 +97,7 @@ blockquote
     vertical-alignment: middle;
     background-color: #E6E5E1;
     border-top: 1px solid #93A6B4;
+    border-bottom: 1px solid #93A6B4;
 }
 
 #breadcrumbs .xleft
@@ -155,11 +131,6 @@ display: none;
     font-weight: bold;
 }
 
-p
-{
-    padding: 0 10px 0 10px;
-}
-
 .section
 {
     margin-bottom: 25px;
@@ -167,19 +138,15 @@ p
 
 #poweredBy
 {
+    display: none;
     margin: 40px 0 0 40px;
 }
 
 a:hover #poweredBy
 {
+    display: none;
     text-decoration: none;
     border: 0;
-}
-
-td, th
-{
-    border: 1px solid;
-    padding: 4px;
 }
 
 tr.a
@@ -189,13 +156,17 @@ tr.a
 
 a.externalLink, a.externalLink:link, a.externalLink:visited, a.externalLink:active, a.externalLink:hover
 {
-  background: url(images/external.gif) right center no-repeat;
+  background-image: url(images/external.gif);
+  background-position: right center;
+  background-repeat: no-repeat;
   padding-right: 18px;
 }
 
 a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWindow:hover
 {
-  background: url(images/newwindow.gif) right center no-repeat;
+  background: url(images/newwindow.gif);
+  background-position: right center;
+  background-repeat: no-repeat;
   padding-right: 18px;
 }
 
