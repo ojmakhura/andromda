@@ -26,6 +26,12 @@
                 back-end.
             </p>
             <p>
+                Notice how we have modeled dependencies from the service to the entities, this will render
+                accessors to the DAOs of both entities in the service. You will need to draw such dependencies
+                when you need access to the persistent storage of entities. This is similar to the dependencies
+                drawn between entities, as we have seen before.
+            </p>
+            <p>
                 <img src="resources/howto/org/andromda/test/3/uml.jpg"/>
             </p>
             <p>
