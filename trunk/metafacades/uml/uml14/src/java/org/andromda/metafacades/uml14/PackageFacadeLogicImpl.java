@@ -33,7 +33,7 @@ public class PackageFacadeLogicImpl
     {
         return new FilteredCollection(metaObject.getOwnedElement())
         {
-            protected boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof UmlClass;
             }
@@ -47,7 +47,7 @@ public class PackageFacadeLogicImpl
     {
         return new FilteredCollection(metaObject.getOwnedElement())
         {
-            protected boolean accept(Object object)
+            public boolean evaluate(Object object)
             {
                 return object instanceof UmlPackage;
             }
@@ -66,7 +66,8 @@ public class PackageFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelFacade#findModelElement(java.lang.String)
      */
-    public ModelElementFacade handleFindModelElement(final String fullyQualifiedName)
+    public ModelElementFacade handleFindModelElement(
+        final String fullyQualifiedName)
     {
         return (ModelElementFacade)CollectionUtils.find(
             this.getModelElements(),
@@ -79,7 +80,4 @@ public class PackageFacadeLogicImpl
                 }
             });
     }
-
-    // ------------------------------------------------------------
-
 }
