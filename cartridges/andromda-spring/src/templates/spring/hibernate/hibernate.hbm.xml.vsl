@@ -1,7 +1,6 @@
-## Only produce the file if the entity doesn't
-## have any super entities, since those will be
-## generated as <subclass/> elements of the parent 
-#if ($entity.generalizations.empty)
+## Only produce the file if the entity is
+## a root entity in hibernate terms. 
+#if ($entity.isRootInheritanceEntity())
 #set ($generatedFile = "${entity.packagePath}/${entity.entityName}.hbm.xml")
 <?xml version="1.0"?>
 <!-- 
@@ -24,20 +23,29 @@
 #end
 			</generator>
 		</id>
-## Provide the specialization if this is a superclass 		
-#if (!$entity.specializations.empty)
-
-        <discriminator
-            column="class"
-            type="string"/>
+## If super inheritance == interface, render super properties etc
+#set ( $generalization = $entity.generalization )
+#if($generalization && $generalization.hibInheritanceInterface)
+<!-- Start superclass properties and assocations -->
+#renderPropertiesAndAssociations($generalization)
+<!-- End superclass properties and assocations -->
 #end
-
 ## render the properties and associations (if any)
 #renderPropertiesAndAssociations($entity)
-## render the <subclass/> elements (if any)
+## Provide the specialization if this is a superclass 		
+#if (!$entity.specializations.empty)
+#if ($entity.hibInheritanceClass)
+        <discriminator
+            column="$entity.discriminatorColumn"
+            type="$entity.discriminatorType"/>
+#end ## ($entity.hibInheritanceClass)
+## render the subclass elements if class or subclass strategy.
+#if ( $entity.hibInheritanceClass || $entity.hibInheritanceSubclass )
 #foreach ($entity in $entity.specializations)
 #renderSubClass($entity)
-#end
+#end ## foreach
+#end ## ( $entity.hibInheritanceClass || $entity.hibInheritanceSubclass )
+#end ## end (!$entity.specializations.empty)
 	</class>         	
 </hibernate-mapping>
 #end

@@ -3,14 +3,24 @@
 ##
 #set ($indent = "	    ")    
 #macro (renderSubClass $entity)
+## Should only get get invoked for inheritance class or subclass.
+#if ($entity.hibInheritanceClass)
 	    <subclass
 		    name="$entity.fullyQualifiedEntityImplementationName"
 		    discriminator-value="$entity.entityImplementationName">
-#renderPropertiesAndAssociations($entity)		
-#foreach ($entity in $entity.specializations)
-#renderSubClass($entity)
+#set ($renderSubClassEndtag = "subclass")
+#else
+	    <joined-subclass
+		    name="$entity.fullyQualifiedEntityImplementationName"
+		    table="$entity.tableName">
+		   <key column="$entity.idenitiferColumn"/>
+#set ($renderSubClassEndtag = "joined-subclass")
 #end
-	    </subclass>
+#renderPropertiesAndAssociations($entity)		
+#foreach ($subentity in $entity.specializations)
+#renderSubClass($subentity)
+#end
+	    </${renderSubClassEndtag}>
 	
 #end
 ##
