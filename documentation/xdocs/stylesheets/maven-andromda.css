@@ -180,3 +180,10 @@ pre.console
 }
 
 img { vertical-align: bottom; }
+
+li.gen { list-style: url(images/gen-file.gif) inside; }
+li.impl { list-style: url(images/impl-file.gif) inside; }
+li.changed { list-style: url(images/changed-file.gif) inside; }
+
+li a { vertical-align: top; }
+li a.changed { padding-right: 20px; background: url(images/changed-file.gif) no-repeat right; }
