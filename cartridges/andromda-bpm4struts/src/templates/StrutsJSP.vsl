@@ -183,21 +183,57 @@
 #set ($exportable = $variable.tableExportable)
         <display:table name="sessionScope.${formBeanName}.${variable.name}" id="row"
                        requestURI="<%=request.getRequestURL().toString()%>"
-#if ($variable.tableLinksPresent)
-                       decorator="${variable.decoratorPackageName}.${variable.decoratorClassName}"
-#end
                        export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
 #if ($targetColumns.contains($columnName))
+#set ($link = false)
+#foreach ($tableLink in $variable.tableLinks)
+#if ($tableLink.tableLinkColumnName == $columnName)
+#set ($link = $tableLink)
+#end
+#end
             <display:column media="xml excel csv"
                 property="$columnName" title="$str.toPhrase($columnName)"
                 sortable="$sortable" autolink="true" nulls="false"
                 paramId="$columnName" />
             <display:column media="html"
-                property="${columnName}AsLink" title="$str.toPhrase($columnName)"
+                title="$str.toPhrase($columnName)"
                 sortable="$sortable" autolink="false" nulls="false"
-                paramId="$columnName" />
+                paramId="$columnName" >
+#set ($parameters = $link.action.actionParameters)
+#if (!$parameters.empty)
+#set ($mapName = "${columnName}Map")
+            <%
+                java.util.Map ${mapName} = new java.util.HashMap();
+#foreach ($parameter in $parameters)
+#if ($parameter.type.arrayType)
+                Object[] ${parameter.name} = ${formBeanName}.${parameter.getterName}();
+                for (int i=0; i<${parameter.name}.length; i++)
+                {
+            %>
+                    ${mapName}.put("${parameter.name}", "<%=${parameter.name}[i]%>");
+            <%
+                }
+#elseif ($parameter.type.collectionType)
+                java.util.Collection ${parameter.name} = ${formBeanName}.${parameter.getterName}();
+                for (java.util.Iterator iter = ${parameter.name}.iterator(); iter.hasNext();)
+                {
+            %>
+                    ${mapName}.put("${parameter.name}", "<%=iter.next()%>");
+            <%
+                }
+#else
+                ${mapName}.put("${parameter.name}", String.valueOf(${formBeanName}.${parameter.getterName}()));
+#end
+#end
+                pageContext.setAttribute("${mapName}", ${mapName}, javax.servlet.jsp.PageContext.PAGE_SCOPE);
+            %>
+#end
+                <html:link action="${link.action.actionPath}" paramName="${mapName}" paramScope="page">
+                    <bean:write name="row" property="$link.tableLinkColumnName" scope="page"/>
+                </html:link>
+            </display:column>
 #else
             <display:column
                 property="$columnName" title="$str.toPhrase($columnName)"
