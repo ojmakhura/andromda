@@ -8,6 +8,7 @@
 
     <!-- define the template objects that are made available to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="col" className="org.andromda.core.common.CollectionUtilsHelper"/>
 
     <!-- define template external properties -->
     <property reference="security" default="false"/>
@@ -40,7 +41,13 @@
         outputPattern="layout/calendar/{0}"
         outlet="pages"
         overwrite="true"/>
-        
+
+    <resource
+        path="resources/menu/*.*"
+        outputPattern="layout/menu/{0}"
+        outlet="pages"
+        overwrite="true"/>
+
     <resource
         path="resources/WEB-INF/lib/*.jar"
         outputPattern="lib/{0}"
@@ -303,6 +310,17 @@
         outputPattern="struts-config.xml"
         outlet="configuration"
         overwrite="true">
+        <modelElements variable="applicationUseCase">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/StrutsMenuConfigXml.vsl"
+        outputPattern="menu-config.xml"
+        outlet="configuration"
+        overwrite="true"
+        generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
