@@ -31,6 +31,37 @@ import org.apache.commons.lang.StringEscapeUtils;
  */
 public class HTMLAnalyzer
 {
+    
+    /**
+     * Specifes the line width to enforce.
+     */
+    private int lineLength;
+    
+    /**
+     * The default line width used, if none is specified.
+     */
+    private static final int DEFAULT_LINE_WIDTH = 66;
+    
+    /**
+     * Constructs a new instance of this HTMLAnalyzer
+     * using the default line width.
+     */
+    public HTMLAnalyzer() 
+    {
+        this(DEFAULT_LINE_WIDTH);    
+    }
+    
+    /**
+     * Constructs a new instance of this HTMLAnalyzer
+     * specifying the <code>lineLength</code> to enforce.
+     * 
+     * @param lineLength the width of the lines before they are wrapped.
+     */
+    public HTMLAnalyzer(int lineLength) 
+    {
+        this.lineLength = lineLength;
+    }
+    
     /**
      * <p>
      * Translates an HTML string into a list of HTMLParagraphs.
@@ -52,7 +83,6 @@ public class HTMLAnalyzer
     
     private class MyParserCallback extends ParserCallback
     {
-        private static final int PARAGRAPH_WIDTH = 66;
         private HTMLParagraph currentParagraph = null;
         private HTMLParagraph nonHtmlParagraph = null;
         
@@ -71,7 +101,7 @@ public class HTMLAnalyzer
         {
             if (tag.equals(Tag.P))
             {
-                currentParagraph = new HTMLParagraph(PARAGRAPH_WIDTH);
+                currentParagraph = new HTMLParagraph(lineLength);
             } else
             {
                 appendWord("<" + tag + ">");
@@ -101,7 +131,7 @@ public class HTMLAnalyzer
             //handle instances where we may not have html in the text.
             if (currentParagraph == null)
             {
-                nonHtmlParagraph = new HTMLParagraph(PARAGRAPH_WIDTH);
+                nonHtmlParagraph = new HTMLParagraph(lineLength);
                 nonHtmlParagraph.appendText(new String(text));
                 paragraphs.add(nonHtmlParagraph);
             } else

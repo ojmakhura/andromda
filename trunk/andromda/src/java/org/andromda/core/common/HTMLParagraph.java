@@ -8,8 +8,8 @@ import java.util.StringTokenizer;
  * 
  * <p>
  * Represents a paragraph, made of lines. The whole paragraph has a limit for
- * the line width. Words can be added, the class will reformat the paragraph
- * according to max. line width.
+ * the line length. Words can be added, the class will reformat the paragraph
+ * according to max. line length.
  * </p>
  * 
  * @author Matthias Bohlen
@@ -24,14 +24,14 @@ public class HTMLParagraph
     
     /**
      * <p>
-     * Constructs an HtmlParagraph with a specified maximum line width.
+     * Constructs an HtmlParagraph with a specified maximum line length.
      * </p>
      * 
-     * @param lineWidth maximum line width
+     * @param lineLength maximum line length
      */
-    public HTMLParagraph(int lineWidth)
+    public HTMLParagraph(int lineLength)
     {
-        this.maxLineWidth = lineWidth;
+        this.maxLineWidth = lineLength;
     }
     
     /**
