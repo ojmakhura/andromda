@@ -1,5 +1,6 @@
 package org.andromda.translation.query;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.core.translation.BaseTranslator;
@@ -378,17 +379,36 @@ public class QueryTranslator
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         String firstArgument = ConcreteSyntaxUtils
             .getPrimaryExpression(propertyCallExpression);
+        translation = this.replaceFragment(translation, firstArgument, 0);
         List featureCalls = ConcreteSyntaxUtils
             .getFeatureCalls(propertyCallExpression);
-        String secondArgument = null;
         if (featureCalls != null && !featureCalls.isEmpty())
         {
-            secondArgument = ConcreteSyntaxUtils
-                .getParametersAsString((AFeatureCall)featureCalls.iterator()
-                    .next());
+            for (Iterator callIterator = featureCalls.iterator(); callIterator
+                .hasNext();)
+            {
+                AFeatureCall featureCall = (AFeatureCall)callIterator.next();
+
+                if (TranslationUtils.trimToEmpty(featureCall).matches(
+                    OCLPatterns.OPERATION_FEATURE_CALL))
+                {
+                    List parameters = ConcreteSyntaxUtils
+                        .getParameters(featureCall);
+                    if (parameters != null && !parameters.isEmpty())
+                    {
+                        Iterator parameterIterator = parameters.iterator();
+                        for (int ctr = 1; parameterIterator.hasNext(); ctr++)
+                        {
+                            translation = this.replaceFragment(
+                                translation,
+                                (String)parameterIterator.next(),
+                                ctr);
+                        }
+                    }
+                    break;
+                }
+            }
         }
-        translation = this.replaceFragment(translation, firstArgument, 0);
-        translation = this.replaceFragment(translation, secondArgument, 1);
         this.getExpression().appendSpaceToTranslatedExpression();
         this.getExpression().appendToTranslatedExpression(translation);
     }

@@ -245,7 +245,8 @@
             context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate) 
             body : 
                 allInstances() -> select( certificate | 
-                   type.concat(code) = certificate.code )
+                   code.concat(type) = certificate.code 
+                   and certificate.code.substring(1,3) = 'test')
             ]]>
         </from>
         <to>
@@ -253,6 +254,7 @@
             SELECT DISTINCT OBJECT(certificate) 
             FROM MedicalCertificate certificate 
             WHERE CONCAT(?1, ?2) = certificate.code
+            AND SUBSTRING(certificate.code, 1, 3) = 'test'
             ]]>          
         </to> 
     </expression>
