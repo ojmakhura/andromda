@@ -398,7 +398,14 @@ public class StringUtilsHelper
             }
             firstElement = false;
         }
-        System.out.println("buffer = " + buffer);
         return buffer.toString();
+    }
+
+    /**
+     * Equivalent to <code>toStringList(collection, ",")</code>
+     */
+    public static String toStringList(Collection collection)
+    {
+        return toStringList(collection, ",");
     }
 }
