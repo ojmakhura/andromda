@@ -1,8 +1,9 @@
 package org.andromda.adminconsole.db;
 
 import java.sql.DatabaseMetaData;
+import java.io.Serializable;
 
-public final class ForeignKeyDeleteRule
+public final class ForeignKeyDeleteRule implements Serializable
 {
     public final static ForeignKeyDeleteRule NOACTION = new ForeignKeyDeleteRule(DatabaseMetaData.importedKeyNoAction);
     public final static ForeignKeyDeleteRule CASCADE = new ForeignKeyDeleteRule(DatabaseMetaData.importedKeyCascade);

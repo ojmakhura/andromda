@@ -1,6 +1,8 @@
 package org.andromda.adminconsole.db;
 
-public interface DatabasePool
+import java.io.Serializable;
+
+public interface DatabasePool extends Serializable
 {
     public Table findTable(String tableName);
 

@@ -1,8 +1,9 @@
 package org.andromda.adminconsole.db;
 
 import java.sql.DatabaseMetaData;
+import java.io.Serializable;
 
-public final class ForeignKeyUpdateRule
+public final class ForeignKeyUpdateRule implements Serializable
 {
     public final static ForeignKeyUpdateRule NOACTION = new ForeignKeyUpdateRule(0);
     public final static ForeignKeyUpdateRule CASCADE = new ForeignKeyUpdateRule(1);
