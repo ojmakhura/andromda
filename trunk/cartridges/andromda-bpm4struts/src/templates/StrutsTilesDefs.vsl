@@ -49,7 +49,7 @@
         <put name="body" type="string" value=""/>
         <put name="menu" type="definition" value="menu.tile"/>
         <put name="messages" type="definition" value="messages.tile"/>
-#if ($breadCrumbs == "true")
+#if ($maxBreadCrumbs != "0")
         <put name="breadcrumbs" type="definition" value="breadcrumbs.tile"/>
 #end
     </definition>
@@ -62,7 +62,7 @@
 
     <definition name="messages.tile" page="/layout/messages.jsp"/>
 
-#if ($breadCrumbs == "true")
+#if ($maxBreadCrumbs != "0")
     <definition name="breadcrumbs.tile" page="/layout/breadcrumbs.jsp"/>
 
 #end
