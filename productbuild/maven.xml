@@ -175,6 +175,9 @@
 	         Adds the samples to the distribution                                                   
 		 ================================================================== --> 
 	<goal name="dist-samples" prereqs="dist-init">
+		
+	    <attainGoal name="install-samples"/>
+		
 		<maven:reactor
 		  basedir="${basedir}"
 		  banner="Gathering Samples: "
