@@ -11,8 +11,19 @@ import java.util.StringTokenizer;
 public class HighlightJavaTag extends AbstractHighlightTag
 {
     private String keywordClass = null;
-    private String literalClass = null;
-    private String numericClass = null;
+    private String stringLiteralClass = null;
+    private String numericLiteralClass = null;
+    private String commentClass = null;
+
+    public String getCommentClass()
+    {
+        return commentClass;
+    }
+
+    public void setCommentClass(String commentClass)
+    {
+        this.commentClass = commentClass;
+    }
 
     public String getKeywordClass()
     {
@@ -24,68 +35,137 @@ public class HighlightJavaTag extends AbstractHighlightTag
         this.keywordClass = keywordClass;
     }
 
-    public String getLiteralClass()
+    public String getStringLiteralClass()
     {
-        return literalClass;
+        return stringLiteralClass;
     }
 
-    public void setLiteralClass(String literalClass)
+    public void setStringLiteralClass(String stringLiteralClass)
     {
-        this.literalClass = literalClass;
+        this.stringLiteralClass = stringLiteralClass;
     }
 
-    public String getNumericClass()
+    public String getNumericLiteralClass()
     {
-        return numericClass;
+        return numericLiteralClass;
     }
 
-    public void setNumericClass(String numericClass)
+    public void setNumericLiteralClass(String numericLiteralClass)
     {
-        this.numericClass = numericClass;
+        this.numericLiteralClass = numericLiteralClass;
     }
 
     protected void highlight(XMLOutput output, String text) throws SAXException
     {
-        boolean inLiteral = false;
+        boolean inPreComment = false;   // first slash
+        boolean inLineComment = false;
+        boolean inBlockComment = false;
+        boolean inPostComment = false;  // asterisk of closing */
+        boolean inString = false;
+
         StringTokenizer tokenizer = new StringTokenizer(text, " \n\r\t\f\"\'(){}[].,;:?!+-*/%^&|<>=~", true);
         while (tokenizer.hasMoreTokens())
         {
             String token = tokenizer.nextToken();
 
-            if (inLiteral)
+            if (inPreComment)
             {
-                startTokenHighlight(output, getLiteralClass());
-                output.write(token);
-                endTokenHighlight(output);
-                if (token.equals("\"") || token.equals("\'"))
+                if (token.equals("/"))
                 {
-                    inLiteral = false;
+                    inPreComment = false;
+                    inLineComment = true;
+                    startTokenHighlight(output, getCommentClass());
+                    output.write("//");
+                    continue;
+                }
+                else if (token.equals("*"))
+                {
+                    inPreComment = false;
+                    inBlockComment = true;
+                    startTokenHighlight(output, getCommentClass());
+                    output.write("/*");
+                    continue;
+                }
+                else
+                {
+                    output.write("/");
+                    inPreComment = false;
                 }
             }
-            else if (JAVA_KEYWORDS.contains(token))
+            else if (inLineComment)
             {
-                startTokenHighlight(output, getKeywordClass());
-                output.write(token);
-                endTokenHighlight(output);
-            }
-            else if (StringUtils.isNumeric(token))
-            {
-                startTokenHighlight(output, getNumericClass());
-                output.write(token);
-                endTokenHighlight(output);
-            }
-            else
-            {
-                if (token.equals("\"") || token.equals("\'"))
+                if (token.equals("\n"))
                 {
-                    startTokenHighlight(output, getLiteralClass());
-                    output.write(token);
                     endTokenHighlight(output);
-                    inLiteral = true;
+                    output.write(token);
+                    inLineComment = false;
                 }
                 else
                 {
                     output.write(token);
+                    continue;
+                }
+            }
+            else if (inBlockComment)
+            {
+                output.write(token);
+                if (token.equals("*"))
+                {
+                    inBlockComment = false;
+                    inPostComment = true;
+                }
+                continue;
+            }
+            else if (inPostComment)
+            {
+                output.write(token);
+                if (token.equals("/"))
+                {
+                    endTokenHighlight(output);
+                    inPostComment = false;
+                }
+                continue;
+            }
+
+            if (inString)
+            {
+                output.write(token);
+                if (token.equals("\"") || token.equals("\'"))
+                {
+                    inString = false;
+                    endTokenHighlight(output);
+                }
+            }
+            else if (inBlockComment==false && inLineComment==false)
+            {
+                if (JAVA_KEYWORDS.contains(token))
+                {
+                    startTokenHighlight(output, getKeywordClass());
+                    output.write(token);
+                    endTokenHighlight(output);
+                }
+                else if (StringUtils.isNumeric(token))
+                {
+                    startTokenHighlight(output, getNumericLiteralClass());
+                    output.write(token);
+                    endTokenHighlight(output);
+                }
+                else
+                {
+                    if (token.equals("\"") || token.equals("\'"))
+                    {
+                        startTokenHighlight(output, getStringLiteralClass());
+                        output.write(token);
+                        inString = true;
+                    }
+                    else if (token.equals("/"))
+                    {
+                        inPreComment = true;
+                    }
+                    else
+                    {
+                        output.write(token);
+                    }
                 }
             }
         }
@@ -113,7 +193,7 @@ public class HighlightJavaTag extends AbstractHighlightTag
         JAVA_KEYWORDS.add("while");
 
         // these are not Java language keywords, but we want them highlighted anyway
-        JAVA_KEYWORDS.add("null");
+        JAVA_KEYWORDS.add("null"); JAVA_KEYWORDS.add("false"); JAVA_KEYWORDS.add("true");
     }
 
 }

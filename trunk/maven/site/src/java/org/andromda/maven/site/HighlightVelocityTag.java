@@ -11,8 +11,19 @@ import java.util.StringTokenizer;
 public class HighlightVelocityTag extends AbstractHighlightTag
 {
     private String keywordClass = null;
-    private String literalClass = null;
-    private String numericClass = null;
+    private String stringLiteralClass = null;
+    private String numericLiteralClass = null;
+    private String commentClass = null;
+
+    public String getCommentClass()
+    {
+        return commentClass;
+    }
+
+    public void setCommentClass(String commentClass)
+    {
+        this.commentClass = commentClass;
+    }
 
     public String getKeywordClass()
     {
@@ -24,38 +35,111 @@ public class HighlightVelocityTag extends AbstractHighlightTag
         this.keywordClass = keywordClass;
     }
 
-    public String getLiteralClass()
+    public String getStringLiteralClass()
     {
-        return literalClass;
+        return stringLiteralClass;
     }
 
-    public void setLiteralClass(String literalClass)
+    public void setStringLiteralClass(String stringLiteralClass)
     {
-        this.literalClass = literalClass;
+        this.stringLiteralClass = stringLiteralClass;
     }
 
-    public String getNumericClass()
+    public String getNumericLiteralClass()
     {
-        return numericClass;
+        return numericLiteralClass;
     }
 
-    public void setNumericClass(String numericClass)
+    public void setNumericLiteralClass(String numericLiteralClass)
     {
-        this.numericClass = numericClass;
+        this.numericLiteralClass = numericLiteralClass;
     }
 
     protected void highlight(XMLOutput output, String text) throws SAXException
     {
+        boolean inPreComment = false;   // first #
+        boolean inLineComment = false;
+        boolean inBlockComment = false;
+        boolean inPostComment = false;  // asterisk of closing */
+
         boolean inString = false;
         boolean inChar = false;
-        StringTokenizer tokenizer = new StringTokenizer(text, " \n\r\t\f\"\'(){}[].,;:?!+-*/%^&|<>=~", true);
+        StringTokenizer tokenizer = new StringTokenizer(text, " \n\r\t\f\"\'(){}[].,;:?!+-*/%^&|<>=~#", true);
         while (tokenizer.hasMoreTokens())
         {
             String token = tokenizer.nextToken();
 
+            if (inPreComment)
+            {
+                if (token.equals("#"))
+                {
+                    inPreComment = false;
+                    inLineComment = true;
+                    startTokenHighlight(output, getCommentClass());
+                    output.write("##");
+                    continue;
+                }
+                else if (token.equals("*"))
+                {
+                    inPreComment = false;
+                    inBlockComment = true;
+                    startTokenHighlight(output, getCommentClass());
+                    output.write("#*");
+                    continue;
+                }
+                else if (VTL_KEYWORDS.contains(token))
+                {
+                    startTokenHighlight(output, getKeywordClass());
+                    output.write("#");
+                    output.write(token);
+                    endTokenHighlight(output);
+                    inPreComment = false;
+                    continue;
+                }
+                else
+                {
+                    output.write("#");
+                    inPreComment = false;
+                }
+            }
+            else if (inLineComment)
+            {
+                if (token.equals("\n"))
+                {
+                    endTokenHighlight(output);
+                    output.write(token);
+                    inLineComment = false;
+                }
+                else
+                {
+                    output.write(token);
+                    continue;
+                }
+            }
+            else if (inBlockComment)
+            {
+                output.write(token);
+                if (token.equals("*"))
+                {
+                    inBlockComment = false;
+                    inPostComment = true;
+                }
+                continue;
+            }
+            else if (inPostComment)
+            {
+                output.write(token);
+                if (token.equals("#"))
+                {
+                    endTokenHighlight(output);
+                    inPostComment = false;
+                }
+                continue;
+            }
+
             if (inString)
             {
-                startTokenHighlight(output, getLiteralClass());
+                startTokenHighlight(output, getStringLiteralClass());
                 output.write(token);
                 endTokenHighlight(output);
                 if (token.equals("\""))
@@ -65,7 +149,7 @@ public class HighlightVelocityTag extends AbstractHighlightTag
             }
             else if (inChar)
             {
-                startTokenHighlight(output, getLiteralClass());
+                startTokenHighlight(output, getStringLiteralClass());
                 output.write(token);
                 endTokenHighlight(output);
                 if (token.equals("\'"))
@@ -81,7 +165,7 @@ public class HighlightVelocityTag extends AbstractHighlightTag
             }
             else if (StringUtils.isNumeric(token))
             {
-                startTokenHighlight(output, getNumericClass());
+                startTokenHighlight(output, getNumericLiteralClass());
                 output.write(token);
                 endTokenHighlight(output);
             }
@@ -89,17 +173,21 @@ public class HighlightVelocityTag extends AbstractHighlightTag
             {
                 if (token.equals("\""))
                 {
-                    startTokenHighlight(output, getLiteralClass());
+                    startTokenHighlight(output, getStringLiteralClass());
                     output.write(token);
                     endTokenHighlight(output);
                     inString = true;
                 }
                 else if (token.equals("\'"))
                 {
-                    startTokenHighlight(output, getLiteralClass());
+                    startTokenHighlight(output, getStringLiteralClass());
                     output.write(token);
                     endTokenHighlight(output);
                     inChar = true;
+                }
+                else if (token.equals("#"))
+                {
+                    inPreComment = true;
                 }
                 else
                 {
@@ -112,9 +200,9 @@ public class HighlightVelocityTag extends AbstractHighlightTag
     private final static Set VTL_KEYWORDS = new HashSet(10,1);
     static
     {
-        VTL_KEYWORDS.add("#foreach"); VTL_KEYWORDS.add("#end"); VTL_KEYWORDS.add("#macro");
-        VTL_KEYWORDS.add("#if"); VTL_KEYWORDS.add("#elseif"); VTL_KEYWORDS.add("#else");
-        VTL_KEYWORDS.add("#parse");
+        VTL_KEYWORDS.add("foreach"); VTL_KEYWORDS.add("end"); VTL_KEYWORDS.add("macro");
+        VTL_KEYWORDS.add("if"); VTL_KEYWORDS.add("elseif"); VTL_KEYWORDS.add("else");
+        VTL_KEYWORDS.add("parse");
 
         // these are not Java language keywords, but we want them highlighted anyway
         VTL_KEYWORDS.add("false"); VTL_KEYWORDS.add("in"); VTL_KEYWORDS.add("true");
