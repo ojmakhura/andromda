@@ -56,7 +56,7 @@
             body findByStatusesBody:
                 allInstances() -> select(
                     la |
-                agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk)
+                agreementStatusPks -> includes(la.agreementStatus.agreementStatusPk)
                 or agreementStatusPks -> isEmpty()
                 and la.agreementTypePk = anAgreementTypePk )
         </from>
@@ -114,7 +114,7 @@
      <expression>
         <from>
             context org::andromda::contracts::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement)
-            body : allInstances() -> select( legalAgreement | legalAgreementPks -> exists(legalAgreement.legalAgreementPk))
+            body : allInstances() -> select( legalAgreement | legalAgreementPks -> includes(legalAgreement.legalAgreementPk))
         </from>
         <to>
             from org.andromda.contracts.LegalAgreement as legalAgreement
