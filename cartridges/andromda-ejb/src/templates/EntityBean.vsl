@@ -96,7 +96,7 @@ package $packagename;
  *     view-type="local"
  *     local-jndi-name = "ejb/${transform.replace($transform.findFullyQualifiedName($class),'.','/')}/Local"
 #if (!$transform.hasCompleyPrimaryKey($class))
- *     primkey-field = "$transform.getPrimaryKeyAttribute($class).name"
+ *     primkey-field = "$transform.getSimplePkField($class).name"
 #end
  *
  * @ejb.interface generate="false" local-class="${packagename}.${entityname}"
