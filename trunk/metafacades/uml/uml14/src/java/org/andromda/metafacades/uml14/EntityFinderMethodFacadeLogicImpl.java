@@ -24,7 +24,7 @@ public class EntityFinderMethodFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery(java.lang.String)
      */
-    public java.lang.String getQuery(String translation) 
+    public java.lang.String handleGetQuery(String translation) 
     {
         final String methodName = "EntityFinderMethodFacadeImpl.getQuery";
         ExceptionUtils.checkEmpty(methodName, "translation", translation);

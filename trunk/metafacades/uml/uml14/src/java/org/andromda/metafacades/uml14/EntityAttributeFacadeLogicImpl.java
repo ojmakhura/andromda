@@ -27,7 +27,7 @@ public class EntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnName()
      */
-    public String getColumnName() {
+    public String handleGetColumnName() {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
@@ -37,7 +37,7 @@ public class EntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnLength()
      */
-    public String getColumnLength() {
+    public String handleGetColumnLength() {
         Object value = this.findTaggedValue(
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
         return value == null ? null : value.toString();
@@ -46,14 +46,14 @@ public class EntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#isIdentifier()
      */
-    public boolean isIdentifier() {
+    public boolean handleIsIdentifier() {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#getSqlType()
      */
-    public java.lang.String getSqlType() {
+    public java.lang.String handleGetSqlType() {
         String value = null;
         if (this.getSqlMappings() != null) {
             ClassifierFacade type = this.getType();
@@ -86,7 +86,7 @@ public class EntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#getJdbcType()
      */
-    public java.lang.String getJdbcType() {
+    public java.lang.String handleGetJdbcType() {
         String value = null;
         if (this.getJdbcMappings() != null) {
             ClassifierFacade type = this.getType();
@@ -135,7 +135,7 @@ public class EntityAttributeFacadeLogicImpl
      * for this entity attribute.
      * @return the SQL Mappings instance.
      */
-    public Mappings getSqlMappings() {
+    public Mappings handleGetSqlMappings() {
         return (Mappings)this.getConfiguredProperty(SQL_MAPPINGS_URI);
     }
 
@@ -166,7 +166,7 @@ public class EntityAttributeFacadeLogicImpl
     /**
      * Gets the JDBC mappings.
      */
-    public Mappings getJdbcMappings() {
+    public Mappings handleGetJdbcMappings() {
         return (Mappings)this.getConfiguredProperty(JDBC_MAPPINGS_URI);
     }
 

@@ -151,12 +151,18 @@ public class ValidationJavaTranslator extends BaseTranslator
             ((PPropertyCallExpressionTail) temp[i]).apply(this);
         mergeTranslationLayerAfter();
     }
-
+    
     public void caseADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         node.getDot().apply(this);
-        node.getDotFeatureCall().apply(this);
+        node.getFeatureCall().apply(this);
     }
+
+    /*public void caseADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
+    {
+        node.getDot().apply(this);
+        node.getDotFeatureCall().apply(this);
+    }*/
 
     public void caseALetExp(ALetExp node)
     {
@@ -229,15 +235,20 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         mergeTranslationLayerAfter();
     }
+    
+    public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node) {
+        node.getArrow().apply(this);
+        node.getFeatureCall().apply(this);
+    }
 
-    public void caseAArrowFeatureCall(AArrowFeatureCall node)
+    public void caseAFeatureCall(AFeatureCall node)
     {
         newTranslationLayer();
         write("OCLCollections.");
-        inAArrowFeatureCall(node);
-        if(node.getArrowFeature() != null)
+        inAFeatureCall(node);
+        if(node.getPathName()!= null)
         {
-            node.getArrowFeature().apply(this);
+            node.getPathName().apply(this);
         }
         AFeatureCallParameters parameters =
             (AFeatureCallParameters)node.getFeatureCallParameters();
@@ -266,7 +277,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         {
             parameters.getRParen().apply(this);
         }
-        outAArrowFeatureCall(node);
+        outAFeatureCall(node);
     }
 
     public void caseTName(TName node)
@@ -523,8 +534,8 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
     }
 
-    public void caseTIsEmpty(TIsEmpty tIsEmpty)
-    {
+    /*public void caseTIsEmpty(TIsEmpty tIsEmpty)
+    { 
         write("isEmpty");
     }
 
@@ -576,7 +587,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     public void caseTPrepend(TPrepend tPrepend)
     {
         write("prepend");
-    }
+    }*/
 
     public void caseTRange(TRange tRange)
     {
@@ -592,17 +603,17 @@ public class ValidationJavaTranslator extends BaseTranslator
         write(", ");
     }
 
-    public void caseTCount(TCount tCount)
+    /*public void caseTCount(TCount tCount)
     {
         write("count");
-    }
+    }*/
 
     public void caseTDot(TDot tDot)
     {
         write(".");
     }
 
-    public void caseTExcludes(TExcludes tExcludes)
+   /* public void caseTExcludes(TExcludes tExcludes)
     {
         write("exclude");
     }
@@ -730,7 +741,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     public void caseTSize(TSize tSize)
     {
         write("size");
-    }
+    }*/
 
     public void caseTSemicolon(TSemicolon tSemicolon)
     {

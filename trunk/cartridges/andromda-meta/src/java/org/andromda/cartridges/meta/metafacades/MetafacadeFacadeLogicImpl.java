@@ -40,7 +40,7 @@ public class MetafacadeFacadeLogicImpl
     // concrete business methods that were declared
     // abstract in class MetafacadeFacade ...
 
-    public java.lang.String getImplSuperclassName()
+    public java.lang.String handleGetImplSuperclassName()
     {
         Object taggedValue =
             findTaggedValueUpstairs(
@@ -129,7 +129,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isMetaclassDirectDependency()
      */
-    public boolean isMetaclassDirectDependency() {
+    public boolean handleIsMetaclassDirectDependency() {
         boolean isMetaClassDirectDependency = false;
         Collection dependencies = this.getDependencies();
         if (dependencies != null && !dependencies.isEmpty()) {
@@ -150,7 +150,7 @@ public class MetafacadeFacadeLogicImpl
     /* (non-Javadoc)
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getInterfacePackageName()
      */
-    public String getInterfacePackageName()
+    public String handleGetInterfacePackageName()
     {
         Object taggedValue =
             findTaggedValueUpstairs(
@@ -163,15 +163,15 @@ public class MetafacadeFacadeLogicImpl
     /* (non-Javadoc)
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedInterfaceName()
      */
-    public String getFullyQualifiedInterfaceName()
+    public String handleGetFullyQualifiedInterfaceName()
     {
         return getInterfacePackageName() + "." + this.getName();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getMethodDataForPSM(boolean)
      */
-    public Collection getMethodDataForPSM(boolean includeSuperclasses)
+    public Collection handleGetMethodDataForPSM(boolean includeSuperclasses)
     {
         HashMap map = new HashMap();
         internalGetMethodDataForPSM(map, this);

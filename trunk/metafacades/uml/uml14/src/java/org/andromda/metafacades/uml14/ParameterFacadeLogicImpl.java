@@ -34,7 +34,7 @@ public class ParameterFacadeLogicImpl
     // concrete business methods that were declared
     // abstract in class ParameterDecorator ...
 
-    public String getDefaultValue()
+    public String handleGetDefaultValue()
     {
         final Expression expression = metaObject.getDefaultValue();
         return (expression == null) ? "" : expression.getBody();

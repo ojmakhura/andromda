@@ -27,7 +27,7 @@ public class ConstraintFacadeLogicImpl
 	/**
 	 * @see org.andromda.metafacades.uml.ConstraintFacade#getBody()
 	 */
-    public java.lang.String getBody() 
+    public java.lang.String handleGetBody() 
     {   
         return this.metaObject.getBody().getBody();
     }

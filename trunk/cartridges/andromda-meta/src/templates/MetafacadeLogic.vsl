@@ -85,7 +85,7 @@ public abstract class ${class.name}Logic
 
     public final $memberTypeName ${methodName}()
     {
-        if (${memberName}Set) return $memberName;
+        // if (${memberName}Set) return $memberName;
         ${handleMethodPreCondition};
         $memberName = ${handleMethodName}($typedArgumentList);
         ${handleMethodPostCondition};
@@ -95,7 +95,6 @@ public abstract class ${class.name}Logic
 
 #end
 #end
-
 #set ($ops = $class.operations)
 #if (!$ops.empty)
     // ---------------- real business methods ----------------------
@@ -127,10 +126,14 @@ public abstract class ${class.name}Logic
     public final $memberTypeName ${methodName}($typedArgumentList)
     {
 #if($op.hasReturnType())
-        if (${memberName}Set) return $memberName;
+        // if (${memberName}Set) return $memberName;
 #end
         ${handleMethodPreCondition};
+#if($op.hasReturnType())
         $memberName = ${handleMethodName}($op.argumentNames);
+#else
+        ${handleMethodName}($op.argumentNames);
+#end
         ${handleMethodPostCondition};
 #if($op.hasReturnType())
         ${memberName}Set = true;
@@ -175,7 +178,7 @@ public abstract class ${class.name}Logic
 
     public final $memberTypeName ${methodName}()
     {
-        if (${memberName}Set) return $memberName;
+        // if (${memberName}Set) return $memberName;
         ${handleMethodPreCondition};
 #if ($assocEnd.one2Many || $assocEnd.many2Many)
         $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
@@ -184,7 +187,7 @@ public abstract class ${class.name}Logic
 #end
         ${handleMethodPostCondition};
         ${memberName}Set = true;
-        return ($memberTypeName)$memberName;
+        return $memberName;
     }
 
 #end

@@ -54,7 +54,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
-    public String getPackageName()
+    public String handleGetPackageName()
     {
         String packageName = "";
 
@@ -75,7 +75,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
-    public java.lang.String getFullyQualifiedName(boolean modelName)
+    public java.lang.String handleGetFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
 
@@ -101,7 +101,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public java.lang.String getFullyQualifiedName()
+    public java.lang.String handleGetFullyQualifiedName()
     {
         return this.getFullyQualifiedName(false);
     }
@@ -109,7 +109,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
      */
-    public Object findTaggedValue(String name)
+    public Object handleFindTaggedValue(String name)
     {
         name = StringUtils.trimToEmpty(name);
         Collection taggedValues = this.getTaggedValues();
@@ -130,7 +130,7 @@ public class ModelElementFacadeLogicImpl
         return value;
     }
 
-    public boolean hasStereotype(final String stereotypeName)
+    public boolean handleHasStereotype(final String stereotypeName)
     {
         Collection stereotypes = this.getStereotypes();
 
@@ -169,7 +169,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(java.lang.String)
      */
-    public boolean hasExactStereotype(String stereotypeName) {
+    public boolean handleHasExactStereotype(String stereotypeName) {
         return this.getStereotypeNames().contains(
                 StringUtils.trimToEmpty(stereotypeName));
     }
@@ -177,7 +177,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getVisibility()
      */
-    public String getVisibility()
+    public String handleGetVisibility()
     {
 		StringBuffer visibility = new StringBuffer();
 		VisibilityKind visibilityKind = metaObject.getVisibility();
@@ -196,7 +196,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypeNames()
      */
-    public java.util.Collection getStereotypeNames() {
+    public java.util.Collection handleGetStereotypeNames() {
         Collection stereotypeNames = new ArrayList();
 
         Collection stereotypes = metaObject.getStereotype();
@@ -211,7 +211,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
      */
-    public String getPackagePath()
+    public String handleGetPackagePath()
     {
         return '/' + getPackageName().replace('.','/');
     }
@@ -219,7 +219,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String)
      */
-    public String getDocumentation(String indent)
+    public String handleGetDocumentation(String indent)
     {
         return getDocumentation(indent, 64);
     }
@@ -227,7 +227,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int)
      */
-    public String getDocumentation(String indent, int lineLength)
+    public String handleGetDocumentation(String indent, int lineLength)
     {
         return getDocumentation(indent, lineLength, true);
     }
@@ -237,7 +237,7 @@ public class ModelElementFacadeLogicImpl
      *
      * TODO: the lineLength does not work yet
      */
-    public String getDocumentation(String indent, int lineLength, boolean htmlStyle)
+    public String handleGetDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
         if (StringUtils.isEmpty(indent)) {
             indent = "";
@@ -296,7 +296,7 @@ public class ModelElementFacadeLogicImpl
         return documentation.toString();
     }
 
-    public String getName()
+    public String handleGetName()
     {
         return metaObject.getName();
     }
@@ -334,7 +334,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
-    public Mappings getLanguageMappings() {
+    public Mappings handleGetLanguageMappings() {
         return (Mappings)this.getConfiguredProperty(LANGUAGE_MAPPINGS_URI);
     }
 
@@ -403,7 +403,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
      */
-    public String translateConstraint(final String name, String translation)
+    public String handleTranslateConstraint(final String name, String translation)
     {
         String translatedExpression = "";
         ConstraintFacade constraint = (ConstraintFacade)CollectionUtils.find(
@@ -434,7 +434,7 @@ public class ModelElementFacadeLogicImpl
      /**
       * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String)
       */
-     public java.lang.String[] translateConstraints(String translation) {
+     public java.lang.String[] handleTranslateConstraints(String translation) {
         return this.translateConstraints(this.getConstraints(), translation);
      }
 
@@ -470,7 +470,7 @@ public class ModelElementFacadeLogicImpl
      /**
       * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String, java.lang.String)
       */
-     public java.lang.String[] translateConstraints(final String kind, String translation) {
+     public java.lang.String[] handleTranslateConstraints(final String kind, String translation) {
         Collection constraints = this.getConstraints();
         CollectionUtils.filter(
             constraints,

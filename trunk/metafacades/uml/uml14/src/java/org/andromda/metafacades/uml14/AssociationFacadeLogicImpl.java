@@ -46,9 +46,10 @@ public class AssociationFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     * 
+     * @see org.andromda.metafacades.uml14.AssociationFacadeLogic#getRelationName()
      */
-    public String getRelationName() {
+    public String handleGetRelationName() {
         Collection ends = this.getAssociationEnds();
         Iterator endIt = ends.iterator();
         AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();

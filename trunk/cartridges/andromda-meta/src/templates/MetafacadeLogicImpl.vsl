@@ -23,7 +23,7 @@ public class ${class.name}LogicImpl
         super (metaObject, context);
     }
 #set ($atts = $class.attributes)
-#if ($atts.size() > 0)
+#if (!$atts.empty)
 
     // --------------- attributes ---------------------
 #foreach ( $att in $atts )
@@ -50,13 +50,11 @@ public class ${class.name}LogicImpl
 #end
 ##
 #set ($ops = $class.operations)
-#if ($ops.size() > 0)
-
+#if (!$ops.empty)
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
     // abstract in class ${class.name} ...
-
 #foreach ( $op in $ops)
 ##
 #set ($methodName = $op.name)
@@ -92,7 +90,7 @@ public class ${class.name}LogicImpl
 #end
 ##
 #set ($assocEnds = $class.associationEnds)
-#if ($assocEnds.size() > 0)
+#if (!$assocEnds.empty)
     // ------------- relations ------------------
 
 #foreach ( $assocEnd in $assocEnds )

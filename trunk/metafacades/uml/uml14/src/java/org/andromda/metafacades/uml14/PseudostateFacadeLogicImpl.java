@@ -25,42 +25,42 @@ public class PseudostateFacadeLogicImpl
     // concrete business methods that were declared
     // abstract in class PseudostateDecorator ...
 
-    public boolean isChoice()
+    public boolean handleIsChoice()
     {
         return PseudostateKindEnum.PK_CHOICE.equals(metaObject.getKind());
     }
 
-    public boolean  isInitialState()
+    public boolean  handleIsInitialState()
     {
         return PseudostateKindEnum.PK_INITIAL.equals(metaObject.getKind());
     }
 
-    public boolean isJoin()
+    public boolean handleIsJoin()
     {
         return PseudostateKindEnum.PK_JOIN.equals(metaObject.getKind());
     }
 
-    public boolean isDeepHistory()
+    public boolean handleIsDeepHistory()
     {
         return PseudostateKindEnum.PK_DEEP_HISTORY.equals(metaObject.getKind());
     }
 
-    public boolean isFork()
+    public boolean handleIsFork()
     {
         return PseudostateKindEnum.PK_FORK.equals(metaObject.getKind());
     }
 
-    public boolean isJunction()
+    public boolean handleIsJunction()
     {
         return PseudostateKindEnum.PK_JUNCTION.equals(metaObject.getKind());
     }
 
-    public boolean isShallowHistory()
+    public boolean handleIsShallowHistory()
     {
         return PseudostateKindEnum.PK_SHALLOW_HISTORY.equals(metaObject.getKind());
     }
 
-    public boolean isDecisionPoint()
+    public boolean handleIsDecisionPoint()
     {
         boolean isDecisionPoint = false;
 
@@ -73,7 +73,7 @@ public class PseudostateFacadeLogicImpl
         return isDecisionPoint;
     }
 
-    public boolean isMergePoint()
+    public boolean handleIsMergePoint()
     {
         boolean isMergePoint = false;
 

@@ -30,36 +30,36 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the parameter name will result in uncompilable Java code.
+     * This method is overridden to make sure the parameter 
+     * name will result in uncompilable Java code.
      */
-    public String getName()
+    public String handleGetName()
     {
-        return StringUtilsHelper.toJavaMethodName(super.getName());
+        return StringUtils.deleteWhitespace(super.getName());
     }
 
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
     // abstract in class AttributeFacade ...
-
-    public java.lang.String getGetterName()
+    
+    
+    public java.lang.String handleGetGetterName()
     {
-        return "get"
-            + StringUtilsHelper.upperCaseFirstLetter(metaObject.getName());
+        return "get" + StringUtils.capitalize(metaObject.getName());
     }
 
-    public java.lang.String getSetterName()
+    public java.lang.String handleGetSetterName()
     {
-        return "set"
-            + StringUtilsHelper.upperCaseFirstLetter(metaObject.getName());
+        return "set" + StringUtils.capitalize(metaObject.getName());
     }
 
-    public String getDefaultValue()
+    public String handleGetDefaultValue()
     {
         return metaObject.getInitialValue().getBody();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.andromda.core.metadecorators.uml14.AttributeFacade#handleGetType()
      */
     protected Object handleGetType()
@@ -75,26 +75,26 @@ public class AttributeFacadeLogicImpl
         return this.metaObject.getOwner();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AssociationEndFacade#isReadOnly()
+    /**
+     * @see org.andromda.core.metadecorators.uml.AssociationEndFacade#isReadOnly()
      */
-    public boolean isReadOnly()
+    public boolean handleIsReadOnly()
     {
         return ChangeableKindEnum.CK_FROZEN.equals(metaObject.getChangeability());
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AttributeFacade#isStatic()
+    /**
+     * @see org.andromda.core.metadecorators.uml.AttributeFacade#isStatic()
      */
-    public boolean isStatic()
+    public boolean handleIsStatic()
     {
         return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject.getOwnerScope());
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.AttributeFacade#findTaggedValue(java.lang.String, boolean)
+    /**
+     * @see org.andromda.core.metadecorators.uml.AttributeFacade#findTaggedValue(java.lang.String, boolean)
      */
-    public Object findTaggedValue(String name, boolean follow)
+    public Object handleFindTaggedValue(String name, boolean follow)
     {
         name = StringUtils.trimToEmpty(name);
         Object value = findTaggedValue(name);
@@ -111,7 +111,7 @@ public class AttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
      */
-	public boolean isRequired() {
+	public boolean handleIsRequired() {
 		int lower = this.getMultiplicityRangeLower();
 		return lower >= 1;
     }
