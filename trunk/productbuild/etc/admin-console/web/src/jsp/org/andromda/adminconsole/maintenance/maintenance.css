@@ -22,6 +22,19 @@
 #insert.action
 {
     margin-top: 30px;
+    background-color: #ffebc2;
+    border: 1px solid #c60;
+}
+#insert.action td
+{
+    padding: 0 15px 0 15px;
+}
+
+#insert.action h3
+{
+    background-color: #f93;
+    color: #fff;
+    font-size: 100%;
 }
 
 a.foreignTableLink
@@ -32,4 +45,20 @@ a.foreignTableLink
 stress
 {
     font-weight: 150%;
+}
+
+#exactMatches
+{
+/*    color: #c60;
+    font-weight: bold;
+*/}
+
+#importedTables
+{
+    padding-left: 30px;
+    vertical-alignment: top;
+}
+
+#recordTable
+{
 }
