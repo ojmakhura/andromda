@@ -83,7 +83,7 @@
 	        		<td>
 	        			The ModelFacade implementation to use.  The ModelFacade provides the access to the
 	        			metafacades implementations during template processing.  
-	        			Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.Uml14ModelFacade</code>.
+	        			Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.UMLModelAccessFacade</code>.
 	        		</td>
 	        	</tr>     	 		        	        		        	   	    	        		        	        	        	     	             	        	
 	        </table>
