@@ -2,7 +2,6 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 
-import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -70,23 +69,23 @@ public class ServiceFacadeLogicImpl
      */
     protected Collection handleGetRoles()
     {
-        Collection roles = this.getAssociationEnds();
+        Collection roles = this.getTargetDependencies();
         CollectionUtils.filter(roles, new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                AssociationEndFacade end = (AssociationEndFacade)object;
-                return end != null
-                    && end.getOtherEnd().getType() != null
-                    && RoleFacade.class.isAssignableFrom(end.getOtherEnd()
-                        .getType().getClass());
+                DependencyFacade dependency = (DependencyFacade)object;
+                return dependency != null
+                    && dependency.getSourceElement() != null
+                    && RoleFacade.class.isAssignableFrom(dependency
+                        .getSourceElement().getClass());
             }
         });
         CollectionUtils.transform(roles, new Transformer()
         {
             public Object transform(Object object)
             {
-                return ((AssociationEndFacade)object).getOtherEnd().getType();
+                return ((DependencyFacade)object).getSourceElement();
             }
         });
         return roles;

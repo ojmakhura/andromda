@@ -112,8 +112,9 @@
 							Actor
 						</td>
 			          	<td>
-			          		Defines the role providing access to a given web service.  You must associate
-                            this role to the web service for which the role will provide access.
+			          		Defines the role providing access to a given web service. 
+                            You must draw a dependency from the role to the web service
+                            for which the role will provide access.
 			          	</td>
 		        	</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
