@@ -3,8 +3,8 @@
   	<!-- ==================================================================
   		     Run the translation tests                                                    
   		 ================================================================== -->
-  	<postGoal name="test:test">  		
+  	<preGoal name="test:test">  		
         <attainGoal name="androdev:test-translation"/>
-  	</postGoal> 
+  	</preGoal> 
   	  	
 </project>
