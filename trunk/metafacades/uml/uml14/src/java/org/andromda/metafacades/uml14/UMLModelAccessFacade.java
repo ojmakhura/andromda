@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Vector;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -86,7 +85,7 @@ public class UMLModelAccessFacade
      */
     public Collection getStereotypeNames(Object modelElement)
     {
-        Collection stereoTypeNames = new Vector();
+        Collection stereotypeNames = new ArrayList();
         if (modelElement instanceof ModelElement)
         {
             ModelElement element = (ModelElement)modelElement;
@@ -94,11 +93,14 @@ public class UMLModelAccessFacade
             for (Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
                 ModelElement stereotype = (ModelElement)iterator.next();
-                stereoTypeNames.add(stereotype.getName());
+                stereotypeNames.add(stereotype.getName());
             }
         }
-
-        return stereoTypeNames;
+        else if (modelElement instanceof ModelElementFacade)
+        {
+            stereotypeNames = ((ModelElementFacade)modelElement).getStereotypeNames();     
+        }
+        return stereotypeNames;
     }
 
     /**
