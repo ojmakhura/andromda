@@ -631,16 +631,20 @@ public class StrutsParameterLogicImpl
         if ("radio".equals(getWidgetType()))
         {
             Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
-            String fieldType = value == null ? null : value.toString();
-            if (fieldType.length() > Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length())
+
+            if (value != null)
             {
-                try
+                String valueString = String.valueOf(value).trim();
+                if (valueString.length() > 5)
                 {
-                    return Integer.parseInt(fieldType.substring(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length()).trim());
-                }
-                catch (Exception exception)
-                {
-                    // let the next return statement handle this
+                    try
+                    {
+                        return Integer.parseInt(valueString.substring(5).trim());
+                    }
+                    catch (Exception exception)
+                    {
+                        // let the next return statement handle this
+                    }
                 }
             }
             return 3;
