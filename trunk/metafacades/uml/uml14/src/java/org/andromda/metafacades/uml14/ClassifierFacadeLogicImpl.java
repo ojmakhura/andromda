@@ -87,7 +87,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean isPrimitiveType()
     {
-        String name = this.getName();
+        String name = this.getFullyQualifiedName();
         return (
             "void".equals(name)
                 || "char".equals(name)
@@ -104,7 +104,7 @@ public class ClassifierFacadeLogicImpl
     {
         try
         {
-            return Class.forName(getName()).isArray();
+            return Class.forName(getFullyQualifiedName()).isArray();
         }
         catch(Exception exception)
         {
@@ -116,7 +116,7 @@ public class ClassifierFacadeLogicImpl
     {
         try
         {
-            Class parameterClass = Class.forName(getName());
+            Class parameterClass = Class.forName(getFullyQualifiedName());
             Class collectionClass = Class.forName(Collection.class.getName());
             return collectionClass.isAssignableFrom(parameterClass);
         }
