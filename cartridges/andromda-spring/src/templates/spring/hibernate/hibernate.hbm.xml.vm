@@ -29,7 +29,7 @@
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable)
 #if ($sourceEnd.one2One)
-		<one-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}"#if ($otherEnd.child) cascade="delete"#end constrained="false"/>
+		<one-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}" property-ref="$identifier.name"#if ($otherEnd.child) cascade="delete"#end constrained="false"/>
 #end
 #if ($sourceEnd.one2Many)
 		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="delete"#end>

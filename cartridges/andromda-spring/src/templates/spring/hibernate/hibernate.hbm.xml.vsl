@@ -16,17 +16,13 @@
 
 #set ($identifier = $entity.identifiers.iterator().next())
 		<id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
-#if ($entity.child && $entity.parentEnd.one2One)
-			<generator class="foreign">
-			     <param name="property">$entity.parentEnd.name</param>
-			</generator>
-#else
 			<generator class="$entity.hibernateGeneratorClass">
 #if ($entity.hibernateGeneratorClass.equalsIgnoreCase("sequence"))			
 				<param name="sequence">${entity.tableName}_SEQ</param>
+#elseif ($entity.hibernateGeneratorClass.equalsIgnoreCase("foreign"))
+			    <param name="property">$entity.parentEnd.name</param>
 #end
 			</generator>
-#end
 		</id>
 ## Provide the specialization if this is a superclass 		
 #if (!$entity.specializations.empty)
