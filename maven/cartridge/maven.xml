@@ -11,7 +11,6 @@
         <j:if test="${bootstrapMode == null or bootstrapMode == ''}">
             <j:set var="bootstrapMode" value="false"/>
         </j:if>
-        <j:set var="bootstrapMetaCartridge" value=""/>
         <j:set var="bootstrap" value=""/>
         <j:if test="${bootstrapMode}">
             <j:set var="bootstrap" value="-bootstrap"/>
