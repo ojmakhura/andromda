@@ -26,7 +26,9 @@ public class TranslationUtils
      * </p>
      */
     public TranslationUtils()
-    {}
+    {
+        // Here for documentation purposes
+    }
 
     /**
      * Searches for and replaces the specified pattern with braces around it,

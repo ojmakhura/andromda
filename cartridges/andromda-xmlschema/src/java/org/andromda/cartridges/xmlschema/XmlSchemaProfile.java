@@ -42,6 +42,9 @@ public class XmlSchemaProfile {
     /**
      * Shouldn't be instantiated.
      */ 
-   private XmlSchemaProfile(){}   
+   private XmlSchemaProfile()
+   { 
+       // should not be instantiated
+   }
    
 }

@@ -243,7 +243,7 @@ public class AndroMDAGenTask
         }
         catch (Throwable th)
         {
-            ExceptionRecorder.record(
+            ExceptionRecorder.instance().record(
                 "Unexpected Exception",
                 th,
                 "AndroMDAGenTask");

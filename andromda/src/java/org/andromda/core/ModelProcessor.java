@@ -254,7 +254,7 @@ public class ModelProcessor
             String errorMesssage = "Error performing " + methodName
                 + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
             logger.error(errorMesssage);
-            ExceptionRecorder.record(errorMesssage, th, cartridgeName);
+            ExceptionRecorder.instance().record(errorMesssage, th, cartridgeName);
             throw new ModelProcessorException(errorMesssage, th);
         }
     }

@@ -152,12 +152,14 @@ public class ModelElement
 
     /**
      * Checks the <code>object</code> to see whether or not its acceptable. It
-     * matches on the types and each type's properties.
+     * matches on the types and each type's properties. <strong>NOTE:</strong>
+     * protected visibility to improve performance from within
+     * {@link #applyTypeFiltering()}
      * 
      * @param metafacade the metafacade to check
      * @return true/false
      */
-    private boolean accept(Object metafacade)
+    protected boolean accept(Object metafacade)
     {
         Iterator typeIt = types.iterator();
         boolean accept = true;

@@ -107,7 +107,9 @@ public class MetafacadeBase
      * </p>
      */
     public void validateInvariants(Collection messages)
-    {}
+    {
+        // By default this does nothing
+    }
 
     /**
      * A lifecycle method, providing the ability for sub classes to take any
@@ -115,7 +117,9 @@ public class MetafacadeBase
      * before it has been validated for completeness.
      */
     public void initialize()
-    {}
+    {
+        // By default this does nothing
+    }
 
     /**
      * Returns one facade for a particular metaObject. Contacts the

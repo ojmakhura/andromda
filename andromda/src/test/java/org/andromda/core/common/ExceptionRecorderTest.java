@@ -24,7 +24,7 @@ public class ExceptionRecorderTest extends TestCase
     {
         Exception ex1 = new Exception("ExceptionRecorder Test");
         Exception ex2 = new Exception(ex1);
-        String filename = ExceptionRecorder.record("Test message", ex2, "test");
+        String filename = ExceptionRecorder.instance().record("Test message", ex2, "test");
         File excFile = new File(filename);
         assertTrue("exception file not created:" + excFile, excFile.exists());
         FileReader fr = null;

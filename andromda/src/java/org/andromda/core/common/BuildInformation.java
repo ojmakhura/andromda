@@ -18,9 +18,9 @@ public class BuildInformation
     private static final BuildInformation instance = new BuildInformation();
 
     /**
-     * Gets the shared instance of the ModelProcessor.
+     * Gets the shared instance of the BuildInformation.
      * 
-     * @return the shared ModelProcessor instance.
+     * @return the shared BuildInformation instance.
      */
     public static BuildInformation instance()
     {
@@ -96,7 +96,7 @@ public class BuildInformation
         }
         catch (Throwable th)
         {
-            ExceptionRecorder.record(th);
+            ExceptionRecorder.instance().record(th);
             throw new IllegalStateException(th.getMessage());
         }
     }

@@ -272,6 +272,7 @@ public class MetafacadeMappings
     }
 
     /**
+     * <p>
      * Stores the mappings which are currently "in process" (within the
      * {@link #getMapping(Object, String, Collection)}. This means the mapping
      * is being processed by the {@link #getMapping(Object, String, Collection)}
@@ -279,10 +280,16 @@ public class MetafacadeMappings
      * the mappings currently being evaluated so we avoid stack over flow errors
      * {@link #getMapping(Object, String, Collection)}when finding mappings
      * that are mapped to super metafacade properties.
+     * </p>
+     * <p>
+     *  Note: visibility is defined as <code>protected</code> in order
+     *  to improve inner class access performance.
+     * </p>
      */
-    private final Collection inProcessMappings = new ArrayList();
+    protected final Collection inProcessMappings = new ArrayList();
 
     /**
+     * <p>
      * Stores the metafacades which are currently "in process" (within the
      * {@link #getMapping(Object, String, Collection)}. This means the
      * metafacade being processed by the
@@ -291,8 +298,13 @@ public class MetafacadeMappings
      * currently being evaluated so we avoid stack over flow errors
      * {@link #getMapping(Object, String, Collection)}when finding metafacades
      * that are mapped to super metafacade properties.
+     * </p>
+     * <p>
+     *  Note: visibility is defined as <code>protected</code> in order
+     *  to improve inner class access performance.
+     * </p>
      */
-    private final Collection inProcessMetafacades = new ArrayList();
+    protected final Collection inProcessMetafacades = new ArrayList();
 
     /**
      * <p>
@@ -571,12 +583,13 @@ public class MetafacadeMappings
     /**
      * Retrieves all inherited contexts (including the root <code>context</code>)
      * from the given <code>context</code> and returns a list containing all
-     * of them.
+     * of them.  Note that the visibilty of this operation is protected to 
+     * improve inner class access performance.
      * 
      * @param context the root contexts
      * @return a list containing all inherited contexts
      */
-    private List getContextHierarchy(String context)
+    protected List getContextHierarchy(String context)
     {
         List contexts = (List)this.contextHierachyCache.get(context);
         if (contexts == null)
@@ -596,6 +609,7 @@ public class MetafacadeMappings
         }
         return contexts;
     }
+    
     /**
      * The cache of interfaces for the given className in reversed order.
      */

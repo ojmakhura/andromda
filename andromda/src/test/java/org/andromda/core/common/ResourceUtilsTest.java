@@ -14,11 +14,6 @@ public class ResourceUtilsTest
     extends TestCase
 {
 
-    public void setUp()
-    {
-
-    }
-
     public void testGetDirectoryContentsZeroLevels() throws Exception
     {
         URL resource = ResourceUtilsTest.class
