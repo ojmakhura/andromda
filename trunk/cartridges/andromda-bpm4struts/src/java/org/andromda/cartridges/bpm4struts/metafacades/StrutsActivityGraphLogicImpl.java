@@ -34,6 +34,9 @@ public class StrutsActivityGraphLogicImpl
 
     protected Object handleGetUseCase()
     {
+        /*
+         * First check whether this activity graph resides in the namespace of a use-case
+         */
         Collection useCases = getModel().getAllUseCases();
         for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
         {
@@ -47,6 +50,35 @@ public class StrutsActivityGraphLogicImpl
                 }
             }
         }
+
+        /*
+         * If this was not the case then look for a use-case pointing to this activity graph using a tagged
+         * value, if this activity graph has no name we do not try to search
+         */
+        final String name = getName();
+        if (name != null)
+        {
+            for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+            {
+                Object obj = iterator.next();
+                if (obj instanceof StrutsUseCase)
+                {
+                    StrutsUseCase strutsUseCase = (StrutsUseCase) obj;
+                    Object activity = strutsUseCase.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USECASE_ACTIVITY);
+
+                    if (activity != null)
+                    {
+                        String activityName = activity.toString();
+                        if (name.equalsIgnoreCase(activityName))
+                            return strutsUseCase;
+                    }
+                }
+            }
+        }
+
+        /*
+         * If still nothing can be found, return without any result
+         */
         return null;
     }
 
@@ -57,12 +89,12 @@ public class StrutsActivityGraphLogicImpl
         {
             return contextElement;
         }
-        
+
         /*
          * for those tools not supporting setting the context of an activity graph (such as Poseidon)
          * an alternative is implemented: a tagged value on the controller, specifying the name of the use-case
          */
-        
+
         final String useCaseName = getUseCase().getName();
 
         // loop over the controllers, looking for the tagged value matching this activity graph's use-case name
@@ -72,7 +104,7 @@ public class StrutsActivityGraphLogicImpl
             ModelElementFacade element = (ModelElementFacade) classIterator.next();
             if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
             {
-                Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USE_CASE);
+                Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_CONTROLLER_USE_CASE);
                 String taggedValue = value==null?null:value.toString();
                 if (useCaseName.equalsIgnoreCase(taggedValue))
                 {
