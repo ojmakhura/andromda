@@ -26,7 +26,7 @@
         <velocity:merge
             name="${projectId}/.classpath"
             basedir="${templatesDir}"
-            template="/eclipse-classpath-${persistenceType}.vsl"/>
+            template="/eclipse-classpath.vsl"/>
           
         <velocity:merge 
             name="${projectId}/project.xml"
