@@ -21,7 +21,7 @@
 #if ($incomingActions.size()>1)
 <%--
     Only one of the following logic:present tags should evaluate true, simply
-    because you can only can from one page at a time.
+    because you can only come from one page at a time.
 --%>
 #end
 #foreach ($action in $incomingActions)
@@ -69,14 +69,12 @@
     <body>
 
         <%--
-
-            If you want your own custom messages to be displayed you do not need to edit
-            the custom.properties resource bundle.
+            If you want your own custom messages to be displayed
+            you do just need to edit the custom.properties resource bundle.
 
             These properties can be used like this:
 
                 <bean:message key="propertyKey" bundle="custom"/>
-
         --%>
 
         <p><h2><bean:message key="$class.titleKey"/></h2></p>
