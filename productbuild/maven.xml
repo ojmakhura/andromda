@@ -180,17 +180,6 @@
                     <ant:exclude name="**/target/**"/>
                 </ant:fileset>
             </ant:copy>
-            <!-- Copy over the hibernate db scripts to the animal-quiz -->
-            <j:if test="${project.artifactId.startsWith('animal-quiz')}">
-                <j:set var="coreDir" value="${toDir}/core"/>
-                <j:set var="coreDirPresent" value="coreDirPresent${counter}"/>
-                <ant:available property="${coreDirPresent}" file="${coreDir}"/>
-                <j:if test="${context.getVariable(coreDirPresent) != null}">
-                    <ant:copy todir="${coreDir}">
-                        <ant:fileset dir="${basedir}/etc/hibernate"/>
-                    </ant:copy>
-                </j:if>
-            </j:if>
             <j:set var="toDir" value="${binaryDistDir}/${fromDir.parentFile.name}"/>
             <j:set var="fromDir" value="${project.file.parentFile.parent}"/>
             <ant:copy todir="${toDir}">
