@@ -98,12 +98,24 @@
 						axis-tests
 					</td>
 					<td>
-						The directory to which AXIS specific tests are generated.
+						The directory to which AXIS specific test classes are generated.
 					</td>
 					<td>
-						No
+						No (unless <code>axis-test-impls</code> is specified).
 					</td>
 				</tr> 	 
+                <tr>
+                    <td>
+                        axis-test-impls
+                    </td>
+                    <td>
+                        The directory to which the AXIS specific test implementation classes
+                        are generated.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         testPackageNamePattern
@@ -126,6 +138,29 @@
                     </td>
                     <td>
                         No, default is <code>{0}Test</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        testImplementationNamePattern
+                    </td>
+                    <td>
+                        The pattern used to construct the test implementation name, where <em>{0}</em>
+                        is the current model element name.
+                    </td>
+                    <td>
+                        No, default is <code>{0}TestImpl</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        testImplementationOperationNamePrefix
+                    </td>
+                    <td>
+                        The prefix to give the AXIS test implementation operation names.
+                    </td>
+                    <td>
+                        No, default is <code>handle</code>.
                     </td>
                 </tr>
                 <tr>

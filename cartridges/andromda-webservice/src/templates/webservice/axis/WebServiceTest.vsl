@@ -17,11 +17,11 @@ import junit.framework.TestSuite;
  *
  * @see $service.fullyQualifiedName
  */
-public class $service.testName
+public abstract class $service.testName
     extends TestCase 
 {
 
-	private $service.name service = null;
+	protected $service.name service = null;
 
 	/**
 	 * Constructor for ${service.name}Test.
@@ -67,36 +67,29 @@ public class $service.testName
     	junit.textui.TestRunner.main(new String[] {${service.testName}.class.getName()});
 	}
 	
-	/* ------------------ Actual Tests -------------------- */
-	
 #foreach ($operation in $service.allowedOperations)
 	/**
-	 * Tests: ${service.fullyQualifiedName}.${operation.signature}
+	 * Tests: {@link ${service.fullyQualifiedName}#${operation.signature}}
 	 *
-	 * @see ${service.fullyQualifiedName}#${operation.signature}()
+	 * @see ${service.fullyQualifiedName}#${operation.signature}
      */ 
-	$operation.visibility void test${stringUtils.capitalize($operation.name)}() 
+	public void $operation.testSignature
 	{
-#foreach ($argument in $operation.arguments)
-#set ($instanceDef = "$argument.testTypeName $argument.name")
-#if(!$argument.type.primitive)
-        $instanceDef = null;
-#elseif ($argument.testTypeName.equals("boolean"))
-        $instanceDef = false;
-#else
-        $instanceDef = ($argument.testTypeName)0;
-#end
-#end
 		try 
 		{
-			this.service.${operation.name}(${operation.argumentNames});
+			${operation.testImplementationCall};
 		} 
 		catch (Throwable th) 
 		{
 			TestCase.fail(th.toString());
 		}
-		//@todo implement ${service.testName}.test${stringUtils.capitalize($operation.name)}()  
 	}
+	
+	/**
+	 * Provides the actual test implementation for {@link #${operation.signature}}
+	 */ 
+	protected abstract void ${operation.testImplementationSignature}
+	    throws Exception;
 	
 #end
 }

@@ -669,7 +669,7 @@ public class WebServiceLogicImpl
         return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN))
             .replaceAll("\\{0\\}", this.getName());
     }
-    
+
     /**
      * Represents a "wrapped" style.
      */
@@ -682,7 +682,7 @@ public class WebServiceLogicImpl
     {
         return this.getStyle().equalsIgnoreCase(STYLE_WRAPPED);
     }
-    
+
     /**
      * Represents a "document" style.
      */
@@ -695,7 +695,7 @@ public class WebServiceLogicImpl
     {
         return this.getStyle().equalsIgnoreCase(STYLE_DOCUMENT);
     }
-    
+
     /**
      * Represents a "rpc" style.
      */
@@ -708,7 +708,7 @@ public class WebServiceLogicImpl
     {
         return this.getStyle().equalsIgnoreCase(STYLE_RPC);
     }
-    
+
     /**
      * Represents an "literal" use.
      */
@@ -721,7 +721,7 @@ public class WebServiceLogicImpl
     {
         return this.getStyle().equalsIgnoreCase(USE_LITERAL);
     }
-    
+
     /**
      * Represents an "encoded" use.
      */
@@ -733,5 +733,28 @@ public class WebServiceLogicImpl
     protected boolean handleIsEncodedUse()
     {
         return this.getStyle().equalsIgnoreCase(USE_ENCODED);
+    }
+
+    /**
+     * The pattern used to construct the test implementation name.
+     */
+    private static final String TEST_IMPLEMENTATION_NAME_PATTERN = "testImplementationNamePattern";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getTestImplementationName()
+     */
+    protected String handleGetTestImplementationName()
+    {
+        return String.valueOf(
+            this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN))
+            .replaceAll("\\{0\\}", this.getName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getFullyQualifiedTestImplementationName()
+     */
+    protected String handleGetFullyQualifiedTestImplementationName()
+    {
+        return this.getTestPackageName() + '.' +  this.getTestImplementationName();
     }
 }

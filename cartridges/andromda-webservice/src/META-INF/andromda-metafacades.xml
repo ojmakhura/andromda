@@ -12,6 +12,7 @@
     <property reference="wsdlOperationSortMode" default="name"/>
     <property reference="testPackageNamePattern" default="{0}"/>
     <property reference="testNamePattern" default="{0}Test"/>
+    <property reference="testImplementationNamePattern" default="{0}TestImpl"/>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" 
@@ -81,12 +82,14 @@
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" 
         contextRoot="true">
         <stereotype>WebServiceOperation</stereotype>
+        <property reference="testImplementationOperationNamePrefix" default="handle"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" 
         contextRoot="true">
         <context>org.andromda.cartridges.webservice.metafacades.WebService</context>
+        <property reference="testImplementationOperationNamePrefix" default="handle"/>
     </metafacade>
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl" 
