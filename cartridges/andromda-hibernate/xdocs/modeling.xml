@@ -153,12 +153,15 @@
 								<li>class - table per hierarchy.</li>
 								<li>subclass - table per class in hierarchy.</li>
 								<li>concrete - Table per class.</li>
-								<li>interface - Root class is defined as
-					an interface and the attributes remapped to the subclasses.
-					This is useful in the concrete case becuase it has limitations
-					in the associations.</li>
+								<li>
+                                    interface - Root class is defined as
+					                an interface and the attributes remapped to the subclasses.
+					                This is useful in the concrete case becuase it has limitations
+					                in the associations.
+                                </li>
 							</ol>
-							<p>The tagged value of @andromda.hibernate.inheritance
+							<p>
+                                 The tagged value of @andromda.hibernate.inheritance
 								 is set on the base/root class.
 								 All subclasses must then follow the same strategy unless
 								 inheritance or concrete is the predecessor strategy.
