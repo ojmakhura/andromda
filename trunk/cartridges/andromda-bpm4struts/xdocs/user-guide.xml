@@ -234,6 +234,45 @@
                                 assign the controller by right clicking on it and selecting "Assign...".
                             </td>
                         </tr>
+                        <tr>
+                            <td>@struts.view.table.columns</td>
+                            <td>A signal trigger parameter on a transition incoming to a FrontEndView action state,
+                                the type of the parameter must either be an array or a java.util.Collection
+                                implementation</td>
+                            <td>N/A</td>
+                            <td>The collection will be displayed in tabular format using the
+                                <a href="http://www.displaytag.org">&lt;display:*&gt;</a>
+                                tag-library. Each column in this table will be mapped to a property of the object
+                                type contained in the collection. So you will need to make sure all objects
+                                have accessor methods for the property you list in this tagged value.
+                                Properties are separated using a comma ',' or whitespace.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@struts.view.table.maxrows</td>
+                            <td>Same as @struts.view.table.columns</td>
+                            <td>15</td>
+                            <td>This value represents the maximum number of entries shown at the same time,
+                                also known as the 'page size'. If the number of entries is a number greater
+                                than this value then a list of pages will be displayed to jump to the other values.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@struts.view.table.sortable</td>
+                            <td>Same as @struts.view.table.columns</td>
+                            <td>true</td>
+                            <td>Indicates whether or not it should be possible to sort the columns by clicking
+                                on the header.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@struts.view.table.exportable</td>
+                            <td>Same as @struts.view.table.columns</td>
+                            <td>true</td>
+                            <td>Indicates whether or not it should be possible to export the complete list
+                                into either XML, CSV or Excel format. (still buggy, but we're working on it)
+                            </td>
+                        </tr>
                     </table>
                 </blockquote>
             </p>
