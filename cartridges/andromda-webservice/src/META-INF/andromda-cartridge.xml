@@ -1,0 +1,91 @@
+<cartridge name="webservice">
+		
+	<!-- the templateObjects -->
+  
+    <templateObject 
+    	name="stringUtils"
+    	className="org.apache.commons.lang.StringUtils"/>  
+    	
+    <templateObject 
+    	name="escapeUtils"
+    	className="org.apache.commons.lang.StringEscapeUtils"/>      
+		
+	<!-- The location of the WSDL will reside (i.e. "http://localhost:8080/AnimalQuiz/services") -->
+	<property reference="wsdlSoapAddress"/>
+    	
+	<!-- if true, causes generation of necessary code that expects 
+		 the request to be signed -->
+	<property reference="signedRequest" default="false"/>
+	
+	<!-- if true, causes generation of necessary code to that expects
+		 the request to be encrypted -->
+	<property reference="encryptedRequest" default="false"/>
+	
+	<!-- if true, causes generation of necessary code that encrypts
+		 the response -->
+	<property reference="encryptedResponse" default="false"/>
+	
+	<!-- if true, causes generation of necessary code that signs
+		 the response -->
+	<property reference="signedResponse" default="false"/>
+	    
+    <!-- WSDL template definitions -->
+    
+	<template 
+		sheet="templates/webservice/wsdl/wrapped-wsdl.vsl" 
+		outputPattern="{0}/{1}.wsdl"     
+		outlet="webservice-wsdl-outlet" 
+		overWrite="true">
+		<modelElements variable="service">
+            <modelElement stereotype="WebService"/>
+		</modelElements>
+	</template>     
+	
+	<!-- Java Objects -->
+	
+	<template 
+		sheet="templates/webservice/java/ComplexWsdlType.vsl" 
+		outputPattern="{0}/{1}.java"  
+		outlet="webservice-java-outlet" 
+		overWrite="true">
+		<modelElements variable="class">
+            <modelElement stereotype="ValueObject"/>
+		</modelElements>
+	</template>  
+	
+	<!-- AXIS template definitions -->
+	
+	<template 
+		sheet="templates/webservice/axis/server-config.wsdd.vsl" 
+		outputPattern="WEB-INF/server-config.wsdd"    
+		outlet="webservice-axis-outlet" 
+		overWrite="true"
+		outputToSingleFile="true">
+		<modelElements variable="classes">
+            <modelElement stereotype="Service" variable="services"/>
+            <modelElement stereotype="WebService"/>
+		</modelElements>
+	</template>
+	
+	<template	
+		sheet="templates/webservice/axis/wss4j/crypto.properties.vsl"
+		outputPattern="wss4j/crypto.properties" 
+		outlet="webservice-axis-outlet"
+		overWrite="true"
+		outputToSingleFile="true">
+		<modelElements variable="services">
+            <modelElement stereotype="WebService"/>
+		</modelElements>
+	</template>
+	
+	<template	
+		sheet="templates/webservice/axis/WebServiceTest.vsl"
+		outputPattern="{0}/{1}Test.java" 
+		outlet="webservice-axis-test-outlet"
+		overWrite="true">
+		<modelElements variable="service">
+            <modelElement stereotype="WebService"/>
+		</modelElements>
+	</template>
+		
+</cartridge>

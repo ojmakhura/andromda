@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document> 
+  <properties>
+    <title>AndroMDA - WebService - Introduction</title>
+    <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+  </properties>
+  <body> 
+    <section name="AndroMDA WebService Cartridge">
+		<p>
+  			Generates WSDD (Web Service Descriptor files and WSDL) files for 
+  			<a href="http://ws.apache.org/axis">Apache Axis</a>. 
+		</p>
+		<p>
+			<strong>IMPORTANT:</strong> This cartridge <strong>MUST</strong> be used in conjunction with 
+            either the Hibernate or EJB cartridge if you want to expose a Stateless Session EJB
+			as the provider.  
+		</p>
+    </section>
+  </body>
+</document>
+
+
+

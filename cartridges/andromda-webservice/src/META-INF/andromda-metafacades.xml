@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<metafacades namespace="webservice">
+	<property reference="namespacePrefix" default="impl"/>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+		<property reference="schemaTypeMappingsUri"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+		<property reference="schemaTypeMappingsUri"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+		<property reference="schemaTypeMappingsUri"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+		<stereotype>WebService</stereotype>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+		<stereotype>WebService</stereotype>
+	</metafacade>
+</metafacades>
