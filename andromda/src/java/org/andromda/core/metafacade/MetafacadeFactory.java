@@ -689,6 +689,17 @@ public class MetafacadeFactory
     }
 
     /**
+     * Performs shutdown procedures for the factory. This should be called
+     * <strong>ONLY</code> when model processing has completed.
+     */
+    public void shutdown()
+    {
+        this.metafacadeCache.clear();
+        this.registeredProperties.clear();
+        this.validationMessages.clear();
+    }
+
+    /**
      * Gets the validation messages collection during model processing.
      * 
      * @return Returns the validationMessages.
