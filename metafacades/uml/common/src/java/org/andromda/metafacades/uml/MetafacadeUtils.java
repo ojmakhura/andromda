@@ -52,17 +52,68 @@ public class MetafacadeUtils
         Collection modelElements,
         final String stereotype)
     {
-        final String methodName = "MetafacadeUtils.filterByStereotype";
-        ExceptionUtils.checkEmpty(methodName, "stereotype", stereotype);
-        class StereotypeFilter
-            implements Predicate
+        if (StringUtils.isNotEmpty(stereotype))
         {
-            public boolean evaluate(Object object)
-            {
-                return ((ModelElementFacade)object).hasStereotype(stereotype);
-            }
+            CollectionUtils.filter(
+                modelElements,
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        return ((ModelElementFacade)object).hasStereotype(stereotype);
+                    }
+                });
         }
-        CollectionUtils.filter(modelElements, new StereotypeFilter());
+    }
+    
+    /**
+     * Filters out the model elements from the <code>modelElements</code>
+     * collection that are not of (or do not inherit from) 
+     * the specified type <code>type</code>
+     * 
+     * @param modelElements the model elements to filter.
+     * @param type the type of Class.
+     */
+    public static void filterByType(
+        Collection modelElements,
+        final Class type)
+    {
+        if (type != null)
+        {
+            CollectionUtils.filter(modelElements,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return type.isAssignableFrom(object.getClass());
+                }
+            });
+        }
+    }
+    
+    /**
+     * Filters out the model elements from the <code>modelElements</code>
+     * collection that are of (or inherit from) 
+     * the specified type <code>type</code>
+     * 
+     * @param modelElements the model elements to filter.
+     * @param type the type of Class.
+     */
+    public static void filterByNotType(
+        Collection modelElements,
+        final Class type)
+    {
+        if (type != null)
+        {
+            CollectionUtils.filter(modelElements,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return !type.isAssignableFrom(object.getClass());
+                }
+            });
+        }
     }
 
     /**
