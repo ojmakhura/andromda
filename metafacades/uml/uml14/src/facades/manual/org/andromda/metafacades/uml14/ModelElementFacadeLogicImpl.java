@@ -80,7 +80,7 @@ public class ModelElementFacadeLogicImpl
      */
     public java.lang.String getFullyQualifiedName(boolean modelName) 
     {
-        String fullName = metaObject.getName();
+        String fullName = StringUtils.trimToEmpty(this.getName());
         
         String packageName = getPackageName();
 
