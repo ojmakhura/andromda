@@ -21,7 +21,7 @@ public interface $entity.daoName
     /**
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
      */
-    public $entity.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName);
+    public $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName);
 
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
@@ -30,7 +30,7 @@ public interface $entity.daoName
     * instance from <strong>all</strong> attributes and adds it to
     * the persistent store.
     */
-    public $entity.fullyQualifiedEntityName create(
+    public $entity.root.fullyQualifiedEntityName create(
 #foreach($attribute in $attributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
 
@@ -43,7 +43,7 @@ public interface $entity.daoName
     * instance from only <strong>required</strong> attributes and
     * adds it to the persistent store.
     */
-    public $entity.fullyQualifiedEntityName create(
+    public $entity.root.fullyQualifiedEntityName create(
 #foreach($attribute in $requiredAttributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else);#end
 
@@ -59,7 +59,7 @@ public interface $entity.daoName
     /**
      * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
      */
-     public $entity.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
+     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
      
     /**
      *  <p> 

@@ -54,7 +54,7 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
      */
-    public $entity.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName)
+    public $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName)
     {
         if ($argumentName == null)
         {
@@ -75,9 +75,9 @@ public abstract class $entity.daoBaseName
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(${entity.getAttributeTypeList(true, false)})
+     * @see ${entity.root.fullyQualifiedDaoName}#create(${entity.getAttributeTypeList(true, false)})
      */
-    public $entity.fullyQualifiedEntityName create(
+    public $entity.root.fullyQualifiedEntityName create(
 #foreach($attribute in $attributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
 
@@ -95,7 +95,7 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredAttributeTypeList(true, false)})
      */
-    public $entity.fullyQualifiedEntityName create(
+    public $entity.root.fullyQualifiedEntityName create(
 #foreach($attribute in $requiredAttributes)
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else)#end
 
@@ -169,7 +169,7 @@ public abstract class $entity.daoBaseName
      /**
       * @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
       */ 
-     public $entity.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
+     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
      {
          return ($entity.fullyQualifiedEntityName)this.load(false, $identifier.name);
      }
@@ -202,7 +202,11 @@ public abstract class $entity.daoBaseName
                 "${entity.name}.remove - '$identifier.name' can not be null");
         } 
 #end
-        $entity.fullyQualifiedEntityName entity = this.load($identifier.name);
+#set ($loadCall = "this.load($identifier.name)")
+#if ($entity.generalization)
+#set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
+#end
+        $entity.fullyQualifiedEntityName entity = $loadCall;
         if (entity != null)
         {
             this.remove(entity);
