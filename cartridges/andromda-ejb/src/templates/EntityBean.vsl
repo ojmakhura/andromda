@@ -17,14 +17,24 @@ $entity.getDocumentation(" * ")
  *     cmp-version="2.x"
  *     view-type="local"
  *     local-jndi-name = "${entity.jndiName}/Local"
-###end
+ *	   reentrant="True"
 #if (!$identifier.complex)
  *     primkey-field = "$identifier.name"
 #end
  *
+ * @jboss.container-configuration name="Instance Per Transaction CMP 2.x EntityBean"
+ * @jboss.tuned-updates
+ *
  * @ejb.interface generate="false" local-class="${entity.fullyQualifiedName}"
  * @ejb.home generate="false" local-class="${entity.fullyQualifiedName}LocalHome"
  * @ejb.pk generate="false" class="$identifier.type.fullyQualifiedName"
+ *
+#set ($classTransaction = $entity.findTaggedValue("@andromda.ejb.transactionType"))
+#if (!$classTransaction || $classTransaction == "")
+ * @ejb.transaction type="Supports" //default transaction type
+#else
+ * @ejb.transaction type="$classTransaction" //custom transaction type set by @andromda.ejb.transactionType
+#end
  *
 ## Only generate persistence tags for concrete EJBs.
 #if(!$entity.abstract)
@@ -46,11 +56,11 @@ $entity.getDocumentation(" * ")
 #foreach ( $dependency in $entity.dependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
- *
  * @ejb.ejb-ref
  *     ejb-name="$reference.name"
  *     view-type="$reference.viewType"
  *     ref-name="ejb/${reference.name}BeanRef"
+ *
 #end
 #if ($dependency.hasStereotype("ResourceRef"))
 #set ($superclass = $dependency.targetElement)
@@ -63,39 +73,46 @@ $entity.getDocumentation(" * ")
 #if (!$resName || $resName == "")
 #set ($resName = $reference.name)
 #end
- *
  * @ejb.resource-ref
  *     res-ref-name="resource/$resName"
  *     res-type="$reference.type.fullyQualifiedName"
  *     res-auth="$resAuth"
-#if ($jndiRef)
  *
+#if ($jndiRef)
  * @jboss.resource-ref
  *     res-ref-name="resource/$resName"
  *     jndi-name="$jndiRef"
+ *
 #end
 #end
 #end
 #foreach ( $finder in $entity.getFinders(true))
 #if($finder.findTaggedValue("@andromda.ejb.query.dialect") == "JBossQL")
- *
  * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
  * @jboss.query signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #else
- *
  * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #end
+#set ($finderTransaction = $finder.findTaggedValue("@andromda.ejb.transactionType",false))
+#if ($finderTransaction)
+ *			   transaction-type="$finderTransaction"
+#end
+#set ($wlQuery = $finder.findTaggedValue("@andromda.ejb.query.weblogic", false))
+#if	($wlQuery)
+ * @weblogic.finder signature="$finder.type.fullyQualifiedName $finder.signature"
+ * 			   query="$wlQuery"
+#end
+ *
 #end## finder operations
  */
 public abstract class ${entity.name}Bean
 #if($entity.generalization)  
 	extends ${entity.generalization.fullyQualifiedName}BeanImpl
 #end
-    implements javax.ejb.EntityBean
-{
+    implements javax.ejb.EntityBean {
     // ----------- constant definitions -----------
 #foreach($constant in $entity.getConstants(true))
     private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
@@ -114,39 +131,28 @@ $envEntry.getDocumentation("     * ")
      */
     $envEntry.visibility $envEntry.type.fullyQualifiedName ${constant.getterName}(){
         javax.naming.InitialContext initialContext = null;
-        try 
-        {
+        try {
             initialContext = new javax.naming.InitialContext();
             return (${envEntry.type.fullyQualifiedName}}) initialContext.lookup("java:comp/env/$envEntry.name");
-        } 
-        catch (javax.naming.NamingException cause) 
-        {
+        } catch (javax.naming.NamingException cause) {
             RuntimeException ex = new IllegalStateException(
                 "Cannot access environment entry \"$envEntry.name\".");
             // In order to set the exception cause on JDK 1.4
             // and stay JDK 1.3 compatible nonetheless, we need
             // a bit of reflection magic here...
-            try 
-            {
+            try {
                 java.lang.reflect.Method initCause =
                   ex.getClass().getMethod("initCause",
                                         new Class[] {Throwable.class});
                 initCause.invoke(ex, new Object[] { cause });
-            } 
-            catch (Throwable t) 
-            {
+            } catch (Throwable t) {
                // Ignore any errors here - we simply make do without the cause
             }
             throw ex;
-        } 
-        finally 
-        {
-            try 
-            {
+        } finally {
+            try {
                 if (initialContext != null) { initialContext.close(); }
-            } 
-            catch (javax.naming.NamingException ignore) 
-            {
+            } catch (javax.naming.NamingException ignore) {
                 // Silently ignore naming exceptions at cleanup time
             }
         }
@@ -209,6 +215,10 @@ $attribute.getDocumentation("     * ")
 #if ($attribute.transactionType)
      * @ejb.transaction type="$attribute.transactionType"
 #end
+#set ($weblogicDataType = $att.findTaggedValue("@andromda.persistence.column.weblogicDataType", false))
+#if ($weblogicDataType)
+     * @weblogic.dbms-column-type $weblogicDataType
+#end
      *
 ## Only expose the method to the interfaces if it is public. The method
 ## visibility must be public because of CMP semantics
@@ -270,39 +280,157 @@ $associationEnd.otherEnd.getDocumentation("    * ")
 #if(!($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
 
    /**
-    * Get the ${associationEnd.otherEnd.name}
-$associationEnd.otherEnd.getDocumentation("    * ")
+    * Get the ${target.name}
+$target.getDocumentation("    * ")
     *
     * @ejb.interface-method
     * @ejb.relation
-    *    name="$associationEnd.association.name"
-    *    role-name="${associationEnd.association.name}:${associationEnd.name}"
-    *    target-ejb="$associationEnd.otherEnd.type.name"
+    *    name="$associationEnd.association.relationName"
+    *    role-name="${associationEnd.association.relationName}:${associationEnd.name}"
 #if (!$associationEnd.navigable)
-    *    target-role-name="${associationEnd.association.name}:${associationEnd.otherEnd.name}"
+## THIS IS ONLY FOR UNIDIRECTIONAL RELATIONSHIPS
+    *    target-ejb="$target.type.name"
+    *    target-role-name="${associationEnd.association.relationName}:${target.name}"
 #if ($associationEnd.many2One || $associationEnd.many2Many)
     *    target-multiple="true"
 #end
+#else
+	*    target-ejb="$target.type.name"
 #end
-#if ($associationEnd.association.transactionType)
+	*
+#if ($transactionType)
     * @ejb.transaction type="$associationEnd.association.transactionType"
-#end
     *
-#if ($associationEnd.one2Many || $associationEnd.many2Many || $associationEnd.otherEnd.findTaggedValue("@jboss.autoKeyFields") == "true")
-    * @jboss.auto-key-fields
-#else
-#set ($identifiers = $associationEnd.otherEnd.type.identifiers)
-#if (!$identifiers.empty)
-#foreach ($identifier in $identifiers)
-#if ($identifiers.size() == 1)
-#set ($identifierName = $identifier.name)
-#else
-#set ($identifierName = "$associationEnd.otherEnd.type.name")
 #end
+#if($associationEnd.many2Many) ## relation table only on the view side
+	* @jboss.relation-table table-name = "${associationEnd.association.tableName}"
+	* @jboss.relation-mapping style="relation-table"
+    *
+    * @weblogic.relation
+	*	join-table-name="${associationEnd.association.tableName}"
+	*
+#end
+#if(!$associationEnd.navigable)
+	* UNIDIRECTIONAL RELATIONSHIP
+	*
+#if($associationEnd.many2One || $associationEnd.one2One) 
+##The one-end is on the other side
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
     * @jboss.relation
     *     fk-column="${associationEnd.otherEnd.columnName}"
-    *     related-pk-field="${identifierName}"
+    *     related-pk-field="${identifier.name}"
+    * 
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
 #end
+#elseif($associationEnd.many2Many) 
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+	* @jboss.relation 
+    *     fk-column = "${associationEnd.otherEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#foreach ($identifier in $associationEnd.type.identifiers)
+    * @jboss.target-relation 
+    *     fk-column = "${associationEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#else
+##The one-end is here
+#foreach ($identifier in $associationEnd.type.identifiers)
+    * @jboss.target-relation 
+    *     fk-column = "${associationEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#end
+#else  
+	* BIDIRECTIONAL RELATIONSHIP
+	*
+#if($associationEnd.many2Many)
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+	* @jboss.relation 
+    *     fk-column = "${associationEnd.otherEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#elseif($associationEnd.many2One)
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+    * @jboss.relation 
+    *     fk-column = "${associationEnd.otherEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#elseif($associationEnd.one2One)
+#foreach ($identifier in $associationEnd.otherEnd.type.identifiers)
+    * @jboss.relation 
+    *     fk-column = "${associationEnd.otherEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+    * @weblogic.column-map
+    *   foreign-key-column="${associationEnd.otherEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#elseif($associationEnd.one2Many)
+##The one-end is here
+#foreach ($identifier in $associationEnd.type.identifiers)
+	* @jboss.target-relation 
+    *     fk-column = "${associationEnd.columnName}"
+    *     related-pk-field = "${identifier.name}"
+    *
+	* @weblogic.target-column-map
+    *   foreign-key-column="${associationEnd.columnName}"
+	*	key-column="${identifier.columnName}"
+	*
+#end
+#end
+#end
+#if(!$associationEnd.navigable && $associationEnd.association.findTaggedValue("@andromda.ejb.generateVOreference") == "true")
+#set ($replacepkg = $associationEnd.otherEnd.type.package.name)
+#set ($idx = $associationEnd.otherEnd.type.packageName.indexOf($replacepkg))
+#set ($remoteParentPackage = $associationEnd.otherEnd.type.packageName.substring(0, $idx))
+#if ($associationEnd.one2Many || $associationEnd.many2Many)
+	* @ejb.value-object
+	*    match="*"
+	*    aggregate="${remoteParentPackage}vo.${associationEnd.otherEnd.type.name}Value"
+	*    aggregate-name="$associationEnd.otherEnd.type.name"
+	*    members="${associationEnd.otherEnd.type.fullyQualifiedName}"
+	*    members-name="$associationEnd.otherEnd.type.name"
+	*    relation="external"
+	*    type="java.util.Collection"
+	*
+#else
+	* @ejb.value-object
+	*    match="*"
+	*    aggregate="${remoteParentPackage}vo.${associationEnd.otherEnd.type.name}Value"
+	*    aggregate-name="$associationEnd.otherEnd.type.name"
+	*    members="${associationEnd.otherEnd.type.fullyQualifiedName}"
+	*    members-name="$associationEnd.otherEnd.type.name"
+	*
 #end
 #end
     */
@@ -350,8 +478,7 @@ $associationEnd.otherEnd.getDocumentation("     * ")
 #end
 #end ## foreach
 
-#foreach ( $operation in $entity.operations)
-#if (!$operation.businessOperation)
+#foreach ( $operation in $entity.businessOperations)
 #set ($signature = $operation.signature)
 #set ($interfaceType = "interface")
 #set ($visibility = $operation.visibility.toString())
@@ -380,7 +507,7 @@ $operation.getDocumentation("    * ")
     $visibility abstract $returnType $signature;
 #end
 #end
-#if ($operation.selectMethod)
+#foreach ($operation in $entity.getSelectMethods(false))
 #set($queryString = "")
 #set($queryString = $operation.findTaggedValue("@andromda.ejb.query"))
 #if($queryString == "")
@@ -405,15 +532,12 @@ $operation.getDocumentation("    * ")
     throws javax.ejb.FinderException;
 #end##if operation.stereotype = "SelectMethod"
 
-#end
-
     // ---------------- create methods --------------------
 ## Handle explicitly defined create methods. Since we can't know
 ## what the user intended to do with the arbitrary parameters to these methods,
 ## we generate an abstract ejbCreateImpl() and delegate the implementation to
 ## the user.
-#foreach ( $operation in $entity.createMethods(false))
-
+#foreach ($operation in $entity.getCreateMethods(true))
     /**
 #if (!$entity.abstract)
      * Implementation for the
@@ -428,26 +552,22 @@ $operation.getDocumentation("    * ")
      * This extra implementation method is necessary to avoid
      * problems with different primary key classes.
      */
-    protected abstract void ejbCreateImpl${operation.typedArgumentList}
-           throws javax.ejb.CreateException;
-
-    public void ejbPostCreate${operation.typedArgumentList} 
-    {
-    }
-#end
-#if (!$entity.abstract)
-#foreach ( $operation in $entity.createMethods(true))
-
+    protected abstract void createImpl(${operation.typedArgumentList}) throws javax.ejb.CreateException;
+    
     /**
 $operation.getDocumentation("    * ")
      */
-    public $identifier.type.fullyQualifiedName ejbCreate${operation.typedArgumentList}
-           throws javax.ejb.CreateException 
-    {
-       ejbCreateImpl($operation.argumentNames);
+    public $identifier.type.fullyQualifiedName ejbCreate(${operation.typedArgumentList}) throws javax.ejb.CreateException {
+       createImpl($operation.argumentNames);
        return null;
     }
-#end
+	
+	/**
+$operation.getDocumentation("    * ")
+     */
+    public void ejbPostCreate(${operation.typedArgumentList}) {
+    }
+    
 #end
 
 ## Autogenerate a create method implementation with all attributes.
@@ -469,16 +589,13 @@ $operation.getDocumentation("    * ")
      * @param $attribute.name Value for the ${attribute.name} property
 #end
      */
-    protected void ejbCreateImpl($transform.getAttributesAsList($allAttributes, true, true))
-           throws javax.ejb.CreateException
-    {
+    protected void createImpl($transform.getAttributesAsList($allAttributes, true, true)) throws javax.ejb.CreateException {
 #if(!$inheritedAttributes.empty)
-        super.ejbCreateImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
+        super.createImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
 #end
 #if (!$identifier.complex)
 #if ($identifier.type.fullyQualifiedName == "java.lang.String")
-        if ($identifier.name == null) 
-        {
+        if ($identifier.name == null) {
             $identifier.name = new java.rmi.server.UID().toString();
         }
 
@@ -502,17 +619,13 @@ $operation.getDocumentation("    * ")
      * @return <code>null</code> as required by the EJB specification for CMP
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
-    public $identifier.type.fullyQualifiedName ejbCreate($transform.getAttributesAsList($allAttributes, true, true))
-           throws javax.ejb.CreateException
-    {
-        ejbCreateImpl($transform.getAttributesAsList($allAttributes, false, true));
+    public $identifier.type.fullyQualifiedName ejbCreate($transform.getAttributesAsList($allAttributes, true, true)) throws javax.ejb.CreateException {
+        createImpl($transform.getAttributesAsList($allAttributes, false, true));
         return null;
     }
 #end
 
-    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true))
-           throws javax.ejb.CreateException
-    {
+    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)) throws javax.ejb.CreateException {
 #if(!$inheritedAttributes.empty)
         // Call postCreate method for the super type
         super.ejbPostCreate($transform.getAttributesAsList($inheritedAttributes, false, true));
@@ -521,7 +634,6 @@ $operation.getDocumentation("    * ")
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
 #if ($entity.allowSyntheticCreateMethod())
-
     /**
      * Create method with all CMP attribute values and CMR relations.
 #foreach($attribute in $allAttributes)
@@ -536,8 +648,7 @@ $operation.getDocumentation("    * ")
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
     public $identifier.type.fullyQualifiedName ejbCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.relationType} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
-           throws javax.ejb.CreateException
-    {
+           throws javax.ejb.CreateException {
         // Call ejbCreate method for the CMP attributes
         ejbCreate($transform.getAttributesAsList($allAttributes, false, true));
         // Relations cannot be set in ejbCreate() - this is done in ejbPostCreate()
@@ -545,8 +656,7 @@ $operation.getDocumentation("    * ")
     }
 
     public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.relationType} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
-           throws javax.ejb.CreateException
-    {
+           throws javax.ejb.CreateException {
         // Call postCreate method for the CMP attributes
         ejbPostCreate($transform.getAttributesAsList($allAttributes, false, true));
         // Set the CMR relations
@@ -557,7 +667,33 @@ $operation.getDocumentation("    * ")
 #end
 #end
     // ---------------- accessor methods for bean references ---------------
+#foreach ($valueRef in $entity.valueDependencies)
+#set ($reference = $valueRef.targetElement)
+	/**
+	 * @ejb.interface-method 
+	 */
+	 public ${reference.fullyQualifiedName} get${reference.name}() {
+	 	${reference.fullyQualifiedName} valueObject = new ${reference.fullyQualifiedName}();
+#foreach ($attr in $reference.getAttributes(true))
+#if ($entity.containsAttribute($attr.name))
+		valueObject.${attr.setterName}(${attr.getterName}());
+#end
+#end
+		return valueObject;
+	 }
 
+	/**	 
+	 * @ejb.interface-method 
+	 */
+	 public void set${reference.name}(${reference.fullyQualifiedName} valueObject) {
+#foreach ($attr in $reference.getAttributes(true))
+#if (${entity.containsAttribute($attr.name)} && !${entity.containsIdentifier($attr.name)})
+		${attr.setterName}(valueObject.${attr.getterName}());
+#end
+#end
+	 }
+	 
+#end
 #foreach ( $dependency in $entity.dependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
@@ -570,8 +706,7 @@ $operation.getDocumentation("    * ")
      * by looking up the bean reference name.
      * @return local home interface for ${reference.name}.
      */
-    protected static ${fqHomeInterfaceName} get${homeInterfaceName}() throws javax.naming.NamingException
-    {
+    protected static ${fqHomeInterfaceName} get${homeInterfaceName}() throws javax.naming.NamingException {
         javax.naming.InitialContext initialContext =
             new javax.naming.InitialContext();
         try {
@@ -593,8 +728,7 @@ $operation.getDocumentation("    * ")
      * by looking up the bean reference name.
      * @return remote home interface for ${reference.name}. Lookup using bean ref name.
      */
-    protected static ${fqHomeInterfaceName} get${homeInterfaceName}() throws javax.naming.NamingException
-    {
+    protected static ${fqHomeInterfaceName} get${homeInterfaceName}() throws javax.naming.NamingException {
         javax.naming.InitialContext initialContext =
             new javax.naming.InitialContext();
         try {
@@ -622,8 +756,7 @@ $operation.getDocumentation("    * ")
      * <code>java:/comp/env/resource/$resName</code> in JNDI
      * @return the ${resName} resource
      */
-    protected static ${resClassName} get${str.capitalize($resName)}() throws javax.naming.NamingException
-    {
+    protected static ${resClassName} get${str.capitalize($resName)}() throws javax.naming.NamingException {
         javax.naming.InitialContext initialContext =
             new javax.naming.InitialContext();
         try {
@@ -636,5 +769,4 @@ $operation.getDocumentation("    * ")
     }
 #end
 #end
-
 }

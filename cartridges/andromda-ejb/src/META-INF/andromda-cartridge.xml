@@ -3,7 +3,22 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
-	    
+	
+	<!-- ValueObjects for Entity Beans -->
+	<template
+        path="templates/ValueObject.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="value-objects"
+        overwrite="true"
+        required="false">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.ValueObjectFacade"/>
+            </modelElement>    
+        </modelElements>
+    </template>
+	
+	<!-- Entity Beans -->
     <template
         path="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -135,5 +150,4 @@
             </modelElement>
         </modelElements> 
     </template>
-    
 </cartridge>

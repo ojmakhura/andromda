@@ -1,17 +1,10 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.andromda.cartridges.ejb.EJBProfile;
-import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.MetafacadeUtils;
-import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.metafacades.uml.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -67,7 +60,7 @@ public class EJBEntityFacadeLogicImpl
         EJBEntityFacade decorator = (EJBEntityFacade)this.getGeneralization();
         return decorator.getIdentifiers();
     }
-
+    
     public java.util.Collection handleGetAllEntityRelations()
     {
 
@@ -255,4 +248,53 @@ public class EJBEntityFacadeLogicImpl
         });
         return operations;
     }
+
+	/* (non-Javadoc)
+	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetValueDependencies()
+	 */
+	public Collection handleGetValueDependencies() {
+		Collection dependencies = super.getDependencies();
+		CollectionUtils.filter(dependencies, new Predicate() {
+			public boolean evaluate(Object object) {
+				boolean isValueRef = false;
+				if(object instanceof DependencyFacade) {
+					DependencyFacade dep = (DependencyFacade) object;
+					isValueRef = dep.getStereotypeNames().contains(EJBProfile.STEREOTYPE_VALUE_REF)
+								&& dep.getTargetElement().hasExactStereotype(EJBProfile.STEREOTYPE_VALUE_OBJECT);
+				}
+				return isValueRef;
+			}
+		});
+		return dependencies;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsIdentifier(java.lang.String)
+	 */
+	public boolean handleContainsIdentifier(String identifier) {
+		Collection collIdentifier = this.getIdentifiers(true);
+		Iterator it = collIdentifier.iterator();
+		while(it.hasNext()) {
+			AttributeFacade attr = (AttributeFacade) it.next();
+			if(attr.getName().equalsIgnoreCase(identifier)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsAttribute(java.lang.String)
+	 */
+	public boolean handleContainsAttribute(String strAttr) {
+		Collection collAttrib = this.getAttributes(true);
+		Iterator it = collAttrib.iterator();
+		while(it.hasNext()) {
+			AttributeFacade attr = (AttributeFacade) it.next();
+			if(attr.getName().equalsIgnoreCase(strAttr)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
