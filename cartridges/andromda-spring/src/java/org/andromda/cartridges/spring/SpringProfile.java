@@ -45,23 +45,29 @@ public class SpringProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = profile
         .get("HIBERNATE_INHERITANCE");
-    
+
     /**
      * Defines if a query within a finder method should use the cache
      */
     public static final String TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE = profile
         .get("HIBERNATE_USE_QUERY_CACHE");
-    
+
     /**
      * Defines the cache type for the Entity
      */
     public static final String TAGGEDVALUE_HIBERNATE_ENTITY_CACHE = profile
         .get("HIBERNATE_ENTITY_CACHE");
-    
+
     /**
      * Defines the cache type for an association
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE = profile
         .get("HIBERNATE_ASSOCIATION_CACHE");
+
+    /**
+     * Defines outer join fetching on many to one and one to one associations
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_OUTER_JOIN = profile
+        .get("HIBERNATE_OUTER_JOIN");
 
 }

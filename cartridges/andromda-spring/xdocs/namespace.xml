@@ -433,6 +433,23 @@
 							 No, defaults to <code>false</code>.
 						</td>
 					</tr>
+                    <tr>
+                        <td>
+                            hibernateAssociationEndOuterJoin
+                        </td>
+                        <td>
+                             Defines the default outer join value for many to one and
+                             one to one association ends. Possible values are:
+                             <ul>
+                                <li>auto</li>
+                                <li>true</li>
+                                <li>false</li>
+                             </ul>
+                        </td>
+                        <td>
+                            No, default is <code>auto</code>.
+                        </td>
+                    </tr>
 					<tr>
 						<td>
 							hibernateShowSql
