@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
 
@@ -93,7 +94,63 @@ public class StrutsJspLogicImpl
         return false;
     }
 
+    public boolean handleIsCalendarRequired()
+    {
+        final Collection actions = getActions();
+        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        {
+            StrutsAction action = (StrutsAction) actionIterator.next();
+            if (action.isCalendarRequired())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String handleGetLinkActionPath(String collectionName, String propertyName)
+    {
+        final String linkValue = collectionName + '.' + propertyName;
+
+        Collection pageVariables = getPageVariables();
+        for (Iterator iterator = pageVariables.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter pageVariable = (StrutsParameter) iterator.next();
+            if (pageVariable.isTable() && pageVariable.getName().equals(collectionName))
+            {
+                // look for an action parameter with the tagged value
+                Collection actionParameters = getAllActionParameters();
+                for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+                {
+                    StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
+                    Object taggedValue = parameter.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABLELINK);
+                    if (taggedValue.equals(linkValue))
+                    {
+                        StrutsAction action = parameter.getAction();
+                        if (action != null)
+                        {
+                            return action.getActionPath();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     // ------------- relations ------------------
+
+    protected Collection handleGetAllActionParameters()
+    {
+        final Collection actionParameters = new LinkedList();
+        final Collection actions = getActions();
+        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
+        {
+            StrutsAction action = (StrutsAction) iterator.next();
+            actionParameters.addAll(action.getActionParameters());
+        }
+        return actionParameters;
+    }
 
     protected Object handleGetUseCase()
     {
@@ -137,15 +194,6 @@ public class StrutsJspLogicImpl
             if (trigger != null)
                 collectByName(trigger.getParameters(), variablesMap);
         }
-
-/*
-        final Collection actions = getActions();
-        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
-        {
-            StrutsAction action = (StrutsAction) iterator.next();
-            collectByName(action.getActionParameters(), variablesMap);
-        }
-*/
 
         return variablesMap.values();
     }
