@@ -349,7 +349,13 @@ public class StrutsUseCaseLogicImpl
             StrutsJsp jsp = (StrutsJsp) pageIterator.next();
             actions.addAll(jsp.getActions());
         }
-        actions.add(getActivityGraph().getFirstAction());
+
+        StrutsActivityGraph graph = getActivityGraph();
+        if (graph != null)
+        {
+            StrutsAction action = graph.getFirstAction();
+            if (action != null) actions.add(action);
+        }
 
         return actions;
     }
