@@ -127,15 +127,32 @@ public class ResourceWriter
         {
             modelFile = modelFile.substring(lastSlash + 1, modelFile.length());
         }
-        historyStorage = historyStorage + modelFile;
+        this.setModelFile(modelFile);
         history = new StringBuffer();
+    }
+
+    private String modelFile = null;
+
+    private void setModelFile(String modelFile)
+    {
+        this.modelFile = modelFile;
     }
 
     /**
      * Stores the file history.
      */
-    private String historyStorage = System.getProperty("java.io.tmpdir")
-        + ".andromda/history/";
+    private String getHistoryStorage()
+    {
+        StringBuffer historyStorage = new StringBuffer(System.getProperty(
+            "java.io.tmpdir").replace('\\', '/'));
+        if (historyStorage.indexOf("/") == -1)
+        {
+            historyStorage.append('/');
+        }
+        historyStorage.append(".andromda/history/");
+        historyStorage.append(this.modelFile);
+        return historyStorage.toString();
+    }
 
     /**
      * Writes the output history to disk.
@@ -144,7 +161,7 @@ public class ResourceWriter
      */
     public void writeHistory() throws IOException
     {
-        writeStringToFile(history.toString(), historyStorage);
+        writeStringToFile(history.toString(), getHistoryStorage());
     }
 
     /**
@@ -174,11 +191,11 @@ public class ResourceWriter
         boolean before = true;
         try
         {
-            File historyFile = new File(historyStorage);
+            File historyFile = new File(getHistoryStorage());
             if (historyFile.exists() && historyFile.lastModified() >= time)
             {
                 String history = ResourceUtils.getContents(new File(
-                    historyStorage).toURL());
+                    getHistoryStorage()).toURL());
                 String[] files = history.split(",");
                 long lastModified = 0;
                 for (int ctr = 0; ctr < files.length; ctr++)
