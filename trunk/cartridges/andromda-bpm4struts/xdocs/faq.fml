@@ -345,7 +345,7 @@
                 </p>
                 <p>
                     Using maven you will need to open up /your-project/mda/project.xml and in the bpm4struts
-                    namespace set 'securityEnabled' to true.
+                    namespace set 'security' to true.
                     <source>
                         &lt;properties&gt;
                         &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
@@ -356,7 +356,7 @@
                         &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
                         &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
                         &lt;xdoclet-merge&gt;${maven.andromda.bpm4struts.generated.dir}/merge&lt;/xdoclet-merge&gt;
-                        &lt;securityEnabled&gt;false&lt;/securityEnabled&gt;    &lt;---- set to true to enable security
+                        &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
                         &lt;securityRealm&gt;other&lt;/securityRealm&gt;
                         &lt;/properties&gt;
                     </source>
@@ -365,7 +365,7 @@
                     Using the Ant build it is a property in the
                     MDA build.xml script.
                     <source>
-                        &lt;property name="securityEnabled" value="false"/&gt;    &lt;---- set to true to enable security
+                        &lt;property name="security" value="false"/&gt;    &lt;---- set to true to enable security
                         &lt;property name="securityRealm" value="other"/&gt;
                         &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
                         &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
