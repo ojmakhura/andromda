@@ -88,7 +88,7 @@ public class OclParser extends Parser {
 
 			if (isIterateDeclarator && !isDeclarator) {
 				throw new OclParserException(
-					"parser error: illegal feature call parameters format in \""
+					"Parser Error: Illegal feature call parameters format in \""
 						+ featureCallParameters
 						+ "\"; "
 						+ "must contain \";\" only if it contains \"|\"");
@@ -199,9 +199,9 @@ public class OclParser extends Parser {
 				if (!(parameterOptions[ctr] instanceof ACommaFeatureCallParameterOption ||
 				      parameterOptions[ctr] instanceof AColonFeatureCallParameterOption)) {
 					throw new OclParserException(
-							"OCL Parser Error: feature call parameters with "
-                            + "standard declarator must have the format "
-							+ "\"( name (: type)?, ... , name: type | expression )\"");
+							"OCL Parser Error: Feature call parameters with "
+                            + "a standard declarator must have the format "
+							+ "\"( name (: type)?, ... , name (: type)? | expression )\"");
 				}
 			}
 
