@@ -61,6 +61,19 @@
             </p>
         </section>
 
+        <section name="JavaScript">
+            <p>
+                JavaScript can greatly improve a web application's look and feel, the bpm4struts cartridge
+                generates a few common routines that can be used in the pages. The files containing these routines
+                have a <code>.js</code> extension and can be found in the set of generated pages, typically
+                <code>/web/target/src/layout</code>.
+            </p>
+            <p>
+                Let us know if you think more JavaScript should be added, just supply us with the ones you would like
+                to see in there.
+            </p>
+        </section>
+
         <section name="Performance">
             <p>
                 You might want to turn on the JSP precompilation feature, it will compile your JSPs into Java files
