@@ -111,6 +111,11 @@ public class StrutsForwardLogicImpl
         return forwardName;
     }
 
+    public boolean handleIsExitingPage()
+    {
+        return getSource() instanceof StrutsJsp;
+    }
+
     // ------------- relations ------------------
 
     protected java.util.Collection handleGetForwardParameters()
