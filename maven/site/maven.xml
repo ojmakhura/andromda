@@ -24,6 +24,10 @@
             token="$${bootstrap}"
             value="${bootstrap}">
         </ant:replace>
+        <velocity:merge
+            name="${maven.build.dest}/plugin.properties"
+            basedir="${basedir}"
+            template="/plugin.properties"/>
         <ant:delete file="${maven.build.dest}/project.xml"/>
         <velocity:merge
             name="${maven.build.dest}/project.xml"
