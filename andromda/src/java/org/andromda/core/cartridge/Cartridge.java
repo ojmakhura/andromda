@@ -401,8 +401,7 @@ public class Cartridge
 
                     AndroMDALogger.setSuffix(this.getName());
                     //check to see if generateEmptyFiles is true and if
-                    // outString (when CLEANED)
-                    //isn't empty.
+                    // outString (when CLEANED) isn't empty.
                     if (StringUtils.trimToEmpty(outputString).length() > 0
                         || template.isGenerateEmptyFiles())
                     {
