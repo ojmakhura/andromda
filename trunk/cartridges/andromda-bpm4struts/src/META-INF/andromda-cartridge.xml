@@ -80,6 +80,18 @@
     </template>
 
     <template
+        path="templates/StrutsFormInterface.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/StrutsController.vsl"
         outputPattern="$generatedFile"
         outlet="controller-impls"
