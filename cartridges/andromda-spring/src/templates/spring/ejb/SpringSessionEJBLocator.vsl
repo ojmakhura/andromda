@@ -10,7 +10,6 @@ package $springTypesPackage;
 #set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end
 
-#set ($superclass = $service.generalization)
 /**
  * Locates and provides all available application services.
  */

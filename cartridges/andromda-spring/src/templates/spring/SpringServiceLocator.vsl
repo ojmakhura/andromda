@@ -13,7 +13,6 @@ package $springTypesPackage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-#set ($superclass = $service.generalization)
 /**
  * Locates and provides all available application services.
  */
