@@ -14,12 +14,13 @@
 <hibernate-mapping default-cascade="${hibernateDefaultCascade}">
 	<class name="${entity.fullyQualifiedEntityImplementationName}" table="${entity.tableName}">
 
+#set ($foreignGeneratorClass = $entity.hibernateGeneratorClass.equalsIgnoreCase("foreign"))
 #set ($identifier = $entity.identifiers.iterator().next())
 		<id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
 			<generator class="$entity.hibernateGeneratorClass">
 #if ($entity.hibernateGeneratorClass.equalsIgnoreCase("sequence"))			
 				<param name="sequence">${entity.tableName}_SEQ</param>
-#elseif ($entity.hibernateGeneratorClass.equalsIgnoreCase("foreign"))
+#elseif ($foreignGeneratorClass)
 			    <param name="property">$entity.parentEnd.name</param>
 #end
 			</generator>
