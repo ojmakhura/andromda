@@ -29,11 +29,11 @@ case "$JDK" in
   ;;
   "SUNJava142" )
      export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
-     export JAVA_HOME=/opt/java/j2sdk1.4.2_07
+     export JAVA_HOME=/opt/java/j2sdk1.4
   ;;
   "SUNJava150" )
      export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
-     export JAVA_HOME=/opt/java/jdk1.5.0_01
+     export JAVA_HOME=/opt/java/jdk1.5
   ;;
   * )
   ;;
