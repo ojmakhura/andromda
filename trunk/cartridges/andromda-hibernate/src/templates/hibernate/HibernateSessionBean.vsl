@@ -122,7 +122,11 @@ $attribute.getDocumentation("     * ")
 $operation.getDocumentation("     * ")
      *
      * @ejb.interface-method view-type="both"
+#if ($operation.transactionType)
+     * @ejb.transaction type="$operation.transactionType"
+#else
      * @ejb.transaction type="Required"
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
