@@ -92,7 +92,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #set ($separator = '')
     public String toString()
     {
-        final StringBuffer buffer = new StringBuffer('[');
+        final StringBuffer buffer = new StringBuffer().append('[');
 
 #foreach ($field in $fields)
 #if ($field.arrayType || $field.collectionType)
