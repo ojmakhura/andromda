@@ -12,9 +12,10 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.modelmanagement.Model;
 
 /**
- * @author Anthony Mowers
- *
+ * Implements the minimum set of API, for UML v1.4 based models, needed
+ * by AndroMDA to perform code generation.
  * 
+ * @author Anthony Mowers
  */
 public class UMLDefaultHelper
 	implements ScriptHelper
@@ -37,12 +38,7 @@ public class UMLDefaultHelper
 		this.typeMappings = mappings;
 	}
 	
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  object  Description of the Parameter
-	 *@return         Description of the Return Value
-	 */
+
 	public String getName(Object object)
 	{
 		if ((object == null) || !(object instanceof ModelElement))
@@ -55,13 +51,6 @@ public class UMLDefaultHelper
 	}
 
 
-	
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  object  Description of the Parameter
-	 *@return         Description of the Return Value
-	 */
 	public String getPackageName(Object object)
 	{
 		if ((object == null) || !(object instanceof ModelElement))
@@ -87,22 +76,11 @@ public class UMLDefaultHelper
 		return packageName;
 	}
 	
-	/**
-	 *  Gets the modelElements attribute of the UMLScriptHelper object
-	 *
-	 *@return    The modelElements value
-	 */
 	public Collection getModelElements()
 	{
 		return model.getCore().getModelElement().refAllOfType();
 	}
 
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  object  Description of the Parameter
-	 *@return         Description of the Return Value
-	 */
 	public Collection getStereotypeNames(Object object)
 	{
 		if ((object == null) || !(object instanceof ModelElement))

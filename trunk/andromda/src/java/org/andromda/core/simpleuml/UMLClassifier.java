@@ -3,9 +3,11 @@ package org.andromda.core.simpleuml;
 import java.util.Collection;
 
 /**
- *  Description of the Interface
+ * defines those methods missing from Classifier in the UML 1.4 schema that are 
+ * needed by the UML2EJB based code generation scripts.
+ * 
+ * @author Anthony Mowers
  *
- *@author    Anthony Mowers
  */
 public interface UMLClassifier
 	extends UMLModelElement

@@ -11,7 +11,8 @@ import org.omg.uml.foundation.core.TaggedValue;
 
 
 /**
- *  Description of the Class
+ * dynamic proxy for a ModelElement: dynamically supports the UMLModelElement, 
+ * and org.omg.uml.foundation.core.ModelElement interfaces.
  *
  *@author    Anthony Mowers
  */
@@ -47,15 +48,6 @@ public class PModelElement
 	}
 
 
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  proxy          Description of the Parameter
-	 *@param  m              Description of the Parameter
-	 *@param  args           Description of the Parameter
-	 *@return                Description of the Return Value
-	 *@exception  Throwable  Description of the Exception
-	 */
 	public Object invoke(Object proxy, Method m, Object[] args)
 		throws Throwable
 	{

@@ -31,7 +31,10 @@
                  templatePath="templates"
                  useDefaultTemplateConfig="false"
         >
-        		
+        	<repository
+        		classname="org.andromda.core.mdr.MDRepositoryFacade"
+        		transformClassname="org.andromda.core.uml14.UMLStaticHelper"/>
+        				
             <template
                 stereotype="StrutsConfig"
                 sheet="report.vsl"

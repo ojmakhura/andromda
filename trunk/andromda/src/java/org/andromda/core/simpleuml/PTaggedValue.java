@@ -6,9 +6,10 @@ import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.TaggedValue;
 
 /**
- * @author Anthony Mowers
- *
+ * dynamic proxy for a ModelElement: dynamically supports the UMLTaggedValue, 
+ * and org.omg.uml.foundation.core.TaggedValue interfaces.
  * 
+ * @author Anthony Mowers
  */
 public class PTaggedValue
 	extends PModelElement

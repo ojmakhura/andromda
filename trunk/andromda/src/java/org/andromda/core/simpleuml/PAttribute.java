@@ -5,9 +5,10 @@ import org.omg.uml.foundation.core.Attribute;
 
 
 /**
- *  Description of the Class
+ * dynamic proxy for an Attribute: dynamically supports the UMLAttribute, 
+ * and org.omg.uml.foundation.core.Attribute interfaces.
  *
- *@author    amowers
+ *@author  Anthony Mowers
  */
 public class PAttribute
 	extends PModelElement

@@ -19,8 +19,11 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 
 /**
- * @author Anthony Mowers
- *
+ * 
+ * Implements DbMappingTable by using <a href="http://castor.exolab.org/">Castor</a> 
+ * to read the TypeMappings.xml file.
+ * 
+ * @author Anthony Mowers 
  */
 public class CastorDbMappingTable implements DbMappingTable 
 {

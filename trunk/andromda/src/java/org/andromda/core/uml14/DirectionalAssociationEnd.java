@@ -7,9 +7,13 @@ import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
 
 /**
- * @author amowers
- *
+ * Implements a set of operations that are useful for querying
+ * an association from the perspective of 
+ * a given association end.
  * 
+ * <p> Useful for answering question such as: isMany2Many, isOne2Many, ...</p>
+ * 
+ * @author Anthony Mowers
  */
 public class DirectionalAssociationEnd
 {
@@ -21,22 +25,33 @@ public class DirectionalAssociationEnd
         this.associationEnd = associationEnd;
     }
 
+    /**
+     * get the near end of the association
+     */
     public AssociationEnd getSource()
     {
         return associationEnd;
     }
 
-
+    /**
+     * get the far end of the association
+     */
     public AssociationEnd getTarget()
     {
         return getOtherEnd(); 
     }
     
+    /**
+     * get the name of the association
+     */
     public String getName()
     {
         return associationEnd.getAssociation().getName();
     }
     
+    /**
+     * get a string that can be used to uniquely id this association
+     */ 
     public String getId()
     {
         return associationEnd.getAssociation().refMofId();
@@ -62,7 +77,7 @@ public class DirectionalAssociationEnd
         return isMany(associationEnd) && !isMany(getOtherEnd());
     }
     
-    static public boolean isMany(AssociationEnd ae)
+    static protected boolean isMany(AssociationEnd ae)
     {
         Collection ranges = ae.getMultiplicity().getRange();
         

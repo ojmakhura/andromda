@@ -18,8 +18,8 @@ import org.omg.uml.foundation.core.StructuralFeature;
 import org.omg.uml.foundation.core.TaggedValue;
 
 /**
- * A set of convenience operations for accessing the static elements of
- * a UML1.4 based model.
+ * Extends the UMLDefaultHelper with a set of operations that are useful
+ * for exploring the static parts of UML v1.4 based object models.
  *
  *@author    Anthony Mowers
  */

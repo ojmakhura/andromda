@@ -3,12 +3,10 @@ package org.andromda.core.simpleuml;
 import java.util.Collection;
 
 /**
- * @author amowers
- *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * defines those methods missing from the Model in the UML 1.4 schema that are 
+ * needed by the UML2EJB based code generation scripts.
+ * 
+ * @author Anthony Mowers
  */
 public interface UMLModel 
 {
