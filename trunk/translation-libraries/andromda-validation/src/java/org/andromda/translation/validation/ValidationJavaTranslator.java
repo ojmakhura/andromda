@@ -1,16 +1,18 @@
 package org.andromda.translation.validation;
 
-import org.andromda.core.translation.BaseTranslator;
-import org.andromda.core.translation.TranslationUtils;
-import org.andromda.core.translation.node.*;
-import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
-import org.apache.commons.lang.StringUtils;
-
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import org.andromda.core.translation.BaseTranslator;
+import org.andromda.core.translation.ExpressionKinds;
+import org.andromda.core.translation.TranslationUtils;
+import org.andromda.core.translation.node.*;
+import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
+import org.apache.commons.lang.StringUtils;
 
 public class ValidationJavaTranslator extends BaseTranslator
 {
@@ -286,7 +288,7 @@ public class ValidationJavaTranslator extends BaseTranslator
             TranslationUtils.deleteWhitespace(featureCall.parent().parent());
         if (propertyCallExpression.matches(".*\\s?self\\..*"))
         {
-            write("this");
+            write(CONTEXT_ELEMENT_NAME);
         }
         this.appendToTranslationLayer(",\"");
         this.appendToTranslationLayer(TranslationUtils.deleteWhitespace(featureCall));
@@ -297,7 +299,9 @@ public class ValidationJavaTranslator extends BaseTranslator
             if (parameters != null && !parameters.isEmpty())
             {
                 write(",new Object[]{");
-                this.appendToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(this,\""); 
+                this.appendToTranslationLayer("org.andromda.translation.validation.OCLIntrospector.invoke(");
+                this.appendToTranslationLayer(CONTEXT_ELEMENT_NAME);
+                this.appendToTranslationLayer(",\""); 
                 this.appendToTranslationLayer(ConcreteSyntaxUtils.getParameters(featureCall).get(0));
                 this.appendToTranslationLayer("\")}");
             }
@@ -325,19 +329,13 @@ public class ValidationJavaTranslator extends BaseTranslator
             final String variableValue = getDeclaredLetVariableValue(variableName);
             final boolean isDeclaredAsLetVariable = (variableValue != null);
 
-            if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
-            {
-                if (!isDeclaredAsLetVariable)
-                {
-                    //write("org.andromda.translation.validation.OCLIntrospector.invoke(object,\"");
-                }
-            }
-
+            String featureExpression = TranslationUtils.deleteWhitespace(node);
             if (isDeclaredAsLetVariable)
             {
                 write(variableValue);
             }
-            else if(node.getFeatureCallParameters() == null)
+            else if(node.getFeatureCallParameters() == null ||
+                    featureExpression.matches(OCLIntrospector.OPERATION_FEATURE))
             {
                 APropertyCallExpression expression = 
                     (APropertyCallExpression)node.parent();
@@ -348,7 +346,7 @@ public class ValidationJavaTranslator extends BaseTranslator
                 if (StringUtils.isNotBlank(expressionAsString))
                 {
                     write("org.andromda.translation.validation.OCLIntrospector.invoke(");
-                    String invokedObject = "this";
+                    String invokedObject = CONTEXT_ELEMENT_NAME;
                     // if we're in an arrow call we assume the invoked object
                     // is the object for which the arrow call applies
                     if (arrowPropertyCallStack.peek().equals(Boolean.TRUE)) 
@@ -362,17 +360,9 @@ public class ValidationJavaTranslator extends BaseTranslator
                     write("\")");                    
                 }
             } 
-            else 
+            else
             {
                 node.getPathName().apply(this);
-            }
-
-            if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
-            {
-                if (!isDeclaredAsLetVariable)
-                {
-                    //write("\")");
-                }
             }
         }
         if(node.getIsMarkedPre() != null)
@@ -386,15 +376,6 @@ public class ValidationJavaTranslator extends BaseTranslator
             if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
             {
                 node.getQualifiers().apply(this);
-            }
-        }
-        if(node.getFeatureCallParameters() != null)
-        {
-            // we use introspection when in an arrow, 
-            // so passing feature name as a String without parentheses
-            if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
-            {
-                node.getFeatureCallParameters().apply(this);
             }
         }
         outAFeaturePrimaryExpression(node);
@@ -512,15 +493,13 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         newTranslationLayer();
         if (node.getRelationalExpression() != null)
-        {
+        {        
             node.getRelationalExpression().apply(this);
         }
+        Object temp[] = node.getLogicalExpressionTail().toArray();
+        for (int i = 0; i < temp.length; i++)
         {
-            Object temp[] = node.getLogicalExpressionTail().toArray();
-            for (int i = 0; i < temp.length; i++)
-            {
-                ((PLogicalExpressionTail) temp[i]).apply(this);
-            }
+            ((PLogicalExpressionTail) temp[i]).apply(this);
         }
         mergeTranslationLayerAfter();
     }
@@ -589,6 +568,9 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseTImplies(TImplies tImplies)
     {
+        // convert any non boolean's to boolean
+        this.prependToTranslationLayer("Boolean.valueOf(String.valueOf(");
+        this.appendToTranslationLayer(")).booleanValue()");
         write("?");
     }
 
@@ -1032,6 +1014,8 @@ public class ValidationJavaTranslator extends BaseTranslator
         arrowPropertyCallStack.push(Boolean.FALSE);
     }
     
+    private static final String CONTEXT_ELEMENT_NAME = "contextElement";
+
     /**
      * We need to wrap every expression with a converter
      * so that any expressions that return just objects
@@ -1041,10 +1025,16 @@ public class ValidationJavaTranslator extends BaseTranslator
      */
     protected void postProcess() 
     {
-        /*this.getExpression().insertInTranslatedExpression(
+        this.getExpression().insertInTranslatedExpression(
             0,
             "org.andromda.translation.validation.OCLResultEnsurer.ensure(");
-        this.getExpression().appendToTranslatedExpression(")");*/
+        this.getExpression().insertInTranslatedExpression(
+            0,
+            "boolean constraintValid = ");
+        this.getExpression().insertInTranslatedExpression(
+            0,
+            "final java.lang.Object " + CONTEXT_ELEMENT_NAME + " = this; ");
+        this.getExpression().appendToTranslatedExpression(");");
         
     }
 }
