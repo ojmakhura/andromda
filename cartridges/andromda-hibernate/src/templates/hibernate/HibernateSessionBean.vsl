@@ -146,7 +146,7 @@ $operation.getDocumentation("     * ")
 #set ($parameters = "session, ${parameterList}")
 #end
 ##
-#if ("void" != $operation.returnType.fullyQualifiedName)
+#if ($operation.returnTypePresent)
             return handle${str.capitalize($operation.name)}($parameters);
 #else
             handle${str.capitalize($operation.name)}($parameters);
