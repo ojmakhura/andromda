@@ -28,10 +28,11 @@
 #if ($stringUtils.isNotBlank($versionProperty))
         <version name="$versionProperty" type="int" column="$versionProperty"/>
 #end
-#set ($generalization = $entity.generalization)
 ## If super inheritance is 'interface', render super properties etc
-#if($generalization && $generalization.hibernateInheritanceInterface)
+#foreach ($generalization in $entity.allGeneralizations)
+#if($generalization.mappingRequiresSuperProperties)
 #renderPropertiesAndAssociations($generalization)
+#end
 #end
 ## render the properties and associations (if any)
 #renderPropertiesAndAssociations($entity)
