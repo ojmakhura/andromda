@@ -616,8 +616,8 @@ public class MetafacadeMappings
                         + mappings.getNamespace() + "'");
                     if (mappings.isShared())
                     {
-                        foundMessage.append(" adding to '" + Namespaces.DEFAULT
-                            + "' namespace");
+                        foundMessage.append(" - adding to '"
+                            + Namespaces.DEFAULT + "' namespace");
                     }
                     AndroMDALogger.info(foundMessage);
                 }
