@@ -3,32 +3,32 @@ package org.andromda.translation.validation;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 /**
- * Dynamically invokes operation and property calls
- * on specified <strong>elements</code>. 
+ * Dynamically invokes operation and property calls on specified
+ * <strong>elements</code>.
  * 
  * @author Wouter Zoons
  * @author Chad Brandon
  */
 public class OCLIntrospector
 {
-    
-    private static final Logger logger = Logger.getLogger(OCLIntrospector.class);
-    
+
+    private static final Logger logger = Logger
+        .getLogger(OCLIntrospector.class);
+
     /**
-     * Used to match on operation feature patterns, which
-     * helps us to determine whether or not to invoke
-     * the feature call as a property or operation on an
-     * element.
+     * Used to match on operation feature patterns, which helps us to determine
+     * whether or not to invoke the feature call as a property or operation on
+     * an element.
      */
     public static final String OPERATION_FEATURE = ".*\\(.*\\).*";
-    
+
     /**
-     * Invokes the given <code>feature</code> on the 
-     * <code>element</code>. Its expected that the feature
-     * is either an operation or a property.
+     * Invokes the given <code>feature</code> on the <code>element</code>.
+     * Its expected that the feature is either an operation or a property.
      */
     public static Object invoke(Object element, String feature)
     {
@@ -39,30 +39,42 @@ public class OCLIntrospector
             {
                 return invoke(element, feature, null);
             }
-            return PropertyUtils.getProperty(element, feature);
-                
+            Object result = null;
+            if (PropertyUtils.isReadable(element, feature))
+            {
+                result = PropertyUtils.getProperty(element, feature);
+            }
+            return result;
+
         }
         catch (Throwable th)
         {
-            final String errMsg = "Error invoking feature '" 
-                + feature + "' on element '" + element + "'";
+            System.out.println("is readable: "
+                + PropertyUtils.isReadable(element, feature));
+            final String errMsg = "Error invoking feature '" + feature
+                + "' on element '" + element + "'";
+            th = ExceptionUtils.getCause(th);
             logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
     }
 
     /**
-     * Invokes the given <code>feature</code> on the specified <code>element</code>
-     * taking the given <code>arguments</code>.  If <code>arguments</code> is null its
-     * expected that the feature is an empty operation.  
+     * Invokes the given <code>feature</code> on the specified
+     * <code>element</code> taking the given <code>arguments</code>. If
+     * <code>arguments</code> is null its expected that the feature is an
+     * empty operation.
      */
-    public static Object invoke(Object element, String feature, Object[] arguments)
+    public static Object invoke(
+        Object element,
+        String feature,
+        Object[] arguments)
     {
-        try 
+        try
         {
             // check for parenthesis
             int parenIndex = feature.indexOf('(');
-            if (parenIndex != -1) 
+            if (parenIndex != -1)
             {
                 feature = feature.substring(0, parenIndex).trim();
             }
@@ -70,10 +82,10 @@ public class OCLIntrospector
         }
         catch (Throwable th)
         {
-            final String errMsg = "Error invoking feature '" 
-                + feature + "' on element '" + element 
-                + "' with arguments '" 
+            final String errMsg = "Error invoking feature '" + feature
+                + "' on element '" + element + "' with arguments '"
                 + StringUtils.join(arguments, ',') + "'";
+            th = ExceptionUtils.getCause(th);
             logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
