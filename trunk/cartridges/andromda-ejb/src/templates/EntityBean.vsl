@@ -176,7 +176,7 @@ $constant.getDocumentation("     * ")
      * @see #${constant.getterName}
      */
      public $constant.type.fullyQualifiedName ejbHomeGet${constant.name}() {
-         return ${constant.getterName};
+         return $constant.getterName;
      }
 #end
 #end
