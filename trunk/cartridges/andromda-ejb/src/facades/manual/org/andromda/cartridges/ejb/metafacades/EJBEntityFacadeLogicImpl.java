@@ -7,11 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
-import org.andromda.metafacades.uml.MetafacadeUtils;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 
 
@@ -97,10 +96,7 @@ public class EJBEntityFacadeLogicImpl
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getViewType()
      */
     public String getViewType() {
-        if (this.hasStereotype(UMLProfile.STEREOTYPE_ENTITY)) {
-            return "local";
-        }
-        return "remote";
+        return EJBMetafacadeUtils.getViewType(this);
     }
 
     /**
@@ -162,30 +158,14 @@ public class EJBEntityFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getCreateMethods(boolean)
      */
-    public Collection getCreateMethods(boolean all) {
-        Collection retval = new ArrayList();
-        EJBEntityFacade entity = null;
-        do {
-            Collection ops = this.getOperations();
-            for (Iterator i = ops.iterator(); i.hasNext();) {
-                OperationFacade op = (OperationFacade) i.next();
-                if (op.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD)) {
-                    retval.add(op);
-                }
-            }
-            if (all) {
-                entity = (EJBEntityFacade)this.getGeneralization();
-            } else {
-                break;
-            }
-        } while (entity != null);
-        return retval;
+    public Collection getCreateMethods(boolean follow) {
+        return EJBMetafacadeUtils.getCreateMethods(this, follow);
     }
 
     /**
      * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getSelectMethods(boolean)
      */
-    public Collection getSelectMethods(boolean all) {
+    public Collection getSelectMethods(boolean follow) {
         Collection retval = new ArrayList();
         EJBEntityFacade entity = null;
         do {
@@ -196,7 +176,7 @@ public class EJBEntityFacadeLogicImpl
                     retval.add(op);
                 }
             }
-            if (all) {
+            if (follow) {
                 entity = (EJBEntityFacade)this.getGeneralization();
             } else {
                 break;
@@ -209,13 +189,7 @@ public class EJBEntityFacadeLogicImpl
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getHomeInterfaceName()
      */
     public String getHomeInterfaceName() {
-        String homeInterfaceName;
-        if (this.hasStereotype(UMLProfile.STEREOTYPE_ENTITY)) {
-            homeInterfaceName = this.getName() + "LocalHome";
-        } else {
-            homeInterfaceName = this.getName() + "Home";
-        }
-        return homeInterfaceName;
+        return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
 
 }
