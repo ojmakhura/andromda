@@ -18,9 +18,9 @@
                 In order to have these tables rendered for you you will need to model a
                 <a href="howto2.html#Page_Variables">page variable</a> of type <code>java.util.Collection</code>
                 (or a type from the JDK that extends/implements this interface), next you will simply need
-                to model a one or more tagged values onto that parameter. (If you choose to specify more than
-                one property per value you will need to separate them using commas, it is recommended to specify
-                a value per property)
+                to model one or more tagged values onto that parameter. (If you choose to specify more than
+                one property per value you can also separate them using commas, nevertheless, it is
+                recommended to specify a value per property)
             </p>
 <source><![CDATA[
 @andromda.struts.view.table.columns=property1,property2,...,propertyN
