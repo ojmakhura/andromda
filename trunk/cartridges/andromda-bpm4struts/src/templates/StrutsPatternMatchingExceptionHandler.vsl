@@ -9,6 +9,8 @@ package $exceptionHandlerPackage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.beanutils.PropertyUtils;
+
 /**
  * <p>
  *  A configurable pattern matching error handler retrieves exception mapping
@@ -17,7 +19,6 @@ import java.util.regex.Pattern;
  *  which can be mapped to exception messages keyed in an application resource 
  *  file.
  * </p>
- * @author Chad Brandon
  */
 public class $className
 {
@@ -45,6 +46,7 @@ public class $className
      */
     public String handleException(Exception exception) throws Exception
     {
+        exception = (Exception)this.findRootCause(exception);
         String matched = null;
         if (exception != null && exception.getMessage() != null)
         {
@@ -70,4 +72,52 @@ public class $className
         }
         throw exception;
     }
+    
+	/**
+	 * Finds the root cause of the parent exception
+	 * by traveling up the exception tree
+	 */
+    private Throwable findRootCause(Throwable th) 
+    {
+    	if (th != null) 
+    	{
+            // Reflectively get any JMX or EJB exception causes.
+            try 
+            {
+                Throwable targetException = null;
+                // java.lang.reflect.InvocationTargetException 
+                // or javax.management.ReflectionException
+                String exceptionProperty = "targetException";
+                if (PropertyUtils.isReadable(th, exceptionProperty)) 
+                {
+                    targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                } 
+                else 
+                {
+                	exceptionProperty = "causedByException";
+                    //javax.ejb.EJBException
+                    if (PropertyUtils.isReadable(th, exceptionProperty)) 
+                    {
+                    	targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                    }
+                }
+                if (targetException != null) 
+                {
+                	th = targetException;
+                }
+            } 
+            catch (Exception ex) 
+            {
+            	// just print the exception and continue
+                ex.printStackTrace();
+            }
+            
+            if (th.getCause() != null) 
+            {
+                th = th.getCause();
+                th = findRootCause(th);
+            }
+        }
+        return th;
+	}
 }
