@@ -7,7 +7,7 @@
 <jboss>
 
 #if ($ejbSecurityEnabled)
-    <security-domain>$ejbSecurityDomain</security-domain>
+    <security-domain>java:/jaas/$securityRealm</security-domain>
     
 #end
     <enterprise-beans>

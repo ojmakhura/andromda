@@ -81,8 +81,8 @@
                 <services>${maven.andromda.core.generated.dir}</services>
                 <service-impls>${maven.andromda.core.manual.dir}</service-impls>
                 <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
-                <!-- uncomment to enable the EJB security domain -->
-                <!-- <ejbSecurityDomain>${security.domain}</ejbSecurityDomain> -->
+                <!-- uncomment to enable EJB security -->
+                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
             </properties>
         </dependency>
 #end

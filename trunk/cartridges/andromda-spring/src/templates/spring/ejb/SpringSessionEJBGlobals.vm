@@ -6,4 +6,4 @@
 #set ($ejbInterface = "javax.ejb.EJBObject")
 #set ($ejbHomeInterface = "javax.ejb.EJBHome")
 #end
-#set ($ejbSecurityEnabled = $stringUtils.isNotBlank($ejbSecurityDomain))
+#set ($ejbSecurityEnabled = $stringUtils.isNotBlank($securityRealm))

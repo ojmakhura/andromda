@@ -580,11 +580,11 @@
 					</tr> 	
 					<tr>
 						<td>
-							ejbSecurityDomain
+							securityRealm
 						</td>
 						<td>
-						    The name of the security domain (i.e. java:/jaas/animal-quiz, 
-                            java:/jaas/other, etc).  <strong>NOTE:</strong>This enables EJB security if specified.
+						    The name of the security realm (i.e. animal-quiz, 
+                            other, etc).  <strong>NOTE:</strong>This enables EJB security if specified.
 						</td>
 						<td>
 							No
