@@ -1,5 +1,5 @@
 ## Only generate the controller impl if there are operations defined
-#set ($generatedFile = "${controller.fullPath}.java")
+#set ($generatedFile = "${controller.fullPath}Impl.java")
 #if (!$controller.operations.empty)
 ##
 ##  CONSTANTS
@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-class $controller.name extends ${controller.name}Interface
+public class ${controller.name}Impl extends ${controller.name}
 {
 #foreach ($operation in $controller.operations)
 #set ($visibility = $operation.visibility)
@@ -33,7 +33,7 @@ $operation.getDocumentation("     * ")
 #if ($allowDummyData)
 #set ($formFields = $operation.formFields)
 #if ($formFields.empty)
-        // nothing to be done for this operation, there are not properties that can be set
+        // nothing to be done for this operation, there are no properties that can be set
 #else
         // all properties receive a default value, just to have the application running properly
 #foreach ($field in $operation.formFields)
