@@ -1,2 +1,9 @@
-<project default="jar:install"/>
+<project default="jar:install"
+         xmlns:ant="jelly:ant">
+         
+    <!-- Unzip the howto images -->
+    <preGoal name="xdoc:transform">
+        <ant:unzip src="${howto.pictures.zip}" dest="${howto.output.dir}"/>
+    </preGoal>
+</project>
 
