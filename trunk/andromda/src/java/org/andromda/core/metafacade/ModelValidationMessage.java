@@ -123,8 +123,7 @@ public class ModelValidationMessage
      */
     public String toString()
     {
-        StringBuffer toString = new StringBuffer(this.getMetafacadeClass()
-            .getName());
+        StringBuffer toString = new StringBuffer();
         toString.append("[");
         toString.append(this.getMetafacadeName());
         toString.append("]");
