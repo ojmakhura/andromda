@@ -4,7 +4,7 @@ import org.omg.uml.foundation.core.AssociationEnd;
 import org.andromda.core.TestModel;
 
 /**
- * @author tony
+ * @author amowers
  *
  * 
  */
