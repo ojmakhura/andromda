@@ -230,18 +230,6 @@ public abstract class ${servicename}Bean
         return $ATT_NAME;
 #end
     }
-## If the attribute is public, expose it to the home interface as well
-#if($visibility == "public")
-
-    /**
-     * Home interface method for accessing {@link #get$AttName}.
-     * @ejb.home-method
-     * @see #get$AttName
-     */
-     public $attType ejbHomeGet$AttName() {
-         return get$AttName();
-     }
-#end
 #end
 
 #set ($instanceAttributes = ${transform.getInstanceAttributes($class.id)})
@@ -298,24 +286,17 @@ public abstract class ${servicename}Bean
 #if (${transform.getStereotype($op.id)} != "CreateMethod")
 #set ($transactionType = $transform.findTagValue($op, "@andromda.ejb.transactionType", true))
 #set ($msig = $transform.getOperationSignature($op))
-#set ($interfaceType = "interface")
 #set ($visibility = ${transform.getVisibility($op)})
 #set($exceptions = "")
 #set ($exceptions = $transform.findTagValue($op, "@andromda.java.throws"))
 #if ($exceptions == "")
 #set ($exceptions = $transform.findFullyQualifiedName($defaultException))
 #end
-## Public static methods are exposed on the home 
-## interface instead of the component interface
-#if ($visibility == "public" && ${transform.isStatic($op)}) 
-#set ($interfaceType = "home")
-#set ($msig = "ejbHome${str.upperCaseFistLetter($msig)}")
-#end
    /**
 #generateDocumentation ($op "    ")
 ## Only public methods have transactions and are exported to the interfaces
 #if ($visibility == "public")
-    * @ejb.${interfaceType}-method 
+    * @ejb.interface-method
 #if ($transactionType)
     * @ejb.transaction type="$transactionType"
 #end

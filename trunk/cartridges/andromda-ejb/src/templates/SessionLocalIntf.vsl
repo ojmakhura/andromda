@@ -150,9 +150,8 @@ extends $parentInterface#foreach($intf in $transform.getAbstractions($class.id))
 #foreach ( $op in $class.operations)
 #if ($transform.getStereotype($op.id) != "CreateMethod")
 #set ($visibility = $transform.getVisibility($op))
-## Only expose public, nonstatic methods (public static methods go on the home
-## interface)
-#if ($visibility == "public" && !$transform.isStatic($op)) 
+## Only expose public methods
+#if ($visibility == "public") 
 #set ($msig = $transform.getOperationSignature($op))
 #set ($exceptions = $transform.findTagValue($op, "@andromda.java.throws"))
 #if (!$exceptions)
