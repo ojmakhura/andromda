@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.jmi.reflect.RefPackage;
 
 import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.common.AndroMDALogger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.netbeans.api.xmi.XMIInputConfig;
@@ -32,7 +33,7 @@ public class MDRXmiReferenceResolverContext
     private static Logger logger = Logger
         .getLogger(MDRXmiReferenceResolverContext.class);
 
-    private HashMap urlMap = new HashMap();
+    private static final HashMap urlMap = new HashMap();
 
     /**
      * Constructs an instance of this class.
@@ -57,65 +58,44 @@ public class MDRXmiReferenceResolverContext
         if (logger.isDebugEnabled())
             logger.debug("attempting to resolve Xmi Href --> '" + systemId
                 + "'");
-
-        // Several tries to construct a URL that really exists.
-
-        // If this is a valid URL, simply return it.
-        URL validURL = getValidURL(systemId);
-        if (validURL != null)
-        {
-            urlMap.put(getSuffix(systemId), validURL);
-            if (logger.isDebugEnabled())
-                logger.debug(systemId + " --> " + validURL);
-            return validURL;
-        }
-
-        // Find URL in map. If found, return it.
+        // if the model URL has a '.zip', remove it
+        systemId = systemId.replaceAll("\\.zip", "");
         String suffix = getSuffix(systemId);
-        URL mappedUrl = (URL)urlMap.get(suffix);
-        if (mappedUrl != null)
-        {
-            if (logger.isDebugEnabled())
-                logger.debug(systemId + " --> " + mappedUrl);
-            return mappedUrl;
-        }
-
-        // Try to find suffix in module list.
-        String moduleURL = findModuleURL(suffix);
-        if (moduleURL != null)
-        {
-            validURL = getValidURL(moduleURL);
-            if (validURL != null)
-            {
-                urlMap.put(getSuffix(systemId), validURL);
-                if (logger.isDebugEnabled())
-                    logger.debug(systemId + " --> " + validURL);
-                return validURL;
-            }
-        }
-
-        // If still ends with .zip, find it in map without the '.zip'.
-        if (systemId.endsWith(".zip"))
-        {
-            String urlWithoutZip = systemId.substring(0, systemId.length() - 4);
-            mappedUrl = (URL)urlMap.get(urlWithoutZip);
-            if (mappedUrl != null)
-            {
-                if (logger.isDebugEnabled())
-                    logger.debug(systemId + " --> " + mappedUrl);
-                return mappedUrl;
-            }
-        }
-
-        // finally search the classpath (since the model
-        // could be bundled with a metafacades jar)
-        URL modelUrl = this.findModelUrlOnClasspath(systemId);
+        URL modelUrl = (URL)urlMap.get(suffix);
+        
+        // Several tries to construct a URL that really exists.
         if (modelUrl == null)
         {
-            // Give up and let superclass deal with it.
-            modelUrl = super.toURL(systemId);
+            modelUrl = this.getValidURL(systemId);
+	        if (modelUrl == null)
+	        {
+		        // Try to find suffix in module list.
+		        String modelUrlAsString = findModuleURL(suffix);	   
+		        if (StringUtils.isNotBlank(modelUrlAsString)) 
+		        {
+		            modelUrl = getValidURL(modelUrlAsString);
+		        }	        
+		        if (modelUrl == null) 
+		        {
+		            // search the classpath	
+		            modelUrl = this.findModelUrlOnClasspath(systemId);
+		        }
+		        if (modelUrl == null)
+		        {
+		            // Give up and let superclass deal with it.
+		            modelUrl = super.toURL(systemId);		            
+		        }
+	        }
+	        // if we've found the module model, log it 
+	        // and place it in the map so we don't have to 
+	        // find it if we need it again.
+	        if (modelUrl != null) 
+	        {
+	            AndroMDALogger.info("Referenced model --> '" 
+	                + modelUrl + "'");
+	            urlMap.put(suffix, modelUrl);
+	        }
         }
-
         return modelUrl;
     }
 
@@ -172,7 +152,7 @@ public class MDRXmiReferenceResolverContext
      *            the system identifier.
      * @return the suffix as a String.
      */
-    private static String getSuffix(String systemId)
+    private String getSuffix(String systemId)
     {
         int lastSlash = systemId.lastIndexOf("/");
         if (lastSlash > 0)
@@ -202,41 +182,32 @@ public class MDRXmiReferenceResolverContext
      */
     private URL findModelUrlOnClasspath(String systemId)
     {
-        URL modelUrl = (URL)this.urlMap.get(systemId);
+        String modelName = StringUtils.substringAfterLast(systemId, "/");
+        String dot = ".";
+        // remove the first prefix because it may be an archive 
+        // (like magicdraw)
+        modelName = StringUtils.substringBeforeLast(modelName, dot);
+
+        URL modelUrl = ResourceUtils.getResource(modelName);
         if (modelUrl == null)
         {
-            String modelName = StringUtils.substringAfterLast(systemId, "/");
-            String dot = ".";
-            // remove the first prefix because it may be an archive 
-            // (like magicdraw)
-            modelName = StringUtils.substringBeforeLast(modelName, dot);
-
-            modelUrl = ResourceUtils.getResource(modelName);
-            if (modelUrl == null)
+            if (CLASSPATH_MODEL_SUFFIXES != null
+                && CLASSPATH_MODEL_SUFFIXES.length > 0)
             {
-                if (CLASSPATH_MODEL_SUFFIXES != null
-                    && CLASSPATH_MODEL_SUFFIXES.length > 0)
+                int suffixNum = CLASSPATH_MODEL_SUFFIXES.length;
+                for (int ctr = 0; ctr < suffixNum; ctr++)
                 {
-                    int suffixNum = CLASSPATH_MODEL_SUFFIXES.length;
-                    for (int ctr = 0; ctr < suffixNum; ctr++)
+                    if (logger.isDebugEnabled())
+                        logger.debug("searching for model reference --> '"
+                            + modelUrl + "'");
+                    String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
+                    modelUrl = ResourceUtils.getResource(modelName + dot
+                        + suffix);
+                    if (modelUrl != null)
                     {
-                        if (logger.isDebugEnabled())
-                            logger.debug("searching for model reference --> '"
-                                + modelUrl + "'");
-                        String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
-                        modelUrl = ResourceUtils.getResource(modelName + dot
-                            + suffix);
-                        if (modelUrl != null)
-                        {
-                            break;
-                        }
+                        break;
                     }
                 }
-            }
-            if (modelUrl != null)
-            {
-                logger.info("found referenced model --> '" + modelUrl + "'");
-                this.urlMap.put(systemId, modelUrl);
             }
         }
         return modelUrl;

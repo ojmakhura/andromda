@@ -10,7 +10,7 @@ import junit.framework.TestSuite;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.StdoutLogger;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.translation.analysis.DepthFirstAdapter;
 import org.andromda.core.translation.lexer.Lexer;
 import org.andromda.core.translation.node.Start;
@@ -47,7 +47,7 @@ public class OclParserTest
     public void setUp() throws Exception
     {
         super.setUp();
-        StdoutLogger.configure();
+        AndroMDALogger.configure();
     }
 
     /**

@@ -13,7 +13,7 @@ import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.StdoutLogger;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.BuildException;
@@ -84,7 +84,7 @@ public class AndroMDAGenTask extends MatchingTask
      */
     public AndroMDAGenTask()
     {
-        StdoutLogger.configure();
+        AndroMDALogger.configure();
     }
 
     /**

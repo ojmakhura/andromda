@@ -10,10 +10,9 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Discovers and loads all available Plugin objects
- * from the current classpath.
+ * Discovers and loads all available Plugin objects from the current classpath.
  * 
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
 public class PluginDiscoverer {
@@ -44,24 +43,24 @@ public class PluginDiscoverer {
     }
 	
 	/**
-	 * The shared instance.
-	 */
+     * The shared instance.
+     */
 	private static final PluginDiscoverer instance = new PluginDiscoverer();
 	
 	/**
-	 * Gets the default static instance of the PluginDicoverer.
-	 * @return PluginDiscoverer the static instance.
-	 */
+     * Gets the default static instance of the PluginDicoverer.
+     * 
+     * @return PluginDiscoverer the static instance.
+     */
 	public static PluginDiscoverer instance() 
     {
 		return instance;
 	}
     
     /**
-     * Discovers and initializes all <code>Plugin</code>
-     * objects on the current classpath.  If the cartridge
-     * with the given name is already registered in the 
-     * ComponentContainer, it will not be registered again.
+     * Discovers and initializes all <code>Plugin</code> objects on the
+     * current classpath. If the cartridge with the given name is already
+     * registered in the ComponentContainer, it will not be registered again.
      */
     public void discoverPlugins()
     {
@@ -69,13 +68,12 @@ public class PluginDiscoverer {
     }
 
     /**
-     * Discovers and initializes all <code>Plugin</code>
-     * objects on the current classpath.  If the plugin
-     * with the given name is already registered in the 
-     * ComponentContainer, it will not be registered again.
+     * Discovers and initializes all <code>Plugin</code> objects on the
+     * current classpath. If the plugin with the given name is already
+     * registered in the ComponentContainer, it will not be registered again.
      * 
-     * @param showPlugins if true then the plugin found will
-     *        logged, otherwise nothing will be shown.
+     * @param showPlugins if true then the plugin found will logged, otherwise
+     *        nothing will be shown.
      */
 	public void discoverPlugins(boolean showPlugins) 
     {
@@ -83,8 +81,8 @@ public class PluginDiscoverer {
 		if (logger.isDebugEnabled())
 			logger.debug("performing " + methodName);
 			
-		try {
-			
+		try 
+		{	
 			Enumeration pluginEnum = pluginResources.keys();
 			
 			while (pluginEnum.hasMoreElements()) 
@@ -115,7 +113,7 @@ public class PluginDiscoverer {
                         if (!ComponentContainer.instance().isRegistered(plugin.getName())) 
                         {
     						if (showPlugins && logger.isInfoEnabled())
-    							logger.info(
+    							AndroMDALogger.info(
     								"found " + 
     									plugin.getType() 
     									+ " --> '" + plugin.getName() + "'");										
@@ -125,18 +123,21 @@ public class PluginDiscoverer {
 					}
 				}		
 			}	
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) 
+		{
 			String errMsg = "Error performing " + methodName;
 			logger.error(errMsg, ex);
 			throw new PluginDiscovererException(errMsg, ex);
-		}
+		} 
 	}
     
     /**
      * Finds the plugins having the give <code>type</code>.
+     * 
      * @param type the Plugin type.
-     * @return Collection of all found Plugin instances of 
-     *         the given <code>type</code>.
+     * @return Collection of all found Plugin instances of the given
+     *         <code>type</code>.
      */
     public Collection findPlugins(Class type) 
     {

@@ -13,7 +13,7 @@ import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.StdoutLogger;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
@@ -114,7 +114,7 @@ public class ModelProcessor
 
             if (cartridges.size() <= 0)
             {
-                StdoutLogger
+                AndroMDALogger
                     .warn("WARNING! No cartridges found, check your classpath!");
             }
 
@@ -149,16 +149,17 @@ public class ModelProcessor
                 .getValidationMessages();
             if (messages != null && !messages.isEmpty())
             {
-                Logger validationLogger = Logger.getLogger("VALIDATION:ERROR");
+                AndroMDALogger.setSuffix("VALIDATION:ERROR");
                 Iterator messageIt = messages.iterator();
                 while (messageIt.hasNext())
                 {
                     ModelValidationMessage message = (ModelValidationMessage)messageIt
                         .next();
-                    validationLogger.error(message);
+                    AndroMDALogger.error(message);
                 }
+                AndroMDALogger.reset();
             }
-            StdoutLogger.info("completed model processing, TIME --> "
+            AndroMDALogger.info("completed model processing, TIME --> "
                 + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]");
         }
     }
@@ -179,7 +180,7 @@ public class ModelProcessor
         try
         {
             //-- command line status
-            StdoutLogger.info("Input model --> '" + model.getUrl() + "'");
+            AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
 
             repository.readModel(model.getUrl(), model.getModuleSearchPath());
 
@@ -218,7 +219,7 @@ public class ModelProcessor
                 }
                 else
                 {
-                    StdoutLogger
+                    AndroMDALogger
                         .info("namespace for '"
                             + cartridgeName
                             + "' cartridge is either not defined, or has the ignore "
@@ -241,9 +242,9 @@ public class ModelProcessor
      */
     protected void printConsoleHeader()
     {
-        logger.info("");
-        logger.info("A n d r o M D A - " + VERSION);
-        logger.info("");
+        AndroMDALogger.info("");
+        AndroMDALogger.info("A n d r o M D A  -  " + VERSION);
+        AndroMDALogger.info("");
     }
 
 

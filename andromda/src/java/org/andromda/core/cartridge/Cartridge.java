@@ -16,6 +16,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.OutputUtils;
 import org.andromda.core.common.Property;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -324,7 +325,7 @@ public class Cartridge
                 {
                     String outputString = output.toString();
 
-                    this.setLogger(this.getName());
+                    AndroMDALogger.setSuffix(this.getName());
                     //check to see if generateEmptyFiles is true and if
                     // outString (when CLEANED)
                     //isn't empty.
@@ -332,14 +333,14 @@ public class Cartridge
                         || template.isGenerateEmptyFiles())
                     {
                         OutputUtils.writeStringToFile(outputString, outFile);
-                        this.logger.info("Output: '" + outFile.toURI() + "'");
+                        AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
                     }
                     else
                     {
-                        this.logger.info("Empty Output: '" + outFile.toURI()
+                        AndroMDALogger.info("Empty Output: '" + outFile.toURI()
                             + "' --> not writing");
                     }
-                    this.resetLogger();
+                    AndroMDALogger.reset();
                 }
             }
         }

@@ -7,17 +7,17 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 /**
- * This is a logger that writes to stdout. At the moment,
- * it is written in the simplest possible way.
+ * This is the logger used to write <em>AndroMDA</em>
+ * prefixed messages so that our informational logging
+ * is nice looking.
  * 
  * @since 26.11.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
- *
  */
-public class StdoutLogger
+public class AndroMDALogger
 {
-    private static final String DEFAULT_LOGGER_NAME = "andromda";
+    private static final String DEFAULT_LOGGER_NAME = "AndroMDA";
     
     private static Logger logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
         
@@ -30,7 +30,7 @@ public class StdoutLogger
     {
     	final String methodName = "StdoutLogger.configure";
     	String loggingConfiguration = "log4j.xml";
-    	URL url = StdoutLogger.class.getResource(loggingConfiguration);
+    	URL url = AndroMDALogger.class.getResource(loggingConfiguration);
     	if (url == null) 
         {
     		throw new RuntimeException(methodName
@@ -62,13 +62,14 @@ public class StdoutLogger
     }
 
     /**
-     * Allows us to set the logger to a new name.
+     * Allows us to add a suffix to the logger name.
      * 
      * @param name
      */
-    public static void setLogger(String name) 
+    public static void setSuffix(String suffix) 
     {
-        logger = Logger.getLogger(name);
+        logger = Logger.getLogger(
+            DEFAULT_LOGGER_NAME + ':' + suffix);
     }
     
     /**

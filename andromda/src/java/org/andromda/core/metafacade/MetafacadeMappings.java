@@ -11,6 +11,7 @@ import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.ResourceFinder;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -398,9 +399,8 @@ public class MetafacadeMappings {
 								+ " no 'namespace' has been set for metafacades --> '" 
 								+ mappings.getResource() + "'");
 					}
-					if (logger.isInfoEnabled())
-						logger.info("found metafacades --> '" 
-								+ mappings.getNamespace() + "'");
+				    AndroMDALogger.info("found metafacades --> '" 
+							+ mappings.getNamespace() + "'");
 					
 					if (Namespaces.DEFAULT.equals(namespace)) {
 						// set the shared instance to the default mappings.
