@@ -499,9 +499,7 @@ public class Cartridge
                 {
                     uriSuffix
                 }, new File(outletLocation));
-                OutputUtils.writeUrlToFile(resourceUrl, new File(
-                    outletLocation,
-                    uriSuffix).toString());
+                OutputUtils.writeUrlToFile(resourceUrl, outFile.toString());
                 AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
             }
         }
