@@ -5,16 +5,9 @@ import org.andromda.core.metafacade.MetafacadeException;
 
 
 /**
- * <p>
- *  Facade for use in the andromda-meta cartridge. It hides an
- *  association between two classifiers that each represent a
- * </p>
- * <p>
- *  > object.
- * </p>
- *
  * Metaclass facade implementation.
- *
+ * 
+ * @see org.andromda.cartridges.meta.metafacades.MetafacadeAssociationEndFacade
  */
 public class MetafacadeAssociationEndFacadeLogicImpl
        extends MetafacadeAssociationEndFacadeLogic
