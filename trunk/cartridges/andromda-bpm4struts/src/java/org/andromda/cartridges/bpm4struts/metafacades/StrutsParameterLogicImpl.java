@@ -419,6 +419,19 @@ public class StrutsParameterLogicImpl
         return null;
     }
 
+    public Collection handleGetTargettedTableColumnNames()
+    {
+        final Collection columnNames = new HashSet();
+
+        Collection tableLinks = getTableLinks();
+        for (Iterator iterator = tableLinks.iterator(); iterator.hasNext();)
+        {
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            columnNames.add(parameter.getTableLinkColumnName());
+        }
+        return columnNames;
+    }
+
     public Collection handleGetTableLinks()
     {
         if (isTable())
