@@ -40,6 +40,9 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_INPUT_TYPE_PASSWORD = "password";
     public static final int TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT = 3;
 
+    /* --------------- Runtime properties ---------------- */
+    public static final boolean ENABLE_CACHE = true;
+
     private Bpm4StrutsProfile()
     {
     }
