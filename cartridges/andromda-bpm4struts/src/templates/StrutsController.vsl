@@ -18,6 +18,9 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @see ${controllerPackageName}.${controllerClassName}
+ */
 public class ${controllerClassName}Impl extends ${controllerClassName}
 {
 #foreach ($operation in $controller.operations)
@@ -72,6 +75,10 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($quote = '"')
 #foreach ($field in $useCase.pageVariables)
 #if ($field.table)
+    /**
+     * This dummy variable is used to populate the "$field.name" table.
+     * You may delete it when you add you own code in this controller.
+     */
     private final java.util.Collection ${field.name}DummyList =
         java.util.Arrays.asList( new Object[] {
 #set ($count = 0)
@@ -87,6 +94,11 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #end
         } );
 
+    /**
+     * This inner class is used in the dummy implementation in order to get the web application
+     * running without any manual programming.
+     * You may delete this class when you add you own code in this controller.
+     */
     public final class $str.capitalize($field.name)Dummy implements java.io.Serializable
     {
 #set ($constructor = '')
