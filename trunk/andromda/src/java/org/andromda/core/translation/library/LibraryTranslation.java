@@ -151,13 +151,10 @@ public class LibraryTranslation
         if (this.translation != null && this.getTranslator() != null)
         {
             String translation = this.getTranslationFragment(name, kind);
-
-            // only handle the fragment if we can find the fragment in the
-            // translation template
-            if (StringUtils.isNotEmpty(translation))
+            Fragment fragment = this.translation.getFragment(name);
+            if (fragment != null)
             {
-                String handlerMethod = this.translation.getFragment(name)
-                    .getHandlerMethod();
+                String handlerMethod = fragment.getHandlerMethod();
                 if (StringUtils.isNotEmpty(handlerMethod))
                 {
                     Class[] argTypes = new Class[]
