@@ -102,28 +102,6 @@ public final class $action.actionClassName extends Action
         saveMessages(request, messages);
 #end
 
-#if ($breadCrumbs == 'true')
-#if ($action.useCaseStart)
-        if (request.getParameter("__bc") == null)
-        {
-            resetBreadCrumbs(request);
-        }
-#end
-#set ($actionForwardCount = $actionForwards.size())
-#if ($actionForwardCount > 1)
-        final String forwardName = forward.getName();
-#foreach ($actionForward in $actionForwards)
-        if (forwardName.equals("$actionForward.forwardName"))
-        {
-            setLastBreadCrumb(request, "$actionForward.targetNameKey");
-        } else
-#end
-        ;
-#else
-        setLastBreadCrumb(request, "$actionForwards.iterator().next().targetNameKey");
-#end
-#end
-
         return forward;
     }
 
@@ -160,56 +138,5 @@ $decisionTransition.getDocumentation("     * ")
         return #processTransition($defaultOutcome)
     }
 
-#end
-#if ($breadCrumbs == 'true')
-#if ($action.useCaseStart)
-    private void resetBreadCrumbs(HttpServletRequest request)
-    {
-        HttpSession session = request.getSession(true);
-        Object breadCrumbsObject = session.getAttribute("org.andromda.bpm4struts.breadcrumbs");
-
-        if (breadCrumbsObject instanceof Map)
-        {
-            ((Map)breadCrumbsObject).clear();
-        }
-        else
-        {
-            session.setAttribute("org.andromda.bpm4struts.breadcrumbs", new LinkedHashMap());
-        }
-    }
-
-#end
-    private void setLastBreadCrumb(HttpServletRequest request, String message)
-    {
-        if (message == null)
-        {
-            return;
-        }
-
-        HttpSession session = request.getSession(true);
-        Object breadCrumbsObject = session.getAttribute("org.andromda.bpm4struts.breadcrumbs");
-
-        if (breadCrumbsObject instanceof LinkedHashMap)
-        {
-            Map breadCrumbMap = (Map)breadCrumbsObject;
-
-            StringBuffer buffer = request.getRequestURL();
-            if (request.getQueryString()!=null)
-            {
-                buffer.append(request.getQueryString());
-                buffer.append("&");
-            }
-            else
-            {
-                buffer.append("?");
-            }
-            buffer.append("__bc=1");
-            breadCrumbMap.put(message, buffer.toString());
-        }
-        else
-        {
-            session.setAttribute("org.andromda.bpm4struts.breadcrumbs", new LinkedHashMap());
-        }
-    }
 #end
 }
