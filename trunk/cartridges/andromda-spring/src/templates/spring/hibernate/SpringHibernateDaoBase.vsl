@@ -304,19 +304,16 @@ public abstract class $entity.daoBaseName
         throws $finder.exceptionList
 #end
     {
-        net.sf.hibernate.Session session =  org.springframework.orm.hibernate.SessionFactoryUtils.getSession(this.getSessionFactory(), false);
-        
+        final net.sf.hibernate.Session session =  org.springframework.orm.hibernate.SessionFactoryUtils.getSession(this.getSessionFactory(), false); 
         try
         {
                 net.sf.hibernate.Query queryObject =
-                    getHibernateTemplate().createQuery(
-                        session,
-                        queryString);
+                    session.createQuery(queryString);
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
 #set ($argumentName = $argument.name)
 #if($argument.type.primitive)
-#set ($argumentName = "new ${argument.type.wrapperName}(${argument.name})")
+#set ($argumentName = "new ${argument.type.wrapperName}($argument.name)")
 #end
 #set ($setParameterOperation = "setParameter")
 #if ($argument.type.collectionType)
