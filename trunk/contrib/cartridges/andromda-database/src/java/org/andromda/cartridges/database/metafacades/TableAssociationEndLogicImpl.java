@@ -118,4 +118,21 @@ public class TableAssociationEndLogicImpl
         return Short.valueOf((String)this.getConfiguredProperty("maxSqlNameLength"));
     }
 
+    protected String handleGetDummyValue(int index)
+    {
+        String dummyValue = null;
+
+        final String type = getOtherEnd().getType().getFullyQualifiedName(true);
+
+        if ("datatype.String".equals(type))
+        {
+            dummyValue = '\'' + getName() + '-' + index + '\'';
+        }
+        else
+        {
+            dummyValue = String.valueOf(index);
+        }
+
+        return dummyValue;
+    }
 }
