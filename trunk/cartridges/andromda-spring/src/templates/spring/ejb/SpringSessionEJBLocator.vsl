@@ -16,11 +16,11 @@ package $springTypesPackage;
 public class $serviceLocatorName
 {
     /**
-     * The shared instance of this ServiceLocator.
+     * The shared instance of this ${serviceLocatorName}.
      */
-    private static ServiceLocator instance; 
+    private static $serviceLocatorName instance; 
     
-    private ServiceLocator()
+    private $serviceLocatorName()
     {
         // shouldn't be instantiated
     }
@@ -30,11 +30,11 @@ public class $serviceLocatorName
      *
      * @return the shared service locator instance.
      */
-    public static final ServiceLocator instance() 
+    public static final $serviceLocatorName instance() 
     {
         if (instance == null)
         {
-            instance = new ServiceLocator();
+            instance = new $serviceLocatorName();
         }
         return instance;
     }
