@@ -14,10 +14,13 @@
     <classpathentry kind="lib" path="lib/uml14.jar" sourcepath="/andromda/lib/uml14-src.jar"/>
     <classpathentry kind="lib" path="lib/velocity-dep-1.2.jar"/>
     <classpathentry kind="lib" path="lib/junit.jar"/>
-    <classpathentry kind="lib" path="lib/castor-0.9.4.3.jar"/>
     <classpathentry kind="var" path="ANT_HOME/lib/ant.jar"/>
     <classpathentry kind="var" path="ANT_HOME/lib/optional.jar"/>
     <classpathentry kind="var" path="ANT_HOME/lib/xercesImpl.jar"/>
     <classpathentry kind="var" path="ANT_HOME/lib/xml-apis.jar"/>
-    <classpathentry kind="output" path="build\classes"/>
+    <classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
+    <classpathentry kind="lib" path="lib/commons-collections.jar"/>
+    <classpathentry kind="lib" path="lib/commons-digester.jar"/>
+    <classpathentry kind="lib" path="lib/commons-logging.jar"/>
+    <classpathentry kind="output" path="build/classes"/>
 </classpath>
