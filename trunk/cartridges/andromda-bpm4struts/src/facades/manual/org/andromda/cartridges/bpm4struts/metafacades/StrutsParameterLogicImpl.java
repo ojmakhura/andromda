@@ -229,44 +229,37 @@ public class StrutsParameterLogicImpl
 
         final String type = getType().getFullyQualifiedName();
         final String format = getValidatorFormat();
+        final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
 
         final Collection validatorTypesList = new LinkedList();
 
         if (isRequired()) validatorTypesList.add("required");
 
-        if (isValidatorByte(type))
-            validatorTypesList.add("byte");
-        else if (isValidatorShort(type))
-            validatorTypesList.add("short");
-        else if (isValidatorLong(type))
-            validatorTypesList.add("long");
-        else if (isValidatorInteger(type))
-            validatorTypesList.add("integer");
-        else if (isValidatorFloat(type))
-            validatorTypesList.add("float");
-        else if (isValidatorDouble(type))
-            validatorTypesList.add("double");
+        if (isValidatorByte(type)) validatorTypesList.add("byte");
+        else if (isValidatorShort(type)) validatorTypesList.add("short");
+        else if (isValidatorLong(type)) validatorTypesList.add("long");
         else if (isValidatorDate(type)) validatorTypesList.add("date");
 
-        if (format != null)
+        if (isRangeFormat)
         {
-            if (isRangeFormat(format))
-            {
-                if (isValidatorInteger(type)) validatorTypesList.add("intRange");
-                if (isValidatorFloat(type)) validatorTypesList.add("floatRange");
-                if (isValidatorDouble(type)) validatorTypesList.add("doubleRange");
-            } else if (isValidatorString(type))
-            {
-                if (isEmailFormat(format))
-                    validatorTypesList.add("email");
-                else if (isCreditCardFormat(format))
-                    validatorTypesList.add("creditCard");
-                else if (isMinLengthFormat(format))
-                    validatorTypesList.add("minlength");
-                else if (isMaxLengthFormat(format))
-                    validatorTypesList.add("maxlength");
-                else if (isPatternFormat(format)) validatorTypesList.add("mask");
-            }
+            if (isValidatorInteger(type)) validatorTypesList.add("intRange");
+            if (isValidatorFloat(type)) validatorTypesList.add("floatRange");
+            if (isValidatorDouble(type)) validatorTypesList.add("doubleRange");
+        }
+        else
+        {
+            if (isValidatorInteger(type)) validatorTypesList.add("integer");
+            else if (isValidatorFloat(type)) validatorTypesList.add("float");
+            else if (isValidatorDouble(type)) validatorTypesList.add("double");
+        }
+
+        if (format != null && isValidatorString(type))
+        {
+            if (isEmailFormat(format)) validatorTypesList.add("email");
+            else if (isCreditCardFormat(format)) validatorTypesList.add("creditCard");
+            else if (isMinLengthFormat(format)) validatorTypesList.add("minlength");
+            else if (isMaxLengthFormat(format)) validatorTypesList.add("maxlength");
+            else if (isPatternFormat(format)) validatorTypesList.add("mask");
         }
         return validatorTypes = validatorTypesList;
     }
