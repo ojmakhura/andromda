@@ -36,11 +36,6 @@
 package $packageName;
 #end
 
-import org.andromda.translation.validation.OCLCollections;
-import org.andromda.translation.validation.OCLExpressions;
-import org.andromda.translation.validation.OCLExpression;
-//import org.andromda.core.translation.ExpressionKinds;
-
 import org.andromda.core.metafacade.ModelValidationException;
 
 ## calculate metaclass and superMetafacade
