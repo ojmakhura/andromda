@@ -23,7 +23,7 @@ public class ${enumeration.name}
     /**
 $literal.getDocumentation("     * ")
      */
-    public static final $enumeration.name $literal.name = new ${enumeration.name}($literal.enumerationValue);
+    public static final $enumeration.name $literal.name = new ${enumeration.name}("$literal.enumerationValue");
 
 #end
     private $literalType.fullyQualifiedName value;
