@@ -280,7 +280,17 @@
 
     <template
         sheet="templates/StrutsApplicationCss.vsl"
-        outputPattern="layout/application.css"
+        outputPattern="layout/default-application.css"
+        outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsCss.vsl"
+        outputPattern="layout/default.css"
         outlet="pages"
         overWrite="true">
         <modelElements variable="class">
