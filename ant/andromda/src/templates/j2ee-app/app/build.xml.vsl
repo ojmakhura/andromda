@@ -17,7 +17,7 @@
     <target name="ear">
 #if ($persistenceType == "hibernate")
         <property file="${app.root.dir}/${hibernate.dir}/build.properties"/>
-        <ear destfile="${app.build.dir}/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
+        <ear destfile="target/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
             <fileset dir="${app.root.dir}/web/target" includes="*.war"/>
             <fileset dir="${app.root.dir}/hibernate/sar/target" includes="*.sar"/>
             <fileset dir="${app.root.dir}/hibernate/ejb/target" includes="*.jar"/>
@@ -38,7 +38,7 @@
         </ear>
 #else
         <property file="${app.root.dir}/${ejb.dir}/build.properties"/>
-        <ear destfile="${app.build.dir}/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
+        <ear destfile="target/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
             <fileset dir="${basedir}/target">
                 <include name="*.war"/>
             </fileset>
@@ -65,7 +65,7 @@
     </target>
 
     <target name="get-deps">
-#if ($persistenceType == "hibernate")
+#if ($persistenceType == 'hibernate')
         <mkdir dir="${app.root.dir}/${lib.dir}"/>
         <get dest="${app.root.dir}/${lib.dir}/commons-collections-3.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-3.0.jar"/>
         <get dest="${app.root.dir}/${lib.dir}/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
