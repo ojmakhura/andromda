@@ -50,7 +50,7 @@ public class EJBFinderMethodFacadeLogicImpl
         {
             String variableName = StringUtils.uncapitalize(this.getOwner()
                 .getName());
-            queryString = "SELECT DISTINCT OBJECT(c) FROM "
+            queryString = "SELECT DISTINCT OBJECT(" + variableName + ") FROM "
                 + this.getOwner().getName() + " as " + variableName;
             if (this.getArguments().size() > 0)
             {

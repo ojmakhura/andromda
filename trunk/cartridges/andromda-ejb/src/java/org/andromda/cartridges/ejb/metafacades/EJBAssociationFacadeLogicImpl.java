@@ -30,4 +30,15 @@ public class EJBAssociationFacadeLogicImpl
         return (String)this
             .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
     }
+
+	/**
+	 * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogic#handleGetTableName()
+	 */
+	public String getTableName() {
+		String tableName = super.getTableName();
+		if(getName().toLowerCase().startsWith(tableName.toLowerCase())) {
+			tableName = getRelationName().replaceAll("-", "_").toUpperCase();
+		}
+		return tableName;
+	}
 }
