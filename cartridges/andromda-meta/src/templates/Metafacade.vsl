@@ -19,7 +19,7 @@ public interface $metafacade.name
      * Provides any required initialization of the metafacade.
      */
     void initialize();
-    
+
     /**
      * Gets the metafacade that acts as the <code>owner</code> of this metafacade.
      * (for example: an operation is an owner of its parameters, etc). This is used
@@ -27,15 +27,15 @@ public interface $metafacade.name
      * error has occurred.
      */
     public Object getValidationOwner();
-    
+
     /**
      * Gets the name of the metafacade used within validation messages.  This provides
      * the full name of the metafacade.
      */
     public String getValidationName();
-    
+
     /**
-     * Performs validation of any invariants found on this model element 
+     * Performs validation of any invariants found on this model element
      * and stores the messages within the <code>validationMessages</code>
      * collection.
      *
