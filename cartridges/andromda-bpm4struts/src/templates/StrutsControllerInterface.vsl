@@ -106,7 +106,8 @@ $operation.getDocumentation("     * ")
 
 #foreach ($service in $controller.services)
 #if ($str.isNotBlank($service.accessorImplementation))
-    protected final $service.fullyQualifiedName get${service.name}()
+    protected final $service.fullyQualifiedName get${service.name}() 
+        throws Exception
     {
         return $service.accessorImplementation;
     }
