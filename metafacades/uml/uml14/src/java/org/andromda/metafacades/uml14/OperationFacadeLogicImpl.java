@@ -72,7 +72,7 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetSignature(boolean withArgumentNames)
     {
-        return this.getSignature(withArgumentNames, null);
+        return this.getSignature(this.getName(), withArgumentNames, null);
     }
 
     /**
@@ -93,13 +93,24 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetCall()
     {
-        StringBuffer sb = new StringBuffer();
-        sb.append(metaObject.getName());
-        sb.append("(");
-        sb.append(getArgumentNames());
-        sb.append(")");
-
-        return sb.toString();
+        return this.getCall(this.getName());
+    }
+    
+    /**
+     * Constructs the operation call with the
+     * given <code>name</code>
+     * @param name the name form which to construct the 
+     *        operation call.
+     * @return the operation call.
+     */
+    private String getCall(String name)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(name);
+        buffer.append("(");
+        buffer.append(this.getArgumentNames());
+        buffer.append(")");
+        return buffer.toString();        
     }
 
     /**
@@ -107,26 +118,26 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetArgumentNames()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-        Iterator it = metaObject.getParameter().iterator();
+        Iterator iterator = metaObject.getParameter().iterator();
 
         boolean commaNeeded = false;
-        while (it.hasNext())
+        while (iterator.hasNext())
         {
-            Parameter p = (Parameter)it.next();
+            Parameter parameter = (Parameter)iterator.next();
 
-            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
                 if (commaNeeded)
                 {
-                    sb.append(", ");
+                    buffer.append(", ");
                 }
-                sb.append(p.getName());
+                buffer.append(parameter.getName());
                 commaNeeded = true;
             }
         }
-        return sb.toString();
+        return buffer.toString();
     }
 
     /**
@@ -134,27 +145,27 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetArgumentTypeNames()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-        Iterator it = metaObject.getParameter().iterator();
+        Iterator iterator = metaObject.getParameter().iterator();
 
         boolean commaNeeded = false;
-        while (it.hasNext())
+        while (iterator.hasNext())
         {
-            Parameter p = (Parameter)it.next();
+            Parameter parameter = (Parameter)iterator.next();
 
-            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
                 if (commaNeeded)
                 {
-                    sb.append(", ");
+                    buffer.append(", ");
                 }
-                ParameterFacade facade = (ParameterFacade)shieldedElement(p);
-                sb.append(facade.getType().getFullyQualifiedName());
+                ParameterFacade facade = (ParameterFacade)shieldedElement(parameter);
+                buffer.append(facade.getType().getFullyQualifiedName());
                 commaNeeded = true;
             }
         }
-        return sb.toString();
+        return buffer.toString();
     }
 
     /**
@@ -164,12 +175,12 @@ public class OperationFacadeLogicImpl
     {
         Object type = null;
         Collection parms = metaObject.getParameter();
-        for (Iterator i = parms.iterator(); i.hasNext();)
+        for (Iterator iterator = parms.iterator(); iterator.hasNext();)
         {
-            Parameter p = (Parameter)i.next();
-            if (ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            Parameter parameter = (Parameter)iterator.next();
+            if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
-                type = p.getType();
+                type = parameter.getType();
                 break;
             }
         }
@@ -394,14 +405,15 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetSignature(String argumentModifier)
     {
-        return this.getSignature(true, argumentModifier);
+        return this.getSignature(this.getName(), true, argumentModifier);
     }
 
     private String getSignature(
-        boolean withArgumentNames,
-        String argumentModifier)
+        final String name,
+        final boolean withArgumentNames,
+        final String argumentModifier)
     {
-        StringBuffer signature = new StringBuffer(this.getName());
+        StringBuffer signature = new StringBuffer(name);
         signature.append("(");
         signature.append(this.getTypedArgumentList(
             withArgumentNames,
@@ -494,8 +506,7 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetPreconditionName()
     {
-        return String.valueOf(this.getConfiguredProperty(
-            UMLMetafacadeProperties.PRECONDITION_NAME_PATTERN)).replaceAll(
+        return this.getPreconditionPattern().replaceAll(
                 "\\{0\\}", this.getName());
     }
 
@@ -504,8 +515,45 @@ public class OperationFacadeLogicImpl
      */
     protected String handleGetPostconditionName()
     {
-        return String.valueOf(this.getConfiguredProperty(
-            UMLMetafacadeProperties.POSTCONDITION_NAME_PATTERN)).replaceAll(
+        return this.getPostconditionPattern().replaceAll(
                 "\\{0\\}", this.getName());
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getPreconditionSignature()
+     */
+    protected String handleGetPreconditionSignature()
+    {
+        return this.getSignature(this.getPreconditionName(), true, null);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getPreconditionCall()
+     */
+    protected String handleGetPreconditionCall()
+    {
+        return this.getCall(this.getPreconditionName());
+    }
+    
+    /**
+     * Gets the pattern for constructing the precondition name.
+     * 
+     * @return the precondition pattern.
+     */
+    private String getPreconditionPattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.PRECONDITION_NAME_PATTERN));
+    }
+    
+    /**
+     * Gets the pattern for constructing the postcondition name.
+     * 
+     * @return the postcondition pattern.
+     */
+    private String getPostconditionPattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(
+            UMLMetafacadeProperties.POSTCONDITION_NAME_PATTERN));
     }
 }
