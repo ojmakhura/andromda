@@ -44,6 +44,32 @@ public class StrutsParameterLogicImpl
         return null;
     }
 
+    protected Object handleGetJsp()
+    {
+        StrutsAction action = getAction();
+        if (action == null)
+        {
+            Collection actionStates = getModel().getAllActionStates();
+            for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+            {
+                Object stateObject = (Object) iterator.next();
+                if (stateObject instanceof StrutsJsp)
+                {
+                    StrutsJsp jsp = (StrutsJsp) stateObject;
+                    if (jsp.getPageVariables().contains(this))
+                    {
+                        return jsp;
+                    }
+                }
+            }
+        }
+        else
+        {
+            return action.getInput();
+        }
+        return null;
+    }
+
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
@@ -84,9 +110,9 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#mustReset()()
+     * @see StrutsParameter#isResetRequired()
      */
-    public boolean handleMustReset()
+    public boolean handleIsResetRequired()
     {
         final ClassifierFacade type = getType();
         final String typeName = type.getFullyQualifiedName(true);
@@ -133,6 +159,85 @@ public class StrutsParameterLogicImpl
     public boolean handleIsTable()
     {
         return (getType().isCollectionType() || getType().isArrayType()) && (!getTableColumnNames().isEmpty());
+    }
+
+    public boolean handleIsTableLink()
+    {
+        Object linkObject = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK);
+        if (linkObject != null)
+        {
+            String link = String.valueOf(linkObject);
+            int dotIndex = link.indexOf('.');
+            if ((dotIndex > -1) && (dotIndex < link.length() - 1))
+            {
+                return (link.substring(0, dotIndex).trim().length() > 0) && (link.substring(dotIndex + 1).trim().length() > 0);
+            }
+        }
+        return false;
+    }
+
+    public String handleGetTableLinkTableName()
+    {
+        if (isTableLink())
+        {
+            final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK));
+            return link.substring(0, link.indexOf('.'));
+        }
+        return null;
+    }
+
+    public String handleGetTableLinkColumnName()
+    {
+        if (isTableLink())
+        {
+            final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK));
+            return link.substring(link.indexOf('.') + 1);
+        }
+        return null;
+    }
+
+    public Collection handleGetTableLinks()
+    {
+        if (isTable())
+        {
+            String thisTableName = getName();
+            Collection tableLinks = new LinkedList();
+
+            StrutsJsp page = getJsp();
+            Collection parameters = page.getAllActionParameters();
+            for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+            {
+                StrutsParameter parameter = (StrutsParameter) iterator.next();
+                if (thisTableName.equals(parameter.getTableLinkTableName()))
+                {
+                    tableLinks.add(parameter);
+                }
+            }
+            return tableLinks;
+        }
+        return Collections.EMPTY_LIST;
+    }
+
+    public boolean handleIsTableLinksPresent()
+    {
+        return getTableLinks().isEmpty() == false;
+    }
+
+    public String handleGetDecoratorPackageName()
+    {
+        return getJsp().getPackageName();
+    }
+
+    public String handleGetDecoratorClassName()
+    {
+        StrutsJsp jsp = getJsp();
+        return StringUtilsHelper.toJavaClassName(jsp.getName()) +
+                StringUtilsHelper.toJavaClassName(getName()) + "TableDecorator";
+    }
+
+    public String handleGetDecoratorFullPath()
+    {
+        return (getDecoratorPackageName() + '/' + getDecoratorClassName()).replace('.', '/');
     }
 
     public String handleGetTableExportTypes()
@@ -285,9 +390,9 @@ public class StrutsParameterLogicImpl
         return getType().isCollectionType() || getType().isArrayType();
     }
 
-    public boolean handleHasBackingList()
+    public boolean handleIsBackingListPresent()
     {
-        return "select".equals(getWidgetType());
+        return "select".equals(getWidgetType()) && getAction() != null;   // only on action parameters
     }
 
     public String handleGetBackingListName()
