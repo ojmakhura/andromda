@@ -87,7 +87,10 @@ public class PluginDiscoverer {
 	public void discoverPlugins(boolean showPlugins) 
     {
 		final String methodName = "PluginDiscoverer.discoverPlugins";
-        AndroMDALogger.info("-- discovering plugins --");
+        if (showPlugins)
+        {
+            AndroMDALogger.info("-- discovering plugins --");
+        }
 		try 
 		{	
 			Enumeration pluginEnum = pluginResources.keys();
