@@ -26,6 +26,11 @@
         <fileset refid="libraries"/>
         <pathelement path="${basedir}/target/classes"/>
         <pathelement location="${app.root.dir}/dist/${application.id}-common-${application.version}.jar"/>
+#if ($persistenceType == "hibernate")
+        <pathelement location="${app.root.dir}/dist/${application.id}-hibernate-common-${application.version}.jar"/>
+#else
+        <pathelement location="${app.root.dir}/dist/${application.id}-ejb-common-${application.version}.jar"/>
+#end
 #if ($webServices == "y")
         <pathelement location="${app.root.dir}/dist/${application.id}-webservice-${application.version}.jar"/>
 #end
