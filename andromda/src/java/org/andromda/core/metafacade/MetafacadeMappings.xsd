@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ========================================================================= 
+<!-- =========================================================================
      This schema defines the andromda-metafacades.xml configuration file.
-     CODING CONVENTION: NO TABS, INDENT 4 SPACES                             
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
      ========================================================================= -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-    <!-- Used for mapping contexts.  An example for a context is: An entity is a 
-         context for its attributes. So, the metaclass "Attribute" would be mapped to 
-         the class for "EntityAttributeFacade" if the Attribute belongs to an entity. 
-         If the Attribute belongs to any other Classifier, it would be mapped 
+    <!-- Used for mapping contexts.  An example for a context is: An entity is a
+         context for its attributes. So, the metaclass "Attribute" would be mapped to
+         the class for "EntityAttributeFacade" if the Attribute belongs to an entity.
+         If the Attribute belongs to any other Classifier, it would be mapped
          to a simple "AttributeFacade" and therefore would NOT need the context -->
     <xs:element name="context" type="xs:string"/>
-    <!-- specifies the default metafacade (if a metafacade is not explicitly 
+    <!-- specifies the default metafacade (if a metafacade is not explicitly
          defined for an element this will be used instead) -->
     <xs:element name="default">
         <xs:complexType>
@@ -53,7 +53,7 @@
         <xs:complexType>
             <xs:attribute name="reference" type="xs:string" use="required"/>
             <!-- defines the default value of the property if the property isn't supplied -->
-            <xs:attribute name="default" use="optional"/>     
+            <xs:attribute name="default" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="stereotype" type="xs:string"/>
