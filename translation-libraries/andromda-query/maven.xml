@@ -4,7 +4,7 @@
   		     Run the translation tests                                                    
   		 ================================================================== -->
   	<preGoal name="test:test">  		
-        <attainGoal name="androdev:test-translation"/>
+        <attainGoal name="translation-library:test"/>
   	</preGoal> 
   	  	
 </project>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>AndroMDA Cartridge Maven Plugin Goals</title>
+  	</properties>
+  	<body>
+    	<section name="Goals">
+      		<table>	
+      			<tr>
+      				<th>
+      					Goal
+      				</th>
+      				<th>
+      					Description
+      				</th>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					cartridge:test-cartridge
+      				</td>
+      				<td>
+	        			<p>
+	        				Runs a cartridge test, which consists of generating output from a 
+                            model and then comparing this output against the files located in
+                            the test archive.
+                            <a href="properties.html#maven.androdev.cartridge.test.archive">maven.cartridge.test.archive</a>	
+	        			</p>
+      				</td>
+      			</tr>
+      		</table>
+    	</section>
+  	</body>
+</document>

@@ -2,12 +2,8 @@ package org.andromda.cartridges.testsuite;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.custommonkey.xmlunit.XMLTestCase;
-import org.xml.sax.SAXException;
 
 /**
  * Compares two XML-Files.
@@ -44,17 +40,9 @@ public class XMLComparator
                 new FileReader(expectedFile.getAbsolutePath()),
                 new FileReader(actualFile.getAbsolutePath()));
         }
-        catch (SAXException e)
+        catch (Throwable th)
         {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
+            th.printStackTrace();
         }
     }
 

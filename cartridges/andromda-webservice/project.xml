@@ -82,6 +82,13 @@
             <version>1.2.8</version>
             <properties/>
         </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties/>
+        </dependency>
     </dependencies>
     <properties/>
 </project>

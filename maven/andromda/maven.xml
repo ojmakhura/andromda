@@ -35,6 +35,11 @@
             token="$${bootstrap}"
             value="${bootstrap}">
         </ant:replace> 
+        <!-- Replace references to the '${bootstrapMode} property' -->
+        <ant:replace file="${maven.build.dest}/plugin.jelly" 
+            token="$${bootstrapMode}"
+            value="${bootstrapMode}">
+        </ant:replace> 
         <velocity:merge
             name="${maven.build.dest}/plugin.properties"
             basedir="${basedir}"

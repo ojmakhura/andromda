@@ -67,6 +67,14 @@
 		</j:if>
     </goal>
     
+    <preGoal name="test:test">
+        <!--
+        <j:if test="${context.getVariable('maven.androdev.model.uri') != null}">
+            <attainGoal name="cartridge:test"/>
+        </j:if>       
+        -->
+    </preGoal>
+    
     <!-- ===================================================================
          Intercept the 'site' goal so that we can fake out the reports 
          by copying our real source to a temp directory and then setting the 

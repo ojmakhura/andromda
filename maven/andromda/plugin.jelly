@@ -10,7 +10,7 @@
           description="Runs AndroMDA with plugins defined as dependencies with your POM">
          
         <j:choose>
-            <j:when test="${maven.andromda.bootstrap.mode}">
+            <j:when test="${bootstrapMode}">
                 <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
                 <ant:echo>|    R u n n i n g   A n d r o M D A   I n   B O O T S T R A P   M o d e    |</ant:echo>
                 <ant:echo>+---------------------------------------------------------------------------+</ant:echo>      			
@@ -28,7 +28,7 @@
         <!-- add any model dependencies -->
         <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
 
-          <ant:taskdef
+        <ant:taskdef
             name="andromda"
             classname="org.andromda.core.anttasks.AndroMDAGenTask">
             <ant:classpath>		
@@ -36,8 +36,7 @@
             </ant:classpath>
         </ant:taskdef>  
             
-        <ant:andromda modelURL="${maven.andromda.model.uri}"
-                      basedir="${maven.andromda.src.dir}"
+        <ant:andromda basedir="${maven.andromda.src.dir}"
                       includes="${maven.andromda.src.includes}"
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
                       processAllModelPackages="${maven.andromda.processAllModelPackages}">
@@ -56,15 +55,7 @@
             <j:forEach begin="0" end="${maximum}" indexVar="index">
                 <j:set var="indexVarName" value="maven.andromda.model.uri.${index}"/>
                 <j:if test="${context.getVariable(indexVarName) != null and context.getVariable(indexVarName) != ''}">
-                    <ant:model>
-                    
-                        <!-- set the name -->
-                        <ant:setProperty 
-                            name="url" 
-                            value="${context.getVariable(indexVarName)}"/>    
-                                           
-                    </ant:model>
-                    
+                    <ant:model url="${context.getVariable(indexVarName)}"/>
                 </j:if>
             </j:forEach>   
 

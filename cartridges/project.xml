@@ -14,7 +14,14 @@
             <artifactId>UMLMetafacadeModel</artifactId>
             <version>${pom.currentVersion}</version>
             <type>xml.zip</type>
-         </dependency>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>xml.zip</type>
+            <properties/>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
