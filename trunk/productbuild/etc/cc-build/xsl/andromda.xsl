@@ -327,7 +327,8 @@
             <td class="modifications-data">
                 <xsl:if test="file/project">
                     <xsl:value-of select="file/project"/>
-                    <xsl:value-of select="system-property('file.separator')"/>
+                    <xsl:value-of select="'/'"/>
+                    <!--xsl:value-of select="system-property('file.separator')"/-->
                 </xsl:if>
                 <xsl:value-of select="file/filename"/>
             </td>
@@ -357,7 +358,8 @@
             <td class="modifications-data">
                 <xsl:if test="project">
                     <xsl:value-of select="project"/>
-                    <xsl:value-of select="system-property('file.separator')"/>
+                    <xsl:value-of select="'/'"/>
+                    <!--xsl:value-of select="system-property('file.separator')"/-->
                 </xsl:if>
                 <xsl:value-of select="filename"/>
             </td>
