@@ -2,7 +2,7 @@
 
 <project>
     <extend>../project.xml</extend>
-    <id>maven-andromda-plugin${bootstrap}</id>
+    <artifactId>maven-andromda-plugin${bootstrap}</artifactId>
     <name>AndroMDA Maven Plugin</name>
     <shortDescription>AndroMDA Maven Plugin</shortDescription>
     <description>
