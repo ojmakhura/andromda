@@ -271,7 +271,7 @@ public class MetafacadeFactory
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with mappingObject of type --> '"
                 + mappingObjectClass + "'";
-            getLogger().error(errMsg);
+            this.getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
@@ -304,7 +304,7 @@ public class MetafacadeFactory
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with mappingObject of type --> '"
                 + mapping.getMappingClassName() + "'";
-            getLogger().error(errMsg);
+            this.getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
@@ -435,7 +435,7 @@ public class MetafacadeFactory
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with mappingObject of type --> '"
                 + mappingObject.getClass().getName() + "'";
-            getLogger().error(errMsg, th);
+            this.getLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
