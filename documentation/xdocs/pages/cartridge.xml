@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>The cartridge system of AndroMDA</h1>
+    <section name="The cartridge system of AndroMDA">
+ 
       <p class="std">
           AndroMDA is implemented as a custom task for the build tool Ant.
           The custom task is inside the main or "core" module of AndroMDA.
@@ -284,7 +284,7 @@
           wrote such a template!).
       </p>
 
-    </freetext>
+    </section>
 
   </body>
 </document>

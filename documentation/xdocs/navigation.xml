@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="MB" href="http://www.andromda.org/">
+<project name="AndroMDA" href="http://www.andromda.org/">
 
-    <title>MB title</title>
+    <title>AndroMDA Model Driven Architecture Framework</title>
 
     <body>
-        <headline name="Home" href="/index.html" />
-
+    	
+    	<links>
+      		<item name="MDA" href="http://www.omg.org/mda/"/>
+      		<item name="UML" href="http://www.cetus-links.org/oo_uml.html"/>
+      		<item name="OCL" href="http://www.klasse.nl/ocl/index.html"/>
+      		<item name="XMI" href="http://www.omg.org/technology/documents/formal/xmi.htm"/>
+    	</links>
+    	
         <menu name="Introduction">
             <item name="What is AndroMDA?"   href="/pages/whatisit.html"/>
             <item name="Look and feel"      href="/pages/lookandfeel.html"/>

@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>Writing a build script using AndroMDA</h1>
+    <section name="Writing a build script using AndroMDA">
+
       <p class="std">
           AndroMDA is implemented as a custom task for the build tool Ant.
           This web page documents the parameters and elements of this task.
@@ -210,7 +210,7 @@
           The above shows the defaults setup assumed by AndroMDA when there is no repository subtask.
       </p>
 
-    </freetext>
+    </section>
 
   </body>
 </document>

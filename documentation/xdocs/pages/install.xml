@@ -10,8 +10,8 @@
 
   <body>
 
-    <freetext name="Section 1">
-      <h1>How to install AndroMDA</h1>
+    <section name="How to install AndroMDA">
+      <h1></h1>
       <p class="std">
         <b>Download, unzip, CLASSPATH!</b><br />
         (or was it "Ready ... steady ... go!" ?)
@@ -143,7 +143,7 @@
         instead of unzipping the released sources, then proceed as before.
       </p>
 
-    </freetext>
+    </section>
 
     <news name="Velocity" href="http://jakarta.apache.org/velocity/">
       <p>
