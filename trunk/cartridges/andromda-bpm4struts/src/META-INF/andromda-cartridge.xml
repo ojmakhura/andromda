@@ -3,7 +3,7 @@
 
    <stereotype name="FrontEndUseCase"/>
    <stereotype name="FrontEndView"/>
-   <stereotype name="FrontEndPresentation"/>
+   <stereotype name="FrontEndModel"/>
    <stereotype name="FrontEndConfiguration"/>
 
    <outlet name="actions"/>
@@ -12,7 +12,7 @@
    <outlet name="config"/>
 
    <template
-      stereotype="FrontEndPresentation"
+      stereotype="FrontEndModel"
       sheet="templates/StrutsForm.vsl"
       outputPattern="{0}/{1}.java"
       outlet="forms"
