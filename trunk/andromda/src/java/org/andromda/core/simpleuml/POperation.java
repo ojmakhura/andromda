@@ -1,5 +1,7 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
+
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
@@ -9,14 +11,9 @@ import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
  *
  *@author    Anthony Mowers
  */
-public class OperationProxy extends ModelElementProxy implements UMLOperation
+public class POperation extends PModelElement implements UMLOperation
 {
-	private UMLScriptHelper scriptHelper;
-
-	private static VisibilityKind PRIVATE = new JavaVisibility("private");
-	private static VisibilityKind PUBLIC = new JavaVisibility("public");
-	private static VisibilityKind PROTECTED = new JavaVisibility("protected");
-	private static VisibilityKind PACKAGE = new JavaVisibility("");
+	private UMLStaticHelper scriptHelper;
 
 	/**
 	 *  Description of the Method
@@ -26,7 +23,7 @@ public class OperationProxy extends ModelElementProxy implements UMLOperation
 	 *@return               Description of the Return Value
 	 */
 	public static Operation newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		Operation operation)
 	{
 		Class[] interfaces =
@@ -35,10 +32,10 @@ public class OperationProxy extends ModelElementProxy implements UMLOperation
 		return (Operation) java.lang.reflect.Proxy.newProxyInstance(
 			operation.getClass().getClassLoader(),
 			interfaces,
-			new OperationProxy(operation, scriptHelper));
+			new POperation(operation, scriptHelper));
 	}
 
-	private OperationProxy(Operation operation, UMLScriptHelper scriptHelper)
+	private POperation(Operation operation, UMLStaticHelper scriptHelper)
 	{
 		super(operation, scriptHelper);
 	}
@@ -55,18 +52,18 @@ public class OperationProxy extends ModelElementProxy implements UMLOperation
 		visibility = ((Operation)modelElement).getVisibility();
 		if (VisibilityKindEnum.VK_PRIVATE.equals(visibility))
 		{
-			return PRIVATE;
+			return JavaVisibilityEnum.PRIVATE;
 		}
 		else if (VisibilityKindEnum.VK_PROTECTED.equals(visibility))
 		{
-			return PROTECTED;
+			return JavaVisibilityEnum.PROTECTED;
 		}
 		else if (VisibilityKindEnum.VK_PUBLIC.equals(visibility))
 		{
-			return PUBLIC;
+			return JavaVisibilityEnum.PUBLIC;
 		}
 
-		return PACKAGE;
+		return JavaVisibilityEnum.PACKAGE;
 	}
 
 }

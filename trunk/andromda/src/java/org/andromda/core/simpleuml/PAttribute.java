@@ -1,5 +1,6 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.Attribute;
 
 
@@ -8,11 +9,11 @@ import org.omg.uml.foundation.core.Attribute;
  *
  *@author    amowers
  */
-public class AttributeProxy
-	extends ModelElementProxy
+public class PAttribute
+	extends PModelElement
 	implements UMLAttribute
 {
-	private UMLScriptHelper scriptHelper;
+	private UMLStaticHelper scriptHelper;
 
 
 	/**
@@ -23,7 +24,7 @@ public class AttributeProxy
 	 *@return               Description of the Return Value
 	 */
 	public static Attribute newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		Attribute attribute)
 	{
 		Class[] interfaces = new Class[]
@@ -35,14 +36,14 @@ public class AttributeProxy
 		return (Attribute)java.lang.reflect.Proxy.newProxyInstance(
 			attribute.getClass().getClassLoader(),
 			interfaces,
-			new AttributeProxy(attribute, scriptHelper));
+			new PAttribute(attribute, scriptHelper));
 	}
 
 
 	
-	private AttributeProxy(
+	private PAttribute(
 		Attribute attribute,
-		UMLScriptHelper scriptHelper)
+		UMLStaticHelper scriptHelper)
 	{
 		super(attribute,scriptHelper);
 	}

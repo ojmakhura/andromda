@@ -1,9 +1,10 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Dependency;
@@ -15,8 +16,8 @@ import org.omg.uml.foundation.core.Operation;
  *
  *@author    amowers
  */
-public class ClassifierProxy
-	extends ModelElementProxy
+public class PClassifier
+	extends PModelElement
 	implements UMLClassifier
 {
 	/**
@@ -27,7 +28,7 @@ public class ClassifierProxy
 	 *@return               Description of the Return Value
 	 */
 	public static Classifier newInstance(
-		UMLScriptHelper scriptHelper,
+		UMLStaticHelper scriptHelper,
 		Classifier classifier)
 	{
 		Class[] interfaces = {
@@ -38,14 +39,14 @@ public class ClassifierProxy
 		return (Classifier)java.lang.reflect.Proxy.newProxyInstance(
 			classifier.getClass().getClassLoader(),
 			interfaces,
-			new ClassifierProxy(classifier, scriptHelper));
+			new PClassifier(classifier, scriptHelper));
 	}
 
 
 	
-	protected ClassifierProxy(
+	protected PClassifier(
 		Classifier classifier,
-		UMLScriptHelper scriptHelper)
+		UMLStaticHelper scriptHelper)
 	{
 		super(classifier,scriptHelper);
 	}
@@ -65,7 +66,7 @@ public class ClassifierProxy
 		for (Iterator i = attributes.iterator(); i.hasNext(); )
 		{
 			attributeProxies.add(
-				AttributeProxy.newInstance(scriptHelper,(Attribute)i.next()) 
+				PAttribute.newInstance(scriptHelper,(Attribute)i.next()) 
 				);
 		}
 		
@@ -86,7 +87,7 @@ public class ClassifierProxy
 		for (Iterator i = dependencies.iterator(); i.hasNext(); )
 		{
 			dependencyProxies.add(
-				DependencyProxy.newInstance(scriptHelper,(Dependency)i.next())
+				PDependency.newInstance(scriptHelper,(Dependency)i.next())
 			);
 		}
 		
@@ -124,7 +125,7 @@ public class ClassifierProxy
 		for (Iterator i = operations.iterator(); i.hasNext(); )
 		{
 			Object proxy = 
-				OperationProxy.newInstance(
+				POperation.newInstance(
 					scriptHelper, 
 					(Operation) (i.next() )
 				);

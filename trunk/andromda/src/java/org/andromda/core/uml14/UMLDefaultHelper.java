@@ -16,7 +16,7 @@ import org.omg.uml.modelmanagement.Model;
  *
  * 
  */
-public class UMLBaseHelper
+public class UMLDefaultHelper
 	implements ScriptHelper
 {
 	protected UmlPackage model;

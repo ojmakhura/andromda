@@ -3,7 +3,7 @@ package org.andromda.core.uml14;
 import org.omg.uml.foundation.core.AssociationEnd;
 
 /**
- * @author tony
+ * @author Anthony Mowers
  *
  * 
  */

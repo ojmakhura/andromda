@@ -23,7 +23,7 @@
                  classname="org.andromda.core.anttasks.AndroMDAGenTask"
                  classpathref="classpath"/>
 
-        <unzip src="${model.file}" dest="build/model/unzipped" />
+		<unzip src="${model.file}" dest="build/model/unzipped" />
 
         <andromda basedir="build/model/unzipped"
                  ejbDestdir="."
@@ -35,7 +35,7 @@
         >
         	<repository
         		classname="org.andromda.core.mdr.MDRepositoryFacade"
-        		transformClassname="org.andromda.core.uml14.UMLScriptHelper"/>
+        		transformClassname="org.andromda.core.uml14.UMLStaticHelper"/>
         		
             <template
                 stereotype="StrutsConfig"

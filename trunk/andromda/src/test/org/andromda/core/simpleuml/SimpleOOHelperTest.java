@@ -1,14 +1,17 @@
-package org.andromda.core.uml14;
+package org.andromda.core.simpleuml;
 
 import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.TestModel;
+import org.andromda.core.uml14.UMLDefaultHelper;
+import org.andromda.core.uml14.UMLScriptHelperTest;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.modelmanagement.UmlPackage;
+
 
 /**
  * @author amowers
@@ -98,7 +101,7 @@ public class SimpleOOHelperTest extends UMLScriptHelperTest {
     {
         assertNotNull(operation);
         UMLOperation umlOperation = 
-            (UMLOperation)OperationProxy.newInstance(helper,operation);
+            (UMLOperation)POperation.newInstance(helper,operation);
          
         assertEquals(
             umlOperation.getVisibility().toString(),
@@ -117,13 +120,13 @@ public class SimpleOOHelperTest extends UMLScriptHelperTest {
     {
         assertNotNull(associationEnd);
         UMLAssociationEnd umlAssociation =
-            (UMLAssociationEnd)AssociationEndProxy.newInstance(helper,associationEnd);
+            (UMLAssociationEnd)PAssociationEnd.newInstance(helper,associationEnd);
         assertEquals(
             umlAssociation.getRoleName(),
             "TheClassAF");
     }
     
-    protected UMLBaseHelper getHelper()
+    protected UMLDefaultHelper getHelper()
     {
         if (helper == null)
         {
