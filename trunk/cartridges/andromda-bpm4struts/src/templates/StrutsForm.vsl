@@ -1,0 +1,60 @@
+package $transform.getPackageName($class);
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+
+import java.io.Serializable;
+
+import javax.servlet.http.HttpServletRequest;
+
+public final class $class.name extends ActionForm implements Serializable
+{
+   private String transition = null;
+#foreach ($feature in $class.feature)
+#if ($transform.isAttribute($feature))
+   private String $feature.name = null;
+#end
+#end
+#foreach ($feature in $class.feature)
+#if ($transform.isAttribute($feature))
+
+   public String get$str.upperCaseFirstLetter($feature.name)()
+   {
+      return $feature.name;
+   }
+
+   public void set$str.upperCaseFirstLetter($feature.name)(String $feature.name)
+   {
+      this.$feature.name = $feature.name;
+   }
+#end
+#end
+
+   /**
+    * Returns the value of the transition to follow after the action associated
+    * with this form finishes.
+    */
+   public String getTransition()
+   {
+      return transition;
+   }
+
+   /**
+    * Sets the value of the transition to follow after the action associated
+    * with this form finishes.
+    */
+   public void setTransition(String transition)
+   {
+      this.transition = transition;
+   }
+
+   public void reset(ActionMapping mapping, HttpServletRequest request)
+   {
+   }
+
+   public ActionErrors validate(ActionMapping mapping, HttpServletRequest request)
+   {
+      return null;
+   }
+}

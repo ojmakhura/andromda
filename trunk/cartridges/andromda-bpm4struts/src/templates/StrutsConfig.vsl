@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+   "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+#set ($allUseCases = $transform.filterWithStereotypeName($transform.allUseCases, "FrontEndUseCase"))
+#set ($allControllerForms = $transform.filterWithStereotypeName($transform.allControllerForms, "FrontEndPresentation"))
+#set ($allInitialStates = $transform.getAllInitialStates($allUseCases))
+<struts-config>
+
+   <!-- ========== Form Bean Definitions =================================== -->
+   <form-beans>
+#foreach ($formBeanControllerForm in $allControllerForms)
+#set ($formBeanName = "$transform.toJavaMethodName($formBeanControllerForm)")
+#set ($formBeanType = "$transform.toFullyQualifiedJavaClassName($formBeanControllerForm)")
+      <form-bean name="$formBeanName" type="$formBeanType" />
+#end
+   </form-beans>
+
+   <!-- ========== Global Forwards Definitions ================================== -->
+   <global-forwards>
+#foreach ($initialState in $allInitialStates)
+#set ($forwardName = $transform.toForwardName($initialState))
+#set ($forwardPath = $transform.toFullyQualifiedWebFileName($transform.getLastTransitionState($initialState)))
+      <forward name="$forwardName" path="/${forwardPath}.jsp" redirect="true"/>
+#end
+   </global-forwards>
+
+   <!-- ========== Action Mapping Definitions =================================== -->
+   <action-mappings>
+#foreach ($useCase in $allUseCases)
+#set ($activityGraph = $transform.getActivityGraphs($useCase).iterator().next())
+#set ($actionMappingControllerClass = $transform.getControllerClass($useCase))
+#set ($actionMappingPath = $transform.toJavaClassName($actionMappingControllerClass))
+#set ($actionMappingType = $transform.toFullyQualifiedJavaClassName($actionMappingControllerClass))
+#set ($actionMappingForm = $transform.getControllerForm($useCase))
+#set ($actionMappingFormName = $transform.toJavaMethodName($actionMappingForm))
+      <action
+         path="/$actionMappingPath" type="$actionMappingType"
+#if ($transform.getControllerForm($useCase))
+         name="$actionMappingFormName"
+#end
+         scope="request" unknown="false" validate="true" parameter="target" >
+#set ($actionStates = $transform.filterWithStereotypeName($transform.getActionStates($activityGraph), "FrontEndView"))
+#foreach ($actionState in $actionStates)
+#set ($actionForwardName = $transform.toWebFileName($actionState))
+#set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($actionState))
+         <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="true" />
+#end
+#set ($finalStates = $transform.filterWithStereotypeName($transform.getFinalStates($activityGraph), "FrontEndView"))
+#foreach ($finalState in $finalStates)
+#set ($actionForwardName = $transform.toForwardName($finalState))
+#set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($finalState))
+         <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="true"/>
+#end
+      </action>
+#end
+   </action-mappings>
+
+   <!-- not used yet by struts, but present because of a bug in current struts version -->
+   <message-resources parameter="application-resources" null="false"/>
+
+   <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+      <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+      <set-property property="moduleAware" value="true" />
+   </plug-in>
+
+</struts-config>
+
+
