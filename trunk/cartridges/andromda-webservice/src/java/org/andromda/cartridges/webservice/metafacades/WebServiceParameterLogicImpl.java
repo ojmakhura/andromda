@@ -39,8 +39,7 @@ public class WebServiceParameterLogicImpl
         ClassifierFacade type = this.getType();
         if (type != null)
         {
-            if (!type.isDataType()
-                && WSDLType.class.isAssignableFrom(type.getClass()))
+            if (WSDLType.class.isAssignableFrom(type.getClass()))
             {
                 WSDLType wsdlType = (WSDLType)type;
                 ClassifierFacade service = this.getOperation().getOwner();
@@ -53,14 +52,14 @@ public class WebServiceParameterLogicImpl
                         testTypeName = webService.getTestPackageName() + '.'
                             + wsdlType.getArrayName();
                     }
-                    else
+                    else if (!type.isDataType())
                     {
                         testTypeName = webService.getTestPackageName() + '.'
                             + wsdlType.getName();
                     }
                 }
             }
-            else
+            if (testTypeName == null)
             {
                 testTypeName = this.getType().getFullyQualifiedName();
             }
