@@ -11,6 +11,13 @@
   		meta model.  This allows us to switch out the metafacade implementatin without
   		worrying about breaking cartridge funciontionality.
   	</description>
+    <dependencies>
+        <dependency>
+            <groupId>andromda-translation-libraries</groupId>
+            <artifactId>andromda-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+    </dependencies>
   	<!-- restrict the reports generated -->
   	<reports>
   		<report>maven-jxr-plugin</report>
