@@ -131,7 +131,6 @@ public class ClassifierDecoratorImpl extends ClassifierDecorator
         return fullName;
     }
 
-
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.ClassifierDecorator#isPrimitiveType()
      */
@@ -148,6 +147,38 @@ public class ClassifierDecoratorImpl extends ClassifierDecorator
                 || "float".equals(name)
                 || "double".equals(name)
                 || "boolean".equals(name));
+    }
+
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.ClassifierDecorator#getAttributesAsList(boolean)
+     */
+    public String getAttributesAsList(boolean withTypeNames)
+    {
+        StringBuffer sb = new StringBuffer();
+        String separator = "";
+        sb.append("(");
+
+        for (Iterator it = getAttributes().iterator(); it.hasNext();)
+        {
+            AttributeDecorator a = (AttributeDecorator)it.next();
+
+            sb.append(separator);
+            if (withTypeNames)
+            {
+                String typeName = ((ClassifierDecorator)a.getType()).getFullyQualifiedName();
+                sb.append(typeName);
+                sb.append(" ");
+                sb.append(a.getName());
+            }
+            else
+            {
+                sb.append(a.getGetterName());
+                sb.append("()");
+            }
+            separator = ", ";
+        }
+        sb.append(")");
+        return sb.toString();
     }
 
     // ------------------------------------------------------------
