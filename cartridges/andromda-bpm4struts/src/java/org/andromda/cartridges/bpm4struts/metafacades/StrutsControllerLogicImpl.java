@@ -38,7 +38,7 @@ public class StrutsControllerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getFullPath()()
      */
-    public java.lang.String handleGetFullPath()
+    protected java.lang.String handleGetFullPath()
     {
         return '/' + getUseCase().getPackageName().replace('.', '/') + '/' + getName();
     }

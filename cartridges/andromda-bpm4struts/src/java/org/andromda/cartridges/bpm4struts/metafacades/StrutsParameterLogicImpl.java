@@ -148,7 +148,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getGetterName()()
      */
-    public java.lang.String handleGetGetterName()
+    protected java.lang.String handleGetGetterName()
     {
         return "get" + StringUtilsHelper.capitalize(getName());
     }
@@ -156,7 +156,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getSetterName()()
      */
-    public java.lang.String handleGetSetterName()
+    protected java.lang.String handleGetSetterName()
     {
         return "set" + StringUtilsHelper.capitalize(getName());
     }
@@ -164,7 +164,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()()
      */
-    public java.lang.String handleGetNullValue()
+    protected java.lang.String handleGetNullValue()
     {
         return getType().getJavaNullString();
     }
@@ -172,14 +172,14 @@ public class StrutsParameterLogicImpl
     /**
      * @see StrutsParameter#isResetRequired()
      */
-    public boolean handleIsResetRequired()
+    protected boolean handleIsResetRequired()
     {
         final ClassifierFacade type = getType();
         final String typeName = type.getFullyQualifiedName(true);
         return isValidatorBoolean(typeName) || type.isArrayType();
     }
 
-    public boolean handleIsControllerOperationArgument()
+    protected boolean handleIsControllerOperationArgument()
     {
         return getControllerOperation() != null;
     }
@@ -187,7 +187,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMessageKey()()
      */
-    public java.lang.String handleGetMessageKey()
+    protected java.lang.String handleGetMessageKey()
     {
         String messageKey = StringUtilsHelper.toResourceMessageKey(getName());
         StrutsAction action = getAction();
@@ -197,7 +197,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMessageValue()()
      */
-    public java.lang.String handleGetMessageValue()
+    protected java.lang.String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
     }
@@ -205,7 +205,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTitleKey()()
      */
-    public java.lang.String handleGetTitleKey()
+    protected java.lang.String handleGetTitleKey()
     {
         return getMessageKey() + ".title";
     }
@@ -213,7 +213,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTitleValue()()
      */
-    public java.lang.String handleGetTitleValue()
+    protected java.lang.String handleGetTitleValue()
     {
         String requiredSuffix = "";
         if (isRequired())
@@ -236,23 +236,23 @@ public class StrutsParameterLogicImpl
                 : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
-    public String handleGetDocumentationKey()
+    protected String handleGetDocumentationKey()
     {
         return getMessageKey() + ".documentation";
     }
 
-    public String handleGetDocumentationValue()
+    protected String handleGetDocumentationValue()
     {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         return (value == null) ? "" : value;
     }
 
-    public String handleGetOnlineHelpKey()
+    protected String handleGetOnlineHelpKey()
     {
         return getMessageKey() + ".online.help";
     }
 
-    public String handleGetOnlineHelpValue()
+    protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
         final String format = getValidatorFormat();
@@ -419,18 +419,18 @@ public class StrutsParameterLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
-    public boolean handleIsCalendarRequired()
+    protected boolean handleIsCalendarRequired()
     {
         return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_CALENDAR)).equals("true");
     }
 
-    public boolean handleIsActionParameter()
+    protected boolean handleIsActionParameter()
     {
         StrutsAction action = getAction();
         return (action == null) ? false : action.getActionParameters().contains(this);
     }
 
-    public boolean handleIsTable()
+    protected boolean handleIsTable()
     {
         boolean isTable = this.getType() != null;
         if (isTable)
@@ -442,12 +442,12 @@ public class StrutsParameterLogicImpl
         return isTable;
     }
 
-    public boolean handleIsTableLink()
+    protected boolean handleIsTableLink()
     {
         return findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABLELINK) != null;
     }
 
-    public String handleGetTableLinkTableName()
+    protected String handleGetTableLinkTableName()
     {
         if (isTableLink())
         {
@@ -459,7 +459,7 @@ public class StrutsParameterLogicImpl
         return null;
     }
 
-    public String handleGetTableLinkColumnName()
+    protected String handleGetTableLinkColumnName()
     {
         if (isTableLink())
         {
@@ -471,7 +471,7 @@ public class StrutsParameterLogicImpl
         return null;
     }
 
-    public Collection handleGetTargettedTableColumnNames()
+    protected Collection handleGetTargettedTableColumnNames()
     {
         final Collection columnNames = new HashSet();
 
@@ -484,7 +484,7 @@ public class StrutsParameterLogicImpl
         return columnNames;
     }
 
-    public Collection handleGetTableLinks()
+    protected Collection handleGetTableLinks()
     {
         if (isTable())
         {
@@ -506,29 +506,29 @@ public class StrutsParameterLogicImpl
         return Collections.EMPTY_LIST;
     }
 
-    public boolean handleIsTableLinksPresent()
+    protected boolean handleIsTableLinksPresent()
     {
         return getTableLinks().isEmpty() == false;
     }
 
-    public String handleGetDecoratorPackageName()
+    protected String handleGetDecoratorPackageName()
     {
         return getJsp().getPackageName();
     }
 
-    public String handleGetDecoratorClassName()
+    protected String handleGetDecoratorClassName()
     {
         StrutsJsp jsp = getJsp();
         return StringUtilsHelper.upperCamelCaseName(jsp.getName()) +
                 StringUtilsHelper.upperCamelCaseName(getName()) + "Decorator";
     }
 
-    public String handleGetDecoratorFullPath()
+    protected String handleGetDecoratorFullPath()
     {
         return (getDecoratorPackageName() + '/' + getDecoratorClassName()).replace('.', '/');
     }
 
-    public String handleGetTableExportTypes()
+    protected String handleGetTableExportTypes()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORT);
         if (taggedValue == null)
@@ -559,12 +559,12 @@ public class StrutsParameterLogicImpl
         return buffer.toString().trim();
     }
 
-    public boolean handleIsTableExportable()
+    protected boolean handleIsTableExportable()
     {
         return StringUtils.isNotBlank(getTableExportTypes());
     }
 
-    public boolean handleIsTableSortable()
+    protected boolean handleIsTableSortable()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_SORTABLE);
         return (taggedValue == null)
@@ -572,7 +572,7 @@ public class StrutsParameterLogicImpl
                 : isTrue(String.valueOf(taggedValue));
     }
 
-    public Collection handleGetTableColumnNames()
+    protected Collection handleGetTableColumnNames()
     {
         Collection tableColumnNames = null;
 
@@ -621,7 +621,7 @@ public class StrutsParameterLogicImpl
         return tableColumnNames;
     }
 
-    public int handleGetTableMaxRows()
+    protected int handleGetTableMaxRows()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_MAXROWS);
         int pageSize = 0;
@@ -638,7 +638,7 @@ public class StrutsParameterLogicImpl
         return pageSize;
     }
 
-    public int handleGetTabIndex()
+    protected int handleGetTabIndex()
     {
         final String tabIndex = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TABINDEX));
 
@@ -656,7 +656,7 @@ public class StrutsParameterLogicImpl
         }
     }
 
-    public String handleGetWidgetType()
+    protected String handleGetWidgetType()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
         final String fieldType = value == null ? null : value.toString();
@@ -711,27 +711,27 @@ public class StrutsParameterLogicImpl
         return widgetType;
     }
 
-    public boolean handleIsMultiple()
+    protected boolean handleIsMultiple()
     {
         return getType().isCollectionType() || getType().isArrayType();
     }
 
-    public String handleGetBackingListName()
+    protected String handleGetBackingListName()
     {
         return getName() + "BackingList";
     }
 
-    public String handleGetBackingListType()
+    protected String handleGetBackingListType()
     {
         return "Object[]";
     }
 
-    public String handleGetValueListResetValue()
+    protected String handleGetValueListResetValue()
     {
         return constructArray();
     }
 
-    public boolean handleIsSelectable()
+    protected boolean handleIsSelectable()
     {
         boolean isSelectable = false;
 
@@ -760,12 +760,12 @@ public class StrutsParameterLogicImpl
         return isSelectable;
     }
 
-    public String handleGetValueListName()
+    protected String handleGetValueListName()
     {
         return getName() + "ValueList";
     }
 
-    public String handleGetLabelListName()
+    protected String handleGetLabelListName()
     {
         return getName() + "LabelList";
     }
@@ -776,24 +776,24 @@ public class StrutsParameterLogicImpl
         return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" + name + "-5\"}";
     }
 
-    public boolean handleIsRequired()
+    protected boolean handleIsRequired()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED);
         return isTrue(value == null ? null : String.valueOf(value));
     }
 
-    public boolean handleIsReadOnly()
+    protected boolean handleIsReadOnly()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY);
         return isTrue(value == null ? null : String.valueOf(value));
     }
 
-    public boolean handleIsDate()
+    protected boolean handleIsDate()
     {
         return getType().isDateType();
     }
 
-    public String handleGetDateFormat()
+    protected String handleGetDateFormat()
     {
         final String format = getValidatorFormat();
         return (format == null) ? getDefaultDateFormat() : getDateFormat(format);
@@ -813,7 +813,7 @@ public class StrutsParameterLogicImpl
         return defaultDateFormat;
     }
 
-    public boolean handleIsStrictDateFormat()
+    protected boolean handleIsStrictDateFormat()
     {
         final String format = getValidatorFormat();
         return (format == null) ? false : isStrictDateFormat(format);
@@ -825,7 +825,7 @@ public class StrutsParameterLogicImpl
                 "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
     }
 
-    public String handleGetResetValue()
+    protected String handleGetResetValue()
     {
         final String name = getName();
         final String type = getType().getFullyQualifiedName(true);
@@ -852,7 +852,7 @@ public class StrutsParameterLogicImpl
         return "\"" + name + "-test" + "\"";
     }
 
-    public boolean handleIsValidationRequired()
+    protected boolean handleIsValidationRequired()
     {
         return getValidatorTypes().isEmpty() == false;
     }
@@ -864,7 +864,7 @@ public class StrutsParameterLogicImpl
         return (format == null) ? null : format.trim();
     }
 
-    public java.util.Collection handleGetValidatorTypes()
+    protected java.util.Collection handleGetValidatorTypes()
     {
         final String type = getType().getFullyQualifiedName(true);
         final String format = getValidatorFormat();
@@ -913,12 +913,12 @@ public class StrutsParameterLogicImpl
         return validatorTypesList;
     }
 
-    public String handleGetValidatorMsgKey()
+    protected String handleGetValidatorMsgKey()
     {
         return getMessageKey();
     }
 
-    public java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
+    protected java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
     {
         final Collection args = new ArrayList();
         if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) || "doubleRange".equals(validatorType))
@@ -938,7 +938,7 @@ public class StrutsParameterLogicImpl
     }
 
 
-    public java.util.Collection handleGetValidatorVars()
+    protected java.util.Collection handleGetValidatorVars()
     {
         final Collection vars = new ArrayList();
 
@@ -983,13 +983,13 @@ public class StrutsParameterLogicImpl
         return vars;
     }
 
-    public java.lang.String handleGetValidWhen()
+    protected java.lang.String handleGetValidWhen()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_VALIDWHEN);
         return value == null ? null : value.toString();
     }
 
-    public Collection handleGetOptionKeys()
+    protected Collection handleGetOptionKeys()
     {
         final String key = getMessageKey() + '.';
         final Collection optionKeys = new ArrayList();
@@ -998,7 +998,7 @@ public class StrutsParameterLogicImpl
         return optionKeys;
     }
 
-    public Collection handleGetOptionValues()
+    protected Collection handleGetOptionValues()
     {
         Collection optionValues = new ArrayList();
         if ("radio".equals(getWidgetType()))
@@ -1036,7 +1036,7 @@ public class StrutsParameterLogicImpl
         return optionValues;
     }
 
-    public int handleGetOptionCount()
+    protected int handleGetOptionCount()
     {
         return getOptionValues().size();
     }

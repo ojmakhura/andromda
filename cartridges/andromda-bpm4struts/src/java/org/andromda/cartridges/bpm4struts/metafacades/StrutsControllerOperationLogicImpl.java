@@ -27,29 +27,29 @@ public class StrutsControllerOperationLogicImpl
         super(metaObject, context);
     }
 
-    public String handleGetInterfaceName()
+    protected String handleGetInterfaceName()
     {
         return StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
-    public String handleGetInterfacePackageName()
+    protected String handleGetInterfacePackageName()
     {
         return getOwner().getPackageName();
     }
 
-    public String handleGetInterfaceType()
+    protected String handleGetInterfaceType()
     {
         return getInterfacePackageName() + '.' + getInterfaceName();
     }
 
-    public String handleGetInterfaceFullPath()
+    protected String handleGetInterfaceFullPath()
     {
         return '/' + getInterfaceType().replace('.', '/');
     }
 
     private Collection deferringActions = null;
 
-    public java.util.Collection handleGetDeferringActions()
+    protected java.util.Collection handleGetDeferringActions()
     {
         if (this.deferringActions == null)
         {
@@ -110,5 +110,39 @@ public class StrutsControllerOperationLogicImpl
     protected Collection handleGetFormFields()
     {
         return this.getArguments();
+    }
+
+    protected boolean handleIsAllArgumentsHaveFormFields()
+    {
+        Collection arguments = getFormFields();
+        Collection deferringActions = getDeferringActions();
+
+        boolean allArgumentsHaveFormFields = true;
+        for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext() && allArgumentsHaveFormFields;)
+        {
+            StrutsParameter parameter = (StrutsParameter) argumentIterator.next();
+            String parameterName = parameter.getName();
+            String parameterType = parameter.getFullyQualifiedName();
+
+            boolean actionMissingField = false;
+            for (Iterator actionIterator = deferringActions.iterator(); actionIterator.hasNext() && !actionMissingField;)
+            {
+                StrutsAction action = (StrutsAction) actionIterator.next();
+                Collection actionFormFields = action.getActionFormFields();
+
+                boolean fieldPresent = false;
+                for (Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext() && !fieldPresent;)
+                {
+                    StrutsParameter field = (StrutsParameter) fieldIterator.next();
+                    if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
+                    {
+                        fieldPresent = true;
+                    }
+                }
+                actionMissingField = !fieldPresent;
+            }
+            allArgumentsHaveFormFields = !actionMissingField;
+        }
+        return allArgumentsHaveFormFields;
     }
 }

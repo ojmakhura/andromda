@@ -35,7 +35,7 @@ public class StrutsActionStateLogicImpl
     // concrete business methods that were declared
     // abstract in class StrutsActionState ...
 
-    public java.lang.String handleGetActionMethodName()
+    protected java.lang.String handleGetActionMethodName()
     {
         return '_' + StringUtilsHelper.lowerCamelCaseName(getName());
     }

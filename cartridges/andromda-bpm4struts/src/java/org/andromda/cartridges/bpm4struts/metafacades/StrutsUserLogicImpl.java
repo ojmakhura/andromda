@@ -32,14 +32,14 @@ public class StrutsUserLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUser#getRole()()
      */
-    public java.lang.String handleGetRole()
+    protected java.lang.String handleGetRole()
     {
         return getName().toLowerCase();
     }
 
     // ------------- relations ------------------
 
-    public java.util.Collection handleGetGeneralizedUsers()
+    protected java.util.Collection handleGetGeneralizedUsers()
     {
         final Collection parentActors = new ArrayList();
         final Collection generalizations = getGeneralizations();
@@ -53,7 +53,7 @@ public class StrutsUserLogicImpl
         return parentActors;
     }
 
-    public java.util.Collection handleGetGeneralizedByUsers()
+    protected java.util.Collection handleGetGeneralizedByUsers()
     {
         final Collection allActors = getModel().getAllActors();
         final Collection childUsers = new ArrayList();

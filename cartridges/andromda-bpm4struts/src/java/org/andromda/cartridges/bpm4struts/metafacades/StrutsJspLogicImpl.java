@@ -36,43 +36,43 @@ public class StrutsJspLogicImpl
                 : graph.getPackageName();
     }
 
-    public String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
         return StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName());
     }
 
-    public String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    public String handleGetTitleKey()
+    protected String handleGetTitleKey()
     {
         return getMessageKey() + ".title";
     }
 
-    public String handleGetTitleValue()
+    protected String handleGetTitleValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    public String handleGetDocumentationKey()
+    protected String handleGetDocumentationKey()
     {
         return getMessageKey() + ".documentation";
     }
 
-    public String handleGetDocumentationValue()
+    protected String handleGetDocumentationValue()
     {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
         return (value == null) ? "" : value;
     }
 
-    public String handleGetOnlineHelpKey()
+    protected String handleGetOnlineHelpKey()
     {
         return getMessageKey() + ".online.help";
     }
 
-    public String handleGetOnlineHelpValue()
+    protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
         StringBuffer buffer = new StringBuffer();
@@ -85,12 +85,12 @@ public class StrutsJspLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
-    public String handleGetFullPath()
+    protected String handleGetFullPath()
     {
         return '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(getName())).replace('.', '/');
     }
 
-    public boolean handleIsValidationRequired()
+    protected boolean handleIsValidationRequired()
     {
         final Collection actions = getActions();
         for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
@@ -104,7 +104,7 @@ public class StrutsJspLogicImpl
         return false;
     }
 
-    public boolean handleIsDateFieldPresent()
+    protected boolean handleIsDateFieldPresent()
     {
         final Collection actions = getActions();
         for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
@@ -118,7 +118,7 @@ public class StrutsJspLogicImpl
         return false;
     }
 
-    public boolean handleIsCalendarRequired()
+    protected boolean handleIsCalendarRequired()
     {
         final Collection actions = getActions();
         for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
