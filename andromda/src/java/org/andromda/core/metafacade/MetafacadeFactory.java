@@ -224,6 +224,9 @@ public class MetafacadeFactory
                     this.validationMessages.addAll(validationMessages);
                 }
             }
+            if (this.getLogger().isDebugEnabled())
+                this.getLogger().debug(
+                    "constructed metafacade >> '" + metafacade + "'");
             return metafacade;
         }
         catch (Throwable th)
@@ -308,17 +311,6 @@ public class MetafacadeFactory
                 metafacade.setContextRoot(mapping.isContextRoot());
             }
             cache.add(mappingObject, metafacade);
-            if (this.getLogger().isDebugEnabled())
-                this.getLogger().debug(
-                    "constructed metafacade >> '" + metafacade + "'");
-        }
-        else
-        {
-            if (this.getLogger().isDebugEnabled())
-                this.getLogger()
-                    .debug(
-                        "retrieved metafacade (from cache) >> '" + metafacade
-                            + "'");
         }
         // we need to populate the properties each time (whether or not
         // the metafacade is new (since the same metafacade could have
