@@ -1,7 +1,6 @@
 package org.andromda.samples.carrental.contracts;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -47,10 +46,6 @@ public class ContractServiceBeanImpl
         catch (HibernateException e)
         {
             return new ArrayList();
-        }
-        catch (SQLException e)
-        {
-            throw new EJBException(e);
         }
     }
 
@@ -121,10 +116,6 @@ public class ContractServiceBeanImpl
             throw new EJBException(e);
         }
         catch (HibernateException e)
-        {
-            throw new EJBException(e);
-        }
-        catch (SQLException e)
         {
             throw new EJBException(e);
         }

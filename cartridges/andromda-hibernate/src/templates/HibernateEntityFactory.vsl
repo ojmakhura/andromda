@@ -80,7 +80,7 @@ public abstract class ${class.name}Factory {
      *
      */
     public static $class.name findByPrimaryKey (net.sf.hibernate.Session sess, $primKeyTypeName ${primKey.name})
-        throws java.sql.SQLException, net.sf.hibernate.HibernateException
+        throws net.sf.hibernate.HibernateException
     {
         ${class.name} object = (${class.name}) sess.load(${class.name}Impl.class, ${primKey.name});
         return object;
@@ -104,7 +104,7 @@ public abstract class ${class.name}Factory {
      *
      */
     $op.visibility static $returntype ${op.name} ($parameters)
-        throws java.sql.SQLException, net.sf.hibernate.HibernateException
+        throws net.sf.hibernate.HibernateException
     {
 ##
 #set($querystring = "")
