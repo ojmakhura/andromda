@@ -35,9 +35,10 @@ ${indent}* </p>
 #set ($tablename = $str.toDatabaseAttributeName(${class.name}, "_"))
  *
  * @hibernate.class
- *         table="HIB_$tablename"
+ *     table="HIB_$tablename"
  *
  * @hibernate.discriminator
+ *     column="class"
  * 
  *
 #foreach ( $tgv in $class.taggedValues )
