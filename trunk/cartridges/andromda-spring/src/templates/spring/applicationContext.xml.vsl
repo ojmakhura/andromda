@@ -113,7 +113,7 @@
     </bean>
 #if (!$ejbsEnabled)
     <!-- Transaction Manager -->
-    <bean id="transactionManager" class="${transactionManager}">
+    <bean id="transactionManager" class="$transactionManager">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
 	
@@ -135,8 +135,12 @@
     </bean>
 	
 #end
+#set ($entityClass = $entity.fullyQualifiedDaoBaseName)
+#if ($entity.daoImplementationRequired)
+#set ($entityClass = $entity.fullyQualifiedDaoImplementationName)
+#end
     <!-- $entity.name: entity implementation  -->
-    <bean id="$entity.getBeanName($targetBeanSuffix)" class="$entity.fullyQualifiedDaoImplementationName">
+    <bean id="$entity.getBeanName($targetBeanSuffix)" class="$entityClass">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
 #foreach($entityRef in $entity.entityReferences)
         <property name="$entityRef.name"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
@@ -152,7 +156,7 @@
     <!-- Transactional proxy for: $service.name -->
     <bean id="$service.beanName" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager"><ref local="transactionManager"/></property>
-        <property name="target"><ref local="${service.getBeanName(true)}"/></property>
+        <property name="target"><ref local="$service.getBeanName(true)"/></property>
         <property name="transactionAttributes">
             <props>
 			    <prop key="*">PROPAGATION_REQUIRED</prop>
@@ -162,13 +166,13 @@
 	
 #end
     <!-- $service.name: service implementation  -->
-    <bean id="${service.getBeanName($targetBeanSuffix)}" class="${service.fullyQualifiedImplementationName}">
+    <bean id="$service.getBeanName($targetBeanSuffix)" class="$service.fullyQualifiedImplementationName">
 #foreach($serviceRef in $service.serviceReferences)
         <property name="$serviceRef.name"><ref bean="$serviceRef.targetElement.beanName"/></property>
 #end
 #if ($daosEnabled)
 #foreach($entityRef in $service.entityReferences)
-        <property name="$entityRef.name"><ref bean="${entityRef.targetElement.getBeanName(false)}"/></property>
+        <property name="$entityRef.name"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 #end
     </bean>

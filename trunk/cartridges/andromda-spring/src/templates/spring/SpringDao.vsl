@@ -13,6 +13,7 @@ public interface $entity.daoName
     extends $superclass.fullyQualifiedDaoName
 #end
 {
+
     /**
      * This constant is used as a transformation flag; entities can be converted automatically into value objects
      * or other types, different methods in a class implementing this interface support this feature: look for

@@ -320,12 +320,17 @@ public class SpringEntityLogicImpl
         return !getValueObjectReferences().isEmpty()
             || !getDaoBusinessOperations().isEmpty();
     }
+    
+    /**
+     * The suffix given to the no transformation constant.
+     */
+    private static final String NO_TRANSFORMATION_CONSTANT_SUFFIX = "NONE";
 
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoNoTransformationConstantName()
      */
     protected String handleGetDaoNoTransformationConstantName()
     {
-        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX + "NONE";
+        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX + NO_TRANSFORMATION_CONSTANT_SUFFIX;
     }
 }
