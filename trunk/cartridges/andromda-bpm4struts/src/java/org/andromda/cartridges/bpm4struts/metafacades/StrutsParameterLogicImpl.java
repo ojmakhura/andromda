@@ -94,14 +94,10 @@ public class StrutsParameterLogicImpl
         StrutsAction action = getAction();
         StrutsTrigger trigger = (action == null) ? null : action.getActionTrigger();
 
-        return
-                (trigger == null)
+        return (trigger == null)
                 ? StringUtilsHelper.lowerCamelCaseName(super.getName())
                 : StringUtilsHelper.lowerCamelCaseName(trigger.getName()) + StringUtilsHelper.upperCamelCaseName(super.getName());
     }
-
-    // concrete business methods that were declared
-    // abstract in class StrutsParameter ...
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getGetterName()()
@@ -678,7 +674,7 @@ public class StrutsParameterLogicImpl
                     }
                 }
 
-                optionCount = 3;
+                optionCount = Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT;
                 String name = getName();
                 for (int i = 1; i <= optionCount; i++)
                 {
