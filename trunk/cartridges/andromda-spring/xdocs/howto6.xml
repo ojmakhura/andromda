@@ -77,12 +77,12 @@
         </section>
         <section name="Criteria Queries">
             <p>
-                Notice how one of the value objects has been labeled <![CDATA[<<Criteria>>]]> and used in one
+                Notice how one of the classes has been labeled <![CDATA[<<Criteria>>]]> and used in one
                 of the queries. This will yield a specific piece of code allowing a search on any combination
-                of the properties defined in the value object.
+                of existing properties.
             </p>
             <p>
-                Tagged values may be added to the attributes of such a value object class. This is interesting to
+                Tagged values may be added to the attributes of such class. They are interesting when you want to
                 wire the attributes to specific properties of the domain model. You can
                 also set the comparator for the criteria search (equal, like, less, ...). For more details
                 go here: <a href="modeling.html#Supported_Tagged_Values">Tagged Values</a>.
