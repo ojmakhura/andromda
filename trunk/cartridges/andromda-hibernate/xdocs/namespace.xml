@@ -318,7 +318,18 @@
                         The JNDI name of the JTA UserTransaction object
                     </td>
                     <td>
-                        No
+                        No, default is <code>UserTransaction</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        hibernateTransactionFactoryClass
+                    </td>
+                    <td>
+                        The name of the hibernate transaction factory class to use.
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.hibernate.transaction.JTATransactionFactory</code>
                     </td>
                 </tr>
                 <tr>

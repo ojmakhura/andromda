@@ -34,6 +34,9 @@
 #if ($str.isNotBlank($hibernateUserTransactionName))
         <property name="jta.UserTransaction">${hibernateUserTransactionName}</property>
 #end
+#if ($str.isNotBlank($hibernateTransactionFactoryClass))
+        <property name="transaction.factory_class">${hibernateTransactionFactoryClass}</property>
+#end
 #if ($str.isNotBlank($hibernateTransactionManagerStrategy))
         <property name="transaction.manager.strategy">${hibernateTransactionManagerStrategy}</property>
 #end
