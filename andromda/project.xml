@@ -9,10 +9,10 @@
 		The Core refers to the "engine" of the framework.  The core takes care making all
 		the components of AndroMDA work together.
   	</description>
-  	<package>org.andromda.core.*</package>
+  	<package>org.andromda.core</package>
   	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/andromda</connection>  
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda</url>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/andromda</connection>  
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda/</url>
   	</repository>
 	<dependencies>
 	    <dependency>
