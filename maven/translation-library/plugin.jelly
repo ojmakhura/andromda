@@ -74,10 +74,15 @@
                 var="current.directory"
                 value="${basedir}"
                 scope="parent"/>
+                
+            <j:set 
+                var="module.search.path"
+                value="${andromda.translationlibrary.test.moduleSearchPath}"
+                scope="parent"/>
 
             <j:set
                 var="maven.junit.sysproperties"
-                value="current.directory model.xmi model.validation trace.expression translation.name languageMappingsUri"
+                value="current.directory model.xmi model.validation trace.expression translation.name module.search.path languageMappingsUri"
                 scope="parent"/>
 
               <attainGoal name="test:single"/>
