@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -29,6 +30,14 @@ public class ClassifierFacadeLogicImpl
     public ClassifierFacadeLogicImpl (org.omg.uml.foundation.core.Classifier metaObject, String context)
     {
         super (metaObject, context);
+    }
+
+    /**
+     * This method is overridden to make sure the class name will result in uncompilable Java code.
+     */
+    public String getName()
+    {
+        return StringUtilsHelper.toJavaClassName(super.getName());
     }
 
     /**
