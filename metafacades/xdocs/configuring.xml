@@ -7,40 +7,28 @@
     </properties>
   	<body> 
 
-  		<section name="Configuring metafacades">
+  		<section name="Writing the metafacades descriptor">
   		    <p>
   		        Now that you have written metafacades, you'll want to tell
   		        AndroMDA under which conditions it should instantiate them.
             </p>
+            <a name="descriptor"/>
+            <p> 
+                Each metafacades descriptor must comply with the following 
+                <a href="descriptor-schema.html">XSD Schema</a>.
+            </p>
             <p>
-            </p>  		    
-  			<subsection name="Steps to configure your own metafacades">
-  				<ol>
-  					<li>
-  						<a href="#Writing_the_Metafacades_Descriptor">Write your andromda-metafacades.xml file.</a>
-  					</li>
-  				</ol>
-  			</subsection>
-	  		<subsection name="Metafacades Descriptor">
-		  		<a name="descriptor"/>
-		  		<p> 
-		  			Each metafacades descriptor must comply with the following 
-		  			<a href="descriptor-schema.html">XSD Schema</a>.
-		  		</p>
-            </subsection>
-		  	<subsection name="Writing the Metafacades Descriptor">
-                <p>
-                    The metafacade descriptor allows the <a href="../andromda-core/index.html">AndroMDA Core</a>
-                    to discover a set of metafacades on the classpath automatically.
-                    The <a href="../andromda-core/index.html">AndroMDA Core</a> also uses this
-                    descriptor to determine what metafacades must be mapped to what meta model
-                    objects.  The metafacades descriptor <strong>must</strong> reside within the 
-                    META-INF subdirectory of your cartridge (or shared metafacades library) 
-                    and <strong>must</strong> be named <em>andromda-metafacades.xml</em>
-                </p>      
-                <p>
-                    Let's have a look at part of a typical metafacades descriptor:
-                <source><![CDATA[
+                The metafacade descriptor allows the <a href="../andromda-core/index.html">AndroMDA Core</a>
+                to discover a set of metafacades on the classpath automatically.
+                The <a href="../andromda-core/index.html">AndroMDA Core</a> also uses this
+                descriptor to determine what metafacades must be mapped to what meta model
+                objects.  The metafacades descriptor <strong>must</strong> reside within the 
+                META-INF subdirectory of your cartridge (or shared metafacades library) 
+                and <strong>must</strong> be named <em>andromda-metafacades.xml</em>
+            </p>      
+            <p>
+                Let's have a look at part of a typical metafacades descriptor:
+            <source><![CDATA[
 <metafacades namespace="webservice">
     ...
     <property reference="arrayNamePrefix" default="ArrayOf"/>
@@ -105,36 +93,36 @@
     </metafacade>
     ...
 </metafacades>]]>
-                </source>
-                </p>
-                <p>
-                    The following describes each element/attribute within the andromda-metafacades.xml 
-                    file and what effect it has on the metafacade configuration process:
-                </p>
-                <a name="#metafacades"/> 
-                <h3><![CDATA[<metafacades/>]]></h3>     
-                <p>
-                  The <em><![CDATA[<metafacades/>]]></em> element is the root of the andromda-metafacades.xml
-                  file.  This root contains the rest of the metafacade configuration information. 
-                </p>
-                <table>
-                    <tr>
-                        <th>Attribute</th>
-                        <th>Description</th>
-                        <th>Required?</th>
-                    </tr>
-                    <tr>
-                        <td>namespace</td>
-                        <td>
-                            Specifies the name of the namespace to which this set of metafacades applies.  For example:
-                            <em><![CDATA[<metafacades namespace="spring">]]></em> tells us to apply the set of metafacades to the
-                            <em>spring</em> namespace. Note that most of the time the namespace will match the name of a
-                            cartridge.
-                        </td>
-                        <td >Yes</td>
-                    </tr>
-                </table>
-                <a name="#metafacade"/>
+            </source>
+            </p>
+            <p>
+                The following describes each element/attribute within the andromda-metafacades.xml 
+                file and what effect it has on the metafacade configuration process:
+            </p>
+            <a name="#metafacades"/> 
+            <h3><![CDATA[<metafacades/>]]></h3>     
+            <p>
+              The <em><![CDATA[<metafacades/>]]></em> element is the root of the andromda-metafacades.xml
+              file.  This root contains the rest of the metafacade configuration information. 
+            </p>
+            <table>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Required?</th>
+                </tr>
+                <tr>
+                    <td>namespace</td>
+                    <td>
+                        Specifies the name of the namespace to which this set of metafacades applies.  For example:
+                        <em><![CDATA[<metafacades namespace="spring">]]></em> tells us to apply the set of metafacades to the
+                        <em>spring</em> namespace. Note that most of the time the namespace will match the name of a
+                        cartridge.
+                    </td>
+                    <td >Yes</td>
+                </tr>
+            </table>
+            <subsection name="Configuring metafacade mappings">
                 <h3><![CDATA[<metafacade/>]]></h3>     
                 <p>
                     The <em><![CDATA[<metafacade/>]]></em> element allows us to configure
@@ -291,7 +279,7 @@
 </metafacade>
 ...                    
                     ]]></source>                     
-                    If you wanted to 'OR' them together, meaning you wanted
+                    If you wanted to '<em>OR</em>' them together, meaning you wanted
                     the metafacade applied for either stereotype you'd just create more 
                     <a href="#metafacade"><![CDATA[<metafacade/>]]></a> elements containing the new 
                     mapping with the new stereotype(s).  For example this here tells AndroMDA to apply
@@ -458,7 +446,14 @@
                         </td>
                     </tr>
                 </table>
-		  	</subsection>
+            </subsection>
+            <subsection name="Configuring property references">
+                <p>
+                    If you've read the documentation on <a href="andromda-cartridges/index.html">AndroMDA Cartridges</a>
+                    then you're probably familiar with <em>namespace properties</em>.  Namespace properties allow
+                    us to configure different <em>namespaces</em> or aspects of an AndroMDA plugin.
+                </p>
+            </subsection>
 		</section>
   	</body> 
 </document>
