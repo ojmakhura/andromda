@@ -311,32 +311,91 @@ span.xml { background-image: url(xml.gif); background-repeat: no-repeat; }
 
 table.list { width: 100%; padding-right: 25px; }
 
-tr.odd { background-color: #eeeeff; padding: 2px; }
-tr.even { background-color: #fffffd; padding: 2px; }
-th.sorted { background-color: #fff; font-weight: bold; }
-th.sorted a, th.sortable a { background-position: right; display: block; }
-th.sortable a { background-image: url(none.gif); background-repeat: no-repeat; }
-th.order1 a { background-image: url(descending.gif); background-repeat: no-repeat; }
-th.order2 a { background-image: url(ascending.gif); background-repeat: no-repeat; }
+table 
+{
+	width: 80%;
+	margin: 20px 0 20px 0;
+}
 
-span.pagebanner
+th, td 
+{
+	padding: 2px 4px 2px 4px;
+	text-align: left;
+	vertical-align: top;
+}
+
+thead tr 
+{
+  background-color: #eee;
+}
+
+th.sorted 
+{
+    background-color: #eee;
+}
+
+th a, th a:visited 
+{
+  color: black;
+}
+
+th a:hover 
+{
+  text-decoration: underline;
+  color: black;
+}
+
+th.sorted a, th.sortable a 
+{
+	background-position: right;
+	display: block;
+}
+
+th.sortable a 
+{
+	background-image: url(none.gif); background-repeat: no-repeat;
+}
+
+th.order1 a 
+{
+	background-image: url(descending.gif);  background-repeat: no-repeat;
+}
+
+th.order2 a 
+{
+	background-image: url(ascending.gif); background-repeat: no-repeat;
+}
+
+tr.odd 
+{
+    background-color: #eeeeff;
+}
+
+tr.tableRowEven, tr.even 
+{
+    background-color: #fffffd
+}
+
+span.pagebanner 
 {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	margin: 10px 25px 0 0;
-	display: block;
+	width: 79%;
+	margin-top: 10px;
+	display:block;
 	border-bottom: none;
 }
 
-span.pagelinks
+span.pagelinks 
 {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	display: block;
+	width: 79%;
+	display:block;
 	border-top: none;
-	margin: 0 25px 10px 0;
+	margin-bottom: -5px;
 }
 
 /* styles related to tabbed panels */
