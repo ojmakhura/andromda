@@ -1,10 +1,12 @@
 package org.andromda.translation.validation;
 
-import org.apache.commons.beanutils.MethodUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Dynamically invokes operation and property calls on specified
@@ -39,7 +41,7 @@ public class OCLIntrospector
             {
                 return invoke(element, feature, null);
             }
-            return PropertyUtils.getProperty(element, feature);
+            return getProperty(element, feature);
 
         }
         catch (Throwable th)
@@ -71,7 +73,7 @@ public class OCLIntrospector
             {
                 feature = feature.substring(0, parenIndex).trim();
             }
-            return MethodUtils.invokeMethod(element, feature, arguments);
+            return invokeMethod(element, feature, arguments);
         }
         catch (Throwable th)
         {
@@ -82,5 +84,122 @@ public class OCLIntrospector
             logger.error(errMsg, th);
             throw new OCLIntrospectorException(th);
         }
+    }
+
+    private static Object getProperty(Object element, String propertyName) throws Exception
+    {
+        Object property = null;
+
+        if (element != null || property != null || propertyName.length() > 0)
+        {
+            property = invokeGet(element, propertyName);
+
+            if (property == null)
+            {
+                property = invokeIs(element, propertyName);
+            }
+
+            if (property == null)
+            {
+                property = invokeField(element, propertyName);
+            }
+        }
+
+        return property;
+    }
+
+    private static Object invokeGet(Object element, String propertyName) throws Exception
+    {
+        Object property = null;
+
+        try
+        {
+            Method method = element.getClass().getMethod("get"+StringUtils.capitalize(propertyName), null);
+            property = method.invoke(element, null);
+        }
+        catch (NoSuchMethodException e)
+        {
+            // not a prob
+        }
+        catch (InvocationTargetException e)
+        {
+            // not a prob
+        }
+
+        return property;
+    }
+
+    private static Object invokeIs(Object element, String propertyName) throws Exception
+    {
+        Object property = null;
+
+        try
+        {
+            Method method = element.getClass().getMethod("is"+StringUtils.capitalize(propertyName), null);
+            property = method.invoke(element, null);
+        }
+        catch (NoSuchMethodException e)
+        {
+            // not a prob
+        }
+        catch (InvocationTargetException e)
+        {
+            // not a prob
+        }
+
+        return property;
+    }
+
+    private static Object invokeField(Object element, String propertyName) throws Exception
+    {
+        Object property = null;
+
+        try
+        {
+            Field field = element.getClass().getField(propertyName);
+            property = field.get(element);
+        }
+        catch (NoSuchFieldException e)
+        {
+            // not a prob
+        }
+
+        return property;
+    }
+
+
+    private static Object invokeMethod(Object element, String methodName, Object[] arguments) throws Exception
+    {
+        Object property = null;
+
+        if (element != null && methodName != null && methodName.length() > 0)
+        {
+            Class[] argumentTypes = getObjectTypes(arguments);
+
+            Method method = element.getClass().getMethod(methodName, argumentTypes);
+            property = method.invoke(element, arguments);
+        }
+
+        return property;
+    }
+
+    private static Class[] getObjectTypes(Object[] objects)
+    {
+        Class[] objectTypes = null;
+
+        if (objects != null)
+        {
+            objectTypes = new Class[objects.length];
+            for (int i = 0; i < objects.length; i++)
+            {
+                Object object = objects[i];
+                if (object != null)
+                {
+                    objectTypes[i] = object.getClass();
+                }
+            }
+        }
+
+        return objectTypes;
     }
 }
