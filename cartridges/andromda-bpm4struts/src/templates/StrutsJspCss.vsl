@@ -1,0 +1,10 @@
+#set ($generatedFile = "${page.cssFileName}")
+## start template
+#foreach ($action in $page.actions)
+#if ($action.useCaseStart == false)
+$action.styleClass {}
+
+#end
+#end
+
+
