@@ -10,11 +10,13 @@
     <target name="dist">
         <ant dir="${basedir}/ejb" target="dist"/>
         <ant dir="${basedir}/sar" target="dist"/>
+        <ant dir="${basedir}/db" target="dist"/>
     </target>
 
     <target name="clean">
         <ant dir="${basedir}/ejb" target="clean"/>
         <ant dir="${basedir}/sar" target="clean"/>
+        <ant dir="${basedir}/db" target="clean"/>
     </target>
 
 </project>
