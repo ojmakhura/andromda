@@ -231,19 +231,18 @@
                 subdirectory) separately.
             </p>
             <p class="std">
-                A few notes:
+                Please note:
                 <ul>
                     <li>
-                        The default UML model is empty, you might have build errors
-                        due to the fact that sometimes no source files could be found
-                        after generating code using AndroMDA
+                        The default UML model is not empty, it contains the Animal-Quiz sample
+                        (see the samples), this application is modeled using entity inheritance and
+                        only be deployed using Hibernate as persistence layer.
+                        It is up to you to model your application instead of this sample, it is simply provided
+                        as a convenience.
                     </li>
                     <li>
-                        Library dependencies are downloaded automatically,
-                        however, in case you have no online connection or are behind
-                        a firewall, it is possible to download a separate bundle
-                        containing only the libraries. These can then be copied
-                        so that no further download will be required.
+                        An empty UML model will currently result in a build failure, we hope to solve this issue
+                        shortly.
                     </li>
                 </ul>
             </p>
