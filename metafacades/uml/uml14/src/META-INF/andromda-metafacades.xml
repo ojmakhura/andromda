@@ -24,13 +24,13 @@
         <mapping class="org.omg.uml.modelmanagement.Model$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>        
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>      
+        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>         
+        <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
@@ -48,136 +48,139 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl"/>   
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Component$Impl"/>   
+        <mapping class="org.omg.uml.foundation.core.Component$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Node$Impl"/>         
+        <mapping class="org.omg.uml.foundation.core.Node$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationEndFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl"/>    
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>        
+        <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Usage$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.TaggedValueFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.TaggedValue$Impl"/>  
+        <mapping class="org.omg.uml.foundation.core.TaggedValue$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.OperationFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>          
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>   
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ParameterFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/> 
+        <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.GeneralizationFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Generalization$Impl"/>         
+        <mapping class="org.omg.uml.foundation.core.Generalization$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StereotypeFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Stereotype$Impl"/>  
+        <mapping class="org.omg.uml.foundation.core.Stereotype$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ConstraintFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Constraint$Impl"/>  
+        <mapping class="org.omg.uml.foundation.core.Constraint$Impl"/>
     </metafacade>
     <!-- Behavioral element metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ArgumentFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.Argument$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.Argument$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.Action$Impl"/>         
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.Action$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.ActionSequence$Impl"/>            
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.ActionSequence$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.CreateAction$Impl"/>             
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.CreateAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.DestroyAction$Impl"/>           
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.DestroyAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.ReturnAction$Impl"/>            
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.ReturnAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.SendAction$Impl"/>            
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.SendAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.TerminateAction$Impl"/>        
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.TerminateAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.UninterpretedAction$Impl"/>         
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.UninterpretedAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.CallActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.CallAction$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.CallAction$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionStateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>         
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActivityGraphFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl"/>         
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ObjectFlowStateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState$Impl"/>           
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Event$Impl"/>           
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Event$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"/>           
+        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.ChangeEvent$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.statemachines.ChangeEvent$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.TimeEvent$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.statemachines.TimeEvent$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.CallEventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>         
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.FinalStateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"/>            
+        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.PseudostateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl"/>           
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CompositeState$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CompositeState$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StateVertexFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.StateVertex$Impl"/>         
+        <mapping class="org.omg.uml.behavioralelements.statemachines.StateVertex$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.TransitionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl"/>          
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.GuardFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Guard$Impl"/>             
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Guard$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActorFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl"/>   
+        <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.UseCaseFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
-            <property name="referencesPresent"/>  
+            <property name="referencesPresent"/>
         </mapping>
     </metafacade>
     <!-- Entity  metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.EntityFacadeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENTITY</stereotype>           
+            <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="allowDefaultIdentifiers" default="true"/>
         <property reference="defaultIdentifier" default="id"/>
@@ -187,7 +190,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityFacadeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>           
+            <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="allowDefaultIdentifiers" default="true"/>
         <property reference="defaultIdentifier" default="id"/>
@@ -197,7 +200,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityFacadeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENTITY</stereotype>           
+            <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="allowDefaultIdentifiers" default="true"/>
         <property reference="defaultIdentifier" default="id"/>
@@ -207,42 +210,42 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>        
+            <context>org.andromda.metafacades.uml.EntityFacade</context>
         </mapping>
         <property reference="sqlMappingsUri"/>
         <property reference="jdbcMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>        
+            <context>org.andromda.metafacades.uml.EntityFacade</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>        
+            <context>org.andromda.metafacades.uml.EntityFacade</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>   
-            <stereotype>FINDER_METHOD</stereotype>   
+            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <stereotype>FINDER_METHOD</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>   
-            <property name="query"/>   
+            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <property name="query"/>
         </mapping>
     </metafacade>
     <!-- Service  metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ServiceFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>        
+            <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ServiceOperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <property name="service"/>     
+            <property name="service"/>
         </mapping>
     </metafacade>
 </metafacades>
