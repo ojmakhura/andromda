@@ -13,7 +13,8 @@
         <cache usage="$entity.hibernateCacheType" />
 #end
 #set ($identifier = $entity.identifiers.iterator().next())
-        <id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">
+        <id name="$identifier.name" type="$identifier.type.fullyQualifiedName" unsaved-value="null">
+            <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
             <generator class="$entity.hibernateGeneratorClass">
 #if ($entity.sequenceHibernateGeneratorClass)
                 <param name="sequence">${entity.tableName}${sequenceIdentifierSuffix}</param>
