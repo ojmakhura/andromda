@@ -168,18 +168,18 @@
             <h3>Maven</h3>
             <p class="std">
                 Make sure you have both Maven and the 
-                <a href="maven-andromda-plugin/index.html">AndroMDA Maven Plugin</a>
+                <a href="maven-andromdapp-plugin/index.html">AndroMDApp Maven Plugin</a>
                 installed.
             </p>
             <p class="std">
                 Go into a directory in which you want to create your working directory.
                 For example, suppose you want to work in C:\development\java\my-project, then
-                simple go into C:\development\java\
+                simply go into C:\development\java\
             </p>
             <p class="std">
                 At the console type:
                 <source>
-                    C:\development\java> maven andromda:genapp
+                    C:\development\java> maven andromdapp:generate
                 </source>
             </p>
             <p class="std">
