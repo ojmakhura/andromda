@@ -43,8 +43,7 @@
 #end
 #foreach ( $typeMapping in $service.typeMappingElements )  
 ## By default set the type as the typeMapping itself,
-## however if it has a type, get that for the type and 
-## use that instead
+## however if it has a type, use that instead
 #set ($type = $typeMapping)
 #if ($typeMapping.type)
 #set ($type = $typeMapping.type)
