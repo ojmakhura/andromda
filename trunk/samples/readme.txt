@@ -20,11 +20,7 @@ IMPORTANT: If you're using maven-1.0-rc2, you'll have to build twice before you'
 To build the samples, perform the following steps:
 
 1) Install the latest version of Maven (http://maven.apache.org) and add it to your $PATH or %PATH%
-2) Create a build.properties file and add the following line:
-  'maven.repo.remote=http://www.ibibilio.org/maven,http://team.andromda.org/maven'. 
-   Place this build.properties file within your %USERPROFILE% (windows), or $HOME (
-   linux/unix) directory.
-3) From this directory (the directory in which this file you're reading is located) type 'maven'; 
+2) From this directory (the directory in which this file you're reading is located) type 'maven'; 
    this will build all samples.  After the build has completed successfully, check 
    the target directory(s) of each 'app' sub directory for the deployable J2EE 
    ear and the SQL scripts.
