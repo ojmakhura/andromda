@@ -106,7 +106,10 @@ public class MetafacadeFactory
      * @param contextName the name of the context the meta model element is
      *        registered under.
      * @param metafacadeClass if not null, it contains the name of the
-     *        metafacade class to be used
+     *        metafacade class to be used. This is used ONLY when instantiating
+     *        super metafacades in an inheritance chain. The final metafacade
+     *        will NEVER have a metafacadeClass specified (it will ALWAYS be
+     *        null).
      * @return the new metafacade
      */
     private MetafacadeBase internalCreateMetafacade(
@@ -152,6 +155,7 @@ public class MetafacadeFactory
                     .debug(
                         "metaObject stereotype names --> '" + stereotypeNames
                             + "'");
+
             mapping = mappings.getMetafacadeMapping(
                 metaObjectClassName,
                 stereotypeNames,
@@ -189,7 +193,7 @@ public class MetafacadeFactory
                         + metaObject + "'");
             }
 
-            String metafacadeCacheKey;
+            Object metafacadeCacheKey;
             if (mapping != null)
             {
                 metafacadeCacheKey = mapping.getKey();
@@ -206,8 +210,8 @@ public class MetafacadeFactory
             {
                 // if there is no mapping, then the metafacadeClass
                 // will be the default metafacade class, so use
-                // that as the cache key.
-                metafacadeCacheKey = metafacadeClass.getName();
+                // that as the cache key
+                metafacadeCacheKey = metafacadeClass;
             }
 
             // attempt to get the metafacade from the cache
@@ -215,6 +219,7 @@ public class MetafacadeFactory
             // has been created
             MetafacadeBase metafacade = this.getFromMetafacadeCache(
                 metaObject,
+                metafacadeClass,
                 metafacadeCacheKey);
 
             if (metafacade == null)
@@ -273,15 +278,19 @@ public class MetafacadeFactory
                 }
 
                 metafacade.initialize();
-
+                // IMPORTANT: we must add the metafacade to the cache
+                // before validate is called below, (so ordering matters here)
+                // do NOT call validate method before adding the
+                // metafacade to the cache, this will cause endless loops
+                this.addToMetafacadeCache(
+                    metaObject,
+                    metafacadeClass,
+                    metafacadeCacheKey,
+                    metafacade);
                 // validate the meta-facade and collect the messages
                 Collection validationMessages = new ArrayList();
                 metafacade.validate(validationMessages);
                 this.validationMessages.addAll(validationMessages);
-                this.addToMetafacadeCache(
-                    metaObject,
-                    metafacadeCacheKey,
-                    metafacade);
             }
             return metafacade;
         }
@@ -355,44 +364,58 @@ public class MetafacadeFactory
     /**
      * <p>
      * Returns the metafacade from the metafacade cache. The Metafacades are
-     * cached first by according to its <code>metaObject</code> and then
-     * according to the given <code>key</code> and current active namespace.
+     * cached first by according to its <code>metaObject</code>, then the
+     * <code>metafacadeClass</code>, then according to to the given
+     * <code>key</code> and finally by current active namespace.
+     * </p>
+     * <p>
      * Metafacades must be cached in order to keep track of the state of its
      * validation. If we keep creating a new one each time, we can never tell
-     * whether or not a metafacade has been previously validated.  Not to 
-     * mention tremendous performance gains.
+     * whether or not a metafacade has been previously validated. Not to mention
+     * tremendous performance gains.
      * </p>
      * 
      * @param metaObject the metaObject for which to cache the metafacade.
+     * @param metafacadeClass the class of the metafacade.
      * @param key the unique key for the given metaObject
      * @return MetafacadeBase stored in the cache.
      */
-    private MetafacadeBase getFromMetafacadeCache(Object metaObject, Object key)
+    private MetafacadeBase getFromMetafacadeCache(
+        Object metaObject,
+        Class metafacadeClass,
+        Object key)
     {
         MetafacadeBase metafacade = null;
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache
             .get(metaObject);
         if (namespaceMetafacadeCache != null)
         {
-            metafacade = (MetafacadeBase)namespaceMetafacadeCache.get(this
-                .getActiveNamespace()
-                + key);
+            Map metafacadeCache = (Map)namespaceMetafacadeCache
+                .get(metafacadeClass);
+            if (metafacadeCache != null)
+            {
+                metafacade = (MetafacadeBase)metafacadeCache.get(this
+                    .getActiveNamespace()
+                    + key);
+            }
         }
         return metafacade;
     }
 
     /**
      * Adds the <code>metafacade</code> to the cache according to first
-     * <code>metaObject</code> and then by <code>key</code> and current
-     * active namespace.
+     * <code>metaObject</code>, second <code>metafacadeClass</code>, third
+     * <code>key</code>, and finally current the current active namespace.
      * 
      * @param metaObject the metaObject for which to cache the metafacade.
+     * @param metafacadeClass the class of the metafacade
      * @param key the unique key by which the metafacade is cached (within the
      *        scope of the <code>metaObject</code.
      * @param metafacade the metafacade to cache.
      */
     private void addToMetafacadeCache(
         Object metaObject,
+        Class metafacadeClass,
         Object key,
         MetafacadeBase metafacade)
     {
@@ -402,9 +425,14 @@ public class MetafacadeFactory
         {
             namespaceMetafacadeCache = new HashMap();
         }
-        namespaceMetafacadeCache.put(
-            this.getActiveNamespace() + key,
-            metafacade);
+        Map metafacadeCache = (Map)namespaceMetafacadeCache
+            .get(metafacadeClass);
+        if (metafacadeCache == null)
+        {
+            metafacadeCache = new HashMap();
+        }
+        metafacadeCache.put(this.getActiveNamespace() + key, metafacade);
+        namespaceMetafacadeCache.put(metafacadeClass, metafacadeCache);
         this.metafacadeCache.put(metaObject, namespaceMetafacadeCache);
     }
 

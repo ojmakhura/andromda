@@ -282,6 +282,7 @@ public class MetafacadeMapping
     public String toString()
     {
         return MetafacadeMappingsUtils.appendContext(super.toString(), this
-            .getKey());
+            .getKey())
+            + ":" + this.getMetafacadeClass();
     }
 }
