@@ -258,7 +258,7 @@ public class TableImpl extends DatabaseObject implements Table
         return executeQuery(queryBuffer.toString());
     }
 
-    public int update(Map columns, Criterion criterion) throws SQLException
+    public int updateRow(RowData rowData, Criterion criterion) throws SQLException
     {
         StringBuffer queryBuffer = new StringBuffer();
 
@@ -266,19 +266,17 @@ public class TableImpl extends DatabaseObject implements Table
         queryBuffer.append(getName());
         queryBuffer.append(" SET ");
 
-        boolean first = true;
-        for (Iterator iterator = columns.entrySet().iterator(); iterator.hasNext();)
+        String[] columnNames = new String[rowData.size()];
+        Object[] values = new Object[rowData.size()];
+        int index = 0;
+        for (Iterator iterator = rowData.entrySet().iterator(); iterator.hasNext();index++)
         {
-            if (first) first = false; else queryBuffer.append(',');
             Map.Entry entry = (Map.Entry) iterator.next();
-
-            boolean string = entry.getValue() instanceof String;
-
+            columnNames[index] = (String)entry.getKey();
+            values[index] = entry.getValue();
+            if (index>0) queryBuffer.append(',');
             queryBuffer.append(entry.getKey());
-            queryBuffer.append('=');
-            if (string) queryBuffer.append('\'');
-            queryBuffer.append(entry.getValue());
-            if (string) queryBuffer.append('\'');
+            queryBuffer.append("=?");
         }
 
         if (criterion != null)
@@ -287,8 +285,22 @@ public class TableImpl extends DatabaseObject implements Table
             queryBuffer.append(criterion.toSqlString());
         }
 
+        return executeUpdate(queryBuffer.toString(), columnNames, values);
+    }
+
+/*
+    public int deleteRow(RowData rowData) throws SQLException
+    {
+        StringBuffer queryBuffer = new StringBuffer();
+
+        queryBuffer.append("DELETE FROM ");
+        queryBuffer.append(getName());
+        queryBuffer.append(" WHERE ");
+        queryBuffer.append(criterion.toSqlString());
+
         return executeUpdate(queryBuffer.toString());
     }
+*/
 
     public int deleteRow(Criterion criterion) throws SQLException
     {
