@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>Recent AndroMDA changes</title>
+        <gennews>no</gennews>
+    </properties>
+    <body>
+        <section name="Latest changes">
+            <p class="std">
+			  This section describes the most recent changes to the AndroMDA codebase.
+            </p>
+            <table border="1" cellpadding="2" cellspacing="0">
+                <tr>
+                    <th class="std">Date</th>
+                    <th class="std">Description</th>
+                    <th class="std">Details</th>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July, 2004</td>
+                    <td valign="top" class="std">andromda-cartridge.xml update</td>
+                    <td valign="top" class="std">
+                        The 'sheet' attribute in the template element has been
+                        renamed to 'path'.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July, 2004</td>
+                    <td valign="top" class="std">andromda-cartridge.xml update</td>
+                    <td valign="top" class="std">
+                        The 'overWrite' attribute in the template element has been
+                        renamed to 'overwrite'.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">July, 2004</td>
+                    <td valign="top" class="std">schema2xmi</td>
+                    <td valign="top" class="std">
+                        A new feature has been added that will allow users to import legacy database
+                        schemas and have an XMI file generated from them. This will make it easier to port
+                        development of legacy systems to AndroMDA.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">June, 2004</td>
+                    <td valign="top" class="std">web-services cartridge</td>
+                    <td valign="top" class="std">
+                        A new cartridge is available for publising services
+                        as web-services, this cartridge is to be used in
+                        combination with either the EJB or Hibernate cartridge.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">June, 2004</td>
+                    <td valign="top" class="std">bpm4struts supports displaytag</td>
+                    <td valign="top" class="std">
+                        Tabular data can now automatically be displayed using paging,
+                        sorting and exporting features, the displaytag tag-library is
+                        used.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">May, 2004</td>
+                    <td valign="top" class="std">OCL support</td>
+                    <td valign="top" class="std">
+                        OCL support provides the following features:
+                        <ul>
+                            <li>Metamodels will now have their constraints
+                                validated during code generation.</li>
+                            <li>Finder queries for persisted entities
+                                can now be expressed using OCL.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</document>
