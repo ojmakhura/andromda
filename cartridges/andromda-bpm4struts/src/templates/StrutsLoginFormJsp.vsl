@@ -2,7 +2,7 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 
-#if ($xhtml)
+#if ($xhtml == "true")
 <html:xhtml/>
 
 #end
@@ -40,14 +40,14 @@
                     </div>
                 </form>
                 <script type="text/javascript">
-#if ($xhtml)
+#if ($xhtml == "true")
                 //<![CDATA[
 #else
                 //<!--
 #end
                     document.login.j_username.focus();
                     document.login.j_username.select();
-#if ($xhtml)
+#if ($xhtml == "true")
                 //]]>
 #else
                 //-->
