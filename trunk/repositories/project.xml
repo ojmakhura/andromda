@@ -7,7 +7,7 @@
   	<name>AndroMDA Repositories</name>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}</connection>
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}</url>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-', '')}/</url>
   	</repository>
 	<dependencies>
     	<dependency>

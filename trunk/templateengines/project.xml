@@ -10,7 +10,7 @@
   	</description>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</connection>
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</url>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}/</url>
   	</repository>
   	<build>
     	<sourceDirectory>src/java</sourceDirectory>
