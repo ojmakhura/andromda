@@ -5,10 +5,7 @@ import org.andromda.core.common.StringUtilsHelper;
 
 
 /**
- *
- *
  * Metaclass facade implementation.
- *
  */
 public class ParameterFacadeLogicImpl
        extends ParameterFacadeLogic
@@ -22,7 +19,8 @@ public class ParameterFacadeLogicImpl
     }
 
     /**
-     * This method is overridden to make sure the parameter name will result in uncompilable Java code.
+     * This method is overridden to make sure the parameter name 
+     * will <strong>not</strong> result in uncompilable Java code.
      */
     public String getName()
     {
