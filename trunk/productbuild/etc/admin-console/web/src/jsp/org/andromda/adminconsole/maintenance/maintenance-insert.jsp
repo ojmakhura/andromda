@@ -13,7 +13,7 @@
                     <bean:parameter id="value" name="${column.name}" value=""/>
                     <tr>
                         <td>${column.name}</td>
-                        <td>${acf:getInsertWidget(databaseLoginSession.configurator,column,value)}</td>
+                        <td>${acf:renderInsertWidget(databaseLoginSession.configurator,column,value)}</td>
                         <td>
                             <c:if test="${column.foreignKeyColumn}">
                                 <c:set var="foreignTableName" value="${column.importedTableName}" scope="page"/>

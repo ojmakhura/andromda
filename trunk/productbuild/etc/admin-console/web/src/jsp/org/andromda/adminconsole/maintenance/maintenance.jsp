@@ -83,7 +83,14 @@
                         <display:column media="html"
                             title="${column.name}" autolink="false" nulls="false"
                             sortable="${columnConfig.sortable}" paramId="${column.name}">
-                            ${acf:getUpdateWidget(configurator, column, row, index)}
+                            <c:choose>
+                                <c:when test="${columnConfig.updateable}">
+                                    ${acf:renderUpdateWidget(configurator,column,row,index)}
+                                </c:when>
+                                <c:otherwise>
+                                    ${acf:renderColumnValue(column,row)}
+                                </c:otherwise>
+                            </c:choose>
                         </display:column>
                     </c:forEach>
                 </display:table>
