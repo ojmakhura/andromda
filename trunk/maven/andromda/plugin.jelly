@@ -1,100 +1,17 @@
-<?xml version="1.0"?>
-
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:util="jelly:util"
          xmlns:maven="jelly:maven"
          xmlns:i="jelly:interaction"
          xmlns:velocity="jelly:velocity">
-       
-    <!-- ===================================================================
-         Performs intialization.  Mainly handles the adding of the
-         the andromda dependencies to the maven.andromda.classpath, this is necessary 
-         because of the fact that AndroMDA uses the 'andromda:run' goal
-         to build some of its components, such as the metafacades.  This also
-         allows us to swich back and forth between normal and 'bootstrap' mode.
-         If the '-Dmaven.andromda.bootstrap.mode=true' option is set, 
-         then this cartridge will be run in bootstrap mode using the AndroMDA bootstrap 
-         dependencies instead of the most current dependencies.  A bootstrap 
-         dependency has the same name as a normal dependency with '-bootstrap' 
-         inserted between the artifactId and the version 
-         (i.e. andromda-core-bootstrap-3.0.jar).                        
-         =================================================================== -->  
-	<goal name="andromda:init">
-		
-		<j:set var="version" value="${maven.andromda.bootstrap.version}"/>		
-		<util:tokenize var="artifacts" delim=",">${maven.andromda.bootstrap.artifacts}</util:tokenize>
-		<j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
-		<ant:path id="maven.andromda.classpath">	  		
-			<ant:property name="mavenDependencyClasspath" refid="maven.dependency.classpath"/>
-			<j:set var="mavenDependencyPath" value="${mavenDependencyClasspath}"/>
-			<j:set var="pluginDependencyPath" value="${plugin.dependencyClasspath}"/>
-            <j:forEach var="artifact" items="${artifacts}" varStatus="index">           	
-            	<j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
-            	<j:set var="artifactId" value="${pluginUtils.getArtifactId(artifact)}"/>
-            	<j:set var="groupId" value="${pluginUtils.getGroupId(artifact)}"/>
-            	
-            	<j:set var="artifactDirLocation" value="${maven.repo.local}/${groupId}/jars"/>	
-				<j:choose>
-					<j:set 
-						var="artifactName" 
-						value="${artifactId}-bootstrap-${version}.jar"/>
-					<j:set var="artifactLocation" value="${artifactDirLocation}/${artifactName}"/>	
-					<j:when test="${bootstrapMode}">
-						<ant:pathelement 
-							location="${artifactDirLocation}/${artifactName}"/>
-						<!-- remove any non-bootstrap versions of bootstrap dependencies found 
-							 in the plugin dependency classpath -->
-						<j:set 
-							var="pluginDependencyPath" 
-							value="${pluginUtils.removeFromPath(pluginDependencyPath, artifactLocation)}"/>
-						<j:set 
-							var="mavenDependencyPath" 
-							value="${pluginUtils.removeFromPath(mavenDependencyPath, artifactLocation)}"/>
-					</j:when>
-					<j:otherwise>
-            	        <j:set var="artifactName" value="${artifactId}-${version}.jar"/>
-						<ant:pathelement location="${artifactDirLocation}/${artifactName}"/>
-						<j:set var="pluginDependencyPath" value="${plugin.dependencyClasspath}"/>
-						<j:set var="mavenDependencyPath" value="${mavenDependencyClasspath}"/>
-					</j:otherwise>			
-				</j:choose>
-				<!-- make sure we get the artifact since it isn't
-					 a normal maven dependency (but only try to download 
-					 if we are online) -->
-				<j:if test="${context.online}">
-					<j:set 
-						var="remoteArtifact" 
-						value="${maven.andromda.bootstrap.repos}/${groupId}/jars/${artifactName}"/>
-					<ant:get 
-						dest="${artifactDirLocation}/${artifactName}" 
-						usetimestamp="true" 
-						ignoreerrors="true" 
-						src="${remoteArtifact}"/>
-					<j:set var="artifactAvailable" value="artifactAvailable${index}"/>
-					<ant:available
-						property="artifactAvailable"
-						file="${artifactDirLocation}/${artifactName}"/>
-					<j:if test="${artifactAvailable == null}">
-						<ant:fail>
-							<ant:echo>Failed to download artifact: '${remoteArtifact}'</ant:echo>
-						</ant:fail>
-					</j:if>
-				</j:if>
-			</j:forEach>	
-			<ant:pathelement path="${mavenDependencyPath}"/> 
-			<ant:pathelement path="${pluginDependencyPath}"/> 
-		</ant:path>
-	</goal>
-
+      
     <!-- ===================================================================
          Call AndroMDA to generate code from the model                             
          =================================================================== -->
-    <goal name="andromda:run"
-    	  prereqs="andromda:init">
+    <goal name="andromda:run${bootstrap}">
     	
     	<j:choose>
-    		<j:when test="${bootstrapMode}">
+    		<j:when test="${maven.andromda.bootstrap.mode}">
 				<ant:echo>+---------------------------------------------------------------------------+</ant:echo>
 				<ant:echo>|    R u n n i n g   A n d r o M D A   I n   B O O T S T R A P   M o d e    |</ant:echo>
 				<ant:echo>+---------------------------------------------------------------------------+</ant:echo>      			
@@ -105,18 +22,24 @@
 				<ant:echo>+--------------------------------------------+</ant:echo>     			
     		</j:otherwise>
     	</j:choose>
+    	
+        <j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
     
   		<ant:taskdef
             name="andromda"
-            classname="org.andromda.core.anttasks.AndroMDAGenTask"
-            classpathref="maven.andromda.classpath"/>
+            classname="org.andromda.core.anttasks.AndroMDAGenTask">
+		    <ant:classpath>
+			    <ant:pathelement path="${plugin.dependencyClasspath}"/>   		
+			    <ant:path refid="maven.dependency.classpath"/> 
+		    </ant:classpath>
+        </ant:taskdef>
             
         <ant:andromda modelURL="${maven.andromda.model.uri}"
                       basedir="${maven.andromda.src.dir}"
                       includes="${maven.andromda.src.includes}"
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
                       processAllModelPackages="${maven.andromda.processAllModelPackages}">
-             	
+                          	
             <!-- set the maximum number of packages that may be set, 
                  this can always be increased later, but not sure we would ever need to -->
             <j:set var="maximum" value="30"/>
@@ -126,7 +49,6 @@
             <j:forEach begin="0" end="${maximum}" indexVar="index">
                 <j:set var="indexVarName" value="maven.andromda.modelPackage.${index}.name"/>
                 <j:if test="${context.getVariable(indexVarName) != null}">
-                
                     <ant:modelPackage>
                     
                         <!-- set the name -->
@@ -151,7 +73,9 @@
    		        <j:set var="dependency" value="${artifact.dependency}"/>  
    	
 				<j:choose>
-					<j:when test="${plugin.artifactId == dependency.artifactId}">
+					<j:set var="boostrapArtifactId" value="${dependency.artifactId}-bootstrap"/>
+					<j:when test="${plugin.artifactId eq dependency.artifactId or 
+						             plugin.artifactId eq bootstrapArtifactId}">
 						<j:set var="namespaceName" value="default"/>
 					</j:when>
 					<j:otherwise>
@@ -165,7 +89,7 @@
 					<ant:namespace name="${namespaceName}">
 			
 					<j:forEach var="property" items="${dependency.properties}">
-						
+
 						<j:set var="propertyName" value="${pluginUtils.getDependencyPropertyName(property)}"/>
 						<j:set var="propertyValue" value="${pluginUtils.getDependencyPropertyValue(property)}"/>
 						<j:set var="isIgnored" value="${pluginUtils.isDependencyPropertyIgnored(property)}"/>

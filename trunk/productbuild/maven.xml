@@ -2,7 +2,8 @@
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
-         xmlns:util="jelly:util">
+         xmlns:util="jelly:util"
+         xmlns:artifact="artifact">
          
   	<!-- ==================================================================
   			 Installs all component libraries into the local repository                                                    
@@ -232,10 +233,10 @@
 		<echo>+-------------------------------------------------------------------+</echo>
 		<j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">		
 			<attainGoal name="initialize-bootstrap-properties"/>
-			<ant:copy				
-				file="${artifactFile}"
-				tofile="${repoLocation}/${bootstrapArtifactName}"
-				overwrite="true"/>
+			<artifact:install 
+				artifact="${artifactFile}" 
+				type="${bootstrapTypes.get(index)}" 
+				project="${bootstrapProject}"/>
 		</j:forEach>
 						
 	</goal>
@@ -253,63 +254,18 @@
 			 ================================================================= -->
 	<goal name="bootstrap-deploy"
 		  description="Deploys a bootstrap jar to the remote repository">
-			  
-		<maven:user-check user="${maven.username}"/>
-		
-		<j:set var="username" value="${maven.username}"/>
 			
 		<attainGoal name="preprocess-bootstrap-modules"/>
 		
 		<echo>+-----------------------------------------------------------------+</echo>
 		<echo>|   D E P L O Y I N G    B O O T S T R A P    A R T I F A C T S   |</echo>	
 		<echo>+-----------------------------------------------------------------+</echo>
-		<j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">		
-					
+		<j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">			
 			<attainGoal name="initialize-bootstrap-properties"/>				
-			<ant:move				
-				file="${artifactFile}"
-				tofile="${bootstrapArtifactFile}"
-				overwrite="true"/>	
-							
-			<util:replace var="artifactToDeploy" oldChar="\" newChar="/">${bootstrapArtifactFile}</util:replace>
-			<util:replace var="forwardSlashBaseDir" oldChar="\" newChar="/" value="${basedir}"/>
-			<j:if test="${!forwardSlashBaseDir.endsWith('/')}">
-			  <j:set var="base" value="${forwardSlashBaseDir}/" />
-			</j:if>
-			<j:set var="relativePath">${artifactToDeploy.substring(base.length())}</j:set>
-		
-			<j:set var="siteAddress" value="${maven.repo.central}"/>
-			<j:set var="siteDirectory" value="${maven.repo.central.directory}"/>
-			<j:set 
-				var="resolvedDirectory" 
-				value="${siteDirectory}/${bootstrapProject.artifactDirectory}/${bootstrapTypes.get(index)}s"/>
-	
-			<j:set var="copier" value="${maven.scp.executable}"/>
-			<j:set var="commander" value="${maven.ssh.executable}"/>
-		
-			<!-- Make sure the destination directory exists. --> 
-			<ant:exec dir="." executable="${commander}">
-			  <ant:arg line="-l ${username} ${siteAddress} 'mkdir -p ${resolvedDirectory}'"/>
-			</ant:exec>
-	
-			<ant:echo>Deploying Bootstrap Artifact: '${relativePath}' to '${resolvedDirectory}' on '${siteAddress}'</ant:echo>
-			
-			<ant:exec dir="." executable="${copier}">
-				<ant:arg value="${relativePath}"/>
-				<ant:arg value="${username}@${siteAddress}:${resolvedDirectory}"/>
-			</ant:exec>
-	
-			<j:set 
-				var="siteCommand"
-				value="cd ${resolvedDirectory}; chmod 775 ${bootstrapArtifactName}"/>
-	
-			<ant:echo>Executing '${siteCommand}' with the username '${username}' on '${siteAddress}'</ant:echo>
-					
-			<!-- Change the permissions -->
-			<ant:exec dir="." executable="${commander}">
-			  <ant:arg line="-l ${username} ${siteAddress} '${siteCommand}'"/>
-			</ant:exec>
-				
+			<artifact:deploy 
+				artifact="${artifactFile}" 
+				type="${bootstrapTypes.get(index)}" 
+				project="${bootstrapProject}"/>
 		</j:forEach>
 			
 	</goal>
@@ -319,6 +275,11 @@
 		 executs them and loads the modules and their types into lists.
 		 ================================================================= -->  
 	<goal name="preprocess-bootstrap-modules">
+		
+		<!-- set bootstrap mode to true -->
+		<j:set var="maven.andromda.bootstrap.mode" value="true" scope="parent"/>
+		<echo>maven.andromda.bootstrap.mode=${maven.andromda.bootstrap.mode}</echo>
+		
 		<util:tokenize 
 			var="bootstrapModules" 
 			delim=",">${bootstrap.modules}</util:tokenize>
@@ -355,6 +316,12 @@
 		 Initializes the bootstrap properties for each bootstrapProject
 		 ================================================================= -->  	
 	<goal name="initialize-bootstrap-properties">
+		<j:set var="bootstrapSuffix" value="-bootstrap"/>
+		<j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
+		<j:if test="${!artifactId.endsWith(bootstrapSuffix)}">
+		    <j:set var="bootstrapArtifactId" value="${artifactId}${bootstrapSuffix}"/>
+		    <j:set var="dummy" value="${bootstrapProject.setArtifactId(bootstrapArtifactId)}"/>	
+		</j:if>
 		<j:set
 			var="repoLocation" 
 			value="${maven.repo.local}/${bootstrapProject.artifactDirectory}/${bootstrapTypes.get(index)}s"/>
@@ -363,16 +330,10 @@
 			value="${bootstrapProject.file.parent}/target"/>
 		<j:set 
 			var="artifactName"
-			value="${bootstrapProject.artifactId}-${bootstrapProject.currentVersion}.jar"/>
+			value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
 		<util:file 
 			var="artifactFile" 
 			name="${artifactDirectory}/${artifactName}"/>  	
-		<j:set 
-			var="bootstrapArtifactName"
-			value="${bootstrapProject.artifactId}-bootstrap-${bootstrapProject.currentVersion}.jar"/>
-		<j:set 
-			var="bootstrapArtifactFile"
-			value="${artifactDirectory}/${bootstrapArtifactName}"/>
 	</goal>
   	  	
 </project>
