@@ -4,10 +4,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.HashSet;
+import java.util.*;
 
 
 /**
@@ -96,16 +93,36 @@ public class StrutsJspLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && pageVariables != null) return pageVariables;
 
-        final Collection variables = new LinkedList();
+        final Map variablesMap = new HashMap();
+
         final Collection incoming = getIncoming();
         for (Iterator iterator = incoming.iterator(); iterator.hasNext();)
         {
             TransitionFacade transition = (TransitionFacade) iterator.next();
             EventFacade trigger = transition.getTrigger();
             if (trigger != null)
-                variables.addAll(trigger.getParameters());
+                collectByName(trigger.getParameters(), variablesMap);
         }
-        return pageVariables = variables;
+
+/*
+        final Collection actions = getActions();
+        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
+        {
+            StrutsAction action = (StrutsAction) iterator.next();
+            collectByName(action.getActionParameters(), variablesMap);
+        }
+*/
+
+        return pageVariables = variablesMap.values();
+    }
+
+    private void collectByName(Collection modelElements, Map elementMap)
+    {
+        for (Iterator iterator = modelElements.iterator(); iterator.hasNext();)
+        {
+            ModelElementFacade modelElement = (ModelElementFacade) iterator.next();
+            elementMap.put(modelElement.getName(), modelElement);
+        }
     }
 
     protected Collection handleGetIncomingActions()
