@@ -99,8 +99,8 @@ public abstract class ${class.name}Logic
 #if (!$ops.empty)
     // ---------------- real business methods ----------------------
 
-#foreach ( $op in $ops)
-#set ($hasArguments = ($op.arguments.isEmpty()==false))
+#foreach ($op in $ops)
+#set ($hasArguments = (!$op.arguments.empty))
 #set ($memberTypeName = $op.type.fullyQualifiedName)
 #set ($methodName = $op.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members

@@ -46,6 +46,7 @@ public class MDRepositoryFacadeTest
             if (logger.isInfoEnabled())
                 logger.info("found model --> '" + modelURL + "'");
             repository = new MDRepositoryFacade();
+            repository.open();
         }
 
     }
@@ -63,6 +64,16 @@ public class MDRepositoryFacadeTest
         assertNotNull(repository.getModel());
         assertNotNull(repository.getModel().getModel());
         assertTrue(repository.getModel().getModel() instanceof UmlPackage);
+    }
+    
+    /**
+     * @see TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception
+    {
+        this.repository.close();
+        this.repository = null;
+        super.tearDown();
     }
 
 }

@@ -48,6 +48,7 @@ public class MDRepositoryTransformationTest
         {
             modelURL = TestModel.getModel();
             repository = new MDRepositoryFacade();
+            repository.open();
         }
     }
 
@@ -137,6 +138,8 @@ public class MDRepositoryTransformationTest
      */
     protected void tearDown() throws Exception
     {
+        this.repository.close();
+        this.repository = null;
         super.tearDown();
     }
 
