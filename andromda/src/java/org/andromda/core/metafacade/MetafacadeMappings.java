@@ -484,24 +484,29 @@ public class MetafacadeMappings
     /**
      * <p>
      * Attempts to get the MetafacadeMapping identified by the given
-     * <code>mappingClass</code> and <code>stereotypes<code>, 
-     * from the mappings for the given <code>namespace</code> within the 
-     * specified <code>context</code>. If it can <strong>not</strong> 
-     * be found, it will search the default mappings and return that instead.
+     * <code>mappingClass</code>, <code>context</code> and <code>stereotypes<code>, 
+     * from the mappings for the given <code>namespace</code>. If it 
+     * can <strong>not</strong> be found, it will search the default 
+     * mappings and return that instead. 
+     * </p>
+     * <p>
+     * <strong>IMPORTANT:</strong> The <code>context</code> will take precedence
+     * over any <code>stereotypes</code> with the mapping.
      * </p>
      * 
      * @param mappingClass the class name of the meta object for the mapping
      *        we are trying to find.
+     * @param namespace the namespace (i.e. a cartridge, name, etc.)
+     * @param context to which the mapping applies (note this takes precendence over
+     *        stereotypes).
      * @param stereotypes collection of sterotype names.  We'll check to see if 
      *        the mapping for the given <code>mappingClass</code> is defined for it.
-     * @param namespace the namespace (i.e. a cartridge, name, etc.)
-     * @param context the within the namespace
      */
     public MetafacadeMapping getMetafacadeMapping(
         String mappingClass,
-        Collection stereotypes,
         String namespace,
-        String context)
+        String context,
+        Collection stereotypes)
     {
         final String methodName = "MetafacadeMappings.getMetafacadeMapping";
         if (logger.isDebugEnabled())

@@ -91,9 +91,9 @@ public class MetafacadeMappingsTest
         // test a mapping having a single stereotype with property references
         MetafacadeMapping mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_1,
-            STEREOTYPES_1,
             namespace,
-            null);
+            null,
+            STEREOTYPES_1);
         assertNotNull(mapping);
         //assertNull(mapping.getContext());
         assertTrue(mapping.getMetafacadeClass().getName().equals(
@@ -111,9 +111,9 @@ public class MetafacadeMappingsTest
         stereotypes.add(STEREOTYPE_QUERY_METHOD);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_1,
-            STEREOTYPES_1,
             namespace,
-            null);
+            null,
+            STEREOTYPES_1);
         assertNotNull(mapping);
         //assertNull(mapping.getContext());
         assertTrue(mapping.getMetafacadeClass().getName().equals(
@@ -122,9 +122,9 @@ public class MetafacadeMappingsTest
         // test a mapping having a context
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_4,
-            null,
             namespace,
-            METAFACADE_CLASS_1);
+            METAFACADE_CLASS_1,
+            null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
         assertTrue(mapping.getPropertyReferences().isEmpty());
@@ -134,9 +134,9 @@ public class MetafacadeMappingsTest
         // test a mapping having a context (with using an inherited context)
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_4,
-            null,
             namespace,
-            METAFACADE_CLASS_2);
+            METAFACADE_CLASS_2,
+            null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
         assertTrue(mapping.getPropertyReferences().isEmpty());
@@ -144,9 +144,9 @@ public class MetafacadeMappingsTest
         // test a mapping having 2 required stereotypes
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_3,
-            STEREOTYPES_3,
             namespace,
-            null);
+            null,
+            STEREOTYPES_3);
         assertNotNull(mapping);
         assertTrue(mapping.getMetafacadeClass().getName().equals(
             METAFACADE_CLASS_3));
@@ -158,25 +158,25 @@ public class MetafacadeMappingsTest
         stereotypes.add(STEREOTYPE_UNEXPECTED_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_3,
-            stereotypes,
             namespace,
-            null);
+            null,
+            stereotypes);
         assertNull(mapping);
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_3,
-            stereotypes,
             namespace,
-            null);
+            null,
+            stereotypes);
         assertNull(mapping);
         
         // test a mapping having a context AND a stereotype
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_2,
-            STEREOTYPES_2,
             namespace,
-            METAFACADE_CLASS_3);
+            METAFACADE_CLASS_3,
+            STEREOTYPES_2);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_2, mapping.getMetafacadeClass().getName());
         Map mappingProperties = mapping.getMappingProperties();
@@ -187,9 +187,9 @@ public class MetafacadeMappingsTest
         // test a mapping having a context and multiple stereotypes
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_4,
-            STEREOTYPES_3,
             namespace,
-            METAFACADE_CLASS_3);
+            METAFACADE_CLASS_3,
+            STEREOTYPES_3);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
         mappingProperties = mapping.getMappingProperties();
@@ -203,13 +203,17 @@ public class MetafacadeMappingsTest
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_4,
-            stereotypes,
             namespace,
-            METAFACADE_CLASS_3);
+            METAFACADE_CLASS_3,
+            stereotypes);
         assertNull(mapping);
         
         // try a plain mapping (no contexts or stereotypes)
-        mapping = mappings.getMetafacadeMapping(DEFAULT_MAPPING_CLASS, null, namespace, null);
+        mapping = mappings.getMetafacadeMapping(
+            DEFAULT_MAPPING_CLASS, 
+            namespace, 
+            null, 
+            null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_CLASS_3, mapping.getMetafacadeClass().getName());
     }
