@@ -4,7 +4,7 @@
 #set ($stateMachine = $transform.getStateMachine($class))
 #set ($controllerClassName = $transform.toJavaClassName($transform.getControllerClass($class)))
 #set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
-#if ($controllerFormName == false)
+#if (!$controllerFormName)
 #set ($controllerFormName = "ActionForm")
 #end
 #set ($className = "${controllerClassName}")
@@ -38,7 +38,7 @@ ${indent}* </p>
 ## Set collections from which methods will be rendered, we convert them to sets
 ## because we don't want to render doubles (just to make sure)
 ##
-#set ($guardNames = $transform.toSet($transform.getGuardNames($stateMachine)))
+#set ($decisionPoints = $transform.toSet($transform.dynamicHelper.getDecisionPoints($stateMachine)))
 #set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($stateMachine)))
 #set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($stateMachine)))
 /**
@@ -49,33 +49,46 @@ ${indent}* </p>
 ##
 public class $className extends $parentClassName
 {
-#foreach ($guardName in $guardNames)
-    protected final boolean ${guardName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response)
+#foreach ($decisionPoint in $decisionPoints)
+#if ($transform.dynamicHelper.isGuardedDecisionPoint($decisionPoint))
+#set ($methodName = $transform.toJavaMethodName($decisionPoint))
+    /**
+     * Possible values this method can return are:
+     * <ul>
+#foreach ($transition in $decisionPoint.outgoing)
+     *  <li>$transform.toFinalMemberName($transition.guard)
+#end
+     * </ul>
+     * These values have been defined as <code>protected final</code> in the abstract parent class.
+     * <p>
+#generateDocumentation ( $objectFlowState "    " )
+     */
+    protected final int ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response)
     {
-        // todo: implement this guard
-        return false;
+        return 0;
     }
 
+#end
 #end
 ##
 ## Each object flow state needs to reflect the change in the 'back-end', the user will need to code this
 ## manually
 ##
 #foreach ($objectFlowState in $objectFlowStates)
-#set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState))
+#set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState.type))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
 #set ($methodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
-   /**
-    * This method changes the state of the object with name '$objectFlowState.name' to '$objectFlowStateState.name'. The
-    * type of this object is <code>'$transform.toFullyQualifiedJavaClassName($objectFlowState.type)'</code>.
-    * <p>
-    * Values are transferred from and to the form.
+    /**
+     * This method changes the state of the object with name '$objectFlowState.name' to '$objectFlowStateState.name'. The
+     * type of this object is <code>'$transform.toFullyQualifiedJavaClassName($objectFlowState.type)'</code>.
+     * <p>
+     * Values are transferred from and to the form.
 #generateDocumentation ( $objectFlowState "    " )
-    */
-   protected final void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
-   {
+     */
+    protected final void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
 //      $objectFlowTypeName $transform.toJavaMethodName($objectFlowState) = null;
-   }
+    }
 
 #end
 }
