@@ -1,19 +1,19 @@
 <project default="ejb:install"
          xmlns:ant="jelly:ant"
-  		 xmlns:maven="jelly:maven"
+         xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
-  		 
-    <preGoal name="java:compile"> 
-    	
+
+    <preGoal name="java:compile">
+
         <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
             <ant:classpath>
-				<ant:path refid="maven.dependency.classpath"/>
-				<ant:pathelement path="${pom.dependencyClasspath}"/>
+                <ant:path refid="maven.dependency.classpath"/>
+                <ant:pathelement path="${pom.dependencyClasspath}"/>
             </ant:classpath>
         </ant:taskdef>
-        
-		<ant:ejbdoclet 
-			destdir="${maven.build.src}"
+
+        <ant:ejbdoclet
+            destdir="${maven.build.src}"
             ejbspec="2.0"
             force="false">
 
@@ -26,8 +26,8 @@
             <ant:deploymentdescriptor
                 destdir="${ejb.descriptor.dir}"/>
 
-            <ant:jboss 
-				version="3.0"
+            <ant:jboss
+                version="3.0"
                 xmlencoding="UTF-8"
                 typemapping="${jboss.typeMappings}"
                 datasource="${dataSource}"
@@ -42,11 +42,11 @@
              the names in the deployment descriptor so that
              everyone is happy.
          -->
-        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml" 
-        	token="Bean&lt;/ejb-class&gt;"
-        	value="BeanImpl&lt;/ejb-class&gt;">
-        </ant:replace>    	
-        
+        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml"
+          token="Bean&lt;/ejb-class&gt;"
+          value="BeanImpl&lt;/ejb-class&gt;">
+        </ant:replace>
+
     </preGoal>
-  		 
+
 </project>
