@@ -97,7 +97,6 @@ public class HighlightJavaTag extends AbstractHighlightTag
                 if (token.equals("\n"))
                 {
                     endTokenHighlight(output);
-                    output.write(token);
                     inLineComment = false;
                 }
                 else
@@ -171,7 +170,7 @@ public class HighlightJavaTag extends AbstractHighlightTag
         }
     }
 
-    private final static Set JAVA_KEYWORDS = new HashSet(50,1);
+    private final static Set JAVA_KEYWORDS = new HashSet(52,1);
     static
     {
         JAVA_KEYWORDS.add("abstract"); JAVA_KEYWORDS.add("boolean"); JAVA_KEYWORDS.add("break");

@@ -107,7 +107,6 @@ public class HighlightVelocityTag extends AbstractHighlightTag
                 if (token.equals("\n"))
                 {
                     endTokenHighlight(output);
-                    output.write(token);
                     inLineComment = false;
                 }
                 else
