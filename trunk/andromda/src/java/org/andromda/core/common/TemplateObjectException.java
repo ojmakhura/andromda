@@ -1,12 +1,13 @@
 
-package org.andromda.core.cartridge;
+package org.andromda.core.common;
+
 
 
 /**
  * Wraps any exception that occurs when configuring/processing a 
  * template object
  * 
- * @see org.andromda.core.cartridge.TemplateObject
+ * @see org.andromda.core.templateengine.TemplateObject
  */
 public class TemplateObjectException extends RuntimeException {
 

@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.cartridge.AndroMDACartridge;
-import org.andromda.core.cartridge.CartridgeFinder;
+import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
+import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.StdoutLogger;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.log4j.Logger;
@@ -159,10 +159,10 @@ public class AndroMDAGenTask extends MatchingTask
                 baseDir = this.getProject().resolveFile(".");
             }
             
-            CartridgeFinder.instance().discoverCartridges();
+            PluginDiscoverer.instance().discoverPlugins();
             
             Collection cartridges = 
-                CartridgeFinder.instance().getCartridges();
+                PluginDiscoverer.instance().findPlugins(Cartridge.class);
 
             if (cartridges.size() <= 0)
             {
@@ -256,10 +256,10 @@ public class AndroMDAGenTask extends MatchingTask
             
             for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt.hasNext();) 
             {
-                AndroMDACartridge cartridge = (AndroMDACartridge)cartridgeIt.next();
+                Cartridge cartridge = (Cartridge)cartridgeIt.next();
                 
                 String cartridgeName = 
-                    cartridge.getDescriptor().getCartridgeName();
+                    cartridge.getName();
                 
                 Namespace namespace = 
                     Namespaces.instance().findNamespace(cartridgeName);

@@ -74,5 +74,14 @@ public interface ModelAccessFacade
      * @return Collection
      */
     public Collection findByStereotype(String stereotype);
+    
+    /**
+     * Finds the model element with the <code>fullyQualifiedName</code>.
+     * 
+     * @param fullyQualifiedName the fully qualified name of the 
+     *        model element to find.
+     * @return Object the found model element
+     */
+    public Object findModelElement(String fullyQuaifiedName);
 
 }

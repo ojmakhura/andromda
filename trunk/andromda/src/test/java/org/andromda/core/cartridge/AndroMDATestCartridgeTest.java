@@ -1,8 +1,8 @@
 package org.andromda.core.cartridge;
 
-import org.andromda.core.common.XmlObjectFactory;
-
 import junit.framework.TestCase;
+
+import org.andromda.core.common.XmlObjectFactory;
 
 /**
  * Tests a sample cartridge implementation just to see if the cartridge
@@ -15,7 +15,7 @@ import junit.framework.TestCase;
  */
 public class AndroMDATestCartridgeTest extends TestCase
 {
-    private AndroMDATestCartridge fCartridge;
+    private Cartridge testCartridge;
 
     /**
      * Constructor for AndroMDATestCartridgeTest.
@@ -31,12 +31,11 @@ public class AndroMDATestCartridgeTest extends TestCase
      */
     protected void setUp() throws Exception
     {
-        fCartridge = new AndroMDATestCartridge();
         // set validation off since the parser used by JUnit
         // don't seem to support schema validation
         XmlObjectFactory.setDefaultValidating(false);
-        fCartridge.setDescriptor(DefaultCartridgeDescriptor.getInstance(
-            this.getClass().getResource("SampleCartridgeDescriptor.xml")));
+        this.testCartridge = Cartridge.getInstance(
+            this.getClass().getResource("SampleCartridgeDescriptor.xml"));
     }
 
     /**
@@ -44,16 +43,15 @@ public class AndroMDATestCartridgeTest extends TestCase
      */
     protected void tearDown() throws Exception
     {
-        fCartridge = null;
+        testCartridge = null;
     }
 
     public void testGetCapabilities()
     {
-        CartridgeDescriptor icc = fCartridge.getDescriptor();
-        assertNotNull(icc);
+        assertNotNull(testCartridge);
 
-        assertEquals("andromda-ejb", icc.getCartridgeName());
+        assertEquals("andromda-ejb", testCartridge.getName());
 
-        assertEquals(2, icc.getTemplateConfigurations().size());
+        assertEquals(2, testCartridge.getTemplateConfigurations().size());
     }
 }

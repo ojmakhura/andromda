@@ -1,4 +1,4 @@
-package org.andromda.core.cartridge;
+package org.andromda.core.common;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.andromda.core.common.ClassUtils;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.Namespaces;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;

@@ -342,8 +342,14 @@ public class ComponentContainer {
             logger.debug("registering default for component '" 
                     + componentInterface  + "' as type --> '" + defaultType + "'");
         try {
+            String interfaceName = componentInterface.getName();
+            // check and unregister the component if its registered
+            // so that we can register a new default component.
+            if (this.isRegistered(interfaceName)) {
+                this.unregisterComponent(interfaceName);
+            }
             return container.registerComponentInstance(
-                componentInterface.getName(),
+                interfaceName,
                 defaultType.newInstance()).getComponentInstance();
         } catch (Throwable th) {
         	String errMsg = "Error performing " + methodName;
