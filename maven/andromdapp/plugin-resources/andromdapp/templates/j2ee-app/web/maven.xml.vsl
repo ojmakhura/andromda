@@ -2,7 +2,7 @@
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
-         
+
 #if ($webservice)
     <!-- =====================================================================
             - Remove the 'ignore::' prefix and configure the <ant:mapping> elements
@@ -22,7 +22,7 @@
             verbose="true"
             testcase="false"
             url="${service.wsdlUrl}">
-            <!-- we prefix the generated package with 'ws' to 
+            <!-- we prefix the generated package with 'ws' to
                  avoid conflicts with other class names -->
             <!-- add as many mappings you need for each service -->
             <ant:mapping
@@ -30,7 +30,7 @@
                 package="${someService.package}.ws"/>
         </ant:axis-wsdl2java>
     </preGoal>
-    
+
 #end
     <!--
         | We are going to make a WAR bundle in which the JSPs have been precompiled,
