@@ -171,15 +171,16 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_WEBSERVICE_PROVIDER = umlProfile
         .getString("TAGGEDVALUE_WEBSERVICE_PROVIDER");
-    
+
     /**
-     * Stores the name of the role (if it's different than the name of the
-     * actor stereotyped as role)
+     * Stores the name of the role (if it's different than the name of the actor
+     * stereotyped as role)
      */
     public static final String TAGGEDVALUE_ROLE_NAME = umlProfile
         .getString("TAGGEDVALUE_ROLE_NAME");
+    
     /**
-     * Stores the service method transaction typ
+     * Stores the service method transaction type.
      */
     public static final String TAGGEDVALUE_TRANSACTION_TYPE = umlProfile
         .getString("TAGGEDVALUE_TRANSACTION_TYPE");
