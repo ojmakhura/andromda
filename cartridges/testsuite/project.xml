@@ -1,13 +1,13 @@
 <project>
     <extend>../project.xml</extend>
     <artifactId>andromda-cartridge-testsuite</artifactId>
-    <name>AndroMDA Cartridge Test Suite</name>
+    <name>Cartridge Test Suite</name>
     <package>org.andromda.cartridge.testsuite</package>
     <description>
-  		Provides an AndroMDA Cartridge Test Suite, for testing
+  		Provides a Cartridge Test Suite, for testing
   		cartridges throughout the cartridge lifecycle.
   	</description>
-    <shortDescription>AndroMDA Carridge Test Suite.</shortDescription>
+    <shortDescription>Carridge Test Suite.</shortDescription>
     <dependencies>
         <dependency>
             <groupId>xjavadoc</groupId>
