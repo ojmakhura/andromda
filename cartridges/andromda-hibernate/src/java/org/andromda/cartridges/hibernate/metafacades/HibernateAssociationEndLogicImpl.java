@@ -209,4 +209,28 @@ public class HibernateAssociationEndLogicImpl
         return StringUtils.trimToEmpty(String.valueOf(value));
     }
 
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isInheritanceRequired()
+     */
+    protected boolean handleIsInheritanceRequired()
+    {
+        boolean required=true;
+        
+        Object type = this.getType();
+        if (type != null
+            && HibernateEntity.class.isAssignableFrom(type.getClass()))
+        {
+            HibernateEntity entity = (HibernateEntity)type;
+            if (entity.isHibernateInheritanceSubclass() && (entity.getGeneralization()!=null))
+            {
+                required=false;
+            }
+            else
+            {
+                required=this.isRequired();
+            }
+        }
+        return required;
+    }
+
 }

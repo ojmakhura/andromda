@@ -39,12 +39,6 @@ public class HibernateAssociationLogicImpl
     }
     
     /**
-     * The namespace property storing default ehCache maxElementsInMemory
-     * Parameter
-     */
-    private static final String HIBERNATE_EHCACHE_MAX_ELEMENTS = "ehCacheMaxElementsInMemory";
-
-    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheMaxElementsInMemory()
      */
     protected int handleGetEhCacheMaxElementsInMemory()
@@ -55,15 +49,10 @@ public class HibernateAssociationLogicImpl
         if (StringUtils.isBlank(maxElements))
         {
             maxElements = (String)this
-                .getConfiguredProperty(HIBERNATE_EHCACHE_MAX_ELEMENTS);
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_MAX_ELEMENTS);
         }
         return Integer.parseInt(maxElements);
     }
-
-    /**
-     * The namespace property storing default ehCache eternal parameter
-     */
-    private static final String HIBERNATE_EHCACHE_ETERNAL = "ehCacheEternal";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#isEhCacheEternal()
@@ -75,15 +64,10 @@ public class HibernateAssociationLogicImpl
         if (eternal == null)
         {
             eternal = (String)this
-                .getConfiguredProperty(HIBERNATE_EHCACHE_ETERNAL);
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
-
-    /**
-     * The namespace property storing default ehCache eternal parameter
-     */
-    private static final String HIBERNATE_EHCACHE_TIME_TO_IDLE = "ehCacheTimeToIdleSeconds";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheTimeToIdleSeconds()
@@ -96,15 +80,10 @@ public class HibernateAssociationLogicImpl
         if (StringUtils.isBlank(timeToIdle))
         {
             timeToIdle = (String)this
-                .getConfiguredProperty(HIBERNATE_EHCACHE_TIME_TO_IDLE);
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_IDLE);
         }
         return Integer.parseInt(timeToIdle);
     }
-
-    /**
-     * The namespace property storing default ehCache eternal parameter
-     */
-    private static final String HIBERNATE_EHCACHE_TIME_TO_LIVE = "ehCacheTimeToLiveSeconds";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheTimeToLiveSeconds()
@@ -117,15 +96,10 @@ public class HibernateAssociationLogicImpl
         if (StringUtils.isBlank(timeToLive))
         {
             timeToLive = (String)this
-                .getConfiguredProperty(HIBERNATE_EHCACHE_TIME_TO_LIVE);
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_LIVE);
         }
         return Integer.parseInt(timeToLive);
     }
-
-    /**
-     * The namespace property storing default ehCache eternal parameter
-     */
-    private static final String HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = "ehCacheOverflowToDisk";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#isEhCacheOverflowToDisk()
@@ -137,7 +111,7 @@ public class HibernateAssociationLogicImpl
         if (eternal == null)
         {
             eternal = (String)this
-                .getConfiguredProperty(HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
