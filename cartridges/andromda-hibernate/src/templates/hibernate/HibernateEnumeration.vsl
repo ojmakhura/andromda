@@ -16,14 +16,14 @@ public final class $enumeration.name
     extends ${customTypesPackage}.HibernateEnumerationType
 {
 #foreach ($literal in $enumeration.literals)
-    public final static $enumeration.name $literal.name = new ${enumeration.name}("$literal.name");
+    public final static $enumeration.name $literal.name = new ${enumeration.name}("$literal.enumerationValue");
 #end
 
     static
     {
 #set ($comma = "")
 #foreach ($literal in $enumeration.literals)
-        ${comma}INSTANCES.put("${literal.name}", ${literal.name})
+        ${comma}INSTANCES.put("${literal.enumerationValue}", ${literal.name})
 #set ($comma = ", ")
 #end
     }

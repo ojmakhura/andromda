@@ -88,7 +88,7 @@
         <!-- mapping files -->
 #foreach($entity in $entities)
 ## Check if the entity is a root in hibernate terms
-#if ( $entity.isRootInheritanceEntity() )
+#if ( !$entity.enumeration && $entity.isRootInheritanceEntity() )
         <mapping resource="${entity.packagePath}/${entity.name}.hbm.xml"/>
 #end
 #end

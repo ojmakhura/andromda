@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Collections;
 
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -459,5 +460,22 @@ public class ClassifierFacadeLogicImpl
                 return !((OperationFacade)object).isStatic();
             }
         };
+    }
+
+    protected Collection handleGetConstantAttributes()
+    {
+        return new FilteredCollection(this.getAttributes())
+        {
+            public boolean evaluate(Object object)
+            {
+                final AttributeFacade attribute = (AttributeFacade) object;
+                return attribute.isStatic() && attribute.isReadOnly();
+            }
+        };
+    }
+
+    protected Collection handleGetLiterals()
+    {
+        return (isEnumeration()) ? getConstantAttributes() : Collections.EMPTY_LIST;
     }
 }

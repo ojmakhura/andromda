@@ -50,7 +50,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -62,7 +64,9 @@
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -74,7 +78,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+                <type name="org.andromda.metafacades.uml.EntityFacade">
+                    <property name="enumeration" value="false"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -137,7 +143,6 @@
         overwrite="true"
         required="false"/>
         
-<!--
     <template
         path="templates/hibernate/HibernateEnumerationType.vsl"
         outputPattern="$generatedFile"
@@ -152,7 +157,7 @@
         overwrite="true"
         required="false">
         <modelElements variable="enumeration">
-            <!- - this implies the <<Entity>> and <<Enumeration>> stereotypes - ->
+            <!-- this implies the <<Entity>> and <<Enumeration>> stereotypes -->
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade">
                     <property name="enumeration" value="true"/>
@@ -160,7 +165,6 @@
             </modelElement>
         </modelElements>
     </template>
--->
 
     <!-- cartridge-template merge-point -->
 
