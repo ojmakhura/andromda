@@ -26,6 +26,13 @@ inv: Person::allInstances()->isUnique(socSecNr)
 context ProgramPartner
     inv totalPoints:
         deliveredServices.transactions.points->sum() < 10000
+        
+context ProgramPartner
+    inv: deliveredServices.transactions->select( isOclType( Burning ) )
+        ->collect( points )->sum() < 10000
+
+context Interface
+    inv: features->select(f | f.oclIsKindOf( Attribute ) )->isEmpty()
     
 /* 
     The following invariant states that the maximum number of points
