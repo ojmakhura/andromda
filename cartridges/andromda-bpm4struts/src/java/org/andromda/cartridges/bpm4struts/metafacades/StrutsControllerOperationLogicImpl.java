@@ -102,22 +102,8 @@ public class StrutsControllerOperationLogicImpl
         return (owner instanceof StrutsController) ? owner : null;
     }
 
-    private Collection formFields = null;
-
     protected Collection handleGetFormFields()
     {
-        if (formFields == null)
-        {
-            Collection fields = new HashSet();
-
-            Collection actions = getDeferringActions();
-            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
-            {
-                StrutsAction action = (StrutsAction) actionIterator.next();
-                fields.addAll(action.getAllFormFields());
-            }
-            formFields = fields;
-        }
-        return formFields;
+        return this.getArguments();
     }
 }
