@@ -7,7 +7,10 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-03-12" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-03-13" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="SPRING-38">
+                The spring cartridge now supports modeled hibernate criteria finders (Thanks to Stefan Reichert and Peter Friese).
+            </action>
             <action dev="cwbrandon" type="update" issue="CORE-15">
                 OCL translation support has been moved into the translation-libraries/ocl module (out of the andromda-core)
                 and all ocl translation specific classes are now in a package beginning with 
