@@ -49,11 +49,8 @@
             input="${action.actionPathRoot}${action.actionPathRoot}.do"
 #end
             unknown="false"
-#if ($action.validationRequired && $validationDesired)
-            validate="true">
-#else
-            validate="false">
-#end
+#set ($validate = $action.validationRequired && $validationDesired)
+            validate="$validate">
 #set ($actionExceptions = $action.actionExceptions)
 #foreach ($actionException in $actionExceptions)
             <exception
