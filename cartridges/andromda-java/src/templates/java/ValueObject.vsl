@@ -6,17 +6,6 @@ package $class.packageName;
 
 /**
 $class.getDocumentation(" * ")
- *
-#foreach ( $tgv in $class.taggedValues )
-#if ($tgv.name != "documentation")
-#if ($tgv.name == "---")
-    #set ($tag = "")
-#else
-    #set ($tag = $tgv.name)
-#end
- * $tag    $tgv.value
-#end
-#end
  */
 public class ${class.name} 
 #if($class.generalization)  
