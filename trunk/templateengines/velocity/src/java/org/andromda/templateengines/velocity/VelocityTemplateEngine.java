@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.templateengine.TemplateEngine;
@@ -19,7 +20,6 @@ import org.apache.commons.collections.ExtendedProperties;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.velocity.Template;
@@ -140,7 +140,7 @@ public class VelocityTemplateEngine
      */
     private void addProperties(String pluginName) throws IOException
     {
-        //reset any properties from previous processing
+        // reset any properties from previous processing
         this.properties = null;
 
         // see if the velocity properties exist for the current
@@ -186,7 +186,7 @@ public class VelocityTemplateEngine
         ExceptionUtils.checkNull(methodName, "output", output);
         this.velocityContext = new VelocityContext();
 
-        //copy the templateObjects to the velocityContext
+        // copy the templateObjects to the velocityContext
         if (templateObjects != null)
         {
             Iterator namesIt = templateObjects.keySet().iterator();
@@ -284,7 +284,7 @@ public class VelocityTemplateEngine
             switch (level)
             {
                 case LogSystem.WARN_ID :
-                    logger.warn(message);
+                    logger.info(message);
                     break;
                 case LogSystem.INFO_ID :
                     logger.info(message);
@@ -293,7 +293,7 @@ public class VelocityTemplateEngine
                     logger.debug(message);
                     break;
                 case LogSystem.ERROR_ID :
-                    logger.error(message);
+                    logger.info(message);
                     break;
                 default :
                     logger.debug(message);
@@ -318,14 +318,11 @@ public class VelocityTemplateEngine
      */
     private void initLogger(String pluginName) throws IOException
     {
-        logger = Logger.getLogger("org.andromda.plugins." + pluginName);
+        logger = AndroMDALogger.getPluginLogger(pluginName);
         logger.setAdditivity(false);
-        logger.setLevel(Level.ALL);
-
-        String logfile = "andromda-" + pluginName + ".log";
         FileAppender appender = new FileAppender(
-            new PatternLayout("%d - %m%n"),
-            logfile,
+            new PatternLayout("%-5p %d - %m%n"),
+            AndroMDALogger.getPluginLogFileName(pluginName),
             true);
         logger.addAppender(appender);
     }

@@ -200,8 +200,8 @@ public class Cartridge
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "context", context);
 
-        if (logger.isDebugEnabled())
-            logger.debug("performing " + methodName + " with template '"
+        if (getLogger().isDebugEnabled())
+            getLogger().debug("performing " + methodName + " with template '"
                 + template + "' and context ' " + context + "'");
 
         ModelElements modelElements = template.getSupportedModeElements();
@@ -425,8 +425,8 @@ public class Cartridge
                     }
                     else
                     {
-                        if (this.logger.isDebugEnabled())
-                            this.logger.debug("Empty Output: '"
+                        if (this.getLogger().isDebugEnabled())
+                            this.getLogger().debug("Empty Output: '"
                                 + outFile.toURI() + "' --> not writing");
                     }
                     AndroMDALogger.reset();
@@ -438,7 +438,7 @@ public class Cartridge
             if (outFile != null)
             {
                 outFile.delete();
-                this.logger.info("Removed: '" + outFile + "'");
+                this.getLogger().info("Removed: '" + outFile + "'");
             }
             String errMsg = "Error performing " + methodName
                 + " with template '" + template.getPath()
@@ -549,7 +549,7 @@ public class Cartridge
             if (outFile != null)
             {
                 outFile.delete();
-                this.logger.info("Removed: '" + outFile + "'");
+                this.getLogger().info("Removed: '" + outFile + "'");
             }
             String errMsg = "Error performing " + methodName;
             throw new CartridgeException(errMsg, th);

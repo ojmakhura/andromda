@@ -13,16 +13,16 @@ import java.util.Map;
  */
 public interface TemplateEngine
 {
-
+    
     /**
      * Initializes the TempateEngine.
      * 
-     * @param cartridgeName The name of the cartridge this can be used for
+     * @param namespace The name of the plugin this can be used for
      *        whatever the template engine implementation likes. For example, it
      *        can help determine the name of the log file to which output is
      *        logged.
      */
-    public void init(String cartridgeName) throws Exception;
+    public void init(String namespace) throws Exception;
 
     /**
      * Processes a template.
@@ -76,5 +76,4 @@ public interface TemplateEngine
      * @return the evaluated expression String.
      */
     public String getEvaluatedExpression(String expression);
-
 }

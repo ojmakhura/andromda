@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
@@ -22,16 +21,11 @@ import org.apache.log4j.Logger;
 public abstract class BasePlugin
     implements Plugin
 {
-
-    protected Logger logger = null;
-
     /**
      * Default constructor which must be called by super classes.
      */
     protected BasePlugin()
-    {
-        this.resetLogger();
-    }
+    {}
 
     /**
      * Property references made available to the plugin
@@ -307,23 +301,15 @@ public abstract class BasePlugin
         }
         return contents;
     }
-
+    
     /**
-     * Resets the logger to the default name.
+     * Retrieves the logger instance that should be used
+     * for logging output for the plugin sub classes.
+     * @return the logger.
      */
-    protected void resetLogger()
+    protected Logger getLogger()
     {
-        this.setLogger(Cartridge.class.getName());
-    }
-
-    /**
-     * Sets the logger to be used with this Cartridge
-     * 
-     * @param loggerName The name of the logger to set.
-     */
-    protected void setLogger(String loggerName)
-    {
-        this.logger = Logger.getLogger(loggerName);
+        return AndroMDALogger.getPluginLogger(this.name);
     }
 
     /**

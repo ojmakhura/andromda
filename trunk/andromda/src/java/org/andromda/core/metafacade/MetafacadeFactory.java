@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
@@ -178,8 +179,8 @@ public class MetafacadeFactory
 
             MetafacadeMapping mapping = null;
 
-            if (this.internalGetLogger().isDebugEnabled())
-                this.internalGetLogger()
+            if (this.getLogger().isDebugEnabled())
+                this.getLogger()
                     .debug(
                         "metaObject stereotype names --> '" + stereotypeNames
                             + "'");
@@ -201,9 +202,9 @@ public class MetafacadeFactory
                     // get the default since no mapping was found.
                     metafacadeClass = mappings
                         .getDefaultMetafacadeClass(this.activeNamespace);
-                    if (this.internalGetLogger().isDebugEnabled())
+                    if (this.getLogger().isDebugEnabled())
                         this
-                            .internalGetLogger()
+                            .getLogger()
                             .debug(
                                 "Meta object model class '"
                                     + metaObjectClass
@@ -252,8 +253,8 @@ public class MetafacadeFactory
 
             if (metafacade == null)
             {
-                if (internalGetLogger().isDebugEnabled())
-                    internalGetLogger().debug(
+                if (getLogger().isDebugEnabled())
+                    getLogger().debug(
                         "lookupFacadeClass: " + metaObjectClassName + " -> "
                             + metafacadeClass);
 
@@ -270,7 +271,7 @@ public class MetafacadeFactory
 
                 // make sure that the facade has a proper logger associated
                 // with it.
-                metafacade.setLogger(internalGetLogger());
+                metafacade.setLogger(getLogger());
 
                 // set this namespace to the metafacade's namespace
                 metafacade.setNamespace(this.getActiveNamespace());
@@ -331,7 +332,7 @@ public class MetafacadeFactory
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with metaObject of type --> '"
                 + metaObjectClass + "'";
-            internalGetLogger().error(errMsg);
+            getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
@@ -388,7 +389,7 @@ public class MetafacadeFactory
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with metaObject of type --> '"
                 + metaObject.getClass().getName() + "'";
-            internalGetLogger().error(errMsg, th);
+            getLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }
@@ -517,8 +518,8 @@ public class MetafacadeFactory
                 if (property != null && !property.isIgnore())
                 {
                     String value = property.getValue();
-                    if (this.internalGetLogger().isDebugEnabled())
-                        this.internalGetLogger().debug(
+                    if (this.getLogger().isDebugEnabled())
+                        this.getLogger().debug(
                             "setting context property '" + reference
                                 + "' with value '" + value
                                 + "' for namespace '"
@@ -602,11 +603,15 @@ public class MetafacadeFactory
         this.model = model;
     }
 
-    private Logger internalGetLogger()
+    /**
+     * Gets the correct logger based on whether
+     * or not an plugin logger should be used
+     * 
+     * @return the logger
+     */
+    private Logger getLogger()
     {
-        if (!"default".equals(activeNamespace))
-            return Logger.getLogger("org.andromda.plugins." + activeNamespace);
-        return Logger.getRootLogger();
+        return AndroMDALogger.getPluginLogger(activeNamespace);
     }
 
     /**
