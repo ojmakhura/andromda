@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>${pom.groupId}-common</id>
+  	<name>${projectName} Common</name>
+  	<shortDescription>${pom.name} Component</shortDescription>
+  	<description>
+  		Contains the ${pom.name} module.
+  	</description>
+	<dependencies>      
+		<dependency>
+			<groupId>${pom.groupId}</groupId>
+			<artifactId>${pom.groupId}-mda</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+  	</build>
+</project>

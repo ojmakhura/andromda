@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>${pom.groupId}-hibernate-sar</id>
+  	<name>${projectName} Hibernate Sar</name>
+  	<shortDescription>The ${pom.name} Component</shortDescription>
+  	<description>
+  		Contains the ${pom.name} module.
+  	</description>
+	<dependencies>      
+		<dependency>
+			<groupId>${pom.groupId}</groupId>
+			<artifactId>${pom.groupId}-hibernate-ejb</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>ejb</type>
+		</dependency>	
+	</dependencies>
+  	<build>    
+		<resources>
+	  		<resource>
+				<directory>target/xdoclet/hibernate</directory>
+	        	<includes>
+	        		<include>**/*</include>
+	        	</includes>
+	  		</resource>
+	  		<resource>
+				<directory>conf</directory>
+	        	<includes>
+	        		<include>*</include>
+	        	</includes>
+	  		</resource>
+		</resources>
+  	</build>
+</project>

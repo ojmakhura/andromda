@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>${pom.groupId}-hibernate-ejb</id>
+  	<name>${projectName} Hibernate EJB</name>
+  	<shortDescription>The ${pom.name} Component</shortDescription>
+  	<description>
+  		Contains the ${pom.name} module.
+  	</description>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+  	</build>
+</project>
