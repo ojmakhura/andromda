@@ -198,6 +198,8 @@ public class StringUtilsHelper {
 
     /**
      * Suffixes each line with the argument suffix.
+     * <p>
+     * The very last line will not be suffixed.
      *
      * @param multiLines A String, optionally containing many lines
      * @param suffix The suffix to append to the end of each line
@@ -214,7 +216,10 @@ public class StringUtilsHelper {
             linesBuffer.append(suffix);
             linesBuffer.append("\n");
         }
-        return linesBuffer.toString();
+        final String suffixedString = linesBuffer.toString().trim();
+        return (suffixedString.endsWith(suffix))
+            ? suffixedString.substring(0, suffixedString.lastIndexOf(suffix))
+            : suffixedString;
     }
 
     /**
