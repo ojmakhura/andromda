@@ -25,6 +25,9 @@
 #end
             </generator>
         </id>
+#if ($stringUtils.isNotBlank($versionProperty))
+        <version name="$versionProperty" type="int" column="$versionProperty"/>
+#end
 #if (!$entity.specializations.empty && $entity.hibernateInheritanceClass)
         <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
 #end 
