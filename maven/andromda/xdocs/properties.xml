@@ -443,8 +443,8 @@
 					when using a cartridge.  For example: this comes in handy when a cartridge
 					has a certain template set to required and yet you don't want
 					to generate anything from that template.  In that case you 
-					can add an "ignore" prefix to a property definition (i.e.
-					<![CDATA[<ignore.entity-impls/>]]>) and AndroMDA will safely
+					can add an "ignore" suffix to a property definition (i.e.
+					<![CDATA[<entity-impls.ignore/>]]>) and AndroMDA will safely
 					ignore that property.
 				</p>
 			</subsection>
