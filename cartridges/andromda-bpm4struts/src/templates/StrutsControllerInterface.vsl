@@ -79,6 +79,15 @@ public abstract class ${controller.name} implements java.io.Serializable
         }
     }
 
+    protected final void clear${accessorSuffix}(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession();
+        if (session != null)
+        {
+            session.removeAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
+        }
+    }
+
 #end
 }
 #end
