@@ -328,12 +328,32 @@
     
     <expression>
         <from>
+            context Gender inv: not male
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(!Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue());
+        </to>
+    </expression>
+    
+    <expression>
+        <from>
             context Gender inv: not male implies female
         </from>
         <to>
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(!Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue())).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"female"))).booleanValue():true));          
         </to>
     </expression>
+    
+    <!--
+    <expression>
+        <from>
+            context StrutsForward inv: operationCall->notEmpty() implies (target.oclIsKindOf(org::andromda::metafacades::uml::PseudostateFacade) and target.decisionPoint)
+        </from>
+        <to>
+            
+        </to>
+    </expression>
+    -->
     
     <!--
     <expression>

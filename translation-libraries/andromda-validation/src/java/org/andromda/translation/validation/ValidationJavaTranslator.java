@@ -520,7 +520,6 @@ public class ValidationJavaTranslator
                         if (convertToBoolean)
                         {
                             this.write(BOOLEAN_WRAP_PREFIX);
-                            this.requiresBooleanConversion = true;
                         }
                     }
                     if (expressionAsString.matches(OCLFeatures.OCL_IS_KIND_OF))
@@ -787,7 +786,7 @@ public class ValidationJavaTranslator
             }
             requiresBooleanConversion = expression != null
                 && expression.matches(pattern);
-            if (requiresBooleanConversion)
+            if (this.requiresBooleanConversion)
             {
                 this.write(BOOLEAN_WRAP_PREFIX);
             }
