@@ -43,7 +43,7 @@
                 <entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
                 <session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
                 <session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>
-                <configuration>${maven.andromda.hibernate.config.dir}</configuration>
+                <configuration>${maven.andromda.hibernate.generated.dir}</configuration>
             </properties>
         </dependency>
         <dependency>
