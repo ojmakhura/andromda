@@ -485,7 +485,7 @@ public class SchemaTransformer
             modelPackage.getOwnedElement().addAll(
                 this.createAssociations(metadata, corePackage, tableName));
 
-            // create and all the attributes
+            // create and add all the attributes
             umlClass.getOwnedElement().addAll(
                 this.createAttributes(metadata, corePackage, tableName));
             modelPackage.getOwnedElement().add(umlClass);
