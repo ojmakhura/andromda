@@ -123,6 +123,11 @@ public class HighlightJavaTag extends AbstractHighlightTag
                     endTokenHighlight(output);
                     inPostComment = false;
                 }
+                else if (token.equals("*") == false)
+                {
+                    inPostComment = false;
+                    inBlockComment = true;
+                }
                 continue;
             }
 
