@@ -88,7 +88,7 @@
 		       
 	   	</pattern>
 	   	
-	   	<!-- add the Template to the Cartridge -->
+	   	<!-- add a template to the cartridge -->
 	   	
 		<pattern value="template">
 		
@@ -96,7 +96,7 @@
 	      		classname="org.andromda.core.cartridge.Template" />     		
 
 			<set-properties-rule>
-	 			<alias attr-name="sheet" prop-name="sheet" />
+	 			<alias attr-name="path" prop-name="path" />
 	 		</set-properties-rule> 
 
 			<set-properties-rule>
