@@ -5,9 +5,10 @@ import org.andromda.adminconsole.config.xml.ColumnConfiguration;
 import org.andromda.adminconsole.config.xml.TableConfiguration;
 import org.andromda.adminconsole.db.*;
 
-import java.io.Reader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -25,31 +26,16 @@ public class AdminConsoleConfigurator
     private final Map columnCache = new HashMap();
     private final Map jspCache = new HashMap(); // @todo: use
 
-    public AdminConsoleConfigurator(Reader reader) throws Exception
-    {
-        try
-        {
-            configuration = AdminConsole.unmarshal(reader);
-        }
-        catch(Exception e)
-        {
-            throw new Exception("Unable to initialize configuration: "+e);
-        }
-    }
-
     public AdminConsoleConfigurator() throws Exception
     {
-        try
+        configuration = loadConfiguration(FILE_NAME);
+        if (configuration == null)
         {
-            InputStream instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AdminConsoleConfigurator.DEFAULT_CFG);
-            Reader reader = new InputStreamReader(instream);
-            configuration = AdminConsole.unmarshal(reader);
-            reader.close();
-            instream.close();
+            configuration = loadConfiguration(DEFAULT_CFG);
         }
-        catch(Exception e)
+        if (configuration == null)
         {
-            throw new Exception("Unable to initialize configuration: "+e);
+            throw new Exception("No configuration could be found, please put "+FILE_NAME+" on the classpath");
         }
     }
 
@@ -200,4 +186,40 @@ public class AdminConsoleConfigurator
         ColumnConfiguration configuration = getConfiguration(column);
         return getJsp(column, parameterName, (rowData==null)?"":rowData.get(column.getName()), !configuration.getInsertable());
     }
+
+    private AdminConsole loadConfiguration(String fileName) throws IOException
+    {
+        AdminConsole adminConsole = null;
+
+        InputStream instream = null;
+        Reader reader = null;
+
+        try
+        {
+            instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+            if (instream != null)
+            {
+                reader = new InputStreamReader(instream);
+                adminConsole = AdminConsole.unmarshal(reader);
+            }
+        }
+        catch(Exception e)
+        {
+            // do nothing, let this method silently return
+        }
+        finally
+        {
+            try
+            {
+                if (reader!=null) reader.close();
+                if (instream!=null) instream.close();
+            }
+            catch (Exception e)
+            {
+                throw new IOException("Resources could not properly be closed");
+            }
+        }
+        return adminConsole;
+    }
+
 }
