@@ -59,13 +59,14 @@ body
 
 #leftColumn a, #leftColumn a:link, #leftColumn a:active, #leftColumn a:visited
 {
-	color: #043dbc;
+    color: #043dbc;
+    font-size: 12px;
     text-decoration: none;
 }
 
 #leftColumn a:hover
 {
-	color: #51a2ff;
+    color: #51a2ff;
     border-bottom: 1px dotted;
 }
 
