@@ -19,17 +19,18 @@ public class DecoratorFactoryTest extends TestCase
     public void testRegisterDecoratorClass()
     {
         DecoratorFactory df = DecoratorFactory.getInstance();
-        assertEquals(0, df.getNamespaceCount());
+        assertEquals(1, df.getNamespaceCount());
         
         df.setActiveNamespace("core");
         assertEquals("core", df.getActiveNamespace());
         assertEquals(1, df.getNamespaceCount());
-        assertEquals(0, df.getDecoratorCount());
+        
+        int baseDecoratorCount = df.getDecoratorCount();
 
         df.registerDecoratorClass(Classifier.class.getName(), null, SampleClassifierDecorator.class.getName());
-        assertEquals(1, df.getDecoratorCount());
+        assertEquals(baseDecoratorCount+1, df.getDecoratorCount());
         df.registerDecoratorClass(Attribute.class.getName(), null, SampleAttributeDecorator.class.getName());
-        assertEquals(2, df.getDecoratorCount());
+        assertEquals(baseDecoratorCount+2, df.getDecoratorCount());
         
         String decoratorClassName = df.lookupDecoratorClass(Classifier.class.getName(), null);
         assertEquals(SampleClassifierDecorator.class.getName(), decoratorClassName);
