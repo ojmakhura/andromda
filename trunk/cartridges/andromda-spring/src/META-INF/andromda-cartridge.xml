@@ -334,7 +334,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/applicationContext-dataSource.xml.vsl"
         outputPattern="$applicationContextDataSource"
@@ -416,7 +416,17 @@
         outputPattern="$beanRefFactory"
         outlet="spring-configuration"
         overwrite="true"
-        outputToSingleFile="true"/>
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <!-- cartridge-template merge-point -->
 
