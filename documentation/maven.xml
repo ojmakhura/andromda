@@ -55,11 +55,11 @@
     <goal name="copy-jsl">
         <ant:fileScanner var="projects">
             <ant:fileset dir="${maven.multiproject.basedir}"
-                includes="${maven.multiproject.includes}"
+                includes="${maven.multiproject.includes},documentation/project.xml"
                 excludes="${maven.multiproject.excludes}"/>
         </ant:fileScanner>
         <j:forEach var="project" items="${projects.iterator()}">
-            <ant:copy todir="${project.parent}/target/jsl">
+            <ant:copy todir="${project.parent}/target/docs/jsl">
                 <ant:fileset dir="${maven.docs.src}/jsl"/>
             </ant:copy>
         </j:forEach>
