@@ -109,8 +109,9 @@
                 method from the <a href="../andromda-metafacades-uml/apidocs/org/andromda/uml/ModelElementFacade.html">ModelElementFacade</a> 
                 you can translate the OCL into Hibernate-QL or EJB-QL (or anything for that matter
                 as long as the translation library supports it). Take a look at this code
-                snippet that shows how you'd look up and translate an OCL query into EJB-QL
-                assuming you had the query translation-library on your classpath:
+                snippet that shows how you could look up and translate an OCL query into EJB-QL
+                (assuming you had the query translation-library on your classpath) for an EJB 
+                metafacade getQuery method: 
                 <source>
 <![CDATA[
     public java.lang.String handleGetQuery() 
