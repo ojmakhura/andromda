@@ -1,6 +1,7 @@
 package org.andromda.core.metafacade;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Stores the validation messages that are stored up to be output at the end
@@ -75,5 +76,46 @@ public class ModelValidationMessage
         toString.append(":");
         toString.append(this.message);
         return toString.toString();
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode()
+    {
+        return StringUtils.trimToEmpty(this.message).hashCode()
+            + StringUtils.trimToEmpty(this.getModelElementName()).hashCode()
+            + StringUtils.trimToEmpty(this.getMetafacadeClass().getName())
+                .hashCode();
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object object)
+    {
+        boolean equals = object != null
+            && ModelValidationMessage.class == object.getClass();
+        if (equals)
+        {
+            ModelValidationMessage message = (ModelValidationMessage)object;
+
+            String className = StringUtils.trimToEmpty(message
+                .getMetafacadeClass().getName());
+            equals = className.equals(StringUtils.trimToEmpty(this
+                .getMetafacadeClass().getName()));
+            if (equals)
+            {
+                equals = StringUtils
+                    .trimToEmpty(message.getModelElementName())
+                    .equals(StringUtils.trimToEmpty(this.getModelElementName()));
+                if (equals)
+                {
+                    equals = StringUtils.trimToEmpty(message.getMessage())
+                        .equals(StringUtils.trimToEmpty(this.getMessage()));
+                }
+            }
+        }
+        return equals;
     }
 }
