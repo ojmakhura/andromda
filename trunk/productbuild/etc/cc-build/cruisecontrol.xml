@@ -3,7 +3,7 @@
 <cruisecontrol>
   <project name="andromda-all">
     <bootstrappers>
-      <currentbuildstatusbootstrapper file="/mnt/hdc4/work/andromda/andromda-all/etc/cc-build/logs/andromda-all/currentbuildstatus.txt">
+      <currentbuildstatusbootstrapper file="/mnt/hdc4/work/andromda/logs/andromda-all/currentbuildstatus.txt">
       </currentbuildstatusbootstrapper>
     </bootstrappers>
     <modificationset>
@@ -19,9 +19,9 @@
       </merge -->
     </log>
     <publishers>
-      <currentbuildstatuspublisher file="/mnt/hdc4/work/andromda/andromda-all/etc/cc-build/logs/andromda-all/currentbuildstatus.txt">
+      <currentbuildstatuspublisher file="/mnt/hdc4/work/andromda/logs/andromda-all/currentbuildstatus.txt">
       </currentbuildstatuspublisher>
-      <htmlemail logdir="/mnt/hdc4/work/andromda/andromda-all/etc/cc-build/logs/andromda-all" 
+      <htmlemail logdir="/mnt/hdc4/work/andromda/logs/andromda-all" 
            mailhost="localhost" 
            subjectprefix="[BUILD]" 
            returnaddress="cwbrandon@users.sourceforge.net" 
