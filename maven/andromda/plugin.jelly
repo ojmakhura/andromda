@@ -203,7 +203,7 @@
 
 		<!-- process the model file -->
 	    <velocity:merge 
-	      name="${mdaModelDir}/${stringUtils.deleteWhitespace(projectName)}.xmi"
+	      name="${mdaModelDir}/${stringUtils.deleteWhitespace(projectName)}-model.xmi"
 	      basedir="${mdaTemplatesDir}"
 	      template="/src/uml/model.xmi.vsl"/>	
 		
