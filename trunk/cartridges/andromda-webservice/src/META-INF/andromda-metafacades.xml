@@ -10,7 +10,7 @@
     <property reference="defaultUse" default="literal"/> 
     <property reference="rpcClassNamePattern" default="{0}.{1}Impl"/>
     <property reference="wsdlOperationSortMode" default="name"/>
-    <property reference="testPackageNamePattern" default="{0}"/>
+    <property reference="testPackageNamePattern" default="{0}.test"/>
     <property reference="testNamePattern" default="{0}Test"/>
     <property reference="testImplementationNamePattern" default="{0}TestImpl"/>
     <metafacade 
