@@ -1,5 +1,9 @@
 <cartridge name="java">
 
+    <templateObject 
+    	name="stringUtils"
+    	className="org.apache.commons.lang.StringUtils"/>  
+
 	<!-- template definitions -->
     <template
         sheet="templates/ValueObject.vsl"
