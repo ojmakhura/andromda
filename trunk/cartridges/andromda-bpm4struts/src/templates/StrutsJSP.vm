@@ -6,7 +6,8 @@
 ##
 #macro ( renderHyperlink $action $indent )
 #set ($roles = $action.actionRoles)
-#set ($triggerKey = $action.actionTrigger.triggerKey)
+#set ($trigger = $action.actionTrigger)
+#set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
 #set ($formBeanName = $action.activityGraph.useCase.formBeanName)
 #set ($securityEnabled = ($security=="true") && ($roles != "") )
@@ -34,11 +35,11 @@ ${indent}%>
 #end
 ${indent}    <p>
 #if($parameters.empty)
-${indent}        <html:link action="$action.actionPath" titleKey="${action.messageKey}.$triggerKey" scope="page">
+${indent}        <html:link action="$action.actionPath" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"scope="page">
 #else
-${indent}        <html:link action="$action.actionPath" titleKey="${action.messageKey}.$triggerKey" name="$mapName" scope="page">
+${indent}        <html:link action="$action.actionPath" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"name="$mapName" scope="page">
 #end
-${indent}            <bean:message key="${action.messageKey}.$triggerKey"/>:
+${indent}            <bean:message key="$triggerKey"/>:
 #if(!$parameters.empty)
 ${indent}            <bean:write name="$mapName" scope="page"/>
 #end
@@ -52,7 +53,7 @@ ${indent}    </logic:iterate>
 #if ($securityEnabled)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
-${indent}   <bean:message key="${action.messageKey}.$triggerKey"/> <br/>
+${indent}   <bean:message key="$triggerKey"/> <br/>
 ${indent}</logic:notPresent>
 #end
 #end
@@ -70,23 +71,23 @@ ${indent}</logic:notPresent>
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
-${indent}   <html:submit titleKey="${messageKey}.$trigger.titleKey">
-${indent}       <bean:message key="${messageKey}.$trigger.triggerKey"/>
+${indent}   <html:submit onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
+${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset titleKey="${messageKey}.$trigger.resetTitleKey">
-${indent}       <bean:message key="${messageKey}.$trigger.resetMessageKey"/>
+${indent}   <html:reset onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()">
+${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
 #if ($securityEnabled)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
-${indent}   <html:submit titleKey="${messageKey}.$trigger.notAllowedTitleKey" disabled="true">
-${indent}       <bean:message key="${messageKey}.$trigger.triggerKey"/>
+${indent}   <html:submit onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()" disabled="true">
+${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset titleKey="${messageKey}.$trigger.resetNotAllowedTitleKey" disabled="true">
-${indent}       <bean:message key="${messageKey}.$trigger.resetMessageKey"/>
+${indent}   <html:reset onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()" disabled="true">
+${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
 ${indent}</logic:notPresent>
@@ -118,8 +119,8 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <input type="$widgetType" name="$fieldName" value="$optionKey" title="<bean:message key="${messageKey}.${optionKey}.title"/>" $disabled><bean:write name="$formBeanName" property="$fieldName" scope="page"/></input>
-${indent}            <bean:message key="${messageKey}.$optionKey"/>
+${indent}            <input type="$widgetType" name="$fieldName" value="$optionKey" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled><bean:write name="$formBeanName" property="$fieldName" scope="page"/></input>
+${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
 #end
@@ -133,7 +134,7 @@ ${indent}</table>
 #else
 #set ($disabled = '')
 #end
-${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>" title="<bean:message key="${messageKey}.$field.titleKey"/>" $disabled></input>
+${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled></input>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
@@ -143,10 +144,10 @@ ${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$f
 #else
 #set ($readonly = '')
 #end
-${indent}<input type="$widgetType" name="$fieldName" title="<bean:message key="${messageKey}.$field.titleKey"/>" $readonly value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
+${indent}<input type="$widgetType" name="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
 ${indent}<a href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
-${indent}   <html:img page="/layout/calendar/cal.gif" styleClass="calendar" titleKey="calendar.popup"/>
+${indent}   <html:img page="/layout/calendar/cal.gif" styleClass="calendar" onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"/>
 ${indent}</a>
 #end
 ##
@@ -158,7 +159,7 @@ ${indent}</a>
 #else
 #set ($readonly = '')
 #end
-${indent}<$widgetType title="<bean:message key="${messageKey}.$field.titleKey"/>" $readonly>
+${indent}<$widgetType onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly>
 ${indent}    <bean:write name="$formBeanName" property="$fieldName" scope="page"/>
 ${indent}</$widgetType>
 ##
@@ -185,7 +186,7 @@ ${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$f
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<select name="$selectProperty" title="<bean:message key="${messageKey}.$field.titleKey"/>" $disabled $multiple>
+${indent}<select name="$selectProperty" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled $multiple>
 ${indent}   <logic:iterate id="option" name="$formBeanName" property="$field.backingListName" scope="page">
 ${indent}       <logic:equal name="$formBeanName" property="$selectProperty" value="option" scope="page">
 ${indent}           <option selected value="<bean:write name="option" scope="page"/>"><bean:write name="option" scope="page"/></option>
