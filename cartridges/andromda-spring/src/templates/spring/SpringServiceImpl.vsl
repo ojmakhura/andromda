@@ -4,7 +4,9 @@
  * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
  */
+#if ($service.packageName)
 package $service.packageName;
+#end
 
 #set ($superService = $service.generalization)
 /**
