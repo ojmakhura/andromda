@@ -3,6 +3,7 @@ package org.andromda.cartridges.ejb.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
@@ -26,7 +27,7 @@ class EJBMetafacadeUtils {
      * @return Collection of create methods found.
      */
     public static Collection getCreateMethods(ClassifierFacade classifier, boolean follow) {
-        final String methodName = "getCreateMethods";
+        final String methodName = "EJBMetafacadeUtils.getCreateMethods";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         Collection retval = new ArrayList();
         EJBEntityFacade entity = null;
@@ -55,7 +56,7 @@ class EJBMetafacadeUtils {
      * @return the interface name.
      */
     static String getHomeInterfaceName(ClassifierFacade classifier) {
-        final String methodName = "getHomeInterfaceName";
+        final String methodName = "EJBMetafacadeUtils.getHomeInterfaceName";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         String homeInterfaceName;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_ENTITY)) {
@@ -74,13 +75,46 @@ class EJBMetafacadeUtils {
      * @return String the view type name.
      */
     static String getViewType(ClassifierFacade classifier) {
-        final String methodName = "getViewType";
+        final String methodName = "EJBMetafacadeUtils.getViewType";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_ENTITY)) {
             return "local";
         }
         return "remote";
     }
-
+    
+    /**
+     * Gets all the inherited instance attributes, excluding
+     * the instance attributes directory from this <code>classifier</code>.
+     * @param classifer the ClassifierFacade from which to retrieve the
+     *        inherited attributes.
+     * @return a list of ordered attributes.
+     */
+    static List getInheritedInstanceAttributes(ClassifierFacade classifier) {
+        final String methodName = "EJBMetafacadeUtils.getInheritedInstanceAttributes";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ClassifierFacade current = (EJBEntityFacade)classifier.getGeneralization();
+        if (current == null) {
+            return new ArrayList();
+        } else {
+            List retval = getInheritedInstanceAttributes(current);
+            return retval;
+        }
+    }
+    
+    /**
+     * Gets all instance attributes including those instance attributes
+     * belonging to the <code>classifier</code> and any inherited ones.
+     * @param classifier the ClassifierFacade from which to retrieve the instance
+     *        attributes.
+     * @return the list of all instance attributes.
+     */
+    static List getAllInstanceAttributes(ClassifierFacade classifier) {
+        final String methodName = "EJBMetafacadeUtils.getAllInstanceAttributes";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        List retval = getInheritedInstanceAttributes(classifier);
+        retval.addAll(classifier.getInstanceAttributes());
+        return retval;      
+    }
     
 }

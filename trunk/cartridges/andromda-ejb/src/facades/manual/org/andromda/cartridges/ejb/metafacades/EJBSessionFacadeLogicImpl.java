@@ -1,5 +1,7 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.util.List;
+
 
 /**
  * MetafacadeLogic implementation.
@@ -42,5 +44,19 @@ public class EJBSessionFacadeLogicImpl
     public java.lang.String getViewType() {
         return EJBMetafacadeUtils.getViewType(this);
     }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBSessionFacade#getInheritedInstanceAttributes()
+     */
+    public List getInheritedInstanceAttributes() {
+        return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBSessionFacade#getAllInstanceAttributes()
+     */
+    public List getAllInstanceAttributes() {
+        return EJBMetafacadeUtils.getAllInstanceAttributes(this);  
+    }    
 
 }
