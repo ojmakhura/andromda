@@ -211,72 +211,6 @@
     </template>
 
     <template
-        path="templates/spring/hibernate/HibernateEntity.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false">
-        <modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/spring/hibernate/HibernateEntityImpl.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false">
-        <modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/spring/hibernate/HibernateEntityImplManual.vsl"
-        outputPattern="$generatedFile"
-        outlet="dao-impls"
-        overwrite="false"
-        required="false">
-        <modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/spring/hibernate/hibernate.hbm.xml.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false">
-        <modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/spring/hibernate/HibernateByteBlobType.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false"/>
-
-    <template
-        path="templates/spring/hibernate/HibernateStringClobType.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false"/>
-
-    <template
         path="templates/spring/ejb/SpringSessionBean.vsl"
         outputPattern="$generatedFile"
         outlet="session-ejbs"
@@ -365,19 +299,6 @@
         outlet="spring-configuration"
         overwrite="true"
         outputToSingleFile="true"/>
-
-    <template
-        path="templates/spring/hibernate/HibernateEnumeration.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        required="false">
-        <modelElements variable="enumeration">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
-            </modelElement>
-        </modelElements>
-    </template>
 
     <!-- cartridge-template merge-point -->
 

@@ -6,19 +6,14 @@ import java.util.Collection;
 
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.core.common.AndroMDALogger;
-import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -221,32 +216,6 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateGeneratorClass()
-     */
-    protected String handleGetHibernateGeneratorClass()
-    {
-        String hibernateGeneratorClass;
-        // if the entity is using a foreign identifier, then
-        // we automatically set the identifier generator
-        // class to be foreign
-        if (this.isUsingForeignIdentifier())
-        {
-            hibernateGeneratorClass = HIBERNATE_GENERATOR_CLASS_FOREIGN;
-        }
-        else
-        {
-            hibernateGeneratorClass = (String)this
-                .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
-            if (StringUtils.isBlank(hibernateGeneratorClass))
-            {
-                hibernateGeneratorClass = (String)this
-                    .getConfiguredProperty("defaultHibernateGeneratorClass");
-            }
-        }
-        return hibernateGeneratorClass;
-    }
-
-    /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getRoot()
      */
     protected Object handleGetRoot()
@@ -257,60 +226,6 @@ public class SpringEntityLogicImpl
                 .getGeneralization().getClass()); generalization = generalization
             .getGeneralization());
         return generalization;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
-     */
-    public java.util.Collection getProperties()
-    {
-        Collection properties = this.getAttributes();
-        Collection connectingEnds = this.getAssociationEnds();
-        CollectionUtils.transform(connectingEnds, new Transformer()
-        {
-            public Object transform(Object object)
-            {
-                return ((AssociationEndFacade)object).getOtherEnd();
-            }
-        });
-        class NavigableFilter
-            implements Predicate
-        {
-            public boolean evaluate(Object object)
-            {
-                AssociationEndFacade end = (AssociationEndFacade)object;
-                return end.isNavigable()
-                    || (end.getOtherEnd().isChild() && isForeignHibernateGeneratorClass());
-            }
-        }
-        CollectionUtils.filter(connectingEnds, new NavigableFilter());
-        properties.addAll(connectingEnds);
-        return properties;
-    }
-
-    private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isForeignHibernateGeneratorClass()
-     */
-    protected boolean handleIsForeignHibernateGeneratorClass()
-    {
-        // check to see if the entity is using a foreign identifier
-        // OR if the actual hibernate generator class is set to foreign
-        return this.isUsingForeignIdentifier()
-            || this.getHibernateGeneratorClass().equalsIgnoreCase(
-                HIBERNATE_GENERATOR_CLASS_FOREIGN);
-    }
-
-    private static final String HIBERNATE_GENERATOR_CLASS_SEQUENCE = "sequence";
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isSequenceHibernateGeneratorClass()
-     */
-    protected boolean handleIsSequenceHibernateGeneratorClass()
-    {
-        return this.getHibernateGeneratorClass().equalsIgnoreCase(
-            HIBERNATE_GENERATOR_CLASS_SEQUENCE);
     }
 
     /**
@@ -326,15 +241,6 @@ public class SpringEntityLogicImpl
     {
         return StringUtils.trimToEmpty(String.valueOf(this
             .getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isEntityBusinessOperationsPresent()
-     */
-    protected boolean handleIsEntityBusinessOperationsPresent()
-    {
-        return this.getEntityBusinessOperations() != null
-            && !this.getEntityBusinessOperations().isEmpty();
     }
 
     /**
@@ -361,25 +267,6 @@ public class SpringEntityLogicImpl
             public boolean evaluate(Object object)
             {
                 return ((OperationFacade)object).isStatic();
-            }
-        };
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getEntityBusinessOperations()
-     */
-    protected Collection handleGetEntityBusinessOperations()
-    {
-        // operations that are not finders and not static
-        Collection finders = this.getQueryOperations();
-        Collection operations = this.getOperations();
-
-        Collection nonFinders = CollectionUtils.subtract(operations, finders);
-        return new FilteredCollection(nonFinders)
-        {
-            public boolean evaluate(Object object)
-            {
-                return !((OperationFacade)object).isStatic();
             }
         };
     }
@@ -779,98 +666,6 @@ public class SpringEntityLogicImpl
             }
         }
         return inheritance;
-    }
-
-    /**
-     * Returns the SQL id column name. Invoked from vsl template as
-     * $class.identifierColumn.
-     * 
-     * @return String the name of the SQL id column
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getIdentifierColumn()
-     */
-    protected String handleGetIdentifierColumn()
-    {
-        EntityAttributeFacade attribute = null;
-        String columnName = null;
-        Collection attributes = getAttributes();
-        Predicate predicate = new Predicate()
-        {
-
-            public boolean evaluate(Object object)
-            {
-                boolean result = false;
-                try
-                {
-                    EntityAttributeFacade attribute = (EntityAttributeFacade)object;
-                    logger
-                        .debug("*** handleGetIdentifierColumn.evaluate check:"
-                            + attribute);
-                    result = attribute.isIdentifier();
-                }
-                catch (Exception ex)
-                {
-                    // ignore
-                }
-                return result;
-            }
-        };
-        attribute = (EntityAttributeFacade)CollectionUtils.find(
-            attributes,
-            predicate);
-        if (logger.isDebugEnabled())
-            logger.debug("*** handleGetIdentifierColumn return:"
-                + (attribute == null ? null : attribute.getColumnName()));
-        columnName = attribute == null ? getDefaultIdentifier() : attribute
-            .getColumnName();
-        return columnName;
-    }
-
-    private String getDefaultIdentifier()
-    {
-        return (String)getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDiscriminatorColumn()
-     */
-    protected String handleGetHibernateDiscriminatorColumn()
-    {
-        return "class";
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDiscriminatorType()
-     */
-    protected String handleGetHibernateDiscriminatorType()
-    {
-        return "string";
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDiscriminatorLength()
-     */
-    protected int handleGetHibernateDiscriminatorLength()
-    {
-        return 1;
-    }
-
-    /**
-     * Stores the hibernate entity cache value.
-     */
-    private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateCacheType()
-     */
-    protected String handleGetHibernateCacheType()
-    {
-        String cacheType = (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
-        if (cacheType == null)
-        {
-            cacheType = String.valueOf(this
-                .getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
-        }
-        return cacheType;
     }
 
 }
