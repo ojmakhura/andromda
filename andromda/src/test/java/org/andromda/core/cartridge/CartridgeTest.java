@@ -61,10 +61,10 @@ public class CartridgeTest extends TestCase
         assertEquals("andromda-test-cartridge", this.cartridge.getName());
     }
     
-    public void testGetTemplates() 
+    public void testGetResources() 
     {
-        assertNotNull(this.cartridge.getTemplates());
-        assertEquals(2, this.cartridge.getTemplates().size());
+        assertNotNull(this.cartridge.getResources());
+        assertEquals(2, this.cartridge.getResources().size());
     }
 
     public void testGetPropertyReferences() 

@@ -438,17 +438,20 @@ public class Cartridge
                     this.getName(),
                     resource.getOutlet(),
                     resource.isRequired());
+            String slash = "/";
             if (outletProperty != null && !outletProperty.isIgnore())
             {
                 // make sure we don't have any back slashes
-                String resourceUri = resourceUrl.toString().replace('\\', '/');
+                String resourceUri = resourceUrl.toString().replaceAll(
+                    "\\\\",
+                    slash);
                 String uriSuffix = resourceUri.substring(resourceUri
-                    .lastIndexOf('/'), resourceUri.length());
+                    .lastIndexOf(slash), resourceUri.length());
                 String outletLocation = outletProperty.getValue();
-                if (outletLocation.endsWith("/"))
+                if (outletLocation.endsWith(slash))
                 {
                     // remove the extra slash
-                    outletLocation = outletLocation.replaceFirst("/", "");
+                    outletLocation = outletLocation.replaceFirst(slash, "");
                 }
                 outFile = new File(outletLocation, uriSuffix);
                 OutputUtils.writeUrlToFile(resourceUrl, new File(
