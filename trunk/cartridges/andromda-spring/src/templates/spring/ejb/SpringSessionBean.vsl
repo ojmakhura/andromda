@@ -33,9 +33,12 @@ public class $service.ejbImplementationName
         throws $operation.exceptionList
 #end
     {
-#if ($ejbSecurityEnabled)
-        (($service.fullyQualifiedBaseName)this.$businessObject).setPrincipal(super.getSessionContext().getCallerPrincipal());
+
+#set ($principalStoreClassName = "${principalStoreName}")
+#if($stringUtils.isNotEmpty($springTypesPackage))
+#set ($principalStoreClassName = "${springTypesPackage}.${principalStoreClassName}")
 #end
+        ${principalStoreClassName}.set(super.getSessionContext().getCallerPrincipal());
 #if ($operation.returnTypePresent)
         return this.${businessObject}.${operation.call};
 #else

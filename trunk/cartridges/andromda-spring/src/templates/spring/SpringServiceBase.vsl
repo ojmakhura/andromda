@@ -114,23 +114,6 @@ public abstract class $service.baseName
         throws java.lang.Exception;
 
 #end
-#if ($ejbsEnabled)
-    private java.security.Principal principal;
-
-    /**
-     * Sets the current <code>principal</code>.  Used by the
-     * Session EJB wrappers to pass the principal to this service
-     * base class.
-     *
-     * @param principal the java.security.Principal associated with the
-     *        EJB session context.
-     */
-    public void setPrincipal(java.security.Principal principal)
-    {
-        this.principal = principal;
-    }
-
-#end
     /**
      * Gets the current <code>principal</code> if one has been set,
      * otherwise returns <code>null</code>.
@@ -139,14 +122,10 @@ public abstract class $service.baseName
      */
     public java.security.Principal getPrincipal()
     {
-#if ($ejbsEnabled)
-        return this.principal;
-#else
 #set ($principalStoreCall = "${principalStoreName}.get();")
 #if($stringUtils.isNotEmpty($springTypesPackage))
 #set ($principalStoreCall = "${springTypesPackage}.${principalStoreCall}")
 #end
         return $principalStoreCall
-#end
     }
 }

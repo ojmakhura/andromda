@@ -68,18 +68,10 @@ public abstract class $entity.daoBaseName
         Object entity = null;
         try
         {
-            org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
-            {
-                public Object doInHibernate(net.sf.hibernate.Session session)
-                    throws net.sf.hibernate.HibernateException
-                {
-                    Object entity = session.load(
-                        ${entity.fullyQualifiedEntityImplementationName}.class,
-                        $argument);
-                    return transformEntity(transform, ($entity.fullyQualifiedName)entity);
-                }
-            };
-            entity = this.getHibernateTemplate().execute(callback);
+            entity = this.getHibernateTemplate().load(
+                ${entity.fullyQualifiedEntityImplementationName}.class,
+                $argument);
+            return transformEntity(transform, ($entity.fullyQualifiedName)entity);
         }
         catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
         {
@@ -311,11 +303,10 @@ public abstract class $entity.daoBaseName
         throws $finder.exceptionList
 #end
     {
-        org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
+        net.sf.hibernate.Session session =  org.springframework.orm.hibernate.SessionFactoryUtils.getSession(this.getSessionFactory(), false);
+        
+        try
         {
-            public Object doInHibernate(net.sf.hibernate.Session session)
-                throws net.sf.hibernate.HibernateException
-            {
                 net.sf.hibernate.Query queryObject =
                     getHibernateTemplate().createQuery(
                         session,
@@ -361,13 +352,11 @@ public abstract class $entity.daoBaseName
                 transformEntities(transform, results);
                 return results;
 #end
-            }
-        };
-#set ($returnStatement = "this.getHibernateTemplate().execute(callback);")
-#if ($finder.returnType.collectionType)
-#set ($returnStatement = "($returnType)$returnStatement")
-#end
-        return $returnStatement
+        }
+        catch (net.sf.hibernate.HibernateException ex) 
+        {
+            throw org.springframework.orm.hibernate.SessionFactoryUtils.convertHibernateAccessException(ex);
+        }
     }
 
 #end
@@ -393,36 +382,21 @@ public abstract class $entity.daoBaseName
 #end
 #end
 #end
-        final $entity.fullyQualifiedDaoBaseName dao = this;
-        org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
+        try
+        {      
+#set ($call = "this.${operation.implementationCall};")
+#if ($operation.returnTypePresent)
+            return $call
+#else
+            $call
+#end
+        }
+        catch (Throwable th)
         {
-            public Object doInHibernate(net.sf.hibernate.Session session)
-                throws net.sf.hibernate.HibernateException
-            {
-                try
-                {
-#set ($call = "dao.${operation.implementationCall};")
-#if ($operation.returnTypePresent)
-                    return $call
-#else
-                    $call
-                    return null;
-#end
-                }
-                catch (Throwable th)
-                {
-                    throw new net.sf.hibernate.HibernateException(
-                    "Error performing '${entity.fullyQualifiedDaoName}.${operation.signature}' --> " + th,
-                    th);
-                }
-            }
-        };
-#set ($exit = "this.getHibernateTemplate().execute(callback);")
-#if ($operation.returnTypePresent)
-        return ($returnType.fullyQualifiedName)$exit
-#else
-        $exit
-#end
+            throw new java.lang.RuntimeException(
+            "Error performing '${entity.fullyQualifiedDaoName}.${operation.signature}' --> " + th,
+            th);
+        }
     }
 
      /**
