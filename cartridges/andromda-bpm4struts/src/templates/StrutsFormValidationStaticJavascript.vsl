@@ -1,7 +1,7 @@
 #set ($validationDesired = ($clientValidation == 'true'))
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)
 <%@ page contentType="application/x-javascript" %>
-<%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <![CDATA[

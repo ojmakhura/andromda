@@ -1,5 +1,4 @@
-<%@ taglib uri="struts-html.tld" prefix="html" %>
-<%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
