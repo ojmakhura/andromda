@@ -76,7 +76,7 @@ public class MetafacadeBase
      * generated into this method and validation messages created and collected
      * into the <code>messages</code> collection. This method is called by
      * validate #validate().
-     * <p>
+     * </p>
      * <p>
      * By default this method is empty.
      * </p>
