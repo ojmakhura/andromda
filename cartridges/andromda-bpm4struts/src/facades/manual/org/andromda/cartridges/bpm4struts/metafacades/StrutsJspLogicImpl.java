@@ -113,15 +113,18 @@ public class StrutsJspLogicImpl
         if (Bpm4StrutsProfile.ENABLE_CACHE && incomingActions != null) return incomingActions;
 
         final Collection incomingActionsList = new LinkedList();
+        collectIncomingActions(this, new HashSet(), incomingActionsList);
+        return incomingActions = incomingActionsList;
+    }
 
-        final Collection incomingTransitions = getIncoming();
+    private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions, Collection actions)
+    {
+        final Collection incomingTransitions = stateVertex.getIncoming();
         for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
         {
             TransitionFacade incomingTransition = (TransitionFacade) iterator.next();
-            collectIncomingActions(incomingTransition, new HashSet(), incomingActionsList);
+            collectIncomingActions(incomingTransition, processedTransitions, actions);
         }
-
-        return incomingActions = incomingActionsList;
     }
 
     private void collectIncomingActions(TransitionFacade transition, Collection processedTransitions, Collection actions)
@@ -132,6 +135,18 @@ public class StrutsJspLogicImpl
             if (transition instanceof StrutsAction)
             {
                 actions.add(transition);
+
+/*  todo: TEMPORARILY COMMENTED OUT -- needs verification that isCaseStart() forms are not populated, but I think they are
+                if (((StrutsAction)transition).isUseCaseStart())
+                {
+                    Collection finalStates = getUseCase().getFinalStates();
+                    for (Iterator iterator = finalStates.iterator(); iterator.hasNext();)
+                    {
+                        FinalStateFacade finalState = (FinalStateFacade) iterator.next();
+                        collectIncomingActions(finalState, processedTransitions, actions);
+                    }
+                }
+*/
             }
             else
             {
