@@ -95,4 +95,9 @@
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+        </mapping>
+    </metafacade>
 </metafacades>
