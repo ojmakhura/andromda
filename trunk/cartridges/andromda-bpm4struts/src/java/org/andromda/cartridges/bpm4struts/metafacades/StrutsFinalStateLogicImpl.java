@@ -1,11 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -36,10 +36,26 @@ public class StrutsFinalStateLogicImpl
         Object useCaseObject = null;
         final String name = getName();
 
+        // first check if there is a hyperlink from this final state to a use-case
+        // this works at least in MagicDraw
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
+        if (taggedValue != null)
+        {
+            if (taggedValue instanceof StrutsActivityGraph)
+            {
+                return ((StrutsActivityGraph) taggedValue).getUseCase();
+            }
+            else if (taggedValue instanceof StrutsUseCase)
+            {
+                return taggedValue;
+            }
+        }
+
+        // maybe the name points to a use-case ?
         if (name != null)
         {
             final Collection useCases = getModel().getAllUseCases();
-            for (Iterator iterator = useCases.iterator(); (useCaseObject==null && iterator.hasNext());)
+            for (Iterator iterator = useCases.iterator(); (useCaseObject == null && iterator.hasNext());)
             {
                 UseCaseFacade useCase = (UseCaseFacade) iterator.next();
                 if (useCase instanceof StrutsUseCase)
@@ -49,9 +65,8 @@ public class StrutsFinalStateLogicImpl
                 }
             }
         }
-
         final Collection allUseCases = getModel().getAllUseCases();
-        for (Iterator iterator = allUseCases.iterator(); (useCaseObject==null && iterator.hasNext());)
+        for (Iterator iterator = allUseCases.iterator(); (useCaseObject == null && iterator.hasNext());)
         {
             ModelElementFacade facade = (ModelElementFacade) iterator.next();
             if (facade.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION))

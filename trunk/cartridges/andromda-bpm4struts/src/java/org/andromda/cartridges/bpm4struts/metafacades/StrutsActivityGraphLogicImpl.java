@@ -1,7 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -86,7 +85,7 @@ public class StrutsActivityGraphLogicImpl
     protected Object handleGetController()
     {
         final ModelElementFacade contextElement = getContextElement();
-        if (contextElement instanceof ClassifierFacade)
+        if (contextElement instanceof StrutsController)
         {
             return contextElement;
         }
@@ -94,28 +93,38 @@ public class StrutsActivityGraphLogicImpl
         /*
          * for those tools not supporting setting the context of an activity graph (such as Poseidon)
          * an alternative is implemented: a tagged value on the controller, specifying the name of the use-case
+         *
+         * It is also allowed to set a hyperlink from the controller to the usecase
          */
 
         UseCaseFacade useCase = this.getUseCase();
         if (useCase != null)
         {
-	        final String useCaseName = useCase.getName();
-	
-	        // loop over the controllers, looking for the tagged value matching this activity graph's use-case name
-	        Collection allClasses = getModel().getRootPackage().getClasses();
-	        for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
-	        {
-	            ModelElementFacade element = (ModelElementFacade) classIterator.next();
-	            if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
-	            {
-	                Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_CONTROLLER_USE_CASE);
-	                String taggedValue = value==null?null:value.toString();
-	                if (useCaseName.equalsIgnoreCase(taggedValue))
-	                {
-	                    return element;
-	                }
-	            }
-	        }
+            final String useCaseName = useCase.getName();
+            final StrutsUseCase thisUseCase = getUseCase();
+
+            // loop over the controllers, looking for the tagged value matching this activity graph's use-case name
+            Collection allClasses = getModel().getRootPackage().getClasses();
+            for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+            {
+                final ModelElementFacade element = (ModelElementFacade) classIterator.next();
+
+                if (element instanceof StrutsController)
+                {
+                    final Object hyperlinkModel = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
+                    if (thisUseCase.equals(hyperlinkModel))
+                    {
+                        return element;
+                    }
+
+                    final Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_CONTROLLER_USE_CASE);
+                    String taggedValue = value == null ? null : value.toString();
+                    if (useCaseName.equalsIgnoreCase(taggedValue))
+                    {
+                        return element;
+                    }
+                }
+            }
         }
         return null;
     }
