@@ -37,7 +37,7 @@ public class Model
         this.url = url;
         try
         {
-            // Get around the fact URL won't be released until the JVM
+            // Get around the fact the URL won't be released until the JVM
             // has been terminated, when using the 'jar' url protocol.
             url.openConnection().setDefaultUseCaches(false);
         }
