@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <!-- contains the hibernate cartridge metafacade mappings -->
-<metafacades namespace="spring"> 
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-		metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
-		<stereotype>FINDER_METHOD</stereotype>
+<metafacades namespace="spring">
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+        metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
+        <stereotype>FINDER_METHOD</stereotype>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
-	</metafacade>	
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
-		metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateTypeLogicImpl">
+    </metafacade>
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
+        metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateTypeLogicImpl">
         <property reference="hibernateTypeMappingsUri" default=""/>
-	</metafacade>
-    <metafacade 
+    </metafacade>
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl">
         <stereotype>SERVICE</stereotype>
-	    <property reference="ejbJndiNamePrefix" default=""/>
+        <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
         <property reference="defaultServiceExceptions" default="true"/>
     </metafacade>
-    <metafacade 
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl">
         <stereotype>SERVICE</stereotype>
@@ -30,13 +30,13 @@
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
         <property reference="defaultServiceExceptions" default="true"/>
-    </metafacade>	
-    <metafacade 
+    </metafacade>
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
-		contextRoot="true">
+        contextRoot="true">
         <stereotype>ENTITY</stereotype>
-		<property reference="entityNamePattern" default="{0}"/>
+        <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="entityBusinessOperationLocation" default="entity"/>
@@ -44,9 +44,9 @@
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
-		contextRoot="true">
+        contextRoot="true">
         <stereotype>ENTITY</stereotype>
-		<property reference="entityNamePattern" default="{0}"/>
+        <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="entityBusinessOperationLocation" default="entity"/>
@@ -54,9 +54,9 @@
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
-		contextRoot="true">
+        contextRoot="true">
         <stereotype>ENTITY</stereotype>
-		<property reference="entityNamePattern" default="{0}"/>
+        <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="entityBusinessOperationLocation" default="entity"/>
@@ -66,12 +66,12 @@
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl">
         <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
     </metafacade>
-    <metafacade 
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
         <property reference="implementationOperationNamePrefix" default="handle"/>
-    </metafacade>		
+    </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">

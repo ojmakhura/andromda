@@ -1,370 +1,370 @@
 <cartridge name="spring">
-	
-	<templateEngine>
+
+    <templateEngine>
         <macrolibrary name="templates/spring/hibernate/hibernate.hbm.xml.vm" />
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
-    	
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>        
-    <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>  
-    <!-- cartridge-templateObject merge-point-->  
-	
+
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>
+    <!-- cartridge-templateObject merge-point-->
+
     <property reference="driver" default=""/>
     <property reference="username" default=""/>
     <property reference="password" default=""/>
-	<property reference="connectionUrl" default=""/>
-	<property reference="dataSource" default=""/>
-	<property reference="hibernatePoolSize" default=""/>
-	<property reference="hibernateTransactionManagerStrategy" default=""/>
-	<property reference="hibernateUserTransactionName" default=""/>
-	<property reference="hibernateTransactionManagerStrategy" default=""/>
-	<property reference="hibernateTransactionManagerLookup" default=""/>
-	<property reference="hibernateUseOuterJoin" default=""/>
-	<property reference="hibernateShowSql" default=""/>
-	<property reference="hibernateJndiName" default=""/>
-	<property reference="hibernateDialect" default=""/>
-	<property reference="hibernateDefaultSchema" default=""/>
-	<property reference="hibernateMaxFetchDepth" default=""/>
-	<property reference="hibernateJdbcFetchSize" default=""/>
-	<property reference="hibernateJdbcBatchSize" default=""/>
-	<property reference="hibernateJdbcUseScrollableResultSet" default=""/>
-	<property reference="hibernateMaxFetchDepth" default=""/>
-	<property reference="hibernateJdbcUseStreamsForBinary" default=""/> 
+    <property reference="connectionUrl" default=""/>
+    <property reference="dataSource" default=""/>
+    <property reference="hibernatePoolSize" default=""/>
+    <property reference="hibernateTransactionManagerStrategy" default=""/>
+    <property reference="hibernateUserTransactionName" default=""/>
+    <property reference="hibernateTransactionManagerStrategy" default=""/>
+    <property reference="hibernateTransactionManagerLookup" default=""/>
+    <property reference="hibernateUseOuterJoin" default=""/>
+    <property reference="hibernateShowSql" default=""/>
+    <property reference="hibernateJndiName" default=""/>
+    <property reference="hibernateDialect" default=""/>
+    <property reference="hibernateDefaultSchema" default=""/>
+    <property reference="hibernateMaxFetchDepth" default=""/>
+    <property reference="hibernateJdbcFetchSize" default=""/>
+    <property reference="hibernateJdbcBatchSize" default=""/>
+    <property reference="hibernateJdbcUseScrollableResultSet" default=""/>
+    <property reference="hibernateMaxFetchDepth" default=""/>
+    <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
-	<property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
-	<property reference="hibernateUseQueryCache" default="false"/>
+    <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
+    <property reference="hibernateUseQueryCache" default="false"/>
     <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
     <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
-	<!-- not really used from the template except to check if it has been defined
-		 or not, this allows us to determine whether or not we need to generate
-		 entity related information -->
-	<property reference="daos" default=""/>
-	<property reference="applicationContext" default="applicationContext.xml"/>
-	<property reference="beanRefFactory" default="beanRefFactory.xml"/>
-	<property reference="beanRefFactoryId" default="beanRefFactory"/>
-	<property reference="transactionManager" default="org.springframework.orm.hibernate.HibernateTransactionManager"/>
-	<property reference="sessionFactory" default="org.springframework.orm.hibernate.LocalSessionFactoryBean"/>
-	<!-- the package to which extra types are generated (i.e. ServiceLocator) -->
-	<property reference="springTypesPackage" default="org.andromda.spring"/>
-	<!-- the name to give the service locator class -->
-	<property reference="serviceLocatorName" default="ServiceLocator"/>
+    <!-- not really used from the template except to check if it has been defined
+         or not, this allows us to determine whether or not we need to generate
+         entity related information -->
+    <property reference="daos" default=""/>
+    <property reference="applicationContext" default="applicationContext.xml"/>
+    <property reference="beanRefFactory" default="beanRefFactory.xml"/>
+    <property reference="beanRefFactoryId" default="beanRefFactory"/>
+    <property reference="transactionManager" default="org.springframework.orm.hibernate.HibernateTransactionManager"/>
+    <property reference="sessionFactory" default="org.springframework.orm.hibernate.LocalSessionFactoryBean"/>
+    <!-- the package to which extra types are generated (i.e. ServiceLocator) -->
+    <property reference="springTypesPackage" default="org.andromda.spring"/>
+    <!-- the name to give the service locator class -->
+    <property reference="serviceLocatorName" default="ServiceLocator"/>
     <!-- the name to give the principal store class -->
     <property reference="principalStoreName" default="PrincipalStore"/>
-	<property reference="ejbViewType" default="local"/>
+    <property reference="ejbViewType" default="local"/>
     <property reference="securityRealm" default=""/>
     <property reference="identifierSequenceSuffix" default="_SEQ"/>
-	<!-- not really used from the template except to check if it has been defined
-		 or not, so that we can determine whether or not we'll use the session
-		 EJBs for transaction management (rather than Spring's transaction framework) -->
-	<property reference="session-ejbs" default=""/>
+    <!-- not really used from the template except to check if it has been defined
+         or not, so that we can determine whether or not we'll use the session
+         EJBs for transaction management (rather than Spring's transaction framework) -->
+    <property reference="session-ejbs" default=""/>
     <!-- Whether or not parameters should be checked if they're required (on DAOs and services) -->
     <property reference="parameterRequiredCheck" default="true"/>
     <!-- cartridge-property merge-point -->
-    
+
     <!-- cartridge-resource merge-point -->
-            	
-	<template 
-		path="templates/spring/SpringServiceLocator.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="services" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="services">
+
+    <template
+        path="templates/spring/SpringServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement>  
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/ejb/SpringSessionEJBLocator.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="services" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="services">
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/SpringSessionEJBLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/SpringService.vsl" 
-		outputPattern="{0}/{1}.java" 
-		outlet="services" 
-		overwrite="true">
-		<modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-    
- 	<template 
-		path="templates/spring/SpringWebServiceDelegator.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="services" 
-		overwrite="true">
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringService.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="services"
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement>             
+            </modelElement>
         </modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/SpringServiceBase.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="services" 
-		overwrite="true">
-		<modelElements variable="service">
+    </template>
+
+     <template
+        path="templates/spring/SpringWebServiceDelegator.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringServiceBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
               <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/SpringPrincipalStore.java.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="services" 
-		overwrite="true"
-		outputToSingleFile="true"/>
-	
-	<template 
-		path="templates/spring/SpringServiceImpl.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="service-impls" 
-		overwrite="false">
-		<modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/DefaultServiceException.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="services" 
-		overwrite="true">
-		<modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-		
-	<template 
-		path="templates/spring/SpringDao.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/hibernate/SpringHibernateDaoBase.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/hibernate/SpringHibernateDaoImpl.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/hibernate/SpringHibernateDaoImplManual.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="dao-impls" 
-		overwrite="false"
-		required="false">
-		<modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/hibernate/HibernateEntity.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-		</modelElements>
-	</template>
+        </modelElements>
+    </template>
 
-	<template 
-		path="templates/spring/hibernate/HibernateEntityImpl.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
+    <template
+        path="templates/spring/SpringPrincipalStore.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true"/>
+
+    <template
+        path="templates/spring/SpringServiceImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/DefaultServiceException.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringDao.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/hibernate/HibernateEntityImplManual.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="dao-impls" 
-		overwrite="false"
-		required="false">
-		<modelElements variable="entity">
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/SpringHibernateDaoBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/hibernate/hibernate.hbm.xml.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="entity">
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/SpringHibernateDaoImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/hibernate/HibernateByteBlobType.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false"/>
-	
-	<template 
-		path="templates/spring/hibernate/HibernateStringClobType.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="daos" 
-		overwrite="true"
-		required="false"/>
-	
-	<template 
-		path="templates/spring/ejb/SpringSessionBean.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="session-ejbs" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="service">
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/SpringHibernateDaoImplManual.vsl"
+        outputPattern="$generatedFile"
+        outlet="dao-impls"
+        overwrite="false"
+        required="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/HibernateEntity.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/HibernateEntityImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/HibernateEntityImplManual.vsl"
+        outputPattern="$generatedFile"
+        outlet="dao-impls"
+        overwrite="false"
+        required="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/hibernate.hbm.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/HibernateByteBlobType.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false"/>
+
+    <template
+        path="templates/spring/hibernate/HibernateStringClobType.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false"/>
+
+    <template
+        path="templates/spring/ejb/SpringSessionBean.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-ejbs"
+        overwrite="true"
+        required="false">
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/ejb/SpringSession.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="session-ejbs" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="service">
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/SpringSession.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-ejbs"
+        overwrite="true"
+        required="false">
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/ejb/SpringSessionHome.vsl" 
-		outputPattern="$generatedFile" 
-		outlet="session-ejbs" 
-		overwrite="true"
-		required="false">
-		<modelElements variable="service">
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/SpringSessionHome.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-ejbs"
+        overwrite="true"
+        required="false">
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-			
-	<template 
-		path="templates/spring/applicationContext.xml.vsl" 
-		outputPattern="$applicationContext" 
-		outlet="spring-configuration" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/applicationContext.xml.vsl"
+        outputPattern="$applicationContext"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
             <modelElement variable="entities">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/ejb/ejb-jar.xml.vsl" 
-		outputPattern="META-INF/ejb-jar.xml" 
-		outlet="session-ejbs" 
-		overwrite="true"
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/ejb-jar.xml.vsl"
+        outputPattern="META-INF/ejb-jar.xml"
+        outlet="session-ejbs"
+        overwrite="true"
         required="false"
-		outputToSingleFile="true">
-		<modelElements variable="services">
+        outputToSingleFile="true">
+        <modelElements variable="services">
            <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-    
-	<template 
-		path="templates/spring/ejb/jboss.xml.vsl" 
-		outputPattern="META-INF/jboss.xml" 
-		outlet="session-ejbs" 
-		overwrite="true"
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/jboss.xml.vsl"
+        outputPattern="META-INF/jboss.xml"
+        outlet="session-ejbs"
+        overwrite="true"
         required="false"
-		outputToSingleFile="true">
-		<modelElements variable="services">
+        outputToSingleFile="true">
+        <modelElements variable="services">
            <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement> 
-		</modelElements>
-	</template>
-	
-	<template 
-		path="templates/spring/beanRefFactory.xml.vsl" 
-		outputPattern="$beanRefFactory" 
-		outlet="spring-configuration" 
-		overwrite="true"
-		outputToSingleFile="true"/>
-        
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/beanRefFactory.xml.vsl"
+        outputPattern="$beanRefFactory"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"/>
+
     <template
         path="templates/spring/hibernate/HibernateEnumeration.vsl"
         outputPattern="$generatedFile"
@@ -379,5 +379,5 @@
     </template>
 
     <!-- cartridge-template merge-point -->
-        	
+
 </cartridge>
