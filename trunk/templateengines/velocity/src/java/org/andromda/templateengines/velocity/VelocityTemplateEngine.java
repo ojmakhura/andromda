@@ -42,7 +42,7 @@ public class VelocityTemplateEngine
     implements TemplateEngine
 {
 
-    private static Logger logger = null;
+    protected static Logger logger = null;
 
     private List macrolibs = new ArrayList();
 
