@@ -755,6 +755,7 @@ public class WebServiceLogicImpl
      */
     protected String handleGetFullyQualifiedTestImplementationName()
     {
-        return this.getTestPackageName() + '.' +  this.getTestImplementationName();
+        return this.getTestPackageName() + '.'
+            + this.getTestImplementationName();
     }
 }

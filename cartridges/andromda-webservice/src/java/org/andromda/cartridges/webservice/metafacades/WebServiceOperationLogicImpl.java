@@ -36,19 +36,19 @@ public class WebServiceOperationLogicImpl
      * The prefix given to the test implementation operation names.
      */
     private static final String TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX = "testImplementationOperationNamePrefix";
-    
+
     /**
      * The prefix given to the junit test operations.
      */
     private static final String TEST_NAME_PREFIX = "test";
-    
+
     /**
      * Gets the test implementation operation name prefix.
      */
     private String getTestImplementationOperationNamePrefix()
     {
         return String.valueOf(this
-            .getConfiguredProperty(TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX));      
+            .getConfiguredProperty(TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX));
     }
 
     /**
@@ -73,7 +73,7 @@ public class WebServiceOperationLogicImpl
      */
     protected String handleGetTestImplementationSignature()
     {
-        return this.getTestImplementationOperationNamePrefix() 
+        return this.getTestImplementationOperationNamePrefix()
             + StringUtils.capitalize(this.getTestSignature());
     }
 
