@@ -34,9 +34,9 @@ ${indent}return $transform.toJavaMethodName($target)(mapping, form, request, res
 #elseif ($transform.dynamicHelper.isActionState($target) || $transform.dynamicHelper.isFinalState($target))
 ${indent}return mapping.findForward("$transform.toForwardName($target)");
 #elseif ($transform.dynamicHelper.isObjectFlowState($target))
-#set ($objectFlowTypeName = $transform.toJavaClassName($target.type))
+#set ($objectFlowStateName = $transform.toJavaClassName($target))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($target))
-${indent}return set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)(mapping, form, request, response);
+${indent}return set$objectFlowStateName$transform.toJavaClassName($objectFlowStateState)(mapping, form, request, response);
 #else
 // illegal modelelement : $target.name ($target)
 #end
@@ -61,6 +61,7 @@ import javax.servlet.http.HttpServletResponse;
 #set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($stateMachine)))
 #set ($decisionPoints = $transform.toSet($transform.dynamicHelper.getDecisionPoints($stateMachine)))
 #set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($stateMachine)))
+#set ($guardNames = $transform.toSet($transform.getGuardNames($stateMachine)))
 #set ($guardedTransitions = $transform.toSet($transform.dynamicHelper.getGuardedTransitions($stateMachine)))
 ##
 ## Start of the class declaration, notice how it extends DispatchAction, not Action
@@ -72,8 +73,8 @@ public abstract class ${className} extends DispatchAction
 ## are hashcodes, while they do not need to be unique for each object of the same type we know they
 ## are unique for String instances that represent the same text.
 ##
-#foreach ($guardedTransition in $guardedTransitions)
-#set ($fieldName = $transform.toFinalMemberName($guardedTransition.guard))
+#foreach ($guardName in $guardNames)
+#set ($fieldName = $transform.toFinalMemberName($guardName))
 #set ($fieldValue = $fieldName.hashCode())
     protected final int $fieldName = $fieldValue;
 #end
@@ -82,7 +83,7 @@ public abstract class ${className} extends DispatchAction
 ## Since there is only one initial state (with only one outgoing transition we will make the unspecified method
 ## call the first state vertex.
 ##
-    public final ActionForward unspecified(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final ActionForward unspecified(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #processTransition ( $initialState.outgoing.iterator().next() "        " )
     }
@@ -101,7 +102,7 @@ public abstract class ${className} extends DispatchAction
 #foreach ($actionState in $actionStates)
 #set ($methodName = $transform.toJavaMethodName($actionState))
 #set ($methodNameImpl = "${methodName}Impl")
-    public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final ActionForward ${methodName}(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #set ($transition = $actionState.outgoing.iterator().next())## there MUST be only one outgoing transition
 #set ($target = $transition.target)
@@ -109,7 +110,7 @@ public abstract class ${className} extends DispatchAction
 #if ($controllerFormName.equals("ActionForm"))
         final String trigger = request.getParameter("trigger").toUpperCase();
 #else
-        final String trigger = form.getTrigger().toUpperCase();
+        final String trigger = (($controllerFormName)form).getTrigger().toUpperCase();
 #end
 
 #foreach ($transition in $target.outgoing)
@@ -132,9 +133,9 @@ public abstract class ${className} extends DispatchAction
 #foreach ($decisionPoint in $decisionPoints)
 #if ($transform.dynamicHelper.isGuardedDecisionPoint($decisionPoint))
 #set ($methodName = $transform.toJavaMethodName($decisionPoint))
-    private ActionForward $methodName(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    private ActionForward $methodName(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final int ${methodName}Value = ${methodName}Impl(mapping, form, request, response);
+        final int ${methodName}Value = ${methodName}Impl(mapping, ($controllerFormName)form, request, response);
 
         switch(${methodName}Value)
         {
@@ -156,12 +157,13 @@ public abstract class ${className} extends DispatchAction
 ## set the specified object in the desired state, this is done in the implementation class.
 ##
 #foreach ($objectFlowState in $objectFlowStates)
+#set ($objectFlowStateName = $transform.toJavaClassName($objectFlowState))
 #set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState.type))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
-#set ($methodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
-    private final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+#set ($methodName = "set$objectFlowStateName$transform.toJavaClassName($objectFlowStateState)")
+    private final ActionForward ${methodName}(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        ${methodName}Impl(mapping, form, request, response);
+        ${methodName}Impl(mapping, ($controllerFormName)form, request, response);
 #processTransition( $objectFlowState.outgoing.iterator().next() "        " )
     }
 
@@ -169,6 +171,3 @@ public abstract class ${className} extends DispatchAction
 
 #end
 }
-
-
-1
