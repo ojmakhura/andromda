@@ -72,7 +72,7 @@
         path="templates/hibernate/HibernateEntityImpl.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
