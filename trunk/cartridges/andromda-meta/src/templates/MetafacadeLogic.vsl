@@ -7,8 +7,12 @@
 package $packageName;
 #end
 
-//import org.andromda.translation.validation.OCLCollections;
+import org.andromda.translation.validation.OCLCollections;
+import org.andromda.translation.validation.OCLExpressions;
+import org.andromda.translation.validation.OCLExpression;
 //import org.andromda.core.translation.ExpressionKinds;
+
+import org.andromda.core.metafacade.ModelValidationException;
 
 ## calculate metaclass and superMetafacade
 #if ($metafacade.metaclassDirectDependency)
@@ -182,10 +186,10 @@ public abstract class ${metafacade.logicName}
 
     private void $handleMethodPreCondition
     {
-###foreach ($constraint in $op.translateConstraints("pre","validation.Java"))
-##        if (false == $constraint)
-##            throw new RuntimeException("Precondition failed for operation $op.signature: $constraint");
-###end
+#foreach ($constraint in $op.translateConstraints("pre","validation.Java"))
+        if (false == $constraint)
+            throw new ModelValidationException(${metafacade.logicName}.class, "$handleMethodPreCondition", "$constraint");
+#end
     }
 
     private void $handleMethodPostCondition
@@ -281,7 +285,7 @@ public abstract class ${metafacade.logicName}
     // ----------- delegates to "superMetafacade" ------------
 #foreach ( $method in $superMetafacade.getMethodDataForPSM(true) )
     // from ${method.metafacadeName}
-	${method.buildMethodDeclaration(true)} 
+	${method.buildMethodDeclaration(true)}
 	{
 #if ($method.hasReturnType())
         return super_.${method.buildMethodCall()};
@@ -294,10 +298,18 @@ public abstract class ${metafacade.logicName}
      /**
       * @see java.lang.Object#toString()
       */
-    public String toString() 
+    public String toString()
     {
         return super_.toString();
     }
 #end
 ##
+
+    protected void handleInvariants()
+    {
+#foreach ($constraint in $op.translateConstraints("inv","validation.Java"))
+        if (false == $constraint)
+            throw new ModelValidationException(${metafacade.logicName}.class, "handleInvariants", "$constraint");
+#end
+    }
 }
