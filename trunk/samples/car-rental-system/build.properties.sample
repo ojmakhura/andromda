@@ -10,11 +10,14 @@ junit.home = ${andromda.home}
 mdr.home = ${andromda.home}
 xdoclet.home = ${andromda.home}/lib/
 commons.home = ${andromda.home}
+hibernate.home = C:/Programme/hibernate-1.2/
 
+java-cartridge.home = ../../cartridges/andromda-java/dist/
 ejb-cartridge.home = ../../cartridges/andromda-ejb/dist/
 hibernate-cartridge.home = ../../cartridges/andromda-hibernate/dist/
 struts-cartridge.home = ../../cartridges/andromda-struts/dist/predist/
 
+java-cartridge.libs=${java-cartridge.home}andromda-java.jar
 ejb-cartridge.libs=${ejb-cartridge.home}andromda-ejb.jar
 hibernate-cartridge.libs=${hibernate-cartridge.home}andromda-hibernate.jar
 struts-cartridge.libs=${struts-cartridge.home}andromda-struts.jar:${struts-cartridge.home}lib/struts.jar
@@ -27,6 +30,7 @@ junit.libs = ${junit.home}lib/junit.jar
 ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
 j2ee.libs = ${jboss.home}server/default/lib/jboss-j2ee.jar:${jboss.home}server/default/lib/javax.servlet.jar
 mdr.libs = ${mdr.home}lib/openide-lookup.jar;${mdr.home}lib/openide-fs.jar:${mdr.home}lib/nbmdr.jar;${mdr.home}lib/mdrapi.jar;${mdr.home}lib/jmi.jar;${mdr.home}lib/jmiutils.jar;${mdr.home}lib/jmitoolkit.jar;${mdr.home}lib/mof.jar;${mdr.home}lib/uml14.jar
+hibernate.libs = ${hibernate.home}hibernate.jar:${hibernate.home}lib/commons-lang.jar
 
 xdoclet.libs=${xdoclet.home}/xdoclet-1.2b2.jar:\
 ${xdoclet.home}/xdoclet-ejb-module-1.2b2.jar:\
@@ -41,5 +45,5 @@ ${xdoclet.home}/xdoclet-xdoclet-module-1.2b2.jar:\
 ${xdoclet.home}/xdoclet-xjavadoc-1.2b2.jar:\
 ${xdoclet.home}/xdoclet-xjavadoc-uc-1.2b2.jar
 
-cartridges.libs=${ejb-cartridge.libs}:${struts-cartridge.libs}:${hibernate-cartridge.libs}
-build.classpath = ${cartridges.libs}:${andromda.libs}:${xdoclet.libs}:${commons.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
+cartridges.libs=${java-cartridge.libs}:${ejb-cartridge.libs}:${struts-cartridge.libs}:${hibernate-cartridge.libs}
+build.classpath = ${cartridges.libs}:${andromda.libs}:${xdoclet.libs}:${commons.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${hibernate.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
