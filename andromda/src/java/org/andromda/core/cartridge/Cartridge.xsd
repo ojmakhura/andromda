@@ -50,8 +50,29 @@
     </xs:element>
     <xs:element name="modelElement">
         <xs:complexType>
+            <xs:sequence>
+                <!-- types allow you to group model elements by type of metafacade
+                     and by a metafacade's properties -->
+                <xs:element name="type" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <!-- This defines the name of the type's property -->
+                                    <xs:attribute name="name" use="required"/>
+                                    <!-- the value of the property must evaluate to 
+                                         to this value in order to be grouped -->
+                                    <xs:attribute name="value" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <!-- Specifies the type's name -->
+                        <xs:attribute name="name" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
             <!-- a stereotype name from the model that will be processed (i.e. entity, enumeration, etc.) -->
-            <xs:attribute name="stereotype" use="required"/>
+            <xs:attribute name="stereotype" use="optional"/>
             <!-- defines the variable name that should be placed into the template engine context,
                  for all model elements having the modelElement with the stereotype attribute, 
                  if this is not defined, then the variable from the 

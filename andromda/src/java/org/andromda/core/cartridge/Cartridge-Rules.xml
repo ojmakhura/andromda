@@ -115,7 +115,7 @@
         <pattern value="template">
         
             <object-create-rule 
-                  classname="org.andromda.core.cartridge.Template" />     		
+                  classname="org.andromda.core.cartridge.template.Template" />     		
 
             <set-properties-rule>
                  <alias attr-name="path" prop-name="path" />
@@ -148,7 +148,7 @@
              <pattern value="modelElements">
                  
                 <object-create-rule 
-                    classname="org.andromda.core.cartridge.TemplateModelElements" />   
+                    classname="org.andromda.core.cartridge.template.ModelElements" />   
                     
                 <set-properties-rule>
                     <alias attr-name="variable" prop-name="variable" />
@@ -157,7 +157,7 @@
                 <pattern value="modelElement">
                     
                     <object-create-rule 
-                        classname="org.andromda.core.cartridge.TemplateModelElement" />                       
+                        classname="org.andromda.core.cartridge.template.ModelElement" />                       
     
                     <set-properties-rule>
                         <alias attr-name="stereotype" prop-name="stereotype" />
@@ -166,6 +166,36 @@
                     <set-properties-rule>
                         <alias attr-name="variable" prop-name="variable" />
                     </set-properties-rule> 
+                    
+                    <pattern value="type">
+                        
+                        <object-create-rule 
+                            classname="org.andromda.core.cartridge.template.ModelElementType" />  
+                        
+                        <set-properties-rule>
+                            <alias attr-name="name" prop-name="name" />
+                        </set-properties-rule> 
+                        
+                        <pattern value="property">
+                        
+                            <call-method-rule
+                                methodname="addProperty" 
+                                paramcount="2" 
+                                paramtypes="java.lang.String,java.lang.String"/>
+                                
+                            <call-param-rule 
+                                attrname="name" 
+                                paramnumber="0" />
+                                
+                            <call-param-rule 
+                                attrname="value" 
+                                paramnumber="1" />                           
+                            
+                        </pattern>
+                        
+                        <set-next-rule methodname="addType" />
+                                                
+                    </pattern>
                         
                     <set-next-rule methodname="addModelElement" />
                     
