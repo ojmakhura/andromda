@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Random;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
 
 /**
  * ExceptionRecorder provides a function to record an exception to a file along
@@ -18,15 +19,17 @@ import org.apache.commons.lang.exception.ExceptionUtils;
  */
 public class ExceptionRecorder
 {
+    private static final Logger logger = Logger
+        .getLogger(ExceptionRecorder.class);
 
     /** Andromda version * */
-    public static String andromda_version = "not set";
+    private static String andromdaVersion = "not set";
 
     /** The exceptions directory name:exceptions. */
-    public static String exceptionDirectoryName = ".";
+    private static String exceptionDirectoryName = ".";
 
     /** The exceptions directory, initialized to exceptions. */
-    public static File exceptionDirectory = null;
+    private static File exceptionDirectory = null;
 
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat(
         "yyMMddHHmmss");
@@ -78,7 +81,10 @@ public class ExceptionRecorder
      * @param throwable exception to record.
      * @param prefix for the file name.
      */
-    public static String record(String message, Throwable throwable, String prefix)
+    public static String record(
+        String message,
+        Throwable throwable,
+        String prefix)
     {
         PrintWriter writer;
         String tempName = null;
@@ -91,22 +97,23 @@ public class ExceptionRecorder
             result = exceptionFile.getCanonicalPath();
             writer = new PrintWriter(new FileWriter(exceptionFile));
             writer.println("*** AndroMDA Exception Recording ***");
-            writer.println("Andromda Version:" + getAndromdaVersion());
-            writer.println("Error:" + message);
-            writer.println("Main exception:" + throwable.getMessage());
+            writer.println("Andromda Version: " + getAndromdaVersion());
+            writer.println("Error: " + message);
+            writer.println("Main Exception: " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);
-            writer.println("Root exception:" + cause.getMessage());
+            if (cause != null)
+            {
+                writer.println("Root Exception: " + cause);
+            }
             cause.printStackTrace(writer);
             writer.close();
+            AndroMDALogger.info("Exception recorded in --> '" + result + "'");
         }
-        catch (Throwable ex)
+        catch (Throwable th)
         {
-            System.err
-                .println("ExceptionRecorder.record error recording exception:"
-                    + throwable);
-            throwable.printStackTrace(System.err);
-            System.err.println("ExceptionRecorder.record Exception:" + ex);
-            ex.printStackTrace(System.err);
+            final String errorMessage = "ExceptionRecorder.record error recording exception --> '"
+                + throwable + "'";
+            logger.error(errorMessage, th);
         } // End catch
         return result;
     } // end of method record
@@ -187,14 +194,14 @@ public class ExceptionRecorder
      */
     public static String getAndromdaVersion()
     {
-        return andromda_version;
+        return andromdaVersion;
     }
 
     /**
      * @param andromda_version The andromda_version to set.
      */
-    public static void setAndromdaVersion(String andromda_version)
+    public static void setAndromdaVersion(String andromdaVersion)
     {
-        ExceptionRecorder.andromda_version = andromda_version;
+        ExceptionRecorder.andromdaVersion = andromdaVersion;
     }
 }
