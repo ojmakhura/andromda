@@ -13,6 +13,13 @@
     <property reference="securityEnabled" default="false"/>
     <property reference="securityRealm" default="other"/>
 
+    <!-- copy resources -->
+    <resource
+        path="resources/*.png"
+        outlet="pages/layout"
+        overwrite="true"/>
+
+    <!-- process templates on model elements -->
     <template
         path="templates/StrutsAction.vsl"
         outputPattern="$generatedFile"
