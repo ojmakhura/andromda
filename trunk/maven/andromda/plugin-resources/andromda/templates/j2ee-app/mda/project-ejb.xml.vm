@@ -51,14 +51,20 @@
 		</dependency>		
 		<dependency> 
 			<groupId>andromda-cartridges</groupId>
-	  		<artifactId>andromda-struts-cartridge</artifactId>
+	  		<artifactId>andromda-bpm4struts-cartridge</artifactId>
 	 		<version>${pom.currentVersion}</version>
-			<properties>
-				<forms>${maven.andromda.struts.generated.dir}/java</forms>
-				<actions>${maven.andromda.struts.manual.java.dir}</actions>
-				<pages>${maven.andromda.struts.manual.webapp.dir}</pages>
-				<config>${maven.andromda.struts.generated.dir}	</config>	
-			</properties>	 		
-		</dependency>	
+	 		<properties>
+	 			<forms>${maven.andromda.bpm4struts.generated.dir}</forms>
+	 			<pages>${maven.andromda.bpm4struts.generated.dir}</pages>
+	 			<actions>${maven.andromda.bpm4struts.generated.dir}</actions>
+	 			<controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
+	 			<controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
+	 			<messages>${maven.andromda.bpm4struts.generated.dir}</messages>
+	 			<configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
+	 			<xdoclet-merge>${maven.andromda.bpm4struts.generated.dir}/merge</xdoclet-merge>
+	 			<securityEnabled>false</securityEnabled>
+	 			<securityRealm>other</securityRealm>
+	 		</properties>
+		</dependency>		
 	</dependencies>
 </project>
