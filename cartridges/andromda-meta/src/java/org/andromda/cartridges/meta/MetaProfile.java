@@ -3,20 +3,25 @@ package org.andromda.cartridges.meta;
 import org.andromda.metafacades.uml.UMLProfile;
 
 /**
- * The Meta profile. Contains the profile information 
- * (tagged values, and stereotypes) for the Meta cartridge.
+ * The Meta profile. Contains the profile information (tagged values, and
+ * stereotypes) for the Meta cartridge.
  * 
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  */
-public class MetaProfile extends UMLProfile
+public class MetaProfile
+    extends UMLProfile
 {
     /* ----------------- Stereotypes -------------------- */
 
-    public static final String STEREOTYPE_METACLASS  = "metaclass"; // from standard UML, only used, not defined in this profile!
+    /**
+     * From standard UML, only used, not defined in this profile!
+     */
+    public static final String STEREOTYPE_METACLASS = "metaclass"; 
+    
+    /**
+     * Defines the <code>metafacade</code> stereotype. A metafacade is a 
+     * facade around a {@link #STEREOTYPE_METACLASS}.
+     */
     public static final String STEREOTYPE_METAFACADE = "metafacade";
-
-    /* ----------------- Tagged Values -------------------- */
-
-    public static final String TAGGEDVALUE_METAFACADE_BASECLASS  = "@metafacade.baseclassname";
 
 }
