@@ -22,8 +22,6 @@ import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.metafacade.MetafacadeImpls;
-import org.andromda.core.metafacade.MetafacadeMappings;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.collections.comparators.ComparatorChain;
