@@ -255,18 +255,21 @@ public class WebServiceLogicImpl
                         type = nonArrayType;
                     }
 
-                    if (nonArrayType
-                        .hasStereotype(WebServiceProfile.STEREOTYPE_VALUE_OBJECT)
-                        || nonArrayType
-                            .hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION))
+                    if (nonArrayType != null)
                     {
-                        types.add(modelElement);
-                        // we add the type when its a non array and has
-                        // the correct stereotype (even if we have added
-                        // the array type above) since we need to define
-                        // both an array and non array in the WSDL if
-                        // we are defining an array.
-                        nonArrayTypes.add(nonArrayType);
+                        if (nonArrayType
+                            .hasStereotype(WebServiceProfile.STEREOTYPE_VALUE_OBJECT)
+                            || nonArrayType
+                                .hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION))
+                        {
+                            types.add(modelElement);
+                            // we add the type when its a non array and has
+                            // the correct stereotype (even if we have added
+                            // the array type above) since we need to define
+                            // both an array and non array in the WSDL if
+                            // we are defining an array.
+                            nonArrayTypes.add(nonArrayType);
+                        }
                     }
 
                     if (type != null)
@@ -388,7 +391,7 @@ public class WebServiceLogicImpl
     }
 
     static final String NAMESPACE_PREFIX = "namespacePrefix";
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
      */
@@ -451,7 +454,7 @@ public class WebServiceLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-    
+
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for an EJB provider.
      * 
@@ -461,17 +464,19 @@ public class WebServiceLogicImpl
     {
         return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbHomeInterface()
      */
     public java.lang.String handleGetEjbHomeInterface()
     {
-        return MessageFormat.format(this.getEjbHomeInterfacePattern(), new String[]
-        {
-            StringUtils.trimToEmpty(this.getPackageName()),
-            StringUtils.trimToEmpty(this.getName())
-        });
+        return MessageFormat.format(
+            this.getEjbHomeInterfacePattern(),
+            new String[]
+            {
+                StringUtils.trimToEmpty(this.getPackageName()),
+                StringUtils.trimToEmpty(this.getName())
+            });
     }
 
     /**
@@ -505,9 +510,9 @@ public class WebServiceLogicImpl
     {
         return (String)this.getConfiguredProperty("ejbInterfacePattern");
     }
-    
+
     private static final String RPC_CLASS_NAME_PATTERN = "rpcClassNamePattern";
-    
+
     /**
      * Gets the <code>rpcClassNamePattern</code> for this service.
      */
@@ -521,12 +526,10 @@ public class WebServiceLogicImpl
      */
     protected String handleGetRpcClassName()
     {
-        return MessageFormat.format(
-            this.getRpcClassNamePattern(),
-            new String[]
-            {
-                StringUtils.trimToEmpty(this.getPackageName()),
-                StringUtils.trimToEmpty(this.getName())
-            });
+        return MessageFormat.format(this.getRpcClassNamePattern(), new String[]
+        {
+            StringUtils.trimToEmpty(this.getPackageName()),
+            StringUtils.trimToEmpty(this.getName())
+        });
     }
 }
