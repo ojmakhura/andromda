@@ -11,7 +11,7 @@
             inv: age &gt;= 18
         </from>
         <to>
-            OCLExpressions.greaterOrEqual(age,18);
+            OCLExpressions.greaterOrEqual(age,18)
         </to>
     </expression>
 
@@ -21,7 +21,7 @@
             inv: validFrom.isBefore(goodThru)
         </from>
         <to>
-            validFrom.isBefore(goodThru);
+            validFrom.isBefore(goodThru)
         </to>
     </expression>
 
@@ -31,7 +31,7 @@
             inv: card.customer = customer
         </from>
         <to>
-            OCLExpressions.equal(card.customer,customer);
+            OCLExpressions.equal(card.customer,customer)
         </to>
     </expression>
 
@@ -41,7 +41,7 @@
             inv: printedName = customer.title.concat( customer.name )
         </from>
         <to>
-            OCLExpressions.equal(printedName,customer.title.concat(customer.name));
+            OCLExpressions.equal(printedName,customer.title.concat(customer.name))
         </to>
     </expression>
 
@@ -51,7 +51,7 @@
             inv: serviceLevel-&gt;size() = 2
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.size(serviceLevel),2);
+            OCLExpressions.equal(OCLCollections.size(serviceLevel),2)
         </to>
     </expression>
 
@@ -61,7 +61,7 @@
             inv: program-&gt;size() = cards-&gt;select( valid = true )-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.size(program),OCLCollections.size(OCLCollections.select(cards,OCLExpressions.equal(valid,true))));
+            OCLExpressions.equal(OCLCollections.size(program),OCLCollections.size(OCLCollections.select(cards,OCLExpressions.equal(valid,true))))
         </to>
     </expression>
 
@@ -72,7 +72,7 @@
                     implies membership.loyaltyAccount-&gt;isEmpty()
         </from>
         <to>
-            (OCLCollections.forAll(partners.deliveredServices,OCLExpressions.equal(pointsEarned,0)&amp;&amp;OCLExpressions.equal(pointsBurned,0))?OCLCollections.isEmpty(membership.loyaltyAccount):true);
+            (OCLCollections.forAll(partners.deliveredServices,OCLExpressions.equal(pointsEarned,0)&amp;&amp;OCLExpressions.equal(pointsBurned,0))?OCLCollections.isEmpty(membership.loyaltyAccount):true)
         </to>
     </expression>
 
@@ -82,7 +82,7 @@
             inv: numberOfCustomers = loyaltyProgram.customer-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(numberOfCustomers,OCLCollections.size(loyaltyProgram.customer));
+            OCLExpressions.equal(numberOfCustomers,OCLCollections.size(loyaltyProgram.customer))
         </to>
     </expression>
 
@@ -92,7 +92,7 @@
             inv: numberOfCustomers = loyaltyProgram.customer-&gt;asSet()-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(numberOfCustomers,OCLCollections.size(OCLCollections.asSet(loyaltyProgram.customer)));
+            OCLExpressions.equal(numberOfCustomers,OCLCollections.size(OCLCollections.asSet(loyaltyProgram.customer)))
         </to>
     </expression>
 
@@ -102,7 +102,7 @@
             inv: partners.deliveredServices.transaction.points-&gt;sum() &lt; 10000
         </from>
         <to>
-            OCLExpressions.less(OCLCollections.sum(partners.deliveredServices.transaction.points),10000);
+            OCLExpressions.less(OCLCollections.sum(partners.deliveredServices.transaction.points),10000)
         </to>
     </expression>
 
@@ -112,7 +112,7 @@
             inv: partners.deliveredServices.transaction-&gt;select(oclType = Burning)-&gt;collect( points )-&gt;sum() &lt; 10000
         </from>
         <to>
-            OCLExpressions.less(OCLCollections.sum(OCLCollections.collect(OCLCollections.select(partners.deliveredServices.transaction,OCLExpressions.equal(oclType,Burning)),points)),10000);
+            OCLExpressions.less(OCLCollections.sum(OCLCollections.collect(OCLCollections.select(partners.deliveredServices.transaction,OCLExpressions.equal(oclType,Burning)),points)),10000)
         </to>
     </expression>
 
@@ -134,7 +134,7 @@
             inv: customer-&gt;forAll( age &gt;= 18 )
         </from>
         <to>
-            OCLCollections.forAll(customer,OCLExpressions.greaterOrEqual(age,18));
+            OCLCollections.forAll(customer,OCLExpressions.greaterOrEqual(age,18))
         </to>
     </expression>
 
@@ -144,7 +144,7 @@
             inv: name = 'Edward'
         </from>
         <to>
-            OCLExpressions.equal(name,"Edward");
+            OCLExpressions.equal(name,"Edward")
         </to>
     </expression>
 
@@ -154,7 +154,7 @@
             inv: self.name = 'Edward'
         </from>
         <to>
-            OCLExpressions.equal(this.name,"Edward");
+            OCLExpressions.equal(this.name,"Edward")
         </to>
     </expression>
 
@@ -164,7 +164,7 @@
             inv: customer.card.membership->includes( self )
         </from>
         <to>
-            OCLCollections.includes(customer.card.membership,this);
+            OCLCollections.includes(customer.card.membership,this)
         </to>
     </expression>
 
@@ -174,7 +174,7 @@
             inv: self.pointsOffered &gt; 0 implies not (self.pointsBurned = 0)
         </from>
         <to>
-            (OCLExpressions.greater(this.pointsOffered,0)?!(OCLExpressions.equal(this.pointsBurned,0)):true);
+            (OCLExpressions.greater(this.pointsOffered,0)?!(OCLExpressions.equal(this.pointsBurned,0)):true)
         </to>
     </expression>
 
@@ -184,7 +184,7 @@
             inv: title = (if isMale = true then 'Mr.' else 'Ms.' endif)
         </from>
         <to>
-            OCLExpressions.equal(title,(if(OCLExpressions.equal(isMale,true)){"Mr.";}else{"Ms.";}));
+            OCLExpressions.equal(title,(if(OCLExpressions.equal(isMale,true)){"Mr.";}else{"Ms.";}))
         </to>
     </expression>
 
@@ -194,7 +194,7 @@
             inv: self.age() &gt;= 0
         </from>
         <to>
-            OCLExpressions.greaterOrEqual(this.age(),0);
+            OCLExpressions.greaterOrEqual(this.age(),0)
         </to>
     </expression>
 
@@ -204,7 +204,7 @@
             inv: self.isRelatedTo(self) = true
         </from>
         <to>
-            OCLExpressions.equal(this.isRelatedTo(this),true);
+            OCLExpressions.equal(this.isRelatedTo(this),true)
         </to>
     </expression>
 
@@ -216,21 +216,19 @@
                  (actualLevel.name = 'Gold' implies card.color = Color::gold)
         </from>
         <to>
-            ((OCLExpressions.equal(actualLevel.name,"Silver")?OCLExpressions.equal(card.color,Color):true))&amp;&amp;((OCLExpressions.equal(actualLevel.name,"Gold")?OCLExpressions.equal(card.color,Color):true));
+            ((OCLExpressions.equal(actualLevel.name,"Silver")?OCLExpressions.equal(card.color,Color):true))&amp;&amp;((OCLExpressions.equal(actualLevel.name,"Gold")?OCLExpressions.equal(card.color,Color):true))
         </to>
     </expression>
 
-<!--
     <expression>
         <from>
             context LoyaltyAccount::isEmpty()
-            pre : - - none
-            post: result = (points = 0)
+            pre : result = (points = 0)
         </from>
         <to>
+            OCLExpressions.equal(result,(OCLExpressions.equal(points,0)))
         </to>
     </expression>
--->
 
 <!--
     <expression>
