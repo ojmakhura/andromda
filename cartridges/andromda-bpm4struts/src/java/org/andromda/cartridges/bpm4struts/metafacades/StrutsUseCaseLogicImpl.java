@@ -417,7 +417,9 @@ public class StrutsUseCaseLogicImpl
 
     protected TreeNode handleGetApplicationHierarchyRoot()
     {
-        return createHierarchy(new UseCaseNode(this));
+        UseCaseNode root = new UseCaseNode(this);
+        createHierarchy(root);
+        return root;
     }
 
     protected TreeNode handleGetHierarchyRoot()
@@ -437,7 +439,7 @@ public class StrutsUseCaseLogicImpl
         return hierarchy;
     }
 
-    private UseCaseNode createHierarchy(UseCaseNode root)
+    private void createHierarchy(UseCaseNode root)
     {
         StrutsUseCase useCase = (StrutsUseCase)root.getUserObject();
 
@@ -449,14 +451,35 @@ public class StrutsUseCaseLogicImpl
             {
                 StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
                 StrutsUseCase targetUseCase = finalState.getTargetUseCase();
-                UseCaseNode useCaseNode = new UseCaseNode(targetUseCase);
-                if (root.isNodeAncestor(useCaseNode) == false)
+                if (targetUseCase != null)
                 {
-                    root.add(createHierarchy(useCaseNode));
+                    UseCaseNode useCaseNode = new UseCaseNode(targetUseCase);
+                    if (isNodeAncestor(root, useCaseNode) == false)
+                    {
+                        root.add(useCaseNode);
+                        createHierarchy(useCaseNode);
+                    }
                 }
             }
         }
-        return root;
+    }
+
+    // DefaultMutableTreeNode's isNodeAncestor does not work because of its specific impl.
+    private boolean isNodeAncestor(UseCaseNode node, UseCaseNode ancestorNode)
+    {
+        if (node.getUseCase().equals(ancestorNode.getUseCase()))
+        {
+            return true;
+        }
+        while (node.getParent() != null)
+        {
+            node = (UseCaseNode)node.getParent();
+            if (isNodeAncestor(node, ancestorNode))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private UseCaseNode findNode(UseCaseNode root, StrutsUseCase useCase)
@@ -475,7 +498,7 @@ public class StrutsUseCaseLogicImpl
         return useCaseNode;
     }
 
-    private class UseCaseNode extends DefaultMutableTreeNode
+    public final static class UseCaseNode extends DefaultMutableTreeNode
     {
         public UseCaseNode(StrutsUseCase useCase)
         {
@@ -485,22 +508,6 @@ public class StrutsUseCaseLogicImpl
         public StrutsUseCase getUseCase()
         {
             return (StrutsUseCase)getUserObject();
-        }
-
-        public boolean equals(Object object)
-        {
-            boolean equals = false;
-
-            if (object instanceof UseCaseNode)
-            {
-                UseCaseNode that = (UseCaseNode)object;
-                equals = this.getUserObject().equals(that.getUserObject());
-            }
-            else
-            {
-                equals = false;
-            }
-            return equals;
         }
     }
 }
