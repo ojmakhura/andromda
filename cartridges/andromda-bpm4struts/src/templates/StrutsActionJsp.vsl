@@ -60,9 +60,8 @@
 #renderFormField($action $tabField "            ")
 #else
                             <tr>
-                                <td>
-                                    <bean:message key="$tabField.messageKey"/>#if ($requiredness && $tabField.required) <div class="important">*</div>#end
-                                </td>
+                                <td><bean:message key="$tabField.messageKey"/>#if ($requiredness && $tabField.required) <div class="important">*</div>#end
+</td>
                                 <td>
 #renderFormField($action $tabField "                                    ")
                                 </td>
@@ -90,9 +89,8 @@
 #foreach ($field in $nonTabbedActionParameters)
 #if ($field.widgetType != "hidden")
                     <tr>
-                        <td>
-                            <bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
-                        </td>
+                        <td><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
+</td>
                         <td>
 #renderFormField($action $field "                           ")
                         </td>
