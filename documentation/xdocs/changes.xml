@@ -7,11 +7,17 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-02-23" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-02-24" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add">
+                Bpm4Struts now supports a new 
+                <a href="andromda-bpm4struts-cartridge/namespace.html">namespace property</a>:
+                <code>actionPathPrefix</code>, it allows more
+                control on the way action paths are being rendered in <code>struts-config.xml</code>.
+            </action>
             <action dev="carloslcuenca" type="add">
-                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and 
-                <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now supports 
-                EhCache as the second level cache manager.  Properties, associations, and queries can be 
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> and
+                <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> now supports
+                EhCache as the second level cache manager.  Properties, associations, and queries can be
                 configured to be cacheable.
             </action>
             <action dev="carloslcuenca" type="add" issue="HIB-61">
