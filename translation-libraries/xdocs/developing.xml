@@ -105,7 +105,7 @@
 										<li>
 											<strong>IMPORTANT:</strong> Each translation file has an instance of 
 											the expression's context element that is passed in from the translate method of the 
-										    <a href="../andromda-core/org/andromda/core/translation/ExpressionTranslator.html">ExpressionTranslator</a>
+										    <a href="../andromda-core/apidocs/org/andromda/core/translation/ExpressionTranslator.html">ExpressionTranslator</a>
 											in a scripting variable called <strong>element</strong>.  It
 											can be accessed in the translation template as <em>element</em>. 
 											This allows you to get any information you need from this element and make it available to
