@@ -1,9 +1,8 @@
 package org.andromda.core.simpleoo;
 
+
 import java.util.List;
-
 import org.andromda.core.xml.Association;
-
 
 /**
  * <p>This is a helper class to access the data of an association
@@ -185,7 +184,7 @@ public class AssociationDescriptor
     /**
      * <p>Returns all tagged values of this association.</p>
      *
-     * @return List of {@link TaggedValue TaggedValues}
+     * @return List of TagValues
      */
     public List getTaggedValues()
     {
