@@ -88,7 +88,8 @@ public class MetafacadeBase
      * the caching within the metafacade factory.
      * 
      * @see MetafacadeFactory#createMetafacade(Object, String, Class)
-     * @param validationMessages any messages generated during validation.
+     * @param validationMessages
+     *            any messages generated during validation.
      */
     public final void validate(Collection validationMessages)
     {
@@ -108,7 +109,7 @@ public class MetafacadeBase
      */
     public void validateInvariants(Collection messages)
     {
-        // By default this does nothing
+    // By default this does nothing
     }
 
     /**
@@ -118,7 +119,7 @@ public class MetafacadeBase
      */
     public void initialize()
     {
-        // By default this does nothing
+    // By default this does nothing
     }
 
     /**
@@ -129,8 +130,9 @@ public class MetafacadeBase
      * metafacade is constructed from that.
      * 
      * @see MetafacadeFactory
-     * @param metaObject the underlying meta model element. A metafacade is
-     *        created for each.
+     * @param metaObject
+     *            the underlying meta model element. A metafacade is created for
+     *            each.
      * @return MetafacadeBase the facade
      */
     protected MetafacadeBase shieldedElement(Object metaObject)
@@ -153,7 +155,8 @@ public class MetafacadeBase
      * the MetafacadeFactory to manufacture the proper facades.
      * 
      * @see MetafacadeFactory
-     * @param metaobjects the objects to decorate
+     * @param metaobjects
+     *            the objects to decorate
      * @return Collection of MetafacadeBase-derived objects
      */
     protected Collection shieldedElements(Collection metaobjects)
@@ -189,13 +192,13 @@ public class MetafacadeBase
     }
 
     /**
-     * Sets the context for this metafacade.  This is used to 
-     * pass the context along from a metafacade specializing this
-     * metafacade (since we use delegate inheritance between
-     * shared and non-shared metafacades), as well as to pass 
-     * the context to a metafacade being created within another.  
+     * Sets the context for this metafacade. This is used to pass the context
+     * along from a metafacade specializing this metafacade (since we use
+     * delegate inheritance between shared and non-shared metafacades), as well
+     * as to pass the context to a metafacade being created within another.
      * 
-     * @param context the metafacade interface name representing the context.
+     * @param context
+     *            the metafacade interface name representing the context.
      * @see MetafacadeMapping#isContextRoot()
      * @see MetafacadeFactory#createMetafacade(Object, String, Class)
      */
@@ -229,7 +232,8 @@ public class MetafacadeBase
      * Constructs a property namespace name with the <code>context</code>
      * argument and the current <code>namespace</code> of this metafacade.
      * 
-     * @param context the context name with which to construct the name.
+     * @param context
+     *            the context name with which to construct the name.
      * @return the new property namespace name
      */
     private String constructPropertyNamespace(String context)
@@ -270,7 +274,8 @@ public class MetafacadeBase
      * Returns true or false depending on whether the <code>property</code> is
      * registered or not.
      * 
-     * @param property the name of the property to check.
+     * @param property
+     *            the name of the property to check.
      * @return true/false on whether or not its regisgterd.
      */
     protected boolean isConfiguredProperty(String property)
@@ -284,7 +289,8 @@ public class MetafacadeBase
      * Gets a configured property from the container. Note that the configured
      * property must be registered first.
      * 
-     * @param property the property name
+     * @param property
+     *            the property name
      * @return Object the configured property instance (mappings, etc)
      */
     protected Object getConfiguredProperty(String property)
@@ -323,7 +329,8 @@ public class MetafacadeBase
      * Package-local setter, called by facade factory. Sets the logger to use
      * inside the facade's code.
      * 
-     * @param logger the logger to set
+     * @param logger
+     *            the logger to set
      */
     void setLogger(Logger logger)
     {
@@ -389,9 +396,11 @@ public class MetafacadeBase
     }
 
     /**
-     * A check to verify whether or not to make use of metafacade property caching. This method check if the
-     * <code>UMLMetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING</code> namespace property has been set,
-     * if this is not the case then the caching will be enabled by default.
+     * A check to verify whether or not to make use of metafacade property
+     * caching. This method check if the
+     * {@link MetafacadeProperties#ENABLE_METAFACADE_PROPERTY_CACHING} namespace
+     * property has been set, if this is not the case then the caching will be
+     * enabled by default.
      */
     public boolean isMetafacadePropertyCachingEnabled()
     {
@@ -404,7 +413,8 @@ public class MetafacadeBase
     }
 
     /**
-     * In order to speed up the check for this property (which will happen many times), we cache it :-)
+     * In order to speed up the check for this property (which will happen many
+     * times), we cache it :-)
      */
     private Boolean metafacadePropertyCachingEnabled = null;
 }
