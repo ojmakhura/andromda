@@ -5,9 +5,14 @@
     <description>
 		Produces Apache Axis WSDD (Web Service Deployment Descriptors and WSDLs) 
 		used in conjunction with Session EJBs generated from 'Service'
-		stereotypes (or just plain POJOs) defined within a model. 
-  	</description>
+		stereotypes (or just plain POJOs) defined within a model.
+    </description>
     <shortDescription>WebService Cartridge</shortDescription>
+    <issueTrackingUrl>http://team.andromda.org:8080/jira/BrowseProject.jspa?id=10021&amp;decorator=none</issueTrackingUrl>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/andromda-webservice</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/andromda-webservice/</url>
+    </repository>
     <developers>
         <developer>
             <name>Chad Brandon</name>
@@ -91,4 +96,17 @@
         </dependency>
     </dependencies>
     <properties/>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-jira-plugin</report>
+    </reports>
 </project>
