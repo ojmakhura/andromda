@@ -156,7 +156,7 @@ Ignored Tokens
 Productions
 
     // package declaration
-   declaration =
+    declaration =
     	{package} package name path_name_tail* context_declaration* endpackage |
     	{context} context_declaration* ;
 
