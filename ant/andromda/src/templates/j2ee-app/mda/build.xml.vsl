@@ -40,10 +40,10 @@
                 <property name="sqlMappingsUri" value="file:${basedir}/${mappings.src.dir}/HypersonicSqlMappings.xml"/>
                 <property name="foreignKeySuffix" value="_FK"/>
                 <property name="maxSqlNameLength" value="30"/>
-                <property name="entities" value="${app.root.dir}/${hibernate.dir}/ejb/${mda.build.dir}"/>
-                <property name="entity-impls" value="${app.root.dir}/${hibernate.dir}/ejb/${java.src.dir}"/>
-                <property name="session-beans" value="${app.root.dir}/${hibernate.dir}/ejb/${mda.build.dir}"/>
-                <property name="session-impls" value="${app.root.dir}/${hibernate.dir}/ejb/${java.src.dir}"/>
+                <property name="entities" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${mda.build.dir}"/>
+                <property name="entity-impls" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${java.src.dir}"/>
+                <property name="session-beans" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${mda.build.dir}"/>
+                <property name="session-impls" value="${app.root.dir}/${hibernate.dir}/${hibernate.ejb.dir}/${java.src.dir}"/>
             </namespace>
 #if ($persistenceType == 'hibernate')
             <namespace name="ejb" ignore="true">
