@@ -24,7 +24,7 @@ public class UMLOperationData extends MethodData
             metafacadeName,
             op.getVisibility(),
             op.isAbstract(),
-            op.getType().getFullyQualifiedName(),
+            op.getReturnType().getFullyQualifiedName(),
             op.getName(),
             op.getDocumentation("    * "));
 
