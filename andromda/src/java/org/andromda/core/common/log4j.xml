@@ -36,33 +36,24 @@
     <!-- ================ -->
 
     <category name="org.apache">
-        <priority value="info" />
+        <priority value="INFO" />
     </category>
 
     <category name="org.andromda">
-        <priority value="info" />
+        <priority value="INFO" />
+    </category>
+    
+    <category name="org.andromda.plugins">
+        <priority value="INFO" />
     </category>
 
-    <category name="org.andromda.core.mdr">
-        <priority value="info" />
-    </category>
-
-    <category name="org.andromda.core.metafacade">
-        <priority value="info" />
-    </category>
-
-    <category name="org.andromda.core.translation.library.LibraryTranslation">
-        <priority value="info" />
-    </category>
-
-    <!-- ======================= -->
-    <!-- Setup the Root category -->
-    <!-- ======================= -->
-
+    <!-- =======================
+         Setup the Root category 
+         ======================= -->
     <root>
-        <priority value="info" />
-        <appender-ref ref="CONSOLE"/>
+        <priority value="INFO" />
         <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </log4j:configuration>

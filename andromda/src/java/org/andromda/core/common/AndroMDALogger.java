@@ -16,6 +16,9 @@ import org.apache.log4j.xml.DOMConfigurator;
  */
 public class AndroMDALogger
 {
+    /**
+     * The default name to give the logger (if one isn't set)
+     */
     private static final String DEFAULT_LOGGER_NAME = "AndroMDA";
 
     private static Logger logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
@@ -51,12 +54,56 @@ public class AndroMDALogger
         }
         catch (Exception ex)
         {
-            System.err
-                .println("Unable to initialize logging system with configuration file '"
-                    + logConfigurationXml + "' --> using basic configuration.");
+            System.err.println("Unable to initialize logging system "
+                + "with configuration file '" + logConfigurationXml
+                + "' --> using basic configuration.");
             ex.printStackTrace();
             BasicConfigurator.configure();
         }
+    }
+
+    /**
+     * Retrieves the plugin logger (if one is available) otherwise returns the
+     * root logger.
+     * 
+     * @param pluginName the name of the plugin for which we'll retrieve the
+     *        logger instance.
+     * @return the plugin or root logger instance.
+     */
+    public static Logger getPluginLogger(String pluginName)
+    {
+        Logger logger;
+        if (pluginName != null && !Namespaces.DEFAULT.equals(pluginName))
+        {
+            logger = Logger.getLogger(getPluginLoggerName(pluginName));
+        }
+        else
+        {
+            logger = Logger.getRootLogger();
+        }
+        return logger;
+    }
+
+    /**
+     * Gets the name of the logger.
+     * 
+     * @param pluginName the name of the plugin for which this logger is used.
+     * @return the logger name.
+     */
+    public static String getPluginLoggerName(String pluginName)
+    {
+        return "org.andromda.plugins." + pluginName;
+    }
+
+    /**
+     * Gets the name of the file to which plugin logging output will be written.
+     * 
+     * @param pluginName the name of the plugin for which this logger is used.
+     * @return the plugin logging file name.
+     */
+    public static String getPluginLogFileName(String pluginName)
+    {
+        return "andromda-" + pluginName + ".log";
     }
 
     /**
