@@ -701,7 +701,16 @@ public class StrutsActionLogicImpl
      */
     protected String handleGetStyleId()
     {
-        return StringUtilsHelper.lowerCamelCaseName(getActionClassName());
+        String styleId = null;
+
+        StrutsTrigger trigger = getActionTrigger();
+        if (trigger != null)
+        {
+            String triggerName = trigger.getName();
+            triggerName = StringUtilsHelper.lowerCamelCaseName(triggerName);
+            styleId = StringUtilsHelper.lowerCamelCaseName(triggerName);
+        }
+        return styleId;
     }
     
     /**
