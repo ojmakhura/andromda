@@ -30,15 +30,8 @@ public class $entity.daoImplementationName
 #end
     {
         //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
-#set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
-#if (!$operation.type.primitive)
-        return null;
-#elseif ("boolean" == $returnTypeName)
-        return false;
-#else
-        return ($returnTypeName)0;
-#end
+        return $operation.returnType.javaNullString;
 #else
         throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${signature} Not implemented!");
 #end
