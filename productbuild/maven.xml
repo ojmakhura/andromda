@@ -1,4 +1,4 @@
-<project default="dist"
+ <project default="dist"
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
@@ -431,5 +431,20 @@
                         
         </j:forEach>
     </goal>
-            
+
+    <!-- =================================================================
+             Copy the distribution to the server.
+         ================================================================= -->  
+    <goal name="deploy-distribution">
+		<j:set var="rsync_arg1" value="-Coprzn"/>
+		<j:set var="rsync_arg2" value="--include='/distributions/*.zip'"/>
+		<j:set var="rsync_arg3" value="--exclude='/distributions/*'"/>
+		<j:set var="rsync_arg4" value="${distribution.dir}"/>
+		<j:set var="rsync_arg5" value="${andromda.distribution.username}@${andromda.distribution.server}:${andromda.distribution.directory}"/>
+		<ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_arg4} ${rsync_arg5}"/>
+		<ant:exec executable="rsync">
+			<ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_arg4} ${rsync_arg5}"/>
+		</ant:exec>
+    </goal>
+                
 </project>
