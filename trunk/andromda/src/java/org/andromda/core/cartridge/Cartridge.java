@@ -41,7 +41,9 @@ public class Cartridge
     extends BasePlugin
 {
     private List resources = new ArrayList();
-    private CodeGenerationContext context;
+    // protected to improve performance within
+    // inner class access
+    protected CodeGenerationContext context;
 
     /**
      * The default Cartridge constructor.

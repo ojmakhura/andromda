@@ -53,7 +53,11 @@ import org.xml.sax.SAXParseException;
 public class XmlObjectFactory
 {
 
-    private static final Logger logger = Logger
+    /**
+     * The class logger. Note: visibility is protected
+     * to improve access within {@link XmlObjectValidator}
+     */
+    protected static final Logger logger = Logger
         .getLogger(XmlObjectFactory.class);
 
     private static final String RULES_SUFFIX = "-Rules.xml";

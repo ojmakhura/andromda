@@ -22,12 +22,6 @@ public abstract class BasePlugin
     implements Plugin
 {
     /**
-     * Default constructor which must be called by super classes.
-     */
-    protected BasePlugin()
-    {}
-
-    /**
      * Property references made available to the plugin
      */
     private Map propertyReferences = new HashMap();

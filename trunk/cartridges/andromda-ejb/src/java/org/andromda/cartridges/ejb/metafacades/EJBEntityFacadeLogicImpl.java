@@ -382,7 +382,7 @@ public class EJBEntityFacadeLogicImpl
                     + uri + "'";
                 logger.error(errMsg);
                 // don't throw the exception
-                ExceptionRecorder.record( errMsg, th );
+                ExceptionRecorder.instance().record( errMsg, th );
             }
         }
         else

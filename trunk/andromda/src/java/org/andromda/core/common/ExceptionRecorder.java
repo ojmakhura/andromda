@@ -59,12 +59,29 @@ public class ExceptionRecorder
         "yyMMddHHmmss");
 
     private static final Random random = new Random();
+    
+    /**
+     * The shared instance.
+     */
+    private static final ExceptionRecorder instance = new ExceptionRecorder();
 
     /** 
      * Private constructor, this class is not intended to be instantiated. 
      */
     private ExceptionRecorder()
-    {}
+    {
+        // Not intended to be instantiated
+    }
+    
+    /**
+     * Gets the shared instance of the ModelProcessor.
+     * 
+     * @return the shared ModelProcessor instance.
+     */
+    public static ExceptionRecorder instance()
+    {
+        return instance;
+    }    
 
     /**
      * <p>
@@ -77,7 +94,7 @@ public class ExceptionRecorder
      * 
      * @param Exception to record.
      */
-    public static String record(Throwable throwable)
+    public String record(Throwable throwable)
     {
         return record("", throwable, "S");
     }
@@ -94,7 +111,7 @@ public class ExceptionRecorder
      * @param errorMessage to log with the exception report.
      * @param throwable to record.
      */
-    public static String record(String errorMessage, Throwable throwable)
+    public String record(String errorMessage, Throwable throwable)
     {
         return record(errorMessage, throwable, "S");
     }
@@ -117,7 +134,7 @@ public class ExceptionRecorder
      * @param throwable exception to record.
      * @param prefix for the file name.
      */
-    public static String record(
+    public String record(
         String message,
         Throwable throwable,
         String prefix)
@@ -191,7 +208,7 @@ public class ExceptionRecorder
     /**
      * Gets a unique file name.
      */
-    protected static synchronized String getUniqueName(String prefix)
+    protected synchronized String getUniqueName(String prefix)
     {
         String uniqueName = prefix + cvDateFormat.format(new Date()) + SUFFIX;
         int suffix = 0;
@@ -260,7 +277,7 @@ public class ExceptionRecorder
      * 
      * @return the exception directory as a java.io.File instance.
      */
-    public static File getExceptionDirectory()
+    public File getExceptionDirectory()
     {
         return exceptionDirectory;
     }

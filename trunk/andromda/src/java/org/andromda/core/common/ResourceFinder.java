@@ -18,13 +18,6 @@ public class ResourceFinder
     private static Logger logger = Logger.getLogger(ResourceFinder.class);
 
     /**
-     * Default constructor should not be used in regular programming. Should
-     * only be used where java bean instantiation is necessary.
-     */
-    public ResourceFinder()
-    {}
-
-    /**
      * Returns a URL[] containing the URL of each resource and the File which
      * represents the library the resource was found in.
      * 

@@ -30,11 +30,13 @@ import org.apache.commons.lang.StringEscapeUtils;
  */
 public class HTMLAnalyzer
 {
-
     /**
      * Specifes the line width to enforce.
+     * Note: this member is protected to improve
+     * access performance within inner class 
+     * {@link HTMLParserCallback}
      */
-    private int lineLength;
+    protected int lineLength;
 
     /**
      * The default line width used, if none is specified.
@@ -75,13 +77,15 @@ public class HTMLAnalyzer
     {
         ParserDelegator pd = new ParserDelegator();
         html = StringEscapeUtils.escapeHtml(html);
-        pd.parse(new StringReader(html), new MyParserCallback(), true);
+        pd.parse(new StringReader(html), new HTMLParserCallback(), true);
         return paragraphs;
     }
 
-    private ArrayList paragraphs = new ArrayList();
+    // protected to increase performance of inner class
+    // access
+    protected ArrayList paragraphs = new ArrayList();
 
-    private class MyParserCallback
+    private class HTMLParserCallback
         extends ParserCallback
     {
         private HTMLParagraph currentParagraph = null;
@@ -167,5 +171,4 @@ public class HTMLAnalyzer
             }
         }
     }
-
 }

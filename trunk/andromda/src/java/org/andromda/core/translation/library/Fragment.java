@@ -36,7 +36,9 @@ public class Fragment
      * @see org.andromda.core.translation.library.Translation
      */
     public Fragment()
-    {}
+    {
+        // Here for documentation purposes
+    }
 
     /**
      * Gets the name of this fragment
