@@ -199,6 +199,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     public abstract Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
    /**
     * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
     */
     public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName});
 #end
@@ -224,6 +225,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     public abstract Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
    /**
     * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
     */
     public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName});
 #end
@@ -244,6 +246,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     public abstract ${targettypename}Local get${str.upperCaseFirstLetter($adata.target.roleName)}();
    /**
     * @ejb.interface-method view-type="local"
+    * @ejb.transaction      type="Required"
     */
     public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(${targettypename}Local ${adata.target.roleName});
 #end
