@@ -1,5 +1,8 @@
 <project name="AndroMDAAsAWholePackage" default="dist">
 
+    <property name="version" value="2.0.1" />
+    <property name="version.suffix" value="201alpha" />
+
     <!-- ============================================================= -->
     <!--               Directory settings                              -->
     <!-- ============================================================= -->
@@ -17,6 +20,7 @@
           <fileset dir="../${component.name}/dist">
             <include name="*.*"/>
           </fileset>
+          <mapper type="regexp" from="^(.*)\.(.*)$$" to="\1-${version.suffix}.\2"/>
         </move>
     </target>
 
