@@ -90,16 +90,6 @@ public class StrutsParameterLogicImpl
 
     // -------------------- business methods ----------------------
 
-    public String getName()
-    {
-        StrutsAction action = getAction();
-        StrutsTrigger trigger = (action == null) ? null : action.getActionTrigger();
-
-        return (trigger == null)
-                ? StringUtilsHelper.lowerCamelCaseName(super.getName())
-                : StringUtilsHelper.lowerCamelCaseName(trigger.getName()) + StringUtilsHelper.upperCamelCaseName(super.getName());
-    }
-
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getGetterName()()
      */
@@ -591,41 +581,54 @@ public class StrutsParameterLogicImpl
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
         final String fieldType = value == null ? null : value.toString();
 
-        if (fieldType == null)
+        String widgetType = null;
+
+        if (isActionParameter())
         {
-            final String parameterType = getType().getFullyQualifiedName(true);
-            if (isValidatorBoolean(parameterType)) return "checkbox";
-            if (getType().isCollectionType() || getType().isArrayType()) return "select";
-            return "text";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
-        {
-            return "textarea";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
-        {
-            return "hidden";
-        }
-        else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_RADIO))
-        {
-            return "radio";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType))
-        {
-            return "checkbox";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
-        {
-            return "select";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
-        {
-            return "password";
+            if (fieldType == null)
+            {
+                final String parameterType = getType().getFullyQualifiedName(true);
+                if (isValidatorBoolean(parameterType)) widgetType = "checkbox";
+                else if (isMultiple()) widgetType = "select";
+                     else widgetType = "text";
+            }
+            else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "textarea";
+            }
+            else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "hidden";
+            }
+            else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_RADIO))
+            {
+                widgetType = "radio";
+            }
+            else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "checkbox";
+            }
+            else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "select";
+            }
+            else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "password";
+            }
+            else
+            {
+                widgetType = (isMultiple()) ? "select" : "text";
+            }
         }
         else
         {
-            return (getType().isCollectionType() || getType().isArrayType()) ? "select" : "text";
+            widgetType =
+                    (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType) || isMultiple())
+                    ? "select"
+                    : "text";
         }
+        return widgetType;
     }
 
     public boolean handleIsMultiple()
@@ -650,7 +653,7 @@ public class StrutsParameterLogicImpl
 
     public boolean handleIsSelectable()
     {
-        return "select".equals(getWidgetType()) && getAction() != null;   // only on action parameters
+        return "select".equals(getWidgetType());
     }
 
     public String handleGetValueListName()
