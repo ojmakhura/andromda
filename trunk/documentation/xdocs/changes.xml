@@ -17,6 +17,14 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Sep 23, 2004</td>
+                    <td valign="top" class="std">bpm4struts update</td>
+                    <td valign="top" class="std">
+                        The controllers associated to session objects have different methods to
+                        access those objects. The 'clearXXX' method has been renamed to 'removeXXX'.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Sep 19, 2004</td>
                     <td valign="top" class="std">new Hibernate feature</td>
                     <td valign="top" class="std">
