@@ -33,7 +33,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #end
     private $field.type.fullyQualifiedName $field.name;
 #if ($field.date)
-    private final java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
+    private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
 #end
 #if ($field.hasBackingList())
     private $field.backingListType $field.backingListName;
