@@ -19,22 +19,32 @@
             <item name="Look and feel" href="/lookandfeel.html"/>
             <item name="Code generation" href="/codegen.html"/>
             -->
+            <item name="Getting Started" href="/starting.html"/>
             <item name="Modeling" href="/modeling.html"/>
+            <item name="Samples" href="/samples.html"/>
             <item name="Latest Changes" href="/changes-report.html"/>
         </menu>
 
         <menu name="Usage">
-            <item name="Getting Started" href="/starting.html"/>
-            <item name="Samples" href="/samples.html"/>
             <item name="Ant Task" href="/anttask.html"/>
             <item name="Maven Plugins" href="/andromda-maven-plugins/index.html"/>
             <item name="Schema2XMI" href="/andromda-schema2xmi/index.html"/>
             <item name="Building AndroMDA" href="/building.html"/>
-            <item name="AndroMDA Wiki" href="http://team.andromda.org/tiki"/>
+            <item name="FAQ" href="/faq.html"/>
+        </menu>
+
+        <menu name="Downloads">
+            <item name="Releases" href="/releases.html"/>
+            <item name="Nightly Builds" href="http://team.andromda.org/maven/andromda/distributions"/>
+            <item name="Resources" href="/resources.html"/>
+        </menu>
+
+        <menu name="Community">
+            <item name="Mailing Lists" href="/mail-lists.html"/>
             <item name="AndroMDA JIRA" href="http://team.andromda.org:8080/jira"/>
+            <item name="AndroMDA Wiki" href="http://team.andromda.org/tiki"/>
             <item name="AndroMDA #IRC" href="/irc.html"/>
             <item name="Other Links" href="/otherlinks.html"/>
-            <item name="FAQ" href="/faq.html"/>
         </menu>
 
         <menu name="Components">
@@ -44,12 +54,6 @@
             <item name="Metafacades" href="/andromda-metafacades/index.html"/>
             <item name="Repositories" href="/andromda-repositories/index.html"/>
             <item name="Template Engines" href="/andromda-templateengines/index.html"/>
-        </menu>
-
-        <menu name="Downloads">
-            <item name="Releases" href="/releases.html"/>
-            <item name="Nightly Builds" href="http://team.andromda.org/maven/andromda/distributions"/>
-            <item name="Resources" href="/resources.html"/>
         </menu>
 
         <menu name="Professional services">
