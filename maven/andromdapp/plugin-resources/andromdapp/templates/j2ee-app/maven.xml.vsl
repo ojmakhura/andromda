@@ -92,20 +92,40 @@
             descriptor="${maven.src.dir}/../webservice/project.xml"
             goals="war:install"/>
     </goal>
-
+    
 #end
+    <!-- ============================================================
+             Initializes the database schema for this application
+         ============================================================ -->
+    <goal name="create-schema">
+        <j:set var="script" value="${dataSource.sql.init}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
+    <!-- ============================================================
+             Drops the database schema for this application
+         ============================================================ -->
+    <goal name="drop-schema">
+        <j:set var="script" value="${dataSource.sql.drop}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
+    <goal name="load-dummy-data">
+        <j:set var="script" value="${dataSource.sql.load}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
     <j:set var="generatedSourceDir" value="${maven.build.dir}"/>
     <ant:available
         file="${maven.build.src}"
         type="dir"
         property="generatedSrcAvailable"/>
 
-     <!-- ==================================================================
-            Adds the generated source to the compile path for each subproject
-            (if any exists)
-          ================================================================== -->
+     <!-- ============================================================
+            Adds the generated source to the compile path for
+            each subproject (if any exists)
+          ============================================================ -->
     <preGoal name="java:compile">
-
         <!-- only attempt to add the generated source to the classpath
              if we have a source directory -->
         <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
@@ -129,12 +149,11 @@
                 </j:if>
             </j:if>
         </j:if>
-
     </preGoal>
 
-    <!-- ==================================================================
-           Database related operations
-         ================================================================== -->
+    <!-- ============================================================
+             Executes the given DDL script
+         ============================================================ --> 
     <goal name="execute-script">
 #set ($condition = '${script != null}')
         <j:if test="$condition">
@@ -148,21 +167,6 @@
                 </ant:sql>
             </j:if>
         </j:if>
-    </goal>
-
-    <goal name="setup-db">
-        <j:set var="script" value="${dataSource.sql.init}"/>
-        <attainGoal name="execute-script"/>
-    </goal>
-
-    <goal name="teardown-db">
-        <j:set var="script" value="${dataSource.sql.drop}"/>
-        <attainGoal name="execute-script"/>
-    </goal>
-
-    <goal name="load-dummy-data">
-        <j:set var="script" value="${dataSource.sql.load}"/>
-        <attainGoal name="execute-script"/>
     </goal>
 
 </project>
