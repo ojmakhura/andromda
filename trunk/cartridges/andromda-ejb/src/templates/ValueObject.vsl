@@ -11,10 +11,12 @@ public class ${class.name}
 #if($class.generalization)  
 	extends ${class.generalization.fullyQualifiedName}
 #end
-    implements java.io.Serializable {
+    implements java.io.Serializable 
+{
 #if (!$class.properties.empty)
 
-    public ${class.name}() {
+    public ${class.name}() 
+    {
     }
 #end
 
@@ -61,11 +63,13 @@ public class ${class.name}
     /**
 $attribute.getDocumentation("     * ")
      */
-    $attribute.visibility $typeName ${attribute.getterName}() {
+    $attribute.visibility $typeName ${attribute.getterName}() 
+    {
         return this.${attribute.name};
     }
 
-    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name) {
+    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name) 
+    {
         this.${attribute.name} = $attribute.name;
     }
 
@@ -82,17 +86,19 @@ $attribute.getDocumentation("     * ")
     private $targetTypeFQName $target.name;
    
     /**
-     * Get the ${target.name}
+     * Get the ${target.name}.
 $target.getDocumentation("     * ")
      */
-    public $targetTypeFQName ${target.getterName}() {
+    public $targetTypeFQName ${target.getterName}() 
+    {
         return this.${target.name};
     }
 
     /**
-     * Set the ${target.name}
+     * Set the ${target.name}.
      */
-    public void ${target.setterName}($targetTypeFQName ${target.name}) {
+    public void ${target.setterName}($targetTypeFQName ${target.name}) 
+    {
         this.${target.name} = ${target.name};
     }
 #end

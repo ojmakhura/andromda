@@ -212,7 +212,7 @@ $constant.getDocumentation("     * ")
 #foreach ( $attribute in $entity.attributes)
 #set ($visibility = $attribute.visibility)
     /**
-     * Get the $attribute.name property
+     * Get the $attribute.name property.
 $attribute.getDocumentation("     * ")
      *
 #if ($attribute.identifier)
@@ -239,7 +239,7 @@ $attribute.getDocumentation("     * ")
     public abstract $attribute.type.fullyQualifiedName ${attribute.getterName}();
 
     /**
-     * Set the $attribute.name property
+     * Set the $attribute.name property.
      * @param value the new value
 ## We need to generate a public set method even for readonly or proteced
 ## attributes because of CMP semantics.
