@@ -52,15 +52,17 @@ $class.getDocumentation(" * ")
 #set ($value = "$value")
 #end
  * @ejb.env-entry 
- *     name = "$envEntry.name"
- *     type = "$envEntry.type.fullyQualifiedName"
- *     value = $value
+ *     name="$envEntry.name"
+ *     type="$envEntry.type.fullyQualifiedName"
+ *     value=$value
  *
 #end
 #foreach ( $dep in $class.dependencies )
 #if ($dep.hasStereotype("EntityRef") || $dep.hasStereotype("ServiceRef"))
 #set ($superclass = $dep.targetElement)
 #set ($viewtype = $class.findTaggedValue("@andromda.ejb.viewType"))
+// $viewtype
+// $superclass.viewType
 #if (!$viewtype || $viewtype == "")
 #set ($viewtype = $superclass.viewType)
 #end
@@ -89,8 +91,8 @@ $class.getDocumentation(" * ")
 #if ($jndiRef)
  *
  * @jboss.resource-ref 
- *     res-ref-name = "resource/$resName" 
- *     jndi-name = "$jndiRef" 
+ *     res-ref-name="resource/$resName" 
+ *     jndi-name="$jndiRef" 
 #end
 #end
 #end
@@ -301,7 +303,7 @@ $assoc.otherEnd.getDocumentation("    * ")
     * @ejb.transaction type="$transactionType"
 #end
     *
-#if ($assoc.isOne2Many() || $assoc.isMany2Many() || $assoc.otherEnd.findTaggedValue("@andromda.jboss.autoKeyFields") == "true")
+#if ($assoc.one2Many || $assoc.many2Many || $assoc.otherEnd.findTaggedValue("@andromda.jboss.autoKeyFields") == "true")
     * @jboss.auto-key-fields
 #else
 #set ($identifiers = $assoc.otherEnd.type.identifiers)
@@ -313,8 +315,8 @@ $assoc.otherEnd.getDocumentation("    * ")
 #set ($identifierName = "$assoc.otherEnd.type.name")
 #end
     * @jboss.relation 
-    *     fk-column = "${assoc.otherEnd.columnName}"
-    *     related-pk-field = "${identifierName}"
+    *     fk-column="${assoc.otherEnd.columnName}"
+    *     related-pk-field="${identifierName}"
 #end
 #end
 #end
