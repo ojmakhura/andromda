@@ -208,14 +208,14 @@ public abstract class ${metafacade.logicName}
 #renderTranslation ($associationEnd "post")
     }
 
-#if ($associationEnd.readOnly)
+#if ($associationEnd.otherEnd.readOnly)
     private $memberTypeName __$memberName;
     private boolean __${memberName}Set = false;
 
 #end
     public final $memberTypeName ${methodName}()
     {
-#if ($associationEnd.readOnly)
+#if ($associationEnd.otherEnd.readOnly)
         if (!this.__${memberName}Set)
         {
             ${handleMethodPreCondition};
