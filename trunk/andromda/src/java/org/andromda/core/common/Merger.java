@@ -85,13 +85,7 @@ public class Merger
                             {
                                 String to = StringUtils.trimToEmpty(mapping
                                     .getTo());
-                                if (StringUtils.contains(string, from))
-                                {
-                                    string = StringUtils.replace(
-                                        string,
-                                        from,
-                                        to);
-                                }
+                                string = StringUtils.replace(string, from, to);
                             }
                         }
                     }
