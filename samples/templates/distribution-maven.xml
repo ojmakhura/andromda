@@ -35,6 +35,7 @@
   			property="libsPresent"
   			file="${libDir}"/>
   		<j:if test="${libsPresent}">
+  			<!-- copy over external dependencies -->
   			<ant:copy todir="${maven.repo.local}">
   				<ant:fileset dir="${libDir}"/>
   			</ant:copy>
