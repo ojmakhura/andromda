@@ -265,16 +265,16 @@
     
     <expression>
         <from>
-            context SpringEntityAssociationEnd inv: oneToOne = true implies composition or aggregation
+            context SpringEntityAssociationEnd inv: one2One = true implies composition or aggregation
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"oneToOne"),true))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue():true)||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue());
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"one2One"),true))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue():true)||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue());
         </to>
     </expression>
     
     <expression>
         <from>
-            context SpringEntityAssociationEnd inv: oneToOne implies (composition or aggregation or otherEnd.composition or otherEnd.aggregation)
+            context SpringEntityAssociationEnd inv: one2One implies (composition or aggregation or otherEnd.composition or otherEnd.aggregation)
         </from>
         <to>
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"one2One"))).booleanValue()?(Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"otherEnd.composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"otherEnd.aggregation"))).booleanValue()):true));
