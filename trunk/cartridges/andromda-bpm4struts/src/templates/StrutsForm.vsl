@@ -1,20 +1,20 @@
-#set ($generatedFile = "${class.fullFormBeanPath}.java")
+#set ($generatedFile = "${action.fullFormBeanPath}.java")
 ##
 ##  CONSTANTS
 ##
-#set ($fields = $class.actionParameters)
-#set ($useCase = $class.activityGraph.useCase)
-#set ($formBeanName = $class.formBeanName)
-#set ($formBeanClassName = $class.formBeanClassName)
-#set ($messageKey = $class.messageKey)
+#set ($fields = $action.actionParameters)
+#set ($useCase = $action.activityGraph.useCase)
+#set ($formBeanName = $action.formBeanName)
+#set ($formBeanClassName = $action.formBeanClassName)
+#set ($messageKey = $action.messageKey)
 ##
 ##  START TEMPLATE
 ##
-package $class.packageName;
+package $action.packageName;
 
 import java.io.Serializable;
 
-#if ($class.packageName != $useCase.formBeanPackage)
+#if ($action.packageName != $useCase.formBeanPackage)
 
 import $useCase.formBeantype;
 #end

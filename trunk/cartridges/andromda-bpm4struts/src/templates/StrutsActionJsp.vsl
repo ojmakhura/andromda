@@ -1,8 +1,7 @@
 #parse("templates/StrutsJSP.vm")
-#set ($generatedFile = "${class.fullTilePath}.jsp")
+#set ($generatedFile = "${action.fullTilePath}.jsp")
 ##
 ##
-#set ($action = $class)
 #if (!$action.useCaseStart)## we don't generate tiles for events that do not have an input page
 ##
 #set ($useCase = $action.input.useCase)
@@ -45,9 +44,9 @@
                 <div class="tab-header">
 #foreach ($tabTitle in $tabMap.keySet())
 #if ($tab == $tabTitle)
-                    <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
+                    <div class="selected-tab"><bean:message key="${action.messageKey}.tab.${tabTitle}"/></div>
 #else
-                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
+                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${action.messageKey}.tab.${tabTitle}"/></a></div>
 #end
 #end
                 </div>

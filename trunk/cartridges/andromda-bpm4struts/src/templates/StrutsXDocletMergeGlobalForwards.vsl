@@ -1,4 +1,4 @@
-#set ($useCases = $class.allUseCases)
+#set ($useCases = $applicationUseCase.allUseCases)
 
   <global-forwards>
 #foreach ($useCase in $useCases)

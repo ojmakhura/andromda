@@ -1,24 +1,24 @@
 ## Only generate the controller impl if there are operations defined
-#set ($generatedFile = "${class.fullPath}.java")
-#if (!$class.operations.empty)
+#set ($generatedFile = "${controller.fullPath}.java")
+#if (!$controller.operations.empty)
 ##
 ##  CONSTANTS
 ##
-#set ($useCase = $class.useCase)
+#set ($useCase = $controller.useCase)
 #set ($formBeanClassName = $useCase.formBeanClassName)
 ##
 ##  START TEMPLATE
 ##
-package $class.packageName;
+package $controller.packageName;
 
 import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-class $class.name implements ${class.name}Interface
+class $controller.name implements ${controller.name}Interface
 {
-#foreach ($operation in $class.operations)
+#foreach ($operation in $controller.operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
@@ -100,7 +100,7 @@ $operation.getDocumentation("     * ")
 #else
         form.${field.setterName}($field.resetValue);
 #end
-#if ($field.hasBackingList())
+#if ($field.backingListPresent)
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
         form.set${backingListMethod}($field.backingListResetValue);

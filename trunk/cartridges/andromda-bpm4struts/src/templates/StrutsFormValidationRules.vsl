@@ -1,5 +1,5 @@
 #set ($validationDesired = ($clientValidation == 'true' || $serverValidation == 'true'))
-#if ($class.applicationValidationRequired && $validationDesired)
+#if ($applicationUseCase.applicationValidationRequired && $validationDesired)
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE form-validation PUBLIC

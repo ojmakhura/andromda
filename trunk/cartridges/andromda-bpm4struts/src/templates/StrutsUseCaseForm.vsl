@@ -1,13 +1,13 @@
-#set ($generatedFile = "${class.fullFormBeanPath}.java")
+#set ($generatedFile = "${useCase.fullFormBeanPath}.java")
 ##
 ##  CONSTANTS
 ##
-#set ($formBeanClassName = $class.formBeanClassName)
-#set ($fields = $class.formFields)
+#set ($formBeanClassName = $useCase.formBeanClassName)
+#set ($fields = $useCase.formFields)
 ##
 ##  START TEMPLATE
 ##
-package $class.packageName;
+package $useCase.packageName;
 
 import java.io.Serializable;
 
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @struts.form
- *      name="$class.formBeanName"
+ *      name="$useCase.formBeanName"
  */
 public class $formBeanClassName extends ValidatorForm implements Serializable
 {
@@ -28,14 +28,14 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #if ($field.type.collectionType)
 #set ($collectionPresent = true)
 #end
-#if ($field.type.arrayType || $field.hasBackingList())
+#if ($field.type.arrayType || $field.backingListPresent)
 #set ($arrayPresent = true)
 #end
     private $field.type.fullyQualifiedName $field.name;
 #if ($field.date)
     private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
 #end
-#if ($field.hasBackingList())
+#if ($field.backingListPresent)
     private $field.backingListType $field.backingListName;
 #end
 #end
@@ -129,7 +129,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
     }
 #end
 
-#if ($field.hasBackingList())
+#if ($field.backingListPresent)
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
     public void set${backingListMethod}($field.backingListType $backingListName)
@@ -147,7 +147,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
     public void reset(ActionMapping mapping, HttpServletRequest request)
     {
 #foreach ($field in $fields)
-#if ($field.mustReset())
+#if ($field.resetRequired)
         this.$field.name = $field.nullValue;
 #end
 #end
@@ -168,7 +168,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         buffer.append(String.valueOf(this.${field.getterName}()));
 #end
 #set ($separator = ',')
-#if ($field.hasBackingList())
+#if ($field.backingListPresent)
         buffer.append("${separator}${field.backingListName}=");
         buffer.append(toString(this.get${backingListMethod}()));
 #end
@@ -219,7 +219,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #else
         this.$field.name = null;
 #end
-#if ($field.hasBackingList())
+#if ($field.backingListPresent)
         this.$field.backingListName = null;
 #end
 #end
