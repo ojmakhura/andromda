@@ -30,7 +30,7 @@
 ##
    <global-forwards>
 #foreach ($workflow in $allWorkflows)
-#set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getActivityGraph($workflow))))
+#set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getStateMachine($workflow))))
 #set ($firstUseCase = $transform.getFirstFrontEndUseCase($workflow))
 #set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($firstUseCase)))
       <forward name="$forwardName" path="/${forwardPath}" redirect="false"/>
@@ -41,11 +41,11 @@
 ## Each use-case will be mapping onto an action controller, optionally associated to an action form.
 ## Final states of a use-cases will be connected to the next use-case as determined by the global workflows
 ## that contain these use-cases.
-## Each action state in the use-case's activity graph will render a forward.
+## Each state in the use-case's state machine will render a forward.
 ##
    <action-mappings>
 #foreach ($useCase in $allUseCases)
-#set ($activityGraph = $transform.getActivityGraph($useCase))
+#set ($stateMachine = $transform.getStateMachine($useCase))
 #set ($actionMappingControllerClass = $transform.getControllerClass($useCase))
 #set ($actionMappingPath = $transform.toJavaClassName($actionMappingControllerClass))
 #set ($actionMappingType = $transform.toFullyQualifiedJavaClassName($actionMappingControllerClass))
@@ -57,13 +57,13 @@
          name="$actionMappingFormName"
 #end
          scope="request" unknown="false" validate="true" parameter="target" >
-#set ($actionStates = $transform.dynamicHelper.getActionStates($activityGraph))
+#set ($actionStates = $transform.dynamicHelper.getActionStates($stateMachine))
 #foreach ($actionState in $actionStates)
 #set ($actionForwardName = $transform.toWebFileName($actionState))
 #set ($actionForwardPath = $transform.toFullyQualifiedWebFileName($actionState))
          <forward name="$actionForwardName" path="/${actionForwardPath}.jsp" redirect="false" />
 #end
-#set ($finalStates = $transform.dynamicHelper.getFinalStates($activityGraph))
+#set ($finalStates = $transform.dynamicHelper.getFinalStates($stateMachine))
 #foreach ($finalState in $finalStates)
 #set ($actionForwardName = $transform.toForwardName($finalState))
 #set ($nextUseCase = $transform.findNextUseCaseInWorkflow($useCase, $finalState.name))
