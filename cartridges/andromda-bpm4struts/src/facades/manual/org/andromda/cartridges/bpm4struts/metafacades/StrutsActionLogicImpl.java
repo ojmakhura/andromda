@@ -52,6 +52,7 @@ public class StrutsActionLogicImpl
     private Object controller = null;
     private Collection actionParameters = null;
     private Collection actionFormFields = null;
+    private String fullTilePath = null;
 
     // ---------------- constructor -------------------------------
     
@@ -274,7 +275,25 @@ public class StrutsActionLogicImpl
     public String getFullActionPath()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && fullActionPath != null) return fullActionPath;
-        return (fullActionPath = '/' + (getPackageName() + '/' + getActionClassName()).replace('.', '/'));
+        return fullActionPath = getPackagePath() + '/' + getActionClassName();
+    }
+
+    public String getFullTilePath()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && fullTilePath != null) return fullTilePath;
+        return fullTilePath = isUseCaseStart()
+                ? "empty-file"
+                : getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getActionClassName());
+    }
+
+    /**
+     * We override this method here to make sure the actions end-up in the same package
+     * as their use-case. A transition (this class' parent type) does not have a real package
+     * as we need it here.
+     */
+    public String getPackagePath()
+    {
+        return getActivityGraph().getUseCase().getPackagePath();
     }
 
     public String getFullFormBeanPath()
