@@ -21,48 +21,105 @@
         will come later!).
       </p>
       <p class="std">
-        Download the files <code>andromda_nnn.zip</code> and <code>andromda_libs_nnn.zip</code> from
+        Download the distribution files  from
         the
         <a href="http://sourceforge.net/project/showfiles.php?group_id=73047">
           AndroMDA file list
         </a>
         on SourceForge's web site and unzip them into the same directory of your choice.
+        You will notice that there are quite a number of them:
       </p>
+      <table border="1" cellpadding="2" cellspacing="2" class="std">
+        <tr>
+          <td><b>File name</b></td>
+          <td><b>Contents</b></td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda_nnn.zip</code>
+          </td>
+          <td>
+            Core of the generator, along with documentation and source files.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda_libs_nnn.zip</code>
+          </td>
+          <td>
+            External jar files required for the operation of AndroMDA. Among
+            others, it contains NetBeans Metadata Repository, Velocity and XDoclet.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-car-rental-system.zip</code>
+          </td>
+          <td>
+            Complete J2EE sample application (a car rental system), generated
+            with AndroMDA from a UML model that is also included.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-docs.zip</code>
+          </td>
+          <td>
+            This documentation.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-ejb.zip</code>
+          </td>
+          <td>
+            The EJB cartridge. When plugged into the kernel, it can generate
+            Enterprise JavaBeans.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-hibernate.zip</code>
+          </td>
+          <td>
+            The Hibernate cartridge. When plugged into the kernel, it can generate
+            persistent classes for use with the O/R mapper Hibernate.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-java.zip</code>
+          </td>
+          <td>
+            The Java cartridge. When plugged into the kernel, it can generate
+            generic plain Java classes.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-model-report.zip</code>
+          </td>
+          <td>
+            A sample "application" that can generate a report of all model
+            elements contained in a given UML model.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>andromda-struts.zip</code>
+          </td>
+          <td>
+            The Struts cartridge. When plugged into the kernel, it can generate
+            web pages, forms and action classes for use with Jakarta Struts.
+          </td>
+        </tr>
+      </table>
       <p class="std">
-        The <code>andromda_nnn.zip</code> ZIP contains the following files:
-        <ul>
-          <li class="std">
-            Template files <code>src/templates/*.vsl</code> - templates for entity beans
-            and session beans, written in the Velocity scripting language. Customize these 
-            templates if you do not like what you see when the generator has done its job!
-          </li>
-          <li class="std">
-            <code>andromda.jar</code> - the executable code. Put this jar file into
-            your CLASSPATH when you run your personal Ant build script.
-          </li>
-          <li class="std">
-            <code>doc</code> - a directory with the documentation. This contains
-            the documentation that is found on this website.
-          </li>
-          <li class="std">
-            <code>sample</code> - a directory containing a few samples.  
-          </li>
-          <li class="std">
-            <code>src</code> - a directory with the sources of AndroMDA. This contains
-            all of the hand-written code for AndroMDA. 
-          </li>
-        </ul>
-      </p>
-      <p class="std">
-        The <code>andromda_libs_nnn.zip</code> ZIP contains the following files:
-        <ul>
-          <li class="std">
-            <code>lib</code> - a directory that contains most of the jars that 
-            you will need to build and run the <code>car-rental-system</code> 
-            sample.  You will find the jars for Velocity, Castor, Junit, Log4j, and 
-            XDoclet.
-          </li>
-        </ul>
+        Unzip the files you need into a directory of your choice. Be prepared to
+        insert jar files from these directories onto the classpath of your
+        build.properties script (see instructions later in this text). AndroMDA will auto-detect
+        a cartridge if its main jar file (e.g. andromda-hibernate.jar) is on
+        the classpath when AndroMDA is run.
       </p>
       <p class="std">
         <b>Other software that you will need</b>
@@ -108,7 +165,7 @@
       </p>
     </news>
 
-	<news name="JUnit" href="http://www.junit.org">
+    <news name="JUnit" href="http://www.junit.org">
       <p>
         JUnit is a regression testing framework written by 
         Erich Gamma and Kent Beck. It is used by the developer who implements 

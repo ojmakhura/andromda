@@ -17,8 +17,8 @@
         Modeling Language (UML) model from a CASE-tool in XMI format and
         generates custom components. It comes with a set of sample templates
         that generate classes attributed with XDoclet tags. One build step
-        later, the XDoclet tool generates full-blown components including
-        deployment information that can readily be deployed in the JBoss
+        later, the XDoclet tool generates full-blown components
+        that can readily be deployed in the JBoss
         application server (and the other servers that XDoclet can feed).
       </p>
       <p class="std">
@@ -45,7 +45,7 @@
         all the necessary interfaces (e.g. EJB home, local, remote) as well as a
         deployment descriptor. This was already very good and made continuous
         integration possible. However, writing correct tags to get persistent
-        relationships between components is still quite difficult with XDoclet.
+        relationships between classes is still quite difficult with XDoclet.
       </p>
       <p  class="std">
         <b>How does AndroMDA work?</b>

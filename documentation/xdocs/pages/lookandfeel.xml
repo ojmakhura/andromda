@@ -14,10 +14,10 @@
       <h1>The Look and Feel and How it Works</h1>
           <p class="std">
             AndroMDA for itself does not have a "look", the look begins when
-            you start a CASE tool and draw the packages, classes, 
+            you start a CASE tool and draw the packages, classes,
             attributes, methods and relationships. Later, you save
             your model in XMI format and let AndroMDA and XDoclet
-            generate a whole bunch of Java files for your EJBs. Both tools
+            generate a whole bunch of Java files for your components. Both AndroMDA and XDoclet
             are integrated into the well-known build tool "Ant".
             Usually, you invoke the command-line version of Ant,
             but you can also use Ant from an IDE like Eclipse or JBuilder.
@@ -28,7 +28,7 @@
             <b>Modeling in UML with a CASE tool</b>
           </p>
           <p class="std">
-            The Unified Modeling Language (UML) has a 
+            The Unified Modeling Language (UML) has a
             graphical notation that allows you to model the world
             as you see it. An example: A car rental system might
             manage customers, drivers, cars and rental contracts.
@@ -38,7 +38,7 @@
           <img src="images/CarRentalCustomers.gif" width="408" height="496" />
           <p class="std">
             Save the model to an XMI-formatted file. Some CASE tools will
-            call this an "export", some will not, as it is their native
+            call this an "export", others will not, as it is their native
             file format.
           </p>
           <p class="std">
@@ -50,34 +50,74 @@
             <ul>
               <li class="news">
                 The Ant task reads the UML model in XMI format and creates an
-                in-memory object model from it that contains the packages, classes,
+                in-memory abstract syntax tree that contains the packages, classes,
                 attributes, methods and relationships.
               </li>
               <li class="news">
                 Now, it starts the Velocity template processing
                 engine and processes templates for entity beans,
-                session beans and their implementation classes, 
-                all based on the object model that it created from the
+                session beans, Hibernate classes or anything else,
+                all based on the abstract syntax tree that it created from the
                 transformed CASE tool output. It shields the complexity
-                of the UML metamodel by a script helper facade.
-                As a result, several Java files are written, the
-                most important of which are called *Bean.java,
-                containing the bean classes.
+                of the UML metamodel by a script helper facade so that
+                the template developer find an easy-to-understand API to
+                program scripts against.
+                As a result of the generation process, several source code files
+                are written.
               </li>
               <li class="news">
-                Now, the Ant script calls the &lt;ejbDoclet&gt; task which is
-                contained in XDoclet. This task reads all the bean classes
+                Now, the Ant script calls the &lt;ejbDoclet&gt; or &lt;hibernateDoclet&gt;
+                tasks which are
+                contained in XDoclet. For EJBs, the XDoclet task reads all the bean classes
                 and generates the bean's interfaces and deployment
-                descriptor elements.
+                descriptor elements. For Hibernate, XDoclet generates an XML file
+                with persistence mapping information.
               </li>
             </ul>
           </p>
           <p class="std">
-            <b>The output files</b>
+            <b>Configurable output with cartridges</b>
+          </p>
+          <p class="std">
+            So far, you may think that AndroMDA is a generator for EJBs or Hibernate
+            JavaBeans. This is not the whole story - AndroMDA can generate anything!
+          </p>
+          <p class="std">
+            In fact, AndroMDA is totally agnostic about what it generates. It has a core
+            module that allows to plug in so-called "cartridges". A cartridge consists of
+            a set of template files that determine what to generate. Currently, the AndroMDA
+            distribution contains four cartridges:
+            <ul>
+              <li class="news">
+                andromda-java -- a cartridge that generates general Java source code.
+              </li>
+              <li class="news">
+                andromda-ejb -- generates Enterprise JavaBeans.
+              </li>
+              <li class="news">
+                andromda-hibernate -- generates persistent classes for the Hibernate O/R mapper.
+              </li>
+              <li class="news">
+                andromda-struts -- generates web pages, forms and action classes for use with Jakarta Struts.
+              </li>
+            </ul>
+          </p>
+          <p class="std">
+            You can choose which of these cartridges to use to generate your application
+            architecture. You can also write your own cartridges - once you have understood
+            the basics of a cartridge and its XML descriptor, writing a new cartridge
+            is a snap!
+          </p>
+          <p class="std">
+            The AndroMDA core auto-detects the installed cartridges on the classpath.
+            For more info about cartridges, see the separate page in this web.
+          </p>
+          <p class="std">
+            <b>Sample output files of the EJB cartridge</b>
           </p>
           <p class="std">
             From the customer part of the car rental system model above,
-            AndroMDA and XDoclet will generate
+            AndroMDA (with andromda-ejb) and XDoclet will generate
             the following files for you. Bean classes are marked with
             <img src="../images/ejb.gif" align="middle" />,
             the other classes are marked with
@@ -187,9 +227,9 @@
 
     <news name="MagicDraw" href="http://www.magicdraw.com">
       <p>
-      	MagicDraw UML is another UML CASE tool whos native
-      	data format is XMI and it too works very well with
-      	AndroMDA.
+        MagicDraw UML is another UML CASE tool whos native
+        data format is XMI and it too works very well with
+        AndroMDA.
       </p>
       
     </news>
@@ -215,9 +255,9 @@
         "Suite". 
       </p>
       <p>
-      	Rose can write XMI, too, but it's XMI dialect is
-      	not supported in the alpha verson of AndroMDA. We plan
-      	to it.
+        Rose can write XMI, too, but it's XMI dialect is
+        not supported in the alpha verson of AndroMDA. We plan
+        to it.
       </p>
     </news>
 
