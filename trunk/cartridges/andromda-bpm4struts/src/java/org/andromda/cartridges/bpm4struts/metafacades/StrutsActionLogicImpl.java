@@ -450,7 +450,7 @@ public class StrutsActionLogicImpl
             }
         }
 
-        // add page variables for all pages targetted
+        // add page variables for all pages/final-states targetted
         // also add the fields of the target page's actions (for preloading)
         Collection forwards = getActionForwards();
         for (Iterator iterator = forwards.iterator(); iterator.hasNext();)
@@ -471,6 +471,19 @@ public class StrutsActionLogicImpl
                 {
                     ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
                     formFieldMap.put(facade.getName(), facade);
+                }
+            }
+            else if (target instanceof StrutsFinalState)
+            {
+                // only add these if there is no parameter recorded yet with the same name
+                Collection forwardParameters = forward.getForwardParameters();
+                for (Iterator forwardParameterIterator = forwardParameters.iterator(); forwardParameterIterator.hasNext();)
+                {
+                    ModelElementFacade facade = (ModelElementFacade) forwardParameterIterator.next();
+                    if (formFieldMap.containsKey(facade.getName()) == false)
+                    {
+                        formFieldMap.put(facade.getName(), facade);
+                    }
                 }
             }
         }
