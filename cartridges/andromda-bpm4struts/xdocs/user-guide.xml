@@ -196,42 +196,40 @@
                 parameter will be treated differently.
             </p>
             <p class="std">
-                <blockquote>
-                    <table cellpadding="5" rules="all">
-                        <tr>
-                            <th>Type</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr>
-                            <td>text</td>
-                            <td>renders a textfield, this is the default widget</td>
-                        </tr>
-                        <tr>
-                            <td>textarea</td>
-                            <td>renders a widget that allows a block of text in multiple lines to be entered</td>
-                        </tr>
-                        <tr>
-                            <td>select</td>
-                            <td>This will render a listbox or combobox. If the parameter is a collection or array you will have the possiblity to select multiple values, otherwise you will have a combobox where only one value at a time can be selected</td>
-                        </tr>
-                        <tr>
-                            <td>checkbox</td>
-                            <td>renders a checkbox, if the field is a boolean value this widget will be rendered by default</td>
-                        </tr>
-                        <tr>
-                            <td>radio X</td>
-                            <td>renders radiobuttons, the X is optional and represents an integer with a default value of 3; it denotes the number of choices for this parameter: the value you enter there will determine the number of radiobuttons that will be rendered</td>
-                        </tr>
-                        <tr>
-                            <td>password</td>
-                            <td>renders a password field, each character typed will be rendered as an asterisk</td>
-                        </tr>
-                        <tr>
-                            <td>hidden</td>
-                            <td>does not render any widget, but the parameter will nevertheless be included in the request</td>
-                        </tr>
-                    </table>
-                </blockquote>
+                <table cellpadding="5" rules="all">
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>text</td>
+                        <td>renders a textfield, this is the default widget</td>
+                    </tr>
+                    <tr>
+                        <td>textarea</td>
+                        <td>renders a widget that allows a block of text in multiple lines to be entered</td>
+                    </tr>
+                    <tr>
+                        <td>select</td>
+                        <td>This will render a listbox or combobox. If the parameter is a collection or array you will have the possiblity to select multiple values, otherwise you will have a combobox where only one value at a time can be selected</td>
+                    </tr>
+                    <tr>
+                        <td>checkbox</td>
+                        <td>renders a checkbox, if the field is a boolean value this widget will be rendered by default</td>
+                    </tr>
+                    <tr>
+                        <td>radio X</td>
+                        <td>renders radiobuttons, the X is optional and represents an integer with a default value of 3; it denotes the number of choices for this parameter: the value you enter there will determine the number of radiobuttons that will be rendered</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>renders a password field, each character typed will be rendered as an asterisk</td>
+                    </tr>
+                    <tr>
+                        <td>hidden</td>
+                        <td>does not render any widget, but the parameter will nevertheless be included in the request</td>
+                    </tr>
+                </table>
             </p>
         </section>
 
@@ -247,38 +245,36 @@
                 this is denoted in the table using brackets, eg. [StrutsIndexJsp.vsl]
             </p>
             <p class="std">
-                <blockquote>
-                    <table cellpadding="5" rules="all">
-                        <tr>
-                            <th>Area</th>
-                            <th>Files</th>
-                        </tr>
-                        <tr>
-                            <td>Style and layout</td>
-                            <td>${pages}/layout/*.jsp, ${pages}/layout/*.css, [StrutsActionJsp.vsl], [StrutsCss.vsl], [StrutsApplicationCss.vsl]</td>
-                        </tr>
-                        <tr>
-                            <td>Tiles</td>
-                            <td>${configuration}/tiles-defs.xml, ${pages}/layout/main-layout.jsp, [StrutsTilesDefs.vsl], [StrutsMainLayoutJsp.vsl]</td>
-                        </tr>
-                        <tr>
-                            <td>Business delegation</td>
-                            <td>${controller-impls}/**/*.java, [StrutsController.vsl]</td>
-                        </tr>
-                        <tr>
-                            <td>Security</td>
-                            <td>${security}, enter true/false; if false the cartridge will omit any security logic</td>
-                        </tr>
-                        <tr>
-                            <td>Messages</td>
-                            <td>${messages}/custom.properties, add your own messages here, [StrutsMessageResources.vsl, StrutsCustomMessageResources.vsl]</td>
-                        </tr>
-                        <tr>
-                            <td>Login pages</td>
-                            <td>${pages}/login/login-form.jsp, ${pages}/login/login-error.jsp, [StrutsLoginFormJsp.vsl], [StrutsLoginErrorJsp.vsl]</td>
-                        </tr>
-                    </table>
-                </blockquote>
+                <table cellpadding="5" rules="all">
+                    <tr>
+                        <th>Area</th>
+                        <th>Files</th>
+                    </tr>
+                    <tr>
+                        <td>Style and layout</td>
+                        <td>${pages}/layout/*.jsp, ${pages}/layout/*.css, [StrutsActionJsp.vsl], [StrutsCss.vsl], [StrutsApplicationCss.vsl]</td>
+                    </tr>
+                    <tr>
+                        <td>Tiles</td>
+                        <td>${configuration}/tiles-defs.xml, ${pages}/layout/main-layout.jsp, [StrutsTilesDefs.vsl], [StrutsMainLayoutJsp.vsl]</td>
+                    </tr>
+                    <tr>
+                        <td>Business delegation</td>
+                        <td>${controller-impls}/**/*.java, [StrutsController.vsl]</td>
+                    </tr>
+                    <tr>
+                        <td>Security</td>
+                        <td>${security}, enter true/false; if false the cartridge will omit any security logic</td>
+                    </tr>
+                    <tr>
+                        <td>Messages</td>
+                        <td>${messages}/custom.properties, add your own messages here, [StrutsMessageResources.vsl, StrutsCustomMessageResources.vsl]</td>
+                    </tr>
+                    <tr>
+                        <td>Login pages</td>
+                        <td>${pages}/login/login-form.jsp, ${pages}/login/login-error.jsp, [StrutsLoginFormJsp.vsl], [StrutsLoginErrorJsp.vsl]</td>
+                    </tr>
+                </table>
             </p>
         </section>
     </body>

@@ -76,154 +76,152 @@
                     and a description of the meaning.
                 </p>
                 <p class="std">
-                    <blockquote>
-                        <table cellpadding="5" rules="all">
-                            <tr>
-                                <th>Tagged value</th>
-                                <th>Model element</th>
-                                <th>Default value</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.action.type (*)</td>
-                                <td>Transition w/ FrontEndEvent</td>
-                                <td>form</td>
-                                <td>Indicates the type of trigger causing the action, possible values are hyperlink and form</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.type</td>
-                                <td>Parameter</td>
-                                <td>text</td>
-                                <td>Indicates the type of parameter, this information will be used when rendering the pages, possible values are: text, textarea, checkbox, radio, select, password and hidden. One of the tables below give some more information</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.required</td>
-                                <td>Parameter</td>
-                                <td>true</td>
-                                <td>Denotes whether or not this is a required field. If a field is required its type will always be checked (you cannot enter a String value when an int is expected)</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.format (**)</td>
-                                <td>Parameter</td>
-                                <td>N/A</td>
-                                <td>The format of this field's value</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.validwhen</td>
-                                <td>Parameter</td>
-                                <td>N/A</td>
-                                <td>Additional validation to be performed</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.readonly</td>
-                                <td>Parameter</td>
-                                <td>false</td>
-                                <td>Indicated the parameter is read only, it's value cannot be entered by the user</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.exception.type</td>
-                                <td>Transition w/ FrontEndException</td>
-                                <td>java.lang.Exception</td>
-                                <td>Indicates which exception this handler takes care of</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.controller.usecase</td>
-                                <td>A class with the &lt;&lt;FrontEndController&gt;&gt; stereotype</td>
-                                <td>N/A</td>
-                                <td>The value should correspond to the use-case holding the activity graph
-                                    which has this controller as its context. This is used when deferring operations to
-                                    the controller. Please note that if your CASE tool supports setting the context of an
-                                    activity graph you will not need to explicitely set this tagged value. This feature
-                                    has been provided to support tool such as Poseidon that have only limited UML support.
-                                    If you are a MagicDraw user you will not need to use this tagged value, instead
-                                    assign the controller by right clicking on it and selecting "Assign...".
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.usecase.activity</td>
-                                <td>A use-case with the &lt;&lt;FrontEndUseCase&gt;&gt; stereotype</td>
-                                <td>N/A</td>
-                                <td>For tools that do not allow the placement of activity graphs inside of a use-case
-                                    you can use this tagged value to point to an activity graph, this will link them and
-                                    denotes that the graphs specifies this use-case.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.table.columns</td>
-                                <td>A signal trigger parameter on a transition incoming to a FrontEndView action state,
-                                    the type of the parameter must either be an array or a java.util.Collection
-                                    implementation</td>
-                                <td>N/A</td>
-                                <td>The collection will be displayed in tabular format using the
-                                    <a href="http://www.displaytag.org">&lt;display:*&gt;</a>
-                                    tag-library. Each column in this table will be mapped to a property of the object
-                                    type contained in the collection. So you will need to make sure all objects
-                                    have accessor methods for the property you list in this tagged value.
-                                    Properties are separated using a comma ',' or whitespace.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.table.maxrows</td>
-                                <td>Same as @andromda.struts.view.table.columns</td>
-                                <td>15</td>
-                                <td>This value represents the maximum number of entries shown at the same time,
-                                    also known as the 'page size'. If the number of entries is a number greater
-                                    than this value then a list of pages will be displayed to jump to the other values.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.table.sortable</td>
-                                <td>Same as @andromda.struts.view.table.columns</td>
-                                <td>true</td>
-                                <td>Indicates whether or not it should be possible to sort the columns by clicking
-                                    on the header.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.table.export</td>
-                                <td>Same as @andromda.struts.view.table.columns</td>
-                                <td>true</td>
-                                <td>Denotes the different formats into which it should be possible to export the list
-                                    The value may contain the following
-                                    strings: "all", "csv", "html", "xml" and "excel". In case of absence "all" will
-                                    be the default. If you don't want to make use of the export feature then simply
-                                    leaving this value blank is sufficient.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.action.tabindex</td>
-                                <td>Action Transition</td>
-                                <td>N/A</td>
-                                <td>Denotes the tab index of the specific action. Must be a non-negative integer.</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.tabindex</td>
-                                <td>Action parameter</td>
-                                <td>N/A</td>
-                                <td>Denotes the tab index of the specific action-parameter.
-                                    Must be a non-negative integer. This feature allows splitting a form
-                                    over several different tabs.</td>
-                            </tr>
-                            <tr>
-                                <td>@andromda.struts.view.field.tablelink</td>
-                                <td>Action parameter</td>
-                                <td>N/A</td>
-                                <td>The value is of the format
-                                    <code>table.column</code>
-                                    where
-                                    <code>table</code> denotes a parameter coming into
-                                    the page of type Collection (and containing a tagged value
-                                    to indicate it is to be displayed as a table); the
-                                    <code>column</code> part is used to indicate which column of
-                                    the corresponding table is to be used for linking.
-                                    The result will be that the specified table column will contain
-                                    a hyperlink reference to the action on which this parameter
-                                    resides, this is useful to eg. display a list of persons and view
-                                    their details by simply clicking on their names in the table.
-                                </td>
-                            </tr>
-                        </table>
-                    </blockquote>
+                    <table cellpadding="5" rules="all">
+                        <tr>
+                            <th>Tagged value</th>
+                            <th>Model element</th>
+                            <th>Default value</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.action.type (*)</td>
+                            <td>Transition w/ FrontEndEvent</td>
+                            <td>form</td>
+                            <td>Indicates the type of trigger causing the action, possible values are hyperlink and form</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.type</td>
+                            <td>Parameter</td>
+                            <td>text</td>
+                            <td>Indicates the type of parameter, this information will be used when rendering the pages, possible values are: text, textarea, checkbox, radio, select, password and hidden. One of the tables below give some more information</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.required</td>
+                            <td>Parameter</td>
+                            <td>true</td>
+                            <td>Denotes whether or not this is a required field. If a field is required its type will always be checked (you cannot enter a String value when an int is expected)</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.format (**)</td>
+                            <td>Parameter</td>
+                            <td>N/A</td>
+                            <td>The format of this field's value</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.validwhen</td>
+                            <td>Parameter</td>
+                            <td>N/A</td>
+                            <td>Additional validation to be performed</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.readonly</td>
+                            <td>Parameter</td>
+                            <td>false</td>
+                            <td>Indicated the parameter is read only, it's value cannot be entered by the user</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.exception.type</td>
+                            <td>Transition w/ FrontEndException</td>
+                            <td>java.lang.Exception</td>
+                            <td>Indicates which exception this handler takes care of</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.controller.usecase</td>
+                            <td>A class with the &lt;&lt;FrontEndController&gt;&gt; stereotype</td>
+                            <td>N/A</td>
+                            <td>The value should correspond to the use-case holding the activity graph
+                                which has this controller as its context. This is used when deferring operations to
+                                the controller. Please note that if your CASE tool supports setting the context of an
+                                activity graph you will not need to explicitely set this tagged value. This feature
+                                has been provided to support tool such as Poseidon that have only limited UML support.
+                                If you are a MagicDraw user you will not need to use this tagged value, instead
+                                assign the controller by right clicking on it and selecting "Assign...".
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.usecase.activity</td>
+                            <td>A use-case with the &lt;&lt;FrontEndUseCase&gt;&gt; stereotype</td>
+                            <td>N/A</td>
+                            <td>For tools that do not allow the placement of activity graphs inside of a use-case
+                                you can use this tagged value to point to an activity graph, this will link them and
+                                denotes that the graphs specifies this use-case.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.table.columns</td>
+                            <td>A signal trigger parameter on a transition incoming to a FrontEndView action state,
+                                the type of the parameter must either be an array or a java.util.Collection
+                                implementation</td>
+                            <td>N/A</td>
+                            <td>The collection will be displayed in tabular format using the
+                                <a href="http://www.displaytag.org">&lt;display:*&gt;</a>
+                                tag-library. Each column in this table will be mapped to a property of the object
+                                type contained in the collection. So you will need to make sure all objects
+                                have accessor methods for the property you list in this tagged value.
+                                Properties are separated using a comma ',' or whitespace.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.table.maxrows</td>
+                            <td>Same as @andromda.struts.view.table.columns</td>
+                            <td>15</td>
+                            <td>This value represents the maximum number of entries shown at the same time,
+                                also known as the 'page size'. If the number of entries is a number greater
+                                than this value then a list of pages will be displayed to jump to the other values.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.table.sortable</td>
+                            <td>Same as @andromda.struts.view.table.columns</td>
+                            <td>true</td>
+                            <td>Indicates whether or not it should be possible to sort the columns by clicking
+                                on the header.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.table.export</td>
+                            <td>Same as @andromda.struts.view.table.columns</td>
+                            <td>true</td>
+                            <td>Denotes the different formats into which it should be possible to export the list
+                                The value may contain the following
+                                strings: "all", "csv", "html", "xml" and "excel". In case of absence "all" will
+                                be the default. If you don't want to make use of the export feature then simply
+                                leaving this value blank is sufficient.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.action.tabindex</td>
+                            <td>Action Transition</td>
+                            <td>N/A</td>
+                            <td>Denotes the tab index of the specific action. Must be a non-negative integer.</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.tabindex</td>
+                            <td>Action parameter</td>
+                            <td>N/A</td>
+                            <td>Denotes the tab index of the specific action-parameter.
+                                Must be a non-negative integer. This feature allows splitting a form
+                                over several different tabs.</td>
+                        </tr>
+                        <tr>
+                            <td>@andromda.struts.view.field.tablelink</td>
+                            <td>Action parameter</td>
+                            <td>N/A</td>
+                            <td>The value is of the format
+                                <code>table.column</code>
+                                where
+                                <code>table</code> denotes a parameter coming into
+                                the page of type Collection (and containing a tagged value
+                                to indicate it is to be displayed as a table); the
+                                <code>column</code> part is used to indicate which column of
+                                the corresponding table is to be used for linking.
+                                The result will be that the specified table column will contain
+                                a hyperlink reference to the action on which this parameter
+                                resides, this is useful to eg. display a list of persons and view
+                                their details by simply clicking on their names in the table.
+                            </td>
+                        </tr>
+                    </table>
                 </p>
                 <p class="std">
                     (*) See below for the difference between both action types
@@ -231,73 +229,71 @@
                     (**) For information on how to specify field validation formats see the table below.
                 </p>
                 <p class="std">
-                    <blockquote>
-                        <table cellpadding="5" rules="all">
-                            <tr>
-                                <th>Type</th>
-                                <th>Value</th>
-                                <th>Arguments</th>
-                                <th>Example</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td>int, float, double, java.lang.Integer, java.lang.Float, java.lang.Double</td>
-                                <td>range</td>
-                                <td>2 of this type</td>
-                                <td>range 2 12</td>
-                                <td>Specifies in which range the value of this attribute must fall</td>
-                            </tr>
-                            <tr>
-                                <td>java.util.Date, java.sql.Date</td>
-                                <td>N/A</td>
-                                <td>[strict] (format)</td>
-                                <td>strict dd/MM/yyyy </td>
-                                <td>The format in which dates need to be specified (optionally strict) (*)</td>
-                            </tr>
-                            <tr>
-                                <td>java.lang.String</td>
-                                <td>minlength</td>
-                                <td>an integer value</td>
-                                <td>minlength 4</td>
-                                <td>Specifies the minimum number of characters</td>
-                            </tr>
-                            <tr>
-                                <td>java.lang.String</td>
-                                <td>maxlength</td>
-                                <td>an integer value</td>
-                                <td>maxlength 4</td>
-                                <td>Specifies the maximum number of characters</td>
-                            </tr>
-                            <tr>
-                                <td>java.lang.String</td>
-                                <td>pattern</td>
-                                <td>a regular expression</td>
-                                <td>pattern ^[a-zA-Z]*$</td>
-                                <td>Validates format according to a regular expression (**)</td>
-                            </tr>
-                            <tr>
-                                <td>java.lang.String</td>
-                                <td>creditcard</td>
-                                <td>N/A</td>
-                                <td>creditcard</td>
-                                <td>Validates the value to be a creditcard number, according to what is known as the Luhn check</td>
-                            </tr>
-                            <tr>
-                                <td>java.lang.String</td>
-                                <td>email</td>
-                                <td>N/A</td>
-                                <td>email</td>
-                                <td>Checks if the specified value is a possible email address, IP addresses are also taken into account</td>
-                            </tr>
-                            <tr>
-                                <td>java.net.URL</td>
-                                <td>url</td>
-                                <td>N/A</td>
-                                <td>url</td>
-                                <td>Checks if the specified value is a possible URL</td>
-                            </tr>
-                        </table>
-                    </blockquote>
+                    <table cellpadding="5" rules="all">
+                        <tr>
+                            <th>Type</th>
+                            <th>Value</th>
+                            <th>Arguments</th>
+                            <th>Example</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>int, float, double, java.lang.Integer, java.lang.Float, java.lang.Double</td>
+                            <td>range</td>
+                            <td>2 of this type</td>
+                            <td>range 2 12</td>
+                            <td>Specifies in which range the value of this attribute must fall</td>
+                        </tr>
+                        <tr>
+                            <td>java.util.Date, java.sql.Date</td>
+                            <td>N/A</td>
+                            <td>[strict] (format)</td>
+                            <td>strict dd/MM/yyyy </td>
+                            <td>The format in which dates need to be specified (optionally strict) (*)</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>minlength</td>
+                            <td>an integer value</td>
+                            <td>minlength 4</td>
+                            <td>Specifies the minimum number of characters</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>maxlength</td>
+                            <td>an integer value</td>
+                            <td>maxlength 4</td>
+                            <td>Specifies the maximum number of characters</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>pattern</td>
+                            <td>a regular expression</td>
+                            <td>pattern ^[a-zA-Z]*$</td>
+                            <td>Validates format according to a regular expression (**)</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>creditcard</td>
+                            <td>N/A</td>
+                            <td>creditcard</td>
+                            <td>Validates the value to be a creditcard number, according to what is known as the Luhn check</td>
+                        </tr>
+                        <tr>
+                            <td>java.lang.String</td>
+                            <td>email</td>
+                            <td>N/A</td>
+                            <td>email</td>
+                            <td>Checks if the specified value is a possible email address, IP addresses are also taken into account</td>
+                        </tr>
+                        <tr>
+                            <td>java.net.URL</td>
+                            <td>url</td>
+                            <td>N/A</td>
+                            <td>url</td>
+                            <td>Checks if the specified value is a possible URL</td>
+                        </tr>
+                    </table>
                 </p>
                 <p class="std">
                     (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please
