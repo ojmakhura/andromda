@@ -8,20 +8,20 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 
     <template
-        sheet="EntityBean.vsl"
+        path="EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="beans"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement stereotype="Entity"/>
         </modelElements>
     </template>
 
     <template
-        sheet="EntityBeanImpl.vsl"
+        path="EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="impls"
-        overWrite="false"
+        overwrite="false"
         generateEmptyFiles="true">
         <modelElements variable="entity">
             <modelElement stereotype="Entity"/>
