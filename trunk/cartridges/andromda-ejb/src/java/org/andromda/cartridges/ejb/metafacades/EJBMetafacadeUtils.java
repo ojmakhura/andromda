@@ -1,10 +1,17 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +37,7 @@ class EJBMetafacadeUtils
         final String methodName = "EJBMetafacadeUtils.getCreateMethods";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         Collection retval = new ArrayList();
-        ClassifierFacade entity = (ClassifierFacade) classifier; 
+        ClassifierFacade entity = classifier; 
         do
         {
         	Collection ops = entity.getOperations(); 
