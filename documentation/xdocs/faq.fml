@@ -5,7 +5,39 @@
     <part id="usage">
         <title>Using AndroMDA</title>
 
-        <faq id="maven">
+        <faq id="namespace-properties">
+            <question>
+                How can I know what namespace properties I can set ?
+            </question>
+            <answer>
+                <p>
+                    We distinguish two types of namespace properties, first of all we have the
+                    properties that have been defined on the generic metafacade level, this
+                    is the metamodel that will always be used no matter what cartridges we are using.
+                    Secondly we have the cartride namespace properties, there is a set of properties
+                    defined on the level of the cartridge. All cartridges have namespace properties,
+                    for example to specify where to output a certain family of files. An example would
+                    be the 'enumerations' property in the
+                    <a href="andromda-java-cartridge/namespace.html">Java Cartridge</a>.
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li>
+                            <a href="andromda-metafacades-uml/namespace.html">Metafacade properties</a>:
+                            The properties you can always use, regardless of any cartridges.
+                        </li>
+                        <li>
+                            <a href="andromda-cartridges/index.html">Cartridge properties</a>:
+                            Since each cartridge defines its own set of properties (although some properties have the same
+                            for convenience) this link points to the 'Cartridges' page, select a cartridge
+                            and click on 'Namespace' to see its namespace properties.
+                        </li>
+                    </ul>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="schema2xmi">
             <question>
                 My company likes our DBA to design our database schemas,
                 is there any way that I can generate a model from an
@@ -121,6 +153,7 @@
                 </p>
             </answer>
         </faq>
+
         <faq id="speed">
             <question>
                 I have a large model and it takes a while for AndroMDA to process everything,
@@ -171,6 +204,42 @@
     <part id="third-party">
         <title>Third-party tools</title>
 
+        <faq id="profile-import">
+            <question>
+                How do I import the andromda profile ?
+            </question>
+            <answer>
+                <p>
+                    Since the andromda profile contains all the datatypes, tagged values and stereotypes that are known
+                    to work with AndroMDA and the cartridges it's pretty important you are able to properly
+                    achieve the import into your own project. It depends on what tool you are using, two are listed here.
+                </p>
+                <p>
+                    You can find the AndroMDA UML Profile in the
+                    <a href="http://sourceforge.net/project/showfiles.php?group_id=73047">distribution</a>,
+                    if you're using <a href="http://maven.apache.org/">Maven</a> and you it has already downloaded
+                    the AndroMDA dependencies you should be able to find the profile here:
+                    <code>${user.home}/.maven/repository/andromda/xml.zips/</code>
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li>
+                            <a href="http://www.magicdraw.com/">MagicDraw</a>: select 'Use Profile/Module' from the
+                            'File' menu. Browse to the
+                            <a href="http://team.andromda.org/maven/andromda/xml.zips/">andromda-profile-XXX.xml.zip</a>
+                            (replace XXX with the version number) and import it using the dialog.
+                        </li>
+                        <li>
+                            <a href="http://www.genleware.com/">Poseidon</a>: select 'Merge Project into current' from
+                            the 'File' menu. Browse to the
+                            <a href="http://team.andromda.org/maven/andromda/xml.zips/">andromda-profile-XXX.xml.zip</a>
+                            (replace XXX with the version number) and import it using the dialog.
+                        </li>
+                    </ul>
+                </p>
+            </answer>
+        </faq>
+
         <faq id="magicdraw-uml-standard-profile">
             <question>
                 I tried using MagicDraw with Andromda v2.1.2 by trying with the model-report cartridge that comes
@@ -202,6 +271,20 @@
                 </p>
                 <p>
                     See also the MagicDraw 7.5 manual for details, especially the chapter about "Module management".
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="case-tools">
+            <question>
+                What UML tools can I use in combination with AndroMDA ?
+            </question>
+            <answer>
+                <p>
+                    Two tools are known to work well with AndroMDA:
+                    <a href="http://www.magicdraw.com/">MagicDraw</a> and
+                    <a href="http://www.gentleware.com/">Poseidon</a>. For a more comprehensive list of tools that
+                    have been tested, go here: <a href="case-tools.html">UML tools</a>.
                 </p>
             </answer>
         </faq>
