@@ -41,6 +41,10 @@
 ##  SETS THE JAVASCRIPT CONTENT
 ##
     <tiles:put name="javascript" type="string">
+## only load the calendar javascript when actually needed
+#if ($class.dateFieldPresent)
+    	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
+#end
 ## only load the static javascript when it will actually be used
 #set ($hasTabs = $class.tabbed)
 #foreach ($action in $actions)
@@ -50,7 +54,7 @@
 #end
 #set ($validationDesired = ($clientValidation=='true'))
 #if ($class.validationRequired && $validationDesired)
-        <script type="text/javascript" src="<html:rewrite page="/form-validation.jsp"/>"></script>
+        <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
 #foreach ($action in $actions)
 #if ($action.validationRequired)
 #if ($xhtml == "true")
@@ -62,7 +66,7 @@
 #end
 #end
 #if ($hasTabs)
-        <script type="text/javascript" src="<html:rewrite page="/layout/layout-common.js"/>"></script>
+        <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/layout-common.js"/>"></script>
 #end
     </tiles:put>
 
@@ -165,7 +169,7 @@
         </div>
 
 #if ($class.tabbed)
-        <script type="text/javascript">
+        <script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")
         //<![CDATA[
 #else

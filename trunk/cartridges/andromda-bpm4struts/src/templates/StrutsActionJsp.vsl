@@ -106,6 +106,26 @@
                 </tbody>
             </table>
         </form>
+#if ($action.dateFieldPresent)
+        <script type="text/javascript" language="Javascript1.1">
+#if ($xhtml == "true")
+        //<![CDATA[
+#else
+        //<!--
+#end
+#foreach ($field in $action.actionParameters)
+#if ($field.date)
+           var ${action.formBeanName}${field.name}Calendar = new calendar1(document.forms['$action.formBeanName'].elements['$field.name']);
+           ${action.formBeanName}${field.name}Calendar.date_format = '$field.dateFormat';
+#end
+#end
+#if ($xhtml == "true")
+        //]]>
+#else
+        //-->
+#end
+        </script>
+#end
 #end
     </div>
     <div class="triggerdoc">
