@@ -125,6 +125,15 @@
             <email>hweyhing@users.sourceforge.net</email>
             <roles/>
         </developer>
+        <developer>
+            <name>Sascha-Matthias Kulawik</name>
+            <id>skulawik</id>
+            <email>skulawik@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+                <role>EJB</role>
+            </roles>
+        </developer>
     </developers>
     <contributors>
         <contributor>
@@ -135,6 +144,7 @@
             </roles>
         </contributor>
     </contributors>
+    <build/>
     <reports>
         <report>maven-faq-plugin</report>
         <report>maven-multiproject-plugin</report>
