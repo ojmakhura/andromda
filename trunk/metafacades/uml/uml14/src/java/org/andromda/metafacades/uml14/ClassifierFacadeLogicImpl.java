@@ -460,4 +460,21 @@ public class ClassifierFacadeLogicImpl
             }
         };
     }
+
+    protected Collection handleGetConstantAttributes()
+    {
+        return new FilteredCollection(this.getAttributes())
+        {
+            public boolean evaluate(Object object)
+            {
+                final AttributeFacade attribute = (AttributeFacade) object;
+                return attribute.isStatic() && attribute.isReadOnly();
+            }
+        };
+    }
+
+    protected Collection handleGetLiterals()
+    {
+        return getConstantAttributes();
+    }
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -209,5 +210,15 @@ public class AttributeFacadeLogicImpl
             }
         }
         return lower;
+    }
+
+    protected Object handleGetEnumeration()
+    {
+        return (isEnumerationLiteral()) ? getOwner() : null;
+    }
+
+    protected boolean handleIsEnumerationLiteral()
+    {
+        return getOwner() instanceof EnumerationFacade;
     }
 }
