@@ -44,10 +44,12 @@
 	<property reference="beanRefFactoryId" default="beanRefFactory"/>
 	<property reference="transactionManager" default="org.springframework.orm.hibernate.HibernateTransactionManager"/>
 	<property reference="sessionFactory" default="org.springframework.orm.hibernate.LocalSessionFactoryBean"/>
-	<!-- the package to which the service locator will be generated -->
-	<property reference="serviceLocatorPackage" default="org.andromda.spring"/>
+	<!-- the package to which extra types are generated (i.e. ServiceLocator) -->
+	<property reference="springTypesPackage" default="org.andromda.spring"/>
 	<!-- the name to give the service locator class -->
 	<property reference="serviceLocatorName" default="ServiceLocator"/>
+    <!-- the name to give the principal store class -->
+    <property reference="principalStoreName" default="PrincipalStore"/>
 	<property reference="ejbViewType" default="local"/>
     <property reference="ejbSecurityDomain" default=""/>
 	<!-- not really used from the template except to check if it has been defined
@@ -117,6 +119,13 @@
             </modelElement> 
 		</modelElements>
 	</template>
+    
+	<template 
+		path="templates/spring/SpringPrincipalStore.java.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="services" 
+		overwrite="true"
+		outputToSingleFile="true"/>
 	
 	<template 
 		path="templates/spring/SpringServiceImpl.vsl" 
@@ -311,5 +320,5 @@
 		outlet="spring-configuration" 
 		overwrite="true"
 		outputToSingleFile="true"/>
-	
+        	
 </cartridge>

@@ -16,7 +16,7 @@ public class $service.webServiceDelegatorName
 #set ($serviceGetter = "get${service.name}()")
     private final ${service.fullyQualifiedName} $serviceGetter
     {
-        return ${serviceLocatorPackage}.ServiceLocator.instance().${serviceGetter};
+        return ${springTypesPackage}.ServiceLocator.instance().${serviceGetter};
     }
 
 #set ($operations = $service.operations)

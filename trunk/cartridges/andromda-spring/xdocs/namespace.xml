@@ -93,11 +93,11 @@
 				</tr>
 				<tr>
 					<td>
-						serviceLocatorPackage
+						springTypesPackage
 					</td>
 					<td>
-						The package to which the global service locator
-						will be generated.
+						The package to which the extra non modeled spring types
+						will be generated. (i.e. the service locator, etc).
 					</td>
 					<td>
 						No (unless <a href="#service-locator">service-locator</a>
@@ -105,6 +105,21 @@
 						has been defined, it will be generated within <strong>org.andromda.spring</strong>.
 					</td>
 				</tr>
+                <tr>
+                    <td>
+                        principalStoreName
+                    </td>
+                    <td>
+                        The name to give the class that stores the <code>java.security.Principal</code>
+                        that is made available to the spring POJOs. <strong>Note:</strong> 
+                        that this class will not be needed if you're wrapping your 
+                        spring service POJOs with Session EJBs (i.e. using the 
+                        <a href="#session-ejbs">session-ejbs</a> property).
+                    </td>
+                    <td>
+                        No, default is <code>PrincipalStore</code>.
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						serviceLocatorName
@@ -478,6 +493,7 @@
             <subsection name="EJB Specific Properties">
                 <table>
                     <tr>
+                        <a name="session-ejbs"/>
                         <td>
                             session-ejbs
                         </td>
