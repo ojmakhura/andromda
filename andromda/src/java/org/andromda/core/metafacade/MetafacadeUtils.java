@@ -1,15 +1,10 @@
 package org.andromda.core.metafacade;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
-import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -19,87 +14,6 @@ import org.apache.log4j.Logger;
  */
 class MetafacadeUtils
 {
-    /**
-     * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,
-     * <code>suffixHead</code> and <code>suffixes</code> is optional.
-     * 
-     * @param object the begining of the key
-     * @param suffixHead the head of the suffix list. This allows us to specify
-     *        a value as the head of the suffix list, which is necessary as the
-     *        list is sorted alphabetically.
-     * @param suffixes a collection of suffixes to append
-     * @return the constructed key
-     */
-    static String constructKey(
-        Object object,
-        String suffixHead,
-        Collection suffixes)
-    {
-        final String methodName = "MetafacadeMapping.constructKey";
-        ExceptionUtils.checkNull(methodName, "object", object);
-        StringBuffer key = new StringBuffer(String.valueOf(object));
-        char seperator = ':';
-        if (StringUtils.isNotEmpty(suffixHead))
-        {
-            key.append(seperator);
-            key.append(suffixHead);
-        }
-        if (suffixes != null)
-        {
-            List sortedSuffixes = new ArrayList(suffixes);
-            // sort the suffixes so that the key is always in the same order
-            // when constructing
-            Collections.sort(sortedSuffixes);
-            for (Iterator suffixIterator = sortedSuffixes.iterator(); suffixIterator
-                .hasNext();)
-            {
-                key.append(seperator);
-                key.append(suffixIterator.next());
-            }
-        }
-        if (getLogger().isDebugEnabled())
-            getLogger().debug(
-                "completed '" + methodName + "' with key --> '" + key + "'");
-        return key.toString();
-    }
-
-    /**
-     * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,
-     * <code>suffixHead</code> and <code>suffix</code> are optional.
-     * 
-     * @param object the begining of the key
-     * @param suffixHead the head of the suffix. This value will be appended
-     *        before the suffix.
-     * @param suffix a single suffix to append
-     * @return the constructed key
-     */
-    static String constructKey(Object object, String suffixHead, String suffix)
-    {
-        List suffixes = null;
-        if (suffix != null)
-        {
-            suffixes = new ArrayList();
-            suffixes.add(suffix);
-        }
-        return constructKey(object, suffixHead, suffixes);
-    }
-
-    /**
-     * Constructs the unique key format expected for this mapping. Note that the
-     * only argument required is the <code>object</code>,<code>suffix</code>
-     * is optional.
-     * 
-     * @param object the begining of the key
-     * @param suffix a single suffix to append
-     * @return the constructed key
-     */
-    static String constructKey(Object object, String suffix)
-    {
-        return constructKey(object, suffix, (String)null);
-    }
-
     /**
      * Indicates whether or not the mapping properties (present on the mapping,
      * if any) are valid on the <code>metafacade</code>.

@@ -264,45 +264,6 @@ public class MetafacadeMapping
     }
 
     /**
-     * The key used to uniquely identify this mapping.
-     */
-    private String key;
-
-    /**
-     * Gets the unique key that identifies this mapping.
-     */
-    protected String getKey()
-    {
-        final MetafacadeMappings parent = this.getMetafacadeMappings();
-        // we keep constructing the key until the parent MetafacadeMappings
-        // instance is fully initialized becaues we don't know if this
-        // instance is fully initialized until that point.
-        if ((this.key == null && this.mappingClassName != null)
-            || parent == null || !parent.isInitialized())
-        {
-            key = MetafacadeUtils.constructKey(
-                this.mappingClassName,
-                this.mappings.getNamespace());
-            key = MetafacadeUtils.constructKey(
-                key,
-                this.context,
-                this.stereotypes);
-            if (this.hasMappingProperties())
-            {
-                Iterator mappingPropertyIterator = this
-                    .getMappingPropertyGroups().iterator();
-                while (mappingPropertyIterator.hasNext())
-                {
-                    PropertyGroup group = (PropertyGroup)mappingPropertyIterator
-                        .next();
-                    key = MetafacadeUtils.constructKey(key, group.toString());
-                }
-            }
-        }
-        return key;
-    }
-
-    /**
      * The context to which this mapping applies.
      */
     private String context = "";
