@@ -103,6 +103,20 @@
 	        			Yes
 	        		</td>
 	        	</tr>
+                <tr>
+                    <td>
+                        foreignKeySuffix
+                    </td>
+                    <td>
+                        The suffix to use when creating foreign keys for entity associations.
+                    </td>
+                    <td>
+                        EntityAssociationEndFacade
+                    </td>
+                    <td>
+                        No, default is <code>_FK</code>
+                    </td>
+                </tr>
 				<tr>
 					<td>
 						allowDefaultIdentifiers
