@@ -163,4 +163,27 @@
 			AND legalAgreement.agreementTypePk = ?2
 		</to>
 	</expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate) 
+            body findInvalidByPerson : 
+                allInstances() -> select( certificate | 
+                   certificate.person.id = personId 
+                   and (certificate.validityStart > date or certificate.validityEnd < date)
+                   or (certificate.validityStart = certificate.validityEnd)) 
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            SELECT DISTINCT OBJECT(certificate) 
+			FROM MedicalCertificate certificate
+			WHERE certificate.person.id = ?1 
+			AND (certificate.validityStart > ?2 OR certificate.validityEnd < ?2)
+            OR (certificate.validityStart = certificate.validityEnd)   
+            ]]>          
+        </to> 
+    </expression>
+    
 </translation-test>
