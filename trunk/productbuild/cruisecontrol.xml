@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cruisecontrol>
+  <project name="andromda-all">
+    <bootstrappers>
+      <currentbuildstatusbootstrapper file="/mnt/hdc4/work/andromda/andromda-all/logs/andromda-all/currentbuildstatus.txt">
+      </currentbuildstatusbootstrapper>
+    </bootstrappers>
+    <modificationset>
+      <cvs localWorkingCopy="/work/andromda/andromda-all" cvsroot=":ext:amartinwest@cvs.sourceforge.net:/cvsroot/andromda">
+      </cvs>
+    </modificationset>
+    <schedule interval="900">
+      <maven goal="clean|scm:update-project|dist|docs" projectfile="/work/andromda/andromda-all/project.xml" mavenscript="/usr/local/maven/bin/maven">
+      </maven>
+    </schedule>
+    <log dir="/mnt/hdc4/work/andromda/andromda-all/logs/andromda-all">
+      <!-- merge dir="/work/andromda/andromda-all/target/test-reports">
+      </merge -->
+    </log>
+    <publishers>
+      <currentbuildstatuspublisher file="/mnt/hdc4/work/andromda/andromda-all/logs/andromda-all/currentbuildstatus.txt">
+      </currentbuildstatuspublisher>
+      <htmlemail logdir="/mnt/hdc4/work/andromda/andromda-all/logs/andromda-all" 
+           mailhost="localhost" 
+           subjectprefix="[BUILD]" 
+           returnaddress="cwbrandon@users.sourceforge.net" 
+           defaultsuffix="@users.sourceforge.net" 
+           xslfile="/usr/local/cruisecontrol/reporting/jsp/xsl/header.xsl">
+        <map address="mattes3@users.sourceforge.net" alias="mattes3">
+        </map>
+        <map address="cwbrandon@users.sourceforge.net" alias="cwbrandon">
+        </map>
+        <map address="draftdog@users.sourceforge.net" alias="draftdog">
+        </map>
+        <map address="skulawik@users.sourceforge.net" alias="skulawik">
+        </map>
+        <map address="amartinwest@users.sourceforge.net" alias="amartinwest">
+        </map>
+        <map address="carloslcuenca@users.sourceforge.net" alias="carloslcuenca">
+        </map>
+        <failure address="cwbrandon@users.sourceforge.net">
+        </failure>
+        <always address="martin.west@dsl.pipex.com">
+        </failure>
+      </htmlemail>
+    </publishers>
+  </project>
+</cruisecontrol>
