@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -293,5 +294,13 @@ public class ClassifierFacadeLogicImpl
         attribute.setVisibility(UMLMetafacadeUtils
             .getVisibilityKind(visibility));
         this.metaObject.getFeature().add(attribute);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacade#isEnumeration()
+     */
+    public boolean handleIsEnumeration()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
     }
 }

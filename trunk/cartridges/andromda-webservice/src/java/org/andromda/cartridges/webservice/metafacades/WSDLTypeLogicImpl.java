@@ -2,7 +2,6 @@ package org.andromda.cartridges.webservice.metafacades;
 
 import java.text.MessageFormat;
 
-import org.andromda.cartridges.webservice.WebServiceProfile;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
@@ -116,14 +115,6 @@ public class WSDLTypeLogicImpl
             this.getQName()).replaceAll("\\[\\]", ""));
         name.insert(0, ARRAY_NAME_PREFIX);
         return name.toString();
-    }
-
-    /**
-     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#isEnumeration()
-     */
-    public boolean handleIsEnumeration()
-    {
-        return this.hasStereotype(WebServiceProfile.STEREOTYPE_ENUMERATION);
     }
 
     /**
