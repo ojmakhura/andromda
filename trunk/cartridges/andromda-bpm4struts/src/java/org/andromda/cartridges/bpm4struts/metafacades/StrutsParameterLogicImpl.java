@@ -232,7 +232,7 @@ public class StrutsParameterLogicImpl
         if (isCreditCardFormat(format))
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\">creditcard</a> ");
+                    "<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\" target=\"_blank\">creditcard</a> ");
             buffer.append(crlf);
         }
 
