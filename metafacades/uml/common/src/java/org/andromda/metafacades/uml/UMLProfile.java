@@ -4,7 +4,7 @@ import org.andromda.core.common.Profile;
 
 /**
  * Contains the common UML AndroMDA profile. That is, it contains elements
- * "common" to all AndroMDA components (tagged values, and stereotypes).
+ * "common" to all AndroMDA components (tagged values, stereotypes, and datatypes).
  * 
  * @author Chad Brandon
  */
