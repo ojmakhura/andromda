@@ -74,9 +74,9 @@ public class ExceptionRecorder
     }
     
     /**
-     * Gets the shared instance of the ModelProcessor.
+     * Gets the shared instance of the ExceptionRecorder.
      * 
-     * @return the shared ModelProcessor instance.
+     * @return the shared ExceptionRecorder instance.
      */
     public static ExceptionRecorder instance()
     {
