@@ -67,6 +67,18 @@
             <modelElement stereotype="Service"/>
 		</modelElements>
 	</template>
+    
+	<template 
+		path="templates/spring/ejb/SpringSessionEJBLocator.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="service-locator" 
+		overwrite="true"
+		outputToSingleFile="true"
+		required="false">
+		<modelElements variable="services">
+            <modelElement stereotype="Service"/>
+		</modelElements>
+	</template>
 	
 	<template 
 		path="templates/spring/SpringService.vsl" 
