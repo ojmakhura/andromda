@@ -3,8 +3,8 @@
 ##
 #macro (renderSubClass $entity)
 	    <subclass
-		    name="${entity.fullyQualifiedEntityImplementationName}"
-		    discriminator-value="${entity.entityImplementationName}">
+		    name="$entity.fullyQualifiedEntityImplementationName"
+		    discriminator-value="$entity.entityImplementationName">
 #renderPropertiesAndAssociations($entity)		
 #foreach ($entity in $entity.specializations)
 #renderSubClass($entity)
@@ -30,10 +30,10 @@
 #if ($otherEnd.navigable)
 #if ($sourceEnd.one2One)
 #if ($foreignGeneratorClass)
-		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="delete"#end constrained="false"/>
+		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$cascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true" #if ($otherEnd.child) cascade="delete"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true" #if ($otherEnd.child) cascade="$cascade"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #else
@@ -42,18 +42,18 @@
 #end
 #end
 #if ($sourceEnd.one2Many)
-		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="delete"#end>
+		<set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
         	<key>
             	<column name="$sourceEnd.columnName"/>
             </key>
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </set>    
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="delete"#end#if ($sourceEnd.required) not-null="true"#end >
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$cascade"#end#if ($sourceEnd.required) not-null="true"#end >
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="delete"#end>
+        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="true" inverse="true"#if ($otherEnd.child) cascade="$cascade"#end>
             <key>
                 <column name="$otherEnd.columnName"/>
             </key>

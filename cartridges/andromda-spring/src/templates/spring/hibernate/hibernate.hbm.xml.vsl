@@ -3,6 +3,10 @@
 ## generated as <subclass/> elements of the parent 
 #if ($entity.generalizations.empty)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityName}.hbm.xml")
+#set ($cascade = "delete")
+#if ($hibernateDefaultCascade.equalsIgnoreCase("save-update"))
+#set ($cascade = "all-${cascade}-orphan")
+#end
 <?xml version="1.0"?>
 <!-- 
      Attention: Generated code! Do not modify by hand!
@@ -11,8 +15,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
           "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
 
-<hibernate-mapping default-cascade="${hibernateDefaultCascade}">
-	<class name="${entity.fullyQualifiedEntityImplementationName}" table="${entity.tableName}">
+<hibernate-mapping default-cascade="$hibernateDefaultCascade">
+	<class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName">
 
 #set ($foreignGeneratorClass = $entity.hibernateGeneratorClass.equalsIgnoreCase("foreign"))
 #set ($identifier = $entity.identifiers.iterator().next())
