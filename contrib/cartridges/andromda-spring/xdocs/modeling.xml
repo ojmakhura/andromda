@@ -78,11 +78,16 @@
 			          	<th>Description</th>    	     	
 		        	</tr>
 		        	<tr>
+                        <a name="@andromda.hibernate.generator.class"/>
 			          	<td>
+                            @andromda.hibernate.generator.class
 			          	</td>
 						<td>
+                            <strong><![CDATA[<<Entity>>]]></strong>
 						</td>
 			          	<td>
+                            Used to define the generate class used for the hibernate entity.
+                            Any of the hibernate generator classes may be used.
 			          	</td>
 		        	</tr>					        	        	      	        	        		        	        	        	     	             	        	
 		        </table>

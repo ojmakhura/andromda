@@ -289,6 +289,19 @@
 							No, default is <code>org.andromda.persistence.hibernate</code>
 						</td>
 					</tr>
+                    <tr>
+                        <td>
+                            defaultHibernateGeneratorClass
+                        </td>
+                        <td>
+                            The default hibernate generator class.  This is what is used
+                            if no <a href="modeling.html#@andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a> is defined
+                            for an entity.
+                        </td>
+                        <td>
+                            No, default is <code>native</code>.
+                        </td>
+                    </tr>
 					<tr>
 						<td>
 							hibernatePoolSize
