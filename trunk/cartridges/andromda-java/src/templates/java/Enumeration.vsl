@@ -101,9 +101,9 @@ $literal.getDocumentation("     * ")
      */
     public boolean equals(Object object)
     {
-        return object != null &&
-            object.toString().equals(
-                this.toString());
+        return (this == object)
+            || (object instanceof $enumeration.name && (($enumeration.name)object).getValue().equals(
+                this.getValue()));
     }
 
     /**
@@ -111,7 +111,7 @@ $literal.getDocumentation("     * ")
      */
     public int hashCode()
     {
-        return toString().hashCode();
+        return this.getValue().hashCode();
     }
     
     private static final java.util.Map values = new java.util.HashMap();
