@@ -1,0 +1,87 @@
+Package org.andromda.maven.site.highlight.xml;
+
+/*******************************************************************
+ * Helpers                                                         *
+ *******************************************************************/
+Helpers
+
+    any = [0..0xffff];
+
+    ht = 0x0009;
+    lf = 0x000a;
+    ff = 0x000c;
+    cr = 0x000d;
+    sp = ' ';
+
+    eol = lf | cr | cr lf;
+
+    symbol = 0x0021 | [0x0023..0x002c] | 0x002e | [0x003f..0x0040] | [0x005b..0x005e] | [0x007b..0x007e] | 0x003b;
+    name_character = ['a'..'z'] | ['A'..'Z'] | ['0'..'9'] | '-' | '_' | ':';
+
+    not_hyphen = [any - '-'];
+    not_greater_than = [any - '>'];
+    not_quote_not_eol = [any - ['"' + [cr + lf]]];
+
+    right_bracket = ']]';
+    not_right_bracket = [any - ']'];
+
+/*******************************************************************
+ * Tokens                                                          *
+ *******************************************************************/
+Tokens
+
+    whitespace = (ht | ff | sp | eol)*;
+
+    symbols = symbol+;
+    name = name_character+;
+
+    comment = '<!--' ('-'? not_hyphen+)* '-->';
+    cdata = '<![CDATA[' (not_right_bracket | (right_bracket not_right_bracket) | (right_bracket right_bracket+ not_greater_than))* ']]>';
+
+    eq = '=';
+    quote = '"';
+    slash = '/';
+    start_tag = '<';
+    end_tag = '>';
+
+/*******************************************************************
+ * Productions                                                     *
+ *******************************************************************/
+Productions
+
+document =
+    block*;
+
+block =
+    {text} text |
+    {cdata} cdata |
+    {comment} comment |
+    {element} element;
+
+text =
+    {space} whitespace |
+    {symbols} symbols |
+    {name} name;
+
+element =
+    start_tag [lslash]:slash? [lspace]:whitespace? element_name attribute* [rspace]:whitespace? [rslash]:slash? end_tag;
+
+element_name =
+    name;
+
+attribute =
+    [lspace]:whitespace? attribute_name [cspace]:whitespace? attribute_value;
+
+attribute_name =
+    name whitespace? eq;
+
+attribute_value =
+    [lquote]:quote attribute_value_characters* [rquote]:quote;
+
+attribute_value_characters =
+    {symbols} symbols |
+    {name} name |
+    {slash} slash |
+    {start_tag} start_tag |
+    {end_tag} end_tag |
+    {eq} eq;
