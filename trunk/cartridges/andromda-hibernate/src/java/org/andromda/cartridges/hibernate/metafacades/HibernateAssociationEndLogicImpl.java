@@ -310,8 +310,8 @@ public class HibernateAssociationEndLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
         if (orderColumns == null)
         {
-            orderColumns = (String)((EntityAssociationEnd)this
-                .getOtherEnd()).getColumnName();
+            orderColumns = (String)((EntityAssociationEnd)this.getOtherEnd())
+                .getColumnName();
 
         }
         return orderColumns;
@@ -353,11 +353,11 @@ public class HibernateAssociationEndLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         ClassifierFacade type = this.getType();
         if (type != null
-                && HibernateEntity.class.isAssignableFrom(type.getClass()))
-            {
-             HibernateEntity entity = (HibernateEntity)type;
-             indexName=entity.findAttribute(indexName).getName();
-            }
+            && HibernateEntity.class.isAssignableFrom(type.getClass()))
+        {
+            HibernateEntity entity = (HibernateEntity)type;
+            indexName = entity.findAttribute(indexName).getName();
+        }
         return indexName;
     }
 
@@ -402,11 +402,12 @@ public class HibernateAssociationEndLogicImpl
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         ClassifierFacade type = this.getType();
         if (type != null
-                && HibernateEntity.class.isAssignableFrom(type.getClass()))
-            {
-             HibernateEntity entity = (HibernateEntity)type;
-             indexName=entity.findAttribute(indexName).getType().getFullyQualifiedName();
-            }
+            && HibernateEntity.class.isAssignableFrom(type.getClass()))
+        {
+            HibernateEntity entity = (HibernateEntity)type;
+            indexName = entity.findAttribute(indexName).getType()
+                .getFullyQualifiedName();
+        }
         return indexName;
     }
 
