@@ -8,8 +8,8 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-03-19" description="First release candidate for version 3.0">
-            <action dev="cwbrandon" type="update" issue="HIB-71">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-03-26" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="SPRING-52">
                 The Spring cartridge now has configurable transactions for Spring service operations.  This change required
                 the rename of @andromda.transaction.type to @andromda.ejb.transaction.type to prevent conflicts with 
                 the spring service transaction tagged value (@andromda.spring.transaction.type) and to be consistent
