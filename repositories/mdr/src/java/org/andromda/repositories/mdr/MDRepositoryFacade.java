@@ -1,5 +1,6 @@
 package org.andromda.repositories.mdr;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -174,7 +175,14 @@ public class MDRepositoryFacade implements RepositoryFacade
         }
         try  
         {          
-	        FileOutputStream outputStream = new FileOutputStream(outputLocation);
+            // ensure the directory we're writing to exists
+            File file = new File(outputLocation);
+            File parent = file.getParentFile();
+            if (parent != null)
+            {
+                parent.mkdirs();
+            }
+	        FileOutputStream outputStream = new FileOutputStream(file);
 	        XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
 	        xmiWriter.getConfiguration().setEncoding("UTF-8");	        
 	        xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion); 
