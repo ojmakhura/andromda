@@ -2,10 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.*;
 
 import java.util.*;
 
@@ -208,7 +205,7 @@ public class StrutsActionLogicImpl
     public String handleGetMessageKey()
     {
         String messageKey = getActivityGraph().getUseCase().getName() + ' ';
-        messageKey += (isUseCaseStart()) ? messageKey : getInput().getName();
+        messageKey += (isExitingPage()) ? getInput().getName() : messageKey;
         return StringUtilsHelper.toResourceMessageKey(messageKey);
     }
 
@@ -228,7 +225,7 @@ public class StrutsActionLogicImpl
      */
     public String getPackageName()
     {
-        return getActivityGraph().getController().getPackageName();
+        return getActivityGraph().getUseCase().getPackageName();
     }
 
     public boolean handleIsResettable()
@@ -330,7 +327,10 @@ public class StrutsActionLogicImpl
 
     public String handleGetDocumentationKey()
     {
-        return getActionTrigger().getTriggerKey() + ".documentation";
+        StrutsTrigger trigger = getActionTrigger();
+        return ((trigger == null)
+                ? getMessageKey() + ".is.an.action.without.trigger"
+                : getActionTrigger().getTriggerKey()) + ".documentation";
     }
 
     public String handleGetDocumentationValue()
@@ -341,7 +341,10 @@ public class StrutsActionLogicImpl
 
     public String handleGetOnlineHelpKey()
     {
-        return getActionTrigger().getTriggerKey() + ".online.help";
+        StrutsTrigger trigger = getActionTrigger();
+        return ((trigger == null)
+                ? getMessageKey() + ".is.an.action.without.trigger"
+                : getActionTrigger().getTriggerKey()) + ".online.help";
     }
 
     public String handleGetOnlineHelpValue()
@@ -404,7 +407,24 @@ public class StrutsActionLogicImpl
      */
     protected java.lang.Object handleGetInput()
     {
-        return getSource();
+        Object input = null;
+        ModelElementFacade source = getSource();
+        if (source instanceof PseudostateFacade)
+        {
+            PseudostateFacade pseudostate = (PseudostateFacade) source;
+            if (pseudostate.isInitialState())
+            {
+                input = source;
+            }
+        }
+        else
+        {
+            if (source.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_VIEW))
+            {
+                input = source;
+            }
+        }
+        return input;
     }
 
     /**
