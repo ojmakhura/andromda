@@ -15,6 +15,32 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class $service.defaultExceptionName
     extends java.lang.RuntimeException
 {	
+    /**
+     * The default constructor for <code>$service.defaultExceptionName</code>.
+     */
+    public ${service.defaultExceptionName}() 
+    {}
+
+	/**
+	 * Constructs a new instance of <code>$service.defaultExceptionName</code>.
+	 *
+	 * @param throwable the parent Throwable
+	 */
+	public ${service.defaultExceptionName}(Throwable throwable) 
+	{
+		super(findRootCause(throwable));	
+	}
+	
+	/**
+	 * Constructs a new instance of <code>$service.defaultExceptionName</code>.
+	 *
+	 * @param message the throwable message.
+	 */
+	public ${service.defaultExceptionName}(String message) 
+	{
+		super(message);	
+	}
+
 	/**
 	 * Constructs a new instance of <code>$service.defaultExceptionName</code>.
 	 *
