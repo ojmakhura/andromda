@@ -5,16 +5,24 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.LinkedList;
+import java.io.Serializable;
 
 public class PurchaseController implements PurchaseControllerInterface
 {
     private static PurchaseController instance = null;
+
+    private final List dummyItemList = new LinkedList();
 
     /**
      * Singleton constructor
      */
     private PurchaseController()
     {
+        for (int i = 1; i < 18; i++)
+        {
+              dummyItemList.add(new DummyItem("address-"+i, "id-"+i, "name-"+i));
+        }
     }
 
     /**
@@ -137,24 +145,17 @@ public class PurchaseController implements PurchaseControllerInterface
         form.setPassword("password-test");
         form.setAge((int)96511);
         form.setEmail("email-test");
-        form.setCreditCard("creditCard-test");
+        form.setCreditCard("<change-me>");
         form.setName("name-test");
         form.setConfirmedLicence(false);
         form.setSelectedItems(java.util.Arrays.asList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"}));
         form.setSelectedItemsBackingList(new Object[]{"selectedItems-1", "selectedItems-2", "selectedItems-3", "selectedItems-4", "selectedItems-5"});
 
-        DummyItem item1 = new DummyItem("address-1", "id-1", "name-1");
-        DummyItem item2 = new DummyItem("address-2", "id-2", "name-2");
-        DummyItem item3 = new DummyItem("address-3", "id-3", "name-3");
-        DummyItem item4 = new DummyItem("address-4", "id-4", "name-4");
-        DummyItem item5 = new DummyItem("address-5", "id-5", "name-5");
-        List dummyItemList = java.util.Arrays.asList(new Object[]{item1, item2, item3, item4, item5});
-
         form.setItemList(dummyItemList);
         form.setItemListBackingList(dummyItemList.toArray());
     }
 
-    public class DummyItem
+    public class DummyItem implements Serializable
     {
         private String id = null;
         private String name = null;
