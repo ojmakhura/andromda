@@ -496,14 +496,15 @@ public class WebServiceLogicImpl
             String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE)))
             .booleanValue();
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbJndiName()
      */
     public java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this
+            .getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -513,7 +514,7 @@ public class WebServiceLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-    
+
     /**
      * The prefix to use when creating an EJB provider's JNDI name.
      */
@@ -522,8 +523,8 @@ public class WebServiceLogicImpl
     /**
      * Sets the <code>ejbJndiNamePrefix</code> for an EJB provider.
      * 
-     * @param ejbJndiNamePrefix the prefix to use when binding
-     *        specifying an EJB provider's JNDI name.
+     * @param ejbJndiNamePrefix the prefix to use when binding specifying an EJB
+     *        provider's JNDI name.
      */
     public void setEjbJndiNamePrefix(String ejbJndiNamePrefix)
     {
@@ -539,5 +540,5 @@ public class WebServiceLogicImpl
     protected String getEjbJndiNamePrefix()
     {
         return (String)this.getConfiguredProperty(EJB_JNDI_NAME_PREFIX);
-    }    
+    }
 }
