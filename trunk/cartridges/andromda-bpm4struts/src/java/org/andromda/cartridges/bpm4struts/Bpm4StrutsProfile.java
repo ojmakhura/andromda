@@ -48,7 +48,8 @@ public class Bpm4StrutsProfile
     public static final int TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT = 3;
 
     public static final int TAGGED_VALUE_TABLE_MAXROWS_DEFAULT_COUNT = 15;
-    public static final boolean TAGGED_VALUE_TABLE_SORTING_DEFAULT_VALUE = true;
+    public static final boolean TAGGED_VALUE_TABLE_SORTABLE_DEFAULT_VALUE = true;
+    public static final boolean TAGGED_VALUE_TABLE_EXPORTABLE_DEFAULT_VALUE = true;
 
     /* --------------- Runtime properties ---------------- */
     public static final boolean ENABLE_CACHE = true;
