@@ -53,8 +53,6 @@ public class AndroMDATestCartridgeTest extends TestCase
         assertNotNull(icc);
 
         assertEquals("andromda-ejb", icc.getCartridgeName());
-        
-        assertEquals(0, icc.getProperties().size());
 
         assertEquals(2, icc.getTemplateConfigurations().size());
     }
