@@ -4,7 +4,7 @@
 
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
-        <title>AndroMDA - Bpm4Struts - HowTo (8)</title>
+        <title>AndroMDA - Bpm4Struts - HowTo - Tables</title>
     </properties>
 
     <body>
@@ -18,7 +18,9 @@
                 In order to have these tables rendered for you you will need to model a
                 <a href="howto2.html#Page_Variables">page variable</a> of type <code>java.util.Collection</code>
                 (or a type from the JDK that extends/implements this interface), next you will simply need
-                to model a single tagged value onto that parameter.
+                to model a one or more tagged values onto that parameter. (If you choose to specify more than
+                one property per value you will need to separate them using commas, it is recommended to specify
+                a value per property)
             </p>
 <source><![CDATA[
 @andromda.struts.view.table.columns=property1,property2,...,propertyN
@@ -29,7 +31,7 @@
                 to conform to it will result in a runtime error.
             </p>
             <p>
-                <img src="resources/howto/org/andromda/test/table-uml.jpg"/>
+                <img src="resources/howto/org/andromda/test/table-uml.gif"/>
             </p>
             <subsection name="Hyperlinks">
                 <p>
@@ -40,7 +42,7 @@
                 <p>
                     In order to model this correctly you basically need to model a regular action with parameters,
                     as you have seen <a href="howto2.html#Action_Parameters">here</a>. Next it is sufficient to add
-                    a tagged value to one of the parameters and have it point to the desired table
+                    a tagged value to one of one of these action parameters and have it point to the desired table
                     (since there can be more than one). What will happen is that the action will be rendered into
                     each row of the table, the selected column depends on the name of the action parameter
                     but this can be overridden, as you will see in the next paragraph.
@@ -63,17 +65,59 @@
 @andromda.struts.view.field.tablelink=itemList
 ]]></source>
                 <p>
-                    COMING SOON: screenshot showing tablelink
+                    The one thing remaining to do is tell the cartridge you want the value rendered as an hyperlink,
+                    you do that like this:
                 </p>
-            </subsection>
-            <subsection name="Multibox">
+<source><![CDATA[
+@andromda.struts.view.field.tablelink=itemList
+@andromda.struts.view.field.type=link
+]]></source>
                 <p>
-                    COMING SOON
+                    The <code>id</code> column of the table in the image below is showing the result:
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/online-store-table.gif"/>
                 </p>
             </subsection>
             <subsection name="Widgets">
                 <p>
-                    COMING SOON
+                    Not only hyperlinks can be rednered into a table, basically any kind of widget is allowed,
+                    just change the <code>@andromda.struts.view.field.type</code> tag to any of the known values.
+                    The <code>author</code> column (which is controlled by the <code>test</code> action parameter)
+                    has these tagged values specified:
+                </p>
+<source><![CDATA[
+@andromda.struts.view.field.tablelink=itemList.author
+@andromda.struts.view.field.type=select
+]]></source>
+                <p>
+                    Notice how the cartridge generated dummy data to populate the list. That way it's easy to
+                    give your application a test-run before doing any manual coding.
+                </p>
+            </subsection>
+            <subsection name="Multibox">
+                <p>
+                    One very special type of widget, which is a little more complicated to understand at first, is
+                    the <code>multibox</code> widget. Basically it allows you to render checkboxes whose
+                    <code>checked</code> statuses need to be controlled by another property.
+                </p>
+                <p>
+                    Let's say you want to render a checkbox for each row, but the value behind is not of a
+                    <code>boolean</code> type but a <code>String</code>; in that case you can setup a page-variable
+                    which holds an <code>array</code> or a <code>Collection</code> of <code>String</code> instances,
+                    when a value for a specific row matches at least one of the elements the checkbox will be checked.
+                </p>
+                <p>
+                    The <code>available</code> column of the table in the image above has the following tagged values:
+                </p>
+<source><![CDATA[
+@andromda.struts.view.field.tablelink=itemList
+@andromda.struts.view.field.type=multibox
+@andromda.struts.view.field.multibox=availableItems
+]]></source>
+                <p>
+                    In this example the <code>availableItems</code> page-variable is used to match the
+                    <code>available</code> property against.
                 </p>
             </subsection>
         </section>
