@@ -171,4 +171,11 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_WEBSERVICE_PROVIDER = umlProfile
         .getString("TAGGEDVALUE_WEBSERVICE_PROVIDER");
+    
+    /**
+     * Stores the name of the role (if it's different than the name of the
+     * actor stereotyped as role)
+     */
+    public static final String TAGGEDVALUE_ROLE_NAME = umlProfile
+        .getString("TAGGEDVALUE_ROLE_NAME");
 }
