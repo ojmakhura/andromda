@@ -414,12 +414,6 @@
         overwrite="true"/>
 
     <template
-        path="templates/bpm4struts/pages/default.css.vsl"
-        outputPattern="layout/default.css"
-        outlet="pages"
-        overwrite="true"/>
-
-    <template
         path="templates/bpm4struts/pages/page.css.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
