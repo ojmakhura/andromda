@@ -517,4 +517,12 @@ public class MockClassifierFacade implements ClassifierFacade {
         // TODO Auto-generated method stub
         return null;
     }
+
+    public Collection getInstanceOperations() {
+        return null;
+    }
+
+    public Collection getStaticOperations() {
+        return null;
+    }
 }

@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeDataTypes;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -40,7 +41,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getOperations()
      */
-    public java.util.Collection handleGetOperations()
+    protected java.util.Collection handleGetOperations()
     {
         return new FilteredCollection(metaObject.getFeature())
         {
@@ -54,7 +55,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getAttributes()
      */
-    public java.util.Collection handleGetAttributes()
+    protected java.util.Collection handleGetAttributes()
     {
         return new FilteredCollection(metaObject.getFeature())
         {
@@ -68,7 +69,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getAssociationEnds()
      */
-    public java.util.Collection handleGetAssociationEnds()
+    protected java.util.Collection handleGetAssociationEnds()
     {
         return UMLMetafacadeUtils.getCorePackage().getAParticipantAssociation()
             .getAssociation(metaObject);
@@ -77,7 +78,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitiveType()
      */
-    public boolean handleIsPrimitive()
+    protected boolean handleIsPrimitive()
     {
         // If this type has a wrapper then its a primitive,
         // otherwise it isn't
@@ -94,7 +95,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isArrayType()
      */
-    public boolean handleIsArrayType()
+    protected boolean handleIsArrayType()
     {
         return this.getFullyQualifiedName(true).endsWith(ARRAY_SUFFIX);
     }
@@ -102,7 +103,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getWrapperName()
      */
-    public String handleGetWrapperName()
+    protected String handleGetWrapperName()
     {
         String wrapperName = null;
         if (this.getWrapperMappings() != null)
@@ -124,7 +125,7 @@ public class ClassifierFacadeLogicImpl
      * 
      * @return the wrapper mappings
      */
-    public Mappings getWrapperMappings()
+    protected Mappings getWrapperMappings()
     {
         final String propertyName = UMLMetafacadeProperties.WRAPPER_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
@@ -156,7 +157,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isCollectionType()
      */
-    public boolean handleIsCollectionType()
+    protected boolean handleIsCollectionType()
     {
         return UMLMetafacadeUtils.isType(
             this,
@@ -166,7 +167,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isListType()
      */
-    public boolean handleIsListType()
+    protected boolean handleIsListType()
     {
         return UMLMetafacadeUtils.isType(
             this,
@@ -176,7 +177,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isSetType()
      */
-    public boolean handleIsSetType()
+    protected boolean handleIsSetType()
     {
         return UMLMetafacadeUtils.isType(
             this,
@@ -186,7 +187,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDateType()
      */
-    public boolean handleIsDateType()
+    protected boolean handleIsDateType()
     {
         return UMLMetafacadeUtils.isType(
             this,
@@ -196,7 +197,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isFileType()
      */
-    public boolean handleIsFileType()
+    protected boolean handleIsFileType()
     {
         return UMLMetafacadeUtils.isType(
             this,
@@ -206,7 +207,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
-    public Collection handleGetAttributes(boolean follow)
+    protected Collection handleGetAttributes(boolean follow)
     {
         Collection attributes = this.getAttributes();
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
@@ -221,7 +222,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperationCallFromAttributes()
      */
-    public String handleGetOperationCallFromAttributes()
+    protected String handleGetOperationCallFromAttributes()
     {
         StringBuffer sb = new StringBuffer();
         String separator = "";
@@ -245,7 +246,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isAbstract()
      */
-    public boolean handleIsAbstract()
+    protected boolean handleIsAbstract()
     {
         return this.metaObject.isAbstract();
     }
@@ -253,7 +254,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticAttributes()
      */
-    public Collection handleGetStaticAttributes()
+    protected Collection handleGetStaticAttributes()
     {
         return new FilteredCollection(this.getAttributes())
         {
@@ -267,7 +268,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceAttributes()
      */
-    public java.util.Collection handleGetInstanceAttributes()
+    protected java.util.Collection handleGetInstanceAttributes()
     {
         return new FilteredCollection(this.getAttributes())
         {
@@ -281,7 +282,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    public java.util.Collection handleGetProperties()
+    protected java.util.Collection handleGetProperties()
     {
         Collection properties = this.getAttributes();
         class ConnectingEndTransformer
@@ -312,7 +313,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAbstractions()
      */
-    public Collection handleGetAbstractions()
+    protected Collection handleGetAbstractions()
     {
         return new FilteredCollection(this.metaObject.getClientDependency())
         {
@@ -326,7 +327,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
      */
-    public boolean handleIsDataType()
+    protected boolean handleIsDataType()
     {
         return DataType.class.isAssignableFrom(this.metaObject.getClass());
     }
@@ -334,7 +335,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
      */
-    public boolean handleIsInterface()
+    protected boolean handleIsInterface()
     {
         return Interface.class.isAssignableFrom(this.metaObject.getClass());
     }
@@ -342,7 +343,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
      */
-    public Object handleGetNonArray()
+    protected Object handleGetNonArray()
     {
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(ARRAY_SUFFIX) != -1)
@@ -357,7 +358,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getArray()
      */
-    public Object handleGetArray()
+    protected Object handleGetArray()
     {
         ClassifierFacade arrayType = this;
         String name = this.getFullyQualifiedName(true);
@@ -374,7 +375,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String,
      *      java.lang.String, java.lang.String)
      */
-    public void handleAddAttribute(
+    protected void handleAddAttribute(
         String name,
         String fullyQualifiedType,
         String visibility)
@@ -390,7 +391,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isEnumeration()
      */
-    public boolean handleIsEnumeration()
+    protected boolean handleIsEnumeration()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
     }
@@ -398,7 +399,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getJavaNullString()
      */
-    public String handleGetJavaNullString()
+    protected String handleGetJavaNullString()
     {
         String javaNullString = null;
         if (isPrimitive())
@@ -420,4 +421,28 @@ public class ClassifierFacadeLogicImpl
         }
         return javaNullString;
     }
+
+    protected Collection handleGetStaticOperations()
+    {
+        return new FilteredCollection(this.getOperations())
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((OperationFacade)object).isStatic();
+            }
+        };
+    }
+
+    protected Collection handleGetInstanceOperations()
+    {
+        return new FilteredCollection(this.getOperations())
+        {
+            public boolean evaluate(Object object)
+            {
+                return !((OperationFacade)object).isStatic();
+            }
+        };
+    }
+
+
 }
