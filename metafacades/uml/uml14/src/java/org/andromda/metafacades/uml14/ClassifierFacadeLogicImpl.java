@@ -219,6 +219,16 @@ public class ClassifierFacadeLogicImpl
             this,
             UMLProfile.MAP_TYPE_NAME);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isStringType()
+     */
+    protected boolean handleIsStringType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.STRING_TYPE_NAME);
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)

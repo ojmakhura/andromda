@@ -139,7 +139,7 @@ public class ModelElementFacadeLogicImpl
                             // if an enumeration literal is referenced we assume its name
                             if (value instanceof EnumerationLiteralFacade)
                             {
-                                values.add(((EnumerationLiteralFacade)value).getName());
+                                values.add(((EnumerationLiteralFacade)value).getValue());
                             }
                             else if (value instanceof String)
                             {
