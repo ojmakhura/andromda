@@ -8,7 +8,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-02" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-03" description="Second release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="MISC-29">
+                Mappings are now required to use the correct '::' namespace separator istead of the Java 
+                specific '.' separator.  This requires any custom type mapping files to replace all occurances
+                of '.' with '::' (for example <em>datatype.Long</em> now needs to be mapped as <em>datatype::Long</em> 
+                within the JavaMappings.xml file).
+            </action>
             <action dev="draftdog" type="fix" issue="BPM-160">
                 Client-side validation for dates have been improved, the default one which is taken from
                 <code>commons-validator</code> only supports a very limited subset of the features one would expect.
