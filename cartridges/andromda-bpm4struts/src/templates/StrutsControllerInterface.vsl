@@ -39,6 +39,7 @@ $controller.getDocumentation(" * ")
 #end
  */
 public abstract class ${controller.name}Interface
+    implements java.io.Serializable
 {
 #foreach ($operation in $controller.operations)
 #set ($parameters = $operation.arguments)
