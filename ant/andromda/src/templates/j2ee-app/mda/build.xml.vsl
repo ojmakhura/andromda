@@ -24,7 +24,8 @@
 
     <target name="mda">
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
-        <andromda modelURL="file:${basedir}/${uml.model.path}">
+        <andromda modelURL="file:${basedir}/${uml.model.path}"
+                  lastModifiedCheck="false">
             <namespace name="default" ignore="false">
                 <property name="languageMappingsUri" value="file:${basedir}/${mappings.src.dir}/JavaMappings.xml"/>
             </namespace>
