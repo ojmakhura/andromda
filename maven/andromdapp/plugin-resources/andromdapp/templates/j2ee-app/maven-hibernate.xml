@@ -51,21 +51,12 @@
 	</goal>	
 
    	<!-- ==================================================================
-			Builds the Hibernate EJB component (i.e. session beans)                                                
+			Builds the Hibernate EJB component (i.e. hibernate and session beans)                                                
   		 ================================================================== --> 
-	<goal name="hibernate-ejb">
+	<goal name="hibernate">
 		<maven:maven
-			descriptor="${basedir}/hibernate/ejb/project.xml"
+			descriptor="${basedir}/hibernate/project.xml"
 			goals="ejb:install"/>
-	</goal>	
-	
-   	<!-- ==================================================================
-			Builds the Hibernate SAR component                                                
-  		 ================================================================== --> 
-	<goal name="hibernate-sar">
-		<maven:maven
-			descriptor="${basedir}/hibernate/sar/project.xml"
-			goals="jar:install"/>
 	</goal>	
 	
    	<!-- ==================================================================
