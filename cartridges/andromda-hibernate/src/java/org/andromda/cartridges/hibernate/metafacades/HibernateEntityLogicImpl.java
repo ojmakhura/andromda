@@ -33,11 +33,11 @@ import org.apache.commons.lang.StringUtils;
  * </p>
  * <p>
  * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
- * subclasses must then follow the same
- * strategy. NB if the strategy is changed after
- * the initial generation, the impl classes have
- * to be hand modified.
- * </p>
+ *                                 subclasses must then follow the same
+ *                                 strategy. NB if the strategy is changed after
+ *                                 the initial generation, the impl classes have
+ *                                 to be hand modified.
+ *                                 </p>
  * @author Martin West
  * @author Carlos Cuenca
  */
@@ -72,6 +72,19 @@ public class HibernateEntityLogicImpl
      * Value make Entity an interface, delegate attributes to subclasses.
      */
     private static final String INHERITANCE_STRATEGY_INTERFACE = "interface";
+
+    /**
+     * Stores the valid inheritance strategies.
+     */
+    private static final Collection inheritanceStrategies = new ArrayList();
+
+    static
+    {
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_CLASS);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_SUBCLASS);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_CONCRETE);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_INTERFACE);
+    }
 
     /**
      * Return all the business operations, used when leafImpl true.
@@ -200,11 +213,11 @@ public class HibernateEntityLogicImpl
     protected String handleGetHibernateInheritanceStrategy()
     {
         String result = this.getSuperInheritance();
-        if (StringUtils.isEmpty(result))
+        if (!inheritanceStrategies.contains(result))
         {
             result = this.getInheritance(this);
         }
-        if (StringUtils.isEmpty(result))
+        if (!inheritanceStrategies.contains(result))
         {
             result = INHERITANCE_STRATEGY_CLASS;
         }
@@ -373,10 +386,25 @@ public class HibernateEntityLogicImpl
      * @param facade
      * @return String inheritance tagged value.
      */
+    /**
+     * Return the inheritance tagged value for facade.
+     * 
+     * @param facade
+     * @return String inheritance tagged value.
+     */
     private String getInheritance(GeneralizableElementFacade facade)
     {
-        return (String)facade
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+        String inheritance = null;
+        if (facade != null)
+        {
+            Object value = facade
+                .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+            if (value != null)
+            {
+                inheritance = String.valueOf(value);
+            }
+        }
+        return inheritance;
     }
 
     /**
@@ -533,7 +561,7 @@ public class HibernateEntityLogicImpl
     {
         String hibernateGeneratorClass;
         // if the entity is using a foreign identifier, then
-        // we automatically set the identifier generator 
+        // we automatically set the identifier generator
         // class to be foreign
         if (this.isUsingForeignIdentifier())
         {
@@ -583,7 +611,7 @@ public class HibernateEntityLogicImpl
     {
         return this.getEntityName() + HibernateGlobals.IMPLEMENTATION_SUFFIX;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorColumn()
      */
@@ -607,7 +635,7 @@ public class HibernateEntityLogicImpl
     {
         return 1;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityBusinessOperations()
      */
@@ -626,7 +654,7 @@ public class HibernateEntityLogicImpl
             }
         };
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEntityBusinessOperationsPresent()
      */
