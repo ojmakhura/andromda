@@ -28,7 +28,7 @@
   			 Installs all libraries into the local repository                                                    
   		 ================================================================== -->
   	<goal name="install">
- 		<!-- <attainGoal name="install-components"/> -->
+ 		<attainGoal name="install-components"/>
  		<attainGoal name="install-samples"/>
   	</goal> 
  
