@@ -3,9 +3,12 @@ package org.andromda.core.common;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.andromda.core.cartridge.Cartridge;
@@ -104,6 +107,7 @@ public abstract class BasePlugin
     public void setResource(URL resource)
     {
         this.resource = resource;
+        this.getContents();
     }
 
     /**
@@ -276,34 +280,60 @@ public abstract class BasePlugin
     }
     
     /**
-     * If this plugin's <code>resource</code> is 
-     * found within a archive file, this method
-     * gets the archive to which it belongs.
+     * Stores the contents of the plugin.
+     */
+    private List contents = null;
+    
+    /**
+     * @see org.andromda.core.common.Plugin#getContents()
+     */
+    public List getContents() 
+    {
+        if (contents == null)
+        {
+            this.contents = new ArrayList();
+            ZipFile archive = this.getArchive();
+            if (archive != null)
+            {
+                Enumeration entries = archive.entries();
+                while (entries.hasMoreElements())
+                {
+                    ZipEntry entry = (ZipEntry)entries.nextElement();
+                    contents.add(entry.getName());  
+                }                
+            }
+        }
+        return contents;
+    }
+
+    /**
+     * If this plugin's <code>resource</code> is found within a archive file,
+     * this method gets the archive to which it belongs.
      * 
      * @return the archive as a ZipFile
      */
-    protected ZipFile getArchive() 
+    protected ZipFile getArchive()
     {
         final String methodName = "BasePlugin.getArchive";
-        try 
+        try
         {
-	        ZipFile archive = null;
-	        URL resource = this.getResource();
-	        if (resource != null)
-	        {
-	            String resourceUrl = resource.toString();
-	            final String jarPrefix = "jar:file:";
-	            resourceUrl = resourceUrl.replaceFirst(jarPrefix + '/', "");
-	            resourceUrl = resourceUrl.replaceFirst(jarPrefix, "");
-	            int entryPrefixIndex = resourceUrl.indexOf('!');
-	            if (entryPrefixIndex != -1)
-	            {
-	                resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
-	            }
-	            archive = new ZipFile(resourceUrl);
-	        }
-	        return archive;
-        } 
+            ZipFile archive = null;
+            URL resource = this.getResource();
+            if (resource != null)
+            {
+                String resourceUrl = resource.toString();
+                final String jarPrefix = "jar:file:";
+                resourceUrl = resourceUrl.replaceFirst(jarPrefix + '/', "");
+                resourceUrl = resourceUrl.replaceFirst(jarPrefix, "");
+                int entryPrefixIndex = resourceUrl.indexOf('!');
+                if (entryPrefixIndex != -1)
+                {
+                    resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
+                }
+                archive = new ZipFile(resourceUrl);
+            }
+            return archive;
+        }
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
@@ -336,5 +366,5 @@ public abstract class BasePlugin
     public String toString()
     {
         return ToStringBuilder.reflectionToString(this);
-    } 
+    }
 }

@@ -427,9 +427,43 @@ public class Cartridge
         URL resourceUrl = ResourceUtils.getResource(resource.getPath());
         if (resourceUrl == null)
         {
-            throw new CartridgeException("Could not find resource --> '"
-                + resource.getPath() + "'");
+            // if the resourceUrl is null, the path is probably a regular
+            // expression pattern so we'll see if we can match it against 
+            // the contents of the plugin and write any contents that do
+            List contents = this.getContents();
+            if (contents != null)
+            {
+                Iterator contentIt = contents.iterator();
+                while (contentIt.hasNext())
+                {
+                    String content = (String)contentIt.next();
+                    if (StringUtils.isNotEmpty(content))
+                    {
+                        if (content.matches(resource.getPath()))
+                        {
+                            resourceUrl = ResourceUtils.getResource(content); 
+                            this.writeResource(resource, resourceUrl);
+                        }
+                    }
+                }
+            }
         }
+        else
+        {
+            this.writeResource(resource, resourceUrl);   
+        }
+    }
+
+    /**
+     * Writes the contents of <code>resourceUrl</code> 
+     * to the outlet specified by the <code>resource</code>.
+     * 
+     * @param resource contains the outlet where the resource is written.
+     * @param resourceUrl the URL contents to write.
+     */
+    private void writeResource(Resource resource, URL resourceUrl)
+    {
+        final String methodName = "Cartridge.processResource";
         File outFile = null;
         try
         {
@@ -472,7 +506,7 @@ public class Cartridge
             throw new CartridgeException(errMsg, th);
         }
     }
-
+    
     /**
      * Creates a File object from an output pattern in the template
      * configuration.
