@@ -1,8 +1,8 @@
 package org.andromda.cartridges.bpm4struts;
 
 import org.andromda.cartridges.bpm4struts.validator.StrutsModelValidator;
-import org.andromda.cartridges.bpm4struts.validator.ValidationMessage;
 import org.andromda.cartridges.bpm4struts.validator.ValidationError;
+import org.andromda.cartridges.bpm4struts.validator.ValidationMessage;
 import org.andromda.cartridges.bpm4struts.validator.ValidationWarning;
 import org.andromda.core.common.CollectionFilter;
 import org.andromda.core.common.DbMappingTable;
@@ -19,6 +19,7 @@ import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.activitygraphs.ClassifierInState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
 import org.omg.uml.behavioralelements.statemachines.Event;
+import org.omg.uml.behavioralelements.statemachines.Guard;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.statemachines.State;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
@@ -35,6 +36,7 @@ import org.omg.uml.modelmanagement.Model;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -60,6 +62,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     public final static String ASPECT_FRONT_END_WORKFLOW = "FrontEndWorkflow";
     public final static String ASPECT_FRONT_END_MODEL = "FrontEndModel";
     public final static String ASPECT_FRONT_END_CONTROLLER_CLASS = "FrontEndController";
+    public final static String ASPECT_FRONT_END_EXCEPTION_HANDLER = "FrontEndExceptionHandler";
     public final static String TAG_CONTROLLER_CLASS = "ControllerClass";
 
     /**
@@ -90,6 +93,9 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * CAUTION! this map needs to be invalidated and rebuilt whenever the model changes,
      * the contract is that when the value is <code>null</code> it needs to be rebuilt,
      * any other value denotes a map built from the current model.
+     *
+     * @see #qualifiedNameToUseCaseMap
+     * @see #nameToSimpleStateMap
      */
     private HashMap qualifiedNameToClassMap = null;
 
@@ -102,8 +108,32 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * any other value denotes a map built from the current model.
      *
      * @see #qualifiedNameToClassMap
+     * @see #nameToSimpleStateMap
      */
     private HashMap qualifiedNameToUseCaseMap = null;
+
+    /**
+     * This map serves as a cache for quickly finding states in the UML model.
+     * This is to avoid iterating the list of use-cases for each lookup.
+     * <p>
+     * CAUTION! this map needs to be invalidated and rebuilt whenever the model changes,
+     * the contract is that when the value is <code>null</code> it needs to be rebuilt,
+     * any other value denotes a map built from the current model.
+     *
+     * @see #qualifiedNameToClassMap
+     * @see #qualifiedNameToUseCaseMap
+     */
+    private HashMap nameToSimpleStateMap = null;
+
+    /**
+     * This method will make sure the lookup tables will be rebuilt next time they are needed.
+     */
+    private void invalidateCaches()
+    {
+        qualifiedNameToClassMap = null;
+        qualifiedNameToUseCaseMap = null;
+        nameToSimpleStateMap = null;
+    }
 
     /**
      * Returns the static UML helper delegate.
@@ -139,7 +169,14 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     public UmlClass getControllerClass(UseCase useCase)
     {
         String tagValue = staticHelper.findTagValue(useCase, TAG_CONTROLLER_CLASS);
-        return findClassByName(tagValue);
+        if (tagValue == null)
+        {
+            return null;
+        }
+        else
+        {
+            return findClassByName(tagValue);
+        }
     }
 
     /**
@@ -474,7 +511,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public State getFirstState(StateMachine stateMachine)
     {
-        return dynamicHelper.getStateTarget(dynamicHelper.getNextStateTransition(getInitialState(stateMachine)));
+        return getTargetState(getNextStateTransition(getInitialState(stateMachine)));
     }
 
     /**
@@ -518,7 +555,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         for (Iterator iterator = decisions.iterator(); iterator.hasNext();)
         {
             Pseudostate decision = (Pseudostate) iterator.next();
-            transitions.addAll(dynamicHelper.getNextTriggeredTransitions(decision));
+            transitions.addAll(decision.getOutgoing());
         }
 
         return transitions;
@@ -610,21 +647,20 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public String toWebFileName(ModelElement modelElement)
     {
-        return toLowercaseHyphenSeparatedName(modelElement.getName());
+        return toLowercaseSeparatedName(modelElement.getName(),"-");
     }
 
     /**
      * Converts the argument to lowercase, removes all non-word characters, and replaces each of those
      * sequences by a hyphen '-'.
      */
-    protected String toLowercaseHyphenSeparatedName(String name)
+    protected String toLowercaseSeparatedName(String name, String separator)
     {
         if (name == null)
         {
             return "";
         }
 
-        final char separator = '-';
         String[] parts = splitAtNonWordCharacters(name.toLowerCase());
         StringBuffer conversionBuffer = new StringBuffer();
 
@@ -726,12 +762,12 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
             }
             else
             {
-                return toForwardName(dynamicHelper.getNextStateTransition((Pseudostate)target));
+                return toForwardName(getNextStateTransition((Pseudostate)target));
             }
         }
         else
         {
-            return toLowercaseHyphenSeparatedName(modelElement.getName());
+            return toLowercaseSeparatedName(modelElement.getName(),".");
         }
     }
 
@@ -739,7 +775,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * Converts the argument ModelElement's name to a name suitable as a final class member name.
      * <p>
      * Any non-word characters (including whitespace) will be removed (each sequence will be replaced
-     * by a single hyphen '-').
+     * by a single underscore '_').
      * <p>
      * The returned name contains no uppercase characters.
      *
@@ -748,21 +784,36 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public String toFinalMemberName(ModelElement modelElement)
     {
-        return toUppercaseUnderscoreSeparatedName(modelElement.getName());
+        return toUpperCaseSeparatedName(modelElement.getName(),"_");
+    }
+
+    /**
+     * Converts the argument String instance to a name suitable as a final class member name.
+     * <p>
+     * Any non-word characters (including whitespace) will be removed (each sequence will be replaced
+     * by a single underscore '_').
+     * <p>
+     * The returned name contains no uppercase characters.
+     *
+     * @param name the name which to convert into a final member name
+     * @return the argument's name converted into a suitable final class member name, there will be no extension added
+     */
+    public String toFinalMemberName(String name)
+    {
+        return toUpperCaseSeparatedName(name,"_");
     }
 
     /**
      * Converts the argument to uppercase, removes all non-word characters, and replaces each of those
      * sequences by an underscore '_'.
      */
-    private String toUppercaseUnderscoreSeparatedName(String name)
+    private String toUpperCaseSeparatedName(String name, String separator)
     {
         if (name == null)
         {
             return "";
         }
 
-        final char separator = '_';
         String[] parts = splitAtNonWordCharacters(name.toUpperCase());
         StringBuffer conversionBuffer = new StringBuffer();
 
@@ -788,16 +839,18 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      */
     public UmlClass findClassByName(String qualifiedName)
     {
-        // build cache if necessary
         if (qualifiedNameToClassMap == null)
         {
-            qualifiedNameToClassMap = new HashMap();
-            Collection umlClasses = staticHelper.getAllClasses();
-            for (Iterator iterator = umlClasses.iterator(); iterator.hasNext();)
+            synchronized (qualifiedName)
             {
-                UmlClass umlClass = (UmlClass) iterator.next();
-                String qualifiedElementName = getFullyQualifiedName(umlClass);
-                qualifiedNameToClassMap.put(qualifiedElementName, umlClass);
+                qualifiedNameToClassMap = new HashMap();
+                Collection umlClasses = staticHelper.getAllClasses();
+                for (Iterator iterator = umlClasses.iterator(); iterator.hasNext();)
+                {
+                    UmlClass umlClass = (UmlClass) iterator.next();
+                    String qualifiedElementName = getFullyQualifiedName(umlClass);
+                    qualifiedNameToClassMap.put(qualifiedElementName, umlClass);
+                }
             }
         }
 
@@ -806,30 +859,75 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
 
     /**
      * Looks for a use-case in the UML model that corresponds to the
-     * argument qualified use-case name.
+     * argument qualified use-case qualifiedName. Please note that
+     * this method may return a workflow or a use-case (both are modeled
+     * as use-cases in the UML model)
      * <p>
      * Returns <code>null</code> if no such use-case would exist.
+     * <p>
+     * The search is performed in a case-insensitive way.
      *
-     * @param qualifiedName a fully qualified use-case name such as
+     * @param qualifiedName a fully qualified use-case qualifiedName such as
      *    <code>org.andromda.test.MyTestUseCase</code>, may not be <code>null</code>
-     * @return the UML UseCase corresponding with the argument use-case name,
+     * @return the UML UseCase corresponding with the argument use-case qualifiedName,
      *    or <code>null</code> if there is none
+     * @see #toFullyQualifiedJavaClassName
      */
     public UseCase findUseCaseByName(String qualifiedName)
     {
         if (qualifiedNameToUseCaseMap == null)
         {
-            qualifiedNameToUseCaseMap = new HashMap();
-            Collection useCases = dynamicHelper.getAllUseCases();
-            for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+            synchronized (qualifiedName)
             {
-                UseCase useCase = (UseCase) iterator.next();
-                String qualifiedElementName = getFullyQualifiedName(useCase);
-                qualifiedNameToUseCaseMap.put(qualifiedElementName, useCase);
+                qualifiedNameToUseCaseMap = new HashMap();
+                Collection useCases = dynamicHelper.getAllUseCases();
+                for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+                {
+                    UseCase useCase = (UseCase) iterator.next();
+                    qualifiedNameToUseCaseMap.put(findFullyQualifiedUseCaseName(useCase.getName()).toLowerCase(), useCase);
+                }
             }
         }
 
-        return (UseCase)qualifiedNameToUseCaseMap.get(qualifiedName);
+        return (UseCase)qualifiedNameToUseCaseMap.get(qualifiedName.toLowerCase());
+    }
+
+    /**
+     * Finds a state in any workflow with the argument name, case is ignored.
+     * <p>
+     * <i>Having states with the same names is not advised.</i>
+     *
+     * @param name the name of a workflow state, may not be <code>null</code>
+     * @return a state in a workflow, having the specified name, or <code>null</code> if no
+     *  such state is found
+     */
+    public State findWorkflowStateByName(String name)
+    {
+        if (nameToSimpleStateMap == null)
+        {
+            synchronized (name)
+            {
+                nameToSimpleStateMap = new HashMap();
+
+                // we don't want the action states from the use-case, only the simple states from the workflows
+                CollectionFilter filter = new CollectionFilter()
+                {
+                    public boolean accept(Object object)
+                    {
+                        return !dynamicHelper.isActionState(object);
+                    }
+                };
+
+                Collection states = dynamicHelper.filter(dynamicHelper.getAllStates(), filter);
+                for (Iterator iterator = states.iterator(); iterator.hasNext();)
+                {
+                    State state = (State) iterator.next();
+                    nameToSimpleStateMap.put(state.getName().toLowerCase(), state);
+                }
+            }
+        }
+
+        return (State)nameToSimpleStateMap.get(name.toLowerCase());
     }
 
     /**
@@ -907,10 +1005,10 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * @see org.andromda.core.uml14.UMLStaticHelper#setModel(Object model)
      * @see org.andromda.core.uml14.UMLDynamicHelper#setModel(Object model)
      */
-    public void setModel(Object model)
+    public synchronized void setModel(Object model)
     {
-        qualifiedNameToClassMap = null;     // invalidate the cache
-        qualifiedNameToUseCaseMap = null;   // invalidate the cache
+        invalidateCaches();
+
         staticHelper.setModel(model);
         dynamicHelper.setModel(model);
 
@@ -1076,7 +1174,8 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Recursively traverses through each workflow to eventually find a use-case, this one will be returned.
+     * Returns the argument if it is a use-case, in case it is a workflow this method will lookup that workflow's first
+     * state as a use-case (or other workflow) and try again.
      * <p>
      * A workflow is a <code>UseCase</code> with the <code>ASPECT_FRONT_END_WORKFLOW</code> stereotype, a use-case is a
      * <code>UseCase</code> with the <code>ASPECT_FRONT_END_USE_CASE</code> stereotype.
@@ -1089,16 +1188,16 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      *
      * @param useCase a workflow or use-case, may not be <code>null</code>
      * @return The first use-case found (depth first), or <code>null</code>
+     * @see #isUseCase
+     * @see #isWorkflow
      */
     public UseCase getFirstFrontEndUseCase(UseCase useCase)
     {
-        Collection stereotypeNames = staticHelper.getStereotypeNames(useCase);
-
-        if (stereotypeNames.contains(ASPECT_FRONT_END_USE_CASE))
+        if (isUseCase(useCase))
         {
             return useCase;
         }
-        else if (stereotypeNames.contains(ASPECT_FRONT_END_WORKFLOW))
+        else if (isWorkflow(useCase))
         {
             String firstUseCaseName = getFirstState(getStateMachine(useCase)).getName();
             UseCase nextUseCase = findUseCaseByName(findFullyQualifiedUseCaseName(firstUseCaseName));
@@ -1123,6 +1222,8 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * triggers.
      * <p>
      * The name comparison is case-insensitive.
+     * <p>
+     * Important to note is that a workflow may not contain any guarded transitions, as they will be ignored.
      *
      * @param useCase the source use-case to start from, may not be <code>null</code>
      * @param triggerName the next trigger to follow
@@ -1132,36 +1233,35 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      *    <li>the target is not a valid use-case state
      *  </ul>
      * @see #getTriggerTarget(State state, String triggerName)
+     * @see #getFirstFrontEndUseCase
      */
     public UseCase findNextUseCaseInWorkflow(UseCase useCase, String triggerName)
     {
+        UseCase nextUseCase = null;
         final String useCaseName = useCase.getName();
 
-        if (useCaseName != null)
+        // check if the use-case exists in a workflow
+        State workflowState = findWorkflowStateByName(useCaseName);
+
+        if (workflowState != null)
         {
-            Collection states = dynamicHelper.getAllStates();
-            for (Iterator iterator = states.iterator(); iterator.hasNext();)
+            // get next state vertex (optionally using trigger argument)
+            // as there may not be guarded decision points in a workflow this vertex must be a State
+            State nextState = (State)getTriggerTarget(workflowState, triggerName);
+
+            // if it is found continue
+            if ( (nextState != null) && !dynamicHelper.isFinalState(nextState) )
             {
-                State state = (State) iterator.next();
-                if (useCaseName.equalsIgnoreCase(state.getName()))
+                nextUseCase = findUseCaseByName(findFullyQualifiedUseCaseName(nextState.getName()));
+
+                if ( (nextUseCase!=null) && (isWorkflow(nextUseCase)) )
                 {
-                    // this means we found the state for this use-case
-                    // now lookup the next state's use-case and return it
-                    StateVertex stateVertex = getTriggerTarget(state, triggerName);
-                    if (dynamicHelper.isState(stateVertex) && !dynamicHelper.isFinalState(stateVertex))
-                    {
-                        String qualifiedName = findFullyQualifiedUseCaseName(stateVertex.getName());
-                        return findUseCaseByName(qualifiedName);
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    nextUseCase = getFirstFrontEndUseCase(nextUseCase);
                 }
             }
         }
 
-        return null;
+        return nextUseCase;
     }
 
     /**
@@ -1179,30 +1279,30 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      *    <li>the argument trigger name is not <code>null</code> but is not found in any of the
      *        outgoing transitions
      *  </ul>
-     * @see org.andromda.core.uml14.UMLDynamicHelper#getNextTriggeredTransitions(State state)
+     * @see #getNextTriggeredTransitions
      */
     private StateVertex getTriggerTarget(State state, String triggerName)
     {
-        Collection transitions = dynamicHelper.getNextTriggeredTransitions(state);
+        Collection triggeredTransitions = getNextTriggeredTransitions(state);
         StateVertex target = null;
 
-        int transitionCount = transitions.size();
+        final int triggeredTransitionCount = triggeredTransitions.size();
 
-        switch (transitionCount)
+        switch (triggeredTransitionCount)
         {
             case 0 :
-                target = dynamicHelper.getStateTarget( dynamicHelper.getNextStateTransition(state) );
+                target = dynamicHelper.skipMergePoints((Transition)state.getOutgoing().iterator().next()).getTarget();
                 break;
             case 1 :
-                target = dynamicHelper.getStateTarget((Transition)transitions.iterator().next());
+                target = dynamicHelper.skipMergePoints((Transition)triggeredTransitions.iterator().next()).getTarget();
                 break;
             default :
-                for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
+                for (Iterator iterator = triggeredTransitions.iterator(); iterator.hasNext();)
                 {
                     Transition transition = (Transition) iterator.next();
                     if (triggerName.equalsIgnoreCase(getTriggerName(transition)))
                     {
-                        target = dynamicHelper.getStateTarget(transition);
+                        target = dynamicHelper.skipMergePoints(transition).getTarget();
                         break;  // from the for-loop
                     }
                 }
@@ -1224,6 +1324,247 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         return (trigger == null) ? null : trigger.getName();
     }
 
+    /**
+     * Gets the collection of transitions with a trigger that are outgoing to the argument state. In case the
+     * state is directly followed by a triggered decision node these triggered transitions will be returned.
+     * <p>
+     * If none of these conditions are true this method return an empty collection, since no triggered transitions
+     * can be found for this state. Maybe there are transitions, they are not triggered, so they should not be
+     * returned.
+     *
+     * @param state a State, may not be <code>null</code>
+     * @return a Collection containing Transitions that have a trigger, never <code>null</code>
+     */
+    public Collection getNextTriggeredTransitions(State state)
+    {
+        Collection triggeredTransitions = null;
+        final Transition stateTransition = (Transition)state.getOutgoing().iterator().next();
+        final StateVertex stateTransitionTarget = stateTransition.getTarget();
+
+        if (dynamicHelper.isTriggeredTransition(stateTransition))
+        {
+            triggeredTransitions = Collections.singleton(stateTransition);
+        }
+        else if (dynamicHelper.isTriggeredDecisionPoint(stateTransitionTarget))
+        {
+            triggeredTransitions = stateTransitionTarget.getOutgoing();
+        }
+        else
+        {
+            triggeredTransitions = Collections.EMPTY_LIST;
+        }
+
+        return triggeredTransitions;
+    }
+
+    /**
+     * Gets the collection of transitions with a guard that are outgoing to the argument state.
+     *
+     * @param state a State, may not be <code>null</code>
+     * @return a Collection containing Transitions that have a guard, never <code>null</code>
+     */
+    public Collection getNextGuardedTransitions(State state)
+    {
+        return getNextGuardedTransitionsForStateVertex(state);
+    }
+
+    /**
+     * Gets the collection of transitions with a guard that are outgoing to the argument pseudostate.
+     *
+     * @param pseudostate a Pseudostate, may not be <code>null</code>
+     * @return a Collection containing Transitions that have a guard, never <code>null</code>
+     */
+    public Collection getNextGuardedTransitions(Pseudostate pseudostate)
+    {
+        return getNextGuardedTransitionsForStateVertex(pseudostate);
+    }
+
+    /**
+     * Gets the collection of transitions with a guard that are outgoing to the argument state-vertex.
+     *
+     * @param stateVertex a StateVertex, may not be <code>null</code>
+     * @return a Collection containing Transitions that have a guard, never <code>null</code>
+     */
+    private Collection getNextGuardedTransitionsForStateVertex(StateVertex stateVertex)
+    {
+        Collection transitions = null;
+
+        Transition transition = getNextStateTransitionForStateVertex(stateVertex);
+        Guard guard = transition.getGuard();
+
+        if (guard == null)
+        {
+            StateVertex target = transition.getTarget();
+            if (dynamicHelper.isDecisionPoint(target))
+            {
+                transitions = target.getOutgoing();
+            }
+            else
+            {
+                transitions = Collections.EMPTY_LIST;
+            }
+        }
+        else
+        {
+            transitions = Collections.singleton(transition);
+        }
+
+        return transitions;
+    }
+
+    /**
+     * Returns the first transition from the argument State that is incoming into another State,
+     * there may be several <i>hops</i> (such as merge points) in between.
+     *
+     * @param state a State, may not be <code>null</code>
+     * @return the last transition before entering a new state
+     */
+    public Transition getNextStateTransition(State state)
+    {
+        return getNextStateTransitionForStateVertex(state);
+    }
+
+    /**
+     * Returns the first transition from the argument State that is incoming into another State,
+     * there may be several <i>hops</i> (such as merge points) in between.
+     *
+     * @param pseudostate a Pseudostate, may not be <code>null</code>
+     * @return the last transition before entering a new state
+     */
+    public Transition getNextStateTransition(Pseudostate pseudostate)
+    {
+        return getNextStateTransitionForStateVertex(pseudostate);
+    }
+
+    /**
+     * Returns the first transition from the argument Transition that is incoming into another State,
+     * there may be several <i>hops</i> (such as merge points) in between.
+     * <p>
+     * If the argument transition targets a State, itself will be returned.
+     *
+     * @param transition a Transition, may not be <code>null</code>
+     * @return the last transition before entering a new state
+     */
+    public Transition getNextStateTransition(Transition transition)
+    {
+        Transition nextTransition = null;
+        StateVertex target = transition.getTarget();
+
+        if (dynamicHelper.isState(target))
+        {
+            nextTransition = transition;
+        }
+        else
+        {
+            nextTransition = getNextStateTransition((Pseudostate)target);
+        }
+
+        return nextTransition;
+    }
+
+    /**
+     * Returns the first transition from the argument StateVertex that is incoming into another State,
+     * there may be several <i>hops</i> (such as merge points) in between.
+     *
+     * @param stateVertex a state vertex, may not be <code>null</code>
+     * @return the last transition before entering a new state
+     */
+    private Transition getNextStateTransitionForStateVertex(StateVertex stateVertex)
+    {
+        Transition nextStateTransition = null;
+
+        Collection outgoing = stateVertex.getOutgoing();
+        if (outgoing.size() > 0)
+        {
+            Transition transition = (Transition)outgoing.iterator().next();
+            StateVertex target = transition.getTarget();
+
+            if (dynamicHelper.isState(target) || dynamicHelper.isDecisionPoint(target))
+            {
+                nextStateTransition = transition;
+            }
+            else
+            {
+                nextStateTransition = getNextStateTransition((Pseudostate)target);
+            }
+        }
+
+        return nextStateTransition;
+    }
+
+    /**
+     * Returns the state entered after following the argument transition, there may be several other transitions
+     * before the state is actually entered (merge points in between are simply skipped).
+     *
+     * @param transition a Transition, may not be <code>null</code>
+     * @return the first State which is entered when following the argument transition
+     */
+    public State getTargetState(Transition transition)
+    {
+        StateVertex stateVertex = dynamicHelper.skipMergePoints(transition).getTarget();
+
+        if (dynamicHelper.isState(stateVertex))
+        {
+            return (State)stateVertex;
+        }
+        else
+        {
+            Transition nextTransition = getNextStateTransition((Pseudostate)stateVertex);
+            return (nextTransition == null) ? null : getTargetState(nextTransition);
+        }
+    }
+
+    /**
+     * Checks if the argument has the workflow stereotype aspect.
+     *
+     * @param useCase a use-case
+     * @return <code>true</code> if and only if the argument has a stereotype with name ASPECT_FRONT_END_WORKFLOW,
+     *  <code>false</code> otherwise.
+     * @see org.andromda.core.uml14.UMLStaticHelper#getStereotypeNames
+     */
+    public boolean isWorkflow(UseCase useCase)
+    {
+        return staticHelper.getStereotypeNames(useCase).contains(ASPECT_FRONT_END_WORKFLOW);
+    }
+
+    /**
+     * Checks if the argument has the workflow stereotype aspect.
+     *
+     * @param useCase a use-case
+     * @return <code>true</code> if and only if the argument has a stereotype with name ASPECT_FRONT_END_USE_CASE,
+     *  <code>false</code> otherwise.
+     * @see org.andromda.core.uml14.UMLStaticHelper#getStereotypeNames
+     */
+    public boolean isUseCase(UseCase useCase)
+    {
+        return staticHelper.getStereotypeNames(useCase).contains(ASPECT_FRONT_END_USE_CASE);
+    }
+
+    /**
+     * Returns the collection of exception handler classes attached to the argument class.
+     *
+     * @param umlClass A class representing the Struts configuration
+     * @return an associated class with the ASPECT_FRONT_END_EXCEPTION_HANDLER stereotype aspect.
+     * @see org.andromda.core.uml14.UMLStaticHelper#getStereotypeNames
+     */ 
+    public Collection getExceptionHandlers(UmlClass umlClass)
+    {
+        final Collection associatedExceptionHandlers = new LinkedList();
+        Collection associationEnds = staticHelper.getAssociationEnds(umlClass);
+
+        for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+        {
+            AssociationEnd associationEnd = (AssociationEnd) iterator.next();
+            DirectionalAssociationEnd directionalAssociationEnd = staticHelper.getAssociationData(associationEnd);
+            Classifier participant = directionalAssociationEnd.getTarget().getParticipant();
+            if (staticHelper.getStereotypeNames(participant).contains(ASPECT_FRONT_END_EXCEPTION_HANDLER))
+            {
+                associatedExceptionHandlers.add(participant);
+            }
+        }
+
+        return associatedExceptionHandlers;
+    }
 }
 
 
