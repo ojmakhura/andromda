@@ -46,7 +46,7 @@ public abstract class $service.baseName
     private $targetElement.fullyQualifiedDaoName $entityRef.name;
 
     /**
-     * Sets the reference to <code>$entityRef.name</code>.
+     * Sets the reference to <code>$entityRef.name</code>'s DAO.
      */
     public void ${entityRef.setterName}(${targetElement.fullyQualifiedDaoName} $entityRef.name)
     {
@@ -54,9 +54,9 @@ public abstract class $service.baseName
     }
     
     /**
-     * Gets the reference to <code>$entityRef.name</code>.
+     * Gets the reference to <code>$entityRef.name</code>'s DAO.
      */
-    protected $targetElement.fullyQualifiedDaoName ${entityRef.getterName}()
+    protected $targetElement.fullyQualifiedDaoName get${targetElement.daoName}()
     {
         return this.$entityRef.name;
     }
