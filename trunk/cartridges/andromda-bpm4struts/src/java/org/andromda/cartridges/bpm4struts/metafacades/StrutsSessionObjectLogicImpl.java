@@ -12,12 +12,12 @@ public class StrutsSessionObjectLogicImpl
         super(metaObject, context);
     }
 
-    public java.lang.String handleGetSessionKey()
+    protected java.lang.String handleGetSessionKey()
     {
         return "andromda.bpm4struts." + StringUtilsHelper.toResourceMessageKey(getFullyQualifiedName());
     }
 
-    public java.lang.String handleGetFullPath()
+    protected java.lang.String handleGetFullPath()
     {
         return '/' + getFullyQualifiedName().replace('.', '/');
     }

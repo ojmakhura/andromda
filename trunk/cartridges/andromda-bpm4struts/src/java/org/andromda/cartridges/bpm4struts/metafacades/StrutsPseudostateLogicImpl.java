@@ -27,7 +27,7 @@ public class StrutsPseudostateLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate#getActionMethodName()()
      */
-    public java.lang.String handleGetActionMethodName()
+    protected java.lang.String handleGetActionMethodName()
     {
         final String methodName = getName();
         return (methodName == null) ? "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);

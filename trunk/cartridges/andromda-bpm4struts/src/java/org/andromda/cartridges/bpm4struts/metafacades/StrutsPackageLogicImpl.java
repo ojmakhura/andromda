@@ -21,7 +21,7 @@ public class StrutsPackageLogicImpl
         super(metaObject, context);
     }
 
-    public java.util.Collection handleGetStrutsUseCases()
+    protected java.util.Collection handleGetStrutsUseCases()
     {
         Collection useCases = new ArrayList();
 
@@ -38,7 +38,7 @@ public class StrutsPackageLogicImpl
         return useCases;
     }
 
-    public java.util.Collection handleGetStrutsControllers()
+    protected java.util.Collection handleGetStrutsControllers()
     {
         Collection useCases = new ArrayList();
 

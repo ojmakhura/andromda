@@ -29,7 +29,7 @@ public class StrutsExceptionHandlerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionKey()()
      */
-    public java.lang.String handleGetExceptionKey()
+    protected java.lang.String handleGetExceptionKey()
     {
         final String type = getExceptionType();
         final int dotIndex = type.lastIndexOf('.');
@@ -42,7 +42,7 @@ public class StrutsExceptionHandlerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionType()()
      */
-    public java.lang.String handleGetExceptionType()
+    protected java.lang.String handleGetExceptionType()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_EXCEPTION_TYPE);
         String type = value==null?null:value.toString();
@@ -56,7 +56,7 @@ public class StrutsExceptionHandlerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionPath()()
      */
-    public java.lang.String handleGetExceptionPath()
+    protected java.lang.String handleGetExceptionPath()
     {
         final StateVertexFacade target = getTarget();
         if (target instanceof StrutsJsp)
