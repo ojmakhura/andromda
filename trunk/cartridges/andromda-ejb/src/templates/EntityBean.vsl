@@ -19,7 +19,7 @@ $entity.getDocumentation(" * ")
  *     local-jndi-name = "${entity.jndiName}/Local"
 ###end
 #if (!$identifier.complex)
- *     primkey-field = "${identifier.name}"
+ *     primkey-field = "$identifier.name"
 #end
  *
  * @ejb.interface generate="false" local-class="${entity.fullyQualifiedName}"
