@@ -4,12 +4,12 @@
   to Java wrapper type names.
 -->
 <mappings name="JavaWrapper">
-	<mapping>
-	  	<from>int</from>
-	  	<to>java.lang.Integer</to>
-	</mapping>
-	<mapping>
-	  	<from>char</from>
+    <mapping>
+        <from>int</from>
+        <to>java.lang.Integer</to>
+    </mapping>
+    <mapping>
+        <from>char</from>
         <to>java.lang.Character</to>
     </mapping>
     <mapping>
@@ -32,8 +32,8 @@
         <from>double</from>
         <to>java.lang.Double</to>
     </mapping>
-	<mapping>
-	  	<from>boolean</from>
-	  	<to>java.lang.Boolean</to>
-	</mapping>
+    <mapping>
+          <from>boolean</from>
+          <to>java.lang.Boolean</to>
+    </mapping>
 </mappings>
