@@ -1,13 +1,20 @@
 package org.andromda.translation.query;
 
+import java.util.List;
+
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.TranslationUtils;
-import org.andromda.core.translation.node.*;
+import org.andromda.core.translation.node.AArrowFeatureCall;
+import org.andromda.core.translation.node.ADotFeatureCall;
+import org.andromda.core.translation.node.ALogicalExpressionTail;
+import org.andromda.core.translation.node.AOperationContextDeclaration;
+import org.andromda.core.translation.node.APropertyCallExpression;
+import org.andromda.core.translation.node.ARelationalExpressionTail;
+import org.andromda.core.translation.node.AStandardDeclarator;
+import org.andromda.core.translation.node.PRelationalExpression;
 import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.List;
 
 /**
  * Performs translation to the following:
@@ -88,15 +95,14 @@ public class QueryTranslator extends BaseTranslator {
      * when a declarator is encountered (i.e. '| <variable name>')
 	 */
 	public void inAStandardDeclarator(AStandardDeclarator declarator) {
-		String methodName = "inAStandardDeclarator";
-		if (logger.isDebugEnabled()) {
+		final String methodName = "QueryTranslator.inAStandardDeclarator";
+		if (logger.isDebugEnabled())
 			logger.debug(
 				"performing "
 					+ methodName
 					+ " with declarator --> "
 					+ declarator);
-		}
-
+               
         String temp = this.selectClause.toString();
 
         String declaratorName =
@@ -123,7 +129,6 @@ public class QueryTranslator extends BaseTranslator {
      * i.e. exists(<expression>), select(<expression>, etc.)
      */
     public void inAPropertyCallExpression(APropertyCallExpression expression) {
-        //System.out.println("property call expression: " + expression);
         this.handleTranslationFragment(expression);
     }
 
@@ -221,10 +226,9 @@ public class QueryTranslator extends BaseTranslator {
 
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils.getFeatureCalls(propertyCallExpression);
-
-        System.out.println("featureCalls = " + featureCalls);
-
-        List params = params = ConcreteSyntaxUtils.getParameters((ADotFeatureCall)featureCalls.get(0));
+        
+        List params = params = 
+            ConcreteSyntaxUtils.getParameters((ADotFeatureCall)featureCalls.get(0));
 
         translation = this.replaceFragment(
                 translation,
@@ -250,7 +254,22 @@ public class QueryTranslator extends BaseTranslator {
 
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils.getFeatureCalls(propertyCallExpression);
-        ADotFeatureCall featureCall = (ADotFeatureCall)featureCalls.get(0);
+        
+        // since the parameters can only be either dotFeatureCall or
+        // arrowFeatureCall we try one or the other.
+        String parameters;
+        Object featureCall = featureCalls.get(0);
+        if (ADotFeatureCall.class.isAssignableFrom(featureCall.getClass())) {
+            parameters =
+                StringUtils.deleteWhitespace(
+                    ConcreteSyntaxUtils.getParametersAsString(
+                        (ADotFeatureCall)featureCall));
+        } else {
+            parameters =
+                StringUtils.deleteWhitespace(
+                    ConcreteSyntaxUtils.getParametersAsString(
+                        (AArrowFeatureCall)featureCall));            
+        }
 
         String primaryExpression =
             ConcreteSyntaxUtils.getPrimaryExpression(propertyCallExpression);
@@ -258,10 +277,6 @@ public class QueryTranslator extends BaseTranslator {
         if (logger.isDebugEnabled()) {
             logger.debug("primaryExpression --> '" + primaryExpression + "'");
         }
-
-        String parameters =
-            StringUtils.deleteWhitespace(
-                ConcreteSyntaxUtils.getParametersAsString(featureCall));
 
         translation = this.replaceFragment(
         	translation,

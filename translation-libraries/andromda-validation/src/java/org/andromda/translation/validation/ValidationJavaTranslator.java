@@ -1,10 +1,10 @@
 package org.andromda.translation.validation;
 
+import java.util.List;
+import java.util.Stack;
+
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.node.*;
-
-import java.util.Stack;
-import java.util.regex.Pattern;
 
 public class ValidationJavaTranslator extends BaseTranslator
 {
@@ -230,7 +230,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         mergeTranslationLayerAfter();
     }
 
-    public void caseAEmptyArrowFeatureCall(AEmptyArrowFeatureCall node)
+    /*public void caseAEmptyArrowFeatureCall(AEmptyArrowFeatureCall node)
     {
         newTranslationLayer();
         write("OCLCollections.");
@@ -309,6 +309,45 @@ public class ValidationJavaTranslator extends BaseTranslator
             node.getRParen().apply(this);
         }
         outADoubleArrowFeatureCall(node);
+    }*/
+    
+    public void caseAArrowFeatureCall(AArrowFeatureCall node)
+    {
+        newTranslationLayer();
+        write("OCLCollections.");
+        inAArrowFeatureCall(node);
+        if(node.getArrowFeature() != null)
+        {
+            node.getArrowFeature().apply(this);
+        }
+        AFeatureCallParameters parameters = 
+            (AFeatureCallParameters)node.getFeatureCallParameters();
+        if(parameters.getLParen() != null)
+        {
+            parameters.getLParen().apply(this);
+        }
+        mergeTranslationLayerBefore();
+        AActualParameterList parameterList = 
+            (AActualParameterList)parameters.getActualParameterList();
+        if (parameterList != null) {
+            if (parameterList.getExpression() != null) {
+                write(",");
+                parameterList.getExpression().apply(this);
+            }
+            List expressions = parameterList.getCommaExpression();
+            for (int ctr = 0; ctr < expressions.size(); ctr++) {
+                Node expression = (Node)expressions.get(ctr);
+                if (expression != null) {
+                    write(",");
+                    expression.apply(this);
+                }
+            }
+        }
+        if(parameters.getRParen() != null)
+        {
+            parameters.getRParen().apply(this);
+        }
+        outAArrowFeatureCall(node);
     }
 
     public void caseTName(TName node)
