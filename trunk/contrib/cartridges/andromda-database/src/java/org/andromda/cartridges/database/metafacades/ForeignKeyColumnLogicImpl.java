@@ -76,12 +76,10 @@ public class ForeignKeyColumnLogicImpl
     protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
-        Column importedColumn = this.getImportedTable()
-            .getPrimaryKeyColumn();
+        Column importedColumn = this.getImportedTable().getPrimaryKeyColumn();
         if (importedColumn != null)
         {
-            int randomValue = RANDOM.nextInt(importedColumn.getTable()
-                .getDummyLoadSize()) + 1;
+            int randomValue = RANDOM.nextInt(Math.abs(importedColumn.getTable().getDummyLoadSize())) + 1;
             initialLoadValue = importedColumn.getDummyLoadValue(randomValue);
         }
         return initialLoadValue;
