@@ -95,6 +95,14 @@
                 <ant:include name="*.xml"/>
             </ant:fileset>
         </ant:copy>
+        
+        <j:if test="${web}">
+            <ant:copy todir="${mdaDir}">
+                <ant:fileset dir="${mdaTemplatesDir}">
+                    <ant:include name="conf/**/*"/>
+                </ant:fileset>
+            </ant:copy>            
+        </j:if>
 
     </goal>
 
