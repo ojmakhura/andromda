@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,7 +57,36 @@ public abstract class BasePlugin
      */
     public void init() throws Exception
     {
+        // set the template engine merge location (this needs to be
+        // set before the template engine is initialized) so that the
+        // merge property can be set once on the template engine.
+        Property mergeProperty = Namespaces.instance().findNamespaceProperty(
+            this.getName(),
+            NamespaceProperties.MERGE_LOCATION,
+            false);
+        this.mergeLocation = mergeProperty != null ? new File(mergeProperty
+            .getValue()).toURL() : null;
+        if (this.mergeLocation != null)
+        {
+            this.getTemplateEngine().setMergeLocation(
+                this.getMergeLocation().getFile());
+        }
         this.getTemplateEngine().init(this.getName());
+    }
+
+    /**
+     * The current cartridge merge location.
+     */
+    private URL mergeLocation;
+
+    /**
+     * Gets the current merge location for this plugin.
+     * 
+     * @return the merge location (a file path).
+     */
+    protected URL getMergeLocation()
+    {
+        return this.mergeLocation;
     }
 
     /**
@@ -281,13 +311,21 @@ public abstract class BasePlugin
             {
                 this.contents = ResourceUtils.getClassPathArchiveContents(this
                     .getResource());
+                if (this.getMergeLocation() != null)
+                {
+                    Collection mergeContents = ResourceUtils
+                        .getDirectoryContents(this.getMergeLocation(), 0);
+                    if (mergeContents != null && !mergeContents.isEmpty())
+                    {
+                        this.contents.addAll(mergeContents);
+                    }
+                }
             }
             else
             {
                 // we step down 1 level if its a directory (instead of an
                 // archive since we get the contents relative to the plugin
-                // resource
-                // which is in the META-INF directory
+                // resource which is in the META-INF directory
                 this.contents = ResourceUtils.getDirectoryContents(this
                     .getResource(), 2);
             }
@@ -295,10 +333,11 @@ public abstract class BasePlugin
         }
         return contents;
     }
-    
+
     /**
-     * Retrieves the logger instance that should be used
-     * for logging output for the plugin sub classes.
+     * Retrieves the logger instance that should be used for logging output for
+     * the plugin sub classes.
+     * 
      * @return the logger.
      */
     protected Logger getLogger()

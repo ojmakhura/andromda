@@ -138,8 +138,8 @@ public class ResourceUtils
      * return an empty List).
      * 
      * @param resource the resource from which to retrieve the contents
-     * @param levels the number of levels to go step down if the resource ends
-     *        up being a directory (if its an artifact, levels will be ignored).
+     * @param levels the number of levels to step down if the resource ends up
+     *        being a directory (if its an artifact, levels will be ignored).
      * @return a list of Strings containing the names of every nested resource
      *         found in this resource.
      */
@@ -329,4 +329,30 @@ public class ResourceUtils
         return getResource(resourceName);
     }
 
+    /**
+     * <p>
+     * Retrieves a resource from an optionally given <code>directory</code> or
+     * from the package on the classpath.
+     * </p>
+     * <p>
+     * If the directory is specified and is a valid directory then an attempt at
+     * finding the resource by appending the <code>resourceName</code> to the
+     * given <code>directory</code> will be made, otherwise an attempt to find
+     * the <code>resourceName</code> directly on the classpath will be
+     * initiated.
+     * </p>
+     * 
+     * @param resource the name of a resource
+     * @param directory the directory location
+     * @return the resource url
+     */
+    public static URL getResource(String resourceName, URL directory)
+    {
+        URL resource = null;
+        if (directory != null)
+        {
+            resource = getResource(resourceName, directory.getFile());
+        }
+        return resource;
+    }
 }

@@ -18,7 +18,6 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.NamespaceProperties;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.Property;
@@ -40,10 +39,6 @@ import org.apache.commons.lang.StringUtils;
 public class Cartridge
     extends BasePlugin
 {
-    private List resources = new ArrayList();
-    // protected to improve performance within
-    // inner class access
-    protected CodeGenerationContext context;
 
     /**
      * The default Cartridge constructor.
@@ -56,18 +51,19 @@ public class Cartridge
     /**
      * Cache for saving previously found model elements.
      */
-    private Map elementCache = new HashMap();
+    private final Map elementCache = new HashMap();
+
+    /**
+     * Stores the code generation context. Protected access to improve
+     * performance within inner class access.
+     */
+    protected CodeGenerationContext context;
 
     /**
      * The prefix to look for when determining whether or not to retrieve the
      * output location from the template engine.
      */
     private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
-
-    /**
-     * The current cartridge merge location.
-     */
-    private String mergeLocation;
 
     /**
      * Processes all model elements with relevant stereotypes by retrieving the
@@ -106,25 +102,6 @@ public class Cartridge
             // set the namespace back
             factory.setActiveNamespace(previousNamespace);
         }
-    }
-
-    /**
-     * @see org.andromda.core.common.Plugin#init()
-     */
-    public void init() throws Exception
-    {
-        // set the template engine merge location (this needs to be
-        // set before the template engine is initialized) so that the
-        // merge property can be set once on the template engine.
-        Property mergeProperty = Namespaces.instance().findNamespaceProperty(
-            this.getName(),
-            NamespaceProperties.MERGE_LOCATION,
-            false);
-        this.mergeLocation = mergeProperty != null
-            ? mergeProperty.getValue()
-            : null;
-        this.getTemplateEngine().setMergeLocation(this.mergeLocation);
-        super.init();
     }
 
     /**
@@ -230,8 +207,8 @@ public class Cartridge
                     // model elements and place them into the template context
                     // by their variable names.
                     if (template.isOutputToSingleFile()
-                        && (template.isOutputOnEmptyElements()
-                        || !allMetafacades.isEmpty()))
+                        && (template.isOutputOnEmptyElements() || !allMetafacades
+                            .isEmpty()))
                     {
                         final Map templateContext = new HashMap();
 
@@ -465,9 +442,8 @@ public class Cartridge
         final String methodName = "Cartridge.processResource";
         ExceptionUtils.checkNull(methodName, "resource", resource);
 
-        URL resourceUrl = ResourceUtils.getResource(
-            resource.getPath(),
-            this.mergeLocation);
+        URL resourceUrl = ResourceUtils.getResource(resource.getPath(), this
+            .getMergeLocation());
         if (resourceUrl == null)
         {
             // if the resourceUrl is null, the path is probably a regular
@@ -488,7 +464,7 @@ public class Cartridge
                         {
                             resourceUrl = ResourceUtils.getResource(
                                 content,
-                                this.mergeLocation);
+                                this.getMergeLocation());
                             this.writeResource(resource, resourceUrl);
                         }
                     }
@@ -616,6 +592,11 @@ public class Cartridge
             }
         });
     }
+
+    /**
+     * Stores the loaded resources to be processed by this cartridge intance.
+     */
+    private final List resources = new ArrayList();
 
     /**
      * Returns the list of templates configured in this cartridge.
