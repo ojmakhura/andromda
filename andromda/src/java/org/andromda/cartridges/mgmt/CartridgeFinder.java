@@ -29,7 +29,7 @@ import org.apache.tools.ant.AntClassLoader;
  * @since   April 1, 2003
  * @todo      Use reflection to call AntClassLoader.getClasspath to remove dependency to Ant. This package should be Ant
  *      independent
- * @version   $Revision: 1.1 $
+ * @version   $Revision: 1.2 $
  */
 public class CartridgeFinder
 {
@@ -74,7 +74,7 @@ public class CartridgeFinder
     /**
      * Returns a List of ICartridgeDescriptor objects
      *
-     * @return
+     * @return a <code>List<code> of cartriges
      */
     public static List findCartridges() throws IOException
     {

@@ -55,7 +55,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 public class AndroMDAGenTask extends MatchingTask
 {
     private static final String DEFAULT_DBMAPPING_TABLE_CLASSNAME =
-        "org.andromda.core.dbmapping.CastorDbMappingTable";
+        "org.andromda.core.dbmapping.DigesterDbMappingTable";
 
     /**
      *  the base directory
