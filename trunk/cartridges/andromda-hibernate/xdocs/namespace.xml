@@ -319,6 +319,18 @@
                 </tr>
                 <tr>
                     <td>
+                        generateEntityEqualsAndHashCode
+                    </td>
+                    <td>
+                        Indicates whether or not a default equals and hashCode
+                        implementation should be generated.
+                    </td>
+                    <td>
+                        No, <code>true</code> is the default.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         hibernatePoolSize
                     </td>
                     <td>
