@@ -76,16 +76,6 @@
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
 		</to>
 	</expression>
-	
-	<expression>
-		<from>
-			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
-			body findAllBody : allInstances()
-		</from>
-		<to>
-			from org.andromda.contracts.LegalAgreement as legalAgreement 
-		</to>
-	</expression>
 		
 	 <expression>
 		<from>
