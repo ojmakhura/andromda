@@ -1,5 +1,7 @@
 // license-header java merge-point
+#if ($entity.packageName)
 package $entity.packageName;
+#end
 
 import javax.ejb.EntityContext;
 import javax.ejb.RemoveException;

@@ -120,7 +120,7 @@ class EJBMetafacadeUtils
                 viewType = "remote";
             }
         }
-        return viewType;
+        return viewType.toLowerCase();
     }
 
     /**

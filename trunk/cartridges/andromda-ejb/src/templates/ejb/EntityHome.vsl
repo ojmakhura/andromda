@@ -1,5 +1,7 @@
 // license-header java merge-point
+#if ($entity.packageName)
 package $entity.packageName;
+#end
 
 #set ($identifier = $entity.identifiers.iterator().next())
 /**
