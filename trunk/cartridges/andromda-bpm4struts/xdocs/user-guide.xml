@@ -96,7 +96,7 @@
                 and targetting a page. Such transitions should be tagged with the FrontEndException stereotype.
             </p>
             <p class="std">
-                To make it easier for the modeller using bpm4struts we implemented the convention that in case
+                To make it easier for the modeler using bpm4struts we implemented the convention that in case
                 no exception handler is specified a default one will be implied. This means that if an action
                 throws a java.lang.Exception it will be handled and the message will be forwarded to the
                 page which triggered the action, so you will simply return back to the page. This default
