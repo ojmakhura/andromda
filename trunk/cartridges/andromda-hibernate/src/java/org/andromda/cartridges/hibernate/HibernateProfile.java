@@ -82,4 +82,29 @@ public class HibernateProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_PROXY = profile.get("HIBERNATE_PROXY");
 
+    /**
+     * Defines the maximum number of objects that will be created in memory
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS = profile.get("HIBERNATE_EHCACHE_MAX_ELEMENTS");
+
+    /**
+     * Defines if elements are eternal.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL = profile.get("HIBERNATE_EHCACHE_ETERNAL");
+
+    /**
+     * Defines the time to idle for an element before it expires.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE = profile.get("HIBERNATE_EHCACHE_TIME_TO_IDLE");
+
+    /**
+     * Defines the time to live for an element before it expires.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE = profile.get("HIBERNATE_EHCACHE_TIME_TO_LIVE");
+
+    /**
+     * Defines if elements can overflow to disk
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = profile.get("HIBERNATE_EHCACHE_OVERFLOW_TO_DISK");
+
 }

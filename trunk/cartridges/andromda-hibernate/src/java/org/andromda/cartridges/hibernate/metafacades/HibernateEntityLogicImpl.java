@@ -674,4 +674,111 @@ public class HibernateEntityLogicImpl
         return Boolean.valueOf(hibernateProxy).booleanValue();
     }
 
+    /**
+     * The namespace property storing default ehCache maxElementsInMemory Parameter
+     * 
+     */
+    private static final String HIBERNATE_EHCACHE_MAX_ELEMENTS = "ehCacheMaxElementsInMemory";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEhCacheMaxElementsInMemory()
+     */
+    protected int handleGetEhCacheMaxElementsInMemory()
+    {
+        String maxElements=null; 
+        maxElements= (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
+        if (StringUtils.isBlank(maxElements))
+        {
+            maxElements = (String)this
+                .getConfiguredProperty(HIBERNATE_EHCACHE_MAX_ELEMENTS);
+        }
+        return Integer.parseInt(maxElements);
+    }
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     * 
+     */
+    private static final String HIBERNATE_EHCACHE_ETERNAL = "ehCacheEternal";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEhCacheEternal()
+     */
+    protected boolean handleIsEhCacheEternal()
+    {
+        String eternal = (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
+        if (eternal == null)
+        {
+            eternal = (String)this
+                .getConfiguredProperty(HIBERNATE_EHCACHE_ETERNAL);
+        }
+        return Boolean.valueOf(eternal).booleanValue();
+    }
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     * 
+     */
+    private static final String HIBERNATE_EHCACHE_TIME_TO_IDLE = "ehCacheTimeToIdleSeconds";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEhCacheTimeToIdleSeconds()
+     */
+    protected int handleGetEhCacheTimeToIdleSeconds()
+    {
+        String timeToIdle=null; 
+        timeToIdle= (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
+        if (StringUtils.isBlank(timeToIdle))
+        {
+            timeToIdle = (String)this
+                .getConfiguredProperty(HIBERNATE_EHCACHE_TIME_TO_IDLE);
+        }
+        return Integer.parseInt(timeToIdle);
+    }
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     * 
+     */
+    private static final String HIBERNATE_EHCACHE_TIME_TO_LIVE = "ehCacheTimeToLiveSeconds";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEhCacheTimeToLiveSeconds()
+     */
+    protected int handleGetEhCacheTimeToLiveSeconds()
+    {
+        String timeToLive=null; 
+        timeToLive= (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
+        if (StringUtils.isBlank(timeToLive))
+        {
+            timeToLive = (String)this
+                .getConfiguredProperty(HIBERNATE_EHCACHE_TIME_TO_LIVE);
+        }
+        return Integer.parseInt(timeToLive);
+    }
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     * 
+     */
+    private static final String HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = "ehCacheOverflowToDisk";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEhCacheOverflowToDisk()
+     */
+    protected boolean handleIsEhCacheOverflowToDisk()
+    {
+        String eternal = (String)this
+        .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
+        if (eternal == null)
+        {
+            eternal = (String)this
+                .getConfiguredProperty(HIBERNATE_EHCACHE_ETERNAL);
+        }
+        return Boolean.valueOf(eternal).booleanValue();
+    }
 }

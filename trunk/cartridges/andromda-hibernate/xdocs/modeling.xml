@@ -264,6 +264,76 @@
                             </ul>
                           </td>
                        </tr>
+                       <tr>
+                        <a name="@andromda.hibernate.ehcache.maxElementsInMemory"/>
+                          <td>
+                              @andromda.hibernate.ehcache.maxElementsInMemory
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                          <td>
+                              EhCache property. Defines the maximum number of objects that will be created in memory.
+                          </td>
+                       </tr>
+                       <tr>
+                        <a name="@andromda.hibernate.ehcache.eternal"/>
+                          <td>
+                              @andromda.hibernate.ehcache.eternal
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                          <td>
+                               EhCache property. Defines if elements are eternal.
+                              <ul>
+                                Permitted values are:
+                                <li>true</li>
+                                <li>false</li>
+                            </ul>
+                          </td>
+                       </tr>
+                       <tr>
+                        <a name="@andromda.hibernate.ehcache.timeToIdleSeconds"/>
+                          <td>
+                              @andromda.hibernate.ehcache.timeToIdleSeconds
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                          <td>
+                              EhCache property. Defines the time to idle for an element before it expires.
+                          </td>
+                       </tr>
+                       <tr>
+                        <a name="@andromda.hibernate.ehcache.timeToLiveSeconds"/>
+                          <td>
+                              @andromda.hibernate.ehcache.timeToLiveSeconds
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                          <td>
+                              EhCache property. Defines the time to live for an element before it expires.
+                          </td>
+                       </tr>
+                       <tr>
+                        <a name="@andromda.hibernate.ehcache.overflowToDisk"/>
+                          <td>
+                              @andromda.hibernate.ehcache.overflowToDisk
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                          <td>
+                              EhCache property. Defines if elements can overflow to disk
+                              <ul>
+                                Permitted values are:
+                                <li>true</li>
+                                <li>false</li>
+                            </ul>
+                          </td>
+                       </tr>
                     </table>
                     </subsection>
                     <subsection name="Service Tagged Values">

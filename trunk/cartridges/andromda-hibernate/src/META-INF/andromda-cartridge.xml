@@ -43,7 +43,8 @@
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
     <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
-    <property reference="hibernateUseQueryCache" default="false"/>
+    <property reference="hibernateEnableCache" default="false"/>
+    <property reference="hibernateEhCacheDiskStore" default="java.io.tmpdir"/>
     <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
     <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
     <property reference="xmlEncoding" default="UTF-8"/>
@@ -253,6 +254,20 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ehcache.xml.vsl"
+        outputPattern="ehcache.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        required="false">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EntityFacade"/>
             </modelElement>
         </modelElements>
     </template>

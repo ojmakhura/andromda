@@ -504,70 +504,6 @@
                 </tr>
                  <tr>
                     <td>
-                        hibernateUseQueryCache
-                    </td>
-                    <td>
-                         Enables or disables the usage of the query cache. Posible values are:
-                         <ul>
-                            <li>true</li>
-                            <li>false</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>false</code>.
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        hibernateCacheProvider
-                    </td>
-                    <td>
-                         Defines Hibernate Cache Provider implementation class. Possible values are:
-                         <ul>
-                            <li>net.sf.hibernate.cache.EhCacheProvider</li>
-                            <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
-                            <li>net.sf.hibernate.cache.JCSCacheProvider</li>
-                            <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
-                            <li>net.sf.hibernate.cache.TreeCacheProvider</li>
-                            <li>net.sf.hibernate.cache.OSCacheProvider</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        hibernateQueryCacheFactory
-                    </td>
-                    <td>
-                         Defines Hibernate Query Cache Factory implementation class. Possible values are:
-                         <ul>
-                            <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        hibernateEntityCache
-                    </td>
-                    <td>
-                         Defines the default strategy for Entities caching Possible values are:
-                         <ul>
-                                <li>read-write</li>
-                                <li>nonstrict-read-write</li>
-                                <li>read-only</li>
-                            </ul>
-                    </td>
-                    <td>
-                        No
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         ejbViewType
                     </td>
                     <td>
@@ -602,6 +538,156 @@
                     </td>
                 </tr>
             </table>
+            <subsection name="Hibernate Second Level Cache Values">
+             <table>
+                    <tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>
+                        hibernateEnableCache
+                        </td>
+                        <td>
+                        Enable/Disable hibernate's second level cache features for the cartridge.
+                        </td>
+                        <td>
+                        No, default is <code>false</code>.
+                        </td>
+                   </tr>
+                   <tr>
+                        <td>
+                        hibernateEhCacheDiskStore
+                        </td>
+                        <td>
+                        Defines the path to the directory where cache files will be created
+                        </td>
+                        <td>
+                        No, default is <code>java.io.tmpdir</code>.
+                        </td>
+                   </tr>
+                   <tr>
+                    <td>
+                        hibernateCacheProvider
+                    </td>
+                    <td>
+                         Defines Hibernate Cache Provider implementation class. Possible values are:
+                         <ul>
+                            <li>net.sf.hibernate.cache.EhCacheProvider</li>
+                            <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
+                            <li>net.sf.hibernate.cache.JCSCacheProvider</li>
+                            <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
+                            <li>net.sf.hibernate.cache.TreeCacheProvider</li>
+                            <li>net.sf.hibernate.cache.OSCacheProvider</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        hibernateQueryCacheFactory
+                    </td>
+                    <td>
+                         Defines Hibernate Query Cache Factory implementation class. Possible values are:
+                         <ul>
+                            <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        hibernateUseQueryCache
+                    </td>
+                    <td>
+                         Default value for the usage of the query cache within finder methods. Can be overwrited with the corresponding tagged value. Posible values are:
+                         <ul>
+                            <li>true</li>
+                            <li>false</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        hibernateEntityCache
+                    </td>
+                    <td>
+                         Defines the default strategy for Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
+                         <ul>
+                                <li>read-write</li>
+                                <li>nonstrict-read-write</li>
+                                <li>read-only</li>
+                            </ul>
+                    </td>
+                    <td>
+                        No, default is <code>read-write</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ehCacheMaxElementsInMemory
+                    </td>
+                    <td>
+                         EhCache property. Defines the default maximum number of objects that will be created in memory.
+                    </td>
+                    <td>
+                        No, default is <code>10000</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ehCacheEternal
+                    </td>
+                    <td>
+                         EhCache property. Defines a default value for the eternal parameter.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ehCacheTimeToIdleSeconds
+                    </td>
+                    <td>
+                         EhCache property. Defines the default time to idle for an element before it expires.
+                    </td>
+                    <td>
+                        No, default is <code>120</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ehCacheTimeToLiveSeconds
+                    </td>
+                    <td>
+                         EhCache property. Defines the default time to live for an element before it expires.
+                    </td>
+                    <td>
+                        No, default is <code>120</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ehCacheOverflowToDisk
+                    </td>
+                    <td>
+                         EhCache property. Defines the default value for the overflow to disk property.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>         
+             </table>       
+            </subsection>
         </section>
     </body>
 </document>

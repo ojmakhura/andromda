@@ -36,6 +36,26 @@
         <to>@andromda.hibernate.association.cache</to>
     </mapping>
     <mapping>
+        <from>HIBERNATE_EHCACHE_MAX_ELEMENTS</from>
+        <to>@andromda.hibernate.ehcache.maxElementsInMemory</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_EHCACHE_ETERNAL</from>
+        <to>@andromda.hibernate.ehcache.eternal</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_EHCACHE_TIME_TO_IDLE</from>
+        <to>@andromda.hibernate.ehcache.timeToIdleSeconds</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_EHCACHE_TIME_TO_LIVE</from>
+        <to>@andromda.hibernate.ehcache.timeToLiveSeconds</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_EHCACHE_OVERFLOW_TO_DISK</from>
+        <to>@andromda.hibernate.ehcache.overflowToDisk</to>
+    </mapping>
+    <mapping>
         <from>HIBERNATE_GENERATOR_CLASS</from>
         <to>@andromda.hibernate.generator.class</to>
     </mapping>
