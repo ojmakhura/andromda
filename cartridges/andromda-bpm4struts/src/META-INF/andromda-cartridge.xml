@@ -64,7 +64,7 @@
         path="templates/StrutsActionJsp.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overwrite="false"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="action">
             <modelElement stereotype="FrontEndEvent"/>
@@ -139,7 +139,7 @@
         path="templates/StrutsJSP.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="jsp">
             <modelElement stereotype="FrontEndView"/>
         </modelElements>
@@ -149,7 +149,7 @@
         path="templates/StrutsJSPVariables.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="jsp">
             <modelElement stereotype="FrontEndView"/>
         </modelElements>
@@ -223,7 +223,7 @@
         path="templates/StrutsLoginFormJsp.vsl"
         outputPattern="login/login-form.jsp"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -233,7 +233,7 @@
         path="templates/StrutsMenuJsp.vsl"
         outputPattern="layout/menu.jsp"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -243,7 +243,7 @@
         path="templates/StrutsMainLayoutJsp.vsl"
         outputPattern="layout/main-layout.jsp"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -283,7 +283,7 @@
         path="templates/StrutsApplicationCss.vsl"
         outputPattern="layout/default-application.css"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -293,7 +293,7 @@
         path="templates/StrutsCss.vsl"
         outputPattern="layout/default.css"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -303,7 +303,7 @@
         path="templates/StrutsMessagesJsp.vsl"
         outputPattern="layout/messages.jsp"
         outlet="pages"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
@@ -358,14 +358,14 @@
         path="templates/StrutsJspIncludes.vsl"
         outputPattern="taglib-imports.jspf"
         outlet="pages"
-        overwrite="false"
+        overwrite="true"
         generateEmptyFiles="true"/>
 
     <template
         path="templates/StrutsJspHelp.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overwrite="false"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="jsp">
             <modelElement stereotype="FrontEndView"/>
@@ -376,7 +376,7 @@
         path="templates/StrutsApplicationHelp.vsl"
         outputPattern="application-help.jsp"
         outlet="pages"
-        overwrite="false"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
@@ -387,7 +387,7 @@
         path="templates/StrutsHelpLayoutJsp.vsl"
         outputPattern="layout/help-layout.jsp"
         outlet="pages"
-        overwrite="false"
+        overwrite="true"
         generateEmptyFiles="false"/>
 
 </cartridge>
