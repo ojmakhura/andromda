@@ -27,7 +27,8 @@
           AndroMDA file list
         </a>
         on SourceForge's web site and unzip them into the same directory of your choice.
-        You will notice that there are quite a number of them:
+        You will notice that there are quite a number of them and that they all have
+        a release number at the end of the filename:
       </p>
       <table border="1" cellpadding="2" cellspacing="2" class="std">
         <tr>
@@ -36,7 +37,7 @@
         </tr>
         <tr>
           <td>
-            <code>andromda_nnn.zip</code>
+            <code>andromda-core.zip</code>
           </td>
           <td>
             Core of the generator, along with documentation and source files.
@@ -44,7 +45,7 @@
         </tr>
         <tr>
           <td>
-            <code>andromda_libs_nnn.zip</code>
+            <code>andromda-libs.zip</code>
           </td>
           <td>
             External jar files required for the operation of AndroMDA. Among
