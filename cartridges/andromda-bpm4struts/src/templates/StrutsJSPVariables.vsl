@@ -2,7 +2,9 @@
 #foreach ($variable in $jsp.pageVariables)
 #set ($variableName = $variable.name)
 #set ($formVariableName = "form.${variableName}")
-<c:if test="${!empty ${formVariableName}}">
+## Surround with catch so that if the property doesn't exist
+## on the form no exceptions will be thrown (since we don't want that)
+<c:catch>
     <c:set var="$variableName" value="${${formVariableName}}" scope="request"/>
-</c:if>
+</c:catch>
 #end
