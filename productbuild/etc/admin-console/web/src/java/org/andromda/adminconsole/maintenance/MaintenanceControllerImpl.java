@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -65,13 +66,13 @@ public class MaintenanceControllerImpl extends MaintenanceController
         metadataSession.setTables( tableMap );
         metadataSession.setTableNames( Arrays.asList(tableNames) );
 
-        if (tables.length < 1)
+        if (tables.length > 0)
         {
-            throw new Exception("No tables could be found");
+            metadataSession.setCurrentTable( tables[0] );
         }
         else
         {
-            metadataSession.setCurrentTable( tables[0] );
+            throw new Exception("No tables could be found");
         }
 
     }
@@ -114,5 +115,45 @@ public class MaintenanceControllerImpl extends MaintenanceController
         {
             table.insertRow(rowData);
         }
+    }
+
+    private final static String COOKIE_NAME = "admin.console";
+    private final static String COOKIE_VALUE_SEPARATOR = "::::";
+
+    public void loadPreferences(ActionMapping mapping, LoadPreferencesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        Cookie[] cookies = request.getCookies();
+
+        boolean cookieLoaded = false;
+        if (cookies != null)
+        {
+            for (int i = 0; i < cookies.length && !cookieLoaded; i++)
+            {
+                Cookie cookie = cookies[i];
+                if (COOKIE_NAME.equals(cookie.getName()))
+                {
+                    String value = cookie.getValue();
+                    int separatorIndex = value.indexOf(COOKIE_VALUE_SEPARATOR);
+
+                    if (separatorIndex != -1)
+                    {
+                        String user = value.substring(0, separatorIndex);
+                        String url = value.substring(separatorIndex + COOKIE_VALUE_SEPARATOR.length());
+
+                        getDatabaseLoginSession(request).setPreferredUrl(url);
+
+                        form.setUser(user);
+                        form.setUrl(url);
+                    }
+                    cookieLoaded = true;
+                }
+            }
+        }
+    }
+
+    public void storePreferences(ActionMapping mapping, StorePreferencesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        Cookie cookie = new Cookie(COOKIE_NAME, form.getUser() + COOKIE_VALUE_SEPARATOR + form.getUrl());
+        response.addCookie(cookie);
     }
 }
