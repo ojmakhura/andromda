@@ -28,14 +28,12 @@ public class $service.ejbImplementationName
     /**
      * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
      */
+    $operation.visibility $returnType.fullyQualifiedName $signature
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $signature
         throws $operation.exceptionList
-    {
-#else
-    $operation.visibility $returnType.fullyQualifiedName $signature
-    {
 #end
+    {
+        (($service.fullyQualifiedBaseName)this.$businessObject).setPrincipal(super.getSessionContext().getCallerPrincipal());
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
         return this.${businessObject}.${operation.call};
@@ -56,14 +54,14 @@ public class $service.ejbImplementationName
     {
         this.${businessObject} = ($service.fullyQualifiedName)
             getBeanFactory().getBean("${businessObject}");
-        (($service.fullyQualifiedBaseName)this.$businessObject).setSessionContext(super.getSessionContext());
     }
 
+#set ($seeComment = "@see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)")
     /**
      * Override default BeanFactoryLocator implementation to
      * provide singleton loading of the application context Bean factory.
      *
-     * @see javax.ejb.SessionBeansetSessionContext(javax.ejb.SessionContext)
+     * $seeComment
      */
     public void setSessionContext(javax.ejb.SessionContext sessionContext)
     {
