@@ -157,13 +157,61 @@ public class ValidationJavaTranslator extends BaseTranslator
         node.getDot().apply(this);
         node.getFeatureCall().apply(this);
     }
-
-    /*public void caseADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
+    
+    public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node) 
     {
-        node.getDot().apply(this);
-        node.getDotFeatureCall().apply(this);
-    }*/
-
+        node.getArrow().apply(this);
+        this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
+    }
+    
+    /**
+     * Handles an <strong>arrow</strong> feature call.  
+     * Its expected that this <code>featureCall</code>'s parent is a 
+     * AArrowPropertyCallExpressionTail. This is here because
+     * arrow feature calls must be handled differently than 
+     * <code>dot<code> feature calls.
+     * 
+     * @param featureCall the <strong>arrow</strong> 
+     *        <code>featureCall</code> to handle.
+     */
+    public void handleArrowFeatureCall(AFeatureCall featureCall) {
+        newTranslationLayer();
+        write("OCLCollections.");
+        inAFeatureCall(featureCall);
+        if(featureCall.getPathName() != null)
+        {
+            featureCall.getPathName().apply(this);
+        }
+        AFeatureCallParameters parameters =
+            (AFeatureCallParameters)featureCall.getFeatureCallParameters();
+        if(parameters.getLParen() != null)
+        {
+            parameters.getLParen().apply(this);
+        }
+        mergeTranslationLayerBefore();
+        AActualParameterList parameterList =
+            (AActualParameterList)parameters.getActualParameterList();
+        if (parameterList != null) {
+            if (parameterList.getExpression() != null) {
+                write(",");
+                parameterList.getExpression().apply(this);
+            }
+            List expressions = parameterList.getCommaExpression();
+            for (int ctr = 0; ctr < expressions.size(); ctr++) {
+                Node expression = (Node)expressions.get(ctr);
+                if (expression != null) {
+                    write(",");
+                    expression.apply(this);
+                }
+            }
+        }
+        if(parameters.getRParen() != null)
+        {
+            parameters.getRParen().apply(this);
+        }
+        this.outAFeatureCall(featureCall);    
+    }
+    
     public void caseALetExp(ALetExp node)
     {
         node.getLetVariableDelaration().apply(this);
@@ -234,50 +282,6 @@ public class ValidationJavaTranslator extends BaseTranslator
     public void outARelationalExpression(ARelationalExpression node)
     {
         mergeTranslationLayerAfter();
-    }
-    
-    public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node) {
-        node.getArrow().apply(this);
-        node.getFeatureCall().apply(this);
-    }
-
-    public void caseAFeatureCall(AFeatureCall node)
-    {
-        newTranslationLayer();
-        write("OCLCollections.");
-        inAFeatureCall(node);
-        if(node.getPathName()!= null)
-        {
-            node.getPathName().apply(this);
-        }
-        AFeatureCallParameters parameters =
-            (AFeatureCallParameters)node.getFeatureCallParameters();
-        if(parameters.getLParen() != null)
-        {
-            parameters.getLParen().apply(this);
-        }
-        mergeTranslationLayerBefore();
-        AActualParameterList parameterList =
-            (AActualParameterList)parameters.getActualParameterList();
-        if (parameterList != null) {
-            if (parameterList.getExpression() != null) {
-                write(",");
-                parameterList.getExpression().apply(this);
-            }
-            List expressions = parameterList.getCommaExpression();
-            for (int ctr = 0; ctr < expressions.size(); ctr++) {
-                Node expression = (Node)expressions.get(ctr);
-                if (expression != null) {
-                    write(",");
-                    expression.apply(this);
-                }
-            }
-        }
-        if(parameters.getRParen() != null)
-        {
-            parameters.getRParen().apply(this);
-        }
-        outAFeatureCall(node);
     }
 
     public void caseTName(TName node)
@@ -534,61 +538,6 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
     }
 
-    /*public void caseTIsEmpty(TIsEmpty tIsEmpty)
-    { 
-        write("isEmpty");
-    }
-
-    public void caseTAny(TAny tAny)
-    {
-        write("isAny");
-    }
-
-    public void caseTAppend(TAppend tAppend)
-    {
-        write("append");
-    }
-
-    public void caseTAsBag(TAsBag tAsBag)
-    {
-        write("asBag");
-    }
-
-    public void caseTAsOrderedSet(TAsOrderedSet tAsOrderedSet)
-    {
-        write("asOrderedSet");
-    }
-
-    public void caseTAsSequence(TAsSequence tAsSequence)
-    {
-        write("asSequence");
-    }
-
-    public void caseTAsSet(TAsSet tAsSet)
-    {
-        write("asSet");
-    }
-
-    public void caseTAt(TAt tAt)
-    {
-        write("at");
-    }
-
-    public void caseTCollect(TCollect tCollect)
-    {
-        write("collect");
-    }
-
-    public void caseTCollectNested(TCollectNested tCollectNested)
-    {
-        write("collectNested");
-    }
-
-    public void caseTPrepend(TPrepend tPrepend)
-    {
-        write("prepend");
-    }*/
-
     public void caseTRange(TRange tRange)
     {
     }
@@ -602,146 +551,11 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         write(", ");
     }
-
-    /*public void caseTCount(TCount tCount)
-    {
-        write("count");
-    }*/
-
+    
     public void caseTDot(TDot tDot)
     {
         write(".");
     }
-
-   /* public void caseTExcludes(TExcludes tExcludes)
-    {
-        write("exclude");
-    }
-
-    public void caseTExcludesAll(TExcludesAll tExcludesAll)
-    {
-        write("excludesAll");
-    }
-
-    public void caseTExcluding(TExcluding tExcluding)
-    {
-        write("excluding");
-    }
-
-    public void caseTExists(TExists tExists)
-    {
-        write("exists");
-    }
-
-    public void caseTFlatten(TFlatten tFlatten)
-    {
-        write("flatten");
-    }
-
-    public void caseTForAll(TForAll tForAll)
-    {
-        write("forAll");
-    }
-
-    public void caseTIncludes(TIncludes tIncludes)
-    {
-        write("includes");
-    }
-
-    public void caseTIncludesAll(TIncludesAll tIncludesAll)
-    {
-        write("includesAll");
-    }
-
-    public void caseTIncluding(TIncluding tIncluding)
-    {
-        write("including");
-    }
-
-    public void caseTIndexOf(TIndexOf tIndexOf)
-    {
-        write("indexOf");
-    }
-
-    public void caseTInsertAt(TInsertAt tInsertAt)
-    {
-        write("insertAt");
-    }
-
-    public void caseTIntersection(TIntersection tIntersection)
-    {
-        write("intersection");
-    }
-
-    public void caseTIsUnique(TIsUnique tIsUnique)
-    {
-        write("isUnique");
-    }
-
-    public void caseTIterate(TIterate tIterate)
-    {
-        write("iterate");
-    }
-
-    public void caseTLast(TLast tLast)
-    {
-        write("last");
-    }
-
-    public void caseTNotEmpty(TNotEmpty tNotEmpty)
-    {
-        write("notEmpty");
-    }
-
-    public void caseTOne(TOne tOne)
-    {
-        write("one");
-    }
-
-    public void caseTReject(TReject tReject)
-    {
-        write("reject");
-    }
-
-    public void caseTSelect(TSelect tSelect)
-    {
-        write("select");
-    }
-
-    public void caseTSortedBy(TSortedBy tSortedBy)
-    {
-        write("sortedBy");
-    }
-
-    public void caseTSubOrderedSet(TSubOrderedSet tSubOrderedSet)
-    {
-        write("subOrderedSet");
-    }
-
-    public void caseTSubSequence(TSubSequence tSubSequence)
-    {
-        write("subSequence");
-    }
-
-    public void caseTSymmetricDifference(TSymmetricDifference tSymmetricDifference)
-    {
-        write("symmetricDifference");
-    }
-
-    public void caseTUnion(TUnion tUnion)
-    {
-        write("union");
-    }
-
-    public void caseTSum(TSum tSum)
-    {
-        write("sum");
-    }
-
-    public void caseTSize(TSize tSize)
-    {
-        write("size");
-    }*/
 
     public void caseTSemicolon(TSemicolon tSemicolon)
     {
@@ -836,34 +650,6 @@ public class ValidationJavaTranslator extends BaseTranslator
     public void caseTTupletype(TTupletype tTupletype)
     {
     }
-
-    /**
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     */
 
     public static final String CRLF = System.getProperty("line.separator");
     private final Stack translationLayers = new Stack();
