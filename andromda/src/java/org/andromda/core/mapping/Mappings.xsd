@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- ========================================================================= 
+     This schema defines a mappings xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES                             
+     ========================================================================= -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-	<xs:element name="from" type="xs:string"/>
-	<xs:element name="mapping">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="from" maxOccurs="unbounded"/>
-				<xs:element ref="to" minOccurs="1" maxOccurs="1"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="mappings">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="mapping" maxOccurs="unbounded"/>
-			</xs:sequence>
-			<xs:attribute name="name" type="xs:string" use="required"/>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="to" type="xs:string"/>
+    <xs:element name="from" type="xs:string"/>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="from" maxOccurs="unbounded"/>
+                <xs:element ref="to" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mappings">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="to" type="xs:string"/>
 </xs:schema>
