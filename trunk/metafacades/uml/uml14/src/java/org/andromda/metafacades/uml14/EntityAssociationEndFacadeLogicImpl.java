@@ -4,6 +4,7 @@ import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ClassifierFacade;
 
 /**
  * <p>
@@ -47,8 +48,7 @@ public class EntityAssociationEndFacadeLogicImpl
      */
     public String handleGetForeignKeySuffix()
     {
-        return (String)this
-            .getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
     }
 
     /**
@@ -56,11 +56,48 @@ public class EntityAssociationEndFacadeLogicImpl
      */
     protected boolean handleIsForeignIdentifier()
     {
-        Object value = this.findTaggedValue(
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
-        boolean test = value != null && Boolean.valueOf(
-            String.valueOf(value)).booleanValue();  
+        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
+        boolean test = value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
         return test;        
+    }
+
+    /**
+     * @see AssociationEndFacadeLogic#getForeignKeyConstraintName()
+     */
+    protected String handleGetForeignKeyConstraintName()
+    {
+        String constraintName = null;
+
+        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
+        if (taggedValueObject == null)
+        {
+            // no tagged value, construct: FK_TABLENAME_COLUMNNAME
+            final StringBuffer buffer = new StringBuffer();
+            buffer.append("FK_");
+
+            ClassifierFacade type = getType();
+            if (type instanceof EntityFacade)
+            {
+                EntityFacade entity = (EntityFacade) type;
+                buffer.append(entity.getTableName());
+            }
+            else
+            {
+                buffer.append(type.getName().hashCode());
+            }
+
+            buffer.append("_");
+            buffer.append(this.getColumnName());
+
+            constraintName = buffer.toString();
+        }
+        else
+        {
+            // use the tagged value
+            constraintName = taggedValueObject.toString();
+        }
+
+        return constraintName;
     }
 
 }
