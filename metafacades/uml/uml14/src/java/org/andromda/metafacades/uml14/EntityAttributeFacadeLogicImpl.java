@@ -153,7 +153,7 @@ public class EntityAttributeFacadeLogicImpl
             try
             {
                 mappings = Mappings.getInstance(uri);
-                this.registerConfiguredProperty(propertyName, mappings);
+                this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
             {

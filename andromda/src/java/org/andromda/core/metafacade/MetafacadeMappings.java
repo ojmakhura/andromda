@@ -379,7 +379,6 @@ public class MetafacadeMappings
 
         if (propertyReferences == null)
         {
-
             // first load the property references from
             // the mappings
             propertyReferences = new HashMap();

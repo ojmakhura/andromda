@@ -6,7 +6,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * Base class for all metaclass facades.
+ * Base class for all metafacades.
+ * 
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
+ * @author Chad Brandon
+ * @author Wouter Zoons
  */
 public class MetafacadeBase
 {
@@ -137,7 +141,7 @@ public class MetafacadeBase
     }
 
     /**
-     * Stores the property context for this Metafacade
+     * Stores the property context for this metafacade.
      */
     private String propertyNamespace = null;
 
@@ -145,19 +149,32 @@ public class MetafacadeBase
      * Gets the current property context for this metafacade. This is the
      * context in which properties for this metafacade are stored.
      * 
-     * @return String
+     * @return the property namespace name
      */
-    protected String getPropertyNamespace()
+    String getPropertyNamespace()
     {
         if (StringUtils.isEmpty(this.propertyNamespace))
         {
-            StringBuffer propertyNamespace = new StringBuffer();
-            propertyNamespace.append(this.getNamespace());
-            propertyNamespace.append(":");
-            propertyNamespace.append(this.getContext());
-            this.propertyNamespace = propertyNamespace.toString();
+            this.propertyNamespace = this.constructPropertyNamespace(this
+                .getContext());
         }
         return this.propertyNamespace;
+    }
+
+    /**
+     * Constructs a property namespace name with the <code>context</code>
+     * argument and the current <code>namespace</code> of this metafacade.
+     * 
+     * @param context the context name with which to construct the name.
+     * @return the new property namespace name
+     */
+    private String constructPropertyNamespace(String context)
+    {
+        StringBuffer propertyNamespace = new StringBuffer();
+        propertyNamespace.append(this.getNamespace());
+        propertyNamespace.append(":");
+        propertyNamespace.append(context);
+        return propertyNamespace.toString();
     }
 
     /**
@@ -214,20 +231,6 @@ public class MetafacadeBase
     }
 
     /**
-     * Registers a configured property with the container.
-     * 
-     * @param property the name of the property.
-     * @param value the value of the configured instance.
-     */
-    protected void registerConfiguredProperty(String property, Object value)
-    {
-        MetafacadeFactory.getInstance().registerProperty(
-            this.getPropertyNamespace(),
-            property,
-            value);
-    }
-
-    /**
      * Returns one facade for a particular metaobject. Contacts the
      * MetafacadeFactory to manufacture the proper facade.
      * 
@@ -257,7 +260,10 @@ public class MetafacadeBase
      */
     protected void setProperty(String name, Object value)
     {
-        this.registerConfiguredProperty(name, value);
+        MetafacadeFactory.getInstance().registerProperty(
+            this.getPropertyNamespace(),
+            name,
+            value);
     }
 
     /**

@@ -393,18 +393,7 @@ public class WebServiceLogicImpl
     }
 
     static final String NAMESPACE_PREFIX = "namespacePrefix";
-
-    /**
-     * Sets the <code>namespacePrefix</code> for the WSDLs type.
-     * 
-     * @param namespacePrefix the namespace prefix to use for these types.
-     */
-    public void setNamespacePrefix(String namespacePrefix)
-    {
-        this.registerConfiguredProperty(NAMESPACE_PREFIX, StringUtils
-            .trimToEmpty(namespacePrefix));
-    }
-
+    
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
      */
@@ -414,19 +403,6 @@ public class WebServiceLogicImpl
     }
 
     static final String QNAME_LOCAL_PART_PATTERN = "qualifiedNameLocalPartPattern";
-
-    /**
-     * Sets the <code>qualifiedNameLocalPartPattern</code> for this service.
-     * 
-     * @param qualifiedNameLocalPartPattern the name prefix to use for these
-     *        types.
-     */
-    public void setQualifiedNameLocalPartPattern(
-        String qualifiedNameLocalPartPattern)
-    {
-        this.registerConfiguredProperty(QNAME_LOCAL_PART_PATTERN, StringUtils
-            .trimToEmpty(qualifiedNameLocalPartPattern));
-    }
 
     /**
      * Gets the <code>qualifiedNameLocalPartPattern</code> for this service.
