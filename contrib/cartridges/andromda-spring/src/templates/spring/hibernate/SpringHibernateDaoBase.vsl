@@ -163,9 +163,12 @@ public ${abstractModifier}class $entity.daoBaseName
 #set ($returnType = $finder.returnType.fullyQualifiedName)
 ##
     /**
-$finder.getDocumentation("     * ")
+     * @see ${entity.fullyQualifiedName}#${finder.name}(false#if(!$finder.arguments.empty), ${finder.argumentNames}#end)
      */
-    $finder.visibility $returnType $finder.signature 
+    $finder.visibility $returnType ${finder.name}(boolean transform#if(!$finder.arguments.empty), ${finder.typedArgumentList}#end)
+#if ($finder.hasExceptions())
+        throws $finder.exceptionList
+#end    
     {  
         Object[] arguments = new Object[] 
         {
@@ -178,11 +181,25 @@ $finder.getDocumentation("     * ")
             this.getHibernateTemplate().find(
                 "$finder.query", 
                 arguments);
-        // transform the results into the value objects 
-        org.apache.commons.collections.CollectionUtils.transform(
-            results,
-            this);
+        if (transform)
+        {
+            // transform the results into the value objects 
+            org.apache.commons.collections.CollectionUtils.transform(
+                results,
+                this);
+        }
         return results;
+    }
+    
+    /**
+     * @see ${entity.fullyQualifiedName}#$finder.getSignature(false)
+     */
+	$finder.visibility $finder.returnType.fullyQualifiedName $finder.signature
+#if ($finder.hasExceptions())
+        throws $finder.exceptionList
+#end    
+    {
+        return ${finder.name}(false#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
     
 #end

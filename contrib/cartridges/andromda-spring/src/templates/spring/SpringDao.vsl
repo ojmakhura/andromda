@@ -82,6 +82,25 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
 #end
+#if ($operation.query)
+
+	/**
+     * <p>
+     *   Does the same thing as {@link #${operation.getSignature(false)}) with an 
+     *   additional flag called <code>transform</code> if this flag is set to <code>false</code> then 
+     *   finder results will not be transformed during retrieval.  If this flag is <code>true</code> 
+     *   then finder results <strong>WILL BE</strong> will be passed through an operation which can
+     *   optionally transform the entities (into value objects for example).  By default, transformation 
+     *   does not occur.
+     * </p>  	
+	 */
+#if ($operation.hasExceptions())
+	$operation.visibility $operation.returnType.fullyQualifiedName ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    	throws $operation.exceptionList;
+#else
+    $operation.visibility $operation.returnType.fullyQualifiedName ${operation.name}(boolean transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+#end
 
 #end
 }
