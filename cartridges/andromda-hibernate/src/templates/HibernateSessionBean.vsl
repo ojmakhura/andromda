@@ -205,7 +205,7 @@ $op.getDocumentation("     * ")
     * @ejb.create-method
     * @ejb.transaction type="Required"
     */
-    public void ejbCreate $class.attributesAsList(true)
+    public void ejbCreate $class.getAttributesAsList(true)
            throws javax.ejb.CreateException
     {
 #foreach ( $att in $class.attributes)
@@ -213,7 +213,7 @@ $op.getDocumentation("     * ")
 #end
     }
 
-    public void ejbPostCreate $class.attributesAsList(true)
+    public void ejbPostCreate $class.getAttributesAsList(true)
            throws javax.ejb.CreateException
     {
     }
