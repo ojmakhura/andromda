@@ -219,4 +219,37 @@ public class StringUtilsHelper extends StringUtils {
 
         return resourceMessage;
     }
+
+    /**
+     * Takes an english word as input and prefixes it with 'a ' or 'an ' depending on the first character of the
+     * argument String.
+     * <p>
+     * The characters 'a', 'e', 'i' and 'o' will yield the 'an' predicate while all the others will yield the
+     * 'a' predicate.
+     *
+     * @param word the word needing the predicate
+     * @return the argument prefixed with the predicate
+     * @todo: this method could be implemented with better logic, for example to support 'an r' and 'a rattlesnake'
+     */
+    public static String prefixWithAPredicate(String word)
+    {
+        final StringBuffer formattedBuffer = new StringBuffer();
+
+        formattedBuffer.append("a ");
+        formattedBuffer.append(word);
+
+        char firstChar = word.charAt(0);
+        switch (firstChar)
+        {
+            case 'a':   // fall-through
+            case 'e':   // fall-through
+            case 'i':   // fall-through
+            case 'o':
+                formattedBuffer.insert(1, 'n');
+                break;
+            default:
+        }
+
+        return formattedBuffer.toString();
+    }
 }
