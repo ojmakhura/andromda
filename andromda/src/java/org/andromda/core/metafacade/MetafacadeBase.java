@@ -55,10 +55,8 @@ public class MetafacadeBase
      * to check whether it is in a valid state.
      * <p>
      * In the lifecycle of a model element facade it is validated only once.
-     *
-     * @throws ModelValidationException
      */
-    public final void validate() throws ModelValidationException
+    public final void validate() 
     {
         if (!hasBeenValidated)
         {
@@ -73,7 +71,7 @@ public class MetafacadeBase
      * <p>
      * By default this method is empty.
      */
-    protected void performValidation() throws ModelValidationException
+    protected void performValidation() 
     {
     }
 
