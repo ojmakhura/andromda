@@ -395,6 +395,17 @@
 					you'd give the property a <strong>logical.</strong> prefix.
 				</p>
 			</subsection>
+			<subsection name="Ignoring Namespace properties">
+				<p>
+					You may want to "ignore" property definitions at some point
+					when using a cartridge.  For example: this comes in handy when a cartridge
+					has a certain template set to required and yet you don't want
+					to generate anything from that template.  In that case you 
+					can add an "ignore" prefix to a property definition (i.e.
+					<![CDATA[<ignore.entity-impls/>]]>) and AndroMDA will safely
+					ignore that property.
+				</p>
+			</subsection>
 		</section>
   	</body>
 </document>
