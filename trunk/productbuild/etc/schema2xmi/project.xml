@@ -71,12 +71,6 @@
             <properties/>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
-            <properties/>
-        </dependency>
-        <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
             <version>1.5</version>
@@ -87,6 +81,18 @@
       		<artifactId>commons-dbutils</artifactId>
      		<version>1.0</version>
     	</dependency>  
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -153,4 +159,18 @@
             </resources>   	
     	</unitTest>
     </build>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-changelog-plugin</report>
+        <report>maven-changes-plugin</report>
+    </reports>
 </project>
