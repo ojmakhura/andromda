@@ -1,5 +1,5 @@
 #if ($security == "true" && $securityRealm)
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="$xmlEncoding" ?>
 
 <jboss-web>
     <security-domain>java:/jaas/${securityRealm}</security-domain>
