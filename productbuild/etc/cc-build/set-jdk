@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case "$1" in
+  "S14" ) 
+     export JAVA_HOME=/usr/local/j2sdk1.4
+     export PATH=$JAVA_HOME/bin:$PATH
+  ;;
+  "I14" ) 
+     export JAVA_HOME=/usr/local/IBMJava2-142
+     export PATH=$JAVA_HOME/bin:$PATH
+  ;;
+  "S15" ) 
+     export JAVA_HOME=/usr/local/jdk1.5
+     export PATH=$JAVA_HOME/bin:$PATH
+  ;;
+  * ) echo "try source set-jdk S14 | S15 | I14"
+esac
+
+echo $PATH
+which java
+java -fullversion
+
