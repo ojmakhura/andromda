@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Meta Cartridge Namespace</title>
+  	</properties>
+  	<body>
+    	<section name="Meta Cartridge Namespace Properties">
+	      	<table>
+	        	<tr>
+		          	<th>Property</th>         	
+		          	<th>Description</th>       	
+		          	<th>Required?</th>	   	 
+	        	</tr>
+	        	<tr>
+		          	<td>
+		          		languageMappingsUri
+		          	</td>
+		          	<td>
+		          		URI specifying the specific mappings from model types to language types. 
+		          		(i.e. <code>file:${basedir}/JavaMappings.xml</code>)
+		          	</td>
+		          	<td>
+		          		Yes
+		          	</td>		          	
+	        	</tr>		          	
+	        	<tr>
+		          	<td>
+		          		facades
+		          	</td>
+		          	<td>
+		          		The location to which metafacade interfaces are generated.
+		          	</td>
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+	        	</tr>	
+	        	<tr>
+		          	<td>
+		          		facade-logics
+		          	</td>
+		          	<td>
+		          		The location to which metafacade logic classes are generated.
+		          	</td>
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+	        	</tr>		  
+	        	<tr>
+		          	<td>
+		          		facade-logic-impls
+		          	</td>
+		          	<td>
+		          		The directory to which metafacade logic implementation classes are generated.
+		          	</td>		         
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+	        	</tr>	
+	        	<tr>
+		          	<td>
+		          		facades-to-impls
+		          	</td>
+		          	<td>
+		          		The directory to which the <code>metafacade-impls.properties</code> 
+		          		file is generated.
+		          	</td>		         
+		          	<td>
+		          		Yes (unless <code>ignore</code> is specified for this property)
+		          	</td>
+	        	</tr>	        			        	   	      	        	        		        	        	        	     	             	        	
+	        </table>
+    	</section>
+  	</body>
+</document>
