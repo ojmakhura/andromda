@@ -125,6 +125,9 @@ public class ModelElementFacadeLogicImpl
         return value;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
+     */
     public boolean handleHasStereotype(final String stereotypeName)
     {
         Collection stereotypes = this.getStereotypes();
@@ -217,7 +220,7 @@ public class ModelElementFacadeLogicImpl
             UMLMetafacadeGlobals.PACKAGE_SEPERATOR,
             '/');
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
      */
@@ -273,14 +276,14 @@ public class ModelElementFacadeLogicImpl
                 {
                     commentString = StringUtils.trimToEmpty(comment.getName());
                 }
-                // if there still isn't anything, try a tagged value
-                if (StringUtils.isEmpty(commentString))
-                {
-                    commentString = StringUtils.trimToEmpty((String)this
-                        .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION));
-                }
                 documentation.append(StringUtils.trimToEmpty(commentString));
             }
+        }
+        // if there still isn't anything, try a tagged value
+        if (StringUtils.isEmpty(documentation.toString()))
+        {
+            documentation.append(StringUtils.trimToEmpty((String)this
+                .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
         try
         {
@@ -334,7 +337,7 @@ public class ModelElementFacadeLogicImpl
     {
         return metaObject.getName();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
@@ -347,20 +350,20 @@ public class ModelElementFacadeLogicImpl
         if (String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
-            try 
+            try
             {
                 mappings = Mappings.getInstance(uri);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName
-                    + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '"
+                    + uri + "'";
                 logger.error(errMsg, th);
                 //don't throw the exception
-            }  
+            }
         }
-        else 
+        else
         {
             mappings = (Mappings)property;
         }
