@@ -7,7 +7,10 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-20" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-23" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="update">
+                Completed removed XDoclet from the Hibernate cartridge. 
+            </action>
             <action dev="draftdog" type="add">
                 Added a <a href="andromda-spring-cartridge/howto.html">howto</a> for the Spring cartridge.
             </action>
