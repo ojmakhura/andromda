@@ -3,19 +3,20 @@ package org.andromda.samples.animalquiz.guess;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.rpc.ServiceException;
 
-import org.andromda.samples.animalquiz.decisiontree.DecisionService;
-import org.andromda.samples.animalquiz.decisiontree.DecisionServiceHome;
-import org.andromda.samples.animalquiz.decisiontree.DecisionServiceUtil;
-import org.andromda.samples.animalquiz.decisiontree.VODecisionItem;
+import org.andromda.samples.animalquiz.decisiontree.client.DecisionService;
+import org.andromda.samples.animalquiz.decisiontree.client.DecisionServiceServiceLocator;
+import org.andromda.samples.animalquiz.decisiontree.client.VODecisionItem;
 import org.apache.struts.action.ActionMapping;
-
+  
 /**
  *
  * This controller class implements all the methods that are called
  * from the activities inside the "Guess" activity graph.
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author Chad Brandon
  */
 public final class GuessController implements GuessControllerInterface {
     private final static GuessController INSTANCE = new GuessController();
@@ -61,10 +62,9 @@ public final class GuessController implements GuessControllerInterface {
         HttpServletRequest request,
         HttpServletResponse reponse)
         throws Exception {
-        DecisionServiceHome dsh = DecisionServiceUtil.getHome();
-        DecisionService ds = dsh.create();
-        VODecisionItem vodi = ds.getFirstQuestion();
-        ds.remove();
+        DecisionService decisionService = this.getService();
+        VODecisionItem vodi = 
+            decisionService.getFirstQuestion();
 
         form.setQuestion(vodi.getPrompt());
 
@@ -92,10 +92,9 @@ public final class GuessController implements GuessControllerInterface {
             "yes".equals(gss.getLastAnswerFromUser()) ? vodi.getIdYesItem() : vodi.getIdNoItem();
 
         if (idNextItem != null) {
-            DecisionServiceHome dsh = DecisionServiceUtil.getHome();
-            DecisionService ds = dsh.create();
-            vodi = ds.getNextQuestion(idNextItem);
-            ds.remove();
+            DecisionService decisionService =
+                this.getService();
+            vodi = decisionService.getNextQuestion(idNextItem);
 
             form.setQuestion(vodi.getPrompt());
 
@@ -137,15 +136,20 @@ public final class GuessController implements GuessControllerInterface {
 
         GuessSessionState gss = getSessionState(request);
 
-        DecisionServiceHome dsh = DecisionServiceUtil.getHome();
-        DecisionService ds = dsh.create();
+        DecisionService decisionService =
+            this.getService();
 
-        ds.addNewAnimalWithQuestion(
+        decisionService.addNewAnimalWithQuestion(
             gss.getLastAnimalName(),
             form.getQuestion(),
             gss.getLastDecisionItem().getId());
-
-        ds.remove();
+    }
+    
+    private DecisionService getService() throws ServiceException 
+    {
+        DecisionServiceServiceLocator locator =
+            new DecisionServiceServiceLocator();
+        return locator.getDecisionService(); 
     }
 
     /**

@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>animal-quiz-sample-common</id>
+  	<id>animal-quiz-common</id>
   	<name>Animal Quiz Sample Common</name>
   	<shortDescription>The Animal Quiz Sample</shortDescription>
   	<description>
@@ -11,7 +11,7 @@
 	<dependencies>      
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>animal-quiz-sample-mda</artifactId>
+			<artifactId>animal-quiz-mda</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>pom</type>
 		</dependency>

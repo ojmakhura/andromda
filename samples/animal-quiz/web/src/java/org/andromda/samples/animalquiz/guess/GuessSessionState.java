@@ -2,7 +2,7 @@ package org.andromda.samples.animalquiz.guess;
 
 import java.io.Serializable;
 
-import org.andromda.samples.animalquiz.decisiontree.VODecisionItem;
+import org.andromda.samples.animalquiz.decisiontree.client.VODecisionItem;
 
 /**
  * Holds the variables that are specific to a certain session of the

@@ -1,12 +1,12 @@
 <project>
     <extend>../project.xml</extend>
     <name>Animal Quiz Sample Application</name>
-    <artifactId>animal-quiz-sample-app</artifactId>
+    <artifactId>animal-quiz-app</artifactId>
     <shortDescription>The AndroMDA Animal Quiz Sample featuring BPM4Struts.</shortDescription>
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-sample-hibernate-ejb</artifactId>
+            <artifactId>animal-quiz-hibernate-ejb</artifactId>
             <version>${pom.currentVersion}</version>
             <type>ejb</type>
             <properties>
@@ -15,7 +15,7 @@
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-sample-hibernate-sar</artifactId>
+            <artifactId>animal-quiz-hibernate-sar</artifactId>
             <version>${pom.currentVersion}</version>
             <type>sar</type>
             <properties>
@@ -24,7 +24,17 @@
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-sample-web</artifactId>
+            <artifactId>animal-quiz-webservice</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>war</type>
+            <properties>
+                <ear.appxml.war.context-root>/${animalQuiz.services.app.name}</ear.appxml.war.context-root>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>animal-quiz-web</artifactId>
             <version>${pom.currentVersion}</version>
             <type>war</type>
             <properties>
@@ -34,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-sample-common</artifactId>
+            <artifactId>animal-quiz-common</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
@@ -60,14 +70,6 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.0</version>
-            <properties>
-                <ear.bundle>true</ear.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.3</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>

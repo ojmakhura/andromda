@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<id>animal-quiz-sample-hibernate-sar</id>
+  	<id>animal-quiz-hibernate-sar</id>
   	<name>Animal Quiz Sample Hibernate Sar</name>
   	<shortDescription>The Animal Quiz Sample Hibernate Sar Component</shortDescription>
   	<description>
@@ -11,7 +11,7 @@
 	<dependencies>      
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>animal-quiz-sample-hibernate-ejb</artifactId>
+			<artifactId>animal-quiz-hibernate-ejb</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
 		</dependency>
