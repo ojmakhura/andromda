@@ -4,6 +4,7 @@
 <metafacades namespace="bpm4struts">
 
     <property reference="defaultDateFormat" default="dd/MM/yyyy"/>
+    <property reference="defaultActionRedirect" default="false"/>
 
     <metafacade
         metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"

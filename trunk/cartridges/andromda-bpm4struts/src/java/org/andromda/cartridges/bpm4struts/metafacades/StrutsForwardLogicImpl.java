@@ -1,8 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -217,5 +219,21 @@ public class StrutsForwardLogicImpl
                 }
             }
         }
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForward#isRedirect()
+     */
+    public boolean handleIsRedirect()
+    {
+        String redirect = (String)this.getConfiguredProperty(
+            Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
+        Object value = this
+            .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT);
+        if (value != null)
+        {
+            redirect = (String)value;
+        }
+        return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
     }
 }
