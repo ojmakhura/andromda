@@ -305,7 +305,7 @@ public abstract class ${metafacade.logicName}
 #end
 ##
 
-    protected void handleInvariants()
+    protected void __handleInvariants()
     {
 #foreach ($constraint in $op.translateConstraints("inv","validation.Java"))
         if (false == $constraint)
