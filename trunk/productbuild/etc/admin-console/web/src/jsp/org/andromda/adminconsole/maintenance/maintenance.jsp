@@ -5,7 +5,6 @@
                  org.andromda.adminconsole.config.xml.TableConfiguration,
                  org.andromda.adminconsole.db.RowData"%>
 <%@ include file="/taglib-imports.jspf" %>
-<%@ include file="/org/andromda/adminconsole/maintenance/maintenance-vars.jspf" %>
 
 <tiles:insert definition="main.layout">
 
@@ -34,10 +33,6 @@
                 'change table_no':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title.notallowed"/></formatting:escape>',
                 'change table_reset':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title.reset"/></formatting:escape>',
                 'change table_noreset':'<formatting:escape language="javascript"><bean:message key="maintenance.change.table.title.reset.not.allowed"/></formatting:escape>',
-                'sort':'<formatting:escape language="javascript"><bean:message key="maintenance.sort.title"/></formatting:escape>',
-                'sort_no':'<formatting:escape language="javascript"><bean:message key="maintenance.sort.title.notallowed"/></formatting:escape>',
-                'sort_reset':'<formatting:escape language="javascript"><bean:message key="maintenance.sort.title.reset"/></formatting:escape>',
-                'sort_noreset':'<formatting:escape language="javascript"><bean:message key="maintenance.sort.title.reset.not.allowed"/></formatting:escape>',
                 'calendar.popup':'<formatting:escape language="javascript"><bean:message key="calendar.popup"/></formatting:escape>'
             };
 
@@ -61,31 +56,40 @@
             <h1><bean:message key="maintenance.maintenance.title"/></h1>
         </div>
 
-        <c:set var="configurator" value="${databaseLoginSession.configurator}"/>
-        <c:set var="currentTable" value="${metaDataSession.currentTable}"/>
-        <c:set var="tableConfig" value="${acf:getTableConfiguration(configurator,currentTable)}"/>
-        <display:table name="${tableData}" id="row"
-                       requestURI="${pageContext.request.requestURL}"
-                       export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
-            <display:column media="html"
-                title="" autolink="false" nulls="false"
-                sortable="false" paramId="${column.name}">
-                <input type="checkbox" name="delete"/>
-            </display:column>
-            <c:forEach items="${currentTable.columns}" var="column">
-                <c:set var="columnConfig" value="${acf:getColumnConfiguration(configurator,column)}"/>
-                <c:if test="${columnConfig.exportable}">
-                    <display:column media="xml excel csv"
-                        property="${column.name}" title="${column.name}"
-                        autolink="true" nulls="false" paramId="${column.name}" />
-                </c:if>
-                <display:column media="html"
-                    title="${column.name}" autolink="false" nulls="false"
-                    sortable="${columnConfig.sortable}" paramId="${column.name}">
-                    ${acf:getUpdateWidget(configurator, column, column.name, row)}
-                </display:column>
-            </c:forEach>
-        </display:table>
+<%--
+        <div id="applyChanges" class="action">
+--%>
+            <html:form action="/Maintenance/MaintenanceApplyChanges">
+                <c:set var="configurator" value="${databaseLoginSession.configurator}"/>
+                <c:set var="currentTable" value="${metaDataSession.currentTable}"/>
+                <c:set var="tableConfig" value="${acf:getTableConfiguration(configurator,currentTable)}"/>
+                <display:table name="${metaDataSession.currentTableData}" id="row"
+                               requestURI="${pageContext.request.requestURL}"
+                               export="${tableConfig.export}" pagesize="${tableConfig.pageSize}" sort="list">
+                    <display:column media="html"
+                        title="" autolink="false" nulls="false"
+                        sortable="false" paramId="${column.name}">
+                        <input type="checkbox" name="deletedRowsAsArray" value="${row_rowNum-1}"/>
+                    </display:column>
+                    <c:forEach items="${currentTable.columns}" var="column">
+                        <c:set var="columnConfig" value="${acf:getColumnConfiguration(configurator,column)}"/>
+                        <c:if test="${columnConfig.exportable}">
+                            <display:column media="xml excel csv"
+                                property="${column.name}" title="${column.name}"
+                                autolink="true" nulls="false" paramId="${column.name}" />
+                        </c:if>
+                        <display:column media="html"
+                            title="${column.name}" autolink="false" nulls="false"
+                            sortable="${columnConfig.sortable}" paramId="${column.name}">
+                            ${acf:getUpdateWidget(configurator, column, column.name, row)}
+                        </display:column>
+                    </c:forEach>
+                </display:table>
+                <input type="submit" name="kind" value="delete"/>
+            </html:form>
+<%--
+        </div>
+--%>
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
 
