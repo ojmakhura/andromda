@@ -17,62 +17,76 @@ public class StrutsFinalStateLogicImpl
         extends StrutsFinalStateLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsFinalStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
 
-    // ------------- relations ------------------
+    public String getName()
+    {
+        String name = super.getName();
+
+        if (name == null)
+        {
+            StrutsUseCase useCase = getTargetUseCase();
+            if (useCase != null)
+            {
+                name = useCase.getName();
+            }
+        }
+
+        return name;
+    }
+
     public String handleGetFullPath()
     {
         StrutsUseCase useCase = getTargetUseCase();
         return (useCase != null) ? useCase.getActionPath() : "";
     }
 
+    private Object targetUseCase = null;
     protected Object handleGetTargetUseCase()
     {
-        Object useCaseObject = null;
-        final String name = getName();
-
-        // first check if there is a hyperlink from this final state to a use-case
-        // this works at least in MagicDraw
-        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
-        if (taggedValue != null)
+        if (targetUseCase == null)
         {
-            if (taggedValue instanceof StrutsActivityGraph)
+            // first check if there is a hyperlink from this final state to a use-case
+            // this works at least in MagicDraw
+            final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_HYPERLINK);
+            if (taggedValue != null)
             {
-                return ((StrutsActivityGraph) taggedValue).getUseCase();
-            }
-            else if (taggedValue instanceof StrutsUseCase)
-            {
-                return taggedValue;
-            }
-        }
-
-        // maybe the name points to a use-case ?
-        if (name != null)
-        {
-            final Collection useCases = getModel().getAllUseCases();
-            for (Iterator iterator = useCases.iterator(); (useCaseObject == null && iterator.hasNext());)
-            {
-                UseCaseFacade useCase = (UseCaseFacade) iterator.next();
-                if (useCase instanceof StrutsUseCase)
+                if (taggedValue instanceof StrutsActivityGraph)
                 {
-                    if (name.equalsIgnoreCase(useCase.getName()))
-                        useCaseObject = useCase;
+                    return ((StrutsActivityGraph) taggedValue).getUseCase();
+                }
+                else if (taggedValue instanceof StrutsUseCase)
+                {
+                    return taggedValue;
                 }
             }
-        }
-        final Collection allUseCases = getModel().getAllUseCases();
-        for (Iterator iterator = allUseCases.iterator(); (useCaseObject == null && iterator.hasNext());)
-        {
-            ModelElementFacade facade = (ModelElementFacade) iterator.next();
-            if (facade.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION))
-                useCaseObject = facade;
-        }
 
-        return useCaseObject;
+            // maybe the name points to a use-case ?
+            final String name = super.getName();
+            if (name != null)
+            {
+                final Collection useCases = getModel().getAllUseCases();
+                for (Iterator iterator = useCases.iterator(); (targetUseCase == null && iterator.hasNext());)
+                {
+                    UseCaseFacade useCase = (UseCaseFacade) iterator.next();
+                    if (useCase instanceof StrutsUseCase)
+                    {
+                        if (name.equalsIgnoreCase(useCase.getName()))
+                            targetUseCase = useCase;
+                    }
+                }
+            }
+            final Collection allUseCases = getModel().getAllUseCases();
+            for (Iterator iterator = allUseCases.iterator(); (targetUseCase == null && iterator.hasNext());)
+            {
+                ModelElementFacade facade = (ModelElementFacade) iterator.next();
+                if (facade.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION))
+                    targetUseCase = facade;
+            }
+        }
+        return targetUseCase;
     }
 }
