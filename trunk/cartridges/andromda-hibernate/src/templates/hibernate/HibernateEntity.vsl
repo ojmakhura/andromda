@@ -52,6 +52,9 @@ $attribute.getDocumentation("     * ")
      * @hibernate.column
      *     name="$attribute.columnName"
      *     sql-type="$attribute.sqlType"
+#if($attribute.required)
+    *     not-null="true"
+#end
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
     {
@@ -126,6 +129,9 @@ $target.getDocumentation("     * ")
      * @hibernate.many-to-one
      *     column="${target.columnName}"
      *     class="$targetTypeName"
+#if($target.required)
+    *     not-null="true"
+#end
      */
     public ${targetTypeName} ${target.getterName}()
     {
