@@ -84,6 +84,13 @@
                     Edit [JBOSS_HOME]/server/[SERVER_NAME]/deploy/hsqldb-ds.xml
                     and uncomment two pragmas, one for the connection and one for the mbean.
                 </li>
+                <li>
+                    If deploying against JBoss 4.x, remove the jboss-ws4ee.sar file from your jboss configuration's 
+                    deploy directory. JBoss 4.x bundles axis libraries in this sar file and this causes problems for 
+                    any other application deployed in the container that also bundles the axis libraries. As the animal 
+                    quiz has web service support, it has the axis libraries bundled with it - hence the need to remove 
+                    the ones JBoss provide. 
+                </li>
                 <li>[Re]Start JBoss as neccessary.</li>
                 <li>
                     Change directory to the animal-quiz/app/target and 
