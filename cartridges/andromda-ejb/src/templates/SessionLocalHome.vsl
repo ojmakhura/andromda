@@ -30,7 +30,7 @@ public interface ${servicename}LocalHome  extends $parentInterface {
 #if (!$class.abstract)
     // -- JNDI entries
 	public static final String COMP_NAME="java:comp/env/${ejbRefName}/Local";
-	public static final String JNDI_NAME="${ejbRefName}/Local";
+	public static final String JNDI_NAME="${class.jndiName}/Local";
 
 
     // ---------------- create methods --------------------
@@ -39,7 +39,6 @@ public interface ${servicename}LocalHome  extends $parentInterface {
 
     /**
 $op.getDocumentation("    * ")
-     *
      */
     public ${servicename}Local create($op.typedArgumentList)
            throws javax.ejb.CreateException;

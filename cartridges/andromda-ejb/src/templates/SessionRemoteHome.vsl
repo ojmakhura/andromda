@@ -31,7 +31,7 @@ public interface ${servicename}Home  extends $parentInterface {
 #if (!$class.isAbstract())
     // -- accessors for environment entries and constants --
 	public static final String COMP_NAME="java:comp/env/${ejbRefName}/Remote";
-	public static final String JNDI_NAME="${ejbRefName}/Remote";
+	public static final String JNDI_NAME="${class.jndiName}/Remote";
 
 
     // ---------------- create methods --------------------

@@ -69,14 +69,4 @@ public class EJBFinderMethodFacadeLogicImpl
         return queryString;
     }
 
-    public java.lang.String handleGetViewType()
-    {
-        // TODO: put your implementation here.
-
-        // Dummy return value, just that the file compiles
-        return null;
-    }
-
-    // ------------- relations ------------------
-
 }

@@ -30,7 +30,7 @@ public interface ${entityname}LocalHome  extends $parentInterface {
 #if (!$class.abstract)
     // -- accessors for environment entries and constants --
 	public static final String COMP_NAME="java:comp/env/${ejbRefName}/Local";
-	public static final String JNDI_NAME="${ejbRefName}/Local";
+	public static final String JNDI_NAME="${class.jndiName}/Local";
 #end
 
 #foreach($envEntry in $class.getEnvironmentEntries(true))
