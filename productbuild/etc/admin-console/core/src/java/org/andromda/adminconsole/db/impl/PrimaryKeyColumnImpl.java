@@ -1,18 +1,17 @@
 package org.andromda.adminconsole.db.impl;
 
-import org.andromda.adminconsole.db.ForeignKeyColumn;
 import org.andromda.adminconsole.db.PrimaryKeyColumn;
 import org.andromda.adminconsole.db.Table;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
 {
+    public PrimaryKeyColumnImpl(Table table, String name, int sqlType)
+    {
+        super(table, name, sqlType);
+    }
+    
+/*
     private String primaryKeyName = null;
-    private final List exportedKeyColumns = new ArrayList();
 
     public PrimaryKeyColumnImpl(Table table, String name, int sqlType)
     {
@@ -23,16 +22,6 @@ public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
     public String getPrimaryKeyName()
     {
         return primaryKeyName;
-    }
-
-    public ForeignKeyColumn[] getExportedKeyColumns()
-    {
-        return (ForeignKeyColumn[]) exportedKeyColumns.toArray(new ForeignKeyColumn[exportedKeyColumns.size()]);
-    }
-
-    protected void addExportedKeyColumn(ForeignKeyColumn column)
-    {
-        exportedKeyColumns.add(column);
     }
 
     private void loadMetaData()
@@ -72,4 +61,5 @@ public class PrimaryKeyColumnImpl extends ColumnImpl implements PrimaryKeyColumn
             close(primaryKeys);
         }
     }
+*/
 }
