@@ -3,20 +3,19 @@ package org.andromda.adminconsole.db;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * A column that holds foreign keys
+ */
 public interface ForeignKeyColumn extends Column
 {
-/*
-    public String getForeignKeyName();
-
-    public String getPrimaryKeyName();
-
-    public ForeignKeyUpdateRule getUpdateRule();
-
-    public ForeignKeyDeleteRule getDeleteRule();
-
-*/
+    /**
+     * @return the name of the table that is imported by this column
+     */
     public String getImportedTableName();
 
+    /**
+     * @return the name of the primary column of the imported table
+     */
     public String getImportedColumnName();
 
     /**
@@ -49,6 +48,9 @@ public interface ForeignKeyColumn extends Column
      */
     public List getForeignValues(String columnName) throws SQLException;
 
+    /**
+     * This class represents a value targetted by a foreign key in this column
+     */
     public final class ForeignValue
     {
         private Object primaryKey = null;
