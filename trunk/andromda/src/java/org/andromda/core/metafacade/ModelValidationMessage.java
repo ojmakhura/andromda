@@ -70,10 +70,11 @@ public class ModelValidationMessage
             for (MetafacadeBase metafacade = this.metafacade; metafacade != null; metafacade = (MetafacadeBase)metafacade
                 .getValidationOwner())
             {
-                if (StringUtils.isNotEmpty(metafacade.getValidationName()))
+                if (StringUtils.isNotBlank(metafacade.getValidationName()))
                 {
                     String validationName = metafacade.getValidationName();
-                    if (name.length() > 0)
+                    //if (name.length() > 0)
+                    if (metafacade.getValidationOwner() != null)
                     {
                         // remove package if we have an owner
                         validationName.replaceAll("\\w*" + seperator, "");

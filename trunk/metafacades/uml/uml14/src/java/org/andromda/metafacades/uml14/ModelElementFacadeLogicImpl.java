@@ -242,9 +242,12 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetFullyQualifiedNamePath()
     {
-        return StringUtils.replace(
-            this.getFullyQualifiedName(), 
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
+        return StringUtils
+            .replace(
+                this.getFullyQualifiedName(),
+                String
+                    .valueOf(this
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
                 "/");
     }
 
@@ -253,9 +256,12 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackagePath()
     {
-        return StringUtils.replace(
-            this.getPackageName(), 
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
+        return StringUtils
+            .replace(
+                this.getPackageName(),
+                String
+                    .valueOf(this
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
                 "/");
     }
 
@@ -656,8 +662,8 @@ public class ModelElementFacadeLogicImpl
             }
             else
             {
-                validationName.insert(0, namespace.getName());
                 validationName.insert(0, seperator);
+                validationName.insert(0, namespace.getName());
             }
         }
         if (validationName.length() > 0)
