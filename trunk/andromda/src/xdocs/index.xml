@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+  <properties>
+    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+    <title>AndroMDA - Homepage</title>
+    <gennews>no</gennews>
+  </properties>
+
+  <body>
+
+    <freetext name="Section 1">
+      <h1>Components quickly with AndroMDA</h1>
+
+      <p class="std">
+        Did you ever think: "mmm... all this J2EE stuff is too complex! There must
+        be an easier way to program?" Read the good news: AndroMDA is here to help
+        you! Generating J2EE components quickly and reliably from models drawn in the
+        graphical Unified Modeling Language is the main feature of AndroMDA.
+      </p>
+
+      <p class="std">
+        AndroMDA (pronounced: andromeda) is an open source code generation framework
+        that follows the <a href="http://www.omg.org/mda">model driven architecture</a>
+        (MDA) paradigm. It takes a UML model from a CASE-tool and generates
+        classes and deployable components (J2EE or other), specific for your
+        application architecture.
+      </p>
+
+      <p class="std">
+        This project is the successor of the <a href="http://uml2ejb.sourceforge.net">
+        UML2EJB</a> project which started in July 2002 and generates Enterprise
+        JavaBeans from UML models. Meanwhile, the scope has broadened, the number of
+        developers has increased and so we decided to rename our project. AndroMDA
+        will reuse the code base of
+        <a href="http://sourceforge.net/project/showfiles.php?group_id=57059&amp;release_id=129056">
+            UML2EJB 1.3.x
+        </a>
+        which is rock solid.
+      </p>
+
+      <p class="std">Currently, we are...</p>
+      <ul>
+        <li class="std">migrating the source files to the new CVS repository</li>
+        <li class="std">changing our base to <a href="http://mdr.netbeans.org/">Netbeans metadata
+          repository</a> (MDR), an implementation of the OMG <a href="http://www.dstc.edu.au/Research/Projects/MOF/">MOF</a>
+          standard</li>
+        <li class="std">restructuring packages and classes</li>
+        <li class="std">adding support for non-EJB persistence like JDO or Hibernate</li>
+        <li class="std">adding support for more CASE tools (MagicDraw, Together CC, etc.)</li>
+        <li class="std">rewriting the web pages</li>
+      </ul>
+
+      <p class="std">
+        Please be patient, migrating the whole stuff into a new project takes more
+        time than we thought. So, stay tuned, you will see much more here in the
+        near future. AndroMDA will be as beautiful as the galaxy, promised!
+      </p>
+
+      <p class="std">
+        Read more about AndroMDA, using the links on the left side menu. If you start
+        using AndroMDA, we invite you to subscribe to the project's
+        <a href="http://sourceforge.net/mail/?group_id=73047">mailing lists</a>. Another
+        intersting place to watch is the Code Generation Network site where
+        you can read an
+        <a href="http://www.codegeneration.net/tiki-read_article.php?articleId=8">interview with Matthias Bohlen</a>, the lead engineer
+        behind AndroMDA.
+      </p>
+      <p class="std">
+        <div align="center">
+          <img src="images/andromda.jpg" width="508" height="421" align="middle" alt=""/>
+        </div>
+      </p>
+
+    </freetext>
+
+  </body>
+</document>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="MB" href="http://www.andromda.org/">
+
+    <title>MB title</title>
+
+    <body>
+        <headline name="Home" href="/index.html" />
+
+        <menu name="Introduction">
+            <item name="What is AndroMDA?"   href="/pages/whatisit.html"/>
+            <item name="Look and feel"      href="/pages/lookandfeel.html"/>
+        </menu>
+
+        <menu name="For users">
+            <item name="Installation"       href="/pages/install.html"/>
+            <item name="Modeling"           href="/pages/modeling.html"/>
+            <item name="Code generation"    href="/pages/codegen.html"/>
+            <item name="Writing build.xml"  href="/pages/buildtags.html"/>
+            <item name="Writing templates"  href="/pages/tempwriting.html"/>
+        </menu>
+
+        <menu name="For developers">
+            <item name="Javadoc files"      href="/javadoc/index.html"/>
+            <item name="Recompiling it"     href="/pages/recompiling.html"/>
+            <item name="Extending it"       href="/pages/extending.html"/>
+        </menu>
+
+        <menu name="The sample app">
+            <item name="Intro"              href="/pages/sampleintro.html"/>
+            <item name="UML model"          href="/umldoc/index.html"/>
+        </menu>
+
+        <menu name="Professional services">
+            <item name="Consulting"         href="/pages/consulting.html"/>
+        </menu>
+
+    </body>
+</project>

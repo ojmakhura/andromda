@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+  <properties>
+    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+    <title>AndroMDA - Modeling correctly</title>
+    <gennews>yes</gennews>
+  </properties>
+
+  <body>
+
+    <freetext name="Section 1">
+      <h1>Modeling for AndroMDA</h1>
+      <p class="std">
+        AndroMDA is an automatic tool without too much intelligence
+        built into it. Such a tool always has to rely upon some
+        clearly defined preconditions; in the case of AndroMDA, these
+        preconditions are <b>modeling conventions</b>. This means
+        that a UML model for use with AndroMDA cannot be structured
+        arbitrarily but has to adhere to a certain structure that
+        can be interpreted by AndroMDA.
+      </p>
+      <p class="std">
+        On the other hand, not too many constraints should be
+        imposed on the modeler - after all, a model should represent
+        the conceptual reality of the customer's requirements
+        and the structure of the application domain.
+      </p>
+      <p class="std">
+        To sum up, I have tried to keep the number of rules low
+        in order to keep your freedom of modeling high.
+        So, here are the few rules to follow for you when you
+        start sketching a design model and you want AndroMDA
+        to generate the EJBs smoothly.
+      </p>
+      <p class="std">
+        <b>Rule 1: Stereotypes drive code generation!</b>
+      </p>
+      <p class="std">
+        UML Stereotypes are a kind of "labels" or "tags" that you attach to modeling elements
+        to classify them. <b>Example:</b> You can tag a CustomerService class with a 
+        "StatelessSessionBean" stereotype. AndroMDA sees this stereotype,
+        looks into its internal list of available code generation templates and
+        finds that two templates correspond to this stereotype: StatelessSessionBean.vsl and
+        StatelessSessionBeanImpl.vsl. So, it takes the internal representation 
+        of CustomerService and calls the template processing engine twice,
+        using this representation as input. Result: Two output files, called CustomerServiceBean.java
+        and CustomerServiceBeanImpl.java. But: this is not the only stereotype
+        that is used in AndroMDA.
+      </p>
+      <p class="std">
+        <b>The complete list of stereotypes used</b>
+      </p>
+      <p class="std">
+        AndroMDA uses the following stereotypes on different kinds of model elements to achieve
+        different kinds of goals:
+      </p>
+      <table border="1" cellpadding="4">
+        <tr>
+          <td class="std" valign="top"><b>Stereotype</b></td>
+          <td class="std" valign="top"><b>applied to which element?</b></td>
+          <td class="std" valign="top"><b>intended effect</b></td>
+        </tr>
+        <tr>
+          <td class="std" valign="top">StatelessSessionBean<br />
+              EntityBean
+          </td>
+          <td class="std" valign="top">class</td>
+          <td class="std" valign="top">select correct code generation template</td>
+        </tr>
+        <tr>
+          <td class="std" valign="top">PrimaryKey</td>
+          <td class="std" valign="top">attribute of a class</td>
+          <td class="std" valign="top">mark attribute as primary key</td>
+        </tr>
+        <tr>
+          <td class="std" valign="top">ejbref</td>
+          <td class="std" valign="top">dependency between class A and class B</td>
+          <td class="std" valign="top">generate EJB reference from ABean to BBean and
+              generate getBLocalHome() in ABean
+          </td>
+        </tr>
+        <tr>
+          <td class="std" valign="top">exception</td>
+          <td class="std" valign="top">dependency between class A and class B</td>
+          <td class="std" valign="top">generate "throws B" in all business methods of ABean</td>
+        </tr>
+      </table>
+      <p class="std">
+        A small model, tagged with this kind of stereotypes,
+        can be seen in this picture:
+      </p>
+      <img src="images/CarRentalCustomers.gif" width="408" height="496" />
+      <p class="std">
+        <b>Rule 2: Primary keys of entity beans must be Strings!</b>
+      </p>
+      <p class="std">
+        This is mainly to simplify the templates. You have
+        to model to this restriction if you use the current set
+        of templates. However, it also has one advantage: The entity
+        beans that AndroMDA generates, always use an artificially generated primary key.
+        This is because natural keys (e.g. like customer numbers) tend to change too often
+        when the application changes - this has caused much trouble
+        in many a software project. Decide for yourself!
+      </p>
+      <p class="std">
+        <b>Rule 3: One component has one exception!</b>
+      </p>
+      <p class="std">
+        Model one exception class per component (e.g. CustomerException).
+        Then, draw dependencies from all the
+        EJB classes in the same component to this same exception class. This will cause
+        AndroMDA to generate "throws" clauses which contain this exception class. Throw
+        instances of subclasses of this exception, if you want, but keep the throws-clause 
+        that simple.
+      </p>
+      <p class="std">
+        Convert other exceptions (e.g. exceptions from other components that you call)
+        by catching them inside the
+        business method, re-throw the component's exception (e.g. CustomerException)
+        and wrap up the root cause (the other exception) in a friendly message.
+      </p>
+      <p class="std">
+        This rule makes it much easier for the client of your component. By the way:
+        AndroMDA does not generate exception classes. You have to write them
+        by hand.
+      </p>
+      <p class="std">
+        <b>A word to the wise</b>
+      </p>
+      <p class="std">
+        Remember: All this happens because the templates are written in a certain way.
+        So, if you do not like what happens here, customize the templates
+        to your needs. After all, AndroMDA is not a fixed, shrink-wrapped package!
+      </p>
+    </freetext>
+
+    <news name="Stereotype" href="http://www.cetus-links.org/oo_uml.html">
+      <p>
+        Stereotypes are used to extend the UML notational elements, to
+        classify and extend associations, inheritance relationships,
+        classes, and components.
+        A Stereotype provides the capability to create new kinds of modeling
+        elements. Stereotypes must be based on elements that are part of the
+        UML meta-model.
+      </p>
+    </news>
+
+    <news name="J2EE patterns" href="http://developer.java.sun.com/developer/restricted/patterns/J2EEPatternsAtAGlance.html">
+      <p>
+        The current AndroMDA template set generates EJBs that
+        follow certain design patterns which are much talked
+        about in the EJB developer community. Read about some
+        of these patterns in SUN's "J2EE Patterns Catalog".
+      </p>
+    </news>
+
+  </body>
+</document>

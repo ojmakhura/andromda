@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+  <properties>
+    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+    <title>Writing a build script using AndroMDA</title>
+    <gennews>no</gennews>
+  </properties>
+
+  <body>
+
+    <freetext name="Section 1">
+      <h1>Writing a build script using AndroMDA</h1>
+      <p class="std">
+          AndroMDA is implemented as a custom task for the build tool Ant.
+          This web page documents the parameters and elements of this task.
+      </p>
+
+      <h2><a name="AndroMDA">&lt;AndroMDA&gt;</a></h2>
+      <h3>Description</h3>
+      <p class="std">AndroMDA is the task that generates Java source (or other) files
+         from Velocity templates and a metamodel that it reads from text file.</p>
+      <p class="std">If you want to configure the way it uses the templates,
+         you will possibly use a nested <a href="#template"><code>&lt;template&gt;</code></a> element.
+      </p>
+      <h3>Parameters</h3>
+      <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+          <td valign="top" class="std"><b>Attribute</b></td>
+          <td valign="top" class="std"><b>Description</b></td>
+          <td align="center" valign="top" class="std"><b>Required</b></td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">basedir</td>
+          <td valign="top" class="std">Specifies the path to the directory location of your simpleOO model (*.xml) files.
+                           These files are a result from the XSL transformation that
+                           processes XMI to simpleOO XML format.
+          </td>
+          <td align="center" class="std">Yes.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">ejbDestDir</td>
+          <td valign="top" class="std">Specifies the path to the directory where the bean class output files should go.
+          </td>
+          <td align="center" class="std">Yes, except when nested <a href="#template"><code>&lt;template&gt;</code></a> tag is used.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">implDestDir</td>
+          <td valign="top" class="std">Specifies the path to the directory where the implementation output files should go.
+                           AndroMDA will write these files only once. If they are already there, it will not
+                           write them once more.
+          </td>
+          <td align="center" class="std">Yes, except when nested <a href="#template"><code>&lt;template&gt;</code></a> tag is used.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">includes</td>
+          <td valign="top" class="std">This is the standard Ant includes attribute. Specify any files
+                           or directories with simpleOO files that you <b>do</b> want AndroMDA to try to process.</td>
+          <td valign="top" align="center" class="std">Yes.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">excludes</td>
+          <td valign="top" class="std">This is the standard Ant excludes attribute. Specify any files
+                           or directories with simpleOO files that you <b>do not</b> want AndroMDA to try to process.</td>
+          <td valign="top" align="center" class="std">No.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">templatePath</td>
+          <td valign="top" class="std">This is the the directory
+                           where the *.vsl files are located. This can be defined in the
+                           Velocity.properties or it can be defined here. It is an
+                           optional argument if it is defined in the Velocity properties
+                           file already. However, if defined, this value will override
+                           the path defined in the Velocity.properties file.
+                           </td>
+          <td valign="top" align="center" class="std">No.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">lastModifiedCheck</td>
+          <td valign="top" class="std">This turns on or off the ability to check the last modified date
+                           on files in order to determine whether or not they need to be
+                           re-rendered or not. The value of this attribute can be
+                           "true, false, yes, no". By default, it is true, meaning
+                           that the last modified date should be checked and if the original
+                           .xml file has not changed, then don't process the output file.
+                           This accelerates processing because files that have not changed
+                           will not get reprocessed.
+          </td>
+          <td valign="top" align="center" class="std">No, defaults to "true".</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">velocityPropertiesFile</td>
+          <td valign="top" class="std">This is the path to the velocity.properties file.
+                           It is an optional argument and by default is set to find the
+                           properties file in the same directory that the JVM was started in.
+          </td>
+          <td valign="top" align="center" class="std">No.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">useDefaultTemplateConfig</td>
+          <td valign="top" class="std">This turns on or off the default template configuration.
+                           Currently, there are sample templates for session beans and entity beans
+                           which AndroMDA uses to process the input object model. If this switch
+                           is on ("true" or "yes"), then the five default templates for
+                           session beans and entity beans will be applied. <br />
+                           You can configure
+                           your own templates using the nested <code>&lt;template&gt;</code> tag.
+                           If you keep this switch on, AndroMDA will process them in addition
+                           to the default templates. If you switch it off, only your own
+                           templates will be included in processing.
+          </td>
+          <td valign="top" align="center" class="std">No, defaults to "true".</td>
+        </tr>
+      </table>
+      <h3>Example</h3>
+      <blockquote><pre>
+&lt;unzip src="CarRentalSystem.zargo" dest="${build.dir}/unzipped" /&gt;
+
+&lt;style basedir="${build.dir}/unzipped"
+       destdir="${build.dir}/model"
+       extension=".xml"
+       includes="*.xmi"
+       style="${env.AndroMDAHOME}/xmi-to-simpleOO.xsl"
+/&gt;
+
+&lt;uml2ejb basedir="${build.dir}/model"
+         ejbDestdir="${generated.src.dir}"
+         implDestdir="${handcrafted.src.dir}"
+         includes="*.xml"
+         lastModifiedCheck="true"
+         templatePath="${env.AndroMDAHOME}"
+         useDefaultTemplateConfig="true"
+/&gt;
+      </pre></blockquote>
+      <p class="std">
+        This unzips the Poseidon model into a temporary directory, runs XSLT
+        to convert it into simpleOO format, and finally runs AndroMDA to
+        generate the bean classes and the implementation classes.
+      </p>
+      <h2><a name="template">&lt;template&gt;</a></h2>
+      <p class="std">
+      The <a href="#uml2ejb"><code>&lt;uml2ejb&gt;</code></a> task supports a nested <code>&lt;template&gt;</code> tag to customize
+      the set of templates that will be used to generate source code.
+      </p>
+
+      <h3>Parameters</h3>
+
+      <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+          <td valign="top" class="std"><b>Attribute</b></td>
+          <td valign="top" class="std"><b>Description</b></td>
+          <td align="center" valign="top" class="std"><b>Required</b></td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">stereotype</td>
+          <td valign="top" class="std">Specifies the name of the stereotype that should
+                                       trigger the use of this template.
+          </td>
+          <td align="center" class="std">Yes.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">sheet</td>
+          <td valign="top" class="std">Specifies the name of a template (*.vsl) file
+                                       that resides in the directory that was configured
+                                       with the <code>templatePath</code> parameter of the AndroMDA task.
+          </td>
+          <td align="center" class="std">No - you can use the nested <a href="http://jakarta.apache.org/ant/manual/CoreTypes/fileset.html"><code>&lt;fileset&gt;</code></a> element instead.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">outputPattern</td>
+          <td valign="top" class="std">Specifies a pattern in
+                                       <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
+                                         java.text.MessageFormat</a>
+                                       syntax.
+                                       You can use this pattern to tell AndroMDA how to construct
+                                       output file names. The pattern can consist of any ordinary
+                                       printable characters as well as some predefined placeholders
+                                       for things that AndroMDA already knows about: <br />
+                                       <code>{0}</code> stands for the package directory of the class.<br />
+                                       <code>{1}</code> stands for the class name.<br />
+                                       <code>{2}</code> stands for the base part of the *.vsl file name.<br />
+                                       <code>{3}</code> stands for the name of the stereotype.<br />
+                                       See example below.
+          </td>
+          <td align="center" class="std">Yes.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">outputDir</td>
+          <td valign="top" class="std">Specifies the path to the directory where the output files should go.</td>
+          <td valign="top" align="center" class="std">Yes.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="std">overWrite</td>
+          <td valign="top" class="std">Specifies whether the files already contained in <code>&lt;outputDir&gt;</code>
+                                       should be overwritten when AndroMDA runs a second time.
+          </td>
+          <td valign="top" align="center" class="std">Yes.</td>
+        </tr>
+      </table>
+
+      <h3>Example 1</h3>
+      <blockquote><pre>
+&lt;uml2ejb basedir="${build.dir}/model"
+         includes="*.xml"
+         lastModifiedCheck="true"
+         templatePath="${env.AndroMDAHOME}"
+         useDefaultTemplateConfig="false"&gt;
+    &lt;template
+        stereotype="EntityBean"
+        outputPattern="{1}-{2}.sql"
+        outputDir="${database.script.dir}"
+        overWrite="true"&gt;
+      &lt;fileset dir="databaseScriptTemplates" includes="*.vsl" /&gt;
+    &lt;/template&gt;
+&lt;/uml2ejb&gt;
+      </pre></blockquote>
+      <p class="std">
+          This could generate SQL scripts for the entity beans in the model.
+          If you write two files <code>createTable.vsl</code> and <code>fillTable.vsl</code> in the directory
+          <code>databaseScriptTemplates</code>,
+          and if an entity bean is called <code>Customer</code>, then you will get
+          <code>Customer-createTable.sql</code> and <code>Customer-fillTable.sql</code> using the
+          template configuration above.
+      </p>
+      <h3>Example 2</h3>
+      <blockquote><pre>
+&lt;uml2ejb basedir="${build.dir}/model"
+         ejbDestdir="${generated.src.dir}"
+         implDestdir="${handcrafted.src.dir}"
+         includes="*.xml"
+         lastModifiedCheck="true"
+         templatePath="${env.AndroMDAHOME}"
+         useDefaultTemplateConfig="false"&gt;
+
+    &lt;template
+        stereotype="EntityBean"
+        sheet="EntityBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outputDir="${generated.src.dir}"
+        overWrite="true"
+    /&gt;
+
+    &lt;template
+        stereotype="EntityBean"
+        sheet="EntityBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outputDir="${handcrafted.src.dir}"
+        overWrite="false"
+    /&gt;
+
+    &lt;template
+        stereotype="EntityBean"
+        sheet="EntityBeanCMP.vsl"
+        outputPattern="{0}/{1}BeanCMP.java"
+        outputDir="${generated.src.dir}"
+        overWrite="true"
+    /&gt;
+
+    &lt;template
+        stereotype="StatelessSessionBean"
+        sheet="StatelessSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outputDir="${generated.src.dir}"
+        overWrite="true"
+    /&gt;
+
+    &lt;template
+        stereotype="StatelessSessionBean"
+        sheet="StatelessSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outputDir="${handcrafted.src.dir}"
+        overWrite="false"
+    /&gt;
+
+&lt;/uml2ejb&gt;
+      </pre></blockquote>
+
+      <p class="std">
+          This would be exactly the same as if you had specified
+          <code>useDefaultTemplateConfig="true"</code>. Note the usage
+          of the <code>"{0}/"</code> pattern. This will cause the target
+          java file to be generated into <code>"com/mycompany/test"</code>
+          if it was in the package <code>"com.mycompany.test"</code>.
+      </p>
+
+    </freetext>
+
+  </body>
+</document>
