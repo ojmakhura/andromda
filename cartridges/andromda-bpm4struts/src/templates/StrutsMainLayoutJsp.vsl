@@ -12,6 +12,10 @@
         </title>
         <html:base/>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<%-- uncomment this to enable the browser 'favorites' icons
+        <link rel="shortcut icon" href="my-custom-image.ico">
+        <link rel="icon" type="image/png" href="my-custom-image.png">
+--%>
         <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default.css"/>"/>
         <tiles:insert attribute="javascript" flush="true"/>
     </head>
