@@ -32,6 +32,12 @@ public class TableLogicImpl
      */
     protected int handleGetDummyLoadSize()
     {
+        // for enumerations we always have a fixed size
+        if (isEnumeration())
+        {
+            return getLiterals().size();
+        }
+
         int dummyLoadSize = 0;
         float dummyLoadMultiplier = 0;
 
