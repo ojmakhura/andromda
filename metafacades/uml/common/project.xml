@@ -13,7 +13,7 @@
     	<dependency> 
     		<groupId>andromda-cartridges</groupId>
       		<artifactId>andromda-meta-cartridge-bootstrap</artifactId>
-     		<version>3.0-SNAPSHOT</version>
+     		<version>${pom.currentVersion}</version>
      		<properties>
 	      		<facades>${basedir}/target/src/andromda/meta</facades>
 	      		<facade-logics.ignore/>
