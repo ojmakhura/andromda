@@ -10,7 +10,6 @@ import junit.framework.TestCase;
  * Compares two files. It checks if both file do exist and if the APIs of both
  * files are equal.
  * 
- * @author Ralf Wirdemann
  * @author Chad Brandon
  */
 public class FileComparator
