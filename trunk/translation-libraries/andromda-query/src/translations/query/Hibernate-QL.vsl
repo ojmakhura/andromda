@@ -87,11 +87,19 @@
             </kind>
         </fragment>
         
-        <!-- This is what is appended when 'string.concat(<string>)' is encountered in the expression -->
+        <!-- This is what is appended when 'string.concat(string)' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*concat${nonEmptyParentheses}"
                   handlerMethod="handleDotOperation">
             <kind name="body">
                 {0} || {1}
+            </kind>
+        </fragment>
+        
+        <!-- This is what is appended when 'string.substring(int,int)' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*substring${nonEmptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                substr({0}, {1}, {2})
             </kind>
         </fragment>
         
