@@ -434,14 +434,14 @@ public abstract class $entity.daoBaseName
      * flag is set to one of the constants defined in <code>$entity.fullyQualifiedDaoName</code>, please note
      * that the <code>$entity.daoNoTransformationConstantName</code> constant denotes no transformation, so the entity itself
      * will be returned.
-#if ($valueObjectReferences.empty == false)
+#if (!$valueObjectReferences.empty)
      * <p/>
      * This method will return instances of these types:
      * <ul>
-     *   <li>$entity.fullyQualifiedName <code>($entity.daoNoTransformationConstantName)</code></li>
+     *   <li>{@link $entity.fullyQualifiedName} - {@link #$entity.daoNoTransformationConstantName}</li>
 #foreach ($valueObjectRef in $valueObjectReferences)
 #set ($targetElement = $valueObjectRef.targetElement)
-     *   <li>$targetElement.fullyQualifiedName <code>${valueObjectRef.transformationConstantName})</code></li>
+     *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${valueObjectRef.transformationConstantName}}</li>
 #end
      * </ul>
 #end
@@ -456,19 +456,20 @@ public abstract class $entity.daoBaseName
     private final Object transformEntity(final int transform, final $entity.fullyQualifiedName entity)
     {
         Object target = null;
-
-        switch (transform)
+        if (entity != null)
         {
+            switch (transform)
+            {
 #foreach ($valueObjectRef in $valueObjectReferences)
-            case $valueObjectRef.transformationConstantName :
-                target = ${valueObjectRef.transformationMethodName}(entity);
-                break;
+                case $valueObjectRef.transformationConstantName :
+                    target = ${valueObjectRef.transformationMethodName}(entity);
+                    break;
 #end
-            case $entity.daoNoTransformationConstantName : // fall-through
-            default:
-                target = entity;
+                case $entity.daoNoTransformationConstantName : // fall-through
+                default:
+                    target = entity;
+            }
         }
-
         return target;
     }
 
@@ -486,16 +487,19 @@ public abstract class $entity.daoBaseName
      */
     private final void transformEntities(final int transform, final java.util.Collection entities)
     {
-        switch (transform)
+        if (entities != null && !entities.isEmpty())
         {
+            switch (transform)
+            {
 #foreach ($valueObjectRef in $valueObjectReferences)
-            case $valueObjectRef.transformationConstantName :
-                ${valueObjectRef.transformationMethodName}(entities);
-                break;
+                case $valueObjectRef.transformationConstantName :
+                    ${valueObjectRef.transformationMethodName}(entities);
+                    break;
 #end
-            case $entity.daoNoTransformationConstantName : // fall-through
-            default:
-                // do nothing;
+                case $entity.daoNoTransformationConstantName : // fall-through
+                    default:
+                    // do nothing;
+            }
         }
     }
 
