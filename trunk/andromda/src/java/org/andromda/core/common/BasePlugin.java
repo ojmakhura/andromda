@@ -107,7 +107,6 @@ public abstract class BasePlugin
     public void setResource(URL resource)
     {
         this.resource = resource;
-        this.getContents();
     }
 
     /**
