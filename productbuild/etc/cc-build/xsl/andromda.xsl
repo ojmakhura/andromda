@@ -130,14 +130,19 @@
         </xsl:apply-templates>
         </table>
 
-        <xsl:variable name="maven.deploy.messages" select="$mavengoal[@name='jar:deploy']"/>
+        <!--xsl:variable name="maven.deploy.messages" select="$mavengoal[@name='jar:deploy']"/>
         <xsl:if test="count($maven.deploy.messages) > 0">
                         <HR/><H2>Deployments - Artifacts</H2>
             <xsl:apply-templates select="$mavengoal[@name='jar:deploy']"/>
-        </xsl:if>
+        </xsl:if-->
+        <xsl:variable name="maven.deploy.messages" select="$mavengoal[@name='deploy-distribution']"/>
         <xsl:if test="count($maven.deploy.messages) > 0">
-                        <HR/><H2>Deployments - Distributions</H2>
-            <xsl:apply-templates select="$mavengoal[@name='deploy-distribution']"/>
+                        <HR/><H2>Deployments - Docs</H2>
+            <xsl:apply-templates select="$mavengoal[@name='deploy-docs']"/>
+                        <HR/><H2>Deployments - Repository</H2>
+            <xsl:apply-templates select="$mavengoal[@name='deploy-repository']"/>
+                        <HR/><H2>Deployments - Distribution</H2>
+            <xsl:apply-templates select="$mavengoal[@name='deploy-build']"/>
         </xsl:if>
 
 		
@@ -174,7 +179,15 @@
         <xsl:apply-templates select="message[@priority='info']"/>
     </xsl:template>
 
-    <xsl:template match="mavengoal[@name='deploy-distribution']">
+    <xsl:template match="mavengoal[@name='deploy-docs']">
+        <xsl:apply-templates select="message[@priority='info']"/>
+    </xsl:template>
+
+    <xsl:template match="mavengoal[@name='deploy-repository']">
+        <xsl:apply-templates select="message[@priority='info']"/>
+    </xsl:template>
+
+    <xsl:template match="mavengoal[@name='deploy-build']">
         <xsl:apply-templates select="message[@priority='info']"/>
     </xsl:template>
 
