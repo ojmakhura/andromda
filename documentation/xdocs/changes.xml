@@ -17,6 +17,17 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 21, 2004</td>
+                    <td valign="top" class="std">Bpm4Struts change</td>
+                    <td valign="top" class="std">
+                        Tooltips are now handled in JavaScript. We had to remove
+                        the doctypes for that to work properly in Firefox and Mozilla.
+                        It will be improved in the future.
+                        The reason we have these JS tooltips is that now it can also
+                        support images and text of arbitrary length.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 20, 2004</td>
                     <td valign="top" class="std">Bpm4Struts change</td>
                     <td valign="top" class="std">
