@@ -1,5 +1,5 @@
 // license-header java merge-point
-#if ($entity.packageName)
+#if ($stringUtils.isNotBlank($entity.packageName))
 package $entity.packageName;
 #end
 

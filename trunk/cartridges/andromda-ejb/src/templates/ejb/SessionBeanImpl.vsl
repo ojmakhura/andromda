@@ -1,5 +1,5 @@
 // license-header java merge-point
-#if ($service.packageName)
+#if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
 
@@ -19,7 +19,7 @@ public class ${service.name}BeanImpl
 ## interface instead of the component interface and must
 ## be prepended with "ejbHome"
 #if ($visibility == "public" && $operation.static)
-#set ($signature = "ejbHome${str.capitalize($signature)}")
+#set ($signature = "ejbHome${stringUtils.capitalize($signature)}")
 #end
     /**
      * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
