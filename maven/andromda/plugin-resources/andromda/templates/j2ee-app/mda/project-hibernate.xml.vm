@@ -3,7 +3,7 @@
 <project>
   	<extend>../project.xml</extend>
 	<name>${projectName} MDA</name>
-	<id>${pom.groupId}-mda</id>	
+	<id>${projectId}-mda</id>	
 	<shortDescription>${pom.name} Component</shortDescription>
 	<description>Contains the ${pom.name} module</description>
   	<dependencies>

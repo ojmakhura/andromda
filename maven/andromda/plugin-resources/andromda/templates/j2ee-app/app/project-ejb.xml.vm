@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../project.xml</extend>
-	<id>${pom.groupId}-app</id>
+	<id>${projectId}-app</id>
 	<name>${projectName} Application</name>
 	<shortDescription>
 		The ${pom.name} J2EE application.

@@ -427,6 +427,11 @@
   			Asks the generate questions to get the required input.              
   		==================================================================-->
 	<goal name="andromda:genapp-init">
+  		<j:while test="${empty(projectCreator)}">
+        	<i:ask 
+        		question="Please enter your first and last name (i.e. Chad Brandon):" 
+        		answer="projectCreator"/>
+    	</j:while>	
   		<j:while test="${empty(projectName)}">
         	<i:ask 
         		question="Please enter the name of your J2EE project (i.e. Animal Quiz):" 
@@ -462,6 +467,8 @@
         	value="${packageName}" 
         	oldChar="." 
         	newChar="/"/>
+        	
+        <j:set var="andromdaVersion" value="${maven.andromda.genapp.andromda.version}"/>
         	
         <!-- set the groupId so that it isn't filled by the default provided by maven -->
 		<j:set var="dummy" value="${pom.setGroupId('${pom.groupId}')}"/>
