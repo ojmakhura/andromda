@@ -132,4 +132,12 @@ public class SpringEntityAssociationEndLogicImpl
         }
         return cascade;
     }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEnd#isHibernateInverse()
+     */
+    protected boolean handleIsHibernateInverse()
+    {
+        return true;
+    }
 }
