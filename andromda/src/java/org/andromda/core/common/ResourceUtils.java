@@ -3,6 +3,7 @@ package org.andromda.core.common;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,6 +54,28 @@ public class ResourceUtils
     public static String getContents(URL resource)
     {
         final String methodName = "ResourceUtils.getContents";
+        try
+        {
+	        return getContents(resource != null ? new InputStreamReader(
+	                    resource.openStream()) : null);
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, th);
+            throw new RuntimeException(errMsg, th);
+        }
+    }
+    
+    /**
+     * Loads the resource and returns the contents as a String.
+     * 
+     * @param resourceName the name of the resource.
+     * @return String
+     */
+    public static String getContents(Reader resource)
+    {
+        final String methodName = "ResourceUtils.getContents";
         if (logger.isDebugEnabled())
             logger.debug("performing " + methodName + " with resource '"
                 + resource + "'");
@@ -61,8 +84,7 @@ public class ResourceUtils
         {
             if (resource != null)
             {
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                    resource.openStream()));
+                BufferedReader in = new BufferedReader(resource);
                 String line;
                 while ((line = in.readLine()) != null)
                 {

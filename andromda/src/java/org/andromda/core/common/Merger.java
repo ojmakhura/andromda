@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,6 +44,30 @@ public class Merger
         return instance;
     }
 
+    private String namespace = null;
+
+    /**
+     * Keeps us from getting infinite recursion since the mappings are
+     * configured with files that are merged and this class uses the
+     * {@link org.andromda.core.mapping.Mappings}instances.
+     */
+    private Collection mergedStringCache = new ArrayList();
+
+    /**
+     * The namespace to use when performing any merging during
+     * {@link #getMergedString(String, String)}. This namespace is searched
+     * when attempting to find the
+     * {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
+     * 
+     * @param namespace the namespace to set.
+     */
+    public void setNamespace(String namespace)
+    {
+        // clear out the cache of merged strings.
+        this.mergedStringCache.clear();
+        this.namespace = namespace;
+    }
+
     /**
      * Stores the cached merge mappings already found (so we don't need to
      * reconstrut again each time).
@@ -57,35 +82,44 @@ public class Merger
      * matching patterns in the given <code>string</code>.
      * </p>
      * 
-     * @param namespace the namespace to search for the merge property.
      * @param string the String to be replaced
      * @return the replaced String.
      */
-    public String getMergedString(String namespace, String string)
+    public String getMergedString(String string)
     {
-        Mappings mergeMappings = this.getMergeMappings(namespace);
-        if (mergeMappings != null && string != null)
+        // avoid any possible infinite recursion with the mergedStringCache
+        // check (may need to refactor the mergedStringCache solution)
+        if (this.namespace != null && string != null
+            && !mergedStringCache.contains(string))
         {
-            Collection mappings = mergeMappings.getMappings();
-            if (mappings != null)
+            this.mergedStringCache.add(string);
+            Mappings mergeMappings = this.getMergeMappings(namespace);
+            if (mergeMappings != null)
             {
-                for (Iterator mappingsIterator = mappings.iterator(); mappingsIterator
-                    .hasNext();)
+                Collection mappings = mergeMappings.getMappings();
+                if (mappings != null)
                 {
-                    Mapping mapping = (Mapping)mappingsIterator.next();
-                    Collection froms = mapping.getFroms();
-                    if (froms != null)
+                    for (Iterator mappingsIterator = mappings.iterator(); mappingsIterator
+                        .hasNext();)
                     {
-                        for (Iterator fromsIterator = froms.iterator(); fromsIterator
-                            .hasNext();)
+                        Mapping mapping = (Mapping)mappingsIterator.next();
+                        Collection froms = mapping.getFroms();
+                        if (froms != null)
                         {
-                            String from = StringUtils
-                                .trimToEmpty((String)fromsIterator.next());
-                            if (StringUtils.isNotEmpty(from))
+                            for (Iterator fromsIterator = froms.iterator(); fromsIterator
+                                .hasNext();)
                             {
-                                String to = StringUtils.trimToEmpty(mapping
-                                    .getTo());
-                                string = StringUtils.replace(string, from, to);
+                                String from = StringUtils
+                                    .trimToEmpty((String)fromsIterator.next());
+                                if (StringUtils.isNotEmpty(from))
+                                {
+                                    String to = StringUtils.trimToEmpty(mapping
+                                        .getTo());
+                                    string = StringUtils.replace(
+                                        string,
+                                        from,
+                                        to);
+                                }
                             }
                         }
                     }
