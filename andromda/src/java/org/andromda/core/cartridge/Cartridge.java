@@ -295,7 +295,7 @@ public class Cartridge
 
     /**
      * Processes the <code>template</code> without model elements. This is
-     * useful if you need to generate some that is part of your cartridge,
+     * useful if you need to generate something that is part of your cartridge,
      * however you only need to use a proprety passed in from a namespace or a
      * template object defined in your cartridge descriptor.
      * 
