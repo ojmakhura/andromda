@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import org.andromda.cartridges.database.DatabaseGlobals;
 import org.andromda.metafacades.uml.EntityAssociationEndFacade;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 
 /**
@@ -63,13 +62,10 @@ public class AssociationTableLogicImpl
      */
     protected String handleGetPrimaryKeyConstraintName()
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer
-            .append(this
-                .getConfiguredProperty(DatabaseGlobals.PRIMARY_KEY_CONSTRAINT_PREFIX));
-        buffer.append(getTableName());
-        return EntityMetafacadeUtils.ensureMaximumNameLength(
-            buffer.toString(),
+        return DatabaseMetafacadeUtils.toSqlIdentifierName(
+            this.getConfiguredProperty(
+                DatabaseGlobals.PRIMARY_KEY_CONSTRAINT_PREFIX),
+            this,
             this.getMaxSqlNameLength());
     }
     

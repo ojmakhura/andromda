@@ -3,24 +3,27 @@ package org.andromda.cartridges.database.metafacades;
 import java.util.Random;
 
 import org.andromda.cartridges.database.DatabaseGlobals;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.database.metafacades.ForeignKeyColumn.
- *
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.database.metafacades.ForeignKeyColumn.
+ * 
  * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn
  */
 public class ForeignKeyColumnLogicImpl
-       extends ForeignKeyColumnLogic
-       implements org.andromda.cartridges.database.metafacades.ForeignKeyColumn
+    extends ForeignKeyColumnLogic
+    implements org.andromda.cartridges.database.metafacades.ForeignKeyColumn
 {
 
     // ---------------- constructor -------------------------------
 
-    public ForeignKeyColumnLogicImpl (Object metaObject, String context)
+    public ForeignKeyColumnLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -30,7 +33,7 @@ public class ForeignKeyColumnLogicImpl
     {
         return this.isComposition() || this.isMany2Many();
     }
-    
+
     /**
      * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getTable()
      */
@@ -43,7 +46,7 @@ public class ForeignKeyColumnLogicImpl
         }
         return table;
     }
-    
+
     /**
      * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getAssociationTable()
      */
@@ -64,7 +67,7 @@ public class ForeignKeyColumnLogicImpl
     {
         return this.getType();
     }
-    
+
     private final static Random RANDOM = new Random();
 
     /**
@@ -73,10 +76,12 @@ public class ForeignKeyColumnLogicImpl
     protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
-        NonForeignKeyColumn importedColumn = this.getImportedTable().getPrimaryKeyColumn();
+        NonForeignKeyColumn importedColumn = this.getImportedTable()
+            .getPrimaryKeyColumn();
         if (importedColumn != null)
         {
-            int randomValue = RANDOM.nextInt(importedColumn.getTable().getDummyLoadSize()) + 1;
+            int randomValue = RANDOM.nextInt(importedColumn.getTable()
+                .getDummyLoadSize()) + 1;
             initialLoadValue = importedColumn.getDummyLoadValue(randomValue);
         }
         return initialLoadValue;
@@ -87,13 +92,28 @@ public class ForeignKeyColumnLogicImpl
      */
     protected String handleGetConstraintName()
     {
-        StringBuffer buffer = new StringBuffer();
+        return this.getIdentifierName(
+                DatabaseGlobals.FOREIGN_KEY_CONSTRAINT_PREFIX);
+    }
 
-        buffer.append(this.getConfiguredProperty(DatabaseGlobals.FOREIGN_KEY_CONSTRAINT_PREFIX));
-        buffer.append(this.getImportedTable().getTableName());
-        buffer.append(this.getTableName());
-
-        return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
+    /**
+     * Returns the actual table (i.e. the table or association table depending
+     * on what type of association this foreign key column represents.
+     * 
+     * @return the table or association table.
+     */
+    private String getIdentifierName(String prefixProperty)
+    {
+        ModelElementFacade table = this.getTable();
+        if (this.getAssociationTable() != null)
+        {
+            table = this.getAssociationTable();
+        }
+        return DatabaseMetafacadeUtils.toSqlIdentifierName(
+            this.getConfiguredProperty(prefixProperty), 
+            this.getImportedTable(), 
+            table, 
+            this.getMaxSqlNameLength());
     }
 
     /**
@@ -101,13 +121,9 @@ public class ForeignKeyColumnLogicImpl
      */
     protected String handleGetIndexName()
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(this.getConfiguredProperty(DatabaseGlobals.INDEX_PREFIX));
-        buffer.append(this.getImportedTable().getTableName());
-        buffer.append(this.getTableName());
-        return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
+        return this.getIdentifierName(DatabaseGlobals.INDEX_PREFIX);
     }
-    
+
     /**
      * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getTableName()
      */
@@ -120,7 +136,7 @@ public class ForeignKeyColumnLogicImpl
         }
         else
         {
-            tableName.append(this.getTable().getName());
+            tableName.append(this.getTable().getTableName());
         }
         return tableName.toString();
     }
@@ -130,7 +146,9 @@ public class ForeignKeyColumnLogicImpl
      */
     private Short getMaxSqlNameLength()
     {
-        return Short.valueOf((String)this.getConfiguredProperty("maxSqlNameLength"));
+        return Short
+            .valueOf((String)this
+                .getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
 
     /**
@@ -140,7 +158,7 @@ public class ForeignKeyColumnLogicImpl
     {
         return this.getImportedTable().getPrimaryKeyColumn();
     }
-    
+
     /**
      * Override to make many-to-many relations always required.
      * 

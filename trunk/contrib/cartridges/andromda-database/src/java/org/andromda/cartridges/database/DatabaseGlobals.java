@@ -30,6 +30,6 @@ public class DatabaseGlobals
     
     /**
      * The namespace property that stores the foreign key constraint prefix.
-     */    
+     */
     public static final String FOREIGN_KEY_CONSTRAINT_PREFIX = "foreignKeyConstraintPrefix";
 }
