@@ -44,24 +44,23 @@ public abstract class ${class.name}
 
     private $atttypename ${att.name};
 
-   /**
+    /**
 $att.getDocumentation("    * ")
-    *
+     *
 #set ($attcolumnname = $att.columnName)
 #set ($attsqltype    = $att.sqlType)
 #if ($att.identifier)
-    * @hibernate.id
-    *     generator-class="uuid.hex"
+     * @hibernate.id
+     *     generator-class="uuid.hex"
 #else
-    * @hibernate.property
+     * @hibernate.property
 #end
-    *     column="$attcolumnname"
-    *
-    * @hibernate.column
-    *     name="$attcolumnname"
-    *     sql-type="$attsqltype"
-    *
-    */
+     *     column="$attcolumnname"
+     *
+     * @hibernate.column
+     *     name="$attcolumnname"
+     *     sql-type="$attsqltype"
+     */
     public $atttypename get${str.upperCaseFirstLetter(${att.name})}()
     {
         return this.${att.name};
@@ -82,18 +81,18 @@ $att.getDocumentation("    * ")
     #set ($targetType = $target.type)
     #set ($targetTypeName = $targetType.fullyQualifiedName)
 #if ($target.navigable)
-   /**
+    /**
 $target.getDocumentation("    * ")
-    *
+     *
 #if ($associationEnd.one2Many)
-    * @hibernate.set
-    *     role="$target.name"
-    *     lazy="true"
-    * @hibernate.collection-key
-    *     column="$associationEnd.columnName"
-    * @hibernate.collection-one-to-many
-    *     class="$targetTypeName"
-    */
+     * @hibernate.set
+     *     role="$target.name"
+     *     lazy="true"
+     * @hibernate.collection-key
+     *     column="$associationEnd.columnName"
+     * @hibernate.collection-one-to-many
+     *     class="$targetTypeName"
+     */
     public java.util.Collection ${target.getterName}()
     {
         return this.${target.name};
@@ -109,15 +108,15 @@ $target.getDocumentation("    * ")
 #end
 #if ($associationEnd.many2Many)
 ##
-    * @hibernate.set
-    *     lazy="true"
-    *     table="${associationEnd.association.tableName}"
-    * @hibernate.collection-key
-    *     column="$associationEnd.columnName"
-    * @hibernate.collection-many-to-many
-    *     column="$target.columnName"
-    *     class="$targetTypeName"
-    */
+     * @hibernate.set
+     *     lazy="true"
+     *     table="${associationEnd.association.tableName}"
+     * @hibernate.collection-key
+     *     column="$associationEnd.columnName"
+     * @hibernate.collection-many-to-many
+     *     column="$target.columnName"
+     *     class="$targetTypeName"
+     */
     public java.util.Collection ${target.getterName}()
     {
         return this.${target.name};
@@ -132,10 +131,10 @@ $target.getDocumentation("    * ")
 
 #end
 #if ($associationEnd.one2One || $associationEnd.many2One)
-    * @hibernate.many-to-one
-    *     column="${target.columnName}"
-    *     class="$targetTypeName"
-    */
+     * @hibernate.many-to-one
+     *     column="${target.columnName}"
+     *     class="$targetTypeName"
+     */
     public ${targetTypeName} ${target.getterName}()
     {
         return this.${target.name};
@@ -156,9 +155,9 @@ $target.getDocumentation("    * ")
 
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod"))
-   /**
+    /**
 $op.getDocumentation("    * ")
-    */
+     */
 #set ($msig = $op.signature)
 #set ($returntype = $op.returnType.fullyQualifiedName)
 #if ($op.hasExceptions())
