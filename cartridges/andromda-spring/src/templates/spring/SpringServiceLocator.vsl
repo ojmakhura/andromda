@@ -26,7 +26,7 @@ public class ServiceLocator
      */
     private String beanFactoryReferenceLocation;
 
-    private ServiceLocator()
+    protected ServiceLocator()
     {
         // shouldn't be instantiated
     }
