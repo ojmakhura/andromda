@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute.
- * 
+ *
  * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute
  */
 public class SpringCriteriaAttributeLogicImpl
@@ -105,7 +105,7 @@ public class SpringCriteriaAttributeLogicImpl
         }
         return comparatorConstant;
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsNullable()
      */
@@ -117,6 +117,53 @@ public class SpringCriteriaAttributeLogicImpl
             result = BooleanUtils.toBoolean(value);
         }
         return result;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetMatchMode()
+     */
+    protected String handleGetMatchMode() {
+        String matchMode = null;
+        Object value = findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_MATCHMODE);
+        if (value != null)
+        {
+            matchMode = String.valueOf(value);
+        }
+        String result = StringUtils.trimToEmpty(matchMode);
+        return result;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetMatchModeConstant()
+     */
+    protected String handleGetMatchModeConstant() {
+        String matchMode = getMatchMode();
+        String matchModeConstant = null;
+
+        if (matchMode != null)
+        {
+            if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE))
+            {
+                matchModeConstant = "ANYWHERE";
+            }
+            else if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_END))
+            {
+                matchModeConstant = "END";
+            }
+            else if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT))
+            {
+                matchModeConstant = "EXACT";
+            }
+            else if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_START))
+            {
+                matchModeConstant = "START";
+            }
+        }
+        return matchModeConstant;
+    }
+
+    protected boolean handleIsMatchModePresent() {
+        return !StringUtils.isEmpty(getMatchMode());
     }
 
 }

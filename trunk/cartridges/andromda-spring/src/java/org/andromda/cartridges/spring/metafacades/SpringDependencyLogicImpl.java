@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.spring.metafacades.SpringDependency.
- * 
+ *
  * @see org.andromda.cartridges.spring.metafacades.SpringDependency
  */
 public class SpringDependencyLogicImpl
@@ -83,5 +83,15 @@ public class SpringDependencyLogicImpl
                 }) != null;
         }
         return circularReference;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationMethodName()
+     */
+    protected String handleGetTransformationToCollectionMethodName()
+    {
+        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX
+            + StringUtils.capitalize(getName())
+            + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
     }
 }

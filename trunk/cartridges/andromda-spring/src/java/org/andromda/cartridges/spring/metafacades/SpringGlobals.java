@@ -2,7 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 /**
  * Stores Globals specific to the Spring cartridge.
- * 
+ *
  * @author Chad Brandon
  */
 class SpringGlobals
@@ -38,6 +38,11 @@ class SpringGlobals
     final static String TRANSFORMATION_METHOD_PREFIX = "to";
 
     /**
+     * The suffix given to transformation method names.
+     */
+    public static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
+
+    /**
      * Defines the prefix given to the transformation constants.
      */
     final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
@@ -47,19 +52,20 @@ class SpringGlobals
      * both services and DAOs).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
-    
+
     /**
      * The pattern used to construct the DAO base name.
      */
     static final String PROPERTY_DAO_BASE_PATTERN = "daoBaseNamePattern";
-    
+
     /**
      * The pattern used to construct the DAO name.
      */
     static final String PROPERTY_DAO_PATTERN = "daoNamePattern";
-    
+
     /**
      * The pattern used to construct the DAO implementation name.
      */
     static final String PROPERTY_DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
+
 }

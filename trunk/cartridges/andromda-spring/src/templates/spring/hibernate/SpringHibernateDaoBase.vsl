@@ -379,26 +379,25 @@ public abstract class $entity.daoBaseName
             criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
 #set($criteriaClass = $criteriaArgument.type)
 #foreach($criteriaAttribute in $criteriaClass.attributes)
+#if($criteriaAttribute.matchModePresent)
+#set($matchModeArgument = ", net.sf.hibernate.expression.MatchMode.${criteriaAttribute.matchModeConstant}")
+#else
+#set($matchModeArgument = "")
+#end
+#if($criteriaAttribute.nullable)
+#set($nullableArgument = ", true")
+#else
+#set($nullableArgument = "")
+#end
 #if($criteriaAttribute.comparatorPresent)
+#set($comparatorArgument = ", ${springTypesPackage}.${criteriaSearchBaseName}Parameter.${criteriaAttribute.comparatorConstant}")
+#else
+#set($comparatorArgument = "")
+#end
             criteriaSearch.addParameter(
                 new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(
                     ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
-                    "$criteriaAttribute.attributeName",
-#if($criteriaAttribute.nullable)
-                    $criteriaAttribute.nullable,
-#end
-                    ${springTypesPackage}.${criteriaSearchBaseName}Parameter.${criteriaAttribute.comparatorConstant}));
-#else
-            criteriaSearch.addParameter(
-                new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(
-                    ${criteriaArgumentName}.${criteriaAttribute.getterName}(), 
-#if($criteriaAttribute.nullable)
-                    "${criteriaAttribute.attributeName}",
-                    $criteriaAttribute.nullable));
-#else
-                    "${criteriaAttribute.attributeName}"));
-#end
-#end
+                    "${criteriaAttribute.attributeName}"${nullableArgument}${comparatorArgument}${matchModeArgument}));
 #end
             java.util.Collection results = criteriaSearch.execute();
             transformEntities(transform, results);
@@ -521,7 +520,7 @@ public abstract class $entity.daoBaseName
         {
 #foreach ($valueObjectRef in $valueObjectReferences)
             case $valueObjectRef.transformationConstantName :
-                ${valueObjectRef.transformationMethodName}(entities);
+                ${valueObjectRef.transformationToCollectionMethodName}(entities);
                 break;
 #end
             case $entity.daoNoTransformationConstantName : // fall-through
@@ -532,9 +531,9 @@ public abstract class $entity.daoBaseName
 
 #foreach ($valueObjectRef in $valueObjectReferences)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}(java.util.Collection)
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
      */
-    public final void ${valueObjectRef.transformationMethodName}(java.util.Collection entities)
+    public final void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection entities)
     {
         if (entities == null)
         {
@@ -547,8 +546,19 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * This anonymous transformer is designed to transform entities to
-     * {@link ${valueObjectRef.targetElement.fullyQualifiedName}}
+     * Base implementation for transforming the results of a report query into a value object. This
+     * implementation exists for convenience reasons only. It needs only be overridden in the
+     * {@link $entity.daoImplementationName} class if you intend to use reporting queries.
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     */
+    protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(Object[] entity)
+    {
+        return null;
+    }
+
+    /**
+     * This anonymous transformer is designed to transform entities or report query results
+     * (which result in an array of objects) to {@link ${valueObjectRef.targetElement.fullyQualifiedName}}
      * using the Jakarta Commons-Collections Transformation API.
      */
     private final org.apache.commons.collections.Transformer ${valueObjectRef.transformationAnonymousName} =
@@ -556,7 +566,16 @@ public abstract class $entity.daoBaseName
         {
             public Object transform(Object input)
             {
-                return ${valueObjectRef.transformationMethodName}(($entity.fullyQualifiedName)input);
+                Object result = null;
+                if (input instanceof $entity.fullyQualifiedEntityName)
+                {
+                    result = ${valueObjectRef.transformationMethodName}(($entity.fullyQualifiedEntityName)input);
+                }
+                else if (input instanceof Object[])
+                {
+                    result = ${valueObjectRef.transformationMethodName}((Object[])input);
+                }
+                return result;
             }
         };
 

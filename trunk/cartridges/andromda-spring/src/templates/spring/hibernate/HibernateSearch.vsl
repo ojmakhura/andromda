@@ -106,7 +106,7 @@ public class ${criteriaSearchBaseName}
     {
         if (considerParameter(parameter))
         {
-            // parsing the patter of the parameter
+            // parsing the pattern of the parameter
             String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameter.getParameterPattern());
             String parameterName = path[path.length - 1];
             net.sf.hibernate.Criteria parameterCriteria = rootCriteria;
@@ -128,7 +128,8 @@ public class ${criteriaSearchBaseName}
             addExpression(parameterCriteria,
                     parameterName,
                     parameter.getParameterValue(),
-                    parameter.getComparatorID());
+                    parameter.getComparatorID(),
+                    parameter.getMatchMode());
         }
     }
 
@@ -162,12 +163,14 @@ public class ${criteriaSearchBaseName}
      * @param parameterValue
      * @param searchIfNull
      * @param comparatorID
+     * @param matchMode
      */
     private void addExpression(
             net.sf.hibernate.Criteria criteria,
             String parameterName,
             Object parameterValue,
-            int comparatorID)
+            int comparatorID,
+            net.sf.hibernate.expression.MatchMode matchMode)
     {
         if (parameterValue != null)
         {
@@ -175,7 +178,17 @@ public class ${criteriaSearchBaseName}
             {
                 case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR:
                 {
-                    criteria.add(net.sf.hibernate.expression.Expression.like(parameterName, parameterValue));
+                    if ( (matchMode != null) && (parameterValue instanceof String) )
+                    {
+                        criteria.add(net.sf.hibernate.expression.Expression.like(
+                            parameterName,
+                            (String)parameterValue,
+                            matchMode));
+                    }
+                    else
+                    {
+                        criteria.add(net.sf.hibernate.expression.Expression.like(parameterName, parameterValue));
+                    }
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:

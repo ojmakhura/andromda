@@ -26,7 +26,7 @@ public interface $entity.daoName
      * This specific flag denotes no transformation will occur.
      */
     public final static int $entity.daoNoTransformationConstantName = 0;
-    
+
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
@@ -42,7 +42,7 @@ public interface $entity.daoName
     /**
      * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
-    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity);
+    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
 
 #end
 ## Only add these methods if the entity isn't abstract
@@ -247,7 +247,7 @@ $operation.getDocumentation("     * ")
      * </p>
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)	
+    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
         throws $finder.exceptionList;
 #else
     $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
