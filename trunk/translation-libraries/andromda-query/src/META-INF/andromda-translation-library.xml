@@ -17,7 +17,7 @@
 			Describes translation fragments that help to
 			generate Hibernate Query code out of OCL expressions.
 		</description>
-		<file>translations/query/Hibernate-QL.vsl</file>
+		<template>translations/query/Hibernate-QL.vsl</template>
 	</translation>    
 	
 	<translation name="EJB-QL">
@@ -26,7 +26,7 @@
 			Describes translation fragments that help to
 			generate EJB QL query code out of OCL expressions.
 		</description>
-		<file>translations/query/EJB-QL.vsl</file>
+		<template>translations/query/EJB-QL.vsl</template>
 	</translation>
 		
 </translation-library>

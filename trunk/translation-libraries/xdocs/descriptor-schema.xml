@@ -15,24 +15,21 @@
 		<!-- description of what the translation-library does -->
 		<xs:element name="description" type="xs:string"/>
 		
-		<!-- the file that contains the 'translation' tempate -->
-		<xs:element name="file" type="xs:string"/>
-		
 		<!-- the fully qualified name of the class that is the 'engine' for the template processing, 
 			 this isn't required since a default exists, but it allows you to override the default 
 			 template engine -->
 		<xs:element name="templateEngine" type="xs:string"/>
 	
 		<!-- the translation which performs 'translation' of the expression in combination with the 
-		     translation file -->
+		     optional translation template -->
 		<xs:element name="translator" type="xs:string"/>
 		
-		<!-- any objects to make available to the translation template file -->
+		<!-- any objects to make available to the translation template -->
 		<xs:element name="templateObject">
 			<xs:complexType>
 			
 				<!-- the name of the templateObject, this is the name of the scripting object
-				     made available to the translation template file during processing -->
+				     made available to the translation template during processing -->
 				<xs:attribute name="name" type="xs:string" use="required"/>
 				
 				<!-- the fully qualified class name of the object (must have a default public constructor) -->
@@ -48,7 +45,8 @@
 					<xs:element ref="description"/>
 					<xs:element ref="templateEngine" minOccurs="0"/>
 					<xs:element ref="translator" minOccurs="1"/>
-					<xs:element ref="file"/>
+                    <!-- the optional template that contains the 'translation' -->
+					<xs:element name="template" type="xs:string" minOccurs="0" maxOccurs="1" />
 				</xs:sequence>
 				<xs:attribute name="name" type="xs:string" use="required"/>
 			</xs:complexType>
