@@ -60,7 +60,8 @@ public class MetafacadeFacadeLogicImpl
      */
     private ClassifierFacade getMetaclass(ClassifierFacade classifier)
     {
-        for (Iterator iter = classifier.getSourceDependencies().iterator(); iter.hasNext();)
+        for (Iterator iter = classifier.getSourceDependencies().iterator(); iter
+            .hasNext();)
         {
             DependencyFacade dep = (DependencyFacade)iter.next();
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();
@@ -75,7 +76,8 @@ public class MetafacadeFacadeLogicImpl
             }
         }
 
-        ClassifierFacade superclass = (ClassifierFacade)classifier.getGeneralization();
+        ClassifierFacade superclass = (ClassifierFacade)classifier
+            .getGeneralization();
         return (superclass != null) ? getMetaclass(superclass) : null;
     }
 
@@ -205,25 +207,18 @@ public class MetafacadeFacadeLogicImpl
     protected Collection handleGetMethodDataForPSM(boolean includeSuperclasses)
     {
         ArrayList result = null;
-        try
+        HashMap map = new HashMap();
+        internalGetMethodDataForPSM(map, this);
+        if (includeSuperclasses)
         {
-            HashMap map = new HashMap();
-            internalGetMethodDataForPSM(map, this);
-            if (includeSuperclasses)
+            for (ClassifierFacade cd = (ClassifierFacade)getGeneralization(); cd != null; cd = (ClassifierFacade)cd
+                .getGeneralization())
             {
-                for (ClassifierFacade cd = (ClassifierFacade)getGeneralization(); cd != null; cd = (ClassifierFacade)cd
-                    .getGeneralization())
-                {
-                    internalGetMethodDataForPSM(map, (MetafacadeFacade)cd);
-                }
+                internalGetMethodDataForPSM(map, (MetafacadeFacade)cd);
             }
-            result = new ArrayList(map.values());
-            Collections.sort(result);
         }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
+        result = new ArrayList(map.values());
+        Collections.sort(result);
         return result;
     }
 

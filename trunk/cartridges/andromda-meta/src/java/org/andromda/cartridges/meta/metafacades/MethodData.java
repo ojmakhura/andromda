@@ -5,12 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- *
  * @since 10.12.2003
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
-public class MethodData implements Comparable
+public class MethodData
+    implements Comparable
 {
     private String metafacadeName;
     private String visibility;
@@ -89,27 +89,21 @@ public class MethodData implements Comparable
     /**
      * Builds a string representing a declaration for this method.
      * 
-     * @param suppressAbstractDeclaration optionally suppress the "abstract" modifier
+     * @param suppressAbstractDeclaration optionally suppress the "abstract"
+     *        modifier
      * @return String the declaration
      */
     public String buildMethodDeclaration(boolean suppressAbstractDeclaration)
     {
-        String declaration =
-            visibility
-                + " "
-                + ((abstract_ && !suppressAbstractDeclaration)
-                    ? "abstract "
-                    : "")
-                + ((returnTypeName != null) ? returnTypeName + " " : "")
-                + name
-                + "(";
+        String declaration = visibility + " "
+            + ((abstract_ && !suppressAbstractDeclaration) ? "abstract " : "")
+            + ((returnTypeName != null) ? returnTypeName + " " : "") + name
+            + "(";
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
-            ArgumentData ad = (ArgumentData) it.next();
-            declaration += ad.getFullyQualifiedTypeName()
-                + " "
-                + ad.getName();
+            ArgumentData ad = (ArgumentData)it.next();
+            declaration += ad.getFullyQualifiedTypeName() + " " + ad.getName();
             if (it.hasNext())
             {
                 declaration += ", ";
@@ -122,7 +116,7 @@ public class MethodData implements Comparable
             declaration += " throws ";
             for (Iterator iter = exceptions.iterator(); iter.hasNext();)
             {
-                String exc = (String) iter.next();
+                String exc = (String)iter.next();
                 declaration += exc;
                 if (iter.hasNext())
                 {
@@ -136,6 +130,7 @@ public class MethodData implements Comparable
 
     /**
      * Builds a string representing a call to the method.
+     * 
      * @return String how a call would look like
      */
     public String buildMethodCall()
@@ -144,7 +139,7 @@ public class MethodData implements Comparable
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
-            ArgumentData ad = (ArgumentData) it.next();
+            ArgumentData ad = (ArgumentData)it.next();
             call += ad.getName();
             if (it.hasNext())
                 call += ", ";
@@ -154,22 +149,19 @@ public class MethodData implements Comparable
     }
 
     /**
-     * Builds a signature which can be used as a key into a map.
-     * Consists of the return type, the name and the f.q. types
-     * of the arguements.
+     * Builds a signature which can be used as a key into a map. Consists of the
+     * return type, the name and the f.q. types of the arguements.
      * 
      * @return String the key that identifies this method
      */
     public String buildCharacteristicKey()
     {
-        String key =
-            ((returnTypeName != null) ? returnTypeName + " " : "")
-                + name
-                + "(";
+        String key = ((returnTypeName != null) ? returnTypeName + " " : "")
+            + name + "(";
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
-            ArgumentData ad = (ArgumentData) it.next();
+            ArgumentData ad = (ArgumentData)it.next();
             key += ad.getFullyQualifiedTypeName();
             if (it.hasNext())
             {
@@ -220,18 +212,17 @@ public class MethodData implements Comparable
      */
     public boolean hasReturnType()
     {
-        return returnTypeName != null && !returnTypeName.equals("void"); 
+        return returnTypeName != null && !returnTypeName.equals("void");
     }
-    
+
     /**
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object o)
     {
-        MethodData otherMd = (MethodData) o;
+        MethodData otherMd = (MethodData)o;
         int result = getMetafacadeName().compareTo(otherMd.getMetafacadeName());
         return result != 0 ? result : getName().compareTo(otherMd.getName());
     }
 
 }
-
