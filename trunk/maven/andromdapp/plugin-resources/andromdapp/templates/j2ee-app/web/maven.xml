@@ -2,47 +2,48 @@
     xmlns:maven="jelly:maven"
     xmlns:j="jelly:core">
 
+    <!-- =====================================================================
+            Handle the xdoclet webdoclet generation for struts
+         ===================================================================== -->
     <preGoal name="war:init">
 
         <j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
 
-        <taskdef name="webdoclet"
+        <ant:taskdef name="webdoclet"
             classname="xdoclet.modules.web.WebDocletTask"
             classpathref="maven.dependency.classpath"/>
 
-        <webdoclet destdir="${webInfDir}"
-            force="true"
-            verbose="true"
+        <ant:webdoclet destdir="${webInfDir}"
+            force="true" verbose="true"
             mergedir="${maven.build.src}/merge">
-            <fileset dir="${maven.build.src}">
-                <include name="**/*.java"/>
-            </fileset>
-            <strutsconfigxml version="1.1"/>
-            <strutsvalidationxml/>
-            <deploymentdescriptor
-                distributable="false"
-                servletspec="2.3"/>
+            <ant:fileset dir="${maven.build.src}">
+                <ant:include name="**/*.java"/>
+            </ant:fileset>
+            <ant:strutsconfigxml version="1.1"/>
+            <ant:strutsvalidationxml/>
+            <ant:deploymentdescriptor distributable="false" servletspec="2.3"/>
             <jbosswebxml securitydomain="java:/jaas/other"/>
-        </webdoclet>
+        </ant:webdoclet>
 
-        <!-- only attempt to add the generated source if it exists -->
-        <j:set var="generatedSrc" value="${maven.build.dir}"/>
-        <j:if test="${generatedSrc != null and generatedSrc != ''}">
-            <!-- add the paths of the generated source to the
-                 maven compile path -->
-            <ant:path
-                id="andromda.struts.gen.src"
-                location="${generatedSrc}"/>
-            <maven:addPath
-                id="maven.compile.src.set"
-                refid="andromda.struts.gen.src"/>
-        </j:if>
+        <!-- add the paths of the generated source to the
+             maven compile path -->
+        <ant:path
+            id="andromda.struts.gen.src"
+            location="${maven.build.src}"/>
+        <maven:addPath
+            id="maven.compile.src.set"
+            refid="andromda.struts.gen.src"/>
 
     </preGoal>
 
     <postGoal name="war:webapp">
         <ant:copy todir="${maven.war.webapp.dir}">
-            <ant:fileset dir="${maven.build.src}"/>
+            <ant:fileset dir="${maven.build.src}">
+                <ant:include name="**/*.js"/>
+                <ant:include name="**/*.jsp"/>
+                <ant:include name="**/*.css"/>
+                <ant:include name="WEB-INF/*.xml"/>
+            </ant:fileset>
         </ant:copy>
     </postGoal>
 
@@ -50,7 +51,6 @@
         | We are going to make a WAR bundle in which the JSPs have been precompiled,
         | this means we will need to generate the Java source from those JSPs. This is
         | all done after the war has been generated.
-        | ++ Remove the 'ignore::' prefix if you want to enable precompilation.
     -->
     <postGoal name="ignore::war:war">
 
