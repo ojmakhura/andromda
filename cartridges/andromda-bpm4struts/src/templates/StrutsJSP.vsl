@@ -1,12 +1,6 @@
 #parse("templates/StrutsJSP.vm")
 #set ($generatedFile = "${class.fullPath}.jsp")
 ##
-##  TAGLIBS
-##
-<%@ taglib uri="struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="struts-html.tld" prefix="html" %>
-<%@ taglib uri="struts-logic.tld" prefix="logic" %>
-##
 ##  CONSTANTS
 ##
 #set ($actions = $class.actions)
@@ -17,28 +11,18 @@
 ##
 ##  START TEMPLATE
 ##
+<%@ taglib uri="struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
+<%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
-<bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+<tiles:insert definition="main.layout">
 
-#foreach ($variable in $class.pageVariables)
-#set ($variableName = $variable.name)
-#set ($variableType = $variable.type.fullyQualifiedName)
-<logic:present name="$formBeanName" property="$variableName" scope="page">
-    <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variableType" scope="page" toScope="page"/>
-</logic:present>
-#if ($variable.hasBackingList())
-#set ($variableName = $variable.backingListName)
-<logic:present name="$formBeanName" property="$variableName" scope="page">
-    <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
-</logic:present>
-#end
-#end
+    <tiles:put name="title" type="string">
+        <bean:message key="$class.titleKey"/>
+    </tiles:put>
 
-<html:html>
-
-    <head>
-        <title><bean:message key="$class.titleKey"/></title>
-        <html:base/>
+    <tiles:put name="javascript" type="string">
 ## only load the static javascript when it will actually be used
 #set ($loadStaticScript = false)
 #foreach ($action in $actions)
@@ -54,9 +38,24 @@
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
 #end
 #end
-    </head>
+    </tiles:put>
 
-    <body>
+    <tiles:put name="body" type="string">
+        <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+
+#foreach ($variable in $class.pageVariables)
+#set ($variableName = $variable.name)
+#set ($variableType = $variable.type.fullyQualifiedName)
+        <logic:present name="$formBeanName" property="$variableName" scope="page">
+            <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variableType" scope="page" toScope="page"/>
+        </logic:present>
+#if ($variable.hasBackingList())
+#set ($variableName = $variable.backingListName)
+        <logic:present name="$formBeanName" property="$variableName" scope="page">
+            <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
+        </logic:present>
+#end
+#end
 
         <%--
             If you want your own custom messages to be displayed
@@ -83,7 +82,7 @@
 
 #foreach ($variable in $class.pageVariables)
         <logic:present name="$variable.name" scope="page">
-            Present in request: $variable.name = <bean:write name="$variable.name" scope="page"/> <br/>
+            <bean:write name="$variable.name" scope="page"/> <br/>
         </logic:present>
         <logic:notPresent name="$variable.name" scope="page">
             Missing from request: $variable.name <br/>
@@ -154,7 +153,6 @@
 $class.getDocumentation("                ")
             </font></i>
         </div>
+    </tiles:put>
 
-    </body>
-
-</html:html>
+</tiles:insert>
