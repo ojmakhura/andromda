@@ -231,7 +231,7 @@ public class StringUtilsHelper {
         if (multiLines != null)
         {
             final String suffix = "\\";
-            multiLines = suffixLines(multiLines, ' ' + suffix + ' ').trim();
+            multiLines = suffixLines(multiLines, ' ' + suffix).trim();
             while (multiLines.endsWith(suffix))
             {
                 multiLines = multiLines.substring(0, multiLines.lastIndexOf(suffix)).trim();
