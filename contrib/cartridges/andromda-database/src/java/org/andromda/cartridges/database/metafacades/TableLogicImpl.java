@@ -15,7 +15,7 @@ import org.apache.commons.collections.Predicate;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.database.metafacades.Table.
- * 
+ *
  * @see org.andromda.cartridges.database.metafacades.Table
  */
 public class TableLogicImpl
@@ -37,7 +37,7 @@ public class TableLogicImpl
     protected int handleGetDummyLoadSize()
     {
         /*
-         * comment out until enumeation support is added. for enumerations we
+         * comment out until enumeration support is added. for enumerations we
          * always have a fixed size if (isEnumeration()) { return
          * getLiterals().size(); }
          */
@@ -84,7 +84,7 @@ public class TableLogicImpl
         {
             if (dummyLoadMultiplier <= 0)
             {
-                dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPIER_DEFAULT;
+                dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
             }
         }
 
@@ -217,9 +217,9 @@ public class TableLogicImpl
     protected Collection handleGetIdentifierForeignKeyColumns()
     {
         Collection columns = null;
-        EntityAssociationEndFacade end = 
+        EntityAssociationEndFacade end =
             (EntityAssociationEndFacade)CollectionUtils.find(
-                this.getAssociationEnds(), 
+                this.getAssociationEnds(),
                 new Predicate()
             {
                 public boolean evaluate(Object object)
