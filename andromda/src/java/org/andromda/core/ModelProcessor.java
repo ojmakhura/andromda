@@ -355,7 +355,7 @@ public class ModelProcessor
     }
 
     /**
-     * The character used for cartridge filter negation.
+     * The prefix used for cartridge filter negation.
      */
     private static final String CARTRIDGE_FILTER_NEGATOR = "~";
 
