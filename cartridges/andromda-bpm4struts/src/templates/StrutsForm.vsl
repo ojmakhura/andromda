@@ -36,10 +36,8 @@ public class $formBeanClassName
 #if ($field.date)
     private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
 #end
-#if ($field.selectable)
     private Object[] $field.valueListName;
     private Object[] $field.labelListName;
-#end
 #end
 
     public $formBeanClassName()
@@ -192,8 +190,6 @@ $field.getDocumentation("     * ")
     }
 #end
 
-#if ($field.selectable)
-#set ($hasSelectableField = true)
 #set ($listType = "Object[]")
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $str.capitalize($backingListName))
@@ -247,7 +243,6 @@ $field.getDocumentation("     * ")
         this.$labelListName = $labelListName;
     }
 
-#end
 #end
     /**
      * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
@@ -340,7 +335,6 @@ $field.getDocumentation("     * ")
 #end
     }
 
-#if ($hasSelectableField)
     public final static class LabelValue
     {
         private Object label = null;
@@ -367,5 +361,4 @@ $field.getDocumentation("     * ")
             return label + "=" + value;
         }
     }
-#end
 }
