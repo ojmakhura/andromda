@@ -204,7 +204,7 @@ public class MetafacadeFactory
                         + " or specified as an argument in this method for mappingObject --> '"
                         + mappingObject + "'");
             }
-            final MetafacadeBase metafacade = this.constructMetafacade(
+            final MetafacadeBase metafacade = this.getMetafacade(
                 metafacadeClass,
                 mappingObject,
                 context,
@@ -254,7 +254,7 @@ public class MetafacadeFactory
     {
         try
         {
-            return this.constructMetafacade(
+            return this.getMetafacade(
                 mapping.getMetafacadeClass(),
                 mappingObject,
                 mapping.getContext(),
@@ -287,26 +287,15 @@ public class MetafacadeFactory
      * @return the new metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
-    private MetafacadeBase constructMetafacade(
+    private MetafacadeBase getMetafacade(
         final Class metafacadeClass,
         final Object mappingObject,
         final String context,
         final MetafacadeMappings mappings,
         final MetafacadeMapping mapping) throws Exception
     {
-        // if there is no mapping, then the metafacadeClass
-        // will be the default metafacade class, so use
-        // that as the cache key
-        Object cacheKey = metafacadeClass;
-        if (mapping != null)
-        {
-            cacheKey = mapping.getKey();
-        }
         final MetafacadeCache cache = MetafacadeCache.instance();
-        MetafacadeBase metafacade = cache.get(
-            mappingObject,
-            metafacadeClass,
-            cacheKey);
+        MetafacadeBase metafacade = cache.get(mappingObject, metafacadeClass);
         if (metafacade == null)
         {
             metafacade = MetafacadeUtils.constructMetafacade(
@@ -322,10 +311,7 @@ public class MetafacadeFactory
                 // set whether or not this metafacade is a context root
                 metafacade.setContextRoot(mapping.isContextRoot());
             }
-            if (cacheKey != null)
-            {
-                cache.add(mappingObject, cacheKey, metafacade);
-            }
+            cache.add(mappingObject, metafacade);
         }
         return metafacade;
     }

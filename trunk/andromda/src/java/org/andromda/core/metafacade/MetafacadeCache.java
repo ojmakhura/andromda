@@ -51,8 +51,8 @@ public class MetafacadeCache
      * <p>
      * Returns the metafacade from the metafacade cache. The Metafacades are
      * cached first by according to its <code>mappingObject</code>, next the
-     * <code>metafacadeClass</code>, then according to to the given
-     * <code>key</code> and finally by the current namespace.
+     * <code>metafacadeClass</code>, then according to to the current
+     * <code>namespace</code> and finally by the current namespace.
      * </p>
      * <p>
      * Metafacades must be cached in order to keep track of the state of its
@@ -63,13 +63,9 @@ public class MetafacadeCache
      * 
      * @param mappingObject the object to which the mapping applies
      * @param metafacadeClass the class of the metafacade.
-     * @param key the unique key for the given mappingObject
      * @return MetafacadeBase stored in the cache.
      */
-    public MetafacadeBase get(
-        Object mappingObject,
-        Class metafacadeClass,
-        Object key)
+    public MetafacadeBase get(Object mappingObject, Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache
@@ -80,8 +76,8 @@ public class MetafacadeCache
                 .get(metafacadeClass);
             if (metafacadeCache != null)
             {
-                metafacade = (MetafacadeBase)metafacadeCache.get(this.namespace
-                    + key);
+                metafacade = (MetafacadeBase)metafacadeCache
+                    .get(this.namespace);
             }
         }
         return metafacade;
@@ -89,16 +85,13 @@ public class MetafacadeCache
 
     /**
      * Adds the <code>metafacade</code> to the cache according to first
-     * <code>mappingObject</code>, second the <code>metafacade</code>
-     * Class, third <code>key</code>, and finally by the current the current
-     * namespace.
+     * <code>mappingObject</code>, second the <code>metafacade</code>,
+     * and finally by the current <code>namespace</code>.
      * 
      * @param mappingObject the mappingObject for which to cache the metafacade.
-     * @param key the unique key by which the metafacade is cached (within the
-     *        scope of the <code>mappingObject</code>).
      * @param metafacade the metafacade to cache.
      */
-    public void add(Object mappingObject, Object key, MetafacadeBase metafacade)
+    public void add(Object mappingObject, MetafacadeBase metafacade)
     {
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache
             .get(mappingObject);
@@ -112,7 +105,7 @@ public class MetafacadeCache
         {
             metafacadeCache = new HashMap();
         }
-        metafacadeCache.put(this.namespace + key, metafacade);
+        metafacadeCache.put(this.namespace, metafacade);
         namespaceMetafacadeCache.put(metafacade.getClass(), metafacadeCache);
         this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
     }
