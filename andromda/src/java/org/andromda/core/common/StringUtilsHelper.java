@@ -8,21 +8,21 @@ import java.util.regex.Pattern;
 /**
  * A utility object for doing string manipulation operations that are commonly
  * needed by the code generation templates.
- * 
+ *
  * @author Matthias Bohlen
  * @author Chris Shaw
  * @author Chad Brandon
  * @author Wouter Zoons
  */
 public class StringUtilsHelper
-    extends StringUtils
+        extends StringUtils
 {
 
     /**
      * <p/>Capitalizes a string. That is, it returns "HamburgerStall" when
      * receiving a "hamburgerStall".
      * </p>
-     * 
+     *
      * @param s the input string
      * @return String the output string.
      */
@@ -35,7 +35,7 @@ public class StringUtilsHelper
      * <p/>Removes the capitalization of a string. That is, it returns
      * "hamburgerStall" when receiving a "HamburgerStall".
      * </p>
-     * 
+     *
      * @param s the input string
      * @return String the output string.
      */
@@ -48,24 +48,23 @@ public class StringUtilsHelper
      * <p/>Replaces a given suffix of the source string with a new one. If the
      * suffix isn't present, the string is returned unmodified.
      * </p>
-     * 
-     * @param src the <code>String</code> for which the suffix should be
-     *        replaced
+     *
+     * @param src       the <code>String</code> for which the suffix should be
+     *                  replaced
      * @param suffixOld a <code>String</code> with the suffix that should be
-     *        replaced
+     *                  replaced
      * @param suffixNew a <code>String</code> with the new suffix
      * @return a <code>String</code> with the given suffix replaced or
      *         unmodified if the suffix isn't present
      */
-    public static String replaceSuffix(
-        String src,
-        String suffixOld,
-        String suffixNew)
+    public static String replaceSuffix(String src,
+                                       String suffixOld,
+                                       String suffixNew)
     {
         if (src.endsWith(suffixOld))
         {
             return src.substring(0, src.length() - suffixOld.length())
-                + suffixNew;
+                    + suffixNew;
         }
         return src;
     }
@@ -77,7 +76,7 @@ public class StringUtilsHelper
      * <p/>Non word characters be removed and the letter following such a
      * character will be uppercased.
      * </p>
-     * 
+     *
      * @param string any string
      * @return the string converted to a camel cased name beginning with a lower
      *         cased letter.
@@ -106,9 +105,9 @@ public class StringUtilsHelper
 
     /**
      * Removes the last occurance of the oldValue found within the string.
-     * 
+     *
      * @param string the String to remove the <code>value</code> from.
-     * @param value the value to remove.
+     * @param value  the value to remove.
      * @return String the resulting string.
      */
     public static String removeLastOccurrence(String string, String value)
@@ -121,7 +120,7 @@ public class StringUtilsHelper
             {
                 buf.append(string.substring(0, index));
                 buf.append(string.substring(index + value.length(), string
-                    .length()));
+                        .length()));
                 string = buf.toString();
             }
         }
@@ -135,7 +134,7 @@ public class StringUtilsHelper
      * <p/>Non word characters be removed and the letter following such a
      * character will be uppercased.
      * </p>
-     * 
+     *
      * @param string any string
      * @return the string converted to a camel cased name beginning with a lower
      *         cased letter.
@@ -148,7 +147,7 @@ public class StringUtilsHelper
     /**
      * Converts the argument into a web file name, this means: all lowercase
      * characters and words are separated with dashes.
-     * 
+     *
      * @param string any string
      * @return the string converted to a value that would be well-suited for a
      *         web file name
@@ -161,7 +160,7 @@ public class StringUtilsHelper
     /**
      * Converts the argument into a message key in a properties resource bundle,
      * all lowercase characters, words are separated by dots.
-     * 
+     *
      * @param string any string
      * @return the string converted to a value that would be well-suited for a
      *         message key
@@ -175,7 +174,7 @@ public class StringUtilsHelper
      * Converts into a string suitable as a human readable phrase, First
      * character is uppercase (the rest is left unchanged), words are separated
      * by a space.
-     * 
+     *
      * @param string any string
      * @return the string converted to a value that would be well-suited for a
      *         human readable phrase
@@ -213,7 +212,7 @@ public class StringUtilsHelper
     {
         Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
         Matcher matcher = capitalSequencePattern.matcher(StringUtils
-            .trimToEmpty(string));
+                .trimToEmpty(string));
         StringBuffer sb = new StringBuffer();
         while (matcher.find())
         {
@@ -227,9 +226,9 @@ public class StringUtilsHelper
 
     /**
      * Suffixes each line with the argument suffix.
-     * 
+     *
      * @param multiLines A String, optionally containing many lines
-     * @param suffix The suffix to append to the end of each line
+     * @param suffix     The suffix to append to the end of each line
      * @return String The input String with the suffix appended at the end of
      *         each line
      */
@@ -250,7 +249,7 @@ public class StringUtilsHelper
     /**
      * Converts any multi-line String into a version that is suitable to be
      * included as-is in properties resource bundle.
-     * 
+     *
      * @param multiLines A String, optionally containing many lines
      * @return String The input String with a backslash appended at the end of
      *         each line, or <code>null</code> if the input String was blank.
@@ -265,9 +264,8 @@ public class StringUtilsHelper
             multiLines = suffixLines(multiLines, ' ' + suffix).trim();
             while (multiLines.endsWith(suffix))
             {
-                multiLines = multiLines.substring(
-                    0,
-                    multiLines.lastIndexOf(suffix)).trim();
+                multiLines = multiLines.substring(0,
+                        multiLines.lastIndexOf(suffix)).trim();
             }
             resourceMessage = multiLines;
         }
@@ -281,11 +279,11 @@ public class StringUtilsHelper
      * characters 'a', 'e', 'i' and 'o' will yield the 'an' predicate while all
      * the others will yield the 'a' predicate.
      * </p>
-     * 
+     *
      * @param word the word needing the predicate
      * @return the argument prefixed with the predicate
      * @todo: this method could be implemented with better logic, for example to
-     *        support 'an r' and 'a rattlesnake'
+     * support 'an r' and 'a rattlesnake'
      */
     public static String prefixWithAPredicate(String word)
     {
@@ -297,10 +295,10 @@ public class StringUtilsHelper
         char firstChar = word.charAt(0);
         switch (firstChar)
         {
-            case 'a' : // fall-through
-            case 'e' : // fall-through
-            case 'i' : // fall-through
-            case 'o' :
+            case 'a': // fall-through
+            case 'e': // fall-through
+            case 'i': // fall-through
+            case 'o':
                 formattedBuffer.insert(1, 'n');
                 break;
             default :
@@ -315,7 +313,7 @@ public class StringUtilsHelper
      * directly. <p/>The resulting String will be trimmed. <p/><p/>If the
      * input String is null the return value will be an empty string.
      * </p>
-     * 
+     *
      * @param string A String, may be null
      * @return The argument in a single line
      */
@@ -327,4 +325,44 @@ public class StringUtilsHelper
         //remove anything that is greater than 1 space.
         return string.replaceAll("[$\\s]+", " ").trim();
     }
+
+    /**
+     * @todo add docs
+     */
+    public static String crunch(String text, int maxLength)
+    {
+        if (text == null || text.length() <= maxLength || maxLength < 0)
+        {
+            return text;
+        }
+
+/*        // split at capitals or non-word characters
+        Pattern capitalsAndNonWordCharactersPattern = Pattern.compile("[A-Z]+|[\\W]+|[^A-Z\\W]+");
+        Matcher matcher = capitalsAndNonWordCharactersPattern.matcher(text);
+
+        StringBuffer buffer = new StringBuffer(maxLength);
+
+        int charactersLeft = text.length();
+        while ((buffer.length()+charactersLeft) > maxLength && matcher.find())
+        {
+            String match = matcher.group();
+            System.out.println("match = |" + match + "|");
+            buffer.append(match.charAt(0));
+            charactersLeft = charactersLeft - match.length();
+        }
+        while (matcher.find())
+        {
+            System.out.println("match2 = |" + matcher.group() + "|");
+            buffer.append(matcher.group());
+        }
+
+        if (buffer.length() > maxLength)
+        {
+            buffer.delete(maxLength, buffer.length());
+        }
+        return buffer.toString();
+*/
+        return text.substring(0, maxLength);
+    }
+
 }
