@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.GeneralizationFacade;
+import org.andromda.core.common.StringUtilsHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +35,7 @@ public class StrutsUserLogicImpl
      */
     protected java.lang.String handleGetRole()
     {
-        return getName().toLowerCase();
+        return StringUtilsHelper.upperCamelCaseName(getName().toLowerCase());
     }
 
     // ------------- relations ------------------
