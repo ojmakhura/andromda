@@ -373,7 +373,7 @@ public class ComponentContainer
             logger.debug("registering component '" + component
                 + "' with key --> '" + key + "'");
         return container.registerComponentInstance(key, component)
-            .getComponentInstance();
+            .getComponentInstance(this.container);
     }
 
     /**
@@ -443,7 +443,7 @@ public class ComponentContainer
             }
             return container.registerComponentInstance(
                 interfaceName,
-                defaultType.newInstance()).getComponentInstance();
+                defaultType.newInstance()).getComponentInstance(this.container);
         }
         catch (Throwable th)
         {
@@ -464,7 +464,7 @@ public class ComponentContainer
         final String methodName = "ComponentContainer.registerComponent";
         ExceptionUtils.checkNull(methodName, "type", type);
         return this.container.registerComponentImplementation(type)
-            .getComponentInstance();
+            .getComponentInstance(this.container);
     }
 
     /**
