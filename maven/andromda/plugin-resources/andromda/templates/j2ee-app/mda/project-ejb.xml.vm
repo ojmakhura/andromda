@@ -45,8 +45,7 @@
 			<groupId>andromda-cartridges</groupId>
 	  		<artifactId>andromda-java-cartridge</artifactId>
 	 		<version>${pom.currentVersion}</version>
-	 		<properties>
-	 			<exceptions>${maven.andromda.java.generated.dir}</exceptions>	 		
+	 		<properties> 		
 	 			<value-objects>${maven.andromda.java.generated.dir}</value-objects>
 	 		</properties>
 		</dependency>		
