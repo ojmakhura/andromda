@@ -1,10 +1,19 @@
 package org.andromda.maven;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.andromda.core.anttasks.AndroMDAGenTask;
+import org.andromda.core.cartridge.AndroMDACartridge;
+import org.andromda.core.cartridge.CartridgeDescriptor;
+import org.andromda.core.cartridge.CartridgeFinder;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -19,16 +28,21 @@ public class MavenPluginUtils {
     
     private static final Logger logger = 
         Logger.getLogger(MavenPluginUtils.class);
-    
+           
     /**
      * Stores the property values, keyed by logical names.
      */
-    private static final Map namespaceProperties = new HashMap();
+    private Map namespaceProperties;
+    
+    /**
+     * Stores the available cartridge named, keyed by location.
+     */
+    private Map cartridgeNames;
     
     /**
      * Where we store andromda plugin resources.
      */
-    private static final String PLUGIN_RESOURCES = "/plugin-resources/andromda";
+    private static final String PLUGIN_RESOURCES = "plugin-resources/andromda";
     
     /**
      * The prefix for logical property definitions.
@@ -46,37 +60,26 @@ public class MavenPluginUtils {
     private static final String IGNORE_SUFFIX = ".ignore";
     
     /**
-     * Initialize the namespaceProperties with the logical to physical
-     * mapping of namespace properties. 
-     */
-    static {
-        try {
-            String mappingsUri = PLUGIN_RESOURCES + "/mappings";
-            URL pluginResources = 
-                MavenPluginUtils.class.getResource(mappingsUri);
-            if (pluginResources == null) {
-                logger.error("Could not find --> '" + mappingsUri + "'");
-            } else {
-                File mappingsDir = new File(pluginResources.getFile());
-                File[] mappingFiles = mappingsDir.listFiles();
-                if (mappingFiles != null && mappingFiles.length > 0) {
-                    for (int ctr = 0; ctr < mappingFiles.length; ctr++) {
-                        Mappings mappings = 
-                            Mappings.getInstance(mappingFiles[ctr].toURL());
-                        namespaceProperties.put(mappings.getName(), mappings.getResource());
-                    }
-                }
-            }
-        } catch (Throwable th) {
-            String errMsg = "Error initializing MavenPluginUtils";
-            logger.error(errMsg, th);
-        }
-    }
-    
-    /**
      * The seperator character.
      */
     private static final char SEPERATOR = ':';
+    
+    /**
+     * Constructs an instance of this class.
+     */
+    public MavenPluginUtils() {
+        try {
+            // we need to set the correct context class loader
+            Thread.currentThread().setContextClassLoader(
+               AndroMDAGenTask.class.getClassLoader());
+            initializeNamespaceProperties();
+            initializeCartridgeNames();
+        } catch (Throwable th) {
+            String errMsg = "Error constructing MavenPlugUtils";
+            logger.error(errMsg, th);
+            throw new MavenPluginUtilsException(errMsg, th);
+        }
+    }
     
     /**
      * Retrieves the artifactId from the passed in
@@ -221,6 +224,84 @@ public class MavenPluginUtils {
     }
     
     /**
+     * Initializes the namespace properties, these
+     * are the properties which are used to store
+     * physical property names keyed by logical names.
+     */
+    protected void initializeNamespaceProperties() {
+        final String methodName = 
+            "MavenPluginUtils.initializeNamespaceProperties";
+        try {
+            this.namespaceProperties = new HashMap();
+            initalizeMappingLocations();
+        } catch (Throwable th) {
+            String errMsg = "Error performing " + methodName; 
+            logger.error(errMsg, th);    
+            throw new MavenPluginUtilsException(errMsg, th);
+        }
+    }
+    
+    /**
+     * Initializes the maven plugin mappings.
+     * 
+     * @throws MalformedURLException
+     */
+    private void initalizeMappingLocations() throws MalformedURLException {
+        String mappingsUri = PLUGIN_RESOURCES + "/mappings";
+        URL[] mappingResources = ResourceFinder.findResources(mappingsUri);
+        if (mappingResources != null) {
+            if (logger.isDebugEnabled())
+                logger.debug("found '" 
+                    + mappingResources.length 
+                    + "' mapping directories --> '" 
+                    + mappingsUri + "'");
+            for (int ctr = 0; mappingResources.length > ctr; ctr++) {
+                URL mappingResource = mappingResources[ctr];
+		        if (mappingResource == null) {
+		            logger.error("Could not find --> '" + mappingsUri + "'");
+		        } else {
+		            File mappingsDir = new File(mappingResource.getFile());
+		            File[] mappingFiles = mappingsDir.listFiles();
+		            if (mappingFiles != null && mappingFiles.length > 0) {
+		                File mappingFile = mappingFiles[ctr];
+		                for (int ctr2 = 0; ctr2 < mappingFiles.length; ctr2++) {
+		                    if (logger.isDebugEnabled())
+		                        logger.debug("loading mapping --> '" + mappingFile + "'");
+		                    Mappings mappings = 
+		                        Mappings.getInstance(mappingFiles[ctr2].toURL());
+		                    namespaceProperties.put(mappings.getName(), mappings.getResource());
+		                }
+		            }
+		        } 
+            }
+        }
+    }
+    
+    /**
+     * Initializes the <code>cartridgeNames</code> map.
+     */
+    private void initializeCartridgeNames() {
+        this.cartridgeNames = new HashMap();
+        CartridgeFinder.instance().discoverCartridges();
+        Collection cartridges = 
+            CartridgeFinder.instance().getCartridges();
+        if (cartridges != null && !cartridges.isEmpty()) {
+            Iterator cartridgeIt = cartridges.iterator();
+            while (cartridgeIt.hasNext()) {
+	            AndroMDACartridge cartridge = 
+	                (AndroMDACartridge)cartridgeIt.next();
+	            CartridgeDescriptor descriptor = 
+	                cartridge.getDescriptor();
+	            if (descriptor != null) {
+	                cartridgeNames.put(
+	                    descriptor.getDefinitionURL(), 
+	                    descriptor.getCartridgeName());		                    
+	            }
+            }
+        }
+    }
+    
+    /**
      * Removes the <code>remove</code> from the
      * given <code>path</code> and returns the resulting
      * string.
@@ -238,34 +319,6 @@ public class MavenPluginUtils {
     }
     
     /**
-     * The expected cartridge artfactId prefix
-     */
-    private static final String CARTRIDGE_ARTIFACT_PREFIX = "andromda-";
-    
-    /**
-     * The expected cartridge artifactId suffix.
-     */
-    private static final String CARTRIDGE_ARTIFACT_SUFFIX = "-cartridge";
-    
-    /**
-     * Retrieves the name of the cartridge from
-     * the artifactId. Its assumed that the cartridge
-     * is named 'andromda-&lt;somename&gt;-cartridge'.
-     * @param artifactId the artifactId.
-     * @return the name of the cartridge
-     */
-    public String getCartridgeName(String artifactId) {
-        String cartridgeName = StringUtils.trimToEmpty(artifactId);
-        cartridgeName = cartridgeName.replaceAll(CARTRIDGE_ARTIFACT_PREFIX, "");
-        
-        int suffixIndex = cartridgeName.indexOf(CARTRIDGE_ARTIFACT_SUFFIX);
-        if (suffixIndex != -1) {
-            cartridgeName = cartridgeName.substring(0, suffixIndex);
-        }
-        return cartridgeName;
-    }
-    
-    /**
      * Returns <code>true</code> if the 
      * specified <code>property</code> is
      * ignored.  A property will be ignored if it
@@ -275,6 +328,36 @@ public class MavenPluginUtils {
      */
     public boolean isDependencyPropertyIgnored(String property) {
         return this.getDependencyPropertyName(property, false).endsWith(IGNORE_SUFFIX);
+    }
+    
+    /**
+     * Gets the name of the cartridge for the given
+     * location.  Since the cartridge is found on the classpath,
+     * a cartridge will have one and only one location, therefore
+     * we can uses the <code>location</code> as the key.
+     * @param location the location of the cartidge.
+     * @return the cartridge name
+     */
+    public String getCartridgeName(URL dependencyUri) {
+        final String methodName = "MavenPluginUtils.getCartridgeName";
+        ExceptionUtils.checkNull(methodName, "dependencyUri", dependencyUri);
+        String cartridgeName = "";
+        // now we loop through the map contents and find the one
+        // that has a location LIKE the dependencyUri (since we won't
+        // find an exact match)
+        Iterator cartridgeLocationIt = cartridgeNames.keySet().iterator();
+        while (cartridgeLocationIt.hasNext()) {
+            URL cartridgeXmlUri = (URL)cartridgeLocationIt.next();
+            String replacePatterns = "[\\\\/]";
+            String cartridgeXml = cartridgeXmlUri.toString().replaceAll(replacePatterns, "");
+            String cartridgeDependencyUri = 
+                dependencyUri.toString().replaceAll(replacePatterns, "");
+            if (cartridgeXml.indexOf(cartridgeDependencyUri) != -1) {
+                cartridgeName = (String)cartridgeNames.get(cartridgeXmlUri);
+                break;
+            }
+        }
+        return cartridgeName;
     }
     
 }
