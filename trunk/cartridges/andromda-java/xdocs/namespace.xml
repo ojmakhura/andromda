@@ -13,16 +13,17 @@
 		          	<th>Required?</th>	   	 
 	        	</tr>
 	        	<tr>
-	        		<td>
-	        			languageMappingsUri
-	        		</td>
-	        		<td>
-	        			The URI to language mappings to use (i.e. <code>file:${basedir}/JavaMappings.xml</code>).
-	        		</td>
-	        		<td>
-	        			Yes
-	        		</td>
-	        	</tr>
+		          	<td>
+		          		languageMappingsUri
+		          	</td>
+		          	<td>
+		          		URI specifying the specific mappings from model types to Java language types. 
+		          		(i.e. <code>file:${basedir}/JavaMappings.xml</code>)
+		          	</td>
+		          	<td>
+		          		Yes
+		          	</td>		          	
+	        	</tr>	
 	        	<tr>
 		          	<td>
 		          		value-objects
