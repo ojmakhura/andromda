@@ -3,6 +3,8 @@ package org.andromda.translation.validation;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.commons.collections.Transformer;
+
 import junit.framework.TestCase;
 
 /**
@@ -12,8 +14,8 @@ import junit.framework.TestCase;
  */
 public class OCLCollectionsTest
     extends TestCase
-{ 
-    
+{
+
     /**
      * Constructor for OCLCollectionsTest.
      * 
@@ -26,7 +28,7 @@ public class OCLCollectionsTest
     }
 
     /**
-     * Tests isUnique 
+     * Tests isUnique
      */
     public void testIsUnique()
     {
@@ -38,18 +40,66 @@ public class OCLCollectionsTest
         testObject.setPropertyOne("propertyOneAgain");
         collection.add(testObject);
         assertEquals(2, collection.size());
-        assertTrue(OCLCollections.isUnique(collection, "propertyOne"));
-        assertTrue(OCLCollections.isUnique((Object)collection, "propertyOne"));
+        assertTrue(OCLCollections.isUnique(collection, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return OCLIntrospector.invoke(object, "propertyOne");
+            }
+
+        }));
+        assertTrue(OCLCollections.isUnique(
+            (Object)collection,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return OCLIntrospector.invoke(object, "propertyOne");
+                }
+
+            }));
         testObject = new OCLCollectionsTestObject();
         testObject.setPropertyOne("propertyOne");
         collection.add(testObject);
         assertEquals(3, collection.size());
-        assertFalse(OCLCollections.isUnique(collection, "propertyOne"));
-        assertFalse(OCLCollections.isUnique((Object)collection, "propertyOne"));
+        assertFalse(OCLCollections.isUnique(collection, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return OCLIntrospector.invoke(object, "propertyOne");
+            }
+
+        }));
+        assertFalse(OCLCollections.isUnique(
+            (Object)collection,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return OCLIntrospector.invoke(object, "propertyOne");
+                }
+
+            }));
         collection.remove(testObject);
         assertEquals(2, collection.size());
-        assertTrue(OCLCollections.isUnique(collection, "propertyOne"));
-        assertTrue(OCLCollections.isUnique((Object)collection, "propertyOne"));
+        assertTrue(OCLCollections.isUnique(collection, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return OCLIntrospector.invoke(object, "propertyOne");
+            }
+
+        }));
+        assertTrue(OCLCollections.isUnique(
+            (Object)collection,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return OCLIntrospector.invoke(object, "propertyOne");
+                }
+
+            }));
     }
 
 }
