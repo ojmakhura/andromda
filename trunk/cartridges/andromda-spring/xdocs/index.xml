@@ -12,9 +12,11 @@
 			This cartridge, can work without an EJB container (i.e. standalone Tomcat for example) 
 			or within an EJB container (using EJB itself) simply by modifying a few namespace properties.
 		</p>
+        <p class="highlight">
+            Please NOTE that this cartridge <strong>MUST</strong> be used in conjunction with the 
+            <a href="../andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a>
+            cartridge in order to take advantage of Hibernate persistence.
+        </p>
     </section>
   </body>
 </document>
-
-
-
