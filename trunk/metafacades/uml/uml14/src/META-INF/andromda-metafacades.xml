@@ -11,6 +11,7 @@
     <property reference="maxSqlNameLength" default="30"/>
     <property reference="tableNamePrefix" default=""/>
     <property reference="foreignKeySuffix" default="_FK"/>
+    <property reference="sqlNameSeparator" default="_"/>
     <default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <metafacade metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.PackageFacadeLogicImpl"/>

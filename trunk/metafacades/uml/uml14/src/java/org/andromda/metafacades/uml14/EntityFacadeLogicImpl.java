@@ -158,7 +158,8 @@ public class EntityFacadeLogicImpl
             tableNamePrefix,
             this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-            this.getMaxSqlNameLength());
+            this.getMaxSqlNameLength(),
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**

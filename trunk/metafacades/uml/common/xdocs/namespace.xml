@@ -69,7 +69,21 @@
 		          	<td>
 		          		Yes
 		          	</td>			          	
-	        	</tr>		        	  
+	        	</tr>		     
+                <tr>
+                    <td>
+                        sqlNameSeparator
+                    </td>
+                    <td>
+                        Definies what is used for seperating words when SQL names are
+                        constructed, for example a model element named CompanyAddress would
+                        be translated to COMPANY_ADDRESS if the value of <code>sqlNameSeparator</code>
+                        was '<em>_</em>'.
+                    </td>
+                    <td>
+                        No, default is <code>'_'</code>.
+                    </td>
+                </tr>   	  
 	        	<tr>
 		          	<td>
 		          		jdbcMappingsUri

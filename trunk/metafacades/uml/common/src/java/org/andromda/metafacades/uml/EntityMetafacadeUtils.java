@@ -24,11 +24,10 @@ public class EntityMetafacadeUtils
      * @param separator character used to separate words
      * @return string converted to database attribute format
      */
-    public static String toSqlName(String modelElementName, String separator)
+    public static String toSqlName(String modelElementName, Object separator)
     {
         final String methodName = "EntityFacadeUtils.toSqlName";
         ExceptionUtils.checkEmpty(methodName, "string", modelElementName);
-        ExceptionUtils.checkEmpty(methodName, "separator", separator);
 
         StringBuffer sqlName = new StringBuffer();
         StringCharacterIterator iter = new StringCharacterIterator(StringUtils
@@ -37,19 +36,13 @@ public class EntityMetafacadeUtils
         for (char character = iter.first(); character != CharacterIterator.DONE; character = iter
             .next())
         {
-
             if (Character.isUpperCase(character))
             {
                 sqlName.append(separator);
             }
-
             character = Character.toUpperCase(character);
             sqlName.append(character);
-
-            // replace any occurrences of '-'
-            sqlName = new StringBuffer(sqlName.toString().replace('-', '_'));
         }
-
         return StringEscapeUtils.escapeSql(sqlName.toString());
     }
     
@@ -63,15 +56,17 @@ public class EntityMetafacadeUtils
      * @param name the name of the tagged value.
      * @param nameMaxLength if this is not null, then the name returned will be
      *        trimmed to this length (if it happens to be longer).
+     * @param separator character used to separate words        
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
         String prefix,
         ModelElementFacade element,
         String name,
-        Short nameMaxLength)
+        Short nameMaxLength,
+        Object separator)
     {
-        return getSqlNameFromTaggedValue(prefix, element, name, nameMaxLength, null);
+        return getSqlNameFromTaggedValue(prefix, element, name, nameMaxLength, null, separator);
     }
     
     /**
@@ -85,15 +80,17 @@ public class EntityMetafacadeUtils
      *        trimmed to this length (if it happens to be longer).
      * @param suffix the optional suffix to add to the sql name (i.e. foreign
      *        key suffix, etc.)
+     * @param separator character used to separate words  
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
         ModelElementFacade element,
         String name,
         Short nameMaxLength,
-        String suffix)
+        String suffix,
+        Object separator)
     {
-        return getSqlNameFromTaggedValue(null, element, name, nameMaxLength, suffix);
+        return getSqlNameFromTaggedValue(null, element, name, nameMaxLength, suffix, separator);
     }
 
     /**
@@ -105,14 +102,16 @@ public class EntityMetafacadeUtils
      * @param name the name of the tagged value.
      * @param nameMaxLength if this is not null, then the name returned will be
      *        trimmed to this length (if it happens to be longer).
+     * @param separator character used to separate words  
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
         ModelElementFacade element,
         String name,
-        Short nameMaxLength)
+        Short nameMaxLength,
+        Object separator)
     {
-        return getSqlNameFromTaggedValue(null, element, name, nameMaxLength, null);
+        return getSqlNameFromTaggedValue(null, element, name, nameMaxLength, null, separator);
     }
 
     /**
@@ -127,6 +126,7 @@ public class EntityMetafacadeUtils
      *        trimmed to this length (if it happens to be longer).
      * @param suffix the optional suffix to add to the sql name (i.e. foreign
      *        key suffix, etc.)
+     * @param separator character used to separate words  
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
@@ -134,7 +134,8 @@ public class EntityMetafacadeUtils
         ModelElementFacade element,
         String name,
         Short nameMaxLength,
-        String suffix)
+        String suffix,
+        Object separator)
     {
         if (element != null)
         {
@@ -145,7 +146,7 @@ public class EntityMetafacadeUtils
                 //if we can't find the tagValue then use the
                 //element name for the name
                 name = element.getName();
-                name = toSqlName(name, "_");
+                name = toSqlName(name, separator);
                 if (StringUtils.isNotBlank(prefix))
                 {
                     name = StringUtils.trimToEmpty(prefix) + name;
