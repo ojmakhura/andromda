@@ -25,12 +25,7 @@ $service.getDocumentation(" * ")
  * @ejb.home
  *     local-class="${service.fullyQualifiedName}LocalHome"
  *     remote-class="${service.fullyQualifiedName}Home"
-#set ($classTransaction = $service.findTaggedValue("@andromda.transaction.type"))
-#if (!$classTransaction || $classTransaction == "")
- * @ejb.transaction type="Supports" //default transaction type
-#else
- * @ejb.transaction type="$classTransaction" //custom transaction type set by @andromda.transaction.type
-#end
+ * @ejb.transaction type="$service.transactionType"
  *
  * @ejb.util generate="physical"
  *

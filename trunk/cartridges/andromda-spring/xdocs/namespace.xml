@@ -387,14 +387,17 @@
                 </tr>
                 <tr>
                     <td>
-                        transactionType
+                        serviceOperationTransactionType
                     </td>
                     <td>
-                        The default transaction type used for operations (when not
+                        The default transaction type used for service operations (when not
                         wrapping your services with EJBs).
                     </td>
                     <td>
-                        No, default is <code>PROPAGATION_REQUIRED</code>
+                        No, default is <code>PROPAGATION_REQUIRED</code>.
+                        <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                        <a href="modeling.html#@andromda.spring.transaction.type">@andromda.spring.transaction.type</a>
+                        tagged value.
                     </td>
                 </tr>
                 <tr>
@@ -764,7 +767,7 @@
                             criteriaSearchBaseName
                         </td>
                         <td>
-                            Allows you to define a base name for the helper classes needed for the 
+                            Allows you to define a base name for the helper classes needed for the
                             hibernate criteria search facility.
                         </td>
                         <td>
@@ -825,14 +828,25 @@
                     </tr>
                     <tr>
                         <td>
-                            ejbTransactionType
+                            ejbServiceOperationTransactionType
                         </td>
                         <td>
-                            The default transaction type definition used if services are wrapped
-                            with EJBs.
+                            The default transaction type definition used if EJB service operations.
+                            <ul>
+                                Permitted values are:
+                                <li>NotSupported</li>
+                                <li>Supports</li>
+                                <li>Required</li>
+                                <li>RequiresNew</li>
+                                <li>Mandatory</li>
+                                <li>Never</li>
+                            </ul>
                         </td>
                         <td>
-                            No, default is <code>REQUIRED</code>.
+                            No, default is <code>Required</code>.
+                            <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                            <a href="modeling.html#@andromda.ejb.transaction.type">@andromda.ejb.transaction.type</a>
+                            tagged value.
                         </td>
                     </tr>
                     <tr>

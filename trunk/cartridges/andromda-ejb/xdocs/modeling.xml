@@ -129,9 +129,9 @@
 						</td>
 					</tr>	
 		        	<tr>
-                        <a name="@andromda.hibernate.query"/>
+                        <a name="@andromda.ejb.query"/>
                         <td>
-                            @andromda.hibernate.query
+                            @andromda.ejb.query
                         </td>
                         <td>
                             An Entity operation marked as a <code>query</code>.
@@ -155,6 +155,27 @@
                             defined, <code>remote</code> will be assumed.
 			          	</td>
 		        	</tr>	
+                    <tr>
+                        <a name="andromda.ejb.transaction.type"/>
+                        <td>
+                            @andromda.ejb.transaction.type
+                        </td>
+                        <td>
+                            Service Operation
+                        </td>
+                        <td>
+                            Defines a transaction type for the method.
+                            <ul>
+                                Permitted values are:
+                                <li>NotSupported</li>
+                                <li>Supports</li>
+                                <li>Required</li>
+                                <li>RequiresNew</li>
+                                <li>Mandatory</li>
+                                <li>Never</li>
+                            </ul>
+                        </td>
+                    </tr>
 					<tr>
 						<td>
 	                        @andromda.persistence.table

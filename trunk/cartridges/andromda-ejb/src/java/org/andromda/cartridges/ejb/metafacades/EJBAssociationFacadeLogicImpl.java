@@ -1,6 +1,6 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.cartridges.ejb.EJBProfile;
 
 /**
  * MetafacadeLogic implementation for
@@ -27,17 +27,19 @@ public class EJBAssociationFacadeLogicImpl
     protected java.lang.String handleGetTransactionType()
     {
         return (String)this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_TRANSACTION_TYPE);
+            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
     }
 
-	/**
-	 * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogic#handleGetTableName()
-	 */
-	public String getTableName() {
-		String tableName = super.getTableName();
-		if(getName().toLowerCase().startsWith(tableName.toLowerCase())) {
-			tableName = getRelationName().replaceAll("-", "_").toUpperCase();
-		}
-		return tableName;
-	}
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogic#handleGetTableName()
+     */
+    public String getTableName()
+    {
+        String tableName = super.getTableName();
+        if (getName().toLowerCase().startsWith(tableName.toLowerCase()))
+        {
+            tableName = getRelationName().replaceAll("-", "_").toUpperCase();
+        }
+        return tableName;
+    }
 }

@@ -1,6 +1,6 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.cartridges.ejb.EJBProfile;
 
 /**
  * MetafacadeLogic implementation for
@@ -26,7 +26,7 @@ public class EJBSessionAttributeFacadeLogicImpl
     protected java.lang.String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(
-            UMLProfile.TAGGEDVALUE_TRANSACTION_TYPE,
+            EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE,
             true);
     }
 

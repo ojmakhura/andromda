@@ -44,7 +44,7 @@ public class EJBFinderMethodFacadeLogicImpl
             }
         }
 
-        //if there wasn't any stored query, create one by default.
+        // if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
             String variableName = StringUtils.uncapitalize(this.getOwner()
@@ -73,6 +73,16 @@ public class EJBFinderMethodFacadeLogicImpl
             }
         }
         return queryString;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacade#getTransactionType()
+     */
+    protected java.lang.String handleGetTransactionType()
+    {
+        return (String)this.findTaggedValue(
+            EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE,
+            true);
     }
 
 }
