@@ -28,7 +28,7 @@
 #renderHyperlink($action "        ")
 #elseif ($action.isFormPost())
 #set ($nonTabbedActionParameters = $action.nonTabbedActionParameters)
-#if ($action.requiresValidation())
+#if ($action.validationRequired)
 #set ($onsubmit = "return ${action.formValidationMethodName}(this);")
 #else
 #set ($onsubmit = "")
