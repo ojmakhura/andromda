@@ -45,7 +45,7 @@ public class PackageDecoratorImpl extends PackageDecorator
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.PackageDecorator#handleGetPackages()
      */
-    protected Collection handleGetPackages()
+    protected Collection handleGetSubPackages()
     {
         return new FilteredCollection(metaObject.getOwnedElement())
         {

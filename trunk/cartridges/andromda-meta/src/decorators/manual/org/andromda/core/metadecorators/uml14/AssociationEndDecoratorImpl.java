@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.omg.uml.foundation.core.AssociationEnd;
+import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
 
@@ -64,16 +65,9 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.AssociationEndDecorator#getType()
      */
-    public org
-        .andromda
-        .core
-        .metadecorators
-        .uml14
-        .ClassifierDecorator getType()
+    public ModelElement handleGetType()
     {
-        return (ClassifierDecorator) DecoratorFactory
-            .getInstance()
-            .createDecoratorObject(metaObject.getParticipant());
+        return metaObject.getParticipant();
     }
 
     /* (non-Javadoc)
@@ -87,7 +81,7 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.AssociationEndDecorator#getSource()
      */
-    public AssociationEndDecorator getSource()
+    public ModelElement handleGetSource()
     {
         return this;
     }
@@ -95,7 +89,7 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
     /* (non-Javadoc)
      * @see org.andromda.core.metadecorators.uml14.AssociationEndDecorator#getTarget()
      */
-    public AssociationEndDecorator getTarget()
+    public ModelElement handleGetTarget()
     {
         return getOtherEnd();
     }
