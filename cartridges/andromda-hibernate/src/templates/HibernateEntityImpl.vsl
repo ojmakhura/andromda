@@ -5,6 +5,10 @@
 #set ($packagename = $transform.findPackageName(${class.package}))
 package $packagename;
 
+/**
+ * @hibernate.subclass
+ *    discriminator-value="${class.name}Impl"
+ */
 public class ${class.name}Impl
        extends ${class.name}
 {
