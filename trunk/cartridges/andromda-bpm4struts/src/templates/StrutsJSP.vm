@@ -178,7 +178,7 @@ ${indent}<html:$widgetType name="$formBeanName" property="$field.name" />
 #set ($selectProperty = "$field.name")
 #end
 ${indent}<html:select name="$formBeanName" property="$selectProperty" titleKey="${messageKey}.$field.titleKey" $disabled $multiple>
-${indent}    <html:options name="$formBeanName" property="$field.backingListName"/>
+${indent}    <html:options name="$formBeanName" labelProperty="$field.Name" property="$field.backingListName"/>
 ${indent}</html:select>
 ##
 ##      Any other field will be rendered as plain text (no input)
