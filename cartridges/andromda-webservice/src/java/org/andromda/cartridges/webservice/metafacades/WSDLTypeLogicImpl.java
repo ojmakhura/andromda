@@ -48,8 +48,7 @@ public class WSDLTypeLogicImpl
         {
             String namespacePrefix = this.getNamespacePrefix() + ':';
 
-            String mappedValue = this.getSchemaTypeMappings().getTo(
-                modelName);
+            String mappedValue = this.getSchemaTypeMappings().getTo(modelName);
             if (!mappedValue.equals(modelName))
             {
                 schemaType.append(mappedValue);
@@ -65,12 +64,12 @@ public class WSDLTypeLogicImpl
                     ClassifierFacade nonArray = this.getNonArray();
                     if (WSDLType.class.isAssignableFrom(nonArray.getClass()))
                     {
-                        schemaType.append(((WSDLType)nonArray).getQName());                       
+                        schemaType.append(((WSDLType)nonArray).getQName());
                     }
                 }
                 else
                 {
-                    schemaType.append(this.getQName());                  
+                    schemaType.append(this.getQName());
                 }
             }
             // remove any array '[]' suffix
@@ -154,7 +153,7 @@ public class WSDLTypeLogicImpl
             //don't throw the exception
         }
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getQName()
      */
@@ -173,9 +172,16 @@ public class WSDLTypeLogicImpl
      */
     public java.lang.String handleGetNamespace()
     {
+        String packageName = this.getPackageName();
+        if (this.isReverseNamespace())
+        {
+            packageName = StringUtils.reverseDelimited(
+                packageName,
+                WebServiceLogicImpl.NAMESPACE_DELIM);
+        }
         return MessageFormat.format(this.getNamespacePattern(), new String[]
         {
-            StringUtils.trimToEmpty(this.getPackageName())
+            StringUtils.trimToEmpty(packageName)
         });
     }
 
@@ -213,22 +219,24 @@ public class WSDLTypeLogicImpl
     /**
      * Sets the <code>qualifiedNameLocalPartPattern</code> for this service.
      * 
-     * @param qualifiedNameLocalPartPattern the name prefix to use for these types.
+     * @param qualifiedNameLocalPartPattern the name prefix to use for these
+     *        types.
      */
-    public void setQualifiedNameLocalPartPattern(String qualifiedNameLocalPartPattern)
+    public void setQualifiedNameLocalPartPattern(
+        String qualifiedNameLocalPartPattern)
     {
         this.registerConfiguredProperty(
-            WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN, StringUtils
-            .trimToEmpty(qualifiedNameLocalPartPattern));
+            WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN,
+            StringUtils.trimToEmpty(qualifiedNameLocalPartPattern));
     }
-    
+
     /**
      * Gets the <code>qualifiedNameLocalPartPattern</code> for this service.
      */
     protected String getQualfiedNameLocalPartPattern()
     {
-        return (String)this.getConfiguredProperty(
-            WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
+        return (String)this
+            .getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
     }
 
     /**
@@ -238,15 +246,44 @@ public class WSDLTypeLogicImpl
      */
     public void setNamespacePattern(String namespacePattern)
     {
-        this.registerConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN, StringUtils
-            .trimToEmpty(namespacePattern));
+        this.registerConfiguredProperty(
+            WebServiceLogicImpl.NAMESPACE_PATTERN,
+            StringUtils.trimToEmpty(namespacePattern));
     }
-    
+
     /**
-     * Gets the <code<namespacePattern</code> for this type.
+     * Gets the <code <namespacePattern</code> for this type.
      */
     protected String getNamespacePattern()
     {
-        return (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+        return (String)this
+            .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+    }
+
+    /**
+     * Sets the <code>reverseNamespace</code> for this service.
+     * 
+     * @param reverseNamespace whether or not to reverse the ordering of the
+     *        namespace.
+     */
+    public void setReverseNamespace(String reverseNamespace)
+    {
+        this.registerConfiguredProperty(
+            WebServiceLogicImpl.REVERSE_NAMESPACE,
+            StringUtils.trimToEmpty(reverseNamespace));
+    }
+
+    /**
+     * Gets whether or not <code>reverseNamespace</code> is true/false for
+     * this type.
+     * 
+     * @return boolean true/false
+     */
+    protected boolean isReverseNamespace()
+    {
+        return Boolean.valueOf(
+            String.valueOf(this
+                .getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
+            .booleanValue();
     }
 }
