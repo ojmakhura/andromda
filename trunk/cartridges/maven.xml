@@ -1,81 +1,80 @@
 <project default="install"
-	     xmlns:j="jelly:core"
-  		 xmlns:ant="jelly:ant"
-  		 xmlns:maven="jelly:maven">
-  		 
-  	<!-- ==================================================================
-  			 Installs all libraries in the local repository                                                    
-  		 ================================================================== -->
-  	<goal name="install">
-		<attainGoal name="multiproject:install"/>	
-  	</goal> 
-  		 
-  	<j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}"/>
-  		 
+         xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven">
+           
+    <!-- ==================================================================
+               Installs all libraries in the local repository                                                    
+         ================================================================== -->
+    <goal name="install">
+        <attainGoal name="multiproject:install"/>	
+    </goal> 
+           
+    <j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}"/>
+           
     <preGoal name="java:compile"> 
-   		<attainGoal name="generate-source"/>
+        <attainGoal name="generate-source"/>
     </preGoal>
     
     <preGoal name="site:run-reports">
-    	<j:set var="docsBuild" value="true"/>
-    	<attainGoal name="generate-source"/>
+        <j:set var="docsBuild" value="true"/>
+        <attainGoal name="generate-source"/>
     </preGoal>
     
-  	<!-- ==================================================================
-  			 Generates the source required to build the cartridges.                                                   
-  		 ================================================================== -->
+    <!-- ==================================================================
+         Generates the source required to build the cartridges.                                                   
+         ================================================================== -->
     <goal name="generate-source">
    
-		<ant:available 
-			file="${maven.build.src}"
-			type="dir" 
-			property="buildSrcAvailable"/> 	
-    	
-    	<j:if test="${buildSrcAvailable}">
-			<ant:uptodate property="generationRequired" 
-						  targetfile="${model.file}" >
-				<ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
-			</ant:uptodate>
-		</j:if>	
+        <ant:available 
+            file="${maven.build.src}"
+            type="dir" 
+            property="buildSrcAvailable"/> 	
+        
+        <j:if test="${buildSrcAvailable}">
+            <ant:uptodate property="generationRequired" 
+                          targetfile="${model.file}" >
+                <ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
+            </ant:uptodate>
+        </j:if>	
 
-		<!-- keep the generation from executing more than once -->
-		<j:if test="${((generationRequired or buildSrcAvailable eq null) or docsBuild eq null) and generationPerformed eq null }">
-			<ant:available 
-				file="${maven.src.dir}/uml"
-				type="dir" 
-				property="hasModel"/>
-			
-			<j:set var="skipProcessing" value="${skip.andromda.plugin.processing}"/>
-			<j:if test="${!empty(hasModel) and empty(skipProcessing)}">
-				<j:choose>
-					<j:when test="${maven.andromda.bootstrap.mode}">
-					    <attainGoal name="andromda:run-bootstrap"/>
-					</j:when>
-					<j:otherwise>
-						<attainGoal name="andromda:run"/>						
-					</j:otherwise>
-				</j:choose>
-				<!-- add the paths of the generated source to the
-					 maven compile path -->
-				<ant:path
-					id="metafacade.generated.src"
-					location="${andromda.metafacade.generated.dir}"/>
-				<maven:addPath
-					id="maven.compile.src.set"
-					refid="metafacade.generated.src"/>     		         	
-			</j:if>
-			<!-- set this to keep track of the fact generation was already performed -->
-			<j:set var="generationPerformed" value="true"/>
-		</j:if>
+        <!-- keep the generation from executing more than once -->
+        <j:if test="${((generationRequired or buildSrcAvailable eq null) or docsBuild eq null) and generationPerformed eq null }">
+            <ant:available 
+                file="${maven.src.dir}/uml"
+                type="dir" 
+                property="hasModel"/>
+            
+            <j:set var="skipProcessing" value="${skip.andromda.plugin.processing}"/>
+            <j:if test="${!empty(hasModel) and empty(skipProcessing)}">
+                <j:choose>
+                    <j:when test="${maven.andromda.bootstrap.mode}">
+                        <attainGoal name="andromda:run-bootstrap"/>
+                    </j:when>
+                    <j:otherwise>
+                        <attainGoal name="andromda:run"/>						
+                    </j:otherwise>
+                </j:choose>
+                <!-- add the paths of the generated source to the
+                     maven compile path -->
+                <ant:path
+                    id="metafacade.generated.src"
+                    location="${andromda.metafacade.generated.dir}"/>
+                <maven:addPath
+                    id="maven.compile.src.set"
+                    refid="metafacade.generated.src"/>     		         	
+            </j:if>
+            <!-- set this to keep track of the fact generation was already performed -->
+            <j:set var="generationPerformed" value="true"/>
+        </j:if>
     </goal>
     
     <preGoal name="test:test">
-        <!-- comment out until we figure out how to process more models without
-             running out of memory in our builds
+        <!-- 
         <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null}">
             <attainGoal name="cartridge:test"/>
-        </j:if>     
-         -->
+        </j:if>    
+        --> 
     </preGoal>
     
     <!-- ===================================================================
@@ -87,38 +86,38 @@
          the don't so we do this to get around it.                         
          =================================================================== -->
     <preGoal name="site">
-    	<!-- the temp directory to copy all the source -->
-    	<j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
-    	<ant:delete dir="${reportBuildSrcDir}"/>
-    	<j:set var="buildSrcDir" value="${maven.build.src}"/>
-		<j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
-		<ant:available
-			property="sourceDirectoryPresent"
-			file="${sourceDirectory}"/>
-		<j:if test="${sourceDirectoryPresent}">
-			<ant:copy todir="${reportBuildSrcDir}">
-				<ant:fileset dir="${sourceDirectory}"/>
-			</ant:copy>
-		</j:if>
-		<ant:available
-			property="buildSrcDirPresent"
-			file="${buildSrcDir}"/>
-		<j:if test="${buildSrcDirPresent}">
-			<ant:copy todir="${reportBuildSrcDir}">
-				<ant:fileset dir="${buildSrcDir}"/>
-			</ant:copy>
-		</j:if>
-		<j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>    	
+        <!-- the temp directory to copy all the source -->
+        <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
+        <ant:delete dir="${reportBuildSrcDir}"/>
+        <j:set var="buildSrcDir" value="${maven.build.src}"/>
+        <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
+        <ant:available
+            property="sourceDirectoryPresent"
+            file="${sourceDirectory}"/>
+        <j:if test="${sourceDirectoryPresent}">
+            <ant:copy todir="${reportBuildSrcDir}">
+                <ant:fileset dir="${sourceDirectory}"/>
+            </ant:copy>
+        </j:if>
+        <ant:available
+            property="buildSrcDirPresent"
+            file="${buildSrcDir}"/>
+        <j:if test="${buildSrcDirPresent}">
+            <ant:copy todir="${reportBuildSrcDir}">
+                <ant:fileset dir="${buildSrcDir}"/>
+            </ant:copy>
+        </j:if>
+        <j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>    	
     </preGoal>
     
     <!-- ===================================================================
-    	 Reset the pom.build.sourceDirectory back to the real source now
-    	 that we're done with the javadoc and jxr reports.
+         Reset the pom.build.sourceDirectory back to the real source now
+         that we're done with the javadoc and jxr reports.
          =================================================================== -->
     <postGoal name="site">
-    	<j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
+        <j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
     </postGoal>
-  		 
+           
 </project>
 
 
