@@ -94,5 +94,5 @@ public class UMLMetafacadeProperties
     /**
      * Stores the suffix given to persistent enumeration type names.
      */
-    public static final String PERSISTENT_ENUMERATION_NAME_SUFFIX = "persistentEnumerationNameSuffix";
+    public static final String ENUMERATION_SUFFIX = "enumerationSuffix";
 }
