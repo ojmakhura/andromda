@@ -10,7 +10,7 @@
 #macro (renderTranslation $modelElement $constraintKind)
 #foreach ($constraint in $modelElement.getConstraints($constraintKind))
 #set ($constraintTranslation = $constraint.getTranslation("validation.Java"))
-#set ($constraintDocumentation = $constraint.getDocumentation("",9999,false))
+#set ($constraintDocumentation = $constraint.getDocumentation("",-1,false))
         {
             $constraintTranslation
             if (!constraintValid)
@@ -18,7 +18,7 @@
                     new org.andromda.core.metafacade.ModelValidationMessage(
                         this.getClass(),
                         this.getName(),
-                        "$metaUtils.toSingleLine($constraintDocumentation)"));
+                        "$constraintDocumentation"));
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
 #end##foreach constraint

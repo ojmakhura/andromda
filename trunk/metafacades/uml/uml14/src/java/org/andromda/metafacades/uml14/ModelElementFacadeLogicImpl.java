@@ -349,6 +349,11 @@ public class ModelElementFacadeLogicImpl
             final String errMsg = "Error performing ModelElementFacadeImpl.getDocumentation";
             logger.error(errMsg, th);
         }
+        if (lineLength < 0)
+        {
+            documentation = new StringBuffer(StringUtils.trimToEmpty(documentation.toString())
+                .replaceAll("[$\\s]+", " "));
+        }
         return documentation.toString();
     }
 
