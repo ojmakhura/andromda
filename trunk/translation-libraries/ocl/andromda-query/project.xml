@@ -1,0 +1,92 @@
+<project>
+    <extend>../project.xml</extend>
+    <name>Query Translation-Library</name>
+    <artifactId>andromda-ocl-query-library</artifactId>
+	<package>org.andromda.translation.ocl.query</package>
+    <description>
+  		Performs translation of OCL query expressions to different query
+  		languages, currently supports Enterprise Java Bean Query Language 
+  		and Hibernate Query Language.
+  	</description>
+    <shortDescription>Query Translation-Library</shortDescription>
+    <developers>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>cwbrandon@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+            </roles>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-translation-library-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-ocl-translation-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-ocl-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties/>
+        </dependency>
+    </dependencies>
+    <properties/>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/*Test.java</include>
+	     	</includes>
+			<resources>
+				<resource>
+					<directory>src/test</directory>
+		  			<includes>
+		    			<include>**/*.xml</include>
+		    			<include>**/*.properties</include>
+		  			</includes>
+		  		</resource>
+			</resources>	     	
+    	</unitTest>
+		<resources>
+			<resource>
+				<directory>src/java</directory>
+	  			<includes>
+	    			<include>**/*.xml</include>
+	    			<include>**/*.properties</include>
+	  			</includes>
+	  		</resource>
+	  		<resource>
+				<directory>src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        		<exclude>test/**/*</exclude>
+	        	</excludes>
+	  		</resource>
+		</resources>
+  	</build>
+</project>

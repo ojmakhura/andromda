@@ -20,7 +20,7 @@
 		<description>
 			A description for TranslationOne.
 		</description>
-		<template>translations/test/TranslationOne.vsl</template>
+		<template path="translations/test/TranslationOne.vsl" variable="element"/>
 	</translation>    
 	
 	<translation name="TranslationTwo">

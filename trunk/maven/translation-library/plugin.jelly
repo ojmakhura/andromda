@@ -10,9 +10,9 @@
     <!-- ===================================================================
          Runs translation-library translation tests
          =================================================================== -->
-    <goal name="translation-library:test"
+    <goal name="translation-library:test${bootstrap}"
           description="Runs the translation tests for any translator test XML files beginning with 'Translation-Test'"
-          prereqs="translation-library:initialize-test-resources">
+          prereqs="translation-library:initialize-test-resources${bootstrap}">
 
         <j:if test="${!context.getVariable('maven.test.skip')}">
 
@@ -31,7 +31,7 @@
             <!-- set the testcase to run -->
             <j:set
                 var="testcase"
-                value="org.andromda.translation.testsuite.TranslationTestProcessor"
+                value="org.andromda.translation.ocl.testsuite.TranslationTestProcessor"
                 scope="parent"/>
 
             <j:set
@@ -94,7 +94,7 @@
     <!-- ================================================================
            Adds model dependencies (since they aren't added by Maven)
          ================================================================ -->
-    <goal name="translation-library:add-model-dependencies"
+    <goal name="translation-library:add-model-dependencies${bootstrap}"
           description="Internal goal used by the plugin">
         <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
             <j:set var="dep" value="${artifact.dependency}"/>
@@ -114,15 +114,15 @@
     <!-- ============================================================================
           Initializes resources required for tests
          ============================================================================ -->
-    <goal name="translation-library:initialize-test-resources"
+    <goal name="translation-library:initialize-test-resources${bootstrap}"
           description="Internal goal used by plugin">
 
         <path id="andromda.translationlibrary.classpath">
             <ant:pathelement path="${plugin.dependencyClasspath}"/>
-         </path>
+        </path>
 
         <!-- add any model dependencies -->
-        <attainGoal name="translation-library:add-model-dependencies"/>
+        <attainGoal name="translation-library:add-model-dependencies${bootstrap}"/>
 
         <maven:addPath
             id="maven.dependency.classpath"
@@ -135,28 +135,28 @@
     <!-- ============================================================================
           Generates the initial struture of a Translation-Library
          ============================================================================ -->
-    <goal name="translation-library:generate"
+    <goal name="translation-library:generate${bootstrap}"
           description="Generates the initial struture of a Translation-Library"
           prereqs="translation-library:validate-generation-params">
 
         <j:set
             var="translationLibraryTemplatesDir"
             value="${plugin.resources}/templates"/>
-        <attainGoal name="translation-library:generate-translation-library-descriptor"/>
-        <attainGoal name="translation-library:generate-translations"/>
-        <attainGoal name="translation-library:generate-translator"/>
-        <attainGoal name="translation-library:generate-translator-exception"/>
-        <attainGoal name="translation-library:generate-translation-tests"/>
-        <attainGoal name="translation-library:generate-translation-library-pom"/>
+        <attainGoal name="translation-library:generate-translation-library-descriptor${bootstrap}"/>
+        <attainGoal name="translation-library:generate-translations${bootstrap}"/>
+        <attainGoal name="translation-library:generate-translator${bootstrap}"/>
+        <attainGoal name="translation-library:generate-translator-exception${bootstrap}"/>
+        <attainGoal name="translation-library:generate-translation-tests${bootstrap}"/>
+        <attainGoal name="translation-library:generate-translation-library-pom${bootstrap}"/>
 
     </goal>
 
     <!-- ============================================================================
           Generates the initial Translation-Library descriptor
          ============================================================================ -->
-    <goal name="translation-library:generate-translation-library-descriptor"
+    <goal name="translation-library:generate-translation-library-descriptor${bootstrap}"
           description="Generates the initial Translation-Library descriptor"
-          prereqs="translation-library:validate-generation-params,translation-library:set-shared-properties">
+          prereqs="translation-library:validate-generation-params${bootstrap},translation-library:set-shared-properties${bootstrap}">
 
         <ant:echo>+-------------------------------------------------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N - L I B R A R Y  D E S C R I P T O R   |</ant:echo>
@@ -180,7 +180,7 @@
     <!-- ============================================================================
           Sets some properties shared by other goals
          ============================================================================ -->
-    <goal name="translation-library:set-shared-properties">
+    <goal name="translation-library:set-shared-properties${bootstrap}">
 
         <!-- check and make sure 'library' is present -->
           <maven:param-check value="${library}" fail="true">
@@ -204,9 +204,9 @@
     <!-- ============================================================================
           Generates the initial Translation files
          ============================================================================ -->
-    <goal name="translation-library:generate-translations"
+    <goal name="translation-library:generate-translations${bootstrap}"
           description="Generates the initial translation files"
-          prereqs="translation-library:validate-generation-params">
+          prereqs="translation-library:validate-generation-params${bootstrap}">
 
         <ant:echo>+------------------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N ( S )   |</ant:echo>
@@ -234,9 +234,9 @@
     <!-- ============================================================================
           Generates the initial Translator
          ============================================================================ -->
-    <goal name="translation-library:generate-translator"
+    <goal name="translation-library:generate-translator${bootstrap}"
           description="Generates the initial Translator"
-          prereqs="translation-library:validate-generation-params,translation-library:set-shared-properties">
+          prereqs="translation-library:validate-generation-params${bootstrap},translation-library:set-shared-properties${bootstrap}">
 
         <ant:echo>+----------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G  T R A N S L A T O R   |</ant:echo>
@@ -271,9 +271,9 @@
     <!-- ============================================================================
           Generates a Translator Exception
          ============================================================================ -->
-    <goal name="translation-library:generate-translator-exception"
+    <goal name="translation-library:generate-translator-exception${bootstrap}"
           description="Generates a Translator Exception Class"
-          prereqs="translation-library:set-shared-properties">
+          prereqs="translation-library:set-shared-properties${bootstrap}">
 
         <ant:echo>+----------------------------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G  T R A N S L A T O R  E X C E P T I O N  |</ant:echo>
@@ -306,9 +306,9 @@
     <!-- ============================================================================
           Generates the Translation-Library Translation-Test-* files.
          ============================================================================ -->
-    <goal name="translation-library:generate-translation-tests"
+    <goal name="translation-library:generate-translation-tests${bootstrap}"
           description="Generates the test XML files for each translation"
-          prereqs="translation-library:validate-generation-params">
+          prereqs="translation-library:validate-generation-params${bootstrap}">
 
         <ant:echo>+-------------------------------------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N - T E S T  F I L E ( S )   |</ant:echo>
@@ -340,7 +340,7 @@
     <!-- ============================================================================
           Validates that both 'library' and 'translations' properties have been set
          ============================================================================ -->
-    <goal name="translation-library:validate-generation-params">
+    <goal name="translation-library:validate-generation-params${bootstrap}">
         <j:while test="${empty(library)}">
             <i:ask
                 question="Please enter the name to give the new translation-library (i.e. 'query'):"
@@ -356,9 +356,9 @@
     <!-- ============================================================================
           Generates an initial POM (project.xml) for a new Translation-Library
          ============================================================================ -->
-    <goal name="translation-library:generate-translation-library-pom"
+    <goal name="translation-library:generate-translation-library-pom${bootstrap}"
           description="Generates an initial POM (project.xml) for a new Translation-Library"
-          prereqs="translation-library:validate-generation-params,translation-library:set-shared-properties">
+          prereqs="translation-library:validate-generation-params${bootstrap},translation-library:set-shared-properties${bootstrap}">
 
         <ant:echo>+-----------------------------------------------------------------------+</ant:echo>
         <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N - L I B R A R Y  P O M   |</ant:echo>
@@ -394,7 +394,7 @@
          structure correctly as a regular expression.  Its fast at testing regular expressions if
          you use it in conjunction with the the Maven Console Plugin.
          ============================================================================ -->
-    <goal name="translation-library:test-regex"
+    <goal name="translation-library:test-regex${bootstrap}"
           description="Given a regular expression and an expression, this goal allows us to determine
                         if the regular expression matches on the expression.">
         <j:set var="failMessage">

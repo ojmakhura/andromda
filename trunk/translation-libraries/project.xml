@@ -11,8 +11,8 @@
     </repository>
     <dependencies>
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-core</artifactId>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-core</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
     </dependencies>

@@ -67,7 +67,7 @@
               </table>
               <p>
                 If you take a look at the
-                  <a href="../andromda-query-library/index.html">Query Translation-Library</a>,
+                  <a href="../andromda-ocl-query-library/index.html">Query Translation-Library</a>,
                   you'll see it does just what I describe above.
               </p>
               <p>
@@ -102,7 +102,7 @@
                 the query for either Hibernate-QL (for the Hibernate cartridge) or EJB-QL
                 (for the EJB cartridge) and just return back the value from the stored
                 tagged value.  Using an OCL translation-library (the
-                <a href="../andromda-query-library/index.html">Query Translation-Library</a>
+                <a href="../andromda-ocl-query-library/index.html">Query Translation-Library</a>
                 more specifically) you can define the query as OCL and store it as a contraint
                 within your entity's finder method operation.  Then using a translateConstraint
                 method from the <a href="../andromda-metafacades-uml/apidocs/org/andromda/metafacades/uml/ModelElementFacade.html">ModelElementFacade</a>

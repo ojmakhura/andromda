@@ -19,12 +19,7 @@
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-core</artifactId>
 	      	<version>${pom.currentVersion}</version>
-	    </dependency>
-        <dependency>
-            <groupId>${pom.groupId}-bootstrap</groupId>
-            <artifactId>andromda-validation-library</artifactId>
-            <version>${pom.currentVersion}</version>
-        </dependency>	 
+	    </dependency> 
     	<dependency> 
     		<groupId>commons-collections</groupId>
       		<artifactId>commons-collections</artifactId>

@@ -201,7 +201,7 @@
             </action>
             <action dev="cwbrandon" type="add" issue="OCL-1">
                 <strong>ALL OCL string operations</strong> are now supported by the
-                <a href="andromda-query-library/index.html">Query Translation Library</a>
+                <a href="andromda-ocl-query-library/index.html">Query Translation Library</a>
             </action>
             <action dev="cwbrandon" type="fix" issue="CORE-38">
                 Template object properties can now be specified more than once in the andromda-cartridge.xml.
@@ -211,17 +211,17 @@
                 <a href="andromda-hibernate-spring/index.html">Spring</a> cartridges are now able to define query cache settings.
             </action>
             <action dev="cwbrandon" type="fix">
-                The <a href="andromda-query-library/index.html">Query Translation Library</a> was using the OCL
+                The <a href="andromda-ocl-query-library/index.html">Query Translation Library</a> was using the OCL
                 <em><![CDATA[exists(<expression>)]]></em> expression incorrectly.  Changed to use the
                 correct <em><![CDATA[includes(<expression>)]]></em> expression instead.
             </action>
             <action dev="cwbrandon" type="add">
-                The <a href="andromda-query-library/index.html">Query Translation Library</a> is now able to correctly handle
+                The <a href="andromda-ocl-query-library/index.html">Query Translation Library</a> is now able to correctly handle
                 order by expressions (this is accompished using the standard <em><![CDATA[-> sortedBy(<expression>)]]></em>
                 construct in OCL.
             </action>
             <action dev="cwbrandon" type="fix" issue="OCL-7">
-                The <a href="andromda-query-library/index.html">Query Translation Library</a> is now able to correctly handle
+                The <a href="andromda-ocl-query-library/index.html">Query Translation Library</a> is now able to correctly handle
                 grouped expressions.
             </action>
             <action dev="cwbrandon" type="fix" issue="SPRING-18">

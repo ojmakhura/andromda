@@ -11,24 +11,23 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class Expression
 {
-
     /**
      * The resulting translated expression.
      */
     private StringBuffer translatedExpression;
 
     /**
-     * The OCL expression before translation
+     * The original expression before translation
      */
     private String originalExpression;
 
     /**
-     * The element which is constained by the the OCL expression.
+     * The element to which the expression applies.
      */
     private String contextElement;
 
     /**
-     * The kind of the OCL that was translated.
+     * The kind of the expression that was translated.
      */
     private String kind;
 
@@ -40,7 +39,7 @@ public class Expression
     /**
      * Creates a new instance of this Expression object
      * 
-     * @param originalExpression - the OCL expression that will be translated.
+     * @param originalExpression the expression that will be translated.
      */
     public Expression(
         String originalExpression)
@@ -187,7 +186,7 @@ public class Expression
     }
 
     /**
-     * Sets the "kind" of the OCL contraint (i.e, "pre", "post", "inv", etc.)
+     * Sets the "kind" of the expression (i.e, "pre", "post", "inv", etc.)
      * 
      * @param kind the kind to set.
      */
@@ -203,5 +202,4 @@ public class Expression
     {
         return ToStringBuilder.reflectionToString(this);
     }
-
 }

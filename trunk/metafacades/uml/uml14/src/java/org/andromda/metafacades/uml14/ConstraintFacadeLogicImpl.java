@@ -3,8 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.List;
 
 import org.andromda.core.translation.Expression;
-import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.core.translation.ExpressionTranslator;
+import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -112,8 +112,8 @@ public class ConstraintFacadeLogicImpl
         String translation = null;
         final Expression expression = ExpressionTranslator.instance().translate(
             language,
-            getContextElement(),
-            getBody());
+            this.getBody(),
+            this.getContextElement());
         if (expression != null)
         {
             translation = expression.getTranslatedExpression();

@@ -50,7 +50,15 @@
                 <xs:element ref="description" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
                 <!-- the optional template that contains the 'translation' tempate -->
-                <xs:element name="template" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="template" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <!-- The path to the template (relative to the translation-library resources-->
+                        <xs:attribute name="path" use="required"/>
+                        <!-- The name to be given to the variable made available to the template (this is
+                             the context element to which the expression applies) -->
+                        <xs:attribute name="variable" use="optional"/>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>

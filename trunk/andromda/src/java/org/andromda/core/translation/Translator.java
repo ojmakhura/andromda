@@ -1,36 +1,28 @@
 package org.andromda.core.translation;
 
 /**
- * Provides OCL translation capabilities. Every OCL translator must implement
- * this interface.
+ * Provides expression translation capabilities. Every expression translator
+ * must implement this interface.
  * 
  * @author Chad Brandon
  */
 public interface Translator
 {
-
     /**
-     * This is the name of the element "constrained" by the OCL expression which
-     * is made available to the TemplateEngine context. (in other words, it will
-     * be made available as an scripting element on a template processed by the
-     * TemplateEngine implementation)
-     */
-    public static final String CONTEXT_ELEMENT = "element";
-
-    /**
-     * Translates the OCL into a translated Expression instance.
+     * Translates the expression into a translated Expression instance.
      * 
      * @param translationLibrary the library and translation to lookup perform
      *        the translation (i.e. sql.Oracle9i --> library to use would be
      *        "sql" and translation from the sql library would be 'Oracle9i').
-     * @param contextModelElement the element in the model to which the OCL
-     *        constraint applies.
-     * @param oclExpression the OCL expression to translate.
-     * @return Expression
+     * @param contextElement the optional element in the model to which the
+     *        expression applies (the context element of an OCL expression for
+     *        example).
+     * @param expression the expression (OCL, etc) to translate.
+     * @return Expression the expression containing the translated result.
      * @see org.andromda.core.translation.Expression
      */
     public Expression translate(
         String translationLibrary,
-        Object contextModelElement,
-        String oclExpression);
+        String expression,
+        Object contextElement);
 }

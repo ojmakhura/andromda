@@ -8,8 +8,9 @@ import org.andromda.core.translation.library.LibraryTranslationFinder;
 import org.apache.log4j.Logger;
 
 /**
- * The <strong>OCL </strong> translator class that all translations are
- * performed through. This is the entry point to OCL translation.
+ * The <strong>expression </strong> translator class that all translations are
+ * performed through. This is the entry point to expression (OCL, etc)
+ * translation.
  * 
  * @author Chad Brandon
  */
@@ -41,7 +42,7 @@ public class ExpressionTranslator
         // discover plugins
         PluginDiscoverer.instance().discoverPlugins();
     }
-
+    
     /**
      * Performs translation of the <code>expression</code> by looking up the
      * <code>translationName</code> from the available Translation-Libraries
@@ -51,17 +52,17 @@ public class ExpressionTranslator
      *        (i.e. a translationName like 'query.EJB-QL' would mean use the
      *        <code>EJB-QL</code> translation from the <code>query</code>
      *        library.
+     * @param expression the actual expression to translate.
      * @param contextElement the element which provides the context of this
      *        expression. This is passed from the model. This can be null.
-     * @param expression the actual expression to translate.
      * @return Expression the resulting expression instance which contains the
      *         translated expression as well as additional information about the
      *         expression.
      */
     public Expression translate(
         String translationName,
-        Object contextElement,
-        String expression)
+        String expression,
+        Object contextElement)
     {
         final String methodName = "ExpressionTranslator.translate";
         ExceptionUtils.checkEmpty(
@@ -70,7 +71,7 @@ public class ExpressionTranslator
             translationName);
         ExceptionUtils.checkEmpty(methodName, "expression", expression);
 
-        Expression translatedOcl = null;
+        Expression translatedExpression = null;
         try
         {
             LibraryTranslation libraryTranslation = LibraryTranslationFinder
@@ -79,17 +80,16 @@ public class ExpressionTranslator
             if (libraryTranslation != null)
             {
                 Translator translator = libraryTranslation.getTranslator();
-                translatedOcl = translator.translate(
+                translatedExpression = translator.translate(
                     translationName,
-                    contextElement,
-                    expression);
+                    expression,
+                    contextElement);
             }
             else
             {
                 logger.error("ERROR! No translation found with name --> '"
                     + translationName + "'");
             }
-
         }
         catch (Exception ex)
         {
@@ -99,7 +99,7 @@ public class ExpressionTranslator
                 + expression + "'";
             throw new TranslatorException(errMsg, ex);
         }
-        return translatedOcl;
+        return translatedExpression;
     }
 
 }

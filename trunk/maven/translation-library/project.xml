@@ -1,6 +1,6 @@
 <project>
     <extend>../project.xml</extend>
-    <artifactId>andromda-translation-library-plugin</artifactId>
+    <artifactId>andromda-translation-library${bootstrap}-plugin</artifactId>
     <name>Translation-Library Maven Plugin</name>
     <description>
         This is a Maven Plugin which provides the ability to perform AndroMDA translation-library
@@ -9,44 +9,43 @@
     <shortDescription>Translation-Library Maven Plugin</shortDescription>
     <dependencies>
         <dependency>
-            <groupId>andromda</groupId>
+            <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
+            <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
+            <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
+            <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
+            <groupId>andromda${bootstrap}</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-library-testsuite</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties/>
         </dependency>
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-cartridge-testsuite</artifactId>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-ocl-translation-testsuite</artifactId>
             <version>${pom.currentVersion}</version>
             <properties/>
         </dependency>

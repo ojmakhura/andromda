@@ -61,8 +61,22 @@ public class LibraryTest
 
     public void testGetLibraryTranslations()
     {
-        assertNotNull(this.library.getLibraryTranslations());
-        assertEquals(2, this.library.getLibraryTranslations().size());
+        Map libraryTranslations = this.library.getLibraryTranslations();
+        assertNotNull(libraryTranslations);
+        assertEquals(2, libraryTranslations.size());
+        LibraryTranslation translationOne = (LibraryTranslation)libraryTranslations.get("TranslationOne");
+        assertNotNull(translationOne);
+        assertNotNull(translationOne.getTemplate());
+        assertEquals("translations/test/TranslationOne.vsl", translationOne.getTemplate());
+        assertEquals("element", translationOne.getVariable());
+        assertNotNull(translationOne.getTranslator());
+        assertEquals("org.andromda.core.translation.library.TestTranslator", translationOne.getTranslator().getClass().getName());
+        LibraryTranslation translationTwo = (LibraryTranslation)libraryTranslations.get("TranslationTwo");
+        assertNotNull(translationTwo);
+        assertNull(translationTwo.getTemplate());
+        assertNull(translationTwo.getVariable());
+        assertNotNull(translationTwo.getTranslator());
+        assertEquals("org.andromda.core.translation.library.TestSubTranslator", translationTwo.getTranslator().getClass().getName());
     }
 
     public void testGetPropertyReferences()

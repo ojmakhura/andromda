@@ -1,0 +1,10 @@
+<project default="jar:install">
+  	
+  	<!-- ==================================================================
+  		     Run the translation tests                                                    
+  		 ================================================================== -->
+  	<postGoal name="test:test">  		
+       <attainGoal name="translation-library:test-bootstrap"/>
+  	</postGoal> 
+  	  	
+</project>
