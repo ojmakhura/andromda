@@ -110,7 +110,7 @@ public class StrutsControllerLogicImpl
             Object useCaseObject = iterator.next();
             if (useCaseObject instanceof StrutsUseCase)
             {
-                StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
+                StrutsUseCase strutsUseCase = (StrutsUseCase) useCaseObject;
                 if (this.equals(strutsUseCase.getController()))
                 {
                     useCase = strutsUseCase;
