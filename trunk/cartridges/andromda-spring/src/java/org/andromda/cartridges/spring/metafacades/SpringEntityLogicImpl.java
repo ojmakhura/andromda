@@ -736,8 +736,9 @@ public class SpringEntityLogicImpl
      */
     private String getInheritance(GeneralizableElementFacade facade)
     {
-        return (String)facade
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+        return (facade==null)
+                ? null
+                : String.valueOf(facade.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE));
     }
 
     /**
