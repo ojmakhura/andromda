@@ -34,7 +34,7 @@
         </logic:notPresent>
         <logic:present role="$action.actionRoles">
 #end
-#if (!$action.tableLink && $action.formPost)
+#if (!$action.tableLinkPresent && $action.formPost)
 #set ($parameters = $action.actionParameters)
 #if ($parameters.empty == false)
             <table>
