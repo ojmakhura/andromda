@@ -1,6 +1,5 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
-import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
