@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -249,31 +250,34 @@ public class ModelProcessor
                 {
                     Cartridge cartridge = (Cartridge)cartridgeIt.next();
                     String cartridgeName = cartridge.getName();
-                    Namespace namespace = Namespaces.instance().findNamespace(
-                        cartridgeName);
+                    if (this.shouldProcess(cartridgeName))
+                    {
+                        Namespace namespace = Namespaces.instance()
+                            .findNamespace(cartridgeName);
 
-                    boolean ignoreNamespace = false;
-                    if (namespace != null)
-                    {
-                        ignoreNamespace = namespace.isIgnore();
-                    }
+                        boolean ignoreNamespace = false;
+                        if (namespace != null)
+                        {
+                            ignoreNamespace = namespace.isIgnore();
+                        }
 
-                    // make sure we ignore the cartridge if the namespace
-                    // is set to 'ignore'
-                    if ((namespace != null || defaultNamespace != null)
-                        && !ignoreNamespace)
-                    {
-                        cartridge.init();
-                        cartridge.processModelElements(context);
-                        cartridge.shutdown();
-                    }
-                    else
-                    {
-                        AndroMDALogger
-                            .info("namespace for '"
-                                + cartridgeName
-                                + "' cartridge is either not defined, or has the ignore "
-                                + "attribute set to 'true' --> skipping processing");
+                        // make sure we ignore the cartridge if the namespace
+                        // is set to 'ignore'
+                        if ((namespace != null || defaultNamespace != null)
+                            && !ignoreNamespace)
+                        {
+                            cartridge.init();
+                            cartridge.processModelElements(context);
+                            cartridge.shutdown();
+                        }
+                        else
+                        {
+                            AndroMDALogger
+                                .info("namespace for '"
+                                    + cartridgeName
+                                    + "' cartridge is either not defined, or has the ignore "
+                                    + "attribute set to 'true' --> skipping processing");
+                        }
                     }
                 }
                 ResourceWriter.instance().writeHistory();
@@ -304,9 +308,9 @@ public class ModelProcessor
      * to true, then package elements should be specified if you want to keep
      * certain packages from being processed. If this is set to false, then you
      * would want to define package elements to specify which packages
-     * <strong>SHOULD BE </strong> processed. This is useful if you need to
+     * <strong>SHOULD BE</strong> processed. This is useful if you need to
      * reference model elements from other packages but you don't want to
-     * perform any generation from them. The default is <strong>true </strong>.
+     * perform any generation from them. The default is <strong>true</strong>.
      * 
      * @param processAllModelPackages The processAllModelPackages to set.
      */
@@ -340,6 +344,52 @@ public class ModelProcessor
     public void setFailOnValidationErrors(boolean failOnValidationErrors)
     {
         this.failOnValidationErrors = failOnValidationErrors;
+    }
+
+    /**
+     * Stores the cartridge filter.
+     */
+    private List cartridgeFilter = null;
+
+    /**
+     * Indicates whether or not the <code>namespace</code> should be
+     * processed. This is determined in conjunction with
+     * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code>
+     * is not defined, then this method will <strong>ALWAYS </strong> return
+     * true.
+     * 
+     * @param namespace the namespace to check whether or not it should be
+     *        processed.
+     * @return true/false on whether or not it should be processed.
+     */
+    protected boolean shouldProcess(String namespace)
+    {
+        boolean shouldProcess = cartridgeFilter == null;
+        if (!shouldProcess)
+        {
+            shouldProcess = cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+        }
+        return shouldProcess;
+    }
+
+    /**
+     * <p>
+     * Sets the current cartridge filter. This is a comma seperated list of
+     * namespaces (matching cartridges names) that should be processed.
+     * </p>
+     * <p>
+     * If this filter is defined, then any cartridge names found in this list
+     * <strong>will be processed</strong>, while any other discovered
+     * cartridges <strong>will not be processed</strong>.
+     * </p>
+     * 
+     * @param namespaces a comma seperated list of the cartridge namespaces
+     *        to be processed.
+     */
+    public void setCartridgeFilter(String namespaces)
+    {
+        cartridgeFilter = Arrays.asList(StringUtils
+            .deleteWhitespace(namespaces).split(","));
     }
 
     /**

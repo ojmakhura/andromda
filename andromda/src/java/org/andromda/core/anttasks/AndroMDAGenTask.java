@@ -31,8 +31,8 @@ import org.apache.tools.ant.types.Path;
  * </p>
  * 
  * @see org.andromda.core.ModelProcessor
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
- * @author <a href="http://www.amowers.com">Anthony Mowers </a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.amowers.com">Anthony Mowers</a>
  * @author Chad Brandon
  */
 public class AndroMDAGenTask
@@ -130,6 +130,28 @@ public class AndroMDAGenTask
         this.lastModifiedCheck = lastmod;
     }
 
+    private String cartridgeFilter;
+
+    /**
+     * <p>
+     * Sets the current cartridge filter. This is a comma seperated list of
+     * namespaces (matching cartridges names) that should be processed.
+     * </p>
+     * <p>
+     * If this filter is defined, then any cartridge names found in this list
+     * <strong>will be processed </strong>, while any other discovered
+     * cartridges <strong>will not be processed </strong>.
+     * </p>
+     * 
+     * @param cartridgeFilter a comma seperated list of cartridge names to be
+     *        processed.
+     * @see org.andromda.core.ModelProcessor#setCartridgeFilter(String)
+     */
+    public void setCartridgeFilter(String cartridgeFilter)
+    {
+        this.cartridgeFilter = cartridgeFilter;
+    }
+
     /**
      * <p>
      * Starts the generation of source code from an object model.
@@ -215,6 +237,9 @@ public class AndroMDAGenTask
                     throw new BuildException("Could not find any model input!");
                 }
             }
+
+            // set the cartridge filter
+            ModelProcessor.instance().setCartridgeFilter(this.cartridgeFilter);
 
             // pass the loaded model(s) to the ModelProcessor
             ModelProcessor.instance().process(models);

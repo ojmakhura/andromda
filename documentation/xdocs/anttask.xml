@@ -15,18 +15,18 @@
             <h2>
                 <a name="AndroMDA"><![CDATA[<andromda>]]></a>
             </h2>
-            <p class="std">
+            <p>
                 andromda is the task that generates Java source (or other) files
                 from templates and a metamodel that it loads from a text file 
                 (i.e. an XMI file).
             </p>
-            <p class="std">
+            <p>
                 To configure your cartridges you'll will use nested
                 <a href="#namespace">
                     <code><![CDATA[<namespace>]]></code>
                 </a> elements.
             </p>
-            <p class="std">
+            <p>
                 To customize andromda's default behavior and to point to shared
                 modules or profiles then you will possibly use a nested
                 <a href="#repository">
@@ -34,21 +34,21 @@
                 </a> element.
             </p>
             <h3>Attributes</h3>
-            <table border="1" cellpadding="2" cellspacing="0">
+            <table>
                 <tr>
-                    <td valign="top" class="std">
-                        <b>Attribute</b>
+                    <td>
+                        <strong>Attribute</strong>
                     </td>
-                    <td valign="top" class="std">
-                        <b>Description</b>
+                    <td>
+                        <strong>Description</strong>
                     </td>
-                    <td align="center" valign="top" class="std">
-                        <b>Required</b>
+                    <td align="center">
+                        <strong>Required</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">basedir</td>
-                    <td valign="top" class="std">
+                    <td>basedir</td>
+                    <td>
                         Specifies the path to the directory location of your case 
                         tool's model file(s).
                         <strong>NOTE:</strong> if this
@@ -61,42 +61,42 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         includes
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         This is the standard Ant includes 
                         attribute. Specify any files or directories with XMI files 
                         that you
-                        <b>do</b> want AndroMDA to try to process.  This is
+                        <strong>do</strong> want AndroMDA to try to process.  This is
                         used in conjunction with the
                         <code>basedir</code> property.
                     </td>
-                    <td valign="top" align="center" class="std">
+                    <td align="center">
                         Yes (unless modelURL is used).
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         excludes
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         This is the standard Ant excludes 
                         attribute. Specify any files or directories with XMI files 
                         that you
-                        <b>do not</b> want AndroMDA to try to process.  This is
+                        <strong>do not</strong> want AndroMDA to try to process.  This is
                         used in conjunction with the
                         <code>basedir</code> property.
                     </td>
-                    <td valign="top" align="center" class="std">
+                    <td align="center">
                         No.
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         lastModifiedCheck
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         This turns on or off the ability 
                         to check the last modified date on files in order to 
                         determine whether or not they need to be re-rendered or 
@@ -107,16 +107,16 @@
                         accelerates processing because files that have not changed 
                         will not get reprocessed.
                     </td>
-                    <td valign="top" align="center" class="std">
+                    <td align="center">
                         No, defaults to
                         <code>true</code>.
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         <a name="processAllModelPackages">processAllModelPackages</a>
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         Specifies whether or not to process/generate from all packages 
                         in the model, used in combination with the
                         <a href="#modelPackage">
@@ -129,10 +129,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         <a name="modelValidation">modelValidation</a>
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         Specifies whether or not models loaded by AndroMDA will be
                         validated.  By default models <strong>WILL</strong> be validated, 
                         however sometimes its nice to turn off validation for performance 
@@ -144,10 +144,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         <a name="xmlValidation">xmlValidation</a>
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         Specifies whether or not XML resources loaded by AndroMDA will be
                         validated (such as XML plugin descriptors).  Sometimes underlying 
                         XML parsers don't support XML Schema validation and in that case, 
@@ -159,10 +159,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         <a name="failOnModelValidationErrors">failOnModelValidationErrors</a>
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         Specifies whether or not model processing should fail when <strong>ANY</strong>
                         model validation errors are present.
                     </td>
@@ -170,12 +170,27 @@
                         No, defaults to <code>true</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <a name="cartridgeFilter">cartridgeFilter</a>
+                    </td>
+                    <td>
+                        A comma seperated list of cartridge names (i.e. namespaces) that
+                        should be processed by AndroMDA.  If this is not defined, then 
+                        <strong>ANY</strong> discovered cartridges will be processed.
+                        This is useful when you want to restrict the cartridges that will
+                        process the model, in order to speed up the development cycle.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
             </table>
             <table>
                 <h2>
                     <a name="model"><![CDATA[<model>]]></a>
                 </h2>
-                <p class="std">
+                <p>
                     The
                     <code><![CDATA[<model/>]]></code> element is used to
                     tell AndroMDA to process a model. It can be used instead of the 
@@ -187,38 +202,38 @@
                     <code><![CDATA[<model/>]]></code>
                     elements as you would like).
                 </p>
-                <p class="std">
+                <p>
                     The model is optional if
                     <code>basedir</code> and
                     <code>includes</code> is defined.
                 </p>
                 <tr>
-                    <td valign="top" class="std">
-                        <b>Attribute</b>
+                    <td>
+                        <strong>Attribute</strong>
                     </td>
-                    <td valign="top" class="std">
-                        <b>Description</b>
+                    <td>
+                        <strong>Description</strong>
                     </td>
-                    <td align="center" valign="top" class="std">
-                        <b>Required</b>
+                    <td align="center">
+                        <strong>Required</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         url
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         The URL to the model to be processed. (i.e.
                         jar:file:/path/to/my/model.xml.zip!/model.xmi)
                     </td>
-                    <td align="center" valign="top" class="std">
+                    <td align="center">
                         Yes
                     </td>
                 </tr>
             </table>
             <a name="andromda-example"/>
             <h3>Example</h3>
-            <p class="std">
+            <p>
                     This example call to the andromda task, tells AndroMDA to load 
                     the model from
                 <em>jar:file:/path/to/my/model.zuml!/model.xmi</em>
@@ -283,7 +298,7 @@
                 <a name="modelPackage"><![CDATA[<modelPackage>]]></a>
             </h2>
             <table>
-                <p class="std">
+                <p>
                     The
                     <code><![CDATA[<modelPackage>]]></code> is used in
                     conjunction with the
@@ -302,47 +317,47 @@
                     <code>false</code>, and any model
                     elements in that package will not be processed.
                 </p>
-                <p class="std">
+                <p>
                     The modelPackage element is optional.
                 </p>
                 <tr>
-                    <td valign="top" class="std">
-                        <b>Attribute</b>
+                    <td>
+                        <strong>Attribute</strong>
                     </td>
-                    <td valign="top" class="std">
-                        <b>Description</b>
+                    <td>
+                        <strong>Description</strong>
                     </td>
-                    <td align="center" valign="top" class="std">
-                        <b>Required</b>
+                    <td align="center">
+                        <strong>Required</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         name
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         The fully qualified name of the UML namespace/package.
                     </td>
-                    <td align="center" valign="top" class="std">
+                    <td align="center">
                         Yes.
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         shouldProcess
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         True or false depending on whether or not the package
                         should be processed.
                     </td>
-                    <td align="center" valign="top" class="std">
+                    <td align="center">
                         No. Defaults to
                         <code>true</code>.
                     </td>
                 </tr>
             </table>
             <h3>Example</h3>
-            <p class="std">
+            <p>
                 The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
                 element:
             </p>
@@ -353,7 +368,7 @@
   ...
 </andromda>
                 ]]></source>
-            <p class="std">
+            <p>
                 The above is equivalent to:
             </p>
             <source><![CDATA[
@@ -365,7 +380,7 @@
             <h2>
                 <a name="namespace"><![CDATA[<namespace>]]></a>
             </h2>
-            <p class="std">
+            <p>
                 The
                 <a href="#andromda">
                     <code><![CDATA[<andromda>]]></code>
@@ -378,36 +393,36 @@
                 properties that a cartridge and its metafacades might support.
             </p>
             <h3>Attributes</h3>
-            <table border="1" cellpadding="2" cellspacing="0">
+            <table>
                 <tr>
-                    <td valign="top" class="std">
-                        <b>Attribute</b>
+                    <td>
+                        <strong>Attribute</strong>
                     </td>
-                    <td valign="top" class="std">
-                        <b>Description</b>
+                    <td>
+                        <strong>Description</strong>
                     </td>
-                    <td align="center" valign="top" class="std">
-                        <b>Required</b>
+                    <td align="center">
+                        <strong>Required</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         name
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         The name of the cartridge you want to use. It must match the name 
                         in a cartridge descriptor (i.e.
                         <em>/META-INF/andromda-cartridge.xml</em>).
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         Yes.
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" class="std">
+                    <td>
                         ignore
                     </td>
-                    <td valign="top" class="std">
+                    <td>
                         This is useful if you have a cartridge on your classpath 
                         (since cartridge's are loaded when on your classpath) and you do
                         not want to generate any output from this cartridge, in other
@@ -416,13 +431,13 @@
                         <code>true</code>,
                         otherwise don't set it at all.
                     </td>
-                    <td align="center" class="std">
+                    <td align="center">
                         No. Defaults to
                         <code>false</code>.
                     </td>
                 </tr>
             </table>
-            <p class="std">
+            <p>
                 See the
                 <a href="#andromda-example">example</a> above for the correct use of
                 namespace elements.
@@ -430,7 +445,7 @@
             <h2>
                 <a name="repository"><![CDATA[<repository>]]></a>
             </h2>
-            <p class="std">
+            <p>
                 The
                 <a href="#andromda">
                     <code><![CDATA[<andromda>]]></code>
@@ -441,7 +456,7 @@
             <h2>
                 <a name="moduleSearchPath"><![CDATA[<moduleSearchPath>]]></a>
             </h2>
-            <p class="std">
+            <p>
                 The
                 <a href="#repository">
                     <code><![CDATA[<repository>]]></code>
@@ -456,7 +471,7 @@
                 for more information on how to define these paths.
             </p>
             <h3>Example</h3>
-            <p class="std">
+            <p>
                 The BPM4Struts cartridge metafacade model 
                 extends from the base metafacade model, so we define a
                 <code><![CDATA[<moduleSearchPath>]]></code> element pointing to
@@ -478,7 +493,7 @@
             <h2>
                 <a name="mappingsSearchPath"><![CDATA[<mappingsSearchPath>]]></a>
             </h2>
-            <p class="std">
+            <p>
                 The
                 <a href="#AndroMDA">
                     <code><![CDATA[<andromda>]]></code>
@@ -493,7 +508,7 @@
                 for more information on how to define these paths.
             </p>
             <h3>Example</h3>
-            <p class="std">
+            <p>
                 We want to define the location of the mapping files so that we
                 use the logical name of mapping, files therefore we create a 
                 <code><![CDATA[<mappingsSearchPath>]]></code> element pointing to
