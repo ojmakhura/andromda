@@ -146,10 +146,10 @@
                         <li>Install the downloaded binary. (We will assume you installed it in <code>C:\apps\maven</code>)</li>
                         <li>If the installation would complain that the JAVA_HOME environment is not set then make sure
                             you have correctly set it and close Windows Explorer or
-                            <a href="http://www.ghisler.com" target="_blank">Total Commander</a> whatever you are using
-                            and start it again.</li>
+                            <a href="http://www.ghisler.com" target="_blank">Total Commander</a>, whatever
+                            it is you are using and start it again.</li>
                         <li>Go to your <code>home</code> directory. (If your login is <code>foo</code> this means here:
-                            <code>C:\Documents and Settings\foo</code>
+                            <code>C:\Documents and Settings\foo</code>)
                         </li>
                         <li>Create a file there, called <code>build.properties</code> and add the following line in there:
                             <code>maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven</code>
