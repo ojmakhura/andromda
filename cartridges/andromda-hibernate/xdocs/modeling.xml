@@ -157,7 +157,7 @@
 						<td>
 							Used to override the default hibernate inheritance
 							strategy of subclass. Permitted values are:
-							<ol>
+							<ul>
 								<li>class - table per hierarchy.</li>
 								<li>subclass - table per class in hierarchy.</li>
 								<li>concrete - Table per class.</li>
@@ -167,7 +167,7 @@
 					                This is useful in the concrete case becuase it has limitations
 					                in the associations.
                                 </li>
-							</ol>
+							</ul>
 							<p>
                                  The tagged value of @andromda.hibernate.inheritance
 								 is set on the base/root class.
