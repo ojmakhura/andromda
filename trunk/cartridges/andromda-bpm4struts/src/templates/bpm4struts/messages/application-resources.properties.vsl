@@ -19,13 +19,36 @@ menu.usecases.title=Other links
 #
 calendar.title=Calendar
 calendar.popup=Click here to popup a calendar to choose the date from
-calendar.error.no.target=Error calling the calendar: no target control specified
-calendar.error.no.param.target=Error calling the calendar: parameter specified is not valid target control
-calendar.next.year=next year
-calendar.next.month=next month
-calendar.previous.year=previous year
-calendar.previous.mont=previous month
-
+calendar.info=About this calendar
+calendar.toggle=Toggle
+calendar.previous.year=Prev. year (hold for menu)
+calendar.previous.month=Prev. month (hold for menu)
+calendar.go.today=Go Today
+calendar.next.month=Next month (hold for menu)
+calendar.next.year=Next year (hold for menu)
+calendar.select.date=Select date
+calendar.drag.to.move=Drag to move
+calendar.part.today= (today)
+calendar.week=wk
+calendar.time=Time:
+calendar.time.part=(Shift-)Click or drag to change value
+calendar.day.first=Display %s first
+calendar.today=Today
+calendar.close=Close
+calendar.about=DHTML Date/Time Selector\\n\
+    (c) dynarch.com 2002-2005 / Author: Mihai Bazon\\n\
+    For latest version visit: http://www.dynarch.com/projects/calendar/\\n\
+    Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details.\
+    \\n\\n\
+    Date selection:\\n\
+    - Use the \u00ab \u00bb buttons to select year\\n\
+    - Use the < >  buttons to select month\\n\
+    - Hold mouse button on any of the above buttons for faster selection.;
+calendar.about.time=\\n\\n\
+    Time selection:\\n\
+    - Click on any of the time parts to increase it\\n\
+    - or Shift-click to decrease it\\n\
+    - or click and drag for faster selection.
 
 month.0=January
 month.1=February
@@ -40,13 +63,13 @@ month.9=October
 month.10=November
 month.11=December
 
-day.0=Mo
-day.1=Tu
-day.2=We
-day.3=Th
-day.4=Fr
-day.5=Sa
-day.6=Su
+day.0=Monday
+day.1=Tuesday
+day.2=Wednesday
+day.3=Thursday
+day.4=Friday
+day.5=Saturday
+day.6=Sunday
 
 #
 #   Messages for the login page

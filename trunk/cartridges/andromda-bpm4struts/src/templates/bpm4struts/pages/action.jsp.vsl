@@ -59,26 +59,6 @@
                 </tbody>
             </table>
         </html:form>
-#if ($action.calendarRequired)
-        <script type="text/javascript" language="Javascript1.1">
-#if ($xhtml == "true")
-        //<![CDATA[
-#else
-        //<!--
-#end
-#foreach ($field in $actionParameters)
-#if ($field.calendarRequired)
-           var ${action.formBeanName}_${field.name}Calendar = new calendar1(document.forms['$action.formBeanName'].elements['$field.name']);
-           ${action.formBeanName}_${field.name}Calendar.date_format = '$field.dateFormat';
-#end
-#end
-#if ($xhtml == "true")
-        //]]>
-#else
-        //-->
-#end
-        </script>
-#end
 #end
     </div>
 

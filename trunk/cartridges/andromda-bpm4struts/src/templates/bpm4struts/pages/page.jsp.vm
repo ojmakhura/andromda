@@ -120,11 +120,29 @@ ${indent}</html:$widgetType>
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
-${indent}<html:$widgetType name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly/>
+${indent}<html:$widgetType styleId="${formBeanName}_${fieldName}" name="$formBeanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
-${indent}<html:link href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
-${indent}   <html:img page="/layout/calendar/calendar.gif" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
-${indent}</html:link>
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${formBeanName}_${fieldName}_trigger" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
+${indent}<script type="text/javascript">
+#if ($xhtml == "true")
+${indent}//<![CDATA[
+#else
+${indent}//<!--
+#end
+${indent}    Calendar.setup({
+${indent}        inputField     :    "${formBeanName}_${fieldName}",
+${indent}        ifFormat       :    "$dateUtils.formatJavaToPerl($field.dateFormat)",
+${indent}        daFormat       :    "%A, %B %d, %Y",
+${indent}        showsTime      :    true,
+${indent}        button         :    "${formBeanName}_${fieldName}_trigger",
+${indent}        singleClick    :    true
+${indent}    });
+#if ($xhtml == "true")
+${indent}//]]>
+#else
+${indent}//-->
+#end
+${indent}</script>
 #end
 ##
 ##      T E X T A R E A
