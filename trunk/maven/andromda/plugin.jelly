@@ -357,7 +357,10 @@
 		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
 		<ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
-		
+	    <!-- create an empty build directory so that maven doesn't complain
+	         when building the ear until model content is added -->
+	    <ant:mkdir dir="${moduleDir}/target/src"/>
+	    		
 	</goal>
 	
   	<!--==================================================================
