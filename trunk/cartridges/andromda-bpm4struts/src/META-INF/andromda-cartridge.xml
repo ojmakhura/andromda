@@ -16,7 +16,7 @@
     <!-- copy resources -->
     <resource
         path="resources/*.png"
-		outputPattern="layout/{0}"
+        outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
 
