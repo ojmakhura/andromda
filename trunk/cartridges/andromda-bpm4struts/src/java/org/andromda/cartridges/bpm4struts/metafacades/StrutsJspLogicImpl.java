@@ -30,8 +30,10 @@ public class StrutsJspLogicImpl
     // from org.andromda.metafacades.uml.ModelElementFacade
     public String getPackageName()
     {
-        ClassifierFacade classifier = (ClassifierFacade) getActivityGraph().getContextElement();
-        return classifier.getPackageName();
+        ActivityGraphFacade graph = getActivityGraph();
+        return (graph instanceof StrutsActivityGraph)
+                ? ((StrutsActivityGraph) graph).getUseCase().getPackageName()
+                : graph.getPackageName();
     }
 
     public String handleGetMessageKey()
@@ -163,6 +165,21 @@ public class StrutsJspLogicImpl
         {
             Object object = iterator.next();
             if (object instanceof StrutsAction)
+                actions.add(object);
+        }
+
+        return actions;
+    }
+
+    protected Collection handleGetNonActionForwards()
+    {
+        final Collection actions = new ArrayList();
+        final Collection outgoing = getOutgoing();
+
+        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        {
+            Object object = iterator.next();
+            if (!(object instanceof StrutsAction))
                 actions.add(object);
         }
 
