@@ -34,7 +34,7 @@ public class VariableDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.concretesyntax.VariableDeclarationCS#getName()
+     * @see org.andromda.core.translation.syntax.VariableDeclarationCS#getName()
      */
     public String getName()
     {
@@ -42,7 +42,8 @@ public class VariableDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.concretesyntax.VariableDeclarationCS#getType()
+==
+     * @see org.andromda.core.translation.syntax.VariableDeclaration#getType()
      */
     public String getType()
     {
@@ -50,7 +51,7 @@ public class VariableDeclarationImpl
     }
 
     /**
-     * @see org.andromda.core.translation.concretesyntax.VariableDeclarationCS#getValue()
+     * @see org.andromda.core.translation.syntax.VariableDeclarationCS#getValue()
      */
     public String getValue()
     {
