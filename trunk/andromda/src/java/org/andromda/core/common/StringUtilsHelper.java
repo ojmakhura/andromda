@@ -165,7 +165,7 @@ public class StringUtilsHelper
 
     /**
      * Converts the argument to lowercase, removes all non-word characters, and
-     * replaces each of those sequences by a hyphen '-'.
+     * replaces each of those sequences by the separator.
      */
     public static String separate(String string, String separator)
     {
