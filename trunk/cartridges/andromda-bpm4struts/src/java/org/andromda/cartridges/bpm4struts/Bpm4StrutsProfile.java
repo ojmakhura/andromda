@@ -6,7 +6,7 @@ public class Bpm4StrutsProfile
 
     public static final String STEREOTYPE_VIEW = "FrontEndView";
     public static final String STEREOTYPE_EVENT = "FrontEndEvent";
-    public static final String STEREOTYPE_USER = "FrontEndUser";
+    public static final String STEREOTYPE_USER = "Role";
     public static final String STEREOTYPE_USECASE = "FrontEndUseCase";
     public static final String STEREOTYPE_APPLICATION = "FrontEndApplication";
     public static final String STEREOTYPE_CONTROLLER = "FrontEndController";
