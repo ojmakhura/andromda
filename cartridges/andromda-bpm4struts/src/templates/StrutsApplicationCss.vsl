@@ -329,7 +329,7 @@ div.tabs div.tab div.tab-body
 {
 }
 
-#if ($breadCrumbs == "true")
+#if ($maxBreadCrumbs != "0")
 /* styles for the breadcrumbs */
 
 #breadcrumbs
