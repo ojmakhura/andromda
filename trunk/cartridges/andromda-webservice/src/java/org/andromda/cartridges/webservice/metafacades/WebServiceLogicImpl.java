@@ -98,13 +98,25 @@ public class WebServiceLogicImpl
     }
 
     /**
+     * The character used to seperate namespace names.
+     */
+    static char NAMESPACE_DELIM = '.';
+
+    /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getNamespace()
      */
     public java.lang.String handleGetNamespace()
     {
+        String packageName = this.getPackageName();
+        if (this.isReverseNamespace())
+        {
+            packageName = StringUtils.reverseDelimited(
+                packageName,
+                NAMESPACE_DELIM);
+        }
         return MessageFormat.format(this.getNamespacePattern(), new String[]
         {
-            StringUtils.trimToEmpty(this.getPackageName())
+            StringUtils.trimToEmpty(packageName)
         });
     }
 
@@ -411,9 +423,11 @@ public class WebServiceLogicImpl
     /**
      * Sets the <code>qualifiedNameLocalPartPattern</code> for this service.
      * 
-     * @param qualifiedNameLocalPartPattern the name prefix to use for these types.
+     * @param qualifiedNameLocalPartPattern the name prefix to use for these
+     *        types.
      */
-    public void setQualifiedNameLocalPartPattern(String qualifiedNameLocalPartPattern)
+    public void setQualifiedNameLocalPartPattern(
+        String qualifiedNameLocalPartPattern)
     {
         this.registerConfiguredProperty(QNAME_LOCAL_PART_PATTERN, StringUtils
             .trimToEmpty(qualifiedNameLocalPartPattern));
@@ -444,10 +458,41 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * Gets the <code <namespacePattern</code> for this service.
+     * Gets the <code>namespacePattern</code> for this service.
+     * 
+     * @return String the namespace pattern to use.
      */
     protected String getNamespacePattern()
     {
         return (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
+    }
+
+    /**
+     * The pattern to use for determining the service namespace.
+     */
+    static final String REVERSE_NAMESPACE = "reverseNamespace";
+
+    /**
+     * Sets the <code>reverseNamespace</code> for this service.
+     * 
+     * @param reverseNamespace the pattern to use for creating the namespace.
+     */
+    public void setReverseNamespace(String reverseNamespace)
+    {
+        this.registerConfiguredProperty(REVERSE_NAMESPACE, StringUtils
+            .trimToEmpty(reverseNamespace));
+    }
+
+    /**
+     * Gets whether or not <code>reverseNamespace</code> is true/false for
+     * this type.
+     * 
+     * @return boolean true/false
+     */
+    protected boolean isReverseNamespace()
+    {
+        return Boolean.valueOf(
+            String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE)))
+            .booleanValue();
     }
 }

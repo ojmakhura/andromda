@@ -106,7 +106,7 @@
 					    The pattern to use when a qualified name local part is created.
 						<em>{0}</em> represents the name of the classifier (i.e.
 						<em>WS{0}</em> would give all your types and services a prefix
-						of <em>WS</em>. 
+						of <em>WS</em>). 
 					</td>
 					<td>
 						No, default is <code>{0}</code>.
@@ -120,12 +120,28 @@
 					    The pattern to use when a namespace is created.
 						<em>{0}</em> represents the package name of the classifier (i.e.
 						<em>ws.{0}</em> would prefix all your type and service
-						namespaces with <em>ws.</em>. 
+						namespaces with <em>ws.</em>). 
 				    </td>
                     <td>
 						No, default is <code>http://{0}</code>			
 					</td>
-				</tr>           	        		        	        	        	     	             	        	
+				</tr>     
+				<tr>
+					<td>
+						reverseNamespace
+					</td>
+					<td>
+						Whether or not to reverse the ordering of the namespace.
+						The namespace is typically determined by the package
+						name of the service or type, this allows you to reverse the package
+						name. (i.e. org.andromda.samples would become 
+						<em>samples.andromda.org</em> if this was set to <code>true</code>). 
+						Value should be <code>true or false</code>. 
+					</td>
+				    <td>
+						No, default is <code>faluse</code>.
+				    </td>
+				</tr>      	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
