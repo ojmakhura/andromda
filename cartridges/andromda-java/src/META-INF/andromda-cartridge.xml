@@ -31,5 +31,15 @@
             <modelElement stereotype="UnexpectedException"/>
 		</modelElements>
 	</template>
+	
+	<template 
+		sheet="templates/Enumeration.vsl" 
+		outputPattern="{0}/{1}.java"  
+		outlet="enumerations" 
+		overWrite="true">
+		<modelElements variable="class">
+            <modelElement stereotype="Enumeration"/>
+		</modelElements>
+	</template>
 
 </cartridge>
