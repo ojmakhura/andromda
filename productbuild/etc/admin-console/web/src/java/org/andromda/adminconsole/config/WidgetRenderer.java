@@ -2,7 +2,9 @@ package org.andromda.adminconsole.config;
 
 import org.apache.commons.lang.StringUtils;
 
-public class WidgetRenderer
+import java.io.Serializable;
+
+public class WidgetRenderer implements Serializable
 {
     public String renderTextfield(String parameterName, Object value, boolean readOnly)
     {
