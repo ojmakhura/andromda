@@ -123,13 +123,36 @@ public final class OCLCollections
     {
         return (string != null) && (string.trim().length() > 0);
     }
+    
+    /**
+     * Checks the instance of the <code>object</code>
+     * and makes sure its a Collection, if the object is a collection
+     * the size is checked and returned, if its NOT a collection,
+     * 0 is returned.
+     * @param object the object to check.
+     * @return the size of the collection
+     */
+    public static int size(Object object)
+    {
+        int size = 0;
+        if (object != null && Collection.class.isAssignableFrom(object.getClass()))
+        {
+            size = size((Collection)object);
+        }
+        return size;
+    }
 
     /**
      * Returns the number of elements in the collection.
      */
     public static int size(Collection collection)
     {
-        return collection.size();
+        int size = 0;
+        if (collection != null)
+        {
+            size = collection.size();
+        }
+        return size;
     }
 
     /**
