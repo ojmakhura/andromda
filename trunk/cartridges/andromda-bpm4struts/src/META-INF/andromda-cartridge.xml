@@ -112,7 +112,12 @@
         outlet="controller-impls"
         overwrite="false">
         <modelElements variable="controller">
-            <modelElement stereotype="FrontEndController"/>
+            <modelElement stereotype="FrontEndController">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
+                    <!-- if this property is not present it's no use generating the controller -->
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -122,7 +127,12 @@
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
-            <modelElement stereotype="FrontEndController"/>
+            <modelElement stereotype="FrontEndController">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
+                    <!-- if this property is not present it's no use generating the controller -->
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -132,7 +142,12 @@
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
-            <modelElement stereotype="FrontEndController"/>
+            <modelElement stereotype="FrontEndController">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
+                    <!-- if this property is not present it's no use generating the controller -->
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
