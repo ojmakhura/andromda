@@ -250,7 +250,7 @@ public class SimpleOOHelper extends UMLStaticHelper
     {
         if (attribute == null) return null;
 
-        String value = findTaggedValue(attribute, "uml2ejb:JDBCType", true);
+        String value = findTagValue(attribute, "uml2ejb:JDBCType", true);
         
         if (null == value)
         {
@@ -296,7 +296,7 @@ public class SimpleOOHelper extends UMLStaticHelper
      */
     public String findAttributeSQLType(Attribute attribute)
     {
-        String value = findTaggedValue(attribute, "uml2ejb:SQLType", true);
+        String value = findTagValue(attribute, "uml2ejb:SQLType", true);
         
         if (null == value)
         {

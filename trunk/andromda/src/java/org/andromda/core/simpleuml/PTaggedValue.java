@@ -42,7 +42,7 @@ public class PTaggedValue
 
 	public String getTag()
 	{
-		return modelElement.getName();
+		return scriptHelper.getName(modelElement);
 	}
 	
 	public String getValue()

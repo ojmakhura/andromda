@@ -9,6 +9,7 @@ import org.andromda.core.uml14.UMLScriptHelperTest;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
+import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.modelmanagement.UmlPackage;
 
@@ -64,6 +65,13 @@ public class SimpleOOHelperTest extends UMLScriptHelperTest {
             TestModel.CLASSA_NAME + "Local" );
     }
     
+    public void testFindTagValue()
+    {
+        assertEquals(
+            helper.findTagValue((ModelElement)modelElement,"testTagName"),
+            "test tag value");
+    }
+    
     public void testGetPackages()
     {
         UMLModel umlModel = (UMLModel)(getHelper().getModel());
@@ -89,9 +97,6 @@ public class SimpleOOHelperTest extends UMLScriptHelperTest {
     public void testFindAttributeJDBCType()
     {
        assertNotNull(attribute);
-       
-       System.out.println(helper.getAttributesAsList(attribute,true,false));
-       
        assertEquals(
         helper.findAttributeJDBCType(attribute),
         TestModel.ATTRIBUTEA_TYPE);
@@ -115,7 +120,7 @@ public class SimpleOOHelperTest extends UMLScriptHelperTest {
             helper.getOperationSignature(operation),
             TestModel.OPERATIONA_SIGNATURE);
     }
-    
+ 
     public void testGetRoleName()
     {
         assertNotNull(associationEnd);

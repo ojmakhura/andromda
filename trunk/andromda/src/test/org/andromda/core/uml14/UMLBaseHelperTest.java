@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Collection;
 import java.net.URL;
 import org.andromda.core.mdr.MDRepositoryFacade;
+import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.TaggedValue;
 import org.andromda.core.TestModel;
 import org.andromda.core.common.RepositoryReadException;
 import java.io.IOException;
@@ -139,6 +141,27 @@ public class UMLBaseHelperTest extends TestCase
 			STEREOTYPE_NAME.equals(i.next()));
 	}
 
+    public void testGetTaggedValues()
+    {
+        ModelElement me = (ModelElement)modelElement;
+        
+        Collection taggedValues = me.getTaggedValue();
+        for (Iterator i = taggedValues.iterator(); i.hasNext(); )
+        {
+            TaggedValue tgv = (TaggedValue)(i.next());
+            String tagName = tgv.getName();
+            if (tagName == null)
+            {
+                tagName = tgv.getType().getName();
+            }
+            System.out.println(" tagName: " + tagName);
+            for (Iterator j = tgv.getDataValue().iterator(); j.hasNext(); )
+            {
+                System.out.println(" - tagValue: " + j.next());
+            }
+        }
+    }
+    
 	protected void selectModelElement(Object object)
 	{
 		// look for a particular model element by name and
