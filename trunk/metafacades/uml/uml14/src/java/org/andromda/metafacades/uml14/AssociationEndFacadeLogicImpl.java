@@ -32,6 +32,14 @@ public class AssociationEndFacadeLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getMetafacadeOwner()
+     */
+    public Object getMetafacadeOwner()
+    {
+        return this.getType();
+    }
 
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getOtherEnd()
@@ -47,7 +55,6 @@ public class AssociationEndFacadeLogicImpl
                 return end;
             }
         }
-
         return null;
     }
 

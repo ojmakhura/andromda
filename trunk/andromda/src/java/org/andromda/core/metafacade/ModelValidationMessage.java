@@ -44,6 +44,9 @@ public class ModelValidationMessage
         return message;
     }
 
+    /**
+     * Stores the actual metafacade to which this validation message applies.
+     */
     private MetafacadeBase metafacade;
 
     /**
@@ -51,7 +54,15 @@ public class ModelValidationMessage
      */
     private static final String UNDEFINED_NAME = "undefined";
 
+    /**
+     * Stores the metafacade name which is only constructed the very first time.
+     */
     private String metafacadeName = null;
+
+    /**
+     * Used to seperate the element names.
+     */
+    private static final String NAME_SEPERATOR = "::";
 
     /**
      * Gets the name of the metafacade to which this validation message applies.
@@ -66,25 +77,30 @@ public class ModelValidationMessage
             if (StringUtils.isNotEmpty(this.metafacade.getName()))
             {
                 name.append(this.metafacade.getName());
-                if (metafacade.getMetafacadeOwner() != null)
-                {
-                    MetafacadeBase owner = metafacade.getMetafacadeOwner();
-                    if (StringUtils.isNotEmpty(owner.getName()))
-                    {
-                        name.insert(0, "::");
-                        name.insert(0, owner.getName());
-                    }
-                }
             }
             else
             {
                 name = new StringBuffer(UNDEFINED_NAME);
+            }
+            if (this.metafacade.getMetafacadeOwner() != null)
+            {
+                MetafacadeBase owner = (MetafacadeBase)metafacade
+                    .getMetafacadeOwner();
+                if (StringUtils.isNotEmpty(owner.getName()))
+                {
+                    name.insert(0, NAME_SEPERATOR);
+                    name.insert(0, owner.getName());
+                }
             }
             this.metafacadeName = name.toString();
         }
         return metafacadeName;
     }
 
+    /**
+     * Stores the metafacade class displayed within the message, this is only
+     * retrieved the very first time.
+     */
     private Class metafacadeClass = null;
 
     /**
@@ -97,6 +113,7 @@ public class ModelValidationMessage
     {
         if (metafacadeClass == null)
         {
+            this.metafacadeClass = this.metafacade.getClass();
             List interfaces = ClassUtils.getAllInterfaces(this.metafacade
                 .getClass());
             if (interfaces != null && !interfaces.isEmpty())

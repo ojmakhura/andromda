@@ -497,4 +497,14 @@ public class MockClassifierFacade implements ClassifierFacade {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getMetafacadeOwner()
+     */
+    public Object getMetafacadeOwner() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -59,7 +59,7 @@ public class MetafacadeBase
      * </p>
      * @return the owner of this metafacade.
      */
-    public MetafacadeBase getMetafacadeOwner()
+    public Object getMetafacadeOwner()
     {
         return null;
     }
