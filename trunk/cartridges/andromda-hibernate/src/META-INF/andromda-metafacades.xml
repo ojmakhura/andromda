@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="hibernate">
-    <property reference="defaultIdentifierType" default="datatype.String"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
