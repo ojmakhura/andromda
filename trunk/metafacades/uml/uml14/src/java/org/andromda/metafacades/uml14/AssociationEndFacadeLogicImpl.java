@@ -64,7 +64,7 @@ public class AssociationEndFacadeLogicImpl
             // if multiplicity > 1 try to adapt name too
             if (isMany())
             {
-                name = StringUtilsHelper.multiply(name);
+                name = StringUtilsHelper.pluralize(name);
             }
         }
         return name;
