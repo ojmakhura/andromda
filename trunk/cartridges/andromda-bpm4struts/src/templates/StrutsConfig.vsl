@@ -9,7 +9,7 @@
 ##
 #set ($allUseCases = $transform.filterWithStereotypeName($transform.dynamicHelper.allUseCases, "FrontEndUseCase"))
 #set ($allWorkflows = $transform.filterWithStereotypeName($transform.dynamicHelper.allUseCases, "FrontEndWorkflow"))
-#set ($allControllerForms = $transform.filterWithStereotypeName($transform.staticHelper.allClasses, "FrontEndPresentation"))
+#set ($allControllerForms = $transform.filterWithStereotypeName($transform.staticHelper.allClasses, "FrontEndModel"))
 #set ($allInitialStates = $transform.getAllInitialStates($allUseCases))
 <struts-config>
 
@@ -26,16 +26,24 @@
 
 ##
 ## We will take all workflow use-cases and their initial states will determine the global
-## entry points of the application. For each workflow there will be exactly one global-forward declaration here.
+## entry points of the application. For each workflow as well as for each individual use-case
+## there will be exactly one global-forward declaration here.
 ##
 ## Notice how we redirect instead of forward to the use case, we explicitly want a new request
 ## object to be sent to the provided path
 ##
    <global-forwards>
+      <!-- WORKFLOWS: these are the macro-level entry points of the application -->
 #foreach ($workflow in $allWorkflows)
 #set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getStateMachine($workflow))))
 #set ($firstUseCase = $transform.getFirstFrontEndUseCase($workflow))
 #set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($firstUseCase)))
+      <forward name="$forwardName" path="/${forwardPath}" redirect="true"/>
+#end
+      <!-- USE-CASES: these are the micro-level entry points of the application -->
+#foreach ($useCase in $allUseCases)
+#set ($forwardName = $transform.toForwardName($transform.getInitialState($transform.getStateMachine($useCase))))
+#set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($useCase)))
       <forward name="$forwardName" path="/${forwardPath}" redirect="true"/>
 #end
    </global-forwards>
@@ -75,12 +83,16 @@
 #foreach ($finalState in $finalStates)
 #set ($actionForwardName = $transform.toForwardName($finalState))
 #set ($nextUseCase = $transform.findNextUseCaseInWorkflow($useCase, $finalState.name))
+#if ($nextUseCase == false)
+#set ($nextUseCase = $useCase)
+#end
 #set ($actionForwardPath = $transform.toJavaClassName($transform.getControllerClass($nextUseCase)))
 ##
 ## Notice how we redirect instead of forward to the next use case, we explicitly want a new request
 ## object to be sent to the provided path
 ##
          <forward name="$actionForwardName" path="/${actionForwardPath}" redirect="true"/>
+#set ($nextUseCase = false)
 #end
       </action>
 #end
