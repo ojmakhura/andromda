@@ -1,2 +1,3 @@
 hibernate.db.dialect=net.sf.hibernate.dialect.HSQLDialect
-jndi.datasource=java:/DefaultDS
+datasource.jndi=java:/DefaultDS
+hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup
