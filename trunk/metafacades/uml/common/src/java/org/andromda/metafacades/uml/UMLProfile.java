@@ -69,16 +69,16 @@ public class UMLProfile {
 	/**
 	 * Represents a SQL table name for entity persistence.
 	 */
-	public static final String TAGGEDVALUE_PERSISTENCE_TABLE = "andromda.persistence.table";
+	public static final String TAGGEDVALUE_PERSISTENCE_TABLE = "@andromda.persistence.table";
 	
 	/**
 	 * Represents a SQL table column name for entity persistence.
 	 */
-	public static final String TAGGEDVALUE_PERSISTENCE_COLUMN = "andromda.persistence.column";
+	public static final String TAGGEDVALUE_PERSISTENCE_COLUMN = "@andromda.persistence.column";
 	
 	/**
 	 * Represents a SQL table column length
 	 */
-	public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH = "andromda.persistence.column.length";
+	public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH = "@andromda.persistence.column.length";
 	
 }
