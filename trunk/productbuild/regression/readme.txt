@@ -1,7 +1,8 @@
 Prerequisite:
 * rename the "build.properties.sample" file in this directory to "build.properties"
 * then edit it to reflect your particular environment.
-* the following must present on the same level as this directory:
+* Make sure you have the junit.jar version 3.8.1 or higher within your $ANT_HOME/lib directory. 
+* The following must present on the same level as this directory:
 -andromda
 -samples
 -cartridges
