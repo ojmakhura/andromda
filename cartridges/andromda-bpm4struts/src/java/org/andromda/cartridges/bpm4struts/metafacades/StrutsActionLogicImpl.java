@@ -117,8 +117,8 @@ public class StrutsActionLogicImpl
 
     protected boolean handleIsHyperlink()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE);
-        return Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
+        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
     protected java.lang.String handleGetActionPath()
@@ -221,7 +221,7 @@ public class StrutsActionLogicImpl
 
     protected boolean handleIsResettable()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_RESETTABLE);
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_RESETTABLE);
         return isTrue(value == null ? null : value.toString());
     }
 
@@ -559,7 +559,7 @@ public class StrutsActionLogicImpl
 
     protected int handleGetTabIndex()
     {
-        final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABINDEX));
+        final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABINDEX));
 
         try
         {
@@ -581,7 +581,7 @@ public class StrutsActionLogicImpl
             StrutsParameter parameter = (StrutsParameter) iterator.next();
             int tabIndex = parameter.getTabIndex();
 
-            if (tabIndex >= 0)
+            if (!parameter.isTableLink() && tabIndex >= 0)
             {
                 String tabKey = String.valueOf(tabIndex);
                 Collection tabFields = (Collection) tabMap.get(tabKey);
