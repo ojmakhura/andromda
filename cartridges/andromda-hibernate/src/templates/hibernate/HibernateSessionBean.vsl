@@ -12,7 +12,7 @@ import net.sf.hibernate.SessionFactory;
 import ${serviceRef.targetElement.fullyQualifiedName}Home;
 #end
 ##
-#if ($class.attributes.size() > 0)
+#if (!$class.attributes.empty)
 #set ($stateful = true)
 #else
 #set ($stateful = false)
@@ -58,7 +58,9 @@ $class.getDocumentation(" * ")
 #end
 #end
  */
-public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
+public abstract class ${class.name}Bean 
+    implements javax.ejb.SessionBean
+{
 
 #if ($stateful)
     // --------------- attributes ---------------------
@@ -76,8 +78,9 @@ $attribute.getDocumentation("     * ")
     */
     public $attributeTypeName ${attribute.getterName}() 
     {
-        return ${attribute.name};
+        return $attribute.name;
     }
+    
    /**
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
@@ -92,7 +95,6 @@ $attribute.getDocumentation("     * ")
     // ---------------- business methods  ----------------------
 
 #foreach ($operation in $class.operations)
-#set ($msig = $operation.signature)
 
 ##
 ##  Add one additional parameter to the list of parameters:
@@ -119,10 +121,10 @@ $operation.getDocumentation("     * ")
      * @ejb.transaction type="Required"
      */
 #if ($operation.hasExceptions())
-    $operation.visibility $operation.returnType.fullyQualifiedName $msig
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
         throws $operation.exceptionList
 #else
-    $operation.visibility $operation.returnType.fullyQualifiedName $msig
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #end
     {
         Session session = null;
@@ -257,7 +259,7 @@ $operation.getDocumentation("     * ")
         InitialContext initialContext = new InitialContext();
         try {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
-            ${homeInterfaceName} home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
+            $homeInterfaceName home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
             return home;
         } finally {
             initialContext.close();
