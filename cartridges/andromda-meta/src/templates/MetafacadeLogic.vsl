@@ -288,10 +288,16 @@ public abstract class ${metafacade.logicName}
     public String toString()
     {
         StringBuffer toString = new StringBuffer(this.getClass().getName());
-        String name = this.getFullyQualifiedName(true);
-        toString.append("[");
-        toString.append(name);
-        toString.append("]");
+        try
+        {
+            toString.append("[");
+            toString.append(org.apache.commons.beanutils.PropertyUtils.getProperty(this, "name"));
+            toString.append("]");  
+        } 
+        catch (Throwable th)
+        {
+             // Just ignore when the metafacade doesn't have a name property
+        }      
         return toString.toString();
     }      
 }
