@@ -1,16 +1,17 @@
 package org.andromda.cartridges.database.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.andromda.cartridges.database.DatabaseGlobals;
 import org.andromda.cartridges.database.DatabaseProfile;
+import org.andromda.core.metafacade.MetafacadeFactoryException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityAssociationEndFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * MetafacadeLogic implementation for
@@ -48,11 +49,10 @@ public class TableLogicImpl
         // first get the initial load size for this table
         try
         {
-            final String initialLoadSizeString = (String)this
-                .findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
-            if (initialLoadSizeString != null)
+            final String dummyLoadSizeString = (String)this.findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
+            if (dummyLoadSizeString != null)
             {
-                dummyLoadSize = Integer.parseInt(initialLoadSizeString);
+                dummyLoadSize = Integer.parseInt(dummyLoadSizeString);
             }
         }
         catch (Exception e)
@@ -67,7 +67,6 @@ public class TableLogicImpl
             }
         }
 
-        // if a multiplier has been specified apply it on the load size
         try
         {
             final String multiplierString = (String)getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER);
@@ -76,19 +75,25 @@ public class TableLogicImpl
                 dummyLoadMultiplier = Float.parseFloat(multiplierString);
             }
         }
+        catch (MetafacadeFactoryException mfe)
+        {
+            // this means the namespace property has not been registered
+            logger.info(
+                    "Namespace property \'" + DatabaseGlobals.DUMMYLOAD_MULTIPLIER +
+                    "\' not specified, using default value " + DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT );
+            dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
+        }
         catch (Exception e)
         {
-            // do nothing, let the 'finally' clause handle it
-        }
-        finally
-        {
-            if (dummyLoadMultiplier <= 0)
-            {
-                dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
-            }
+            // this means the property has been registered with an invalid value
+            logger.warn(
+                    "Invalid namespace property value for \'" + DatabaseGlobals.DUMMYLOAD_MULTIPLIER +
+                    "\', using default value " + DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT +
+                    " instead of "+getConfiguredProperty(DatabaseGlobals.DUMMYLOAD_MULTIPLIER));
+            dummyLoadMultiplier = DatabaseGlobals.DUMMYLOAD_MULTIPLIER_DEFAULT;
         }
 
-        return (int)(dummyLoadSize * dummyLoadMultiplier);
+        return (int)Math.ceil(dummyLoadSize * dummyLoadMultiplier);
     }
 
     /**
