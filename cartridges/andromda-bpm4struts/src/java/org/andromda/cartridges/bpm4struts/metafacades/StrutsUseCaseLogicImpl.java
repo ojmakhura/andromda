@@ -1,18 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+
+import java.util.*;
 
 
 /**
@@ -119,7 +114,7 @@ public class StrutsUseCaseLogicImpl
                 Object obj = iterator.next();
                 if (obj instanceof StrutsActivityGraph)
                 {
-                    StrutsActivityGraph activityGraph = (StrutsActivityGraph)obj;
+                    StrutsActivityGraph activityGraph = (StrutsActivityGraph) obj;
                     if (activityName.equalsIgnoreCase(activityGraph.getName()))
                         return activityGraph;
                 }
@@ -275,5 +270,33 @@ public class StrutsUseCaseLogicImpl
         }
 
         return finalStatesList;
+    }
+
+    public boolean handleIsValidationRequired()
+    {
+        final Collection allPages = this.getAllPages();
+        for (Iterator iterator = allPages.iterator(); iterator.hasNext();)
+        {
+            StrutsJsp jsp = (StrutsJsp) iterator.next();
+            if (jsp.isValidationRequired())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean handleIsApplicationValidationRequired()
+    {
+        final Collection useCases = this.getAllUseCases();
+        for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        {
+            StrutsUseCase useCase = (StrutsUseCase) iterator.next();
+            if (useCase.isValidationRequired())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
