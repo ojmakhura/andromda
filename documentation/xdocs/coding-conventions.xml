@@ -161,9 +161,9 @@ catch (Exception ex)
                 <li>
                     <p>
                        <strong>Referencing properties:</strong> In Velocity (etc) try to do
-                       <code>$variable.property</code> instead of $variable.getProperty(),
+                       <code>$variable.property</code> instead of <code>$variable.getProperty()</code>,
                        the two calls are equivalent but the former better matches our metamodels
-                       and (is less code to write).
+                       (and is less code to write).
                     </p>
                 </li>
             </ul>
