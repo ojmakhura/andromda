@@ -3,33 +3,26 @@ package org.andromda.adminconsole.db.impl;
 import org.andromda.adminconsole.db.*;
 
 import java.sql.*;
-import java.util.*;
 import java.sql.Date;
+import java.util.*;
 
 public class TableImpl extends DatabaseObject implements Table
 {
     private String name = null;
+    private Database database = null;
     private TableType type = null;
 
     private final Map columns = new LinkedHashMap();
-    private final Map primaryKeys = new LinkedHashMap();
-    private final Map foreignKeys = new LinkedHashMap();
-
-    private Database database = null;
+    private final Map primaryKeyColumns = new LinkedHashMap();
+    private final Map foreignKeyColumns = new LinkedHashMap();
+    private final Set importingTables = new HashSet();
 
     public TableImpl(Database database, String name)
     {
         this.name = name;
         this.database = database;
-        this.refresh(true);
-    }
-
-    public TableImpl(Database database, String name, TableType type)
-    {
-        this.name = name;
-        this.database = database;
-        this.type = type;
-        this.refresh(false);
+        database.getPool().register(this);
+        this.loadMetaData();
     }
 
     public String getName()
@@ -79,60 +72,67 @@ public class TableImpl extends DatabaseObject implements Table
 
     public int getPrimaryKeyColumnCount()
     {
-        return primaryKeys.size();
+        return primaryKeyColumns.size();
     }
 
     public String[] getPrimaryKeyColumnNames()
     {
-        return (String[]) primaryKeys.keySet().toArray(new String[primaryKeys.size()]);
+        return (String[]) primaryKeyColumns.keySet().toArray(new String[primaryKeyColumns.size()]);
     }
 
     public PrimaryKeyColumn[] getPrimaryKeyColumns()
     {
-        return (PrimaryKeyColumn[]) primaryKeys.values().toArray(new PrimaryKeyColumn[primaryKeys.size()]);
+        return (PrimaryKeyColumn[]) primaryKeyColumns.values().toArray(new PrimaryKeyColumn[primaryKeyColumns.size()]);
     }
 
     public int getForeignKeyColumnCount()
     {
-        return foreignKeys.size();
+        return foreignKeyColumns.size();
     }
 
     public String[] getForeignKeyColumnNames()
     {
-        return (String[]) foreignKeys.keySet().toArray(new String[foreignKeys.size()]);
+        return (String[]) foreignKeyColumns.keySet().toArray(new String[foreignKeyColumns.size()]);
     }
 
     public ForeignKeyColumn[] getForeignKeyColumns()
     {
-        return (ForeignKeyColumn[]) foreignKeys.values().toArray(new ForeignKeyColumn[foreignKeys.size()]);
+        return (ForeignKeyColumn[]) foreignKeyColumns.values().toArray(new ForeignKeyColumn[foreignKeyColumns.size()]);
     }
 
-    public void refresh()
+    public Table[] getImportingTables()
     {
-        refresh(true);
+        return (Table[]) importingTables.toArray(new Table[importingTables.size()]);
     }
 
-    private void refresh(boolean refreshType)
+    protected void addImportingTable(Table table)
     {
-        getDatabase().getPool().register(this);
+        importingTables.add(table);
+    }
 
+    public int getImportingTablesCount()
+    {
+        return importingTables.size();
+    }
+
+    private void loadMetaData()
+    {
         try
         {
             ResultSet resultSet = null;
 
             // TYPE
-            if (refreshType)
+            try
             {
-                try
-                {
-                    resultSet = getMetaData().getTables(getCatalog(), getSchema(), name, null);
-                    if (resultSet.next())
-                        type = TableType.get(resultSet.getString("TABLE_TYPE"));
-                    else
-                        throw new RuntimeException("Unable to retrieve table type: " + name);
-                }
-                finally
-                { close(resultSet); }
+                resultSet = getMetaData().getTables(getCatalog(), getSchema(), name, null);
+                if (resultSet.next())
+                    type = TableType.get(resultSet.getString("TABLE_TYPE"));
+                else
+                    throw new RuntimeException("Unable to retrieve table type: " + name);
+            }
+            finally
+            {
+                close(resultSet);
             }
 
             // COLUMNS
@@ -153,10 +153,12 @@ public class TableImpl extends DatabaseObject implements Table
                 }
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
 
             // PRIMARY KEYS
-            primaryKeys.clear();
+            primaryKeyColumns.clear();
             try
             {
                 resultSet = getMetaData().getPrimaryKeys(getCatalog(), getSchema(), name);
@@ -166,15 +168,17 @@ public class TableImpl extends DatabaseObject implements Table
                     Column column = getColumn(columnName);
                     // create a new, more specific, instance
                     column = new PrimaryKeyColumnImpl(this, columnName, column.getSqlType());
-                    primaryKeys.put(column.getName(), column);
+                    primaryKeyColumns.put(column.getName(), column);
                     columns.put(column.getName(), column);
                 }
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
 
             // FOREIGN KEYS
-            foreignKeys.clear();
+            foreignKeyColumns.clear();
             try
             {
                 resultSet = getMetaData().getImportedKeys(getCatalog(), getSchema(), name);
@@ -184,16 +188,22 @@ public class TableImpl extends DatabaseObject implements Table
                     Column column = getColumn(columnName);
                     // create a new, more specific, instance
                     column = new ForeignKeyColumnImpl(this, columnName, column.getSqlType());
-                    foreignKeys.put(column.getName(), column);
+                    foreignKeyColumns.put(column.getName(), column);
                     columns.put(column.getName(), column);
                 }
             }
             finally
-            { close(resultSet); }
+            {
+                close(resultSet);
+            }
         }
         catch (SQLException e)
         {
             throw new RuntimeException("Unable to refresh table: " + getName());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -288,20 +298,6 @@ public class TableImpl extends DatabaseObject implements Table
         return executeUpdate(queryBuffer.toString(), columnNames, values);
     }
 
-/*
-    public int deleteRow(RowData rowData) throws SQLException
-    {
-        StringBuffer queryBuffer = new StringBuffer();
-
-        queryBuffer.append("DELETE FROM ");
-        queryBuffer.append(getName());
-        queryBuffer.append(" WHERE ");
-        queryBuffer.append(criterion.toSqlString());
-
-        return executeUpdate(queryBuffer.toString());
-    }
-*/
-
     public int deleteRow(Criterion criterion) throws SQLException
     {
         StringBuffer queryBuffer = new StringBuffer();
@@ -319,7 +315,7 @@ public class TableImpl extends DatabaseObject implements Table
         return executeUpdate(query, null, null);
     }
 
-    private Column getColumn(String columnName)
+    public Column getColumn(String columnName)
     {
         return (Column)columns.get(columnName);
     }
@@ -359,7 +355,10 @@ public class TableImpl extends DatabaseObject implements Table
             int count = statement.executeUpdate();
             return count;
         }
-        finally { close(statement); }
+        finally
+        {
+            close(statement);
+        }
     }
 
     private List executeQuery(String query) throws SQLException
