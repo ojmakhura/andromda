@@ -209,8 +209,8 @@ div.screenshot tr.a td, div.screenshot tr.b td
 
 /* syntax highlighting */
 div.source { font-size: 92%; }
-div.jk, div.vk { color: #008; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity reserved keyword */
-div.jl, div.vl { color: #080; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity literal */
+div.jk, div.vk { color: #008; display: inline; font-size: 92%; font-weight: bold;  } /* java,velocity reserved keyword */
+div.jl, div.vl { color: #080; display: inline; font-size: 92%; font-weight: bold;  } /* java,velocity literal */
 div.jc, div.vc { color: #888; display: inline; font-size: 92%; font-style: italic; } /* java,velocity comment */
 div.jn, div.vn { color: #00F; display: inline; font-size: 92%; } /* java,velocity number */
 div.xe { color: #008; display: inline; font-size: 92%; font-weight: bold; } /* xml element */
@@ -220,16 +220,12 @@ div.xc { color: #888; display: inline; font-size: 92%; font-style: italic; } /* 
 
 div#pdf
 {
-    text-align: right;
-    width: 16px;
-    font-size: 68%;
-    position: absolute;
-    top: 30px;
-    right: 60px;
+    position: absolute; top: 20px; right: 0;
+    font-size: 68%; text-align: right;
+    background-color: white;
+    width: 60px; height: 40px;
+    padding-right: 80px;
+    !important;
 }
 
-div#pdf a
-{
-    padding-top: 17px;
-    background: url(images/pdf.gif) top no-repeat;
-}
+div#pdf img { width: 13px; height: 16px; display: block; margin-left: 45px; }
