@@ -10,8 +10,6 @@
         <attainGoal name="multiproject:install"/>	
     </goal> 
            
-    <j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}"/>
-           
     <preGoal name="java:compile"> 
         <attainGoal name="generate-source"/>
     </preGoal>
@@ -40,7 +38,7 @@
                  maven compile path -->
             <ant:path
                 id="metafacade.generated.src"
-                location="${andromda.metafacade.generated.dir}"/>
+                location="${maven.build.src}"/>
             <maven:addPath
                 id="maven.compile.src.set"
                 refid="metafacade.generated.src"/>     
@@ -66,7 +64,7 @@
                      maven compile path -->
                 <ant:path
                     id="metafacade.generated.src"
-                    location="${andromda.metafacade.generated.dir}"/>
+                    location="${maven.build.src}"/>
                 <maven:addPath
                     id="maven.compile.src.set"
                     refid="metafacade.generated.src"/>     		         	
