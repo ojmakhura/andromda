@@ -86,7 +86,7 @@
     <template
         sheet="templates/StrutsFormValidationRules.vsl"
         outputPattern="validator-rules.xml"
-        outlet="validation"
+        outlet="configuration"
         overWrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -220,7 +220,7 @@
 
     <template
         sheet="templates/StrutsLoginFormJsp.vsl"
-        outputPattern="login-form.jsp"
+        outputPattern="login/login-form.jsp"
         outlet="pages"
         overWrite="true">
         <modelElements variable="class">
@@ -230,8 +230,48 @@
 
     <template
         sheet="templates/StrutsLoginErrorJsp.vsl"
-        outputPattern="login-error.jsp"
+        outputPattern="login/login-error.jsp"
         outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsMenuJsp.vsl"
+        outputPattern="layout/menu.jsp"
+        outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsHeaderJsp.vsl"
+        outputPattern="layout/header.jsp"
+        outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsMainLayoutJsp.vsl"
+        outputPattern="layout/main-layout.jsp"
+        outlet="pages"
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndApplication"/>
+        </modelElements>
+    </template>
+
+    <template
+        sheet="templates/StrutsTilesDefs.vsl"
+        outputPattern="tiles-defs.xml"
+        outlet="configuration"
         overWrite="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
