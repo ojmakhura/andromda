@@ -209,20 +209,6 @@
                             to be different than the name of the actor that defines the role).
 			          	</td>
 		        	</tr>	
-                    <tr>
-                        <a name="@andromda.spring.entity.operation.location"/>
-                        <td>
-                            @andromda.spring.entity.operation.location
-                        </td>
-                        <td>
-                            Operation (on an <![CDATA[<<Entity>>]]>)
-                        </td>
-                        <td>
-                            Defines where a modeled business operation on an entity should 
-                            be generated (the DAO or entity itself).  The two possible 
-                            values are <em>dao</em> or <em>entity</em>.                            
-                        </td>
-                    </tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
@@ -235,6 +221,12 @@
                     or to produce service references (from another service)
                     in the Spring applicationContext.xml and within
                     the ServiceBase classes.
+                </p>
+                <p>
+                    Entity business operations can be set to <code>classifier</code> scope
+                    instead of the usual <code>instance</code> scope. By doing so they
+                    will be generated into the corresponding DAO for that entity instead
+                    of the entity implementation class.
                 </p>
             </subsection>
     	</section>
