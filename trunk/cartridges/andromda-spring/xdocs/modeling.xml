@@ -85,7 +85,22 @@
                             By default all service operation parameters are checked for null, if you want
                             a parameter to allow nulls, you'd add this stereotype to the parameter.
 			          	</td>
-		        	</tr>  	      	        	        		        	        	        	     	             	        	
+		        	</tr>  	     
+		        	<tr>
+		        		<a name="Role"/>
+			          	<td>
+			          		<![CDATA[<<Role>>]]>
+			          	</td>
+						<td>
+							Actor
+						</td>
+			          	<td>
+			          		Defines a role providing access to a given service or service operation.
+                            To designate that the role has access to a service you must draw an association
+                            from the role to the service, to designate the role has access to to a given operation, 
+                            you must draw a dependeny from the role to the operation.
+			          	</td>
+		        	</tr>	 	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
     		<subsection name="Supported Tagged Values">
