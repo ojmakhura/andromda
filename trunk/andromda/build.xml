@@ -12,10 +12,10 @@
       <pathelement path="${andromda-core.classpath}"/>
     </path>
     
-	<path id="build.classpath">
-		<path refid="andromda-core.classpath"/>
-	</path>
-	
+    <path id="build.classpath">
+        <path refid="andromda-core.classpath"/>
+    </path>
+    
     <!-- ============================================================= -->
     <!--                      Define the directory layout              -->
     <!-- ============================================================= -->
@@ -38,8 +38,6 @@
 
     <!-- Distribution directories -->
     <property name="dist.dir" value="dist/" />
-    <property name="dist.stage.dir" value="${dist.dir}predist/" />
-
 
     <path id="build.class.path">
         <pathelement location="${build.classes.dir}" />
@@ -77,60 +75,37 @@
 
     <!--
          Clean up everything, so the distribution has a clear start.
-         Compile all Java classes, make JAR file and ZIP everything
-         to make a distribution unit.
-         This is mostly intended to be run from a CVS checkout and
-         let Matthias make a new release.
+         Compile all Java classes and make JAR files.
     -->
 
     <target name="dist" depends="clean,build"
             description="Deletes old built files and prepares a staging structure for the distribution zip">
         <!-- create the distribution directory structure -->
-        <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.stage.dir}"/>
-        <mkdir dir="${dist.stage.dir}/doc/"/>
-        <mkdir dir="${dist.stage.dir}/doc/javadoc/"/>
-        <mkdir dir="${dist.stage.dir}/lib/"/>
-        <mkdir dir="${dist.stage.dir}/src"/>
+        <mkdir dir="${dist.dir}/doc/"/>
+        <mkdir dir="${dist.dir}/doc/javadoc/"/>
+        <mkdir dir="${dist.dir}/lib/"/>
 
         <!-- copy everything into the stage dir -->
-        <copy todir="${dist.stage.dir}">
-            <fileset dir="." includes="build.xml"/>
+        <copy todir="${dist.dir}">
             <fileset dir="." includes="andromda-core.properties"/>
             <fileset dir="." includes="xdoclet.properties"/>
             <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
             <fileset dir="${license.src.dir}" includes="LICENSE"/>
         </copy>
 
-        <copy todir="${dist.stage.dir}/src/">
-            <fileset dir="${src.dir}">
-                <exclude name="sample/**" />
-                <exclude name="xdocs/**" />
-                <!-- do not include GPL'ed software because our license is BSD! -->
-                <exclude name="bin/java2html.jar" />
-            </fileset>
-        </copy>
-
-        <copy todir="${dist.stage.dir}/doc/javadoc">
+        <copy todir="${dist.dir}/doc/javadoc">
             <fileset dir="${build.doc.dir}/javadoc">
             </fileset>
         </copy>
 
-        <!-- do not zip from source tree, but ... -->
-        <!-- keep dist.stage.dir an exact copy of the two zips -->
-        <copy todir="${dist.stage.dir}/lib/">
+        <copy todir="${dist.dir}/lib/">
             <fileset dir="lib" includes="*"/>
         </copy>
 
-        <!-- zip everything into the release archives -->
-        <zip zipfile="${dist.dir}andromda-core.zip">
-            <zipfileset dir="${dist.stage.dir}" prefix="andromda-core">
-                <exclude name="lib/**" />
-            </zipfileset>
-        </zip>
-        <zip zipfile="${dist.dir}andromda-libs.zip">
-            <zipfileset dir="${dist.stage.dir}" includes="lib/*" prefix="andromda-core" />
-        </zip>
+        <copy todir="${dist.dir}/src/xml">
+            <fileset dir="src/xml" includes="*"/>
+        </copy>
+
     </target>
 
 
@@ -199,10 +174,10 @@
 
     <target name="check-environment">
 
-		<property name="buildclasspath" refid="build.classpath"/>
-		
-		<echo message="classpath = ${buildclasspath}" />
-		
+        <property name="buildclasspath" refid="build.classpath"/>
+        
+        <echo message="classpath = ${buildclasspath}" />
+        
         <available property="mdr.present"
                classname="org.netbeans.mdr.NBMDRepositoryImpl"
                classpathref="build.class.path"/>

@@ -1,41 +1,38 @@
 <project name="AndroMDAAsAWholePackage" default="dist">
 
-    <property name="version" value="2.0.1" />
-    <property name="version.suffix" value="201alpha" />
+    <property name="version" value="2.0.2" />
+    <property name="version.suffix" value="202" />
 
     <!-- ============================================================= -->
     <!--               Directory settings                              -->
     <!-- ============================================================= -->
 
     <!-- destination directories -->
-    <property name="dist.dir"         value="dist"   />
-    <property name="dist.stage.dir" location="${dist.dir}/predist"/>
-    <property name="andromda.home" location="${dist.stage.dir}" />
+    <property name="dist.dir"      value="dist"   />
+    <property name="andromda.home" location="${dist.dir}" />
 
     <!-- ============================================================= -->
     <!--               Internal targets                                -->
     <!-- ============================================================= -->
 
     <target name="buildComponent">
-    	<echo message="buildComponent ${component.name} ${prefix}"/>
+        <echo message="buildComponent ${component.name} ${prefix}"/>
         <ant inheritAll="false" dir="${component.name}" target="dist" >
-          <property name="dist.stage.dir" location="${dist.stage.dir}/${prefix}/"/>
           <property name="andromda.home" location="${andromda.home}"/>
           <property file="build.properties" />
         </ant>
-        <move taskname="${component.name}" todir="${dist.dir}">
+        <move taskname="${component.name}" todir="${dist.dir}/${prefix}">
           <fileset dir="${component.name}/dist">
-            <include name="*.*"/>
+            <include name="**/*"/>
           </fileset>
-          <mapper type="regexp" from="^(.*)\.(.*)$$" to="\1-${version.suffix}.\2"/>
         </move>
     </target>
 
-	<target name="cleanComponent">
-		<echo message="cleanComponent ${component.name}"/>
-		<ant inheritAll="false" dir="${component.name}" target="clean"/>
-	</target>
-	
+    <target name="cleanComponent">
+        <echo message="cleanComponent ${component.name}"/>
+        <ant inheritAll="false" dir="${component.name}" target="clean"/>
+    </target>
+
     <!-- ============================================================= -->
     <!--               Highlevel user tasks                            -->
     <!-- ============================================================= -->
@@ -44,13 +41,12 @@
     <target name="init">
         <tstamp/>
         <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.stage.dir}"/>
     </target>
 
     <!-- Remove directory structure -->
     <target name="clean" description="Removes all generated files">
         <delete dir="${dist.dir}"/>
-        
+
         <antcall target="cleanComponent">
           <param name="component.name" value="andromda"/>
         </antcall>
@@ -71,6 +67,13 @@
     <target name="dist" depends="clean,init"
             description="Builds core, cartridges, samples and documentation">
 
+        <!-- zip everything into the source archive -->
+        <zip zipfile="${dist.dir}/andromda-src-${version.suffix}.zip">
+            <zipfileset dir="." prefix="andromda-src">
+                <include name="**/*" />
+            </zipfileset>
+        </zip>
+
         <antcall target="buildComponent">
           <param name="component.name" value="andromda"/>
           <param name="prefix" value="andromda-core"/>
@@ -78,7 +81,7 @@
 
         <antcall target="buildComponent">
           <param name="component.name" value="cartridges"/>
-          <param name="prefix" value=""/>
+          <param name="prefix" value="cartridges"/>
         </antcall>
 
         <antcall target="buildComponent">
@@ -90,6 +93,15 @@
           <param name="component.name" value="documentation"/>
           <param name="prefix" value="docs"/>
         </antcall>
+
+        <!-- zip everything into the release archive -->
+        <zip zipfile="${dist.dir}/andromda-bin-${version.suffix}.zip">
+            <zipfileset dir="${dist.dir}" prefix="andromda-bin">
+                <include name="**/*" />
+                <exclude name="andromda-bin-${version.suffix}.zip" />
+                <exclude name="andromda-src-${version.suffix}.zip" />
+            </zipfileset>
+        </zip>
 
     </target>
 

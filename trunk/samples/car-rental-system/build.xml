@@ -4,11 +4,11 @@
     <!-- This should define the properties andromda-core.home and build.classpath -->
     <property file="build.properties" />
     <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
-    <property name="andromda-java.home" location="${andromda.home}/andromda-java"/>
-    <property name="andromda-ejb.home" location="${andromda.home}/andromda-ejb"/>
-    <property name="andromda-hibernate.home" location="${andromda.home}/andromda-hibernate"/>
-    <property name="andromda-struts.home" location="${andromda.home}/andromda-struts"/>
-    
+    <property name="andromda-java.home" location="${andromda.home}/cartridges/andromda-java"/>
+    <property name="andromda-ejb.home" location="${andromda.home}/cartridges/andromda-ejb"/>
+    <property name="andromda-hibernate.home" location="${andromda.home}/cartridges/andromda-hibernate"/>
+    <property name="andromda-struts.home" location="${andromda.home}/cartridges/andromda-struts"/>
+
     <property file="${andromda-core.home}/andromda-core.properties"/>
     <property file="${andromda-core.home}/xdoclet.properties"/>
     <property file="${andromda-java.home}/andromda-java.properties"/>
@@ -16,21 +16,21 @@
     <property file="${andromda-hibernate.home}/andromda-hibernate.properties"/>
     <property file="${andromda-struts.home}/andromda-struts.properties"/>
 
-	<!-- classpath for using AndroMDA to compile UML -->
-	<path id="andromda.classpath">
-	   <pathelement location="${andromda-core.home}/andromda.jar"/>
+    <!-- classpath for using AndroMDA to compile UML -->
+    <path id="andromda.classpath">
+       <pathelement location="${andromda-core.home}/andromda.jar"/>
        <pathelement path="${andromda-core.classpath}"/>
        <pathelement path="${andromda-java.classpath}"/>
        <pathelement path="${andromda-ejb.classpath}"/>
        <pathelement path="${andromda-hibernate.classpath}"/>
        <pathelement path="${andromda-struts.classpath}"/>
-	</path>
-	
-	<path id="j2ee.classpath">
-	  <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
-	  <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
-	</path>
-	
+    </path>
+    
+    <path id="j2ee.classpath">
+      <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
+      <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
+    </path>
+    
     <!-- Define our class path -->
     <path id="build.class.path">
         <path refid="andromda.classpath"/>
@@ -71,8 +71,6 @@
     <target name="init" depends="check-environment">
         <tstamp/>
         <mkdir dir="dist"/>
-        <mkdir dir="dist/predist"/>
-        <mkdir dir="dist/predist/source"/>
 
         <mkdir dir="build"/>
         <mkdir dir="build/earstage"/>
@@ -103,24 +101,11 @@
             description="Builds all jars and the database schema"/>
 
     <target name="dist" depends="clean,build"
-            description="Builds distribution ZIP">
-      <copy todir="dist/predist" >
+            description="Builds distribution structure">
+      <copy todir="dist">
           <fileset dir="build/" includes="*.ear" />
           <fileset dir="build/" includes="hibernate-schema.txt" />
       </copy>
-      <copy todir="dist/predist/source" >
-            <fileset dir=".">
-               <exclude name="**/generated/**" />
-               <exclude name="**/hibernate/**" />   <!-- FIXME: when hibernate runs! -->
-               <exclude name="**/build/**" />
-               <exclude name="**/dist/**" />
-               <exclude name="*.log" />
-               <exclude name="build.properties" />
-            </fileset>
-      </copy>
-      <zip zipfile="dist/andromda-car-rental-system.zip">
-          <fileset dir="dist/predist" includes="**/*" />
-      </zip>
     </target>
 
     <!--
@@ -152,14 +137,14 @@
     <!-- Put andromda to work. -->
     <!-- Generate the enterprise bean sources from the UML model -->
     <target name="genejbjava" depends="init">
-    
-    	<property name="andromda.classpath" refid="andromda.classpath"/>
-    	<echo message="andromda.classpath = ${andromda.classpath}"/>
-    	
+
+        <property name="andromda.classpath" refid="andromda.classpath"/>
+        <echo message="andromda.classpath = ${andromda.classpath}"/>
+
         <taskdef name="andromda"
                  classname="org.andromda.core.anttasks.AndroMDAGenTask"
                  classpathref="andromda.classpath"/>
-        
+
 
         <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
 
