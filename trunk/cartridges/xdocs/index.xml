@@ -506,7 +506,8 @@
     path="templates/ejb-jar.xml.vsl"
     outputPattern="ejb-jar.xml"
     outlet="ejb-jar-descriptor"
-    overwrite="true">
+    overwrite="true"
+    outputToSingleFile="true">
     <modelElements variable="ejbs">
         <modelElement stereotype="Entity" variable="entityEjbs"/>
         <modelElement stereotype="Service" variable="sessionEjbs"/>
