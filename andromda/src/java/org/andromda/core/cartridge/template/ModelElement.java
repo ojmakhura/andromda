@@ -77,7 +77,7 @@ public class ModelElement
      * Adds the <code>type</code> to the collection of types belonging to this
      * model element.
      * 
-     * @param type the {@link Type} instance.
+     * @param type the {@link Type}instance.
      */
     public void addType(Type type)
     {
@@ -182,6 +182,12 @@ public class ModelElement
                                 metafacade,
                                 property.getName(),
                                 property.getValue());
+                            if (!accept)
+                            {
+                                // break out of the loop on the first invalid
+                                // property since all propertie should be valid.
+                                break;
+                            }
                         }
                     }
                 }

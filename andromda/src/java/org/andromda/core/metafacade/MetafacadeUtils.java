@@ -146,7 +146,7 @@ class MetafacadeUtils
                                     + "' on metafacade '" + metafacade
                                     + "', evaluated to --> '" + valid + "'");
                         // if the property is invalid, we break out
-                        // of the loop (since we're evaluating)
+                        // of the loop (since we're evaluating with 'AND')
                         if (!valid)
                         {
                             break;
