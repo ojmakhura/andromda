@@ -412,10 +412,10 @@ BUILD SUCCESSFUL
 
             <p>
                 Congratulations, just now you have created your first AndroMDA project and you are ready
-                to start modeling. The generated project in this example allows you to model entities and services, 
-                the services can be accessed via webservices which in turn can be used by a Struts front-end. 
-                The generated code is J2EE compliant and will by default deploy in a JBoss container compatible 
-                with the generated J2EE implementation (at the time of this writing that would be 
+                to start modeling. The generated project in this example allows you to model entities and services,
+                the services can be accessed via webservices which in turn can be used by a Struts front-end.
+                The generated code is J2EE compliant and will by default deploy in a JBoss container compatible
+                with the generated J2EE implementation (at the time of this writing that would be
                 J2EE 1.3 on JBoss 3.2.6 or above).
             </p>
             <p>
@@ -435,7 +435,7 @@ BUILD SUCCESSFUL
                     <li>Start your favorite UML tool and open the empty UML model that has been created
                         for you, you can find it in the <code>mda/src/uml</code> subdirectory, in our example it is
                         called <code>AndroMDAExampleModel.xmi</code>.</li>
-                    <li>MagicDraw will prompty you for a file with a name starting with <code>andromda-profile</code>
+                    <li>MagicDraw will prompt you for a file with a name starting with <code>andromda-profile</code>
                         and extension <code>.xml.zip</code>, it will have been downloaded by Maven during the build
                         process and stored in your local Maven repository, eg.
                         <code>C:\Documents and Settings\foo\.maven\repository\andromda\xml.zips</code></li>. You might
