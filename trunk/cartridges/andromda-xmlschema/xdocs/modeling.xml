@@ -20,7 +20,7 @@
 		        	<tr>
 		        		<a name="XmlSchema"/>
 			          	<td>
-			          		<![CDATA[<<XmlSchemaType>>]]>
+			          		<strong><![CDATA[<<XmlSchemaType>>]]></strong>
 			          	</td>
 						<td>
 							Classifier
@@ -32,7 +32,7 @@
 		        	<tr>
 		        		<a name="XmlAttribute"/>
 			          	<td>
-			          		<![CDATA[<<XmlAttribute>>]]>
+			          		<strong><![CDATA[<<XmlAttribute>>]]></strong>
 			          	</td>
 						<td>
 							Attribute
@@ -46,13 +46,13 @@
                     <tr>
 		        		<a name="Enumeration"/>
 			          	<td>
-			          		<![CDATA[<<Enumeration>>]]>
+			          		<strong><![CDATA[<<Enumeration>>]]></strong>
 			          	</td>
 						<td>
 							Classifier with <![CDATA[<<XmlSchemaType>>]]>
 						</td>
 			          	<td>
-			          		Generates an simple enumeration XSD type.
+			          		Generates a simple enumeration XSD type.
 			          	</td>
                     </tr>
                 </table>
