@@ -1,9 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
@@ -15,6 +11,8 @@ import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +24,10 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -112,21 +114,41 @@ public class ModelElementFacadeLogicImpl
     public Collection handleFindTaggedValues(String name)
     {
         Collection values = new ArrayList();
+
+        // only search a tagged value when it actually has a name
         if (StringUtils.isNotBlank(name))
         {
+            // trim the name, we don't want leading/trailing spaces
             name = StringUtils.trimToEmpty(name);
+            // loop over the tagged values
             Collection taggedValues = this.getTaggedValues();
             for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator
                 .hasNext();)
             {
                 TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator
                     .next();
+                // does this name match the argument tagged value name ?
                 if (name.equals(taggedValue.getName()))
                 {
                     for (Iterator valueIterator = taggedValue.getValues()
                         .iterator(); valueIterator.hasNext();)
                     {
-                        values.add(valueIterator.next());
+                        // only process tagged values when they actually have a non-empty value
+                        Object value = valueIterator.next();
+                        if (value != null)
+                        {
+                            // if an enumeration literal is referenced we assume its name
+                            if (value instanceof EnumerationLiteralFacade)
+                            {
+                                values.add(((EnumerationLiteralFacade)value).getName());
+                            }
+                            else
+                            // for the other cases we pass in the object directly
+                            // (otherwise hyperlinking would not work)
+                            {
+                                values.add(value);
+                            }
+                        }
                     }
                 }
             }
