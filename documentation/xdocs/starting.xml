@@ -19,14 +19,10 @@
                 in order to achieve that you should create a file called <code>build.properties</code>
                 in your home directory (for example <code>C:\Documents and Settings\Wouter</code> on Windows),
                 this file should be a plain text file and should contain this line:
-                <source>
-maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven
-                </source>
+                <code>maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven</code>
                 Once you have done that you will be able to succesfully execute the following command that will
                 install the AndroMDA Maven plugin to generate AndroMDA projects:
-                <source>
-maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.0M3-SNAPSHOT
-                </source>
+                <code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.0M3-SNAPSHOT</code>
                 For more information you can also read the
                 <a href="http://maven.apache.org/reference/user-guide.html#Properties_Processing">Maven user guide</a>.
             </p>
