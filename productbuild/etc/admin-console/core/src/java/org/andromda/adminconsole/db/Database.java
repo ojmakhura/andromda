@@ -11,7 +11,7 @@ public interface Database extends Serializable
 
     public DatabaseMetaData getMetaData();
 
-    public DatabasePool getPool();
+    public String[] getAllTableNames();
 
-    public Table[] getTables();
+    public Table findTable(String tableName);
 }
