@@ -96,16 +96,16 @@ public class ExceptionRecorder
             exceptionFile = new File(exceptionDirectory, tempName);
             result = exceptionFile.getCanonicalPath();
             writer = new PrintWriter(new FileWriter(exceptionFile));
-            writer.println("*** AndroMDA Exception Recording ***");
-            writer.println("Andromda Version: " + getAndromdaVersion());
-            writer.println("Error: " + message);
-            writer.println("Main Exception: " + throwable.getMessage());
+            writer.println("------- AndroMDA Exception Recording -------");
+            writer.println("Version --> " + getAndromdaVersion());
+            writer.println("Error --> " + message);
+            writer.println("Main Exception --> " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);
             if (cause == null)
             {
                 cause = throwable;
             }
-            writer.println("Root Exception: " + cause);
+            writer.println("Root Exception --> " + cause);
             cause.printStackTrace(writer);
             writer.close();
             AndroMDALogger.info("Exception recorded in --> '" + result + "'");
