@@ -16,12 +16,12 @@ public class OCLIntrospectorTest
     /**
      * Constructor for OCLIntrospectorTest.
      * 
-     * @param arg0
+     * @param name
      */
     public OCLIntrospectorTest(
-        String arg0)
+        String name)
     {
-        super(arg0);
+        super(name);
     }
 
     /**
