@@ -45,8 +45,9 @@
 #else
                 //<!--
 #end
-                    document.login.j_username.focus();
-                    document.login.j_username.select();
+                    var field = document.forms["login"].elements["j_username"];
+                    field.focus();
+                    field.select();
 #if ($xhtml == "true")
                 //]]>
 #else
