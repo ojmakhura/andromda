@@ -22,7 +22,7 @@ public class ExceptionRecorder
     private static final Logger logger = Logger
         .getLogger(ExceptionRecorder.class);
 
-    /** Andromda version * */
+    /** Andromda version */
     private static String andromdaVersion = "not set";
 
     /** The exceptions directory name:exceptions. */
