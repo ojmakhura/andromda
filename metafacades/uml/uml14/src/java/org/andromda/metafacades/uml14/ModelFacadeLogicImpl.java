@@ -27,8 +27,8 @@ public class ModelFacadeLogicImpl
 
     // ------------- relations ------------------
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ModelDecorator#handleGetRootPackage()
+    /**
+     * @see org.andromda.core.metadecorators.uml.ModelDecorator#getRootPackage()
      */
     protected Object handleGetRootPackage()
     {
