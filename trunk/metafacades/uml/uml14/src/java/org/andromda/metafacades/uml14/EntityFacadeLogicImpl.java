@@ -578,31 +578,42 @@ public class EntityFacadeLogicImpl
     }
 
     /**
+     * Keeps track of whether or not a check for foreign identifiers was already
+     * performed (since we only want it to occur once).
+     */
+    boolean foreignIdentifiersCheckPerformed = false;
+
+    /**
      * Checks to see if this entity has any associations where the foreign
      * identifier flag may be set, and if so creates and adds identifiers just
      * like the foreign entity to this entity.
      */
     private void checkForAndAddForeignIdentifiers(boolean follow)
     {
-        EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
-        if (end != null
-            && EntityFacade.class.isAssignableFrom(end.getType().getClass()))
+        if (!this.foreignIdentifiersCheckPerformed)
         {
-            EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
-                .getType();
-            Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
-                foreignEntity,
-                follow);
-            for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
-                .hasNext();)
+            EntityAssociationEndFacade end = this.getForeignIdentifierEnd();
+            if (end != null
+                && EntityFacade.class
+                    .isAssignableFrom(end.getType().getClass()))
             {
-                AttributeFacade identifier = (AttributeFacade)identifierIterator
-                    .next();
-                this.createIdentifier(identifier.getName(), identifier
-                    .getType().getFullyQualifiedName(true), identifier
-                    .getVisibility());
+                EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
+                    .getType();
+                Collection identifiers = EntityMetafacadeUtils.getIdentifiers(
+                    foreignEntity,
+                    follow);
+                for (Iterator identifierIterator = identifiers.iterator(); identifierIterator
+                    .hasNext();)
+                {
+                    AttributeFacade identifier = (AttributeFacade)identifierIterator
+                        .next();
+                    this.createIdentifier(identifier.getName(), identifier
+                        .getType().getFullyQualifiedName(true), identifier
+                        .getVisibility());
+                }
             }
         }
+        this.foreignIdentifiersCheckPerformed = true;
     }
 
     /**
@@ -612,28 +623,28 @@ public class EntityFacadeLogicImpl
     {
         return this.getForeignIdentifierEnd() != null;
     }
-    
+
     /**
-     * Gets the association end that is flagged as having the 
-     * foreign identifier set (or null if none is).
+     * Gets the association end that is flagged as having the foreign identifier
+     * set (or null if none is).
      */
     private EntityAssociationEndFacade getForeignIdentifierEnd()
     {
-        return (EntityAssociationEndFacade)CollectionUtils
-        .find(this.getAssociationEnds(), new Predicate()
+        return (EntityAssociationEndFacade)CollectionUtils.find(this
+            .getAssociationEnds(), new Predicate()
         {
             public boolean evaluate(Object object)
             {
                 boolean valid = false;
                 if (object != null
-                    && EntityAssociationEndFacade.class
-                        .isAssignableFrom(object.getClass()))
+                    && EntityAssociationEndFacade.class.isAssignableFrom(object
+                        .getClass()))
                 {
                     EntityAssociationEndFacade end = (EntityAssociationEndFacade)object;
                     valid = end.isForeignIdentifier();
                 }
                 return valid;
             }
-        });        
+        });
     }
 }
