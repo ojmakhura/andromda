@@ -43,7 +43,7 @@
       </p>
       <p class="std">
         <b>Example:</b> You can tag a CustomerService class with a
-        <code>&lt;&lt;service&gt;&gt;</code> stereotype. AndroMDA sees this stereotype,
+        <code>&lt;&lt;Service&gt;&gt;</code> stereotype. AndroMDA sees this stereotype,
         looks into its internal dictionary of available code generation components (called "cartridges") and
         finds the EJB cartridge, for example. In that cartridge, two templates correspond
         to this stereotype: SessionBean.vsl and
@@ -169,7 +169,7 @@
         A small model, tagged with this kind of stereotypes,
         can be seen in this picture:
       </p>
-      <img src="images/CarRentalCustomers.gif" width="408" height="496" />
+      <img src="images/CarRentalCustomers.gif" width="624" height="590" />
       <p class="std">
         <b>Rule 2: Primary keys of entity beans must be Strings!</b>
       </p>
