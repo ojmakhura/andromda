@@ -181,9 +181,9 @@
                         pluralizeAssociationEndNames
                     </td>
                     <td>
-                        Turns on/off the pluralization of association ends with many multiplicities.
-                        You'll want to turn off this feature if your model is in a language other
-                        than english.
+                        Turns on/off the pluralization of association ends with multiplicities 
+                        greater than one.  You'll want to turn off this feature if your model 
+                        is in a language other than english.
                     </td>
                     <td>
                         AssociationEndFacade
