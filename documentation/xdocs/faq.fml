@@ -171,6 +171,32 @@
                 </p>
             </answer>
         </faq>
+
+        <faq id="logging">
+            <question>
+                I would like to tune the way AndroMDA is logging differently in a production environment
+                than in a development environment. Can specify a custom logging configuration ?
+            </question>
+            <answer>
+                <p>
+                    Yes, both Maven as well as Ant have a property enabling you to point to a
+                    <a href="http://logging.apache.org/log4j/docs/">log4j</a> XML configuration file. The default
+                    configuration file used can be found in the <code>andromda-core-XXX.jar</code> artifact. Open
+                    this jar file and go into the <code>/org/andromda/core/common</code> directory, you will see the
+                    <code>log4j.xml</code> file there. Copy it to an external location, edit it and point to it
+                    using the property.
+                </p>
+                <p>
+                    Maven users specify <code>maven.andromda.loggingConfigurationUri</code> in their
+                    <code>project.properties</code> file, Ant users use the <code>loggingConfigurationUri</code>
+                    property in their <code>build.xml</code>. The location of the <code>log4j.xml</code>file
+                    must be preceeded by the <code>file:</code> prefix. Here's an example:
+                </p>
+                <p>
+                    <code>maven.andromda.loggingConfigurationUri=file:${logging.cfg.dir}/my-log4j.xml</code>
+                </p>
+            </answer>
+        </faq>
     </part>
 
     <part id="development">
