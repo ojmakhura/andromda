@@ -5,7 +5,7 @@ import org.andromda.cartridges.database.DatabaseProfile;
 import org.andromda.core.metafacade.MetafacadeFactoryException;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -230,24 +230,24 @@ public class TableLogicImpl
     protected Collection handleGetIdentifierForeignKeyColumns()
     {
         Collection columns = null;
-        EntityAssociationEndFacade end =
-            (EntityAssociationEndFacade)CollectionUtils.find(
+        EntityAssociationEnd end =
+            (EntityAssociationEnd)CollectionUtils.find(
                 this.getAssociationEnds(),
                 new Predicate()
             {
                 public boolean evaluate(Object object)
                 {
                     boolean valid = false;
-                    if (EntityAssociationEndFacade.class
+                    if (EntityAssociationEnd.class
                         .isAssignableFrom(object.getClass()))
                     {
-                        valid = ((EntityAssociationEndFacade)object)
+                        valid = ((EntityAssociationEnd)object)
                             .isForeignIdentifier();
                     }
                     return valid;
                 }
             });
-        if (end != null && EntityAssociationEndFacade.class.isAssignableFrom(end.getClass()))
+        if (end != null && EntityAssociationEnd.class.isAssignableFrom(end.getClass()))
         {
             columns = ((Table)end.getType()).getIdentifiers();
         }
