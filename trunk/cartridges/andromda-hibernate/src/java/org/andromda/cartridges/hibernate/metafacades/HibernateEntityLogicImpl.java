@@ -31,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
  * Also provides support for not generating the impls which is useful when using
  * subclass mode.
  * </p>
+ * 
  * @author Martin West
  * @author Carlos Cuenca
  */
@@ -660,11 +661,14 @@ public class HibernateEntityLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateProxy()
      */
-    protected boolean handleIsHibernateProxy() {
-        String hibernateProxy = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
+    protected boolean handleIsHibernateProxy()
+    {
+        String hibernateProxy = (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
         if (hibernateProxy == null)
         {
-            hibernateProxy = (String) this.getConfiguredProperty("hibernateProxy");
+            hibernateProxy = (String)this
+                .getConfiguredProperty("hibernateProxy");
         }
         return Boolean.valueOf(hibernateProxy).booleanValue();
     }
