@@ -172,82 +172,82 @@ public class OCLExpressions
         return first <= second;
     }
 
-    public static boolean more(Comparable first, Comparable second)
+    public static boolean greater(Comparable first, Comparable second)
     {
         return (first == null) ? (second == null) : (first.compareTo(second) > 0);
     }
 
-    public static boolean more(int first, int second)
+    public static boolean greater(int first, int second)
     {
         return first > second;
     }
 
-    public static boolean more(short first, short second)
+    public static boolean greater(short first, short second)
     {
         return first > second;
     }
 
-    public static boolean more(byte first, byte second)
+    public static boolean greater(byte first, byte second)
     {
         return first > second;
     }
 
-    public static boolean more(char first, char second)
+    public static boolean greater(char first, char second)
     {
         return first > second;
     }
 
-    public static boolean more(float first, float second)
+    public static boolean greater(float first, float second)
     {
         return first > second;
     }
 
-    public static boolean more(double first, double second)
+    public static boolean greater(double first, double second)
     {
         return first > second;
     }
 
-    public static boolean more(long first, long second)
+    public static boolean greater(long first, long second)
     {
         return first > second;
     }
 
-    public static boolean moreOrEqual(Comparable first, Comparable second)
+    public static boolean greaterOrEqual(Comparable first, Comparable second)
     {
         return (first == null) ? (second == null) : (first.compareTo(second) >= 0);
     }
 
-    public static boolean moreOrEqual(int first, int second)
+    public static boolean greaterOrEqual(int first, int second)
     {
         return first >= second;
     }
 
-    public static boolean moreOrEqual(short first, short second)
+    public static boolean greaterOrEqual(short first, short second)
     {
         return first >= second;
     }
 
-    public static boolean moreOrEqual(byte first, byte second)
+    public static boolean greaterOrEqual(byte first, byte second)
     {
         return first >= second;
     }
 
-    public static boolean moreOrEqual(char first, char second)
+    public static boolean greaterOrEqual(char first, char second)
     {
         return first >= second;
     }
 
-    public static boolean moreOrEqual(float first, float second)
+    public static boolean greaterOrEqual(float first, float second)
     {
         return first >= second;
     }
 
-    public static boolean moreOrEqual(double first, double second)
+    public static boolean greaterOrEqual(double first, double second)
     {
         return first >= second;
     }
 
-    public static boolean moreOrEqual(long first, long second)
+    public static boolean greaterOrEqual(long first, long second)
     {
         return first >= second;
     }
