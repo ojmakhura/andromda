@@ -16,7 +16,7 @@
 #foreach ($service in $services)
 #if (!$service.allowedOperations.empty)
 #parse("templates/webservice/Globals.vm")
-    <service name="${serviceName}" provider="java:${service.provider}" style="$service.style" use="$service.use">
+    <service name="${service.name}" provider="java:${service.provider}" style="$service.style" use="$service.use">
 ## if the signedRequest or encyptedRequest flag is true, then we'll add in the appropriate
 ## handler
 #if ($signedRequest == 'true'|| $encryptedRequest == 'true')
@@ -67,7 +67,7 @@ $service.getDocumentation("            ", 64, false)
 #set ($serialPrefix = "Array")
             qname="ns${velocityCount}:${type.arrayName}" 
 #else
-            qname="ns${velocityCount}:${type.name}" 
+            qname="ns${velocityCount}:${type.qName}" 
 #if ($type.enumeration)
 #set ($serialPrefix = "Enum")
 #end

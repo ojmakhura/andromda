@@ -185,7 +185,7 @@ public class OperationFacadeLogicImpl
             Parameter p = (Parameter)i.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
             {
-                type = (ClassifierFacade)this.shieldedElement(p.getType());
+                type = p.getType();
                 break;
             }
         }

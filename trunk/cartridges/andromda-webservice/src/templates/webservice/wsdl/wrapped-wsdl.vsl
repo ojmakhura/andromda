@@ -4,7 +4,7 @@
 #parse("templates/webservice/Globals.vm") 
 #set ($namespacePrefix = "impl")
 <wsdl:definitions 
-    name="${service.name}" 
+    name="${service.qName}" 
     targetNamespace="${service.namespace}" 
     xmlns:${namespacePrefix}="${service.namespace}" 
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
@@ -53,7 +53,7 @@
 #if ($typeMapping.many)
             <xsd:complexType name="${type.arrayName}">
                 <xsd:sequence>
-                    <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${namespacePrefix}:${type.name}" /> 
+                    <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${namespacePrefix}:${type.qName}" /> 
                 </xsd:sequence>
             </xsd:complexType>
 #end
@@ -68,7 +68,7 @@
 #foreach ( $attribute in $type.attributes ) 
 #set ($enumType = $attribute.type.schemaType)
 #end
-            <xsd:simpleType name="${type.name}">
+            <xsd:simpleType name="${type.qName}">
                 <xsd:restriction base="$enumType">
 #foreach ( $attribute in $type.attributes ) 
                     <xsd:enumeration value="${escapeUtils.escapeXml($attribute.defaultValue.replaceAll('"', ''))}"/>
@@ -76,7 +76,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
 #else
-            <xsd:complexType name="${type.name}">
+            <xsd:complexType name="${type.qName}">
                 <xsd:annotation>     
                     <xsd:documentation> 
 $type.getDocumentation("                        ", 64, false)
@@ -93,7 +93,7 @@ $type.getDocumentation("                        ", 64, false)
 #if ($otherEnd.many)
 #set ($schemaType = "${namespacePrefix}:${type.arrayName}")
 #else
-#set ($schemaType = "${namespacePrefix}:${type.name}")
+#set ($schemaType = "${namespacePrefix}:${type.qName}")
 #end                
                     <xsd:element name="$otherEnd.name" nillable="$otherEnd.required" type="${schemaType}"/>   
 #end    
@@ -117,7 +117,7 @@ $type.getDocumentation("                        ", 64, false)
 #end
 
     <!-- Port Type -->
-    <wsdl:portType name="${service.name}">
+    <wsdl:portType name="${service.qName}">
 #foreach ( $operation in $service.allowedOperations )
         <wsdl:operation name="${operation.name}">
                 
@@ -132,8 +132,9 @@ $operation.getDocumentation("                ", 64, false)
 #end
     </wsdl:portType>
     
+#set ($serviceBindingName = "${service.qName}SoapBinding") 
     <!-- WSDL Binding -->
-    <wsdl:binding name="${service.name}SoapBinding" type="${namespacePrefix}:${service.name}">
+    <wsdl:binding name="${serviceBindingName}" type="${namespacePrefix}:${service.qName}">
         <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 #foreach ( $operation in $service.allowedOperations )
         <wsdl:operation name="${operation.name}">
@@ -149,11 +150,11 @@ $operation.getDocumentation("                ", 64, false)
     </wsdl:binding>
     
     <!-- Service Definition -->
-    <wsdl:service name="${service.name}Service">
+    <wsdl:service name="${service.qName}Service">
         <wsdl:documentation> 
 $service.getDocumentation("            ", 64, false)
         </wsdl:documentation>
-        <wsdl:port binding="${namespacePrefix}:${service.name}SoapBinding" name="${service.name}">
+        <wsdl:port binding="${namespacePrefix}:${serviceBindingName}" name="${service.qName}">
             <wsdlsoap:address location="${wsdlSoapAddress}/${service.name}"/>
         </wsdl:port>
     </wsdl:service>

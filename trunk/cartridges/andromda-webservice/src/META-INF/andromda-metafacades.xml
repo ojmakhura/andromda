@@ -2,26 +2,22 @@
 
 <metafacades namespace="webservice">
 	<property reference="namespacePrefix" default="impl"/>
+    <property reference="qualifiedNameLocalPartPattern" default="{0}"/>
+    <property reference="namespacePattern" default="http://{0}"/>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
 		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <property reference="schemaTypeMappingsUri"/>
-        <property reference="typeNamePrefix" default=""/>
-        <property reference="typePackageNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <property reference="schemaTypeMappingsUri"/>
-        <property reference="typeNamePrefix" default=""/>
-        <property reference="typePackageNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
 		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
 		<property reference="schemaTypeMappingsUri"/>
-	    <property reference="typeNamePrefix" default=""/>
-	    <property reference="typePackageNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
