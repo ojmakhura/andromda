@@ -142,7 +142,7 @@ $operation.getDocumentation("     * ")
             return false;
         }
 #else
-        if (this.$identifier.name == null ? that.$identifier.name != null : !this.${identifier.name}.equals(that.$identifier.name)) 
+        if (this.$identifier.name == null || that.$identifier.name == null || !this.${identifier.name}.equals(that.$identifier.name)) 
         {
             return false;
         }
