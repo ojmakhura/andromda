@@ -24,6 +24,7 @@
         <property reference="defaultIdentifier" default="id"/>
         <property reference="defaultIdentifierType" default="datatype.Long"/>
 	    <property reference="defaultIdentifierVisibility" default="public"/>
+        <property reference="jndiNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
@@ -34,6 +35,7 @@
         <property reference="defaultIdentifier" default="id"/>
         <property reference="defaultIdentifierType" default="datatype.Long"/>
 	    <property reference="defaultIdentifierVisibility" default="public"/>
+        <property reference="jndiNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
@@ -53,10 +55,12 @@
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
 		<stereotype>Service</stereotype>
+        <property reference="jndiNamePrefix" default=""/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
 		<stereotype>Service</stereotype>
+        <property reference="jndiNamePrefix" default=""/>
 	</metafacade>	
 </metafacades>

@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>
@@ -185,5 +186,51 @@ public class EJBEntityFacadeLogicImpl
     {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
+    
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntity#getJndiName()
+     */
+    public java.lang.String handleGetJndiName()
+    {
+        StringBuffer jndiName = new StringBuffer();
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
+        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        {
+            jndiName.append(jndiNamePrefix);
+            jndiName.append("/");
+        }
+        jndiName.append("ejb/");
+        jndiName.append(this.getFullyQualifiedName());
+        return jndiName.toString();
+    }
+    
+    /**
+     * The pattern to use for determining the package name
+     * for this EJB.
+     */
+    static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
 
+    /**
+     * Sets the <code>jndiNamePrefix</code> for this EJB.
+     * 
+     * @param jndiNamePrefix the prefix to use when binding
+     *        this EJB to a given JNDI name.  This is useful 
+     *        when you have more than on app using the same EJB
+     *        within the same container.
+     */
+    public void setJndiNamePrefix(String jndiNamePrefix)
+    {
+        this.registerConfiguredProperty(JNDI_NAME_PREFIX, StringUtils
+            .trimToEmpty(jndiNamePrefix));
+    }
+
+    /**
+     * Gets the <code>jndiNamePrefix</code> for this EJB.
+     * 
+     * @return the EJB Jndi name prefix.
+     */
+    protected String getJndiNamePrefix()
+    {
+        return (String)this.getConfiguredProperty(JNDI_NAME_PREFIX);
+    }   
 }

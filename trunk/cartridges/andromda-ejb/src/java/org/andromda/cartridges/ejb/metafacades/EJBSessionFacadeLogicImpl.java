@@ -3,6 +3,8 @@ package org.andromda.cartridges.ejb.metafacades;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * MetafacadeLogic implementation.
  * 
@@ -20,11 +22,6 @@ public class EJBSessionFacadeLogicImpl
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class EJBSessionFacade ...
 
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getCreateMethods(boolean)
@@ -76,4 +73,48 @@ public class EJBSessionFacadeLogicImpl
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSession#getJndiName()
+     */
+    public java.lang.String handleGetJndiName()
+    {
+        StringBuffer jndiName = new StringBuffer();
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
+        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        {
+            jndiName.append(jndiNamePrefix);
+            jndiName.append("/");
+        }
+        jndiName.append("ejb/");
+        jndiName.append(this.getFullyQualifiedName());
+        return jndiName.toString();
+    }
+    
+    /**
+     * The prefix to use when creating this EJB's JNDI name.
+     */
+    static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
+
+    /**
+     * Sets the <code>jndiNamePrefix</code> for this EJB.
+     * 
+     * @param jndiNamePrefix the prefix to use when binding this EJB to a given
+     *        JNDI name. This is useful when you have more than on app using the
+     *        same EJB within the same container.
+     */
+    public void setJndiNamePrefix(String jndiNamePrefix)
+    {
+        this.registerConfiguredProperty(JNDI_NAME_PREFIX, StringUtils
+            .trimToEmpty(jndiNamePrefix));
+    }
+
+    /**
+     * Gets the <code>jndiNamePrefix</code> for this EJB.
+     * 
+     * @return the EJB Jndi name prefix.
+     */
+    protected String getJndiNamePrefix()
+    {
+        return (String)this.getConfiguredProperty(JNDI_NAME_PREFIX);
+    }
 }
