@@ -6,20 +6,44 @@
 
 	<!-- template definitions -->
     <template
-        sheet="templates/ValueObject.vsl"
+        sheet="templates/java/Service.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="services"
+        overWrite="true"
+		required="false">
+        <modelElements variable="service">
+            <modelElement stereotype="Service"/>  
+        </modelElements>       
+    </template>
+	
+    <template
+        sheet="templates/java/ServiceImpl.vsl"
+        outputPattern="{0}/{1}Impl.java"
+        outlet="service-impls"
+        overWrite="false"
+		required="false">
+        <modelElements variable="service">
+            <modelElement stereotype="Service"/>  
+        </modelElements>       
+    </template>
+	
+    <template
+        sheet="templates/java/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
-        overWrite="true">
+        overWrite="true"
+		required="false">
         <modelElements variable="class">
             <modelElement stereotype="ValueObject"/>  
         </modelElements>       
     </template>
     
 	<template 
-		sheet="templates/ApplicationException.vsl" 
+		sheet="templates/java/ApplicationException.vsl" 
 		outputPattern="{0}/{1}.java"  
 		outlet="exceptions" 
-		overWrite="true">
+		overWrite="true"
+		required="false">
 		<modelElements variable="class">
             <modelElement stereotype="Exception"/>
             <modelElement stereotype="ApplicationException"/>
@@ -27,20 +51,22 @@
 	</template>
 	
 	<template 
-		sheet="templates/UnexpectedException.vsl" 
+		sheet="templates/java/UnexpectedException.vsl" 
 		outputPattern="{0}/{1}.java"  
 		outlet="exceptions" 
-		overWrite="true">
+		overWrite="true"
+		required="false">
 		<modelElements variable="class">
             <modelElement stereotype="UnexpectedException"/>
 		</modelElements>
 	</template>
 	
 	<template 
-		sheet="templates/Enumeration.vsl" 
+		sheet="templates/java/Enumeration.vsl" 
 		outputPattern="{0}/{1}.java"  
 		outlet="enumerations" 
-		overWrite="true">
+		overWrite="true"
+		required="false">
 		<modelElements variable="class">
             <modelElement stereotype="Enumeration"/>
 		</modelElements>
