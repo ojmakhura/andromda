@@ -11,7 +11,9 @@
         outlet="entities"
         overwrite="true">
         <modelElements variable="class">
-            <modelElement stereotype="Entity"/>  
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+            </modelElement> 
         </modelElements>  
     </template>
 
@@ -21,7 +23,9 @@
         outlet="entity-impls"
         overwrite="false">
         <modelElements variable="class">
-            <modelElement stereotype="Entity"/>  
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+            </modelElement>   
         </modelElements>  
     </template>
 
@@ -31,7 +35,9 @@
         outlet="entities"
         overwrite="true">
         <modelElements variable="class">
-            <modelElement stereotype="Entity"/>   
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EntityFacade"/>
+            </modelElement> 
         </modelElements> 
     </template>
 	
@@ -55,7 +61,9 @@
         outlet="session-beans"
         overwrite="true">
         <modelElements variable="class">
-            <modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement> 
         </modelElements>             
     </template>
 
@@ -65,7 +73,9 @@
         outlet="session-impls"
         overwrite="false">
         <modelElements variable="class">
-            <modelElement stereotype="Service"/>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement> 
         </modelElements>    
     </template>
 
