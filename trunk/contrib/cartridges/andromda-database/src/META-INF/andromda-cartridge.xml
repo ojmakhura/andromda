@@ -11,7 +11,11 @@
     <templateObject
         name="stringUtils"
         className="org.andromda.core.common.StringUtilsHelper"/>
-        
+
+    <templateObject
+        name="databaseUtils"
+        className="org.andromda.cartridges.database.DatabaseUtils"/>
+
     <property reference="sequenceSuffix" default="_SEQ"/>
     <!-- cartridge-property merge-point -->
 
