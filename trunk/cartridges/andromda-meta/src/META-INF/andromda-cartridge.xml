@@ -12,40 +12,40 @@
 
     <!-- the template definitions -->
     <template
-        sheet="templates/MetafacadeLogic.vsl"
+        path="templates/MetafacadeLogic.vsl"
         outputPattern="$generatedFile"
         outlet="facade-logics"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="metafacade">
             <modelElement stereotype="metafacade"/>  
         </modelElements>  
     </template>
 
     <template
-        sheet="templates/MetafacadeLogicImpl.vsl"
+        path="templates/MetafacadeLogicImpl.vsl"
         outputPattern="$generatedFile"
         outlet="facade-logic-impls"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="metafacade">
             <modelElement stereotype="metafacade"/>  
         </modelElements>  
     </template>
 
     <template
-        sheet="templates/Metafacade.vsl"
+        path="templates/Metafacade.vsl"
         outputPattern="{0}/{1}.java"
         outlet="facades"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="metafacade">
             <modelElement stereotype="metafacade"/>  
         </modelElements>  
     </template>
     
     <template
-        sheet="templates/MetafacadesToImpls.vsl"
+        path="templates/MetafacadesToImpls.vsl"
         outputPattern="metafacade-impls.properties"
         outlet="facades-to-impls"
-        overWrite="true"
+        overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="metafacades">
             <modelElement stereotype="metafacade"/>  

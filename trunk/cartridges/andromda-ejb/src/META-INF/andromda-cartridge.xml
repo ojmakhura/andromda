@@ -10,40 +10,40 @@
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     
     <template
-        sheet="templates/EntityBean.vsl"
+        path="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>    
         </modelElements>
     </template>
 
     <template
-        sheet="templates/EntityLocalIntf.vsl"
+        path="templates/EntityLocalIntf.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entity-beans"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>    
         </modelElements>
     </template>
 
     <template
-        sheet="templates/EntityHome.vsl"
+        path="templates/EntityHome.vsl"
         outputPattern="{0}/{1}LocalHome.java"
         outlet="entity-beans"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>    
         </modelElements>
     </template>
     
     <template
-        sheet="templates/EntityBeanImpl.vsl"
+        path="templates/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">
             <modelElement stereotype="Entity"/>  
         </modelElements>  
@@ -58,20 +58,20 @@
 -->
 
     <template
-        sheet="templates/SessionBean.vsl"
+        path="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
-        overWrite="true">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="Service"/>   
         </modelElements> 
     </template>
     
     <template
-        sheet="templates/SessionLocalIntf.vsl"
+        path="templates/SessionLocalIntf.vsl"
         outputPattern="{0}/{1}Local.java"
         outlet="session-beans"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="class">        
             <modelElement stereotype="Service"/>
@@ -79,10 +79,10 @@
     </template>
 
     <template
-        sheet="templates/SessionRemoteIntf.vsl"
+        path="templates/SessionRemoteIntf.vsl"
         outputPattern="{0}/{1}.java"
         outlet="session-beans"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="class">            
             <modelElement stereotype="Service"/>  
@@ -90,10 +90,10 @@
     </template>
 
     <template
-        sheet="templates/SessionLocalHome.vsl"
+        path="templates/SessionLocalHome.vsl"
         outputPattern="{0}/{1}LocalHome.java"
         outlet="session-beans"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="class">           
             <modelElement stereotype="Service"/> 
@@ -101,10 +101,10 @@
     </template>
 
     <template
-        sheet="templates/SessionRemoteHome.vsl"
+        path="templates/SessionRemoteHome.vsl"
         outputPattern="{0}/{1}Home.java"
         outlet="session-beans"
-        overWrite="true"
+        overwrite="true"
         generateEmptyFiles="false">
         <modelElements variable="class">               
             <modelElement stereotype="Service"/>  
@@ -112,10 +112,10 @@
     </template>
 
     <template
-        sheet="templates/SessionBeanImpl.vsl"
+        path="templates/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
-        overWrite="false">
+        overwrite="false">
         <modelElements variable="class">          
             <modelElement stereotype="Service"/>   
         </modelElements> 
