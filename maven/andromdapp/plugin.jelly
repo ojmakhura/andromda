@@ -189,7 +189,7 @@
     <goal name="andromdapp:generate-hibernate-subproject"
           description="private internal goal">
         <j:set var="moduleName" value="hibernate"/>
-        <attainGoal name="andromdapp:generate-core-subproject"/>
+        <attainGoal name="andromdapp:generate-core-subproject"/> 
     </goal>
 
     <!--==================================================================
@@ -206,6 +206,18 @@
         <j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
         <j:set var="moduleDir" value="${projectId}/core"/>
         <attainGoal name="andromdapp:generate-module"/>
+        <j:set var="confDir" value="${moduleTemplatesDir}/conf"/>
+        <ant:available
+            file="${confDir}"
+            type="dir"
+            property="confDirAvailable"/>
+        <j:if test="${confDirAvailable != null}">
+            <ant:copy todir="${moduleDir}">
+                <ant:fileset dir="${moduleTemplatesDir}">
+                    <ant:include name="conf/**/*"/>
+                </ant:fileset>
+            </ant:copy>
+        </j:if>
         <ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
         <!-- create an empty build directory so that maven doesn't complain
              when building the ejb until model content is added -->
@@ -281,7 +293,7 @@
         </j:while>
         <j:while test="${empty(projectVersion)}">
             <i:ask
-                question="Please enter a version for your project (i.e. 1.0):"
+                question="Please enter a version for your project (i.e. 1.0-SNAPSHOT):"
                 answer="projectVersion"/>
         </j:while>
         <j:while test="${empty(baseProjectPackage)}">
