@@ -559,8 +559,8 @@ public class ValidationJavaTranslator
                         write(",");
                         write(features.getProperty(featureCallName));
                         write(" ");
-                        if (OCLBooleanEvaluatingFeatures
-                            .isBooleanFeature(featureCallName))
+                        if (OCLPredicateFeatures
+                            .isPredicateFeature(featureCallName))
                         {
                             write(BOOLEAN_WRAP_PREFIX);
                         }
@@ -578,8 +578,8 @@ public class ValidationJavaTranslator
                 }
                 if (parameterList.getExpression() != null)
                 {
-                    if (OCLBooleanEvaluatingFeatures
-                        .isBooleanFeature(featureCallName))
+                    if (OCLPredicateFeatures
+                        .isPredicateFeature(featureCallName))
                     {
                         write(BOOLEAN_WRAP_SUFFIX);
                     }

@@ -197,7 +197,7 @@ public class OCLIntrospector
         {
             method = element.getClass().getMethod(
                 prefix + StringUtils.capitalize(propertyName),
-                null);
+                (Class[])null);
         }
         catch (NoSuchMethodException ex)
         {
