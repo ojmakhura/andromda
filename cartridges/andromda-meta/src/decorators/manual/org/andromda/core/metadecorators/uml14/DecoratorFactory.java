@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
 
@@ -28,13 +29,39 @@ public class DecoratorFactory
     private void registerCoreDecoratorClasses()
     {
         setActiveNamespace("core");
-        registerDecoratorClass("org.omg.uml.modelmanagement.UmlPackage$Impl",       null, PackageDecoratorImpl.class.getName());
-        registerDecoratorClass("org.omg.uml.modelmanagement.Model$Impl",            null, PackageDecoratorImpl.class.getName());
-        registerDecoratorClass("org.omg.uml.foundation.core.UmlClass$Impl",         null, ClassifierDecoratorImpl.class.getName());
-        registerDecoratorClass("org.omg.uml.foundation.core.AssociationEnd$Impl",   null, AssociationEndDecoratorImpl.class.getName());
-        registerDecoratorClass("org.omg.uml.foundation.core.Dependency$Impl",       null, DependencyDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.modelmanagement.UmlPackage$Impl",
+            null,
+            PackageDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.modelmanagement.Model$Impl",
+            null,
+            PackageDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.foundation.core.UmlClass$Impl",
+            null,
+            ClassifierDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.foundation.core.AssociationEnd$Impl",
+            null,
+            AssociationEndDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.foundation.core.Dependency$Impl",
+            null,
+            DependencyDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.foundation.core.TaggedValue$Impl",
+            null,
+            TaggedValueDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.foundation.core.Operation$Impl",
+            null,
+            OperationDecoratorImpl.class.getName());
+        registerDecoratorClass(
+            "org.omg.uml.foundation.core.Attribute$Impl",
+            null,
+            AttributeDecoratorImpl.class.getName());
     }
-
     /**
      * Returns the decorator factory singleton.
      * @return the only instance
@@ -114,7 +141,7 @@ public class DecoratorFactory
                 stereotypeName);
         if (decoratorClassName != null)
         {
-            System.out.println(
+            internalGetLogger().debug(
                 "lookupDecoratorClass: "
                     + umlMetaClassName
                     + " -> "
@@ -129,7 +156,7 @@ public class DecoratorFactory
                 namespace,
                 umlMetaClassName,
                 stereotypeName);
-        System.out.println(
+        internalGetLogger().debug(
             "lookupDecoratorClass: "
                 + umlMetaClassName
                 + " -> "
@@ -179,24 +206,39 @@ public class DecoratorFactory
             lookupDecoratorClass(
                 metaobject.getClass().getName(),
                 stereotypeName);
+
+        DecoratorBase result;
+
         if (decoratorClassName == null)
         {
-            return null;
+            // if no special decorator is registered, simply
+            // return a decorator for a standard model element. 
+            result = new ModelElementDecoratorImpl(metaobject);
         }
-        try
+        else
         {
-            Class dynamicClass = Class.forName(decoratorClassName);
-            Constructor constructor =
-                findConstructor(dynamicClass, metaobject.getClass());
+            try
+            {
+                Class dynamicClass = Class.forName(decoratorClassName);
+                Constructor constructor =
+                    findConstructor(dynamicClass, metaobject.getClass());
 
-            Object[] constructorParams = { metaobject };
-            return (DecoratorBase) constructor.newInstance(constructorParams);
+                Object[] constructorParams = { metaobject };
+                result =
+                    (DecoratorBase) constructor.newInstance(
+                        constructorParams);
+            }
+            catch (Exception e)
+            {
+                internalGetLogger().error(e);
+                return null;
+            }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace(); // TODO: better logging!
-            return null;
-        }
+
+        // make sure that the decorator has a proper logger associated
+        // with it.        
+        result.setLogger(internalGetLogger());
+        return result;
     }
 
     /**
@@ -268,6 +310,12 @@ public class DecoratorFactory
     public void setModel(org.omg.uml.UmlPackage model)
     {
         this.model = model;
+    }
+
+    private Logger internalGetLogger()
+    {
+        return Logger.getLogger(
+            "org.andromda.cartridges." + activeNamespace);
     }
 
     // ----------- these methods support unit testing --------------- 
