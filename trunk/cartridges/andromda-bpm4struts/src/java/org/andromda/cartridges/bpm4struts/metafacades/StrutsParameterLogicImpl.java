@@ -169,7 +169,7 @@ public class StrutsParameterLogicImpl
         else
         {
             final ClassifierFacade type = getType();
-            if (type.isArrayType())
+            if (type.isArrayType() || type.isFileType())
             {
                 resetRequired = true;
             }
