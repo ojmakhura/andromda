@@ -4,7 +4,7 @@
 
     <ant:property environment="env"/>
 
-    <goal name="deploy" prereqs="war:war">
+    <goal name="deploy">
         <ant:copy file="${maven.build.dir}/${pom.artifactId}.war"
                   todir="${env.JBOSS_HOME}/server/${jboss.config}/deploy"/>
     </goal>
@@ -23,10 +23,26 @@
         <maven:addPath
             id="maven.compile.src.set"
             refid="andromda.struts.gen.src"/>
+        <attainGoal name="castor:run"/>
     </preGoal>
 
+    <goal name="castor:run">
+        <ant:java classname="org.exolab.castor.builder.SourceGenerator" fork="true">
+            <ant:arg value="-i"/>
+            <ant:arg value="${admin.console.cfg.xml.xsd}"/>
+            <ant:arg value="-package"/>
+            <ant:arg value="${pom.package}.config.xml"/>
+            <ant:arg value="-dest"/>
+            <ant:arg value="${maven.build.src}"/>
+            <ant:arg value="-f"/>
+            <ant:classpath>
+                <ant:path refid="maven.dependency.classpath"/>
+            </ant:classpath>
+        </ant:java>
+    </goal>
+
     <postGoal name="war:init">
-        <ant:copy todir="${maven.build.src}">
+        <ant:copy todir="${maven.build.src}" overwrite="true">
             <ant:fileset dir="${maven.src.dir}/jsp"/>
             <ant:fileset dir="${maven.src.dir}/properties"/>
         </ant:copy>

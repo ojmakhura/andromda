@@ -153,6 +153,25 @@
             <artifactId>commons-el</artifactId>
             <version>1.0</version>
         </dependency>
+        <!-- Castor dependencies -->
+        <dependency>
+            <groupId>castor</groupId>
+            <artifactId>castor</artifactId>
+            <version>0.9.5</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xerces</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.0.b2</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
