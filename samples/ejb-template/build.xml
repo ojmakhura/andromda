@@ -3,82 +3,82 @@
    <property file="build.properties" />
    <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
    <property name="andromda-ejb.home" location="${andromda.home}/andromda-ejb"/>
-   
+
    <property file="${andromda-core.home}/andromda-core.properties"/>
    <property file="${andromda-core.home}/xdoclet.properties"/>
-   
+
    <property name="build.dir" value="build/"/>
    <property name="gensrc.dir" value="${build.dir}/gensrc/"/>
    <property name="classes.dir" value="${build.dir}/classes/"/>
    <property name="dist.dir" value="dist/"/>
-   
+
    <path id="j2ee.classpath">
-	  <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
-	  <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
+      <pathelement location="${jboss.home}/server/default/lib/jboss-j2ee.jar"/>
+      <pathelement location="${jboss.home}/server/default/lib/javax.servlet.jar"/>
    </path>
-   
+
    <target name="clean">
      <delete dir="${build.dir}"/>
      <delete dir="${dist.dir}"/>
    </target>
-   
+
    <target name="init">
      <mkdir dir="${build.dir}"/>
      <mkdir dir="${dist.dir}"/>
      <mkdir dir="${classes.dir}"/>
    </target>
-   
-   
-            
+
+
+
    <target name="compile-uml" depends="init">
-   
-   	 <taskdef name="andromda"
-       		classname="org.andromda.core.anttasks.AndroMDAGenTask">
+
+     <taskdef name="andromda"
+            classname="org.andromda.core.anttasks.AndroMDAGenTask">
        <classpath>
          <pathelement path="${andromda-core.classpath}"/>
          <pathelement location="${andromda-core.home}/andromda.jar"/>
          <pathelement location="${andromda-ejb.home}/andromda-ejb.jar"/>
        </classpath>
      </taskdef>
-   
-   	 <property name="model" value="jar:file:${basedir}/src/uml/blank-model.zargo!/blank-model.xmi"/>
+
+     <property name="model" value="jar:file:${basedir}/src/uml/blank-model.zargo!/blank-model.xmi"/>
      <andromda basedir="."
         modelURL="${model}"
         lastModifiedCheck="true"
         typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
-        
+
         <outlet cartridge="ejb" outlet="entity-beans" dir="${gensrc.dir}" />
         <outlet cartridge="ejb" outlet="entity-impls" dir="${gensrc.dir}" />
         <outlet cartridge="ejb" outlet="session-beans" dir="${gensrc.dir}" />
         <outlet cartridge="ejb" outlet="session-impls" dir="${gensrc.dir}" />
-         				
+
      </andromda>
-     
+
    </target>
 
    <!-- Let XDoclet generate all remaining EJB sources from the beans -->
    <target name="compile-xdoclet" depends="compile-uml,init">
      <echo message="build.classpath =${xdoclet.classpath}" />
-     
+
         <taskdef name="ejbdoclet"
-           	     classname="xdoclet.modules.ejb.EjbDocletTask">
-           <classpath>           
+                 classname="xdoclet.modules.ejb.EjbDocletTask">
+           <classpath>
                <pathelement path="${xdoclet.classpath}"/>
                <path refid="j2ee.classpath"/>
            </classpath>
         </taskdef>
-		
+
         <ejbdoclet destdir="${gensrc.dir}"
                    ejbspec="2.0"
                    force="false">
-                   
+
             <fileset dir="${gensrc.dir}">
                 <include name="**/*Bean.java" />
             </fileset>
 
             <dataobject/>
             <utilobject/>
-            
+
             <remoteinterface/>
             <homeinterface/>
             <localinterface/>
@@ -110,48 +110,48 @@
             <replacevalue><![CDATA[BeanCMP</ejb-class>]]></replacevalue>
         </replace>
    </target>
-    
+
    <target name="compile-java" depends="compile-xdoclet,compile-nogen"/>
-   
+
    <target name="compile-nogen" depends="init">
-   
-   	 <path id="build.classpath">
-   	   <pathelement location="${classes.dir}"/>
-   	   <path refid="j2ee.classpath"/>
-   	 </path>
-   	 
+
+     <path id="build.classpath">
+       <pathelement location="${classes.dir}"/>
+       <path refid="j2ee.classpath"/>
+     </path>
+
      <javac debug="true" destdir="${classes.dir}">
-     	<src path="${gensrc.dir}"/>
-     	<src path="src/java"/>
-     	<classpath refid="build.classpath"/>
+        <src path="${gensrc.dir}"/>
+        <src path="src/java"/>
+        <classpath refid="build.classpath"/>
      </javac>
-     
+
    </target>
-   
+
    <target name="jar-ejbs" depends="compile-java,init">
-   	  <jar destfile="${dist.dir}/ejb.jar">
-   	 	<fileset dir="${classes.dir}" includes="**/*"/>
-   	 	<fileset dir="${build.dir}">
-   	 		<include name="META-INF/ejb-jar.xml"/>
-   	 		<include name="META-INF/jboss*.xml"/> 
-   	 	</fileset>
-   	 </jar>
+      <jar destfile="${build.dir}/ejb.jar">
+        <fileset dir="${classes.dir}" includes="**/*"/>
+        <fileset dir="${build.dir}">
+            <include name="META-INF/ejb-jar.xml"/>
+            <include name="META-INF/jboss*.xml"/>
+        </fileset>
+     </jar>
    </target>
-   
+
    <target name="jar-ear" depends="jar-ejbs,init">
-   	 <ear destfile="${dist.dir}/myapp.ear" appxml="src/xml/application.xml">
-       <fileset dir="${dist.dir}" includes="*.jar,*.war"/>
+     <ear destfile="${dist.dir}/ejb-template-app.ear" appxml="src/xml/application.xml">
+       <fileset dir="${build.dir}" includes="*.jar,*.war"/>
      </ear>
    </target>
-   
-   <target name="build" depends="jar-ear">
-   	 
+
+   <target name="dist" depends="jar-ear">
+
    </target>
-   
-   <target name="deploy" depends="build">
+
+   <target name="deploy" depends="dist">
      <copy todir="${jboss.home}/server/default/deploy" >
           <fileset dir="dist/" includes="*.ear" />
      </copy>
    </target>
-   
+
 </project>
