@@ -3,6 +3,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -112,12 +113,43 @@ public class StrutsParameterLogicImpl
         return (getType().isCollectionType() || getType().isArrayType()) && (!getTableColumnNames().isEmpty());
     }
 
+    public String handleGetTableExportTypes()
+    {
+        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORT);
+        if (taggedValue == null)
+        {
+            return "all";
+        }
+        else
+        {
+            final String formats = String.valueOf(taggedValue).toLowerCase();
+            byte types = 0x00;
+
+            final byte XML = 0x01;
+            final byte CSV = 0x02;
+            final byte HTML = 0x04;
+            final byte EXCEL = 0x08;
+
+            if (formats.indexOf("xml") >= 0) types |= XML;
+            if (formats.indexOf("csv") >= 0) types |= CSV;
+            if (formats.indexOf("html") >= 0) types |= HTML;
+            if (formats.indexOf("excel") >= 0) types |= EXCEL;
+
+            if (types == 0x0F) return "all";
+
+            final StringBuffer buffer = new StringBuffer();
+            if (XML == (types & XML)) buffer.append("xml");
+            if (CSV == (types & CSV)) buffer.append("csv");
+            if (HTML == (types & HTML)) buffer.append("html");
+            if (EXCEL == (types & EXCEL)) buffer.append("excel");
+
+            return buffer.toString().trim();
+        }
+    }
+
     public boolean handleIsTableExportable()
     {
-        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORTABLE);
-        return (taggedValue==null)
-                ? Bpm4StrutsProfile.TAGGED_VALUE_TABLE_EXPORTABLE_DEFAULT_VALUE
-                : isTrue(String.valueOf(taggedValue));
+        return StringUtils.isNotBlank(getTableExportTypes());
     }
 
     public boolean handleIsTableSortable()
