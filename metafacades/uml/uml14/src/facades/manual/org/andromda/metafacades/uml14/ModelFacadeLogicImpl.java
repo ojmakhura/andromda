@@ -53,4 +53,9 @@ public class ModelFacadeLogicImpl
     {
         return metaObject.getActivityGraphs().getActionState().refAllOfType();
     }
+
+    protected Collection handleGetAllFinalStates()
+    {
+        return metaObject.getStateMachines().getFinalState().refAllOfType();
+    }
 }
