@@ -212,5 +212,13 @@ public class EJBEntityFacadeLogicImpl
     protected String getJndiNamePrefix()
     {
         return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#allowSyntheticCreateMethod()
+     */
+    public boolean handleAllowSyntheticCreateMethod()
+    {
+        return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
     }   
 }

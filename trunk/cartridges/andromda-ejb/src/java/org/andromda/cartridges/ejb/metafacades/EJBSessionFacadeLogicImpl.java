@@ -129,4 +129,12 @@ public class EJBSessionFacadeLogicImpl
         }
         return type;
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#allowSyntheticCreateMethod()
+     */
+    public boolean handleAllowSyntheticCreateMethod()
+    {
+        return EJBMetafacadeUtils.allowSyntheticCreateMethod(this);
+    }
 }
