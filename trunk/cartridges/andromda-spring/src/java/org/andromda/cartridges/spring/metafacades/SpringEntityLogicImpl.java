@@ -255,7 +255,7 @@ public class SpringEntityLogicImpl
      */
     protected Collection handleGetDaoBusinessOperations()
     {
-        // those operations that are no finders and static
+        // operations that are not finders and static
         Collection finders = getFinders();
         Collection operations = getOperations();
 
@@ -274,7 +274,7 @@ public class SpringEntityLogicImpl
      */
     protected Collection handleGetEntityBusinessOperations()
     {
-        // those operations that are no finders and not static
+        // operations that are not finders and not static
         Collection finders = getFinders();
         Collection operations = getOperations();
 
@@ -287,6 +287,5 @@ public class SpringEntityLogicImpl
             }
         };
     }
-    
-
+   
 }

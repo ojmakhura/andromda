@@ -126,10 +126,4 @@ public class SpringEntityAssociationEndLogicImpl
         }
         return cascade;
     }
-    
-    /*
-#set ($cascade = "delete")
-#if ($hibernateDefaultCascade.equalsIgnoreCase("save-update"))
-#set ($cascade = "all-${cascade}-orphan")
-     */
 }
