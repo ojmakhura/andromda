@@ -46,6 +46,10 @@ public class DecoratorFactory
             null,
             ClassifierDecoratorImpl.class.getName());
         registerDecoratorClass(
+            "org.omg.uml.foundation.core.Interface$Impl",
+            null,
+            ClassifierDecoratorImpl.class.getName());
+        registerDecoratorClass(
             "org.omg.uml.foundation.core.AssociationEnd$Impl",
             null,
             AssociationEndDecoratorImpl.class.getName());
