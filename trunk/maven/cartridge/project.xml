@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-	<extend>../project.xml</extend>
+    <extend>../project.xml</extend>
     <artifactId>andromda-cartridge${bootstrap}-plugin</artifactId>
     <name>Cartridge Maven Plugin</name>
     <shortDescription>Cartridge Maven Plugin</shortDescription>
@@ -69,7 +69,7 @@
               <groupId>commons-io</groupId>
               <artifactId>commons-io</artifactId>
               <version>1.0</version>
-        </dependency>	    
+        </dependency>
         <dependency>
               <groupId>commons-lang</groupId>
               <artifactId>commons-lang</artifactId>
@@ -80,57 +80,57 @@
               <artifactId>commons-logging</artifactId>
               <version>1.0.4</version>
         </dependency>
-        <dependency> 
+        <dependency>
             <groupId>log4j</groupId>
               <artifactId>log4j</artifactId>
              <version>1.2.8</version>
-        </dependency>	 
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>velocity</groupId>
               <artifactId>velocity</artifactId>
              <version>1.4</version>
-        </dependency> 
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>jmi</groupId>
               <artifactId>jmiuml</artifactId>
              <version>1.4di</version>
-        </dependency>   
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>jmi</groupId>
               <artifactId>mof</artifactId>
              <version>20030918</version>
-        </dependency>  
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>jmi</groupId>
               <artifactId>jmi</artifactId>
              <version>20030918</version>
-        </dependency>  
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>mdr</groupId>
               <artifactId>jmiutils</artifactId>
              <version>20040826</version>
-        </dependency> 
-        <dependency> 
+        </dependency>
+        <dependency>
             <groupId>mdr</groupId>
               <artifactId>mdrapi</artifactId>
              <version>20040826</version>
-        </dependency>  
-         <dependency> 
+        </dependency>
+         <dependency>
             <groupId>mdr</groupId>
               <artifactId>nbmdr</artifactId>
              <version>20040826</version>
-        </dependency>     	
-         <dependency> 
+        </dependency>
+         <dependency>
             <groupId>mdr</groupId>
               <artifactId>openide-util</artifactId>
              <version>20040826</version>
-        </dependency>  
+        </dependency>
         <dependency>
               <groupId>commons-jelly</groupId>
               <artifactId>commons-jelly-tags-velocity</artifactId>
               <version>1.0</version>
-        </dependency> 
-    </dependencies>	
+        </dependency>
+    </dependencies>
     <build>
         <resources>
             <resource>
@@ -143,5 +143,5 @@
                 </includes>
               </resource>
         </resources>
-    </build>	
+    </build>
 </project>
