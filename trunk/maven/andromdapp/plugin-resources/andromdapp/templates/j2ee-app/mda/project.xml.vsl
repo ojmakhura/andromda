@@ -57,6 +57,7 @@
                 <customTypesPackage>${pom.package}</customTypesPackage>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
+                <hibernateQueryUseNamedParameters>true</hibernateQueryUseNamedParameters>
                 <compositionDefinesEagerLoading>true</compositionDefinesEagerLoading>
                 <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
                 <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
@@ -80,6 +81,7 @@
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
+                <hibernateQueryUseNamedParameters>true</hibernateQueryUseNamedParameters>
                 <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
                 <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
                 <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
