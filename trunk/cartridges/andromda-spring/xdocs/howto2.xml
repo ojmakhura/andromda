@@ -35,6 +35,10 @@
                 <img src="resources/howto/org/andromda/test/2/uml.jpg"/>
             </p>
             <p>
+                It's possible to draw a dependency from one entity to another, this will generate an accessor
+                in the first entity's DAO to the second entity's DAO. 
+            </p>
+            <p>
                 In this example we have added two attributes: name of type <code>datatype.String</code>
                 and birthDate of type <code>datatype.Date</code>; please note that also for this entity
                 an identifier will be added by default. If you explicitely want to add an identifier you should
