@@ -23,20 +23,11 @@ public class Translation
 
     private String name;
 
-    private Map fragments;
+    private final Map fragments = new HashMap();
 
-    private Collection ignorePatterns;
+    private final Collection ignorePatterns = new ArrayList();
 
     private Collection validatePatterns;
-
-    /**
-     * Constructs an instance of Translation.
-     */
-    public Translation()
-    {
-        this.fragments = new HashMap();
-        this.ignorePatterns = new ArrayList();
-    }
 
     /**
      * The library translation to which this translation belongs.
