@@ -279,7 +279,7 @@ public class Mappings
      * @param from the <code>from</code> mapping.
      * @return the Mapping instance (or null if it doesn't exist).
      */
-    private Mapping getMapping(String from)
+    public Mapping getMapping(String from)
     {
         return (Mapping)mappings.get(StringUtils.trimToEmpty(from));
     }
