@@ -5,7 +5,7 @@
   <display-name>$applicationName</display-name>
 #if ($persistenceType == "hibernate")
   <module>
-    <ejb>${applicationId}-hibernate-ejb-${applicationVersion}.jar</ejb>
+    <ejb>${applicationId}-hibernate-ejb-server-${applicationVersion}.jar</ejb>
   </module>
   <module>
     <connector>${applicationId}-hibernate-sar-${applicationVersion}.sar</connector>
