@@ -30,7 +30,7 @@
 #set ($columns = $table.nonForeignKeyColumns)
 #if ($columns.size() > 0)
 #foreach ($count in [1..$table.dummyLoadSize])
-insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($columns $count))
+insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($columns $count));
 #end
 #end
 #end
@@ -44,9 +44,9 @@ insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($
 #if ($columns.size() > 0)
 #foreach ($count in [1..$table.dummyLoadSize])
 #if ($primKeyColumn)
-update $table.tableName set #keyValues($columns $count) where $primKeyColumn.columnName=$primKeyColumn.getDummyLoadValue($count)
+update $table.tableName set #keyValues($columns $count) where $primKeyColumn.columnName=$primKeyColumn.getDummyLoadValue($count);
 #else
-update $table.tableName set #keyValues($columns $count)
+update $table.tableName set #keyValues($columns $count);
 #end
 #end
 #end
@@ -56,7 +56,7 @@ update $table.tableName set #keyValues($columns $count)
 #foreach ($table in $tables)
 #if ($table.enumeration)
 #foreach ($literal in $table.literals)
-insert into $table.tableName (VALUE,ID) values ('$literal.enumerationValue',$velocityCount)
+insert into $table.tableName (VALUE,ID) values ('$literal.enumerationValue',$velocityCount);
 #end
 #end
 #end
