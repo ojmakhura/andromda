@@ -313,7 +313,16 @@
             context EntityFacade inv : generalization -> notEmpty() implies generalization.oclIsKindOf(EntityFacade)
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof org.andromda.translation.query.EntityFacade:true));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof org.andromda.translation.validation.EntityFacade:true));
+        </to>
+    </expression>
+    
+    <expression>
+        <from>
+            context EntityFacade inv : specializations -> notEmpty() implies specializations -> forAll(oclIsKindOf(EntityFacade))
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"specializations")))).booleanValue()?org.andromda.translation.validation.OCLCollections.forAll(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"specializations"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(object instanceof org.andromda.translation.validation.EntityFacade)).booleanValue();}}):true));
         </to>
     </expression>
     
