@@ -147,35 +147,35 @@
             </kind>
         </fragment>
 
-        <fragment name="&gt;.*"
+        <fragment name="&gt;\s+.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &gt; {1}
             </kind>
         </fragment>
 
-        <fragment name="&lt;.*"
+        <fragment name="&lt;\s+.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &lt; {1}
             </kind>
         </fragment>
 
-        <fragment name="&lt;&gt;.*"
+        <fragment name="&lt;&gt;\s+.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
-                {0} not {1}
+                {0} NOT {1}
             </kind>
         </fragment>
 
-        <fragment name="&gt;=.*"
+        <fragment name="&gt;=\s+.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &gt;= {1}
             </kind>
         </fragment>
 
-        <fragment name="&lt;=.*"
+        <fragment name="&lt;=\s+.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &lt;= {1}

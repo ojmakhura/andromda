@@ -4,7 +4,7 @@
   		     Run the translation tests                                                    
   		 ================================================================== -->
   	<preGoal name="test:test">  		
-        <attainGoal name="translation-library:test-bootstrap"/>
+        <attainGoal name="translation-library:test"/>
   	</preGoal> 
   	  	
 </project>
