@@ -146,7 +146,6 @@
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     
-    <!-- the official template definitions -->
     <template
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -198,102 +197,123 @@
           if it was in the package <code>"com.mycompany.test"</code>.
       </p>
 
-      <h3>&lt;cartridge&gt;</h3>
+      <h3><![CDATA[<cartridge/>]]></h3>
       <p class="std">
-        The <code>&lt;cartridge&gt;</code> tag is used to delimit
-        the cartridge descriptor and give a name to the cartridge.
+        The <code><![CDATA[<cartridge/>]]></code> element is the root of
+        the cartridge descriptor and also gives a name to the cartridge.
       </p>
-
-      <h3>&lt;property&gt;</h3>
+      <table border="1" cellpadding="2" cellspacing="0" class="std">
+          <tr>
+              <td valign="top">
+			      <b>Attribute</b>
+			  </td>
+              <td valign="top">
+              	  <b>Description</b>
+              </td>
+              <td align="center" valign="top">
+                  <b>Required?</b>
+              </td>
+          </tr>
+          <tr>
+			  <td valign="top" >name</td>
+			  <td valign="top" >
+				  Specifies the name of the cartridge.
+			  </td>
+			  <td align="center" >Yes</td>
+          </tr>
+      </table>
+      <h3><![CDATA[<property/>]]></h3>
       <p class="std">
-        The <code>&lt;property&gt;</code> tag is used to define a set of
-        key-value pairs for a cartridge. These properties define which
-        aspects of the target application's architecture are generated
-        by this cartridge. In the future, these properties will be used
-        for automatic aspect-to-cartridge mappings (not yet implemented).
-        Example:
+        The <code><![CDATA[<property/>]]></code> element is used to specify 
+        property references for a cartridge.  These references are defined
+        by the calling client of a cartridge.  For example, if you have
+        the property reference <code>securityEnabled</code> defined 
+        (i.e. <strong><![CDATA[<property reference="securityEnabled"/>]]></strong>), 
+        then the framework will expect the client to define a namespace property 
+        named <code>securityEnabled</code> when this cartridge is run. This property 
+        (and it's value) will then be made available to the template during processing
       </p>
-      <blockquote><pre>
-&lt;property name="persistence" value="hibernate" /&gt;
-      </pre></blockquote>
-
-      <h3>&lt;stereotype&gt;</h3>
+      <table border="1" cellpadding="2" cellspacing="0" class="std">
+          <tr>
+              <td valign="top">
+			      <b>Attribute</b>
+			  </td>
+              <td valign="top">
+              	  <b>Description</b>
+              </td>
+              <td align="center" valign="top">
+                  <b>Required?</b>
+              </td>
+          </tr>
+          <tr>
+			  <td valign="top" >reference</td>
+			  <td valign="top" >
+				  Specifies the name of the reference.  This is
+				  the name that must be defined in the namespace
+				  and its the name that will be made available to 
+				  the template during processing.
+			  </td>
+			  <td align="center" >Yes</td>
+          </tr>
+          <tr>
+			  <td valign="top" >default</td>
+			  <td valign="top" >
+				  Specifies the default value to be used if
+				  <strong>NOT</strong> supplied by the 
+				  cartridge client.
+			  </td>
+			  <td align="center" >No</td>
+          </tr>
+      </table>
+      <h3><![CDATA[<template/>]]></h3>
       <p class="std">
-        This tag is used to declare the stereotypes that should trigger
-        the core module to use this cartridge. Example: The EJB cartridge
-        declares the <code>&lt;&lt;Entity&gt;&gt;</code> stereotype because entities may be represented
-        by entity beans.
-      </p>
-
-      <h3>&lt;outlet&gt;</h3>
-      <p class="std">
-        This tag is used to declare a logical outlet name that can later
-        be mapped to a physical directory (using the <code>&lt;andromda&gt;</code>
-        task in your build.xml script.
-      </p>
-      <p class="std">
-        <code>&lt;template&gt;</code> tags use outlet names to declare
-        which outlet will be used for the source code output files
-        caused by a particular template.
-      </p>
-
-      <h3>&lt;template&gt;</h3>
-      <p class="std">
-        The <code>&lt;template&gt;</code> tag is used to describe
-        the set of templates that will be used to generate source code.
-      </p>
-      <p class="std">
-        The attributes of this tag are:
+        The <code><![CDATA[<template/>]]></code> element is used to describe
+        the template that will be used to generate source code.
       </p>
       <table border="1" cellpadding="2" cellspacing="0" class="std">
         <tr>
           <td valign="top" ><b>Attribute</b></td>
           <td valign="top" ><b>Description</b></td>
-          <td align="center" valign="top" ><b>Required</b></td>
-        </tr>
-        <tr>
-          <td valign="top" >stereotype</td>
-          <td valign="top" >Specifies the name of the stereotype that should
-                                       trigger the use of this template.
-          </td>
-          <td align="center" >Yes.</td>
+          <td align="center" valign="top" ><b>Required?</b></td>
         </tr>
         <tr>
           <td valign="top" >sheet</td>
-          <td valign="top" >Specifies the path (relative to the cartridge root)
-                                       for a template (*.vsl) file to use for code generation.
+          <td valign="top" >
+              Specifies the path (relative to the cartridge root)
+              for a template (*.vsl) file to use for code generation.
           </td>
           <td align="center" >Yes.</td>
         </tr>
         <tr>
           <td valign="top" >outputPattern</td>
           <td valign="top" >Specifies a pattern in
-                                       <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
-                                         java.text.MessageFormat</a>
-                                       syntax.
-                                       You can use this pattern to tell AndroMDA how to construct
-                                       output file names. The pattern can consist of any ordinary
-                                       printable characters as well as some predefined placeholders
-                                       for things that AndroMDA already knows about: <br />
-                                       <code>{0}</code> stands for the package directory of the class.<br />
-                                       <code>{1}</code> stands for the class name.<br />
-                                       <code>{2}</code> stands for the base part of the *.vsl file name.<br />
-                                       <code>{3}</code> stands for the name of the stereotype.<br />
-                                       See example above.
+			   <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
+				 java.text.MessageFormat</a> syntax.
+			   You can use this pattern to tell AndroMDA how to construct
+			   output file names. The pattern can consist of any ordinary
+			   printable characters as well as some predefined placeholders
+			   for things that AndroMDA already knows about: <br />
+			   <code>{0}</code> stands for the package directory of the class.<br />
+			   <code>{1}</code> stands for the class name.<br />
+			   See example above.
           </td>
           <td align="center" >Yes.</td>
         </tr>
         <tr>
           <td valign="top" >outlet</td>
-          <td valign="top" >Specifies the logical name of the outlet
-                                       where the cartridge will write the output files
-                                       caused by this template.</td>
+          <td valign="top" >
+          	   Specifies the logical name of the outlet
+			   where the cartridge will write the output files
+			   caused by this template.
+		  </td>
           <td valign="top" align="center" >Yes.</td>
         </tr>
         <tr>
           <td valign="top" >overWrite</td>
-          <td valign="top" >Specifies whether the files already contained in <code>&lt;outlet&gt;</code>
-                                       should be overwritten when AndroMDA runs a second time.
+          <td valign="top" >
+              Specifies whether the files already specified by the 
+              <code>outlet</code> attribute should be overwritten 
+              when AndroMDA runs the next time.
           </td>
           <td valign="top" align="center" >Yes.</td>
         </tr>
@@ -306,19 +326,6 @@
           (probably generated by a previous run), then this file is removed.
           </td>
           <td valign="top" align="center" >No, default is "true"</td>
-        </tr>
-        <tr>
-          <td valign="top" >transformClassname</td>
-          <td valign="top" >Specifies a name of a java class that can be used to help the code generation templates.
-                                       In some cases the velocity scripting language is not enough for what you would like
-                                       to do in your code generation template.  You can solve this problem by writing a
-                                       java class to extend the $transform object in the template.  One way to write your
-                                       own helper is to extend the class
-                                       <a href="../javadoc/org/andromda/core/simpleuml/SimpleOOHelper.html">
-                                         SimpleOOHelper
-                                       </a>
-          </td>
-          <td valign="top" align="center" >No.</td>
         </tr>
       </table>
 
