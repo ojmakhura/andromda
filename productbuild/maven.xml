@@ -323,9 +323,9 @@
     <goal name="init-bootstrap">
         <ant:fileScanner var="bootstrapArtifacts">
             <ant:fileset dir="${lib.dir}">
-              <ant:patternset>
-                <ant:include name="*bootstrap/**/*"/>
-              </ant:patternset>
+                <ant:patternset>
+                    <ant:include name="*bootstrap/**/*"/>
+                </ant:patternset>
             </ant:fileset>
         </ant:fileScanner>
         <j:forEach var="file" items="${bootstrapArtifacts.iterator()}">
