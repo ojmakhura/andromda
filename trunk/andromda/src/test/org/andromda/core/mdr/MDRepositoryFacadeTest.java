@@ -35,17 +35,10 @@ public class MDRepositoryFacadeTest extends TestCase
 		super.setUp();
 		if (modelURL == null)
 		{
-			modelURL =
-				MDRepositoryFacadeTest.class.getResource(
-					TestModel.XMI_FILE_NAME);
+			modelURL = new URL(TestModel.XMI_FILE_URL);
 			repository = new MDRepositoryFacade();
 		}
 
-		assertNotNull(
-			"file: "
-				+ TestModel.XMI_FILE_NAME
-				+ " not found in classpath",
-			modelURL);
 	}
 
 	public void testReadModel()

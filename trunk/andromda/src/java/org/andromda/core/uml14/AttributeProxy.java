@@ -13,7 +13,6 @@ public class AttributeProxy
 	implements UMLAttribute
 {
 	private UMLScriptHelper scriptHelper;
-	private Attribute attribute;
 
 
 	/**
@@ -51,7 +50,7 @@ public class AttributeProxy
 
 	public Object getId()
 	{
-		return this.attribute;
+		return modelElement;
 	}
 
 }

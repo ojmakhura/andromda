@@ -3,6 +3,7 @@ package org.andromda.core.dbmapping;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,98 +25,101 @@ import org.andromda.core.common.RepositoryReadException;
  * @author Matthias Bohlen
  *
  */
-public class JAXBDbMappingTable
-	implements DbMappingTable
-{
-    private HashMap map = new HashMap();
+public class JAXBDbMappingTable implements DbMappingTable {
+	private HashMap map = new HashMap();
 
+	public void read(File mappingsFile)
+		throws RepositoryReadException, IOException {
+		try {
+			// some magic to fix a JAXB 'unable to find jaxb.properties' bug
+			ClassLoader classloader = 
+                new ClassLoader(JAXBDbMappingTable.class.getClassLoader())
+                {
+                    public URL getResource(String name)
+                    {
+                       return super.getResource(name.replace('\\', '/'));
+                    }
+                };
 
-    public void read(File mappingsFile)
-        throws RepositoryReadException, IOException
-    {
-        try {
-            JAXBContext jc =
-                JAXBContext.newInstance(
-                "org.andromda.core.dbmapping");
+			// create a JAXB context for unmarshalling XML
+			JAXBContext jc =
+				JAXBContext.newInstance(
+					"org.andromda.core.dbmapping",
+					classloader);
 
-            Unmarshaller u = jc.createUnmarshaller();
+			Unmarshaller u = jc.createUnmarshaller();
 
-            Mappings xmlTypeMappings =
-                (Mappings) u.unmarshal(
-                new FileInputStream(mappingsFile));
-                
-            initialize(xmlTypeMappings);
-        }
-        catch (JAXBException jaxbe)
-        {
-            throw new RepositoryReadException(
-                "unable to read typemappings file: " + mappingsFile, jaxbe);
-        }
-           
-    }
-    /**
-     * Initializes the lookup table with a set of mappings
-     * that have been read from an XML file.
-     * 
-     * @param xmlMappings the set of mappings
-     */
-    public void initialize(Mappings xmlMappings)
-    {
-        for (Iterator it = xmlMappings.getMappings().iterator(); it.hasNext();)
-        {
-            Mapping m = (Mapping) it.next();
+			Mappings xmlTypeMappings =
+				(Mappings) u.unmarshal(new FileInputStream(mappingsFile));
 
-            // Register the mapping under each Java type name.
-            for (Iterator it2 = m.getTypes().iterator(); it2.hasNext();)
-            {
-                String typeName = (String) it2.next();
-                map.put(typeName, m);
-            }
-        }
-    }
+			initialize(xmlTypeMappings);
+		} catch (JAXBException jaxbe) {
+			throw new RepositoryReadException(
+				"unable to read typemappings file: " + mappingsFile,
+				jaxbe);
+		}
 
-    /**
-     * Returns the JDBC type for the given Java type.
-     * 
-     * @param javaType name of the Java type (e.g. "java.util.Date")
-     * @return String name of the JDBC type (e.g. "DATE")
-     */
-    public String getJDBCType(String javaType)
-    {
-        Mapping m = (Mapping) map.get(javaType);
-        if (null == m)
-        {
-            return "** MISSING JDBC type mapping for " + javaType;
-        }
+	}
+	/**
+	 * Initializes the lookup table with a set of mappings
+	 * that have been read from an XML file.
+	 * 
+	 * @param xmlMappings the set of mappings
+	 */
+	public void initialize(Mappings xmlMappings) {
+		for (Iterator it = xmlMappings.getMappings().iterator();
+			it.hasNext();
+			) {
+			Mapping m = (Mapping) it.next();
 
-        return m.getJdbcType().getName();
-    }
+			// Register the mapping under each Java type name.
+			for (Iterator it2 = m.getTypes().iterator(); it2.hasNext();) {
+				String typeName = (String) it2.next();
+				map.put(typeName, m);
+			}
+		}
+	}
 
-    /**
-     * Returns the SQL type for the fiven Java type.
-     * See your database docs for this syntax.
-     * @param javaType name of the Java type (e.g. "java.math.BigDecimal")
-     * @param sqlFieldLength desired field length in the database table
-     * @return String the complete SQL field syntax (e.g. "DECIMAL(9)")
-     */
-    public String getSQLType(String javaType, String desiredFieldLength)
-    {
-        Mapping m = (Mapping) map.get(javaType);
-        if (null == m)
-        {
-            return "** MISSING SQL type mapping for " + javaType;
-        }
-        SQLType sqlType = m.getSqlType();
+	/**
+	 * Returns the JDBC type for the given Java type.
+	 * 
+	 * @param javaType name of the Java type (e.g. "java.util.Date")
+	 * @return String name of the JDBC type (e.g. "DATE")
+	 */
+	public String getJDBCType(String javaType) {
+		Mapping m = (Mapping) map.get(javaType);
+		if (null == m) {
+			return "** MISSING JDBC type mapping for " + javaType;
+		}
 
-        String pattern = sqlType.getPattern();
+		return m.getJdbcType().getName();
+	}
 
-        String fieldLength =
-            (null == desiredFieldLength)
-                || ("".equals(desiredFieldLength))
-                    ? sqlType.getDefaultLength()
-                    : desiredFieldLength;
-        Object[] arguments = { fieldLength };
+	/**
+	 * Returns the SQL type for the fiven Java type.
+	 * See your database docs for this syntax.
+	 * @param javaType name of the Java type (e.g. "java.math.BigDecimal")
+	 * @param sqlFieldLength desired field length in the database table
+	 * @return String the complete SQL field syntax (e.g. "DECIMAL(9)")
+	 */
+	public String getSQLType(String javaType, String desiredFieldLength) {
+		Mapping m = (Mapping) map.get(javaType);
+		if (null == m) {
+			return "** MISSING SQL type mapping for " + javaType;
+		}
+		SQLType sqlType = m.getSqlType();
 
-        return MessageFormat.format(pattern, arguments);
-    }
+		String pattern = sqlType.getPattern();
+
+		String fieldLength =
+			(null == desiredFieldLength)
+				|| ("".equals(desiredFieldLength))
+					? sqlType.getDefaultLength()
+					: desiredFieldLength;
+		Object[] arguments = { fieldLength };
+
+		return MessageFormat.format(pattern, arguments);
+	}
+
+	
 }

@@ -27,6 +27,11 @@ public class UMLBaseHelper
 		this.model = (UmlPackage) model;
 	}
 	
+    public Object getModel()
+    {
+        return this.model;
+    }
+    
 	public void setTypeMappings(DbMappingTable mappings)
 	{
 		this.typeMappings = mappings;

@@ -10,6 +10,6 @@ public interface UMLAssociationEnd
 {
 	public Classifier getType();
 	public String getRoleName();
-	public String getId();
+	public Object getId();
 	public String getNavigable();
 }

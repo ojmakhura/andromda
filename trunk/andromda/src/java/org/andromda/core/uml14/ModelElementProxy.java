@@ -82,5 +82,10 @@ public class ModelElementProxy
 		
 		return taggedValueProxies;
 	}
+    
+    public Object getId()
+    {
+        return this.modelElement;
+    }
 }
 

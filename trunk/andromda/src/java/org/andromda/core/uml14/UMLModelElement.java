@@ -11,4 +11,5 @@ import java.util.Collection;
 public interface UMLModelElement
 {
 	public Collection getTaggedValues();
+    public Object getId();
 }

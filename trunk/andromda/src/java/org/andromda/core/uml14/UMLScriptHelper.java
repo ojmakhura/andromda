@@ -18,6 +18,7 @@ import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.core.Parameter;
 import org.omg.uml.foundation.core.StructuralFeature;
 import org.omg.uml.foundation.core.TaggedValue;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
 /**
  *  Description of the Class
@@ -77,7 +78,7 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 	{
 		if ((object == null) | !(object instanceof ModelElement))
 		{
-			return null;
+			return Collections.EMPTY_LIST;
 		}
 
 		ModelElement modelElement = (ModelElement) object;
@@ -104,38 +105,35 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 		sb.append(o.getName());
 		sb.append("(");
 
-		Parameter p = (Parameter) it.next();
+        boolean commaNeeded = false;
 		while (it.hasNext())
 		{
-			if (p.getName() != null)
-			{
-				if (p.getType() == null)
-				{
-					sb.append("int");
-				}
-				else
-				{
-					sb.append(findFullyQualifiedName(p.getType()));
-				}
-				sb.append(" ");
-				sb.append(p.getName());
-			}
-			p = (Parameter) it.next();
-			if (it.hasNext())
-			{
-				sb.append(", ");
-			}
+            Parameter p = (Parameter) it.next();
+            
+            String type;
+            if (p.getType() == null)
+            {
+                type = "int";
+            } else {
+                type = findFullyQualifiedName(p.getType());
+            }
+            
+            if (ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            {
+                sb.insert(0,type);
+            } else {
+                if (commaNeeded)
+                {
+                    sb.append(", ");
+                }
+                sb.append(type);
+                sb.append(" ");
+                sb.append(p.getName());
+                commaNeeded = true;
+            } 
+                
 		}
 		sb.append(")");
-
-		if (p.getType() == null)
-		{
-			sb.insert(0, "int");
-		}
-		else
-		{
-			sb.insert(0, findFullyQualifiedName(p.getType()));
-		}
 
 		return sb.toString();
 	}
@@ -185,7 +183,7 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 		for (Iterator i = taggedValues.iterator(); i.hasNext(); )
 		{
 			TaggedValue taggedValue = (TaggedValue)i.next();
-			if (taggedValue.getName().equals(tagName))
+			if (tagName.equals(taggedValue.getName()))
 			{
 				Iterator it = taggedValue.getDataValue().iterator();
 				if (it.hasNext())
@@ -202,6 +200,8 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 	public String findTaggedValue(
 		StructuralFeature feature, String tagName, boolean follow)
 	{
+        if (feature == null) return null;
+        
 		String value = findTaggedValue(feature,tagName);
 		ModelElement element = feature.getType();
 		while ( ( value == null ) & (element != null) ) 
@@ -223,13 +223,18 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
      */
     public String findAttributeJDBCType(Attribute attribute)
     {
+        if (attribute == null) return null;
+
         String value = findTaggedValue(attribute, "uml2ejb:JDBCType", true);
         
         if (null == value)
         {
             Object type = attribute.getType();
-            String typeName = findFullyQualifiedName(type);
-            value = this.typeMappings.getJDBCType(typeName);
+            value = findFullyQualifiedName(type);
+            if (typeMappings != null)
+            {
+                value = typeMappings.getJDBCType(value);
+            }
         }
         
         return value;
@@ -292,6 +297,16 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 		return getName(object) + "Home";
 	}
 
+    public String getComponentInterfaceName(Object object)
+    {
+        if (getStereotypeNames(object).contains(ENTITY_BEAN))
+        {
+            return getName(object) + "Local";
+        }
+
+        return getName(object);
+    }
+    
 	public Object findClassById(Object object)
 	{
 		if (object instanceof Classifier)
@@ -475,10 +490,10 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 		for (Iterator it = getAttributes(object).iterator(); it.hasNext();)
 		{
 			Attribute a = (Attribute) it.next();
-
+            
 			// check if attribute is the PK of this class
 			// and include it only if includePK is true.
-			if (includePK || !getStereotypeNames(object).contains(PRIMARY_KEY))
+			if (includePK || !getStereotypeNames(a).contains(PRIMARY_KEY))
 			{
 				sb.append(separator);
 				if (withTypeNames)
@@ -557,6 +572,9 @@ public class UMLScriptHelper extends UMLBaseHelper implements ScriptHelper
 		protected abstract boolean accept(Object object);
 	}
 
-	
+	public Object convertToType(Object object)
+    {
+        return object;
+    }
 	
 }

@@ -40,9 +40,19 @@ public class JAXBRepositoryFacade
 
 		try
 		{
+            // some magic to fix a JAXB 'unable to find jaxb.properties' bug
+            ClassLoader classloader = 
+                new ClassLoader(JAXBRepositoryFacade.class.getClassLoader())
+                {
+                    public URL getResource(String name)
+                    {
+                       return super.getResource(name.replace('\\', '/'));
+                    }
+                };
+
 			// let JAXB read the XML file and unmarshal it into a model tree
 			JAXBContext jc =
-				JAXBContext.newInstance("org.andromda.core.xml");
+				JAXBContext.newInstance("org.andromda.core.xml", classloader);
 
 			Unmarshaller u = jc.createUnmarshaller();
 
