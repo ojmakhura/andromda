@@ -538,7 +538,7 @@ public class MetafacadeFactory
 
     /**
      * Registers a property with the specified <code>name</code> in the given
-     * <code>namespace</code>>.
+     * <code>namespace</code>.
      * 
      * @param namespace the namespace in which the property is stored.
      * @param name the name of the property
