@@ -3,7 +3,7 @@
 ##
 #macro (renderSubClass $entity)
 ## Should only get get invoked for inheritance class or subclass.
-        <$entity.mappingClassName name="$entity.fullyQualifiedEntityImplementationName"#if($entity.tableRequired) table="$entity.tableName"#else discriminator-value="$entity.entityImplementationName"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end>
+        <$entity.mappingClassName name="$entity.fullyQualifiedEntityImplementationName"#if($entity.tableRequired) table="$entity.tableName"#else discriminator-value="$entity.entityImplementationName"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end#if($entity.dynamicInsert) dynamic-insert="true"#end#if($entity.dynamicUpdate) dynamic-update="true"#end>
 #if($entity.subclassKeyColumn)
             <key column="$entity.subclassKeyColumn"/>
 #end

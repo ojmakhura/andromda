@@ -74,4 +74,14 @@ class HibernateGlobals
      */
     static final String HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = "ehCacheOverflowToDisk";
 
+    /**
+     * The namespace property storing default dynamic-insert parameter
+     */
+    static final String HIBERNATE_ENTITY_DYNAMIC_INSERT = "hibernateEntityDynamicInsert";
+
+    /**
+     * The namespace property storing default dynamic-update parameter
+     */
+    static final String HIBERNATE_ENTITY_DYNAMIC_UPDATE = "hibernateEntityDynamicUpdate";
+
 }

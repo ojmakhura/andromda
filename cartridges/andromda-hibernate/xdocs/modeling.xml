@@ -250,6 +250,40 @@
                         </td>
                     </tr>
                     <tr>
+                        <a name="@andromda.hibernate.entity.dynamicInsert"/>
+                          <td>
+                              @andromda.hibernate.entity.dynamicInsert
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                        <td>
+                            Defines if the entity will limit the SQL insert statement to properties with values. This value overrides the namespace property for this entity.
+                            <ul>
+                                Permitted values are:
+                                <li>true</li>
+                                <li>false</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.entity.dynamicUpdate"/>
+                          <td>
+                              @andromda.hibernate.entity.dynamicUpdate
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                        <td>
+                            Defines if the entity will limit the SQL update statements to properties that are modified. This value overrides the namespace property for this entity.
+                            <ul>
+                                Permitted values are:
+                                <li>true</li>
+                                <li>false</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
                         <a name="@andromda.hibernate.ehcache.maxElementsInMemory"/>
                         <td>
                             @andromda.hibernate.ehcache.maxElementsInMemory

@@ -593,7 +593,7 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleIsRequiresSpecializationMapping()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isRequiresSpecializationMapping()
      */
     protected boolean handleIsRequiresSpecializationMapping()
     {
@@ -601,4 +601,35 @@ public class HibernateEntityLogicImpl
             && (this.isHibernateInheritanceSubclass() || this
                 .isHibernateInheritanceClass());
     }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isDynamicInsert()
+     */
+    protected boolean handleIsDynamicInsert()
+    {
+        String dynamicInsert = (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT);
+        if (dynamicInsert == null)
+        {
+        dynamicInsert = (String)this
+            .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
+        }
+        return Boolean.valueOf(dynamicInsert).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isDynamicUpdate()
+     */
+    protected boolean handleIsDynamicUpdate()
+    {
+        String dynamicUpdate = (String)this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE);
+        if (dynamicUpdate == null)
+        {
+        dynamicUpdate = (String)this
+            .getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
+        }
+        return Boolean.valueOf(dynamicUpdate).booleanValue();
+    }
+
 }
