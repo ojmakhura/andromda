@@ -59,7 +59,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsInvariant()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
+        return UML14MetafacadeUtils.isConstraintKind(
             getBody(),
             ExpressionKinds.INV);
     }
@@ -69,7 +69,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPreCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
+        return UML14MetafacadeUtils.isConstraintKind(
             getBody(),
             ExpressionKinds.PRE);
     }
@@ -79,7 +79,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPostCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
+        return UML14MetafacadeUtils.isConstraintKind(
             getBody(),
             ExpressionKinds.POST);
     }
@@ -89,7 +89,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsDefinition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
+        return UML14MetafacadeUtils.isConstraintKind(
             getBody(),
             ExpressionKinds.DEF);
     }
@@ -99,7 +99,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsBodyExpression()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
+        return UML14MetafacadeUtils.isConstraintKind(
             getBody(),
             ExpressionKinds.BODY);
     }

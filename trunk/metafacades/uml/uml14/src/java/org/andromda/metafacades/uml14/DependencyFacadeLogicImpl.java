@@ -61,7 +61,7 @@ public class DependencyFacadeLogicImpl
     public Object handleGetTargetElement()
     {
         Object targetElement = null;
-        Collection suppliers = UMLMetafacadeUtils.getCorePackage()
+        Collection suppliers = UML14MetafacadeUtils.getCorePackage()
             .getASupplierSupplierDependency().getSupplier(this.metaObject);
         if (!suppliers.isEmpty())
         {
@@ -76,7 +76,7 @@ public class DependencyFacadeLogicImpl
     protected Object handleGetSourceElement()
     {
         Object sourceElement = null;
-        Collection clients = UMLMetafacadeUtils.getCorePackage()
+        Collection clients = UML14MetafacadeUtils.getCorePackage()
             .getAClientClientDependency().getClient(this.metaObject);
         if (!clients.isEmpty())
         {

@@ -147,9 +147,9 @@ public class EntityLogicImpl
     {
         // only create the identifier if an identifer with the name doesn't
         // already exist
-        if (!UMLMetafacadeUtils.attributeExists(this.metaObject, name))
+        if (!UML14MetafacadeUtils.attributeExists(this.metaObject, name))
         {
-            Attribute identifier = UMLMetafacadeUtils
+            Attribute identifier = UML14MetafacadeUtils
                 .createAttribute(
                     name,
                     type,
@@ -157,7 +157,7 @@ public class EntityLogicImpl
                     String.valueOf(this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR)));
 
             identifier.getStereotype().add(
-                UMLMetafacadeUtils
+                UML14MetafacadeUtils
                     .findOrCreateStereotype(UMLProfile.STEREOTYPE_IDENTIFIER));
 
             ((Classifier)this.metaObject).getFeature().add(identifier);

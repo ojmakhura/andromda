@@ -32,7 +32,7 @@ public class EventFacadeLogicImpl
     {
         Transition eventTransition = null;
 
-        Collection allTransitions = UMLMetafacadeUtils.getModel()
+        Collection allTransitions = UML14MetafacadeUtils.getModel()
             .getStateMachines().getTransition().refAllOfType();
         for (Iterator iterator = allTransitions.iterator(); iterator.hasNext()
             && eventTransition == null;)
@@ -51,7 +51,7 @@ public class EventFacadeLogicImpl
     {
         ActionState eventState = null;
 
-        Collection allActionStates = UMLMetafacadeUtils.getModel()
+        Collection allActionStates = UML14MetafacadeUtils.getModel()
             .getActivityGraphs().getActionState().refAllOfType();
         for (Iterator iterator = allActionStates.iterator(); iterator.hasNext()
             && eventState == null;)

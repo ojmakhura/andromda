@@ -133,4 +133,37 @@
         <from>ACTION_REDIRECT</from>
         <to>@andromda.struts.action.redirect</to>
     </mapping>
+    <!-- datatype mappings -->
+    <mapping>
+        <from>CHARACTER_TYPE</from>
+        <to>datatype::char</to>
+    </mapping>
+    <mapping>
+        <from>BYTE_TYPE</from>
+        <to>datatype::byte</to>
+    </mapping>
+    <mapping>
+        <from>SHORT_TYPE</from>
+        <to>datatype::short</to>
+    </mapping>
+    <mapping>
+        <from>INTEGER_TYPE</from>
+        <to>datatype::int</to>
+    </mapping>
+    <mapping>
+        <from>LONG_TYPE</from>
+        <to>datatype::long</to>
+    </mapping>
+    <mapping>
+        <from>FLOAT_TYPE</from>
+        <to>datatype::float</to>
+    </mapping>
+    <mapping>
+        <from>DOUBLE_TYPE</from>
+        <to>datatype::double</to>
+    </mapping>
+    <mapping>
+        <from>URL_TYPE</from>
+        <to>datatype::URL</to>
+    </mapping>
 </mappings>

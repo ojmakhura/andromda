@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -83,7 +84,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected java.util.Collection handleGetAssociationEnds()
     {
-        return UMLMetafacadeUtils.getCorePackage().getAParticipantAssociation()
+        return UML14MetafacadeUtils.getCorePackage().getAParticipantAssociation()
             .getAssociation(metaObject);
     }
 
@@ -404,10 +405,10 @@ public class ClassifierFacadeLogicImpl
         String fullyQualifiedType,
         String visibility)
     {
-        CorePackage corePackage = UMLMetafacadeUtils.getCorePackage();
+        CorePackage corePackage = UML14MetafacadeUtils.getCorePackage();
         Attribute attribute = corePackage.getAttribute().createAttribute();
         attribute.setName(name);
-        attribute.setVisibility(UMLMetafacadeUtils
+        attribute.setVisibility(UML14MetafacadeUtils
             .getVisibilityKind(visibility));
         this.metaObject.getFeature().add(attribute);
     }

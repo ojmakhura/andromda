@@ -7,6 +7,8 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -120,7 +122,7 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetGetterName()
     {
-        String prefix = isValidatorBoolean(getFullyQualifiedName(true)) ? "is" : "get";
+        String prefix = isValidatorBoolean() ? "is" : "get";
         return StringUtils.trimToEmpty(prefix) + StringUtilsHelper.capitalize(this.getName());
     }
 
@@ -169,8 +171,7 @@ public class StrutsParameterLogicImpl
                 }
                 else
                 {
-                    final String typeName = type.getFullyQualifiedName(true);
-                    resetRequired = isValidatorBoolean(typeName);
+                    resetRequired = isValidatorBoolean();
                 }
             }
         }
@@ -366,64 +367,63 @@ public class StrutsParameterLogicImpl
             buffer.append(crlf);
         }
 
-        String datatype = getFullyQualifiedName(true);
-        if (isValidatorBoolean(datatype))
+        if (isValidatorBoolean())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">boolean</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorByte(datatype))
+        else if (isValidatorByte())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">byte</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorChar(datatype))
+        else if (isValidatorChar())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">character</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorDouble(datatype))
+        else if (isValidatorDouble())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">double precision integer</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorFloat(datatype))
+        else if (isValidatorFloat())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">floating point</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorInteger(datatype))
+        else if (isValidatorInteger())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">integer</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorLong(datatype))
+        else if (isValidatorLong())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">long integer</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorShort(datatype))
+        else if (isValidatorShort())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
                     "target=\"_jdk\">short integer</a> value");
             buffer.append(crlf);
         }
-        else if (isValidatorUrl(datatype))
+        else if (isValidatorUrl())
         {
             buffer.append("The value of this field should reflect a " +
                     "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/net/URL.html\" " +
@@ -781,7 +781,7 @@ public class StrutsParameterLogicImpl
                     {
                         if (type.isFileType())
                             widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
-                        else if (isValidatorBoolean(parameterType))
+                        else if (isValidatorBoolean())
                             widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
                         else if (isMultiple())
                             widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
@@ -1041,32 +1041,31 @@ public class StrutsParameterLogicImpl
         if (type != null)
         {
             final String name = getName();
-            final String typeName = type.getFullyQualifiedName(true);
 
-            if (isValidatorString(typeName)) return "\"" + name + "-test" + "\"";
-            if (isValidatorDate(typeName)) return "new java.util.Date()";
+            if (isValidatorString()) return "\"" + name + "-test" + "\"";
+            if (isValidatorDate()) return "new java.util.Date()";
 
             if (type.isPrimitive())
             {
-                if (isValidatorInteger(typeName)) return "(int)" + name.hashCode();
-                if (isValidatorBoolean(typeName)) return "false";
-                if (isValidatorLong(typeName)) return "(long)" + name.hashCode();
-                if (isValidatorChar(typeName)) return "(char)" + name.hashCode();
-                if (isValidatorFloat(typeName)) return "(float)" + name.hashCode() / hashCode();
-                if (isValidatorDouble(typeName)) return "(double)" + name.hashCode() / hashCode();
-                if (isValidatorShort(typeName)) return "(short)" + name.hashCode();
-                if (isValidatorByte(typeName)) return "(byte)" + name.hashCode();
+                if (isValidatorInteger()) return "(int)" + name.hashCode();
+                if (isValidatorBoolean()) return "false";
+                if (isValidatorLong()) return "(long)" + name.hashCode();
+                if (isValidatorChar()) return "(char)" + name.hashCode();
+                if (isValidatorFloat()) return "(float)" + name.hashCode() / hashCode();
+                if (isValidatorDouble()) return "(double)" + name.hashCode() / hashCode();
+                if (isValidatorShort()) return "(short)" + name.hashCode();
+                if (isValidatorByte()) return "(byte)" + name.hashCode();
             }
             else
             {
-                if (isValidatorInteger(typeName)) return "new Integer((int)" + name.hashCode() + ")";
-                if (isValidatorBoolean(typeName)) return "Boolean.FALSE";
-                if (isValidatorLong(typeName)) return "new Long((long)" + name.hashCode() + ")";
-                if (isValidatorChar(typeName)) return "new Character(char)" + name.hashCode() + ")";
-                if (isValidatorFloat(typeName)) return "new Float((float)" + name.hashCode() / hashCode() + ")";
-                if (isValidatorDouble(typeName)) return "new Double((double)" + name.hashCode() / hashCode() + ")";
-                if (isValidatorShort(typeName)) return "new Short((short)" + name.hashCode() + ")";
-                if (isValidatorByte(typeName)) return "new Byte((byte)" + name.hashCode() + ")";
+                if (isValidatorInteger()) return "new Integer((int)" + name.hashCode() + ")";
+                if (isValidatorBoolean()) return "Boolean.FALSE";
+                if (isValidatorLong()) return "new Long((long)" + name.hashCode() + ")";
+                if (isValidatorChar()) return "new Character(char)" + name.hashCode() + ")";
+                if (isValidatorFloat()) return "new Float((float)" + name.hashCode() / hashCode() + ")";
+                if (isValidatorDouble()) return "new Double((double)" + name.hashCode() / hashCode() + ")";
+                if (isValidatorShort()) return "new Short((short)" + name.hashCode() + ")";
+                if (isValidatorByte()) return "new Byte((byte)" + name.hashCode() + ")";
             }
 
             if (type.isArrayType()) return constructArray();
@@ -1100,37 +1099,36 @@ public class StrutsParameterLogicImpl
         ClassifierFacade type = getType();
         if (type != null)
         {
-            final String typeName = type.getFullyQualifiedName(true);
             final String format = getValidatorFormat();
             final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
 
             if (isRequired()) validatorTypesList.add("required");
 
-            if (isValidatorByte(typeName))
+            if (isValidatorByte())
                 validatorTypesList.add("byte");
-            else if (isValidatorShort(typeName))
+            else if (isValidatorShort())
                 validatorTypesList.add("short");
-            else if (isValidatorInteger(typeName))
+            else if (isValidatorInteger())
                 validatorTypesList.add("integer");
-            else if (isValidatorLong(typeName))
+            else if (isValidatorLong())
                 validatorTypesList.add("long");
-            else if (isValidatorFloat(typeName))
+            else if (isValidatorFloat())
                 validatorTypesList.add("float");
-            else if (isValidatorDouble(typeName))
+            else if (isValidatorDouble())
                 validatorTypesList.add("double");
-            else if (isValidatorDate(typeName))
+            else if (isValidatorDate())
                 validatorTypesList.add("date");
-            else if (isValidatorUrl(typeName))
+            else if (isValidatorUrl())
                 validatorTypesList.add("url");
 
             if (isRangeFormat)
             {
-                if (isValidatorInteger(typeName)) validatorTypesList.add("intRange");
-                if (isValidatorFloat(typeName)) validatorTypesList.add("floatRange");
-                if (isValidatorDouble(typeName)) validatorTypesList.add("doubleRange");
+                if (isValidatorInteger()) validatorTypesList.add("intRange");
+                if (isValidatorFloat()) validatorTypesList.add("floatRange");
+                if (isValidatorDouble()) validatorTypesList.add("doubleRange");
             }
 
-            if (format != null && isValidatorString(typeName))
+            if (format != null && isValidatorString())
             {
                 if (isEmailFormat(format))
                     validatorTypesList.add("email");
@@ -1239,12 +1237,12 @@ public class StrutsParameterLogicImpl
             {
                 final boolean isRangeFormat = isRangeFormat(format);
 
-                if (isRangeFormat && (isValidatorInteger(typeName) || isValidatorFloat(typeName) || isValidatorDouble(typeName)))
+                if (isRangeFormat && (isValidatorInteger() || isValidatorFloat() || isValidatorDouble()))
                 {
                     vars.put("min",Arrays.asList(new Object[]{"min", getRangeStart(format)}));
                     vars.put("max",Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
                 }
-                else if (isValidatorString(typeName))
+                else if (isValidatorString())
                 {
                     Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
                     for (Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
@@ -1259,7 +1257,7 @@ public class StrutsParameterLogicImpl
                     }
                 }
             }
-            if (isValidatorDate(typeName))
+            if (isValidatorDate())
             {
                 if (format != null && isStrictDateFormat(format))
                 {
@@ -1401,59 +1399,59 @@ public class StrutsParameterLogicImpl
         return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
     }
 
-    private boolean isValidatorBoolean(String type)
+    private boolean isValidatorBoolean()
     {
-        return "datatype::boolean".equals(type) || "datatype::Boolean".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), UMLProfile.BOOLEAN_TYPE_NAME);
     }
 
-    private boolean isValidatorChar(String type)
+    private boolean isValidatorChar()
     {
-        return "datatype::char".equals(type) || "datatype::Char".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.CHARACTER_TYPE_NAME);
     }
 
-    private boolean isValidatorByte(String type)
+    private boolean isValidatorByte()
     {
-        return "datatype::byte".equals(type) || "datatype::Byte".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.BYTE_TYPE_NAME);
     }
 
-    private boolean isValidatorShort(String type)
+    private boolean isValidatorShort()
     {
-        return "datatype::short".equals(type) || "datatype::Short".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.SHORT_TYPE_NAME);
     }
 
-    private boolean isValidatorInteger(String type)
+    private boolean isValidatorInteger()
     {
-        return "datatype::int".equals(type) || "datatype::Integer".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.INTEGER_TYPE_NAME);
     }
 
-    private boolean isValidatorLong(String type)
+    private boolean isValidatorLong()
     {
-        return "datatype::long".equals(type) || "datatype::Long".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.LONG_TYPE_NAME);
     }
 
-    private boolean isValidatorFloat(String type)
+    private boolean isValidatorFloat()
     {
-        return "datatype::float".equals(type) || "datatype::Float".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.FLOAT_TYPE_NAME);
     }
 
-    private boolean isValidatorDouble(String type)
+    private boolean isValidatorDouble()
     {
-        return "datatype::double".equals(type) || "datatype::Double".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.DOUBLE_TYPE_NAME);
     }
 
-    private boolean isValidatorDate(String type)
+    private boolean isValidatorDate()
     {
-        return "datatype::Date".equals(type);
+        return this.getType() != null ? this.getType().isDateType() : false;
     }
 
-    private boolean isValidatorUrl(String type)
+    private boolean isValidatorUrl()
     {
-        return "datatype::URL".equals(type);
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.URL_TYPE_NAME);
     }
 
-    private boolean isValidatorString(String type)
+    private boolean isValidatorString()
     {
-        return "datatype::String".equals(type);
+        return this.getType() != null ? this.getType().isStringType() : false;
     }
 
     private boolean isEmailFormat(String format)
