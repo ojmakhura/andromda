@@ -41,7 +41,7 @@ public class ${metafacade.logicImplName}
         // TODO: put your implementation here.
 
         // Dummy return value, just that the file compiles
-#if (!$atttribute.type.primitiveType)
+#if (!$atttribute.type.primitive)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;
@@ -73,7 +73,7 @@ public class ${metafacade.logicImplName}
 #if ($operation.returnTypePresent)
 
         // Dummy return value, just that the file compiles
-#if (!$operation.returnType.primitiveType)
+#if (!$operation.returnType.primitive)
         return null;
 #elseif ("boolean" == $returnTypeName)
         return false;

@@ -34,7 +34,7 @@ public class ${service.name}BeanImpl
 #if ("void" != $returnType)
 
         // Dummy return value, just that the file compiles
-#if (!$returnType.primitiveType)
+#if (!$returnType.primitive)
         return null;
 #elseif ("boolean" == $returnType)
         return false;

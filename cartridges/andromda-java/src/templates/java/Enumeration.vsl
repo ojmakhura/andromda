@@ -29,7 +29,7 @@ $attribute.getDocumentation("     * ")
 	private $attributeType.fullyQualifiedName value;
 	
 #set ($valueTypeDef = "${attributeType.fullyQualifiedName} valueType = value;")
-#if($attributeType.primitiveType)
+#if($attributeType.primitive)
 #set ($valueTypeDef = "${attributeType.wrapperName} valueType = new ${attributeType.wrapperName}(value);")
 #end	
 	private ${enumeration.name}($attributeType.fullyQualifiedName value) 
