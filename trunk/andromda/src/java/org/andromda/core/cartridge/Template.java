@@ -1,7 +1,6 @@
 package org.andromda.core.cartridge;
 
 import java.io.File;
-import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -24,26 +23,6 @@ public class Template
     public Template()
     {
         this.supportedModelElements = new TemplateModelElements();
-    }
-
-    /**
-     * Sets the pattern that is used to build the name of the output file.
-     * 
-     * @param outputPattern the pattern in java.text.MessageFormat syntax
-     */
-    public void setOutputPattern(String outputPattern)
-    {
-        this.outputPattern = outputPattern;
-    }
-
-    /**
-     * Gets the pattern that is used to build the name of the output file.
-     * 
-     * @return String the pattern in java.text.MessageFormat syntax
-     */
-    public String getOutputPattern()
-    {
-        return outputPattern;
     }
 
     /**
@@ -86,37 +65,26 @@ public class Template
         String inputPackageName,
         File directory)
     {
-        int dotIndex = this.getPath().indexOf(".");
-        String pathBaseName = this.getPath().substring(0, dotIndex);
-
-        //clean the strings since they could be null
-        inputClassName = StringUtils.trimToEmpty(inputClassName);
-        inputPackageName = StringUtils.trimToEmpty(inputPackageName);
-
         File file = null;
-        if (directory != null)
+        //if singleFileOutput is set to true, then
+        //just use the output pattern as the file to
+        //output to, otherwise we replace using message format.
+        if (this.isOutputToSingleFile())
         {
-            Object[] arguments =
+            file = super.getOutputLocation(new String[]
             {
-                inputPackageName.replace('.', File.separatorChar),
+                this.getOutputPattern(),
+            }, directory);
+        }
+        else
+        {
+            file = super.getOutputLocation(new String[]
+            {
+                StringUtils.trimToEmpty(inputPackageName).replace(
+                    '.',
+                    File.separatorChar),
                 inputClassName,
-                pathBaseName
-            };
-
-            String outputFileName;
-            //if singleFileOutput is set to true, then
-            //just use the output pattern as the file to
-            //output to, otherwise we replace using message format.
-            if (this.isOutputToSingleFile())
-            {
-                outputFileName = outputPattern;
-            }
-            else
-            {
-                outputFileName = MessageFormat.format(outputPattern, arguments);
-            }
-
-            file = new File(directory, outputFileName);
+            }, directory);
         }
         return file;
     }
@@ -181,7 +149,6 @@ public class Template
     }
 
     private TemplateModelElements supportedModelElements = null;
-    private String outputPattern;
     private boolean generateEmptyFiles;
     private boolean outputToSingleFile = false;
 }
