@@ -20,6 +20,14 @@ body
     border-bottom: 1px solid #93A6B4;
 }
 
+#banner a#serverLink
+{
+    font-size: 86%;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
 #organizationLogo, #projectLogo
 {
     display: none;
@@ -205,3 +213,13 @@ div.screenshot tr.a td, div.screenshot tr.b td
 }
 
 .indented { padding: 25px; }
+
+/* syntax highlighting */
+div.source { font-size: 92%; }
+div.jk, div.vk { color: #008; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity reserved keyword */
+div.jl, div.vl { color: #080; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity literal */
+div.jn, div.vn { color: #00F; display: inline; font-size: 92%; font-weight: normal; } /* java,velocity number */
+div.xe { color: #008; display: inline; font-size: 92%; font-weight: bold; } /* xml element */
+div.xv { color: #080; display: inline; font-size: 92%; font-weight: bold; } /* xml attribute value */
+div.xa { color: #00F; display: inline; font-size: 92%; font-weight: bold; } /* xml attribute name */
+div.xc { color: #888; display: inline; font-size: 92%; font-style: italic; } /* xml CDATA section */
