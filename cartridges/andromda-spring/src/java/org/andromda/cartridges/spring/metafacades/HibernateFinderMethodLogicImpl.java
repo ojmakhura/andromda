@@ -115,11 +115,13 @@ public class HibernateFinderMethodLogicImpl
             .booleanValue()
             || StringUtils.isNotBlank(this.getTranslatedQuery());
     }
+    
     /**
      * Stores the value indicating whether or not to use hibernate query
      * caching.
      */
     private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
+    
     /**
      * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#isUseQueryCache()
      */
