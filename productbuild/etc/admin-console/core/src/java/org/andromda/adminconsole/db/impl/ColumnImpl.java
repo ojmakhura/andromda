@@ -76,9 +76,24 @@ public class ColumnImpl extends DatabaseObject implements Column
         return ordinalPosition;
     }
 
-    public boolean isComparable()
+    public boolean isBooleanType()
     {
-        return Comparable.class.isAssignableFrom(getType());
+        return Boolean.class.isAssignableFrom(getType());
+    }
+
+    public boolean isNumericType()
+    {
+        Class type = getType();
+        return Integer.class.isAssignableFrom(type) ||
+                Long.class.isAssignableFrom(type) ||
+                Short.class.isAssignableFrom(type) ||
+                Double.class.isAssignableFrom(type) ||
+                Float.class.isAssignableFrom(type);
+    }
+
+    public boolean isStringType()
+    {
+        return String.class.isAssignableFrom(getType());
     }
 
     public void refresh()
