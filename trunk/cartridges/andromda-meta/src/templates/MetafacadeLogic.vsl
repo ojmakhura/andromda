@@ -18,7 +18,7 @@
                     new org.andromda.core.metafacade.ModelValidationMessage(
                         this.getClass(),
                         this.getName(),
-                        "$str.toSingleLine($constraintDocumentation)"));
+                        "$metaUtils.toSingleLine($constraintDocumentation)"));
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
 #end##foreach constraint
