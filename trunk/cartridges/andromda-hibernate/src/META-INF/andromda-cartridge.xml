@@ -117,7 +117,8 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false">
+        required="false"
+        outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade">
@@ -160,7 +161,8 @@
         outlet="session-beans"
         overwrite="true"
         required="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
            <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
@@ -174,7 +176,8 @@
         outlet="session-beans"
         overwrite="true"
         required="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ServiceFacade"/>
@@ -275,7 +278,8 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false">
+        required="false"
+        outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EntityFacade"/>
