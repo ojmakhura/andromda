@@ -15,6 +15,7 @@
         metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"
         contextRoot="true">
         <stereotype>ENTITY</stereotype>
+        <property reference="dummyLoadMultiplier" default="1"/> 
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
