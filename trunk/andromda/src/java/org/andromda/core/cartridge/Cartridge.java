@@ -90,6 +90,16 @@ public class Cartridge
 
             String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
+            
+            // set the template engine merge location
+            Property mergeProperty = Namespaces.instance().findNamespaceProperty(
+                this.getName(),
+                MERGE_LOCATION,
+                false);
+            String mergeLocation = mergeProperty != null
+                ? mergeProperty.getName()
+                : null;
+            this.getTemplateEngine().setMergeLocation(mergeLocation);
 
             Iterator resourceIt = resources.iterator();
             while (resourceIt.hasNext())
@@ -356,16 +366,6 @@ public class Cartridge
         ExceptionUtils
             .checkNull(methodName, "templateContext", templateContext);
         ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
-
-        // set the template engine merge location
-        Property mergeProperty = Namespaces.instance().findNamespaceProperty(
-            this.getName(),
-            MERGE_LOCATION,
-            false);
-        String mergeLocation = mergeProperty != null
-            ? mergeProperty.getName()
-            : null;
-        this.getTemplateEngine().setMergeLocation(mergeLocation);
 
         File outFile = null;
         try
