@@ -237,9 +237,6 @@ $operation.getDocumentation("    * ")
 $operation.getDocumentation("    * ")
      *
      * @ejb.create-method
-#if ($operation.transactionType)
-     * @ejb.transaction type="$operation.transactionType"
-#end
      */
     public abstract void ejbCreate($operation.typedArgumentList);
 
@@ -252,7 +249,6 @@ $operation.getDocumentation("    * ")
 ## Only expose the method to the interface for concrete EJBs
 #if (!$service.abstract)
     * @ejb.create-method
-    * @ejb.transaction type="Required"
 #end
     */
     public void ejbCreate() throws javax.ejb.CreateException {
@@ -271,7 +267,6 @@ $operation.getDocumentation("    * ")
      * @param $attribute.name Value for the ${attribute.name} property
 #end
      * @ejb.create-method
-     * @ejb.transaction type="Required"
      */
     public void ejbCreate($transform.getAttributesAsList($allAttributes, true, true))
            throws javax.ejb.CreateException
