@@ -14,7 +14,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
 
 /**
  * <p>
@@ -32,9 +31,6 @@ import org.apache.log4j.Logger;
  */
 public class Mappings
 {
-
-    private static Logger logger = Logger.getLogger(Mappings.class);
-
     /**
      * Holds the name of this mapping. This corresponds usually to some language
      * (i.e. Java, or a database such as Oracle, Sql Server, etc).
@@ -153,6 +149,11 @@ public class Mappings
     }
 
     /**
+     * The suffix appended to array types.
+     */
+    private static final String ARRAY_SUFFIX = "[]";
+
+    /**
      * Returns the <code>to</code> mapping from a given <code>from</code>
      * mapping.
      * 
@@ -168,43 +169,41 @@ public class Mappings
 
         String to = null;
 
-        String arraySuffix = "[]";
-        // if the type is an array suffix, then strip the array off
-        // so we can find the mapping
-        int suffixIndex = from.indexOf(arraySuffix);
-        if (suffixIndex != -1)
-        {
-            from = StringUtils.replace(from, arraySuffix, "");
-        }
-
+        // first we check to see if there's an array
+        // type mapping directly defined in the mappings
         Mapping mapping = this.getMapping(from);
-
-        if (mapping != null)
+        if (mapping == null)
         {
-            StringBuffer buf = new StringBuffer(mapping.getTo());
-
-            if (suffixIndex != -1)
+            // if there is no mapping, remove the array suffix and
+            // check for the mapping without the suffix.
+            // if the from has an array suffix, then strip the array off
+            // so we can find the mapping
+            boolean isArray = from.endsWith(ARRAY_SUFFIX);
+            if (isArray)
             {
-                // append the suffix back to the return value;
-                buf.append(arraySuffix);
+                from = StringUtils.replace(from, ARRAY_SUFFIX, "");
             }
-            to = buf.toString();
+            mapping = this.getMapping(from);
+            if (mapping != null)
+            {
+                StringBuffer toBuffer = new StringBuffer(mapping.getTo());
+                if (isArray)
+                {
+                    // append the suffix back to the return value;
+                    toBuffer.append(ARRAY_SUFFIX);
+                }
+                to = toBuffer.toString();
+            }
+        }
+        else
+        {
+            to = mapping.getTo();
         }
 
         if (to == null)
         {
-            if (logger.isDebugEnabled())
-                logger.debug("no mapping for type '" + from
-                    + "' found, using default name --> '" + initialFrom + "'");
             to = initialFrom;
         }
-        else
-        {
-            if (logger.isDebugEnabled())
-                logger.debug("mapping for type '" + from
-                    + "' found, using found mapping --> '" + to + "'");
-        }
-
         return StringUtils.trimToEmpty(to);
     }
 
@@ -229,7 +228,7 @@ public class Mappings
      */
     public boolean containsFrom(String from)
     {
-        return this.getMapping(StringUtils.trimToEmpty(from)) != null;
+        return this.getMapping(from) != null;
     }
 
     /**
@@ -268,7 +267,7 @@ public class Mappings
      */
     private Mapping getMapping(String from)
     {
-        return (Mapping)mappings.get(from);
+        return (Mapping)mappings.get(StringUtils.trimToEmpty(from));
     }
 
     /**

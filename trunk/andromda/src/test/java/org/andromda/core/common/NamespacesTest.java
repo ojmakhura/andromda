@@ -22,12 +22,12 @@ public class NamespacesTest
     /**
      * Constructor for NamespacesTest.
      * 
-     * @param arg0
+     * @param name
      */
     public NamespacesTest(
-        String arg0)
+        String name)
     {
-        super(arg0);
+        super(name);
     }
 
     public void testAddAndFindNamespaceProperty()
