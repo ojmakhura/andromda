@@ -18,6 +18,20 @@
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="${dist.dir}"/>
         </delete>
+        
+        <antcall target="cleanCartridge">
+          <param name="cartridge.name" value="andromda-java"/>
+        </antcall>
+        <antcall target="cleanCartridge">
+          <param name="cartridge.name" value="andromda-ejb"/>
+        </antcall>
+        <antcall target="cleanCartridge">
+          <param name="cartridge.name" value="andromda-hibernate"/>
+        </antcall>
+        <antcall target="cleanCartridge">
+          <param name="cartridge.name" value="andromda-struts"/>
+        </antcall>
+        
     </target>
 
     <!-- ============================================================= -->
@@ -25,6 +39,7 @@
     <!-- ============================================================= -->
 
     <target name="buildCartridge">
+    	<echo message="buildCartridge ${cartridge.name}"/>
         <ant inheritAll="false" dir="./${cartridge.name}" />
         <copy taskname="${cartridge.name}" todir="${dist.dir}">
           <fileset dir="./${cartridge.name}/dist">
@@ -33,6 +48,10 @@
         </copy>
     </target>
 
+	<target name="cleanCartridge">
+		<echo message="cleanCartridge ${cartridge.name}"/>
+        <ant inheritAll="false" dir="./${cartridge.name}" target="clean"/>
+	</target>
 
     <target name="dist" depends="clean,init"
             description="Builds core, cartridges, samples and website">

@@ -20,6 +20,11 @@
         </move>
     </target>
 
+	<target name="cleanComponent">
+		<echo message="cleanComponent ${component.name}"/>
+        <ant inheritAll="false" dir="${basedir}/${component.name}" target="clean" />
+    </target>
+    
     <!-- ============================================================= -->
     <!--               Highlevel user tasks                            -->
     <!-- ============================================================= -->
@@ -35,6 +40,15 @@
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="${dist.dir}"/>
         </delete>
+        
+        <antcall target="cleanComponent">
+          <param name="component.name" value="car-rental-system"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+          <param name="component.name" value="model-report"/>
+        </antcall>
+        
     </target>
 
     <target name="dist" depends="clean,init"

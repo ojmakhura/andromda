@@ -36,6 +36,7 @@
       <copy todir="${dist.stage.dir}" >
           <fileset dir="${build.dir}" includes="*.jar" />
           <fileset dir="." includes="build.xml" />
+          <fileset dir="." includes="andromda-ejb.properties" />
           <fileset dir="." includes=".classpath" />
           <fileset dir="." includes=".project" />
       </copy>

@@ -1,13 +1,30 @@
 <project name="CarRentalSystemSample" default="build">
 
     <!-- Load user environment parameters -->
-    <!-- This should define the properties andromda.home and build.classpath -->
+    <!-- This should define the properties andromda-core.home and build.classpath -->
     <property file="build.properties" />
+    <property file="${andromda-core.home}/andromda-core.properties"/>
+    <property file="${andromda-core.home}/xdoclet.properties"/>
+    <property file="${andromda-java.home}/andromda-java.properties"/>
+    <property file="${andromda-ejb.home}/andromda-ejb.properties"/>
+    <property file="${andromda-hibernate.home}/andromda-hibernate.properties"/>
+    <property file="${andromda-struts.home}/andromda-struts.properties"/>
 
-
+	<!-- classpath for using AndroMDA to compile UML -->
+	<path id="andromda.classpath">
+	   <pathelement location="${andromda-core.home}/andromda.jar"/>
+       <pathelement path="${andromda-core.classpath}"/>
+       <pathelement path="${andromda-java.classpath}"/>
+       <pathelement path="${andromda-ejb.classpath}"/>
+       <pathelement path="${andromda-hibernate.classpath}"/>
+       <pathelement path="${andromda-struts.classpath}"/>
+	</path>
+		
     <!-- Define our class path -->
     <path id="build.class.path">
-        <pathelement path="${build.classpath}"/>
+        <path refid="andromda.classpath"/>
+        <pathelement path="${xdoclet.classpath}"/>
+        <pathelement path="${j2ee.classpath}"/>
     </path>
 
 
@@ -124,17 +141,21 @@
     <!-- Put andromda to work. -->
     <!-- Generate the enterprise bean sources from the UML model -->
     <target name="genejbjava" depends="init">
+    
+    	<property name="andromda.classpath" refid="andromda.classpath"/>
+    	<echo message="andromda.classpath = ${andromda.classpath}"/>
+    	
         <taskdef name="andromda"
                  classname="org.andromda.core.anttasks.AndroMDAGenTask"
-                 classpathref="build.class.path"
-        />
+                 classpathref="andromda.classpath"/>
+        
 
         <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
 
         <andromda basedir="build/model/unzipped"
                  includes="CarRentalSystem15.xmi"
                  lastModifiedCheck="false"
-                 typeMappings="${andromda.home}/src/xml/TypeMapping.xml"
+                 typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml"
         >
             <userProperty name="foreignKeySuffix" value="_FK" />
 
@@ -156,7 +177,7 @@
     <target name="genhibernatejava" depends="init">
         <taskdef name="andromda"
                  classname="org.andromda.core.anttasks.AndroMDAGenTask"
-                 classpathref="build.class.path"
+                 classpathref="andromda.classpath"
         />
 
         <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
@@ -164,7 +185,7 @@
         <andromda basedir="build/model/unzipped"
                  includes="CarRentalSystem15.xmi"
                  lastModifiedCheck="false"
-                 typeMappings="${andromda.home}/src/xml/TypeMapping.xml"
+                 typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml"
         >
             <userProperty name="foreignKeySuffix" value="_FK" />
 
@@ -320,6 +341,9 @@
     <!-- Compile all ejb files, generated and hand-written -->
     <target name="compile-ejb" depends="init,genejbcomp">
 
+        <property name="build.class.path" refid="build.class.path"/>
+        <echo message="build.class.path = ${build.class.path}"/>
+        
         <!-- Compile EJB classes -->
         <javac destdir="build/ejbstage" includes="**/*.java"
                includeAntRuntime="false">
@@ -375,20 +399,20 @@
         </copy>
         <!-- Copy the Struts and Struts support libraries -->
         <copy todir="build/webstage/WEB-INF/lib/">
-            <fileset dir="${struts-cartridge.home}lib/" includes="struts.jar"/>
-            <fileset dir="${struts-cartridge.home}" includes="andromda-struts.jar"/>
+            <fileset dir="${andromda-struts.home}/lib/" includes="struts.jar"/>
+            <fileset dir="${andromda-struts.home}" includes="andromda-struts.jar"/>
         </copy>
         <copy todir="build/webstage/WEB-INF/lib/tlds/">
-            <fileset dir="${struts-cartridge.home}/lib/tld/" includes="struts*.tld"/>
+            <fileset dir="${andromda-struts.home}/lib/tld/" includes="struts*.tld"/>
         </copy>
 
         <!-- Copy the hibernate libraries -->
         <copy todir="build/hibernateservice/lib/">
-            <fileset dir="${hibernate-cartridge.home}lib/" includes="hibernate.jar"/>
+            <fileset dir="${andromda-hibernate.home}/lib/" includes="hibernate.jar"/>
         </copy>
         <!-- Copy the hibernate libraries -->
         <copy todir="build/hibernatestage/lib/">
-            <fileset dir="${hibernate-cartridge.home}lib/" includes="*.jar"/>
+            <fileset dir="${andromda-hibernate.home}/lib/" includes="*.jar"/>
         </copy>
     </target>
 
@@ -450,7 +474,7 @@
 
         <echo message="mapping files: ${hibernate.mappings}"/>
         <path id="schema.classpath">
-            <path refid="build.class.path"/>
+            <pathelement path="${build.class.path}"/>
             <pathelement location="build/earstage/car-rental-system-hibernate.jar"/>
         </path>
 
@@ -473,8 +497,6 @@
         <echo message=" path=${classpath}"/>
 
         <antcall target="check-andromda"/>
-
-        <antcall target="check-buildclasspath"/>
 
         <available property="mdr.present"
                 classname="org.netbeans.mdr.NBMDRepositoryImpl"
@@ -511,26 +533,16 @@
         -->
         <available property="andromda.present"
                    classname="org.andromda.core.anttasks.AndroMDAGenTask"
-                   classpathref="build.class.path" />
+                   classpathref="andromda.classpath" />
         <antcall target="wrong-andromda"/>
     </target>
 
-    <target name="check-andromda" unless="andromda.home">
+    <target name="check-andromda" unless="andromda-core.home">
         <fail>
-            Property "andromda.home" is not set. Please use the file
+            Property "andromda-core.home" is not set. Please use the file
             "build.properties" in the directory ${basedir} to set
             this property. It must point to the andromda installation
             directory which contains the file "andromda.jar".
-        </fail>
-    </target>
-
-    <target name="check-buildclasspath" unless="build.classpath">
-        <fail>
-            Property "build.classpath" is not set. Please use the file
-            "build.properties" in the directory ${basedir} to set
-            this property. It must list all external jars required
-            for the build to succeed.  "build.properties.sample"
-            provides an example on how to set it up.
         </fail>
     </target>
 
