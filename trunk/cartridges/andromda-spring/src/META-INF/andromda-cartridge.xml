@@ -9,7 +9,11 @@
     	
     <templateObject 
     	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>      
+    	className="org.apache.commons.lang.StringUtils"/>    
+        
+    <templateObject 
+    	name="springUtils"
+    	className="org.andromda.cartridges.spring.SpringUtils"/>    
 	
     <!-- properties -->
     <property reference="driver" default=""/>
