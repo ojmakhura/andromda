@@ -2,6 +2,7 @@ package org.andromda.templateengines.velocity;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -174,7 +175,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
 	public void processTemplate(
 		String templateFile,
 		Map templateObjects, 
-		StringWriter output) throws Exception {      
+		Writer output) throws Exception {      
 		final String methodName = "VelocityTemplateEngine.processTemplate";
         if (logger.isDebugEnabled())
             logger.debug("performing " + methodName 

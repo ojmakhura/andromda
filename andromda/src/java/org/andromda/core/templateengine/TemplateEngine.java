@@ -1,6 +1,6 @@
 package org.andromda.core.templateengine;
 
-import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +40,7 @@ public interface TemplateEngine
     public void processTemplate(
         String templateFile,
         Map templateObjects,
-        StringWriter output) throws Exception;
+        Writer output) throws Exception;
 
     /**
      * Shuts down the template engine. The meaning of this is defined by the
