@@ -1,5 +1,10 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.metafacades.uml.ActionStateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.FinalStateFacade;
+
 /**
  * Metaclass facade implementation.
  */
@@ -44,5 +49,38 @@ public class TransitionFacadeLogicImpl
     protected boolean handleIsTriggerPresent()
     {
         return metaObject.getTrigger() != null;
+    }
+
+    protected boolean handleIsExitingDecisionPoint()
+    {
+        StateVertexFacade sourceVertex = getSource();
+        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade) sourceVertex).isDecisionPoint();
+    }
+
+    protected boolean handleIsEnteringDecisionPoint()
+    {
+        final StateVertexFacade target = getTarget();
+        return target instanceof PseudostateFacade && ((PseudostateFacade) target).isDecisionPoint();
+    }
+
+    protected boolean handleIsExitingActionState()
+    {
+        return getSource() instanceof ActionStateFacade;
+    }
+
+    protected boolean handleIsEnteringActionState()
+    {
+        return getTarget() instanceof ActionStateFacade;
+    }
+
+    protected boolean handleIsExitingInitialState()
+    {
+        StateVertexFacade sourceVertex = getSource();
+        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade) sourceVertex).isInitialState();
+    }
+
+    protected boolean handleIsEnteringFinalState()
+    {
+        return getTarget() instanceof FinalStateFacade;
     }
 }

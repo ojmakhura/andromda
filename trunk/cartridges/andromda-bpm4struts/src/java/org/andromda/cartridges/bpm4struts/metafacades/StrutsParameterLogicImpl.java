@@ -61,7 +61,7 @@ public class StrutsParameterLogicImpl
             else if (transition instanceof StrutsForward)
             {
                 StrutsForward forward = (StrutsForward)transition;
-                if (forward.isTargettingPage())
+                if (forward.isEnteringPage())
                 {
                     jspObject = forward.getTarget();
                 }

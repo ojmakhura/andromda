@@ -2,12 +2,11 @@
 ##  MACROS
 ##
 #macro (processTransition $transition)
-#set ($target = $transition.target)
-#if ($transition.isTargettingFinalState() || $transition.isTargettingPage())
+#if ($transition.enteringFinalState || $transition.enteringPage)
 mapping.findForward("$transition.forwardName");
-#elseif ($transition.isTargettingDecisionPoint())
-${transition.decisionTrigger.controllerCall.name}(mapping, form, request, response);
+#elseif ($transition.enteringDecisionPoint)
+${transition.operationCall.name}(mapping, form, request, response);
 #else
-${target.actionMethodName}(mapping, form, request, response);
+${transition.target.actionMethodName}(mapping, form, request, response);
 #end
 #end
