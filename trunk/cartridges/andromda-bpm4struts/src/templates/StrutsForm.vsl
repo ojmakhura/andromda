@@ -150,9 +150,9 @@ public class $formBeanClassName
         return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
     }
 
-    public java.text.DateFormat ${field.getterName}DateFormatter()
+    public final static java.text.DateFormat ${field.getterName}DateFormatter()
     {
-        return this.${fieldName}DateFormatter;
+        return ${formBeanClassName}.${fieldName}DateFormatter;
     }
 #else
 #renderValidation($field)
