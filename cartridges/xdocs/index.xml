@@ -6,13 +6,11 @@
     <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
     <author email="chdbrandon@yahoo.com">Chad Brandon</author>
     <title>The cartridge system of AndroMDA</title>
-    <gennews>no</gennews>
   </properties>
 
   <body>
 
     <section name="The cartridge system of AndroMDA">
- 
       <p>
             The <strong>primary plugin</strong> of the AndroMDA framework, <em>cartridges</em>
             provide the ability to process model elements that have specified <code>stereotypes</code>
@@ -105,9 +103,9 @@
       </p>
       <table border="1" cellpadding="4">
         <tr>
-          <td valign="top"><b>File</b></td>
-          <td valign="top"><b>Contents</b></td>
-          <td align="center"><b>Required</b></td>
+          <th>File</th>
+          <th>Contents</th>
+          <th>Required</th>
         </tr>
         <tr>
             <td valign="top">
@@ -165,8 +163,8 @@
         The descriptor allows AndroMDA to find this cartridge on the classpath automatically.
         The core also uses this descriptor to find out the capabilities of a cartridge: the
         supported stereotypes, the outlets and, templates and the variable name
-        to place the model element(s) into in the template. The cartridge descriptor <b>must</b>
-        reside in the <code>META-INF</code> subdirectory and <b>must</b> be named
+        to place the model element(s) into in the template. The cartridge descriptor <strong>must</strong>
+        reside in the <code>META-INF</code> subdirectory and <strong>must</strong> be named
         <code>andromda-cartridge.xml</code>.
       </p>
 
@@ -247,17 +245,11 @@
         The <code><![CDATA[<cartridge/>]]></code> element is the root of
         the cartridge descriptor and also gives a name to the cartridge.
       </p>
-      <table border="1" cellpadding="2" cellspacing="0">
+      <table>
           <tr>
-              <td valign="top">
-                  <b>Attribute</b>
-              </td>
-              <td valign="top">
-                    <b>Description</b>
-              </td>
-              <td valign="top">
-                  <b>Required?</b>
-              </td>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Required?</th>
           </tr>
           <tr>
               <td>name</td>
@@ -278,17 +270,11 @@
         named <code>securityEnabled</code> when this cartridge is run. This property 
         (and it's value) will then be made available to the template during processing
       </p>
-      <table border="1" cellpadding="2" cellspacing="0">
+      <table>
           <tr>
-              <td valign="top">
-                  <b>Attribute</b>
-              </td>
-              <td valign="top">
-                    <b>Description</b>
-              </td>
-              <td valign="top">
-                  <b>Required?</b>
-              </td>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Required?</th>
           </tr>
           <tr>
               <td>reference</td>
@@ -310,16 +296,17 @@
               <td >No</td>
           </tr>
       </table>
-        <h3><![CDATA[<template/>]]></h3>
+      <a name="template"/>
+      <h3><![CDATA[<template/>]]></h3>
         <p>
           The <code><![CDATA[<template/>]]></code> element is used to describe
           the template that will be used to generate source code.
         </p>
-        <table border="1" cellpadding="2" cellspacing="0">
+        <table>
           <tr>
-            <td><b>Attribute</b></td>
-            <td><b>Description</b></td>
-            <td align="center"><b>Required?</b></td>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
           </tr>
           <tr>
             <td>
@@ -427,16 +414,42 @@
               </td>
           </tr>
         </table>
+        <h3><![CDATA[<modelElements/>]]></h3>
+        <p>
+            The <code><![CDATA[<modelElements/>]]></code> element is nested directly within 
+            the <a href="#template"><code><![CDATA[<template/>]]></code></a> element, it is used to 
+            instruct each <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
+            elements it should process. 
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <td>
+                variable
+            </td>
+            <td>
+                The variable which is made available to the template (i.e. a value of <em>entity</em> 
+                would make <em>$entity</em> available in a velocity template).
+            </td>
+            <td>
+                No
+            </td>
+          </tr>
+         </table>
         <h3><![CDATA[<resource/>]]></h3>
         <p>
           The <code><![CDATA[<resource/>]]></code> element is used to process files inside the
           cartridge without passing them through any template engine. They will simply be copied.
         </p>
-        <table border="1" cellpadding="2" cellspacing="0">
+        <table>
           <tr>
-            <td><b>Attribute</b></td>
-            <td><b>Description</b></td>
-            <td align="center"><b>Required?</b></td>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
           </tr>
           <tr>
             <td>

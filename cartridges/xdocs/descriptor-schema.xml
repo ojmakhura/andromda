@@ -43,7 +43,7 @@
             <xs:attribute name="default" use="optional"/>            
         </xs:complexType>
     </xs:element>
-    <!-- this is the grouping of all modelElements supporeted within a template -->
+    <!-- this is the grouping of all modelElements supported within a template -->
     <xs:element name="modelElements">
         <xs:complexType>
             <xs:sequence>
