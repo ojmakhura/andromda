@@ -292,13 +292,13 @@ public class StrutsParameterLogicImpl
     public boolean handleIsRequired()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED);
-        return isTrue(value == null ? null : value.toString());
+        return isTrue(value == null ? null : String.valueOf(value));
     }
 
     public boolean handleIsReadOnly()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY);
-        return isTrue(value == null ? null : value.toString());
+        return isTrue(value == null ? null : String.valueOf(value));
     }
 
     public boolean handleIsDate()
