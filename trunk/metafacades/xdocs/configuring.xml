@@ -283,12 +283,12 @@
                     having the stereotype <em>WEBSERVICE</em> <strong>AND</strong> <em>SERVICE</em>:
                     <source><![CDATA[    
 ...
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>WEBSERVICE</stereotype>
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade>
+<metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <stereotype>WEBSERVICE</stereotype>
+        <stereotype>SERVICE</stereotype>
+    </mapping>
+</metafacade>
 ...                    
                     ]]></source>                     
                     If you wanted to 'OR' them together, meaning you wanted
@@ -300,18 +300,34 @@
                     that has either the <em>WEBSERVICE</em> <strong>OR</strong> <em>SERVICE</em> stereotype.
                     <source><![CDATA[    
 ...
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>WEBSERVICE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade>
+<metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <stereotype>WEBSERVICE</stereotype>
+    </mapping>
+</metafacade>
+<metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <stereotype>SERVICE</stereotype>
+    </mapping>
+</metafacade>
 ...                    
                     ]]></source> 
+                    It is also possible to combine a <a href="#context"><![CDATA[<context/>]]></a> element with one
+                    or more stereotypes like this example here; which means apply
+                    <em>org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl</em>
+                    to any meta model element of type <em>org.omg.uml.foundation.core.Operation</em>
+                    that has the <em>FINDER_METHOD</em> stereotype and is created in the context of
+                    <em>org.andromda.cartridges.spring.metafacades.SpringEntity</em>.
+                    <source><![CDATA[ 
+...
+<metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+        <stereotype>FINDER_METHOD</stereotype>
+    </mapping>
+</metafacade>     
+...               
+                    ]]></source>                     
                 </p>
                 <table>
                     <tr>
