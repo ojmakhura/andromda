@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
         #end
     #end
-    #if ($transform.getStereotype($dep.id) == "exception")
+    #if ($transform.getStereotype($dep.id) == "Exception")
         #set ($defaultException = $class2)
     #end
 #end

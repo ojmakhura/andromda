@@ -8,8 +8,8 @@
 <cartridge name="hibernate">
     <property name="persistence" value="hibernate" />
 
-    <stereotype name="EntityBean" />
-    <stereotype name="StatelessSessionBean" />
+    <stereotype name="Entity" />
+    <stereotype name="Service" />
 
     <outlet name="entities" />
     <outlet name="entity-impls" />
@@ -17,7 +17,7 @@
     <outlet name="session-impls" />
 
     <template
-        stereotype="EntityBean"
+        stereotype="Entity"
         sheet="templates/HibernateEntity.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entities"
@@ -25,7 +25,7 @@
     />
 
     <template
-        stereotype="EntityBean"
+        stereotype="Entity"
         sheet="templates/HibernateEntityImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
         outlet="entity-impls"
@@ -33,7 +33,7 @@
     />
 
     <template
-        stereotype="StatelessSessionBean"
+        stereotype="Service"
         sheet="templates/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
@@ -41,7 +41,7 @@
     />
 
     <template
-        stereotype="StatelessSessionBean"
+        stereotype="Service"
         sheet="templates/HibernateSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"

@@ -3,7 +3,7 @@ package $packagename;
 
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($transform.getStereotype($dep.id) == "exception")
+    #if ($transform.getStereotype($dep.id) == "Exception")
         #set ($defaultException = $class2)
     #end
 #end

@@ -30,7 +30,7 @@ ${indent}* </p>
 import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
         #end
     #end
-    #if ($transform.getStereotype($dep.id) == "exception")
+    #if ($transform.getStereotype($dep.id) == "Exception")
         #set ($defaultException = $class2)
     #end
 #end
@@ -61,7 +61,7 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
  *        local-class="${packagename}.${class.name}LocalHome"
  * @ejb.util generate="physical"
 #foreach ( $dep in $class.dependencies )
-#if ($transform.getStereotype($dep.id) == "ejbref")
+#if ($transform.getStereotype($dep.id) == "EntityRef" || $transform.getStereotype($dep.id) == "ServiceRef")
  #set ($class2 = $transform.findClassById($dep.targetType))
  * @ejb.ejb-ref ejb-name="${class2.name}" view-type="$transform.getEjbRefViewType(${class2})" ref-name="ejb/${class2.name}BeanRef"
 #end
@@ -179,7 +179,7 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
     // ---------------- accessor methods for bean references ---------------
 
 #foreach ( $dep in $class.dependencies )
-#if ($transform.getStereotype($dep.id) == "ejbref")
+#if ($transform.getStereotype($dep.id) == "EntityRef" || $transform.getStereotype($dep.id) == "ServiceRef")
    #set ($referencedClass = $transform.findClassById($dep.targetType))
    #set ($homeInterfaceName = $transform.getHomeInterfaceName($referencedClass))
    /**
