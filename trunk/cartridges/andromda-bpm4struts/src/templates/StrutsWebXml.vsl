@@ -90,18 +90,16 @@
         </form-login-config>
     </login-config>
 
-#end
-#if ($security == "true")
 #foreach ($user in $applicationUseCase.allUsers)
     <security-role>
         <role-name>$user.role</role-name>
     </security-role>
 #end
-#end
 
 #end
-#foreach ($controller in $controllers)
-#foreach ($service in $controller.services)
+#end
+#foreach ($applicationUseCase in $applicationUseCases)
+#foreach ($service in $applicationUseCase.allServices)
 #set ($serviceName = $service.name)
 #set ($packageName = $service.packageName)
 #set ($ejbRefName = "ejb/${packageName}/${serviceName}")
