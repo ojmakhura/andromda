@@ -37,7 +37,6 @@ import org.andromda.core.translation.node.TName;
  */
 public class OclParser extends Parser {
 
-	protected AstFix fix = new AstFix();
 	protected Node oclNode;
 
 	/**
@@ -54,11 +53,17 @@ public class OclParser extends Parser {
      */
 	protected void filter() {
 		oclNode = node;
-		oclNode.apply(fix);
+		oclNode.apply(handler);
 		node = oclNode;
 	}
 
-	private class AstFix extends AnalysisAdapter {
+    protected SyntaxHandler handler = new SyntaxHandler();
+    
+    /**
+     * A private inner class for handling syntax which SableCC
+     * can't handle on its own.
+     */
+	private class SyntaxHandler extends AnalysisAdapter {
 
         /**
          * @see org.andromda.core.translation.parser.analysis.Analysis#caseAConcreteFeatureCallParameters(org.andromda.core.translation.parser.node.AConcreteFeatureCallParameters)
@@ -66,7 +71,7 @@ public class OclParser extends Parser {
 		public void caseAConcreteFeatureCallParameters(AConcreteFeatureCallParameters featureCallParameters) {
 			boolean isDeclarator = false;
 			boolean isIterateDeclarator = false;
-
+            
 			List tail = featureCallParameters.getFeatureCallParameterOption();
 			PFeatureCallParameterOption[] parameterOption = 
 				new PFeatureCallParameterOption[tail.size()];
@@ -194,7 +199,8 @@ public class OclParser extends Parser {
 				if (!(parameterOptions[ctr] instanceof ACommaFeatureCallParameterOption ||
 				      parameterOptions[ctr] instanceof AColonFeatureCallParameterOption)) {
 					throw new OclParserException(
-							"parser error: feature call parameters with standard declarator must have the format "
+							"OCL Parser Error: feature call parameters with "
+                            + "standard declarator must have the format "
 							+ "\"( name (: type)?, ... , name: type | expression )\"");
 				}
 			}
