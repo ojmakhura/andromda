@@ -769,14 +769,6 @@ public class StrutsParameterLogicImpl
             if (isValidatorFloat(type)) validatorTypesList.add("floatRange");
             if (isValidatorDouble(type)) validatorTypesList.add("doubleRange");
         }
-        else
-        {
-            if (isValidatorInteger(type))
-                validatorTypesList.add("integer");
-            else if (isValidatorFloat(type))
-                validatorTypesList.add("float");
-            else if (isValidatorDouble(type)) validatorTypesList.add("double");
-        }
 
         if (format != null && isValidatorString(type))
         {
