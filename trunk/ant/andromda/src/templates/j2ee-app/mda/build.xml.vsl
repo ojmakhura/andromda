@@ -46,8 +46,12 @@
                 <pathelement location="${basedir}/src/mappings"/>
             </mappingsSearchPath>
             <namespace name="default" ignore="false">
-                <property name="languageMappingsUri" value="Java"/>
-                <property name="wrapperMappingsUri" value="JavaWrapper"/>
+                <property name="sqlMappingsUri" value="file:${basedir}/src/mappings/${datasource.type}Mappings.xml"/>
+                <property name="jdbcMappingsUri" value="file:${basedir}/src/mappings/JdbcMappings.xml"/>
+                <property name="wrapperMappingsUri" value="file:${basedir}/src/mappings/JavaWrapperMappings.xml"/>
+                <property name="languageMappingsUri" value="file:${basedir}/src/mappings/JavaMappings.xml"/>
+                <property name="foreignKeySuffix" value="_FK"/>
+                <property name="maxSqlNameLength" value="30"/>
             </namespace>
             <namespace name="java" ignore="false">
                 <property name="exceptions" value="${app.root.dir}/common/target/src"/>
@@ -59,10 +63,7 @@
 #else
             <namespace name="hibernate" ignore="true">
 #end
-                <property name="jdbcMappingsUri" value="Jdbc"/>
-                <property name="sqlMappingsUri" value="${datasource.type}"/>
-                <property name="foreignKeySuffix" value="_FK"/>
-                <property name="maxSqlNameLength" value="30"/>
+                <property name="hibernateTypeMappingsUri" value="file:${basedir}/src/mappings/HibernateTypeMappings.xml"/>
                 <property name="entities" value="${app.root.dir}/hibernate/ejb/target/src"/>
                 <property name="entity-impls" value="${app.root.dir}/hibernate/ejb/src/java"/>
                 <property name="session-beans" value="${app.root.dir}/hibernate/ejb/target/src"/>
@@ -73,10 +74,6 @@
 #else
             <namespace name="ejb" ignore="false">
 #end
-                <property name="jdbcMappingsUri" value="Jdbc"/>
-                <property name="sqlMappingsUri" value="${datasource.type}"/>
-                <property name="foreignKeySuffix" value="_FK"/>
-                <property name="maxSqlNameLength" value="30"/>
                 <property name="entity-beans" value="${app.root.dir}/ejb/target/src"/>
                 <property name="entity-impls" value="${app.root.dir}/ejb/src/java"/>
                 <property name="session-beans" value="${app.root.dir}/ejb/target/src"/>
@@ -86,6 +83,10 @@
                 <property name="xhtml" value="false"/>
                 <property name="security" value="false"/>
                 <property name="securityRealm" value="other"/>
+                <property name="clientValidation" value="true"/>
+                <property name="serverValidation" value="true"/>
+                <property name="welcomeFileName" value="index.jsp"/>
+                <property name="breadCrumbs" value="true"/>
                 <property name="pages" value="${app.root.dir}/web/src/jsp"/>
                 <property name="forms" value="${app.root.dir}/web/target/src"/>
                 <property name="actions" value="${app.root.dir}/web/target/src"/>
