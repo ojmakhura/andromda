@@ -51,7 +51,7 @@
     <!-- the name to give the principal store class -->
     <property reference="principalStoreName" default="PrincipalStore"/>
 	<property reference="ejbViewType" default="local"/>
-    <property reference="ejbSecurityDomain" default=""/>
+    <property reference="securityRealm" default=""/>
 	<!-- not really used from the template except to check if it has been defined
 		 or not, so that we can determine whether or not we'll use the session
 		 EJBs for transaction management (rather than Spring's transaction framework) -->
