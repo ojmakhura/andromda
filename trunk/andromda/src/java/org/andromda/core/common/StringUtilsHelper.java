@@ -255,7 +255,7 @@ public class StringUtilsHelper extends StringUtils {
 
     /**
      * Converts multiline text into a single line, normalizing whitespace in the process. This means
-     * whitespace characters will not follow eachother directly.
+     * whitespace characters will not follow each other directly.
      * <p>
      * The resulting String will be trimmed.
      * <p>
