@@ -97,6 +97,7 @@ $operation.getDocumentation("     * ")
             return handle${stringUtils.capitalize($operation.name)}($parameters);
 #else
             handle${stringUtils.capitalize($operation.name)}($parameters);
+            session.flush();
 #end
         }
 #foreach ( $exception in $operation.exceptions )
@@ -116,12 +117,11 @@ $operation.getDocumentation("     * ")
             {
                 try
                 {
-                    session.flush();
                     session.close();
                 }
                 catch (HibernateException he)
                 {
-                    throw new EJBException("${service.name}Bean.${operation.name}: " + he.getMessage());
+                    he.printStackTrace();
                 }
             }
         }
