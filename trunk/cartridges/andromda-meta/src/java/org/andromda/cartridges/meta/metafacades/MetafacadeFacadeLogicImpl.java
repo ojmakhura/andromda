@@ -60,11 +60,11 @@ public class MetafacadeFacadeLogicImpl
     private String findTaggedValueUpstairs(String taggedValueName)
     {
         String taggedValue = null;
-        ModelElementFacade med = this;
+        ModelElementFacade modelElement = this;
         do
         {
             // try to find this tagged value
-            taggedValue = med.findTaggedValue(taggedValueName);
+            taggedValue = modelElement.findTaggedValue(taggedValueName);
             if (taggedValue != null)
             {
                 // return if found
@@ -72,9 +72,9 @@ public class MetafacadeFacadeLogicImpl
             }
 
             // if not found, walk up in the package hierarchy
-            med = med.getPackage();
+            modelElement = modelElement.getPackage();
         }
-        while (med != null);
+        while (modelElement != null);
         return null; // not found
     }
 
@@ -189,15 +189,16 @@ public class MetafacadeFacadeLogicImpl
         return result;
     }
 
-    private static void internalGetMethodDataForPSM(HashMap map, MetafacadeFacade cd)
+    private static void internalGetMethodDataForPSM(HashMap map, MetafacadeFacade facade)
     {
-        final String methodName = "MetafacadeFacadeLogicImpl.internaleGetMethodDataForPSM";
+        final String methodName = 
+            "MetafacadeFacadeLogicImpl.internaleGetMethodDataForPSM";
         try {
             final String fullyQualifiedInterfaceName =
-                cd.getFullyQualifiedInterfaceName();
+                facade.getFullyQualifiedInterfaceName();
     
             // translate UML attributes to getter methods
-            for (Iterator iter = cd.getAttributes().iterator();
+            for (Iterator iter = facade.getAttributes().iterator();
                 iter.hasNext();
                 )
             {
@@ -214,8 +215,8 @@ public class MetafacadeFacadeLogicImpl
             }
     
             // translate UML operations to methods
-            for (Iterator iter = cd.getOperations().iterator();
-                iter.hasNext();
+            for (Iterator iter = facade.getOperations().iterator();
+                 iter.hasNext();
                 )
             {
                 OperationFacade op = (OperationFacade) iter.next();
@@ -225,7 +226,7 @@ public class MetafacadeFacadeLogicImpl
             }
     
             // translate UML associations to getter methods
-            for (Iterator iter = cd.getAssociationEnds().iterator();
+            for (Iterator iter = facade.getAssociationEnds().iterator();
                 iter.hasNext();
                 )
             {
