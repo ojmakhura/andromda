@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  *  to take note of when extending this class are:
  *      <ul>
  *          <li>
- *              <a href="#handleTranslationFragment(java.lang.String, org.andromda.core.parser.parser.node.Node)">handleTranslationFragment(java.lang.String, Node node)</a> 
+ *              <a href="#handleTranslationFragment(java.lang.String, org.andromda.core.translation.node.Node)">handleTranslationFragment(java.lang.String, Node node)</a> 
  *          </li>
  *          <li>
  *              <a href="#getTranslationFragment(java.lang.String)">getTranslationFragment(java.lang.String)</a>
