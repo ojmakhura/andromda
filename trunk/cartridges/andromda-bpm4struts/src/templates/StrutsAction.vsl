@@ -84,12 +84,15 @@ $actionState.getDocumentation("     * ")
         try
         {
 #foreach ($controllerCall in $controllerCalls)
-            ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
+            if (this.errorsNotPresent(request))
+            {
+                ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
+            }
+#end
             if (this.errorsNotPresent(request))
             {
                 forward = #processTransition($actionState.forward)
             }
-#end
         }
         catch (Exception ex)
         {
