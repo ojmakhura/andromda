@@ -17,12 +17,24 @@ public class ${class.name}BeanImpl
 
 #foreach ( $op in $class.operations)
 #set ($msig = $transform.getOperationSignature($op))
+
+##
+##  Add one additional parameter to the list of parameters:
+##  a reference to the open Hibernate session.
+##
+#set ($parameterList = $transform.getOperationTypedParameterList($op))
+#if ($parameterList.length() == 0)
+#set ($parameters = "cirrus.hibernate.Session sess")
+#else
+#set ($parameters = "cirrus.hibernate.Session sess, ${parameterList}")
+#end
+
 #set ($returntype = $transform.findFullyQualifiedName($op.getType()))
 #if ($defaultException)
-    protected $returntype handle${str.upperCaseFirstLetter(${msig})}
+    protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $defaultException.name {
 #else
-    protected $returntype handle${str.upperCaseFirstLetter(${msig})} {
+    protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters) {
 #end
         // TODO: put your implementation here.
 #if ("void" != $returntype)
