@@ -3,11 +3,8 @@
 <faqs title="Frequently Asked Questions">
 
   	<part id="development">
-  	
-  	
-  	
 	    <title>Development</title>
-	    
+
 	    <faq id="building-andromda">
 	      	<question>How do I build AndroMDA?</question>
 	      	<answer>
@@ -21,8 +18,46 @@
 	       		Please see <a href="andromda-cartridges/developing.html">Developing a Cartridge</a>.
 	      	</answer>
 	    </faq>
-	    
 	</part>
-	
+
+  	<part id="third-party">
+	    <title>Third-party tools</title>
+
+	    <faq id="magicdraw-uml-standard-profile">
+	      	<question>
+                I tried using MagicDraw with Andromda v2.1.2 by trying with the model-report cartridge that comes
+                with andromda.
+                I am unable to get passed opening the file in the ant task, I am getting an error.
+                This happens in both in XMI1.1 and 1.2 format which Magicdraw 7.5 support. What can I do to solve
+                this problem ?
+            </question>
+	      	<answer>
+                <p>
+                    Your model contains a reference to a module called "UML Standard Profile".
+                    AndroMDA 2.1.2 is not able to resolve such a reference.
+                    AndroMDA 3.0 contains code to resolve such references.
+                </p>
+                <p>
+                    You have three options:
+                </p>
+                <p>
+                    <ol>
+                        <li>Make the profile part of your model.</li>
+                        <li>Remove the profile entirely from your model.</li>
+                        <li>Use AndroMDA 3.0.</li>
+                    </ol>
+                </p>
+                <p>
+                    Option 1 will make your model larger. Option 2 will make it smaller but you will lose
+                    all standard UML stereotypes, datatypes and tagged value definitions.
+                    Option 3 makes your live a little less certain although the new software already works quite well. :-)
+                </p>
+                <p>
+                    See also the MagicDraw 7.5 manual for details, especially the chapter about "Module management".
+                </p>
+	      	</answer>
+	    </faq>
+	</part>
+
 </faqs>
    
