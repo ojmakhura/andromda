@@ -42,7 +42,7 @@
                 In this example we have added two attributes: name of type <code>datatype.String</code>
                 and birthDate of type <code>datatype.Date</code>; please note that also for this entity
                 an identifier will be added by default. If you explicitely want to add an identifier you should
-                add the <![CDATA[<<PrimaryKey>>]]> stereotype to an attribute.
+                add the <![CDATA[<<Identifier>>]]> stereotype to an attribute.
             </p>
             <p>
                 <ul>
