@@ -356,32 +356,65 @@ public class ValidationJavaTranslator
     /**
      * oclIsKindOf(type) is a special feature defined by OCL on all objects.
      */
-    private void handleOclIsKindOf(AFeatureCall featureCall)
+    private void handleOclIsKindOf(Object node)
     {
-        write(" instanceof ");
-        String type = ConcreteSyntaxUtils.getParametersAsString(featureCall)
-            .replaceAll("\\s*::\\s*", ".");
-        // if we don't have a package define, attempt to find the model element
-        // in the same package as the context element.
-        if (type.indexOf(".") == -1)
+        String type = this.getParametersAsType(node);
+        if (type != null)
         {
-            if (this.getModelElement() != null)
-            {
-                type = this.getModelElement().getPackageName() + "." + type;
-            }
+            write(" instanceof ");
+            write(type);
         }
-        write(type);
     }
 
     /**
      * oclIsTypeOf(type) is a special feature defined by OCL on all objects.
      */
-    private void handleOclIsTypeOf(AFeatureCall featureCall)
+    private void handleOclIsTypeOf(Object node)
     {
-        write(".getClass().getName().equals(");
-        write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
-            .replaceAll("\\s*::\\s*", "."));
-        write(".class.getName())");
+        String type = this.getParametersAsType(node);
+        if (type != null)
+        {
+            write(".getClass().getName().equals(");
+            write(type);
+            write(".class.getName())");
+        }
+    }
+
+    /**
+     * Extracts the parameters from the given <code>node</code> and returns
+     * the parameters as a type (or null if none can be extracted).
+     * 
+     * @param node the node from which to extrac the parameters
+     * @return the fully qualified type name.
+     */
+    private String getParametersAsType(Object node)
+    {
+        String type = null;
+        if (node instanceof AFeatureCall)
+        {
+            type = ConcreteSyntaxUtils
+                .getParametersAsString((AFeatureCall)node);
+        }
+        else if (node instanceof AFeatureCallParameters)
+        {
+            type = ConcreteSyntaxUtils
+                .getParametersAsString((AFeatureCallParameters)node);
+        }
+        if (type != null)
+        {
+            type = type.replaceAll("\\s*::\\s*", ".");
+            // if we don't have a package define, attempt to find the model
+            // element
+            // in the same package as the context element.
+            if (type.indexOf(".") == -1)
+            {
+                if (this.getModelElement() != null)
+                {
+                    type = this.getModelElement().getPackageName() + "." + type;
+                }
+            }
+        }
+        return type;
     }
 
     /**
@@ -479,19 +512,33 @@ public class ValidationJavaTranslator
                     "");
                 if (StringUtils.isNotBlank(expressionAsString))
                 {
-                    write("org.andromda.translation.validation.OCLIntrospector.invoke(");
-                    String invokedObject = CONTEXT_ELEMENT_NAME;
-                    // if we're in an arrow call we assume the invoked object
-                    // is the object for which the arrow call applies
-                    if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
+                    if (expressionAsString.matches(OCLFeatures.OCL_IS_KIND_OF))
                     {
-                        invokedObject = "object";
+                        this.write("object");
+                        this.handleOclIsKindOf(node.getFeatureCallParameters());
                     }
-                    write(invokedObject);
-                    write(",\"");
-                    // remove any references to 'self.' as we write
-                    write(expressionAsString);
-                    write("\")");
+                    else if (expressionAsString
+                        .matches(OCLFeatures.OCL_IS_TYPE_OF))
+                    {
+                        this.write("object");
+                        this.handleOclIsTypeOf(node.getFeatureCallParameters());
+                    }
+                    else
+                    {
+                        write("org.andromda.translation.validation.OCLIntrospector.invoke(");
+                        String invokedObject = CONTEXT_ELEMENT_NAME;
+                        // if we're in an arrow call we assume the invoked
+                        // object is the object for which the arrow call applies
+                        if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
+                        {
+                            invokedObject = "object";
+                        }
+                        write(invokedObject);
+                        write(",\"");
+                        // remove any references to 'self.' as we write
+                        write(expressionAsString);
+                        write("\")");
+                    }
                     if (this.requiresBooleanWrap)
                     {
                         this.write(BOOLEAN_WRAP_SUFFIX);
