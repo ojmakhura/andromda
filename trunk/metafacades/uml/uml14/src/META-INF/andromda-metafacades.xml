@@ -198,22 +198,22 @@
         </mapping>
     </metafacade>
     <!-- Value Object metafacades -->
-    <metafacade class="org.andromda.metafacades.uml14.ValueObjectFacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ValueObjectFacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ValueObjectFacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ValueObjectAssociationEndFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.ValueObjectAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <property name="valueObjectType"/>
         </mapping>
