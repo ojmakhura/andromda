@@ -15,14 +15,34 @@ public class MetafacadeUtils
 {
 
     /**
+     * Checks to see if the element is the specified type and if so casts it to
+     * the object and returns it, otherwise it returns null.
+     * 
+     * @param element the element to check.
+     * @param type the Class type.
+     * @return java.lang.Object
+     */
+    public static Object getElementAsType(Object element, Class type)
+    {
+        Object elementAsType = null;
+        if (element != null && type != null)
+        {
+            Class elementClass = element.getClass();
+            if (type.isAssignableFrom(elementClass))
+            {
+                elementAsType = element;
+            }
+        }
+        return elementAsType;
+    }
+
+    /**
      * Filters out the model elements from the <code>modelElements</code>
      * collection that don't have the specified <code>stereotype</code>
      * 
-     * @param modelElements
-     *            the model elements to filter.
-     * @param stereotype
-     *            the stereotype that a model element must have in order to stay
-     *            remain within the <code>modelElements</code> collection.
+     * @param modelElements the model elements to filter.
+     * @param stereotype the stereotype that a model element must have in order
+     *        to stay remain within the <code>modelElements</code> collection.
      */
     public static void filterByStereotype(
         Collection modelElements,
@@ -46,7 +66,6 @@ public class MetafacadeUtils
      * Returns a consistent name for a relation, independent from the end of the
      * relation one is looking at.
      * </p>
-     * 
      * <p>
      * In order to guarantee consistency with relation names, they must appear
      * the same whichever angle (ie entity) that you come from. For example, if
@@ -58,12 +77,9 @@ public class MetafacadeUtils
      * alphabetical ordering.
      * </p>
      * 
-     * @param roleName
-     *            name of role in relation
-     * @param targetRoleName
-     *            name of target role in relation
-     * @param separator
-     *            character used to separate words
+     * @param roleName name of role in relation
+     * @param targetRoleName name of target role in relation
+     * @param separator character used to separate words
      * @return uniform mapping name (in alphabetical order)
      */
     public static String toRelationName(
