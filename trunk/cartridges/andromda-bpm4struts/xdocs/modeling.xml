@@ -175,7 +175,22 @@
                                 <td>Same as @andromda.struts.view.table.columns</td>
                                 <td>true</td>
                                 <td>Indicates whether or not it should be possible to export the complete list
-                                    into either XML, CSV or Excel format. (still buggy, but we're working on it)
+                                    into either XML, CSV or Excel format.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@andromda.struts.view.tabindex</td>
+                                <td>SignalEvent (such as a trigger), must be located on a transition
+                                    with the FrontEndEvent stereotype that is coming out of an action state
+                                    with the FrontEndView stereotype (a page).</td>
+                                <td>N/A</td>
+                                <td>Denotes that the action containing the trigger is to be displayed
+                                    into a tabular panel. The value should be a non-negative integer.
+                                    By having the same value for different triggers many action-sections
+                                    will be rendered in the same tab. The minimum value is zero, the maximum
+                                    value will denote the number of tabs plus one (so if for a page you have
+                                    an action-trigger with a value of 7 for this tagged value and no other
+                                    action-trigger has a higher value, you will have 8 tabs rendered.
                                 </td>
                             </tr>
                         </table>
