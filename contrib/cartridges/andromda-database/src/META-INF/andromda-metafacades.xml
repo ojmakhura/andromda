@@ -9,10 +9,10 @@
 		metafacadeClass="org.andromda.cartridges.database.metafacades.TableLogicImpl"/>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
-        metafacadeClass="org.andromda.cartridges.database.metafacades.ColumnLogicImpl"/>
+        metafacadeClass="org.andromda.cartridges.database.metafacades.NonForeignKeyColumnLogicImpl"/>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
-		metafacadeClass="org.andromda.cartridges.database.metafacades.TableAssociationEndLogicImpl"/>
+		metafacadeClass="org.andromda.cartridges.database.metafacades.ForeignKeyColumnLogicImpl"/>
 </metafacades>
 
 

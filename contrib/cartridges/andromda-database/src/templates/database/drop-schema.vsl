@@ -7,13 +7,13 @@ WHENEVER SQLERROR CONTINUE;
 WHENEVER OSERROR  EXIT;
 
 /* drop all tables */
-#foreach ( $entity in $entities )
-drop table $entity.tableName cascade constraints ;
+#foreach ( $table in $tables )
+drop table $table.tableName cascade constraints ;
 #end
 
 /* drop all sequences */
-#foreach ( $entity in $entities )
-#set($sequenceName = "${entity.tableName}_SEQ")
+#foreach ( $table in $tables )
+#set($sequenceName = "${table.tableName}_SEQ")
 drop sequence $sequenceName  ;
 #end
 

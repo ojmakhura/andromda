@@ -1,12 +1,11 @@
 #macro( tableColumns )
-/* --------------- $entity.name table definition --------------------- */
-#set ($identifier = $entity.identifiers.iterator().next())
-CREATE TABLE $entity.tableName (
-	$identifier.columnName $identifier.sqlType NOT NULL,
-#foreach ( $attribute in $entity.attributes )
-#if (!$attribute.identifier)
-#set ($isRequired = $attribute.required)
-#set ($hasInitialValue = $stringUtils.isNotBlank($attribute.defaultValue()))
+/* --------------- $table.name table definition --------------------- */
+#set ($primaryKeyColumn = $table.primaryKeyColumn)
+CREATE TABLE $table.tableName (
+	$primaryKeyColumn.columnName $primaryKeyColumn.sqlType NOT NULL,
+#foreach ( $column in $table.nonForeignKeyColumns )
+#if ($column.primaryKey == false)
+#set ($hasInitialValue = $stringUtils.isNotBlank($column.defaultValue()))
 #set ($initialValue = $databaseTemplateObject.getInitialValue(${attribute}))
 #if ($initialValue.class.name == "java.lang.Boolean")
 #if($initialValue)
@@ -15,50 +14,29 @@ CREATE TABLE $entity.tableName (
 #set($initialValue = "0")
 #end
 #end
-	$attribute.columnName $attribute.sqlType#if($hasInitialValue) DEFAULT $initialValue#end#if($isRequired) NOT#end NULL,
+	$column.columnName $column.sqlType#if($hasInitialValue) DEFAULT $initialValue#end#if($column.required) NOT#end NULL,
 #end
 #end
-#foreach ( $associationEnd in $entity.associationEnds )
-#set ($otherEnd = $associationEnd.otherEnd)
-#if ($otherEnd.navigable)
-#set ($source = $otherEnd.otherEnd)
-#set ($sourceType = $source.type)
-#set ($otherEndType = $otherEnd.type)
-#if (!($otherEnd.one2One && $otherEnd.child))
-#if ($otherEnd.many2Many)
-#set($foreignKeyColumn =  $source.columnName)
-#set ($foreignKeyAttribute = ${sourceType.identifiers.iterator().next()})
-#set ($foreignKeyAttributeSqlType = $foreignKeyAttribute.sqlType)
-	$foreignKeyColumn $foreignKeyAttributeSqlType#if($source.required) NOT#end NULL,
-#elseif ($otherEnd.one2One || $otherEnd.one2Many)
-#set($foreignKeyColumn =  $otherEnd.columnName)
-#set ($foreignKeyAttribute = ${otherEndType.identifiers.iterator().next()})
-#set ($foreignKeyAttributeSqlType = $foreignKeyAttribute.sqlType)
-	$foreignKeyColumn $foreignKeyAttributeSqlType#if($otherEnd.required) NOT#end NULL,
-#end
-#end
-#end
+##
+##
+#foreach ($foreignKeyColumn in $table.foreignKeyColumns)
+    $foreignKeyColumn.columnName $foreignKeyColumn.importedPrimaryKeyColumn.sqlType#if($foreignKeyColumn.required) NOT#end NULL,
 #end
 );
 #end
+##
+##
 $stringUtils.removeLastOccurrence("#tableColumns()", ",")
 /* ------------- relation indexes ------------------ */
-#foreach ($associationEnd in $entity.associationEnds)
-#set ($otherEnd = $associationEnd.otherEnd)
-#set ($otherEndType = $otherEnd.type)
-#if ($otherEnd.navigable && !($otherEnd.one2One && $otherEnd.child))
-#set ($indexName = $databaseTemplateObject.ensureMaxNameLength("IDX${otherEndType.tableName}${entity.tableName}"))
-#if ($otherEnd.one2One || $otherEnd.one2Many)
-CREATE INDEX $indexName ON $entity.tableName
+#foreach ($foreignKeyColumn in $table.foreignKeyColumns)
+CREATE INDEX $foreignKeyColumn.indexName ON $table.tableName
 (
-       $otherEnd.columnName
+       $foreignKeyColumn.columnName
 );
-#end
-#end
 
 #end
+
 ## Define the PrimaryKey constraint
 /* ------------ primary key contraints ---------------- */
-#set ($primaryKeyConstraintName = $databaseTemplateObject.ensureMaxNameLength("XPK${entity.tableName}"))
-ALTER TABLE $entity.tableName
-   ADD  ( CONSTRAINT $primaryKeyConstraintName PRIMARY KEY ($identifier.columnName) );
+ALTER TABLE $table.tableName
+   ADD  ( CONSTRAINT $table.primaryKeyConstraintName PRIMARY KEY ($table.primaryKeyColumn.columnName) );
