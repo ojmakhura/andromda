@@ -171,10 +171,4 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_WEBSERVICE_PROVIDER = umlProfile
         .getString("TAGGEDVALUE_WEBSERVICE_PROVIDER");
-
-    /**
-     * Stores whether or not the web service is secured.
-     */
-    public static final String TAGGEDVALUE_WEBSERVICE_SECURED = umlProfile
-        .getString("TAGGEDVALUE_WEBSERVICE_SECURED");
 }

@@ -234,28 +234,14 @@
 				</tr> 
                 <tr>
                     <td>
-                        defaultSecured
-                    </td>
-                    <td>
-                        Whether or not <strong>ALL</strong> web services shall
-                        be secured by default (if not overridden on the web service level by the 
-                        <a href="modeling.html#@androma.webService.secured">@androma.webService.secured</a>
-                        tagged value). <strong>NOTE:</strong> you'll need to associate the actor
-                        you want to have access to your web service.  The name of the actor will
-                        be used as the name of the role securing your service.
-                    </td>
-                    <td>
-                        No, default is <code>false</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         securityRealm
                     </td>
                     <td>
                         The security realm to use for securing your web service(s). 
                         <strong>NOTE:</strong> this must be set in order to have
-                        <strong>ANY</strong> of your web services secured.
+                        <strong>ANY</strong> of your web services secured.  A web service
+                        will be secured if it has <strong>any</strong> roles associated 
+                        to it.
                     </td>
                     <td>
                         No, by default it is not set.
