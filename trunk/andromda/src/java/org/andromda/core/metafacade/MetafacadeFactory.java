@@ -577,19 +577,16 @@ public class MetafacadeFactory
                     + "', can't retrieve property --> '" 
                     + name + "'");
         }
-        else
+        registeredProperty = propertyNamespace.get(name);
+        if (registeredProperty == null)
         {
-            registeredProperty = propertyNamespace.get(name);
-            if (registeredProperty == null)
-            {
-                throw new MetafacadeFactoryException(
-                    methodName
-                        + " - no property '"
-                        + name
-                        + "' registered under namespace '"
-                        + namespace
-                        + "'");
-            }
+            throw new MetafacadeFactoryException(
+                methodName
+                    + " - no property '"
+                    + name
+                    + "' registered under namespace '"
+                    + namespace
+                    + "'");
         }
         return registeredProperty;
     }

@@ -34,9 +34,8 @@ public class PluginDiscoverer {
                 String errMsg = "Could not find --> '" + ANDROMDA_PLUGINS + "'";                
                 logger.error(errMsg); 
                 throw new PluginDiscovererException(errMsg);
-            } else {
-                pluginResources.load(andromdaPluginsUri.openStream());    
-            }
+            } 
+            pluginResources.load(andromdaPluginsUri.openStream());    
         } catch (Throwable th) {
             String errMsg = "Error loading --> '" + ANDROMDA_PLUGINS + "'";
             logger.error(errMsg, th);

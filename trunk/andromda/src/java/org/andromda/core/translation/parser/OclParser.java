@@ -242,15 +242,14 @@ public class OclParser extends Parser {
 					throw new OclParserException(
 						"parser error: declarator-less feature call paramaters must have the format "
 							+ "\"( expr, ..., expr )\"");
-				} else {
-					ACommaFeatureCallParameterOption commaOption = 
-						(ACommaFeatureCallParameterOption) parameterOption[ctr];
-					ACommaExpression commaExpression =
-						new ACommaExpression(
-							commaOption.getComma(),
-							commaOption.getExpression());
-					paramList.add(commaExpression);
-				}
+				} 
+				ACommaFeatureCallParameterOption commaOption = 
+					(ACommaFeatureCallParameterOption) parameterOption[ctr];
+				ACommaExpression commaExpression =
+					new ACommaExpression(
+						commaOption.getComma(),
+						commaOption.getExpression());
+				paramList.add(commaExpression);
 			}
 
 			return 

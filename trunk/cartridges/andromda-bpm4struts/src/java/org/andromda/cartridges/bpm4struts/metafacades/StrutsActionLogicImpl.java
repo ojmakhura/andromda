@@ -74,10 +74,8 @@ public class StrutsActionLogicImpl
         if (processedTransitions.contains(transition))
         {
             return;
-        } else
-        {
-            processedTransitions.add(transition);
         }
+        processedTransitions.add(transition);
 
         final StateVertexFacade target = transition.getTarget();
         if ((target instanceof StrutsJsp) || (target instanceof StrutsFinalState))

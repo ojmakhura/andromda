@@ -282,11 +282,10 @@ public abstract class BaseTranslator extends DepthFirstAdapter implements Transl
             if (!OclParserException.class.isAssignableFrom(ex.getClass())) {
                 logger.error(errMsg, ex);
                 throw new TranslatorException(errMsg, ex);
-            } else {
-                logger.error(errMsg 
-                   + "\n MESSAGE --> '" 
-                   + ex.getMessage() + "'");
             }
+            logger.error(errMsg 
+               + "\n MESSAGE --> '" 
+               + ex.getMessage() + "'");
 		}
 		return translatedExpression;
 	}

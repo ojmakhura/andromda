@@ -99,10 +99,9 @@ class EJBMetafacadeUtils {
         ClassifierFacade current = (EJBEntityFacade)classifier.getGeneralization();
         if (current == null) {
             return new ArrayList();
-        } else {
-            List retval = getInheritedInstanceAttributes(current);
-            return retval;
         }
+        List retval = getInheritedInstanceAttributes(current);
+        return retval;
     }
     
     /**
