@@ -36,7 +36,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public String getFullyQualifiedName(Object object)
 	{
-		if ((object == null) | !(object instanceof ModelElement))
+		if ((object == null) || !(object instanceof ModelElement))
 		{
 			return null;
 		}
@@ -60,7 +60,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public Collection getTaggedValues(Object object)
 	{
-		if ((object == null) | !(object instanceof ModelElement))
+		if ((object == null) || !(object instanceof ModelElement))
 		{
 			return Collections.EMPTY_LIST;
 		}
@@ -85,7 +85,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public DirectionalAssociationEnd getAssociationData(Object object)
 	{
-		if ((object == null) | !(object instanceof AssociationEnd))
+		if ((object == null) || !(object instanceof AssociationEnd))
 		{
 			return null;
 		}
@@ -169,7 +169,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public Collection getDependencies(Object object)
 	{
-		if ((object == null) | !(object instanceof ModelElement))
+		if ((object == null) || !(object instanceof ModelElement))
 		{
 			return Collections.EMPTY_LIST;
 		}
@@ -198,7 +198,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public Collection getAttributes(Object object)
 	{
-		if ((object == null) | !(object instanceof Classifier))
+		if ((object == null) || !(object instanceof Classifier))
 		{
 			return Collections.EMPTY_LIST;
 		}
@@ -223,7 +223,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public Collection getOperations(Object object)
 	{
-		if ((object == null) | !(object instanceof Classifier))
+		if ((object == null) || !(object instanceof Classifier))
 		{
 			return Collections.EMPTY_LIST;
 		}
@@ -249,7 +249,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public Collection getAssociationEnds(Object object)
 	{
-		if ((object == null) | !(object instanceof Classifier))
+		if ((object == null) || !(object instanceof Classifier))
 		{
 			return Collections.EMPTY_LIST;
 		}
@@ -268,7 +268,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public GeneralizableElement getGeneralization(Object object)
 	{
-		if ((object == null) | !(object instanceof GeneralizableElement))
+		if ((object == null) || !(object instanceof GeneralizableElement))
 		{
 			return null;
 		}
@@ -295,7 +295,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 */
 	public Collection getAbstractions(Object object)
 	{
-		if ((object == null) | !(object instanceof Classifier))
+		if ((object == null) || !(object instanceof Classifier))
 		{
 			return Collections.EMPTY_LIST;
 		}

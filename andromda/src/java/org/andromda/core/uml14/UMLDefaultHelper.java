@@ -45,7 +45,7 @@ public class UMLDefaultHelper
 	 */
 	public String getName(Object object)
 	{
-		if ((object == null) | !(object instanceof ModelElement))
+		if ((object == null) || !(object instanceof ModelElement))
 		{
 			return null;
 		}
@@ -64,7 +64,7 @@ public class UMLDefaultHelper
 	 */
 	public String getPackageName(Object object)
 	{
-		if ((object == null) | !(object instanceof ModelElement))
+		if ((object == null) || !(object instanceof ModelElement))
 		{
 			return null;
 		}
@@ -105,7 +105,7 @@ public class UMLDefaultHelper
 	 */
 	public Collection getStereotypeNames(Object object)
 	{
-		if ((object == null) | !(object instanceof ModelElement))
+		if ((object == null) || !(object instanceof ModelElement))
 		{
 			return Collections.EMPTY_LIST;
 		}
