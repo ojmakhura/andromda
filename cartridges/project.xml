@@ -5,15 +5,7 @@
   	<id>andromda-cartridges</id>
   	<groupId>andromda-cartridges</groupId>
   	<name>AndroMDA Cartridges</name>
-  	<inceptionYear>2003</inceptionYear>
   	<currentVersion>3.0-SNAPSHOT</currentVersion>
-	<organization>
-		<name>The AndroMDA Team</name>
-		<url>http://team.andromda.org/docs</url>
-		<logo>./images/andromda-logo.jpg</logo>
-	</organization>
-  	<logo>./images/sourceforge.bmp</logo>
-  	<url>http://www.sourceforge.net</url>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:cartridges/${pom.artifactId.replaceAll('andromda-', '').replaceAll('cartridge', '')}</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('andromda-', '').replaceAll('cartridge', '')}</url>

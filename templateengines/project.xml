@@ -5,19 +5,13 @@
   	<id>andromda-templateengines</id>
   	<groupId>andromda</groupId>
   	<name>AndroMDA Template Engines</name>
-  	<inceptionYear>2003</inceptionYear>
   	<currentVersion>3.0-SNAPSHOT</currentVersion>
-  	<description>The collec</description>
-	<organization>
-		<name>The AndroMDA Team</name>
-		<url>http://www.andromda.org</url>
-		<logo>./images/andromda-logo.jpg</logo>
-	</organization>
-  	<logo>./images/sourceforge.bmp</logo>
-  	<url>http://www.sourceforge.net</url>
+  	<description>
+  		The collection of Template Engine implementations.
+  	</description>
   	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:templateengines/${pom.artifactId.replaceAll('andromda-', '').replaceAll('templateengine', '')}</connection>
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/templateengines/${pom.artifactId.replaceAll('andromda-', '').replaceAll('templateengine', '')}</url>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/templateengines/${pom.artifactId.replaceAll('andromda-templateengine-', '')}</url>
   	</repository>
   	<build>
     	<sourceDirectory>src/java</sourceDirectory>
