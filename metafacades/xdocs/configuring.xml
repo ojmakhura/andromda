@@ -312,13 +312,13 @@
 </metafacade>
 ...                    
                     ]]></source> 
+                    <a name="contextAndStereotypeExample"/>
                     It is also possible to combine a <a href="#context"><![CDATA[<context/>]]></a> element with one
                     or more stereotypes like this example here; which means apply
                     <em>org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl</em>
                     to any meta model element of type <em>org.omg.uml.foundation.core.Operation</em>
                     that has the <em>FINDER_METHOD</em> stereotype and is created in the context of
                     <em>org.andromda.cartridges.spring.metafacades.SpringEntity</em>.
-                    <a name="contextAndStereotypeExample"/>
                     <source><![CDATA[ 
 ...
 <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
