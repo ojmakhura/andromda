@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Collections;
 
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -475,6 +476,6 @@ public class ClassifierFacadeLogicImpl
 
     protected Collection handleGetLiterals()
     {
-        return getConstantAttributes();
+        return (isEnumeration()) ? getConstantAttributes() : Collections.EMPTY_LIST;
     }
 }
