@@ -88,7 +88,7 @@
 					</td>
 				</tr>   
 				<tr>
-					<td nowrap="nowrap">
+					<td>
 						axis-tests
 					</td>
 					<td>
@@ -97,7 +97,29 @@
 					<td>
 						No
 					</td>
-				</tr> 	      	        	        		        	        	        	     	             	        	
+				</tr> 	 
+				<tr>
+					<td>
+						typeNamePrefix
+					</td>
+					<td>
+					    A prefix given to every webservice type name in the WSDD/WSDL
+					</td>
+					<td>
+						No
+					</td>
+				</tr>
+				<tr>
+					<td>
+						typePackageNamePrefix
+				    </td>
+					<td>
+						The prefix given to every webservice type package name in the WSDD/WSDL
+				    </td>
+                    <td>
+						No				
+					</td>
+				</tr>     	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>

@@ -13,5 +13,3 @@
 #if ($service.use.equalsIgnoreCase('encoded'))
 #set ($encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/")
 #end
-## The namespace to use
-#set ($namespace = "$service.namespace")

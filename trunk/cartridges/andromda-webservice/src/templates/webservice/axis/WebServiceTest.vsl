@@ -1,3 +1,4 @@
+#if (!$service.allowedOperations.empty)
 package ${service.packageName};
 
 #set($testPackageName = "${service.packageName}.test")
@@ -103,3 +104,4 @@ public class ${testClassName} extends TestCase {
 #end
 
 }
+#end

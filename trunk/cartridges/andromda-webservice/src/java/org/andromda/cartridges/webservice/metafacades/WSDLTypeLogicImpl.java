@@ -152,6 +152,14 @@ public class WSDLTypeLogicImpl
             //don't throw the exception
         }
     }
+    
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespace()
+     */
+    public java.lang.String handleGetNamespace()
+    {
+        return "http://" + this.getPackageName();
+    }
 
     /**
      * Gets the schemaType mappings that have been set for this schema type.
@@ -176,11 +184,59 @@ public class WSDLTypeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#handleGetNamespacePrefix()
      */
     public String handleGetNamespacePrefix()
     {
         return (String)this
             .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
+    }
+    
+    /**
+     * The prefix to give to type names.
+     */
+    static final String TYPE_NAME_PREFIX = "typeNamePrefix";
+
+    /**
+     * Sets the <code>typeNamePrefix</code> for the WSDLs type.
+     * 
+     * @param typeNamePrefix the typeName prefix to use for these types.
+     */
+    public void setTypeNamePrefix(String typeNamePrefix)
+    {
+        this.registerConfiguredProperty(TYPE_NAME_PREFIX, StringUtils
+            .trimToEmpty(typeNamePrefix));
+    }
+    
+    /**
+     * Gets the <code<typeNamePrefix</code> for this type.
+     */
+    protected String getTypeNamePrefix()
+    {
+        return (String)this.getConfiguredProperty(TYPE_NAME_PREFIX);
+    }
+    
+    /**
+     * The prefix to give to the type's package name.
+     */
+    static final String TYPE_PACKAGE_NAME_PREFIX = "typePackageNamePrefix";
+
+    /**
+     * Sets the <code>typePackageNamePrefix</code> for the WSDLs type.
+     * 
+     * @param typePackageNamePrefix the typeName prefix to use for these types.
+     */
+    public void setTypePackageNamePrefix(String typePackageNamePrefix)
+    {
+        this.registerConfiguredProperty(TYPE_PACKAGE_NAME_PREFIX, StringUtils
+            .trimToEmpty(typePackageNamePrefix));
+    }
+    
+    /**
+     * Gets the <code<typePackageNamePrefix</code> for this type.
+     */
+    protected String getTypePackageNamePrefix()
+    {
+        return (String)this.getConfiguredProperty(TYPE_PACKAGE_NAME_PREFIX);
     }
 }
