@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 
 /**
- * Implements the JUnit test suite for
+ * Implements the JUnit test case for
  * <code>org.andromda.repositories.MDRepositoryFacade</code>.
  * 
  * @author <A HREF="httplo://www.amowers.com">Anthony Mowers </A>
