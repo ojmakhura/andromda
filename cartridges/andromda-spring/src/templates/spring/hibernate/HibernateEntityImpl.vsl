@@ -40,7 +40,7 @@ public class ${entity.entityImplementationName}
 #if ($property.many)
 #set($typeName = "java.util.Collection")
 #if ($target.ordered)
-#set($typeName = "java.util.Set")
+#set($typeName = "java.util.List")
 #end
 #end
         $typeName ${property.name}#if($velocityCount != $entity.properties.size()),#else)
