@@ -2,9 +2,9 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.metafacades.uml.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 
 /**
@@ -40,7 +40,7 @@ public class StrutsControllerLogicImpl
 
     protected Collection handleGetServices()
     {
-        final Collection servicesList = new LinkedList();
+        final Collection servicesList = new ArrayList();
         final Collection dependencies = getDependencies();
         for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
         {
@@ -66,7 +66,7 @@ public class StrutsControllerLogicImpl
 
     protected Collection handleGetAllArguments()
     {
-        final Collection allArguments = new LinkedList();
+        final Collection allArguments = new ArrayList();
         final Collection operations = this.getOperations();
 
         for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)

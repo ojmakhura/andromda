@@ -1,53 +1,28 @@
 package org.andromda.core.translation.parser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.andromda.core.translation.analysis.AnalysisAdapter;
 import org.andromda.core.translation.analysis.DepthFirstAdapter;
 import org.andromda.core.translation.lexer.Lexer;
-import org.andromda.core.translation.node.AActualParameterList;
-import org.andromda.core.translation.node.ABarFeatureCallParameterOption;
-import org.andromda.core.translation.node.AColonFeatureCallParameterOption;
-import org.andromda.core.translation.node.ACommaExpression;
-import org.andromda.core.translation.node.ACommaFeatureCallParameterOption;
-import org.andromda.core.translation.node.AConcreteFeatureCallParameters;
-import org.andromda.core.translation.node.AEqualExpression;
-import org.andromda.core.translation.node.AFeatureCallParameters;
-import org.andromda.core.translation.node.AIterateDeclarator;
-import org.andromda.core.translation.node.AIterateFeatureCallParameterOption;
-import org.andromda.core.translation.node.APathName;
-import org.andromda.core.translation.node.AStandardDeclarator;
-import org.andromda.core.translation.node.ATypeDeclaration;
-import org.andromda.core.translation.node.AVariableDeclaration;
-import org.andromda.core.translation.node.AVariableDeclarationList;
-import org.andromda.core.translation.node.AVariableDeclarationListTail;
-import org.andromda.core.translation.node.Node;
-import org.andromda.core.translation.node.PExpression;
-import org.andromda.core.translation.node.PFeatureCallParameterOption;
-import org.andromda.core.translation.node.TName;
+import org.andromda.core.translation.node.*;
+
+import java.util.*;
 
 /**
  * This class adapts the Parser class to handle expressions in which the SableCC
  * parser can't handle.
  */
 public class OclParser
-    extends Parser
+        extends Parser
 {
 
     protected Node oclNode;
 
     /**
      * Constructs an instance of OclParser.
-     * 
+     *
      * @param lexer
      */
-    public OclParser(
-        Lexer lexer)
+    public OclParser(Lexer lexer)
     {
         super(lexer);
     }
@@ -69,27 +44,26 @@ public class OclParser
      * its own.
      */
     private class SyntaxHandler
-        extends AnalysisAdapter
+            extends AnalysisAdapter
     {
 
         /**
          * @see org.andromda.core.translation.parser.analysis.Analysis#caseAConcreteFeatureCallParameters(org.andromda.core.translation.parser.node.AConcreteFeatureCallParameters)
          */
-        public void caseAConcreteFeatureCallParameters(
-            AConcreteFeatureCallParameters featureCallParameters)
+        public void caseAConcreteFeatureCallParameters(AConcreteFeatureCallParameters featureCallParameters)
         {
             boolean isDeclarator = false;
             boolean isIterateDeclarator = false;
 
             List tail = featureCallParameters.getFeatureCallParameterOption();
             PFeatureCallParameterOption[] parameterOption = new PFeatureCallParameterOption[tail
-                .size()];
+                    .size()];
             Iterator iter = tail.iterator();
 
             for (int ctr = 0; iter.hasNext(); ctr++)
             {
-                PFeatureCallParameterOption option = (PFeatureCallParameterOption)iter
-                    .next();
+                PFeatureCallParameterOption option = (PFeatureCallParameterOption) iter
+                        .next();
                 parameterOption[ctr] = option;
                 isIterateDeclarator = option instanceof AIterateFeatureCallParameterOption;
                 if (!isIterateDeclarator)
@@ -100,91 +74,80 @@ public class OclParser
 
             if (isIterateDeclarator && !isDeclarator)
             {
-                throw new OclParserException(
-                    "Parser Error: Illegal feature call parameters format in \""
+                throw new OclParserException("Parser Error: Illegal feature call parameters format in \""
                         + featureCallParameters + "\"; "
                         + "must contain \";\" only if it contains \"|\"");
             }
             AFeatureCallParameters parameters;
             if (isIterateDeclarator)
             {
-                parameters = getParametersWithIterateDeclarator(
-                    featureCallParameters,
-                    featureCallParameters.getExpression(),
-                    parameterOption);
+                parameters = getParametersWithIterateDeclarator(featureCallParameters,
+                        featureCallParameters.getExpression(),
+                        parameterOption);
             }
             else if (isDeclarator)
             {
-                parameters = getParametersWithStandardDeclarator(
-                    featureCallParameters,
-                    parameterOption);
+                parameters = getParametersWithStandardDeclarator(featureCallParameters,
+                        parameterOption);
             }
             else
             {
-                parameters = getParametersWithoutDeclarator(
-                    featureCallParameters,
-                    featureCallParameters.getExpression(),
-                    parameterOption);
+                parameters = getParametersWithoutDeclarator(featureCallParameters,
+                        featureCallParameters.getExpression(),
+                        parameterOption);
             }
             oclNode = parameters;
         }
 
         /**
          * Gets the AFeatureCallParameters with a iterate declarator.
-         * 
+         *
          * @param featureCallParameters
          * @param expression
          * @param parameterOption
          * @return AFeatureCallParameters
          */
-        protected AFeatureCallParameters getParametersWithIterateDeclarator(
-            AConcreteFeatureCallParameters featureCallParameters,
-            PExpression expression,
-            PFeatureCallParameterOption[] parameterOption)
+        protected AFeatureCallParameters getParametersWithIterateDeclarator(AConcreteFeatureCallParameters featureCallParameters,
+                                                                            PExpression expression,
+                                                                            PFeatureCallParameterOption[] parameterOption)
         {
             AIterateDeclarator iteratorDeclarator = new AIterateDeclarator();
 
-            AColonFeatureCallParameterOption featureCallParameterOption0 = (AColonFeatureCallParameterOption)parameterOption[0];
-            AIterateFeatureCallParameterOption featureCallParameterOption1 = (AIterateFeatureCallParameterOption)parameterOption[1];
-            ABarFeatureCallParameterOption featureCallParameterOption2 = (ABarFeatureCallParameterOption)parameterOption[2];
+            AColonFeatureCallParameterOption featureCallParameterOption0 = (AColonFeatureCallParameterOption) parameterOption[0];
+            AIterateFeatureCallParameterOption featureCallParameterOption1 = (AIterateFeatureCallParameterOption) parameterOption[1];
+            ABarFeatureCallParameterOption featureCallParameterOption2 = (ABarFeatureCallParameterOption) parameterOption[2];
 
-            AVariableDeclaration iterator = new AVariableDeclaration(
-                getName(expression),
-                featureCallParameterOption0.getTypeDeclaration());
+            AVariableDeclaration iterator = new AVariableDeclaration(getName(expression),
+                    featureCallParameterOption0.getTypeDeclaration());
             iteratorDeclarator.setIterator(iterator);
             iteratorDeclarator.setSemicolon(featureCallParameterOption1
-                .getSemicolon());
+                    .getSemicolon());
 
-            AVariableDeclaration accumulator = new AVariableDeclaration(
-                featureCallParameterOption1.getName(),
-                featureCallParameterOption1.getTypeDeclaration());
+            AVariableDeclaration accumulator = new AVariableDeclaration(featureCallParameterOption1.getName(),
+                    featureCallParameterOption1.getTypeDeclaration());
             iteratorDeclarator.setAccumulator(accumulator);
 
-            AEqualExpression equalExpression = new AEqualExpression(
-                featureCallParameterOption1.getEqual(),
-                featureCallParameterOption1.getExpression());
+            AEqualExpression equalExpression = new AEqualExpression(featureCallParameterOption1.getEqual(),
+                    featureCallParameterOption1.getExpression());
             iteratorDeclarator.setEqualExpression(equalExpression);
             iteratorDeclarator.setBar(featureCallParameterOption2.getBar());
-            AActualParameterList params = new AActualParameterList(
-                featureCallParameterOption2.getExpression(),
-                new ArrayList());
-            return new AFeatureCallParameters(
-                featureCallParameters.getLParen(),
-                iteratorDeclarator,
-                params,
-                featureCallParameters.getRParen());
+            AActualParameterList params = new AActualParameterList(featureCallParameterOption2.getExpression(),
+                    new ArrayList());
+            return new AFeatureCallParameters(featureCallParameters.getLParen(),
+                    iteratorDeclarator,
+                    params,
+                    featureCallParameters.getRParen());
         }
 
         /**
          * Gets AFeatureCallParameters from the standard declarator.
-         * 
+         *
          * @param featureCallParameters
          * @param parameterOption
          * @return AFeatureCallParameters
          */
-        protected AFeatureCallParameters getParametersWithStandardDeclarator(
-            AConcreteFeatureCallParameters featureCallParameters,
-            PFeatureCallParameterOption[] parameterOptions)
+        protected AFeatureCallParameters getParametersWithStandardDeclarator(AConcreteFeatureCallParameters featureCallParameters,
+                                                                             PFeatureCallParameterOption[] parameterOptions)
         {
 
             int parameterOptionNum = parameterOptions.length;
@@ -200,40 +163,35 @@ public class OclParser
             {
                 if (!(parameterOptions[ctr] instanceof ACommaFeatureCallParameterOption || parameterOptions[ctr] instanceof AColonFeatureCallParameterOption))
                 {
-                    throw new OclParserException(
-                        "OCL Parser Error: Feature call parameters with "
+                    throw new OclParserException("OCL Parser Error: Feature call parameters with "
                             + "a standard declarator must have the format "
                             + "\"( name (: type)?, ... , name (: type)? | expression )\"");
                 }
             }
 
-            ABarFeatureCallParameterOption barParameterType = (ABarFeatureCallParameterOption)parameterOptions[parameterOptionNum - 1];
+            ABarFeatureCallParameterOption barParameterType = (ABarFeatureCallParameterOption) parameterOptions[parameterOptionNum - 1];
 
-            AStandardDeclarator standardDeclarator = new AStandardDeclarator(
-                this.getVariableDeclarationList(featureCallParameters),
-                barParameterType.getBar());
-            AActualParameterList params = new AActualParameterList(
-                barParameterType.getExpression(),
-                new ArrayList());
-            return new AFeatureCallParameters(
-                featureCallParameters.getLParen(),
-                standardDeclarator,
-                params,
-                featureCallParameters.getRParen());
+            AStandardDeclarator standardDeclarator = new AStandardDeclarator(this.getVariableDeclarationList(featureCallParameters),
+                    barParameterType.getBar());
+            AActualParameterList params = new AActualParameterList(barParameterType.getExpression(),
+                    new ArrayList());
+            return new AFeatureCallParameters(featureCallParameters.getLParen(),
+                    standardDeclarator,
+                    params,
+                    featureCallParameters.getRParen());
         }
 
         /**
          * Gets the AFeatureCallParameter instance without the declarator.
-         * 
+         *
          * @param featureCallParameters
          * @param expr
          * @param parameterOption
          * @return AFeatureCallParameters
          */
-        protected AFeatureCallParameters getParametersWithoutDeclarator(
-            AConcreteFeatureCallParameters featureCallParameters,
-            PExpression expr,
-            PFeatureCallParameterOption[] parameterOption)
+        protected AFeatureCallParameters getParametersWithoutDeclarator(AConcreteFeatureCallParameters featureCallParameters,
+                                                                        PExpression expr,
+                                                                        PFeatureCallParameterOption[] parameterOption)
         {
 
             List paramList = new ArrayList();
@@ -242,34 +200,30 @@ public class OclParser
             {
                 if (!(parameterOption[ctr] instanceof ACommaFeatureCallParameterOption))
                 {
-                    throw new OclParserException(
-                        "parser error: declarator-less feature call paramaters must have the format "
+                    throw new OclParserException("parser error: declarator-less feature call paramaters must have the format "
                             + "\"( expr, ..., expr )\"");
                 }
-                ACommaFeatureCallParameterOption commaOption = (ACommaFeatureCallParameterOption)parameterOption[ctr];
-                ACommaExpression commaExpression = new ACommaExpression(
-                    commaOption.getComma(),
-                    commaOption.getExpression());
+                ACommaFeatureCallParameterOption commaOption = (ACommaFeatureCallParameterOption) parameterOption[ctr];
+                ACommaExpression commaExpression = new ACommaExpression(commaOption.getComma(),
+                        commaOption.getExpression());
                 paramList.add(commaExpression);
             }
 
-            return new AFeatureCallParameters(
-                featureCallParameters.getLParen(),
-                null,
-                new AActualParameterList(expr, paramList),
-                featureCallParameters.getRParen());
+            return new AFeatureCallParameters(featureCallParameters.getLParen(),
+                    null,
+                    new AActualParameterList(expr, paramList),
+                    featureCallParameters.getRParen());
         }
 
         /**
          * Gets the AVariableDeclarationList instance from the
          * <code>params</code> by apply the VariableDeclarationListFinder to
          * it.
-         * 
+         *
          * @param params the params node to parse.
          * @return the found AVariableDeclarationList instance.
          */
-        protected AVariableDeclarationList getVariableDeclarationList(
-            AConcreteFeatureCallParameters params)
+        protected AVariableDeclarationList getVariableDeclarationList(AConcreteFeatureCallParameters params)
         {
             VariableDeclarationListFinder finder = new VariableDeclarationListFinder();
             params.apply(finder);
@@ -282,7 +236,7 @@ public class OclParser
      * A tree traversal class that searchs for a name in a expression.
      */
     private class VariableDeclarationListFinder
-        extends DepthFirstAdapter
+            extends DepthFirstAdapter
     {
 
         /**
@@ -290,7 +244,7 @@ public class OclParser
          * retrieve them from the namesAndTypes map in the order they were
          * stored.
          */
-        private LinkedList orderedNames = new LinkedList();
+        private ArrayList orderedNames = new ArrayList();
 
         /**
          * Stores the variable names along with its variable type (if there is
@@ -317,8 +271,7 @@ public class OclParser
         /**
          * @see org.andromda.core.translation.parser.analysis.DepthFirstAdapter#inACommaFeatureCallParameterOption(org.andromda.core.translation.parser.node.ACommaFeatureCallParameterOption)
          */
-        public void inACommaFeatureCallParameterOption(
-            ACommaFeatureCallParameterOption commaName)
+        public void inACommaFeatureCallParameterOption(ACommaFeatureCallParameterOption commaName)
         {
             this.orderedNames.add(commaName);
             this.namesAndTypes.put(commaName, null);
@@ -338,16 +291,16 @@ public class OclParser
         /**
          * Extracts and constructs AVariableDeclarationlist from a
          * AConcreteFeatureCallParameters instance.
-         * 
+         *
          * @return AVariableDeclarationList
          */
         public AVariableDeclarationList getList()
         {
 
-            TName initialName = (TName)this.orderedNames.getFirst();
+            TName initialName = (TName) this.orderedNames.getFirst();
 
-            ATypeDeclaration typeDeclaration = (ATypeDeclaration)namesAndTypes
-                .get(initialName);
+            ATypeDeclaration typeDeclaration = (ATypeDeclaration) namesAndTypes
+                    .get(initialName);
 
             List variableDeclarationListTails = new ArrayList();
             if (!this.orderedNames.isEmpty())
@@ -355,28 +308,25 @@ public class OclParser
                 int orderedNameSize = orderedNames.size();
                 for (int ctr = 1; ctr < orderedNameSize; ctr++)
                 {
-                    ACommaFeatureCallParameterOption name = (ACommaFeatureCallParameterOption)this.orderedNames
-                        .get(ctr);
+                    ACommaFeatureCallParameterOption name = (ACommaFeatureCallParameterOption) this.orderedNames
+                            .get(ctr);
 
-                    ATypeDeclaration typeDecl = (ATypeDeclaration)this.namesAndTypes
-                        .get(name);
+                    ATypeDeclaration typeDecl = (ATypeDeclaration) this.namesAndTypes
+                            .get(name);
 
-                    AVariableDeclaration variableDeclaration = new AVariableDeclaration(
-                        getName(name.getExpression()),
-                        typeDecl);
+                    AVariableDeclaration variableDeclaration = new AVariableDeclaration(getName(name.getExpression()),
+                            typeDecl);
 
                     variableDeclarationListTails
-                        .add(new AVariableDeclarationListTail(
-                            name.getComma(),
-                            variableDeclaration,
-                            null));
+                            .add(new AVariableDeclarationListTail(name.getComma(),
+                                    variableDeclaration,
+                                    null));
                 }
             }
 
-            AVariableDeclarationList list = new AVariableDeclarationList(
-                new AVariableDeclaration(initialName, typeDeclaration),
-                null,
-                variableDeclarationListTails);
+            AVariableDeclarationList list = new AVariableDeclarationList(new AVariableDeclaration(initialName, typeDeclaration),
+                    null,
+                    variableDeclarationListTails);
             return list;
         }
 
@@ -386,7 +336,7 @@ public class OclParser
      * A tree traversal class that searches for a name in a expression.
      */
     private class NameFinder
-        extends DepthFirstAdapter
+            extends DepthFirstAdapter
     {
 
         private TName foundName;
@@ -410,7 +360,7 @@ public class OclParser
 
     /**
      * Gets the TName from the <code>expression</code>.
-     * 
+     *
      * @param expression
      * @return TName the name extracted from the <code>expression</code>.
      */

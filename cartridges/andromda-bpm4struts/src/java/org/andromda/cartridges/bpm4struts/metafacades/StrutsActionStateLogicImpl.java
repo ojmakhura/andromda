@@ -41,7 +41,7 @@ public class StrutsActionStateLogicImpl
 
     protected Collection handleGetControllerCalls()
     {
-        final Collection controllerCallsList = new LinkedList();
+        final Collection controllerCallsList = new ArrayList();
         final Collection deferrableEvents = getDeferrableEvents();
         for (Iterator iterator = deferrableEvents.iterator(); iterator.hasNext();)
         {
@@ -49,7 +49,8 @@ public class StrutsActionStateLogicImpl
             if (event instanceof CallEventFacade)
             {
                 controllerCallsList.add(((CallEventFacade) event).getOperation());
-            } else if (event instanceof StrutsTrigger)
+            }
+            else if (event instanceof StrutsTrigger)
             {
                 controllerCallsList.add(((StrutsTrigger) event).getControllerCall());
             }

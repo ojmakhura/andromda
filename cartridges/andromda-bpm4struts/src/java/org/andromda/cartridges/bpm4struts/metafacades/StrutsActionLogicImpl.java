@@ -452,7 +452,7 @@ public class StrutsActionLogicImpl
      */
     protected Collection handleGetNonTabbedActionParameters()
     {
-        Collection nonTabbedParameters = new LinkedList();
+        Collection nonTabbedParameters = new ArrayList();
         Collection actionParameters = getActionParameters();
 
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
@@ -537,7 +537,7 @@ public class StrutsActionLogicImpl
 
                 if (tabFields == null)
                 {
-                    tabFields = new LinkedList();
+                    tabFields = new ArrayList();
                     tabMap.put(tabKey, tabFields);
                 }
 

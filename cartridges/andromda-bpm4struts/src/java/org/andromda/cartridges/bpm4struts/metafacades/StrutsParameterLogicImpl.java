@@ -223,7 +223,7 @@ public class StrutsParameterLogicImpl
         if (isTable())
         {
             String thisTableName = super.getName();
-            Collection tableLinks = new LinkedList();
+            Collection tableLinks = new ArrayList();
 
             StrutsJsp page = getJsp();
             Collection parameters = page.getAllActionParameters();
@@ -316,7 +316,7 @@ public class StrutsParameterLogicImpl
         }
         else
         {
-            columnNamesCollection = new LinkedList();
+            columnNamesCollection = new ArrayList();
             String columnNames = String.valueOf(taggedValue);
             String[] properties = columnNames.split(",");
             for (int i = 0; i < properties.length; i++)
@@ -516,7 +516,7 @@ public class StrutsParameterLogicImpl
         final String format = getValidatorFormat();
         final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
 
-        final Collection validatorTypesList = new LinkedList();
+        final Collection validatorTypesList = new ArrayList();
 
         if (isRequired()) validatorTypesList.add("required");
 
@@ -568,7 +568,7 @@ public class StrutsParameterLogicImpl
 
     public java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
     {
-        final Collection args = new LinkedList();
+        final Collection args = new ArrayList();
         if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) || "doubleRange".equals(validatorType))
         {
             args.add("${var:min}");
@@ -588,7 +588,7 @@ public class StrutsParameterLogicImpl
 
     public java.util.Collection handleGetValidatorVars()
     {
-        final Collection vars = new LinkedList();
+        final Collection vars = new ArrayList();
 
         final String type = getType().getFullyQualifiedName(true);
         final String format = getValidatorFormat();
@@ -640,7 +640,7 @@ public class StrutsParameterLogicImpl
     public Collection handleGetOptionKeys()
     {
         final String key = getMessageKey() + '.';
-        final Collection optionKeys = new LinkedList();
+        final Collection optionKeys = new ArrayList();
         final int optionCount = getOptionCount() + 1;
         for (int i = 1; i < optionCount; i++) optionKeys.add(key + i);
         return optionKeys;
@@ -648,7 +648,7 @@ public class StrutsParameterLogicImpl
 
     public Collection handleGetOptionValues()
     {
-        Collection optionValues = new LinkedList();
+        Collection optionValues = new ArrayList();
         if ("radio".equals(getWidgetType()))
         {
             Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);

@@ -3,9 +3,9 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.GeneralizationFacade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 
 /**
@@ -41,7 +41,7 @@ public class StrutsUserLogicImpl
 
     public java.util.Collection handleGetGeneralizedUsers()
     {
-        final Collection parentActors = new LinkedList();
+        final Collection parentActors = new ArrayList();
         final Collection generalizations = getGeneralizations();
         for (Iterator iterator = generalizations.iterator(); iterator.hasNext();)
         {
@@ -56,7 +56,7 @@ public class StrutsUserLogicImpl
     public java.util.Collection handleGetGeneralizedByUsers()
     {
         final Collection allActors = getModel().getAllActors();
-        final Collection childUsers = new LinkedList();
+        final Collection childUsers = new ArrayList();
         for (Iterator iterator = allActors.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
