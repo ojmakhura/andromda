@@ -15,6 +15,11 @@
                 from an entity to a datatype, and the corresponding transform method will be generated on the DAO.
                 This is useful when you need to return a single field from an entity.
             </action>
+            <action dev="cwbrandon" type="add">
+                The <a href="andromda-spring-cartridge/index.html">Spring Cartridge</a> DAOs now contain create and update
+                operations that take a collection of entities (similar to the already existing DAO remove operation).  Please
+                note that this change requires you to upgrade Spring to 1.1.5 or above.
+            </action>
             <action dev="cwbrandon" type="update">
                 When generating value objects for webservices, the webservice cartridge no longer generates its own
                 value objects but instead uses the ones generated from the java cartridge, it's just required
