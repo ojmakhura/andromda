@@ -1,26 +1,25 @@
 ##
 ##  This macro will render any <subclass/> elements for the given $entity.
 ##
-#set ($indent = "	    ")    
 #macro (renderSubClass $entity)
 ## Should only get get invoked for inheritance class or subclass.
 #if ($entity.hibInheritanceClass)
 	    <subclass
 		    name="$entity.fullyQualifiedEntityImplementationName"
 		    discriminator-value="$entity.entityImplementationName">
-#set ($renderSubClassEndtag = "subclass")
+#set ($subClassEndTag = "subclass")
 #else
 	    <joined-subclass
 		    name="$entity.fullyQualifiedEntityImplementationName"
 		    table="$entity.tableName">
-		   <key column="$entity.idenitiferColumn"/>
-#set ($renderSubClassEndtag = "joined-subclass")
+            <key column="$entity.identifierColumn"/>
+#set ($subClassEndTag = "joined-subclass")
 #end
 #renderPropertiesAndAssociations($entity)		
 #foreach ($subentity in $entity.specializations)
 #renderSubClass($subentity)
 #end
-	    </${renderSubClassEndtag}>
+	    </${subClassEndTag}>
 	
 #end
 ##

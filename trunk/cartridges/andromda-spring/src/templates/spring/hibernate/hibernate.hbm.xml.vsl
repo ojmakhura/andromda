@@ -1,6 +1,6 @@
 ## Only produce the file if the entity is
 ## a root entity in hibernate terms. 
-#if ($entity.isRootInheritanceEntity())
+#if ($entity.rootInheritanceEntity)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityName}.hbm.xml")
 <?xml version="1.0"?>
 <!-- 
