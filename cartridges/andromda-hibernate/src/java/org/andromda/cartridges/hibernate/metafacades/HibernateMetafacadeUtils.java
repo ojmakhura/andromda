@@ -74,7 +74,10 @@ class HibernateMetafacadeUtils
     {
         StringBuffer fullyQualifiedName = new StringBuffer(StringUtils
             .trimToEmpty(packageName));
-        fullyQualifiedName.append(".");
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append('.');
+        }
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
         fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         return fullyQualifiedName.toString();
