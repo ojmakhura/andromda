@@ -86,7 +86,7 @@
                 <property name="clientValidation" value="true"/>
                 <property name="serverValidation" value="true"/>
                 <property name="welcomeFileName" value="index.jsp"/>
-                <property name="breadCrumbs" value="true"/>
+                <property name="maxBreadCrumbs" value="5"/>
                 <property name="dummyData" value="true"/>
                 <property name="onlineHelp" value="true"/>
                 <property name="pages" value="${app.root.dir}/web/src/jsp"/>
