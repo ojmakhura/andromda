@@ -1,6 +1,5 @@
 <project xmlns:j="jelly:core"
   		 xmlns:ant="jelly:ant"
-  		 xmlns:artifact="artifact"
   		 xmlns:velocity="jelly:velocity">
   		 
    <preGoal name="jar:jar">
@@ -76,32 +75,5 @@
             <ant:fileset dir="${hibernate.db.conf.location}"/>
         </ant:copy>	
    </preGoal>
-  	
-  	<!-- this is here because the plugin:install goal from the
-  		 maven-plugin-plugin doesn't copy to the 
-  		 '${maven.repo.local}/plugins' directory -->
-  	<goal name="plugin:install" >	
-  		<attainGoal name="clean:clean"/>
-    	<attainGoal name="jar:jar"/>
-    	<!-- don't insert add bootstrap cartridge into 
-    		 the $MAVEN_HOME/plugins -->
-    	<j:if test="${!bootstrapMode}">
-            <ant:delete verbose="false" failonerror="false">
-                <ant:fileset dir="${maven.home}/plugins">
-                	<!-- first remove any old plugins -->
-                    <ant:include name="${pom.artifactId}-*.jar" />
-                </ant:fileset>
-            </ant:delete>
-			<ant:copy todir="${maven.home}/plugins">
-				<ant:fileset dir="target">
-					<include name="*.jar"/>
-				</ant:fileset>
-			</ant:copy>	
-		</j:if>
-		<artifact:install 
-			artifact="${maven.build.dir}/${maven.final.name}.jar" 
-			type="plugin" 
-			project="${pom}"/>	
-  	</goal>
 
 </project>

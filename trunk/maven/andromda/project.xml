@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../../project.xml</extend>
+  	<extend>../project.xml</extend>
   	<id>maven-andromda-plugin${bootstrap}</id>
-  	<name>Maven AndroMDA Plugin</name>
+  	<name>AndroMDA Maven Plugin</name>
   	<shortDescription>AndroMDA Maven Plugin</shortDescription>
   	<description>
 		This wraps the AndroMDA framework within a maven plugin, allowing you to get started
