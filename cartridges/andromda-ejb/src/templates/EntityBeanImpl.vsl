@@ -23,7 +23,7 @@ public abstract class ${entityname}BeanImpl extends ${entityname}Bean
 
 #foreach ( $op in $class.operations)
 #if (!$op.hasStereotype("FinderMethod"))
-#set ($returntype = $op.getType.fullyQualifiedName)
+#set ($returntype = $op.type.fullyQualifiedName)
 #set ($msig = $op.signature)
 #set ($visibility = $op.visibility.toString())
 ## Public static methods are exposed on the home 
