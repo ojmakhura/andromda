@@ -15,7 +15,7 @@ public class $service.implementationName
 #foreach ( $operation in $service.operations )
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
-#set ($signature = $operation.signature)
+#set ($signature = $operation.implementationSignature)
 	/**
 	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
 	 */
