@@ -73,7 +73,7 @@ public abstract class ${class.name}Logic
 
 #foreach ( $op in $ops)
 	/**
-	 * @see ${class.fullyQualifiedInterfaceName}#${op.signature}()
+	 * @see ${class.fullyQualifiedInterfaceName}#${op.name}(${op.parameterTypeNames})
 	 */
     $op.visibility abstract $op.type.fullyQualifiedName ${op.signature};
     
