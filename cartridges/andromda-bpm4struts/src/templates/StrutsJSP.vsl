@@ -134,12 +134,14 @@
         
 #foreach ($variable in $jsp.pageVariables)
 #if (!$variable.table)
-        <logic:present name="$variable.name" scope="page">
-            <bean:write name="$variable.name" scope="page"/> <br/>
-        </logic:present>
-        <logic:notPresent name="$variable.name" scope="page">
-            Missing from request: $variable.name <br/>
-        </logic:notPresent>
+        <c:choose>
+            <c:when test="${!empty ${variable.name}}">
+                ${${variable.name}}
+            </c:when>
+            <c:otherwise>
+                Missing from request : ${variable.name} <br/>
+            </c:otherwise>
+        </c:choose>
 #end
 #end
 
