@@ -70,6 +70,7 @@ public class $service.ejbImplementationName
         super.setBeanFactoryLocator(
             org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance("$beanRefFactory"));
         super.setBeanFactoryLocatorKey("$beanRefFactoryId");
+        (($service.fullyQualifiedBaseName)(this.$businessObject)).setSessionContext(sessionContext);
     }
     
 }
