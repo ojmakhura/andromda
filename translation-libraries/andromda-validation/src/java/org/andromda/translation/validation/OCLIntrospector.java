@@ -10,7 +10,7 @@ public class OCLIntrospector
     /**
      * @todo document
      */
-    public Object invoke(Object element, String feature)
+    public static Object invoke(Object element, String feature)
     {
         return invoke(element, feature, null);
     }
@@ -19,7 +19,7 @@ public class OCLIntrospector
      * returns null in case of problems
      * @todo document
      */
-    public Object invoke(Object element, String feature, Object[] arguments)
+    public static Object invoke(Object element, String feature, Object[] arguments)
     {
         try
         {
