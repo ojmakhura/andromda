@@ -62,7 +62,7 @@ package $packagename;
  * @ejb.ejb-ref 
  *     ejb-name="${myClass.name}" 
  *     view-type="$viewtype" 
- *     ref-name="#ejbRefName($myClass)"
+ *     ref-name="ejb/${myClass.name}BeanRef"
 #end
 #if ($transform.getStereotype($dep.id) == "ResourceRef")
 #set ($myClass = $transform.findClassById($dep.targetType))
@@ -339,7 +339,7 @@ public abstract class ${servicename}Bean
         try {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
             ${fqHomeInterfaceName} home = 
-                (${fqHomeInterfaceName}) initialContext.lookup("java:comp/env/#ejbRefName($referencedClass)/Local");
+                (${fqHomeInterfaceName}) initialContext.lookup("java:/comp/env/ejb/${referencedClass.name}BeanRef");
             return home;
         } finally {
             initialContext.close();
@@ -361,7 +361,7 @@ public abstract class ${servicename}Bean
             new javax.naming.InitialContext();
         try {
             Object home = 
-                 initialContext.lookup("java:/comp/env/#ejbRefName($referencedClass)/Remote");
+                 initialContext.lookup("java:/comp/env/ejb/${referencedClass.name}BeanRef");
             return ($fqHomeInterfaceName) 
                    javax.rmi.PortableRemoteObject.narrow(home, 
                    ${fqHomeInterfaceName}.class);

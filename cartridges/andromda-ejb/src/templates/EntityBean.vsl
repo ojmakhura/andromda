@@ -72,7 +72,7 @@ package $packagename;
  * @ejb.ejb-ref 
  *     ejb-name="${myClass.name}" 
  *     view-type="$viewtype" 
- *     ref-name="ejb/${transform.replace($transform.findFullyQualifiedName($myClass),'.','/')}"
+ *     ref-name="ejb/${myClass.name}BeanRef"
 #end
 #if ($transform.getStereotype($dep.id) == "ResourceRef")
 #set ($myClass = $transform.findClassById($dep.targetType))
@@ -622,7 +622,7 @@ public abstract class ${entityname}Bean
         try {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
             ${fqHomeInterfaceName} home = 
-                (${fqHomeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${transform.replace($transform.findFullyQualifiedName($referencedClass),'.','/')}");
+                (${fqHomeInterfaceName}) initialContext.lookup("java:/comp/env/ejb/${referencedClass.name}BeanRef");
             return home;
         } finally {
             initialContext.close();
@@ -644,7 +644,7 @@ public abstract class ${entityname}Bean
             new javax.naming.InitialContext();
         try {
             Object home = 
-                 initialContext.lookup("java:/comp/env/ejb/${transform.replace($transform.findFullyQualifiedName($referencedClass),'.','/')}");
+                 initialContext.lookup("java:/comp/env/ejb/${referencedClass.name}BeanRef");
             return ($fqHomeInterfaceName) 
                    javax.rmi.PortableRemoteObject.narrow(home, 
                    ${fqHomeInterfaceName}.class);
