@@ -6,12 +6,12 @@
     <!-- This should define the home directories for JAXB and Ant -->
     <property file="build.properties" />
 
-    <property name="version" value="1.3.0" />
-    <property name="version.suffix" value="130" />
+    <property name="version" value="2.0.0" />
+    <property name="version.suffix" value="200alpha" />
 
 
     <!-- ============================================================= -->
-    <!--              Define the directory layout                      -->
+    <!--	      Define the directory layout		       -->
     <!-- ============================================================= -->
 
     <!-- Source directories -->
@@ -34,116 +34,120 @@
 
 
     <path id="build.class.path">
-        <pathelement location="${build.classes.dir}" />
-        <pathelement path="${build.classpath}"/>
+	<pathelement location="${build.classes.dir}" />
+	<pathelement path="${build.classpath}"/>
     </path>
 
     <path id="src.path.list">
-        <pathelement location="${java.src.dir}"/>
-        <pathelement location="${build.gensrc.dir}"/>
+	<pathelement location="${java.src.dir}"/>
+	<pathelement location="${build.gensrc.dir}"/>
     </path>
 
 
     <!-- ============================================================= -->
-    <!--               Highlevel user tasks                            -->
+    <!--	       Highlevel user tasks			       -->
     <!-- ============================================================= -->
 
     <target name="build" depends="jar,javadoc"
-            description="Builds the andromda jar plus accompanying javadoc" />
+	    description="Builds the andromda jar plus accompanying javadoc" />
 
     <target name="clean" description="Delete all built files">
-        <delete includeEmptyDirs="true" quiet="true">
-            <fileset dir="${build.dir}"/>
-            <fileset dir="${dist.dir}"/>
-        </delete>
+	<delete includeEmptyDirs="true" quiet="true">
+	    <fileset dir="${build.dir}"/>
+	    <fileset dir="${dist.dir}"/>
+	</delete>
     </target>
 
     <!--
-         Clean up everything, so the distribution has a clear start.
-         Compile all Java classes, make JAR file and ZIP everything
-         to make a distribution unit.
-         This is mostly intended to be run from a CVS checkout and
-         let Matthias make a new release.
+	 Clean up everything, so the distribution has a clear start.
+	 Compile all Java classes, make JAR file and ZIP everything
+	 to make a distribution unit.
+	 This is mostly intended to be run from a CVS checkout and
+	 let Matthias make a new release.
     -->
     <target name="dist" depends="clean,build"
-            description="Deletes old built files and creates a distribution zip from scratch">
-        <!-- create the distribution directory structure -->
-        <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.stage.dir}"/>
-        <mkdir dir="${dist.stage.dir}doc/"/>
-        <mkdir dir="${dist.stage.dir}lib/"/>
-        <mkdir dir="${dist.stage.dir}src"/>
-        <mkdir dir="${dist.stage.dir}sample"/>
+	    description="Deletes old built files and creates a distribution zip from scratch">
+	<!-- create the distribution directory structure -->
+	<mkdir dir="${dist.dir}"/>
+	<mkdir dir="${dist.stage.dir}"/>
+	<mkdir dir="${dist.stage.dir}doc/"/>
+	<mkdir dir="${dist.stage.dir}lib/"/>
+	<mkdir dir="${dist.stage.dir}src"/>
+	<mkdir dir="${dist.stage.dir}sample"/>
 
-        <!-- copy everything into the stage dir -->
-        <copy todir="${dist.stage.dir}">
-            <fileset dir="." includes="build.xml"/>
-            <fileset dir="." includes="build.properties.sample"/>
-            <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
-            <fileset dir="${license.src.dir}" includes="LICENSE"/>
-        </copy>
+	<!-- copy everything into the stage dir -->
+	<copy todir="${dist.stage.dir}">
+	    <fileset dir="." includes="build.xml"/>
+	    <fileset dir="." includes="build.properties.sample"/>
+	    <fileset dir="${build.jar.dir}" includes="andromda.jar"/>
+	    <fileset dir="${license.src.dir}" includes="LICENSE"/>
+	</copy>
 
-        <!-- Matthias Bohlen:
-             The following copy statement is to fix a bug in
-             JAXB 1.0-beta:
-             The property files are not found at runtime, unless
-             they are on the system classpath! Therefore, we put
-             them into a separate path that will be included in
-             the system classpath.
-             This hack must be removed when JAXB 1.0 comes out!
-        -->
-        <copy todir="${dist.stage.dir}jaxbfix/">
-            <fileset dir="${build.gensrc.dir}" includes="**/jaxb.properties" />
-        </copy>
-        <!-- =================== end of hack ============================== -->
+	<!-- Matthias Bohlen:
+	     The following copy statement is to fix a bug in
+	     JAXB 1.0-beta:
+	     The property files are not found at runtime, unless
+	     they are on the system classpath! Therefore, we put
+	     them into a separate path that will be included in
+	     the system classpath.
+	     This hack must be removed when JAXB 1.0 comes out!
+	-->
+	<copy todir="${dist.stage.dir}jaxbfix/">
+	    <fileset dir="${build.gensrc.dir}" includes="**/jaxb.properties" />
+	</copy>
+	<!-- =================== end of hack ============================== -->
 
-        <copy todir="${dist.stage.dir}doc/">
-            <fileset dir="${build.doc.dir}" includes="**/*"/>
-        </copy>
-        
-        <copy todir="${dist.stage.dir}src/">
-            <fileset dir="src" includes="**/*" excludes="sample/**" />
-        </copy>
-        
-        <copy todir="${dist.stage.dir}sample/">
-            <fileset dir="src/sample" includes="**/*" excludes="src/**/generated/**" />
-        </copy>
+	<copy todir="${dist.stage.dir}doc/">
+	    <fileset dir="${build.doc.dir}" includes="**/*"/>
+	</copy>
+	
+	<copy todir="${dist.stage.dir}src/">
+	    <fileset dir="src" includes="**/*" excludes="sample/**" />
+	</copy>
+	
+	<copy todir="${dist.stage.dir}sample/">
+	    <fileset dir="src/sample">
+	       <exclude name="**/generated/**" />
+	       <exclude name="**/build/**" />
+	       <exclude name="**/dist/**" />
+	    </fileset>
+	</copy>
 
-        <!-- zip everything into the release archives -->
-        <zip zipfile="${dist.dir}andromda_${version.suffix}.zip">
-            <fileset dir="${dist.stage.dir}" includes="**/*" />
-        </zip>
-        <!-- do not zip from source tree, but ... -->
-        <!-- keep dist.stage.dir an exact copy of the two zips -->
-        <copy todir="${dist.stage.dir}lib/">
-            <fileset dir="lib" includes="*"/>
-        </copy>
-        <zip zipfile="${dist.dir}andromda_libs_${version.suffix}.zip">
-            <fileset dir="${dist.stage.dir}" includes="lib/*" />
-        </zip>
+	<!-- zip everything into the release archives -->
+	<zip zipfile="${dist.dir}andromda_${version.suffix}.zip">
+	    <fileset dir="${dist.stage.dir}" includes="**/*" />
+	</zip>
+	<!-- do not zip from source tree, but ... -->
+	<!-- keep dist.stage.dir an exact copy of the two zips -->
+	<copy todir="${dist.stage.dir}lib/">
+	    <fileset dir="lib" includes="*"/>
+	</copy>
+	<zip zipfile="${dist.dir}andromda_libs_${version.suffix}.zip">
+	    <fileset dir="${dist.stage.dir}" includes="lib/*" />
+	</zip>
     </target>
 
 
     <!-- ============================================================= -->
-    <!--               Internal subtasks                               -->
+    <!--	       Internal subtasks			       -->
     <!-- ============================================================= -->
 
     <!-- Let JAXB compile the XML schema files into Java classes -->
     <target name="jaxb" depends="init">
 
-        <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-            <classpath refid="build.class.path" />
-        </taskdef>
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+	    <classpath refid="build.class.path" />
+	</taskdef>
 
-        <echo message="Compiling the XML schemas..."/>
+	<echo message="Compiling the XML schemas..."/>
 
-        <xjc schema="${jaxb.src.dir}/simpleOO.xsd"
-             target="${build.gensrc.dir}"
-             package="org.andromda.core.xml"/>
+	<xjc schema="${jaxb.src.dir}/simpleOO.xsd"
+	     target="${build.gensrc.dir}"
+	     package="org.andromda.core.xml"/>
 
-        <xjc schema="${jaxb.src.dir}/TypeMapping.xsd"
-             target="${build.gensrc.dir}"
-             package="org.andromda.core.dbmapping"/>
+	<xjc schema="${jaxb.src.dir}/TypeMapping.xsd"
+	     target="${build.gensrc.dir}"
+	     package="org.andromda.core.dbmapping"/>
 
     </target>
 
@@ -151,103 +155,103 @@
     <target name="compile" depends="jaxb,compile-nogen" />
 
     <target name="compile-nogen" depends="init">
-    	<property name="classpath" refid="build.class.path"/>
-    	<echo message=" path=${classpath}"/>
-        <javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
-            <src refid="src.path.list"/>
-            <classpath refid="build.class.path"/>
-        </javac>
+	<property name="classpath" refid="build.class.path"/>
+	<echo message=" path=${classpath}"/>
+	<javac debug="true" destdir="${build.classes.dir}" includes="**/*.java" includeAntRuntime="false">
+	    <src refid="src.path.list"/>
+	    <classpath refid="build.class.path"/>
+	</javac>
     </target>
 
 
     <target name="jar" depends="jaxb,jar-nogen" />
 
     <target name="jar-nogen" depends="compile-nogen">
-        <jar jarfile="${build.jar.dir}andromda.jar">
-            <fileset dir="${build.classes.dir}" includes="**/*.class" />
-            <fileset dir="${build.gensrc.dir}" includes="**/jaxb.properties" />
-        </jar>
+	<jar jarfile="${build.jar.dir}andromda.jar">
+	    <fileset dir="${build.classes.dir}" includes="**/*.class" />
+	    <fileset dir="${build.gensrc.dir}" includes="**/jaxb.properties" />
+	</jar>
     </target>
 
 
     <target name="javadoc" depends="compile">
-        <javadoc
-            destdir="${build.doc.dir}"
-            access="public" use="true" notree="false" nonavbar="false"
-            noindex="false" splitindex="true" author="true"
-            version="true" nodeprecatedlist="false" nodeprecated="false"
-            classpathref="build.class.path">
-            
-            <fileset dir="${java.src.dir}"/>
-            <fileset dir="${build.gensrc.dir}"/>
+	<javadoc
+	    destdir="${build.doc.dir}"
+	    access="public" use="true" notree="false" nonavbar="false"
+	    noindex="false" splitindex="true" author="true"
+	    version="true" nodeprecatedlist="false" nodeprecated="false"
+	    classpathref="build.class.path">
+	    
+	    <fileset dir="${java.src.dir}"/>
+	    <fileset dir="${build.gensrc.dir}"/>
 
-        </javadoc>
+	</javadoc>
     </target>
 
 
     <target name="init" depends="check-environment">
-        <tstamp/>
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${build.gensrc.dir}"/>
-        <mkdir dir="${build.classes.dir}"/>
+	<tstamp/>
+	<mkdir dir="${build.dir}"/>
+	<mkdir dir="${build.gensrc.dir}"/>
+	<mkdir dir="${build.classes.dir}"/>
     </target>
 
     <target name="check-environment">
-        <antcall target="check-buildclasspath"/>
-        <available property="jaxb.present"
-                   classname="com.sun.tools.xjc.XJCTask"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-jaxb"/>
-        <available property="velocity.present"
-                   classname="org.apache.velocity.context.Context"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-velocity"/>
-        <available property="junit.present"
-                   classname="junit.framework.TestCase"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-junit"/>
-        <available property="ant.present"
-                   classname="org.apache.tools.ant.Project"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-ant"/>
+	<antcall target="check-buildclasspath"/>
+	<available property="jaxb.present"
+		   classname="com.sun.tools.xjc.XJCTask"
+		   classpathref="build.class.path" />
+	<antcall target="wrong-jaxb"/>
+	<available property="velocity.present"
+		   classname="org.apache.velocity.context.Context"
+		   classpathref="build.class.path" />
+	<antcall target="wrong-velocity"/>
+	<available property="junit.present"
+		   classname="junit.framework.TestCase"
+		   classpathref="build.class.path" />
+	<antcall target="wrong-junit"/>
+	<available property="ant.present"
+		   classname="org.apache.tools.ant.Project"
+		   classpathref="build.class.path" />
+	<antcall target="wrong-ant"/>
     </target>
 
     <target name="check-buildclasspath" unless="build.classpath">
-        <fail>
-            Property "build.classpath" is not set. Please use the file
-            "build.properties" in the directory ${basedir} to set
-            this property. It must list all external jars required
-            for the build to succeed.  "build.properties.sample"
-            provides an example on how to set it up.
-        </fail>
+	<fail>
+	    Property "build.classpath" is not set. Please use the file
+	    "build.properties" in the directory ${basedir} to set
+	    this property. It must list all external jars required
+	    for the build to succeed.  "build.properties.sample"
+	    provides an example on how to set it up.
+	</fail>
     </target>
 
     <target name="wrong-jaxb" unless="jaxb.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the JAXB jars.
-        </fail>
+	<fail>
+	    Property "build.classpath" is set but it doesn't seem
+	    to contain the JAXB jars.
+	</fail>
     </target>
 
     <target name="wrong-velocity" unless="velocity.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the Velocity jar.
-        </fail>
+	<fail>
+	    Property "build.classpath" is set but it doesn't seem
+	    to contain the Velocity jar.
+	</fail>
     </target>
 
     <target name="wrong-junit" unless="junit.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the JUnit jar.
-        </fail>
+	<fail>
+	    Property "build.classpath" is set but it doesn't seem
+	    to contain the JUnit jar.
+	</fail>
     </target>
 
     <target name="wrong-ant" unless="ant.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the ant jar.
-        </fail>
+	<fail>
+	    Property "build.classpath" is set but it doesn't seem
+	    to contain the ant jar.
+	</fail>
     </target>
 
 </project>
