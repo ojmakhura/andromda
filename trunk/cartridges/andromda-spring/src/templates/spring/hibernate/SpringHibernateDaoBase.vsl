@@ -7,8 +7,8 @@ package $entity.packageName;
 #set ($superEntity = $entity.generalization)
 /**
  * <p>
- * Base Spring DAO Class: is able to add, update, remove, load, and find
- * objects of type <code>${entity.fullyQualifiedEntityName}</code>.
+ * Base Spring DAO Class: is able to create, update, remove, load, and find
+ * objects of type <code>$entity.fullyQualifiedEntityName</code>.
  * </p>
  *
  * @see $entity.fullyQualifiedEntityName
@@ -56,6 +56,14 @@ public abstract class $entity.daoBaseName
      */
     public $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName)
     {
+        return ($entity.fullyQualifiedEntityName)this.create(false, $argumentName);
+    }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#create(boolean transform, $entity.fullyQualifiedEntityName)
+     */
+    public Object create(boolean transform, $entity.fullyQualifiedName $argumentName)
+    {
         if ($argumentName == null)
         {
             throw new IllegalArgumentException(
@@ -69,7 +77,12 @@ public abstract class $entity.daoBaseName
 #set ($identifierProperty = "($identifier.type.fullyQualifiedName)$identifierProperty")
 #end
         ${argumentName}.${identifier.setterName}($identifierProperty);
-        return ${argumentName};
+        Object entity = $argumentName;
+        if (transform)
+        {
+           entity = this.transformEntity($argumentName);
+        }
+        return entity;    
     }
 
 #set ($attributes = $entity.getAttributes(true,false))
@@ -83,11 +96,24 @@ public abstract class $entity.daoBaseName
 
 #end
     {
+        return ($entity.root.fullyQualifiedEntityName)this.create(false, ${entity.getAttributeNameList(true,false)});
+    }
+    
+    /**
+     * @see ${entity.root.fullyQualifiedDaoName}#create(boolean, ${entity.getAttributeTypeList(true, false)})
+     */
+    public Object create(
+        boolean transform,
+#foreach($attribute in $attributes)
+        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
+
+#end
+    {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();
 #foreach ($attribute in $attributes)
         entity.${attribute.setterName}($attribute.name);
 #end
-        return this.create(entity);
+        return this.create(transform, entity);
     }
 
 #set ($requiredAttributes = $entity.getRequiredAttributes(true,false))
@@ -101,11 +127,24 @@ public abstract class $entity.daoBaseName
 
 #end
     {
+        return ($entity.root.fullyQualifiedEntityName)this.create(false, ${entity.getRequiredAttributeNameList(true,false)});
+    }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#create(boolean, ${entity.getRequiredAttributeTypeList(true, false)})
+     */
+    public Object create(
+        boolean transform,
+#foreach($attribute in $requiredAttributes)
+        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else)#end
+
+#end
+    {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();
 #foreach ($attribute in $requiredAttributes)
         entity.${attribute.setterName}($attribute.name);
 #end
-        return this.create(entity);
+        return this.create(transform, entity);
     }
 
 #end
