@@ -16,9 +16,4 @@ public class OCLPatterns
      * Matches on a feature call
      */
     public static final String OPERATION_FEATURE_CALL = "(.*\\s*(->|\\.))?\\s*\\w*\\s*\\(.*\\)";
-    
-    public static void main(String args[])
-    {
-        System.out.println("matches: " + "substring ( 1 , 3 )".matches(OPERATION_FEATURE_CALL));
-    }
 }
