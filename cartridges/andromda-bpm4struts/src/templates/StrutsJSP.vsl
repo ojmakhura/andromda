@@ -46,6 +46,9 @@
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="true"/>
 #end
 #end
+#if ($class.tabbed)
+        <script type="text/javascript" src="<html:rewrite page="/layout/layout-common.js"/>"></script>
+#end
     </tiles:put>
 
 ##
@@ -78,20 +81,38 @@
                 <bean:message key="propertyKey" bundle="custom"/>
         --%>
 
-        <h1><bean:message key="$class.titleKey"/></h1>
+        <div>
+            <h1><bean:message key="$class.titleKey"/></h1>
+        </div>
 
-#foreach ($variable in $class.pageVariables)
-        <logic:present name="$variable.name" scope="page">
-            <h4><bean:write name="$variable.name" scope="page"/></h4> <br/>
-        </logic:present>
-        <logic:notPresent name="$variable.name" scope="page">
-            <h4>Missing from request: $variable.name</h4> <br/>
-        </logic:notPresent>
-
+#if ($class.tabbed)
+#set ($tabMap = $class.tabMap)
+        <div class="tabs">
+#foreach ($tab in $tabMap.keySet())
+            <div id="tab.${tab}" class="tab">
+                <div class="tab-header">
+#foreach ($tabTitle in $tabMap.keySet())
+#if ($tab == $tabTitle)
+                    <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
+#else
+                    <div class="unselected-tab"><a href="javascript:selectTab(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
 #end
+#end
+                </div>
+                <div class="tab-body">
+#foreach ($tabAction in $tabMap.get($tab))
+                    <tiles:insert page="${tabAction.fullTilePath}.jsp" flush="false"/>
+#end
+                </div>
+            </div>
+#end
+        </div>
+
+#else
 #foreach ($action in $actions)
         <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
 
+#end
 #end
 #foreach ($variable in $class.pageVariables)
 #if ($variable.table)
@@ -112,10 +133,30 @@
 
 #end
 #end
-        <blockquote>
-            <bean:message key="$class.documentationKey"/>
-        </blockquote>
+        <div>
+            <blockquote>
+                <bean:message key="$class.documentationKey"/>
+            </blockquote>
+        </div>
 
+        <script type="text/javascript">
+        //<![CDATA[
+            var tab = new Array($class.tabCount);
+#set ($tabMap = $class.tabMap)
+#foreach ($tab in $tabMap.keySet())
+#set ($tabIndex = $velocityCount - 1)
+            tab[$tabIndex] = getDiv('tab.$tab');
+#end
+
+            function selectTab(tabIndex)
+            {
+                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=tab.length) return;
+                for (var i=0; i<tab.length; i++) tab[i].style.display = 'none';
+                tab[tabIndex].style.display = 'block';
+            }
+            this.selectTab(0);
+        //]]>
+        </script>
     </tiles:put>
 
 </tiles:insert>
