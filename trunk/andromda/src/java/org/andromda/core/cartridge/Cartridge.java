@@ -65,56 +65,55 @@ public class Cartridge
 
         Collection templates = this.getTemplateConfigurations();
 
-        if (templates == null || templates.isEmpty())
-        {
-            return;
-        }
-
-        MetafacadeFactory factory = MetafacadeFactory.getInstance();
-
-        factory.setModel(context.getModelFacade());
-
-        String previousNamespace = factory.getActiveNamespace();
-        factory.setActiveNamespace(this.getName());
-
-        Iterator templateIt = templates.iterator();
-        while (templateIt.hasNext())
-        {
-            TemplateConfiguration template = (TemplateConfiguration)templateIt
-                .next();
-            TemplateModelElements templateModelElements = template
-                .getSupportedModeElements();
-            if (templateModelElements != null
-                && !templateModelElements.isEmpty())
+        if (templates != null && !templates.isEmpty())
+        {         
+            MetafacadeFactory factory = MetafacadeFactory.getInstance();
+    
+            factory.setModel(context.getModelFacade());
+    
+            String previousNamespace = factory.getActiveNamespace();
+            factory.setActiveNamespace(this.getName());
+    
+            Iterator templateIt = templates.iterator();
+            while (templateIt.hasNext())
             {
-                Iterator stereotypeIt = templateModelElements.stereotypeNames();
-                while (stereotypeIt.hasNext())
+                TemplateConfiguration template = 
+                    (TemplateConfiguration)templateIt.next();
+                TemplateModelElements templateModelElements = 
+                    template.getSupportedModeElements();
+                if (templateModelElements != null
+                    && !templateModelElements.isEmpty())
                 {
-                    String stereotypeName = (String)stereotypeIt.next();
-                    Collection modelElements = (Collection)this.elementCache
-                        .get(stereotypeName);
-                    if (modelElements == null)
+                    Iterator stereotypeIt = templateModelElements.stereotypeNames();
+                    while (stereotypeIt.hasNext())
                     {
-                        modelElements = context.getModelFacade()
-                            .findByStereotype(stereotypeName);
-                        elementCache.put(stereotypeName, modelElements);
+                        String stereotypeName = (String)stereotypeIt.next();
+                        Collection modelElements = 
+                            (Collection)this.elementCache.get(stereotypeName);
+                        if (modelElements == null)
+                        {
+                            modelElements = 
+                                context.getModelFacade().findByStereotype(
+                                    stereotypeName);
+                            elementCache.put(stereotypeName, modelElements);
+                        }
+    
+                        TemplateModelElement templateModelElement = templateModelElements
+                            .getModelElement(stereotypeName);
+    
+                        Collection metafacades = 
+                            MetafacadeFactory.getInstance().createMetafacades(modelElements);
+    
+                        this.filterModelPackages(metafacades);
+    
+                        templateModelElement.setModelElements(metafacades);
                     }
-
-                    TemplateModelElement templateModelElement = templateModelElements
-                        .getModelElement(stereotypeName);
-
-                    Collection metafacades = MetafacadeFactory.getInstance()
-                        .createMetafacades(modelElements);
-
-                    this.filterModelPackages(metafacades);
-
-                    templateModelElement.setModelElements(metafacades);
+                    processModelElements(template, context);
                 }
-                processModelElements(template, context);
             }
+            //set the namespace back
+            factory.setActiveNamespace(previousNamespace);
         }
-        //set the namespace back
-        factory.setActiveNamespace(previousNamespace);
     }
 
     /**
@@ -137,20 +136,20 @@ public class Cartridge
             logger.debug("performing " + methodName + " with template '"
                 + template + "' and context ' " + context + "'");
 
-        TemplateModelElements templateModelElements = template
-            .getSupportedModeElements();
+        TemplateModelElements templateModelElements = 
+            template.getSupportedModeElements();
 
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            Property outletProperty = Namespaces.instance()
-                .findNamespaceProperty(this.getName(), template.getOutlet());
+            Property outletProperty = 
+                Namespaces.instance().findNamespaceProperty(this.getName(), template.getOutlet());
 
             if (outletProperty != null && !outletProperty.isIgnore())
             {
                 try
                 {
-                    Collection allModelElements = templateModelElements
-                        .getAllModelElements();
+                    Collection allModelElements = 
+                        templateModelElements.getAllModelElements();
 
                     // if isOutputToSingleFile flag is true, then
                     // we get the collections of templateModelElements and
@@ -162,8 +161,7 @@ public class Cartridge
 
                         // eliminate duplicates since all are
                         // output to one file
-                        allModelElements = new HashSet(
-                            allModelElements);
+                        allModelElements = new HashSet(allModelElements);
 
                         // first place all relevant model elements by the
                         // <modelElements/> variable name
@@ -174,32 +172,31 @@ public class Cartridge
                         // now place the collections of stereotyped elements
                         // by the given variable names. (skip it the variable
                         // was NOT defined
-                        Iterator stereotypeNames = templateModelElements
-                            .stereotypeNames();
+                        Iterator stereotypeNames = 
+                            templateModelElements.stereotypeNames();
                         while (stereotypeNames.hasNext())
                         {
                             String name = (String)stereotypeNames.next();
-                            TemplateModelElement templateModelElement = templateModelElements
-                                .getModelElement(name);
-                            String variable = templateModelElement
-                                .getVariable();
+                            TemplateModelElement templateModelElement = 
+                                templateModelElements.getModelElement(name);
+                            String variable = templateModelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
                                 // if a stereotype has the same variable defined
                                 // more than one time, then get the existing
                                 // model elements added from the last iteration
                                 // and add the new ones to the collection
-                                Collection modelElements = (Collection)templateContext
-                                    .get(variable);
+                                Collection modelElements = 
+                                    (Collection)templateContext.get(variable);
                                 if (modelElements != null)
                                 {
-                                    modelElements.addAll(templateModelElement
-                                        .getModelElements());
+                                    modelElements.addAll(
+                                        templateModelElement.getModelElements());
                                 }
                                 else
                                 {
-                                    modelElements = templateModelElement
-                                        .getModelElements();
+                                    modelElements = 
+                                        templateModelElement.getModelElements();
                                 }
                                 templateContext.put(variable, new HashSet(
                                     modelElements));
@@ -245,9 +242,7 @@ public class Cartridge
                 {
                     String errMsg = "Error performing " + methodName;
                     logger.error(errMsg, th);
-                    throw new CartridgeException(
-                        errMsg,
-                        th);
+                    throw new CartridgeException(errMsg, th);
                 }
             }
         }
@@ -284,8 +279,7 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
-        ExceptionUtils
-            .checkNull(methodName, "templateContext", templateContext);
+        ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
         ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
 
         File outFile = null;
@@ -370,9 +364,7 @@ public class Cartridge
                 + "', template context '" + templateContext
                 + "' and cartridge '" + this.getName() + "'";
             logger.error(errMsg, th);
-            throw new CartridgeException(
-                errMsg,
-                th);
+            throw new CartridgeException(errMsg, th);
         }
     }
 
@@ -411,9 +403,7 @@ public class Cartridge
     {
         String fileName = this.getTemplateEngine().getEvaluatedExpression(
             template.getOutputPattern());
-        return new File(
-            outputLocation,
-            fileName);
+        return new File(outputLocation, fileName);
     }
 
     /**
@@ -425,16 +415,14 @@ public class Cartridge
      */
     protected void filterModelPackages(Collection modelElements)
     {
-        class PackageFilter
-            implements Predicate
+        CollectionUtils.filter(modelElements, new Predicate()
         {
             public boolean evaluate(Object modelElement)
             {
                 return context.getModelPackages().shouldProcess(
                     context.getModelFacade().getPackageName(modelElement));
             }
-        }
-        CollectionUtils.filter(modelElements, new PackageFilter());
+        });
     }
 
     /**
