@@ -21,36 +21,36 @@ public abstract class ${entityname}BeanImpl extends ${entityname}Bean
     // concrete business methods that were declared
     // abstract in class ${entityname}Bean ...
 
-#foreach ( $op in $class.operations)
-#if (!$op.hasStereotype("FinderMethod"))
-#set ($returntype = $op.returnType.fullyQualifiedName)
-#set ($msig = $op.signature)
-#set ($visibility = $op.visibility.toString())
+#foreach ( $operation in $class.operations)
+#if (!$operation.hasStereotype("FinderMethod"))
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($msig = $operation.signature)
+#set ($visibility = $operation.visibility.toString())
 ## Public static methods are exposed on the home
 ## interface instead of the component interface and must
 ## be prepended with "ejbHome"
-#if ($visibility == "public" && $op.static)
+#if ($visibility == "public" && $operation.static)
 #set ($msig = "ejbHome${str.upperCaseFirstLetter($msig)}")
 #end
     /**
-$op.getDocumentation("     * ")
+$operation.getDocumentation("     * ")
      */
-#if ($op.hasExceptions())
-    $visibility $returntype ${msig}
-        throws $op.exceptionList {
+#if ($operation.hasExceptions())
+    $visibility $returnType ${msig}
+        throws $operation.exceptionList {
 #else
-    $visibility $returntype ${msig} {
+    $visibility $returnType ${msig} {
 #end
         // TODO put your implementation here.
-#if ("void" != $returntype)
+#if ("void" != $returnType)
 
         // Dummy return value, just that the file compiles
-#if (!$op.returnType.primitiveType)
+#if (!$operation.returnType.primitiveType)
         return null;
-#elseif ("boolean" == $returntype)
+#elseif ("boolean" == $returnType)
         return false;
 #else
-        return ($returntype)0;
+        return ($returnType)0;
 #end
 #end
     }
