@@ -356,4 +356,9 @@ public class StrutsUseCaseLogicImpl
         }
         return pageVariables;
     }
+
+    public boolean handleIsApplicationUseCase()
+    {
+        return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION);
+    }
 }
