@@ -331,29 +331,43 @@
 						</td>
                     </tr>
                     <tr>
-						<a name="@andromda.hibernate.criteria.comparator"/>
-						<td>
-							@andromda.hibernate.criteria.comparator
-						</td>
+                        <a name="@andromda.hibernate.criteria.nullable"/>
                         <td>
-							<a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                            @andromda.hibernate.criteria.nullable
                         </td>
-						<td>
-							Using this tagged value the logical condition for the underlying attribute in the query.
-							Possible values are
-							<ul>
-								<li>like</li>
-								<li>equal</li>
-								<li>greater</li>
-								<li>greater_equal</li>
-								<li>less</li>
-								<li>less_equal</li>
-							</ul>
-							
-							If you ommit this tagged value and the underlying attribute is a <code>String</code>, 
-							<code>equal</code> will be used. If the underlying attribute is anything else but a 
-							<code>String</code>, <code>like</code> will be used.
-						</td>
+                        <td>
+                            <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+                        <td>
+                            If this tagged value is set to <code>true</code>, the tagged attribute will be considered in the
+                            search even if it is <code>null</code>. Use this feature to query entities that have attributes
+                            that may be <code>NULL</code> (in the sense of SQL).
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.criteria.comparator"/>
+                        <td>
+                            @andromda.hibernate.criteria.comparator
+                        </td>
+                        <td>
+                            <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+                        <td>
+                            Using this tagged value the logical condition for the underlying attribute in the query is set.
+                            Possible values are
+                            <ul>
+                                <li>like</li>
+                                <li>equal</li>
+                                <li>greater</li>
+                                <li>greater_equal</li>
+                                <li>less</li>
+                                <li>less_equal</li>
+                            </ul>
+                            
+                            If you ommit this tagged value and the underlying attribute is a <code>String</code>, 
+                            <code>like</code> will be used. If the underlying attribute is anything else but a 
+                            <code>String</code>, <code>equal</code> will be used.
+                        </td>
                     </tr>
                 </table>
             </subsection>
