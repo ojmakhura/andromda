@@ -24,14 +24,15 @@ Please define the location of your model by setting a value for property "maven.
         <ant:echo>|   T E S T I N G   T R A N S L A T I O N   |</ant:echo>
         <ant:echo>+-------------------------------------------+</ant:echo> 
 
-        <path id="androdev.classpath">
-            <ant:path refid="maven.dependency.classpath"/>
+        <path id="maven.androdev.classpath">
             <ant:pathelement path="${plugin.dependencyClasspath}"/>        
          </path>
-	
+        <!-- add any model dependencies -->
+        <attainGoal name="androdev:add-model-dependencies"/>	
+        
          <maven:addPath
             id="maven.dependency.classpath"
-            refid="androdev.classpath"/>	
+            refid="maven.androdev.classpath"/>	
 		
 		<!-- set the testcase to run -->
 		<j:set 
@@ -97,6 +98,26 @@ Please define the location of your model by setting a value for property "maven.
 			
       	<attainGoal name="test:single"/>
       	
+	</goal>
+	
+	<!-- ================================================================
+	       Adds model dependencies (since they aren't added by Maven)
+	     ================================================================ -->
+	<goal name="androdev:add-model-dependencies"
+	      description="Internal goal used by the plugin">
+        <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
+            <j:set var="dep" value="${artifact.dependency}"/>
+            <j:if test="${dep.type == 'xml.zip'}">
+            	<j:set var="depPath" 
+            		   value="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}"/>
+				<ant:path
+					id="maven.androdev.model.path${index}"
+					location="${depPath}"/>	       	
+				<maven:addPath
+					id="maven.androdev.classpath"
+					refid="maven.androdev.model.path${index}"/>
+            </j:if>
+        </j:forEach>	      
 	</goal>
 	
 	<!-- ============================================================================
