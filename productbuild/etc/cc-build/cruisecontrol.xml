@@ -11,7 +11,7 @@
       </cvs>
     </modificationset>
     <schedule interval="900">
-      <maven goal="clean|scm:update-project|dist|docs" projectfile="/work/andromda/andromda-all/project.xml" mavenscript="/usr/local/maven/bin/maven">
+      <maven goal="scm:update-project|clean|dist|docs" projectfile="/work/andromda/andromda-all/project.xml" mavenscript="/usr/local/maven/bin/maven">
       </maven>
     </schedule>
     <log dir="/work/andromda/logs/andromda-all">
