@@ -14,11 +14,11 @@
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <td>andromda.cartridge.model.uri</td>
+                        <td>andromda.cartridge.test.model.uri</td>
                         <td>No</td>
                         <td>
                             The URI to the model used to run tests.
-                            (i.e.<code>andromda.cartridge.model.uri=jar:file:${maven.src.dir}/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</code>).
+                            (i.e.<code>andromda.cartridge.test.model.uri=jar:file:${maven.src.dir}/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</code>).
                         </td>
                     </tr>
                     <tr>
@@ -93,7 +93,7 @@
 						<td>
 							Specifies a path to search when looking for modules used
 							from your test model specified by 
-							<code>andromda.cartridge.model.uri</code>, where <em>n</em>
+							<code>andromda.cartridge.test.model.uri</code>, where <em>n</em>
 							can be any number of paths to search, <em>n</em> starts
 							with 0. (i.e. andromda.cartridge.repository.moduleSearchPath.location.0=${basedir}/../../etc/profile/src/uml)
 						</td>

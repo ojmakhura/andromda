@@ -2,106 +2,102 @@
 
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="spring">
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
-        <stereotype>FINDER_METHOD</stereotype>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <stereotype>FINDER_METHOD</stereotype>            
+        </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
         <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateTypeLogicImpl">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
         <property reference="hibernateTypeMappingsUri" default=""/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl">
-        <stereotype>SERVICE</stereotype>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>SERVICE</stereotype>          
+        </mapping>        
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
         <property reference="defaultServiceExceptions" default="true"/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl">
-        <stereotype>SERVICE</stereotype>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>SERVICE</stereotype>          
+        </mapping>       
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
         <property reference="defaultServiceExceptions" default="true"/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
-        contextRoot="true">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENTITY</stereotype>         
+        </mapping>   
+        <property reference="entityNamePattern" default="{0}"/>
+        <property reference="defaultHibernateGeneratorClass" default="native"/>
+        <property reference="hibernateDefaultCascade" default="none"/>
+        <property reference="hibernateEntityCache" default=""/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>ENTITY</stereotype>         
+        </mapping>   
+        <property reference="entityNamePattern" default="{0}"/>
+        <property reference="defaultHibernateGeneratorClass" default="native"/>
+        <property reference="hibernateDefaultCascade" default="none"/>
+        <property reference="hibernateEntityCache" default=""/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>ENTITY</stereotype>         
+        </mapping>  
         <stereotype>ENTITY</stereotype>
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="hibernateEntityCache" default=""/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
-        contextRoot="true">
-        <stereotype>ENTITY</stereotype>
-        <property reference="entityNamePattern" default="{0}"/>
-        <property reference="defaultHibernateGeneratorClass" default="native"/>
-        <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
-    </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl"
-        contextRoot="true">
-        <stereotype>ENTITY</stereotype>
-        <property reference="entityNamePattern" default="{0}"/>
-        <property reference="defaultHibernateGeneratorClass" default="native"/>
-        <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
-    </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl">
-        <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>       
+        </mapping>  
         <property reference="hibernateAssociationEndOuterJoin" default="auto"/>
     </metafacade>
-    <metafacade 
-        metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl" 
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationLogicImpl">
-        <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>       
+        </mapping>  
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
-        <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringService</context> 
+        </mapping> 
         <property reference="implementationOperationNamePrefix" default="handle"/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">
-        <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>       
+        </mapping>  
         <property reference="implementationOperationNamePrefix" default="handle"/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Dependency$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
-        <stereotype>ENUMERATION</stereotype>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>ENUMERATION</stereotype>    
+        </mapping>  
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
-        <stereotype>ENUMERATION</stereotype>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>ENUMERATION</stereotype>    
+        </mapping>  
     </metafacade>
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-        metafacadeClass="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
-        <stereotype>ENUMERATION</stereotype>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENUMERATION</stereotype>    
+        </mapping>  
     </metafacade>
 </metafacades>
