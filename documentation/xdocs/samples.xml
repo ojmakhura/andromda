@@ -85,7 +85,8 @@
                                 Contains files required to create the
                                 <strong>ear</strong> bundle.
                                 Typically you will find application deployment descriptors in this
-                                directory as well.
+                                directory, as well as DDL scripts to initialize/drop your schema 
+                                (if you're using hibernate/spring).
                             </p>
                         </li>
                         <li>
@@ -97,24 +98,10 @@
                             </p>
                         </li>
                         <li>
-                            /hibernate/db
-                            <p>
-                                Contains scripts used to run the hibernate generated DDL
-                                scripts for used for creating, updating and dropping the physical data model.
-                            </p>
-                        </li>
-                        <li>
-                            /hibernate/ejb
+                            /hibernate
                             <p>
                                 Contains hibernate persistant entities and EJB services, including any
                                 required deployment descriptors.
-                            </p>
-                        </li>
-                        <li>
-                            /hibernate/sar
-                            <p>
-                                Contains files required to deploy hibernate entities
-                                as a JBoss service archive.
                             </p>
                         </li>
                         <li>
