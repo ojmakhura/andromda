@@ -4,9 +4,11 @@ import java.text.Collator;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import org.andromda.cartridges.webservice.WebServiceProfile;
@@ -14,10 +16,11 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -44,7 +47,8 @@ public class WebServiceLogicImpl
      */
     public java.util.Collection handleGetAllowedOperations()
     {
-        return new FilteredCollection(this.getOperations())
+        List operations = new ArrayList(this.getOperations());
+        CollectionUtils.filter(operations, new Predicate()
         {
             public boolean evaluate(Object object)
             {
@@ -56,7 +60,12 @@ public class WebServiceLogicImpl
                 }
                 return valid;
             }
-        };
+        });
+        if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
+        {
+            Collections.sort(operations, new OperationNameComparator());
+        }
+        return operations;
     }
 
     /**
@@ -537,5 +546,52 @@ public class WebServiceLogicImpl
             StringUtils.trimToEmpty(this.getPackageName()),
             StringUtils.trimToEmpty(this.getName())
         });
+    }
+
+    private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
+
+    /**
+     * Used to sort operations by <code>name</code>.
+     */
+    private final static class OperationNameComparator
+        implements Comparator
+    {
+        private final Collator collator = Collator.getInstance();
+
+        private OperationNameComparator()
+        {
+            collator.setStrength(Collator.PRIMARY);
+        }
+
+        public int compare(Object objectA, Object objectB)
+        {
+            ModelElementFacade a = (ModelElementFacade)objectA;
+            ModelElementFacade b = (ModelElementFacade)objectB;
+
+            return collator.compare(a.getName(), b.getName());
+        }
+    }
+
+    /**
+     * The model specifying operations should be sorted by name.
+     */
+    private static final String OPERATION_SORT_MODE_NAME = "name";
+
+    /**
+     * The model specifying operations should NOT be sorted.
+     */
+    private static final String OPERATION_SORT_MODE_NONE = "none";
+
+    /**
+     * Gets the sort mode WSDL operations.
+     * 
+     * @return String
+     */
+    private String getWSDLOperationSortMode()
+    {
+        Object property = this.getConfiguredProperty(WSDL_OPERATION_SORT_MODE);
+        return property != null || property.equals(OPERATION_SORT_MODE_NAME)
+            ? (String)property
+            : OPERATION_SORT_MODE_NONE;
     }
 }

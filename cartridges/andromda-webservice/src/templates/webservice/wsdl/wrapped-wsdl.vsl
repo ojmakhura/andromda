@@ -17,12 +17,12 @@
                     targetNamespace="${service.namespace}" 
                     xmlns="http://www.w3.org/2001/XMLSchema"> 
 #foreach ( $operation in $service.allowedOperations )
-            <xsd:element name="${operation.name}">       
+            <xsd:element name="$operation.name">       
 #if (!$operation.arguments.empty)
                 <xsd:complexType>  
                     <xsd:sequence>
 #foreach ( $argument in $operation.arguments )     
-                        <xsd:element name="${argument.name}" type="$argument.type.schemaType"/>
+                        <xsd:element name="$argument.name" type="$argument.type.schemaType" nillable="$argument.nillable"/>
 #end
                      </xsd:sequence>
                  </xsd:complexType>
@@ -51,7 +51,7 @@
 #end
 ## Handle any type mappings that happen to be associationEnds 
 #if ($typeMapping.many)
-            <xsd:complexType name="${type.arrayName}">
+            <xsd:complexType name="$type.arrayName">
                 <xsd:sequence>
                     <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${namespacePrefix}:${type.qName}" /> 
                 </xsd:sequence>
@@ -68,7 +68,7 @@
 #foreach ( $attribute in $type.attributes ) 
 #set ($enumType = $attribute.type.schemaType)
 #end
-            <xsd:simpleType name="${type.qName}">
+            <xsd:simpleType name="$type.qName">
                 <xsd:restriction base="$enumType">
 #foreach ( $attribute in $type.attributes ) 
                     <xsd:enumeration value="${escapeUtils.escapeXml($attribute.defaultValue.replaceAll('"', ''))}"/>
@@ -84,7 +84,7 @@ $type.getDocumentation("                        ", 64, false)
                 </xsd:annotation>
                 <xsd:sequence>
 #foreach ( $attribute in $type.attributes ) 
-                    <xsd:element name="$attribute.name" nillable="$attribute.required" type="$attribute.type.schemaType"/>
+                    <xsd:element name="$attribute.name" nillable="$attribute.nillable" type="$attribute.type.schemaType"/>
 #end
 #foreach ( $associationEnd in $type.associationEnds) 
 #set ($otherEnd = $associationEnd.otherEnd)
@@ -95,7 +95,7 @@ $type.getDocumentation("                        ", 64, false)
 #else
 #set ($schemaType = "${namespacePrefix}:${type.qName}")
 #end                
-                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.required" type="${schemaType}"/>   
+                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.nillable" type="${schemaType}"/>   
 #end    
 #end
                 </xsd:sequence>

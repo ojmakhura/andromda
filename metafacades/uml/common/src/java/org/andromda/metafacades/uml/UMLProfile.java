@@ -108,6 +108,13 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_EXCEPTION_REF = umlProfile
         .getString("STEREOTYPE_EXCEPTION_REF");
+    
+    /**
+     * Used to indicate whether or not a parameter is required (since
+     * parameters do <strong>NOT</strong> allow specification of multiplicity.
+     */
+    public static final String STEREOTYPE_REQUIRED = umlProfile
+        .getString("STEREOTYPE_REQUIRED");
 
     /* ----------------- Tagged Values -------------------- */
 

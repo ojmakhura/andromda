@@ -13,7 +13,7 @@
     <!-- The name of the application that this service will run within
          (i.e. Security Services} -->
     <property reference="applicationName"/>
-
+    
     <!-- The location of where the WSDL will reside
          (i.e. "http://localhost:8080/security-service/services") -->
     <property reference="wsdlSoapAddress"/>

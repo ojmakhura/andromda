@@ -1,5 +1,7 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import org.andromda.metafacades.uml.UMLProfile;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServiceParameter.
@@ -15,5 +17,13 @@ public class WebServiceParameterLogicImpl
     public WebServiceParameterLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameter#isNillable()
+     */
+    protected boolean handleIsNillable()
+    {
+        return !this.hasStereotype(UMLProfile.STEREOTYPE_REQUIRED);
     }
 }
