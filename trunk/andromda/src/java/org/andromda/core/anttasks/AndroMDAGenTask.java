@@ -476,14 +476,12 @@ public class AndroMDAGenTask extends MatchingTask {
 		if (useDefaultTemplateConfig) {
 			initDefaultTemplateConfig();
 		}
-		/*
-		 * AMOWERS: Comment this so that we do not absolutely need the JAXB libraries
-		 * PENDING: We should enable this check somehow
-				if (typeMappings == null)
-				{
-					throw new BuildException("The typeMappings attribute of <uml2GEN> has not been set - it is needed for entity bean field to database column mapping.");
-				}
-		*/
+		
+		if (typeMappings == null)
+		{
+			throw new BuildException("The typeMappings attribute of <andromda> has not been set - it is needed for class attribute to database column mapping.");
+		}
+		
 		if (velocityPropertiesFile == null) {
 			// We directly change the user variable, because it
 			// shouldn't lead to problems
