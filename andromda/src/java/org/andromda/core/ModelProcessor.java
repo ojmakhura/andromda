@@ -86,6 +86,7 @@ public class ModelProcessor
                     + versionPropertyName + "' in '" + versionPropertiesUri
                     + "'");
             }
+            ExceptionRecorder.setAndromdaVersion( VERSION );
         }
         catch (Throwable th)
         {
