@@ -107,25 +107,6 @@ public class StrutsTriggerLogicImpl
         return "You are not allowed to call this action";
     }
 
-    public boolean handleIsTabbed()
-    {
-        return getTabIndex() >= 0;
-    }
-
-    public int handleGetTabIndex()
-    {
-        final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_TABINDEX));
-
-        try
-        {
-            return (tabIndex==null) ? -1 : Integer.parseInt(tabIndex);
-        }
-        catch (NumberFormatException e)
-        {
-            return -1;
-        }
-    }
-
     // ------------- relations ------------------
 
     protected Object handleGetControllerCall()

@@ -146,12 +146,7 @@ public class StrutsJspLogicImpl
             for (Iterator iterator = actions.iterator(); iterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)iterator.next();
-                StrutsTrigger trigger = action.getActionTrigger();
-
-                if (trigger != null)    // should never be null (OCL validation rules)
-                {
-                    maxValue = Math.max(maxValue, trigger.getTabIndex());
-                }
+                maxValue = Math.max(maxValue, action.getTabIndex());
             }
             return maxValue + 1;    // we add one because we're counting from [1..n]
         }
@@ -172,14 +167,9 @@ public class StrutsJspLogicImpl
         for (Iterator iterator = actions.iterator(); iterator.hasNext();)
         {
             StrutsAction action = (StrutsAction) iterator.next();
-            StrutsTrigger trigger = action.getActionTrigger();
-
-            if (trigger != null)    // should never be null (OCL validation rules)
+            if (action.getTabIndex() == index)
             {
-                if (trigger.getTabIndex() == index)
-                {
-                    tabActions.add(action);
-                }
+                tabActions.add(action);
             }
         }
 
@@ -196,12 +186,7 @@ public class StrutsJspLogicImpl
             if (actionObject instanceof StrutsAction)
             {
                 StrutsAction action = (StrutsAction)actionObject;
-                StrutsTrigger trigger = action.getActionTrigger();
-
-                if (trigger != null)    // should never be null (OCL validation rules)
-                {
-                    if (trigger.isTabbed()) return true;
-                }
+                if (action.getTabIndex() >= 0) return true;
             }
         }
         return false;
@@ -218,12 +203,8 @@ public class StrutsJspLogicImpl
             if (actionObject instanceof StrutsAction)
             {
                 StrutsAction action = (StrutsAction)actionObject;
-                StrutsTrigger trigger = action.getActionTrigger();
-
-                if (trigger != null)    // should never be null (OCL validation rules)
-                {
-                    if (!trigger.isTabbed()) nonTabbedActions.add(action);
-                }
+                if (!action.isTabbed())
+                    nonTabbedActions.add(action);
             }
         }
         return nonTabbedActions;
@@ -259,7 +240,7 @@ public class StrutsJspLogicImpl
 
         if (buffer.length() == 0)
         {
-            buffer.append(String.valueOf(tabIndex));
+            buffer.append(String.valueOf(tabIndex + 1));
         }
         return buffer.toString();
     }

@@ -211,6 +211,7 @@ div.tabs div.tab
 div.tabs div.tab div.tab-header
 {
     margin-bottom: 0.5em;
+    border-bottom: 1px dotted #ccc;
 }
 
 div.tabs div.tab div.tab-header div.unselected-tab
@@ -219,7 +220,7 @@ div.tabs div.tab div.tab-header div.unselected-tab
 	padding: 0.2em 0.2em 0 0.2em;
 }
 
-div.tabs div.tab-header div.selected-tab
+div.tabs div.tab div.tab-header div.selected-tab
 {
     display: inline;
 	padding: 0.2em 0.2em 0 0.2em;

@@ -112,6 +112,15 @@ ${messageKey}.${optionKey}.title=${field.name}-$velocityCount
 #end
 
 #end
+#set ($tabMap = $action.tabMap)
+#if (!$tabMap.keySet().empty)
+#   ACTION-TABS
+#foreach ($tab in $tabMap.keySet())
+#set ($tabIndex = $velocityCount - 1)
+${messageKey}.tab.${tab}=$action.getTabName($tabIndex)
+#end
+#end
+
 #set ($actionExceptions = $action.actionExceptions)
 #if (!$actionExceptions.empty)
 #   ACTION-EXCEPTIONS

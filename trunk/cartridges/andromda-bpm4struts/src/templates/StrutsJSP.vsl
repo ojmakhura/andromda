@@ -33,7 +33,11 @@
     <tiles:put name="javascript" type="string">
 ## only load the static javascript when it will actually be used
 #set ($loadStaticScript = false)
+#set ($hasTabs = $class.tabbed)
 #foreach ($action in $actions)
+#if ($hasTabs == false)
+#set ($hasTabs = $action.tabbed)
+#end
 #if ($action.requiresValidation())
 #set ($loadStaticScript = true)
 #end
@@ -46,7 +50,7 @@
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="true"/>
 #end
 #end
-#if ($class.tabbed)
+#if ($hasTabs)
         <script type="text/javascript" src="<html:rewrite page="/layout/layout-common.js"/>"></script>
 #end
     </tiles:put>
@@ -89,13 +93,13 @@
 #set ($tabMap = $class.tabMap)
         <div class="tabs">
 #foreach ($tab in $tabMap.keySet())
-            <div id="tab.${tab}" class="tab">
+            <div id="actiontab.${tab}" class="tab">
                 <div class="tab-header">
 #foreach ($tabTitle in $tabMap.keySet())
 #if ($tab == $tabTitle)
                     <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
 #else
-                    <div class="unselected-tab"><a href="javascript:selectTab(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
+                    <div class="unselected-tab"><a href="javascript:selectActionTab(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
 #end
 #end
                 </div>
@@ -142,20 +146,20 @@
 #if ($class.tabbed)
         <script type="text/javascript">
         //<![CDATA[
-            var tab = new Array($class.tabCount);
+            var actionTab = new Array($class.tabCount);
 #set ($tabMap = $class.tabMap)
 #foreach ($tab in $tabMap.keySet())
 #set ($tabIndex = $velocityCount - 1)
-            tab[$tabIndex] = getDiv('tab.$tab');
+            actionTab[$tabIndex] = getDiv('actiontab.$tab');
 #end
 
-            function selectTab(tabIndex)
+            function selectActionTab(tabIndex)
             {
-                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=tab.length) return;
-                for (var i=0; i<tab.length; i++) tab[i].style.display = 'none';
-                tab[tabIndex].style.display = 'block';
+                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=actionTab.length) return;
+                for (var i=0; i<actionTab.length; i++) actionTab[i].style.display = 'none';
+                actionTab[tabIndex].style.display = 'block';
             }
-            this.selectTab(0);
+            this.selectActionTab(0);
         //]]>
         </script>
 #end
