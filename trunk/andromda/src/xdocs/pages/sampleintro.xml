@@ -84,7 +84,8 @@
       </p>
       <p class="std">
         I have written some code that implements the logic of the car rental system.
-        When you start the generator using <code>ant -f launchbuild.xml</code>, you
+        When you start the generator using <code>ant -f build.xml</code>
+        or simply <code>ant</code>, you
         will get a file called <code>car-rental-system.ear</code> which you can
         deploy directly in JBoss (simply by copying it into JBoss's subdirectory
         <code>server/default/deploy</code>).
