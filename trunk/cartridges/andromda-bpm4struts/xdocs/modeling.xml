@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Bpm4Struts Cartridge Modeling</title>
+    </properties>
+    <body>
+        <section name="Hibernate Cartridge Modeling">
+            <p>
+    			The page describes the modeling standards one must follow to in order
+    			to use the Bpm4Struts Cartridge.
+            </p>
+            <p>
+                Most of the model elements will require a stereotype to be processed correctly, below you will find
+                a table indicating on which model element you may put what stereotype, it will also
+                denote which effect this has on the generation process.
+            </p>
+            <subsection name="Supported Stereotypes">
+                <table>
+                    <tr>
+                        <th>Stereotype</th>
+                        <th>Model element</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>FrontEndController</td>
+                        <td>Class</td>
+                        <td>Assigns to class to be responsible of handling the business logic, it is called by the actions.</td>
+                    </tr>
+                    <tr>
+                        <td>FrontEndApplication</td>
+                        <td>UseCase</td>
+                        <td>This use-case is the application's starting point, you will also need the FrontEndUseCase here</td>
+                    </tr>
+                    <tr>
+                        <td>FrontEndUseCase</td>
+                        <td>UseCase</td>
+                        <td>A use-case that participates in the front-end processes</td>
+                    </tr>
+                    <tr>
+                        <td>FrontEndUser</td>
+                        <td>Actor</td>
+                        <td>A user that is granted access to the associated use-cases</td>
+                    </tr>
+                    <tr>
+                        <td>FrontEndView</td>
+                        <td>Action State</td>
+                        <td>Designates a JSP page</td>
+                    </tr>
+                    <tr>
+                        <td>FrontEndEvent</td>
+                        <td>Transition</td>
+                        <td>Designates an action that may occur on a JSP page, must go out of an initial state or a JSP page</td>
+                    </tr>
+                    <tr>
+                        <td>FrontEndException</td>
+                        <td>Transition</td>
+                        <td>Designates an exception occuring while processing an action, goes out of an action state and into a JSP page</td>
+                    </tr>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>
