@@ -12,8 +12,8 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Defines the &lt;modelElements/&gt; element within a &lt;template/&gt; within
- * an XML cartridge descriptor.  This allows the grouping of model elements
- * by criteria defined within the nested {@link ModelElement} instances.
+ * an XML cartridge descriptor. This allows the grouping of model elements by
+ * criteria defined within the nested {@link ModelElement}instances.
  * 
  * @see Template
  * @see ModelElement
