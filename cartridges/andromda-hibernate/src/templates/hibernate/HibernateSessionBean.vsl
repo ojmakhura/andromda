@@ -9,6 +9,8 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 import net.sf.hibernate.cfg.Configuration;
 
+import ${customTypesPackage}.HibernateUtils;
+
 #foreach ( $serviceRef in $service.serviceReferences )
 import ${serviceRef.targetElement.fullyQualifiedName}Home;
 #end
@@ -221,17 +223,17 @@ $operation.getDocumentation("     * ")
     protected javax.ejb.SessionContext _ctx = null;
 
     private static SessionFactory _sessionFactory = null;
-
+    
     public void setSessionContext( javax.ejb.SessionContext ctx )
     {
         _ctx = ctx;
     }
 
-    private SessionFactory getSessionFactory() throws HibernateException
+    private SessionFactory getSessionFactory() throws HibernateException, NamingException
     {
         if( _sessionFactory == null )
         {
-            _sessionFactory = new Configuration().configure().buildSessionFactory();
+            _sessionFactory = HibernateUtils.getSessionFactory();
         }
         return _sessionFactory;
     }

@@ -113,6 +113,13 @@
         required="false"/>
 
     <template
+        path="templates/hibernate/HibernateUtils.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true"
+        required="false"/>
+
+    <template
         path="templates/hibernate/HibernateStringClobType.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
