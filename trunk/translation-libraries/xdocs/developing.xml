@@ -28,17 +28,89 @@
 							Next we need to create the Translation-Library directory that will contain all
 							required resources (you'll be editing these as you develop).  We'll call our 
 							sample Translation-Library 'constraint'.  This is simple with the 
-							<a href="../andromda-translation-library-plugin/index.html">andromda-translation-library-plugin</a>.  After changing 
-							to the directory where you want the 'constraint' Translation-Library to be 
-							generated, just type the following:
-							<ul>
-								<li>
-									<strong>NOTE:</strong> 'library' is the name of the Translation-Library and 'translations'
-									is a comma seperated list of the translation languages you will be developing for this Translation-Library
-								</li>
-							</ul>
+							<a href="../andromda-translation-library-plugin/index.html">andromda-translation-library-plugin</a>.  
+                            After changing to the directory where you want the 'constraint' Translation-Library to be 
+							generated, just type the following at the command prompt and answer the questions (you should get
+                            output like the following):
 						</p>
-						<source>maven translation-library:generate -Dlibrary=constraint -Dtranslations=Oracle-SQL</source> 
+                        <pre class="console">
+$ maven translation-library:generate -o
+ __  __
+|  \/  |__ _Apache__ ___
+| |\/| / _` \ V / -_) ' \  ~ intelligent projects ~
+|_|  |_\__,_|\_/\___|_||_|  v. 1.0.1
+
+Please enter the name to give the new translation-library (i.e. 'query'):
+<strong>query</strong>
+Please enter a comma seperated list of the names of the translations (i.e. 'Hibernate-QL, EJB-QL'):
+<strong>Oracle-SQL</strong>
+build:start:
+
+translation-library:validate-generation-params:
+
+translation-library:generate:
+translation-library:validate-generation-params:
+
+translation-library:set-shared-properties:
+
+translation-library:generate-translation-library-descriptor:
+    [echo] +-------------------------------------------------------------------------------------+
+    [echo] |   G E N E R A T I N G  T R A N S L A T I O N - L I B R A R Y  D E S C R I P T O R   |
+    [echo] +-------------------------------------------------------------------------------------+
+    [mkdir] Created dir: C:\test\constraint\src\META-INF
+    [echo] Generating translation-library descriptor: constraint/src/META-INF/translation-library.xml
+
+translation-library:validate-generation-params:
+
+translation-library:generate-translations:
+    [echo] +------------------------------------------------------+
+    [echo] |   G E N E R A T I N G  T R A N S L A T I O N ( S )   |
+    [echo] +------------------------------------------------------+
+    [mkdir] Created dir: C:\test\constraint\src\translations\constraint
+    [echo] Generating translation file: constraint/src/translations/constraint/Oracle9i.vsl
+
+translation-library:validate-generation-params:
+
+translation-library:set-shared-properties:
+
+translation-library:generate-translator:
+    [echo] +----------------------------------------------+
+    [echo] |   G E N E R A T I N G  T R A N S L A T O R   |
+    [echo] +---------------------------------------------=+
+    [mkdir] Created dir: C:\test\constraint\src\java\org\andromda\translation\constraint
+    [echo] Generating translator file: constraint/src/java/org/andromda/translation/constraint/ConstraintTranslator.java
+
+translation-library:set-shared-properties:
+
+translation-library:generate-translator-exception:
+    [echo] +----------------------------------------------------------------+
+    [echo] |   G E N E R A T I N G  T R A N S L A T O R  E X C E P T I O N  |
+    [echo] +----------------------------------------------------------------+
+    [echo] Generating translator exception file: constraint/src/java/org/andromda/translation/constraint/ConstraintTranslatorException.java
+
+translation-library:validate-generation-params:
+
+translation-library:generate-translation-tests:
+    [echo] +-------------------------------------------------------------------------+
+    [echo] |   G E N E R A T I N G  T R A N S L A T I O N - T E S T  F I L E ( S )   |
+    [echo] +-------------------------------------------------------------------------+
+    [mkdir] Created dir: C:\test\constraint\src\test\translations\constraint
+    [echo] Generating translation test file: constraint/src/constraint/src/test/translations/constraint/TranslationTest-Oracle9i.xml
+
+translation-library:validate-generation-params:
+
+translation-library:set-shared-properties:
+
+translation-library:generate-translation-library-pom:
+    [echo] +-----------------------------------------------------------------------+
+    [echo] |   G E N E R A T I N G  T R A N S L A T I O N - L I B R A R Y  P O M   |
+    [echo] +-----------------------------------------------------------------------+
+    [echo] Generating translation-library pom: constraint/project.xml
+    [copy] Copying 1 file to C:\test\constraint
+BUILD SUCCESSFUL
+Total time: 17 seconds
+Finished at: Sun Nov 28 08:22:22 MST 2004
+                        </pre>
 					</li>
 					<li>
 						<p>

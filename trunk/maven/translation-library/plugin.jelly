@@ -4,6 +4,7 @@
          xmlns:ant="jelly:ant"
          xmlns:util="jelly:util"
          xmlns:maven="jelly:maven"
+         xmlns:i="jelly:interaction"
          xmlns:velocity="jelly:velocity">
 
     <!-- ===================================================================
@@ -335,18 +336,16 @@
 		  Validates that both 'library' and 'translations' properties have been set
 	     ============================================================================ -->	
 	<goal name="translation-library:validate-generation-params">
-		<j:set var="failMessage">
-			The name of the Translation-Library and at least one translation must be specified. 
-			(i.e. maven translation-library:generate-translation-library -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL).
-		</j:set>
-		  
-      	<maven:param-check value="${library}" fail="true">
-			${failMessage}
-		</maven:param-check>	
-		
-      	<maven:param-check value="${translations}" fail="true">
-			${failMessage}
-		</maven:param-check>	
+        <j:while test="${empty(library)}">
+            <i:ask
+                question="Please enter the name to give the new translation-library (i.e. 'query'):"
+                answer="library"/>
+        </j:while>
+        <j:while test="${empty(translations)}">
+            <i:ask
+                question="Please enter a comma seperated list of the names of the translations (i.e. 'Hibernate-QL,EJB-QL'):"
+                answer="translations"/>
+        </j:while>
 	</goal>
 	
 	<!-- ============================================================================

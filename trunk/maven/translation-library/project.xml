@@ -151,6 +151,16 @@
             <version>20030303.205659</version>
             <properties/>
         </dependency>
+	    <dependency>
+	      	<groupId>commons-jelly</groupId>
+	      	<artifactId>commons-jelly-tags-interaction</artifactId>
+	      	<version>20030211.143817</version>
+	    </dependency>
+    	<dependency>
+      		<groupId>commons-jelly</groupId>
+      		<artifactId>commons-jelly-tags-xml</artifactId>
+      		<version>20030211.142705</version>
+    	</dependency>
     </dependencies>
     <build>
         <resources>
