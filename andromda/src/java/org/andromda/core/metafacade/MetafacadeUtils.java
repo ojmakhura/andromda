@@ -1,5 +1,6 @@
 package org.andromda.core.metafacade;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,7 +9,6 @@ import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PropertyUtils;
-import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -154,6 +154,7 @@ class MetafacadeUtils
                             + "evaluating properties on metafacade '"
                             + metafacade + "', setting valid to 'false'",
                         th);
+                th.printStackTrace();
                 valid = false;
             }
             if (getLogger().isDebugEnabled())
@@ -184,15 +185,12 @@ class MetafacadeUtils
                 "constructing metafacade from class '" + metafacadeClass
                     + "' mapping object '" + mappingObject + "', and context '"
                     + context + "'");
-        MetafacadeBase metafacade = (MetafacadeBase)ConstructorUtils
-            .invokeConstructor(metafacadeClass, new Object[]
+        Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
+        MetafacadeBase metafacade = (MetafacadeBase)constructor
+            .newInstance(new Object[]
             {
                 mappingObject,
                 context
-            }, new Class[]
-            {
-                mappingObject.getClass(),
-                java.lang.String.class
             });
         return metafacade;
     }
