@@ -18,6 +18,7 @@ public class StrutsJspLogicImpl
 {
     private String packageName = null;
     private String fullPath = null;
+    private String messageKey = null;
     private String titleKey = null;
     private String titleValue = null;
     private Collection actions = null;
@@ -25,6 +26,8 @@ public class StrutsJspLogicImpl
     private Object useCase = null;
     private Object forward = null;
     private Collection incomingActions = null;
+    private String documentationKey = null;
+    private String documentationValue = null;
 
     // ---------------- constructor -------------------------------
     
@@ -46,16 +49,34 @@ public class StrutsJspLogicImpl
         return packageName = classifier.getPackageName();
     }
 
+    public String getMessageKey()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && messageKey != null) return messageKey;
+        return messageKey = StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName());
+    }
+
     public String getTitleKey()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && titleKey != null) return titleKey;
-        return titleKey = StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName()) + ".title";
+        return titleKey = getMessageKey() + ".title";
     }
 
     public String getTitleValue()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && titleValue != null) return titleValue;
         return titleValue = StringUtilsHelper.toPhrase(getName());
+    }
+
+    public String getDocumentationKey()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && documentationKey != null) return documentationKey;
+        return documentationKey = getMessageKey() + ".documentation";
+    }
+
+    public String getDocumentationValue()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && documentationValue != null) return documentationValue;
+        return documentationValue = StringUtilsHelper.toResourceMessage(getDocumentation(""));
     }
 
     public String getFullPath()
