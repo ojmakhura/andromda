@@ -41,7 +41,8 @@
                 <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
                 <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
                 <controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
-                <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
+                <!-- for this sample we do not modify the implementation of the controller -->
+                <controller-impls>${maven.andromda.bpm4struts.generated.dir}</controller-impls>
                 <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
                 <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
                 <xdoclet-merge>${maven.andromda.bpm4struts.generated.dir}/merge</xdoclet-merge>
