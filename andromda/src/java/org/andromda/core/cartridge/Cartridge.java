@@ -409,13 +409,9 @@ public class Cartridge
             }
             if (outFile != null)
             {
-                // do not overWrite already generated file,
-                // if that is a file that the user needs to edit
-                boolean writeOutputFile = !outFile.exists()
-                    || template.isOverwrite();
-
-                // only process files that have changed
-                if (writeOutputFile)
+                // only write files that do NOT exist, and
+                // those that have overwrite set to 'true'
+                if (!outFile.exists() || template.isOverwrite())
                 {
                     String outputString = output.toString();
 
@@ -540,10 +536,16 @@ public class Cartridge
                 {
                     uriSuffix
                 }, new File(outletLocation));
-                ResourceWriter.instance().writeUrlToFile(
-                    resourceUrl,
-                    outFile.toString());
-                AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
+
+                // only write files that do NOT exist, and
+                // those that have overwrite set to 'true'
+                if (!outFile.exists() || resource.isOverwrite())
+                {
+                    ResourceWriter.instance().writeUrlToFile(
+                        resourceUrl,
+                        outFile.toString());
+                    AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
+                }
             }
         }
         catch (Throwable th)
