@@ -137,7 +137,14 @@ public class ClassifierFacadeLogicImpl
         }
         if (this.wrapperMappings != null)
         {
-            wrapperName = this.wrapperMappings.getTo(wrapperName);
+            if (this.wrapperMappings.containsFrom(wrapperName))
+            {
+                wrapperName = this.wrapperMappings.getTo(wrapperName);
+            }
+            else
+            {
+                wrapperName = this.getName();
+            }
         }
         return wrapperName;
     }
