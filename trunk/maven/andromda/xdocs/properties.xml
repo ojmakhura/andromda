@@ -99,7 +99,49 @@
 								Default is <code>true</code>.
 							</p>
 						</td>
-					</tr>	        	        		        	   	    	        		        	        	        	     	             	        	
+					</tr>	
+					<tr>
+						<td>
+							maven.andromda.modelPackage.<em>n</em>.name
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							The name of the model package to either process
+							or ignore, where <em>n</em> can be any number of 
+							packages to process. <em>n</em> begins with 
+							0. (i.e. maven.andromda.modelPackage.0.name=org.andromda.metafacades.uml)					
+						</td>
+					</tr>       
+					<tr>
+						<td>
+							maven.andromda.modelPackage.<em>n</em>.shouldProcess
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							True/false on whether or not the package specified
+							from the <code>maven.andromda.modelPackage.n.name</code>
+							property should be processed (i.e. maven.andromda.modelPackage.0.shouldProcess=false).
+						</td>
+					</tr>   
+					<tr>
+						<td>
+							maven.andromda.repository.moduleSearchPath.location.<em>n</em>
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							Specifies a path to search when looking for modules used
+							from your model specified by 
+							<code>maven.andromda.model.uri</code>, where <em>n</em>
+							can be any number of paths to search, <em>n</em> starts
+							with 0. (i.e. maven.andromda.repository.moduleSearchPath.location.0=${basedir}/../../metafacades/uml/common/src/uml)
+						</td>
+					</tr>     		        	   	    	        		        	        	        	     	             	        	
 				</table>
 	        </subsection>
 			<a name="schema2xmi"/>
