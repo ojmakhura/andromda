@@ -8,6 +8,9 @@ import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.translation.Expression;
+import org.andromda.core.translation.ExpressionTranslator;
+import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -408,4 +411,89 @@ public class ModelElementFacadeLogicImpl
     {
         return this.metaObject.getConstraint();    
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
+     */
+    public String translateConstraint(final String name, String translation) 
+    {
+        String translatedExpression = "";         
+        ConstraintFacade constraint = (ConstraintFacade)CollectionUtils.find(
+            this.getConstraints(),
+            new Predicate() 
+            {
+                public boolean evaluate(Object object) {
+                    ConstraintFacade constraint = (ConstraintFacade)object;
+                    return StringUtils.trimToEmpty(
+                        constraint.getName()).equals(
+                            StringUtils.trimToEmpty(name));
+                }
+            });
+        
+        if (constraint != null) 
+        {
+            Expression translatedConstraint = 
+                ExpressionTranslator.instance().translate(
+                    translation, 
+                    this.shieldedElement(this.metaObject), 
+                    constraint.getBody());
+            translatedExpression = 
+                translatedConstraint.getTranslatedExpression();
+        }
+        return translatedExpression;   
+    }
+    
+     /**
+      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String)
+      */
+     public java.lang.String[] translateConstraints(String translation) {
+        return this.translateConstraints(this.getConstraints(), translation);  
+     }
+     
+     /**
+      * Private helper that translates all the expressions
+      * contained in the <code>constraints</code>, and returns
+      * an array of the translated expressions.
+      * @param constraints the constraints to translate
+      * @param translation the translation to transate <code>to</code>.
+      * @return String[] the translated expressions, or null if no constraints
+      *         were found
+      */
+     private String[] translateConstraints(Collection constraints, String translation) {
+        String[] translatedExpressions = null;
+        if (constraints != null && !constraints.isEmpty()) {
+            translatedExpressions = new String[constraints.size()];
+            Iterator constraintIt = constraints.iterator();
+            for (int ctr = 0; constraintIt.hasNext(); ctr++) {
+                ConstraintFacade constraint = 
+                    (ConstraintFacade)constraintIt.next();
+                Expression translatedConstraint = 
+                   ExpressionTranslator.instance().translate(
+                       translation, 
+                       this.shieldedElement(this.metaObject), 
+                       constraint.getBody());
+                translatedExpressions[ctr] = 
+                   translatedConstraint.getTranslatedExpression();
+            }
+        }  
+        return translatedExpressions;
+     }
+
+     /**
+      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String, java.lang.String)
+      */
+     public java.lang.String[] translateConstraints(final String kind, String translation) {
+        Collection constraints = this.getConstraints();
+        CollectionUtils.filter(
+            constraints,
+            new Predicate() 
+            {
+                public boolean evaluate(Object object) {
+                    ConstraintFacade constraint = (ConstraintFacade)object;
+                    return StringUtils.trimToEmpty(
+                        constraint.getBody()).matches(".*\\s" + kind + "\\s*.*");
+                }
+            });
+        return this.translateConstraints(constraints, translation);      
+     }
 }

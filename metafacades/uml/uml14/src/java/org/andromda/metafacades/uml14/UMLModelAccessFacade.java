@@ -6,8 +6,11 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
@@ -26,6 +29,9 @@ public class UMLModelAccessFacade implements ModelAccessFacade
     
     private UmlPackage model;
     
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
+     */
     public void setModel(Object model) 
     {
         final String methodName = "UMLModelFacade.setModel";
@@ -38,16 +44,16 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         this.model = (UmlPackage)model;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.common.ModelFacade#getModel()
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getModel()
      */
     public Object getModel()
     {
         return model;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.common.ModelFacade#getName(java.lang.Object)
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(java.lang.Object)
      */
     public String getName(Object modelElement)
     {
@@ -61,8 +67,8 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         return ((ModelElementFacade)modelElement).getName();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.common.ModelFacade#getPackageName(java.lang.Object)
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(java.lang.Object)
      */
     public String getPackageName(Object modelElement)
     {
@@ -76,8 +82,8 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         return ((ModelElementFacade)modelElement).getPackageName();
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.common.ModelFacade#getStereotypeNames(java.lang.Object)
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(java.lang.Object)
      */
     public Collection getStereotypeNames(Object modelElement)
     {
@@ -124,6 +130,26 @@ public class UMLModelAccessFacade implements ModelAccessFacade
             }
         }
         return modelElements;
+    }
+        
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#findModelElement(java.lang.String)
+     */
+    public Object findModelElement(final String fullyQualifiedName)
+    {
+        return CollectionUtils.find(
+            this.getModelElements(),
+            new Predicate() {
+                public boolean evaluate(Object object) {
+                    return ((ModelElementFacade)object).getFullyQualifiedName().equals(
+                        StringUtils.trimToEmpty(fullyQualifiedName));
+                }
+            });
+    }
+    
+    private Collection getModelElements() {
+        return MetafacadeFactory.getInstance().createMetafacades(
+            this.model.getCore().getModelElement().refAllOfType());
     }
 
 }
