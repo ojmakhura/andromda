@@ -8,7 +8,7 @@ package $entity.packageName;
 ##
 ## idGeneratorClass - the hibernate id generator class to use.
 ## leafImpl         - whether or not to generate the Impls
-##                    When using subclass inheritance strategy dont want to 
+##                    When using subclass inheritance strategy dont want to
 ##                    generate a table for every Impl.
 ##                    also means have to support business methods on a facade,
 ##                    or maybe have some merge architecture to include business
@@ -28,7 +28,7 @@ $entity.getDocumentation(" * ")
  *     table="$entity.tableName"
  * @hibernate.joined-subclass-key
  *     column="$entity.identifierColumn"
- *    
+ *
 #elseif ($generalization.hibernateInheritanceConcrete)
  * @hibernate.class
  *     table="$entity.tableName"
@@ -82,13 +82,13 @@ $entity.getDocumentation(" * ")
 public abstract class $entity.name
 #if($generalization)
 #if($generalization.hibernateInheritanceInterface )
- 	implements ${generalization.fullyQualifiedName}
+     implements ${generalization.fullyQualifiedName}
 #else
 ## If leafImpl we always extend the superclass not the Impl.
 #if ($leafImpl == "true")
- 	extends ${generalization.fullyQualifiedName}
+     extends ${generalization.fullyQualifiedName}
 #else
- 	extends ${generalization.fullyQualifiedName}Impl
+     extends ${generalization.fullyQualifiedName}Impl
 #end ## end if leafImpl == true
 #end ## end if superInheritance == interface
 #end ## end if generalization
@@ -132,7 +132,7 @@ $attribute.getDocumentation("     * ")
     // ------------- super relations ------------------
 
 #foreach ( $associationEnd in $generalization.associationEnds )
-	#set ($target = $associationEnd.otherEnd)
+    #set ($target = $associationEnd.otherEnd)
     #set ($sourceType = $associationEnd.type)
     #set ($targetType = $target.type)
     #set ($targetTypeName = $targetType.fullyQualifiedName)
@@ -152,7 +152,7 @@ $target.getDocumentation("     * ")
      * @hibernate.collection-one-to-many
      *     class="$targetTypeName"
 #if($associationEnd.association.hibernateCacheType.length() != 0)
-	 * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
+     * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
 #end
      */
     public java.util.Collection ${target.getterName}()
@@ -288,7 +288,7 @@ $attribute.getDocumentation("     * ")
     // ------------- relations ------------------
 
 #foreach ( $associationEnd in $entity.associationEnds )
-	#set ($target = $associationEnd.otherEnd)
+    #set ($target = $associationEnd.otherEnd)
     #set ($sourceType = $associationEnd.type)
     #set ($targetType = $target.type)
     #set ($targetTypeName = $targetType.fullyQualifiedName)
@@ -311,7 +311,7 @@ $target.getDocumentation("     * ")
      * @hibernate.collection-one-to-many
      *     class="$targetTypeName"
 #if($associationEnd.association.hibernateCacheType.length() != 0)
-	 * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
+     * @hibernate.cache usage="$associationEnd.association.hibernateCacheType"
 #end
      */
     public java.util.Collection ${target.getterName}()
@@ -412,7 +412,7 @@ $attribute.getDocumentation("     * ")
     // ------------- relations ------------------
 
 #foreach ( $associationEnd in $entity.associationEnds )
-	#set ($target = $associationEnd.otherEnd)
+    #set ($target = $associationEnd.otherEnd)
     #set ($sourceType = $associationEnd.type)
     #set ($targetType = $target.type)
     #set ($targetTypeName = $targetType.fullyQualifiedName)
