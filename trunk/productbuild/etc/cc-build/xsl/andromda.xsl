@@ -119,8 +119,8 @@
                  <tr class="compile-sectionheader">
                      <td>Error Messages</td>
                  </tr>
-            </table>
                  <xsl:apply-templates select="$junit.failures"/>
+            </table>
         </xsl:if>		
 
         <HR/><H2>Modifications</H2>
@@ -161,7 +161,14 @@
     </xsl:template>
 
     <xsl:template match="testcase/failure">
+        <tr><td>
+          <span class="compile-error-data">
+        <xsl:value-of select="@message"/>
+          </span>
+        </td></tr>
+        <tr><td>
         <example><xsl:call-template name="break" /></example>
+        </td></tr>
     </xsl:template>
 
     <xsl:template match="mavengoal[@name='jar:deploy']">
