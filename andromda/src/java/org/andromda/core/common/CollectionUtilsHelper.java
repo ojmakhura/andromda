@@ -8,8 +8,8 @@ import java.util.Collections;
 
 public class CollectionUtilsHelper extends CollectionUtils
 {
-    public static List listEnumeration(Enumeration enum)
+    public static List listEnumeration(Enumeration enumeration)
     {
-        return Collections.list(enum);
+        return Collections.list(enumeration);
     }
 }
