@@ -27,9 +27,9 @@
 #foreach ($associationEnd in $entity.associationEnds)
 #set ($sourceEnd = $associationEnd)
 #set ($otherEnd = $associationEnd.otherEnd)
-#if ($otherEnd.navigable)
+#if ($otherEnd.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($sourceEnd.one2One)
-#if ($foreignGeneratorClass)
+#if ($entity.foreignHibernateGeneratorClass)
 		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$cascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)

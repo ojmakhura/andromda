@@ -1,5 +1,8 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.apache.commons.lang.StringUtils;
+
 
 /**
  * MetafacadeLogic implementation for
@@ -40,6 +43,27 @@ public class SpringEntityAssociationEndLogicImpl
                 && !otherEnd.isComposition();
         }
         return primaryOne2One;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
+     */
+    public String getGetterSetterTypeName()
+    {
+        String getterSetterTypeName = super.getGetterSetterTypeName();
+        if (!this.isMany())
+        {
+	        ClassifierFacade type = this.getType();
+	        if (type != null && SpringEntity.class.isAssignableFrom(type.getClass()))
+	        {
+	            String typeName = ((SpringEntity)type).getFullyQualifiedEntityName();
+	            if (StringUtils.isNotEmpty(typeName))
+	            {
+	                getterSetterTypeName = typeName;  
+	            }
+	        }
+        }
+        return getterSetterTypeName;
     }
 
 }
