@@ -4,7 +4,8 @@
   	<!-- this is here because the plugin:install goal from the
   		 maven-plugin-plugin doesn't copy to the 
   		 '${maven.repo.local}/plugins' directory -->
-  	<goal name="plugin:install" > 
+  	<goal name="plugin:install" >
+  		<attainGoal name="jar:jar"/> 
 		<ant:copy todir="${maven.home}/plugins">
 			<ant:fileset dir="target">
 				<include name="*.jar"/>
