@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces.test;
+package org.andromda.cartridges.interfaces;
 
 import java.io.File;
 
