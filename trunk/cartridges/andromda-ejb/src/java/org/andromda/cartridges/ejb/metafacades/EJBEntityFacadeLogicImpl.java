@@ -104,29 +104,37 @@ public class EJBEntityFacadeLogicImpl
 
         Collection result = new ArrayList();
 
-        Iterator i = this.getAssociationEnds().iterator();
-        while (i.hasNext())
+        try
         {
-            EJBAssociationEndFacade assoc = (EJBAssociationEndFacade)i.next();
-            ClassifierFacade target = assoc.getOtherEnd().getType();
-            if (target instanceof EJBEntityFacade
-                && assoc.getOtherEnd().isNavigable())
+            Iterator endIt = this.getAssociationEnds().iterator();
+            while (endIt.hasNext())
             {
-                // Check the integrity constraint
-                Object value = assoc.getOtherEnd().getAssociation()
-                    .findTaggedValue(EJBProfile.TAGGEDVALUE_GENERATE_CMR);
-                String generateCmr = value == null ? null : value.toString();
-                if (target.isAbstract()
-                    && !"false".equalsIgnoreCase(generateCmr))
+                EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade)endIt.next();
+                ClassifierFacade target = associationEnd.getOtherEnd().getType();
+                if (target instanceof EJBEntityFacade
+                    && associationEnd.getOtherEnd().isNavigable())
                 {
-                    throw new IllegalStateException("Relation '"
-                        + assoc.getAssociation().getName()
-                        + "' has the abstract target '" + target.getName()
-                        + "'. Abstract targets are not allowed in EJB.");
+                    // Check the integrity constraint
+                    Object value = associationEnd.getOtherEnd().getAssociation()
+                        .findTaggedValue(EJBProfile.TAGGEDVALUE_GENERATE_CMR);
+                    String generateCmr = value == null ? null : value.toString();
+                    if (target.isAbstract()
+                        && !"false".equalsIgnoreCase(generateCmr))
+                    {
+                        throw new IllegalStateException("Relation '"
+                            + associationEnd.getAssociation().getName()
+                            + "' has the abstract target '" + target.getName()
+                            + "'. Abstract targets are not allowed in EJB.");
+                    }
+    
+                    result.add(associationEnd);
                 }
-
-                result.add(assoc);
             }
+        }
+        catch (Throwable th)
+        {
+            th.printStackTrace();
+            throw new RuntimeException(th);
         }
         return result;
     }
