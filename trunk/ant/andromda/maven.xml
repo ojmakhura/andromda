@@ -23,6 +23,9 @@
         <ant:copy todir="${maven.build.dest}/templates/j2ee-app/mda/src/mappings">
             <ant:fileset dir="${mappings.location}"/>
         </ant:copy>
+        <ant:copy todir="${maven.build.dest}/templates/j2ee-app/hibernate/db/src">
+            <ant:fileset dir="${hibernate.db.conf.location}"/>
+        </ant:copy>
 
     </preGoal>
 
