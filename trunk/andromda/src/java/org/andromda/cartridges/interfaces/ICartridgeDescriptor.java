@@ -44,10 +44,19 @@ public interface ICartridgeDescriptor {
     /**
      * Returns the list of templates configured in this cartridge.
      * 
-     * @return List the template lists
+     * @return List the template list
+     * @see TemplateConfiguration
      */
     public List getTemplateConfigurations();
-    
+
+    /**
+     * Returns the list of macro libraries with commonly used
+     * scripting engine macros.
+     * 
+     * @return List the list of macros
+     */
+    public List getMacroLibraries();
+        
     /**
      * Gets the URL where this descriptor data came from.
      * 
