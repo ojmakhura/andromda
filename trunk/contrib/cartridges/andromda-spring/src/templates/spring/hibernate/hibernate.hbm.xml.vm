@@ -38,7 +38,7 @@
             <one-to-many class="${otherEnd.type.fullyQualifiedEntityImplementationName}"/>
         </set>    
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}" not-null="true">
+        <many-to-one name="$otherEnd.name" class="${otherEnd.type.fullyQualifiedEntityImplementationName}"#if ($sourceEnd.required) not-null="true"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
