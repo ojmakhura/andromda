@@ -105,6 +105,18 @@
                     should assign the <![CDATA[<<Unique>>]]> stereotype to it.
                 </p>
             </subsection>
+            <subsection name="Attribute Multiplicity">
+                <p>
+                    It's possible to configure the multiplicity of an entity's attribute, by setting it to
+                    <code>[0..1]</code> an attribute is not required and is allowed to be set to
+                    <code>null</code>; setting the multiplicity to a value great than <code>1</code>
+                    attribute required.
+                </p>
+                <p>
+                    Please note that some UML tools have a default multiplicity value for attributes when not
+                    specified by the user, these default values may differ from tool to tool.
+                </p>
+            </subsection>
             <subsection name="Nullable Parameters">
                 <p>
                     If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
