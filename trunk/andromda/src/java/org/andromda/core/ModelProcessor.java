@@ -368,18 +368,15 @@ public class ModelProcessor
      */
     public void setCartridgeFilter(String namespaces)
     {
-        logger.info(namespaces);
         if (namespaces != null)
         {
             // remove whitespace
             namespaces = StringUtils.deleteWhitespace(namespaces);
-            logger.info(namespaces);
 
             if (namespaces.startsWith("~"))
             {
                 negateCartridgeFilter = true;
                 namespaces = namespaces.substring(1);
-                logger.info(namespaces);
             }
             else
             {
@@ -389,7 +386,6 @@ public class ModelProcessor
             if (StringUtils.isNotBlank(namespaces))
             {
                 cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(namespaces).split(","));
-                logger.info(cartridgeFilter);
             }
         }
     }
