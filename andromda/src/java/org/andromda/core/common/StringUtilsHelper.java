@@ -1,9 +1,9 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * A utility object for doing string manipulation operations that are commonly
@@ -303,10 +303,10 @@ public class StringUtilsHelper
      */
     public static String toSingleLine(String string)
     {
-        //first make the string an empty string if it happens to be null
+        // first make the string an empty string if it happens to be null
         string = StringUtils.trimToEmpty(string);
 
-        //remove anything that is greater than 1 space.
+        // remove anything that is greater than 1 space.
         return string.replaceAll("[$\\s]+", " ").trim();
     }
 

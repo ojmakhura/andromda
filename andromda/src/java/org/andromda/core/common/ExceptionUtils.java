@@ -35,7 +35,7 @@ public class ExceptionUtils
                 + "' - argumentName can not be null or an empty String");
         }
 
-        //this is what the method is actually for
+        // this is what the method is actually for
         if (argument == null)
         {
             throw new IllegalArgumentException("methodName: "
@@ -70,7 +70,7 @@ public class ExceptionUtils
                 + " - argumentName can not be null or an empty String");
         }
 
-        //this is what the method is actually for
+        // this is what the method is actually for
         if (StringUtils.isEmpty(argument))
         {
             throw new IllegalArgumentException("methodName: "
@@ -118,7 +118,7 @@ public class ExceptionUtils
                 + " - argumentName can not be null or an empty String");
         }
 
-        //this is what the method is for
+        // this is what the method is for
         if (!assignableToClass.isAssignableFrom(argumentClass))
         {
             throw new IllegalArgumentException("methodName: "

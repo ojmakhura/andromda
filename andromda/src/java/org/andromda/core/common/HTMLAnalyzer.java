@@ -138,7 +138,7 @@ public class HTMLAnalyzer
          */
         public void handleText(char[] text, int pos)
         {
-            //handle instances where we may not have html in the text.
+            // handle instances where we may not have html in the text.
             if (currentParagraph == null)
             {
                 nonHtmlParagraph = new HTMLParagraph(lineLength);

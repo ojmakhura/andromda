@@ -117,8 +117,8 @@ public class Namespaces
             property = namespace.getProperty(propertyName);
         }
 
-        //since we couldn't find a Namespace for the specified cartridge,
-        //try to lookup the default
+        // since we couldn't find a Namespace for the specified cartridge,
+        // try to lookup the default
         if (property == null)
         {
             if (logger.isDebugEnabled())
