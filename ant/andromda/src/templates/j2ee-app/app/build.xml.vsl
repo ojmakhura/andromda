@@ -51,10 +51,8 @@
 #else
         <property file="${app.root.dir}/ejb/build.properties"/>
         <ear destfile="${basedir}/target/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
-            <fileset dir="${basedir}/target">
+            <fileset dir="${app.root.dir}/dist">
                 <include name="*.war"/>
-            </fileset>
-            <fileset dir="${basedir}/target">
                 <include name="*.jar"/>
             </fileset>
         </ear>
