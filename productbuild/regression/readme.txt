@@ -18,8 +18,8 @@ Steps to see impact of modification to AndroMDA core source code or cartridge so
 1) Run regression build file using default target
 2) Make change to either cartridge or AndroMDA core source
 3) Perform step 1 again
-4) Check generated JUnit report in the build/reports directory of this module for any differences 
-   in generated output. (If you see any failures, you know your modification(s) changed the generated source)
+4) Watch for any failures at the end of the run, you'll know your modification(s) 
+   changed the generated source if you see any.
 
 Enjoy!
 
