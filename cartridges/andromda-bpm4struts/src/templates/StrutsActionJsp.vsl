@@ -85,10 +85,10 @@
 #foreach ($field in $nonTabbedActionParameters)
 #if (!$field.multiboxPropertyName && ($field.widgetType != "hidden"))
 ## for now multibox field can only be displayed in tables
-                    <tr>
-                        <td><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
+                    <tr class="$field.name">
+                        <td class="label"><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
 </td>
-                        <td>
+                        <td class="field">
 #renderFormField($action $field "                           ")
                         </td>
                     </tr>
