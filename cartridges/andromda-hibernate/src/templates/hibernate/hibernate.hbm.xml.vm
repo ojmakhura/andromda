@@ -47,7 +47,7 @@
 #end
 #if ($sourceEnd.one2Many)
         <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
-#if($sourceEnd.association.hibernateCacheType.length() != 0)
+#if($hibernateEnableCache == "true")
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
             <key>

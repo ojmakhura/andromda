@@ -19,11 +19,22 @@ public class HibernateAssociationLogicImpl
     }
 
     /**
+     * Stores the default cache strategy for associations.
+     */
+    private static final String HIBERNATE_ASSOCIATION_CACHE = "hibernateAssociationCache";
+
+    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getHibernateCacheType()
      */
     protected java.lang.String handleGetHibernateCacheType() 
     {
-        return (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
+        String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
+        if (cacheType == null)
+        {
+            cacheType = String.valueOf(this
+                .getConfiguredProperty(HIBERNATE_ASSOCIATION_CACHE));
+        }
+        return cacheType;
     }
     
 }

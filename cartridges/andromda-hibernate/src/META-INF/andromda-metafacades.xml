@@ -8,8 +8,13 @@
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
+        <property reference="hibernateEntityCache" default="read-write"/>
         <property reference="hibernateProxy" default="false"/>
+        <property reference="ehCacheMaxElementsInMemory" default="10000"/>
+        <property reference="ehCacheEternal" default="false"/>
+        <property reference="ehCacheTimeToIdleSeconds" default="120"/>
+        <property reference="ehCacheTimeToLiveSeconds" default="120"/>
+        <property reference="ehCacheOverflowToDisk" default="true"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
@@ -18,8 +23,13 @@
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
+        <property reference="hibernateEntityCache" default="read-write"/>
         <property reference="hibernateProxy" default=""/>
+        <property reference="ehCacheMaxElementsInMemory" default="10000"/>
+        <property reference="ehCacheEternal" default="false"/>
+        <property reference="ehCacheTimeToIdleSeconds" default="120"/>
+        <property reference="ehCacheTimeToLiveSeconds" default="120"/>
+        <property reference="ehCacheOverflowToDisk" default="true"/>
      </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
@@ -28,8 +38,13 @@
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
+        <property reference="hibernateEntityCache" default="read-write"/>
         <property reference="hibernateProxy" default=""/>
+        <property reference="ehCacheMaxElementsInMemory" default="10000"/>
+        <property reference="ehCacheEternal" default="false"/>
+        <property reference="ehCacheTimeToIdleSeconds" default="120"/>
+        <property reference="ehCacheTimeToLiveSeconds" default="120"/>
+        <property reference="ehCacheOverflowToDisk" default="true"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
@@ -41,6 +56,7 @@
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
+        <property reference="hibernateAssociationCache" default="read-write"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
