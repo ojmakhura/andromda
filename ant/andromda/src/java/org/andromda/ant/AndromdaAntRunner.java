@@ -174,6 +174,7 @@ public class AndromdaAntRunner
             templateMap.put("templates/j2ee-app/hibernate/sar/build.properties.vsl", "hibernate/sar/build.properties");
             templateMap.put("templates/j2ee-app/hibernate/ejb/build.xml.vsl", "hibernate/ejb/build.xml");
             templateMap.put("templates/j2ee-app/hibernate/ejb/build.properties.vsl", "hibernate/ejb/build.properties");
+            templateMap.put("templates/j2ee-app/hibernate/ejb/src/META-INF/MANIFEST.MF.vsl", "hibernate/ejb/src/META-INF/MANIFEST.MF");
         } else
         {
             templateMap.put("templates/j2ee-app/ejb/build.xml.vsl", "ejb/build.xml");
