@@ -112,7 +112,7 @@ public class MetafacadeBase
             metafacade = MetafacadeFactory.getInstance().createMetafacade(
                 metaObject,
                 this.getContext());
-            // pass the context on to the metafacade created by this metafacade
+            // pass the context on to the metafacade created within this metafacade
             metafacade.setContext(this.getContext());
         }
         return metafacade;
