@@ -102,8 +102,8 @@ for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
                     </p>
                 </li>
                 <li>
-                    <strong>Class Variables:</strong> Class variables should not have any 
-                    prefix and must be referenced using the <em>this </em>object. Example : 
+                    <strong>Instance Variables:</strong> Instance variables should not have any 
+                    prefix and must be referenced using the <em>this</em> object. Example : 
                     <source>
 public class SomeClass
 {
@@ -130,6 +130,22 @@ public void someMethod(String className)
                         <strong>Strings:</strong> Avoid hardcoding values, Strings as well as 
                         numbers, etc should go into a properties file or a class holding constants. 
                     </p>
+                </li>
+                <li>
+                    <p>
+                        <strong>Logging:</strong> Do <strong>NOT</strong> use System.out.println()
+                        for debugging purposes in your code, instead use a log4j logger. 
+                    </p>
+                    <source>
+try
+{
+   ...
+}
+catch (Exception ex)
+{
+    logger.error("Some error has occurred" + ex);
+}
+                    </source>
                 </li>
             </ul>
         </section>
