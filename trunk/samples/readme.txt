@@ -21,9 +21,10 @@ To build the samples, perform the following steps:
   'maven.repo.remote=http://www.ibibilio.org/maven,http://team.andromda.org/maven'. 
    Place this build.properties file within your %USERPROFILE% (windows), or $HOME (
    linux/unix) directory.
-3) From this directory, type 'maven', this will build all samples contained within
-   this directory.  Check the target directory(s) of each 'app' sub directory for
-   the deployable J2EE ear and the SQL scripts.
+3) From this directory (the directory in which this file you're reading is located) type 'maven'; 
+   this will build all samples.  After the build has completed successfully, check 
+   the target directory(s) of each 'app' sub directory for the deployable J2EE 
+   ear and the SQL scripts.
    
 NOTE: After you've built the samples the first time, you can build them again 
       with the '-o' parameter passed to maven.  (i.e. you can
