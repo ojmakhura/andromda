@@ -163,16 +163,16 @@
 		<property name="foreignKeySuffix" value="_FK"/>
 		<property name="maxSqlNameLength" value="30"/>
 		<property name="entities"      value="${gen.src.dir}" ignore="false"/>
-		<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/>
-		<property name="session-beans" value="${gen.src.dir}" ignore="true"/>
-		<property name="session-impls" value="${gen.src.dir}" ignore="true"/>
+		<property name="entity-impls"  value="${gen.src.dir}" ignore="false"/>
+		<property name="session-beans" value="${gen.src.dir}" ignore="false"/>
+		<property name="session-impls" value="${gen.src.dir}" ignore="false"/>
 	</namespace>
     <!-- This will generate the EJB code -->
 	<namespace name="ejb" ignore="false">
 		<property name="entities"      value="${gen.src.dir}" ignore="false"/>
-		<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/>
-		<property name="session-beans" value="${gen.src.dir}" ignore="true"/>
-		<property name="session-impls" value="${gen.src.dir}" ignore="true"/>
+		<property name="entity-impls"  value="${gen.src.dir}" ignore="false"/>
+		<property name="session-beans" value="${gen.src.dir}" ignore="false"/>
+		<property name="session-impls" value="${gen.src.dir}" ignore="false"/>
 	</namespace>
     <!-- This will generate the Bpm4Struts code -->
 	<namespace name="bpm4struts" ignore="false">
