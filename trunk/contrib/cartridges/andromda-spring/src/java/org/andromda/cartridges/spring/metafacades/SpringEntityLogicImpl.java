@@ -2,6 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
 
+import org.andromda.cartridges.spring.SpringProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -130,5 +131,20 @@ public class SpringEntityLogicImpl
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
             .getPackageName(), this.getEntityName(), null);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateGeneratorClass()
+     */
+    public String handleGetHibernateGeneratorClass()
+    {
+        String hibernateGeneratorClass = (String)this
+            .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
+        if (StringUtils.isBlank(hibernateGeneratorClass))
+        {
+            hibernateGeneratorClass = (String)this
+                .getConfiguredProperty("defaultHibernateGeneratorClass");
+        }
+        return hibernateGeneratorClass;
     }
 }

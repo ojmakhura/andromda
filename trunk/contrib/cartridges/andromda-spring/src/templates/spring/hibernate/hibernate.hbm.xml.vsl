@@ -26,8 +26,10 @@
 			     <param name="property">$parentPropertyName</param>
 			</generator>
 #else
-			<generator class="sequence">
+			<generator class="$entity.hibernateGeneratorClass">
+#if ($entity.hibernateGeneratorClass.equalsIgnoreCase("sequence"))			
 				<param name="sequence">${entity.tableName}_SEQ</param>
+#end
 			</generator>
 #end
 		</id>
