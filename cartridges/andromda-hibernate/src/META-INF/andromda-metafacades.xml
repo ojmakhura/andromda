@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="hibernate">
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl">
-		<stereotype>FinderMethod</stereotype>
-	</metafacade>
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
-		<stereotype>Service</stereotype>
+    <property reference="defaultIdentifierType" default="datatype.String"/>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl">
+        <stereotype>FinderMethod</stereotype>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl" 
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
+        <stereotype>Service</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
-	</metafacade>
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
-		<stereotype>Service</stereotype>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJBLogicImpl">
+        <stereotype>Service</stereotype>
         <property reference="ejbJndiNamePrefix" default=""/>
-	</metafacade>		
-	<metafacade 
-		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
-		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
+    </metafacade>		
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
+        metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
         <property reference="hibernateTypeMappingsUri" default=""/>
-	</metafacade>
+    </metafacade>
 </metafacades>
