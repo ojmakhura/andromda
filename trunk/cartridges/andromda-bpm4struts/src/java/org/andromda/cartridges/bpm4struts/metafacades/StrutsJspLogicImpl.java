@@ -388,6 +388,7 @@ public class StrutsJspLogicImpl
             StrutsTrigger trigger = action.getActionTrigger();
             if (trigger != null)
             {
+                // this name should never be null because of an OCL constraint
                 String actionName = trigger.getName();
                 if (actionNames.contains(actionName))
                 {
@@ -399,7 +400,6 @@ public class StrutsJspLogicImpl
                 }
             }
         }
-        logger.info(getName() + ": " + duplicatePresent + " : " + actionNames);
         return duplicatePresent;
     }
 }
