@@ -38,7 +38,7 @@ $controller.getDocumentation(" * ")
  *
 #end
  */
-public abstract class ${controller.name} implements java.io.Serializable
+public abstract class ${controller.name}
 {
 #foreach ($operation in $operations)
 #set ($parameters = $operation.arguments)
