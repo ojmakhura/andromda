@@ -50,6 +50,14 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <value-objects>${basedir}/target/src</value-objects>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
             <artifactId>andromda-cartridge-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
