@@ -33,10 +33,10 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-			    <dataSource>${dataSource}</dataSource>
-			    <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
+                <dataSource>${dataSource}</dataSource>
+                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
-			    <hibernateShowSql>true</hibernateShowSql>
+                <hibernateShowSql>true</hibernateShowSql>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
                 <entities>${maven.andromda.hibernate.generated.dir}</entities>
                 <entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
@@ -51,7 +51,7 @@
             <version>${pom.currentVersion}</version>
             <type>jar</type>
             <properties>
-		    <defaultProvider>EJB</defaultProvider>
+            <defaultProvider>EJB</defaultProvider>
                 <applicationName>${animalQuiz.services.app.name}</applicationName>
                 <wsdlSoapAddress>${animalQuiz.webservice.soap.address}</wsdlSoapAddress>
                 <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
