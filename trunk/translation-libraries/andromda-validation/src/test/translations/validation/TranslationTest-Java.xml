@@ -11,7 +11,7 @@
             inv: age &gt;= 18
         </from>
         <to>
-            OCLExpressions.greaterOrEqual(age,18)
+            org.andromda.translation.validation.OCLExpressions.greaterOrEqual(age,18)
         </to>
     </expression>
 
@@ -31,7 +31,7 @@
             inv: card.customer = customer
         </from>
         <to>
-            OCLExpressions.equal(card.customer,customer)
+            org.andromda.translation.validation.OCLExpressions.equal(card.customer,customer)
         </to>
     </expression>
 
@@ -41,7 +41,7 @@
             inv: printedName = customer.title.concat( customer.name )
         </from>
         <to>
-            OCLExpressions.equal(printedName,customer.title.concat(customer.name))
+            org.andromda.translation.validation.OCLExpressions.equal(printedName,customer.title.concat(customer.name))
         </to>
     </expression>
 
@@ -51,7 +51,7 @@
             inv: serviceLevel-&gt;size() = 2
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.size(serviceLevel),2)
+            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.size(serviceLevel),2)
         </to>
     </expression>
 
@@ -61,7 +61,7 @@
             inv: cards-&gt;select( valid = true )
         </from>
         <to>
-            OCLCollections.select(cards,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.valid,true);}})
+            org.andromda.translation.validation.OCLCollections.select(cards,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.valid,true);}})
         </to>
     </expression>
 
@@ -71,7 +71,7 @@
             inv: program-&gt;size() = cards-&gt;select( valid = true )-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.size(program),OCLCollections.size(OCLCollections.select(cards,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.valid,true);}})))
+            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.size(program),org.andromda.translation.validation.OCLCollections.size(org.andromda.translation.validation.OCLCollections.select(cards,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.valid,true);}})))
         </to>
     </expression>
 
@@ -82,7 +82,7 @@
                     implies membership.loyaltyAccount-&gt;isEmpty()
         </from>
         <to>
-            (OCLCollections.forAll(partners.deliveredServices,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.pointsEarned,0)&amp;&amp;OCLExpressions.equal(object.pointsBurned,0);}})?OCLCollections.isEmpty(membership.loyaltyAccount):true)
+            (org.andromda.translation.validation.OCLCollections.forAll(partners.deliveredServices,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.pointsEarned,0)&amp;&amp;org.andromda.translation.validation.OCLExpressions.equal(object.pointsBurned,0);}})?org.andromda.translation.validation.OCLCollections.isEmpty(membership.loyaltyAccount):true)
         </to>
     </expression>
 
@@ -92,7 +92,7 @@
             inv: numberOfCustomers = loyaltyProgram.customer-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(numberOfCustomers,OCLCollections.size(loyaltyProgram.customer))
+            org.andromda.translation.validation.OCLExpressions.equal(numberOfCustomers,org.andromda.translation.validation.OCLCollections.size(loyaltyProgram.customer))
         </to>
     </expression>
 
@@ -102,7 +102,7 @@
             inv: numberOfCustomers = loyaltyProgram.customer-&gt;asSet()-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(numberOfCustomers,OCLCollections.size(OCLCollections.asSet(loyaltyProgram.customer)))
+            org.andromda.translation.validation.OCLExpressions.equal(numberOfCustomers,org.andromda.translation.validation.OCLCollections.size(org.andromda.translation.validation.OCLCollections.asSet(loyaltyProgram.customer)))
         </to>
     </expression>
 
@@ -112,7 +112,7 @@
             inv: partners.deliveredServices.transaction.points-&gt;sum() &lt; 10000
         </from>
         <to>
-            OCLExpressions.less(OCLCollections.sum(partners.deliveredServices.transaction.points),10000)
+            org.andromda.translation.validation.OCLExpressions.less(org.andromda.translation.validation.OCLCollections.sum(partners.deliveredServices.transaction.points),10000)
         </to>
     </expression>
 
@@ -122,7 +122,7 @@
             inv: customer-&gt;forAll( age &gt;= 18 )
         </from>
         <to>
-            OCLCollections.forAll(customer,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.greaterOrEqual(object.age,18);}})
+            org.andromda.translation.validation.OCLCollections.forAll(customer,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.greaterOrEqual(object.age,18);}})
         </to>
     </expression>
 
@@ -132,7 +132,7 @@
             inv: name = 'Edward'
         </from>
         <to>
-            OCLExpressions.equal(name,"Edward")
+            org.andromda.translation.validation.OCLExpressions.equal(name,"Edward")
         </to>
     </expression>
 
@@ -142,7 +142,7 @@
             inv: self.name = 'Edward'
         </from>
         <to>
-            OCLExpressions.equal(this.name,"Edward")
+            org.andromda.translation.validation.OCLExpressions.equal(this.name,"Edward")
         </to>
     </expression>
 
@@ -152,7 +152,7 @@
             inv: customer.card.membership->includes( self )
         </from>
         <to>
-            OCLCollections.includes(customer.card.membership,new OCLExpression(){public boolean evaluate(Object object){return object.this;}})
+            org.andromda.translation.validation.OCLCollections.includes(customer.card.membership,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return object.this;}})
         </to>
     </expression>
 
@@ -162,7 +162,7 @@
             inv: self.pointsOffered &gt; 0 implies not (self.pointsBurned = 0)
         </from>
         <to>
-            (OCLExpressions.greater(this.pointsOffered,0)?!(OCLExpressions.equal(this.pointsBurned,0)):true)
+            (org.andromda.translation.validation.OCLExpressions.greater(this.pointsOffered,0)?!(org.andromda.translation.validation.OCLExpressions.equal(this.pointsBurned,0)):true)
         </to>
     </expression>
 
@@ -172,7 +172,7 @@
             inv: title = (if isMale = true then 'Mr.' else 'Ms.' endif)
         </from>
         <to>
-            OCLExpressions.equal(title,(if(OCLExpressions.equal(isMale,true)){"Mr.";}else{"Ms.";}))
+            org.andromda.translation.validation.OCLExpressions.equal(title,(if(org.andromda.translation.validation.OCLExpressions.equal(isMale,true)){"Mr.";}else{"Ms.";}))
         </to>
     </expression>
 
@@ -182,7 +182,7 @@
             inv: self.age() &gt;= 0
         </from>
         <to>
-            OCLExpressions.greaterOrEqual(this.age(),0)
+            org.andromda.translation.validation.OCLExpressions.greaterOrEqual(this.age(),0)
         </to>
     </expression>
 
@@ -192,7 +192,7 @@
             inv: self.isRelatedTo(self) = true
         </from>
         <to>
-            OCLExpressions.equal(this.isRelatedTo(this),true)
+            org.andromda.translation.validation.OCLExpressions.equal(this.isRelatedTo(this),true)
         </to>
     </expression>
 
@@ -204,7 +204,7 @@
                  (actualLevel.name = 'Gold' implies card.color = Color::gold)
         </from>
         <to>
-            ((OCLExpressions.equal(actualLevel.name,"Silver")?OCLExpressions.equal(card.color,Color):true))&amp;&amp;((OCLExpressions.equal(actualLevel.name,"Gold")?OCLExpressions.equal(card.color,Color):true))
+            ((org.andromda.translation.validation.OCLExpressions.equal(actualLevel.name,"Silver")?org.andromda.translation.validation.OCLExpressions.equal(card.color,Color):true))&amp;&amp;((org.andromda.translation.validation.OCLExpressions.equal(actualLevel.name,"Gold")?org.andromda.translation.validation.OCLExpressions.equal(card.color,Color):true))
         </to>
     </expression>
 
@@ -214,7 +214,7 @@
             pre : result = (points = 0)
         </from>
         <to>
-            OCLExpressions.equal(result,(OCLExpressions.equal(points,0)))
+            org.andromda.translation.validation.OCLExpressions.equal(result,(org.andromda.translation.validation.OCLExpressions.equal(points,0)))
         </to>
     </expression>
 
@@ -224,7 +224,7 @@
             pre: getModel().getAllUseCases()->one(name = 'Prince') = true
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.one(getModel().getAllUseCases(),new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.name,"Prince");}}),true)
+            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.name,"Prince");}}),true)
         </to>
     </expression>
 
@@ -235,13 +235,13 @@
             pre: getModel().getAllUseCases()->one(item | item.name = 'Prince') = true
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.one(getModel().getAllUseCases(),
+            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),
 
             new Filter()
             {
                 public boolean filter(Object item)
                 {
-                    return OCLExpressions.equal(MethodUtils.invokeMethod(item,"name",null),"Prince");
+                    return org.andromda.translation.validation.OCLExpressions.equal(MethodUtils.invokeMethod(item,"name",null),"Prince");
                 }
             }
 
