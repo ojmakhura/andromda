@@ -248,7 +248,7 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-#set ($finders = $entity.getFinders(true))
+#set ($finders = $entity.getQueryOperations(true))
 #foreach ($finder in $finders)
 #set ($returnType = $finder.returnType.fullyQualifiedName)
     /**

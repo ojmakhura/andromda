@@ -635,15 +635,15 @@ public class HibernateEntityLogicImpl
     protected Collection handleGetEntityBusinessOperations()
     {
         // operations that are not finders and not static
-        Collection finders = getFinders();
-        Collection operations = getOperations();
+        Collection finders = this.getQueryOperations();
+        Collection operations = this.getOperations();
 
         Collection nonFinders = CollectionUtils.subtract(operations, finders);
         return new FilteredCollection(nonFinders)
         {
             public boolean evaluate(Object object)
             {
-                return ((OperationFacade)object).isStatic() == false;
+                return !((OperationFacade)object).isStatic();
             }
         };
     }

@@ -70,7 +70,7 @@ $operation.getDocumentation("    * ")
      public $entity.name findByPrimaryKey($identifier.type.fullyQualifiedName key)
             throws javax.ejb.FinderException;
 
-#foreach ($finder in $entity.finders)
+#foreach ($finder in $entity.queryOperations)
    /**
 $finder.getDocumentation("    * ")
     */

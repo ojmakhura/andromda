@@ -219,7 +219,7 @@
             <context>org.andromda.metafacades.uml.EntityFacade</context>        
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityFinderMethodFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.metafacades.uml.EntityFacade</context>   
             <stereotype>FINDER_METHOD</stereotype>   

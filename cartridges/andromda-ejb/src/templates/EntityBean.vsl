@@ -96,7 +96,7 @@ $entity.getDocumentation(" * ")
 #end
 #end
 #end
-#foreach ( $finder in $entity.getFinders(true))
+#foreach ( $finder in $entity.getQueryOperations(true))
 #if($finder.findTaggedValue("@andromda.ejb.query.dialect") == "JBossQL")
  * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
