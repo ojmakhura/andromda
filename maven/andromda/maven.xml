@@ -7,6 +7,11 @@
   		 '${maven.repo.local}/plugins' directory -->
   	<goal name="plugin:install" >
     	<attainGoal name="jar:jar"/>
+		<ant:copy todir="${maven.home}/plugins">
+			<ant:fileset dir="target">
+				<include name="*.jar"/>
+			</ant:fileset>
+		</ant:copy>	
 		<artifact:install 
 			artifact="${maven.build.dir}/${maven.final.name}.jar" 
 			type="plugin" 
