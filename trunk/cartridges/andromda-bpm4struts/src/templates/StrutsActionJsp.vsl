@@ -1,0 +1,84 @@
+#parse("templates/StrutsJSP.vm")
+#set ($generatedFile = "${class.fullTilePath}.jsp")
+##
+##
+#set ($action = $class)
+#if (!$action.isUseCaseStart())## we don't generate tiles for events that do not have an input page
+##
+#set ($useCase = $class.input.useCase)
+#set ($formBeanName = $useCase.formBeanName)
+#set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
+#set ($isFocusSet = false)## only one field per JSP page can have focus
+<%@ taglib uri="struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
+<%@ taglib uri="struts-logic.tld" prefix="logic" %>
+
+        <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="request" toScope="page"/>
+
+        <div class="action">
+            <h3>$action.actionTrigger.name</h3>
+            <div class="trigger">
+#set ($messageKey = $action.messageKey)
+#set ($actionTrigger = $action.actionTrigger)
+#if ($action.isHyperlink())
+#renderHyperlink($action "        ")
+#elseif ($action.isFormPost())
+#set ($actionParameters = $action.actionParameters)
+## ---START--- this next part is to decide which field gets focus
+#if ( ($isFocusSet == false) && ($actionParameters.size() > 0) )
+#set ($firstField = $actionParameters.iterator().next())
+#set ($firstFieldName = $firstField.name)
+#set ($isFocusSet = true)
+#if ($firstField.isCollection())
+#set ($firstFieldName = "${firstFieldName}AsArray")
+#end
+#else
+#set ($firstFieldName = false)
+#end
+## ----END---- it has been determined how to specify the focus field
+#if ($action.requiresValidation())
+#set ($onsubmit = "this.name='$action.formBeanName'; return ${action.formValidationMethodName}(this);")
+#else
+#set ($onsubmit = "")
+#end
+#if ($firstFieldName)
+                <html:form action="${action.actionPath}" focus="$firstFieldName" onsubmit="$onsubmit">
+#else
+                <html:form action="${action.actionPath}" onsubmit="$onsubmit">
+#end
+
+#foreach ($field in $actionParameters)
+#if ($field.widgetType == "hidden")
+#renderFormField($action $field "                        ")
+#end
+#end
+
+                <table cellpadding="5" cellspacing="5" border="0">
+#foreach ($field in $actionParameters)
+#if ($field.widgetType != "hidden")
+                <tr>
+                    <td><bean:message key="${messageKey}.$field.messageKey"/></td>
+                    <td>
+#renderFormField($action $field "                        ")
+                    </td>
+                </tr>
+#end
+#end
+                <tr>
+                    <td>
+#renderFormButtons($action "                        ")
+                    </td>
+                </tr>
+                </table>
+                </html:form>
+#end
+            </div>
+            <div class="triggerdoc">
+                <bean:message key="$action.documentationKey"/>
+            </div>
+        </div>
+
+        <hr class="hide"/>
+        <br class="clr"/>
+#end
