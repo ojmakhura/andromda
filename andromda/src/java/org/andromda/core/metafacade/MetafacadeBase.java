@@ -93,6 +93,32 @@ public class MetafacadeBase
     {}
 
     /**
+     * Returns one facade for a particular metaObject. Contacts the
+     * MetafacadeFactory to manufacture the proper metafacade. In certain cases
+     * <code>metaObject</code> can also be a metafacade instance; in that case
+     * the actual meta model element is retrieved from the metafacade and a
+     * metafacade is constructed from that.
+     * 
+     * @see MetafacadeFactory
+     * @param metaObject the underlying meta model element. A metafacade is
+     *        created for each.
+     * @return MetafacadeBase the facade
+     */
+    public MetafacadeBase shieldedElement(Object metaObject)
+    {
+        MetafacadeBase metafacade = null;
+        if (metaObject != null)
+        {
+            metafacade = MetafacadeFactory.getInstance().createMetafacade(
+                metaObject,
+                this.getContext());
+            // pass the context on to the metafacade created by this metafacade
+            metafacade.setContext(this.getContext());
+        }
+        return metafacade;
+    }
+
+    /**
      * Returns a collection of facades for a collection of metaobjects. Contacts
      * the MetafacadeFactory to manufacture the proper facades.
      * 
@@ -237,32 +263,6 @@ public class MetafacadeBase
         return MetafacadeFactory.getInstance().getRegisteredProperty(
             this.getPropertyNamespace(),
             property);
-    }
-
-    /**
-     * Returns one facade for a particular metaObject. Contacts the
-     * MetafacadeFactory to manufacture the proper metafacade. In certain cases
-     * <code>metaObject</code> can also be a metafacade instance; in that case
-     * the actual meta model element is retrieved from the metafacade and a
-     * metafacade is constructed from that.
-     * 
-     * @see MetafacadeFactory
-     * @param metaObject the underlying meta model element. A metafacade is
-     *        created for each.
-     * @return MetafacadeBase the facade
-     */
-    public MetafacadeBase shieldedElement(Object metaObject)
-    {
-        MetafacadeBase metafacade = null;
-        if (metaObject != null)
-        {
-            metafacade = MetafacadeFactory.getInstance().createMetafacade(
-                metaObject,
-                this.getContext());
-            // pass the context on to the metafacade created by this metafacade
-            metafacade.setContext(this.getContext());
-        }
-        return metafacade;
     }
 
     /**
