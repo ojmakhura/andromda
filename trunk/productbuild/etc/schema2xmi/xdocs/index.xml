@@ -27,13 +27,34 @@
 				</li>
 			</ul>
         </p>
-		<subsectoin name="How do I use Schema2XMI?">
+		<subsection name="How do I use Schema2XMI?">
 			<p>
-				Schema2XMI is a command line tool that you'll
+				Schema2XMI is a command line utility that you'll
 				pass arguments to and then execute the main
 				<a href="apidocs/org/andromda/schema2xmi/Schema2XMI.html">Schema2XMI</a> class.
+				The usage is defined below:
 			</p>
-		</subsectoin>
+<source><![CDATA[
+usage: org.andromda.schema2xmi.Schema2XMI [options] ...]]
+
+Options:
+ -P,--package               The package to output classifiers
+ -T,--typeMappings <arg>    The type mappings URI (i.e.
+                            file:${basedir}/DataypeMappings.xml)
+ -c,--connectionUrl <arg>   JDBC connection URL
+ -d,--driver <arg>          JDBC driver class
+ -h,--help                  Display help information
+ -i,--input                 Input model file to start with
+ -o,--output <arg>          Set output name to which the result of the
+                            transformation will be written
+ -p,--password <arg>        Schema user password
+ -t,--tableNamePattern      The table name pattern of tables to process
+                            regular expression)
+ -u,--user <arg>            Schema user name
+ -v,--taggedValues          Whether or not to include persistence tagged
+                            values, default is true
+]]></source>
+		</subsection>
     </section>
 
   </body>
