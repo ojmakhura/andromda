@@ -14,7 +14,7 @@
          If the '-Dbootstrap=true' option is set, then this cartridge will be
          run in bootstrap mode using the AndroMDA bootstrap dependencies instead
          of the most current dependencies.  A bootstrap dependency has the samef
-         name as a normal dependencies with '-bootrap' inserted between 
+         name as a normal dependencies with '-bootstrap' inserted between 
          the artifactId and the version, for (i.e. andromda-core-bootstrap-3.0.jar).                        
          =================================================================== -->  
 	<goal name="andromda:init">
