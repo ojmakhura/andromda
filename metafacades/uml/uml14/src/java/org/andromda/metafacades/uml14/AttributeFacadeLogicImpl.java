@@ -269,7 +269,7 @@ public class AttributeFacadeLogicImpl
             final String mask = String
                 .valueOf(this
                     .getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
-            name = NameMasker.mask(name, mask);
+            name = NameMasker.mask(super.handleGetName(), mask);
         }
         return name;
     }
