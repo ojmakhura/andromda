@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -14,6 +15,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -1150,9 +1154,7 @@ public class StrutsParameterLogicImpl
         for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
             String validator = String.valueOf(iterator.next());
-            int endIndex = StringUtils.trimToEmpty(validator).indexOf(' ');
-            // only add the validator name, ignore the parameters (if any)
-            validatorTypesList.add( (endIndex == -1) ? validator : validator.substring(0,endIndex));
+            validatorTypesList.add(Bpm4StrutsUtils.parseValidatorName(validator));
         }
 
         return validatorTypesList;
@@ -1185,22 +1187,18 @@ public class StrutsParameterLogicImpl
         {
             args.add("${var:maxlength}");
         }
-        else
-        {
-            // custom (paramterized) validators are allowed here
-            Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-            for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-            {
-                String validator = String.valueOf(iterator.next());
 
-                int endIndex = StringUtils.trimToEmpty(validator).indexOf(' ');
-                if (endIndex > -1 && validator.substring(0,endIndex).equals(validatorType))
-                {
-                    String[] arguments = validator.substring(endIndex+1).split("[\\s]+");
-                    args.addAll(Arrays.asList(arguments));
-                }
+        // custom (paramterized) validators are allowed here
+        Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = String.valueOf(iterator.next());
+            if (validatorType.equals(Bpm4StrutsUtils.parseValidatorName(validator)))
+            {
+                args.addAll(Bpm4StrutsUtils.parseValidatorArgs(validator));
             }
         }
+
         return args;
     }
 
@@ -1209,7 +1207,7 @@ public class StrutsParameterLogicImpl
      */
     protected java.util.Collection handleGetValidatorVars()
     {
-        final Collection vars = new ArrayList();
+        final Map vars = new HashMap();
 
         ClassifierFacade type = getType();
         if (type != null)
@@ -1222,8 +1220,8 @@ public class StrutsParameterLogicImpl
 
                 if (isRangeFormat && (isValidatorInteger(typeName) || isValidatorFloat(typeName) || isValidatorDouble(typeName)))
                 {
-                    vars.add(Arrays.asList(new Object[]{"min", getRangeStart(format)}));
-                    vars.add(Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                    vars.put("min",Arrays.asList(new Object[]{"min", getRangeStart(format)}));
+                    vars.put("max",Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
                 }
                 else if (isValidatorString(typeName))
                 {
@@ -1232,11 +1230,11 @@ public class StrutsParameterLogicImpl
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat))
-                            vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
+                            vars.put("minlength",Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
                         else if (isMaxLengthFormat(additionalFormat))
-                            vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
+                            vars.put("maxlenght",Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat))
-                            vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
+                            vars.put("mask",Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
                     }
                 }
             }
@@ -1244,21 +1242,42 @@ public class StrutsParameterLogicImpl
             {
                 if (format != null && isStrictDateFormat(format))
                 {
-                    vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat()}));
+                    vars.put("datePatternStrict", Arrays.asList(new Object[]{"datePatternStrict", getDateFormat()}));
                 }
                 else
                 {
-                    vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
+                    vars.put("datePattern",Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
                 }
             }
 
             final String validWhen = getValidWhen();
             if (validWhen != null)
             {
-                vars.add(Arrays.asList(new Object[]{"test", validWhen}));
+                vars.put("test", Arrays.asList(new Object[]{"test", validWhen}));
             }
         }
-        return vars;
+
+        // custom (paramterized) validators are allowed here
+        // in this case we will reuse the validator arg values
+        Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = String.valueOf(iterator.next());
+
+            // guaranteed to be of the same length
+            List validatorVars = Bpm4StrutsUtils.parseValidatorVars(validator);
+            List validatorArgs = Bpm4StrutsUtils.parseValidatorArgs(validator);
+
+            for (int i = 0; i < validatorVars.size(); i++)
+            {
+                String validatorVar = (String) validatorVars.get(i);
+                String validatorArg = (String) validatorArgs.get(i);
+
+                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar,validatorArg}));
+            }
+        }
+
+        return vars.values();
     }
 
     /**
@@ -1292,7 +1311,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#gGetOptionValues()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionValues()
      */
     protected Collection handleGetOptionValues()
     {
