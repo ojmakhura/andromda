@@ -229,9 +229,12 @@ public class StrutsActionLogicImpl
         return "validate" + getFormBeanClassName();
     }
 
-    protected String handleGetMessageKey()
+    /**
+     * Overrides the one from StrutsForward. This one incorporates the name of the originating page to avoid conflicts.
+     */
+    public String getMessageKey()
     {
-        String messageKey = getStrutsActivityGraph().getUseCase().getName() + ' ';
+        String messageKey = super.getMessageKey() + ' ';
         messageKey += (isExitingPage()) ? getInput().getName() : messageKey;
         return StringUtilsHelper.toResourceMessageKey(messageKey);
     }
