@@ -183,7 +183,18 @@
 					<td>
 						No, default is <code>no prefix</code>.
 					</td>
-				</tr>     	      	        	        		        	        	        	     	             	        	
+				</tr>     
+                <tr>
+                    <td>
+                        idGeneratorClass
+                    </td>
+                    <td>
+                        The class to use for Hibernate ID generation. 
+                    </td>
+                    <td>
+                        No, default is <code>uuid.hex</code>
+                    </td>
+                </tr>	      	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>

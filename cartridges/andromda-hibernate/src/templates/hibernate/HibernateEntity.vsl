@@ -42,7 +42,7 @@ $attribute.getDocumentation("     * ")
      *
 #if ($attribute.identifier)
      * @hibernate.id
-     *     generator-class="uuid.hex"
+     *     generator-class="$idGeneratorClass"
 #else
      * @hibernate.property
 #end
@@ -53,7 +53,7 @@ $attribute.getDocumentation("     * ")
      *     name="$attribute.columnName"
      *     sql-type="$attribute.sqlType"
 #if($attribute.required)
-    *     not-null="true"
+     *     not-null="true"
 #end
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
@@ -130,7 +130,7 @@ $target.getDocumentation("     * ")
      *     column="${target.columnName}"
      *     class="$targetTypeName"
 #if($target.required)
-    *     not-null="true"
+     *     not-null="true"
 #end
      */
     public ${targetTypeName} ${target.getterName}()
