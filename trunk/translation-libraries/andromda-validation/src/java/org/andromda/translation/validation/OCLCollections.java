@@ -402,7 +402,7 @@ public final class OCLCollections
         {
             if (predicate.evaluate(iterator.next()))
             {
-                if (found) return false; else found = true;
+                if (found) return false; found = true;
             }
         }
         return found;
