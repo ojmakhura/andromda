@@ -11,8 +11,7 @@
           "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
-#set($mutable="true")#if ($entity.enumeration)#set($mutable="false")#end
-    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName" mutable="$mutable">
+    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName">
 
 #set ($identifier = $entity.identifiers.iterator().next())
         <id name="$identifier.name" type="$identifier.type.fullyQualifiedName" column="$identifier.columnName" unsaved-value="null">

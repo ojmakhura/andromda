@@ -233,7 +233,14 @@ public class AttributeFacadeLogicImpl
      */
     protected String handleGetEnumerationValue()
     {
-        final Object value = getDefaultValue();
-        return (value == null) ? getName() : String.valueOf(value);
+        String value = null;
+
+        if (isEnumerationLiteral())
+        {
+            value = getDefaultValue();
+            value = (value == null) ? getName() : String.valueOf(value);
+        }
+
+        return value;
     }
 }

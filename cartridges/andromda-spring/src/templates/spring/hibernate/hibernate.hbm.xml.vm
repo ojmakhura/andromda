@@ -27,9 +27,6 @@
 ##  for the given $entity.
 ##
 #macro (renderPropertiesAndAssociations $entity)
-#if ($entity.enumeration)
-        <property name="value" column="VALUE" type="${entity.packageName}.${entity.enumerationName}" not-null="true" unique="true" insert="false" update="false"/>
-#else
 #foreach ($attribute in $entity.attributes)
 #if (!$attribute.identifier)
         <property name="$attribute.name" type="$attribute.type.fullyQualifiedHibernateType">
@@ -71,7 +68,6 @@
             </key>
             <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </set>
-#end
 #end
 #end
 #end

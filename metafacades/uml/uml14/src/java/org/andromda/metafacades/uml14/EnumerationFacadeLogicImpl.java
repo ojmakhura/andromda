@@ -1,6 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.EnumerationFacade.
@@ -14,7 +13,7 @@ public class EnumerationFacadeLogicImpl
     // ---------------- constructor -------------------------------
 
     public EnumerationFacadeLogicImpl(
-        org.omg.uml.foundation.core.Enumeration metaObject,
+        org.omg.uml.foundation.core.Classifier metaObject,
         String context)
     {
         super(metaObject, context);
@@ -25,6 +24,6 @@ public class EnumerationFacadeLogicImpl
      */
     protected java.util.Collection handleGetLiterals()
     {
-        return metaObject.getLiteral();
+        return getAttributes();
     }
 }

@@ -97,7 +97,6 @@ public abstract class $entity.daoBaseName
         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
     }
 
-#if (!$entity.enumeration)
     /**
      * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
      */
@@ -256,7 +255,6 @@ public abstract class $entity.daoBaseName
         this.getHibernateTemplate().deleteAll(entities);
     }
 
-#end
 #end
 #set ($finders = $entity.getFinders(true))
 #foreach ($finder in $finders)

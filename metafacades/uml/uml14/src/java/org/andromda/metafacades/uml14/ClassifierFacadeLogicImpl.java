@@ -20,7 +20,6 @@ import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -460,10 +459,5 @@ public class ClassifierFacadeLogicImpl
                 return !((OperationFacade)object).isStatic();
             }
         };
-    }
-
-    protected Collection handleGetLiterals()
-    {
-        return (isEnumeration()) ? getAttributes() : Collections.EMPTY_LIST;
     }
 }
