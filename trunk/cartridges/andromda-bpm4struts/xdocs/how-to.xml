@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Modelling example">
+            <p class="std">
+                We want to get you kick-started so that you can get productive with this cartridge as soon as
+                possible. For this reason this section describes a very small example that has been written especially
+                for this wiki-page, this allows me to show more features with less application complexity.
+            </p>
+            <p class="std">
+                The application resembles an online store, the customer logs in, selects some items
+                to buy, and proceeds to the payment. This all is modelled very roughly, the point is
+                to teach you something about bpm4struts, not about online shopping.
+            </p>
+            <p class="std">
+                Please note that everything happens in UML! There is no hand-coding needed!
+            </p>
+            <p class="std">
+                The application we are about to model consists of three pages:
+                <ul>
+                    <li>the first page expects the user to enter his name and password, his name must be
+                        at least 3 characters and start with a capital, the password needs to be 6 characters
+                        or more and consists of alphanumerical characters (both uppercase and lowercase), when
+                        the user clicks on 'proceed' we go to the second page</li>
+                    <li>the second page lists items that can be purchased, the user can select an arbitrary number of
+                        items from this list, there is also a checkbox where to user can confirm he read
+                        the store's licence</li>
+                    <li>the third and last page asks the user to enter his email and creditcard number, he
+                        also needs to enter his age, which must be in a range from 12 to 112. After placing
+                        the order the application returns to the beginning</li>
+                </ul>
+                Each time we travel between pages the application will store this data in a database somewhere
+                (this is transparent for us), but the fact this is done is also modelled in UML.
+            </p>
+            <p class="std">
+                Please note that in some cases you will see something slightly different on the images compared to what
+                you see when you model it yourself, don't worry, it's me who played with the model
+                so it would present nicely.
+            </p>
+            <h3>Identify the application use-cases</h3>
+            <p class="std">
+                This is pretty straightforward, it will also force you to think about what your application
+                will be doing from a high-level perspective.
+            </p>
+            <p class="std">
+                Typical use-cases that you surely are familiar with are 'Login', 'Add item to basket',
+                'Place order', etc...
+            </p>
+            <p class="std">
+                In this case we only model a single use-case, let's call it "Purchase Items".
+                First of all we create the application namespace, this is done by creating a (tree)
+                of packages. In our case the package in which the use-case is put is called
+                org.andromda.samples.bpm4struts.onlinestore.purchase
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/create-usecase.png" width="450" height="350"/>
+                </div>
+            </p>
+            <p class="std">
+                It is very important that one and only one use-case is tagged with the 'FrontEndApplication'
+                stereotype. You should take the first use-case because bpm4struts will use this
+                use-case as the first one to which to forward control (the welcome page will redirect to it).
+            </p>
+            <h3>Specify each use-case in more detail</h3>
+            <p class="std">
+                When you have modelled your use-cases you are ready to tell a little more about them, do
+                this by add one (only one!) activity graph to each of them, give it a good name
+                (however, it will be ignored by the cartridge)
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/add-activity-graph.png" width="450" height="350"/>
+                </div>
+            </p>
+            <h4>The Initial State</h4>
+            <p class="std">
+                Add one and only one initial state, you do not need to give it a name, just make
+                sure it has a single outgoing transition. Incoming transitions are not allowed on initial states. Since
+                this initial state represents an action on the server (forwarding control to the first page)
+                you are required to tag this transition using the FrontEndEvent stereotype.
+            </p>
+            <h4>Action States</h4>
+            <p class="std">
+                For different atomic events in the system you should model an action state, per convention an
+                action state is represented in a diagram using a box with rounded corners.
+            </p>
+            <p class="std">
+                You are allowed to model action states even if there is no actual operation behind,
+                you may use it to make your model more verbose. Give good names to your action state,
+                that's very important.
+            </p>
+            <p class="std">
+                Create transitions between action states to express process flow.
+            </p>
+            <p class="std">
+                Take a look at the next image to see how it has been done for the sample.
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/model-action-states.png" width="506" height="613"/>
+                </div>
+            </p>
+            <h4>Transitions and Parameters</h4>
+            <p class="std">
+                Each time data needs to be sent between action states you will model this using parameters on
+                the transition between these states. More specifically use the trigger on that transition to
+                carry the parameters. It does not really matter which type of event you choose, as long
+                as it is the trigger (and not the effect) the cartridge will understand.
+            </p>
+            <p class="std">
+                Here are some images that show how to add parameters to a transition. We
+                use the transition's trigger for this feature.
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/add-parameter-edit.png" width="527" height="519"/>
+                </div>
+                <br/>
+                <div>
+                  <img src="images/add-parameter-add.png" width="505" height="338"/>
+                </div>
+            </p>
+            <p class="std">
+                In the next images you can see how to specify that the server sends information to the client.
+                In the JSP page these parameters will be exposed as page variables, if you choose to
+                manually update you JSPs you can directly use them (you don't need manual updates to run
+                the application, but you'll probably want to add layout and style ... this is not modeled in
+                UML of course, we only model business processes here)
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/model-parameters-0.png" width="506" height="599"/>
+                </div>
+            </p>
+            <p class="std">
+                In the next images you can see how a client sends parameters to the server, in fact, it is
+                exactly the same as before. Only, this time these parameters will be shown on the page as
+                an hyperlink or a form, depending on the fact the user can or cannot alter their respective
+                values. The receiving action will have access to these values.
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/model-parameters-1.png" width="531" height="614"/>
+                </div>
+            </p>
+                Once you have reached this point it is time to add stereotypes, you will need to tag the
+                user pages with the FrontEndView stereotype, transitions going out of those pages must carry
+                the FrontEndEvent stereotype. The transition going out of the initial state must also
+                carry the FrontEndEvent stereotype.
+            <p class="std">
+                <div>
+                  <img src="images/add-stereotypes-1.png" width="509" height="610"/>
+                </div>
+            </p>
+            <h4>Decision Points</h4>
+            <p class="std">
+                Sometimes it is possible the sytem needs to make a decision and based on the outcome it must
+                continue along a specific path. This is achieved by modelling something that is known as a decision
+                point. A decision point is represented as a diamond shaped figure in the diagram. It has
+                at least two outgoing transitions, and all of them must carry a guard.
+            </p>
+            <p class="std">
+                The incoming transitions must trigger a call-event that will return a value, this value is
+                then matches against all possible guards. The first transition with a guard that matches
+                the return value will be processed, the others are ignored.
+            </p>
+            <p class="std">
+                Take a look how all of this is done.
+            </p>
+            <p class="std">
+                { IMAGE HERE }
+            </p>
+            <h4>Deferrable Events</h4>
+            <p class="std">
+                All the action states that do not represent JSP pages represent action logic that is executed on the
+                server-side. By default these actions do nothing specific, but optionally you may have them execute
+                your custom code.
+            </p>
+            <p class="std">
+                In order to do that you can add deferrable events to the action state. These event must be
+                call-events. The operations that can be called by such an event ar edetermined by the
+                context of the activity graph. So you will need to set it first, here's how:
+                <ul>
+                    <li>Create a controller class</li>
+                    <li>Add operations to this controller class</li>
+                    <li>Assign this controller class as the context of the activity graph</li>
+                    <li>On the action states, optionally add deferrable events of type 'Call' and
+                      reference an operation from the controller.</li>
+                </ul>
+            </p>
+            <p class="std">
+                In order to show all these updates to the model you might need to enable this funtionality in your
+                CASE tool, for example in MagicDraw you need to right-click on each action
+                state and unselect 'Suppress Actions'.
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/model-controller.png" width="415" height="430"/>
+                </div>
+                <br/>
+                <div>
+                  <img src="images/assign-controller-1.png" width="560" height="621"/>
+                </div>
+                <br/>
+                <div>
+                  <img src="images/assign-controller-2.png" width="439" height="362"/>
+                </div>
+            </p>
+            <p class="std">
+                You may have as many deferrable events on an action state as you like. Events that
+                are not of type 'Call' are ignored by the cartridge.
+            </p>
+            <p class="std">
+                The result of adding call-events is that on the server-side the action will execute
+                each of these events before proceeding to the transition.
+            </p>
+            <h4>Final States</h4>
+            <p class="std">
+                Final states represent the end of the activity modelled in the activity graph,
+                because we use a single graph to model a use-case a final state represent a
+                possible end of the use-case.
+            </p>
+            <p class="std">
+                It is perfectly legal to have more than one final state, you might have one for "success"
+                and one for "failure" for example. It is very important that the name of the final state
+                is the same as the name of a use-case. This may be the same use-case as being modelled.
+            </p>
+            <p class="std">
+                We use the name here to interconnect use-cases, for the moment there is no easier or
+                more correct way to model such behavior (if someone has an idea, please let me know :-) ).
+                Checking for name ignores case. This means: give good descriptive and unique names to your use-cases.
+            </p>
+            <h3>Add users to your application</h3>
+            <p class="std">
+                This is a feature that will authorize access to use-cases only to users that have been authenticated.
+                If you enable this (optional) feature your application might not run and thrown an exception
+                indicating you have no permissions to continue.
+            </p>
+            <p class="std">
+                The only thing you need to do is associate users to your use-cases. Using your case tool this is
+                possible by simply drawing an association between them.
+            </p>
+            <p class="std">
+                Users may generalize other users, for example a "Technical Manager" could have both "Manager"
+                and "Developer" roles. Do this by associating "Technical Manager" to "Manager" and "Developer".
+                <ul>
+                    <li>buttons on pages will be rendered disabled accordingly</li>
+                    <li>button tooltips will inform the user he is not allowed to call the specific action</li>
+                    <li>actions will throw an exception if called (for example by specifying the URL manually in the
+                        browser)</li>
+                </ul>
+            </p>
+            <p class="std">
+                <div>
+                  <img src="images/model-usecases.png" width="476" height="114"/>
+                </div>
+            </p>
+        </section>
+
+    </body>
+</document>
