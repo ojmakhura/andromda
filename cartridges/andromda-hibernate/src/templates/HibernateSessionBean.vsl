@@ -244,10 +244,7 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
             InitialContext ic = new InitialContext();
 
             _sessionFactory = ( SessionFactory )
-                              PortableRemoteObject.narrow(
-                                    ic.lookup( "java:/hibernate/SessionFactory" ),
-                                    SessionFactory.class
-                              );
+                              ic.lookup( "java:/hibernate/SessionFactory" );
         }
 
         return _sessionFactory;
