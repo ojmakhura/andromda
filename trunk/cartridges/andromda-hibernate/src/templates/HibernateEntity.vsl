@@ -15,7 +15,7 @@ $class.getDocumentation(" * ")
  *    discriminator-value="${class.name}"
 #else
  * @hibernate.class
- *     table="HIB_$class.tableName"
+ *     table="$class.tableName"
  * @hibernate.discriminator
  *     column="class"
 #end
@@ -111,7 +111,7 @@ $target.getDocumentation("    * ")
 ##
     * @hibernate.set
     *     lazy="true"
-    *     table="HIB_${associationEnd.association.tableName}"
+    *     table="${associationEnd.association.tableName}"
     * @hibernate.collection-key
     *     column="$associationEnd.columnName"
     * @hibernate.collection-many-to-many
