@@ -78,7 +78,7 @@
 
     <target name="jar" description="o Create the JAR" depends="compile">
         <mkdir dir="${basedir}/target"/>
-        <jar jarfile="${basedir}/target/${jar.bundle.name}" manifest="${basedir}/src/META-INF/MANIFEST.MF">
+        <jar jarfile="${basedir}/target/${jar.bundle.name}">
             <fileset dir="${basedir}/${java.build.dir}"/>
             <fileset dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.xml"/>
         </jar>
