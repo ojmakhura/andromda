@@ -312,6 +312,22 @@
                         No, default is <code>true</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        entityBusinessOperationLocation
+                    </td>
+                    <td>
+                        Allows you to define where business operations modeled on entities
+                        are placed by (this can be overriden at the operation level well), 
+                        the two choices are <em>dao</em> and <em>entity</em>.  If
+                        <em>dao</em> is specified, then modeled entity operations will be
+                        generated on the DAO.  If <em>entity</em> is specfied, then modeled
+                        entity operations will be generated on the actual entity implementation.
+                    </td>
+                    <td>
+                        No, default is <code>entity</code>.
+                    </td>
+                </tr>
 			</table>
             <subsection name="Hibernate Specific Properties">
                 <table>

@@ -36,6 +36,7 @@
 
     <assembly-descriptor>
 
+#if ($ejbSecurityEnabled)
 #foreach ($role in $springUtils.getAllRoles($services))    
         <security-role>
             <description><![CDATA[$role.getDocumentation("", -1, false)]]></description>
@@ -43,10 +44,11 @@
         </security-role>
         
 #end
+#end
 #foreach ($service in $services)
         <method-permission>
             <description><![CDATA[Create method security constraint]]></description>
-#if ($service.roles.empty)           
+#if (!$ejbSecurityEnabled || $service.roles.empty)           
             <unchecked/>
 #else
 #foreach ($role in $service.roles)
@@ -68,7 +70,7 @@
 #foreach ($operation in $service.operations)
         <method-permission>
             <description><![CDATA[$operation.signature security constraint]]></description>
-#if ($operation.roles.empty)           
+#if (!$ejbSecurityEnabled || $operation.roles.empty)           
             <unchecked/>
 #else
 #foreach ($role in $operation.roles)

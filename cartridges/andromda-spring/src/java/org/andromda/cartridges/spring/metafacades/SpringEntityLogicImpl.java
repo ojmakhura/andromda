@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -230,6 +231,83 @@ public class SpringEntityLogicImpl
     protected String handleGetHibernateDefaultCascade()
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isEntityBusinessOperationsPresent()
+     */
+    protected boolean handleIsEntityBusinessOperationsPresent()
+    {
+        return this.getEntityBusinessOperations() != null && !this.getEntityBusinessOperations().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isDaoBusinessOperationsPresent()
+     */
+    protected boolean handleIsDaoBusinessOperationsPresent()
+    {
+        return this.getDaoBusinessOperations() != null && !this.getDaoBusinessOperations().isEmpty();
+    }
+    
+    /**
+     * Defines the location of where entity operations will be placed.
+     */
+    private static final String ENTITY_BUSINESS_OPERATION_LOCATION = "entityBusinessOperationLocation";
+    
+    /**
+     * Defines the <code>entity</code> business operation location.
+     */
+    private static final String OPERATION_LOCATION_ENTITY = "entity";
+    
+    /**
+     * Defines the <code>dao</code> business operation location.
+     */
+    private static final String OPERATION_LOCATION_DAO = "dao";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoBusinessOperations()
+     */
+    protected Collection handleGetDaoBusinessOperations()
+    {
+        return this.getBusinessOperationsByEntityLocation(OPERATION_LOCATION_DAO);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getEntityBusinessOperations()
+     */
+    protected Collection handleGetEntityBusinessOperations()
+    {
+        return this.getBusinessOperationsByEntityLocation(OPERATION_LOCATION_ENTITY);
+    }
+    
+    /**
+     * Finds all operations from the current business operations of this
+     * entity that belong on the defined <code>entityLocation</code>.
+     * 
+     * @param entityLocation the entity location (either 'dao' or 'entity').
+     * @return the filtered collection of operations for the specified location.
+     */
+    private Collection getBusinessOperationsByEntityLocation(final String entityLocation)
+    {
+        Collection operations = this.getBusinessOperations();
+        final String defaultLocation = 
+            StringUtils.trimToEmpty(String.valueOf(
+                this.getConfiguredProperty(ENTITY_BUSINESS_OPERATION_LOCATION)));
+        CollectionUtils.filter(operations,
+            new Predicate(){
+                public boolean evaluate(Object object)
+                {
+                    String location = defaultLocation;
+                    Object value = ((OperationFacade)object).findTaggedValue(
+                        SpringProfile.TAGGEDVALUE_ENTITY_OPERATION_LOCATION);
+                    if (value != null)
+                    {
+                        location = StringUtils.trimToEmpty(String.valueOf(value));
+                    }
+                    return location.equalsIgnoreCase(entityLocation);
+                }
+            });
+        return operations;
     }
 
 }

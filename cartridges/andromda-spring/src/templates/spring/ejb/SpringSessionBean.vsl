@@ -33,7 +33,7 @@ public class $service.ejbImplementationName
         throws $operation.exceptionList
 #end
     {
-        (($service.fullyQualifiedBaseName)this.$businessObject).setPrincipal(super.getSessionContext().getCallerPrincipal());
+        (($service.fullyQualifiedBaseName)this.$businessObject).setSessionContext(super.getSessionContext());
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
         return this.${businessObject}.${operation.call};

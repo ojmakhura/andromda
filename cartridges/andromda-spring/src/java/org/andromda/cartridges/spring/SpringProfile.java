@@ -30,5 +30,11 @@ public class SpringProfile extends UMLProfile {
      * Stores the hibernate lazy attribute for relationships.
      */
     public static final String TAGGEDVALUE_HIBERNATE_LAZY = "@andromda.hibernate.lazy";
+    
+    /**
+     * Stores the location of where a modeled entity operation should be generated 
+     * (<code>dao</code> or <code>entity</code>).
+     */
+    public static final String TAGGEDVALUE_ENTITY_OPERATION_LOCATION = "@andromda.spring.entity.operation.location";
 
 }

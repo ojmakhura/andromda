@@ -394,7 +394,7 @@ public abstract class $entity.daoBaseName
      * @return the transformed entity (i.e. new value object, etc)
      */
     protected abstract Object transformEntity($entity.fullyQualifiedName entity);
-#foreach ($operation in $entity.businessOperations)
+#foreach ($operation in $entity.daoBusinessOperations)
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
     /**

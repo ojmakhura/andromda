@@ -220,6 +220,19 @@
             </modelElement> 
 		</modelElements>
 	</template>
+    
+	<template 
+		path="templates/spring/hibernate/HibernateEntityImplManual.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="dao-impls" 
+		overwrite="false"
+		required="false">
+		<modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement> 
+		</modelElements>
+	</template>
 	
 	<template 
 		path="templates/spring/hibernate/hibernate.hbm.xml.vsl" 
