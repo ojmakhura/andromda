@@ -11,8 +11,8 @@ mdr.home = ${andromda.home}
 xdoclet.home = ${andromda.home}/lib/
 commons.home = ${andromda.home}
 
-java-cartridge.home = ../../cartridges/andromda-java/dist/
-ejb-cartridge.home = ../../cartridges/andromda-ejb/dist/
+java-cartridge.home = ../../cartridges/andromda-java/dist/predist/
+ejb-cartridge.home = ../../cartridges/andromda-ejb/dist/predist/
 hibernate-cartridge.home = ../../cartridges/andromda-hibernate/dist/predist/
 struts-cartridge.home = ../../cartridges/andromda-struts/dist/predist/
 
