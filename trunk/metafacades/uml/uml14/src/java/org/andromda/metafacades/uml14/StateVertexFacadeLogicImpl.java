@@ -24,6 +24,11 @@ public class StateVertexFacadeLogicImpl
         return metaObject.getContainer().getStateMachine();
     }
 
+    protected Object handleGetContainer()
+    {
+        return metaObject.getContainer();
+    }
+
     protected Collection handleGetIncoming()
     {
         return metaObject.getIncoming();

@@ -9,8 +9,6 @@ import org.omg.uml.behavioralelements.statemachines.StateMachine;
 public class ObjectFlowStateFacadeLogicImpl
     extends ObjectFlowStateFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public ObjectFlowStateFacadeLogicImpl(
         org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
         String context)
@@ -18,17 +16,7 @@ public class ObjectFlowStateFacadeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class ObjectFlowStateDecorator ...
-
-    // ------------- relations ------------------
-
-    /**
-     *
-     */
-    public Object handleGetStateMachine()
+    protected Object handleGetStateMachine()
     {
         StateMachine stateMachine = null;
         CompositeState compositeState = metaObject.getContainer();
@@ -49,6 +37,9 @@ public class ObjectFlowStateFacadeLogicImpl
         return stateMachine;
     }
 
-    // ------------------------------------------------------------
+    protected Object handleGetType()
+    {
+        return metaObject.getType();
+    }
 
 }
