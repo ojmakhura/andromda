@@ -71,7 +71,6 @@ public class MaintenanceControllerImpl extends MaintenanceController
         }
         else
         {
-            form.setTable( tables[0].getName() );
             metadataSession.setCurrentTable( tables[0] );
         }
 
@@ -89,11 +88,20 @@ public class MaintenanceControllerImpl extends MaintenanceController
 
     public void loadConfigurator(ActionMapping mapping, LoadConfiguratorForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        InputStream instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AdminConsoleConfigurator.FILE_NAME);
-        Reader reader = new InputStreamReader(instream);
-        AdminConsoleConfigurator configurator = new AdminConsoleConfigurator(reader);
-        reader.close();
-        instream.close();
+        AdminConsoleConfigurator configurator = null;
+
+        try
+        {
+            InputStream instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AdminConsoleConfigurator.FILE_NAME);
+            Reader reader = new InputStreamReader(instream);
+            configurator = new AdminConsoleConfigurator(reader);
+            reader.close();
+            instream.close();
+        }
+        catch (Exception e)
+        {
+            configurator = new AdminConsoleConfigurator();
+        }
 
         getDatabaseLoginSession(request).setConfigurator(configurator);
     }
