@@ -26,7 +26,11 @@
             <local>$service.fullyQualifiedName</local>
 #end
             <ejb-class>${service.fullyQualifiedName}BeanImpl</ejb-class>
+#if ($service.ejbStateful)
+            <session-type>Stateful</session-type>
+#else
             <session-type>Stateless</session-type>
+#end
             <transaction-type>Container</transaction-type>
         </session>
 

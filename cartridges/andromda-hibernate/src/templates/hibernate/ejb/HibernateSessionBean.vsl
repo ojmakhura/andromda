@@ -33,8 +33,8 @@ $service.getDocumentation(" * ")
 #else
  *        type="Stateless"
 #end
- *        jndi-name="$service.jndiName"
- *        local-jndi-name="${service.jndiName}/Local"
+ *        jndi-name="$service.ejbJndiName"
+ *        local-jndi-name="${service.ejbJndiName}/Local"
  *        view-type="both"
  * @ejb.interface
  *        generate="local,remote"
@@ -49,7 +49,7 @@ $service.getDocumentation(" * ")
 #set ($serviceRef = $serviceRef.targetElement)
  * @ejb.ejb-ref
  *        ejb-name="$serviceRef.name"
- *        view-type="$serviceRef.viewType"
+ *        view-type="$serviceRef.ejbViewType"
  *        ref-name="ejb/${serviceRef.name}BeanRef"
 #end
 #foreach ( $tgv in $service.taggedValues )
