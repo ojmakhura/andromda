@@ -150,14 +150,4 @@
 #end
 #end
     </dependencies>
-    <build>
-        <resources>
-             <resource>
-                <directory>${maven.src.dir}</directory>
-                <include>
-                    <include>**/*.xml</include>
-                </include>
-            </resource>
-        </resources>
-    </build>
 </project>
