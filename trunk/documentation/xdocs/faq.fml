@@ -18,7 +18,7 @@
 	       		Please see <a href="andromda-cartridges/developing.html">Developing a Cartridge</a>.
 	      	</answer>
 	    </faq>
-	    
+
 	    <faq id="developing-translation-library">
 	      	<question>How can I develop a Translation-Library?</question>
 	      	<answer>
@@ -29,7 +29,7 @@
 
     <part id="usage">
         <title>Using AndroMDA</title>
-  
+
         <faq id="maven">
             <question>
                 Will moving to AndroMDA 3.X mean I need to switch from Ant
@@ -37,16 +37,16 @@
             </question>
             <answer>
                 <p>
-                    While Maven is the build/project tool utilized by 
+                    While Maven is the build/project tool utilized by
                     AndroMDA, you can still just as easily use an AndroMDA
-                    project with Ant.  In fact we have an Ant tool that will 
+                    project with Ant.  In fact we have an Ant tool that will
                     generate an Ant AndroMDA project structure for you. Please
-                    see the <a href="starting.html#starting-with-ant">Ant</a> 
+                    see the <a href="starting.html#starting-with-ant">Ant</a>
                     section of the getting started page for more details.
                 </p>
             </answer>
-        </faq> 
-        
+        </faq>
+
         <faq id="jdk">
             <question>
                 What JDK can I use with AndroMDA?  Can I use JDK 1.3?
@@ -56,7 +56,7 @@
                     AndroMDA will only run correctly with JDK 1.4 or above.
                 </p>
             </answer>
-        </faq>        
+        </faq>
 
         <faq id="reverse">
             <question>
@@ -161,7 +161,7 @@
                 <p>
                     Option 1 will make your model larger. Option 2 will make it smaller but you will lose
                     all standard UML stereotypes, datatypes and tagged value definitions.
-                    Option 3 makes your live a little less certain although the new software already works quite well. :-)
+                    Option 3 makes your life a little less certain although the new software already works quite well. :-)
                 </p>
                 <p>
                     See also the MagicDraw 7.5 manual for details, especially the chapter about "Module management".
