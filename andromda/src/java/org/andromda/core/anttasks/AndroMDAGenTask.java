@@ -27,8 +27,8 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
  * </p>
  * 
  * @see org.andromda.core.ModelProcessor
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
- * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  * @author Chad Brandon
  */
 public class AndroMDAGenTask

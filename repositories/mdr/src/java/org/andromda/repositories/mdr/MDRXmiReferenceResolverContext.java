@@ -58,48 +58,47 @@ public class MDRXmiReferenceResolverContext
         if (logger.isDebugEnabled())
             logger.debug("attempting to resolve Xmi Href --> '" + systemId
                 + "'");
-        
+
         final String suffix = getSuffix(systemId);
-        
-        // if the model URL has a suffix of '.zip' or '.jar', get 
+
+        // if the model URL has a suffix of '.zip' or '.jar', get
         // the suffix without it and store it in the urlMap
         String exts = "\\.jar|\\.zip";
         String suffixWithExt = suffix.replaceAll(exts, "");
         URL modelUrl = (URL)urlMap.get(suffixWithExt);
-        
+
         // Several tries to construct a URL that really exists.
         if (modelUrl == null)
         {
             // If systemId is a valid URL, simply use it
             modelUrl = this.getValidURL(systemId);
-	        if (modelUrl == null)
-	        {
-		        // Try to find suffix in module list.
-		        String modelUrlAsString = findModuleURL(suffix);	   
-		        if (StringUtils.isNotBlank(modelUrlAsString)) 
-		        {
-		            modelUrl = getValidURL(modelUrlAsString);
-		        }	        
-		        if (modelUrl == null) 
-		        {
-		            // search the classpath	
-		            modelUrl = this.findModelUrlOnClasspath(systemId);
-		        }
-		        if (modelUrl == null)
-		        {
-		            // Give up and let superclass deal with it.
-		            modelUrl = super.toURL(systemId);		            
-		        }
-	        }
-	        // if we've found the module model, log it 
-	        // and place it in the map so we don't have to 
-	        // find it if we need it again.
-	        if (modelUrl != null) 
-	        {
-	            AndroMDALogger.info("Referenced model --> '" 
-	                + modelUrl + "'");
-	            urlMap.put(suffixWithExt, modelUrl);
-	        }
+            if (modelUrl == null)
+            {
+                // Try to find suffix in module list.
+                String modelUrlAsString = findModuleURL(suffix);
+                if (StringUtils.isNotBlank(modelUrlAsString))
+                {
+                    modelUrl = getValidURL(modelUrlAsString);
+                }
+                if (modelUrl == null)
+                {
+                    // search the classpath
+                    modelUrl = this.findModelUrlOnClasspath(systemId);
+                }
+                if (modelUrl == null)
+                {
+                    // Give up and let superclass deal with it.
+                    modelUrl = super.toURL(systemId);
+                }
+            }
+            // if we've found the module model, log it
+            // and place it in the map so we don't have to
+            // find it if we need it again.
+            if (modelUrl != null)
+            {
+                AndroMDALogger.info("Referenced model --> '" + modelUrl + "'");
+                urlMap.put(suffixWithExt, modelUrl);
+            }
         }
         return modelUrl;
     }
@@ -107,8 +106,7 @@ public class MDRXmiReferenceResolverContext
     /**
      * Finds a module in the module search path.
      * 
-     * @param moduleName
-     *            the name of the module without any path
+     * @param moduleName the name of the module without any path
      * @return the complete URL string of the module if found (null if not
      *         found)
      */
@@ -153,8 +151,7 @@ public class MDRXmiReferenceResolverContext
     /**
      * Gets the suffix of the <code>systemId</code>
      * 
-     * @param systemId
-     *            the system identifier.
+     * @param systemId the system identifier.
      * @return the suffix as a String.
      */
     private String getSuffix(String systemId)
@@ -167,7 +164,7 @@ public class MDRXmiReferenceResolverContext
         }
         return systemId;
     }
-    
+
     /**
      * The suffixes to use when searching for referenced models on the
      * classpath.
@@ -181,15 +178,14 @@ public class MDRXmiReferenceResolverContext
     /**
      * Searches for the model URL on the classpath.
      * 
-     * @param systemId
-     *            the system identifier.
+     * @param systemId the system identifier.
      * @return the suffix as a String.
      */
     private URL findModelUrlOnClasspath(String systemId)
     {
         String modelName = StringUtils.substringAfterLast(systemId, "/");
         String dot = ".";
-        // remove the first prefix because it may be an archive 
+        // remove the first prefix because it may be an archive
         // (like magicdraw)
         modelName = StringUtils.substringBeforeLast(modelName, dot);
 
@@ -222,8 +218,7 @@ public class MDRXmiReferenceResolverContext
      * Returns a URL if the systemId is valid. Returns null otherwise. Catches
      * exceptions as necessary.
      * 
-     * @param systemId
-     *            the system id
+     * @param systemId the system id
      * @return the URL (if valid)
      */
     private URL getValidURL(String systemId)

@@ -9,31 +9,42 @@ import org.netbeans.lib.jmi.xmi.InputConfig;
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
-public class MDRXmiReferenceResolver extends InputConfig {
-	
-	private XMIReferenceResolver referenceResolver;
+public class MDRXmiReferenceResolver
+    extends InputConfig
+{
 
-	/**
-	 * Constructs an instance of this class.
-	 * 
-	 * @param extents
-	 */
-	public MDRXmiReferenceResolver(RefPackage extents[], String[] moduleSearchPath) {
-		this.referenceResolver = new MDRXmiReferenceResolverContext(extents, this, moduleSearchPath);
-	}
+    private XMIReferenceResolver referenceResolver;
 
-	/**
-	 * @see org.netbeans.api.xmi.XMIInputConfig#setReferenceResolver(org.netbeans.api.xmi.XMIReferenceResolver)
-	 */
-	public void setReferenceResolver(XMIReferenceResolver arg0) {
-		throw new IllegalStateException("MDRXmiReferenceResolver.setReferenceResolver must not be implemented!");
-	}
+    /**
+     * Constructs an instance of this class.
+     * 
+     * @param extents
+     */
+    public MDRXmiReferenceResolver(
+        RefPackage extents[],
+        String[] moduleSearchPath)
+    {
+        this.referenceResolver = new MDRXmiReferenceResolverContext(
+            extents,
+            this,
+            moduleSearchPath);
+    }
 
-	/**
-	 * @see org.netbeans.api.xmi.XMIInputConfig#getReferenceResolver()
-	 */
-	public XMIReferenceResolver getReferenceResolver() {
-		return referenceResolver;
-	}
+    /**
+     * @see org.netbeans.api.xmi.XMIInputConfig#setReferenceResolver(org.netbeans.api.xmi.XMIReferenceResolver)
+     */
+    public void setReferenceResolver(XMIReferenceResolver arg0)
+    {
+        throw new IllegalStateException(
+            "MDRXmiReferenceResolver.setReferenceResolver must not be implemented!");
+    }
+
+    /**
+     * @see org.netbeans.api.xmi.XMIInputConfig#getReferenceResolver()
+     */
+    public XMIReferenceResolver getReferenceResolver()
+    {
+        return referenceResolver;
+    }
 
 }
