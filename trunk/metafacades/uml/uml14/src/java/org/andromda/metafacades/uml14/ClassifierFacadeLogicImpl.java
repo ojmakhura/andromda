@@ -69,11 +69,11 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsPrimitiveType()
     {
-        String name = this.getFullyQualifiedName();
-        return ("char".equals(name) || "byte".equals(name)
-                || "short".equals(name) || "int".equals(name)
-                || "long".equals(name) || "float".equals(name)
-                || "double".equals(name) || "boolean".equals(name));
+        final String dataType = getFullyQualifiedName(true);
+        return "datatype.char".equals(dataType) || "datatype.int".equals(dataType) ||
+                "datatype.float".equals(dataType) || "datatype.double".equals(dataType) ||
+                "datatype.long".equals(dataType) || "datatype.boolean".equals(dataType) ||
+                "datatype.short".equals(dataType) || "datatype.byte".equals(dataType);
     }
 
     /**
@@ -133,7 +133,9 @@ public class ClassifierFacadeLogicImpl
     {
         try
         {
-            return Collection.class.isAssignableFrom(Class.forName(getFullyQualifiedName()));
+            // we check the actual impl. class too because in Java there are many Collection descendants
+            return getFullyQualifiedName(true).equals("datatype.Collection") ||
+                    java.util.Collection.class.isAssignableFrom(Class.forName(getFullyQualifiedName()));
         }
         catch (Exception exception)
         {
@@ -148,7 +150,9 @@ public class ClassifierFacadeLogicImpl
     {
         try
         {
-            return java.util.Date.class.isAssignableFrom(Class.forName(getFullyQualifiedName()));
+            // we check the actual impl. class too because in Java there are many Date descendants
+            return getFullyQualifiedName(true).equals("datatype.Date") ||
+                    java.util.Date.class.isAssignableFrom(Class.forName(getFullyQualifiedName()));
         }
         catch (Exception exception)
         {
