@@ -669,4 +669,69 @@ public class WebServiceLogicImpl
         return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN))
             .replaceAll("\\{0\\}", this.getName());
     }
+    
+    /**
+     * Represents a "wrapped" style.
+     */
+    private static final String STYLE_WRAPPED = "wrapped";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#isWrappedStyle()
+     */
+    protected boolean handleIsWrappedStyle()
+    {
+        return this.getStyle().equalsIgnoreCase(STYLE_WRAPPED);
+    }
+    
+    /**
+     * Represents a "document" style.
+     */
+    private static final String STYLE_DOCUMENT = "document";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#isDocumentStyle()
+     */
+    protected boolean handleIsDocumentStyle()
+    {
+        return this.getStyle().equalsIgnoreCase(STYLE_DOCUMENT);
+    }
+    
+    /**
+     * Represents a "rpc" style.
+     */
+    private static final String STYLE_RPC = "rpc";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#isRpcStyle()
+     */
+    protected boolean handleIsRpcStyle()
+    {
+        return this.getStyle().equalsIgnoreCase(STYLE_RPC);
+    }
+    
+    /**
+     * Represents an "literal" use.
+     */
+    private static final String USE_LITERAL = "literal";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#isLiteralUse()
+     */
+    protected boolean handleIsLiteralUse()
+    {
+        return this.getStyle().equalsIgnoreCase(USE_LITERAL);
+    }
+    
+    /**
+     * Represents an "encoded" use.
+     */
+    private static final String USE_ENCODED = "encoded";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#isEncodedUse()
+     */
+    protected boolean handleIsEncodedUse()
+    {
+        return this.getStyle().equalsIgnoreCase(USE_ENCODED);
+    }
 }
