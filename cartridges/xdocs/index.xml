@@ -63,7 +63,9 @@
             the internals of the cartridge: i.e. you want to add some more stuff to the JSP-pages
             that the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>
             generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
-            and put the replacement-files in that directory: 
+            and put the replacement-files in that directory (if you generated your project using the Maven
+            <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in 
+            <code>&lt;your-project&gt;/mda/project.xml</code>):
          </p>
          <source><![CDATA[
  ...
