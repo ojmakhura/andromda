@@ -55,11 +55,10 @@ $literal.getDocumentation("     * ")
         // 0x90
     }
 
-    private ${enumeration.name}(String enumCode)
+    public ${enumeration.name}(String enumCode)
     {
-        super(enumCode);
+        this.enumCode=enumCode;
     }
-
     /**
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */

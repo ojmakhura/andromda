@@ -57,9 +57,9 @@ $literal.getDocumentation("     * ")
         // 0x90
     }
 
-    private ${enumeration.name}(String enumCode)
+    public ${enumeration.name}(String enumCode)
     {
-        this.enumCode = enumCode;
+        this.enumCode=enumCode;
     }
 
     /**
