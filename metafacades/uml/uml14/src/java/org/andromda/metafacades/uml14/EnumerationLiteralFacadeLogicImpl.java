@@ -39,7 +39,7 @@ public class EnumerationLiteralFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogic#handleGetValue()
+     * @see org.andromda.metafacades.uml14.EnumerationLiteralFacade#getValue()
      */
     protected String handleGetValue()
     {
