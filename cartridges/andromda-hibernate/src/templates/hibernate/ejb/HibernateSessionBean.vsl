@@ -238,4 +238,15 @@ $operation.getDocumentation("     * ")
     }
 
 #end
+    public void ejbRemove() 
+    {
+    }
+
+    public void ejbPassivate() 
+    {
+    }
+
+    public void ejbActivate()
+    {
+    }
 }
