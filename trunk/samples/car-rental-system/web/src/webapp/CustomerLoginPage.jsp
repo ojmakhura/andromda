@@ -1,7 +1,7 @@
 <%@ page language="java" %>
-<%@ taglib uri="struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="struts-html.tld" prefix="html" %>
-<%@ taglib uri="struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 
 <html:html locale="true">
 
@@ -36,7 +36,7 @@
 </html:form>
 
 <hr>
-<h5>&copy; 2002-2003 Matthias Bohlen and the AndroMDA team</h5>
+<h5>&copy; 2002-2004 The AndroMDA Team</h5>
 
 </body>
 
