@@ -4,7 +4,7 @@
     <!-- This should define the properties andromda-core.home and build.classpath -->
     <property file="build.properties" />
     <property name="andromda-core.home" location="${andromda.home}/andromda-core"/>
-    <property name="andromda-hibernate.home" location="${andromda.home}/andromda-hibernate"/>
+    <property name="andromda-hibernate.home" location="${andromda.home}/cartridges/andromda-hibernate"/>
 
     <property file="${andromda-core.home}/andromda-core.properties"/>
     <property file="${andromda-core.home}/xdoclet.properties"/>
