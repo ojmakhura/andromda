@@ -3,23 +3,22 @@ package org.andromda.metafacades.uml14;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
-
 /**
- * 
- *
  * Metaclass facade implementation.
- *
  */
 public class FinalStateFacadeLogicImpl
-       extends FinalStateFacadeLogic
-       implements org.andromda.metafacades.uml.FinalStateFacade
+    extends FinalStateFacadeLogic
+    implements org.andromda.metafacades.uml.FinalStateFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public FinalStateFacadeLogicImpl (org.omg.uml.behavioralelements.statemachines.FinalState metaObject, String context)
+
+    public FinalStateFacadeLogicImpl(
+        org.omg.uml.behavioralelements.statemachines.FinalState metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
+
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
@@ -27,9 +26,9 @@ public class FinalStateFacadeLogicImpl
 
     // ------------- relations ------------------
 
-   /**
-    *
-    */
+    /**
+     *
+     */
     public Object handleGetStateMachine()
     {
         StateMachine stateMachine = null;
@@ -52,5 +51,5 @@ public class FinalStateFacadeLogicImpl
     }
 
     // ------------------------------------------------------------
-    
+
 }

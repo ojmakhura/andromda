@@ -1,27 +1,26 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
-import java.util.Collection;
-
-
 /**
- * 
- *
  * Metaclass facade implementation.
- *
  */
 public class StateFacadeLogicImpl
-       extends StateFacadeLogic
-       implements org.andromda.metafacades.uml.StateFacade
+    extends StateFacadeLogic
+    implements org.andromda.metafacades.uml.StateFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public StateFacadeLogicImpl (org.omg.uml.behavioralelements.statemachines.State metaObject, String context)
+
+    public StateFacadeLogicImpl(
+        org.omg.uml.behavioralelements.statemachines.State metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
+
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared

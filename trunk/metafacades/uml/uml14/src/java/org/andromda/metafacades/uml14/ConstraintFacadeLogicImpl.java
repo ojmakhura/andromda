@@ -1,11 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.List;
+
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.List;
 
 /**
  * Metafacade implementation for org.andromda.metafacades.uml.ConstraintFacade.

@@ -147,14 +147,13 @@ public class EntityFacadeLogicImpl
      */
     public String handleGetTableName()
     {
-        String tableNamePrefix =
-            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-        	    MetafacadeProperties.TABLE_NAME_PREFIX)));
+        String tableNamePrefix = StringUtils.trimToEmpty(String.valueOf(this
+            .getConfiguredProperty(MetafacadeProperties.TABLE_NAME_PREFIX)));
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            	tableNamePrefix,
-                this,
-                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                this.getMaxSqlNameLength());
+            tableNamePrefix,
+            this,
+            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+            this.getMaxSqlNameLength());
     }
 
     /**
@@ -530,8 +529,10 @@ public class EntityFacadeLogicImpl
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return Boolean.valueOf(
-            (String)this.getConfiguredProperty(MetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
+        return Boolean
+            .valueOf(
+                (String)this
+                    .getConfiguredProperty(MetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
             .booleanValue();
     }
 
@@ -540,7 +541,8 @@ public class EntityFacadeLogicImpl
      */
     private String getDefaultIdentifier()
     {
-        return (String)this.getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER);
+        return (String)this
+            .getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER);
     }
 
     /**
@@ -548,7 +550,8 @@ public class EntityFacadeLogicImpl
      */
     private String getDefaultIdentifierType()
     {
-        return (String)this.getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
+        return (String)this
+            .getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
     }
 
     /**

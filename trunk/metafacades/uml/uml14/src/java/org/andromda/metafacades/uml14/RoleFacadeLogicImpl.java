@@ -62,27 +62,28 @@ public class RoleFacadeLogicImpl
         else
         {
             name = super.getName();
-	        String mask = StringUtils.trimToEmpty(String.valueOf(this
-	            .getConfiguredProperty(MetafacadeProperties.ROLE_NAME_MASK)));
-	        if (!mask.equalsIgnoreCase(MASK_NONE))
-	        {
-	            if (mask.equalsIgnoreCase(MASK_UPPERCASE))
-	            {
-	                name = name.toUpperCase();
-	            }
-	            else if (mask.equalsIgnoreCase(MASK_LOWERCASE))
-	            {
-	                name = name.toLowerCase();
-	            }
-	            else if (mask.equalsIgnoreCase(MASK_CAMELCASE))
-	            {
-	                name = StringUtilsHelper.upperCamelCaseName(name.toLowerCase());
-	            }
-	            else if (mask.equalsIgnoreCase(MASK_NOSPACE))
-	            {
-	                name = StringUtils.deleteWhitespace(name);
-	            }
-	        }
+            String mask = StringUtils.trimToEmpty(String.valueOf(this
+                .getConfiguredProperty(MetafacadeProperties.ROLE_NAME_MASK)));
+            if (!mask.equalsIgnoreCase(MASK_NONE))
+            {
+                if (mask.equalsIgnoreCase(MASK_UPPERCASE))
+                {
+                    name = name.toUpperCase();
+                }
+                else if (mask.equalsIgnoreCase(MASK_LOWERCASE))
+                {
+                    name = name.toLowerCase();
+                }
+                else if (mask.equalsIgnoreCase(MASK_CAMELCASE))
+                {
+                    name = StringUtilsHelper.upperCamelCaseName(name
+                        .toLowerCase());
+                }
+                else if (mask.equalsIgnoreCase(MASK_NOSPACE))
+                {
+                    name = StringUtils.deleteWhitespace(name);
+                }
+            }
         }
         return name;
     }

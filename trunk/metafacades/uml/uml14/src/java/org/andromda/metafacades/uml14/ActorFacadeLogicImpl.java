@@ -1,29 +1,27 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.metafacades.uml.ActorFacade;
-import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.GeneralizationFacade;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.metafacades.uml.ActorFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.GeneralizationFacade;
 
 /**
- * 
- *
  * Metaclass facade implementation.
- *
  */
 public class ActorFacadeLogicImpl
-       extends ActorFacadeLogic
-       implements org.andromda.metafacades.uml.ActorFacade
+    extends ActorFacadeLogic
+    implements org.andromda.metafacades.uml.ActorFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public ActorFacadeLogicImpl (org.omg.uml.behavioralelements.usecases.Actor metaObject, String context)
+
+    public ActorFacadeLogicImpl(
+        org.omg.uml.behavioralelements.usecases.Actor metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     protected java.util.Collection handleGetGeneralizedActors()
@@ -32,7 +30,8 @@ public class ActorFacadeLogicImpl
         final Collection generalizations = getGeneralizations();
         for (Iterator iterator = generalizations.iterator(); iterator.hasNext();)
         {
-            GeneralizationFacade generalization = (GeneralizationFacade) iterator.next();
+            GeneralizationFacade generalization = (GeneralizationFacade)iterator
+                .next();
             GeneralizableElementFacade parent = generalization.getParent();
             parentActors.add(parent);
         }
@@ -48,9 +47,10 @@ public class ActorFacadeLogicImpl
             Object object = iterator.next();
             if (object instanceof ActorFacade)
             {
-                ActorFacade anyActor = (ActorFacade) object;
+                ActorFacade anyActor = (ActorFacade)object;
                 Collection generalizedActors = anyActor.getGeneralizedActors();
-                for (Iterator actorIterator = generalizedActors.iterator(); actorIterator.hasNext();)
+                for (Iterator actorIterator = generalizedActors.iterator(); actorIterator
+                    .hasNext();)
                 {
                     Object actorObject = actorIterator.next();
                     if (this.equals(actorObject))

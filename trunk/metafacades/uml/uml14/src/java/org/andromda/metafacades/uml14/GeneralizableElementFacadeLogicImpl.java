@@ -9,21 +9,22 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.omg.uml.foundation.core.Generalization;
 
-
 /**
  * MetafacadeLogic implementation.
- *
+ * 
  * @see org.andromda.metafacades.uml.GeneralizableElementFacade
  */
 public class GeneralizableElementFacadeLogicImpl
-       extends GeneralizableElementFacadeLogic
-       implements org.andromda.metafacades.uml.GeneralizableElementFacade
+    extends GeneralizableElementFacadeLogic
+    implements org.andromda.metafacades.uml.GeneralizableElementFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public GeneralizableElementFacadeLogicImpl (org.omg.uml.foundation.core.GeneralizableElement metaObject, java.lang.String context)
+
+    public GeneralizableElementFacadeLogicImpl(
+        org.omg.uml.foundation.core.GeneralizableElement metaObject,
+        java.lang.String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     // -------------------- business methods ----------------------
@@ -31,25 +32,25 @@ public class GeneralizableElementFacadeLogicImpl
     // concrete business methods that were declared
     // abstract in class GeneralizableElementFacade ...
 
-	/**
-	 * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getAllGeneralizations()()
-	 */
-    public java.util.Collection handleGetAllGeneralizations() 
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getAllGeneralizations()()
+     */
+    public java.util.Collection handleGetAllGeneralizations()
     {
-    	Collection generalizations = new ArrayList();
-        for (GeneralizableElementFacade element = this.getGeneralization();
-             element != null;
-             element = element.getGeneralization()) {
-        	generalizations.add(element);
+        Collection generalizations = new ArrayList();
+        for (GeneralizableElementFacade element = this.getGeneralization(); element != null; element = element
+            .getGeneralization())
+        {
+            generalizations.add(element);
         }
         return generalizations;
     }
 
     // ------------- relations ------------------
-    
-	/**
-	 * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralization()
-	 */
+
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralization()
+     */
     public java.lang.Object handleGetGeneralization()
     {
         Collection generalizations = metaObject.getGeneralization();
@@ -61,7 +62,7 @@ public class GeneralizableElementFacadeLogicImpl
 
         if (i.hasNext())
         {
-            Generalization generalization = (Generalization) i.next();
+            Generalization generalization = (Generalization)i.next();
             return generalization.getParent();
         }
 
@@ -72,24 +73,22 @@ public class GeneralizableElementFacadeLogicImpl
     {
         return metaObject.getGeneralization();
     }
-    
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getSpecializations()
      */
     public Collection handleGetSpecializations()
     {
-        Collection specializations = new ArrayList(UMLMetafacadeUtils.getCorePackage().getAParentSpecialization()
-            .getSpecialization(this.metaObject));
-        CollectionUtils.transform(
-            specializations,
-            new Transformer()
+        Collection specializations = new ArrayList(UMLMetafacadeUtils
+            .getCorePackage().getAParentSpecialization().getSpecialization(
+                this.metaObject));
+        CollectionUtils.transform(specializations, new Transformer()
+        {
+            public Object transform(Object object)
             {
-                public Object transform(Object object)
-                {
-                    return ((Generalization)object).getChild();
-                }
-            });
+                return ((Generalization)object).getChild();
+            }
+        });
         return specializations;
     }
 }
