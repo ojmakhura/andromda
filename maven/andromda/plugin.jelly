@@ -42,7 +42,8 @@
                       processAllModelPackages="${maven.andromda.processAllModelPackages}"
                       modelValidation="${maven.andromda.modelValidation}"
                       failOnModelValidationErrors="${maven.andromda.failOnModelValidationErrors}"
-                      cartridgeFilter="${maven.andromda.cartridgeFilter}">
+                      cartridgeFilter="${maven.andromda.cartridgeFilter}"
+                      loggingConfigurationUri="${maven.andromda.loggingConfigurationUri}">
                 
             <!-- point the mappings search path to the location of the mappings in this plugin -->      
             <ant:mappingsSearchPath>

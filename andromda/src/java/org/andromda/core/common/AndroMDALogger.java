@@ -1,7 +1,9 @@
 package org.andromda.core.common;
 
+import java.io.InputStream;
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
@@ -29,16 +31,56 @@ public class AndroMDALogger
      */
     public static void configure()
     {
-        final String methodName = "StdoutLogger.configure";
-        String loggingConfiguration = "log4j.xml";
-        URL url = AndroMDALogger.class.getResource(loggingConfiguration);
+        String defaultConfiguration = "log4j.xml";
+        URL url = null;
+        String configuration = loggingConfigurationUri;
+        if (StringUtils.isNotEmpty(configuration))
+        {
+            try
+            {
+                url = new URL(configuration);
+                InputStream stream = url.openStream();
+                stream.close();
+                stream = null;
+                configure(url);
+                logger.info("Logging configured from external source --> '"
+                    + configuration + "'");
+            }
+            catch (Throwable th)
+            {
+                url = AndroMDALogger.class.getResource(defaultConfiguration);
+                configure(url);
+                logger.warn("Invalid logging configuration uri --> '"
+                    + configuration + "'");
+            }
+        }
         if (url == null)
         {
-            throw new RuntimeException(methodName
-                + " - could not find Logger configuration file '"
-                + loggingConfiguration + "'");
+            url = AndroMDALogger.class.getResource(defaultConfiguration);
+            configure(url);
         }
-        configure(url);
+        if (url == null)
+        {
+            throw new RuntimeException(
+                "Could not find default logging configuration file '"
+                    + defaultConfiguration + "'");
+        }
+    }
+
+    /**
+     * The URI to an external logging configuration file.
+     */
+    private static String loggingConfigurationUri = null;
+
+    /**
+     * Sets the URI to an external logging configuration file. This will
+     * override the default log4j.xml.
+     * 
+     * @param loggingConfigurationUri the URI to the logging configuraiton file.
+     */
+    public static void setLoggingConfigurationUri(String loggingConfigurationUri)
+    {
+        AndroMDALogger.loggingConfigurationUri = loggingConfigurationUri;
     }
 
     /**
@@ -57,7 +99,6 @@ public class AndroMDALogger
             System.err.println("Unable to initialize logging system "
                 + "with configuration file '" + logConfigurationXml
                 + "' --> using basic configuration.");
-            ex.printStackTrace();
             BasicConfigurator.configure();
         }
     }

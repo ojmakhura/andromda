@@ -15,7 +15,6 @@ import org.andromda.core.common.BuildInformation;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
-import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
@@ -72,16 +71,11 @@ public class ModelProcessor
      */
     public void process(Model[] models)
     {
-        final String methodName = "ModelProcessor.process";
-        ExceptionUtils.checkNull(methodName, "models", models);
-
+        AndroMDALogger.configure();
         this.printConsoleHeader();
-
         long startTime = System.currentTimeMillis();
-
         try
         {
-
             RepositoryFacade repository = (RepositoryFacade)ComponentContainer
                 .instance().findComponent(RepositoryFacade.class);
 
@@ -100,6 +94,10 @@ public class ModelProcessor
                 process(repository, models);
                 repository.close();
                 repository = null;
+            }
+            else
+            {
+                logger.warn("No models found to process");
             }
         }
         finally
@@ -254,11 +252,12 @@ public class ModelProcessor
             throw new ModelProcessorException(errorMesssage, th);
         }
     }
-    
+
     /**
      * Stores the current version of AndroMDA
      */
-    private static final String VERSION = BuildInformation.instance().getBuildVersion();
+    private static final String VERSION = BuildInformation.instance()
+        .getBuildVersion();
 
     /**
      * Prints the console header.
@@ -362,6 +361,26 @@ public class ModelProcessor
             cartridgeFilter = Arrays.asList(StringUtils.deleteWhitespace(
                 namespaces).split(","));
         }
+    }
+
+    /**
+     * <p>
+     * Sets the <code>loggingConfigurationUri</code> for AndroMDA. This is the
+     * URI to an external logging configuration file. This is useful when you
+     * want to override the default logging configuration of AndroMDA.
+     * </p>
+     * <p>
+     * You can retrieve the default log4j.xml contained within the
+     * {@link org.andromda.core.common}package, customize it, and then specify
+     * the location of this logging file with this operation.
+     * </p>
+     * 
+     * @param validating true/false on whether we should validate XML resources
+     *        used by AndroMDA
+     */
+    public void setLoggingConfigurationUri(String loggingConfigurationUri)
+    {
+        AndroMDALogger.setLoggingConfigurationUri(loggingConfigurationUri);
     }
 
     /**
