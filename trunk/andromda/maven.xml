@@ -1,7 +1,7 @@
 <project default="jar:install"
          xmlns:j="jelly:core"
          xmlns:maven="jelly:maven"
-           xmlns:ant="jelly:ant">
+         xmlns:ant="jelly:ant">
 
     <j:set var="parser.src.dir" value="${maven.src.dir}/parser"/>
     <j:set var="parser.src.generated.dir" value="${maven.build.src}/java"/>
@@ -11,7 +11,19 @@
         <ant:tstamp>
             <ant:format property="build.timestamp" pattern="yyyy-MM-dd HH:mm:ss" locale="en"/>
         </ant:tstamp>
-        <ant:filter token="pom.currentVersion" value="${pom.currentVersion}" />
+        <ant:tstamp>
+            <ant:format property="version.suffix" pattern="yyyyMMddHHmmss" locale="en"/>
+        </ant:tstamp>
+        <j:set var="snapshotIndex" value="${pom.currentVersion.indexOf('SNAPSHOT')}"/>
+        <j:choose>
+            <j:when test="${snapshotIndex ne '-1'}">
+                <j:set var="buildVersion" value="${pom.currentVersion.substring(0,snapshotIndex)}${version.suffix}"/>
+            </j:when>
+            <j:otherwise>
+                <j:set var="buildVersion" value="${pom.currentVersion}"/>                
+            </j:otherwise>
+        </j:choose>
+        <ant:filter token="pom.currentVersion" value="${buildVersion}" />
         <ant:filter token="build.date" value="${build.timestamp}" />
         <ant:filter token="build.system" value="${os.name}-${os.version}" />
         <ant:filter token="build.jdk" value="${java.vm.vendor}-${java.vm.version}" />
