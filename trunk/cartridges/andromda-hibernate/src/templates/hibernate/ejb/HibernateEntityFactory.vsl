@@ -2,14 +2,13 @@
  * Attention: Generated source! Do not modify by hand!
  */
 package $entity.packageName;
-#set ($thisInheritance = $entity.hibernateInheritanceStrategy)
 #set ($generateImpl = (!(($leafImpl == "true") && !$entity.specializations.empty) ))
 
 /**
  * <p>
  * Factory class.
  * Is able to find and create objects of type ${entity.name}.
- * Hibernate inheritance $thisInheritance
+ * Hibernate inheritance $entity.hibernateInheritanceStrategy
  * Those can be described as follows:
  * </p>
  * @see $entity.fullyQualifiedName

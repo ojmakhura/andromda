@@ -1,6 +1,3 @@
-## Only produce the file if the entity is
-## a root entity in hibernate terms.
-#if ($entity.rootInheritanceEntity)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityName}.hbm.xml")
 <?xml version="1.0" encoding="$xmlEncoding"?>
 <!--
@@ -31,22 +28,18 @@
 #if ($stringUtils.isNotBlank($versionProperty))
         <version name="$versionProperty" type="int" column="$versionProperty"/>
 #end
-## If super inheritance == interface, render super properties etc
-#set ( $generalization = $entity.generalization )
+#set ($generalization = $entity.generalization)
+## If super inheritance is 'interface', render super properties etc
 #if($generalization && $generalization.hibernateInheritanceInterface)
 #renderPropertiesAndAssociations($generalization)
 #end
 ## render the properties and associations (if any)
 #renderPropertiesAndAssociations($entity)
-## Provide the specialization if this is a superclass
-#if (!$entity.specializations.empty)
 ## render the subclass elements if class or subclass strategy.
-#if ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
+#if ($entity.requiresSpecializationMapping)
 #foreach ($entity in $entity.specializations)
 #renderSubClass($entity)
 #end## foreach
-#end## ( $entity.hibernateInheritanceClass || $entity.hibernateInheritanceSubclass )
-#end## end (!$entity.specializations.empty)
+#end## ($entity.requiresMappingSpecialization)
     </class>
 </hibernate-mapping>
-#end

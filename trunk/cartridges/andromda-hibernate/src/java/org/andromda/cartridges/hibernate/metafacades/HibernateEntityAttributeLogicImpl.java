@@ -27,7 +27,7 @@ public class HibernateEntityAttributeLogicImpl
     {
         boolean required = super.isRequired();
         HibernateEntity entity = (HibernateEntity)this.getOwner();
-        if (entity.isHibernateInheritanceSubclass()
+        if (entity.isHibernateInheritanceClass()
             && entity.getGeneralization() != null)
         {
             required = false;
