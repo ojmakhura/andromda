@@ -39,11 +39,7 @@
         		<exclude name="**maven**"/>
         	</fileset>
         	<fileset dir="../andromda-cartridges"/>
-    	</copy>   
-        <zip destfile="./${pom.artifactId}-${pom.currentVersion}.jar"
-             update="true">            
-            <zipfileset dir="lib" prefix="lib"/>
-        </zip>    	 	
+    	</copy>    	
         <java classname="org.andromda.ant.AndromdaAntRunner">
             <classpath>
                 <path refid="andromda.ant.classpath"/>
