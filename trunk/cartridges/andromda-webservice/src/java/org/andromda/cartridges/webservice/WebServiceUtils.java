@@ -14,8 +14,8 @@ import org.andromda.metafacades.uml.ServiceFacade;
 public class WebServiceUtils
 {
     /**
-     * Retrieves all roles from the given <code>services</code>
-     * collection.
+     * Retrieves all roles from the given <code>services</code> collection.
+     * 
      * @param services the collection services.
      * @return all roles from the collection.
      */

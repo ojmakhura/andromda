@@ -124,9 +124,9 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * The default style (if one hasn't be specified in the model).
+     * The property defining the default style to give the web services.
      */
-    private static final String DEFAULT_STYLE = "wrapped";
+    private static final String PROPERTY_DEFAULT_STYLE = "defaultStyle";
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getStyle()
@@ -137,15 +137,16 @@ public class WebServiceLogicImpl
             .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
         if (StringUtils.isEmpty(style))
         {
-            style = DEFAULT_STYLE;
+            style = String.valueOf(this
+                .getConfiguredProperty(PROPERTY_DEFAULT_STYLE));
         }
         return style;
     }
 
     /**
-     * The default use (if one hasn't be specified in the model).
+     * The property defining the default style to give the web services.
      */
-    private static final String DEFAULT_USE = "literal";
+    private static final String PROPERTY_DEFAULT_USE = "defaultUse";
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getUse()
@@ -156,7 +157,8 @@ public class WebServiceLogicImpl
             .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
         if (StringUtils.isEmpty(use))
         {
-            use = DEFAULT_USE;
+            use = String.valueOf(this
+                .getConfiguredProperty(PROPERTY_DEFAULT_USE));
         }
         return use;
     }
@@ -594,7 +596,7 @@ public class WebServiceLogicImpl
             ? (String)property
             : OPERATION_SORT_MODE_NONE;
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isSecured()
      */
