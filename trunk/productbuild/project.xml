@@ -81,6 +81,7 @@
                 <role>Documentation</role>
                 <role>Project Admin</role>
             </roles>
+            <timezone>1</timezone>
         </developer>
         <developer>
             <name>Chad Brandon</name>
@@ -104,29 +105,6 @@
             <timezone>1</timezone>
         </developer>
         <developer>
-            <name>Tony Mowers</name>
-            <id>amowers</id>
-            <email>amowers@users.sourceforge.net</email>
-            <roles>
-                <role>Developer</role>
-                <role>Project Admin</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Juegen Dufner</name>
-            <id>jdufner</id>
-            <email>jdufner@users.sourceforge.net</email>
-            <roles>
-                <role>Documentation</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Harald Weyhing</name>
-            <id>hweyhing</id>
-            <email>hweyhing@users.sourceforge.net</email>
-            <roles/>
-        </developer>
-        <developer>
             <name>Sascha-Matthias Kulawik</name>
             <id>skulawik</id>
             <email>skulawik@users.sourceforge.net</email>
@@ -145,15 +123,37 @@
                 <role>Ant</role>
             </roles>
         </developer>
-    </developers>
-    <contributors>
-        <contributor>
+        <developer>
             <name>Carlos Cuenca</name>
-            <email>carlos@cuenca-diaz.com</email>
+            <email>carloslcuenca@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
             </roles>
-        </contributor>
+        </developer>
+    </developers>
+    <contributors>
+        <contributer>
+            <name>Tony Mowers</name>
+            <id>amowers</id>
+            <email>amowers@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributer>
+        <contributer>
+            <name>Juegen Dufner</name>
+            <id>jdufner</id>
+            <email>jdufner@users.sourceforge.net</email>
+            <roles>
+                <role>Documentation</role>
+            </roles>
+        </contributer>
+        <contributer>
+            <name>Harald Weyhing</name>
+            <id>hweyhing</id>
+            <email>hweyhing@users.sourceforge.net</email>
+            <roles/>
+        </contributer>
     </contributors>
     <build/>
     <reports>
