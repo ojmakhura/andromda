@@ -1037,9 +1037,7 @@ public class StrutsParameterLogicImpl
      */
     protected String handleGetResetValue()
     {
-        String resetValue = null;
-
-        ClassifierFacade type = getType();
+        final ClassifierFacade type = getType();
         if (type != null)
         {
             final String name = getName();
@@ -1048,25 +1046,36 @@ public class StrutsParameterLogicImpl
             if (isValidatorString(typeName)) return "\"" + name + "-test" + "\"";
             if (isValidatorDate(typeName)) return "new java.util.Date()";
 
-            if (getType().isPrimitive())
+            if (type.isPrimitive())
             {
+                if (isValidatorInteger(typeName)) return "(int)" + name.hashCode();
                 if (isValidatorBoolean(typeName)) return "false";
+                if (isValidatorLong(typeName)) return "(long)" + name.hashCode();
+                if (isValidatorChar(typeName)) return "(char)" + name.hashCode();
                 if (isValidatorFloat(typeName)) return "(float)" + name.hashCode() / hashCode();
                 if (isValidatorDouble(typeName)) return "(double)" + name.hashCode() / hashCode();
                 if (isValidatorShort(typeName)) return "(short)" + name.hashCode();
-                if (isValidatorLong(typeName)) return "(long)" + name.hashCode();
                 if (isValidatorByte(typeName)) return "(byte)" + name.hashCode();
-                if (isValidatorChar(typeName)) return "(char)" + name.hashCode();
-                if (isValidatorInteger(typeName)) return "(int)" + name.hashCode();
+            }
+            else
+            {
+                if (isValidatorInteger(typeName)) return "new Integer((int)" + name.hashCode() + ")";
+                if (isValidatorBoolean(typeName)) return "Boolean.FALSE";
+                if (isValidatorLong(typeName)) return "new Long((long)" + name.hashCode() + ")";
+                if (isValidatorChar(typeName)) return "new Character(char)" + name.hashCode() + ")";
+                if (isValidatorFloat(typeName)) return "new Float((float)" + name.hashCode() / hashCode() + ")";
+                if (isValidatorDouble(typeName)) return "new Double((double)" + name.hashCode() / hashCode() + ")";
+                if (isValidatorShort(typeName)) return "new Short((short)" + name.hashCode() + ")";
+                if (isValidatorByte(typeName)) return "new Byte((byte)" + name.hashCode() + ")";
             }
 
-            final String array = constructArray();
-            if (getType().isArrayType()) return array;
-            if (getType().isCollectionType()) return "java.util.Arrays.asList(" + array + ")";
+            if (type.isArrayType()) return constructArray();
+            if (type.isSetType()) return "new java.util.HashSet(java.util.Arrays.asList(" + constructArray() + "))";
+            if (type.isCollectionType()) return "java.util.Arrays.asList(" + constructArray() + ")";
 
-            resetValue = "\"" + name + "-test" + "\"";
+            // maps and others types will simply not be treated
         }
-        return resetValue;
+        return "null";
     }
 
     /**
