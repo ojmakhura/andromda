@@ -10,7 +10,7 @@
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-02" description="First release candidate for version 3.0">
             <action dev="cwbrandon" type="add" issue="CORE-32">
                 All profile information has been externalized into mapping files.  This means that its now <strong>VERY</strong>
-                easy to change the default stereotype names, tagged values, or datatypes.  You can use the new 
+                easy to change the default stereotype names, tagged values, or datatypes.  You can use the new
                 <em>profileMappingsUri</em> to point to a mappings file that overrides any default profile values.
             </action>
             <action dev="draftdog" type="add" issue="BPM-96">
@@ -20,6 +20,10 @@
                 the "hyperlink" feature as available in some UML tools, just make sure to hyperlink to a
                 web page (sometimes UML tools distinguish between different types of hyperlinks).
             </action>
+            <action dev="draftdog" type="update" issue="SITE-14">
+                The <a href="jmi-uml1.4/index.html" target="_blank">JMI 1.4 API</a> has been published on the
+                AndroMDA website, you can find it in the navigation menu under the "developers" section.
+             </action>
             <action dev="cwbrandon" type="update">
                 The tagged value @andromda.ejb.transactionType has been renamed to @andromda.transaction.type
                 (this was needed because of that fact we already had an @andromda.transaction.type and
@@ -74,15 +78,15 @@
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-33">
                 The ability to filter (or select) the cartridges you want 
-                to perform model processing has been introduced.  Please see 
-                <a href="maven-andromda-plugin/properties.html#maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a> 
+                to perform model processing has been introduced.  Please see
+                <a href="maven-andromda-plugin/properties.html#maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a>
                 for more information on how to use this new feature with the maven plugin, or
                 <a href="anttask.html#cartridgeFilter">cartridgeFilter</a> for more information
                 on how to use it directly with the AndroMDA Ant task.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-23">
-                Merge support has been enabled: A new namespace property named 
-                <code>mergeMappingsUri</code> has been introduced which allows you 
+                Merge support has been enabled: A new namespace property named
+                <code>mergeMappingsUri</code> has been introduced which allows you
                 to defined mapping files for merging.  These files behave just like the
                 other mapping files (i.e. languageMappings, sqlMappings, etc) and can be
                 used within each namespace or within the default namespace. Please see
@@ -138,10 +142,10 @@
                 The <a href="andromda-hibernate-cartridge/modeling.html">AndroMDA
                 Hibernate</a> cartridge supports hibernate's Three Inheritance
                 Strategies and allows root entities to be generated as
-                interfaces. 
+                interfaces.
                 </action>
             <action dev="cwbrandon" type="add">
-                The <a href="andromda-spring-cartridge/modeling.html">AndroMDA Spring</a> 
+                The <a href="andromda-spring-cartridge/modeling.html">AndroMDA Spring</a>
                 cartridge can now model (and have generated) full role 
                 based security for the optional Session EJB wrappers.
             </action>
@@ -150,12 +154,12 @@
                 <code>dependencies</code> to <code>targetDependencies</code>.
                 This was necessary due to the fact the dependencies returned were 
                 target dependencies only and did not include source dependencies.  
-                A new association was added to DependencyFacade called 
-                <code>sourceDependencies</code> which can retrieve all source dependencies 
+                A new association was added to DependencyFacade called
+                <code>sourceDependencies</code> which can retrieve all source dependencies
                 for a model element.
             </action>
             <action dev="cwbrandon" type="add">
-                The <a href="andromda-webservice-cartridge/modeling.html">AndroMDA Web Service</a> 
+                The <a href="andromda-webservice-cartridge/modeling.html">AndroMDA Web Service</a>
                 cartridge can now have web services secured through modeling.
             </action>
             <action dev="draftdog" type="add">
@@ -195,7 +199,7 @@
                 The exception handling pattern and a few other related properties are configurable, 
                 you can learn more about them on <a href="andromda-bpm4struts-cartridge/namespace.html">BPM4Struts Namespace Properties</a>.
                 <strong>NOTE:</strong> if the pattern can not be found in an exception processing
-                continues as normal and the exception will be displayed.  
+                continues as normal and the exception will be displayed.
             </action>
             <action dev="draftdog" type="add">
                 Table and action now have their own dedicated CSS style, per
