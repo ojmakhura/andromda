@@ -104,12 +104,6 @@
             <bean:define id="$variableName" name="form" property="$variableName" type="$variableType" scope="page" toScope="page"/>
 #end
         </logic:present>
-#if ($variable.backingListPresent)
-#set ($variableName = $variable.backingListName)
-        <logic:present name="form" property="$variableName" scope="page">
-            <bean:define id="$variableName" name="form" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
-        </logic:present>
-#end
 
 #end
 

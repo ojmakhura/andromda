@@ -14,42 +14,19 @@
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
-#if(!$parameters.empty)
-#set ($mapName = "$str.lowerCamelCaseName($triggerKey)Parameters")
-${indent}<%
-${indent}  java.util.Map $mapName = new java.util.HashMap();
-${indent}  pageContext.setAttribute("$mapName", $mapName, javax.servlet.jsp.PageContext.PAGE_SCOPE);
-${indent}%>
-#end
 #foreach ($parameter in $parameters)
-#if ($parameter.backingListPresent)
-${indent}<logic:iterate id="$parameter.name" name="$formBeanName" property="$parameter.backingListName" scope="page">
-${indent}<%
-${indent}    ${mapName}.put("$parameter.name", $parameter.name);
-${indent}%>
+#set ($propertyName = "${formBeanName}.${parameter.getterName}")
+#if($velocityCount == 1)
+#set ($requestPath = "${action.actionPath}.do?${parameter.name}=${${propertyName}}")
 #else
-${indent}<%
-${indent}    ${mapName}.put("$parameter.name", ${formBeanName}.${parameter.getterName}());
-${indent}%>
-#end
+#set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
 #end
 ${indent}    <p>
-#if($parameters.empty)
-${indent}        <html:link action="$action.actionPath" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"scope="page">
-#else
-${indent}        <html:link action="$action.actionPath" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"name="$mapName" scope="page">
+${indent}        <html:link page="${requestPath}" onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()">
 #end
 ${indent}            <bean:message key="$triggerKey"/>:
-#if(!$parameters.empty)
-${indent}            <bean:write name="$mapName" scope="page"/>
-#end
 ${indent}        </html:link>
 ${indent}    </p>
-#foreach ($parameter in $parameters)
-#if ($parameter.backingListPresent)
-${indent}    </logic:iterate>
-#end
-#end
 #if ($securityEnabled)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
