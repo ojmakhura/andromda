@@ -40,7 +40,7 @@ public class ServiceOperationFacadeLogicImpl
         {
             roles.addAll(((ServiceFacade)this.getOwner()).getRoles());
         }
-        Collection operationRoles = this.getSourceDependencies();
+        Collection operationRoles = this.getTargetDependencies();
         CollectionUtils.filter(operationRoles, new Predicate()
         {
             public boolean evaluate(Object object)

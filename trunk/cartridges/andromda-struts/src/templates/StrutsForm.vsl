@@ -29,7 +29,7 @@ import $class2.type.fullyQualifiedName;
 #end
 #end
 
-#foreach ( $dep in $class.targetDependencies )
+#foreach ( $dep in $class.sourceDependencies )
     #set ($class2 = $dep.targetElement)
     #if ($class2)
         #set ($class2packagename = $class2.type.packageName)

@@ -265,14 +265,14 @@ public class OperationFacadeLogicImpl
 
         // first get any dependencies on this operation's
         // owner (because these will represent the default exception(s))
-        Collection ownerDependencies = this.getOwner().getTargetDependencies();
+        Collection ownerDependencies = this.getOwner().getSourceDependencies();
         if (ownerDependencies != null && !ownerDependencies.isEmpty())
         {
             CollectionUtils.filter(ownerDependencies, new ExceptionFilter());
             exceptions.addAll(ownerDependencies);
         }
 
-        Collection operationDependencies = this.getTargetDependencies();
+        Collection operationDependencies = this.getSourceDependencies();
         // now get any exceptions directly on the operation
         if (operationDependencies != null && !operationDependencies.isEmpty())
         {
