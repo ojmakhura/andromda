@@ -38,14 +38,16 @@ public class StrutsActivityGraphLogicImpl
         return firstAction;
     }
 
+    /**
+     * This method is 'overriding' the handleGetUseCase method from the ActivityGraphFacade class.
+     */
     protected Object handleGetUseCase()
     {
+        // this does not cause an endless loop because this facade does not define 'getUseCase'
         UseCaseFacade useCase = getUseCase();
 
-        /*
-         * If this was not the case then look for a use-case pointing to this activity graph using a tagged
-         * value
-         */
+        // If this was not the case then look for a use-case pointing to this activity graph using a tagged
+        // value
         if (useCase == null)
         {
             useCase = getModel().findUseCaseWithTaggedValueOrHyperlink(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY,getName());
