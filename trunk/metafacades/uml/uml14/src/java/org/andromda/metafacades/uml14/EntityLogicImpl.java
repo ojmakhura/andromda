@@ -313,9 +313,13 @@ public class EntityLogicImpl
         {
             public void execute(Object object)
             {
-                list.append(((AttributeFacade)object).getType()
-                    .getFullyQualifiedName());
-                list.append(comma);
+                AttributeFacade attribute = (AttributeFacade)object;
+                if (attribute.getType() != null)
+                {
+                    list.append(attribute.getType()
+                        .getFullyQualifiedName());
+                    list.append(comma);
+                }
             }
         });
         if (list.toString().endsWith(comma))
