@@ -172,11 +172,12 @@ public class ModelProcessor
     }
 
     /**
-     * Processes a single <code>model</code>
+     * Processes multiple <code>models</code>.
      * 
      * @param repository the RepositoryFacade that will be used to read/load the
      *        model
      * @param models the Model(s) to process.
+     * @param cartridges the collection of cartridge used to process the models.
      */
     private void process(
         RepositoryFacade repository,
