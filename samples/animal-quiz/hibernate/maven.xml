@@ -1,0 +1,127 @@
+<project xmlns:ant="jelly:ant"
+  		 xmlns:maven="jelly:maven">
+  		 
+    <preGoal name="java:compile"> 
+    	
+        <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
+            <ant:classpath>
+				<ant:path refid="maven.dependency.classpath"/>
+				<ant:pathelement path="${pom.dependencyClasspath}"/>
+            </ant:classpath>
+        </ant:taskdef>
+        
+        <ejbdoclet destdir="${maven.build.src}"
+                   ejbspec="2.0"
+                   force="false">
+
+            <fileset dir="${maven.build.src}">
+                <include name="**/*Bean.java" />
+            </fileset>
+
+            <utilobject kind="logical" cacheHomes="true"/>
+
+            <remoteinterface/>
+            <homeinterface/>
+            <localinterface/>
+            <localhomeinterface/>
+
+            <deploymentdescriptor
+                destdir="${ejb.descriptor.dir}"/>
+
+            <jboss version="3.0"
+                   xmlencoding="UTF-8"
+                   typemapping="Hypersonic SQL"
+                   datasource="${dataSource}"
+                   destdir="${ejb.descriptor.dir}"/>
+
+        </ejbdoclet>
+        
+        <!--
+             XDoclet stores the *Bean classes into ejb-jar.xml
+             but the used andromda templates have created
+             subclasses *BeanImpl.  Replace
+             the names in the deployment descriptor so that
+             everyone is happy.
+         -->
+        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml" 
+        	token="Bean&lt;/ejb-class&gt;"
+        	value="BeanImpl&lt;/ejb-class&gt;">
+        </ant:replace>
+        
+		<!-- add the paths of the generated source to the
+		     maven compile path -->
+	 	<ant:path
+	       	id="andromda.ejb.gen.src"
+	       	location="${maven.build.src}"/>
+		<maven:addPath
+	       	id="maven.compile.src.set"
+	       	refid="andromda.ejb.gen.src"/>
+        
+    </preGoal>
+    
+    <preGoal name="java:compile"> 
+        <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
+            <ant:classpath>
+				<ant:path refid="maven.dependency.classpath"/>
+				<ant:pathelement path="${pom.dependencyClasspath}"/>
+            </ant:classpath>
+        </ant:taskdef>
+        
+        <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
+            <fileset dir="${maven.build.src}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${maven.src.dir}/java">
+                <include name="**/*.java" />
+            </fileset>
+            <hibernate version="2.0" />
+        </hibernatedoclet>    	
+    </preGoal>
+
+  	<postGoal name="ejb:ejb">
+				
+		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
+		
+        <ant:path id="schema.classpath">
+            <ant:path refid="maven.dependency.classpath"/>
+            <ant:path location="${maven.build.dest}"/>
+        </ant:path>
+
+        <ant:fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
+            <ant:include name="**/*.hbm.xml"/>
+        </ant:fileset>
+
+        <ant:pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+
+        <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <ant:arg value="--output=${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"/>
+            <ant:arg value="--text"/>
+            <ant:arg value="--quiet"/>
+            <ant:arg line="${hibernate.mappings}"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <ant:classpath refid="schema.classpath" />
+        </ant:java>
+
+        <ant:copy 
+            file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+            tofile="${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"/>      
+        
+        <ant:replaceregexp file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+                       match="^(alter table .* drop constraint|drop table)"
+                       replace="-- SKIP \1"
+                       flags="i"
+                       byline="true"/>
+
+        <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <ant:arg value="--output=${hibernate.schema.output.dir}/hibernate-schema-remove.sql"/>
+            <ant:arg value="--text"/>
+            <ant:arg value="--quiet"/>
+            <ant:arg value="--drop"/>
+            <ant:arg line="${hibernate.mappings}"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <ant:classpath refid="schema.classpath" />
+        </ant:java>
+
+  	</postGoal>
+  		 
+</project>
