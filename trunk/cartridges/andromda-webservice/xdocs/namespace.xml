@@ -141,7 +141,23 @@
 				    <td>
 						No, default is <code>false</code>.
 				    </td>
-				</tr>      	        		        	        	        	     	             	        	
+				</tr>      	
+				<tr>
+					<td>
+						ejbJndiNamePrefix
+					</td>
+					<td>
+						The prefix given to the JNDI name of the EJB provider.  This
+						may be specified by another cartridge (i.e. the 
+						<a href="../andromda-hibernate-cartridge/namespace.html#ejbJndiNamePrefix">Hibernate</a>
+						cartridge, <a href="../andromda-ejb-cartridge/namespace.html#jndiName">EJB</a>
+						cartridge, etc.) so it must be specified here in order to give 
+						the correct JNDI name of an EJB provider.
+					</td>
+					<td>
+						No, default is <code>no prefix</code>.
+					</td>
+				</tr>          		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
