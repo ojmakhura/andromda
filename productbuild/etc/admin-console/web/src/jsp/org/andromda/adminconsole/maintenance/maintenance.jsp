@@ -33,13 +33,36 @@
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-change-table.jsp" flush="false"/>
 
-        <c:if test="${tableConfig.insertable}">
-            <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
-        </c:if>
+        <table>
+            <tr>
+                <c:if test="${tableConfig.insertable}">
+                    <td>
+                        <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
+                    </td>
+                </c:if>
+                <td id="importedTables">
+                    <c:if test="${currentTable.importingTablesCount > 0}">
+                        <bean:message key="this.table.is.referenced.from" bundle="custom"/>
+                        <ul>
+                            <c:forEach var="foreignTable" items="${currentTable.importingTables}">
+                                <c:if test="${column.table.name != foreignTable.name}"> <%-- don't render link to yourself --%>
+                                    <c:if test="${acf:contains(metaDataSession.tableNames,foreignTable.name)}"> <%-- only render allowed tables --%>
+                                        <li>
+                                            <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
+                                                paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
+                                                ${foreignTable.name}
+                                            </html:link>
+                                        </li>
+                                    </c:if>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </td>
+            </tr>
+        </table>
 
-<%--
-        <div id="applyChanges" class="action">
---%>
+        <div id="recordTable">
             <html:form action="/Maintenance/MaintenanceDelete" onsubmit="return verifySelection();">
                 <display:table name="${metaDataSession.currentTableData}" id="row"
                                requestURI="${pageContext.request.requestURL}"
@@ -70,9 +93,7 @@
                 <input type="submit" value="<bean:message key="maintenance.maintenance.update"/>"
                        onclick="this.form.name='maintenanceMaintenanceUpdateForm';this.form.action='<html:rewrite action="/Maintenance/MaintenanceUpdate"/>';"/>
             </html:form>
-<%--
         </div>
---%>
 
         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-reset.jsp" flush="false"/>
 
@@ -104,7 +125,6 @@
                 alert('<bean:message key="at.least.one.record.must.be.selected" bundle="custom"/>');
             }
         }
-
 
         return valid;
     }
