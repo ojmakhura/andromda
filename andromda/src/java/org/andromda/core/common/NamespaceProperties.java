@@ -36,16 +36,4 @@ public class NamespaceProperties
      * </p>
      */
     public static final String PROFILE_MAPPINGS_URI = "profileMappingsUri";
-    
-    /**
-     * <p>
-     * The URI to the logging configuration file.  This is an optional namespace
-     * property that may be specified to customize the logging of AndroMDA. You can
-     * retrieve the default log4j.xml contained within the {@link org.andromda.core.common}
-     * package, customize it, and then specify the location of this logging file
-     * with this property (it only really makes sense to specify this property in the
-     * default namespace as it can only be configured at application initialization).
-     * </p>
-     */
-    public static final String LOGGING_CONFIGURATION_URI = "loggingConfigurationUri";
 }
