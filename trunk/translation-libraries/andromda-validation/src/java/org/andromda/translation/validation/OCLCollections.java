@@ -60,7 +60,7 @@ public final class OCLCollections
 
         for (Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
-            Object object = (Object) iterator.next();
+            Object object = iterator.next();
             if (object instanceof Number)
                 sum += ((Number)object).doubleValue();
             else
