@@ -230,7 +230,7 @@ public class AttributeFacadeLogicImpl
      */
     protected boolean handleIsEnumerationLiteral()
     {
-        final ClassifierFacade owner = getOwner();
+        final ClassifierFacade owner = this.getOwner();
         return (owner == null) ? false : owner.isEnumeration();
     }
 
@@ -240,13 +240,11 @@ public class AttributeFacadeLogicImpl
     protected String handleGetEnumerationValue()
     {
         String value = null;
-
-        if (isEnumerationLiteral())
+        if (this.isEnumerationLiteral())
         {
-            value = getDefaultValue();
+            value = this.getDefaultValue();
             value = (value == null) ? getName() : String.valueOf(value);
         }
-
         if (this.getType().isStringType())
         {
             value = "\"" + value + "\"";
