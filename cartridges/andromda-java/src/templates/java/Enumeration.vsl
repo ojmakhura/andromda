@@ -34,7 +34,7 @@ $attribute.getDocumentation("     * ")
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return value;
+		return "" + value;
 	}
 	
 	/**
