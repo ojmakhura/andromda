@@ -10,7 +10,14 @@
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils"/>
     <!-- cartridge-templateObject merge-point-->  
 
+    <property reference="ejbViewType" default="local"/>
+    <property reference="securityRealm" default=""/>
+    <!-- not really used from the template except to check if it has been defined
+         or not, so that we can determine whether or not we'll generate session ejbs-->
+    <property reference="session-beans" default=""/>
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
+    <!-- the name to give the service locator class -->
+    <property reference="serviceLocatorName" default="ServiceLocator"/>
     <!-- externalise the hibernate ID generator class see the hibernate doc for details -->
     <property reference="idGeneratorClass" default="uuid.hex"/>
 	<!-- Only generate the Impl at the leaf, useful when inheritance
@@ -113,30 +120,6 @@
 	</template>
 	
     <template
-        path="templates/hibernate/HibernateSessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="session-beans"
-        overwrite="true">
-        <modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/hibernate/HibernateSessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="session-impls"
-        overwrite="false">
-        <modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/hibernate/hibernate.cfg.xml.vsl"
         outputPattern="hibernate.cfg.xml"
         outlet="configuration"
@@ -182,17 +165,17 @@
             </modelElement>
         </modelElements>
     </template>
-
+    
     <template
         path="templates/hibernate/ejb/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
-        outlet="session-ejbs"
+        outlet="session-beans"
         overwrite="true"
         required="false"
         outputToSingleFile="true">
         <modelElements variable="services">
            <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateService"/>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
             </modelElement>
         </modelElements>
     </template>
@@ -200,13 +183,76 @@
     <template
         path="templates/hibernate/ejb/jboss.xml.vsl"
         outputPattern="META-INF/jboss.xml"
-        outlet="session-ejbs"
+        outlet="session-beans"
         overwrite="true"
         required="false"
         outputToSingleFile="true">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateService"/>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/hibernate/ejb/HibernateSessionEJBLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/hibernate/ejb/HibernateSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="session-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSession.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true"
+        required="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSessionHome.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true"
+        required="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ServiceFacade"/>
             </modelElement>
         </modelElements>
     </template>

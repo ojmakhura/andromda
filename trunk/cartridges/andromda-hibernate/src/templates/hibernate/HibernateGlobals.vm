@@ -1,5 +1,5 @@
 ## Define whether Session Ejbs are enabled
-#set ($ejbsEnabled = $stringUtils.isNotBlank($session-ejbs))
+#set ($ejbsEnabled = $stringUtils.isNotBlank($session-beans))
 ## Define whether or not daos are enabled
 #set ($daosEnabled = $stringUtils.isNotBlank($daos))
 #set ($requiredCheckEnabled = $parameterRequiredCheck.equalsIgnoreCase('true'))

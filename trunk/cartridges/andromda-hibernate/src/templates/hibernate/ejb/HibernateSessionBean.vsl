@@ -1,3 +1,5 @@
+#parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
+#if ($ejbsEnabled)
 package $service.packageName;
 
 import javax.ejb.EJBException;
@@ -44,7 +46,7 @@ $service.getDocumentation(" * ")
  *        remote-class="${service.fullyQualifiedName}Home"
  *        local-class="${service.fullyQualifiedName}LocalHome"
  * @ejb.util generate="physical"
-#foreach ( $serviceRef in $service.serviceReferences )
+#foreach ($serviceRef in $service.serviceReferences)
 #set ($serviceRef = $serviceRef.targetElement)
  * @ejb.ejb-ref
  *        ejb-name="$serviceRef.name"
@@ -78,20 +80,12 @@ public abstract class ${service.name}Bean
 
    /**
 $attribute.getDocumentation("     * ")
-    *
-    * @ejb.interface-method view-type="both"
-    * @ejb.transaction      type="Required"
-    *
     */
     public $attributeTypeName ${attribute.getterName}()
     {
         return $attribute.name;
     }
 
-   /**
-    * @ejb.interface-method view-type="both"
-    * @ejb.transaction      type="Required"
-    */
     public void ${attribute.setterName}($attributeTypeName newValue)
     {
         $attribute.name = newValue;
@@ -128,11 +122,9 @@ $operation.getDocumentation("     * ")
      * @ejb.transaction type="Required"
 #end
      */
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
         throws $operation.exceptionList
-#else
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #end
     {
         Session session = null;
@@ -159,7 +151,7 @@ $operation.getDocumentation("     * ")
 #foreach ( $exception in $operation.exceptions )
         catch ($exception.fullyQualifiedName e)
         {
-           _ctx.setRollbackOnly();
+           this.ctx.setRollbackOnly();
            throw e;
         }
 #end
@@ -187,10 +179,6 @@ $operation.getDocumentation("     * ")
 #end
    // ---------------- create methods -------------------------
 
-   /**
-    * @ejb.create-method
-    * @ejb.transaction type="Required"
-    */
     public void ejbCreate ()
            throws javax.ejb.CreateException
     {
@@ -204,10 +192,6 @@ $operation.getDocumentation("     * ")
 #if ($stateful)
    // ---------------- create methods with separate attributes --------------------
 
-   /**
-    * @ejb.create-method
-    * @ejb.transaction type="Required"
-    */
     public void ejbCreate $service.operationCallFromAttributes
            throws javax.ejb.CreateException
     {
@@ -224,27 +208,27 @@ $operation.getDocumentation("     * ")
 #end
    // ---------------- Hibernate helpers -------------------------
 
-    protected javax.ejb.SessionContext _ctx = null;
+    protected javax.ejb.SessionContext ctx = null;
 
-    private static SessionFactory _sessionFactory = null;
+    private static SessionFactory sessionFactory = null;
 
     public void setSessionContext( javax.ejb.SessionContext ctx )
     {
-        _ctx = ctx;
+        this.ctx = ctx;
     }
 
     private SessionFactory getSessionFactory() throws HibernateException, NamingException
     {
-        if( _sessionFactory == null )
+        if(this.sessionFactory == null)
         {
-            _sessionFactory = HibernateUtils.getSessionFactory();
+            this.sessionFactory = HibernateUtils.getSessionFactory();
         }
-        return _sessionFactory;
+        return this.sessionFactory;
     }
 
     private Session getSession() throws HibernateException, NamingException
     {
-        return getSessionFactory().openSession();
+        return this.getSessionFactory().openSession();
     }
 
     // ---------------- accessor methods for (session!) bean references ---------------
@@ -256,17 +240,21 @@ $operation.getDocumentation("     * ")
     * Obtains local home interface from default initial context
     * @return Local home interface for ${service.name}. Lookup using bean ref name.
     */
-    protected static ${homeInterfaceName} get${homeInterfaceName}() throws NamingException
+    protected static $homeInterfaceName get${homeInterfaceName}() throws NamingException
     {
         InitialContext initialContext = new InitialContext();
-        try {
+        try 
+        {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
             $homeInterfaceName home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
             return home;
-        } finally {
+        } 
+        finally 
+        {
             initialContext.close();
         }
     }
 
 #end
 }
+#end
