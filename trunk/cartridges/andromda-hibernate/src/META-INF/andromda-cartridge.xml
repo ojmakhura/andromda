@@ -9,13 +9,8 @@
     
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
-
-    <!-- copy resources -->
-	<resource
-		path="resources/hibernate/*.java"
-		outputPattern="org/andromda/persistence/hibernate/{0}"
-		outlet="entities"
-		overwrite="true"/>
+	
+	<property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"
@@ -46,6 +41,20 @@
             <modelElement stereotype="Entity"/>   
         </modelElements> 
     </template>
+	
+	<template 
+		path="templates/hibernate/HibernateByteBlobType.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="entities" 
+		overwrite="true"
+		required="false"/>
+	
+	<template 
+		path="templates/hibernate/HibernateStringClobType.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="entities" 
+		overwrite="true"
+		required="false"/>
 
     <template
         path="templates/hibernate/HibernateSessionBean.vsl"

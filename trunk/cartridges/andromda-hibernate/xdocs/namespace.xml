@@ -66,7 +66,19 @@
 	        		<td>
 	        			Yes
 	        		</td>
-	        	</tr>	        	
+	        	</tr>	   
+				<tr>
+					<td>
+						customTypesPackage
+					</td>
+					<td>
+						The package to which hibernate custom types contained
+						within the cartridge should be copied.
+					</td>
+					<td>
+						No, default is <code>org.andromda.persistence.hibernate</code>
+					</td>
+				</tr>     	
 	        	<tr>
 		          	<td>
 		          		entities
