@@ -282,7 +282,7 @@ public class MavenPluginUtils {
      */
     private void initializeCartridgeNames() {
         this.cartridgeNames = new HashMap();
-        CartridgeFinder.instance().discoverCartridges();
+        CartridgeFinder.instance().discoverCartridges(false);
         Collection cartridges = 
             CartridgeFinder.instance().getCartridges();
         if (cartridges != null && !cartridges.isEmpty()) {
