@@ -88,7 +88,7 @@ public class ModelPackages
      * Determines whether or not the <code>packageName</code> should be
      * processed. If <code>processAllModelPackages</code> is true, then this
      * method will return false only if the ModelPackage corresponding to the
-     * <code>packageName</code> has shouldProcess set to true.
+     * <code>packageName</code> has shouldProcess set to false.
      * 
      * @param packageName the name of the model package to check.
      * @return boolean
