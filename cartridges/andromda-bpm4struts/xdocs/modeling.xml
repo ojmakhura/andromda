@@ -204,6 +204,24 @@
                                     Must be a non-negative integer. This feature allows splitting a form
                                     over several different tabs.</td>
                             </tr>
+                            <tr>
+                                <td>@andromda.struts.view.field.tablelink</td>
+                                <td>Action parameter</td>
+                                <td>N/A</td>
+                                <td>The value is of the format
+                                    <code>table.column</code>
+                                    where
+                                    <code>table</code> denotes a parameter coming into
+                                    the page of type Collection (and containing a tagged value
+                                    to indicate it is to be displayed as a table); the
+                                    <code>column</code> part is used to indicate which column of
+                                    the corresponding table is to be used for linking.
+                                    The result will be that the specified table column will contain
+                                    a hyperlink reference to the action on which this parameter
+                                    resides, this is useful to eg. display a list of persons and view
+                                    their details by simply clicking on their names in the table.
+                                </td>
+                            </tr>
                         </table>
                     </blockquote>
                 </p>
