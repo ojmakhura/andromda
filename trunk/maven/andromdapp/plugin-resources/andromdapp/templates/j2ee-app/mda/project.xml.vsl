@@ -137,7 +137,7 @@
 #if ($spring)
                  <serviceAccessorPattern>${pom.package}.ServiceLocator.instance().get{1}()</serviceAccessorPattern>
 #else
-                 <serviceAccessorParttern>{0}.{1}Util.getHome().create()</serviceAccessorPattern>
+                 <serviceAccessorPattern>{0}.{1}Util.getHome().create()</serviceAccessorPattern>
 #end
             </properties>
         </dependency>
