@@ -68,6 +68,26 @@ Please define the test archive containing the expected output '${context.getVari
                 </j:forEach>           
             </ant:namespace>    	
             
+            <!-- set the repository module search path -->
+            <ant:repository>
+                <ant:moduleSearchPath>
+                    <j:set var="index" value="0"/>
+                    <j:forEach begin="0" end="${maximum}" indexVar="index">
+                        <j:set var="indexVarName" value="andromda.cartridge.repository.moduleSearchPath.location.${index}"/>
+                        <j:set var="location" value="${context.getVariable(indexVarName)}"/>
+                        <j:if test="${location != null}">
+                        
+                            <ant:pathelement>
+                                <ant:setProperty 
+                                    name="location" 
+                                    value="${location}"/>                                        
+                            </ant:pathelement>
+                             
+                        </j:if>
+                    </j:forEach>
+                </ant:moduleSearchPath>
+            </ant:repository>
+            
         </ant:andromda-test>
         
         <!-- set the testcase to run -->

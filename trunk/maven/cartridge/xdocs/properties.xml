@@ -73,6 +73,21 @@
                             the files will be compared as Strings.
                         </td>
                     </tr> 
+					<tr>
+						<td>
+							andromda.cartridge.repository.moduleSearchPath.location.<em>n</em>
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							Specifies a path to search when looking for modules used
+							from your test model specified by 
+							<code>andromda.cartridge.model.uri</code>, where <em>n</em>
+							can be any number of paths to search, <em>n</em> starts
+							with 0. (i.e. andromda.cartridge.repository.moduleSearchPath.location.0=${basedir}/../../etc/profile/src/uml)
+						</td>
+					</tr> 
                 </table>
             </subsection>
 			<subsection name="Including additional test dependencies">

@@ -28,6 +28,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.log.LogSystem;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 
 /**
  * The TemplateEngine implementation for VelocityTemplateEngine template
@@ -56,6 +57,11 @@ public class VelocityTemplateEngine
     private static final String PROPERTIES_SUFFIX = "-velocity.properties";
 
     /**
+     * The location of external templates
+     */
+    private String mergeLocation;
+
+    /**
      * Stores additional properties specified within the plugin within the file
      * META-INF/'plugin name'-velocity.properties
      */
@@ -79,7 +85,6 @@ public class VelocityTemplateEngine
      */
     public void init(String pluginName) throws Exception
     {
-
         this.initLogger(pluginName);
 
         // perform only this initialization only once
@@ -87,21 +92,28 @@ public class VelocityTemplateEngine
         {
             this.velocityEngine = new VelocityEngine();
 
-            ExtendedProperties ep = new ExtendedProperties();
+            ExtendedProperties properties = new ExtendedProperties();
 
             // Tell VelocityTemplateEngine it should also use the
             // classpath when searching for templates
+            // IMPORTANT: file,andromda.plugins the ordering of these
+            // two things matters, the ordering allows files to override
+            // the resources found on the classpath.
             velocityEngine.addProperty(
                 VelocityEngine.RESOURCE_LOADER,
-                "andromda.plugins,file");
+                "file,classpath");
 
-            ep.setProperty("andromda.plugins." + VelocityEngine.RESOURCE_LOADER
-                + ".class", ClasspathResourceLoader.class.getName());
+            properties.setProperty(
+                "file.resource.loader.class",
+                FileResourceLoader.class.getName());
 
-            // Tell VelocityTemplateEngine not to use its own logger but to use
-            // the logger
-            // of this plugin.
-            ep.setProperty(
+            properties.setProperty(
+                "classpath.resource.loader.class",
+                ClasspathResourceLoader.class.getName());
+
+            // Tell VelocityTemplateEngine not to use its own logger
+            // the logger but to use of this plugin.
+            properties.setProperty(
                 VelocityEngine.RUNTIME_LOG_LOGSYSTEM,
                 new VelocityLoggingReceiver());
 
@@ -109,15 +121,27 @@ public class VelocityTemplateEngine
             for (Iterator iter = getMacroLibraries().iterator(); iter.hasNext();)
             {
                 String libraryName = (String)iter.next();
-                ep.addProperty(VelocityEngine.VM_LIBRARY, libraryName);
+                properties.addProperty(VelocityEngine.VM_LIBRARY, libraryName);
             }
 
-            velocityEngine.setExtendedProperties(ep);
+            velocityEngine.setExtendedProperties(properties);
             velocityEngine.init();
         }
 
+        String fileResourcePathProperty = "file.resource.loader.path";
+        if (this.mergeLocation == null)
+        {
+            // clear out any merge location (if one is in the engine)
+            velocityEngine.clearProperty(fileResourcePathProperty);
+        }
+        else
+        {
+            // set the file resource path (the merge location)
+            velocityEngine.addProperty(
+                fileResourcePathProperty,
+                this.mergeLocation);
+        }
         this.addProperties(pluginName);
-
     }
 
     /**
@@ -126,7 +150,6 @@ public class VelocityTemplateEngine
      */
     private void addProperties(String pluginName) throws IOException
     {
-
         //reset any properties from previous processing
         this.properties = null;
 
@@ -204,10 +227,6 @@ public class VelocityTemplateEngine
                 velocityContext.put(name, value);
             }
         }
-
-        // Process the VSL template with the context and write out
-        // the result as the ouput
-
         Template template = velocityEngine.getTemplate(templateFile);
         template.merge(velocityContext, output);
     }
@@ -220,11 +239,9 @@ public class VelocityTemplateEngine
         String evaluatedExpression = null;
         if (this.velocityContext != null && StringUtils.isNotEmpty(expression))
         {
-
             try
             {
                 StringWriter writer = new StringWriter();
-
                 velocityEngine.evaluate(
                     this.velocityContext,
                     writer,
@@ -256,6 +273,14 @@ public class VelocityTemplateEngine
     public void addMacroLibrary(String libraryName)
     {
         this.macrolibs.add(libraryName);
+    }
+
+    /**
+     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(java.lang.String)
+     */
+    public void setMergeLocation(String mergeLocation)
+    {
+        this.mergeLocation = mergeLocation;
     }
 
     /**
