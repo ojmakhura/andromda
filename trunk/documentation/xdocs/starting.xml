@@ -4,6 +4,7 @@
 
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <author email="cwbrandon@users.sourceforge.new">Chad Brandon</author>
         <title>AndroMDA - Installation</title>
         <gennews>yes</gennews>
     </properties>
@@ -192,9 +193,9 @@
             </p>
             <p class="std">
                 Simply typing 'maven' in C:\development\java\my-project will build your
-                application and it will put all the binaries into the local
-                Maven repository (most probably this is the .maven directory in your home
-                directory)
+                application and it will put all the binaries into your local
+                Maven repository (by default, this is the .maven directory in your 
+                user home, i.e. $HOME for linux/unix, %USERPROFILE% for windows).
             </p>
             <p class="std">
                 Optionally you can go into a subdirectory to build it separately from
