@@ -23,7 +23,8 @@
 		<j:set var="version" value="${maven.andromda.bootstrap.version}"/>		
 		<util:tokenize var="artifacts" delim=",">${maven.andromda.bootstrap.artifacts}</util:tokenize>
 		<j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
-		<ant:path id="maven.andromda.classpath">		  		
+		<ant:path id="maven.andromda.classpath">	  		
+			<ant:property name="mavenDependencyClasspath" refid="maven.dependency.classpath"/>
             <j:forEach var="artifact" items="${artifacts}">           	
             	<j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
             	<j:set var="artifactId" value="${pluginUtils.getArtifactId(artifact)}"/>
@@ -54,15 +55,19 @@
 						<j:set 
 							var="pluginDependencyPath" 
 							value="${pluginUtils.removeFromPath(plugin.dependencyClasspath, artifactLocation)}"/>
+						<j:set 
+							var="mavenDependencyPath" 
+							value="${pluginUtils.removeFromPath(mavenDependencyClasspath, artifactLocation)}"/>
 					</j:when>
 					<j:otherwise>
 						<ant:pathelement location="${artifactLocation}"/>
 						<j:set var="pluginDependencyPath" value="${plugin.dependencyClasspath}"/>
+						<j:set var="mavenDependencyPath" value="${mavenDependencyClasspath}"/>
 					</j:otherwise>			
 				</j:choose>
 			</j:forEach>	
+			<ant:pathelement path="${mavenDependencyPath}"/> 
 			<ant:pathelement path="${pluginDependencyPath}"/> 
-            <ant:path refid="maven.dependency.classpath"/>
 		</ant:path>
 	</goal>
 
@@ -84,7 +89,7 @@
 				<ant:echo>+--------------------------------------------+</ant:echo>     			
     		</j:otherwise>
     	</j:choose>
-
+    
   		<ant:taskdef
             name="andromda"
             classname="org.andromda.core.anttasks.AndroMDAGenTask"
@@ -134,7 +139,7 @@
 						<j:set var="namespaceName" value="default"/>
 					</j:when>
 					<j:otherwise>
-						<j:set var="namespaceName" value="${pluginUtils.getCartridgeName(dependency.artifactId)}"/>
+						<j:set var="namespaceName" value="${pluginUtils.getCartridgeName(artifact.file.toURL())}"/>
 					</j:otherwise>
 				</j:choose>
 				
