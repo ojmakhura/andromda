@@ -192,6 +192,18 @@
 						No, default is <code>{0}.{1}Home</code>
 					</td>
 				</tr> 
+				<tr>
+					<td>
+						defaultProvider
+					</td>
+					<td>
+						The default provider to use for the webservice, this can
+                        be either <code>EJB</code> or <code>RPC</code>.
+					</td>
+					<td>
+						No, default is <code>RPC</code>
+					</td>
+				</tr> 
 			</table>
 			<subsection name="WS-Security Specific Properties">
 				<table>
