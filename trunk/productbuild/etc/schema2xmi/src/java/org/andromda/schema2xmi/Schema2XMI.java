@@ -69,13 +69,7 @@ public class Schema2XMI
      * The command line argument specifying the tables names to match on
      */
     private static final String TABLE_PATTERN = "t";
-
-    /**
-     * The command line argument specifying whether or not to include tagged
-     * values.
-     */
-    private static final String INCLUDE_TAGGED_VALUES = "v";
-    
+        
     /**
      * The command line argument specifying the class stereotype
      * name.
@@ -88,6 +82,18 @@ public class Schema2XMI
      */
     private static final String IDENTIFIER_STEREOTYPES = "I";
 
+    /**
+     * The command line argument specifiying the name of the
+     * tagged value to use for tagged column names.
+     */
+    private static final String TABLE_TAGGEDVALUE = "V";
+    
+    /**
+     * The command line argument specifiying the name of the
+     * tagged value to use for tagged column names.
+     */
+    private static final String COLUMN_TAGGEDVALUE = "v";
+    
     /**
      * Configure the CLI options.
      */
@@ -153,13 +159,6 @@ public class Schema2XMI
         options.addOption(option);
 
         option = new Option(
-            INCLUDE_TAGGED_VALUES,
-            true,
-            "Whether or not to include persistence tagged values, default is true");
-        option.setLongOpt("taggedValues");
-        options.addOption(option);
-
-        option = new Option(
             CLASS_STEREOTYPES,
             true,
             "Comma seperated list of stereotype names to add to the created class");
@@ -172,7 +171,21 @@ public class Schema2XMI
             "Comma seperated list of stereotype names to add to any class identifiers");
         option.setLongOpt("identifierStereotypes");
         options.addOption(option);
+ 
+        option = new Option(
+            TABLE_TAGGEDVALUE,
+            true,
+            "The tagged value to use for storing the table name");
+        option.setLongOpt("tableTaggedValue");
+        options.addOption(option);
         
+        option = new Option(
+            COLUMN_TAGGEDVALUE,
+            true,
+            "The tagged value to use for storing the column name");
+        option.setLongOpt("columnTaggedValue");
+        options.addOption(option);
+                
         option = new Option(
             OUTPUT_NAME,
             true,
@@ -247,13 +260,14 @@ public class Schema2XMI
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
                 transformer.setTableNamePattern(commandLine
                     .getOptionValue(TABLE_PATTERN));
-                transformer.setIncludeTaggedValues(
-                    Boolean.valueOf(
-                        commandLine.getOptionValue(INCLUDE_TAGGED_VALUES)).booleanValue());
                 transformer.setClassStereotypes(
                     commandLine.getOptionValue(CLASS_STEREOTYPES));
                 transformer.setIdentifierStereotypes(
                     commandLine.getOptionValue(IDENTIFIER_STEREOTYPES));
+                transformer.setTableTaggedValue(
+                    commandLine.getOptionValue(TABLE_TAGGEDVALUE));
+                transformer.setColumnTaggedValue(
+                    commandLine.getOptionValue(COLUMN_TAGGEDVALUE));
                 
                 String outputLocation = commandLine.getOptionValue(OUTPUT_NAME);
                 transformer.transform(inputModel, outputLocation);

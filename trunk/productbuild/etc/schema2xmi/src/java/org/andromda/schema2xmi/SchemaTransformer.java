@@ -18,7 +18,6 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.repository.RepositoryFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -101,12 +100,6 @@ public class SchemaTransformer
      * Stores the foreign keys for each table.
      */
     private Map foreignKeys = new HashMap();
-
-    /**
-     * Whether or not to include the appropriate tagged values to the generated
-     * classes, attributes and associationEnds.
-     */
-    private boolean includeTaggedValues = true;
     
     /**
      * Specifies the Class stereotype.
@@ -117,6 +110,18 @@ public class SchemaTransformer
      * Specifies the identifier stereotype.
      */
     private String identifierStereotypes = null;
+    
+    /**
+     * Stores the name of the column tagged
+     * value to use for storing the name of the column.
+     */
+    private String columnTaggedValue = null;
+    
+    /**
+     * Stores the name of the table tagged value
+     * to use for storing the name of the table.
+     */
+    private String tableTaggedValue = null;
 
     /**
      * Constructs a new instance of this SchemaTransformer.
@@ -238,15 +243,7 @@ public class SchemaTransformer
      */
     public void setTableNamePattern(String tableNamePattern)
     {
-        this.tableNamePattern = tableNamePattern;
-    }
-
-    /**
-     * @param includeTaggedValues The includeTaggedValues to set.
-     */
-    public void setIncludeTaggedValues(boolean includeTaggedValues)
-    {
-        this.includeTaggedValues = includeTaggedValues;
+        this.tableNamePattern = StringUtils.trimToEmpty(tableNamePattern);
     }
     
     /**
@@ -254,9 +251,9 @@ public class SchemaTransformer
      * 
      * @param classStereotypes The classStereotypes to set.
      */
-    public void setClassStereotypes(String classStereotype)
+    public void setClassStereotypes(String classStereotypes)
     {
-        this.classStereotypes = classStereotype;
+        this.classStereotypes = StringUtils.deleteWhitespace(classStereotypes);
     }
     
     /**
@@ -264,9 +261,31 @@ public class SchemaTransformer
      * 
      * @param identifierStereotypes The identifierStereotypes to set.
      */
-    public void setIdentifierStereotypes(String identifierStereotype)
+    public void setIdentifierStereotypes(String identifierStereotypes)
     {
-        this.identifierStereotypes = identifierStereotype;
+        this.identifierStereotypes = StringUtils.deleteWhitespace(identifierStereotypes);
+    }
+    
+    /**
+     * Sets the name of the column tagged
+     * value to use for storing the name of the column.
+     * 
+     * @param columnTaggedValue The columnTaggedValue to set.
+     */
+    public void setColumnTaggedValue(String columnTaggedValue)
+    {
+        this.columnTaggedValue = StringUtils.trimToEmpty(columnTaggedValue);
+    }
+    
+    /**
+     * Sets the name of the table tagged value
+     * to use for storing the name of the table.
+     * 
+     * @param tableTaggedValue The tableTaggedValue to set.
+     */
+    public void setTableTaggedValue(String tableTaggedValue)
+    {
+        this.tableTaggedValue = StringUtils.trimToEmpty(tableTaggedValue);
     }
 
     /**
@@ -441,17 +460,17 @@ public class SchemaTransformer
             false);
         
         umlClass.getStereotype().addAll(
-            this.findOrCreateStereotypes(
+            this.getOrCreateStereotypes(
                 corePackage, 
                 this.classStereotypes,
                 "Class"));
 
-        if (this.includeTaggedValues)
+        if (StringUtils.isNotEmpty(this.tableTaggedValue))
         {
             //add the tagged value for the table name
             TaggedValue taggedValue = this.createTaggedValue(
                 corePackage,
-                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                this.tableTaggedValue,
                 tableName);
             if (taggedValue != null)
             {
@@ -527,12 +546,12 @@ public class SchemaTransformer
                         null);
                 attribute.setType(typeClass);
 
-                if (this.includeTaggedValues)
+                if (StringUtils.isNotEmpty(this.columnTaggedValue))
                 {
                     // add the tagged value for the column name
                     TaggedValue taggedValue = this.createTaggedValue(
                         corePackage,
-                        UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                        this.columnTaggedValue,
                         columnName);
                     if (taggedValue != null)
                     {
@@ -542,7 +561,7 @@ public class SchemaTransformer
                 if (primaryKeyColumns.contains(columnName))
                 {
                     attribute.getStereotype().addAll(
-                        this.findOrCreateStereotypes(
+                        this.getOrCreateStereotypes(
                             corePackage,
                             this.identifierStereotypes,
                             "Attribute"));
@@ -668,12 +687,12 @@ public class SchemaTransformer
                     ChangeableKindEnum.CK_CHANGEABLE);
             primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
 
-            if (this.includeTaggedValues)
+            if (StringUtils.isNotEmpty(this.columnTaggedValue))
             {
                 // add the tagged value for the foreign association end
                 TaggedValue taggedValue = this.createTaggedValue(
                     corePackage,
-                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                    this.columnTaggedValue,
                     fkColumnName);
                 if (taggedValue != null)
                 {
@@ -767,7 +786,7 @@ public class SchemaTransformer
     }
     
     /**
-     * Finds or creates a stereotypes given the 
+     * Gets or creates a stereotypes given the 
      * specfied comma seperated list of <code>names</code>.  
      * If any of the stereotypes can't be found, they will be created.
      * 
@@ -775,7 +794,7 @@ public class SchemaTransformer
      * @param baseClass the base class for which the stereotype applies.
      * @return Collection of Stereotypes
      */
-    protected Collection findOrCreateStereotypes(
+    protected Collection getOrCreateStereotypes(
         CorePackage corePackage,
         String names,
         String baseClass)
