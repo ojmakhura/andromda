@@ -1,40 +1,4 @@
 <?xml version="1.0"?>
-<!--********************************************************************************
- * CruiseControl, a Continuous Integration Toolkit
- * Copyright (c) 2001, ThoughtWorks, Inc.
- * 651 W Washington Ave. Suite 600
- * Chicago, IL 60661 USA
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *     + Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *
- *     + Redistributions in binary form must reproduce the above
- *       copyright notice, this list of conditions and the following
- *       disclaimer in the documentation and/or other materials provided
- *       with the distribution.
- *
- *     + Neither the name of ThoughtWorks, Inc., CruiseControl, nor the
- *       names of its contributors may be used to endorse or promote
- *       products derived from this software without specific prior
- *       written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- ********************************************************************************-->
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
     xmlns:lxslt="http://xml.apache.org/xslt">
@@ -42,8 +6,61 @@
     <xsl:output method="html"/>
 
     <xsl:template match="/">
-        <link rel="stylesheet" type="text/css" href="cruisecontrol.css" />
-        <xsl:variable name="modification.list" select="cruisecontrol/modifications/modification"/>
+        <html>
+        <head>
+          <style type="text/css">
+.white { color:#FFFFFF }
+
+.index { background-color:#FFFFFF }
+.index-passed { color:#004400 }
+.index-failed { color:#FF0000; font-weight:bold }
+.index-header { font-weight:bold }
+
+.link { font-family:arial,helvetica,sans-serif; font-size:10pt; color:#FFFFFF; text-decoration:none; }
+
+.tab-table { margin: 0em 0em 0.5em 0em; }
+.tabs { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; font-weight:bold; padding: 0em 2em; background-color:#EEEEEE; }
+.tabs-link { color:#000000; text-decoration:none; }
+.tabs-link:visited { color:#000000; text-decoration:none; }
+.tabs-selected { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; font-weight:bold; padding: 0em 2em; }
+.tabs-selected { border: inset; }
+
+.header-title { font-family:arial,helvetica,sans-serif; font-size:12pt; color:#000000; font-weight:bold; }
+.header-label { font-weight:bold; }
+.header-data { font-family:arial,helvetica,sans-serif; font-size:10pt; color:#000000; }
+
+.modifications-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; }
+.modifications-sectionheader { background-color:#000066; font-family:arial,helvetica,sans-serif; font-size:10pt; color:#FFFFFF; }
+.modifications-oddrow { background-color:#CCCCCC }
+.modifications-evenrow { background-color:#FFFFCC }
+
+.changelists-oddrow { background-color:#CCCCCC }
+.changelists-evenrow { background-color:#FFFFCC }
+.changelists-file-spacer { background-color:#FFFFFF }
+.changelists-file-evenrow { background-color:#EEEEEE }
+.changelists-file-oddrow { background-color:#FFFFEE }
+.changelists-file-header { background-color:#666666; font-family:arial,helvetica,sans-serif; font-size:8pt; color:#FFFFFF; }
+
+.compile-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; }
+.compile-error-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#FF0000; }
+.compile-warn-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#CC9900; }
+.compile-sectionheader { background-color:#000066; font-family:arial,helvetica,sans-serif; font-size:10pt; color:#FFFFFF; }
+
+.distributables-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; }
+.distributables-sectionheader { background-color:#000066; font-family:arial,helvetica,sans-serif; font-size:10pt; color:#FFFFFF; }
+.distributables-oddrow { background-color:#CCCCCC }
+
+.unittests-sectionheader { background-color:#000066; font-family:arial,helvetica,sans-serif; font-size:10pt; color:#FFFFFF; }
+.unittests-oddrow { background-color:#CCCCCC }
+.unittests-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; }
+.unittests-error { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#901090; }
+.unittests-failure { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#FF0000; }
+
+.checkstyle-oddrow { background-color:#CCCCCC }
+.checkstyle-data { font-family:arial,helvetica,sans-serif; font-size:8pt; color:#000000; }
+.checkstyle-sectionheader { background-color:#000066; font-family:arial,helvetica,sans-serif; font-size:10pt; color:#FFFFFF; }
+          </style>
+        </head>
 
         <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
 
@@ -69,153 +86,68 @@
                 <span class="header-label">Time to build:&#160;</span>
                 <xsl:value-of select="cruisecontrol/build/@time"/>
             </td></tr>
-            <xsl:apply-templates select="$modification.list">
-                <xsl:sort select="date" order="descending" data-type="text" />
-            </xsl:apply-templates>
         </table>
+
+        <xsl:variable name="mavengoal" select="/cruisecontrol/build/mavengoal"/>
+        <xsl:variable name="maven.messages" select="$mavengoal/message"/>
+        <xsl:variable name="maven.error.messages" select="$mavengoal/message[@priority='error']"/>
+        <xsl:variable name="maven.warn.messages" select="$mavengoal/message[@priority='warn']"/>
+        <xsl:variable name="maven.info.messages" select="$mavengoal/message[@priority='info']"/>
+
+        <xsl:if test="count($maven.error.messages) > 0">
+			<HR/><H2>Errors</H2>
+            <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
+                 <!-- Style download notifications first -->
+                 <tr class="compile-sectionheader">
+                     <td>Error Messages</td>
+                 </tr>
+                 <xsl:apply-templates select="$mavengoal/message[@priority='error']"/>
+            </table>
+        </xsl:if>		
+
+        <HR/><H2>Modifications</H2>
+        <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
+        <xsl:variable name="modification.list" select="cruisecontrol/modifications/modification"/>
+        <xsl:apply-templates select="$modification.list">
+            <xsl:sort select="date" order="descending" data-type="text" />
+        </xsl:apply-templates>
+        </table>
+		
+        </html>
     </xsl:template>
 
-    <!-- Last Modification template -->
-    <xsl:template match="modification">
-        <xsl:if test="position() = 1">
-            <tr><td class="header-data">
-                <span class="header-label">Last changed:&#160;</span>
-                <xsl:value-of select="date"/>
-            </td></tr>
-            <tr><td class="header-data">
-                <span class="header-label">Last log entry:&#160;</span>
-                <xsl:value-of select="comment"/>
-            </td></tr>
-        </xsl:if>
+    <xsl:template match="mavengoal">
+       <tr class="compile-sectionheader">
+       	<td>
+           <xsl:value-of select="@name"/>
+        </td>
+       </tr>
+       <tr>
+       	<td>
+           <xsl:apply-templates select="message[@priority='error']"/>
+        </td>
+       </tr>
+    </xsl:template>
+
+    <xsl:template match="message[@priority='error']">
+         <tr>
+           <td> 
+    	  <span class="compile-error-data">
+        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+        </span>
+           </td>
+         </tr>
+    </xsl:template>
+
+    <xsl:template match="message[@priority='warn']">
+    	  <span class="compile-data">
+        <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+        </span>
+    </xsl:template>
 
     <xsl:variable name="tasklist" select="/cruisecontrol/build//target/task"/>
     <xsl:variable name="javac.tasklist" select="$tasklist[@name='Javac'] | $tasklist[@name='javac'] | $tasklist[@name='compilewithwalls']"/>
     <xsl:variable name="ejbjar.tasklist" select="$tasklist[@name='EjbJar'] | $tasklist[@name='ejbjar']"/>
-
-
-        <xsl:variable name="javac.error.messages" select="$javac.tasklist/message[@priority='error'][text() != '']"/>
-        <xsl:variable name="javac.warn.messages" select="$javac.tasklist/message[@priority='warn'][text() != '']"/>
-        <xsl:variable name="ejbjar.error.messages" select="$ejbjar.tasklist/message[@priority='error'][text() != '']"/>
-        <xsl:variable name="ejbjar.warn.messages" select="$ejbjar.tasklist/message[@priority='warn'][text() != '']"/>
-        <xsl:variable name="total.errorMessage.count" select="count($javac.warn.messages) + count($ejbjar.warn.messages) + count($javac.error.messages) + count($ejbjar.error.messages)"/>
-
-        <xsl:if test="$total.errorMessage.count > 0">
-        <HR/><H2>Errors</H2>
-            <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
-                <tr>
-                    <!-- NOTE: total.errorMessage.count is actually the number of lines of error
-                     messages. This accurately represents the number of errors ONLY if the Ant property
-                     build.compiler.emacs is set to "true" -->
-                    <td class="compile-sectionheader">
-                        &#160;Errors/Warnings: (<xsl:value-of select="$total.errorMessage.count"/>)
-                    </td>
-                </tr>
-                <xsl:if test="count($javac.error.messages) > 0">
-                    <tr>
-                        <td>
-                           <pre class="compile-error-data">
-                            <xsl:apply-templates select="$javac.error.messages"/>
-                           </pre>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="count($javac.warn.messages) > 0">
-                    <tr>
-                        <td>
-                           <pre class="compile-data">
-                            <xsl:apply-templates select="$javac.warn.messages"/>
-                           </pre>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="count($ejbjar.error.messages) > 0">
-                    <tr>
-                        <td>
-                           <pre class="compile-error-data">
-                            <xsl:apply-templates select="$ejbjar.error.messages"/>
-                           </pre>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:if test="count($ejbjar.warn.messages) > 0">
-                    <tr>
-                        <td>
-                           <pre class="compile-warn-data">
-                            <xsl:apply-templates select="$ejbjar.warn.messages"/>
-                           </pre>
-                        </td>
-                    </tr>
-                </xsl:if>
-            </table>
-        </xsl:if>
-
-        <HR/><H2>Modifications</H2>
-        <table align="center" cellpadding="2" cellspacing="1" border="0" width="98%">
-            <!-- Modifications -->
-            <tr>
-                <td class="modifications-sectionheader" colspan="6">
-                    &#160;Modifications since last build:&#160;
-                    (<xsl:value-of select="count($modification.list)"/>)
-                </td>
-            </tr>
-
-            <xsl:apply-templates select="$modification.list">
-                <xsl:sort select="date" order="descending" data-type="text" />
-            </xsl:apply-templates>
-
-        </table>
-    </xsl:template>
-
-    <xsl:template match="message[@priority='error']">
-        <xsl:value-of select="text()"/>
-        <xsl:if test="count(./../message[@priority='error']) != position()">
-            <br class="none"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="message[@priority='warn']">
-        <xsl:value-of select="text()"/><br class="none"/>
-    </xsl:template>
-
-<!--********************************************************************************
- * CruiseControl, a Continuous Integration Toolkit
- * Copyright (c) 2001, ThoughtWorks, Inc.
- * 651 W Washington Ave. Suite 600
- * Chicago, IL 60661 USA
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *     + Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *
- *     + Redistributions in binary form must reproduce the above
- *       copyright notice, this list of conditions and the following
- *       disclaimer in the documentation and/or other materials provided
- *       with the distribution.
- *
- *     + Neither the name of ThoughtWorks, Inc., CruiseControl, nor the
- *       names of its contributors may be used to endorse or promote
- *       products derived from this software without specific prior
- *       written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- ********************************************************************************-->
-
-    <xsl:variable name="modification.list" select="cruisecontrol/modifications/modification"/>
-
 
     <!-- P4 changelist template
     <modification type="p4" revision="15">
@@ -253,6 +185,7 @@
                 <xsl:value-of select="comment"/>
             </td>
         </tr>
+
         <xsl:if test="count(file) > 0">
             <tr valign="top">
                 <xsl:if test="position() mod 2=0">
@@ -362,3 +295,4 @@
     </xsl:template>
 
 </xsl:stylesheet>
+
