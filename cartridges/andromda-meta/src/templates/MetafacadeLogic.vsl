@@ -55,15 +55,17 @@ public abstract class ${class.name}Logic
 ##
 
 #set ($atts = $class.attributes)
-#if ($atts.size() > 0)
+#if (!$atts.empty)
     // --------------- attributes ---------------------
 #foreach ( $att in $atts )
 ##
 #set ($memberTypeName = $att.type.fullyQualifiedName)
 #set ($methodName = $att.getterName)
-#set ($memberName = "a_$att.name")## prefixed with a_ to indicate attribute member (to avoid collisions with other members)
+#set ($memberName = "${att.name}${velocityCount}")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
+#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
+#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
 ##
    /**
 	* @see ${memberTypeName}#${methodName}()
@@ -73,20 +75,20 @@ public abstract class ${class.name}Logic
     private boolean ${memberName}Set = false;
     private $memberTypeName $memberName;
 
-    private void ${handleMethodName}PreCondition()
+    private void $handleMethodPreCondition
     {
     }
 
-    private void ${handleMethodName}PostCondition()
+    private void $handleMethodPostCondition
     {
     }
 
     public final $memberTypeName ${methodName}()
     {
         if (${memberName}Set) return $memberName;
-        ${handleMethodName}PreCondition();
+        ${handleMethodPreCondition};
         $memberName = ${handleMethodName}($typedArgumentList);
-        ${handleMethodName}PostCondition();
+        ${handleMethodPostCondition};
         ${memberName}Set = true;
         return $memberName;
     }
@@ -101,9 +103,11 @@ public abstract class ${class.name}Logic
 #foreach ( $op in $ops)
 #set ($memberTypeName = $op.type.fullyQualifiedName)
 #set ($methodName = $op.name)
-#set ($memberName = "m_$methodName")## prefixed with m_ to indicate method member (to avoid collisions with other members)
+#set ($memberName = "${methodName}${velocityCount}")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = $op.typedArgumentList)
+#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
+#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
 
     $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
@@ -112,11 +116,11 @@ public abstract class ${class.name}Logic
     private $memberTypeName $memberName;
 #end
 
-    private void ${handleMethodName}PreCondition()
+    private void $handleMethodPreCondition
     {
     }
 
-    private void ${handleMethodName}PostCondition()
+    private void $handleMethodPostCondition
     {
     }
 
@@ -125,9 +129,9 @@ public abstract class ${class.name}Logic
 #if($op.hasReturnType())
         if (${memberName}Set) return $memberName;
 #end
-        ${handleMethodName}PreCondition();
+        ${handleMethodPreCondition};
         $memberName = ${handleMethodName}($op.argumentNames);
-        ${handleMethodName}PostCondition();
+        ${handleMethodPostCondition};
 #if($op.hasReturnType())
         ${memberName}Set = true;
         return $memberName;
@@ -138,7 +142,7 @@ public abstract class ${class.name}Logic
 #end
 ##
 #set ($assocEnds = $class.associationEnds)
-#if ($assocEnds.size() > 0)
+#if (!$assocEnds.empty)
     // ------------- relations ------------------
 
 #foreach ( $assocEnd in $assocEnds )
@@ -146,18 +150,20 @@ public abstract class ${class.name}Logic
 ##
 #set ($memberTypeName = $assocEnd.getterSetterTypeName)
 #set ($methodName = "get$str.upperCaseFirstLetter($assocEnd.otherEnd.name)")
-#set ($memberName = "r_$methodName")## prefixed with r_ to indicate relation member (to avoid collisions with other members)
+#set ($memberName = "${methodName}${velocityCount}")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
+#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
+#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
 ##
     private boolean ${memberName}Set = false;
     private $memberTypeName $memberName;
 
-    private void ${handleMethodName}PreCondition()
+    private void $handleMethodPreCondition
     {
     }
 
-    private void ${handleMethodName}PostCondition()
+    private void $handleMethodPostCondition
     {
     }
 
@@ -170,13 +176,13 @@ public abstract class ${class.name}Logic
     public final $memberTypeName ${methodName}()
     {
         if (${memberName}Set) return $memberName;
-        ${handleMethodName}PreCondition();
+        ${handleMethodPreCondition};
 #if ($assocEnd.one2Many || $assocEnd.many2Many)
-        $memberName = ($memberTypeName)shieldedElements(${handleMethodName}($typedArgumentList));
+        $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
 #else
         $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
 #end
-        ${handleMethodName}PostCondition();
+        ${handleMethodPostCondition};
         ${memberName}Set = true;
         return ($memberTypeName)$memberName;
     }
