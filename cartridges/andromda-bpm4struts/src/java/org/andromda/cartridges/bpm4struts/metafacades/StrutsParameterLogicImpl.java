@@ -4,11 +4,16 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 
 
 /**
@@ -17,7 +22,7 @@ import java.util.*;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter
  */
 public class StrutsParameterLogicImpl
-    extends StrutsParameterLogic
+        extends StrutsParameterLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -54,12 +59,12 @@ public class StrutsParameterLogicImpl
             TransitionFacade transition = event.getTransition();
             if (transition instanceof StrutsAction)
             {
-                StrutsAction action = (StrutsAction)transition;
+                StrutsAction action = (StrutsAction) transition;
                 jspObject = action.getInput();
             }
             else if (transition instanceof StrutsForward)
             {
-                StrutsForward forward = (StrutsForward)transition;
+                StrutsForward forward = (StrutsForward) transition;
                 if (forward.isEnteringPage())
                 {
                     jspObject = forward.getTarget();
@@ -78,7 +83,7 @@ public class StrutsParameterLogicImpl
     protected Collection handleGetFormFields()
     {
         Collection formFields = null;
-        if (isControllerOperationArgument() && getName()!=null)
+        if (isControllerOperationArgument() && getName() != null)
         {
             final String name = getName();
             formFields = new ArrayList();
@@ -821,7 +826,7 @@ public class StrutsParameterLogicImpl
             selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(getWidgetType());
             ClassifierFacade type = getType();
 
-            if (!selectable && type!=null)
+            if (!selectable && type != null)
             {
                 String name = getName();
                 String typeName = type.getFullyQualifiedName();
@@ -897,7 +902,7 @@ public class StrutsParameterLogicImpl
 
     /**
      * Override normal parameter facade required implementation.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
     public boolean isRequired()
@@ -1063,11 +1068,20 @@ public class StrutsParameterLogicImpl
                     validatorTypesList.add("email");
                 else if (isCreditCardFormat(format))
                     validatorTypesList.add("creditCard");
-                else if (isMinLengthFormat(format))
-                    validatorTypesList.add("minlength");
-                else if (isMaxLengthFormat(format))
-                    validatorTypesList.add("maxlength");
-                else if (isPatternFormat(format)) validatorTypesList.add("mask");
+                else
+                {
+                    Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    {
+                        String additionalFormat = String.valueOf(formatIterator.next());
+                        if (isMinLengthFormat(additionalFormat))
+                            validatorTypesList.add("minlength");
+                        else if (isMaxLengthFormat(additionalFormat))
+                            validatorTypesList.add("maxlength");
+                        else if (isPatternFormat(additionalFormat))
+                            validatorTypesList.add("mask");
+                    }
+                }
             }
 
             if (getValidWhen() != null)
@@ -1132,17 +1146,16 @@ public class StrutsParameterLogicImpl
                 }
                 else if (isValidatorString(typeName))
                 {
-                    if (isMinLengthFormat(format))
+                    Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
-                        vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(format)}));
-                    }
-                    else if (isMaxLengthFormat(format))
-                    {
-                        vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(format)}));
-                    }
-                    else if (isPatternFormat(format))
-                    {
-                        vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(format)}));
+                        String additionalFormat = String.valueOf(formatIterator.next());
+                        if (isMinLengthFormat(additionalFormat))
+                            vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
+                        else if (isMaxLengthFormat(additionalFormat))
+                            vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
+                        else if (isPatternFormat(additionalFormat))
+                            vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
                     }
                 }
             }
