@@ -10,6 +10,10 @@
     <property name="jar.bundle.name" value="${application.id}-web-${application.version}.war"/>
     <property name="javadoc.bundle.name" value="${application.id}-web-${application.version}-javadoc.zip"/>
 
+    <condition property="precompile.flag" value="true">
+        <istrue value="${precompile.jsp}"/>
+    </condition>
+
     <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
     <fileset id="classes" dir="${basedir}/${java.build.dir}" includes="**/*.class"/>
 
@@ -25,7 +29,7 @@
     </path>
 
     <target name="clean" description="o Clean up the generated directories">
-        <delete dir="${basedir}/target"/>
+        <delete dir="${basedir}/${build.dir}"/>
     </target>
 
     <target name="xdoclet" description="o Run XDoclet WEB">
@@ -88,14 +92,63 @@
             <fileset refid="xdoclet-generated-configuration-sources"/>
             <fileset dir="${basedir}/${mda.build.dir}" includes="*.xml"/>
         </copy>
-        <war destfile="${basedir}/target/${jar.bundle.name}" webxml="${basedir}/${xdoclet.build.dir}/web.xml">
+        <antcall target="-precompile"/>
+        <war destfile="${basedir}/${build.dir}/${jar.bundle.name}" webxml="${basedir}/${xdoclet.build.dir}/web.xml">
             <fileset dir="${basedir}/${bundle.dir}" excludes="WEB-INF/web.xml"/>
         </war>
     </target>
 
+    <target name="-precompile" if="precompile.flag">
+        <!-- setting up the directories to work with -->
+        <property name="war.precompile.jsp" value="${basedir}/${build.dir}/precompiled"/>
+        <property name="jsp.precompilation.java" value="${war.precompile.jsp}/jsp-java"/>
+        <property name="jsp.precompilation.classes" value="${war.precompile.jsp}/jsp-classes"/>
+        <property name="jsp.precompilation.servlets" value="${war.precompile.jsp}/jsp-servlets.xml"/>
+        <property name="jsp.precompilation.webapp" value="${basedir}/${bundle.dir}"/>
+        <!-- clearing old garbage from the target directories -->
+        <delete dir="${war.precompile.jsp}"/>
+        <mkdir dir="${jsp.precompilation.java}"/>
+        <mkdir dir="${jsp.precompilation.classes}"/>
+        <!-- the class path for precompilation -->
+        <path id="jsp.precompilation.classpath">
+            <path refid="classpath"/>
+            <pathelement location="${jsp.precompilation.webapp}/WEB-INF/classes"/>
+        </path>
+        <!-- generating java code from the JSPs -->
+        <echo message="Generating Java sources from JSPs"/>
+        <java classname="org.apache.jasper.JspC" fork="true" classpathref="jsp.precompilation.classpath">
+            <arg value="-d"/>
+            <arg value="${jsp.precompilation.java}"/>
+            <arg value="-webinc"/>
+            <arg value="${jsp.precompilation.servlets}"/>
+            <arg value="-webapp"/>
+            <arg value="${jsp.precompilation.webapp}"/>
+        </java>
+        <!-- Compiling the sources generated from the JSPs -->
+        <echo message="Compiling generated java sources"/>
+        <javac srcdir="${jsp.precompilation.java}"
+            classpathref="jsp.precompilation.classpath"
+            destdir="${jsp.precompilation.webapp}/WEB-INF/classes"
+            deprecation="on"/>
+        <!-- merging additional web.xml directives -->
+        <echo message="Merging additional web.xml directives"/>
+        <loadfile property="jsp.servlets.text" srcFile="${jsp.precompilation.servlets}"/>
+        <replace file="${jsp.precompilation.webapp}/WEB-INF/web.xml"
+            value="${jsp.servlets.text}"
+            token="&lt;!-- precompilation merge-point --&gt;"/>
+        <!-- removing the JSPs files -->
+        <echo message="Deleting JSPs files (all except the welcome page: index.jsp)"/>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${jsp.precompilation.webapp}">
+                <include name="**/*.jsp"/>
+                <exclude name="index.jsp"/>
+            </fileset>
+        </delete>
+    </target>
+
     <target name="zip" description="o Create the zip" depends="javadoc">
         <mkdir dir="${basedir}/${javadoc.build.dir}"/>
-        <zip destfile="${basedir}/target/${javadoc.bundle.name}" basedir="${basedir}/${javadoc.build.dir}"/>
+        <zip destfile="${basedir}/${build.dir}/${javadoc.bundle.name}" basedir="${basedir}/${javadoc.build.dir}"/>
     </target>
 
     <target name="javadoc" description="o Generate javadoc">
@@ -115,16 +168,16 @@
         <mkdir dir="${app.root.dir}/${lib.dir}"/>
         <mkdir dir="${app.root.dir}/${dist.dir}"/>
         <copy todir="${app.root.dir}/${lib.dir}">
-            <fileset dir="${basedir}/target">
+            <fileset dir="${basedir}/${build.dir}">
                 <include name="${jar.bundle.name}"/>
             </fileset>
         </copy>
         <copy todir="${app.root.dir}/${dist.dir}">
-            <fileset dir="${basedir}/target">
+            <fileset dir="${basedir}/${build.dir}">
                 <include name="${jar.bundle.name}"/>
                 <include name="${javadoc.bundle.name}"/>
             </fileset>
         </copy>
     </target>
-    
+
 </project>
