@@ -7,7 +7,7 @@ Instructions:
 2) Create a build.properties file and add:
   'maven.repo.remote=http://www.ibibilio.org/maven,http://team.andromda.org/maven' 
    and place in your %USERPROFILE% (windows), or $HOME (linux/unix) directory.
-3) cd to andromda-all, type just type 'maven dist', this will build the entire distribution
+3) cd to andromda-all, type 'maven dist', this will build the entire distribution
    including documentation.  Check the target/distributions directory from the resulting output.
 
 P.S. If you only want to build without the documentation, just type 'maven dist-bin' and
