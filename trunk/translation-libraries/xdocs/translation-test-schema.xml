@@ -7,10 +7,8 @@
             <p>
                   Each Translator Test (TranslationTest-*.xml file) must comply with the following XSD Schema:
             </p>
-            <source>
-                <![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-
+            <source language="xml">
+<![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <!-- The expression element consisting of 'from' and 'to' elements -->

@@ -31,7 +31,7 @@
                         <strong>Brackets:</strong> All brackets (class, method, if, try, etc) 
                         must begin and end on a new line. Example : 
                     </p>
-                  <source>
+                  <source language="java">
 public class SomeClass
 {
     public void someMethod()
@@ -49,7 +49,7 @@ public class SomeClass
                         instead of while loops (because this allows the iterator itself is scoped 
                         into that block). Example:
                    </p>
-                   <source>
+                   <source language="java">
 for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext();)
 {
     ModelElement stereotype = (ModelElement)stereotypeIterator.next();
@@ -104,7 +104,7 @@ for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.ha
                 <li>
                     <strong>Instance Variables:</strong> Instance variables should not have any 
                     prefix and must be referenced using the <em>this</em> object. Example : 
-                    <source>
+                    <source language="java">
 public class SomeClass
 {
     private String someString;
@@ -119,7 +119,7 @@ public class SomeClass
                 <li>
                     <strong>Parameter Names:</strong> Method parameters should not have any 
                     prefix. For example :
-                    <source>
+                    <source language="java">
 public void someMethod(String className)
 {
 }                        
@@ -143,7 +143,7 @@ public void someMethod(String className)
                         <strong>Logging:</strong> Do <strong>NOT</strong> use System.out.println()
                         for debugging purposes in your code, instead use a log4j logger. 
                     </p>
-                    <source>
+                    <source language="java">
 try
 {
    ...

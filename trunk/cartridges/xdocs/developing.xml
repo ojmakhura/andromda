@@ -48,7 +48,7 @@
 					to make available to the template in your cartridge's andromda-cartridge.xml,
 					like so:
 				</p>
-				<source><![CDATA[
+				<source language="xml"><![CDATA[
 <template
     path="templates/MetafacadeLogic.vsl"
     outputPattern="$generatedFile"

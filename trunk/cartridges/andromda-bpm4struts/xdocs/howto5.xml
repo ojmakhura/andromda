@@ -38,7 +38,7 @@
                     Taking the example from the image above you will see it is very easy to access the object in the
                     session from within the controller, this is what is generated in the controller's abtract parent
                     (generated JavaDoc information removed to improve readability):
-<source><![CDATA[
+<source language="java"><!--
 protected final LoginSession getLoginSession(HttpServletRequest request)
 {
     LoginSession object = null;
@@ -84,7 +84,7 @@ protected final void removeLoginSession(HttpServletRequest request)
         }
     }
 }
-]]></source>
+--></source>
                 </p>
                 <p>
                     The <code>LoginSession</code> will be a typical value-object but you will not need to worry about
@@ -101,7 +101,7 @@ protected final void removeLoginSession(HttpServletRequest request)
                     an attribute in any scope, just remember the session object is stored using a name following
                     the Java naming convention for variables (<code>LoginSession.SESSION_KEY</code>):
                 </p>
-<source><![CDATA[
+<source language="java"><!--
 public class LoginSession implements Serializable
 {
     public final static String SESSION_KEY = "loginSession";
@@ -130,7 +130,7 @@ public class LoginSession implements Serializable
         this.attemptCount = attemptCount;
     }
 }
-]]></source>
+--></source>
             </subsection>
         </section>
         <section name="Next">

@@ -127,7 +127,7 @@ Finished at: Sun Nov 28 08:42:50 MST 2004
 								</li>
 							</ul>
 						</p>
-						<source>cd constraint</source>
+						<code>cd constraint</code>
 						<table>
 							<tr>
 								<th>
@@ -245,7 +245,7 @@ Finished at: Sun Nov 28 08:42:50 MST 2004
 							Ok, since you now are within your 'constraint' directory, you can run the 
 							<code>translation-library:test</code> goal to make sure everything was setup correctly:
 						</p>
-						<source>maven translation-library:test</source>.  
+						<code>maven translation-library:test</code>.
 					</li>
 					<li>
 						<p>
@@ -282,7 +282,7 @@ Finished at: Sun Nov 28 08:42:50 MST 2004
 							that expresses "within all LegalAgreements, documentTitle must be unique".
 						</p>
 						<a name="constraintExpression"/>
-						<source>
+						<source language="xml">
 <![CDATA[
 <expression>
     <from>
@@ -305,7 +305,7 @@ Finished at: Sun Nov 28 08:42:50 MST 2004
 							to override in our <a href="#constraintTranslator">ConstraintTranslator</a> class to perform 
 							the translation of the expression.
 						</p>
-						<source>maven translation-library:test -Dtrace=true</source>
+						<code>maven translation-library:test -Dtrace=true</code>
 						<p>
 							Your output should look like the following:
 							<source>
@@ -423,7 +423,7 @@ Finished at: Sun Nov 28 08:42:50 MST 2004
 							<a href="#constraintTranslator">ConstraintTranslator</a> and call the 
 							<a href="../andromda-core/apidocs/org/andromda/core/translation/BaseTranslator.html#handleTranslationFragment(org.andromda.core.parser.node.Node)">handleTranslationFragment(Node node)</a>. 
 							Like so:
-							<source>
+							<source language="java">
 <![CDATA[						
 package org.andromda.translation.constraint;
 
@@ -505,9 +505,9 @@ public class ConstraintTranslator
 								<a href="descriptor-schema.html">descriptor</a>. 
 							</li>
 						</ul>
-						<source>
-<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->	
+						<source language="xml">
 <![CDATA[
+<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->	
 <fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
     <kind name="inv">
         alter table $constraintUtils.findTableName($element) add constraint	
@@ -523,7 +523,7 @@ public class ConstraintTranslator
 							this method is append the translation value (which is the body of the <em>inv</em> kind
 							element from the previous step) to the expression being translated.						
 						</p>
-							<source>
+							<source language="java">
 <![CDATA[						
 package org.andromda.translation.constraint;
 
@@ -572,7 +572,7 @@ public class ConstraintTranslator
 							Next we'll again run the <em>translation-library:test</em> method, this 
 							time not adding the <em>-Dtrace=true</em> property.  
 						</p>
-						<source>maven translation-library:test</source>
+						<code>maven translation-library:test</code>
 						<p>
 							Your console output should contain the following (in addition to other output). 
 							Notice the line: <em>translated: <![CDATA[-->]]> 'alter table LegalAgrmt add 
@@ -598,8 +598,7 @@ public class ConstraintTranslator
 							add some content to the <![CDATA[<to/>]]> element body.  What we are adding is
 							what the 'from' element should be translated 'to' in Oracle SQL:
 						</p>
-						<source>
-
+						<source language="xml">
 	<![CDATA[
 <expression>
     <from>

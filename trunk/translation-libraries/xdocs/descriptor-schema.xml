@@ -7,10 +7,8 @@
         <p>
             Each Translation-Library descriptor (andromda-translation-library.xml) must comply with the following XSD Schema:
         </p>
-        <source>
+        <source language="xml">
 <![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <!-- description of what the translation-library does -->

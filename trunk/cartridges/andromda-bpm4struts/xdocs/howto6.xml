@@ -39,7 +39,7 @@
                     If you have enabled security the <code>web.xml</code> descriptor will contain sections
                     describing the security on the level of each individual use-case, the use-case and actor
                     relationships shown in the diagram above would yield output like this:
-<source><![CDATA[
+<source language="xml"><!--
 <security-constraint>
     <web-resource-collection>
         <web-resource-name>Purchase Items resources</web-resource-name>
@@ -76,18 +76,18 @@
         <transport-guarantee>NONE</transport-guarantee>
     </user-data-constraint>
 </security-constraint>
-]]></source>
+--></source>
                 </p>
                 <p>
                     And the section describing the roles:
-<source><![CDATA[
+<source language="xml"><!--
 <security-role>
     <role-name>admin</role-name>
 </security-role>
 <security-role>
     <role-name>guest</role-name>
 </security-role>
-]]></source>
+--></source>
                 </p>
                 <p class="highlight">
                     Please note that you would usually not model the <code>Login</code> use-case, except in those
@@ -98,7 +98,7 @@
                     A login page will always be generated automatically, but this time it will be presented
                     to you when you are trying to access one of the application's resources, this might be an action,
                     an image, a JSP or anything else which it will try to locate within the application's path.
-<source><![CDATA[
+<source language="xml"><!--
 <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>other</realm-name>
@@ -107,7 +107,7 @@
         <form-error-page>/login/login-form.jsp?action=error</form-error-page>
     </form-login-config>
 </login-config>
-]]></source>
+--></source>
                 </p>
             </subsection>
             <subsection name="Screenshots">

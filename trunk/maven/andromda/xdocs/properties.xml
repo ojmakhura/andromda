@@ -413,7 +413,7 @@
                     Namespace properties for cartridges are defined by adding properties
                     to the andromda plugin dependencies, using the following syntax:
                 </p>
-                <source><![CDATA[
+                <source language="xml"><![CDATA[
 <dependency>
     <groupId>andromda-cartridges</groupId>
     <artifactId>andromda-hibernate-cartridge</artifactId>
@@ -435,7 +435,7 @@
                     properties that we would like to apply to every AndroMDA plugin dependency)?
                     We would define them through a dependency to the AndroMDA maven plugin, like so:
                 </p>
-                <source><![CDATA[
+                <source language="xml"><![CDATA[
 <dependency>
     <groupId>andromda</groupId>
     <artifactId>maven-andromda-plugin</artifactId>

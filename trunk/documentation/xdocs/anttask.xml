@@ -256,7 +256,7 @@
                 </a>
                     elements.
             </p>
-            <source><![CDATA[
+            <source language="xml"><![CDATA[
 <taskdef name="andromda"
          classname="org.andromda.core.anttasks.AndroMDAGenTask"
          classpathref="class.path"/>
@@ -373,8 +373,9 @@
                 The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
                 element:
             </p>
-            <source><![CDATA[
-<andromda ...>
+            <source language="xml"><![CDATA[
+<andromda>
+  ...
     <modelPackage name="my.package.foo" shouldProcess="true"/>
     <modelPackage name="my.package.bar" shouldProcess="false"/>
   ...
@@ -383,10 +384,11 @@
             <p>
                 The above is equivalent to:
             </p>
-            <source><![CDATA[
-<andromda ...>
+            <source language="xml"><![CDATA[
+<andromda>
+  ...
     <modelPackage name="my.package.bar" shouldProcess="false"/>
-    ...
+  ...
 </andromda>
                 ]]></source>
             <h2>
@@ -489,7 +491,7 @@
                 <code><![CDATA[<moduleSearchPath>]]></code> element pointing to
                 the location for which to find the base metafacade model.
             </p>
-            <source>
+            <source language="xml">
                 <![CDATA[
 <andromda lastModifiedCheck="false">
     <model url="jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml"/>
@@ -532,7 +534,7 @@
                 using.  Note how we are able to use logical names such as <code>JDBC</code>
                 and <code>HypersonicSql</code> instead of the complete paths.
             </p>
-            <source>
+            <source language="xml">
                 <![CDATA[
 <andromda lastModifiedCheck="false">
     <model url="jar:file:/path/to/my/model.zuml!/model.xmi"/>

@@ -143,7 +143,7 @@
                                 entering the <![CDATA[<<FrontEndView>>]]> action state. This will result in
                                 the controller having the possiblity to set the values and labels for the
                                 selectable field.
-<source><![CDATA[
+<source language="java"><!--
 public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm form, ...
 {
     Object[] values = {"1","2","3","4"};
@@ -152,7 +152,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
     form.setNumberValueList(values);
     form.setNumberLabelList(labels);
 }
-]]></source>
+--></source>
                             </p>
                             <p>
                                 Notice how the <code>form</code> allows setting the values and labels to back up
@@ -313,7 +313,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                 <p>
                     The generated <code>struts-config.xml</code> descriptor will contain a <code>form-bean</code>
                     entry per generated Form. Here's an example:
-<source><![CDATA[
+<source language="xml"><!--
 <form-beans>
     ...
     <form-bean
@@ -321,12 +321,12 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
         type="my.onlinestore.purchase.EnterUserDetailsPurchaseForm" />
     ...
 </form-beans>
-]]></source>
+--></source>
                 </p>
                 <p>
                      Each action will have a corresponding
                     <code>action-mapping</code> entry, like this:
-<source><![CDATA[
+<source language="xml"><!--
 <action-mappings>
     ...
     <action
@@ -349,7 +349,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
     </action>
     ...
 </action-mappings>
-]]></source>
+--></source>
                 </p>
                 <p>
                     A Struts action class and associated form is generated per sequence of transitions between two
@@ -365,7 +365,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     operation. Please notice exception handling is taken care of. Such methods start with an underscore
                     not to cause naming conflicts with existing Struts
                     <a href="http://struts.apache.org/api/org/apache/struts/action/Action.html">Action</a> methods.
-<source><![CDATA[
+<source language="java"><!--
 private ActionForward _loadItemsForSale(
         ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
     throws Exception
@@ -399,7 +399,7 @@ private ActionForward _loadItemsForSale(
     }
     return forward;
 }
-]]></source>
+--></source>
                 </p>
                 <p class="highlight">
                     Action classes and action forms, and <code>struts-config.xml</code> too for that matter, are never

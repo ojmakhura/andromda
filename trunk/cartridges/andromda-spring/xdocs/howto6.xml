@@ -76,7 +76,7 @@
                     It's allowed to override queries such as finders in the DAO, just override the appropriate method
                     in an entity's DAO implementation class. What follows is an example of a code snippet
                     overriding a generated HQL query (example taken from a ficticous <code>UserDAOImpl</code> class):
-<source><![CDATA[
+<source language="java"><![CDATA[
 public List findActiveUsers(int transform)
 {
     // the next query is user-specified and overrides the one generated in super.findActiveUsers(int transform) 
