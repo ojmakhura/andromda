@@ -18,6 +18,18 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Aug 15, 2004</td>
+                    <td valign="top" class="std">New Bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        A new namespace property has been added: 'breadCrumbs'. You can either
+                        give it a 'true' or 'false' value. The default is 'true'. If the
+                        value is 'true' a 'history' is rendered at the top of each page,
+                        also known as breadcrumbs: it allows you to navigate back and forth
+                        between the pages already visited. The scope of the breadcrumbs is
+                        restricted to the context use-case.
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Aug 13, 2004</td>
                     <td valign="top" class="std">New Bpm4Struts feature</td>
                     <td valign="top" class="std">

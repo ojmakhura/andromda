@@ -7,8 +7,8 @@
     <body>
         <section name="Bpm4Struts Cartridge Namespace Properties">
             <p>
-                In addition to the applicable 
-                <a href="../andromda-metafacades-uml/namespaces.html">UML Metafacade</a> namespace 
+                In addition to the applicable
+                <a href="../andromda-metafacades-uml/namespaces.html">UML Metafacade</a> namespace
                 properties which may also be used, this page describes 
                 namespace properties specific to this cartridge only.
             </p>
@@ -113,6 +113,14 @@
                 <tr>
                     <td>serverValidation</td>
                     <td>true/false, denotes if the server should validate user input.</td>
+                    <td>
+                        No, default is
+                        <code>true</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>breadCrumbs</td>
+                    <td>true/false, denotes whether or not to render breadcrumbs on the pages.</td>
                     <td>
                         No, default is
                         <code>true</code>.
