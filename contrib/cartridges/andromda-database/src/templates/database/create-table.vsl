@@ -1,8 +1,11 @@
 #macro( tableColumns )
 /* --------------- $table.name table definition --------------------- */
 #set ($primaryKeyColumn = $table.primaryKeyColumn)
-CREATE TABLE $table.tableName (
+CREATE TABLE $table.tableName 
+(
+#if (!$table.many2Many)
     $primaryKeyColumn.columnName $primaryKeyColumn.sqlType NOT NULL,
+#end
 #foreach ( $column in $table.nonForeignKeyColumns )
 #if (!$column.primaryKey)
 #set ($hasInitialValue = $stringUtils.isNotBlank($column.defaultValue()))
