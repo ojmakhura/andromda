@@ -20,14 +20,22 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.0</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>1.5</version>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.5</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -139,15 +147,33 @@
 		      	<war.bundle>true</war.bundle>
 		    </properties>
 		</dependency>
-		<dependency>
-			<groupId>struts</groupId>
-			<artifactId>struts-tiles</artifactId>
-			<version>1.2dev-SNAPSHOT</version>
-			<type>tld</type>
-		    <properties>
-		      	<war.bundle>true</war.bundle>
-		    </properties>
-		</dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-tiles</artifactId>
+            <version>1.2dev-SNAPSHOT</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.0-b3</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag-all</artifactId>
+            <version>1.0-b3</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
         <!-- The next two dependencies (Jasper) are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
@@ -169,7 +195,7 @@
         </dependency>
 	</dependencies>
   	<build>
-    	<sourceDirectory>target/src</sourceDirectory>
+    	<sourceDirectory>src/java</sourceDirectory>
 		<resources>
 	      	<resource>
 		        <directory>target/src</directory>
