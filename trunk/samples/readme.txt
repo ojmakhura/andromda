@@ -18,6 +18,11 @@ To build the samples, perform the following steps:
 3) From this directory, type 'maven', this will build all samples contained within
    this directory.  Check the target directory(s) of each 'app' sub directory for
    the deployable J2EE ear and the SQL scripts.
+   
+NOTE: After you've built the samples the first time, you can build them again 
+      with the '-o' parameter passed to maven.  (i.e. next you can
+      type 'maven -o'.  The '-o' tells Maven to build offline and since
+      it isn't trying to download the dependencies, it will build much faster.
 
 Good Luck!
 
