@@ -46,6 +46,11 @@
             basedir="${templatesDir}"
             template="/project.properties.vsl"/>
 
+        <velocity:merge
+            name="${projectId}/readme.txt"
+            basedir="${templatesDir}"
+            template="/readme.txt.vsl"/>
+
         <attainGoal name="andromdapp:generate-app-subproject"/>
         <attainGoal name="andromdapp:generate-${persistenceType}-subproject"/>
         <attainGoal name="andromdapp:generate-common-subproject"/>

@@ -33,6 +33,11 @@
         <ant:copy todir="${maven.build.dest}/${pluginResourceJ2eeDir}/spring/conf">
             <ant:fileset dir="${hibernate.db.conf.location}"/>
         </ant:copy>
+       <!-- Replace references to the '${andromdaVersion} property' -->
+       <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/readme.txt.vsl"
+           token="andromda.version"
+           value="${pom.currentVersion}">
+       </ant:replace>
     </preGoal>
 
     <!-- Install into the local repository -->
