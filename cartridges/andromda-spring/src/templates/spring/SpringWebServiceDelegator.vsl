@@ -32,9 +32,9 @@ public class $service.webServiceDelegatorName
 #end
     {
 #if (!$operation.returnTypePresent)
-        $serviceGetter.$operation.name($operation.argumentNames);
+        ${serviceGetter}.${operation.name}(${operation.argumentNames});
 #else
-        return ${serviceGetter}.${operation.name}($operation.argumentNames);
+        return ${serviceGetter}.${operation.name}(${operation.argumentNames});
 #end
     }
 
