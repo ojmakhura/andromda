@@ -27,22 +27,23 @@ public abstract class $entity.daoBaseName
 
 #foreach($entityRef in $entity.entityReferences)
 #set ($targetElement = $entityRef.targetElement)
-    private $targetElement.fullyQualifiedDaoName $entityRef.name;
+#set ($daoReferenceName = $targetElement.getBeanName(false))
+    private $targetElement.fullyQualifiedDaoName $daoReferenceName;
 
     /**
-     * Sets the reference to <code>$entityRef.name</code>.
+     * Sets the reference to <code>$daoReferenceName</code>.
      */
-    public void ${entityRef.setterName}(${targetElement.fullyQualifiedDaoName} $entityRef.name)
+    public void set${targetElement.daoName}(${targetElement.fullyQualifiedDaoName} $daoReferenceName)
     {
-        this.$entityRef.name = $entityRef.name;
+        this.$daoReferenceName = $daoReferenceName;
     }
 
     /**
-     * Gets the reference to <code>$entityRef.name</code>.
+     * Gets the reference to <code>$daoReferenceName</code>.
      */
     protected $targetElement.fullyQualifiedDaoName get${targetElement.daoName}()
     {
-        return this.$entityRef.name;
+        return this.$daoReferenceName;
     }
 
 #end
