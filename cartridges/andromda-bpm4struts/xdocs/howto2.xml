@@ -4,7 +4,7 @@
 
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
-        <title>AndroMDA - Bpm4Struts - HowTo (2)</title>
+        <title>AndroMDA - Bpm4Struts - HowTo - Activity Graphs</title>
     </properties>
 
     <body>
@@ -39,7 +39,7 @@
                     contain exactly one initial state.
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/initial-states.jpg"/>
+                    <img src="resources/howto/org/andromda/test/initial-states.gif"/>
                 </p>
             </subsection>
             <subsection name="Action States">
@@ -65,7 +65,7 @@
                     transition.
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/action-states.jpg"/>
+                    <img src="resources/howto/org/andromda/test/action-states.gif"/>
                 </p>
             </subsection>
             <subsection name="Transitions">
@@ -105,7 +105,7 @@
                     not support setting the type of the trigger.
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/action-parameters.jpg"/>
+                    <img src="resources/howto/org/andromda/test/action-parameters.gif"/>
                 </p>
                 <p>
                     Different tagged values exist to control the generation of the type of the action parameter.
@@ -239,7 +239,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     In doing so the modeled parameters will be available in the generated JSP page.
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/page-variables.jpg"/>
+                    <img src="resources/howto/org/andromda/test/page-variables.gif"/>
                 </p>
                 <p>
                     Page variables can be rendered in tabular format, this is an advanced feature which
@@ -272,7 +272,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     cartridge and might show it on screen for clarity.
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/decision-points.jpg"/>
+                    <img src="resources/howto/org/andromda/test/decision-points.gif"/>
                 </p>
             </subsection>
             <subsection name="Final States">
@@ -287,7 +287,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     to the next use-case (this is not supported in all UML tools).
                 </p>
                 <p>
-                    <img src="resources/howto/org/andromda/test/final-states.jpg"/>
+                    <img src="resources/howto/org/andromda/test/final-states.gif"/>
                 </p>
             </subsection>
         </section>
