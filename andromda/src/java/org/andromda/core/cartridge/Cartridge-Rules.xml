@@ -4,25 +4,25 @@
      a CartridgeDescriptor object by Apache Digester -->
 <digester-rules>
 
-	<pattern value="cartridge">
-	
-    	<object-create-rule 
-      		classname="org.andromda.core.cartridge.Cartridge" />
-      		
-		<set-properties-rule>
- 			<alias attr-name="name" prop-name="name" />
- 		</set-properties-rule>      
+    <pattern value="cartridge">
+    
+        <object-create-rule 
+              classname="org.andromda.core.cartridge.Cartridge" />
+              
+        <set-properties-rule>
+             <alias attr-name="name" prop-name="name" />
+         </set-properties-rule>      
 
-       	<!-- add the TemplateEngine implementation to the Cartridge -->
-      		
-		<pattern value="templateEngine">
-		
-			<set-properties-rule>
-	 			<alias attr-name="className" prop-name="templateEngineClass" />
-	 		</set-properties-rule>   
-	 		
-	 		<pattern value="macrolibrary">
-	 		
+           <!-- add the TemplateEngine implementation to the Cartridge -->
+              
+        <pattern value="templateEngine">
+        
+            <set-properties-rule>
+                 <alias attr-name="className" prop-name="templateEngineClass" />
+            </set-properties-rule>   
+             
+            <pattern value="macrolibrary">
+             
                 <call-method-rule
                     methodname="addMacrolibrary" 
                     paramcount="1" 
@@ -33,127 +33,127 @@
                     paramnumber="0" />
                     
              </pattern>
-		       
-	   	</pattern>
-      		
-      	<!-- add the property references to the Cartridge -->
-      		
-		<pattern value="property">
-		
-			<call-method-rule
-				methodname="addPropertyReference" 
-				paramcount="2" 
-				paramtypes="java.lang.String,java.lang.String"/>
-				
-	    	<call-param-rule 
-	    		attrname="reference" 
-	    		paramnumber="0" />
-	    		
+               
+           </pattern>
+              
+          <!-- add the property references to the Cartridge -->
+              
+        <pattern value="property">
+        
+            <call-method-rule
+                methodname="addPropertyReference" 
+                paramcount="2" 
+                paramtypes="java.lang.String,java.lang.String"/>
+                
             <call-param-rule 
-	            attrname="default" 
-	            paramnumber="1" />
-		       
-	   	</pattern>
-	   	
-	   	<!-- add the TemplateObjects to the Cartridge -->
-	   	
-		<pattern value="templateObject">
-		
-		    <object-create-rule 
-      			classname="org.andromda.core.common.TemplateObject" />
-      			
-			<set-properties-rule>
-	 			<alias attr-name="name" prop-name="name" />
-	 		</set-properties-rule>    
-					
-			<set-properties-rule>
-	 			<alias attr-name="className" prop-name="className" />
-	 		</set-properties-rule>    
-	 		
-	 		<!-- add the properties to the TemplateObject -->
-	 		
-			<pattern value="property">
+                attrname="reference" 
+                paramnumber="0" />
+                
+            <call-param-rule 
+                attrname="default" 
+                paramnumber="1" />
+               
+           </pattern>
+           
+           <!-- add the TemplateObjects to the Cartridge -->
+           
+        <pattern value="templateObject">
+        
+            <object-create-rule 
+                  classname="org.andromda.core.common.TemplateObject" />
+                  
+            <set-properties-rule>
+                 <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>    
+                    
+            <set-properties-rule>
+                 <alias attr-name="className" prop-name="className" />
+            </set-properties-rule>    
+             
+             <!-- add the properties to the TemplateObject -->
+             
+            <pattern value="property">
 
-				<call-method-rule
-					methodname="addPropertyReference" 
-					paramcount="1"/>
-					
-		    	<call-param-rule 
-		    		attrname="reference" 
-		    		paramnumber="0" />
-				
-			</pattern>
-	    		
-	      	<set-next-rule methodname="addTemplateObject" />	    		
-		       
-	   	</pattern>
-		
-		<!-- add a resource to the cartridge -->
-		<pattern value="resource">
-			
-	    	<object-create-rule 
-	      		classname="org.andromda.core.cartridge.Resource" />  
-	
-			<set-properties-rule>
-	 			<alias attr-name="path" prop-name="path" />
-	 		</set-properties-rule> 
-			
-			<set-properties-rule>
-	 			<alias attr-name="outlet" prop-name="outlet" />
-	 		</set-properties-rule> 	 	
-			
-			<set-properties-rule>
-	 			<alias attr-name="overwrite" prop-name="overwrite" />
-	 		</set-properties-rule> 	 
-			
-	      	<set-next-rule methodname="addResource" />
-							
-		</pattern>
-	   	
-	   	<!-- add a template to the cartridge -->
-	   	
-		<pattern value="template">
-		
-	    	<object-create-rule 
-	      		classname="org.andromda.core.cartridge.Template" />     		
+                <call-method-rule
+                    methodname="addPropertyReference" 
+                    paramcount="1"/>
+                    
+                <call-param-rule 
+                    attrname="reference" 
+                    paramnumber="0" />
+                
+            </pattern>
+                
+            <set-next-rule methodname="addTemplateObject" />	    		
+               
+        </pattern>
+        
+        <!-- add a resource to the cartridge -->
+        <pattern value="resource">
+            
+            <object-create-rule 
+                  classname="org.andromda.core.cartridge.Resource" />  
+    
+            <set-properties-rule>
+                 <alias attr-name="path" prop-name="path" />
+            </set-properties-rule> 
+            
+            <set-properties-rule>
+                 <alias attr-name="outlet" prop-name="outlet" />
+            </set-properties-rule> 	 	
+            
+            <set-properties-rule>
+                 <alias attr-name="overwrite" prop-name="overwrite" />
+            </set-properties-rule> 	 
+            
+            <set-next-rule methodname="addResource" />
+                            
+        </pattern>
+           
+           <!-- add a template to the cartridge -->
+           
+        <pattern value="template">
+        
+            <object-create-rule 
+                  classname="org.andromda.core.cartridge.Template" />     		
 
-			<set-properties-rule>
-	 			<alias attr-name="path" prop-name="path" />
-	 		</set-properties-rule> 
+            <set-properties-rule>
+                 <alias attr-name="path" prop-name="path" />
+            </set-properties-rule> 
 
-			<set-properties-rule>
-	 			<alias attr-name="generateEmptyFiles" prop-name="generateEmptyFiles" />
-	 		</set-properties-rule> 
+            <set-properties-rule>
+                 <alias attr-name="generateEmptyFiles" prop-name="generateEmptyFiles" />
+            </set-properties-rule> 
 
-			<set-properties-rule>
-	 			<alias attr-name="outputPattern" prop-name="outputPattern" />
-	 		</set-properties-rule> 
-	 		
-			<set-properties-rule>
-	 			<alias attr-name="outlet" prop-name="outlet" />
-	 		</set-properties-rule> 	 			      	
-	      		      	 
-			<set-properties-rule>
-	 			<alias attr-name="overwrite" prop-name="overwrite" />
-	 		</set-properties-rule> 	 	 	
-	 		
-			<set-properties-rule>
-	 			<alias attr-name="outputToSingleFile" prop-name="outputToSingleFile" />
-	 		</set-properties-rule> 	 
-	 		
-			<set-properties-rule>
-	 			<alias attr-name="required" prop-name="required" />
-	 		</set-properties-rule> 	
-			
-	 		<pattern value="modelElements">
-	 		    
+            <set-properties-rule>
+                 <alias attr-name="outputPattern" prop-name="outputPattern" />
+            </set-properties-rule> 
+             
+            <set-properties-rule>
+                 <alias attr-name="outlet" prop-name="outlet" />
+            </set-properties-rule> 	 			      	
+                             
+            <set-properties-rule>
+                 <alias attr-name="overwrite" prop-name="overwrite" />
+            </set-properties-rule> 	 	 	
+             
+            <set-properties-rule>
+                 <alias attr-name="outputToSingleFile" prop-name="outputToSingleFile" />
+            </set-properties-rule> 	 
+             
+            <set-properties-rule>
+                 <alias attr-name="required" prop-name="required" />
+            </set-properties-rule> 	
+            
+             <pattern value="modelElements">
+                 
                 <object-create-rule 
                     classname="org.andromda.core.cartridge.TemplateModelElements" />   
                     
                 <set-properties-rule>
                     <alias attr-name="variable" prop-name="variable" />
                 </set-properties-rule> 	 	 		    
-	 		    
+                 
                 <pattern value="modelElement">
                     
                     <object-create-rule 
@@ -172,13 +172,13 @@
                 </pattern>	 	 
                 
                 <set-next-rule methodname="setSupportedModelElements" />
-                		    
-	 		</pattern>
+                            
+             </pattern>
 
-	      	<set-next-rule methodname="addResource" />
-		       
-	   	</pattern>
-	   	
-	</pattern>
+              <set-next-rule methodname="addResource" />
+               
+           </pattern>
+           
+    </pattern>
 
 </digester-rules>
