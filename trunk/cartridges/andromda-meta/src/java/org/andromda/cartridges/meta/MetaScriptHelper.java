@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.andromda.core.simpleuml.SimpleOOHelper;
+import org.omg.uml.foundation.core.Abstraction;
+import org.omg.uml.foundation.core.Classifier;
+import org.omg.uml.foundation.core.Dependency;
+import org.omg.uml.foundation.core.GeneralizableElement;
+import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.Operation;
+import org.omg.uml.foundation.core.Stereotype;
 
 /**
  * Script helper for the metaclass decorator cartridge.
@@ -140,4 +147,35 @@ public class MetaScriptHelper extends SimpleOOHelper
         return result;
     }
 
+    /**
+     * Returns the class tagged with &lt;&lt;metaclass&gt;&gt; that is
+     * connected to cl via a dependency.
+     * 
+     * @param cl the source classifier
+     * @return the metaclass-stereotyped classifier
+     */
+    public Classifier getMetaclass(GeneralizableElement cl)
+    {
+        for (Iterator iter = cl.getClientDependency().iterator();
+            iter.hasNext();
+            )
+        {
+            Object element = iter.next();
+            if ((element instanceof Dependency) && !(element instanceof Abstraction))
+            {
+                Dependency dep = (Dependency)element;
+                ModelElement supplier = (ModelElement)dep.getSupplier().iterator().next();
+                Collection stereotypes = supplier.getStereotype();
+                if (stereotypes != null)
+                {
+                    String stereotypeName = ((Stereotype)stereotypes.iterator().next()).getName();
+                    if (stereotypeName.equals("metaclass")) {
+                        return (Classifier)supplier;
+                    }
+                }
+            }
+        }
+        GeneralizableElement superclass = getGeneralization(cl);
+        return (superclass != null) ? getMetaclass(superclass) : null;
+    }
 }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
+import org.omg.uml.foundation.datatypes.Multiplicity;
 import org.omg.uml.foundation.datatypes.MultiplicityRange;
 
 /**
@@ -29,12 +30,7 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
     // concrete business methods that were declared
     // abstract in class AssociationEndDecorator ...
 
-    public org
-        .andromda
-        .core
-        .metadecorators
-        .uml14
-        .AssociationEndDecorator getOtherEnd()
+    public org.omg.uml.foundation.core.ModelElement handleGetOtherEnd()
     {
         AssociationEnd otherEnd;
 
@@ -44,7 +40,7 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
             AssociationEnd ae = (AssociationEnd) i.next();
             if (!metaObject.equals(ae))
             {
-                return (AssociationEndDecorator) decoratedElement(ae);
+                return ae;
             }
         }
 
@@ -128,7 +124,13 @@ public class AssociationEndDecoratorImpl extends AssociationEndDecorator
 
     static protected boolean isMany(AssociationEnd ae)
     {
-        Collection ranges = ae.getMultiplicity().getRange();
+        Multiplicity multiplicity = ae.getMultiplicity();
+        if (multiplicity == null)
+        {
+            return false;  // no multiplicity means multiplicity "1"
+        }
+        
+        Collection ranges = multiplicity.getRange();
 
         for (Iterator i = ranges.iterator(); i.hasNext();)
         {

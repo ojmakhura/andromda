@@ -17,18 +17,25 @@ ${indent}* </p>
 #end
 #end
 
-#foreach ( $dep in $class.dependencies )
-    #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($transform.getStereotype($class2) == "metaclass")
-        #set ($extendedMetaclass = $class2)
-        #set ($extendedMetaclassTypeName = $transform.findFullyQualifiedName($extendedMetaclass))
+## calculate metaclass and superclass
+#set ($decoratedMetaclass = $transform.getMetaclass($class))
+#set ($decoratedMetaclassTypeName = $transform.findFullyQualifiedName($decoratedMetaclass))
+##
+#set ($superclass = $transform.getGeneralization($class))
+#if ($superclass)
+    #set ($superclassName = "${transform.findFullyQualifiedName($superclass)}Impl")
+#else
+    #if ($decoratedMetaclassTypeName != "org.omg.uml.foundation.core.ModelElement" && $decoratedMetaclassTypeName != "org.omg.uml.UmlPackage")
+    	#set ($superclassName = "ModelElementDecoratorImpl")
+    #else
+    	#set ($superclassName = "DecoratorBase")
     #end
 #end
-
+##
 /**
 #generateDocumentation ($class " ")
  *
- * Metaclass decorator for $extendedMetaclassTypeName
+ * Metaclass decorator for $decoratedMetaclassTypeName
  *
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.tag != "documentation")
@@ -43,24 +50,20 @@ ${indent}* </p>
  *
  */
 public abstract class ${class.name}
-#if ($extendedMetaclassTypeName != "org.omg.uml.foundation.core.ModelElement" && $extendedMetaclassTypeName != "org.omg.uml.UmlPackage")
-       extends    ModelElementDecoratorImpl
-#else
-       extends    DecoratorBase
-#end
-       implements $extendedMetaclassTypeName
+       extends    $superclassName
+       implements $decoratedMetaclassTypeName
 {
     // -------- link to decorated metaobject ----------
     
-    protected $extendedMetaclassTypeName  metaObject;
+    protected $decoratedMetaclassTypeName  metaObject;
 
-    public ${class.name} ($extendedMetaclassTypeName metaObject)
+    public ${class.name} ($decoratedMetaclassTypeName metaObject)
     {
         super (metaObject);
         this.metaObject = metaObject;
     }
     
-#set ($allMethods = $transform.getMethodMap($extendedMetaclassTypeName))
+#set ($allMethods = $transform.getMethodMap($decoratedMetaclassTypeName))
 ##
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes )
@@ -150,6 +153,13 @@ public abstract class ${class.name}
 #end
 #end
 
+## superclass should already implement the decorating methods.
+## we need not repeat them here!
+#if ($superclass)
+    // decorating methods not implemented here. 
+    // they are already in ${superclassName}
+    // or in a superclass of that.
+#else
     // ---------------- decorating methods ----------------------
     
 ##
@@ -171,5 +181,6 @@ public abstract class ${class.name}
 #end    
     }
 
+#end
 #end
 }

@@ -17,18 +17,13 @@ ${indent}* </p>
 #end
 #end
 
-#foreach ( $dep in $class.dependencies )
-    #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($transform.getStereotype($class2) == "metaclass")
-        #set ($extendedMetaclass = $class2)
-        #set ($extendedMetaclassTypeName = $transform.findFullyQualifiedName($extendedMetaclass))
-    #end
-#end
+#set ($decoratedMetaclass = $transform.getMetaclass($class))
+#set ($decoratedMetaclassTypeName = $transform.findFullyQualifiedName($decoratedMetaclass))
 
 /**
 #generateDocumentation ($class " ")
  *
- * Metaclass decorator implementation for $extendedMetaclassTypeName
+ * Metaclass decorator implementation for $decoratedMetaclassTypeName
  *
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.tag != "documentation")
@@ -46,7 +41,7 @@ public class ${class.name}Impl extends ${class.name}
 {
     // ---------------- constructor -------------------------------
     
-    public ${class.name}Impl ($extendedMetaclassTypeName metaObject)
+    public ${class.name}Impl ($decoratedMetaclassTypeName metaObject)
     {
         super (metaObject);
     }
