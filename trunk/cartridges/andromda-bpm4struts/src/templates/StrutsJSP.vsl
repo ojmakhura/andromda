@@ -182,8 +182,9 @@
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
-        <display:table name="pageScope.form.${variable.name}" id="row"
-                       requestURI="<%=request.getRequestURL().toString()%>"
+#set ($collectionVariableName = "form.${variable.name}")
+        <display:table name="${${collectionVariableName}}" id="row"
+                       requestURI="${request.contextPath}"
                        export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)

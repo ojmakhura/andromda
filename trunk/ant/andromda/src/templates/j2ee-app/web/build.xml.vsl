@@ -78,6 +78,8 @@
             <fileset dir="${app.root.dir}/lib">
                 <include name="commons-digester-*.jar"/>
                 <include name="commons-validator-*.jar"/>
+                <include name="standard-*.jar"/>
+                <include name="jstl-*.jar"/>
                 <include name="struts-*.jar"/>
                 <include name="displaytag-*.jar"/>
             </fileset>
