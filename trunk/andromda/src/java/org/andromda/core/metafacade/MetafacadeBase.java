@@ -293,7 +293,7 @@ public class MetafacadeBase
      */
     protected void validationError(String error)
     {
-        System.out.println("[error] " + metaObject + " : " + error);
+        logger.error("[error] " + metaObject + " : " + error);
     }
 
     /**
@@ -306,7 +306,7 @@ public class MetafacadeBase
      */
     protected void validationWarning(String warning)
     {
-        System.out.println("[warning] " + metaObject + " : " + warning);
+        logger.warn("[warning] " + metaObject + " : " + warning);
     }
 
 }
