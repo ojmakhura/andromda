@@ -10,7 +10,8 @@
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
     <!-- define template external properties -->
-    <property reference="securityEnabled" default="false"/>
+    <property reference="security" default="false"/>
+	<property reference="xhtml" default="false"/>
     <property reference="securityRealm" default="other"/>
 
     <!-- copy resources -->
