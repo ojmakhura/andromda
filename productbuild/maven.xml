@@ -278,7 +278,6 @@
 		
 		<!-- set bootstrap mode to true -->
 		<j:set var="maven.andromda.bootstrap.mode" value="true" scope="parent"/>
-		<echo>maven.andromda.bootstrap.mode=${maven.andromda.bootstrap.mode}</echo>
 		
 		<util:tokenize 
 			var="bootstrapModules" 
