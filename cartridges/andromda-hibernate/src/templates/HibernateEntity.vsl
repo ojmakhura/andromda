@@ -76,6 +76,7 @@ public abstract class ${class.name} {
     *     column="$attcolumnname"
     *
     * @hibernate.column
+    *     name="$attcolumnname"
     *     sql-type="$attsqltype"
     *
     */
@@ -138,7 +139,7 @@ public abstract class ${class.name} {
 #set ($sourceColumn  = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$sep$sourceKeyAtt")
 #set ($targetKeyAtt  = ${transform.getPrimaryKeyAttribute($targettype).name})
 #set ($targetColumn  = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$sep$targetKeyAtt")
-#set ($joinTableName = ${str.toRelationName($sourceColumn, $targetColumn)})
+#set ($joinTableName = ${str.toRelationName($sourceColumn, $targetColumn, $sep)})
     * @hibernate.set
     *     lazy="true"
     *     table="$joinTableName"
