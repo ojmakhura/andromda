@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -60,11 +62,28 @@ public class DependencyFacadeLogicImpl
     public Object handleGetTargetElement()
     {
         Object targetElement = null;
-        if (!metaObject.getSupplier().isEmpty())
+        Collection suppliers = UMLMetafacadeUtils.getCorePackage()
+            .getASupplierSupplierDependency().getSupplier(this.metaObject);
+        if (!suppliers.isEmpty())
         {
-            targetElement = metaObject.getSupplier().iterator().next();
+            targetElement = suppliers.iterator().next();
         }
         return targetElement;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.DependencyFacade#getSourceElement()
+     */
+    protected Object handleGetSourceElement()
+    {
+        Object sourceElement = null;
+        Collection clients = UMLMetafacadeUtils.getCorePackage()
+            .getAClientClientDependency().getClient(this.metaObject);
+        if (!clients.isEmpty())
+        {
+            sourceElement = clients.iterator().next();
+        }
+        return sourceElement;
     }
 
 }

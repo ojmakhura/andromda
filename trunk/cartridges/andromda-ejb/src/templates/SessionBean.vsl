@@ -43,7 +43,7 @@ $service.getDocumentation(" * ")
  *     value="$value"
  *
 #end
-#foreach ( $dependency in $service.dependencies )
+#foreach ( $dependency in $service.targetDependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
  * @ejb.ejb-ref
@@ -291,7 +291,7 @@ $operation.getDocumentation("    * ")
 
     // ---------------- accessor methods for bean references ---------------
 
-#foreach ( $dependency in $service.dependencies )
+#foreach ( $dependency in $service.targetDependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
 #if ($reference.viewType == "local")

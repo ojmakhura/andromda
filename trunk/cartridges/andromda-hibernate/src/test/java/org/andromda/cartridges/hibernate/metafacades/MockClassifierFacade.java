@@ -289,9 +289,17 @@ public class MockClassifierFacade implements ClassifierFacade {
     }
 
     /* (non-Javadoc)
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDependencies()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getTargetDependencies()
      */
-    public Collection getDependencies() {
+    public Collection getTargetDependencies() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    /* (non-Javadoc)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getSourceDependencies()
+     */
+    public Collection getSourceDependencies() {
         // TODO Auto-generated method stub
         return null;
     }

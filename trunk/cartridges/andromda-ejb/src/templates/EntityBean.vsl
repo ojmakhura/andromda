@@ -61,7 +61,7 @@ $entity.getDocumentation(" * ")
  *     value="$value"
  *
 #end
-#foreach ( $dependency in $entity.dependencies )
+#foreach ( $dependency in $entity.targetDependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
  * @ejb.ejb-ref
@@ -718,7 +718,7 @@ $operation.getDocumentation("    * ")
 	 }
 	 
 #end
-#foreach ( $dependency in $entity.dependencies )
+#foreach ( $dependency in $entity.targetDependencies )
 #if ($dependency.hasStereotype("EntityRef") || $dependency.hasStereotype("ServiceRef"))
 #set ($reference = $dependency.targetElement)
 #if ($reference.viewType == "local")

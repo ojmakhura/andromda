@@ -40,7 +40,7 @@ public class EJBEntityFacadeLogicImpl
     public Collection handleGetIdentifiers()
     {
         Collection identifiers = new ArrayList();
-        Iterator iter = this.getDependencies().iterator();
+        Iterator iter = this.getTargetDependencies().iterator();
         while (iter.hasNext())
         {
             DependencyFacade dep = (DependencyFacade)iter.next();
@@ -282,7 +282,7 @@ public class EJBEntityFacadeLogicImpl
      */
     public Collection handleGetValueDependencies()
     {
-        Collection dependencies = super.getDependencies();
+        Collection dependencies = super.getTargetDependencies();
         CollectionUtils.filter(dependencies, new Predicate()
         {
             public boolean evaluate(Object object)

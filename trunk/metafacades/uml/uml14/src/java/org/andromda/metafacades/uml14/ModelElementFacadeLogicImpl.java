@@ -10,7 +10,6 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
@@ -410,18 +409,50 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDependencies()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getTargetDependencies()
      */
-    protected java.util.Collection handleGetDependencies()
+    protected java.util.Collection handleGetTargetDependencies()
     {
-        return new FilteredCollection(metaObject.getClientDependency())
+        Collection dependencies = new ArrayList();
+        Collection clientDependencies = UMLMetafacadeUtils.getCorePackage()
+            .getAClientClientDependency().getClientDependency(this.metaObject);
+        if (clientDependencies != null)
+        {
+            dependencies.addAll(clientDependencies);
+        }
+        CollectionUtils.filter(dependencies, new Predicate()
         {
             public boolean evaluate(Object object)
             {
                 return (object instanceof Dependency)
                     && !(object instanceof Abstraction);
             }
-        };
+        });
+        return dependencies;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacadeLogic#getSourceDependencies()
+     */
+    protected Collection handleGetSourceDependencies()
+    {
+        Collection dependencies = new ArrayList();
+        Collection supplierDependencies = UMLMetafacadeUtils.getCorePackage()
+            .getASupplierSupplierDependency().getSupplierDependency(
+                this.metaObject);
+        if (supplierDependencies != null)
+        {
+            dependencies.addAll(supplierDependencies);
+        }
+        CollectionUtils.filter(dependencies, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                return (object instanceof Dependency)
+                    && !(object instanceof Abstraction);
+            }
+        });
+        return dependencies;
     }
 
     /**

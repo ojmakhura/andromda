@@ -40,23 +40,23 @@ public class ServiceOperationFacadeLogicImpl
         {
             roles.addAll(((ServiceFacade)this.getOwner()).getRoles());
         }
-        Collection operationRoles = this.getDependencies();
+        Collection operationRoles = this.getSourceDependencies();
         CollectionUtils.filter(operationRoles, new Predicate()
         {
             public boolean evaluate(Object object)
             {
                 DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null
-                    && dependency.getTargetElement() != null
+                    && dependency.getSourceElement() != null
                     && RoleFacade.class.isAssignableFrom(dependency
-                        .getTargetElement().getClass());
+                        .getSourceElement().getClass());
             }
         });
         CollectionUtils.transform(operationRoles, new Transformer()
         {
             public Object transform(Object object)
             {
-                return ((DependencyFacade)object).getTargetElement();
+                return ((DependencyFacade)object).getSourceElement();
             }
         });
         roles.addAll(operationRoles);

@@ -398,7 +398,7 @@ public class EntityFacadeLogicImpl
      */
     public Collection handleGetEntityReferences()
     {
-        return new FilteredCollection(this.getDependencies())
+        return new FilteredCollection(this.getTargetDependencies())
         {
             public boolean evaluate(Object object)
             {
