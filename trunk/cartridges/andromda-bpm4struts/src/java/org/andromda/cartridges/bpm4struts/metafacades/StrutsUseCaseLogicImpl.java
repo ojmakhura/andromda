@@ -210,7 +210,16 @@ public class StrutsUseCaseLogicImpl
     protected Collection handleGetAllUseCases()
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && allUseCases != null) return allUseCases;
-        return allUseCases = getModel().getAllUseCases();
+
+        final Collection useCases = new LinkedList();
+
+        for (Iterator iterator = getModel().getAllUseCases().iterator(); iterator.hasNext();)
+        {
+            Object object = (Object) iterator.next();
+            if (object instanceof StrutsUseCase)
+                useCases.add(object);
+        }
+        return allUseCases = useCases;
     }
 
     protected Object handleGetController()
