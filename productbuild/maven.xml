@@ -305,7 +305,7 @@
                 <ant:exclude name="**/*.txt"/>
                 <!-- don't copy the bootstraps over since they are handeled
                      seperately -->
-                <ant:exclude name="*bootstrap"/>
+                <ant:exclude name="**/*bootstrap/**"/>
             </ant:fileset>
         </ant:copy>        
     </goal>
