@@ -5,9 +5,6 @@ maven.idea.project.version=4
 maven.idea.project.multiproject.basedir=.
 
 #if ($webservice)
-# The application id (used by the webservice)
-application.id=${projectId}
-
 # Change this to the host on which your webservice will be deploy
 service.host=localhost
 # Change this the port on which your webservice will be deploy
