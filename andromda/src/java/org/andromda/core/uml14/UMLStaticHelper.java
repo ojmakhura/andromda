@@ -275,31 +275,34 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 			classifier);
 	}
 
-	/**
-	 * Returns the generalization/superclass for the given model generalizable
+    
+    /**
+     * Returns the generalization/superclass for the given model generalizable
      * model element (i.e. Class).
-     * 
-	 * @param object model element
-	 * @return GeneralizableElement super class
-	 */
-	public GeneralizableElement getGeneralization(Object object)
-	{
-		if ((object == null) || !(object instanceof GeneralizableElement))
-		{
-			return null;
-		}
-		
-		GeneralizableElement element = (GeneralizableElement) object;
-		Iterator i = 
-			model.getCore().getAChildGeneralization().getGeneralization(element).
-			iterator();
-		if (i.hasNext())
-		{
-			return (GeneralizableElement)i.next();
-		}
-			
-		return null;
-	}
+     *
+     * @param object model element
+     * @return GeneralizableElement super class
+     */
+    public GeneralizableElement getGeneralization(Object object) {
+        if ((object == null) || !(object instanceof GeneralizableElement)) {
+            return null;
+        }
+
+        GeneralizableElement element = (GeneralizableElement) object;
+        Iterator i =
+            model
+                .getCore()
+                .getAChildGeneralization()
+                .getGeneralization(element)
+                .iterator();
+        if (i.hasNext()) {
+            Generalization generalization = (Generalization) i.next();
+            return generalization.getParent();
+        }
+
+        return null;
+    }
+
 	
 	
 	/**
