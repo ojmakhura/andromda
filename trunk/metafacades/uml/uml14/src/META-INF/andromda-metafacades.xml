@@ -151,6 +151,9 @@
     <metafacade class="org.andromda.metafacades.uml14.StateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl"/>          
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.StateFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CompositeState$Impl"/>          
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StateVertexFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.StateVertex$Impl"/>         
     </metafacade>
