@@ -8,27 +8,27 @@
     <body>
         <section name="The AndroMDA Ant Task">
             <p class="std">
-			  One of the ways to use AndroMDA, is as a custom task for the famous 
-			  Apache Ant build tool. This page documents the attributes and 
-			  elements of the <![CDATA[<andromda>]]> task.
+              One of the ways to use AndroMDA, is as a custom task for the famous 
+              Apache Ant build tool. This page documents the attributes and 
+              elements of the <![CDATA[<andromda>]]> task.
             </p>
             <h2>
                 <a name="AndroMDA"><![CDATA[<andromda>]]></a>
             </h2>
             <p class="std">
-				andromda is the task that generates Java source (or other) files
-				from templates and a metamodel that it loads from a text file 
-				(i.e. an XMI file).
+                andromda is the task that generates Java source (or other) files
+                from templates and a metamodel that it loads from a text file 
+                (i.e. an XMI file).
             </p>
             <p class="std">
-				To configure your cartridges you'll will use nested
+                To configure your cartridges you'll will use nested
                 <a href="#namespace">
                     <code><![CDATA[<namespace>]]></code>
                 </a> elements.
             </p>
             <p class="std">
-				To customize andromda's default behavior and to point to shared
-				modules or profiles then you will possibly use a nested
+                To customize andromda's default behavior and to point to shared
+                modules or profiles then you will possibly use a nested
                 <a href="#repository">
                     <code><![CDATA[<repository>]]></code>
                 </a> element.
@@ -49,66 +49,66 @@
                 <tr>
                     <td valign="top" class="std">basedir</td>
                     <td valign="top" class="std">
-						Specifies the path to the directory location of your case 
-						tool's model file(s).
+                        Specifies the path to the directory location of your case 
+                        tool's model file(s).
                         <strong>NOTE:</strong> if this
-						is NOT specified, you'll need to specify the
+                        is NOT specified, you'll need to specify the
                         <a href="#modelURL">modelURL</a>
-						property to give the URL of a single model to load.
+                        property to give the URL of a single model to load.
                     </td>
                     <td>
-						Yes (unless modelURL is used).
+                        Yes (unless modelURL is used).
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						includes
+                        includes
                     </td>
                     <td valign="top" class="std">
-						This is the standard Ant includes 
-						attribute. Specify any files or directories with XMI files 
-						that you
+                        This is the standard Ant includes 
+                        attribute. Specify any files or directories with XMI files 
+                        that you
                         <b>do</b> want AndroMDA to try to process.  This is
-						used in conjunction with the
+                        used in conjunction with the
                         <code>basedir</code> property.
                     </td>
                     <td valign="top" align="center" class="std">
-						Yes (unless modelURL is used).
+                        Yes (unless modelURL is used).
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						excludes
+                        excludes
                     </td>
                     <td valign="top" class="std">
-						This is the standard Ant excludes 
-						attribute. Specify any files or directories with XMI files 
-						that you
+                        This is the standard Ant excludes 
+                        attribute. Specify any files or directories with XMI files 
+                        that you
                         <b>do not</b> want AndroMDA to try to process.  This is
-						used in conjunction with the
+                        used in conjunction with the
                         <code>basedir</code> property.
                     </td>
                     <td valign="top" align="center" class="std">
-						No.
+                        No.
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						lastModifiedCheck
+                        lastModifiedCheck
                     </td>
                     <td valign="top" class="std">
-						This turns on or off the ability 
-						to check the last modified date on files in order to 
-						determine whether or not they need to be re-rendered or 
-						not. The value of this attribute can be "true, false, yes, 
-						no". By default, it is true, meaning that the last modified 
-						date should be checked and if the original .xml file has 
-						not changed, then don't process the output file. This 
-						accelerates processing because files that have not changed 
-						will not get reprocessed.
+                        This turns on or off the ability 
+                        to check the last modified date on files in order to 
+                        determine whether or not they need to be re-rendered or 
+                        not. The value of this attribute can be "true, false, yes, 
+                        no". By default, it is true, meaning that the last modified 
+                        date should be checked and if the original .xml file has 
+                        not changed, then don't process the output file. This 
+                        accelerates processing because files that have not changed 
+                        will not get reprocessed.
                     </td>
                     <td valign="top" align="center" class="std">
-						No, defaults to
+                        No, defaults to
                         <code>true</code>.
                     </td>
                 </tr>
@@ -117,14 +117,14 @@
                         <a name="processAllModelPackages">processAllModelPackages</a>
                     </td>
                     <td valign="top" class="std">
-						Specifies whether or not to process/generate from all packages 
-						in the model, used in combination with the
+                        Specifies whether or not to process/generate from all packages 
+                        in the model, used in combination with the
                         <a href="#modelPackage">
                             <code><![CDATA[<modelPackage>]]></code>
                         </a> element.
                     </td>
                     <td>
-						No, defaults to
+                        No, defaults to
                         <code>true</code>.
                     </td>
                 </tr>
@@ -133,13 +133,13 @@
                         <a name="validating">validating</a>
                     </td>
                     <td valign="top" class="std">
-						Specifies whether or not XML resources loaded by AndroMDA will be
-						validated (such as XML plugin descriptors).  Sometimes underlying 
-						XML parsers don't support XML Schema validation and in that case, 
-						we want to be able to turn it off.
+                        Specifies whether or not XML resources loaded by AndroMDA will be
+                        validated (such as XML plugin descriptors).  Sometimes underlying 
+                        XML parsers don't support XML Schema validation and in that case, 
+                        we want to be able to turn it off.
                     </td>
                     <td>
-						No, defaults to
+                        No, defaults to
                         <code>true</code>.
                     </td>
                 </tr>
@@ -149,19 +149,19 @@
                     <a name="model"><![CDATA[<model>]]></a>
                 </h2>
                 <p class="std">
-					The
+                    The
                     <code><![CDATA[<model/>]]></code> element is used to
-					tell AndroMDA to process a model. It can be used instead of the 
-				    include and exclude attributes to point directly at the 
-					location of an XMI file. It is useful if the model file 
-					is in a JAR and you do not want to unzip the jar. Unlike 
-					include it can only be used to process one XMI file (however
-					you can define as many
+                    tell AndroMDA to process a model. It can be used instead of the 
+                    include and exclude attributes to point directly at the 
+                    location of an XMI file. It is useful if the model file 
+                    is in a JAR and you do not want to unzip the jar. Unlike 
+                    include it can only be used to process one XMI file (however
+                    you can define as many
                     <code><![CDATA[<model/>]]></code>
-					elements as you would like.
+                    elements as you would like.
                 </p>
                 <p class="std">
-					The model is optional if
+                    The model is optional if
                     <code>basedir</code> and
                     <code>includes</code> is defined.
                 </p>
@@ -178,29 +178,29 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						url
+                        url
                     </td>
                     <td valign="top" class="std">
-					    The URL to the model to be processed. (i.e.
-						jar:file:/path/to/my/model.xml.zip!/model.xmi)
+                        The URL to the model to be processed. (i.e.
+                        jar:file:/path/to/my/model.xml.zip!/model.xmi)
                     </td>
                     <td align="center" valign="top" class="std">
-						Yes
+                        Yes
                     </td>
                 </tr>
             </table>
             <a name="andromda-example"/>
             <h3>Example</h3>
             <p class="std">
-					This example call to the andromda task, tells AndroMDA to load 
-					the model from
+                    This example call to the andromda task, tells AndroMDA to load 
+                    the model from
                 <em>jar:file:/path/to/my/model.zuml!/model.xmi</em>
-					and generate code using the hibernate, the ejb and bpm4struts cartridges. Notice
-					how we configure each cartridge through the
+                    and generate code using the hibernate, the ejb and bpm4struts cartridges. Notice
+                    how we configure each cartridge through the
                 <a href="#namespace">
                     <code><![CDATA[<namespace>]]></code>
                 </a>
-					elements.
+                    elements.
             </p>
             <source><![CDATA[
 <taskdef name="andromda"
@@ -208,7 +208,11 @@
          classpathref="class.path"/>
 
 <andromda>
-    <model uri="jar:file:/path/to/my/model.zuml!/model.xmi"/>
+    <model url="jar:file:/path/to/my/model.zuml!/model.xmi"/>
+    <!-- defines the location of the mapping files -->
+    <mappingsSearchPath>
+        <pathelement location="${basedir}/src/mappings"/>
+    </mappingsSearchPath>
     <!-- This example package will not be processed -->
     <modelPackage name="my.package.foo" shouldProcess="false"/>
     <!-- This file tells AndroMDA how to map abstract datatypes to classes -->
@@ -217,8 +221,8 @@
     </namespace>
     <!-- This will generate the Hibernate code -->
     <namespace name="hibernate" ignore="false">
-        <property name="jdbcMappingsUri" value="file:${basedir}/JdbcMappings.xml"/>
-        <property name="sqlMappingsUri" value="file:${basedir}/HypersonicSqlMappings.xml"/>
+        <property name="jdbcMappingsUri" value="JDBC"/>
+        <property name="sqlMappingsUri" value="HypersonicSql"/>
         <property name="foreignKeySuffix" value="_FK"/>
         <property name="maxSqlNameLength" value="30"/>
         <property name="entities"      value="${gen.src.dir}" ignore="false"/>
@@ -253,26 +257,26 @@
             </h2>
             <table>
                 <p class="std">
-					The
+                    The
                     <code><![CDATA[<modelPackage>]]></code> is used in
-					conjunction with the
+                    conjunction with the
                     <code>
                         <a href="#processAllModelPackages">processAllModelPackages</a>
                     </code>
-					attribute of the
+                    attribute of the
                     <code>
                         <a href="#andromda"><![CDATA[<andromda>]]></a>
                     </code>
-				    task.  By default all packages are processed. Therefore it is recommended to 
-					turn off the packages which should be not processed.  In other words,
-					if you don't want to generate code from a certain package of a model, 
-					then you can create a modelPackage for that package, set the
+                    task.  By default all packages are processed. Therefore it is recommended to 
+                    turn off the packages which should be not processed.  In other words,
+                    if you don't want to generate code from a certain package of a model, 
+                    then you can create a modelPackage for that package, set the
                     <em>shouldProcess</em> attribute to
                     <code>false</code>, and any model
-					elements in that package will not be processed.
+                    elements in that package will not be processed.
                 </p>
                 <p class="std">
-					The modelPackage element is optional.
+                    The modelPackage element is optional.
                 </p>
                 <tr>
                     <td valign="top" class="std">
@@ -287,33 +291,33 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						name
+                        name
                     </td>
                     <td valign="top" class="std">
-						The fully qualified name of the UML namespace/package.
+                        The fully qualified name of the UML namespace/package.
                     </td>
                     <td align="center" valign="top" class="std">
-						Yes.
+                        Yes.
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						shouldProcess
+                        shouldProcess
                     </td>
                     <td valign="top" class="std">
-						True or false depending on whether or not the package
-						should be processed.
+                        True or false depending on whether or not the package
+                        should be processed.
                     </td>
                     <td align="center" valign="top" class="std">
-						No. Defaults to
+                        No. Defaults to
                         <code>true</code>.
                     </td>
                 </tr>
             </table>
             <h3>Example</h3>
             <p class="std">
-				The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
-				element:
+                The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
+                element:
             </p>
             <source><![CDATA[
 <andromda ...>
@@ -323,7 +327,7 @@
 </andromda>
                 ]]></source>
             <p class="std">
-				The above is equivalent to:
+                The above is equivalent to:
             </p>
             <source><![CDATA[
 <andromda ...>
@@ -335,16 +339,16 @@
                 <a name="namespace"><![CDATA[<namespace>]]></a>
             </h2>
             <p class="std">
-				The
+                The
                 <a href="#andromda">
                     <code><![CDATA[<andromda>]]></code>
                 </a> task takes a
-				nested
+                nested
                 <code><![CDATA[<namespace>]]></code> element in order to customize
-				the properties of a cartridge.  These properties are used to define the 
-				location of where generated files are written, what language mapping files
-				to use (i.e. JavaMappings.xml, DotNetMappings.xml, etc.) and any other
-				properties that a cartridge and its metafacades might support.
+                the properties of a cartridge.  These properties are used to define the 
+                location of where generated files are written, what language mapping files
+                to use (i.e. JavaMappings.xml, DotNetMappings.xml, etc.) and any other
+                properties that a cartridge and its metafacades might support.
             </p>
             <h3>Attributes</h3>
             <table border="1" cellpadding="2" cellspacing="0">
@@ -361,85 +365,85 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						name
+                        name
                     </td>
                     <td valign="top" class="std">
-						The name of the cartridge you want to use. It must match the name 
-						in a cartridge descriptor (i.e.
+                        The name of the cartridge you want to use. It must match the name 
+                        in a cartridge descriptor (i.e.
                         <em>/META-INF/andromda-cartridge.xml</em>).
                     </td>
                     <td valign="top" class="std">
-						Yes.
+                        Yes.
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" class="std">
-						ignore
+                        ignore
                     </td>
                     <td valign="top" class="std">
-						This is useful if you have a cartridge on your classpath 
-						(since cartridge's are loaded when on your classpath) and you do
-						not want to generate any output from this cartridge, in other
-						words, you want it to be ignored.  If you want to ignore
-						a cartridge, then set this attribute with value of
+                        This is useful if you have a cartridge on your classpath 
+                        (since cartridge's are loaded when on your classpath) and you do
+                        not want to generate any output from this cartridge, in other
+                        words, you want it to be ignored.  If you want to ignore
+                        a cartridge, then set this attribute with value of
                         <code>true</code>,
-						otherwise don't set it at all.
+                        otherwise don't set it at all.
                     </td>
                     <td align="center" class="std">
-						No. Defaults to
+                        No. Defaults to
                         <code>false</code>.
                     </td>
                 </tr>
             </table>
             <p class="std">
-				See the
+                See the
                 <a href="#andromda-example">example</a> above for the correct use of
-				namespace elements.
+                namespace elements.
             </p>
             <h2>
                 <a name="repository"><![CDATA[<repository>]]></a>
             </h2>
             <p class="std">
-				The
+                The
                 <a href="#andromda">
                     <code><![CDATA[<andromda>]]></code>
                 </a> task supports a nested
                 <code><![CDATA[<repository>]]></code> tag to
-				use to define any extra repository options (i.e. moduleSearchPath).
+                use to define any extra repository options (i.e. moduleSearchPath).
             </p>
             <h2>
                 <a name="moduleSearchPath"><![CDATA[<moduleSearchPath>]]></a>
             </h2>
             <p class="std">
-				The
+                The
                 <a href="#repository">
                     <code><![CDATA[<repository>]]></code>
                 </a> element
-				takes a nested
+                takes a nested
                 <code><![CDATA[<moduleSearchPath>]]></code> element in order
-				to define the location of external modules or profiles that a model being 
-				processed is using.  The
+                to define the location of external modules or profiles that a model being 
+                processed is using.  The
                 <code><![CDATA[<moduleSearchPath>]]></code> takes
-				any valid Ant path element structures.  See
+                any valid Ant path element structures.  See
                 <a href="http://ant.apache.org/manual/using.html#path">Path-like Structures</a>
-				for more information on how to define these paths.
+                for more information on how to define these paths.
             </p>
             <h3>Example</h3>
             <p class="std">
-			    The BPM4Struts cartridge metafacade model 
-				extends from the base metafacade model, so we define a
+                The BPM4Struts cartridge metafacade model 
+                extends from the base metafacade model, so we define a
                 <code><![CDATA[<moduleSearchPath>]]></code> element pointing to
-				the location for which to find the base metafacade model.
+                the location for which to find the base metafacade model.
             </p>
             <source><![CDATA[
 <andromda modelURL="=jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml"
           lastModifiedCheck="false">
-	<repository>
-	    <moduleSearchPath>
-		    <pathelement location="${basedir}/lib"/>
-	    </moduleSearchPath>
-	</repository>
-	...
+    <repository>
+        <moduleSearchPath>
+            <pathelement location="${basedir}/lib"/>
+        </moduleSearchPath>
+    </repository>
+    ...
 </andromda>
                 ]]></source>
         </section>
