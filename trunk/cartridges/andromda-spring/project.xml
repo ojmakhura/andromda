@@ -48,10 +48,10 @@
             <version>${pom.currentVersion}</version>
             <properties>
                 <!-- facades: only used when generating from the meta-model -->
-                <facades>${meta.facades}</facades>
-                <facade-logics>${meta.facade.logics}</facade-logics>
-                <facades-to-impls>${meta.facades.to.impls}</facades-to-impls>
-                <facade-logic-impls>${meta.facade.logic.impls}</facade-logic-impls>
+                <facades>${basedir}/target/src</facades>
+                <facade-logics>${basedir}/target/src</facade-logics>
+                <facades-to-impls>${basedir}/target/src</facades-to-impls>
+                <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
                 <!-- spring : only used for howto model (will move to plugin) -->
                 <hibernateTypeMappingsUri>${howto.hibernateTypeMappingsUri}</hibernateTypeMappingsUri>
                 <dataSource>${howto.dataSource}</dataSource>
