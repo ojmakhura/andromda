@@ -211,16 +211,23 @@
                     </tr>
                     <tr>
                         <td>select</td>
-                        <td>This will render a listbox or combobox. If the parameter is a collection or array you will have the possiblity to select multiple values, otherwise you will have a combobox where only one value at a time can be selected</td>
+                        <td>This will render a listbox or combobox. If the parameter is a collection or array you will
+                            have the possiblity to select multiple values, otherwise you will have a combobox where
+                            only one value at a time can be selected</td>
                     </tr>
                     <tr>
                         <td>checkbox</td>
-                        <td>renders a checkbox, if the field is a boolean value this widget will be rendered by default</td>
+                        <td>renders a checkbox, if the field is a boolean value this widget will be rendered
+                            by default</td>
                     </tr>
                     <tr>
-                        <td>radio X</td>
-                        <td>renders radiobuttons, the X is optional and represents an integer with a default value of 3; it denotes the number of choices for this parameter: the value you enter there will determine the number of radiobuttons that will be rendered.
-                            Alternatively you can use a comma-separated list of property values instead of an integer</td>
+                        <td>radio</td>
+                        <td>renders radiobuttons, by default there are 3 of them; use the
+                            <code>@andromda.struts.view.field.radio</code> tagged value, it denotes the number of choices
+                            for this parameter: the value you enter for that tagged value will determine the number of
+                            radiobuttons that will be rendered.
+                            Alternatively you can use a comma-separated list of property values instead of an
+                            integer</td>
                     </tr>
                     <tr>
                         <td>password</td>

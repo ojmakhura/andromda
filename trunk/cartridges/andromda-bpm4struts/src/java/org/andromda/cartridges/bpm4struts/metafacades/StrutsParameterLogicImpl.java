@@ -1219,36 +1219,30 @@ public class StrutsParameterLogicImpl
     protected Collection handleGetOptionValues()
     {
         Collection optionValues = new ArrayList();
-        if ("radio".equals(getWidgetType()))
+        Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RADIO);
+
+        if (taggedValueObject != null)
         {
-            Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
+            String taggedValue = String.valueOf(taggedValueObject).trim();
 
-            if (value != null)
+            int optionCount = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT;
+            try
             {
-                String valueString = String.valueOf(value).trim();
-                int optionCount = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT;
-                if (valueString.length() > 5)
-                {
-                    try
-                    {
-                        optionCount = Integer.parseInt(valueString.substring(5).trim());
-                    }
-                    catch (Exception exception)
-                    {
-                        String[] options = valueString.substring(5).replaceAll("[\\s]+", "").split("[,]");
-                        for (int i = 0; i < options.length; i++)
-                        {
-                            optionValues.add(options[i].trim());
-                        }
-                        return optionValues;
-                    }
-                }
-
+                optionCount = Integer.parseInt(taggedValue);
                 String name = getName();
                 for (int i = 1; i <= optionCount; i++)
                 {
-                    optionValues.add(name + '-' + optionCount);
+                    optionValues.add(name + '-' + i);
                 }
+            }
+            catch (Exception exception)
+            {
+                String[] options = taggedValue.replaceAll("[\\s]+", "").split("[,]");
+                for (int i = 0; i < options.length; i++)
+                {
+                    optionValues.add(options[i].trim());
+                }
+                return optionValues;
             }
         }
         return optionValues;
