@@ -54,15 +54,15 @@ public class Template
      * <li>the output dir name has been prepended</li>
      * </ul>
      * 
-     * @param inputClassName name of the class from the model
-     * @param inputPackageName name of the package from the model in which the
+     * @param modelElementName name of the element from the model
+     * @param packageName name of the package from the model in which the
      *        class is contained
      * @param directory the directory as a File.
      * @return File absolute directory.
      */
     public File getOutputLocation(
-        String inputClassName,
-        String inputPackageName,
+        String modelElementName,
+        String packageName,
         File directory)
     {
         File file = null;
@@ -80,10 +80,10 @@ public class Template
         {
             file = super.getOutputLocation(new String[]
             {
-                StringUtils.trimToEmpty(inputPackageName).replace(
+                StringUtils.trimToEmpty(packageName).replace(
                     '.',
                     File.separatorChar),
-                inputClassName,
+                modelElementName,
             }, directory);
         }
         return file;
