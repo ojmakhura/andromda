@@ -6,54 +6,39 @@
 #set ($controllerClass = $transform.getControllerClass($class))
 #set ($controllerClassName = $transform.toJavaClassName($controllerClass))
 #set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
-#if (!$controllerFormName) ## If there is no form, use the default one
+#if (!$controllerFormName)## If there is no form, use the default one
 #set ($controllerFormName = "ActionForm")
 #end
 #set ($className = "${controllerClassName}Abstract")
 #set ($packageName = $transform.getPackageName($controllerClass))
 ##
-## This macro is designed to generate code that goes into the body of a method.
+## This small macro will handle the processing of the argument transition.
+## Depending on this transition's target it will rendered different code:
 ##
-## For action states and final states it will render an action forward.
+## A guarded decision point
+##   there is a method for each of these nodes, it will be called here
 ##
-## For object flow states it will render a method call that will need
-## manual implementation.
+## ActionState & FinalState
+##    it will render the action forward from the mapping for this target
 ##
-## For decision points (Pseudostate.CHOICE) it will render a call to
-## another method that will handle the decision.
+## ObjectFlowState
+##    there is a method for each object flow state, it will be called here
 ##
-## If the argument transition has a guard it will be evaluated before
-## execution
+## Please note that any merge points are simply skipped, they do not add
+## any specific logic.
 ##
 #macro ( processTransition $transition $indent )
-#set ($transitionGuard = $transition.guard)
-#if ($transitionGuard)
-#set ($transitionGuardName = $transform.toJavaMethodName($transitionGuard))
-${indent}if ($transitionGuardName())
-${indent}{
-#set ($indent2 = $indent)## backup original indentation
-#set ($indent = "$indent    ")
-#end
-#set ($target = $transition.target)
-#if ( $transform.dynamicHelper.isFinalState($target) || $transform.dynamicHelper.isActionState($target) )
-#set ($forwardName = $transform.toForwardName($target))
-${indent}return mapping.findForward("$forwardName");
-#elseif ( $transform.dynamicHelper.isObjectFlowState($target) )
-#set ($objectFlowTypeName = $transform.toJavaClassName($target))
-#set ($objectFlowStateState = $transform.getObjectFlowStateState($target))
-#set ($objectFlowStateStateMethodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
-${indent}return $objectFlowStateStateMethodName(mapping, form, request, response);
-#elseif ( $transform.dynamicHelper.isDecisionPoint($target) )
+#set ($target = $transform.dynamicHelper.skipMergePoints($transition).target)
+#if ($transform.dynamicHelper.isGuardedDecisionPoint($target))
 ${indent}return $transform.toJavaMethodName($target)(mapping, form, request, response);
-#end
-#if ($transitionGuard)
-#set ($indent = $indent2)## restore original indentation
-${indent}}
-${indent}else
-${indent}{
-${indent}    // if the guard fails we restart the use-case
-${indent}    return mapping.findForward("$transform.toForwardName($initialState)");
-${indent}}
+#elseif ($transform.dynamicHelper.isActionState($target) || $transform.dynamicHelper.isFinalState($target))
+${indent}return mapping.findForward("$transform.toForwardName($target)");
+#elseif ($transform.dynamicHelper.isObjectFlowState($target))
+#set ($objectFlowTypeName = $transform.toJavaClassName($target.type))
+#set ($objectFlowStateState = $transform.getObjectFlowStateState($target))
+${indent}return set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)(mapping, form, request, response);
+#else
+// illegal modelelement : $target.name ($target)
 #end
 #end
 ##
@@ -73,8 +58,8 @@ import javax.servlet.http.HttpServletResponse;
 ## Set collections from which methods will be rendered, we convert them to sets
 ## because we don't want to render doubles (just to make sure)
 ##
-#set ($guardNames = $transform.toSet($transform.getGuardNames($stateMachine)))
 #set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($stateMachine)))
+#set ($decisionPoints = $transform.toSet($transform.dynamicHelper.getDecisionPoints($stateMachine)))
 #set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($stateMachine)))
 #set ($guardedTransitions = $transform.toSet($transform.dynamicHelper.getGuardedTransitions($stateMachine)))
 ##
@@ -83,12 +68,23 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class ${className} extends DispatchAction
 {
 ##
+## Global constants used by the decision making processes, please note how their values
+## are hashcodes, while they do not need to be unique for each object of the same type we know they
+## are unique for String instances that represent the same text.
+##
+#foreach ($guardedTransition in $guardedTransitions)
+#set ($fieldName = $transform.toFinalMemberName($guardedTransition.guard))
+#set ($fieldValue = $fieldName.hashCode())
+    protected final int $fieldName = $fieldValue;
+#end
+
+##
 ## Since there is only one initial state (with only one outgoing transition we will make the unspecified method
 ## call the first state vertex.
 ##
     public final ActionForward unspecified(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-#processTransition ( $transform.dynamicHelper.getNextStateTransition($initialState) "        " )
+#processTransition ( $initialState.outgoing.iterator().next() "        " )
     }
 
 ##
@@ -107,51 +103,66 @@ public abstract class ${className} extends DispatchAction
 #set ($methodNameImpl = "${methodName}Impl")
     public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-#set ($transitions = $transform.dynamicHelper.getNextTriggeredTransitions($actionState))
-#if ($transitions.size() > 1)
+#set ($transition = $actionState.outgoing.iterator().next())## there MUST be only one outgoing transition
+#set ($target = $transition.target)
+#if ($transform.dynamicHelper.isTriggeredDecisionPoint($target))
 #if ($controllerFormName.equals("ActionForm"))
         final String trigger = request.getParameter("trigger").toUpperCase();
 #else
         final String trigger = form.getTrigger().toUpperCase();
 #end
 
-#set ($conditionSuffix = ".equals(trigger)")
-#foreach ($transition in $transitions)
-        if ("$transform.toFinalMemberName($transition.trigger)"$conditionSuffix)
-        {
-#processTransition ( $transform.dynamicHelper.getNextStateTransition($transition) "            " )
-        } else
+#foreach ($transition in $target.outgoing)
+        if ("$transform.toFinalMemberName($transition.trigger)".equals(trigger))
+#processTransition( $transition "            " )
+
 #end
-        {
-            // the form property has not been set to a valid value, application bug!
-            return null;
-        }
+        // if this happens the page specified an illegal trigger: application bug!
+        return null;
 #else
-#processTransition ( $transform.dynamicHelper.getNextStateTransition($actionState) "        " )
+#processTransition( $transition "        " )
 #end
     }
 
 #end
 ##
-## We need a boolean method for each guard in the state machine
+## Each decision point in the use-case represents a node where the application flow can take a different
+## road depending on a certain decision process that is part of the business.
 ##
-#foreach ($guardName in $guardNames)
-    protected abstract boolean ${guardName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response);
+#foreach ($decisionPoint in $decisionPoints)
+#if ($transform.dynamicHelper.isGuardedDecisionPoint($decisionPoint))
+#set ($methodName = $transform.toJavaMethodName($decisionPoint))
+    private ActionForward $methodName(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final int ${methodName}Value = ${methodName}Impl(mapping, form, request, response);
 
+        switch(${methodName}Value)
+        {
+#foreach ($transition in $decisionPoint.outgoing)
+            case $transform.toFinalMemberName($transition.guard) :
+#processTransition ( $transition "                " )
+#end
+            default :
+                return null;
+        }
+    }
+
+    protected abstract int ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response);
+
+#end
 #end
 ##
 ## For each object flow state we will have a method that implements the logic to actually
 ## set the specified object in the desired state, this is done in the implementation class.
 ##
 #foreach ($objectFlowState in $objectFlowStates)
-#set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState))
+#set ($objectFlowTypeName = $transform.toJavaClassName($objectFlowState.type))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($objectFlowState))
 #set ($methodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
     private final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         ${methodName}Impl(mapping, form, request, response);
-
-#processTransition ( $transform.dynamicHelper.getNextStateTransition($objectFlowState) "        " )
+#processTransition( $objectFlowState.outgoing.iterator().next() "        " )
     }
 
     protected abstract void ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -160,15 +171,4 @@ public abstract class ${className} extends DispatchAction
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+1
