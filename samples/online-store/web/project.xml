@@ -2,7 +2,7 @@
 
 <project>
     <extend>../project.xml</extend>
-    <id>online-store-sample-web</id>
+    <id>online-store-web</id>
     <name>Online Store Sample Web</name>
     <shortDescription>Online Store Sample Web</shortDescription>
     <description>
@@ -11,7 +11,7 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>online-store-sample-mda</artifactId>
+            <artifactId>online-store-mda</artifactId>
             <version>${pom.currentVersion}</version>
             <type>pom</type>
         </dependency>
