@@ -8,6 +8,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-27" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="SAMPLES-6">
+                An issue with the bpm4struts multibox feature has been resolved: the checkbox widget was not
+                being rendered and a link was present instead. This problem manifested itself in the
+                <a href="andromda-bpm4struts-cartridge/samples.html#online-store">online-store</a> sample.
+            </action>
             <action dev="draftdog" type="fix" issue="BPM-127">
                 Bpm4Struts now correctly exports to all known
                 <a href="http://www.displaytag.org/">displaytag</a> supported formats, there was a bug where
