@@ -9,14 +9,16 @@ import org.andromda.adminconsole.db.RowData;
 
 public class JspUtilFunctions
 {
-    public final static String getInsertJsp(AdminConsoleConfigurator configurator, Column column, String parameterName, RowData rowData)
+    public final static String getInsertJsp(AdminConsoleConfigurator configurator, Column column, RowData rowData)
     {
-        return configurator.getInsertJsp(column, parameterName, rowData);
+        return configurator.getInsertJsp(column, column.getName(), rowData, null);
     }
 
-    public final static String getUpdateJsp(AdminConsoleConfigurator configurator, Column column, String parameterName, RowData rowData)
+    public final static String getUpdateJsp(AdminConsoleConfigurator configurator, Column column, RowData rowData, Integer index)
     {
-        return configurator.getUpdateJsp(column, parameterName, rowData);
+        return configurator.getUpdateJsp(
+                column, index.intValue() + ":" + column.getName(), rowData,
+                "onchange='document.getElementById(\"change-"+index+"\").checked=true;'");
     }
 
     public final static ColumnConfiguration getConfiguration(AdminConsoleConfigurator configurator, Column column)
