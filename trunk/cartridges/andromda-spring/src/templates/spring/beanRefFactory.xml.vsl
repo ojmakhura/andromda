@@ -1,7 +1,7 @@
 #parse("templates/spring/SpringGlobals.vm")
 ## Only generate if ejbs are enabled (since we don't need this otherwise)
 #if ($ejbsEnabled)
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="$xmlEncoding"?>
 
 <!DOCTYPE beans
     PUBLIC "-//SPRING//DTD BEAN//EN"
