@@ -12,14 +12,24 @@
     <property name="xdoclet.gen.dir" value="target/xdoclet/hibernate"/>
     <property name="ejb.descriptor.dir" value="${xdoclet.gen.dir}/META-INF"/>
 
-    <fileset id="libraries" dir="${app.root.dir}/lib" includes="**/*.jar"/>
     <fileset id="classes" dir="${basedir}/target/classes" includes="**/*.class"/>
     <fileset id="java-sources" dir="${basedir}/../ejb/src/java" includes="**/*.java"/>
     <fileset id="mda-java-sources" dir="${basedir}/../ejb/target/src" includes="**/*.java"/>
     <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
 
     <path id="classpath">
-        <fileset refid="libraries"/>
+        <fileset id="libraries" dir="${app.root.dir}/lib">
+            <include name="dom4j-*.jar"/>
+            <include name="odmg-*.jar"/>
+            <include name="hibernate-*.jar"/>
+            <include name="xdoclet-*.jar"/>
+            <include name="xjavadoc-*.jar"/>
+            <include name="commons-collections-*.jar"/>
+            <include name="commons-logging-*.jar"/>
+        </fileset>
+        <pathelement location="${app.root.dir}/dist/${application.id}-hibernate-ejb-server-${application.version}.jar"/>
+        <pathelement location="${app.root.dir}/dist/${application.id}-hibernate-ejb-common-${application.version}.jar"/>
+        <pathelement location="${app.root.dir}/dist/${application.id}-common-${application.version}.jar"/>
         <pathelement path="${basedir}/target/classes"/>
     </path>
 
@@ -64,10 +74,12 @@
     </target>
 
     <target name="export" description="o Export the schemas">
-        <property name="hibernate.schema.output.dir" value="app/target"/>
+        <property name="hibernate.schema.output.dir" value="hibernate/db/target/sql"/>
         <mkdir dir="${app.root.dir}/${hibernate.schema.output.dir}"/>
 
-        <fileset id="hibernate.mapping.files" dir="target/classes" includes="**/*.hbm.xml"/>
+        <fileset id="hibernate.mapping.files" dir="${basedir}/${xdoclet.gen.dir}">
+	    	<include name="**/*.hbm.xml"/>
+    	</fileset>
         <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
 
         <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
@@ -97,12 +109,6 @@
             <jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
             <classpath refid="classpath" />
         </java>
-
-        <!-- copy the db scripts over to the app target directory -->
-        <copy todir="${app.root.dir}/${hibernate.schema.output.dir}">
-        	<fileset dir="${basedir}/../db/conf"/>
-        </copy>
-
     </target>
 
     <target name="jar" description="o Create the JAR" depends="xdoclet,export">
@@ -115,11 +121,7 @@
         <copy todir="${app.root.dir}/dist">
             <fileset dir="${basedir}/target">
                 <include name="${jar.bundle.name}"/>
-                <include name="${javadoc.bundle.name}"/>
             </fileset>
-        </copy>
-        <copy todir="${app.root.dir}/dist">
-            <fileset dir="${basedir}/../db/conf"/>
         </copy>
     </target>
 
