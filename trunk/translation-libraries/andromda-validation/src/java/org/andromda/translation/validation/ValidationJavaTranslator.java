@@ -332,7 +332,6 @@ public class ValidationJavaTranslator
             AFeatureCall featureCall = (AFeatureCall)node.getFeatureCall();
             String featureCallExpression = TranslationUtils.trimToEmpty(node
                 .getFeatureCall());
-            logger.error("the feature call!!!!: " + featureCallExpression);
             if (featureCallExpression.matches(OCLFeatures.OCL_IS_KIND_OF))
             {
                 this.handleOclIsKindOf(featureCall);
