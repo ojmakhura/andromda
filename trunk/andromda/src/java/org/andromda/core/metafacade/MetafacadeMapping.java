@@ -203,7 +203,6 @@ public class MetafacadeMapping
      */
     public void addMappingProperty(String name, String value)
     {
-        System.out.println("adding mapping property: " + name + " with value '" + value + "'");
         this.mappingProperties.put(name, value);
     }
 
