@@ -26,7 +26,7 @@ public class PluginDiscoverer {
     private static final Properties pluginResources = new Properties();
        
     static {
-        String ANDROMDA_PLUGINS = "META-INF/andromda-plugins.properties";
+        final String ANDROMDA_PLUGINS = "META-INF/andromda-plugins.properties";
         try {
             URL andromdaPluginsUri = ResourceUtils.getResource(ANDROMDA_PLUGINS);
             if (andromdaPluginsUri == null) {
@@ -147,6 +147,5 @@ public class PluginDiscoverer {
                 + type + "' found");
         }
         return plugins;
-    }
-    
+    }   
 }

@@ -2,6 +2,7 @@ package org.andromda.core.common;
 
 import java.net.URL;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.templateengine.TemplateEngine;
@@ -89,5 +90,11 @@ public interface Plugin {
      * @return the Map of property references.
      */
     public Map getPropertyReferences();
+    
+    /**
+     * Returns a list containing the name of each resource
+     * contained within the plugin.
+     */
+    public List getContents();
 
 }
