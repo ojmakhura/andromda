@@ -7,7 +7,15 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-16" description="The most recent CVS snapshot for version 3, milestone 3">
+        <release version="3.0M3-SNAPSHOT" date="2004-12-19" description="The most recent CVS snapshot for version 3, milestone 3">
+            <action dev="cwbrandon" type="add" issue="CORE-33">
+                The ability to filter (or select) the cartridges you want 
+                to perform model processing has been introduced.  Please see 
+                <a href="maven-andromda-plugin/properties.html#maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a> 
+                for more information on how to use this new featuire with the maven plugin, or
+                <a href="anttask.html#cartridgeFilter">cartridgeFilter</a> for more information
+                on how to use it directly with the AndroMDA Ant task.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-23">
                 Merge support has been enabled: A new namespace property named 
                 <code>mergeMappingsUri</code> has been introduced which allows you 
