@@ -1,7 +1,5 @@
 package org.andromda.core.uml14;
 
-import java.lang.reflect.Method;
-
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
