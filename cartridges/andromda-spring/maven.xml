@@ -1,10 +1,10 @@
-<project default="xdoc"
+<project default="jar:install"
          xmlns:ant="jelly:ant"
          xmlns:j="jelly:core">
 
     <!--
-            1. unzip all howto files so users can browse their content online
-            2. run andromda on the howto model
+        1. unzip all howto files so users can browse their content online
+        2. run andromda on the howto model
     -->
     <preGoal name="xdoc:generate-from-pom">
         <ant:fileScanner var="howtos">
