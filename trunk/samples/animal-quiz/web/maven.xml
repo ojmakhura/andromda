@@ -99,6 +99,8 @@
         <ant:path id="jsp.precompilation.classpath">
             <ant:path refid="maven.dependency.classpath"/>
             <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/classes"/>
+            <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/lib/andromda-breadcrumbs-taglib.jar"/>
+            <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/tld/andromda-breadcrumbs-taglib.tld"/>
         </ant:path>
 
         <!-- generating java code from the JSPs -->
@@ -127,11 +129,11 @@
             token="&lt;!-- precompilation merge-point --&gt;"/>
 
         <!-- removing the JSPs files -->
-        <ant:echo message="Deleting JSPs files (all except the welcome page: index.jsp)"/>
+        <ant:echo message="Deleting JSPs files (all except the welcome page)"/>
         <ant:delete includeEmptyDirs="true">
             <ant:fileset dir="${jsp.precompilation.webapp}">
                 <ant:include name="**/*.jsp"/>
-                <ant:exclude name="index.jsp"/>
+                <ant:exclude name="*.jsp"/>
             </ant:fileset>
         </ant:delete>
 
