@@ -29,11 +29,12 @@ import org.apache.commons.collections.Predicate;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> 
- * is set on the base/root class. All subclasses must then follow the same
- * strategy. NB if the strategy is changed after the initial generation, the 
- * impl classes have to be hand modified.
- * </p>
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
+ *                                 subclasses must then follow the same
+ *                                 strategy. NB if the strategy is changed after
+ *                                 the initial generation, the impl classes have
+ *                                 to be hand modified.
+ *                                 </p>
  * @author Martin West
  * @author Carlos Cuenca
  */
@@ -484,21 +485,23 @@ public class HibernateEntityLogicImpl
         return INHERITANCE_STRATEGY_CONCRETE.equals(strategy);
     }
 
-    private static final String HIBERNATE_ENTITY_CACHE="hibernateEntityCache";
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityL#handleGetHibernateCacheType()
+    /**
+     * Stores the hibernate entity cache value.
      */
-    protected String handleGetHibernateCacheType() 
+    private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateCacheType()
+     */
+    protected String handleGetHibernateCacheType()
     {
-        String cacheType=(String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
-        if (cacheType==null)
+        String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
+        if (cacheType == null)
         {
-            return String.valueOf(this.getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
+            cacheType = String.valueOf(this
+                .getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
         }
-        else
-        {
-            return cacheType;
-        }
+        return cacheType;
     }
 
 }

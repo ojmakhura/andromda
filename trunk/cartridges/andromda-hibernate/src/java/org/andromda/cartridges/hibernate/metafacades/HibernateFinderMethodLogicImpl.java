@@ -8,7 +8,6 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
  * @author Chad Brandon
  * @author Carlos Cuenca
  */
@@ -123,24 +122,31 @@ public class HibernateFinderMethodLogicImpl
             || StringUtils.isNotBlank(this.getTranslatedQuery());
     }
 
-    private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#handleIsUseQueryCache()
+     * Stores the value indicating whether or not to use hibernate query
+     * caching.
      */
-    protected boolean handleIsUseQueryCache() 
+    private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#isUseQueryCache()
+     */
+    protected boolean handleIsUseQueryCache()
     {
-        if (Boolean.valueOf(
-                String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)))
-                .booleanValue())
+        boolean useQueryCache = Boolean.valueOf(
+            String.valueOf(this
+                .getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)))
+            .booleanValue();
+
+        if (useQueryCache)
         {
-            return (Boolean.valueOf(
-                    String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
-                    .booleanValue());
+            useQueryCache = Boolean
+                .valueOf(
+                    String
+                        .valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
+                .booleanValue();
         }
-        else
-        {
-            return false;
-        }
+        return useQueryCache;
     }
 
 }
