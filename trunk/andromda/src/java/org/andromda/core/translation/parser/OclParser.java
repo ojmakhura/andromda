@@ -1,11 +1,35 @@
 package org.andromda.core.translation.parser;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.translation.analysis.AnalysisAdapter;
 import org.andromda.core.translation.analysis.DepthFirstAdapter;
 import org.andromda.core.translation.lexer.Lexer;
-import org.andromda.core.translation.node.*;
-
-import java.util.*;
+import org.andromda.core.translation.node.AActualParameterList;
+import org.andromda.core.translation.node.ABarFeatureCallParameterOption;
+import org.andromda.core.translation.node.AColonFeatureCallParameterOption;
+import org.andromda.core.translation.node.ACommaExpression;
+import org.andromda.core.translation.node.ACommaFeatureCallParameterOption;
+import org.andromda.core.translation.node.AConcreteFeatureCallParameters;
+import org.andromda.core.translation.node.AEqualExpression;
+import org.andromda.core.translation.node.AFeatureCallParameters;
+import org.andromda.core.translation.node.AIterateDeclarator;
+import org.andromda.core.translation.node.AIterateFeatureCallParameterOption;
+import org.andromda.core.translation.node.APathName;
+import org.andromda.core.translation.node.AStandardDeclarator;
+import org.andromda.core.translation.node.ATypeDeclaration;
+import org.andromda.core.translation.node.AVariableDeclaration;
+import org.andromda.core.translation.node.AVariableDeclarationList;
+import org.andromda.core.translation.node.AVariableDeclarationListTail;
+import org.andromda.core.translation.node.Node;
+import org.andromda.core.translation.node.PExpression;
+import org.andromda.core.translation.node.PFeatureCallParameterOption;
+import org.andromda.core.translation.node.TName;
 
 /**
  * This class adapts the Parser class to handle expressions in which the SableCC
@@ -244,7 +268,7 @@ public class OclParser
          * retrieve them from the namesAndTypes map in the order they were
          * stored.
          */
-        private ArrayList orderedNames = new ArrayList();
+        private LinkedList orderedNames = new LinkedList();
 
         /**
          * Stores the variable names along with its variable type (if there is
@@ -336,7 +360,7 @@ public class OclParser
      * A tree traversal class that searches for a name in a expression.
      */
     private class NameFinder
-            extends DepthFirstAdapter
+        extends DepthFirstAdapter
     {
 
         private TName foundName;
