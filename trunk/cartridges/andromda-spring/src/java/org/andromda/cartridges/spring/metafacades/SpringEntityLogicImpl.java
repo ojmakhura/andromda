@@ -812,6 +812,7 @@ public class SpringEntityLogicImpl
     {
         return 1;
     }
+    
     /**
      * Stores the hibernate entity cache value.
      */
