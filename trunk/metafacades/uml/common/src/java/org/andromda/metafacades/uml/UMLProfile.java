@@ -117,6 +117,11 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_ROLE = profile.get("ROLE");
 
+    /**
+     * Represents a manageable classifier.
+     */
+    public static final String STEREOTYPE_MANAGEABLE = profile.get("MANAGEABLE");
+
     /* ----------------- Tagged Values -------------------- */
 
     /**
