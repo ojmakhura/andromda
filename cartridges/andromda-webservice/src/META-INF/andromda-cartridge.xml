@@ -18,7 +18,8 @@
     
     <!-- The location of where the WSDL will reside
          (i.e. "http://localhost:8080/security-service/services") -->
-    <property reference="wsdlSoapAddress"/>
+    <property reference="wsdlSoapAddress"/>   
+    <property reference="securityRealm" default=""/>
 
     <!-- if true, causes generation of necessary code that expects
          the request to be signed -->
@@ -35,8 +36,6 @@
     <!-- if true, causes generation of necessary code that signs
          the response -->
     <property reference="signedResponse" default="false"/>
-    
-    <property reference="securityRealm" default=""/>
 
     <!-- Defines the crypto properties for WSS4J -->
     <property reference="cryptoKeyStore" default=""/>
@@ -121,7 +120,7 @@
 
     <template
         path="templates/webservice/axis/WebServiceTest.vsl"
-        outputPattern="{0}/{1}Test.java"
+        outputPattern="$generatedFile"
         outlet="axis-tests"
         overwrite="true"
         required="false">

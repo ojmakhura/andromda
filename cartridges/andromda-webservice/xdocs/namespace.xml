@@ -105,6 +105,30 @@
 					</td>
 				</tr> 	 
                 <tr>
+                    <td>
+                        testPackageNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing the package name to which tests are generated, where
+                        <em>{0}</em> is the current model element package name.                      
+                    </td>
+                    <td>
+                        No, default is <code>{0}</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        testNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing the name's of the tests that should be generated,
+                        where <em>{0}</em> is the current model element name.                   
+                    </td>
+                    <td>
+                        No, default is <code>{0}Test</code>
+                    </td>
+                </tr>
+                <tr>
                     <a name="rpcClassNamePattern"/>
                     <td>
                         rpcClassNamePattern

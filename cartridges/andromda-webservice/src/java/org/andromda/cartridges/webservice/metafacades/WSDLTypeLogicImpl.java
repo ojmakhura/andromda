@@ -47,8 +47,7 @@ public class WSDLTypeLogicImpl
         {
             String namespacePrefix = this.getNamespacePrefix() + ':';
 
-            String mappedValue = this.getSchemaTypeMappings().getTo(
-                modelName);
+            String mappedValue = this.getSchemaTypeMappings().getTo(modelName);
             if (!mappedValue.equals(modelName))
             {
                 schemaType.append(mappedValue);
@@ -64,11 +63,10 @@ public class WSDLTypeLogicImpl
                     ClassifierFacade nonArray = this.getNonArray();
                     if (nonArray != null)
                     {
-                        if (WSDLType.class.isAssignableFrom(nonArray
-                            .getClass()))
+                        if (WSDLType.class
+                            .isAssignableFrom(nonArray.getClass()))
                         {
-                            schemaType.append(((WSDLType)nonArray)
-                                .getQName());
+                            schemaType.append(((WSDLType)nonArray).getQName());
                         }
                     }
                 }
@@ -109,7 +107,7 @@ public class WSDLTypeLogicImpl
         }
         return schemaType.toString();
     }
-    
+
     /**
      * The prefix for the XSD namespace.
      */
@@ -161,9 +159,10 @@ public class WSDLTypeLogicImpl
             StringUtils.trimToEmpty(packageName)
         });
     }
-    
+
     /**
-     * Defines the property that stores the location of the schema type mappings URI.
+     * Defines the property that stores the location of the schema type mappings
+     * URI.
      */
     private static final String PROPERTY_SCHEMA_TYPE_MAPPINGS_URI = "schemaTypeMappingsUri";
 

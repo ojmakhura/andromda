@@ -1,12 +1,10 @@
 #if (!$service.allowedOperations.empty)
-package $service.packageName;
+package $service.testPackageName;
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedTestName,'.','/')}.java")
 
-#set($testPackageName = "${service.packageName}.test")
-
-#set($completeClassName = "${testPackageName}.${service.name}")
-import ${testPackageName}.${service.name}ServiceLocator;
-import ${testPackageName}.${service.name};
-import ${testPackageName}.${service.name}SoapBindingStub;
+import ${service.testPackageName}.${service.name}ServiceLocator;
+import ${service.testPackageName}.${service.name};
+import ${service.testPackageName}.${service.name}SoapBindingStub;
 
 import javax.xml.rpc.ServiceException;
 
@@ -14,14 +12,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-#set($testClassName = "${service.name}Test")
-
 /**
- * JUnit test for web service '${service.fullyQualifiedName}'.
+ * JUnit test for web service {@link ${service.fullyQualifiedName}}.
  *
  * @see $service.fullyQualifiedName
  */
-public class $testClassName
+public class $service.testName
     extends TestCase 
 {
 
@@ -32,7 +28,7 @@ public class $testClassName
 	 *
 	 * @param testName name of the test.
 	 */
-	public ${testClassName}(String testName) 
+	public ${service.testName}(String testName) 
 	{
 		super(testName);
 	}
@@ -56,19 +52,19 @@ public class $testClassName
 	}
 	
 	/**
-	 * Allows the ${testClassName} to be run by JUnit as a suite.
+	 * Allows the ${service.testName} to be run by JUnit as a suite.
 	 */
 	public static Test suite() 
 	{
-   		return new TestSuite(${testClassName}.class);
+   		return new TestSuite(${service.testName}.class);
 	}
 
 	/**
-	 * Runs the ${testClassName} test case.
+	 * Runs the ${service.testName} test case.
 	 */
 	public static void main(String[] args) 
 	{
-    	junit.textui.TestRunner.main(new String[] {${testClassName}.class.getName()});
+    	junit.textui.TestRunner.main(new String[] {${service.testName}.class.getName()});
 	}
 	
 	/* ------------------ Actual Tests -------------------- */
@@ -110,10 +106,9 @@ public class $testClassName
 		{
 			TestCase.fail(th.toString());
 		}
-		//@todo implement ${testClassName}.test${stringUtils.capitalize($operation.name)}()  
+		//@todo implement ${service.testName}.test${stringUtils.capitalize($operation.name)}()  
 	}
 	
 #end
-
 }
 #end

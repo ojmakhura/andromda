@@ -607,10 +607,10 @@ public class WebServiceLogicImpl
         Collection roles = this.getAllRoles();
         return roles != null && !roles.isEmpty();
     }
-    
+
     /**
-     * Overridden to only allow the exposed operations in the 
-     * returned roles collection.
+     * Overridden to only allow the exposed operations in the returned roles
+     * collection.
      * 
      * @see org.andromda.metafacades.uml.ServiceFacade#getAllRoles()
      */
@@ -630,5 +630,43 @@ public class WebServiceLogicImpl
             }
         });
         return roles;
+    }
+
+    /**
+     * The pattern used to construct the test package name.
+     */
+    private static final String TEST_PACKAGE_NAME_PATTERN = "testPackageNamePattern";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getTestPackageName()
+     */
+    protected String handleGetTestPackageName()
+    {
+        return String.valueOf(
+            this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getPackageName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getFullyQualifiedTestName()
+     */
+    protected String handleGetFullyQualifiedTestName()
+    {
+        return this.getTestPackageName() + '.' + this.getTestName();
+    }
+
+    /**
+     * The pattern used to construct the test name.
+     */
+    private static final String TEST_NAME_PATTERN = "testNamePattern";
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getTestName()
+     */
+    protected String handleGetTestName()
+    {
+        return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN))
+            .replaceAll("\\{0\\}", this.getName());
     }
 }
