@@ -330,7 +330,7 @@ public class MetafacadeFactory
             String errMsg = "Failed to construct a meta facade of type '"
                 + metafacadeClass + "' with metaObject of type --> '"
                 + metaObjectClass + "'";
-            internalGetLogger().error(errMsg, th);
+            internalGetLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
     }

@@ -8,7 +8,9 @@ import java.util.Iterator;
 
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
+import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
@@ -31,8 +33,8 @@ import org.apache.tools.ant.types.Path;
  * </p>
  * 
  * @see org.andromda.core.ModelProcessor
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- * @author <a href="http://www.amowers.com">Anthony Mowers</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
+ * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
  */
 public class AndroMDAGenTask
@@ -243,6 +245,15 @@ public class AndroMDAGenTask
 
             // pass the loaded model(s) to the ModelProcessor
             ModelProcessor.instance().process(models);
+        } catch( ModelProcessorException th ) {
+            // This is "recognised" problem and will have been
+            // recorded. So just throw a new build exception.
+            throw new BuildException( th.getMessage() );
+        } catch( Throwable th ) {
+            logger.error( "Unexpected exception caught by AndroMDAGenTask.execute:" + th );
+            String exceptionFilename = ExceptionRecorder.record( "Unexpected Exception", th, "AndroMDAGenTask" );
+            logger.error( "Exception recorded in:" + exceptionFilename );
+            throw new BuildException( th.getMessage() );
         }
         finally
         {

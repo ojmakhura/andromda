@@ -16,6 +16,7 @@ import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
@@ -186,6 +187,7 @@ public class ModelProcessor
     private void process(RepositoryFacade repository, Model[] models)
     {
         final String methodName = "ModelProcessor.process";
+        String cartridgeName = "andromda";
         try
         {
             boolean lastModifiedCheck = true;
@@ -249,7 +251,7 @@ public class ModelProcessor
                     .hasNext();)
                 {
                     Cartridge cartridge = (Cartridge)cartridgeIt.next();
-                    String cartridgeName = cartridge.getName();
+                    cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
                         Namespace namespace = Namespaces.instance()
@@ -287,7 +289,9 @@ public class ModelProcessor
         {
             String errMsg = "Error performing " + methodName
                 + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
-            logger.error(errMsg, th);
+            logger.error(errMsg);
+            String exceptionFilename = ExceptionRecorder.record( errMsg, th, cartridgeName );
+            logger.error( "Exception recorded in:" + exceptionFilename);
             throw new ModelProcessorException(errMsg, th);
 
         }
