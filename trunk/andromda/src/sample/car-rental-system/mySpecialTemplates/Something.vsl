@@ -1,0 +1,20 @@
+#set ($packagename = $transform.findPackageName(${class.package}))
+package $packagename;
+
+User property "foreignKeySuffix" was set to "$foreignKeySuffix" !
+User property "testProperty" was set to "$testProperty" !
+
+#foreach ( $onePackage in $model.packages )
+#set ($onepackagename = $transform.findPackageName(${onePackage}))
+    package $onepackagename
+#foreach ( $oneClass in $onePackage.classes )
+        class $oneClass.name
+#end
+#end
+
+class ${class.name}
+{
+#foreach ( $att in $class.attributes )
+    attribute $att.name
+#end
+}
