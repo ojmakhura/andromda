@@ -21,8 +21,6 @@ public class OutputUtils
      * 
      * @param string the string to write to the file
      * @param file the file to which to write.
-     * @param overwrite if true, replaces the file (if it exists), otherwise
-     *        adds to the contents of the file.
      * @throws IOException
      */
     public static void writeStringToFile(String string, File file)
@@ -38,8 +36,6 @@ public class OutputUtils
      * 
      * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
-     * @param overwrite if true, replaces the file (if it exists), otherwise
-     *        adds to the contents of the file.
      * @throws IOException
      */
     public static void writeStringToFile(String string, String fileLocation)
