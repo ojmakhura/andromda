@@ -1,7 +1,7 @@
 package org.andromda.core.metafacade;
 
 /**
- * Fake mapping object 4 (just used for testing the MetafacadeMappings). 
+ * Fake mapping object 4 (just used for testing the MetafacadeMappings).
  * 
  * @author Chad Brandon
  */

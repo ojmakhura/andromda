@@ -51,20 +51,25 @@ public class MetafacadeMappingsTest
 
     private static final String METAFACADE_IMPL_6 = "org.andromda.core.metafacade.Metafacade6Impl";
     private static final Object MAPPING_OBJECT_6 = new MappingObject6();
-    
+
     private static final Object MAPPING_OBJECT_7 = new MappingObject7();
 
     private static final String METAFACADE_IMPL_8 = "org.andromda.core.metafacade.Metafacade8Impl";
     private static final Object MAPPING_OBJECT_8 = new MappingObject8();
 
+    private static final String METAFACADE_IMPL_9 = "org.andromda.core.metafacade.Metafacade9Impl";
     private static final Object MAPPING_OBJECT_9 = new MappingObject9();
+
+    private static final String METAFACADE_IMPL_10 = "org.andromda.core.metafacade.Metafacade10Impl";
+    private static final Object MAPPING_OBJECT_10 = new MappingObject10();
     
-    
+    private static final Object MAPPING_OBJECT_11 = new MappingObject11();
+
     private static final String NAMESPACE_PROPERTY_1 = "namespacePropertyOne";
     private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
     private static final String NAMESPACE_PROPERTY_2 = "namespacePropertyTwo";
     private static final String NAMESPACE_PROPERTY_2_VALUE = "true";
-    
+
     private static final String MAPPING_PROPERTY = "mappingProperty";
     private static final String PROPERTY_ONE = "propertyOne";
     private static final String PROPERTY_TWO = "propertyTwo";
@@ -91,7 +96,7 @@ public class MetafacadeMappingsTest
 
         MetafacadeMappings mappings = MetafacadeMappings.instance();
         final String namespace = "andromda-test-metafacades";
-        final MetafacadeFactory factory = MetafacadeFactory.getInstance();       
+        final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         factory.setModel(new Model());
         factory.setActiveNamespace(namespace);
         mappings.discoverMetafacades();
@@ -108,9 +113,8 @@ public class MetafacadeMappingsTest
 
         // test the default metafacade mapping
         assertNotNull(mappings.getDefaultMetafacadeClass(namespace));
-        assertEquals(
-            METAFACADE_IMPL_1,
-            mappings.getDefaultMetafacadeClass(namespace).getName());
+        assertEquals(METAFACADE_IMPL_1, mappings.getDefaultMetafacadeClass(
+            namespace).getName());
 
         // test a mapping having a single stereotype with property references
         MetafacadeMapping mapping = mappings.getMetafacadeMapping(
@@ -119,7 +123,7 @@ public class MetafacadeMappingsTest
             null,
             STEREOTYPES_1);
         assertNotNull(mapping);
-        //assertNull(mapping.getContext());
+        // assertNull(mapping.getContext());
         assertTrue(mapping.getMetafacadeClass().getName().equals(
             METAFACADE_IMPL_1));
         propertyReferences = mapping.getPropertyReferences();
@@ -139,7 +143,7 @@ public class MetafacadeMappingsTest
             null,
             STEREOTYPES_1);
         assertNotNull(mapping);
-        //assertNull(mapping.getContext());
+        // assertNull(mapping.getContext());
         assertTrue(mapping.getMetafacadeClass().getName().equals(
             METAFACADE_IMPL_1));
 
@@ -152,7 +156,7 @@ public class MetafacadeMappingsTest
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_4, mapping.getMetafacadeClass().getName());
         assertTrue(mapping.getPropertyReferences().isEmpty());
-        
+
         // test a mapping having a context (with using an inherited context)
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_2,
@@ -192,7 +196,7 @@ public class MetafacadeMappingsTest
             null,
             stereotypes);
         assertNull(mapping);
-        
+
         // test a mapping having a context AND a stereotype
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_2,
@@ -201,7 +205,7 @@ public class MetafacadeMappingsTest
             STEREOTYPES_2);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_2, mapping.getMetafacadeClass().getName());
-        
+
         // test a mapping having a context and multiple stereotypes
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_2,
@@ -211,7 +215,8 @@ public class MetafacadeMappingsTest
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_4, mapping.getMetafacadeClass().getName());
 
-        // make sure we can't get the mapping that requires 2 stereotypes and one context
+        // make sure we can't get the mapping that requires 2 stereotypes and
+        // one context
         // with only one of the stereotypes.
         stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
@@ -221,66 +226,78 @@ public class MetafacadeMappingsTest
             METAFACADE_3,
             stereotypes);
         assertNull(mapping);
-        
+
         // try a plain mapping (no contexts or stereotypes)
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_OBJECT_7, 
-            namespace, 
-            null, 
+            MAPPING_OBJECT_7,
+            namespace,
+            null,
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_3, mapping.getMetafacadeClass().getName());
-        
+
         // make sure we CAN'T get the mapping having the single property
         // since the mapping object doesn't contain the property
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_OBJECT_2, 
-            namespace, 
-            null, 
+            MAPPING_OBJECT_2,
+            namespace,
+            null,
             null);
         assertNull(mapping);
-        
+
         // make sure we CAN get the mapping having the single property
         // since the mapping has the property and it's set to true.
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_OBJECT_5, 
-            namespace, 
-            null, 
+            MAPPING_OBJECT_5,
+            namespace,
+            null,
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_5, mapping.getMetafacadeClass().getName());
         Collection mappingProperties = mapping.getMappingProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
-        assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
-        assertEquals("", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
-        
+        assertEquals(
+            MAPPING_PROPERTY,
+            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+                .getName());
+        assertEquals("", ((MetafacadeMapping.Property)mappingProperties
+            .iterator().next()).getValue());
+
         // get a property that has a value defined
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_OBJECT_4, 
-            namespace, 
-            null, 
+            MAPPING_OBJECT_4,
+            namespace,
+            null,
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_6, mapping.getMetafacadeClass().getName());
         mappingProperties = mapping.getMappingProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
-        assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
-        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
-        
+        assertEquals(
+            MAPPING_PROPERTY,
+            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+                .getName());
+        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties
+            .iterator().next()).getValue());
+
         // get a metafacade that has no ancestors
         mapping = mappings.getMetafacadeMapping(
-            MAPPING_OBJECT_3, 
-            namespace, 
-            null, 
+            MAPPING_OBJECT_3,
+            namespace,
+            null,
             null);
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_5, mapping.getMetafacadeClass().getName());
         assertEquals(1, mappingProperties.size());
-        assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
-        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
-                
+        assertEquals(
+            MAPPING_PROPERTY,
+            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+                .getName());
+        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties
+            .iterator().next()).getValue());
+
         // get a mapping by context and property
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_6,
@@ -288,41 +305,82 @@ public class MetafacadeMappingsTest
             METAFACADE_5,
             null);
         assertNotNull(mapping);
-        assertEquals(
-            MAPPING_OBJECT_6.getClass().getName(), 
-            mapping.getMappingClassName());
+        assertEquals(MAPPING_OBJECT_6.getClass().getName(), mapping
+            .getMappingClassName());
         assertEquals(METAFACADE_5, mapping.getContext());
         mappingProperties = mapping.getMappingProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
-        assertEquals(MAPPING_PROPERTY, ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getName());
-        assertEquals("", ((MetafacadeMapping.Property)mappingProperties.iterator().next()).getValue());
-        
+        assertEquals(
+            MAPPING_PROPERTY,
+            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+                .getName());
+        assertEquals("", ((MetafacadeMapping.Property)mappingProperties
+            .iterator().next()).getValue());
+
         // attempt to get a mapping that has 2 properties with one being invalid
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_8,
             namespace,
             null,
             null);
-        assertNull(mapping);        
-        
+        assertNull(mapping);
+
         // attempt to get a mapping that has 2 properties with both being valid
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_9,
             namespace,
             null,
             null);
-        assertNotNull(mapping);      
+        assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_8, mapping.getMetafacadeClass().getName());
         mappingProperties = mapping.getMappingProperties();
         assertNotNull(mappingProperties);
         assertEquals(2, mappingProperties.size());
         Iterator propertyIterator = mappingProperties.iterator();
-        MetafacadeMapping.Property propertyOne = (MetafacadeMapping.Property)propertyIterator.next();
+        MetafacadeMapping.Property propertyOne = (MetafacadeMapping.Property)propertyIterator
+            .next();
         assertEquals(PROPERTY_ONE, propertyOne.getName());
-        assertEquals("", propertyOne.getValue());      
-        MetafacadeMapping.Property propertyTwo = (MetafacadeMapping.Property)propertyIterator.next();
+        assertEquals("", propertyOne.getValue());
+        MetafacadeMapping.Property propertyTwo = (MetafacadeMapping.Property)propertyIterator
+            .next();
         assertEquals(PROPERTY_TWO, propertyTwo.getName());
-        assertEquals("SomeValue", propertyTwo.getValue());   
+        assertEquals("SomeValue", propertyTwo.getValue());
+
+        // attempt to get a mapping that is mapped twice 
+        // each one using a different property of the 
+        // metafacade
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_OBJECT_10,
+            namespace,
+            null,
+            null);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_IMPL_9, mapping.getMetafacadeClass().getName());
+        mappingProperties = mapping.getMappingProperties();
+        assertNotNull(mappingProperties);
+        assertEquals(1, mappingProperties.size());
+        propertyIterator = mappingProperties.iterator();
+        propertyOne = (MetafacadeMapping.Property)propertyIterator.next();
+        assertEquals(PROPERTY_ONE, propertyOne.getName());
+        assertEquals("", propertyOne.getValue());
+        
+        // attempt with two mappings pointing to the metafacade with
+        // mutually exclusive properties (the first one listed should
+        // be retrieved).
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_OBJECT_11,
+            namespace,
+            null,
+            null);
+        assertNotNull(mapping);
+        assertEquals(METAFACADE_IMPL_10, mapping.getMetafacadeClass().getName());
+        mappingProperties = mapping.getMappingProperties();
+        assertNotNull(mappingProperties);
+        assertEquals(1, mappingProperties.size());
+        propertyIterator = mappingProperties.iterator();
+        propertyOne = (MetafacadeMapping.Property)propertyIterator.next();
+        assertEquals(PROPERTY_TWO, propertyOne.getName());
+        assertEquals("", propertyOne.getValue());
     }
 }

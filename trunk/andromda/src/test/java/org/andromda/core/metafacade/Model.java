@@ -3,7 +3,6 @@ package org.andromda.core.metafacade;
 import java.util.Collection;
 
 /**
- * 
  * @author Chad Brandon
  */
 public class Model
@@ -15,8 +14,8 @@ public class Model
      */
     public void setModel(Object model)
     {
-        // TODO Auto-generated method stub
-        
+    // TODO Auto-generated method stub
+
     }
 
     /**
