@@ -8,8 +8,9 @@
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
+    <templateObject name="dateUtils" className="org.andromda.core.common.DateUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
     <!-- define template external properties -->
@@ -478,13 +479,6 @@
     <template
         path="templates/bpm4struts/pages/calendar-js.jsp.vsl"
         outputPattern="layout/calendar-js.jsp"
-        outlet="pages"
-        overwrite="true"
-        generateEmptyFiles="false"/>
-
-    <template
-        path="templates/bpm4struts/pages/calendar.jsp.vsl"
-        outputPattern="layout/calendar.jsp"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"/>

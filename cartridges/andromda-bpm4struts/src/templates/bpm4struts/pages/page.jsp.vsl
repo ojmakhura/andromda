@@ -43,6 +43,7 @@
 ##
     <tiles:put name="style" type="string">
         <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="${jsp.fullPath}.css"/>"></link>
+        <link rel="stylesheet" type="text/css" media="all" href="<html:rewrite page="/layout/default-calendar.css"/>"/>
     </tiles:put>
 
 ##
@@ -51,7 +52,7 @@
     <tiles:put name="javascript" type="string">
 ## only load the calendar javascript when actually needed
 #if ($jsp.calendarRequired)
-    	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
+        <script type="text/javascript" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
 #end
 ## only load the static javascript when it will actually be used
 #set ($validationDesired = ($clientValidation=='true'))
