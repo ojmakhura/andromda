@@ -10,6 +10,7 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import org.andromda.core.anttasks.UserProperty;
 import org.andromda.core.common.CodeGenerationContext;
@@ -17,10 +18,12 @@ import org.andromda.core.common.Logger;
 import org.andromda.core.common.ScriptHelper;
 import org.andromda.core.common.StringUtilsHelper;
 
+import org.apache.commons.collections.ExtendedProperties;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
  * Default implementation of standard AndroMDA cartridge behaviour.
@@ -32,6 +35,8 @@ import org.apache.velocity.runtime.RuntimeConstants;
 public class DefaultAndroMDACartridge implements IAndroMDACartridge
 {
     private ICartridgeDescriptor desc = null;
+
+    private VelocityEngine ve = null;
 
     /**
      * @see org.andromda.cartridges.interfaces.IAndroMDACartridge#getDescriptor()
@@ -178,7 +183,6 @@ public class DefaultAndroMDACartridge implements IAndroMDACartridge
         ByteArrayOutputStream content = null;
 
         ensureDirectoryFor(outFile);
-        String encoding = getTemplateEncoding(context.getScriptingEngine());
         try
         {
             if (generateEmptyFile)
@@ -186,13 +190,12 @@ public class DefaultAndroMDACartridge implements IAndroMDACartridge
                 writer =
                     new BufferedWriter(
                         new OutputStreamWriter(
-                            new FileOutputStream(outFile),
-                            encoding));
+                            new FileOutputStream(outFile)));
             }
             else
             {
                 content = new ByteArrayOutputStream();
-                writer = new OutputStreamWriter(content, encoding);
+                writer = new OutputStreamWriter(content);
             }
         }
         catch (Exception e)
@@ -219,15 +222,11 @@ public class DefaultAndroMDACartridge implements IAndroMDACartridge
                 velocityContext,
                 context.getUserProperties());
 
+            // get the template to process
+            Template template = ve.getTemplate(styleSheetName);
+
             // Process the VSL template with the context and write out
             // the result as the outFile.
-            // get the template to process
-            // the template name is dependent on the class's stereotype
-            // e.g. if the class is an "EntityBean", the template name
-            // is "EntityBean.vsl".
-
-            Template template =
-                context.getScriptingEngine().getTemplate(styleSheetName);
             template.merge(velocityContext, writer);
 
             writer.flush();
@@ -243,6 +242,8 @@ public class DefaultAndroMDACartridge implements IAndroMDACartridge
             catch (Exception e2)
             {
             }
+
+            e.printStackTrace();
 
             throw new CartridgeException(
                 "Error processing velocity script on " + outFile.getName(),
@@ -307,24 +308,6 @@ public class DefaultAndroMDACartridge implements IAndroMDACartridge
         }
     }
 
-    private String getTemplateEncoding(VelocityEngine ve)
-    {
-        /*
-         *  get the property TEMPLATE_ENCODING
-         *  we know it's a string...
-         */
-        String encoding =
-            (String) ve.getProperty(RuntimeConstants.OUTPUT_ENCODING);
-        if (encoding == null
-            || encoding.length() == 0
-            || encoding.equals("8859-1")
-            || encoding.equals("8859_1"))
-        {
-            encoding = "ISO-8859-1";
-        }
-        return encoding;
-    }
-
     /**
      * <p>
      *  Creates  directories as needed.
@@ -347,6 +330,39 @@ public class DefaultAndroMDACartridge implements IAndroMDACartridge
                         + directory.getAbsolutePath());
             }
         }
+    }
+
+    /**
+     * @see org.andromda.cartridges.interfaces.IAndroMDACartridge#init(Properties)
+     */
+    public void init(Properties velocityProperties)
+        throws Exception
+    {
+        ve = new VelocityEngine();
+
+        // Tell Velocity it should also use the classpath when searching for templates
+        ExtendedProperties ep =
+            ExtendedProperties.convertProperties(velocityProperties);
+
+        ep.addProperty(
+            VelocityEngine.RESOURCE_LOADER,
+            "andromda.cartridges,file");
+
+        ep.setProperty(
+            "andromda.cartridges."
+                + VelocityEngine.RESOURCE_LOADER
+                + ".class",
+            ClasspathResourceLoader.class.getName());
+
+        // Let Velocity know about the macro libraries.
+        for (Iterator iter = getDescriptor().getMacroLibraries().iterator(); iter.hasNext();)
+        {
+            String libraryName = (String) iter.next();
+            ep.addProperty(VelocityEngine.VM_LIBRARY, libraryName);
+        }
+
+        ve.setExtendedProperties(ep);
+        ve.init();
     }
 
 }
