@@ -391,7 +391,7 @@ BUILD SUCCESSFUL
                 (Entities) and EJB session beans (Services), the services can be accessed via webservices which
                 in turn can be used by a Struts front-end. The generated code is J2EE compliant and will by default
                 deploy in a JBoss container compatible with the generated J2EE implementation (at the time of this
-                writing that would be J2EE 1.4 on JBoss 3.2.x).
+                writing that would be J2EE 1.4 on JBoss 3.2.4 or above).
             </p>
             <p>
                 Here are some pointers on how to proceed from here:
