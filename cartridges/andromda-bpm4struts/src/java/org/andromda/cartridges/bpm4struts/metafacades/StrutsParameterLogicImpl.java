@@ -183,9 +183,19 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetMessageKey()
     {
-        String messageKey = "param." + StringUtilsHelper.toResourceMessageKey(getName());
-        StrutsAction action = getAction();
-        return (action == null) ? messageKey : action.getMessageKey() + '.' + messageKey;
+        final StringBuffer buffer = new StringBuffer();
+
+        final StrutsAction action = getAction();
+        if (action != null)
+        {
+            buffer.append(action.getMessageKey());
+            buffer.append('.');
+        }
+
+        buffer.append("param.");
+        buffer.append(StringUtilsHelper.toResourceMessageKey(getName()));
+
+        return buffer.toString();
     }
 
     /**
@@ -718,6 +728,16 @@ public class StrutsParameterLogicImpl
             tableColumnNames = Collections.EMPTY_LIST;
         }
         return tableColumnNames;
+    }
+
+    protected String handleGetTableColumnMessageKey(String columnName)
+    {
+        return (isTable()) ? getMessageKey() + '.' + columnName.toLowerCase() : null;
+    }
+
+    protected String handleGetTableColumnMessageValue(String columnName)
+    {
+        return (isTable()) ? StringUtilsHelper.toPhrase(columnName.toLowerCase()) : null;
     }
 
     protected int handleGetTableMaxRows()
