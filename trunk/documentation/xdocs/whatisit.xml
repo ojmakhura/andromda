@@ -2,59 +2,62 @@
 
 <document>
 
-  <properties>
-    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
-    <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
-    <title>AndroMDA - What is it?</title>
-  </properties>
+    <properties>
+        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+        <title>AndroMDA - What is it?</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="What is AndroMDA?">
+        <section name="What is AndroMDA?">
 
-      <p>
-          In short, AndroMDA is an open source <a href="http://www.klasse.nl/english/mda/mda-faq.html">MDA</a> 
+            <p>
+          In short, AndroMDA is an open source
+                <a href="http://www.klasse.nl/english/mda/mda-faq.html">MDA</a>
           framework - it takes any number of models 
           (usually UML models stored in XMI produced from case-tools) combined with any 
           number of andromda plugins (cartridge and translation-libraries) and produces
           any number of custom components.  You can generate components for any language you want,
           Java, .Net, HTML, PTP, anything really, you just write (or customize existing) plugins 
-          to support it and you're good to go.  
-      </p>
-      <p>
-        <b>Why would you want to use it?</b>
-      </p>
-      <p>
+          to support it and you're good to go.
+            </p>
+            <p>
+                <b>Why would you want to use it?</b>
+            </p>
+            <p>
           You would want to use AndroMDA for a number of reasons:
-          <ol>
-            <li>
-                It elimates the need to write redundant code.   
-            </li>
-            <li>
-                Your project models <strong>WILL</strong> reflect your code.
-            </li>
-            <li>
+                <ol>
+                    <li>
+                It elimates the need to write redundant code.
+                    </li>
+                    <li>
+                Your project models
+                        <strong>WILL</strong> reflect your code.
+                    </li>
+                    <li>
                 Projects are documented/diagrammed in a standard platform independant way 
                 making it much easier/faster to adapt to ever rapidly changing technologies.
-            </li>
-            <li>
+                    </li>
+                    <li>
                 You'll have artifacts (your models) that allow much easier communication 
                 with the business side of things.
-            </li>
-          </ol>
-      </p>
-      <p>
-        <b>How does AndroMDA work?</b>
-      </p>
-      <p>
+                    </li>
+                </ol>
+            </p>
+            <p>
+                <b>How does AndroMDA work?</b>
+            </p>
+            <p>
         AndroMDA reads models into memory making these object models available to its
         plugins.  These plugins define exactly what AndroMDA will and will 
         NOT generate.  Each plugin is completely customizable to a project's specific needs.
-      </p>
-      <p>
+            </p>
+            <p>
         You want to see what AndroMDA looks like?
-        Proceed <a href="lookandfeel.html">here</a>.
-      </p>
-    </section>
-  </body>
+        Proceed
+                <a href="lookandfeel.html">here</a>.
+            </p>
+        </section>
+    </body>
 </document>

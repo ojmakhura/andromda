@@ -2,47 +2,47 @@
 
 <document>
 
-  <properties>
-    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
-    <title>AndroMDA - Homepage</title>
-    <gennews>no</gennews>
-  </properties>
+    <properties>
+        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+        <title>AndroMDA - Homepage</title>
+    </properties>
 
-  <body>
+    <body>
 
-    <section name="Components quickly with AndroMDA">
-    	
-      <p class="std">
+        <section name="Components quickly with AndroMDA">
+
+            <p class="std">
         Did you ever think: "mmm... all this J2EE stuff is too complex! There must
         be an easier way to program?" Read the good news: AndroMDA is here to help
         you! Generating J2EE components quickly and reliably from models drawn in the
         graphical Unified Modeling Language is the main feature of AndroMDA.
-      </p>
+            </p>
 
-      <p class="std">
+            <p class="highlight">
         AndroMDA (pronounced: andromeda) is an open source code generation framework
-        that follows the <a href="http://www.omg.org/mda">model driven architecture</a>
+        that follows the
+                <a href="http://www.omg.org/mda">model driven architecture</a>
         (MDA) paradigm. It takes a UML model from a CASE-tool and generates
         classes and deployable components (J2EE or other), specific for your
         application architecture.
-      </p>
+            </p>
 
-      <p class="std">
+            <p class="std">
         Read more about AndroMDA, using the links on the left side menu. If you start
         using AndroMDA, we invite you to subscribe to the project's
-        <a href="http://sourceforge.net/mail/?group_id=73047">mailing lists</a>. Another
+                <a href="http://sourceforge.net/mail/?group_id=73047">mailing lists</a>. Another
         interesting place to watch is the Code Generation Network site where
         you can read an
-        <a href="http://www.codegeneration.net/tiki-read_article.php?articleId=8">interview with Matthias Bohlen</a>, the lead engineer
+                <a href="http://www.codegeneration.net/tiki-read_article.php?articleId=8">interview with Matthias Bohlen</a>, the lead engineer
         behind AndroMDA.
-      </p>
-      <p class="std">
-        <div align="center">
-          <img src="images/andromda.jpg" width="508" height="421" align="middle" alt=""/>
-        </div>
-      </p>
+            </p>
+            <p class="std">
+                <div align="center">
+                    <img src="images/andromda.jpg" width="508" height="421" align="middle" alt=""/>
+                </div>
+            </p>
 
-    </section>
+        </section>
 
-  </body>
+    </body>
 </document>
