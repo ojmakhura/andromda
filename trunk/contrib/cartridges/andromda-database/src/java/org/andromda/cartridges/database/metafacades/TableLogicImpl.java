@@ -254,6 +254,24 @@ public class TableLogicImpl
         return columns;
     }
 
+    protected Collection handleGetColumns()
+    {
+        Collection columns = null;
+
+        if (isForeignKeyColumnsPresent())
+        {
+            columns = new ArrayList();
+            columns.addAll(getForeignKeyColumns());
+            columns.addAll(getNonForeignKeyColumns());
+        }
+        else
+        {
+            columns = getNonForeignKeyColumns();
+        }
+
+        return columns;
+    }
+
     protected String handleGetConsoleDisplayName()
     {
         String displayName = null;
