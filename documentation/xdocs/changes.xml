@@ -21,8 +21,8 @@
                     <td valign="top" class="std">Metafacades major update</td>
                     <td valign="top" class="std">
                         The metafacades now have their properties no longer modeled as operations but as attributes,
-                        wherever possible. This has no effect for current generated code. In addition boolean accessor
-                        method now have their name properly rendered according to the Java Bean specification
+                        wherever possible. This has no effect on code already generated. In addition boolean accessor
+                        methods now have their names properly rendered according to the Java Bean specification
                         (getXXX becomes isXXX).
                     </td>
                 </tr>
