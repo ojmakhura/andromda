@@ -38,10 +38,14 @@ public class EntityAssociationFacadeLogicImpl
                 .next();
             if (end.isMany2Many())
             {
-                tableName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                    this,
-                    UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                    ((EntityFacade)end.getType()).getMaxSqlNameLength());
+                // prevent ClassCastException if the association isn't an EntityFacade
+                if (EntityFacade.class.isAssignableFrom(end.getType().getClass()))
+                {
+                    tableName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                        this,
+                        UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                        ((EntityFacade)end.getType()).getMaxSqlNameLength());   
+                }
             }
         }
         return tableName;
