@@ -15,10 +15,10 @@
             <subsection name="General Properties">
             <table>
                   <tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	</tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                </tr>
                 <tr>
                     <td>
                           hibernateTypeMappingsUri
@@ -88,7 +88,7 @@
                         hibernateMaxFetchDepth
                     </td>
                     <td>
-                        Sets a maximum "depth" for the outer join fetch tree. 
+                        Sets a maximum "depth" for the outer join fetch tree.
                         eg. recommended values between 0 and 3
                     </td>
                     <td>
@@ -100,40 +100,40 @@
                         hibernateHbm2DDLAuto
                     </td>
                     <td>
-                        Automatically export schema DDL to the database when the SessionFactory 
-                        is created. With create-drop, the database schema will be dropped when 
-                        the SessionFactory is closed explicitely. Permitted values are: 
+                        Automatically export schema DDL to the database when the SessionFactory
+                        is created. With create-drop, the database schema will be dropped when
+                        the SessionFactory is closed explicitely. Permitted values are:
                         <ol>
                             <li>update</li>
                             <li>create</li>
                             <li>create-drop</li>
-                        </ol>                        
+                        </ol>
                     </td>
                     <td>
                         No
                     </td>
-                </tr>  
+                </tr>
                 <tr>
                     <td>
                         hibernateQuerySubstitutions
                     </td>
                     <td>
                         Allows you to define new Hibernate query tokens. For example:
-                        giveing this a value of <em>true=1, false=0</em>                            
-                        would cause the tokens true and false to be translated to integer 
-                        literals in the generated SQL. 
+                        giveing this a value of <em>true=1, false=0</em>
+                        would cause the tokens true and false to be translated to integer
+                        literals in the generated SQL.
                     </td>
                     <td>
                         No
                     </td>
-                </tr>  	
+                </tr>
                 <tr>
                     <td>
                         hibernateQueryUseNamedParameters
                     </td>
                     <td>
-                        Whether or not named parameters (i.e. ':someParameter') or unnamed 
-                        (i.e. '?') parameters should be used in the HQL queries embedded 
+                        Whether or not named parameters (i.e. ':someParameter') or unnamed
+                        (i.e. '?') parameters should be used in the HQL queries embedded
                         within the model.
                         <strong>NOTE:</strong> Does not apply to queries written in OCL.
                     </td>
@@ -143,13 +143,13 @@
                 </tr>
                 </table>
                 </subsection>
-                <subsection name="Entities Properties">
+                <subsection name="Entity Properties">
                 <table>
                   <tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	  </tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                  </tr>
                   <tr>
                     <td>
                           entities
@@ -248,7 +248,7 @@
                         hibernateAssociationEndOuterJoin
                     </td>
                     <td>
-                         Defines the default outer join value for many to one and 
+                         Defines the default outer join value for many to one and
                          one to one association ends. Possible values are:
                          <ul>
                             <li>auto</li>
@@ -259,16 +259,16 @@
                     <td>
                         No, default is <code>auto</code>.
                     </td>
-                </tr> 
+                </tr>
                </table>
                 </subsection>
-                <subsection name="Services Properties">
+                <subsection name="Service Properties">
                 <table>
                   <tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	  </tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                  </tr>
                 <tr>
                     <td>
                           session-beans
@@ -298,10 +298,10 @@
                 <subsection name="JNDI Properties">
                 <table>
                   <tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	  </tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                  </tr>
                 <tr>
                     <a name="ejbJndiNamePrefix"/>
                     <td>
@@ -333,66 +333,66 @@
                 <subsection name="DataSource Properties">
                 <table>
                   <tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	  </tr>
-				<tr>
-					<td>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                  </tr>
+                <tr>
+                    <td>
                         driver
-					</td>
-					<td>
+                    </td>
+                    <td>
                         JDBC Driver to make database connection
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         username
-					</td>
-					<td>
+                    </td>
+                    <td>
                         The database user login name.
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         password
-					</td>
-					<td>
+                    </td>
+                    <td>
                         The database user password.
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         dataSource
-					</td>
-					<td>
+                    </td>
+                    <td>
                         JNDI name of data source to use. (would be used instead
-						of the connection properties, driver, username, password, etc).
-					</td>
-					<td>
+                        of the connection properties, driver, username, password, etc).
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
-				<tr>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         connectionUrl
-					</td>
-					<td>
+                    </td>
+                    <td>
                         URL for the JDBC Driver to make the connection to the database.
-					</td>
-					<td>
+                    </td>
+                    <td>
                         No
-					</td>
-				</tr>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         hibernatePoolSize
@@ -401,7 +401,7 @@
                         Hibernate connection pool size.
                     </td>
                     <td>
-                        No 
+                        No
                     </td>
                 </tr>
                 <tr>
@@ -450,7 +450,7 @@
                 </tr>
                 <tr>
                     <td>
-                        hibernateDefaultSchema 
+                        hibernateDefaultSchema
                     </td>
                     <td>
                         Qualify unqualified tablenames with the given
@@ -459,7 +459,7 @@
                     <td>
                         No
                     </td>
-                </tr> 		
+                </tr>
                 <tr>
                     <td>
                         hibernateJdbcFetchSize
@@ -470,7 +470,7 @@
                     <td>
                         No
                     </td>
-                </tr> 
+                </tr>
                  <tr>
                     <td>
                         hibernateJdbcBatchSize
@@ -482,20 +482,20 @@
                     <td>
                         No
                     </td>
-                </tr>    	
+                </tr>
                 <tr>
                     <td>
                         hibernateJdbcUseScrollableResultSet
                     </td>
                     <td>
-                        Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate. 
-                        This property is only necessary when using user supplied connections. 
+                        Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
+                        This property is only necessary when using user supplied connections.
                         Hibernate uses connection metadata otherwise.
                     </td>
                     <td>
                         No
                     </td>
-                </tr>        
+                </tr>
                 <tr>
                     <td>
                         hibernateJdbcUseStreamsForBinary
@@ -506,16 +506,16 @@
                     <td>
                         No
                     </td>
-                </tr>  
+                </tr>
                 </table>
                 </subsection>
                 <subsection name="Cache Properties">
                 <table>
                   <tr>
-		          	<th>Property</th>         	
-		          	<th>Description</th>       	
-		          	<th>Required?</th>	   	 
-	        	  </tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Required?</th>
+                  </tr>
                  <tr>
                     <td>
                         hibernateUseQueryCache
@@ -569,17 +569,18 @@
                         hibernateEntityCache
                     </td>
                     <td>
-                         Defines the default strategy for Entities caching Possible values are:
-                         <ul>
-								<li>read-write</li>
-								<li>nonstrict-read-write</li>
-								<li>read-only</li>
-							</ul>
+                        Defines the default strategy for entity caching.
+                        <ul>
+                            Possible values are:
+                            <li>read-write</li>
+                            <li>nonstrict-read-write</li>
+                            <li>read-only</li>
+                        </ul>
                     </td>
                     <td>
                         No, default is <code>null</code>.
                     </td>
-                </tr>     
+                </tr>
             </table>
             </subsection>
         </section>
