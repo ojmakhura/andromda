@@ -8,6 +8,9 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-23" description="First release candidate for version 3.0">
+            <action dev="carloslcuenca" type="add" issue="HIB-61">
+                The cartridge now supports dynamic-insert and dynamic-update hibernate properties for entities. 
+            </action>
             <action dev="draftdog" type="add" issue="MISC-24">
                 All existing cartridges emitting Java source code now include a license-header merge point,
                 just use the <a href="andromda-cartridges/index.html#mergeMappingsUri">merge-mapping</a>
