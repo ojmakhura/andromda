@@ -87,6 +87,8 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.OperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>
+        <property reference="preconditionNamPattern" default="{0}Precondition"/>
+        <property reference="postconditionNamPattern" default="{0}Postcondition"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
