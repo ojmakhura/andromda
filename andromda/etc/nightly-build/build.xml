@@ -96,7 +96,7 @@
               messagefile="${mail.success.messagefile}"
               files="${build.log.zip}"
               mailhost="${mail.host}"
-              subject="Nightly build #${build.number}, ${today} successful!"/>
+              subject="Nightly build #${build.number}, ${mail.today} successful!"/>
     </target>
     
     <!-- if an errorcode is present a failure message is sent -->
