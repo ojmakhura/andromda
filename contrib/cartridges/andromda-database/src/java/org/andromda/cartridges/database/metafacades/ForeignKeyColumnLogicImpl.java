@@ -3,7 +3,6 @@ package org.andromda.cartridges.database.metafacades;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-import org.andromda.cartridges.database.DatabaseProfile;
 
 import java.util.Random;
 
@@ -44,26 +43,6 @@ public class ForeignKeyColumnLogicImpl
                 isCascadeDelete = this.isComposition();
             }
         return isCascadeDelete;
-    }
-    
-    /**
-     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getInitialLoadReferences()
-     */
-    protected int handleGetInitialLoadReferences()
-    {
-        int initialLoadReferences = 0;
-
-        try
-        {
-            String initialLoadReferencesString = (String)findTaggedValue(DatabaseProfile.INITIAL_LOAD_REFERENCES);
-            initialLoadReferences = Integer.parseInt(initialLoadReferencesString);
-        }
-        catch (Exception e)
-        {
-            initialLoadReferences = DatabaseProfile.INITIAL_LOAD_REFERENCES_DEFAULT;
-        }
-
-        return initialLoadReferences;
     }
     
     /**
