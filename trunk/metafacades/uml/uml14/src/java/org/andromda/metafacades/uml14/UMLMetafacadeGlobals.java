@@ -35,4 +35,11 @@ public class UMLMetafacadeGlobals
      * that will be identified as a date must specialize this type.
      */
     public static final String DATE_TYPE_NAME = "datatype.Date";
+   
+    /**
+     * Used to indentify a boolean type in the model, any other type
+     * that will be identified as a booleon type must specialize this type.
+     */
+    public static final String BOOLEAN_TYPE_NAME = "datatype.boolean";
+
 }

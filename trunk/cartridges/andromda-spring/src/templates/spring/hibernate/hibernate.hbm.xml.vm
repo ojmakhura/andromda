@@ -19,8 +19,9 @@
 #macro (renderPropertiesAndAssociations $entity)
 #foreach ($attribute in $entity.attributes)
 #if (!$attribute.identifier)
-		<property name="$attribute.name" column="$attribute.columnName" type="$attribute.type.fullyQualifiedHibernateType" not-null="$attribute.required" />
-
+		<property name="$attribute.name" type="$attribute.type.fullyQualifiedHibernateType">
+		    <column name="$attribute.columnName" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"/>
+		</property>
 #end
 #end
 #foreach ($associationEnd in $entity.associationEnds)

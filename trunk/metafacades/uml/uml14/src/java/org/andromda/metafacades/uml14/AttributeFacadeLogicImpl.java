@@ -13,7 +13,8 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 /**
  * Metaclass facade implementation.
  */
-public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
+public class AttributeFacadeLogicImpl
+    extends AttributeFacadeLogic
     implements org.andromda.metafacades.uml.AttributeFacade
 {
     // ---------------- constructor -------------------------------
@@ -30,16 +31,16 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
      */
     public java.lang.String handleGetGetterName()
     {
-        String datatype = null;
         String prefix = null;
         if (getType() != null)
         {
-            datatype = getType().getFullyQualifiedName(true);
-            prefix = ("datatype.boolean".equalsIgnoreCase(datatype) 
-        		|| "datatype.Boolean".equals(datatype)) ? "is" : "get";
+            prefix = UMLMetafacadeUtils.isType(
+                getType(),
+                UMLMetafacadeGlobals.BOOLEAN_TYPE_NAME) ? "is" : "get";
         }
 
-        return StringUtils.trimToEmpty(prefix) + StringUtils.capitalize(this.getName());
+        return StringUtils.trimToEmpty(prefix)
+            + StringUtils.capitalize(this.getName());
     }
 
     /**
@@ -68,7 +69,8 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
      */
     public boolean handleIsChangeable()
     {
-        return ChangeableKindEnum.CK_CHANGEABLE.equals(metaObject.getChangeability());
+        return ChangeableKindEnum.CK_CHANGEABLE.equals(metaObject
+            .getChangeability());
     }
 
     /**
@@ -76,7 +78,8 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
      */
     public boolean handleIsAddOnly()
     {
-        return ChangeableKindEnum.CK_ADD_ONLY.equals(metaObject.getChangeability());
+        return ChangeableKindEnum.CK_ADD_ONLY.equals(metaObject
+            .getChangeability());
     }
 
     /**

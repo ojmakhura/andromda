@@ -156,7 +156,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsCollectionType()
     {
-        return this.isType(UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -164,7 +164,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsListType()
     {
-        return this.isType(UMLMetafacadeGlobals.LIST_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.LIST_TYPE_NAME);
     }
 
     /**
@@ -172,7 +172,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsSetType()
     {
-        return this.isType(UMLMetafacadeGlobals.SET_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.SET_TYPE_NAME);
     }
 
     /**
@@ -180,40 +180,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsDateType()
     {
-        return this.isType(UMLMetafacadeGlobals.DATE_TYPE_NAME);
-    }
-
-    /**
-     * Returns true or false depending on whether or not this Classifier or any
-     * of its specializations is of the given type having the specified
-     * <code>typeName</code>
-     * 
-     * @param typeName the name of the type (i.e. datatype.Collection)
-     * @return true/false
-     */
-    private boolean isType(String typeName)
-    {
-        final String type = StringUtils.trimToEmpty(typeName);
-        String name = StringUtils.trimToEmpty(this.getFullyQualifiedName(true));
-        boolean isType = name.equals(type);
-        // if this isn't a type defined by typeName, see if we can find any
-        // types that inherit from the type.
-        if (!isType)
-        {
-            isType = CollectionUtils.find(
-                this.getAllGeneralizations(),
-                new Predicate()
-                {
-                    public boolean evaluate(Object object)
-                    {
-                        String name = StringUtils
-                            .trimToEmpty(((ModelElementFacade)object)
-                                .getFullyQualifiedName(true));
-                        return name.equals(type);
-                    }
-                }) != null;
-        }
-        return isType;
+        return UMLMetafacadeUtils.isType(this, UMLMetafacadeGlobals.DATE_TYPE_NAME);
     }
 
     /**

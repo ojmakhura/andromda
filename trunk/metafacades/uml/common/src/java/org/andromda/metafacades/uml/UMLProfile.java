@@ -121,4 +121,17 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH");
+    
+    /**
+     * Represents whether a relational table column should be unique (true/false). 
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE = umlProfile
+        .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE");
+    
+    /**
+     * Represents a relational table column index name.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX = umlProfile
+        .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX");
+    
 }

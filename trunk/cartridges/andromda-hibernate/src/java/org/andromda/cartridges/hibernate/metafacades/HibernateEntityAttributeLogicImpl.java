@@ -30,7 +30,7 @@ public class HibernateEntityAttributeLogicImpl
     {
         boolean unique = false;
         Object value = this
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_UNIQUE);
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE);
         if (value != null)
         {
             unique = Boolean.valueOf(StringUtils.trimToEmpty(value.toString()))
@@ -45,7 +45,7 @@ public class HibernateEntityAttributeLogicImpl
     public java.lang.String handleGetIndex()
     {
         String index = (String)this
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INDEX);
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 
