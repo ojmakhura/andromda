@@ -24,28 +24,35 @@ public class EntityAttributeFacadeLogicImpl
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class EntityAttributeFacade ...
-
-    public java.lang.String getColumnName() {
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnName()
+     */
+    public String getColumnName() {
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                 ((EntityFacade)this.getOwner()).getMaxSqlNameLength());
     }
 
-    protected String getColumnLength() {
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getColumnLength()
+     */
+    public String getColumnLength() {
         Object value = this.findTaggedValue(
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
         return value == null ? null : value.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#isIdentifier()
+     */
     public boolean isIdentifier() {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getSqlType()
+     */
     public java.lang.String getSqlType() {
         String value = null;
         if (this.getSqlMappings() != null) {
@@ -76,6 +83,9 @@ public class EntityAttributeFacadeLogicImpl
         return value;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#getJdbcType()
+     */
     public java.lang.String getJdbcType() {
         String value = null;
         if (this.getJdbcMappings() != null) {
