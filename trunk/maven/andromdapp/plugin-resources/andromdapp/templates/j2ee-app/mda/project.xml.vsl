@@ -97,8 +97,10 @@
                 <defaultProvider>${default.provider}</defaultProvider>
                 <applicationName>${application.id}</applicationName>
                 <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
+#if ($spring)
                 <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>
                 <ejbHomeInterfacePattern>{0}.ejb.{1}Home</ejbHomeInterfacePattern>
+#end
                 <wsdls>${maven.andromda.webservice.generated.dir}/wsdl</wsdls>
                 <axis-configuration>${maven.andromda.webservice.generated.dir}/axis</axis-configuration>
                 <java-types>${maven.andromda.common.generated.dir}</java-types>
