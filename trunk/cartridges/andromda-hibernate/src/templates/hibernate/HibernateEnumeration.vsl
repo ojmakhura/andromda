@@ -108,7 +108,7 @@ public final class $enumeration.enumerationName
         }
         else
         {
-            statement.setObject(index, ${enumeration.literalType.fullyQualifiedName}.valueOf(String.valueOf(value)));
+            statement.setObject(index, ${enumeration.literalType.fullyQualifiedName}.valueOf(java.lang.String.valueOf(value)));
         }
     }
 }
