@@ -4,6 +4,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 
 import java.util.*;
@@ -26,6 +27,7 @@ public class StrutsUseCaseLogicImpl
     private Collection formFields = null;
     private Collection pages = null;
     private Collection users = null;
+    private Collection finalStates = null;
 
     // ---------------- constructor -------------------------------
     
@@ -210,5 +212,22 @@ public class StrutsUseCaseLogicImpl
             }
         }
         return formFields = formFieldsMap.values();
+    }
+
+    protected Collection handleGetFinalStates()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && finalStates != null) return finalStates;
+
+        final Collection finalStatesList = new LinkedList();
+        final Collection allFinalStates = getModel().getAllFinalStates();
+
+        for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
+        {
+            ModelElementFacade modelElement = (ModelElementFacade) iterator.next();
+            if (getName().equalsIgnoreCase(modelElement.getName()))
+                finalStatesList.add(modelElement);
+        }
+
+        return finalStates = finalStatesList;
     }
 }
