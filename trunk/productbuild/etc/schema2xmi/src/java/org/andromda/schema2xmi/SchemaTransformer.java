@@ -1025,14 +1025,14 @@ public class SchemaTransformer
      * ranges.
      * 
      * @param dataTypes used to create the Multiplicity
-     * @param upper the upper range of the multiplicity
      * @param lower the lower range of the multiplicity
+     * @param upper the upper range of the multiplicity
      * @return the new Multiplicity
      */
     protected Multiplicity createMultiplicity(
         DataTypesPackage dataTypes,
-        int upper,
-        int lower)
+        int lower,
+        int upper)
     {
         Multiplicity mult = dataTypes.getMultiplicity().createMultiplicity();
         MultiplicityRange range = dataTypes.getMultiplicityRange()
