@@ -3,11 +3,15 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
@@ -208,6 +212,66 @@ public class EntityFacadeLogicImpl
         }
         buffer.append(")");
         return buffer.toString();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#isChild()
+     */
+    public boolean handleIsChild()
+    {
+        return CollectionUtils.find(this.getAssociationEnds(), new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((AssociationEndFacade)object).getOtherEnd()
+                    .isComposition();
+            }
+        }) != null;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getParent()
+     */
+    public Object handleGetParent()
+    {
+        Object parent = null;
+        AssociationEndFacade parentEnd = (AssociationEndFacade)CollectionUtils
+            .find(this.getAssociationEnds(), new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return ((AssociationEndFacade)object).getOtherEnd()
+                        .isComposition();
+                }
+            });
+        if (parentEnd != null)
+        {
+            parent = parentEnd.getType();
+        }
+        return parent;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityFacade#getChildren()
+     */
+    public Collection handleGetChildren()
+    {
+        Collection parentEnds = new FilteredCollection(this
+            .getAssociationEnds())
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((AssociationEndFacade)object).isComposition();
+            }
+        };
+        CollectionUtils.transform(parentEnds, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return ((AssociationEndFacade)object).getOtherEnd();
+            }
+        });
+        return parentEnds;
     }
 
     /**
