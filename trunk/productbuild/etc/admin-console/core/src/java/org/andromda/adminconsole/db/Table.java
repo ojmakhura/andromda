@@ -2,14 +2,17 @@ package org.andromda.adminconsole.db;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.io.Serializable;
 
-public interface Table extends Refreshable
+public interface Table extends Serializable
 {
     public String getName();
 
     public TableType getType();
 
     public int getColumnCount();
+
+    public Column getColumn(String name);
 
     public Column[] getColumns();
 
@@ -38,4 +41,8 @@ public interface Table extends Refreshable
     public int deleteRow(Criterion criterion) throws SQLException;
 
     public Database getDatabase();
+
+    public Table[] getImportingTables();
+
+    public int getImportingTablesCount();
 }
