@@ -13,7 +13,9 @@
                 <code>mergeMappingsUri</code> has been introduced which allows you 
                 to defined mapping files for merging.  These files behave just like the
                 other mapping files (i.e. languageMappings, sqlMappings, etc) and can be
-                used within each namespace or within the default namespace.
+                used within each namespace or within the default namespace. Please see
+                <a href="andromda-cartridges/index.html#mergeMappingsUri">mergeMappingsUri</a> 
+                for more information.
             </action>
             <action dev="cwbrandon" type="add" issue="OCL-5">
                 Translation of OCL to Hibernate QL has been improved to use named (instead
