@@ -3,6 +3,6 @@
 #set ($variableName = $variable.name)
 #set ($formVariableName = "form.${variableName}")
 <c:if test="${!empty ${formVariableName}}">
-    <c:set var="$variableName" value="${${formVariableName}}"/>
+    <c:set var="$variableName" value="${${formVariableName}}" scope="request"/>
 </c:if>
 #end
