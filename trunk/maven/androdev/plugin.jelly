@@ -84,9 +84,14 @@ Please define the location of your model by setting a value for property "maven.
 			value="${modelValidation}"
 			scope="parent"/>
 			
+	    <j:set 
+	    	var="current.directory"
+	    	value="${basedir}"
+	    	scope="parent"/>
+			
 		<j:set 
 			var="maven.junit.sysproperties"
-			value="model.xmi modelFacade model.validation repository trace.expression translation.name languageMappingsUri"
+			value="current.directory model.xmi modelFacade model.validation repository trace.expression translation.name languageMappingsUri"
 			scope="parent"/>
 			
       	<attainGoal name="test:single"/>
