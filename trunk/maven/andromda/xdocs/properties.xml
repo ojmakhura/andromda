@@ -173,6 +173,21 @@
                     </tr>
                     <tr>
                         <td>
+                            <a name="maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a>
+                        </td>
+                        <td>
+                            A comma seperated list of cartridge names (i.e. namespaces) that
+                            should be processed by AndroMDA.  If this is not defined, then 
+                            <strong>ANY</strong> discovered cartridges will be processed.
+                            This is useful when you want to restrict the cartridges that will
+                            process the model, in order to speed up the development cycle.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                            maven.andromda.currentPlugin 
                         </td>
                         <td>

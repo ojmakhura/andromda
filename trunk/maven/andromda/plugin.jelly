@@ -41,7 +41,8 @@
                       lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
                       processAllModelPackages="${maven.andromda.processAllModelPackages}"
                       modelValidation="${maven.andromda.modelValidation}"
-                      failOnModelValidationErrors="${maven.andromda.failOnModelValidationErrors}">
+                      failOnModelValidationErrors="${maven.andromda.failOnModelValidationErrors}"
+                      cartridgeFilter="${maven.andromda.cartridgeFilter}">
                 
             <!-- point the mappings search path to the location of the mappings in this plugin -->      
             <ant:mappingsSearchPath>
