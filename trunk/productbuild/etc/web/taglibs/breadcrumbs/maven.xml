@@ -1,0 +1,19 @@
+<project xmlns:artifact="artifact"
+    xmlns:ant="jelly:ant">
+
+    <goal name="tld:install">
+        <ant:mkdir dir="${maven.build.dir}/tld"/>
+        <ant:copy
+            file="${maven.src.dir}/tld/andromda-breadcrumbs.tld"
+            tofile="${maven.build.dir}/tld/${maven.final.name}.tld"/>
+        <artifact:install
+            artifact="${maven.build.dir}/tld/${maven.final.name}.tld"
+            type="tld"
+            project="${pom}"/>
+    </goal>
+
+    <postGoal name="jar:install">
+        <attainGoal name="tld:install"/>
+    </postGoal>
+
+</project>
