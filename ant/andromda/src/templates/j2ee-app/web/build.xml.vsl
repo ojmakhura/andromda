@@ -19,8 +19,6 @@
     <fileset id="mda-generated-sources" dir="${basedir}/target/src"/>
     <fileset id="mda-generated-java-sources" dir="${basedir}/target/src" includes="**/*.java"/>
     <fileset id="web-java-sources" dir="${basedir}/src/java" includes="**/*.java"/>
-    <fileset id="xdoclet-generated-java-sources" dir="${basedir}/target/xdoclet" includes="**/*.java"/>
-    <fileset id="xdoclet-generated-configuration-sources" dir="${basedir}/target/xdoclet" includes="**/*.xml"/>
 
     <path id="classpath">
         <fileset refid="libraries"/>
@@ -40,29 +38,12 @@
         <delete dir="${basedir}/target"/>
     </target>
 
-    <target name="xdoclet" description="o Run XDoclet WEB">
-        <mkdir dir="${basedir}/src/java"/>
-        <mkdir dir="${basedir}/src/properties"/>
-        <mkdir dir="${basedir}/target/src"/>
-        <mkdir dir="${basedir}/target/classes"/>
-        <mkdir dir="${basedir}/target/xdoclet"/>
-        <mkdir dir="${basedir}/target/xdoclet-merge"/>
-        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask" classpathref="classpath"/>
-        <webdoclet destdir="${basedir}/target/xdoclet" force="true" verbose="true" mergedir="${basedir}/target/xdoclet-merge">
-            <fileset refid="mda-generated-java-sources"/>
-            <strutsconfigxml version="1.1"/>
-            <strutsvalidationxml/>
-            <jbosswebxml securitydomain="java:/jaas/other"/>
-        </webdoclet>
-      </target>
-
-    <target name="compile" description="o Compile the code" depends="xdoclet">
+    <target name="compile" description="o Compile the code">
         <mkdir dir="${basedir}/target/classes"/>
         <javac destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false">
             <src path="${basedir}/target/src"/>
             <src path="${basedir}/src/java"/>
-            <src path="${basedir}/target/xdoclet"/>
         </javac>
     </target>
 
@@ -94,7 +75,6 @@
             </fileset>
         </copy>
         <copy todir="${basedir}/${bundle.dir}/WEB-INF">
-            <fileset refid="xdoclet-generated-configuration-sources"/>
             <fileset dir="${basedir}/target/src/WEB-INF" includes="*.xml"/>
         </copy>
         <antcall target="-precompile"/>
