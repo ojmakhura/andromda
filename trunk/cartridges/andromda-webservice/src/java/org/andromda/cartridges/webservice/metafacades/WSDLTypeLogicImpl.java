@@ -1,5 +1,6 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import org.andromda.cartridges.webservice.WebServiceProfile;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
 
@@ -22,10 +23,6 @@ public class WSDLTypeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class WSDLType ...
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getSchemaType()
      */
@@ -42,14 +39,16 @@ public class WSDLTypeLogicImpl
         boolean withPrefix,
         boolean preserveArray)
     {
-        try {
+        try
+        {
             StringBuffer schemaType = new StringBuffer();
             String modelName = this.getFullyQualifiedName(true);
             if (this.getSchemaTypeMappings() != null)
             {
                 String namespacePrefix = this.getNamespacePrefix() + ':';
-                
-                String mappedValue = this.getSchemaTypeMappings().getTo(modelName);
+
+                String mappedValue = this.getSchemaTypeMappings().getTo(
+                    modelName);
                 if (!mappedValue.equals(modelName))
                 {
                     schemaType.append(mappedValue);
@@ -89,16 +88,27 @@ public class WSDLTypeLogicImpl
                     }
                     schemaType.insert(insertIndex, "ArrayOf");
                 }
-                if (withPrefix && !schemaType.toString().startsWith(namespacePrefix))
+                if (withPrefix
+                    && !schemaType.toString().startsWith(namespacePrefix))
                 {
                     schemaType.insert(0, "xsd:");
                 }
             }
             return schemaType.toString();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             ex.printStackTrace();
             throw new RuntimeException(ex);
         }
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#isEnumeration()
+     */
+    public boolean handleIsEnumeration()
+    {
+        return this.hasStereotype(WebServiceProfile.STEREOTYPE_ENUMERATION);
     }
 
     /**
@@ -130,8 +140,7 @@ public class WSDLTypeLogicImpl
     }
 
     /**
-     * Gets the schemaType mappings that have been set for this
-     * schema type.
+     * Gets the schemaType mappings that have been set for this schema type.
      * 
      * @return the Mappings instance.
      */
@@ -139,24 +148,25 @@ public class WSDLTypeLogicImpl
     {
         return (Mappings)this.getConfiguredProperty(SCHEMA_TYPE_MAPPINGS_URI);
     }
-    
+
     /**
      * Sets the <code>namespacePrefix</code> for the WSDLs type.
-     *
+     * 
      * @param namespacePrefix the namespace prefix to use for these types.
      */
-    public void setNamespacePrefix(String namespacePrefix) 
+    public void setNamespacePrefix(String namespacePrefix)
     {
         this.registerConfiguredProperty(
             WebServiceLogicImpl.NAMESPACE_PREFIX,
             StringUtils.trimToEmpty(namespacePrefix));
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
      */
-    public String handleGetNamespacePrefix() 
+    public String handleGetNamespacePrefix()
     {
-        return (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
-    }    
+        return (String)this
+            .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
+    }
 }

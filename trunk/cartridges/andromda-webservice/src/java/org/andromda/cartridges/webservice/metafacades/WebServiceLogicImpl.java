@@ -12,6 +12,7 @@ import org.andromda.cartridges.webservice.WebServiceProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -36,39 +37,29 @@ public class WebServiceLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class WebService ...
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getAllowedOperations()
      */
     public java.util.Collection handleGetAllowedOperations()
     {
-        Collection allowedOperations = new ArrayList();
+        Collection allowedOperations;
         boolean allowAll = this.getStereotypeNames().contains(
             WebServiceProfile.STEREOTYPE_WEBSERVICE);
         if (allowAll)
         {
+            allowedOperations = new ArrayList();
             allowedOperations.addAll(this.getOperations());
         }
         else
         {
-            Collection operations = this.getOperations();
-            if (operations != null && !operations.isEmpty())
+            allowedOperations = new FilteredCollection(this.getOperations())
             {
-                Iterator operationIt = operations.iterator();
-                while (operationIt.hasNext())
+                public boolean evaluate(Object object)
                 {
-                    OperationFacade operation = (OperationFacade)operationIt
-                        .next();
-                    if (operation.getStereotypeNames().contains(
-                        WebServiceProfile.STEREOTYPE_WEBSERVICE_OPERATION))
-                    {
-                        allowedOperations.add(operation);
-                    }
+                    return ((ModelElementFacade)object)
+                        .hasStereotype(WebServiceProfile.STEREOTYPE_WEBSERVICE_OPERATION);
                 }
-            }
+            };
         }
         return allowedOperations;
     }
@@ -139,61 +130,57 @@ public class WebServiceLogicImpl
     }
 
     /**
+     * Keeps track of whether or not the type has been checked, keeps us from
+     * entering infinite loops when calling loadTypes.
+     */
+    private Collection checkedTypes = new ArrayList();
+
+    /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTypeMappingElements()
      */
     public java.util.Collection handleGetTypeMappingElements()
     {
-        try
+        Collection paramTypes = new HashSet();
+        Iterator operationIt = this.getAllowedOperations().iterator();
+        while (operationIt.hasNext())
         {
-            Collection paramTypes = new HashSet();
-            Iterator operationIt = this.getAllowedOperations().iterator();
-            while (operationIt.hasNext())
-            {
-                OperationFacade operation = (OperationFacade)operationIt.next();
-                paramTypes.addAll(operation.getParameters());
-            }
-
-            Collection types = new TreeSet(new TypeComparator());
-            Collection nonArrayTypes = new TreeSet(new TypeComparator());
-            Iterator paramTypeIt = paramTypes.iterator();
-            while (paramTypeIt.hasNext())
-            {
-                this.loadTypes(
-                    (ModelElementFacade)paramTypeIt.next(),
-                    types,
-                    nonArrayTypes);
-            }
-
-            Collection exceptions = new ArrayList();
-            operationIt = this.getAllowedOperations().iterator();
-            while (operationIt.hasNext())
-            {
-                OperationFacade operation = (OperationFacade)operationIt.next();
-                exceptions.addAll(operation.getExceptions());
-            }
-
-            types.addAll(exceptions);
-
-            // now since we're at the end, and we know the
-            // non array types won't override any other types
-            // (such as association ends) we
-            // add the non array types to the types
-            types.addAll(nonArrayTypes);
-
-            return types;
+            OperationFacade operation = (OperationFacade)operationIt.next();
+            paramTypes.addAll(operation.getParameters());
         }
-        catch (Throwable th)
+
+        Collection types = new TreeSet(new TypeComparator());
+        Collection nonArrayTypes = new TreeSet(new TypeComparator());
+        Iterator paramTypeIt = paramTypes.iterator();
+        // clear out the cache of checkedTypes, otherwise
+        // they'll be ignored the second time this method is
+        // called (if the instance is reused)
+        this.checkedTypes.clear();
+        while (paramTypeIt.hasNext())
         {
-            th.printStackTrace();
-            throw new RuntimeException(th);
+            this.loadTypes(
+                (ModelElementFacade)paramTypeIt.next(),
+                types,
+                nonArrayTypes);
         }
+
+        Collection exceptions = new ArrayList();
+        operationIt = this.getAllowedOperations().iterator();
+        while (operationIt.hasNext())
+        {
+            OperationFacade operation = (OperationFacade)operationIt.next();
+            exceptions.addAll(operation.getExceptions());
+        }
+        
+        types.addAll(exceptions);
+
+        // now since we're at the end, and we know the
+        // non array types won't override any other types
+        // (such as association ends) we
+        // add the non array types to the types
+        types.addAll(nonArrayTypes);
+
+        return types;
     }
-
-    /**
-     * Keeps track of whether or not the type has been checked, keeps us from
-     * entering infinite loops
-     */
-    private Collection checkedTypes = new ArrayList();
 
     /**
      * Loads all <code>types</code> and <code>nonArrayTypes</code> for the
@@ -216,12 +203,15 @@ public class WebServiceLogicImpl
         final String methodName = "WebServiceImpl.loadTypes";
         ExceptionUtils.checkNull(methodName, "types", types);
         ExceptionUtils.checkNull(methodName, "nonArrayTypes", nonArrayTypes);
-        try {
-            if (modelElement != null && !this.checkedTypes.contains(modelElement))
+        try
+        {
+            if (modelElement != null
+                && !this.checkedTypes.contains(modelElement))
             {
                 ClassifierFacade type = this.getType(modelElement);
                 // only continue if the model element has a type
-                if (type != null) {
+                if (type != null)
+                {
                     this.checkedTypes.add(modelElement);
                     ClassifierFacade nonArrayType = type;
                     if (type.isArrayType())
@@ -234,7 +224,7 @@ public class WebServiceLogicImpl
                         // that will have the attributes
                         type = nonArrayType;
                     }
-        
+
                     if (nonArrayType
                         .hasStereotype(WebServiceProfile.STEREOTYPE_VALUEOBJECT)
                         || nonArrayType
@@ -248,7 +238,7 @@ public class WebServiceLogicImpl
                         // we are defining an array.
                         nonArrayTypes.add(nonArrayType);
                     }
-        
+
                     if (type != null)
                     {
                         Collection properties = type.getProperties();
@@ -257,16 +247,16 @@ public class WebServiceLogicImpl
                             Iterator propertyIt = properties.iterator();
                             while (propertyIt.hasNext())
                             {
-                                this.loadTypes(
-                                    (ModelElementFacade)propertyIt.next(),
-                                    types,
-                                    nonArrayTypes);
+                                this.loadTypes((ModelElementFacade)propertyIt
+                                    .next(), types, nonArrayTypes);
                             }
                         }
                     }
                 }
             }
-        } catch (Throwable th) {
+        }
+        catch (Throwable th)
+        {
             String errMsg = "Error performing loadTypes";
             logger.error(errMsg, th);
             throw new MetafacadeException(errMsg, th);
@@ -309,10 +299,12 @@ public class WebServiceLogicImpl
         implements Comparator
     {
         private final Collator collator = Collator.getInstance();
+
         private TypeComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
+
         public int compare(Object objectA, Object objectB)
         {
             ModelElementFacade a = (ModelElementFacade)objectA;
@@ -331,32 +323,43 @@ public class WebServiceLogicImpl
                 .getFullyQualifiedName());
         }
     }
-    
+
     /**
-     * Gets the <code>type</code> of the model element 
-     * (if the model element has a type).
+     * Gets the <code>type</code> or <code>returnType</code> of the model
+     * element (if the model element has a type or returnType).
      * 
-     * @param modelElement the model element we'll retrieve
-     *        the type of.
+     * @param modelElement the model element we'll retrieve the type of.
      */
     private ClassifierFacade getType(Object modelElement)
     {
-        try 
+        try
         {
-	        ClassifierFacade type = null;
-	        final String typeProperty = "type";
-	        // only continue if the model element has a type
-	        if (PropertyUtils.isReadable(modelElement, typeProperty)) {        
-	            type = (ClassifierFacade)PropertyUtils.getProperty(modelElement, typeProperty);
-	        }
-	        return type;
-	    } 
-        catch (Throwable th) 
+            ClassifierFacade type = null;
+            String typeProperty = "type";
+            // only continue if the model element has a type
+            if (PropertyUtils.isReadable(modelElement, typeProperty))
+            {
+                type = (ClassifierFacade)PropertyUtils.getProperty(
+                    modelElement,
+                    typeProperty);
+            }
+            // try for return type if type wasn't found
+            typeProperty = "returnType";
+            if (type == null
+                && PropertyUtils.isReadable(modelElement, typeProperty))
+            {
+                type = (ClassifierFacade)PropertyUtils.getProperty(
+                    modelElement,
+                    typeProperty);
+            }
+            return type;
+        }
+        catch (Throwable th)
         {
-	        String errMsg = "Error performing WebServiceLogicImpl.getType";
-	        logger.error(errMsg, th);
-	        throw new MetafacadeException(errMsg, th);
-	    }
+            String errMsg = "Error performing WebServiceLogicImpl.getType";
+            logger.error(errMsg, th);
+            throw new MetafacadeException(errMsg, th);
+        }
     }
 
     /**
@@ -366,21 +369,20 @@ public class WebServiceLogicImpl
 
     /**
      * Sets the <code>namespacePrefix</code> for the WSDLs type.
-     *
+     * 
      * @param namespacePrefix the namespace prefix to use for these types.
      */
-    public void setNamespacePrefix(String namespacePrefix) 
+    public void setNamespacePrefix(String namespacePrefix)
     {
-        this.registerConfiguredProperty(
-        	NAMESPACE_PREFIX,
-            StringUtils.trimToEmpty(namespacePrefix));
+        this.registerConfiguredProperty(NAMESPACE_PREFIX, StringUtils
+            .trimToEmpty(namespacePrefix));
     }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
      */
-    public String handleGetNamespacePrefix() 
+    public String handleGetNamespacePrefix()
     {
         return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
-    }    
+    }
 }
