@@ -27,9 +27,6 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
 {
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
-#if ($field.date)
-#set ($fieldType = "String")
-#end
 #set ($fieldName = $field.name)
 #set ($validatorTypes = $field.validatorTypes)
 #if (!$validatorTypes.empty)
@@ -59,10 +56,17 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
      *
      */
 #end
+#if ($field.date)
+    public void ${field.setterName}AsString(java.lang.String $fieldName)
+    {
+        super.${field.setterName}AsString($fieldName);
+    }
+#else
     public void ${field.setterName}($fieldType $fieldName)
     {
         super.${field.setterName}($fieldName);
     }
+#end
 
 #end
 }
