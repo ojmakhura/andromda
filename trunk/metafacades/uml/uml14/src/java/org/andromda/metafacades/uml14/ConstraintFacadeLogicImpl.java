@@ -1,5 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.core.translation.ExpressionKinds;
+import org.andromda.core.translation.ExpressionTranslator;
+
 import java.util.List;
 
 
@@ -13,7 +16,7 @@ public class ConstraintFacadeLogicImpl
        implements org.andromda.metafacades.uml.ConstraintFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public ConstraintFacadeLogicImpl (org.omg.uml.foundation.core.Constraint metaObject, java.lang.String context)
     {
         super (metaObject, context);
@@ -27,13 +30,13 @@ public class ConstraintFacadeLogicImpl
 	/**
 	 * @see org.andromda.metafacades.uml.ConstraintFacade#getBody()
 	 */
-    public java.lang.String handleGetBody() 
-    {   
+    public java.lang.String handleGetBody()
+    {
         return this.metaObject.getBody().getBody();
     }
 
     // ------------- relations ------------------
-    
+
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#getContextElement()
      */
@@ -47,4 +50,35 @@ public class ConstraintFacadeLogicImpl
         return element;
     }
 
+    public boolean handleIsInvariant()
+    {
+        return getBody().matches(".*\\s" + ExpressionKinds.INV + "\\s*.*");
+    }
+
+    public boolean handleIsPreCondition()
+    {
+        return getBody().matches(".*\\s" + ExpressionKinds.PRE + "\\s*.*");
+    }
+
+    public boolean handleIsPostCondition()
+    {
+        return getBody().matches(".*\\s" + ExpressionKinds.POST + "\\s*.*");
+    }
+
+    public boolean handleIsDefinition()
+    {
+        return getBody().matches(".*\\s" + ExpressionKinds.DEF + "\\s*.*");
+    }
+
+    public boolean handleIsBodyExpression()
+    {
+        return getBody().matches(".*\\s" + ExpressionKinds.BODY + "\\s*.*");
+    }
+
+    public String handleGetTranslation(String language)
+    {
+        logger.info("context element: "+getContextElement());
+        return ExpressionTranslator.instance().translate(
+                language, getContextElement(), getBody()).getTranslatedExpression();
+    }
 }
