@@ -12,9 +12,15 @@
         <property reference="metafacadeProperteryOne" default="true"/>
         <property reference="metafacadeProperteryTwo" default="false"/>
     </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade1">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <stereotype>QUERY_METHOD</stereotype>            
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade2">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>    
+            <property name="mappingProperty">true</property>
         </mapping>  
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade3">

@@ -50,6 +50,7 @@ public class MetafacadeMappingsTest
     private static final String STEREOTYPE_ENUMERATION = "ENUMERATION";
     private static final String STEREOTYPE_APPLICATION_EXCEPTION = "APPLICATION_EXCEPTION";
     private static final String STEREOTYPE_UNEXPECTED_EXCEPTION = "UNEXPECTED_EXCEPTION";
+    private static final String STEREOTYPE_QUERY_METHOD = "QUERY_METHOD";
 
     static
     {
@@ -71,7 +72,7 @@ public class MetafacadeMappingsTest
         // make sure we get all mappings in the andromda-metafacades.xml file
         Map childMappings = mappings.getMappings(namespace);
         assertNotNull(childMappings);
-        assertEquals(4, childMappings.size());
+        assertEquals(5, childMappings.size());
         Map propertyReferences = mappings.getPropertyReferences(namespace);
         // test retrieval of the namespace properties
         assertEquals(2, propertyReferences.size());
@@ -103,6 +104,21 @@ public class MetafacadeMappingsTest
         assertEquals("true", propertyReferences.get("metafacadeProperteryOne"));
         assertEquals("false", propertyReferences.get("metafacadeProperteryTwo"));
 
+        // test that we can get a mapping to the same metafacade with a
+        // different stereotype
+        // (an 'OR' scenario)
+        List stereotypes = new ArrayList();
+        stereotypes.add(STEREOTYPE_QUERY_METHOD);
+        mapping = mappings.getMetafacadeMapping(
+            MAPPING_CLASS_1,
+            STEREOTYPES_1,
+            namespace,
+            null);
+        assertNotNull(mapping);
+        assertNull(mapping.getContext());
+        assertTrue(mapping.getMetafacadeClass().getName().equals(
+            METAFACADE_CLASS_1));
+
         // test a mapping having a context
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_4,
@@ -126,8 +142,8 @@ public class MetafacadeMappingsTest
         assertTrue(mapping.getPropertyReferences().isEmpty());
 
         // make sure we can't get the mapping that requires 2 stereotypes with
-        // ONLY one of the stereotypes
-        List stereotypes = new ArrayList();
+        // ONLY one of the stereotypes (an 'AND' scenario)
+        stereotypes = new ArrayList();
         stereotypes.add(STEREOTYPE_UNEXPECTED_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_CLASS_3,
