@@ -34,15 +34,15 @@ public class ServiceLocator
      */
     private String contextLocation;
     
-    /**
-     * The shared instance of this ServiceLocator.
-     */
-    private static ServiceLocator instance; 
-    
     private ServiceLocator()
     {
         // shouldn't be instantiated
     }
+    
+    /**
+     * The shared instance of this ServiceLocator.
+     */
+    private final static ServiceLocator instance = new ServiceLocator();
     
     /**
      * Gets the shared instance of this Class
@@ -51,27 +51,38 @@ public class ServiceLocator
      */
     public static final ServiceLocator instance() 
     {
-        if (instance == null)
-        {
-            instance = new ServiceLocator();
-        }
         return instance;
     }
     
     /**
      * Initializes the Spring application context from
-     * the give <code>applicationContextLocation</code>.  If <code>null</code>
+     * the given <code>applicationContextLocation</code>.  If <code>null</code>
      * is specified for the <code>applicationContextLocation</code>
      * then the default application context will be used.
      *
      * @param contextLocation the location of the context
      */
-    public final void init(String applicationContextLocation) 
+    public final synchronized void init(String applicationContextLocation) 
     {
         contextLocation = applicationContextLocation;
         context = null;
     }
     
+    /**
+     * Builds the Spring application context.
+     */
+    protected final synchronized void buildContext()
+    {
+        if (context == null)
+        {
+	        if (contextLocation == null)
+	        {
+	            contextLocation = DEFAULT_CONTEXT_LOCATION;
+	        }
+	        context = new ClassPathXmlApplicationContext(contextLocation);     
+	    }
+    }
+      
     /**
      * Gets the ApplicationContext.
      */
@@ -79,11 +90,7 @@ public class ServiceLocator
     {
         if (context == null)
         {
-            if (contextLocation == null)
-            {
-                contextLocation = DEFAULT_CONTEXT_LOCATION;
-            }
-            context = new ClassPathXmlApplicationContext(contextLocation);
+            buildContext(); 
         }
         return context;
     }
