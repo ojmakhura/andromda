@@ -11,6 +11,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.cartridge.template.ModelElement;
+import org.andromda.core.cartridge.template.ModelElements;
+import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
@@ -62,7 +65,7 @@ public class Cartridge
      * Processes all model elements with relevant stereotypes by retrieving the
      * model elements from the model facade contained within the context.
      * 
-     * @param context the context containing the RepositoryFacade (among other
+     * @param context the context containing the ModelAccessFacade (among other
      *        things).
      */
     public void processModelElements(CodeGenerationContext context)
@@ -89,8 +92,7 @@ public class Cartridge
                 Resource resource = (Resource)resourceIt.next();
                 if (Template.class.isAssignableFrom(resource.getClass()))
                 {
-                    Template template = (Template)resource;
-                    this.processTemplate(template);
+                    this.processTemplate((Template)resource);
                 }
                 else
                 {
@@ -111,33 +113,47 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
-        TemplateModelElements templateModelElements = template
+        ModelElements templateModelElements = template
             .getSupportedModeElements();
         // handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            Iterator stereotypeIt = templateModelElements.stereotypeNames();
-            while (stereotypeIt.hasNext())
+            Iterator templateModelElementIt = templateModelElements
+                .getModelElements().iterator();
+            while (templateModelElementIt.hasNext())
             {
-                String stereotypeName = (String)stereotypeIt.next();
-                Collection modelElements = (Collection)this.elementCache
-                    .get(stereotypeName);
+                ModelElement templateModelElement = (ModelElement)templateModelElementIt
+                    .next();
+                Collection modelElements = null;
                 if (modelElements == null)
                 {
-                    modelElements = context.getModelFacade().findByStereotype(
-                        stereotypeName);
-                    elementCache.put(stereotypeName, modelElements);
+                    // if the template model element has a stereotype defined,
+                    // then we filter the model elements based on that stereotype,
+                    // otherwise we get all model elements and let the modelElement
+                    // perform filtering on the metafacades by type and properties
+                    if (templateModelElement.hasStereotype())
+                    {
+                        modelElements = context.getModelFacade()
+                            .findByStereotype(
+                                templateModelElement.getStereotype());
+                    }
+                    else if (templateModelElement.hasTypes())
+                    {
+                        modelElements = context.getModelFacade()
+                            .getModelElements();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-
-                TemplateModelElement templateModelElement = templateModelElements
-                    .getModelElement(stereotypeName);
 
                 Collection metafacades = MetafacadeFactory.getInstance()
                     .createMetafacades(modelElements);
 
                 this.filterModelPackages(metafacades);
 
-                templateModelElement.setModelElements(metafacades);
+                templateModelElement.setMetafacades(metafacades);
             }
             this.processTemplateWithModelElements(template, context);
         }
@@ -166,10 +182,9 @@ public class Cartridge
             logger.debug("performing " + methodName + " with template '"
                 + template + "' and context ' " + context + "'");
 
-        TemplateModelElements templateModelElements = template
-            .getSupportedModeElements();
+        ModelElements modelElements = template.getSupportedModeElements();
 
-        if (templateModelElements != null && !templateModelElements.isEmpty())
+        if (modelElements != null && !modelElements.isEmpty())
         {
             Property outletProperty = Namespaces.instance()
                 .findNamespaceProperty(
@@ -181,63 +196,56 @@ public class Cartridge
             {
                 try
                 {
-                    Collection allModelElements = templateModelElements
-                        .getAllModelElements();
+                    Collection allMetafacades = modelElements
+                        .getAllMetafacades();
 
                     // if isOutputToSingleFile flag is true, then
-                    // we get the collections of templateModelElements and
+                    // we collet the template model elements and
                     // place them into the template context by their
                     // variable names.
                     if (template.isOutputToSingleFile())
                     {
                         Map templateContext = new HashMap();
 
-                        // eliminate duplicates since all are
-                        // output to one file
-                        allModelElements = new HashSet(allModelElements);
-
                         // first place all relevant model elements by the
-                        // <modelElements/> variable name (if the variable
-                        // isn't defined (which is possible, then ignore)
-                        if (StringUtils.isNotBlank(templateModelElements
-                            .getVariable()))
+                        // <modelElements/> variable name. If the variable
+                        // isn't defined (which is possible), ignore.
+                        if (StringUtils.isNotBlank(modelElements.getVariable()))
                         {
-                            templateContext.put(templateModelElements
-                                .getVariable(), allModelElements);
+                            templateContext.put(
+                                modelElements.getVariable(),
+                                allMetafacades);
                         }
 
-                        // now place the collections of stereotyped elements
-                        // by the given variable names. (skip it the variable
+                        // now place the collections of elements
+                        // by the given variable names. (skip if the variable
                         // was NOT defined)
-                        Iterator stereotypeNames = templateModelElements
-                            .stereotypeNames();
-                        while (stereotypeNames.hasNext())
+                        Iterator modelElementIt = modelElements
+                            .getModelElements().iterator();
+                        while (modelElementIt.hasNext())
                         {
-                            String name = (String)stereotypeNames.next();
-                            TemplateModelElement templateModelElement = templateModelElements
-                                .getModelElement(name);
-                            String variable = templateModelElement
-                                .getVariable();
+                            ModelElement modelElement = (ModelElement)modelElementIt
+                                .next();
+                            String variable = modelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
                                 // if a stereotype has the same variable defined
                                 // more than one time, then get the existing
                                 // model elements added from the last iteration
-                                // and add the new ones to the collection
-                                Collection modelElements = (Collection)templateContext
+                                // and add the new ones to that collection
+                                Collection metafacades = (Collection)templateContext
                                     .get(variable);
-                                if (modelElements != null)
+                                if (metafacades != null)
                                 {
-                                    modelElements.addAll(templateModelElement
-                                        .getModelElements());
+                                    metafacades.addAll(modelElement
+                                        .getMetafacades());
                                 }
                                 else
                                 {
-                                    modelElements = templateModelElement
-                                        .getModelElements();
+                                    metafacades = modelElement.getMetafacades();
                                 }
                                 templateContext.put(variable, new HashSet(
-                                    modelElements));
+                                    metafacades));
                             }
                         }
                         this.processWithTemplate(
@@ -253,24 +261,24 @@ public class Cartridge
                         // we just place the model element with the default
                         // variable defined on the <modelElements/> into the
                         // template.
-                        Iterator modelElementIt = allModelElements.iterator();
-
-                        while (modelElementIt.hasNext())
+                        Iterator metafacadeIt = allMetafacades.iterator();
+                        while (metafacadeIt.hasNext())
                         {
                             Map templateContext = new HashMap();
 
-                            Object modelElement = modelElementIt.next();
+                            Object metafacade = metafacadeIt.next();
 
-                            templateContext.put(templateModelElements
-                                .getVariable(), modelElement);
+                            templateContext.put(
+                                modelElements.getVariable(),
+                                metafacade);
 
                             this.processWithTemplate(
                                 template,
                                 templateContext,
                                 outletProperty,
-                                context.getModelFacade().getName(modelElement),
+                                context.getModelFacade().getName(metafacade),
                                 context.getModelFacade().getPackageName(
-                                    modelElement));
+                                    metafacade));
                         }
                     }
                 }
