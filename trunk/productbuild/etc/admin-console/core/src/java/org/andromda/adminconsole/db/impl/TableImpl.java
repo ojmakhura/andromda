@@ -229,6 +229,7 @@ public class TableImpl extends DatabaseObject implements Table
         }
         catch (SQLException e)
         {
+            e.printStackTrace();
             throw new RuntimeException("Unable to refresh table: " + getName());
         }
         catch (Exception e)
@@ -398,6 +399,7 @@ public class TableImpl extends DatabaseObject implements Table
         finally
         {
             close(statement);
+            // close(connection);
         }
     }
 
@@ -433,6 +435,7 @@ public class TableImpl extends DatabaseObject implements Table
         {
             close(statement);
             close(resultSet);
+            // close(connection);
         }
 
         return rows;
