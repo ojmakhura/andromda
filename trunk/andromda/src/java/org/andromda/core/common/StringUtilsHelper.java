@@ -25,27 +25,36 @@ public class StringUtilsHelper {
         return s.substring(0,1).toUpperCase() + s.substring(1);
     }
 
-    /**
-     * <p>Capitalizes a string.  That is, it returns "HamburgerStall"
-     * when receiving a "hamburgerStall".</p>
-     *
-     * @param s the input string
-     * @return String the output string.
-     */
+    /** 
+    * <p>Capitalizes a string. That is, it returns "HamburgerStall" 
+    * when receiving a "hamburgerStall".</p> 
+    * 
+    * @param s the input string 
+    * @return String the output string. 
+    */
     public static String upperCaseFirstLetter(String s) {
-        return s.substring(0,1).toUpperCase() + s.substring(1);
+        if (s != null && s.length() > 0) {
+            return s.substring(0, 1).toUpperCase() + s.substring(1);
+        } else {
+            return s;
+        }
     }
 
-    /**
-     * <p>Removes the capitalization of a string.  That is, it returns
-     * "hamburgerStall" when receiving a "HamburgerStall".</p>
-     *
-     * @param s the input string
-     * @return String the output string.
-     */
+    /** 
+    * <p>Removes the capitalization of a string. That is, it returns 
+    * "hamburgerStall" when receiving a "HamburgerStall".</p> 
+    * 
+    * @param s the input string 
+    * @return String the output string. 
+    */
     public static String lowerCaseFirstLetter(String s) {
-        return s.substring(0,1).toLowerCase() + s.substring(1);        
+        if (s != null && s.length() > 0) {
+            return s.substring(0, 1).toLowerCase() + s.substring(1);
+        } else {
+            return s;
+        }
     }
+
 
     /**
      * <p>Converts a string following the Java naming conventions to a
