@@ -48,37 +48,7 @@ public abstract class ${controller.name}Interface
 #if (!$returnType)
 #set ($returnType = "void")
 #end
-    /**
-$operation.getDocumentation("     * ")
-#if ($parameters.size() == 0)
-     * <p/>
-     * This method does not receive any parameters through the form bean.
-#elseif ($parameters.size() == 1)
-#set ($parameter = $parameters.iterator().next())
-     * <p/>
-     * This method receives the "$parameter.name" parameter,
-     * it is of type <code>$parameter.type.name</code> and is available
-     * through the argument form bean.
-#else
-     * <p/>
-     * This method receives the following parameters; they are all available
-     * through the argument form bean.
-     * <p/>
-     * <table cellpadding="3" rules="all">
-     *    <tr>
-     *       <th>Parameter Name</th>
-     *       <th>Parameter Type</th>
-     *    </tr>
-#foreach ($parameter in $parameters)
-     *    <tr>
-     *       <td>$parameter.name</td>
-     *       <td>$parameter.type.name</td>
-     *    </tr>
-#end
-     * </table>
-#end
-     */
-    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #set ($returnType = false)
 #end

@@ -9,7 +9,7 @@
 #set ($trigger = $action.actionTrigger)
 #set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
-#set ($formBeanName = $action.activityGraph.useCase.formBeanName)
+#set ($formBeanName = $action.formBeanName)
 #set ($securityEnabled = ($security=="true") && ($roles != "") )
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
@@ -102,7 +102,7 @@ ${indent}</logic:notPresent>
 #macro ( renderFormField $action $field $indent)
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
-#set ($formBeanName = $action.activityGraph.useCase.formBeanName)
+#set ($formBeanName = $action.formBeanName)
 ##
 ##  Depending on the type of the input field we render a different widget
 ##
@@ -111,7 +111,7 @@ ${indent}</logic:notPresent>
 ##
 #if ($widgetType == 'radio')
 #if ($field.readOnly)
-#set ($disabled = 'disabled="disabled"')
+#set ($disabled = 'disabled="true"')
 #else
 #set ($disabled = '')
 #end
@@ -119,7 +119,7 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <input type="$widgetType" name="$fieldName" value="$optionKey" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled><bean:write name="$formBeanName" property="$fieldName" scope="page"/></input>
+${indent}            <html:$widgetType property="$fieldName" value="$optionKey" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -130,11 +130,11 @@ ${indent}</table>
 ##
 #elseif ($widgetType == 'checkbox')
 #if ($field.readOnly)
-#set ($disabled = 'disabled="disabled"')
+#set ($disabled = 'disabled="true"')
 #else
 #set ($disabled = '')
 #end
-${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled></input>
+${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled/>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
@@ -144,11 +144,11 @@ ${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$f
 #else
 #set ($readonly = '')
 #end
-${indent}<input type="$widgetType" name="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
+${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
-${indent}<a href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
+${indent}<html:link href="javascript:${action.formBeanName}_${fieldName}Calendar.popup();">
 ${indent}   <html:img page="/layout/calendar/calendar.gif" styleClass="calendar" onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"/>
-${indent}</a>
+${indent}</html:link>
 #end
 ##
 ##      T E X T A R E A
@@ -159,14 +159,12 @@ ${indent}</a>
 #else
 #set ($readonly = '')
 #end
-${indent}<$widgetType onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly>
-${indent}    <bean:write name="$formBeanName" property="$fieldName" scope="page"/>
-${indent}</$widgetType>
+${indent}<html:$widgetType property="$fieldName" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $readonly/>
 ##
 ##      H I D D E N
 ##
 #elseif ($widgetType == 'hidden')
-${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$formBeanName" property="$fieldName" scope="page"/>"></input>
+${indent}<html:$widgetType property="$fieldName"/>
 ##
 ##      C O M B O B O X     &      L I S T
 ##
@@ -177,7 +175,7 @@ ${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$f
 #set ($multiple = '')
 #end
 #if ($field.readOnly)
-#set ($disabled = 'disabled="disabled"')
+#set ($disabled = 'disabled="true"')
 #else
 #set ($disabled = '')
 #end
@@ -186,20 +184,8 @@ ${indent}<input type="$widgetType" name="$fieldName" value="<bean:write name="$f
 #else
 #set ($selectProperty = "$fieldName")
 #end
-${indent}<select name="$selectProperty" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled $multiple>
-${indent}   <logic:iterate id="option" name="$formBeanName" property="$field.backingListName" scope="page">
-${indent}       <logic:equal name="$formBeanName" property="$selectProperty" value="option" scope="page">
-${indent}           <option selected value="<bean:write name="option" scope="page"/>"><bean:write name="option" scope="page"/></option>
-${indent}       </logic:equal>
-${indent}       <logic:notEqual name="$formBeanName" property="$selectProperty" value="option" scope="page">
-${indent}           <option value="<bean:write name="option" scope="page"/>"><bean:write name="option" scope="page"/></option>
-${indent}       </logic:notEqual>
-${indent}   </logic:iterate>
-${indent}</select>
-##
-##      Any other field will be rendered as plain text (no input)
-##
-#else
-${indent}<bean:write name="$formBeanName" property="$fieldName" scope="page"/>
+${indent}<html:select property="$selectProperty" onmouseover="hints.show('$fieldName')" onmouseout="hints.hide()" $disabled $multiple>
+${indent}   <html:optionsCollection name="form" property="$field.backingListName" label="label" value="value"/>
+${indent}</html:select>
 #end
 #end

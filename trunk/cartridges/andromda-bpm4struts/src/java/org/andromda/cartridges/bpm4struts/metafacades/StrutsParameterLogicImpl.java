@@ -624,11 +624,6 @@ public class StrutsParameterLogicImpl
         return getType().isCollectionType() || getType().isArrayType();
     }
 
-    public boolean handleIsBackingListPresent()
-    {
-        return "select".equals(getWidgetType()) && getAction() != null;   // only on action parameters
-    }
-
     public String handleGetBackingListName()
     {
         return getName() + "BackingList";
@@ -639,15 +634,30 @@ public class StrutsParameterLogicImpl
         return "Object[]";
     }
 
-    public String handleGetBackingListResetValue()
+    public String handleGetValueListResetValue()
     {
         return constructArray();
+    }
+
+    public boolean handleIsSelectable()
+    {
+        return "select".equals(getWidgetType()) && getAction() != null;   // only on action parameters
+    }
+
+    public String handleGetValueListName()
+    {
+        return getName() + "ValueList";
+    }
+
+    public String handleGetLabelListName()
+    {
+        return getName() + "LabelList";
     }
 
     private String constructArray()
     {
         final String name = getName();
-        return "new " + getBackingListType() + "{\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" + name + "-5\"}";
+        return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" + name + "-5\"}";
     }
 
     public boolean handleIsRequired()

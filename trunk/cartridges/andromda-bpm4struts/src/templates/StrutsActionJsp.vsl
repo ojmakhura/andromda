@@ -5,16 +5,21 @@
 #if (!$action.useCaseStart)## we don't generate tiles for events that do not have an input page
 ##
 #set ($requiredness = ($clientValidation=='true' || $serverValidation=='true'))
-#set ($useCase = $action.input.useCase)
-#set ($formBeanName = $useCase.formBeanName)
-#set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
+#set ($formBeanName = $action.formBeanName)
+#set ($formBeanType = $action.formBeanType)## this will be the name of the form, as used in this page
 <%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <html:xhtml/>
 
 #end
-<bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="session" toScope="page"/>
+#if (!$action.useCaseStart)
+#foreach ($incomingAction in $action.input.incomingActions)
+<logic:present name="$incomingAction.formBeanName" scope="$incomingAction.actionScope">
+    <bean:define id="form" name="$incomingAction.formBeanName" type="$incomingAction.formBeanType" scope="$incomingAction.actionScope" toScope="page"/>
+</logic:present>
+#end
+#end
 
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
@@ -30,8 +35,7 @@
 #else
 #set ($onsubmit = "")
 #end
-        <form name="${action.formBeanName}" action="<html:rewrite action="${action.actionPath}"/>"
-              method="post" onsubmit="$onsubmit">
+        <html:form action="${action.actionPath}" onsubmit="$onsubmit">
 
 #if ($action.tabbed)
 #set ($tabSwitchFunction = "select${actionTrigger.name}FieldTab")
@@ -102,7 +106,7 @@
                     </tr>
                 </tbody>
             </table>
-        </form>
+        </html:form>
 #if ($action.calendarRequired)
         <script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")

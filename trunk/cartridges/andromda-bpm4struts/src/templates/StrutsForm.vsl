@@ -2,32 +2,15 @@
 ##
 ##  CONSTANTS
 ##
-#set ($fields = $action.actionParameters)
-#set ($useCase = $action.activityGraph.useCase)
+#set ($fields = $action.allFormFields)
+#set ($preloadableFields = $action.preloadableFormFields)
 #set ($formBeanName = $action.formBeanName)
 #set ($formBeanClassName = $action.formBeanClassName)
 #set ($messageKey = $action.messageKey)
 ##
-##  START TEMPLATE
+##  MACROS
 ##
-package $action.packageName;
-
-import java.io.Serializable;
-
-#if ($action.packageName != $useCase.formBeanPackage)
-
-import $useCase.formBeantype;
-#end
-
-/**
- * @struts.form
- *      name="$formBeanName"
- */
-public final class $formBeanClassName extends $useCase.formBeanClassName implements Serializable
-{
-#foreach ($field in $fields)
-#set ($fieldType = $field.type.fullyQualifiedName)
-#set ($fieldName = $field.name)
+#macro (renderValidation $field)
 #set ($validatorTypes = $field.validatorTypes)
 #if (!$validatorTypes.empty)
     /**
@@ -56,17 +39,309 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
      *
      */
 #end
+#end
+##
+##  START TEMPLATE
+##
+package $action.formBeanPackageName;
+
+import java.io.Serializable;
+
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.validator.ValidatorForm;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * @struts.form
+ *      name="$formBeanName"
+ */
+public class $formBeanClassName extends ValidatorForm implements Serializable
+    #foreach ($interfaceName in $action.controllerCallInterfaceNames), $interfaceName#end
+
+{
+#set ($collectionPresent = false)
+#set ($arrayPresent = false)
+#set ($hasSelectableField = false)
+#foreach ($field in $fields)
+#if ($field.type.collectionType)
+#set ($collectionPresent = true)
+#end
+#if ($field.type.arrayType || $field.backingListPresent)
+#set ($arrayPresent = true)
+#end
+    private $field.type.fullyQualifiedName $field.name;
 #if ($field.date)
-    public void ${field.setterName}(java.lang.String $fieldName)
+    private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
+#end
+#if ($field.selectable)
+    private Object[] $field.valueListName;
+    private Object[] $field.labelListName;
+#end
+#end
+
+    public $formBeanClassName()
     {
-        super.${field.setterName}($fieldName);
+#foreach ($field in $fields)
+#if ($field.date)
+#set ($lenient = !$field.strictDateFormat)
+        ${field.name}DateFormatter.setLenient($lenient);
+#end
+#end
     }
-#else
+
+#foreach ($field in $fields)
+#set ($fieldType = $field.type.fullyQualifiedName)
+#set ($fieldName = $field.name)
+#if ($field.type.collectionType)
+#if ($preloadableFields.contains($field)==false)
+#renderValidation($field)
+#end
     public void ${field.setterName}($fieldType $fieldName)
     {
-        super.${field.setterName}($fieldName);
+        this.$fieldName = $fieldName;
+    }
+
+    public $fieldType ${field.getterName}()
+    {
+        return this.${fieldName};
+    }
+
+    public void ${field.setterName}AsArray(Object[] $fieldName)
+    {
+        this.$fieldName = ($fieldName == null) ? null : java.util.Arrays.asList($fieldName);
+    }
+
+    public Object[] ${field.getterName}AsArray()
+    {
+        return ($fieldName == null) ? null : ${fieldName}.toArray();
+    }
+#elseif ($field.date)
+    public void ${field.setterName}AsDate($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    public $fieldType ${field.getterName}AsDate()
+    {
+        return this.$fieldName;
+    }
+
+#if ($preloadableFields.contains($field)==false)
+#renderValidation($field)
+#end
+    public void ${field.setterName}(java.lang.String ${fieldName})
+    {
+        if (${fieldName} == null || ${fieldName}.trim().length()==0)
+        {
+            this.$fieldName = null;
+        }
+        else
+        {
+            try
+            {
+#if ($fieldType == "java.util.Date")
+                this.$fieldName = ${fieldName}DateFormatter.parse(${fieldName});
+#else
+## this is an attempt to support descendants of java.util.Date, the class needs <init>(long)
+                this.$fieldName = new ${fieldType}(${fieldName}DateFormatter.parse(${fieldName}).getTime());
+#end
+            }
+            catch(java.text.ParseException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public java.lang.String ${field.getterName}()
+    {
+        return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
+    }
+
+    public java.text.DateFormat ${field.getterName}DateFormatter()
+    {
+        return this.${fieldName}DateFormatter;
+    }
+#else
+#if ($preloadableFields.contains($field)==false)
+#renderValidation($field)
+#end
+    public void ${field.setterName}($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    public $fieldType ${field.getterName}()
+    {
+        return this.$fieldName;
     }
 #end
 
+#if ($field.selectable)
+#set ($hasSelectableField = true)
+#set ($listType = "Object[]")
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
+#set ($valueListName = $field.valueListName)
+#set ($valueListMethod = $str.upperCaseFirstLetter($valueListName))
+#set ($labelListName = $field.labelListName)
+#set ($labelListMethod = $str.upperCaseFirstLetter($labelListName))
+    public $listType get${backingListMethod}()
+    {
+        $listType values = this.${valueListName};
+        $listType labels = this.${labelListName};
+
+        if (values == null || values.length == 0)
+        {
+            return values;
+        }
+
+        if (labels == null || labels.length == 0)
+        {
+            labels = values;
+        }
+
+        final int length = Math.min(labels.length, values.length);
+        Object[] backingList = new Object[length];
+
+        for (int i=0; i<length; i++)
+        {
+            backingList[i] = new LabelValue(labels[i], values[i]);
+        }
+
+        return backingList;
+    }
+
+    public $listType get${valueListMethod}()
+    {
+        return this.$valueListName;
+    }
+
+    public void set${valueListMethod}($listType $valueListName)
+    {
+        this.$valueListName = $valueListName;
+    }
+
+    public $listType get${labelListMethod}()
+    {
+        return this.$labelListName;
+    }
+
+    public void set${labelListMethod}($listType $labelListName)
+    {
+        this.$labelListName = $labelListName;
+    }
+
+#end
+#end
+    public void reset(ActionMapping mapping, HttpServletRequest request)
+    {
+#foreach ($field in $fields)
+#if ($field.resetRequired)
+        this.$field.name = $field.nullValue;
+#end
+#end
+    }
+
+#if ($fields.empty == false)
+#set ($separator = '')
+    public String toString()
+    {
+        final StringBuffer buffer = new StringBuffer().append("[");
+
+#foreach ($field in $fields)
+#if ($field.type.arrayType || $field.type.collectionType)
+        buffer.append("${separator}${field.name}=");
+        buffer.append(toString(this.${field.getterName}()));
+#else
+        buffer.append("${separator}${field.name}=");
+        buffer.append(String.valueOf(this.${field.getterName}()));
+#end
+#set ($separator = ',')
+#if ($field.backingListPresent)
+        buffer.append("${separator}${field.backingListName}=");
+        buffer.append(toString(this.get${backingListMethod}()));
+#end
+#end
+
+        return buffer.append("]").toString();
+    }
+#end
+
+#if ($collectionPresent)
+    private final static String toString(java.util.Collection objects)
+    {
+        return (objects==null) ? null : toString(objects.toArray());
+    }
+
+#end
+#if ($arrayPresent || $collectionPresent)
+    private final static String toString(Object[] objects)
+    {
+        if (objects == null)
+        {
+            return null;
+        }
+        else
+        {
+            final StringBuffer buffer = new StringBuffer("[");
+            String prefix = "";
+            for (int i=0; i<objects.length; i++)
+            {
+                buffer.append(prefix);
+                buffer.append(objects[i]);
+                prefix = ",";
+            }
+            return buffer.append("]").toString();
+        }
+    }
+#end
+
+    public void clean()
+    {
+#foreach ($field in $fields)
+#if ($field.type.primitiveType)
+#if ($field.type.fullyQualifiedName == "boolean")
+        this.$field.name = false;
+#else
+        this.$field.name = 0;
+#end
+#else
+        this.$field.name = null;
+#end
+#if ($field.backingListPresent)
+        this.$field.backingListName = null;
+#end
+#end
+    }
+
+#if ($hasSelectableField)
+    public final static class LabelValue
+    {
+        private Object label = null;
+        private Object value = null;
+
+        public LabelValue(Object label, Object value)
+        {
+            this.label = label;
+            this.value = value;
+        }
+
+        public Object getLabel()
+        {
+            return this.label;
+        }
+
+        public Object getValue()
+        {
+            return this.value;
+        }
+
+        public String toString()
+        {
+            return label + "=" + value;
+        }
+    }
 #end
 }

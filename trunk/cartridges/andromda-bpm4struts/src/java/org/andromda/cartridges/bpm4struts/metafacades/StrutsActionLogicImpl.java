@@ -2,7 +2,10 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 
 import java.util.*;
 
@@ -85,7 +88,7 @@ public class StrutsActionLogicImpl
 
     public String handleGetActionName()
     {
-        return getActivityGraph().getUseCase().getFormBeanName();
+        return getFormBeanName();
     }
 
     public String handleGetActionInput()
@@ -133,6 +136,11 @@ public class StrutsActionLogicImpl
     public String handleGetActionPathRoot()
     {
         return '/' + StringUtilsHelper.upperCamelCaseName(getActivityGraph().getUseCase().getName());
+    }
+
+    public String handleGetActionScope()
+    {
+        return "request";
     }
 
     public java.lang.String handleGetActionRoles()
@@ -310,9 +318,14 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    public String handleGetFormBeanPackageName()
+    {
+        return getPackageName();
+    }
+
     public String handleGetFormBeanType()
     {
-        return getPackageName() + '.' + getFormBeanClassName();
+        return getFormBeanPackageName() + '.' + getFormBeanClassName();
     }
 
     public String handleGetDocumentationKey()
@@ -423,40 +436,24 @@ public class StrutsActionLogicImpl
      */
     protected Collection handleGetActionFormFields()
     {
-        /*
-         * in order to avoid naming collisions when a field is passed
-         * around more than once, we keep a map which maps names onto the
-         * corresponding objects
-         */
-        final Map fieldMap = new HashMap();
+        Collection formFields = new HashSet();
 
-        // first add the parameters on the trigger
-        collectFields(getActionParameters(), fieldMap);
+        // add all action parameters
+        formFields.addAll(getActionParameters());
 
-        final Collection actionStates = getActionStates();
-        for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+        // add page variables for all pages targetted
+        Collection forwards = getActionForwards();
+        for (Iterator iterator = forwards.iterator(); iterator.hasNext();)
         {
-            // also add the parameters for any deferred controller operations
-            StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
-            Collection controllerCalls = actionState.getControllerCalls();
-            for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+            StrutsForward forward = (StrutsForward) iterator.next();
+            StateVertexFacade target = forward.getTarget();
+            if (target instanceof StrutsJsp)
             {
-                OperationFacade operation = (OperationFacade) controllerCallIterator.next();
-                collectFields(operation.getArguments(), fieldMap);
-            }
-
-            // any parameters passed between 'internal' action states are also recorded
-            Collection outgoing = actionState.getOutgoing();
-            for (Iterator outgoingIterator = outgoing.iterator(); outgoingIterator.hasNext();)
-            {
-                TransitionFacade transitionFacade = (TransitionFacade) outgoingIterator.next();
-                EventFacade transitionTrigger = transitionFacade.getTrigger();
-                if (transitionTrigger != null)
-                    collectFields(transitionTrigger.getParameters(), fieldMap);
+                formFields.addAll(((StrutsJsp) target).getPageVariables());
             }
         }
 
-        return fieldMap.values();
+        return formFields;
     }
 
     /**
@@ -568,12 +565,73 @@ public class StrutsActionLogicImpl
         return tabMap;
     }
 
-    private void collectFields(Collection fields, Map fieldMap)
+    protected Collection handleGetTargetPages()
     {
-        for (Iterator iterator = fields.iterator(); iterator.hasNext();)
+        Collection targetPages = new HashSet();
+
+        Collection forwards = getActionForwards();
+        for (Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
         {
-            ParameterFacade parameter = (ParameterFacade) iterator.next();
-            fieldMap.put(parameter.getName(), parameter);
+            StrutsForward forward = (StrutsForward) forwardIterator.next();
+            if (forward.isTargettingPage())
+            {
+                targetPages.add(forward.getTarget());
+            }
         }
+
+        return targetPages;
+    }
+
+    protected Collection handleGetPreloadableFormFields()
+    {
+        Collection preloadFields = new HashSet();
+
+        Collection pages = getTargetPages();
+        for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        {
+            StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+            Collection actionParameters = jsp.getAllActionParameters();
+            preloadFields.addAll(actionParameters);
+        }
+
+        return preloadFields;
+    }
+
+    protected Collection handleGetAllFormFields()
+    {
+        Collection fields = new HashSet();
+        fields.addAll(getPreloadableFormFields());
+        fields.addAll(getActionFormFields());
+        return fields;
+    }
+
+    public Collection handleGetControllerCallInterfaceNames()
+    {
+        Collection interfaceNames = new HashSet();
+
+        Collection actionStates = getActionStates();
+        for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+        {
+            StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
+            Collection calls = actionState.getControllerCalls();
+            for (Iterator callIterator = calls.iterator(); callIterator.hasNext();)
+            {
+                StrutsControllerOperation operation = (StrutsControllerOperation) callIterator.next();
+                interfaceNames.add(operation.getInterfaceName());
+            }
+        }
+
+        Collection decisionTransitions = getDecisionTransitions();
+        for (Iterator transitionIterator = decisionTransitions.iterator(); transitionIterator.hasNext();)
+        {
+            StrutsForward forward = (StrutsForward) transitionIterator.next();
+            EventFacade event = forward.getTrigger();
+            if (event instanceof StrutsTrigger)
+            {
+                interfaceNames.add(((StrutsTrigger) event).getControllerCall().getInterfaceName());
+            }
+        }
+
+        return interfaceNames;
     }
 }

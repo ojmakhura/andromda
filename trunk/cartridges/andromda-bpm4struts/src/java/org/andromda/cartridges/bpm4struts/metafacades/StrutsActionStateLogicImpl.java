@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -38,6 +39,39 @@ public class StrutsActionStateLogicImpl
     }
 
     // ------------- relations ------------------
+
+    private Collection containerActions = null;
+
+    protected Collection handleGetContainerActions()
+    {
+        if (containerActions == null)
+        {
+            Collection actionSet = new HashSet();
+            ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
+
+            if (activityGraphFacade instanceof StrutsActivityGraph)
+            {
+                StrutsActivityGraph activityGraph = (StrutsActivityGraph) activityGraphFacade;
+                Collection pages = activityGraph.getUseCase().getPages();
+                for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+                {
+                    StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+                    Collection actions = jsp.getActions();
+                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                    {
+                        StrutsAction action = (StrutsAction) actionIterator.next();
+                        if (action.getActionStates().contains(this))
+                        {
+                            actionSet.add(action);
+                        }
+                    }
+                }
+            }
+            this.containerActions = actionSet;
+        }
+        return this.containerActions;
+    }
+
 
     protected Collection handleGetControllerCalls()
     {
