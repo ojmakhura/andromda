@@ -1,238 +1,153 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<document>
-
+<document> 
   <properties>
     <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
-    <title>AndroMDA - Modeling correctly</title>
+    <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+    <title>Modeling for AndroMDA</title>
     <gennews>yes</gennews>
   </properties>
-
-  <body>
-
-    <section name="Modeling for AndroMDA">
-
-      <p class="std">
-        AndroMDA is an automatic tool with a medium amount of intelligence
-        built into it. Such a tool always has to rely upon some
-        clearly defined preconditions; in the case of AndroMDA, these
-        preconditions are <b>modeling conventions</b>. This means
-        that a UML model for use with AndroMDA cannot be structured
-        arbitrarily but has to adhere to a certain structure that
-        can be interpreted by AndroMDA.
-      </p>
-      <p class="std">
-        On the other hand, not too many constraints should be
-        imposed on the modeler - after all, a model should represent
-        the conceptual reality of the customer's requirements
-        and the structure of the application domain.
-      </p>
-      <p class="std">
-        To sum up, we have tried to keep the number of rules low
-        in order to keep your freedom of modeling high.
-        So, here are the few rules to follow for you when you
-        start sketching a design model and you want AndroMDA
-        to generate your components smoothly.
-      </p>
-      <p class="std">
-        <b>Rule 1: Stereotypes drive code generation!</b>
-      </p>
-      <p class="std">
-        UML Stereotypes are a kind of "labels" that you attach to modeling elements
-        to classify them.
-      </p>
-      <p class="std">
-        <b>Example:</b> You can tag a CustomerService class with a
-        <code>&lt;&lt;Service&gt;&gt;</code> stereotype. AndroMDA sees this stereotype,
-        looks into its internal dictionary of available code generation components (called "cartridges") and
-        finds the EJB cartridge, for example. In that cartridge, two templates correspond
-        to this stereotype: SessionBean.vsl and
-        SessionBeanImpl.vsl. So, AndroMDA takes the internal representation
-        of CustomerService and calls the template processing engine twice,
-        using this representation as input. Result: Two output files, called CustomerServiceBean.java
-        and CustomerServiceBeanImpl.java. But: this is not the only stereotype
-        that is used in AndroMDA.
-      </p>
-      <p class="std">
-        <b>The complete list of stereotypes used</b>
-      </p>
-      <p class="std">
-        AndroMDA uses the following stereotypes on different kinds of model elements, each with
-        its own special meaning or intention:
-      </p>
-      <table border="1" cellpadding="4" class="std">
-        <tr>
-          <td valign="top"><b>Stereotype</b></td>
-          <td valign="top"><b>applied to which element?</b></td>
-          <td valign="top"><b>meaning</b></td>
-        </tr>
-        <tr>
-          <td valign="top">Entity</td>
-          <td valign="top">class</td>
-          <td valign="top">business object or domain object that knows much and does little</td>
-        </tr>
-        <tr>
-          <td valign="top">Service</td>
-          <td valign="top">class</td>
-          <td valign="top">dynamic element or activity that does something to the entities</td>
-        </tr>
-        <tr>
-          <td valign="top">PrimaryKey</td>
-          <td valign="top">attribute of an entity class</td>
-          <td valign="top">mark attribute as primary key so that the entity can be found in a database system</td>
-        </tr>
-        <tr>
-          <td valign="top">FinderMethod</td>
-          <td valign="top">operation of an entity class</td>
-          <td valign="top">associate this method with a database query to find this entity</td>
-        </tr>
-        <tr>
-          <td valign="top">EntityRef<br />ServiceRef</td>
-          <td valign="top">dependency between class A and class B</td>
-          <td valign="top">make A depend on B when a cartridge needs this info</td>
-        </tr>
-        <tr>
-          <td valign="top">Exception</td>
-          <td valign="top">dependency between class A and class B</td>
-          <td valign="top">make B an exception thrown by all business methods of A</td>
-        </tr>
-        <tr>
-          <td valign="top">StrutsAction</td>
-          <td valign="top">class</td>
-          <td valign="top">Action class for struts</td>
-        </tr>
-        <tr>
-          <td valign="top">StrutsForm</td>
-          <td valign="top">class</td>
-          <td valign="top">ActionForm class for struts</td>
-        </tr>
-        <tr>
-          <td valign="top">StrutsJSP</td>
-          <td valign="top">class</td>
-          <td valign="top">JavaServer Page for use with struts</td>
-        </tr>
-      </table>
-
-      <p class="std">
-        Each cartridge uses the stereotypes to generate code that implements
-        the architectural aspects supported by the particular cartridge. These are
-        the artefacts generated by the EJB and Hibernate cartridges:
-      </p>
-
-      <table border="1" cellpadding="4" class="std">
-        <tr>
-          <td valign="top"><b>Stereotype</b></td>
-          <td valign="top"><b>EJB</b></td>
-          <td valign="top"><b>Hibernate</b></td>
-        </tr>
-        <tr>
-          <td valign="top">Entity</td>
-          <td valign="top">entity bean</td>
-          <td valign="top">POJO with persistence support plus factory class</td>
-        </tr>
-        <tr>
-          <td valign="top">Service</td>
-          <td valign="top">session bean</td>
-          <td valign="top">POJO</td>
-        </tr>
-        <tr>
-          <td valign="top">PrimaryKey</td>
-          <td valign="top">marks attribute as "PK"</td>
-          <td valign="top">marks attribute as "id"</td>
-        </tr>
-        <tr>
-          <td valign="top">FinderMethod</td>
-          <td valign="top">finder method on home interface</td>
-          <td valign="top">finder method in associated factory</td>
-        </tr>
-        <tr>
-          <td valign="top">EntityRef</td>
-          <td valign="top">ejbref from ABean to BBean and
-                                       getBLocalHome() in ABean</td>
-          <td valign="top">nothing</td>
-        </tr>
-        <tr>
-          <td valign="top">ServiceRef</td>
-          <td valign="top" colspan="2">ejbref from ABean to BBean getBHome() in ABean</td>
-        </tr>
-        <tr>
-          <td valign="top">Exception</td>
-          <td valign="top" colspan="2">"throws B" in all business methods of A</td>
-        </tr>
-      </table>
-
-      <p class="std">
-        Note: POJO is an abbreviation for "plain old Java object".
-      </p>
-
-      <p class="std">
-        A small model, tagged with this kind of stereotypes,
-        can be seen in this picture:
-      </p>
-      <img src="../images/CarRentalCustomers.gif" width="624" height="590" />
-      <p class="std">
-        <b>Rule 2: Primary keys of entity beans must be Strings!</b>
-      </p>
-      <p class="std">
-        This is mainly to simplify the templates. You have
-        to model to this restriction if you use the current set
-        of templates. However, it also has one advantage: The entity
-        beans that AndroMDA generates, always use an artificially generated primary key.
-        This is because natural keys (e.g. like customer numbers) tend to change too often
-        when the application changes - this has caused much trouble
-        in many a software project. Decide for yourself!
-      </p>
-      <p class="std">
-        <b>Rule 3: One component has one exception!</b>
-      </p>
-      <p class="std">
-        Model one exception class per component (e.g. CustomerException).
-        Then, draw dependencies from all the
-        classes in the same component to this same exception class. This will cause
-        AndroMDA to generate "throws" clauses which contain this exception class. Throw
-        instances of subclasses of this exception, if you want, but keep the throws-clause
-        that simple.
-      </p>
-      <p class="std">
-        Convert other exceptions (e.g. exceptions from other components that you call)
-        by catching them inside the
-        business method, re-throw the component's exception (e.g. CustomerException)
-        and wrap up the root cause (the other exception) in a friendly message.
-      </p>
-      <p class="std">
-        This rule makes it much easier for the client of your component. By the way:
-        AndroMDA does not generate exception classes. You have to write them
-        by hand.
-      </p>
-      <p class="std">
-        <b>A word to the wise</b>
-      </p>
-      <p class="std">
-        Remember: All this happens because the templates are written in a certain way.
-        So, if you do not like what happens here, customize the templates
-        to your needs. After all, AndroMDA is not a fixed, shrink-wrapped package!
-      </p>
-    </section>
-
-    <news name="Stereotype" href="http://www.cetus-links.org/oo_uml.html">
-      <p>
-        Stereotypes are used to extend the UML notational elements, to
-        classify and extend associations, inheritance relationships,
-        classes, and components.
-        A Stereotype provides the capability to create new kinds of modeling
-        elements. Stereotypes must be based on elements that are part of the
-        UML meta-model.
-      </p>
-    </news>
-
-    <news name="J2EE patterns" href="http://developer.java.sun.com/developer/restricted/patterns/J2EEPatternsAtAGlance.html">
-      <p>
-        The current AndroMDA template set generates EJBs that
-        follow certain design patterns which are much talked
-        about in the EJB developer community. Read about some
-        of these patterns in SUN's "J2EE Patterns Catalog".
-      </p>
-    </news>
-
-  </body>
+  	<body> 
+		<section name="Modeling for AndroMDA">
+			<title>Modeling</title>
+			<p> AndroMDA is an automatic tool with a medium amount of 
+				intelligence built into it. Such a tool always has to rely upon 
+				some clearly defined preconditions; in the case of AndroMDA, 
+				these preconditions are <b>modeling conventions</b>. This means 
+				that a UML model for use with AndroMDA cannot be structured 
+				arbitrarily but has to adhere to a certain structure that can 
+				be interpreted by AndroMDA. 
+		    </p>
+			<p> On the other hand, not too many constraints should 
+				be imposed on the modeler - after all, a model should represent 
+				the conceptual reality of the customer's requirements and the 
+				structure of the application domain. 
+		    </p>
+			<p> To sum up it all up, we've tried to keep the number of 
+				rules low in order to keep your freedom of modeling high.
+				Keep in mind: modeling standards/requirements will 
+				ultimately be dependantant on the implementation(s) of the cartridge(s) 
+				you employ at build time.  Each cartridge has required properties and modeling
+				conventsions that must be followed.  See 
+			    <a href="../andromda-cartridges/index.html">Cartridges</a> for 
+				more information. In general, there rules to follow (seen below) when you start 
+				sketching a design model and you want AndroMDA to generate your 
+				components smoothly. 
+			</p>
+			<subsection name="General Modeling Rules">
+				<p>
+					<strong>Stereotypes drive code generation!</strong>: 
+					UML Stereotypes are a kind of "label" that you 
+					attach to modeling elements in order to classify them. 
+				</p>
+				<p> <b>Example:</b> You tag a CustomerService class 
+					with a <code><![CDATA[<<Service>>]]></code> stereotype. 
+					AndroMDA sees this stereotype, looks into its internal 
+					dictionary of available code generation components (called 
+					"cartridges") and finds the EJB cartridge. In the EJB
+					cartridge, two templates correspond to the <code><![CDATA[<<Service>>]]></code>
+					stereotype: 
+					SessionBean.vsl and SessionBeanImpl.vsl. AndroMDA uses the
+					internal representation of CustomerService loaded from the model, 
+					calls the processing engine twice, and two output files are generated:
+					CustomerServiceBean.java and CustomerServiceBeanImpl.java. 
+				</p>
+				<p>
+					A small model, containing an element tagged with the 
+					<code><![CDATA[<<Service>>]]></code> stereotype,
+					can be seen in this picture:
+				</p>
+				<img src="../images/CarRentalCustomers.gif" width="624" height="590" />
+				<p> Even though modeling will depend primarily on how the 
+					cartridge is implemented. There are some standard ways of 
+					modeling which <strong>MUST</strong> be followed to ensure 
+					the model is <em>syntantically and semantically 
+					complete</em>, meaning the cartridge performing generation 
+					has enough information on which to generate from. 
+			    </p>
+				<p> These are listed here. 
+					<ul> 
+						<li> 
+							<strong>Names:</strong> 
+							the general rule for all the names is to capitalize the 
+							first letter of each concatenated word (i.e 
+							exampleOfCapitalizationOfConcatenatedWords). This applies 
+							to all model element names (methods, operations, 
+							attributes, associations, association ends, etc.). 
+						</li> 
+						<li> 
+							<strong> Specify the type of ALL attributes and operation 
+							parameters. </strong> Some tools with allow you to 
+							specify an attribute or operation without making you 
+							specify it's type, but make sure you specify this, as a 
+							cartridge performing generation will expect this 
+							information. </li> <li> <strong>Specify the multiplicities 
+							of both ends of ALL associations</strong>. Cartridges use 
+							and require all multiplicity information. 
+						</li> 
+						<li> 
+							<strong> Make sure names of association ends making up an 
+							association are UNIQUE within the association. </strong> 
+							If more than one association end of the same association is 
+							the same name, there will be conflicts from the generated 
+							output. 
+						</li> 
+						<li> 
+							<strong>
+								Do not leave unused elements <em>dangling</em> in your model.
+							</strong> 
+							One of the biggest causes of syntatic incompleteness is 
+							the existence in the model of partially defined elements that are 
+							undetected by the modeler because they do not reside in any 
+							model diagram. Its easy to make the mistake of deleting the 
+							element from the diagram but then forgetting to delete it 
+							from the model as well. 
+						</li> 
+						<li> 
+							<strong> If an element CANNOT exist without another element, define the 
+							association end of the owning element as <code>composite 
+							aggregation</code>.</strong> An association between a <em>house</em> 
+							and a <em>room</em> is a good example of <code>composite 
+							aggregation</code>. Destruction of the <em>house</em> implies 
+							destruction of all <em>rooms</em> that the <em>house</em> contains. 
+							Therefore the association end of the <em>house</em> to a 
+							<em>room</em> would be defined as <code>composite 
+							aggregation</code> (i.e. a black diamond). 
+						</li> 
+						<li> 
+							<strong>Specify ordering where ordering matters.</strong> 
+							When using multivalued attributes and association ends you 
+							should be able to specify whether or not these are ordered in 
+							the modeling tool. Make sure you specify this if ordering does matter 
+					        for these multivalued properties since cartridges need to 
+							be able to take advantage of this specification. For 
+							example, if an association end was defined as ordered, a 
+							cartridge generating to Java may specify the type as a 
+							<code>java.util.Set</code> instead of a 
+							<code>java.util.Collection</code> (if it was left 
+							unspecified or defined as unordered). 
+						</li> 
+						<li> <strong>Do NOT add getter and setter operations for attributes.</strong> The cartridge will generate any 
+							required accessor and mutator operations needed at 
+							generation time. 
+						</li> 
+						<li> 
+							<strong>Do NOT add getter and setter methods for association ends.</strong> The cartridge 
+							will generate any required accessor and mutator operations 
+							needed at generation time. 
+						</li> 
+						<li> <strong>Define and use <code>Datatypes</code> for simple types.</strong> Use 
+							UML <code>Datatypes</code> for simple types such as String, 
+							Collection, Set, etc. instead of using the language 
+							specific types which the tool may implement by default 
+							(i.e. java.lang.String). You want to keep the model as 
+							language independant as possible. Cartridges use mapping 
+							files at generation time to map Datatypes to specific 
+							language types (i.e. for Java, these could be: Collection <![CDATA[-->]]>
+					 java.util.Collection, Blob <![CDATA[-->]]> java.sql.Blob, 
+					etc.) </li> </ul> 
+					</p>
+			</subsection>
+		</section>
+	</body>
 </document>
