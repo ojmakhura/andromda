@@ -24,36 +24,17 @@ public class JavaSourceComparator
     {
         super();
         this.setName(methodName);
-        setExpectedFile(expectedFile);
-        setActualFile(actualFile);
+        this.expectedFile = expectedFile;
+        this.actualFile = actualFile;
     }
 
     public void testAPIEquals()
     {
-        assertTrue("expected file <" + getExpectedFile().getPath()
-            + "> doesn't exist", getExpectedFile().exists());
-        assertTrue("actual file <" + getActualFile().getPath()
-            + "> doesn't exist", getActualFile().exists());
-        super.assertApiEquals(expectedFile, getActualFile());
-    }
-
-    private File getExpectedFile()
-    {
-        return expectedFile;
-    }
-
-    private void setExpectedFile(File expectedFile)
-    {
-        this.expectedFile = expectedFile;
-    }
-
-    private File getActualFile()
-    {
-        return actualFile;
-    }
-
-    private void setActualFile(File actualFile)
-    {
-        this.actualFile = actualFile;
+        assertTrue("expected file <" + expectedFile.getPath()
+            + "> doesn't exist", expectedFile.exists());
+        assertTrue(
+            "actual file <" + actualFile.getPath() + "> doesn't exist",
+            actualFile.exists());
+        super.assertApiEquals(expectedFile, actualFile);
     }
 }
