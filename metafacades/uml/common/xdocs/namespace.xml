@@ -175,7 +175,23 @@
 					<td>
 						No, default is <code>public</code>.
 					</td>
-				</tr> 		        	
+				</tr> 		
+                <tr>
+                    <td>
+                        pluralizeAssociationEndNames
+                    </td>
+                    <td>
+                        Turns on/off the pluralization of association ends with many multiplicities.
+                        You'll want to turn off this feature if your model is in a language other
+                        than english.
+                    </td>
+                    <td>
+                        AssociationEndFacade
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>        	
             </table>
     	</section>
   	</body>
