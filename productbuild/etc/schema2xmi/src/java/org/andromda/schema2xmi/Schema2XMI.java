@@ -26,7 +26,7 @@ public class Schema2XMI
     /**
      * The command line argument to specify the input model file.
      */
-    private static final String INPUT = "im";
+    private static final String INPUT_MODEL = "im";
     
     /**
      * The command line argument to specify the JDBC driver class
@@ -91,7 +91,7 @@ public class Schema2XMI
         option.setLongOpt("help");
         options.addOption(option);
 
-        option = new Option(INPUT, false, "Model input file to start with");
+        option = new Option(INPUT_MODEL, false, "Input model file to start with");
         option.setLongOpt("input");
         options.addOption(option);
         
@@ -172,15 +172,15 @@ public class Schema2XMI
         try
         {
             CommandLine commandLine = schema2Xmi.parseCommands(args);
-            if (commandLine.hasOption(HELP) || !commandLine.hasOption(INPUT)
+            if (commandLine.hasOption(HELP) || !commandLine.hasOption(INPUT_MODEL)
                 || !commandLine.hasOption(OUTPUT_NAME))
             {
                 Schema2XMI.displayHelp();
             }
-            else if (commandLine.hasOption(INPUT)
+            else if (commandLine.hasOption(INPUT_MODEL)
                 && (commandLine.hasOption(OUTPUT_NAME)))
             {
-                String inputModel = commandLine.getOptionValue(INPUT);
+                String inputModel = commandLine.getOptionValue(INPUT_MODEL);
                 SchemaTransformer transformer = 
                     new SchemaTransformer(
                         commandLine.getOptionValue(DRIVER),

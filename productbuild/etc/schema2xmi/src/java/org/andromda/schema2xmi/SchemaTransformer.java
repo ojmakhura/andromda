@@ -18,6 +18,7 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.repository.RepositoryFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
@@ -25,6 +26,8 @@ import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.TagDefinition;
+import org.omg.uml.foundation.core.TaggedValue;
 import org.omg.uml.foundation.core.UmlAssociation;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
@@ -361,16 +364,17 @@ public class SchemaTransformer
      * Creates and returns a UmlClass with the given <code>name</code> 
      * using the <code>corePackage</code> to create it.
      * @param corePackage used to create the class.
-     * @param name the name to create the class with
+     * @param tableName to tableName for which we'll create  the
+     *        appropriate class.
      * @return the UmlClass
      */
     protected UmlClass createClass(
         org.omg.uml.modelmanagement.UmlPackage modelPackage,
         DatabaseMetaData metadata,
         CorePackage corePackage, 
-        String name) 
+        String tableName) 
     {
-        String className = SqlToModelNameFormatter.toClassName(name);
+        String className = SqlToModelNameFormatter.toClassName(tableName);
         UmlClass umlClass =
             corePackage.getUmlClass().createUmlClass(
 	            className,
@@ -380,6 +384,17 @@ public class SchemaTransformer
 	            false,
 	            false,
 	            false);
+
+        //add the tagged value for the table name
+        TaggedValue taggedValue = 
+            this.createTaggedValue(
+                corePackage, 
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                tableName);
+        if (taggedValue != null)
+        {
+            umlClass.getTaggedValue().add(taggedValue);   
+        }
 
         if (logger.isInfoEnabled())
             logger.info("created attribute --> '" + className + "'");
@@ -411,7 +426,7 @@ public class SchemaTransformer
             // do NOT add foreign key columns as attributes (since
             // they are placed on association ends)
             if (!this.hasForeignKey(tableName, columnName))
-            {
+            {  
 	            int nullableVal = columnRs.getInt("NULLABLE");
 	            
 	            // first we try to find a mapping that mappings to the
@@ -450,11 +465,21 @@ public class SchemaTransformer
 	                    OrderingKindEnum.OK_UNORDERED,
 	                    null);
 	            attribute.setType(typeClass);
+	            
+                // add the tagged value for the column name
+	            TaggedValue taggedValue = 
+                    this.createTaggedValue(
+                        corePackage, 
+                        UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                        columnName);
+	            if (taggedValue != null)
+	            {
+	                attribute.getTaggedValue().add(taggedValue);   
+	            }
+ 
 	            attributes.add(attribute);
 	            if (logger.isInfoEnabled())
 	                logger.info("created attribute --> '" + attributeName + "'");
-            } else {
-                System.out.println("columnName: '" + columnName + "', is a foreignKey on '" + tableName + "'");   
             }
         }
         return attributes;
@@ -480,10 +505,8 @@ public class SchemaTransformer
         ResultSet columnRs = metadata.getImportedKeys(null, null, tableName);
         while (columnRs.next())
         {
-           
             // store the foreign key in the foreignKeys Map
             String fkColumnName = columnRs.getString("FKCOLUMN_NAME");
-            System.out.println("adding foreignkey columnName " + fkColumnName + " for table :" + tableName);
             this.addForeignKey(tableName, fkColumnName);
             
             // now create the association
@@ -511,6 +534,17 @@ public class SchemaTransformer
 	                this.createMultiplicity(corePackage.getDataTypes(), 1, 1),
 	                ChangeableKindEnum.CK_CHANGEABLE);
             primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
+            // add the tagged value for the foreign association end
+            TaggedValue taggedValue = 
+                this.createTaggedValue(
+                    corePackage, 
+                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                    fkColumnName);
+            if (taggedValue != null)
+            {
+                primaryEnd.getTaggedValue().add(taggedValue);   
+            }
+            
             association.getConnection().add(primaryEnd); 
             
             // foriegn association
@@ -527,10 +561,39 @@ public class SchemaTransformer
 	                ChangeableKindEnum.CK_CHANGEABLE);
             foreignEnd.setParticipant((Classifier)this.classes.get(foreignTableName));
             association.getConnection().add(foreignEnd);
-           
             associations.add(association);
         }
         return associations;
+    }
+    
+    /**
+     * Creates a tagged value given the specfied <code>name</code>.
+     * @param name the name of the tagged value to create.
+     * @param value the value to populate on the tagged value.
+     * @return returns the found TaggedValue
+     */
+    protected TaggedValue createTaggedValue(
+        CorePackage corePackage, 
+        String name, 
+        String value)
+    {     
+        TaggedValue taggedValue = null;
+
+        Object tagDefinition = ModelElementFinder.find(this.umlPackage, name);
+
+        if (tagDefinition != null &&
+            TagDefinition.class.isAssignableFrom(tagDefinition.getClass()))
+        {
+           Collection values = new HashSet();
+           values.add(value);
+           taggedValue = corePackage.getTaggedValue().createTaggedValue(
+               name,
+               VisibilityKindEnum.VK_PUBLIC,
+               false,
+               values);
+           taggedValue.setType((TagDefinition)tagDefinition);
+        }
+        return taggedValue;
     }
     
     /**
