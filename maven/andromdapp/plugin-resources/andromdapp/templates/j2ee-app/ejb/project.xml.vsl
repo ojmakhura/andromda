@@ -2,12 +2,9 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<artifactId>${projectId}-ejb</artifactId>
-  	<name>${projectName} EJB</name>
+  	<artifactId>${pom.groupId}-core</artifactId>
+  	<name>${projectName} Core Business Tier</name>
   	<shortDescription>The ${pom.name} component</shortDescription>
-  	<description>
-  		Contains the ${pom.name} module.
-  	</description>
 	<dependencies>      
 		<dependency>
 			<groupId>${pom.groupId}</groupId>

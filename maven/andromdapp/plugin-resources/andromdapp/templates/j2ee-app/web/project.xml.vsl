@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-hibernate</artifactId>
+			<artifactId>${pom.groupId}-core</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
 		</dependency>
@@ -135,10 +135,10 @@
     	<sourceDirectory>src/java</sourceDirectory>
 		<resources>
 	      	<resource>
-		        <directory>target/src</directory>
-	        	<includes>
-	        		<include>**/*.properties</include>
-	        	</includes>
+		        <directory>${maven.build.dir}</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
 	      	</resource>
     	</resources>
   	</build>

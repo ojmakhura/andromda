@@ -1,6 +1,7 @@
 <project default="install"
          xmlns:ant="jelly:ant"
-         xmlns:maven="jelly:maven">
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core">
          
   	<!-- ==================================================================
   			 Builds everything and installs it into the local Maven repository                                                   
@@ -49,18 +50,18 @@
 			descriptor="${basedir}/web/project.xml"
 			goals="war:install"/>
 	</goal>	
-
+	
    	<!-- ==================================================================
-			Builds the Hibernate EJB component (i.e. hibernate and session beans)                                                
+			Builds the Core component                                                  
   		 ================================================================== --> 
-	<goal name="hibernate">
+	<goal name="core">
 		<maven:maven
-			descriptor="${basedir}/hibernate/project.xml"
+			descriptor="${basedir}/core/project.xml"
 			goals="ejb:install"/>
 	</goal>	
 	
    	<!-- ==================================================================
-			Builds the Common component                                                
+			Builds the Common component                                                  
   		 ================================================================== --> 
 	<goal name="common">
 		<maven:maven
@@ -76,5 +77,38 @@
 			descriptor="${basedir}/mda/project.xml"
 			goals="pom:install"/>
 	</goal>	
+  
+   	<!-- ==================================================================
+			Adds the generated source to the compile path (if any exists)                                                  
+  		 ================================================================== -->   
+  	<preGoal name="java:compile">
+  		
+        <!-- only attempt to add the generated source if we have a source
+             directory -->
+        <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
+            <j:if test="${sourceDirectory != null and sourceDirectory != ''}">
+           
+                <ant:available
+                    file="${sourceDirectory}"
+                    type="dir"
+                    property="srcAvailable"/>  
+                
+            <j:if test="${srcAvailable != null}">         
+                <!-- only attempt to add the generated source if it exists -->
+                <j:set var="generatedSrc" value="${maven.build.dir}"/>
+                <j:if test="${generatedSrc != null and generatedSrc != ''}">
+                    <!-- add the paths of the generated source to the
+                         maven compile path -->
+                    <ant:path
+                        id="andromda.java.gen.src"
+                        location="${generatedSrc}"/>
+                    <maven:addPath
+                        id="maven.compile.src.set"
+                        refid="andromda.java.gen.src"/>
+                </j:if>
+            </j:if>
+        </j:if>
+        
+  	</preGoal>
 	
 </project>

@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <project>
   	<extend>../project.xml</extend>
-  	<artifactId>${projectId}-hibernate</artifactId>
-  	<name>${projectName} Hibernate</name>
-  	<shortDescription>
-  		The ${pom.name} Components
-  	</shortDescription>
+  	<artifactId>${pom.groupId}-core</artifactId>
+  	<name>${projectName} Core Business Tier</name>
+  	<shortDescription>The ${pom.name} Component</shortDescription>
 	<dependencies>
-    	<!-- Hibernate dependencies -->
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>${pom.groupId}-mda</artifactId>
@@ -21,7 +20,6 @@
 				<ejb.manifest.classpath>true</ejb.manifest.classpath>
 			</properties>
 		</dependency>
-		<!-- EJB dependencies -->
   		<dependency>
      		<groupId>jboss</groupId>
       		<artifactId>jboss-j2ee</artifactId>

@@ -1,33 +1,7 @@
-<project xmlns:ant="jelly:ant"
-    xmlns:maven="jelly:maven"
-    xmlns:j="jelly:core">
-
-    <!-- =====================================================================
-            Add the generated code on the classpath
-         ===================================================================== -->
-    <preGoal name="java:compile">
-        <ant:path
-            id="andromda.struts.gen.src"
-            location="${maven.build.src}"/>
-        <maven:addPath
-            id="maven.compile.src.set"
-            refid="andromda.struts.gen.src"/>
-    </preGoal>
-
-    <postGoal name="war:webapp">
-        <ant:copy todir="${maven.war.webapp.dir}">
-            <ant:fileset dir="${maven.build.src}">
-                <ant:include name="**/*.gif"/>
-                <ant:include name="**/*.png"/>
-                <ant:include name="**/*.jpg"/>
-                <ant:include name="**/*.js"/>
-                <ant:include name="**/*.jsp"/>
-                <ant:include name="**/*.jspf"/>
-                <ant:include name="**/*.css"/>
-                <ant:include name="WEB-INF/**/*"/>
-            </ant:fileset>
-        </ant:copy>
-    </postGoal>
+<project default="war:install"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core">
 
     <!--
         | We are going to make a WAR bundle in which the JSPs have been precompiled,
