@@ -68,30 +68,51 @@
         </section>
 
         <section name="Troubleshooting">
-            <p>
-                In some cases it is known precompiled applications to intermittently throw exceptions on Windows
-                machines. This is a known issue and is related to the Windows operating system not allowing
-                file names to be longer than 255 characters. When you precompile JSPs, and the resulting classes
-                are stored deep into the EAR, into the WAR, into the
-                <code>WEB-INF/classes</code> subdirectory. Windows
-                might not be able to properly resolve them if the fully qualified path to the file is longer than
-                255 characters, the path will silently be truncated and the Java VM will report it was unable to
-                find the class.
-            </p>
-            <p>
-                This problem cannot be solved, but a few workarounds exist:
-                <ul>
-                    <li>Move the deployment directory closer to the root of the drive</li>
-                    <li>Shorten the name of the JSP page on which the loading fails</li>
-                    <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
-                        if you set the <code>explodeOnDeploy</code> property to <code>true</code>
-                        in <code>/app/project.properties</code>. The next time you deploy using the maven
-                        <code>deploy</code> goal, a directory containing everything be deployed
-                        instead of a single EAR bundle.
-                    </li>
-                    <li>Move to a Unix-based system, such as Linux.</li>
-                </ul>
-            </p>
+            <subsection name="Precompilation">
+                <p>
+                    In some cases it is known precompiled applications to intermittently throw exceptions on Windows
+                    machines. This is a known issue and is related to the Windows operating system not allowing
+                    file names to be longer than 255 characters. When you precompile JSPs, and the resulting classes
+                    are stored deep into the EAR, into the WAR, into the
+                    <code>WEB-INF/classes</code> subdirectory. Windows
+                    might not be able to properly resolve them if the fully qualified path to the file is longer than
+                    255 characters, the path will silently be truncated and the Java VM will report it was unable to
+                    find the class.
+                </p>
+                <p>
+                    This problem cannot be solved, but a few workarounds exist:
+                    <ul>
+                        <li>Move the deployment directory closer to the root of the drive</li>
+                        <li>Shorten the name of the JSP page on which the loading fails</li>
+                        <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
+                            if you set the <code>explodeOnDeploy</code> property to <code>true</code>
+                            in <code>/app/project.properties</code>. The next time you deploy using the maven
+                            <code>deploy</code> goal, a directory containing everything be deployed
+                            instead of a single EAR bundle.
+                        </li>
+                        <li>Move to a Unix-based system, such as Linux.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Compatibility">
+                <p>
+                    Although most applications are perfectly portable across
+                    different containers it might happen that some specific feature
+                    needs special attention.
+                </p>
+                <p>
+                    An example is WebSphere which requires the web.xml to contain
+                    an <code>id</code> attribute for most elements, Resin on the
+                    other hand can get into trouble this way. This example can be
+                    configured using the <code>generateWebXmlIds</code> namespace
+                    property.
+                </p>
+                <p>
+                    Bpm4Struts generates code that is compliant to the J2EE v1.4
+                    and Struts 1.2.x specifications. You will need Java 1.4
+                    or higher to be able to run the genenerated applications.
+                </p>
+            </subsection>
         </section>
     </body>
 </document>
