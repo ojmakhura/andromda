@@ -24,22 +24,7 @@ public class StrutsUserLogicImpl
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsUser ...
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUser#getRole()()
-     */
-    protected java.lang.String handleGetRole()
-    {
-        return StringUtilsHelper.upperCamelCaseName(getName().toLowerCase());
-    }
-
-    // ------------- relations ------------------
-
+    
     protected java.util.Collection handleGetGeneralizedUsers()
     {
         final Collection parentActors = new ArrayList();

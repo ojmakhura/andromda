@@ -159,7 +159,7 @@ public class StrutsActionLogicImpl
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
             StrutsUser strutsUser = (StrutsUser) userIterator.next();
-            rolesBuffer.append(strutsUser.getRole() + ' ');
+            rolesBuffer.append(strutsUser.getName() + ' ');
         }
         return StringUtilsHelper.separate(rolesBuffer.toString(), ",");
     }

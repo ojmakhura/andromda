@@ -136,7 +136,7 @@ public class StrutsUseCaseLogicImpl
                 rolesBuffer.append(',');
             }
             StrutsUser strutsUser = (StrutsUser) userIterator.next();
-            rolesBuffer.append(strutsUser.getRole());
+            rolesBuffer.append(strutsUser.getName());
         }
         return rolesBuffer.toString();
     }
