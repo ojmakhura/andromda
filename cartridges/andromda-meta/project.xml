@@ -50,6 +50,11 @@
     	    <artifactId>andromda-metafacades-uml</artifactId>
     	    <version>${pom.currentVersion}</version>
     	</dependency>  
+    	<dependency>
+    	    <groupId>commons-collections</groupId>
+    	    <artifactId>commons-collections</artifactId>
+    	    <version>3.0</version>
+    	</dependency>  
     	<dependency> 
     		<groupId>log4j</groupId>
       		<artifactId>log4j</artifactId>
