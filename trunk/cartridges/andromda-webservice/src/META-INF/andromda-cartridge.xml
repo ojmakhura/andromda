@@ -13,6 +13,8 @@
          (i.e. "http://localhost:8080/security-service/services") -->
     <property reference="wsdlSoapAddress"/>   
     <property reference="securityRealm" default=""/>
+    <property reference="testServiceLocatorName" default="TestServiceLocator"/>
+	<property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
 
     <!-- if true, causes generation of necessary code that expects
          the request to be signed -->
@@ -120,6 +122,20 @@
             </modelElement>
         </modelElements>
     </template>
+   
+    <template
+        path="templates/webservice/axis/WebServiceTestServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="axis-tests"
+        overwrite="true"
+        required="false"
+		outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+            </modelElement>
+        </modelElements>
+    </template>
     
     <template
         path="templates/webservice/axis/WebServiceTestImpl.vsl"
@@ -133,7 +149,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+        
     <!-- cartridge-template merge-point -->
 
 </cartridge>
