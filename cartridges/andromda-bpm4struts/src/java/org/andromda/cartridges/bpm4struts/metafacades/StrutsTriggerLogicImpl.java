@@ -133,23 +133,16 @@ public class StrutsTriggerLogicImpl
 
     protected Object handleGetAction()
     {
-        final Collection actionStates = this.getModel().getAllActionStates();
-        for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+        final Collection transitions = getModel().getAllTransitions();
+        for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
         {
-            Object actionStateObject = actionStateIterator.next();
-
-            if (actionStateObject instanceof StrutsJsp)
+            Object transitionObject = (Object) iterator.next();
+            if (transitionObject instanceof StrutsAction)
             {
-                StrutsJsp jsp = (StrutsJsp)actionStateObject;
-
-                final Collection actions = jsp.getActions();
-                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                StrutsAction action = (StrutsAction) transitionObject;
+                if (action.getActionTrigger().equals(this))
                 {
-                    StrutsAction action = (StrutsAction) actionIterator.next();
-                    if (this.equals(action.getActionTrigger()))
-                    {
-                        return action;
-                    }
+                    return action;
                 }
             }
         }
