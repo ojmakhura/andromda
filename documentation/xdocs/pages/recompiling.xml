@@ -13,12 +13,21 @@
     <freetext name="Section 1">
       <h1>Recompiling the AndroMDA package</h1>
       <p class="std">
-        This chapter has yet to be written! However, you will find it simple to recompile:
-        <ul>
-            <li class="std">Check out the CVS version</li>
-            <li class="std">Create a valid <code>build.properties</code> file using <code>build.properties.cvssample</code> as a blueprint</li>
-            <li class="std">Launch <a href="http://jakarta.apache.org/ant/">ant</a></li>
-        </ul>
+        Recompiling AndroMDA from the source is quite easy. Unpack
+        <code>andromda-src-*.zip</code> into a directory of your choice. Copy
+        <code>build.properties.sample</code> to <code>build.properties</code>
+        and edit it. Insert the directory where you installed JBoss as a value
+        for the property <code>jboss.home</code>. That's it! Run <code>ant</code>
+        and watch the contents of the "dist" subdirectory!
+      </p>
+      <p class="std">
+        The same rules apply
+        if you want to compile the CVS version. Checkout the <code>andromda-all</code>
+        module from
+        <a href="http://sourceforge.net/cvs/?group_id=73047">
+          AndroMDA CVS
+        </a>
+        instead of unzipping the released sources, then proceed as before.
       </p>
     </freetext>
 
