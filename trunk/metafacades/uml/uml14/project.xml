@@ -21,6 +21,7 @@
 	      	<type>plugin</type>
 	      	<properties>
 	      		<languageMappingsUri>Java</languageMappingsUri>
+                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
 	      		<facades.ignore/>
 	      		<facade-logics>${basedir}/target/src</facade-logics>
 	      		<facades-to-impls>${basedir}/target/src</facades-to-impls>
