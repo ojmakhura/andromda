@@ -54,7 +54,7 @@
                 <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
-				<hibernateUseQueryCache>true</hibernateUseQueryCache>
+				<hibernateUseQueryCache>false</hibernateUseQueryCache>
 				<hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
 				<hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
                 <entities>${maven.andromda.core.generated.dir}</entities>
@@ -75,7 +75,7 @@
                 <dataSource>${dataSource}</dataSource>
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
-				<hibernateUseQueryCache>true</hibernateUseQueryCache>
+				<hibernateUseQueryCache>false</hibernateUseQueryCache>
 				<hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
 				<hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
                 <springTypesPackage>${pom.package}</springTypesPackage>
