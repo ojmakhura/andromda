@@ -604,7 +604,7 @@ public class MetafacadeFactory
     private Logger internalGetLogger()
     {
         if (!"default".equals(activeNamespace))
-            return Logger.getLogger("org.andromda.cartridges."
+            return Logger.getLogger("org.andromda.plugins."
                 + activeNamespace);
         return Logger.getRootLogger();
     }
