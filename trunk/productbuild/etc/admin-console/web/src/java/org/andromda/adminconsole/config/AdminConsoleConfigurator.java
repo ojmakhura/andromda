@@ -1,6 +1,7 @@
 package org.andromda.adminconsole.config;
 
 import org.andromda.adminconsole.config.xml.*;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.util.*;
@@ -151,8 +152,56 @@ public class AdminConsoleConfigurator implements Serializable
             DatabaseUrls databaseUrls = consoleConfiguration.getDatabaseUrls();
             if (databaseUrls != null)
             {
-                urls.addAll( Arrays.asList(databaseUrls.getUrl()) );
+                Url[] urlArray = databaseUrls.getUrl();
+                for (int i = 0; i < urlArray.length; i++)
+                {
+                    Url url = urlArray[i];
+                    urls.add(new DbUrl(url.getName(), url.getContent()));
+                }
             }
+        }
+    }
+
+    public static class DbUrl
+    {
+        private String name = null;
+        private String value = null;
+
+        public DbUrl(String name, String value)
+        {
+            this.name = name;
+            this.value = value;
+        }
+
+        public String getName()
+        {
+            return (StringUtils.isBlank(name)) ? value : name;
+        }
+
+        public String getValue()
+        {
+            return value;
+        }
+
+        public boolean equals(Object o)
+        {
+            if (this == o) return true;
+            if (!(o instanceof DbUrl)) return false;
+
+            final DbUrl dbUrl = (DbUrl) o;
+
+            if (name != null ? !name.equals(dbUrl.name) : dbUrl.name != null) return false;
+            if (value != null ? !value.equals(dbUrl.value) : dbUrl.value != null) return false;
+
+            return true;
+        }
+
+        public int hashCode()
+        {
+            int result;
+            result = (name != null ? name.hashCode() : 0);
+            result = 29 * result + (value != null ? value.hashCode() : 0);
+            return result;
         }
     }
 
