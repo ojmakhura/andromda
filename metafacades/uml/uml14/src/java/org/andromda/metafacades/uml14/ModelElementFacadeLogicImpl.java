@@ -96,33 +96,34 @@ public class ModelElementFacadeLogicImpl
         return this.getFullyQualifiedName(false);
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
-     */
-    public Object handleFindTaggedValue(String name)
+    public Collection handleFindTaggedValues(String name)
     {
-        name = StringUtils.trimToEmpty(name);
-        Collection taggedValues = this.getTaggedValues();
-        Object value = null;
-        for (Iterator taggedValueIt = taggedValues.iterator(); taggedValueIt
-                .hasNext();)
+        Collection values = new ArrayList();
+        if (name != null)
         {
-            TaggedValueFacade taggedValue = (TaggedValueFacade) taggedValueIt
-                    .next();
-            String tagName = taggedValue.getName();
-            if (tagName.equals(name))
+            name = StringUtils.trimToEmpty(name);
+            Collection taggedValues = this.getTaggedValues();
+            for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
-                value = taggedValue.getValue();
-                break;
+                TaggedValueFacade taggedValue = (TaggedValueFacade) taggedValueIterator.next();
+                if (name.equals(taggedValue.getName()))
+                {
+                    for (Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
+                    {
+                        values.add(String.valueOf(valueIterator.next()));
+                    }
+                }
             }
         }
-
-        return value;
+        return values;
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
-     */
+    public Object handleFindTaggedValue(String name)
+    {
+        Collection taggedValues = findTaggedValues(name);
+        return (taggedValues.isEmpty()) ? null : taggedValues.iterator().next();
+    }
+
     public boolean handleHasStereotype(final String stereotypeName)
     {
         Collection stereotypes = this.getStereotypes();
