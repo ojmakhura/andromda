@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../../project.xml</extend>
+  	<extend>../project.xml</extend>
   	<id>animal-quiz-sample-hibernate-sar</id>
   	<name>Animal Quiz Sample Hibernate Sar</name>
   	<shortDescription>The Animal Quiz Sample Hibernate Sar Component</shortDescription>
@@ -10,113 +10,11 @@
   	</description>
 	<dependencies>      
 		<dependency>
-			<groupId>andromda-samples</groupId>
-			<artifactId>animal-quiz-sample-mda</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>andromda-samples</groupId>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>animal-quiz-sample-hibernate-ejb</artifactId>
 			<version>${pom.currentVersion}</version>
 			<type>ejb</type>
 		</dependency>
-		<dependency>
-			<groupId>andromda-samples</groupId>
-			<artifactId>animal-quiz-sample-common</artifactId>
-			<version>${pom.currentVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.0</version>
-		</dependency>	
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.0.3</version>
-		</dependency>
-		<!-- EJB dependencies -->
-  		<dependency>
-     		<groupId>jboss</groupId>
-      		<artifactId>jboss-j2ee</artifactId>
-        	<version>3.2.3</version>
-    	</dependency>  	
-    	<!-- Hibernate dependencies -->
-  		<dependency>
-     		<groupId>hibernate</groupId>
-      		<artifactId>hibernate</artifactId>
-        	<version>2.1.2</version>
-    	</dependency>   	
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.4</version>
-	      	<properties>
-				<ejb.bundle>true</ejb.bundle>
-	     	</properties>
-		</dependency>	
-		<dependency>
-			<groupId>odmg</groupId>
-			<artifactId>odmg</artifactId>
-			<version>3.0</version>
-	      	<properties>
-				<ejb.bundle>true</ejb.bundle>
-	     	</properties>
-		</dependency>
-    	<!-- XDoclet dependencies -->	
-    	<dependency>
-    		<groupId>xjavadoc</groupId>
-    		<artifactId>xjavadoc</artifactId>
-        	<version>1.0.2</version>
-    	</dependency>  
-  		<dependency>
-     		<groupId>xdoclet</groupId>
-      		<artifactId>xdoclet</artifactId>
-        	<version>1.2</version>
-    	</dependency>   	
-  		<dependency>
-     		<groupId>xdoclet</groupId>
-      		<artifactId>xdoclet-xdoclet-module</artifactId>
-        	<version>1.2</version>
-    	</dependency> 	
-  		<dependency>
-     		<groupId>xdoclet</groupId>
-      		<artifactId>xdoclet-ejb-module</artifactId>
-        	<version>1.2</version>
- 	  	</dependency>
-    	<dependency>
-     		<groupId>xdoclet</groupId>
-      		<artifactId>xdoclet-hibernate-module</artifactId>
-        	<version>1.2</version>
-    	</dependency>
-    	<dependency>
-     		<groupId>xdoclet</groupId>
-      		<artifactId>xdoclet-jboss-module</artifactId>
-        	<version>1.2</version>
-    	</dependency>
-    	<!-- This one is needed because jboss-module depends on it -->
-    	<dependency>
-    		<groupId>xdoclet</groupId>
-    		<artifactId>xdoclet-jmx-module</artifactId>
-        	<version>1.2</version>
-    	</dependency>
-		<!-- ejbdoclet depends on this module for some reason -->
-    	<dependency>
-    		<groupId>xdoclet</groupId>
-    		<artifactId>xdoclet-web-module</artifactId>
-        	<version>1.2</version>
-    	</dependency>  
 	</dependencies>
   	<build>    
 		<resources>
