@@ -15,13 +15,12 @@ public class TableImpl extends DatabaseObject implements Table
     private final Map columns = new LinkedHashMap();
     private final Map primaryKeyColumns = new LinkedHashMap();
     private final Map foreignKeyColumns = new LinkedHashMap();
-    private final Set importingTables = new HashSet();
+    private final Set importingTableNames = new HashSet();
 
     public TableImpl(Database database, String name)
     {
         this.name = name;
         this.database = database;
-        database.getPool().register(this);
         this.loadMetaData();
     }
 
@@ -100,19 +99,14 @@ public class TableImpl extends DatabaseObject implements Table
         return (ForeignKeyColumn[]) foreignKeyColumns.values().toArray(new ForeignKeyColumn[foreignKeyColumns.size()]);
     }
 
-    public Table[] getImportingTables()
+    public String[] getImportingTableNames()
     {
-        return (Table[]) importingTables.toArray(new Table[importingTables.size()]);
-    }
-
-    protected void addImportingTable(Table table)
-    {
-        importingTables.add(table);
+        return (String[]) importingTableNames.toArray(new String[importingTableNames.size()]);
     }
 
     public int getImportingTablesCount()
     {
-        return importingTables.size();
+        return importingTableNames.size();
     }
 
     private void loadMetaData()
@@ -143,7 +137,7 @@ public class TableImpl extends DatabaseObject implements Table
                 while (resultSet.next())
                 {
                     String columnName = resultSet.getString("COLUMN_NAME");
-                    Column column = getDatabase().getPool().findColumn(getName(), columnName);
+                    Column column = getColumn(columnName);
                     if (column == null)
                     {
                         int dataType = resultSet.getInt("DATA_TYPE");
@@ -186,10 +180,46 @@ public class TableImpl extends DatabaseObject implements Table
                 {
                     String columnName = resultSet.getString("FKCOLUMN_NAME");
                     Column column = getColumn(columnName);
+
+/*
+                    String foreignKeyName = resultSet.getString("FK_NAME");
+                    String primaryKeyName = resultSet.getString("PK_NAME");
+                    ForeignKeyDeleteRule deleteRule = ForeignKeyDeleteRule.get(resultSet.getInt("DELETE_RULE"));
+                    ForeignKeyUpdateRule updateRule = ForeignKeyUpdateRule.get(resultSet.getInt("UPDATE_RULE"));
+*/
+
+                    String importedTableName = resultSet.getString("PKTABLE_NAME");
+                    String importedColumnName = resultSet.getString("PKCOLUMN_NAME");
+
                     // create a new, more specific, instance
-                    column = new ForeignKeyColumnImpl(this, columnName, column.getSqlType());
-                    foreignKeyColumns.put(column.getName(), column);
-                    columns.put(column.getName(), column);
+                    ForeignKeyColumn foreignKeyColum =
+                            new ForeignKeyColumnImpl(
+                                    this, columnName, column.getSqlType(),
+                                    importedTableName, importedColumnName );
+/*
+                    ForeignKeyColumn foreignKeyColum =
+                            new ForeignKeyColumnImpl(
+                                    this, columnName, getColumn(columnName).getSqlType(),
+                                    foreignKeyName, primaryKeyName, deleteRule, updateRule, importedTableName);
+*/
+                    foreignKeyColumns.put(foreignKeyColum.getName(), foreignKeyColum);
+                    columns.put(foreignKeyColum.getName(), foreignKeyColum);
+                }
+            }
+            finally
+            {
+                close(resultSet);
+            }
+
+            // TABLES IMPORTING THIS ONE
+            importingTableNames.clear();
+            try
+            {
+                resultSet = getMetaData().getExportedKeys(getCatalog(), getSchema(), name);
+                while (resultSet.next())
+                {
+                    String tableName = resultSet.getString("FKTABLE_NAME");
+                    importingTableNames.add(tableName);
                 }
             }
             finally
@@ -252,11 +282,21 @@ public class TableImpl extends DatabaseObject implements Table
 
     public List findAllRows() throws SQLException
     {
+        return findAllRows(0);
+    }
+
+    public List findAllRows(int maximum) throws SQLException
+    {
         String query = "SELECT * FROM " + getName();
-        return executeQuery(query);
+        return executeQuery(query, maximum);
     }
 
     public List findRows(Criterion criterion) throws SQLException
+    {
+        return findRows(criterion, 0);
+    }
+
+    public List findRows(Criterion criterion, int maximum) throws SQLException
     {
         StringBuffer queryBuffer = new StringBuffer();
 
@@ -265,7 +305,7 @@ public class TableImpl extends DatabaseObject implements Table
         queryBuffer.append(" WHERE ");
         queryBuffer.append(criterion.toSqlString());
 
-        return executeQuery(queryBuffer.toString());
+        return executeQuery(queryBuffer.toString(), maximum);
     }
 
     public int updateRow(RowData rowData, Criterion criterion) throws SQLException
@@ -361,7 +401,7 @@ public class TableImpl extends DatabaseObject implements Table
         }
     }
 
-    private List executeQuery(String query) throws SQLException
+    private List executeQuery(String query, int maximum) throws SQLException
     {
         Connection connection = getMetaData().getConnection();
 
@@ -372,6 +412,7 @@ public class TableImpl extends DatabaseObject implements Table
         try
         {
             statement = connection.prepareStatement(query);
+            statement.setMaxRows(Math.max(0,maximum));
             resultSet = statement.executeQuery();
 
             while (resultSet.next())

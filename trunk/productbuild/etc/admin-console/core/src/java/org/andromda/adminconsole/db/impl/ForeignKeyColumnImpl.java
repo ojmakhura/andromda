@@ -1,22 +1,141 @@
 package org.andromda.adminconsole.db.impl;
 
-import org.andromda.adminconsole.db.*;
+import org.andromda.adminconsole.db.ForeignKeyColumn;
+import org.andromda.adminconsole.db.Table;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
 {
+    private String importedTableName = null;
+    private String importedColumnName = null;
+
+    public ForeignKeyColumnImpl(Table table, String name, int sqlType, String importedTableName, String importedColumnName)
+    {
+        super(table, name, sqlType);
+        this.importedTableName = importedTableName;
+        this.importedColumnName = importedColumnName;
+    }
+
+    public String getImportedTableName()
+    {
+        return importedTableName;
+    }
+
+    public String getImportedColumnName()
+    {
+        return importedColumnName;
+    }
+
+    public ForeignValue getForeignValue(Object value) throws SQLException
+    {
+        return getForeignValue(null, value);
+    }
+
+    public ForeignValue getForeignValue(String columnName, Object value) throws SQLException
+    {
+        if (columnName == null)
+        {
+            columnName = getImportedColumnName();
+        }
+
+        StringBuffer queryBuffer = new StringBuffer();
+        queryBuffer.append("SELECT ");
+        queryBuffer.append(getImportedColumnName());
+        queryBuffer.append(',');
+        queryBuffer.append(columnName);
+        queryBuffer.append(" FROM ");
+        queryBuffer.append(getImportedTableName());
+        queryBuffer.append(" WHERE ");
+        queryBuffer.append(getImportedColumnName());
+        queryBuffer.append('=');
+        queryBuffer.append(String.valueOf(value));
+
+        List foreignValues = doSelect(queryBuffer.toString(), 1);
+        return (foreignValues.isEmpty()) ? null : (ForeignValue)foreignValues.get(0);
+    }
+
+    public List getForeignValues() throws SQLException
+    {
+        return getForeignValues(null);
+    }
+
+    public List getForeignValues(String columnName) throws SQLException
+    {
+        if (columnName == null)
+        {
+            columnName = getImportedColumnName();
+        }
+
+        StringBuffer queryBuffer = new StringBuffer();
+        queryBuffer.append("SELECT ");
+        queryBuffer.append(getImportedColumnName());
+        queryBuffer.append(',');
+        queryBuffer.append(columnName);
+        queryBuffer.append(" FROM ");
+        queryBuffer.append(getImportedTableName());
+
+        return doSelect(queryBuffer.toString(), -1);
+    }
+
+    /**
+     * @param the query is expected to be in SQL and should yield the return of two columns, of which the first
+     *  one represents the primary key and the other is any column (possibly the same as the first)
+     * @param maxReturnCount the maximum number of values to return, a non-positive integer denotes unbounded
+     */
+    private List doSelect(String query, int maxReturnCount) throws SQLException
+    {
+        Connection connection = getMetaData().getConnection();
+
+        List values = new ArrayList();
+        int counter = 0;
+        boolean unbounded = (maxReturnCount > 0);
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next() && (unbounded || counter<maxReturnCount))
+            {
+                Object primaryKey = resultSet.getObject(0);
+                Object columnValue = resultSet.getObject(1);
+                values.add(new ForeignValue(primaryKey, columnValue));
+                counter++;
+            }
+        }
+        finally
+        {
+            close(statement);
+            close(resultSet);
+            close(connection);
+        }
+
+        return values;
+    }
+
+/* maybe we'll need this in the future, at this time we don't
+
     private String foreignKeyName = null;
     private String primaryKeyName = null;
     private ForeignKeyDeleteRule deleteRule = null;
     private ForeignKeyUpdateRule updateRule = null;
-    private PrimaryKeyColumn importedKeyColumn = null;
 
-    public ForeignKeyColumnImpl(Table table, String name, int sqlType)
+    public ForeignKeyColumnImpl(Table table, String name, int sqlType, String foreignKeyName, String primaryKeyName, ForeignKeyDeleteRule deleteRule, ForeignKeyUpdateRule updateRule, String importedTableName)
     {
         super(table, name, sqlType);
-        this.loadMetaData();
+        this.foreignKeyName = foreignKeyName;
+        this.primaryKeyName = primaryKeyName;
+        this.deleteRule = deleteRule;
+        this.updateRule = updateRule;
+        this.importedTableName = importedTableName;
     }
 
     public String getForeignKeyName()
@@ -39,88 +158,10 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
         return updateRule;
     }
 
-    public PrimaryKeyColumn getImportedKeyColumn()
+    public String getImportedTableName()
     {
-        return importedKeyColumn;
+        return importedTableName;
     }
-
-    private void loadMetaData()
-    {
-        try
-        {
-            ResultSet resultSet = null;
-
-            // FOREIGN KEY NAME
-            try
-            {
-                String name = getName();
-                Table table = getTable();
-                foreignKeyName = null;
-                primaryKeyName = null;
-                deleteRule = null;
-                updateRule = null;
-                importedKeyColumn = null;
-
-                resultSet = getMetaData().getImportedKeys(getCatalog(), getSchema(), table.getName());
-                while (resultSet.next())
-                {
-                    if (name.equals(resultSet.getString("FKCOLUMN_NAME")))
-                    {
-                        foreignKeyName = resultSet.getString("FK_NAME");
-                        primaryKeyName = resultSet.getString("PK_NAME");
-                        deleteRule = ForeignKeyDeleteRule.get(resultSet.getInt("DELETE_RULE"));
-                        updateRule = ForeignKeyUpdateRule.get(resultSet.getInt("UPDATE_RULE"));
-
-                        String pkTableName = resultSet.getString("PKTABLE_NAME");
-                        String pkColumnName = resultSet.getString("PKCOLUMN_NAME");
-
-                        Table pkTable = getTable().getDatabase().getPool().findTable(pkTableName);
-                        if (pkTable == null)
-                        {
-                            pkTable = new TableImpl(getTable().getDatabase(), pkTableName);
-                        }
-
-                        Column targetColumn = getTable().getDatabase().getPool().findColumn(pkTableName, pkColumnName);
-                        if (targetColumn == null)
-                        {
-                            ResultSet columnSet = getMetaData().getColumns(
-                                    getCatalog(), getSchema(), pkTableName, pkColumnName);
-                            if (columnSet.next())
-                            {
-                                int sqlType = columnSet.getInt("DATA_TYPE");
-                                targetColumn = new PrimaryKeyColumnImpl(pkTable, pkColumnName, sqlType);
-                            }
-                            else
-                            {
-                                throw new IllegalStateException("An exported key column was found but the " +
-                                        "column could not be loaded: "+pkColumnName);
-                            }
-                        }
-                        importedKeyColumn = (PrimaryKeyColumnImpl) targetColumn;
-
-                        break;
-                    }
-                }
-                if (foreignKeyName == null)
-                    throw new IllegalStateException("ForeignKey name could not be read, column not found: " + name);
-                if (primaryKeyName == null)
-                    throw new IllegalStateException("PrimaryKey name could not be read, column not found: " + name);
-                if (deleteRule == null)
-                    throw new IllegalStateException("DeleteRule could not be read, column not found: " + name);
-                if (updateRule == null)
-                    throw new IllegalStateException("UpdateRule could not be read, column not found: " + name);
-                if (importedKeyColumn == null)
-                    throw new IllegalStateException("ImportedColumn could not be read, column not found: " + name);
-            }
-            finally
-            {
-                close(resultSet);
-            }
-        }
-        catch (SQLException e)
-        {
-            throw new RuntimeException("Unable to refresh table: " + getName());
-        }
-    }
+*/
 
 }
