@@ -8,6 +8,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-03-12" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="update" issue="CORE-15">
+                OCL translation support has been moved into the translation-libraries/ocl module (out of the andromda-core)
+                and all ocl translation specific classes are now in a package beginning with 
+                <em>org.andromda.translation.ocl</em>.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-13">
                 The bpm4struts cartridge now generates a <code>displaytag.properties</code> file, the labels
                 used by the displaytag library are not internationalized, you will need to update the library
