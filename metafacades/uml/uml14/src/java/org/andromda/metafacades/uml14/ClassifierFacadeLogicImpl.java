@@ -210,7 +210,7 @@ public class ClassifierFacadeLogicImpl
             && follow; superClass = (ClassifierFacade)superClass
             .getGeneralization())
         {
-            attributes.addAll(superClass.getAttributes(follow));
+            attributes.addAll(superClass.getAttributes());
         }
         return attributes;
     }
