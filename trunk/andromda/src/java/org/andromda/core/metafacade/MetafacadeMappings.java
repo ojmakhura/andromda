@@ -11,8 +11,10 @@ import java.util.Map;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Merger;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.ResourceFinder;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -109,8 +111,17 @@ public class MetafacadeMappings
     {
         final String methodName = "MetafacadeMappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
-        MetafacadeMappings mappings = (MetafacadeMappings)XmlObjectFactory
-            .getInstance(MetafacadeMappings.class).getObject(mappingsUri);
+        XmlObjectFactory factory = XmlObjectFactory
+            .getInstance(MetafacadeMappings.class);
+        MetafacadeMappings mappings = (MetafacadeMappings)factory
+            .getObject(mappingsUri);
+        // after we've gotten the initial instance we can merge the file
+        // since we know the namespace
+        String mappingsContents = ResourceUtils.getContents(mappingsUri);
+        mappingsContents = Merger.instance().getMergedString(
+            mappingsContents,
+            mappings.getNamespace());
+        mappings = (MetafacadeMappings)factory.getObject(mappingsContents);
         mappings.resource = mappingsUri;
         return mappings;
     }

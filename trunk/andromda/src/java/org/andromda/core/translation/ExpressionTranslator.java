@@ -1,8 +1,8 @@
 package org.andromda.core.translation;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PluginDiscoverer;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.translation.library.LibraryTranslation;
 import org.andromda.core.translation.library.LibraryTranslationFinder;
 import org.apache.log4j.Logger;

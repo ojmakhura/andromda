@@ -1,6 +1,5 @@
 package org.andromda.core.common;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,30 +43,6 @@ public class Merger
         return instance;
     }
 
-    private String namespace = null;
-
-    /**
-     * Keeps us from getting infinite recursion since the mappings are
-     * configured with files that are merged and this class uses the
-     * {@link org.andromda.core.mapping.Mappings}instances.
-     */
-    private Collection mergedStringCache = new ArrayList();
-
-    /**
-     * The namespace to use when performing any merging during
-     * {@link #getMergedString(String, String)}. This namespace is searched
-     * when attempting to find the
-     * {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
-     * 
-     * @param namespace the namespace to set.
-     */
-    public void setNamespace(String namespace)
-    {
-        // clear out the cache of merged strings.
-        this.mergedStringCache.clear();
-        this.namespace = namespace;
-    }
-
     /**
      * Stores the cached merge mappings already found (so we don't need to
      * reconstrut again each time).
@@ -83,16 +58,16 @@ public class Merger
      * </p>
      * 
      * @param string the String to be replaced
+     * @param This namespace is searched when attempting to find the
+     *        {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
      * @return the replaced String.
      */
-    public String getMergedString(String string)
+    public String getMergedString(String string, String namespace)
     {
         // avoid any possible infinite recursion with the mergedStringCache
         // check (may need to refactor the mergedStringCache solution)
-        if (this.namespace != null && string != null
-            && !mergedStringCache.contains(string))
+        if (namespace != null && string != null)
         {
-            this.mergedStringCache.add(string);
             Mappings mergeMappings = this.getMergeMappings(namespace);
             if (mergeMappings != null)
             {

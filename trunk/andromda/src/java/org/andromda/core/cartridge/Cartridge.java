@@ -18,7 +18,6 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.Merger;
 import org.andromda.core.common.NamespaceProperties;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PathMatcher;
@@ -89,8 +88,6 @@ public class Cartridge
 
             String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
-            // set the namespace for the merger
-            Merger.instance().setNamespace(this.getName());
             Iterator resourceIt = resources.iterator();
             while (resourceIt.hasNext())
             {
