@@ -7,7 +7,7 @@
             Builds all documentation
          ================================================================== -->
     <goal name="build">
-
+        <attainGoal name="multiproject:site"/>
         <attainGoal name="add-style"/>
         <j:set var="samples.dir" value="${basedir}/../samples"/>
         <!-- copy the animal-quiz model into the resources directory -->
