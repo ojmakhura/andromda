@@ -74,17 +74,19 @@
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl"
+        contextRoot="true">>
         <stereotype>WebServiceOperation</stereotype>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl"
+        contextRoot="true">
         <context>org.andromda.cartridges.webservice.metafacades.WebService</context>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
 		metafacadeClass="org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogicImpl">
-        <context>org.andromda.cartridges.webservice.metafacades.WebService</context>
+        <context>org.andromda.cartridges.webservice.metafacades.WebServiceOperation</context>
 	</metafacade>
 </metafacades>
