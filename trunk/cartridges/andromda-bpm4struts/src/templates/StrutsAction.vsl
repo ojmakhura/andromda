@@ -6,6 +6,7 @@
 #set ($controllerClass = $action.controller)
 #set ($formBeanClassName = $action.formBeanClassName)
 #set ($roles = $action.actionRoles)
+#set ($resettableActionParameters = $action.resettableActionParameters)
 #set ($actionForwards = $action.actionForwards)
 #set ($actionExceptions = $action.actionExceptions)
 #set ($actionStates = $action.actionStates)
@@ -49,6 +50,17 @@ public final class $action.actionClassName extends Action
         request.getSession().setAttribute("form", form);
         final ActionForward forward = #processTransition($action)
 #saveMessages($action "        ")
+#if ($resettableActionParameters.empty == false)
+
+        final org.apache.struts.action.ActionMessages errors = this.getExceptionHandlerErrors(request);
+        if (errors.isEmpty())
+        {
+            $formBeanClassName specificForm = ($formBeanClassName)form;
+#foreach ($field in $resettableActionParameters)
+            specificForm.${field.resetName}();
+#end
+        }
+#end
         return forward;
     }
 
@@ -58,11 +70,17 @@ $actionState.getDocumentation("     * ")
      */
     private ActionForward ${actionState.actionMethodName}(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
+#set ($controllerCalls = $actionState.controllerCalls)
         ActionForward forward = null;
+#if ($controllerCalls.empty)
+#saveMessages($actionState.forward "        ")
+        forward = #processTransition($actionState.forward)
+#else
+
         final org.apache.struts.action.ActionMessages errors = this.getExceptionHandlerErrors(request);
         try
         {
-#foreach ($controllerCall in $actionState.controllerCalls)
+#foreach ($controllerCall in $controllerCalls)
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #end
         }
@@ -73,21 +91,12 @@ $actionState.getDocumentation("     * ")
         }
         finally
         {
-#saveMessages($actionState.forward "        ")
+#saveMessages($actionState.forward "            ")
             forward = #processTransition($actionState.forward)
         }
         if (!errors.isEmpty())
         {
             forward = mapping.getInputForward();
-        }
-#if (!$action.resettableActionParameters.empty)
-        else
-        {
-#end
-#foreach ($field in $action.resettableActionParameters)
-            (($formBeanClassName)form).${field.resetName}();
-#end        
-#if (!$action.resettableActionParameters.empty)
         }
 #end
         return forward;
