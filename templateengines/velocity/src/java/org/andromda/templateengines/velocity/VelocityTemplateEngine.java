@@ -163,7 +163,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#getMacroLibraries()
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#getMacroLibraries()
      */
     public List getMacroLibraries()
     {
@@ -171,7 +171,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     }
     
     /**
-     * @see org.andromda.cartridges.interfaces.CartridgeDescriptor#addMacroLibrary(java.lang.String)
+     * @see org.andromda.core.cartridge.CartridgeDescriptor#addMacroLibrary(java.lang.String)
      */
     public void addMacroLibrary(String libraryName)
     {
