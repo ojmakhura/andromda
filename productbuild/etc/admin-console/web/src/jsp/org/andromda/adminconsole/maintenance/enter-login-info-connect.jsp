@@ -9,33 +9,55 @@
 
             <table>
                 <tbody>
-                    <tr>
-                        <td><bean:message key="maintenance.param.url"/></td>
-                        <td>
-                            <html:text name="form" property="url" onmouseover="hints.show('maintenance.param.url.title')" onmouseout="hints.hide()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <c:set var="knownUrls" value="${databaseLoginSession.configurator.knownDatabaseUrls}"/>
-                            <c:if test="${!empty knownUrls}">
-                                <input type="checkbox" name="chooseKnownUrl" onclick="toggleUrlList();"/>
-                                <select name="selectedUrl" disabled="true">
-                                    <c:forEach var="url" items="${knownUrls}">
-                                        <c:choose>
-                                            <c:when test="${url == form.url}">
-                                                <option selected value="${url}">${url}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${url}">${url}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                            </c:if>
-                        </td>
-                    </tr>
+                    <c:set var="knownUrls" value="${databaseLoginSession.configurator.knownDatabaseUrls}"/>
+                    <c:choose>
+                        <c:when test="${databaseLoginSession.configurator.arbitraryUrlAllowed}">
+                            <tr>
+                                <td><bean:message key="maintenance.param.url"/></td>
+                                <td><html:text name="form" property="url" onmouseover="hints.show('maintenance.param.url.title')" onmouseout="hints.hide()" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <c:if test="${!empty knownUrls}">
+                                        <input type="checkbox" name="chooseKnownUrl" onclick="toggleUrlList();"/>
+                                        <select name="selectedUrl" disabled="true">
+                                            <c:forEach var="url" items="${knownUrls}">
+                                                <c:choose>
+                                                    <c:when test="${url == form.url}">
+                                                        <option selected value="${url}">${url}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${url}">${url}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
+                                    </c:if>
+                                </td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <html:hidden name="form" property="url"/>
+                            <tr>
+                                <td><bean:message key="maintenance.param.url"/></td>
+                                <td>
+                                    <select name="selectedUrl">
+                                        <c:forEach var="url" items="${knownUrls}">
+                                            <c:choose>
+                                                <c:when test="${url == form.url}">
+                                                    <option selected value="${url}">${url}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${url}">${url}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                     <tr>
                         <td><bean:message key="maintenance.param.user"/> <div class="important">*</div></td>
                         <td>
