@@ -89,8 +89,7 @@ public class Cartridge
 
         if (resources != null && !resources.isEmpty())
         {
-            MetafacadeFactory factory = MetafacadeFactory.getInstance();
-
+            MetafacadeFactory factory = MetafacadeFactory.getInstance();       
             factory.setModel(context.getModelFacade());
 
             String previousNamespace = factory.getActiveNamespace();

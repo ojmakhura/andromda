@@ -66,6 +66,16 @@ public class MetafacadeFactory
     {
         return factory;
     }
+    
+    /**
+     * Performs any initialization required by the factory (i.e.
+     * discovering all <code>metafacade</code> mappings, etc).
+     */
+    public void initialize()
+    {
+        MetafacadeMappings.instance().discoverMetafacades();
+        MetafacadeImpls.instance().discoverMetafacadeImpls();
+    }
 
     /**
      * Sets the active namespace. The AndroMDA core and each cartridge have
