@@ -634,24 +634,25 @@ public class StrutsParameterLogicImpl
 
     protected Collection handleGetTableColumnNames()
     {
-        Collection tableColumnNames = null;
+        Collection tableColumnNames = new ArrayList();
 
         if (!isActionParameter() && !isControllerOperationArgument())
         {
-            Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
-            if ((taggedValue == null) || (String.valueOf(taggedValue).matches(",")))
+            Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
+            if (taggedValues.isEmpty() == false)
             {
-                tableColumnNames = Collections.EMPTY_LIST;
-            }
-            else
-            {
-                tableColumnNames = new ArrayList();
-                String columnNames = String.valueOf(taggedValue);
-                String[] properties = columnNames.split(",");
-                for (int i = 0; i < properties.length; i++)
+                for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
-                    String property = properties[i];
-                    tableColumnNames.add(StringUtils.trimToEmpty(property));
+                    String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    if (taggedValue != null)
+                    {
+                        String[] properties = taggedValue.split("[,\\s]+");
+                        for (int i = 0; i < properties.length; i++)
+                        {
+                            String property = properties[i];
+                            tableColumnNames.add(property);
+                        }
+                    }
                 }
             }
         }
@@ -1216,23 +1217,8 @@ public class StrutsParameterLogicImpl
      */
     protected String handleGetMultiboxPropertyName()
     {
-        String multiboxPropertyName = null;
-
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
-        final String fieldType = value == null ? null : StringUtils.trimToEmpty(value.toString());
-
-        if (fieldType != null)
-        {
-            int colonIndex = fieldType.indexOf(':');
-            if (colonIndex >= 0 && Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType.substring(0, colonIndex)))
-            {
-                if (colonIndex < fieldType.length() - 1)
-                {
-                    multiboxPropertyName = fieldType.substring(colonIndex + 1);
-                }
-            }
-        }
-        return multiboxPropertyName;
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_MULTIBOX);
+        return (value == null) ? null : StringUtils.trimToNull(value.toString());
     }
 
     /**
