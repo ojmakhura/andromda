@@ -13,10 +13,6 @@
                 operation the action state's forward would be called after each operation call. This is very dangerous
                 in combination with the session because code is not executed in the expected order anymore.
             </action>
-            <action dev="draftdog" type="add" issue="SITE-15">
-                Added Fujaba Tool Suite 4.2.0 and Fujaba for Eclipse 0.1.0 to the list
-                of <a href="case-tools.html">tested UML tools</a>.
-            </action>
             <action dev="cwbrandon" type="add" issue="CORE-32">
                 All profile information has been externalized into mapping files.  This means that its now <strong>VERY</strong>
                 easy to change the default stereotype names, tagged values, or datatypes.  You can use the new
@@ -32,7 +28,7 @@
             <action dev="draftdog" type="update" issue="SITE-14">
                 The <a href="jmi-uml1.4/index.html" target="_blank">JMI 1.4 API</a> has been published on the
                 AndroMDA website, you can find it in the navigation menu under the "developers" section.
-             </action>
+            </action>
             <action dev="cwbrandon" type="update">
                 The tagged value @andromda.ejb.transactionType has been renamed to @andromda.transaction.type
                 (this was needed because of that fact we already had an @andromda.transaction.type and
