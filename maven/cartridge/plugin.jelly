@@ -20,7 +20,7 @@ Please define the location of your model by setting a value for property "androm
             file="${context.getVariable('andromda.cartridge.test.archive')}"
             property="archiveAvailable"/>           
         <maven:param-check value="${archiveAvailable}" fail="true">
-Please define the test artifact '${context.getVariable('andromda.cartridge.test.archive')}'
+Please define the test archive containing the expected output '${context.getVariable('andromda.cartridge.test.archive')}'
         </maven:param-check> 
           
         <ant:echo>+-------------------------------------------+</ant:echo>
