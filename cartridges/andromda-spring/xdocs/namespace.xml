@@ -722,6 +722,18 @@
                             No
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            criteriaSearchBaseName
+                        </td>
+                        <td>
+                            Allows you to define a base name for the helper classes needed for the 
+                            hibernate criteria search facility.
+                        </td>
+                        <td>
+                            No, default is <code>CriteriaSearch</code>
+                        </td>
+                    </tr>
                 </table>
             </subsection>
             <subsection name="EJB Specific Properties">

@@ -64,6 +64,9 @@
 
     <!-- the name for the client side exception handling advice -->
     <property reference="clientExceptionHandlingAdviceName" default="ClientExceptionHandlingAdvice"/>
+    
+    <!-- the base name for the hibernate criteria search utility classes -->
+    <property reference="criteriaSearchBaseName" default="CriteriaSearch"/>
 
     <!-- the name to give the principal store class -->
     <property reference="principalStoreName" default="PrincipalStore"/>
@@ -427,6 +430,62 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/spring/hibernate/HibernateSearch.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false"
+        outputToSingleFile="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/spring/hibernate/HibernateSearchConfiguration.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false"
+        outputToSingleFile="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/spring/hibernate/HibernateSearchParameter.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false"
+        outputToSingleFile="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/spring/hibernate/SearchCriteria.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="class">
+            <modelElement stereotype="CRITERIA"/>
+        </modelElements>
+    </template>    
 
     <!-- cartridge-template merge-point -->
 

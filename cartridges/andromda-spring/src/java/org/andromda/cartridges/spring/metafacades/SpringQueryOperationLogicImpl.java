@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -113,5 +115,31 @@ public class SpringQueryOperationLogicImpl
             String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
             .booleanValue()
             || StringUtils.isNotBlank(this.getTranslatedQuery());
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#isCriteriaFinder()
+     */
+    protected boolean handleIsCriteriaFinder()
+    {
+        return (getCriteriaArgument() != null);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#getCriteriaArgument()
+     */
+    protected ParameterFacade handleGetCriteriaArgument()
+    {
+        Collection parameters = getParameters();
+        for (Iterator iter = parameters.iterator(); iter.hasNext();)
+        {
+            ParameterFacade parameter = (ParameterFacade)iter.next();
+            ClassifierFacade type = parameter.getType();
+            if (type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
+            {
+                return parameter;
+            }
+        }
+        return null;
     }
 }

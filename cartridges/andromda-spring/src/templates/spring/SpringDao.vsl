@@ -183,6 +183,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType $operation.signature;
 #end
 
+#if(!$operation.criteriaFinder)
     /**
      * <p>
      *   Does the same thing as {@link #${operation.getSignature(false)}} with an
@@ -230,6 +231,25 @@ $operation.getDocumentation("     * ")
         throws $operation.exceptionList;
 #else
     $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+#else
+    /**
+     * <p>
+     *   Does the same thing as {@link #${operation.getSignature(false)}} with an
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORMATION_NONE</code> then
+     *   finder results will <strong>NOT</strong> be transformed during retrieval.
+     *   If this flag is any of the other constants defined here
+     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   transform the entities (into value objects for example).  By default, transformation does
+     *   not occur.
+     * </p>
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)	
+        throws $finder.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+#end
 #end
 
 #end

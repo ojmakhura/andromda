@@ -28,6 +28,16 @@
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>CRITERIA</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringCriteriaSearch</context>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
