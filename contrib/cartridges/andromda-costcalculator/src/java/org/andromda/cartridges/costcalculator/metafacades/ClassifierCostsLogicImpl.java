@@ -51,7 +51,6 @@ public class ClassifierCostsLogicImpl extends ClassifierCostsLogic
             result.addSubPosition(element.getCosts());
         }
 
-        // TODO: BUG-BUG-BUG this code will count each association twice!
         Collection associationEnds = this.getAssociationEnds();
         for (Iterator iter = associationEnds.iterator(); iter.hasNext();)
         {
