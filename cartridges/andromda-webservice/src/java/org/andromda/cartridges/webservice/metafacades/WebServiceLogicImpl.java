@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -257,7 +258,7 @@ public class WebServiceLogicImpl
                     if (nonArrayType
                         .hasStereotype(WebServiceProfile.STEREOTYPE_VALUEOBJECT)
                         || nonArrayType
-                            .hasStereotype(WebServiceProfile.STEREOTYPE_ENUMERATION))
+                            .hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION))
                     {
                         types.add(modelElement);
                         // we add the type when its a non array and has

@@ -50,14 +50,6 @@ public class WebServiceProfile {
     */
    public static final java.lang.String STEREOTYPE_WEBSERVICE_OPERATION = "WebserviceOperation";
    
-   /**
-     * <p>
-     *  Represents an enumeration type.
-     * </p>   
-    */
-   public static final java.lang.String STEREOTYPE_ENUMERATION = "Enumeration";
-   
-
     /* ---------------- Tagged Values ------------------- */
     
    /**

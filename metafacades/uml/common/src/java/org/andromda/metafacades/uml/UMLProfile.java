@@ -47,6 +47,9 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_EXCEPTION = umlProfile
         .getString("STEREOTYPE_EXCEPTION");
+    
+    public static final String STEREOTYPE_ENUMERATION = umlProfile
+        .getString("STEREOTYPE_ENUMERATION");
 
     /**
      * Represents exceptions thrown during normal application processing (such
