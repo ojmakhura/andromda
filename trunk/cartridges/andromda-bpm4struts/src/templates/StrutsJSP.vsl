@@ -5,6 +5,7 @@
 ##
 #set ($actions = $jsp.actions)
 #set ($pageVariables = $jsp.pageVariables)
+#set ($hints = $hints == "true")
 ##
 ##  START TEMPLATE
 ##
@@ -63,6 +64,7 @@
 #end
 #end
 #end
+#if ($hints)
     	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/hints.js"/>"></script>
     	<script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")
@@ -91,6 +93,7 @@
         //-->
 #end
     	</script>
+#end
     </tiles:put>
 
 ##

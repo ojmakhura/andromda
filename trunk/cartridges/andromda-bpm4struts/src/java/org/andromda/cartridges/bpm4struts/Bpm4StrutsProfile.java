@@ -53,6 +53,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGED_VALUE_INPUT_TYPE_HIDDEN = "hidden";
     public static final String TAGGED_VALUE_INPUT_TYPE_SELECT = "select";
     public static final String TAGGED_VALUE_INPUT_TYPE_PASSWORD = "password";
+    public static final String TAGGED_VALUE_INPUT_TYPE_MULTIBOX = "multibox";
     public static final int TAGGED_VALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT = 3;
     public static final String TAGGED_VALUE_INPUT_DEFAULT_DATEFORMAT = "dd/MM/yyyy";
 

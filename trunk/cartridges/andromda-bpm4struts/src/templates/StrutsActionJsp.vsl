@@ -6,6 +6,7 @@
 ##
 #set ($requiredness = ($clientValidation=='true' || $serverValidation=='true'))
 #set ($formBeanName = $action.formBeanName)
+#set ($hints = $hints.equalsIgnoreCase("true"))
 #set ($formBeanType = $action.formBeanType)## this will be the name of the form, as used in this page
 <%@ include file="/taglib-imports.jspf" %>
 

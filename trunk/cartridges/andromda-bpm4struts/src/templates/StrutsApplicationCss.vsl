@@ -1,4 +1,9 @@
 ##
+## CONSTANTS
+##
+#set ($hints = $hints.equalsIgnoreCase("true"))
+
+##
 ##  The top level layer, everything is contained within this one
 ##
 #container
@@ -202,6 +207,7 @@ li a.base, li a.base:visited {
 .hide { display: none; }
 br.clr { clear: left; }
 
+#if ($hints)
 .hintsClass
 {
     background-color: #ffd;
@@ -213,6 +219,7 @@ br.clr { clear: left; }
     text-align: left;
     vertical-align: top;
 }
+#end
 
 .important
 {
