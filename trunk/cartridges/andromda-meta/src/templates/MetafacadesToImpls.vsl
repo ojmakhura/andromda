@@ -1,4 +1,5 @@
 # Attention: generated code (by MetafacadesToImpls.vsl) - do not modify!
+#set ($metafacades = $metaUtils.sortByFullyQualifiedName($metafacades))
 #foreach ( $metafacade in $metafacades )
-${metafacade.fullyQualifiedName}=${metafacade.getFullyQualifiedLogicImplName(${metamodelVersionPackage})}
+$metafacade.fullyQualifiedName=$metafacade.getFullyQualifiedLogicImplName($metamodelVersionPackage)
 #end
