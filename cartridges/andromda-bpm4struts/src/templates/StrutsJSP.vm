@@ -81,7 +81,7 @@ ${indent}</logic:notPresent>
 #set ($formBeanName = "form")
 #if ($field.readOnly)
 #set ($disabled = 'disabled="true"')
-#set ($readonly = 'readonly="readonly"')
+#set ($readonly = 'readonly="true"')
 #else
 #set ($disabled = '')
 #set ($readonly = '')
