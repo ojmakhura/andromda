@@ -3,7 +3,6 @@ package org.andromda.cartridges.ejb.metafacades;
 import java.util.*;
 
 import org.andromda.cartridges.ejb.EJBProfile;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.metafacades.uml.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -292,6 +291,21 @@ public class EJBEntityFacadeLogicImpl
 		while(it.hasNext()) {
 			AttributeFacade attr = (AttributeFacade) it.next();
 			if(attr.getName().equalsIgnoreCase(strAttr)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleContainsOperation(java.lang.String)
+	 */
+	public boolean handleContainsOperation(String op) {
+		Collection collOps = this.getOperations();
+		Iterator it = collOps.iterator();
+		while(it.hasNext()) {
+			OperationFacade operation = (OperationFacade) it.next();
+			if(operation.getName().equalsIgnoreCase(op)) {
 				return true;
 			}
 		}

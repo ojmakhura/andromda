@@ -675,7 +675,7 @@ $operation.getDocumentation("    * ")
 	 public ${reference.fullyQualifiedName} get${reference.name}() {
 	 	${reference.fullyQualifiedName} valueObject = new ${reference.fullyQualifiedName}();
 #foreach ($attr in $reference.getAttributes(true))
-#if ($entity.containsAttribute($attr.name))
+#if ($entity.containsAttribute($attr.name) || $entity.containsOperation($attr.getterName))
 		valueObject.${attr.setterName}(${attr.getterName}());
 #end
 #end
@@ -687,7 +687,7 @@ $operation.getDocumentation("    * ")
 	 */
 	 public void set${reference.name}(${reference.fullyQualifiedName} valueObject) {
 #foreach ($attr in $reference.getAttributes(true))
-#if (${entity.containsAttribute($attr.name)} && !${entity.containsIdentifier($attr.name)})
+#if ((${entity.containsAttribute($attr.name)} || $entity.containsOperation($attr.setterName))&& !${entity.containsIdentifier($attr.name)})
 		${attr.setterName}(valueObject.${attr.getterName}());
 #end
 #end
