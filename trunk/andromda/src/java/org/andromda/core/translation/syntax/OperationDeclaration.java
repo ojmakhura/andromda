@@ -2,12 +2,12 @@ package org.andromda.core.translation.syntax;
 
 
 /**
- * Represents a operation declaration within an OCL
+ * Represents an operation declaration within an OCL
  * expression.
  * 
  * @author Chad Brandon
  */
-public interface Operation {
+public interface OperationDeclaration {
 	
 	/**
 	 * The declared operation name 
@@ -29,6 +29,6 @@ public interface Operation {
 	 * 
 	 * @return VariableDeclaration[] an array containing the declared arguments.
 	 */
-	public VariableDeclaration[] getParameters();
+	public VariableDeclaration[] getArguments();
 	
 }

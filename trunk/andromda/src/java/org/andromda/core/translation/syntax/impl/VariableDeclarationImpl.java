@@ -2,7 +2,7 @@ package org.andromda.core.translation.syntax.impl;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.syntax.VariableDeclaration;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * An implementation of the ocl VariableDeclaration.
@@ -26,9 +26,9 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	public VariableDeclarationImpl(String name, String type, String value) {
 		String methodName = "VariableDeclarationImpl";
 		ExceptionUtils.checkNull(methodName, "name", name);
-		this.name = name;
-		this.type = type;
-		this.value = value;
+		this.name = StringUtils.trimToEmpty(name);
+		this.type = StringUtils.trimToEmpty(type);
+		this.value = StringUtils.trimToEmpty(value);
 	}
     
     /**
@@ -56,7 +56,12 @@ public class VariableDeclarationImpl implements VariableDeclaration {
      * @see java.lang.Object#toString()
      */
 	public String toString() { 
-		return ToStringBuilder.reflectionToString(this);
+        StringBuffer toString = new StringBuffer(this.getName());
+        if (StringUtils.isNotEmpty(this.getType())) {
+            toString.append(":");
+            toString.append(this.getType());   
+        }
+		return toString.toString();
 	}
 
 }

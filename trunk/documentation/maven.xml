@@ -16,4 +16,11 @@
         </ant:zip>
     </goal>
 
+    <!-- ==================================================================
+            Cleans all documentation
+         ================================================================== -->    
+    <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
+    </goal>
+
 </project>

@@ -29,7 +29,7 @@ import org.andromda.core.translation.node.PRelationalExpression;
 import org.andromda.core.translation.node.PVariableDeclaration;
 import org.andromda.core.translation.node.PVariableDeclarationList;
 import org.andromda.core.translation.node.TName;
-import org.andromda.core.translation.syntax.Operation;
+import org.andromda.core.translation.syntax.OperationDeclaration;
 import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -71,11 +71,11 @@ public class ConcreteSyntaxUtils {
 	 * @param operation
 	 * @return VariableDeclarations
 	 */
-	public static Operation getOperationDeclaration(POperation operation) {
+	public static OperationDeclaration getOperationDeclaration(POperation operation) {
 		final String methodName = "ConcreteSyntaxUtils.getOperationDeclaration";
 		ExceptionUtils.checkNull(methodName, "operation", operation);
 
-		Operation operationDeclaration = null;
+		OperationDeclaration operationDeclaration = null;
 
 		AOperation op = (AOperation)operation;
 

@@ -6,11 +6,11 @@
 
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPerson(aLegalPartyName:String) : Collection (LegalAgreement)
-			body findByTitlePartyTypeStatusPersonBody: allInstances() -> select( legalAgreement |
+			context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String) : Collection (LegalAgreement)
+			body findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
 			legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( legalAgreementParty |
 			StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName,
-			aLegalPartyName))))
+			legalPartyName))))
 		</from>   
 		<to>
 			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement ,
@@ -62,12 +62,12 @@
 			SELECT DISTINCT OBJECT(legalAgreement) 
 			FROM LegalAgreement legalAgreement , 
 			IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
-            WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
-            AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
-            AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
-            AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
-            AND legalAgreement.person.personPk = ?5
-            AND legalAgreement.project.projectPk = ?6			
+				WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
+				AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
+				AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
+				AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
+				AND legalAgreement.person.personPk = ?5
+				AND legalAgreement.project.projectPk = ?6			
 		</to>
 	</expression>
 	
@@ -139,39 +139,38 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::Project::findByProjectType(
-				aProjectTypePk:Long, 
-				aRequestStatus:String, 
-				aCompareDate:Timestamp):Collection (Project) body findByProjectType : 
+			context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
+				type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType : 
 				allInstances() -> select ( 
-					project | project.jobRequestType.jobRequestTypePk = aProjectTypePk  
-						and project.status = aRequestStatus 
-						and project.submittedDate >= aCompareDate)
+					project | 
+						project.type = type 
+				and project.status = status
+				and project.wentCurrentDate >= wentCurrentDate )
 		</from>
 		<to>
 			SELECT DISTINCT OBJECT(project) 
 			FROM Project project
-            WHERE project.jobRequestType.jobRequestTypePk = ?1 
-            AND project.status = ?2 
-            AND project.submittedDate >= ?3
+				WHERE project.type = ?1 
+				AND project.status = ?2 
+				AND project.wentCurrentDate >= ?3
 		</to>
 	</expression>  
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
+			context org::andromda::contracts::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
 			body findByStatusesBody: 
-				allInstances() -> select( 
-					legalAgreement | 
-						agreementStatusPks -> exists(legalAgreement.agreementStatus.agreementStatusPk) 
-							or agreementStatusPks -> isEmpty()
-							and legalAgreement.agreementTypePk = anAgreementTypePk) 
+			    allInstances() -> select( 
+                                legalAgreement | 
+				    agreementStatusPks -> exists(legalAgreement.agreementStatus.agreementStatusPk) 
+				    or agreementStatusPks -> isEmpty()
+				    and legalAgreement.agreementTypePk = anAgreementTypePk) 
 		</from>
 		<to>	
 			SELECT DISTINCT OBJECT(legalAgreement) 
 			FROM LegalAgreement legalAgreement
-            WHERE legalAgreement.agreementStatus.agreementStatusPk MEMBER OF ?1 OR ?1 IS EMPTY 
-            AND legalAgreement.agreementTypePk = ?2
+			WHERE legalAgreement.agreementStatus.agreementStatusPk MEMBER OF ?1 OR ?1 IS EMPTY 
+			AND legalAgreement.agreementTypePk = ?2
 		</to>
 	</expression>
 </translation-test>

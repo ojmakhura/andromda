@@ -34,30 +34,31 @@
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::Project::findByProjectType(
-				aProjectTypePk:Long, 
-				aRequestStatus:String, 
-				aCompareDate:Timestamp):Collection (Project) body findByProjectType : 
-				allInstances() -> select ( project | project.jobRequestType.jobRequestTypePk = aProjectTypePk
-					and project.status = aRequestStatus and project.submittedDate >= aCompareDate)
+			context org::andromda::contracts::Project::findByProjectTypeStatusAfterWentCurrentDate(
+                            type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType : 
+                            allInstances() -> select ( 
+                                project | 
+                                    project.type = type 
+				    and project.status = status
+				    and project.wentCurrentDate >= wentCurrentDate )
 		</from>
 		<to>
 			from org.andromda.contracts.Project as project
-			where project.jobRequestType.jobRequestTypePk = ? 
+			where project.type = ? 
 			and project.status = ?
-			and project.submittedDate >= ?
+			and project.wentCurrentDate >= ?
 		</to>
 	</expression> 
 	
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
+			context org::andromda::contracts::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
 			body findByStatusesBody: 
-				allInstances() -> select( 
-					la | 
-						agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk) 
-							or agreementStatusPks -> isEmpty()
-							and la.agreementTypePk = anAgreementTypePk) 
+			    allInstances() -> select( 
+			        la | 
+                                    agreementStatusPks -> exists(la.agreementStatus.agreementStatusPk) 
+                                    or agreementStatusPks -> isEmpty()
+                                    and la.agreementTypePk = anAgreementTypePk) 
 		</from>
 		<to>	
 			from org.andromda.contracts.LegalAgreement as la

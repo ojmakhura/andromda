@@ -22,7 +22,8 @@
 	<siteDirectory>/team.andromda.org/</siteDirectory>
 	<distributionDirectory>/team.andromda.org/maven/distributions</distributionDirectory>
   	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/</connection>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda</connection>
+        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot:andromda</developerConnection>    	
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda</url>
   	</repository>
   	<versions>
