@@ -3,6 +3,8 @@
     be able to successfully parse. 
 */
 
+package org::andromda
+
 -- BODY
 
 context LoyaltyAccount::getCustomerName() : String
@@ -92,3 +94,5 @@ context Subject::hasChanged()
 context File::save()
     post: self.project.builders->forAll( b : Builder |
     b^incrementalBuild() )
+    
+endpackage
