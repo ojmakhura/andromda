@@ -384,6 +384,9 @@ public class QueryTranslator
             .getFeatureCalls(propertyCallExpression);
         if (featureCalls != null && !featureCalls.isEmpty())
         {
+            // here we loop through the feature calls and find the ones
+            // that are operation feature calls, we then retrieve and replace
+            // all parameters in the translated expression
             for (Iterator callIterator = featureCalls.iterator(); callIterator
                 .hasNext();)
             {
