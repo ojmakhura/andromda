@@ -7,18 +7,18 @@
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
 #foreach($service in $services)
-#if($service.serviceRemotingType != "none")
+#if($service.remotable)
     <!-- $service.name Remote Service invoker  -->
-#if($service.serviceRemotingType == "httpinvoker")
+#if($service.remotingTypeHttpInvoker)
     <bean id="$service.getBeanName(false)" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-#elseif($service.serviceRemotingType == "hessian")
+#elseif($service.remotingTypeHessian)
     <bean id="$service.getBeanName(false)" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">	
-#elseif($service.serviceRemotingType == "burlap")
+#elseif($service.remotingTypeBurlap)
     <bean id="$service.getBeanName(false)" class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">		
-#elseif($service.serviceRemotingType == "rmi")
+#elseif($service.remotingTypeRmi)
     <bean id="$service.getBeanName(false)" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
 #end
-        <property name="serviceUrl"><value>$service.serviceRemoteUrl</value></property>
+        <property name="serviceUrl"><value>$service.remoteUrl</value></property>
         <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
     </bean>	
 	

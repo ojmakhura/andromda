@@ -5,6 +5,15 @@
     <property reference="daoNamePattern" default="{0}Dao"/>
     <property reference="daoBaseNamePattern" default="{0}DaoBase"/>
     <property reference="daoImplementationNamePattern" default="{0}DaoImpl"/>
+    <property reference="ejbJndiNamePrefix" default=""/>
+    <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
+    <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
+    <property reference="defaultServiceExceptions" default="true"/>
+    <property reference="serviceRemotingType" default="none"/>
+    <property reference="serviceRemotePort" default="8080"/>
+    <property reference="serviceRemoteContext" default=""/>
+    <property reference="serviceRemoteServer" default="localhost"/>
+    <property reference="entityNamePattern" default="{0}"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
@@ -23,55 +32,27 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
-        <property reference="ejbJndiNamePrefix" default=""/>
-        <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
-        <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
-        <property reference="defaultServiceExceptions" default="true"/>
-        <property reference="serviceRemotingType" default="none"/>
-        <property reference="serviceRemotePort" default="8080"/>
-        <property reference="serviceRemoteContext" default=""/>
-        <property reference="serviceRemoteServer" default="localhost"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
-        <property reference="ejbJndiNamePrefix" default=""/>
-        <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
-        <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
-        <property reference="defaultServiceExceptions" default="true"/>
-        <property reference="serviceRemotingType" default="none"/>
-        <property reference="serviceRemotePort" default="8080"/>
-        <property reference="serviceRemoteContext" default=""/>
-        <property reference="serviceRemoteServer" default="localhost"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
-        <property reference="entityNamePattern" default="{0}"/>
-        <property reference="defaultHibernateGeneratorClass" default="native"/>
-        <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
-        <property reference="entityNamePattern" default="{0}"/>
-        <property reference="defaultHibernateGeneratorClass" default="native"/>
-        <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
         <stereotype>ENTITY</stereotype>
-        <property reference="entityNamePattern" default="{0}"/>
-        <property reference="defaultHibernateGeneratorClass" default="native"/>
-        <property reference="hibernateDefaultCascade" default="none"/>
-        <property reference="hibernateEntityCache" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">

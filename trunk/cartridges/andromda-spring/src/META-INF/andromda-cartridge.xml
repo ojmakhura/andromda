@@ -98,7 +98,7 @@
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="serviceRemotable" value="true"/>
+                    <property name="remotable"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -315,7 +315,7 @@
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="serviceRemotable" value="true"/>
+                    <property name="remotable"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -331,7 +331,7 @@
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="serviceRemotable" value="true"/>
+                    <property name="remotable"/>
                 </type>
             </modelElement>
         </modelElements>
