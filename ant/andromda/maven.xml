@@ -19,9 +19,8 @@
             </j:if>
         </j:forEach>
         <!-- copy shared resources -->
-        <ant:mkdir dir="src/templates/j2ee-app/mda/src/mappings"/>
-        <ant:copy todir="src/templates/j2ee-app/mda/src/mappings">
-            <ant:fileset dir="../../etc/mappings" includes="*.xml"/>
+        <ant:copy todir="${maven.build.dest}/templates/j2ee-app/mda/src/mappings">
+            <ant:fileset dir="${mappings.location}"/>
         </ant:copy>
 
     </preGoal>
