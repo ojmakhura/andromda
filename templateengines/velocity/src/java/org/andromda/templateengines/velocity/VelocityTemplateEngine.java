@@ -31,7 +31,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
  * The TemplateEngine implementation for VelocityTemplateEngine template processor.
- * (@see http://jakarta.apache.org/velocity/)
+ * @see http://jakarta.apache.org/velocity/
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
