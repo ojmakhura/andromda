@@ -79,7 +79,7 @@ public class InventoryServiceBeanImpl
     }
 
     /**
-     * @see de.mbohlen.uml2ejb.samples.carrental.inventory.InventoryServiceBean#searchCarByComfortClass(String)
+     * @see org.andromda.samples.carrental.inventory.InventoryServiceBean#searchCarByComfortClass(String)
      */
     public java.util.Collection searchCarByComfortClass(
         java.lang.String comfortClass)
@@ -118,7 +118,7 @@ public class InventoryServiceBeanImpl
     }
 
     /**
-    * @see de.mbohlen.uml2ejb.samples.carrental.inventory.InventoryServiceBean#searchAllCarTypes()
+    * @see org.andromda.samples.carrental.inventory.InventoryServiceBean#searchAllCarTypes()
     */
     public Collection searchAllCarTypes() throws InventoryException
     {
@@ -146,7 +146,7 @@ public class InventoryServiceBeanImpl
     }
 
     /**
-     * @see de.mbohlen.uml2ejb.samples.carrental.inventory.InventoryServiceBean#searchAllCars()
+     * @see org.andromda.samples.carrental.inventory.InventoryServiceBean#searchAllCars()
      */
     public Collection searchAllCars() throws InventoryException
     {
