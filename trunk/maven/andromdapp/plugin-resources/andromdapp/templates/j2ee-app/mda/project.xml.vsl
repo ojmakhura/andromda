@@ -74,7 +74,6 @@
             <version>${andromda}</version>
             <type>jar</type>
             <properties>
-                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
                 <dataSource>${dataSource}</dataSource>
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
@@ -82,8 +81,6 @@
                 <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
                 <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
                 <springTypesPackage>${pom.package}</springTypesPackage>
-                <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
-                <hibernateDefaultCascade>none</hibernateDefaultCascade>
                 <daos>${maven.andromda.core.generated.dir}</daos>
                 <dao-impls>${maven.andromda.core.manual.dir}</dao-impls>
                 <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
@@ -93,6 +90,20 @@
                 <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
                 <!-- uncomment to enable EJB security -->
                 <!-- <securityRealm>${pom.groupId}</securityRealm> -->
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-hibernate-cartridge</artifactId>
+            <version>${andromda}</version>
+            <type>jar</type>
+            <properties>
+                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
+                <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
+                <hibernateDefaultCascade>none</hibernateDefaultCascade>
+                <entities>${maven.andromda.core.generated.dir}</entities>
+                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
+                <customTypesPackage>${pom.package}</customTypesPackage>
             </properties>
         </dependency>
 #end
@@ -107,9 +118,14 @@
                 <defaultProvider>${default.provider}</defaultProvider>
                 <applicationName>${pom.groupId}</applicationName>
                 <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
-#if ($spring)
+#if ($hibernate)
                 <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>
                 <ejbHomeInterfacePattern>{0}.ejb.{1}Home</ejbHomeInterfacePattern>
+#elseif ($ejb)
+                <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>
+                <ejbHomeInterfacePattern>{0}.ejb.{1}LocalHome</ejbHomeInterfacePattern>
+#else
+                <rpcClassNamePattern>{0}.{1}WSDelegator</rpcClassNamePattern>
 #end
                 <wsdls>${maven.andromda.webservice.generated.dir}/wsdl</wsdls>
                 <axis-configuration>${maven.andromda.webservice.generated.dir}/axis</axis-configuration>
