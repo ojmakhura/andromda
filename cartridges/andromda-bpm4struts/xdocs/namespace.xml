@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Bpm4Struts Cartridge Namespace</title>
+    </properties>
+    <body>
+        <section name="Bpm4Struts Cartridge Namespace Properties">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Required?</th>
+                </tr>
+                <tr>
+                    <td>pages</td>
+                    <td>application JSP pages, login pages and stylesheets are outputted here</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>forms</td>
+                    <td>The location to which Struts action forms are generated.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>actions</td>
+                    <td>The location to which Struts actions are generated.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>controllers</td>
+                    <td>The location to which abstract controllers are generated.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>controller-impls</td>
+                    <td>The location to which the controller implementation classes are generated.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>messages</td>
+                    <td>The location to which message resource bundles are generated.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>configuration</td>
+                    <td>
+                        The location to which Struts configuration files are generated. These are the files
+                        that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
+                    </td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>xdoclet-merge</td>
+                    <td>
+                        The location to which XDoclet merge files are generated. This cartridge expects XDoclet
+                        to be run on the generated sources, you will need to pass these files as merge files during
+                        this process.
+                    </td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>securityEnabled</td>
+                    <td>Whether or not to render code enabling the security features (true/false)</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>securityRealm</td>
+                    <td>The location to which Struts actions are generated.</td>
+                    <td>
+                        Yes, even if the security is not enabled. If you don't know what to enter here,
+                        just type 'other'.
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</document>
