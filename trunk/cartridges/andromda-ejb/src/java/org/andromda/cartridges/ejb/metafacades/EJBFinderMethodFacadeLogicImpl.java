@@ -37,7 +37,8 @@ public class EJBFinderMethodFacadeLogicImpl
 
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
-            queryString = this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_QUERY).toString();
+            Object value = this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_QUERY);
+            queryString = value==null?null:value.toString();                    
         }
 
         //if there wasn't any stored query, create one by default.

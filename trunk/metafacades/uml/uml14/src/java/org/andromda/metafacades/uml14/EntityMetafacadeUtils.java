@@ -91,7 +91,8 @@ public class EntityMetafacadeUtils {
 		Short nameMaxLength,
 		String suffix) {
 		if (element != null) {
-			name = StringUtils.trimToEmpty(element.findTaggedValue(name).toString());
+            Object value = element.findTaggedValue(name);
+			name = StringUtils.trimToEmpty((value==null)?null:value.toString());
 			if (StringUtils.isEmpty(name)) {
 				//if we can't find the tagValue then use the
 				//element name for the name

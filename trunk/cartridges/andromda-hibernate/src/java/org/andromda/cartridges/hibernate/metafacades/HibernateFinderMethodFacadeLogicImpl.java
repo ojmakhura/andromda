@@ -36,7 +36,8 @@ public class HibernateFinderMethodFacadeLogicImpl
 
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
-            queryString = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY).toString();
+            Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
+            queryString = value==null?null:value.toString();
         }
 
         //if there wasn't any stored query, create one by default.
