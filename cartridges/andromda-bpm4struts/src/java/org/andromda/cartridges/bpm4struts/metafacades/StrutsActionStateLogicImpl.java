@@ -44,36 +44,30 @@ public class StrutsActionStateLogicImpl
 
     // ------------- relations ------------------
 
-    private Collection containerActions = null;
-
     protected Collection handleGetContainerActions()
     {
-        if (containerActions == null)
+        Collection actionSet = new HashSet();
+        ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
+
+        if (activityGraphFacade instanceof StrutsActivityGraph)
         {
-            Collection actionSet = new HashSet();
-            ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
+            StrutsActivityGraph activityGraph = (StrutsActivityGraph) activityGraphFacade;
+            UseCaseFacade useCase = activityGraph.getUseCase();
 
-            if (activityGraphFacade instanceof StrutsActivityGraph)
+            if (useCase instanceof StrutsUseCase)
             {
-                StrutsActivityGraph activityGraph = (StrutsActivityGraph) activityGraphFacade;
-                UseCaseFacade useCase = activityGraph.getUseCase();
-
-                if (useCase instanceof StrutsUseCase)
+                Collection actions = ((StrutsUseCase)useCase).getActions();
+                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    Collection actions = ((StrutsUseCase)useCase).getActions();
-                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                    StrutsAction action = (StrutsAction) actionIterator.next();
+                    if (action.getActionStates().contains(this))
                     {
-                        StrutsAction action = (StrutsAction) actionIterator.next();
-                        if (action.getActionStates().contains(this))
-                        {
-                            actionSet.add(action);
-                        }
+                        actionSet.add(action);
                     }
                 }
             }
-            this.containerActions = actionSet;
         }
-        return this.containerActions;
+        return actionSet;
     }
 
 
