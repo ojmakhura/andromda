@@ -227,7 +227,13 @@ $field.getDocumentation("     * ")
     {
 #foreach ($field in $fields)
 #if ($field.resetRequired)
+## here we actually set the field to its null value, not its reset value (reset value is for dummy impls)
         this.$field.name = $field.nullValue;
+#if ($field.selectable && $field.multiple)
+## multi-select fields need to be reset to an empty array (http://struts.apache.org/userGuide/struts-html.html#select)
+        this.$field.valueListName = {};
+        this.$field.labelListName = {};
+#end
 #end
 #end
     }
@@ -291,12 +297,17 @@ $field.getDocumentation("     * ")
 
     /**
      * Allows you to clean all values from this form. Objects will be set to <code>null</code>, numeric values will be
-     * set to zero and boolean values will be set to <code>false</code>.
+     * set to zero and boolean values will be set to <code>false</code>. Backinglists for selectable fields will
+     * also be set to <code>null</code>.
      */
     public void clean()
     {
 #foreach ($field in $fields)
         this.$field.name = $field.nullValue;
+#if ($field.selectable)
+        this.$field.valueListName = null;
+        this.$field.labelListName = null;
+#end
 #end
     }
 
