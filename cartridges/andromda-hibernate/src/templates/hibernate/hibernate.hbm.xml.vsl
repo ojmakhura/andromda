@@ -11,7 +11,7 @@
           "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
-    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName">
+    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end>
 #if($entity.hibernateCacheType.length() != 0)
         <cache usage="$entity.hibernateCacheType" />
 #end

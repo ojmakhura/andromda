@@ -657,4 +657,16 @@ public class HibernateEntityLogicImpl
             && !this.getEntityBusinessOperations().isEmpty();
     }
 
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateProxy()
+     */
+    protected boolean handleIsHibernateProxy() {
+        String hibernateProxy = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
+        if (hibernateProxy == null)
+        {
+            hibernateProxy = (String) this.getConfiguredProperty("hibernateProxy");
+        }
+        return Boolean.valueOf(hibernateProxy).booleanValue();
+    }
+
 }

@@ -9,6 +9,7 @@
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="hibernateEntityCache" default=""/>
+        <property reference="hibernateProxy" default="false"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
@@ -18,6 +19,7 @@
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="hibernateEntityCache" default=""/>
+        <property reference="hibernateProxy" default=""/>
      </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
@@ -27,6 +29,7 @@
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
         <property reference="hibernateEntityCache" default=""/>
+        <property reference="hibernateProxy" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
