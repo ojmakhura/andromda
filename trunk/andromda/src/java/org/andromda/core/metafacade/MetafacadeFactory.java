@@ -292,23 +292,21 @@ public class MetafacadeFactory
                     metafacade.validate(validationMessages);
                     this.validationMessages.addAll(validationMessages);
                 }
+                // Populate the global metafacade properties
+                // NOTE: ordering here matters, we populate the global
+                // properties BEFORE the context properties so that the
+                // context properties can override (if duplicate properties
+                // exist)
+                this.populatePropertyReferences(metafacade, mappings
+                    .getPropertyReferences(this.getActiveNamespace()));
+
+                if (mapping != null)
+                {
+                    // Populate any context property references (if any)
+                    this.populatePropertyReferences(metafacade, mapping
+                        .getPropertyReferences());
+                }
             }
-
-            // Populate the global metafacade properties
-            // NOTE: ordering here matters, we populate the global
-            // properties BEFORE the context properties so that the
-            // context properties can override (if duplicate properties
-            // exist)
-            this.populatePropertyReferences(metafacade, mappings
-                .getPropertyReferences(this.getActiveNamespace()));
-
-            if (mapping != null)
-            {
-                // Populate any context property references (if any)
-                this.populatePropertyReferences(metafacade, mapping
-                    .getPropertyReferences());
-            }
-
             return metafacade;
         }
         catch (Throwable th)
