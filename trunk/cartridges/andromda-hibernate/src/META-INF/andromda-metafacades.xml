@@ -8,18 +8,21 @@
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
 		contextRoot="true">
 		<stereotype>ENTITY</stereotype>
+		<property reference="hibernateEntityCache" default=""/>
 	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
 		contextRoot="true">
 		<stereotype>ENTITY</stereotype>
+		<property reference="hibernateEntityCache" default=""/>
  	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl"
 		contextRoot="true">
 		<stereotype>ENTITY</stereotype>
+		<property reference="hibernateEntityCache" default=""/>
 	</metafacade>	
 		
     <metafacade
@@ -34,6 +37,7 @@
         contextRoot="true">
         <stereotype>FINDER_METHOD</stereotype>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
+        <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"

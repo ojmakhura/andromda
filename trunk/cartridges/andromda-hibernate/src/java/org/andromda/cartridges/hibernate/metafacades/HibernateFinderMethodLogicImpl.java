@@ -8,6 +8,11 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * 
+ * @author Chad Brandon
+ * @author Carlos Cuenca
+ */
+/**
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade
  *      Metaclass facade implementation.
  */
@@ -116,6 +121,26 @@ public class HibernateFinderMethodLogicImpl
             String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
             .booleanValue()
             || StringUtils.isNotBlank(this.getTranslatedQuery());
+    }
+
+    private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#handleIsUseQueryCache()
+     */
+    protected boolean handleIsUseQueryCache() 
+    {
+        if (Boolean.valueOf(
+                String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)))
+                .booleanValue())
+        {
+            return (Boolean.valueOf(
+                    String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
+                    .booleanValue());
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }
