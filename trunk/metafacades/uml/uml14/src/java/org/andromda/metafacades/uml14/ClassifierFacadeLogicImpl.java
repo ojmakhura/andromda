@@ -410,11 +410,6 @@ public class ClassifierFacadeLogicImpl
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
     }
 
-    protected String handleGetEnumerationType()
-    {
-        return (isEnumeration()) ? getFullyQualifiedName() + "Enum" : null;
-    }
-
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
      */
