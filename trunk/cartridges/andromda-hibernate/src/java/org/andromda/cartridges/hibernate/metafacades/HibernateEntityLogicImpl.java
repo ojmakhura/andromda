@@ -294,7 +294,7 @@ public class HibernateEntityLogicImpl
                     .getConfiguredProperty("defaultHibernateGeneratorClass");
             }
         }
-        return hibernateGeneratorClass;
+        return StringUtils.trimToEmpty(hibernateGeneratorClass).toLowerCase();
     }
 
     private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
