@@ -87,21 +87,6 @@
 					</td>
 				</tr>
 				<tr>
-					<a name="modelURL"/>
-					<td valign="top" class="std">
-						modelURL
-					</td>
-					<td valign="top" class="std">
-						It can be used instead of the 
-						include and exclude attributes to point directly at the 
-						location of your XMI file. It is useful if the model file 
-						is in a JAR and you do not want to unzip the jar. Unlike 
-						include it can only be used to process one XMI file. </td>
-					<td valign="top" align="center" class="std">
-						No.
-					</td>
-				</tr>
-				<tr>
 					<td valign="top" class="std">
 						lastModifiedCheck
 					</td>
@@ -148,6 +133,48 @@
 					</td>
 				</tr>
 			</table>
+			<table>
+			    <h2>
+				    <a name="model"><![CDATA[<model>]]></a>
+			    </h2>
+				<p class="std">
+					The <code><![CDATA[<model/>]]></code> element is used to 
+					tell AndroMDA to process a model. It can be used instead of the 
+				    include and exclude attributes to point directly at the 
+					location of an XMI file. It is useful if the model file 
+					is in a JAR and you do not want to unzip the jar. Unlike 
+					include it can only be used to process one XMI file (however
+					you can define as many <code><![CDATA[<model/>]]></code>
+					elements as you would like.
+				</p>
+				<p class="std">
+					The model is optional if <code>basedir</code> and 
+					<code>includes</code> is defined.		
+				</p>
+				<tr>
+					<td valign="top" class="std">
+						<b>Attribute</b>
+					</td>
+					<td valign="top" class="std">
+						<b>Description</b>
+					</td>
+					<td align="center" valign="top" class="std">
+						<b>Required</b>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						url
+					</td>
+					<td valign="top" class="std">
+					    The URL to the model to be processed. (i.e.
+						jar:file:/path/to/my/model.xml.zip!/model.xmi)
+					</td>
+					<td align="center" valign="top" class="std">
+						Yes
+					</td>
+				</tr>
+			</table>
 			<a name="andromda-example"/>
 			<h3>Example</h3>
 				<p class="std">
@@ -163,7 +190,8 @@
          classname="org.andromda.core.anttasks.AndroMDAGenTask"
          classpathref="class.path"/>
 
-<andromda modelURL="jar:file:/path/to/my/model.zuml!/model.xmi">
+<andromda>
+    <model uri="jar:file:/path/to/my/model.zuml!/model.xmi"/>
     <!-- This example package will not be processed -->
     <modelPackage name="my.package.foo" shouldProcess="false"/>
     <!-- This file tells AndroMDA how to map abstract datatypes to classes -->

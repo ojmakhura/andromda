@@ -2,18 +2,17 @@ package org.andromda.core.anttasks;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.BuildException;
@@ -66,16 +65,13 @@ public class AndroMDAGenTask
 
     private RepositoryConfiguration repositoryConfiguration = null;
 
+    private Collection models = new ArrayList();
+
     /**
      * Temporary list of properties from the &lt;namespace&gt; subtask. Will be
      * transferred to the Namespaces instance before execution starts.
      */
     private Collection namespaces = new ArrayList();
-
-    /**
-     * An optional URL to a model
-     */
-    private URL modelURL = null;
 
     /**
      * <p>
@@ -85,16 +81,6 @@ public class AndroMDAGenTask
     public AndroMDAGenTask()
     {
         AndroMDALogger.configure();
-    }
-
-    /**
-     * Sets the URL to the model to process.
-     * 
-     * @param modelURL the URL of the model to process.
-     */
-    public void setModelURL(URL modelURL)
-    {
-        this.modelURL = modelURL;
     }
 
     /**
@@ -168,17 +154,22 @@ public class AndroMDAGenTask
 
             Model[] models;
             // if the modelURL is specified explicitly
-            // then we just set models as the one model
-            if (modelURL != null)
+            // then we create the Model instances from the
+            // ModelConfiguration instances.
+            if (!this.models.isEmpty())
             {
-                models = new Model[]
+                models = new Model[this.models.size()];
+                Iterator modelIt = this.models.iterator();
+                for (int ctr = 0; modelIt.hasNext(); ctr++)
                 {
-                    new Model(
-                        modelURL,
+                    ModelConfiguration modelConfig = (ModelConfiguration)modelIt
+                        .next();
+                    models[ctr] = new Model(
+                        modelConfig.getUrl(),
                         this.packages,
                         this.lastModifiedCheck,
-                        moduleSearchPath)
-                };
+                        moduleSearchPath);
+                }
             }
             else
             {
@@ -247,21 +238,33 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Creates and returns a repsository configuration object. This enables an
+     * Creates and returns a repository configuration object. This enables an
      * ANT build script to use the &lt;repository&gt; ant subtask to configure
-     * the model repository used by ANDROMDA during code generation.
+     * the model repository used by AndroMDA during code generation.
      * 
      * @return RepositoryConfiguration
      * @throws BuildException
      */
-    public RepositoryConfiguration createRepository() throws BuildException
+    public RepositoryConfiguration createRepository()
     {
         if (repositoryConfiguration == null)
         {
             repositoryConfiguration = new RepositoryConfiguration(getProject());
         }
-
         return repositoryConfiguration;
+    }
+
+    /**
+     * Adds a new model configuration object. This enables an Ant build script
+     * to use the <code>&lt;model&gt;</code> within the
+     * <code>&lt;andromda&gt;</code> task, which allows multiple models to be
+     * processed.
+     * 
+     * @param model a model to process.
+     */
+    public void addModel(ModelConfiguration model)
+    {
+        this.models.add(model);
     }
 
     /**

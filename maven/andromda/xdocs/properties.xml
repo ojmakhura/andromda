@@ -30,6 +30,24 @@
 					</tr>
 					<tr>
 						<td>	
+							maven.andromda.model.uri.<em>n</em>         		
+						</td>
+						<td>
+							Yes, unless <code>maven.andromda.model.uri</code> is <strong>NOT</strong> defined.
+						</td>
+						<td>
+							<p>
+							    Defines the model(s) to process where <em>n</em> can be any 
+								number of models to process. <em>n</em> begins with 
+							    0. (i.e. maven.andromda.model.uri.0=file:${basedir}/path/to/some/model/model.xml).	
+								NOTE: defining <code>maven.andromda.model.uri</code> is the same
+								as defining <code>maven.andromda.model.uri.0</code>.
+									          			
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>	
 							maven.andromda.src.dir          		
 						</td>
 						<td>
@@ -70,22 +88,7 @@
 							</p>
 							
 						</td>
-					</tr>    
-					<tr>
-						<td>
-							maven.andromda.modelFacade
-						</td>
-						<td>
-							Yes
-						</td>
-						<td>
-							<p>
-								The ModelFacade implementation to use.  The ModelFacade provides the access to the
-								metafacades implementations during template processing.  
-								Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.UMLModelAccessFacade</code>.	        				
-							</p>
-						</td>
-					</tr>     	 	
+					</tr>    	 	
 					<tr>
 						<td>
 							maven.andromda.processAllModelPackages
