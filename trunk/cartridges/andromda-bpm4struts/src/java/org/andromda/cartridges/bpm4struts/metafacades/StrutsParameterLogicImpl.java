@@ -833,7 +833,7 @@ public class StrutsParameterLogicImpl
         if (isValidatorString(type)) return "\"" + name + "-test" + "\"";
         if (isValidatorDate(type)) return "new java.util.Date()";
 
-        if (getType().isPrimitiveType())
+        if (getType().isPrimitive())
         {
             if (isValidatorBoolean(type)) return "false";
             if (isValidatorFloat(type)) return "(float)" + name.hashCode() / hashCode();

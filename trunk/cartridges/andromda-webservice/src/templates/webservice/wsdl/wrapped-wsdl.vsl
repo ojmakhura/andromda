@@ -31,7 +31,7 @@
 #end
             </xsd:element>
             <xsd:element name="${operation.name}Response">       
-#if ($operation.hasReturnType())
+#if ($operation.returnTypePresent)
                 <xsd:complexType>
                     <xsd:sequence>
                         <xsd:element name="${operation.name}Return" type="$operation.returnType.schemaType"/>

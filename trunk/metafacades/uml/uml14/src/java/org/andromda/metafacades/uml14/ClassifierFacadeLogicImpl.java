@@ -77,7 +77,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitiveType()
      */
-    public boolean handleIsPrimitiveType()
+    public boolean handleIsPrimitive()
     {
         // If this type has a wrapper then its a primitive, 
         // otherwise it isn't
@@ -323,7 +323,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
      */
-    public boolean handleIsDatatype()
+    public boolean handleIsDataType()
     {
         return DataType.class.isAssignableFrom(this.metaObject.getClass());
     }
@@ -396,7 +396,7 @@ public class ClassifierFacadeLogicImpl
     {
         String javaNullString = null;
         final String typeName = getFullyQualifiedName(false);
-        if (isPrimitiveType())
+        if (isPrimitive())
         {
             if ("boolean".equals(typeName) || "java.lang.Boolean".equals(typeName))
             {

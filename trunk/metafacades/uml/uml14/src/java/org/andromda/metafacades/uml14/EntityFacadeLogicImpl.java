@@ -45,7 +45,7 @@ public class EntityFacadeLogicImpl
         super.initialize();
         // if there are no identfiers on this entity,
         // create and add one.
-        if (!this.hasIdentifiers() && this.isAllowDefaultIdentifiers())
+        if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
         {
             this.createIdentifier();
         }
@@ -134,7 +134,7 @@ public class EntityFacadeLogicImpl
     /**
      * @see edu.duke.dcri.mda.model.metafacade.EntityFacade#hasIdentifiers()
      */
-    public boolean handleHasIdentifiers()
+    public boolean handleIsIdentifiersPresent()
     {
         Collection identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
@@ -498,7 +498,7 @@ public class EntityFacadeLogicImpl
     /**
      * Gets the name of the default identifier.
      */
-    public String getDefaultIdentifier()
+    private String getDefaultIdentifier()
     {
         return (String)this.getConfiguredProperty("defaultIdentifier");
     }

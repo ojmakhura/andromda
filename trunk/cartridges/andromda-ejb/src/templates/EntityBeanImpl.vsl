@@ -60,14 +60,14 @@ public abstract class ${entity.name}BeanImpl extends ${entity.name}Bean {
     /**
 $operation.getDocumentation("     * ")
      */
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     $visibility $returnType $signature
         throws $operation.exceptionList {
 #else
     $visibility $returnType $signature {
 #end
         // TODO put your implementation here.
-#if ($operation.hasReturnType())
+#if ($operation.returnTypePresent())
 
         // Dummy return value, just so that the file compiles
 #if (!$operation.returnType.primitiveType)

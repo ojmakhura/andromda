@@ -22,7 +22,7 @@ public class ${service.name}BeanImpl
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 #set ($returnType = $operation.returnType.fullyQualifiedName)
-#if ($operation.hasExceptions())
+#if ($operation.exceptionsPresent)
     protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
         throws $operation.exceptionList 
     {

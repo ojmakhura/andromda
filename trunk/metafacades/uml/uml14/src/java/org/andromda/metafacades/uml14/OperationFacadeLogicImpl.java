@@ -267,7 +267,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasExceptions()
      */
-    public boolean handleHasExceptions()
+    public boolean handleIsExceptionsPresent()
     {
         return !this.getExceptions().isEmpty();
     }
@@ -344,7 +344,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#hasReturnType()
      */
-    public boolean handleHasReturnType()
+    public boolean handleIsReturnTypePresent()
     {
         boolean hasReturnType = true;
         if (this.getReturnType() != null)

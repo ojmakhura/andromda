@@ -11,7 +11,7 @@ import org.apache.struts.action.ActionMapping;
 import org.andromda.cartridges.struts.FormFieldMapper;
 import java.text.ParseException;
 
-#if ($class.hasIdentifiers())
+#if ($class.identifiersPresent)
 #set ($primKey = $class.identifiers.iterator().next())
 #end
 #set ($primKeyTypeName = $primKey.type.fullyQualifiedName)
