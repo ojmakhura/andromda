@@ -1,22 +1,24 @@
-:pserver:anoncvs@cvs.netbeans.org:/cvsandromda.home = ./
-thirdparty.home = c:/cygwin/home/tony/projects/timetowork/thirdparty/
+andromda.home = ./
+
+thirdparty.home = c:/ntdev/thirdparty/
+
+myant.home = ${thirdparty.home}jakarta-ant-1.5.1/
 velocity.home = ${andromda.home}
 struts.home = ${andromda.home}
 xdoclet.home = ${andromda.home}
 log4j.home = ${andromda.home}
 junit.home = ${andromda.home}
 mdr.home = ${andromda.home}
-myant.home = ${thirdparty.home}jakarta-ant-1.5.1/
-jaxb.home = ${thirdparty.home}jaxb-1.0-beta/
+castor.home = ${andromda.home}
 jboss.home = c:/ntdev/jboss-3.0.4/
 
-jaxb.libs = ${jaxb.home}lib/jaxb-api.jar:${jaxb.home}lib/jaxb-libs.jar:${jaxb.home}lib/jaxb-ri.jar:${jaxb.home}lib/jaxb-xjc.jar:${jaxb.home}lib/jax-qname.jar
+castor.libs = ${andromda.home}lib/castor-0.9.4.3.jar
 log4j.libs = ${log4j.home}lib/log4j.jar
 velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
 junit.libs = ${junit.home}lib/junit.jar
-ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
+ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar:${myant.home}lib/xercesImpl.jar
 j2ee.libs = ${jboss.home}server/default/lib/jboss-j2ee.jar:${jboss.home}server/default/lib/javax.servlet.jar
 struts.libs = ${struts.home}lib/struts.jar
 mdr.libs = ${mdr.home}lib/openide-lookup.jar;${mdr.home}lib/openide-fs.jar:${mdr.home}lib/nbmdr.jar;${mdr.home}lib/mdrapi.jar;${mdr.home}lib/jmi.jar;${mdr.home}lib/jmiutils.jar;${mdr.home}lib/jmitoolkit.jar;${mdr.home}lib/mof.jar;${mdr.home}lib/mdr.jar;${mdr.home}lib/uml14.jar
 
-build.classpath = ${jaxb.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
+build.classpath = ${castor.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}

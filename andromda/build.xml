@@ -3,7 +3,7 @@
     <!-- This script compiles and jars the ANDROMDA code generator. -->
 
     <!-- Load user environment parameters -->
-    <!-- This should define the home directories for JAXB and Ant -->
+    <!-- This should define build classpath -->
     <property file="build.properties" />
 
     <property name="version" value="2.0.0" />
@@ -16,7 +16,7 @@
 
     <!-- Source directories -->
     <property name="java.src.dir" value="src/java" />
-    <property name="jaxb.src.dir" value="src/xsd/" />
+    <property name="xsd.src.dir" value="src/xsd/" />
     <property name="xslt.src.dir" value="src/xsl" />
     <property name="template.src.dir" value="src/templates" />
     <property name="license.src.dir" value="./" />
@@ -83,18 +83,6 @@
 	    <fileset dir="${license.src.dir}" includes="LICENSE"/>
 	</copy>
 
-	<!-- Matthias Bohlen:
-	     The following copy statement is to fix a bug in
-	     JAXB 1.0-beta:
-	     The property files are not found at runtime, unless
-	     they are on the system classpath! Therefore, we put
-	     them into a separate path that will be included in
-	     the system classpath.
-	     This hack must be removed when JAXB 1.0 comes out!
-	-->
-	<copy todir="${dist.stage.dir}jaxbfix/">
-	    <fileset dir="${build.gensrc.dir}" includes="**/jaxb.properties" />
-	</copy>
 	<!-- =================== end of hack ============================== -->
 
 	<copy todir="${dist.stage.dir}doc/">
@@ -132,27 +120,24 @@
     <!--	       Internal subtasks			       -->
     <!-- ============================================================= -->
 
-    <!-- Let JAXB compile the XML schema files into Java classes -->
-    <target name="jaxb" depends="init">
+	<!-- Let CASTOR compile the XML schema files into Java classes -->
+	<target name="castor" depends="init">
+	  <echo message="Compiling the XML schemas..."/>
 
-	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-	    <classpath refid="build.class.path" />
-	</taskdef>
+	  <java fork="true" classname="org.exolab.castor.builder.SourceGenerator">
+	    <arg line="-f -i ${xsd.src.dir}/TypeMapping.xsd"/>
+	    <arg line="-package org.andromda.core.dbmapping -types j2 -dest ${build.gensrc.dir}"/>
+	    <classpath refid="build.class.path"/>
+	  </java>
+	</target>
 
-	<echo message="Compiling the XML schemas..."/>
-
-	<xjc schema="${jaxb.src.dir}/simpleOO.xsd"
-	     target="${build.gensrc.dir}"
-	     package="org.andromda.core.xml"/>
-
-	<xjc schema="${jaxb.src.dir}/TypeMapping.xsd"
-	     target="${build.gensrc.dir}"
-	     package="org.andromda.core.dbmapping"/>
-
-    </target>
-
-
-    <target name="compile" depends="jaxb,compile-nogen" />
+	<target name="compile-xsd" depends="castor" >
+	
+		
+		
+	</target>
+	
+    <target name="compile" depends="compile-xsd,compile-nogen" />
 
     <target name="compile-nogen" depends="init">
 	<property name="classpath" refid="build.class.path"/>
@@ -164,13 +149,12 @@
     </target>
 
 
-    <target name="jar" depends="jaxb,jar-nogen" />
+    <target name="jar" depends="compile-xsd,jar-nogen" />
 
     <target name="jar-nogen" depends="compile-nogen">
-	<jar jarfile="${build.jar.dir}andromda.jar">
-	    <fileset dir="${build.classes.dir}" includes="**/*.class" />
-	    <fileset dir="${build.gensrc.dir}" includes="**/jaxb.properties" />
-	</jar>
+        <jar jarfile="${build.jar.dir}andromda.jar">
+            <fileset dir="${build.classes.dir}" includes="**/*.class" />
+        </jar>
     </target>
 
 
@@ -198,10 +182,7 @@
 
     <target name="check-environment">
 	<antcall target="check-buildclasspath"/>
-	<available property="jaxb.present"
-		   classname="com.sun.tools.xjc.XJCTask"
-		   classpathref="build.class.path" />
-	<antcall target="wrong-jaxb"/>
+	
 	<available property="velocity.present"
 		   classname="org.apache.velocity.context.Context"
 		   classpathref="build.class.path" />
@@ -223,13 +204,6 @@
 	    this property. It must list all external jars required
 	    for the build to succeed.  "build.properties.sample"
 	    provides an example on how to set it up.
-	</fail>
-    </target>
-
-    <target name="wrong-jaxb" unless="jaxb.present">
-	<fail>
-	    Property "build.classpath" is set but it doesn't seem
-	    to contain the JAXB jars.
 	</fail>
     </target>
 

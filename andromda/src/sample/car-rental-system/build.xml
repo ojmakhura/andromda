@@ -98,17 +98,10 @@
 		<property name="templates.home" value="${andromda.home}src/templates/" />
         <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
 
-        <style basedir="build/model/unzipped"
-               destdir="build/model"
-               extension=".xml"
-               includes="CarRentalSystem15.xmi"
-               style="${andromda.home}/src/xsl/xmi12-uml14-to-simpleOO.xsl"
-        />
-
-        <andromda basedir="build/model"
+        <andromda basedir="build/model/unzipped"
                  ejbDestdir="${andromda.ejb.bean.dir}"
                  implDestdir="${andromda.ejb.impl.dir}"
-                 includes="CarRentalSystem15.xml"
+                 includes="CarRentalSystem15.xmi"
                  lastModifiedCheck="true"
                  templatePath="${templates.home}/ejb"
                  useDefaultTemplateConfig="true"
@@ -286,14 +279,12 @@
 
 
     <target name="check-environment">
+    	<property name="classpath" refid="build.class.path"/>
+    	<echo message=" path=${classpath}"/>
+    	
         <antcall target="check-andromda"/>
 
         <antcall target="check-buildclasspath"/>
-
-        <available property="jaxb.present"
-                   classname="javax.xml.bind.JAXBException"
-                   classpathref="build.class.path" />
-        <antcall target="wrong-jaxb"/>
 
         <available property="velocity.present"
                    classname="org.apache.velocity.context.Context"
@@ -321,7 +312,7 @@
         <antcall target="wrong-j2ee"/>
 
         <!-- test andromda at the end because task class cannot load
-             when there are missing referenced classes (e.g. JAXB or Velocity classes)
+             when there are missing referenced classes (e.g. Velocity classes)
         -->
         <available property="andromda.present"
                    classname="org.andromda.core.anttasks.AndroMDAGenTask"
@@ -352,13 +343,6 @@
         <fail>
             Property "build.classpath" is set but it doesn't seem
             to contain the andromda jar.
-        </fail>
-    </target>
-
-    <target name="wrong-jaxb" unless="jaxb.present">
-        <fail>
-            Property "build.classpath" is set but it doesn't seem
-            to contain the JAXB jar.
         </fail>
     </target>
 

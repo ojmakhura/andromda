@@ -1,9 +1,8 @@
-andromda.home = ../
+andromda.home = c:/ntdev/eclipse/workspace/andromda/dist/predist/
 
-thirdparty.home = c:/cygwin/home/tony/projects/timetowork/thirdparty/
+thirdparty.home = c:/ntdev/thirdparty/
+
 myant.home = ${thirdparty.home}jakarta-ant-1.5.1/
-jaxb.home = ${thirdparty.home}jaxb-1.0-beta/
-
 jboss.home = c:/ntdev/jboss-3.0.4/
 velocity.home = ${andromda.home}
 struts.home = ${andromda.home}
@@ -12,10 +11,11 @@ log4j.home = ${andromda.home}
 junit.home = ${andromda.home}
 mdr.home = ${andromda.home}
 xdoclet.home = ${andromda.home}/lib/
+castor.home = ${andromda.home}
 
+castor.libs = ${andromda.home}lib/castor-0.9.4.3.jar
 andromda.libs = ${andromda.home}andromda.jar:${andromda.home}jaxbfix
-jaxb.libs = ${jaxb.home}lib/jaxb-api.jar:${jaxb.home}lib/jaxb-libs.jar:${jaxb.home}lib/jaxb-ri.jar:${jaxb.home}lib/jaxb-xjc.jar:${jaxb.home}lib/jax-qname.jar
-log4j.libs = ${log4j.home}lib/commons-logging.jar:${log4j.home}lib/log4j.jar
+log4j.libs = ${log4j.home}lib/commons-logging.jar;${log4j.home}lib/log4j.jar
 velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
 junit.libs = ${junit.home}lib/junit.jar
 ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
@@ -24,4 +24,4 @@ struts.libs = ${struts.home}lib/struts.jar
 mdr.libs = ${mdr.home}lib/openide-lookup.jar;${mdr.home}lib/openide-fs.jar:${mdr.home}lib/nbmdr.jar;${mdr.home}lib/mdrapi.jar;${mdr.home}lib/jmi.jar;${mdr.home}lib/jmiutils.jar;${mdr.home}lib/jmitoolkit.jar;${mdr.home}lib/mof.jar;${mdr.home}lib/mdr.jar;${mdr.home}lib/uml14.jar
 xdoclet.libs=${xdoclet.home}/xdoclet-ejb-module.jar:${xdoclet.home}/xdoclet-java-module.jar:${xdoclet.home}/xdoclet-jboss-module.jar:${xdoclet.home}/xdoclet-web-module.jar:${xdoclet.home}/xdoclet-xdoclet-module.jar:${xdoclet.home}/xdoclet.jar:${xdoclet.home}/xjavadoc.jar:${xdoclet.home}/xdoclet-jmx-module.jar
 
-build.classpath = ${andromda.libs}:${xdoclet.libs}:${jaxb.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}
+build.classpath = ${andromda.libs}:${xdoclet.libs}:${castor.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${struts.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}:${tools.classpath}

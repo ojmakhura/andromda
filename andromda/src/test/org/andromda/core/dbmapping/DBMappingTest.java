@@ -2,6 +2,8 @@ package org.andromda.core.dbmapping;
 
 import java.io.File;
 
+import org.andromda.core.common.DbMappingTable;
+
 import junit.framework.TestCase;
 
 /**
@@ -23,7 +25,7 @@ public class DBMappingTest extends TestCase
     }
 
     private Mappings fMappings;
-    private JAXBDbMappingTable fMappingTable;
+    private DbMappingTable fMappingTable;
 
     /**
      * @see TestCase#setUp()
@@ -31,21 +33,10 @@ public class DBMappingTest extends TestCase
     protected void setUp() throws Exception
     {
         // the current input file relative to the baseDir
-        File inFile = new File("simple2ejb", "TypeMapping.xml");
+        File inFile = new File("src/xml/TypeMapping.xml");
 
-        fMappingTable = new JAXBDbMappingTable();
+        fMappingTable = new CastorDbMappingTable();
         fMappingTable.read(inFile);
-    }
-
-    public void testUnmarshal() throws Exception
-    {
-        // just check for first element
-        Mapping m = (Mapping) fMappings.getMappings().get(0);
-        assertEquals("java.lang.String", m.getTypes().get(0));
-        assertEquals("String", m.getTypes().get(1));
-        assertEquals("VARCHAR", m.getJdbcType().getName());
-        assertEquals("VARCHAR({0})", m.getSqlType().getPattern());
-        assertEquals("255", m.getSqlType().getDefaultLength());
     }
 
     public void testMappingTable() throws Exception
@@ -74,7 +65,7 @@ public class DBMappingTest extends TestCase
             fMappingTable.getSQLType("java.math.BigDecimal", ""));
 
         assertEquals(
-            "DATE",
+            "DATETIME",
             fMappingTable.getSQLType("java.util.Date", "10"));
 
         assertEquals(

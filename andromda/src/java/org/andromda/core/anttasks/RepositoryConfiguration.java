@@ -21,9 +21,9 @@ import org.apache.tools.ant.BuildException;
 public class RepositoryConfiguration
 {
 	private static final String DEFAULT_REPOSITORY_CLASSNAME =
-		"org.andromda.core.simpleoo.JAXBRepositoryFacade";
+		"org.andromda.core.mdr.MDRepositoryFacade";
     private static final String DEFAULT_SCRIPT_HELPER_CLASSNAME =
-        "org.andromda.core.simpleoo.JAXBScriptHelper";
+        "org.andromda.core.simpleuml.SimpleOOHelper";
 	private Class repositoryClass = null;
 	private Class scriptHelperClass = null;
 
