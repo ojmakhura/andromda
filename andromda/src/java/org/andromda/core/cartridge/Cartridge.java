@@ -147,8 +147,8 @@ public class Cartridge
                     .createMetafacades(modelElements);
                 this.filterModelPackages(metafacades);
                 templateModelElement.setMetafacades(metafacades);
-                this.processTemplateWithModelElements(template, context);
             }
+            this.processTemplateWithModelElements(template, context);
         }
         else
         {
