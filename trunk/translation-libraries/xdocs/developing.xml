@@ -40,10 +40,10 @@ $ maven translation-library:generate -o
 | |\/| / _` \ V / -_) ' \  ~ intelligent projects ~
 |_|  |_\__,_|\_/\___|_||_|  v. 1.0.1
 
-Please enter the name to give the new translation-library (i.e. 'query'):
-<strong>query</strong>
-Please enter a comma seperated list of the names of the translations (i.e. 'Hibernate-QL, EJB-QL'):
-<strong>Oracle-SQL</strong>
+Please enter the name to give the new translation-library (i.e. 'constraint'):
+constraint
+Please enter a comma seperated list of the names of the translations (i.e. 'Hibernate-QL,EJB-QL'):
+Oracle-SQL
 build:start:
 
 translation-library:validate-generation-params:
@@ -67,7 +67,7 @@ translation-library:generate-translations:
     [echo] |   G E N E R A T I N G  T R A N S L A T I O N ( S )   |
     [echo] +------------------------------------------------------+
     [mkdir] Created dir: C:\test\constraint\src\translations\constraint
-    [echo] Generating translation file: constraint/src/translations/constraint/Oracle9i.vsl
+    [echo] Generating translation file: constraint/src/translations/constraint/Oracle-SQL.vsl
 
 translation-library:validate-generation-params:
 
@@ -95,7 +95,7 @@ translation-library:generate-translation-tests:
     [echo] |   G E N E R A T I N G  T R A N S L A T I O N - T E S T  F I L E ( S )   |
     [echo] +-------------------------------------------------------------------------+
     [mkdir] Created dir: C:\test\constraint\src\test\translations\constraint
-    [echo] Generating translation test file: constraint/src/constraint/src/test/translations/constraint/TranslationTest-Oracle9i.xml
+    [echo] Generating translation test file: constraint/src/constraint/src/test/translations/constraint/TranslationTest-Oracle-SQL.xml
 
 translation-library:validate-generation-params:
 
@@ -108,8 +108,8 @@ translation-library:generate-translation-library-pom:
     [echo] Generating translation-library pom: constraint/project.xml
     [copy] Copying 1 file to C:\test\constraint
 BUILD SUCCESSFUL
-Total time: 17 seconds
-Finished at: Sun Nov 28 08:22:22 MST 2004
+Total time: 13 seconds
+Finished at: Sun Nov 28 08:42:50 MST 2004
                         </pre>
 					</li>
 					<li>
