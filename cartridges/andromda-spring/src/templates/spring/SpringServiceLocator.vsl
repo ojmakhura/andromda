@@ -19,22 +19,12 @@ public class ServiceLocator
     /**
      * The default application context location.
      */
-    private final String[] DEFAULT_CONTEXT_LOCATIONS = 
-        new String[] 
-        {
-            "$applicationContext", 
-            "$applicationContextDataSource"
-        };
+    private final String DEFAULT_BEAN_REFERENCE_LOCATION = "$beanRefFactory";
 
     /**
-     * The spring application context shared instance.
+     * The bean factory reference location.
      */
-    private org.springframework.context.support.ClassPathXmlApplicationContext context = null;
-
-    /**
-     * The application context location.
-     */
-    private String[] applicationContextLocations;
+    private String beanFactoryReferenceLocation;
 
     private ServiceLocator()
     {
@@ -58,32 +48,40 @@ public class ServiceLocator
 
     /**
      * Initializes the Spring application context from
-     * the given <code>applicationContextLocation</code>.  If <code>null</code>
-     * is specified for the <code>applicationContextLocation</code>
+     * the given <code>beanFactoryReferenceLocation</code>.  If <code>null</code>
+     * is specified for the <code>beanFactoryReferenceLocation</code>
      * then the default application context will be used.
      *
      * @param contextLocation the location of the context
      */
-    public synchronized void init(String[] applicationContextLocations)
+    public synchronized void init(String beanFactoryReferenceLocation)
     {
-        this.applicationContextLocations = applicationContextLocations;
-        context = null;
+        this.beanFactoryReferenceLocation = beanFactoryReferenceLocation;
+        this.beanFactoryReference = null;
     }
+
+    /**
+     * The bean factory reference instance.
+     */
+    private org.springframework.beans.factory.access.BeanFactoryReference beanFactoryReference;
 
     /**
      * Gets the Spring ApplicationContext.
      */
     protected synchronized org.springframework.context.ApplicationContext getContext()
     {
-        if (context == null)
+        if (this.beanFactoryReference == null)
         {
-            if (this.applicationContextLocations == null)
+            if (this.beanFactoryReferenceLocation == null)
             {
-                this.applicationContextLocations = DEFAULT_CONTEXT_LOCATIONS;
+                this.beanFactoryReferenceLocation = DEFAULT_BEAN_REFERENCE_LOCATION;
             }
-            context = new org.springframework.context.support.ClassPathXmlApplicationContext(applicationContextLocations);
+            org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
+                org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(
+                    this.beanFactoryReferenceLocation);
+            this.beanFactoryReference = beanFactoryLocator.useBeanFactory("$beanRefFactoryId");
         }
-        return context;
+        return (org.springframework.context.ApplicationContext)this.beanFactoryReference.getFactory();
     }
 
 #foreach ($service in $services)
