@@ -39,19 +39,19 @@
 	<template 
 		path="templates/webservice/wsdl/wrapped-wsdl.vsl" 
 		outputPattern="{0}/{1}.wsdl"     
-		outlet="webservice-wsdl-outlet" 
+		outlet="wsdls" 
 		overwrite="true">
 		<modelElements variable="service">
             <modelElement stereotype="WebService"/>
 		</modelElements>
 	</template>     
 	
-	<!-- Java Objects -->
+	<!-- Java Types -->
 	
 	<template 
 		path="templates/webservice/java/ComplexWsdlType.vsl" 
 		outputPattern="{0}/{1}.java"  
-		outlet="webservice-java-outlet" 
+		outlet="java-types" 
 		overwrite="true">
 		<modelElements variable="class">
             <modelElement stereotype="ValueObject"/>
@@ -63,13 +63,13 @@
 	<template	
 		path="templates/webservice/axis/web.xml.vsl"
 		outputPattern="WEB-INF/web.xml" 
-		outlet="webservice-axis-outlet"
+		outlet="axis-configuration"
 		overwrite="true"/>
 
 	<template 
 		path="templates/webservice/axis/server-config.wsdd.vsl" 
 		outputPattern="WEB-INF/server-config.wsdd"    
-		outlet="webservice-axis-outlet" 
+		outlet="axis-configuration" 
 		overwrite="true"
 		outputToSingleFile="true">
 		<modelElements variable="classes">
@@ -81,7 +81,7 @@
 	<template	
 		path="templates/webservice/axis/wss4j/crypto.properties.vsl"
 		outputPattern="wss4j/crypto.properties" 
-		outlet="webservice-axis-outlet"
+		outlet="axis-configuration"
 		overwrite="true"
 		outputToSingleFile="true">
 		<modelElements variable="services">
@@ -92,8 +92,9 @@
 	<template	
 		path="templates/webservice/axis/WebServiceTest.vsl"
 		outputPattern="{0}/{1}Test.java" 
-		outlet="webservice-axis-test-outlet"
-		overwrite="true">
+		outlet="axis-tests"
+		overwrite="true"
+		required="false">
 		<modelElements variable="service">
             <modelElement stereotype="WebService"/>
 		</modelElements>

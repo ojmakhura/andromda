@@ -45,10 +45,9 @@
                 <applicationName>${animalQuiz.services.app.name}</applicationName>
                 <wsdlSoapAddress>${animalQuiz.webservice.soap.address}</wsdlSoapAddress>
                 <logical.schemaTypeMappingsUri>XmlSchema</logical.schemaTypeMappingsUri>
-                <webservice-wsdl-outlet>${maven.andromda.webservice.wsdl.dir}</webservice-wsdl-outlet>
-                <webservice-axis-outlet>${maven.andromda.webservice.axis.dir}</webservice-axis-outlet>
-                <webservice-java-outlet>${maven.andromda.java.generated.dir}</webservice-java-outlet>
-                <webservice-axis-test-outlet.ignore/>
+                <wsdls>${maven.andromda.webservice.wsdl.dir}</wsdls>
+                <axis-configuration>${maven.andromda.webservice.axis.dir}</axis-configuration>
+                <java-types>${maven.andromda.java.generated.dir}</java-types>
             </properties>
         </dependency>        
         <dependency>
