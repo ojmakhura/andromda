@@ -136,7 +136,8 @@
 							will generate any required accessor and mutator operations 
 							needed at generation time. 
 						</li> 
-						<li> <strong>Define and use <code>Datatypes</code> for simple types.</strong> Use 
+						<li> 
+							<strong>Define and use <code>Datatypes</code> for simple types.</strong> Use 
 							UML <code>Datatypes</code> for simple types such as String, 
 							Collection, Set, etc. instead of using the language 
 							specific types which the tool may implement by default 
@@ -144,9 +145,10 @@
 							language independant as possible. Cartridges use mapping 
 							files at generation time to map Datatypes to specific 
 							language types (i.e. for Java, these could be: Collection <![CDATA[-->]]>
-					 java.util.Collection, Blob <![CDATA[-->]]> java.sql.Blob, 
-					etc.) </li> </ul> 
-					</p>
+					        java.util.Collection, Blob <![CDATA[-->]]> java.sql.Blob, etc.) 
+					    </li> 
+		            </ul> 
+			    </p>
 			</subsection>
 		</section>
 	</body>

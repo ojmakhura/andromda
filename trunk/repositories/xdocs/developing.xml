@@ -7,7 +7,32 @@
   	<body> 
   		<section name="Developing a Repository">
   			<subsection name="Steps To Building Your Own Repository">
-  				To Be Completed.
+  				<p>
+					<ol>
+						<li>
+							Implement the  <a href="../andromda-core/apidocs/org/andromda/core/repository/RepositoryFacade.html">RepositoryFacade</a>
+						</li>
+						<li>
+							Create a META-INF/services/org.andromda.core.repository.RepositoryFacade 
+							service file that contains ONLY the name of your repository facade implementation class, 
+							for example the <code>META-INF/services/org.andromda.core.repository.RepositoryFacade</code>
+							file for the MDRepositoryFacade contains only:
+		                    <source>org.andromda.repositories.mdr.MDRepositoryFacade</source>
+						</li>
+						<li>
+							Jar up the contents of your repository implementation and the service file
+							<code>META-INF/services/org.andromda.core.repository.RepositoryFacade</code>
+							into a new jar.
+						</li>
+						<li>
+							Place this new jar on your classpath instead of (or before) the default repository
+							jar used by AndroMDA.
+						</li>
+						<li>
+							Run AndroMDA and it will use the new repository instead of the default repository.
+						</li>
+					</ol>
+  				</p>
   			</subsection>
 		</section>
   	</body> 
