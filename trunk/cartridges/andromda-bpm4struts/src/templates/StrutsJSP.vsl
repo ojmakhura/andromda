@@ -62,6 +62,34 @@
 #if ($hasTabs)
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/layout-common.js"/>"></script>
 #end
+    	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/hints.js"/>"></script>
+    	<script type="text/javascript" language="Javascript1.1">
+#if ($xhtml == "true")
+        //<![CDATA[
+#else
+        //<!--
+#end
+            var HINTS_ITEMS = {
+#foreach ($parameter in $jsp.allActionParameters)
+                '$parameter.name':'<bean:message key="$parameter.titleKey"/>',
+#end
+#foreach ($action in $jsp.actions)
+#set ($trigger = $action.actionTrigger)
+                '${trigger.name}':'<bean:message key="$trigger.titleKey"/>',
+                '${trigger.name}_no':'<bean:message key="$trigger.notAllowedTitleKey"/>',
+                '${trigger.name}_reset':'<bean:message key="$trigger.resetTitleKey"/>',
+                '${trigger.name}_noreset':'<bean:message key="$trigger.resetNotAllowedTitleKey"/>',
+#end
+                'calendar.popup':'<bean:message key="calendar.popup"/>'
+            };
+
+            var hints = new THints (HINTS_CFG, HINTS_ITEMS);
+#if ($xhtml == "true")
+        //]]>
+#else
+        //-->
+#end
+    	</script>
     </tiles:put>
 
 ##
