@@ -17,6 +17,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
