@@ -85,6 +85,7 @@ public class WidgetRenderer implements Serializable
 
         if (values != null)
         {
+            buffer.append("<option value=\"\"></option>");
             for (int i = 0; i < values.length; i++)
             {
                 buffer.append("<option");
