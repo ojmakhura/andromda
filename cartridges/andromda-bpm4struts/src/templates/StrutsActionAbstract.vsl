@@ -1,8 +1,8 @@
 ##
 ## Set global invariants
 ##
-#set ($activityGraph = $transform.getActivityGraph($class))
-#set ($initialState = $transform.getInitialState($activityGraph))
+#set ($stateMachine = $transform.getStateMachine($class))
+#set ($initialState = $transform.getInitialState($stateMachine))
 #set ($controllerClass = $transform.getControllerClass($class))
 #set ($controllerClassName = $transform.toJavaClassName($controllerClass))
 #set ($controllerFormName = $transform.toJavaClassName($transform.getControllerForm($class)))
@@ -34,15 +34,16 @@ ${indent}{
 #set ($indent2 = $indent)## backup original indentation
 #set ($indent = "$indent    ")
 #end
-#set ($target = $transform.dynamicHelper.getLastTransitionTarget($transition.target))
+#set ($target = $transition.target)
 #if ( $transform.dynamicHelper.isFinalState($target) || $transform.dynamicHelper.isActionState($target) )
 #set ($forwardName = $transform.toForwardName($target))
 ${indent}return mapping.findForward("$forwardName");
 #elseif ( $transform.dynamicHelper.isObjectFlowState($target) )
+#set ($objectFlowTypeName = $transform.toJavaClassName($target))
 #set ($objectFlowStateState = $transform.getObjectFlowStateState($target))
-#set ($objectFlowStateStateMethodName = "set$transform.toJavaClassName($objectFlowStateState)")
+#set ($objectFlowStateStateMethodName = "set$objectFlowTypeName$transform.toJavaClassName($objectFlowStateState)")
 ${indent}return $objectFlowStateStateMethodName(mapping, form, request, response);
-#elseif ( $transform.dynamicHelper.isChoice($target) )
+#elseif ( $transform.dynamicHelper.isDecisionPoint($target) )
 ${indent}return $transform.toJavaMethodName($target)(mapping, form, request, response);
 #end
 #if ($transitionGuard)
@@ -72,26 +73,15 @@ import javax.servlet.http.HttpServletResponse;
 ## Set collections from which methods will be rendered, we convert them to sets
 ## because we don't want to render doubles (just to make sure)
 ##
-#set ($choices = $transform.toSet($transform.dynamicHelper.getChoices($activityGraph)))
-#set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($activityGraph)))
-#set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($activityGraph)))
-#set ($choiceTransitions = $transform.toSet($transform.getChoiceTransitions($activityGraph)))
+#set ($guardNames = $transform.toSet($transform.getGuardNames($stateMachine)))
+#set ($actionStates = $transform.toSet($transform.dynamicHelper.getActionStates($stateMachine)))
+#set ($objectFlowStates = $transform.toSet($transform.dynamicHelper.getObjectFlowStates($stateMachine)))
+#set ($guardedTransitions = $transform.toSet($transform.dynamicHelper.getGuardedTransitions($stateMachine)))
 ##
 ## Start of the class declaration, notice how it extends DispatchAction, not Action
 ##
 public abstract class ${className} extends DispatchAction
 {
-##
-## For each distinct choice transition in this use-case's activity graph we will render
-## a global static constant that will be used in the decision process, these constants
-## will be used by the developer that implements the decision methods.
-##
-#foreach ($choiceTransition in $choiceTransitions)
-#set ($choiceTransitionName = $transform.toFinalMemberName($choiceTransition))
-#set ($choiceTransitionValue = $choiceTransitionName.hashCode())
-    protected static final int $choiceTransitionName = $choiceTransitionValue;
-#end
-
 ##
 ## Since there is only one initial state (with only one outgoing transition we will make the unspecified method
 ## call the first state vertex.
@@ -117,7 +107,7 @@ public abstract class ${className} extends DispatchAction
 #set ($methodNameImpl = "${methodName}Impl")
     public final ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-#set ($transitions = $actionState.outgoing)
+#set ($transitions = $transform.dynamicHelper.getNextTriggeredTransitions($actionState))
 #if ($transitions.size() > 1)
 #if ($controllerFormName.equals("ActionForm"))
         final String trigger = request.getParameter("trigger").toUpperCase();
@@ -129,7 +119,7 @@ public abstract class ${className} extends DispatchAction
 #foreach ($transition in $transitions)
         if ("$transform.toFinalMemberName($transition.trigger)"$conditionSuffix)
         {
-#processTransition ( $transition "            " )
+#processTransition ( $transform.dynamicHelper.getNextStateTransition($transition) "            " )
         } else
 #end
         {
@@ -143,31 +133,10 @@ public abstract class ${className} extends DispatchAction
 
 #end
 ##
-## Each choice needs a method that will implement the business logic behind it.
-## The methods generated in this part of the template will take care of that, notice also how
-## the global static constants are being used here, and how the implementation depends on them.
+## We need a boolean method for each guard in the state machine
 ##
-#foreach ($choice in $choices)
-#set ($methodName = $transform.toJavaMethodName($choice))
-#set ($returnValue = "${methodName}Value")
-    private ActionForward ${methodName}(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        final int $returnValue = ${methodName}Impl(mapping, form, request, response);
-
-        switch ($returnValue)
-        {
-#set ($choiceTransitions = $choice.outgoing)
-#foreach ($choiceTransition in $choiceTransitions)
-#set ($choiceMemberName = $transform.toFinalMemberName($choiceTransition.trigger))
-            case $choiceMemberName :
-#processTransition ( $choiceTransition "                " )
-#end
-            default :
-                return null; // if this occurs ${methodName}Impl is not correctly implemented
-        }
-    }
-
-    protected abstract int ${methodName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+#foreach ($guardName in $guardNames)
+    protected abstract boolean ${guardName}Impl(ActionMapping mapping, $controllerFormName form, HttpServletRequest request, HttpServletResponse response);
 
 #end
 ##
@@ -189,6 +158,7 @@ public abstract class ${className} extends DispatchAction
 
 #end
 }
+
 
 
 
