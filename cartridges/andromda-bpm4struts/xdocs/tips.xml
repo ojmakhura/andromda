@@ -10,47 +10,88 @@
 
     <body>
 
-        <section name="uc">
-            <h3>THIS PAGE IS UNDER CONSTRUCTION</h3>
-        </section>
-
-        <section name="tips-intro">
-            <h3>Tips for using AndroMDA bpm4struts</h3>
-            <p class="std">
+        <section name="Tips for using AndroMDA bpm4struts">
+            <p>
                 This section provides you with some pointers that might prove helpful when using AndroMDA with
                 the bpm4struts cartridge.
             </p>
-            <p class="std">
+        </section>
 
+        <section name="Naming Conventions">
+            <p>
+                Give good names to all the elements you model, try to give names that uniquely identify the element
+                in its context. For example, instead of calling an action state 'login' you might consider
+                using 'enter name and password' instead. The same goes for controllers and use-cases. The better
+                names you give, the less ambiguity you will have in the long run.
             </p>
         </section>
 
-        <section name="regeneration">
-            <h3>Regeneration of jsps</h3>
-            <p class="std">
+        <section name="Code Regeneration">
+            <p>
                 The power of AndroMDA is apparent when you will need to apply changes to your model and regenerate
                 the set of code files. Using bpm4struts these files comprise Java classes as well as properties
                 files and JSPs.
             </p>
-            <p class="std">
+            <p>
                 You will not want to lose your changes to the generated code, to ensure this the cartridges have
                 been designed never to overwrite the implementation classes and files. On the other hand you will
                 most probably want to see the most recent changes in the model reflected in the code.
             </p>
-            <p class="std">
+            <p>
                 For classes this is not a problem because the cartridges generating them will provide you with
                 an implementation class that will only be written when it does not yet exist. Subsequent changes
                 during generation will be reflected automatically in the abstract parent classes. The implementation
                 classes extending them will require a manual update.
             </p>
-            <p class="std">
-                So what about JSPs ? There are many different ways of handling these kinds of updates for regular
-                files such as JSPs, but we are looking for the most efficient and less error prone one.
-            </p>
-            <p class="std">
-
+            <p>
+                So what about JSPs ? The most efficient and effective way of maintaining manually edited changes
+                in JSP files seems to be to copy the generated JSPs into your source directory (and subsequently
+                adding it to your <code>Control Versioning System</code>), making your changes and copying them
+                over the generated ones prior to building the WAR bundle.
             </p>
         </section>
 
+        <section name="Performance">
+            <p>
+                You might want to turn on the JSP precompilation feature, it will compile your JSPs into Java files
+                and compile those into Java classes. Since this is done during the build process the Web container
+                will not need to lose time compiling your JSP pages at runtime. Additionally you will find any
+                compilation errors that might occur. It has shown that performance increases by a factor 10 when
+                accessing the pages for the first time, in all other cases performance is the same.
+            </p>
+            <p>
+                To enable jsp precompilation simply go into your
+                <a href="../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> generated
+                project, open the <code>/web/project.properties</code> file and make sure the
+                <code>precompileJsps</code> property has been set to <code>true</code>.
+            </p>
+        </section>
+
+        <section name="Troubleshooting">
+            <p>
+                In some cases it is known precompiled applications to intermittently throw exceptions on Windows
+                machines. This is a known issue and is related to the Windows operating system not allowing
+                file names to be longer than 255 characters. When you precompile JSPs, and the resulting classes
+                are stored deep into the EAR, into the WAR, into the
+                <code>WEB-INF/classes</code> subdirectory. Windows
+                might not be able to properly resolve them if the fully qualified path to the file is longer than
+                255 characters, the path will silently be truncated and the Java VM will report it was unable to
+                find the class.
+            </p>
+            <p>
+                This problem cannot be solved, but a few workarounds exist:
+                <ul>
+                    <li>Move the deployment directory closer to the root of the drive</li>
+                    <li>Shorten the name of the JSP page on which the loading fails</li>
+                    <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
+                        if you set the <code>explodeOnDeploy</code> property to <code>true</code>
+                        in <code>/app/project.properties</code>. The next time you deploy using th maven
+                        <code>deploy</code> goal, a directory containing everything be deployed
+                        instead of a single EAR bundle.
+                    </li>
+                    <li>Move to a Unix-based system, such as Linux.</li>
+                </ul>
+            </p>
+        </section>
     </body>
 </document>
