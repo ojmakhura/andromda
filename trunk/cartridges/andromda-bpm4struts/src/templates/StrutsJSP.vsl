@@ -183,7 +183,7 @@
         <html:form action="$variable.tableAction.actionPath">
 #end
             <display:table name="${${collectionVariableName}}" id="row"
-                           requestURI="${pageContext.request.requestURL}"
+                           requestURI="${pageContext.request.requestURI}"
                            export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
