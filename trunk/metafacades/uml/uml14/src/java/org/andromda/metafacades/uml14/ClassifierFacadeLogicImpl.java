@@ -92,7 +92,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsArrayType()
     {
-        return this.getFullyQualifiedName().endsWith(ARRAY_SUFFIX);
+        return this.getFullyQualifiedName(true).endsWith(ARRAY_SUFFIX);
     }
 
     /**
