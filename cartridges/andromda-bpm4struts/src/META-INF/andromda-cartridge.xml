@@ -347,7 +347,7 @@
 
     <template
         path="templates/StrutsUserProperties.vsl"
-        outputPattern="user.properties"
+        outputPattern="users.properties"
         outlet="server"
         overwrite="true"
         generateEmptyFiles="false">
