@@ -52,7 +52,7 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
      *
 #end
      * @struts.validator-args
-     *  arg0resource="${messageKey}.$field.validatorMsgKey"
+     *  arg0resource="$field.validatorMsgKey"
      *
      */
 #end
