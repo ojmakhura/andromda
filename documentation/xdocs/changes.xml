@@ -8,7 +8,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-01" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-02" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="BPM-160">
+                Client-side validation for dates have been improved, the default one which is taken from
+                <code>commons-validator</code> only supports a very limited subset of the features one would expect.
+                We are now explicitely overriding this JavaScript routine in <code>validator-rules.xml</code>.
+            </action>
             <action dev="draftdog" type="fix" issue="BPM-157">
                 It is now possible to seemlessly pass form data across different use-cases, the target form will
                 be populated using the matching properties from the source form.
