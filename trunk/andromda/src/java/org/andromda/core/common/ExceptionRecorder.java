@@ -27,6 +27,9 @@ public class ExceptionRecorder
 
     /** Andromda version */
     private static String andromdaVersion = "not set";
+    
+    /** File header constant */
+    static final String FILE_HEADER = "------- AndroMDA Exception Recording -------";
 
     /** The exceptions directory name:exceptions. */
     private static String exceptionDirectoryName = ".";
@@ -113,10 +116,14 @@ public class ExceptionRecorder
             exceptionFile = new File(exceptionDirectory, tempName);
             result = exceptionFile.getCanonicalPath();
             writer = new PrintWriter(new FileWriter(exceptionFile));
-            writer.println("------- AndroMDA Exception Recording -------");
-            writer.println("Version --> " + getAndromdaVersion());
-            writer.println("Error --> " + message);
-            writer.println("Main Exception --> " + throwable.getMessage());
+            writer.println( FILE_HEADER );
+            writer.println("Version ........: " + getAndromdaVersion());
+            writer.println("Error ..........: " + message);
+            writer.println("Build ..........: " + BuildInformation.getBUILD_DATE());
+            writer.println("Build system ...: " + BuildInformation.getBUILD_SYSTEM());
+            writer.println("Build jdk ......: " + BuildInformation.getBUILD_JDK());
+            writer.println("Build builder ..: " + BuildInformation.getBUILD_BUILDER());
+            writer.println("Main Exception .: " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);
             if (cause == null)
             {
