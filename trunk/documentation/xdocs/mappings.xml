@@ -63,7 +63,6 @@
                     <ul>
                         <li><a href="mappings/JavaMappings.xml">JavaMappings.xml</a></li>
                         <li><a href="mappings/XmlSchemaMappings.xml">XmlSchemaMappings.xml</a></li>
-                        <li><a href="mappings/HibernateTypeMappings.xml">HibernateTypeMappings.xml</a></li>
                     </ul>
                 </p>
             </subsection>
@@ -78,6 +77,7 @@
                 <p>
                     <ul>
                         <li><a href="mappings/JdbcMappings.xml">JdbcMappings.xml</a></li>
+                        <li><a href="mappings/HibernateTypeMappings.xml">HibernateTypeMappings.xml</a></li>
                     </ul>
                 </p>
             </subsection>
@@ -124,8 +124,11 @@
                         dependency of <code>/mda/project.xml</code>:
 <source language="xml"><![CDATA[
     <languageMappingsUri>file:${maven.src.dir}/mappings/MyJavaMappings.xml</languageMappingsUri>
+
     <wrapperMappingsUri>file:${maven.src.dir}/mappings/MyJavaWrapperMappings.xml</wrapperMappingsUri>
+
     <jdbcMappingsUri>file:${maven.src.dir}/mappings/MyJdbcMappings.xml</jdbcMappingsUri>
+
     <sqlMappingsUri>file:${maven.src.dir}/mappings/MySqlMappings.xml</sqlMappingsUri>
 ]]></source>
                     </p>
