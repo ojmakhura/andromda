@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-13" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="HIB-53">
+                Navigable entity association ends are now required to have a public visibility (an OCL
+                constraint has been added to validate this).
+            </action>
             <action dev="cwbrandon" type="fix" issue="SPRING-26">
                 Entity attributes are now required to have a public visibility (an OCL
                 constraint has been added to validate this).
