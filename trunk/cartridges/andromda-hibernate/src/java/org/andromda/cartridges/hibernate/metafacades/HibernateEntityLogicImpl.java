@@ -31,12 +31,12 @@ import org.apache.commons.lang.StringUtils;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> 
- * is set on the base/root class. All subclasses must then follow the same
- * strategy. NB if the strategy is changed after the initial generation, 
- * the impl classes have to be hand modified.
- * </p>
- * 
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
+ *                                 subclasses must then follow the same
+ *                                 strategy. NB if the strategy is changed after
+ *                                 the initial generation, the impl classes have
+ *                                 to be hand modified.
+ *                                 </p>
  * @author Martin West
  * @author Carlos Cuenca
  */
@@ -506,24 +506,24 @@ public class HibernateEntityLogicImpl
         return cacheType;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetFullyQualifiedEntityName()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getFullyQualifiedEntityName()
      */
     protected String handleGetFullyQualifiedEntityName()
     {
         return HibernateMetafacadeUtils.getFullyQualifiedName(this
-                .getPackageName(), this.getEntityName(), null);
+            .getPackageName(), this.getEntityName(), null);
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetFullyQualifiedImplementationEntityName()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getFullyQualifiedEntityImplementationName()
      */
-    protected String handleGetFullyQualifiedImplementationEntityName()
+    protected String handleGetFullyQualifiedEntityImplementationName()
     {
         return HibernateMetafacadeUtils.getFullyQualifiedName(
-                this.getPackageName(),
-                this.getEntityName(),
-                HibernateGlobals.IMPLEMENTATION_SUFFIX);
+            this.getPackageName(),
+            this.getEntityName(),
+            HibernateGlobals.IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -532,61 +532,60 @@ public class HibernateEntityLogicImpl
      */
     private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetHibernateDefaultCascade()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDefaultCascade()
      */
     protected String handleGetHibernateDefaultCascade()
     {
         return StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
+            .getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetHibernateGeneratorClass()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateGeneratorClass()
      */
     protected String handleGetHibernateGeneratorClass()
     {
         String hibernateGeneratorClass = (String)this
-        .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
-    if (StringUtils.isBlank(hibernateGeneratorClass))
-    {
-        hibernateGeneratorClass = (String)this
-            .getConfiguredProperty("defaultHibernateGeneratorClass");
-    }
-    return hibernateGeneratorClass;
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
+        if (StringUtils.isBlank(hibernateGeneratorClass))
+        {
+            hibernateGeneratorClass = (String)this
+                .getConfiguredProperty("defaultHibernateGeneratorClass");
+        }
+        return hibernateGeneratorClass;
     }
 
     private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetForeignHibernateGeneratorClass()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getForeignHibernateGeneratorClass()
      */
     protected boolean handleIsForeignHibernateGeneratorClass()
     {
         return this.getHibernateGeneratorClass().equalsIgnoreCase(
-                HIBERNATE_GENERATOR_CLASS_FOREIGN);
+            HIBERNATE_GENERATOR_CLASS_FOREIGN);
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetEntityName()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
     protected String handleGetEntityName()
     {
         String entityNamePattern = (String)this
-        .getConfiguredProperty("entityNamePattern");
-    return MessageFormat.format(entityNamePattern, new String[]
-    {
-        StringUtils.trimToEmpty(this.getName())
-    });
+            .getConfiguredProperty("entityNamePattern");
+        return MessageFormat.format(entityNamePattern, new String[]
+        {
+            StringUtils.trimToEmpty(this.getName())
+        });
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#handleGetEntityImplementationName()
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityImplementationName()
      */
     protected String handleGetEntityImplementationName()
     {
         return this.getEntityName() + HibernateGlobals.IMPLEMENTATION_SUFFIX;
     }
-
 
 }

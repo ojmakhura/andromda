@@ -23,11 +23,11 @@ public class ${service.name}BeanImpl
 #end
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
-    protected $returnType handle${str.capitalize(${operation.name})} ($parameters)
+    protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
         throws $operation.exceptionList 
     {
 #else
-    protected $returnType handle${str.capitalize(${operation.name})} ($parameters) 
+    protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters) 
     {
 #end
         // TODO: put your implementation here.

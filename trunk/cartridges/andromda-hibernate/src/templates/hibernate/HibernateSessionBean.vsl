@@ -112,10 +112,10 @@ $attribute.getDocumentation("     * ")
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
 #if ($operation.exceptionsPresent)
-    protected abstract $operation.returnType.fullyQualifiedName handle${str.capitalize(${operation.name})} ($parameters)
+    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters)
         throws $operation.exceptionList;
 #else
-    protected abstract $operation.returnType.fullyQualifiedName handle${str.capitalize(${operation.name})} ($parameters);
+    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters);
 #end
 
     /**
@@ -151,9 +151,9 @@ $operation.getDocumentation("     * ")
 #end
 ##
 #if ($operation.returnTypePresent)
-            return handle${str.capitalize($operation.name)}($parameters);
+            return handle${stringUtils.capitalize($operation.name)}($parameters);
 #else
-            handle${str.capitalize($operation.name)}($parameters);
+            handle${stringUtils.capitalize($operation.name)}($parameters);
 #end
         }
 #foreach ( $exception in $operation.exceptions )

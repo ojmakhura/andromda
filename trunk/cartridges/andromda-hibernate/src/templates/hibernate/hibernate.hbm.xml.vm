@@ -4,34 +4,34 @@
 #macro (renderSubClass $entity)
 ## Should only get get invoked for inheritance class or subclass.
 #if ($entity.hibernateInheritanceClass)
-	    <subclass
-		    name="$entity.fullyQualifiedEntityImplementationName"
-		    discriminator-value="$entity.entityImplementationName">
+        <subclass
+            name="$entity.fullyQualifiedEntityImplementationName"
+            discriminator-value="$entity.entityImplementationName">
 #set ($subClassEndTag = "subclass")
 #else
-	    <joined-subclass
-		    name="$entity.fullyQualifiedEntityImplementationName"
-		    table="$entity.tableName">
+        <joined-subclass
+            name="$entity.fullyQualifiedEntityImplementationName"
+            table="$entity.tableName">
             <key column="$entity.identifierColumn"/>
 #set ($subClassEndTag = "joined-subclass")
 #end
-#renderPropertiesAndAssociations($entity)		
+#renderPropertiesAndAssociations($entity)
 #foreach ($subentity in $entity.specializations)
 #renderSubClass($subentity)
 #end
-	    </${subClassEndTag}>
-	
+        </${subClassEndTag}>
+
 #end
 ##
-##  This macro will render any properties and associations 
+##  This macro will render any properties and associations
 ##  for the given $entity.
 ##
 #macro (renderPropertiesAndAssociations $entity)
 #foreach ($attribute in $entity.attributes)
 #if (!$attribute.identifier)
-		<property name="$attribute.name" type="$attribute.type.fullyQualifiedHibernateType">
-		    <column name="$attribute.columnName" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"/>
-		</property>
+        <property name="$attribute.name" type="$attribute.type.fullyQualifiedHibernateType">
+            <column name="$attribute.columnName" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"/>
+        </property>
 #end
 #end
 #foreach ($sourceEnd in $entity.associationEnds)
@@ -39,11 +39,11 @@
 #if ($otherEnd.navigable || ($sourceEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($sourceEnd.one2One)
 #if ($sourceEnd.one2OneSecondary)
-		<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end constrained="false"/>
+        <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
         <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
-            <column name="$otherEnd.columnName"/>             
+            <column name="$otherEnd.columnName"/>
         </many-to-one>
 #else
         <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" property-ref="$sourceEnd.name"/>
@@ -53,10 +53,10 @@
 #if ($sourceEnd.one2Many)
         <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
             <key>
-            	<column name="$sourceEnd.columnName"/>
+                <column name="$sourceEnd.columnName"/>
             </key>
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
-        </set>    
+        </set>
 #elseif ($sourceEnd.many2One)
         <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end#if ($sourceEnd.required) not-null="true"#end >
             <column name="$otherEnd.columnName"/>
@@ -67,7 +67,7 @@
                 <column name="$otherEnd.columnName"/>
             </key>
             <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
-        </set>    
+        </set>
 #end
 #end
 #end
