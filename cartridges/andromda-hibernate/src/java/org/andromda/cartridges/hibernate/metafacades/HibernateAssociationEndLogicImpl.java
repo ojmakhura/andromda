@@ -78,7 +78,7 @@ public class HibernateAssociationEndLogicImpl
         boolean lazy;
         if (lazyString == null)
         {
-            lazy = !isComposition();
+            lazy = !this.getOtherEnd().isComposition();
         }
         else
         {
