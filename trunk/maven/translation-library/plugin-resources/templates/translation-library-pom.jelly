@@ -32,7 +32,12 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-validation-library</artifactId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
+            <version>${andromda.translationlibrary.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${andromda.translationlibrary.core.version}</version>
         </dependency>
         <dependency>
