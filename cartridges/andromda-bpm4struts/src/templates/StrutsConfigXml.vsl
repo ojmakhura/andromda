@@ -46,7 +46,7 @@
 #end
             scope="$action.actionScope"
 #if ($action.useCaseStart == false)
-            input="${action.actionPathRoot}${action.actionPathRoot}.do"
+            input="${action.input.fullPath}.jsp"
 #end
             unknown="false"
 #set ($validate = $action.validationRequired && $validationDesired)
