@@ -111,6 +111,12 @@
             <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
             <ant:classpath refid="schema.classpath" />
         </ant:java>
+        
+        <ant:copy todir="${hibernate.schema.output.dir}">
+            <ant:fileset dir="${basedir}">
+                <ant:include name="conf/**/*"/>
+            </ant:fileset>    
+        </ant:copy>
 
     </postGoal>
 
