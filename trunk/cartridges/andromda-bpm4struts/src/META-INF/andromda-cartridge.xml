@@ -24,6 +24,17 @@
     </template>
 
     <template
+        sheet="templates/StrutsActionJsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overWrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="class">
+            <modelElement stereotype="FrontEndEvent"/>
+        </modelElements>
+    </template>
+
+    <template
         sheet="templates/StrutsForm.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
