@@ -42,7 +42,7 @@
                             Produces a criteria search facility consisting of three helper classes being written
                             to the package for extra spring classes and a criteria value object. If you add a finder
                             method to a Hibernate entity, giving it a parameter that is of a class that is stereotyped
-                            as a <![CDATA[<<Criteria>>]]>, the finder will contain code to construct a Hibernate 
+                            as a <![CDATA[<<Criteria>>]]>, the finder will contain code to construct a Hibernate
                             criteria query.
                         </td>
                     </tr>
@@ -77,18 +77,18 @@
                             use a <code>String</code> in order to persist their unique value.</i>
                         </td>
                     </tr>
-		        	<tr>
-			          	<td>
-							<a name="PrimaryKey"/>
-			          		<strong><![CDATA[<<PrimaryKey>>]]></strong>
-			          	</td>
-						<td>
-							Attribute
-						</td>
-			          	<td>
-			          		Identifies an attribute as an indentifier.
-			          	</td>
-					</tr> 
+                    <tr>
+                          <td>
+                            <a name="PrimaryKey"/>
+                              <strong><![CDATA[<<PrimaryKey>>]]></strong>
+                          </td>
+                        <td>
+                            Attribute
+                        </td>
+                          <td>
+                              Identifies an attribute as an indentifier.
+                          </td>
+                    </tr>
                     <tr>
                           <td>
                             <a name="Unique"/>
@@ -120,7 +120,7 @@
             <subsection name="Supported Tagged Values">
                   <table>
                     <tr>
-						<th>Tagged Value</th>
+                        <th>Tagged Value</th>
 						<th>Used With</th>
 						<th>Description</th>
                     </tr>
@@ -353,7 +353,7 @@
                             <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
                         </td>
                         <td>
-                            Using this tagged value the logical condition for the underlying attribute in the query is set.
+                            Using this tagged value to define the logical condition for the underlying attribute in the query is set.
                             Possible values are
                             <ul>
                                 <li>like</li>
@@ -367,6 +367,25 @@
                             If you ommit this tagged value and the underlying attribute is a <code>String</code>, 
                             <code>like</code> will be used. If the underlying attribute is anything else but a 
                             <code>String</code>, <code>equal</code> will be used.
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.criteria.matchmode"/>
+                        <td>
+                            @andromda.hibernate.criteria.matchmode
+                        </td>
+                        <td>
+                            <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+                        <td>
+                        	Use this value to denote the hibernate matchmode to be used for comparing strings.
+                            Possible values are
+                            <ul>
+                                <li>anywhere</li>
+                                <li>start</li>
+                                <li>end</li>
+                                <li>exact</li>
+                            </ul>
                         </td>
                     </tr>
                 </table>
