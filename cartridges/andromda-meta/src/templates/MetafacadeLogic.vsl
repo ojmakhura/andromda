@@ -4,9 +4,6 @@
 #set ($packagename = $class.package.fullyQualifiedName)
 package $packagename;
 
-import java.util.Map;
-import java.util.HashMap;
-
 ## calculate metaclass and superclass
 #if ($class.metaclassDirectDependency)
 #set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
@@ -118,7 +115,8 @@ public abstract class ${class.name}Logic
 
 #if ($op.hasReturnType())
 #if ($hasArguments)
-    private final Map $memberName = new HashMap(4);
+    private final java.util.Map $memberName = 
+        new java.util.HashMap(4);
 
     private class $innerClassKey
     {
