@@ -73,7 +73,7 @@
 
         <!-- if 'and' is encountered in the expression then
              'and' will just be returned -->
-        <fragment name="and\s*${navigableName}\s*.*"
+        <fragment name="and.*"
                   handlerMethod="handleLogicalExpression">
             <kind name="body">
                 AND
@@ -82,49 +82,49 @@
 
         <!-- if 'or' is encountered in the expression then
              'or' will just be returned -->
-        <fragment name="or\s*${navigableName}\s*.*"
+        <fragment name="or.*"
                   handlerMethod="handleLogicalExpression">
             <kind name="body">
                 OR
             </kind>
         </fragment>
 
-        <fragment name="=\s*${navigableName}"
+        <fragment name="=.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} = {1}
             </kind>
         </fragment>
 
-        <fragment name="&gt;\s*${navigableName}"
+        <fragment name="&gt;.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &gt; {1}
             </kind>
         </fragment>
 
-        <fragment name="&lt;\s*${navigableName}"
+        <fragment name="&lt;.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &lt; {1}
             </kind>
         </fragment>
 
-        <fragment name="&lt;&gt;\s*${navigableName}"
+        <fragment name="&lt;&gt;.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} not {1}
             </kind>
         </fragment>
 
-        <fragment name="&gt;=\s*${navigableName}"
+        <fragment name="&gt;=.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &gt;= {1}
             </kind>
         </fragment>
 
-        <fragment name="&lt;=\s*${navigableName}"
+        <fragment name="&lt;=.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
                 {0} &lt;= {1}
