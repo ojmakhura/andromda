@@ -382,6 +382,7 @@
              </td>
           </tr>
           <tr>
+              <a name="outputToSingleFile"/>
               <td>
                   outputToSingleFile
               </td>
@@ -414,6 +415,7 @@
               </td>
           </tr>
         </table>
+        <a name="modelElements"/>
         <h3><![CDATA[<modelElements/>]]></h3>
         <p>
             The <code><![CDATA[<modelElements/>]]></code> element is nested directly within 
@@ -439,7 +441,57 @@
                 No
             </td>
           </tr>
-         </table>
+        </table>
+        <h3><![CDATA[<modelElement/>]]></h3>
+        <p>
+            The <code><![CDATA[<modelElement/>]]></code> element is nested directly within 
+            the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> element, it is used to 
+            within the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> to instruct each 
+            <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
+            elements it should process.  For example, using this element you can specify both stereotypes and
+            or metafacade types (and optionally the metafacade's properties).
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <td>
+                variable
+            </td>
+            <td>
+                The variable which is made available to the template.  This would only make sense to use
+                if you set the <a href="#outputToSingleFile">outputToSingleFile</a> attribute to <em>true</em>, normally
+                the <em>variable</em> from the <code><![CDATA[<modelElements/>]]></code> attribute is sufficient for
+                your templates.  In combination with the <a href="#outputToSingleFile">outputToSingleFile</a> attribute
+                this would allow you to group model elements together and make them available to the template as collections.
+                The below example makes all model elmements stereotyped with <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
+                as <em>$entityEjbs</em> and <em>$sessionEjbs</em> respectively (if you're using velocity for your
+                templating language).  It you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice 
+                the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong> 
+                entities and services available as <code>$ejbs</code> in a velocity template (since 
+                <a href="#outputToSingleFile">outputToSingleFile</a> is set to <em>true</em>).
+                <source><![CDATA[
+...
+<template
+    path="templates/ejb-jar.xml.vsl"
+    outputPattern="ejb-jar.xml"
+    outlet="ejb-jar-descriptor"
+    overwrite="true">
+    <modelElement variable="ejbs">
+        <stereotype name="Entity" variable="entityEjbs"/>
+        <stereotype name="Service" variable="sessionEjbs"/>
+    </modelElement>
+...
+             ]]></source>
+            </td>
+            <td>
+                No
+            </td>
+          </tr>
+        </table>
         <h3><![CDATA[<resource/>]]></h3>
         <p>
           The <code><![CDATA[<resource/>]]></code> element is used to process files inside the
