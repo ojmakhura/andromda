@@ -37,11 +37,11 @@
         <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName">
             <column name="$otherEnd.columnName" not-null="$otherEnd.required" unique="true"/>
         </many-to-one>
 #else
-        <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" property-ref="$sourceEnd.name"/>
+        <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" property-ref="$sourceEnd.name" foreign-key="$otherEnd.foreignKeyConstraintName"/>
 #end
 #end
 #end
@@ -56,7 +56,7 @@
 #if(($hibernateEnableCache.equalsIgnoreCase("true")) && ($hibernateEnableAssociationsCache.equalsIgnoreCase("true")))
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
-            <key>
+            <key foreign-key="$sourceEnd.foreignKeyConstraintName">
                 <column name="$sourceEnd.columnName"/>
             </key>
 #if ($otherEnd.indexedCollection)
@@ -65,15 +65,15 @@
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </$otherEnd.collectionType>
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName">
             <column name="$otherEnd.columnName" not-null="$otherEnd.required"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
         <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
-            <key>
+            <key foreign-key="$sourceEnd.foreignKeyConstraintName">
                 <column name="$sourceEnd.columnName"/>
             </key>
-            <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" column="$otherEnd.columnName"/>
+            <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" column="$otherEnd.columnName" foreign-key="$otherEnd.foreignKeyConstraintName"/>
         </set>
 #end
 #end
