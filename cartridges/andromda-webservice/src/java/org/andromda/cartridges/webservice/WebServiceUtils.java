@@ -7,7 +7,7 @@ import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ServiceFacade;
+import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -33,9 +33,9 @@ public class WebServiceUtils
             public void execute(Object object)
             {
                 if (object != null
-                    && ServiceFacade.class.isAssignableFrom(object.getClass()))
+                    && Service.class.isAssignableFrom(object.getClass()))
                 {
-                    allRoles.addAll(((ServiceFacade)object).getAllRoles());
+                    allRoles.addAll(((Service)object).getAllRoles());
                 }
             }
         });

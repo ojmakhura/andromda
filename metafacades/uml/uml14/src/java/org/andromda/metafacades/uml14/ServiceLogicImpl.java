@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.RoleFacade;
-import org.andromda.metafacades.uml.ServiceFacade;
-import org.andromda.metafacades.uml.ServiceOperationFacade;
+import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.Service;
+import org.andromda.metafacades.uml.ServiceOperation;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -18,12 +18,12 @@ import org.apache.commons.collections.Transformer;
 /**
  * Metaclass facade implementation.
  */
-public class ServiceFacadeLogicImpl
-    extends ServiceFacadeLogic
+public class ServiceLogicImpl
+    extends ServiceLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ServiceFacadeLogicImpl(
+    public ServiceLogicImpl(
         java.lang.Object metaObject,
         String context)
     {
@@ -31,7 +31,7 @@ public class ServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ServiceFacade#getEntityReferences()
+     * @see org.andromda.metafacades.uml.Service#getEntityReferences()
      */
     public Collection handleGetEntityReferences()
     {
@@ -42,14 +42,14 @@ public class ServiceFacadeLogicImpl
                 ModelElementFacade targetElement = ((DependencyFacade)object)
                     .getTargetElement();
                 return targetElement != null
-                    && EntityFacade.class.isAssignableFrom(targetElement
+                    && Entity.class.isAssignableFrom(targetElement
                         .getClass());
             }
         };
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ServiceFacade#getServiceReferences()
+     * @see org.andromda.metafacades.uml.Service#getServiceReferences()
      */
     public Collection handleGetServiceReferences()
     {
@@ -60,14 +60,14 @@ public class ServiceFacadeLogicImpl
                 ModelElementFacade targetElement = ((DependencyFacade)object)
                     .getTargetElement();
                 return targetElement != null
-                    && ServiceFacade.class.isAssignableFrom(targetElement
+                    && Service.class.isAssignableFrom(targetElement
                         .getClass());
             }
         };
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ServiceFacade#getRoles()
+     * @see org.andromda.metafacades.uml.Service#getRoles()
      */
     protected Collection handleGetRoles()
     {
@@ -78,7 +78,7 @@ public class ServiceFacadeLogicImpl
             {
                 DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null
-                    && dependency.getSourceElement() instanceof RoleFacade;
+                    && dependency.getSourceElement() instanceof Role;
             }
         });
         CollectionUtils.transform(roles, new Transformer()
@@ -94,14 +94,14 @@ public class ServiceFacadeLogicImpl
         {
             public void execute(Object object)
             {
-                allRoles.addAll(((RoleFacade)object).getSpecializations());
+                allRoles.addAll(((Role)object).getSpecializations());
             }
         });
         return allRoles;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ServiceFacade#getAllRoles()
+     * @see org.andromda.metafacades.uml.Service#getAllRoles()
      */
     protected Collection handleGetAllRoles()
     {
@@ -110,9 +110,9 @@ public class ServiceFacadeLogicImpl
         {
             public void execute(Object object)
             {
-                if (object instanceof ServiceOperationFacade)
+                if (object instanceof ServiceOperation)
                 {
-                    roles.addAll(((ServiceOperationFacade)object).getRoles());
+                    roles.addAll(((ServiceOperation)object).getRoles());
                 }
             }
         });

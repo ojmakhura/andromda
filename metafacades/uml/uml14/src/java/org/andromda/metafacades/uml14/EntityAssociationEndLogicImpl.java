@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -13,12 +13,12 @@ import org.andromda.metafacades.uml.UMLProfile;
  * </p>
  * Metaclass facade implementation.
  */
-public class EntityAssociationEndFacadeLogicImpl
-    extends EntityAssociationEndFacadeLogic
+public class EntityAssociationEndLogicImpl
+    extends EntityAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityAssociationEndFacadeLogicImpl(
+    public EntityAssociationEndLogicImpl(
         java.lang.Object metaObject,
         String context)
     {
@@ -38,18 +38,18 @@ public class EntityAssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#getColumnName()()
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#getColumnName()()
      */
     public java.lang.String handleGetColumnName()
     {
         String columnName = null;
-        // prevent ClassCastException if the association isn't an EntityFacade
-        if (this.getType() instanceof EntityFacade)
+        // prevent ClassCastException if the association isn't an Entity
+        if (this.getType() instanceof Entity)
         {
             columnName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                ((EntityFacade)this.getType()).getMaxSqlNameLength(),
+                ((Entity)this.getType()).getMaxSqlNameLength(),
                 this.getForeignKeySuffix(),
                 this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
@@ -57,7 +57,7 @@ public class EntityAssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#getForeignKeySuffix()
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#getForeignKeySuffix()
      */
     public String handleGetForeignKeySuffix()
     {
@@ -65,7 +65,7 @@ public class EntityAssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#isForeignIdentifier()
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#isForeignIdentifier()
      */
     protected boolean handleIsForeignIdentifier()
     {
@@ -88,9 +88,9 @@ public class EntityAssociationEndFacadeLogicImpl
             final StringBuffer buffer = new StringBuffer();
 
             ClassifierFacade type = getOtherEnd().getType();
-            if (type instanceof EntityFacade)
+            if (type instanceof Entity)
             {
-                EntityFacade entity = (EntityFacade) type;
+                Entity entity = (Entity) type;
                 buffer.append(entity.getTableName());
             }
             else

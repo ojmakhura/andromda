@@ -192,7 +192,7 @@
     <metafacade class="org.andromda.metafacades.uml14.UseCaseFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.RoleFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.RoleLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
             <property name="referencesPresent"/>
         </mapping>
@@ -219,7 +219,7 @@
         </mapping>
     </metafacade>
     <!-- Entity  metafacades -->
-    <metafacade class="org.andromda.metafacades.uml14.EntityFacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
@@ -229,7 +229,7 @@
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityFacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
@@ -239,7 +239,7 @@
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityFacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
@@ -249,42 +249,42 @@
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityAttributeFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.EntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
         <property reference="sqlMappingsUri"/>
         <property reference="jdbcMappingsUri"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityAssociationFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.EntityAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.metafacades.uml.Entity</context>
             <stereotype>FINDER_METHOD</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.metafacades.uml.EntityFacade</context>
+            <context>org.andromda.metafacades.uml.Entity</context>
             <property name="query"/>
         </mapping>
     </metafacade>
     <!-- Service  metafacades -->
-    <metafacade class="org.andromda.metafacades.uml14.ServiceFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.ServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ServiceOperationFacadeLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.ServiceOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <property name="service"/>
         </mapping>

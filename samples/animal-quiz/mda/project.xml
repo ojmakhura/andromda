@@ -61,7 +61,6 @@
                 <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
                 <wsdls>${maven.andromda.webservice.wsdl.dir}</wsdls>
                 <axis-configuration>${maven.andromda.webservice.axis.dir}</axis-configuration>
-                <java-types>${maven.andromda.java.generated.dir}</java-types>
             </properties>
         </dependency>
         <dependency>
@@ -69,8 +68,10 @@
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
+                <useArraysForMultiplicitiesOfTypeMany>true</useArraysForMultiplicitiesOfTypeMany>
                 <exceptions>${maven.andromda.java.generated.dir}</exceptions>
                 <enumerations>${maven.andromda.java.generated.dir}</enumerations>
+                <value-objects>${maven.andromda.java.generated.dir}</value-objects>
             </properties>
         </dependency>
         <dependency>

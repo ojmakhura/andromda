@@ -3,7 +3,7 @@ package org.andromda.cartridges.spring;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.andromda.metafacades.uml.ServiceFacade;
+import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -28,9 +28,9 @@ public class SpringUtils
             public void execute(Object object)
             {
                 if (object != null
-                    && ServiceFacade.class.isAssignableFrom(object.getClass()))
+                    && Service.class.isAssignableFrom(object.getClass()))
                 {
-                    allRoles.addAll(((ServiceFacade)object).getAllRoles());
+                    allRoles.addAll(((Service)object).getAllRoles());
                 }
             }
         });

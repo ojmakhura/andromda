@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.common.HTMLAnalyzer;
-import org.andromda.core.common.HTMLParagraph;
+import org.andromda.core.common.DocumentationAnalyzer;
+import org.andromda.core.common.Paragraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.MetafacadeProperties;
@@ -361,15 +361,15 @@ public class ModelElementFacadeLogicImpl
             String newLine = "\n";
             String startParaTag = (htmlStyle) ? "<p>" : "";
             String endParaTag = (htmlStyle) ? "</p>" : "";
-            Collection paragraphs = new HTMLAnalyzer(lineLength)
-                .htmlToParagraphs(documentation.toString());
+            Collection paragraphs = new DocumentationAnalyzer(lineLength)
+                .toParagraphs(documentation.toString(), htmlStyle);
             if (paragraphs != null && !paragraphs.isEmpty())
             {
                 documentation = new StringBuffer();
                 for (Iterator paragraphIt = paragraphs.iterator(); paragraphIt
                     .hasNext();)
                 {
-                    HTMLParagraph paragraph = (HTMLParagraph)paragraphIt.next();
+                    Paragraph paragraph = (Paragraph)paragraphIt.next();
                     documentation.append(indent + startParaTag + newLine);
                     Collection lines = paragraph.getLines();
                     if (lines != null && !lines.isEmpty())

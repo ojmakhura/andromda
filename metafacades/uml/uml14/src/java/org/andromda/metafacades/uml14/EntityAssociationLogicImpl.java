@@ -3,7 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -15,12 +15,12 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @see org.andromda.metafacades.uml.EntityAssociationFacade
  */
-public class EntityAssociationFacadeLogicImpl
-    extends EntityAssociationFacadeLogic
+public class EntityAssociationLogicImpl
+    extends EntityAssociationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityAssociationFacadeLogicImpl(
+    public EntityAssociationLogicImpl(
         java.lang.Object metaObject,
         java.lang.String context)
     {
@@ -41,8 +41,8 @@ public class EntityAssociationFacadeLogicImpl
             if (end.isMany2Many())
             {
                 // prevent ClassCastException if the association isn't an
-                // EntityFacade
-                if (EntityFacade.class.isAssignableFrom(end.getType()
+                // Entity
+                if (Entity.class.isAssignableFrom(end.getType()
                     .getClass()))
                 {
                     String tableNamePrefix = StringUtils
@@ -54,7 +54,7 @@ public class EntityAssociationFacadeLogicImpl
                             tableNamePrefix,
                             this,
                             UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                            ((EntityFacade)end.getType()).getMaxSqlNameLength(),
+                            ((Entity)end.getType()).getMaxSqlNameLength(),
                             this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
                 }
             }

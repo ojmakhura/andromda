@@ -84,7 +84,7 @@ public class StrutsControllerLogicImpl
                 ModelElementFacade targetElement = ((DependencyFacade)object)
                     .getTargetElement();
                 return targetElement != null
-                    && ServiceFacade.class.isAssignableFrom(targetElement
+                    && Service.class.isAssignableFrom(targetElement
                         .getClass());
             }
         };

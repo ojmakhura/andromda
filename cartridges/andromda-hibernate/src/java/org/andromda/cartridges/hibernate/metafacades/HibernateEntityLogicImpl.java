@@ -8,8 +8,8 @@ import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityAttributeFacade;
-import org.andromda.metafacades.uml.EntityFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -88,12 +88,12 @@ public class HibernateEntityLogicImpl
      */
     protected Collection handleGetAllBusinessOperations()
     {
-        EntityFacade superElement = (EntityFacade)this.getGeneralization();
+        Entity superElement = (Entity)this.getGeneralization();
         Collection result = this.getBusinessOperations();
         while (superElement != null)
         {
             result.addAll(superElement.getBusinessOperations());
-            superElement = (EntityFacade)superElement.getGeneralization();
+            superElement = (Entity)superElement.getGeneralization();
         }
         return result;
     }
@@ -392,7 +392,7 @@ public class HibernateEntityLogicImpl
      * Override so that we retrieve only the operations that are classifier
      * scope (i.e. static).
      * 
-     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     * @see org.andromda.metafacades.uml.Entity#getBusinessOperations()
      */
     public Collection getBusinessOperations()
     {
@@ -587,7 +587,7 @@ public class HibernateEntityLogicImpl
         final HibernateEntity superEntity = this.getSuperEntity();
         if (superEntity != null && superEntity.isHibernateInheritanceSubclass())
         {
-            column = ((EntityAttributeFacade)this.getIdentifiers().iterator()
+            column = ((EntityAttribute)this.getIdentifiers().iterator()
                 .next()).getColumnName();
         }
         return column;
