@@ -28,5 +28,9 @@
             descriptor="${basedir}/mda/project.xml"
             goals="pom:install"/>
     </goal>
+    
+  	<goal name="install">
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
 
 </project>

@@ -29,12 +29,12 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-     		<version>${commonsCollections}</version>
+     		<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-digester</groupId>
 			<artifactId>commons-digester</artifactId>
-			<version>${commonsDigester}</version>
+			<version>1.5</version>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
@@ -42,12 +42,12 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>${commonsLogging}</version>
+			<version>1.0.4</version>
 		</dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>${commonsValidator}</version>
+            <version>1.1.2dev-20040701</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -55,12 +55,12 @@
         <dependency>
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
-            <version>${servletapi}</version>
+            <version>2.4-20040521</version>
         </dependency>
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
-            <version>${struts}</version>
+            <version>1.2.2</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <version>${displaytag}</version>
+            <version>1.0-b3</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -82,44 +82,44 @@
     	<dependency>
     		<groupId>xjavadoc</groupId>
     		<artifactId>xjavadoc</artifactId>
-        	<version>${xjavadoc}</version>
+        	<version>1.0.3</version>
     	</dependency> 
   		<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
   		<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-xdoclet-module</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
     	<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-jboss-module</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
     	<dependency>
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-ejb-module</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
     	<!-- This one is needed because jboss-module depends on it -->
     	<dependency>
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-jmx-module</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
 		<!-- ejbdoclet depends on this module for some reason -->
     	<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-apache-module</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
     	<dependency>
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-web-module</artifactId>
-        	<version>${xdoclet}</version>
+        	<version>1.2</version>
     	</dependency>
         <!-- The dependencies are used for precompilation -->
         <dependency>
@@ -142,12 +142,12 @@
         <dependency>
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
-            <version>${ant}</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>commons-el</groupId>
             <artifactId>commons-el</artifactId>
-            <version>${commonsEl}</version>
+            <version>1.0</version>
         </dependency>
 	</dependencies>
   	<build>
