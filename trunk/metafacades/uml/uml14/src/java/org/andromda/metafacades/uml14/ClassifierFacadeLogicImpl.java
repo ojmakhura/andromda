@@ -215,9 +215,9 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributesAsList(boolean)
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getOperationCallFromAttributes(boolean)
      */
-    public String handleGetAttributesAsList(boolean withTypeNames)
+    public String handleGetOperationCallFromAttributes(boolean withTypeNames)
     {
         StringBuffer sb = new StringBuffer();
         String separator = "";

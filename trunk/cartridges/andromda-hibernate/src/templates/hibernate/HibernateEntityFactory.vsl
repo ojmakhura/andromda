@@ -28,7 +28,7 @@ public abstract class ${entity.name}Factory {
 #end
     * @return ${entity.name} the created object
     */
-    public static ${entity.name} create $entity.getAttributesAsList(true, false, true)
+    public static ${entity.name} create $entity.getOperationCallFromAttributes(true, false, true)
     {
         ${entity.name} object = new ${entity.name}Impl();
 
