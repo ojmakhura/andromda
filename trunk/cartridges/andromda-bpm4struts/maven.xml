@@ -1,0 +1,15 @@
+<project xmlns:ant="jelly:ant">
+  		 
+  	<!-- ==================================================================
+  			 Installs all libraries in the local repository                                                    
+  		 ================================================================== -->
+  	<postGoal name="xdoc">
+  		<!-- copy over the online store example model -->
+		<ant:copy todir="${maven.docs.dest}">
+			<ant:fileset dir="../../samples/online-store/mda/src/uml"/>
+		</ant:copy>
+  	</postGoal> 
+  		 
+</project>
+
+
