@@ -74,7 +74,7 @@
 			          		<strong><![CDATA[<<EntityRef>>]]></strong>
 			          	</td>
 			          	<td>
-			          		Association
+			          		Dependency
 			          	</td>			       
 			          	<td>
 			          		Used to reference an entity from another entity or service. 
@@ -86,7 +86,7 @@
 			          		<strong><![CDATA[<<ServiceRef>>]]></strong>
 			          	</td>
 			          	<td>
-			          		Association
+			          		Dependency
 			          	</td>			       
 			          	<td>
 			          		Used to reference a service from an entity or another service.
@@ -98,7 +98,7 @@
 			          		<strong><![CDATA[<<ValueRef>>]]></strong>
 			          	</td>
 			          	<td>
-			          		Association
+			          		Dependency
 			          	</td>			       
 			          	<td>
 			          		Used to generate an association between an entity and a value object class. 
