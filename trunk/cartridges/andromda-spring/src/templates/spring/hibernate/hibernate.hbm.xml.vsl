@@ -12,7 +12,7 @@
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
     <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName">
-#if($entity.hibernateCacheType!="")
+#if($entity.hibernateCacheType.length() != 0)
     <cache usage="$entity.hibernateCacheType" />
 #end
 
