@@ -54,6 +54,32 @@ public class MDRepositoryFacade implements RepositoryFacade
     }
     
 	/**
+	 * Starts a transaction before reading any models.
+	 * 
+	 * Doing the model file reads within the context of a transaction seems to
+	 * speed up processing.
+	 * 
+	 * @see org.andromda.core.common.RepositoryFacade#open()
+	 */
+    public void open()
+    {
+    	MDRManager.getDefault().getDefaultRepository().beginTrans(true);
+    }
+    
+	/**
+	 * Closes a transactions.
+	 * 
+	 * This can be called after all the models have been read and all querys 
+	 * have completed.
+	 * 
+	 * @see org.andromda.core.common.RepositoryFacade#close()
+	 */
+    public void close()
+    {
+    	MDRManager.getDefault().getDefaultRepository().endTrans(true);
+    }
+    
+	/**
 	 * @see org.andromda.core.common.RepositoryFacade#readModel(URL)
 	 */
 	public void readModel(URL modelURL)
@@ -68,6 +94,7 @@ public class MDRepositoryFacade implements RepositoryFacade
 
 		try
 		{
+			repository.beginTrans(true);
 			MofPackage metaModel = loadMetaModel(metaModelURL, repository);
 
 			this.model = loadModel(modelURL, metaModel, repository);
@@ -81,6 +108,8 @@ public class MDRepositoryFacade implements RepositoryFacade
 		catch (MalformedXMIException mxe)
 		{
 			throw new RepositoryReadException("malformed XMI data", mxe);
+		}
+		finally {
 		}
 
 		log("MDR: created repository");

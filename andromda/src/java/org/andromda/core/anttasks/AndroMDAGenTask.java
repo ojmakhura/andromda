@@ -608,12 +608,16 @@ public class AndroMDAGenTask extends MatchingTask
 		// find the files/directories
 		scanner = getDirectoryScanner(baseDir);
 
+		createRepository().createRepository().open();
+		
 		// get a list of files to work on
 		list = scanner.getIncludedFiles();
 		for (int i = 0; i < list.length; ++i)
 		{
 			process(baseDir, list[i]);
 		}
+		
+		createRepository().createRepository().close();
 	}
 
 	/**
@@ -640,6 +644,7 @@ public class AndroMDAGenTask extends MatchingTask
 
 			// configure repository
 			context.repository = createRepository().createRepository();
+			context.repository.open();
 			context.repository.readModel(inFile.toURL());
 
 			// configure script helper
@@ -670,6 +675,7 @@ public class AndroMDAGenTask extends MatchingTask
 		{
 			processModelElement(context, it.next());
 		}
+		context.repository.close();
 
 	}
 
