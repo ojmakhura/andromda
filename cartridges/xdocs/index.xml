@@ -14,9 +14,10 @@
       <p>
             The <strong>primary plugin</strong> of the AndroMDA framework, <em>cartridges</em>
             provide the ability to process model elements that have specified <code>stereotypes</code>
-            (i.e. <code><![CDATA[<<Entity>>]]></code>, <code><![CDATA[<<Enumeration>>]]></code>, etc.).
-            Cartridges process these model elements using template files defined within the cartridge
-            <a href="descriptor-schema.html">descriptor</a>.
+            (i.e. <code><![CDATA[<<Entity>>]]></code>, <code><![CDATA[<<Enumeration>>]]></code>, etc.) or
+            model elements that meet certain conditions inferred by the model (all Actors that have a dependency 
+            to a <![CDATA[<<Service>>]]> for example). Cartridges process these model elements using template 
+            files defined within the cartridge <a href="descriptor-schema.html">descriptor</a>.
       </p>
       <p>
           This page describes the internal structure of an AndroMDA cartridge.
