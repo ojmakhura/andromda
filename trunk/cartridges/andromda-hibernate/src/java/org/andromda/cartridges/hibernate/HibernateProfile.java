@@ -1,5 +1,6 @@
 package org.andromda.cartridges.hibernate;
 
+import org.andromda.core.common.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 
 /**
@@ -11,6 +12,11 @@ import org.andromda.metafacades.uml.UMLProfile;
 public class HibernateProfile
     extends UMLProfile
 {
+    
+    /**
+     * The Profile instance from which we retrieve the mapped profile names.
+     */
+    private static final Profile profile = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
 
@@ -19,17 +25,17 @@ public class HibernateProfile
     /**
      * Stores a hibernate query string
      */
-    public static final String TAGGEDVALUE_HIBERNATE_QUERY = "@andromda.hibernate.query";
+    public static final String TAGGEDVALUE_HIBERNATE_QUERY = profile.get("HIBERNATE_QUERY");
 
     /**
      * Stores the viewtype of the Hibernate Session EJB.
      */
-    public static final String TAGGEDVALUE_EJB_VIEWTYPE = "@andromda.ejb.viewType";
+    public static final String TAGGEDVALUE_EJB_VIEWTYPE = profile.get("EJB_VIEWTYPE");
 
     /**
      * Stores the aggregation kind (lazy/eager) of the Hibernate Session EJB.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_LAZY = "@andromda.hibernate.lazy";
+    public static final String TAGGEDVALUE_HIBERNATE_LAZY = profile.get("HIBERNATE_LAZY");
 
     /**
      * Support for hibernate inheritance strategy, supported values are
@@ -42,11 +48,11 @@ public class HibernateProfile
      * </ul>
      * See Hibernate documentation for specific details.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = "@andromda.hibernate.inheritance";
+    public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = profile.get("HIBERNATE_INHERITANCE");
 
     /**
      * Defines outer join fetching on many to one and one to one associations
      */
-    public static final String TAGGEDVALUE_HIBERNATE_OUTER_JOIN = "@andromda.hibernate.outerjoin";
+    public static final String TAGGEDVALUE_HIBERNATE_OUTER_JOIN = profile.get("HIBERNATE_OUTER_JOIN");
 
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  The default Spring profile mappings.
+-->
+<mappings name="SpringProfile"> 
+    <mapping>
+        <from>HIBERNATE_QUERY</from>
+        <to>@andromda.hibernate.query</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_GENERATOR_CLASS</from>
+        <to>@andromda.hibernate.generator.class</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_LAZY</from>
+        <to>@andromda.hibernate.lazy</to>
+    </mapping>
+</mappings>

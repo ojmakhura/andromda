@@ -3,6 +3,7 @@
   The default BPM4Struts profile mappings.
 -->
 <mappings name="BPM4StrutsProfile"> 
+    <!-- stereotypes -->
     <mapping>
         <from>FRONT_END_VIEW</from>
         <to>FrontEndView</to>
@@ -34,5 +35,86 @@
     <mapping>
         <from>FRONT_END_SESSION_OBJECT</from>
         <to>FrontEndSessionObject</to>
+    </mapping>
+    <!-- tagged values -->
+    <mapping>
+        <from>ACTION_TYPE</from>
+        <to>@andromda.struts.action.type</to>
+    </mapping>
+    <mapping>
+        <from>ACTION_RESETTABLE</from>
+        <to>@andromda.struts.action.resettable</to>
+    </mapping>
+    <mapping>
+        <from>ACTION_SUCCESS_MESSAGE</from>
+        <to>@andromda.struts.action.success.message</to>
+    </mapping>
+    <mapping>
+        <from>ACTION_WARNING_MESSAGE</from>
+        <to>@andromda.struts.action.warning.message</to>
+    </mapping>
+    <mapping>
+        <from>INPUT_REQUIRED</from>
+        <to>@andromda.struts.view.field.required</to>
+    </mapping>    
+    <mapping>
+        <from>INPUT_READONLY</from>
+        <to>@andromda.struts.view.field.readonly</to>
+    </mapping>  
+    <mapping>
+        <from>INPUT_FORMAT</from>
+        <to>@andromda.struts.view.field.format</to>
+    </mapping>
+    <mapping>
+        <from>INPUT_TYPE</from>
+        <to>@andromda.struts.view.field.type</to>
+    </mapping>
+    <mapping>
+        <from>INPUT_VALIDWHEN</from>
+        <to>@andromda.struts.view.field.validwhen</to>
+    </mapping>
+    <mapping>
+        <from>INPUT_CALENDAR</from>
+        <to>@andromda.struts.view.field.calendar</to>
+    </mapping>
+    <mapping>
+        <from>INPUT_TABLELINK</from>
+        <to>@andromda.struts.view.field.tablelink</to>
+    </mapping>
+    <mapping>
+        <from>INPUT_RESET</from>
+        <to>@andromda.struts.view.field.reset</to>
+    </mapping>
+    <mapping>
+        <from>TABLE_COLUMNS</from>
+        <to>@andromda.struts.view.table.columns</to>
+    </mapping>
+    <mapping>
+        <from>TABLE_MAXROWS</from>
+        <to>@andromda.struts.view.table.maxrows</to>
+    </mapping>
+    <mapping>
+        <from>TABLE_EXPORT</from>
+        <to>@andromda.struts.view.table.export</to>
+    </mapping>
+    <mapping>
+        <from>TABLE_SORTABLE</from>
+        <to>@andromda.struts.view.table.sortable</to>
+    </mapping>
+    <mapping>
+        <from>EXCEPTION_TYPE</from>
+        <to>@andromda.struts.exception.type</to>
+    </mapping>
+    <mapping>
+        <from>CONTROLLER_USE_CASE</from>
+        <to>@andromda.struts.controller.usecase</to>
+    </mapping>
+    <mapping>
+        <from>USECASE_ACTIVITY</from>
+        <to>@andromda.struts.usecase.activity</to>
+    </mapping>
+    <mapping>
+        <from>ACTION_REDIRECT</from>
+        <to>@andromda.struts.action.redirect</to>
     </mapping>
 </mappings>
