@@ -1,4 +1,5 @@
-<project xmlns:ant="jelly:ant">
+<project default="install"
+         xmlns:ant="jelly:ant">
 
 <!-- ==================================================================
          Generate a PDF from the docs
@@ -8,6 +9,10 @@
         <attainGoal name="fo:fo"/>
         <attainGoal name="pdf:pdf"/>
     </postGoal>
+    
+  	<goal name="install">
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
 
 </project>
 

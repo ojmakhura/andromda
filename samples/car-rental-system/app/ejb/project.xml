@@ -2,7 +2,7 @@
 
 <project>
   	<extend>../../project.xml</extend>
-	<id>car-rental-sample-ejb-app</id>
+	<artifactId>car-rental-sample-ejb-app</artifactId>
 	<name>Car Rental Sample EJB Application</name>
 	<shortDescription>
 		The AndromMDA Car Rental System Sample using 
@@ -39,7 +39,7 @@
   		<dependency>
      		<groupId>commons-beanutils</groupId>
       		<artifactId>commons-beanutils</artifactId>
-            <version>${commonsBeanutils}</version>
+            <version>1.7.0</version>
 	      	<properties>
 	        	<ear.bundle>true</ear.bundle>
 	     	</properties>
@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-     		<version>${commonsCollections}</version>
+     		<version>3.1</version>
 			<properties>
 	        	<ear.bundle>true</ear.bundle>
 			</properties>

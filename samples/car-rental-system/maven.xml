@@ -31,4 +31,9 @@
 			descriptor="${basedir}/app/hibernate/project.xml"
 			goals="undeploy"/>
 	</goal>  		 	  	
+	
+  	<goal name="install">
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
+	
 </project>
