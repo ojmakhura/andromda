@@ -1,7 +1,7 @@
 <project name="AndroMDAAsAWholePackage" default="dist">
 
-    <property name="version" value="2.0.2" />
-    <property name="version.suffix" value="202" />
+    <property name="version" value="2.0.3" />
+    <property name="version.suffix" value="203" />
 
     <!-- ============================================================= -->
     <!--               Directory settings                              -->
@@ -71,6 +71,7 @@
         <zip zipfile="${dist.dir}/andromda-src-${version.suffix}.zip">
             <zipfileset dir="." prefix="andromda-src">
                 <include name="**/*" />
+                <exclude name="**/*.log" />
             </zipfileset>
         </zip>
 
