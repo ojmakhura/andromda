@@ -54,6 +54,25 @@ $attribute.getDocumentation("     * ")
 #if($attribute.required)
      *     not-null="true"
 #end
+##
+##  the following fragment should be refactored: it should be in the metafacades
+## (but there is no attribute facade at this point for the hibernate cartridge)
+##
+## -- Wouter
+##
+##  start fragment --------------------------v
+##
+#set ($unique = $attribute.findTaggedValue("@andromda.hibernate.unique"))
+#if($unique)
+     *     unique="$unique"
+#end
+#set ($index = $attribute.findTaggedValue("@andromda.hibernate.index"))
+#if($index)
+     *     index="$index"
+#end
+##
+##  end fragment --------------------------^
+##
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
     {
