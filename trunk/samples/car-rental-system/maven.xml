@@ -1,5 +1,4 @@
-<project default="install"
-         xmlns:ant="jelly:ant"
+<project xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven">
   	
    	<!-- ==================================================================
@@ -31,9 +30,5 @@
 			descriptor="${basedir}/app/hibernate/project.xml"
 			goals="undeploy"/>
 	</goal>  		 	  	
-	
-  	<goal name="install">
-		<attainGoal name="multiproject:install"/>	
-  	</goal> 
 	
 </project>
