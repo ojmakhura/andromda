@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>car-rental-system-app</artifactId>
+    <name>Car Rental System Application</name>
+    <shortDescription>
+        The ${pom.name} J2EE application.
+    </shortDescription>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>ejb</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-web</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>war</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+                <ear.appxml.war.context-root>/car-rental-system</ear.appxml.war.context-root>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-common</artifactId>
+            <version>${pom.currentVersion}</version>
+                <properties>
+                    <ear.bundle>true</ear.bundle>
+                </properties>
+       </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+         </dependency>
+         <!-- This dependency causes class loading issues with jboss-tomcat,
+              however other app servers may require it (since it may not
+              be bundled with the server like it is with jboss/tomcat 
+         <dependency>
+             <groupId>commons-logging</groupId>
+             <artifactId>commons-logging</artifactId>
+             <version>1.0.4</version>
+             <properties>
+                <ear.bundle>true</ear.bundle>
+             </properties>
+          </dependency>
+          -->
+    </dependencies>
+</project>
