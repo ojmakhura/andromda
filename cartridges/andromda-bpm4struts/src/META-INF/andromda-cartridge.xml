@@ -21,18 +21,18 @@
 
     <!-- copy resources -->
     <resource
-        path="resources/*.png"
+        path="resources/*.*"
         outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
     <resource
-        path="resources/calendar/*.gif"
+        path="resources/hints/*.*"
+        outputPattern="layout/hints/{0}"
+        outlet="pages"
+        overwrite="true"/>
+    <resource
+        path="resources/calendar/*.*"
         outputPattern="layout/calendar/{0}"
-        outlet="pages"
-        overwrite="true"/>
-    <resource
-        path="resources/layout-*.js"
-        outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
 
