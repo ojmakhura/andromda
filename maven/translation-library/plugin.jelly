@@ -135,7 +135,7 @@
 		  
 	    <j:set 
 	        var="translationLibraryTemplatesDir" 
-	        value="${plugin.resources}/templates/translation-library"/>
+	        value="${plugin.resources}/templates"/>
 		<attainGoal name="translation-library:generate-translation-library-descriptor"/>
 		<attainGoal name="translation-library:generate-translations"/>
 		<attainGoal name="translation-library:generate-translator"/>
