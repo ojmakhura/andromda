@@ -207,6 +207,19 @@ public class MetafacadeBase
     {
         this.namespace = namespace;
     }
+    
+    /**
+     * Returns true or false depending on whether the <code>property</code>
+     * is registered or not.
+     * @param property the name of the property to check.
+     * @return true/false on whether or not its regisgterd.
+     */
+    protected boolean isConfiguredProperty(String property)
+    {
+        return MetafacadeFactory.getInstance().isPropertyRegistered(
+            this.getPropertyNamespace(),
+            property);
+    }
 
     /**
      * Gets a configured property from the container. Note that the configured
