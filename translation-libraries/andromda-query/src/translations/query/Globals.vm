@@ -16,4 +16,4 @@
 #set ($nonEmptyParentheses = '\s*\(.*\)\s*')
 
 #set ($excludeAllInstances = "(?!allInstances)")
-#set ($excludeSelect = "(?!select\\(.*\\))")
+#set ($excludeSelect = "(?!select)")
