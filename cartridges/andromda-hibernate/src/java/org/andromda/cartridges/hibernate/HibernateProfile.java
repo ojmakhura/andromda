@@ -65,4 +65,8 @@ public class HibernateProfile
      * Defines the cache type for the Entity
      */
     public static final String TAGGEDVALUE_HIBERNATE_ENTITY_CACHE = profile.get("HIBERNATE_ENTITY_CACHE");
+    /**
+     * Defines the cache type for an association
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE = profile.get("HIBERNATE_ASSOCIATION_CACHE");
 }
