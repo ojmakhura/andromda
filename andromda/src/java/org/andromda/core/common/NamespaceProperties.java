@@ -11,7 +11,7 @@ public class NamespaceProperties
 {
     /**
      * <p>
-     * The location of the <strong>optional </strong> location of a merge
+     * The location of an <strong>optional </strong> merge
      * mappings file (merge mappings are mappings that allow the replacement of
      * patterns in generated files during model processing time).
      * </p>
@@ -20,10 +20,10 @@ public class NamespaceProperties
 
     /**
      * <p>
-     * Defines the location of merge templates. Merge templates are currently
-     * templates which will override existing templates found in cartridges (so
-     * they must have the exact same name as the template which this wish to
-     * override).
+     * Defines the location of merge templates. Merge templates are templates
+     * that can either be <em>merged</em> into existing cartridge output, or
+     * replace cartridge templates all together.  This must be the directory
+     * where the merge files can be found.
      * </p>
      */
     public static final String MERGE_LOCATION = "mergeLocation";
