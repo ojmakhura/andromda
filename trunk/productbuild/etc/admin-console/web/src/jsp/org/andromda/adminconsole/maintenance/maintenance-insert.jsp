@@ -16,11 +16,15 @@
                         <td>
                             <c:if test="${column.foreignKeyColumn}">
                                 <c:set var="foreignTable" value="${column.importedKeyColumn.table}" scope="page"/>
-                                <bean:message key="show.table" bundle="custom"/>
-                                <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
-                                    paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
-                                    ${foreignTable.name}
-                                </html:link>
+                                <c:if test="${column.table.name != foreignTable.name}"> <%-- don't render link to yourself --%>
+                                    <c:if test="${acf:contains(metaDataSession.tableNames,foreignTable.name)}"> <%-- only render allowed tables --%>
+                                        <bean:message key="show.table" bundle="custom"/>
+                                        <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
+                                            paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
+                                            ${foreignTable.name}
+                                        </html:link>
+                                    </c:if>
+                                </c:if>
                             </c:if>
                         </td>
                     </tr>
