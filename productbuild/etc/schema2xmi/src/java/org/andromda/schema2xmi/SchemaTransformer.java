@@ -45,11 +45,10 @@ import org.omg.uml.modelmanagement.ModelManagementPackage;
 
 /**
  * Performs the transformation of database schema to XMI.
- *
- * @todo This class really should have the functionality 
- *       it uses (writing model elements) moved to the metafacades.
- * @todo This class should be refactored into smaller classes.
  * 
+ * @todo This class really should have the functionality it uses (writing model
+ *       elements) moved to the metafacades.
+ * @todo This class should be refactored into smaller classes.
  * @author Chad Brandon
  */
 public class SchemaTransformer
@@ -220,8 +219,7 @@ public class SchemaTransformer
             repository.close();
         }
         logger.info("Completed adding " + this.classes.size()
-            + " classes, writing model to --> '" 
-            + outputLocation 
+            + " classes, writing model to --> '" + outputLocation
             + "', TIME --> "
             + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]");
     }
@@ -389,18 +387,20 @@ public class SchemaTransformer
             {
                 for (int ctr = 0; ctr < packages.length; ctr++)
                 {
-                    Object umlPackage = ModelElementFinder.find(modelPackage, packages[ctr]);
-                    
+                    Object umlPackage = ModelElementFinder.find(
+                        modelPackage,
+                        packages[ctr]);
+
                     if (umlPackage == null)
                     {
-                        umlPackage = modelManagementPackage
-	                        .getUmlPackage().createUmlPackage(
-	                            packages[ctr],
-	                            VisibilityKindEnum.VK_PUBLIC,
-	                            false,
-	                            false,
-	                            false,
-	                            false);
+                        umlPackage = modelManagementPackage.getUmlPackage()
+                            .createUmlPackage(
+                                packages[ctr],
+                                VisibilityKindEnum.VK_PUBLIC,
+                                false,
+                                false,
+                                false,
+                                false);
                         modelPackage.getOwnedElement().add(umlPackage);
                     }
                     modelPackage = (org.omg.uml.modelmanagement.UmlPackage)umlPackage;
@@ -577,8 +577,8 @@ public class SchemaTransformer
                 if (typeMappings.containsFrom(type))
                 {
                     typeClass = this.getOrCreateDataType(corePackage, type);
-                } 
-                
+                }
+
                 // next we see if we can find a type matching a mapping
                 // for a JDBC type
                 type = JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE"));
@@ -586,7 +586,7 @@ public class SchemaTransformer
                 {
                     typeClass = this.getOrCreateDataType(corePackage, type);
                 }
-                
+
                 boolean required = !this.isColumnNullable(
                     metadata,
                     tableName,
@@ -661,21 +661,20 @@ public class SchemaTransformer
                 String packageName = StringUtils.join(
                     names,
                     Schema2XMIGlobals.PACKAGE_SEPERATOR);
-                org.omg.uml.modelmanagement.UmlPackage umlPackage = 
-                    this.getOrCreatePackage(
-	                    this.umlPackage.getModelManagement(),
-	                    this.model,
-	                    packageName);
+                org.omg.uml.modelmanagement.UmlPackage umlPackage = this
+                    .getOrCreatePackage(
+                        this.umlPackage.getModelManagement(),
+                        this.model,
+                        packageName);
                 if (umlPackage != null)
                 {
-                    datatype = 
-                        corePackage.getDataType().createDataType(
-	                        typeName,
-	                        VisibilityKindEnum.VK_PUBLIC,
-	                        false,
-	                        false,
-	                        false,
-	                        false);
+                    datatype = corePackage.getDataType().createDataType(
+                        typeName,
+                        VisibilityKindEnum.VK_PUBLIC,
+                        false,
+                        false,
+                        false,
+                        false);
                     umlPackage.getOwnedElement().add(datatype);
                 }
             }
