@@ -43,15 +43,7 @@ public class SpringServiceLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-
-    protected boolean handleHasReferences()
-    {
-        return (this.getEntityReferences() != null && !this
-            .getEntityReferences().isEmpty())
-            || (this.getServiceReferences() != null && !this
-                .getServiceReferences().isEmpty());
-    }
-
+    
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbImplementationName()
      */
