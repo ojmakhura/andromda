@@ -229,53 +229,63 @@ public abstract class $entity.daoBaseName
 #end
 ##
     /**
-     * @see ${entity.fullyQualifiedName}#${finder.name}(false#if(!$finder.arguments.empty), ${finder.argumentNames}#end)
+     * @see ${entity.fullyQualifiedName}#${finder.name}(false#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
-    $finder.visibility $returnType ${finder.name}(boolean transform#if(!$finder.arguments.empty), ${finder.typedArgumentList}#end)
+    $finder.visibility $returnType ${finder.name}(final boolean transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
     {
-        Object[] arguments = new Object[]
+        final $entity.fullyQualifiedDaoBaseName dao = this;
+        org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
         {
+            public Object doInHibernate(net.sf.hibernate.Session session) 
+                throws net.sf.hibernate.HibernateException
+            {  
+                net.sf.hibernate.Query queryObject = 
+                    getHibernateTemplate().createQuery(
+                        session, 
+                        "$finder.query");
 #foreach($argument in $finder.arguments)
-            $argument.name#if($velocityCount != $finder.arguments.size()),#end
-
+#set ($count = $velocityCount - 1)
+                queryObject.setParameter($count, $argument.name);
 #end
-        };
-        java.util.Collection results =
-            this.getHibernateTemplate().find(
-                "$finder.query",
-                arguments);
-        if (transform)
-        {
-            // transform the results into the value objects
-            org.apache.commons.collections.CollectionUtils.transform(
-                results,
-                this);
-        }
+                java.util.Collection results = queryObject.list();
+                if (transform)
+                {
+                    // transform the results into the value objects
+                    org.apache.commons.collections.CollectionUtils.transform(
+                        results,
+                        dao);
+                }
 #if (!$finder.returnType.collectionType)
-        Object result = null;
-        if (results != null)
-        {
-            if (results.size() > 1)
-            {
-                throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
-                    "More than one instance of '" 
-                    + ${returnType}.class.getName() 
-                    + "' was found when executing query --> '${finder.query}'");
+                Object result = null;
+                if (results != null)
+                {
+                    if (results.size() > 1)
+                    {
+                        throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
+                            "More than one instance of '" 
+                                + ${finder.returnType.fullyQualifiedName}.class.getName() 
+                                + "' was found when executing query --> '${finder.query}'");
 
-            }
-            else if (results.size() == 1)
-            {
-                result = results.iterator().next();
-            }
-        }
-        return result;
+                    }
+                    else if (results.size() == 1)
+                    {
+                        result = results.iterator().next();
+                    }
+                }
+                return result;
 #else
-        return results;
+                return results;
 #end
-
+            }
+        };
+#set ($returnStatement = "this.getHibernateTemplate().execute(callback);")
+#if ($finder.returnType.collectionType)
+#set ($returnStatement = "($returnType)$returnStatement")
+#end
+        return $returnStatement 
     }
 
 #end
