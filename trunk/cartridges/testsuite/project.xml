@@ -10,6 +10,11 @@
     <shortDescription>Carridge Test Suite.</shortDescription>
     <dependencies>
         <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
             <groupId>xjavadoc</groupId>
             <artifactId>xjavadoc</artifactId>
             <version>1.0.3</version>

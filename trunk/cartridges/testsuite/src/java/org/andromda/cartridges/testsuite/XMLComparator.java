@@ -3,6 +3,8 @@ package org.andromda.cartridges.testsuite;
 import java.io.File;
 import java.io.FileReader;
 
+import junit.framework.TestCase;
+
 import org.custommonkey.xmlunit.XMLTestCase;
 
 /**
@@ -42,7 +44,7 @@ public class XMLComparator
         }
         catch (Throwable th)
         {
-            th.printStackTrace();
+            TestCase.fail(th.toString());
         }
     }
 

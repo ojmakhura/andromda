@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.apache.log4j.Logger;
 
 /**
@@ -41,6 +42,11 @@ public class CartridgeTest
 
     private static File expectedDir = getDirectory(EXPECTED_DIRECTORY);
     private static File outputDir = getDirectory(OUTPUT_DIRECTORY);
+    
+    static
+    {
+        AndroMDALogger.configure();
+    }
 
     public CartridgeTest(
         String name)
@@ -83,8 +89,8 @@ public class CartridgeTest
         {
             File expectedFile = (File)iterator.next();
             File actualFile = getOutputFile(expectedFile);
-            logger.info(numberOfAddedTests + ") comparing expected '" 
-                + expectedFile + "' with actual '" + actualFile + "'");
+            logger.info(numberOfAddedTests + ") comparing expected --> '" 
+                + expectedFile + "' with actual --> '" + actualFile + "'");
             if (expectedFile.getName().endsWith(".java"))
             {
                 suite.addTest(new JavaSourceComparator(
