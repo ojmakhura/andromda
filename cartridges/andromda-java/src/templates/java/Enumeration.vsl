@@ -8,79 +8,79 @@ package $packagename;
 /**
 $enumeration.getDocumentation(" * ")
  */
-public class ${enumeration.name} 
-#if($enumeration.generalization)  
-	extends ${enumeration.generalization.fullyQualifiedName}
+public class ${enumeration.name}
+#if($enumeration.generalization)
+    extends ${enumeration.generalization.fullyQualifiedName}
 #elseif ($serializable == 'true')
-    implements java.io.Serializable 
+    implements java.io.Serializable
 #end
 {
-    private static java.util.Collection values = new java.util.ArrayList();
+    private static final java.util.Collection values = new java.util.ArrayList();
 
-#foreach ( $attribute in $enumeration.attributes )
-#set ($attributeType = $attribute.type)
-#set ($fromMethodName = "from${stringUtils.capitalize($attribute.type.name)}")
-	/**
-$attribute.getDocumentation("     * ") 
-	 */
-    public static final $enumeration.name $attribute.name = new ${enumeration.name}($attribute.defaultValue);
-   
+#foreach ( $literal in $enumeration.literals )
+#set ($fromMethodName = "from${stringUtils.capitalize($literal.type.name)}")
+#set ($literalType = $literal.type)
+    /**
+$literal.getDocumentation("     * ")
+     */
+    public static final $enumeration.name $literal.name = new ${enumeration.name}($literal.enumerationValue);
+
 #end
-	private $attributeType.fullyQualifiedName value;
-	
-#set ($valueTypeDef = "${attributeType.fullyQualifiedName} valueType = value;")
-#if($attributeType.primitive)
-#set ($valueTypeDef = "${attributeType.wrapperName} valueType = new ${attributeType.wrapperName}(value);")
-#end	
-	private ${enumeration.name}($attributeType.fullyQualifiedName value) 
-	{   
+    private $literalType.fullyQualifiedName value;
+
+#set ($valueTypeDef = "${literalType.fullyQualifiedName} valueType = value;")
+#if($literalType.primitive)
+#set ($valueTypeDef = "${literalType.wrapperName} valueType = new ${literalType.wrapperName}(value);")
+#end
+    private ${enumeration.name}($literalType.fullyQualifiedName value)
+    {
         $valueTypeDef
-        if (!values.contains(valueType)) 
+        if (!values.contains(valueType))
         {
             values.add(valueType);
         }
-		this.value = value;
-	}
-	
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() 
-	{
-		return "" + value;
-	}
-	
-	/**
-	 * Creates an instance of $enumeration.name from <code>value</code>.
-	 *
-	 * @param value the value to create the $enumeration.name from. 
-	 */
-	public static $enumeration.name ${fromMethodName}($attributeType.fullyQualifiedName value) 
-	{
+        this.value = value;
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return "" + value;
+    }
+
+    /**
+     * Creates an instance of $enumeration.name from <code>value</code>.
+     *
+     * @param value the value to create the $enumeration.name from.
+     */
+    public static $enumeration.name ${fromMethodName}($literalType.fullyQualifiedName value)
+    {
         $valueTypeDef
-        if (!values.contains(valueType)) 
+        if (!values.contains(valueType))
         {
             throw new IllegalArgumentException(
                 "invalid value '" + value + "', possible values are: " + values);
         }
-		return new ${enumeration.name}(value);
-	}
-	
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-    public boolean equals(Object object) 
+        return new ${enumeration.name}(value);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object object)
     {
-        return object != null && 
+        return object != null &&
             object.toString().equals(
                 this.toString());
     }
-    
+
     /**
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() 
-    { 
+    public int hashCode()
+    {
         return toString().hashCode();
-    }	   
+    }
 }
