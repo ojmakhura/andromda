@@ -14,13 +14,12 @@ import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.activitygraphs.ClassifierInState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
-import org.omg.uml.behavioralelements.activitygraphs.ActionState;
+import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.statemachines.State;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.behavioralelements.statemachines.StateVertex;
 import org.omg.uml.behavioralelements.statemachines.Transition;
-import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.core.Classifier;
@@ -98,6 +97,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * @see #qualifiedNameToClassMap
      */
     private HashMap qualifiedNameToUseCaseMap = null;
+
     /**
      * Returns the static UML helper delegate.
      *
@@ -409,7 +409,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
         {
             UseCase useCase = (UseCase) iterator.next();
-            activityGraphs.addAll(dynamicHelper.getActivityGraphs(useCase));
+            activityGraphs.addAll(dynamicHelper.getStateMachines(useCase));
         }
 
         for (Iterator iterator = activityGraphs.iterator(); iterator.hasNext();)
@@ -422,7 +422,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Returns the initial state in the given activity graph.
+     * Returns the initial state in the given StateMachine.
      * <p>
      * UML allows more than one initial state, but here we allow only one since it represents the
      * entry-point for the context use-case.
@@ -430,16 +430,16 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * The returned Pseudostate is always of kind 'choice', in case there is no initial state for the given
      * graph this method will return <code>null</code>.
      * <p>
-     * Should there be more than one initial state in the argument activity graph then
+     * Should there be more than one initial state in the argument StateMachine then
      * this method will return the first one it finds.
      *
-     * @param activityGraph an activity graph, may not be <code>null</code>
+     * @param stateMachine a StateMachine, may not be <code>null</code>
      * @return a Pseudostate of kind 'choice', or <code>null</code>
-     * @see org.andromda.core.uml14.UMLDynamicHelper#getInitialStates(ActivityGraph activityGraph)
+     * @see org.andromda.core.uml14.UMLDynamicHelper#getInitialStates(StateMachine stateMachine)
      */
-    public Pseudostate getInitialState(ActivityGraph activityGraph)
+    public Pseudostate getInitialState(StateMachine stateMachine)
     {
-        Iterator iterator = dynamicHelper.getInitialStates(activityGraph).iterator();
+        Iterator iterator = dynamicHelper.getInitialStates(stateMachine).iterator();
         if (iterator.hasNext())
         {
             return (Pseudostate)iterator.next();
@@ -451,47 +451,64 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Given an activity graph, this method will return the first action state encountered when traversing starting
+     * Given a state machine, this method will return the first state encountered when traversing starting
      * from the initial state and following the transitions.
      * <p>
-     * If no such action state is found this method returns <code>null</code>.
+     * If no such state is found this method returns <code>null</code>.
+     * <p>
+     * Please note that an initial state is in fact a Pseudostate and, although the name might be
+     * a little confusing, this is not a State but a StateVertex.
      *
-     * @param activityGraph an activity graph, may not be <code>null</code>
-     * @return the first action state in the graph, or <code>null</code> if there is none
+     * @param stateMachine a state machine, may not be <code>null</code>
+     * @return the first state in the state machine, or <code>null</code> if there is none
      */
-    public ActionState getFirstActionState(ActivityGraph activityGraph)
+    public State getFirstState(StateMachine stateMachine)
     {
-        StateVertex stateVertex = dynamicHelper.getLastTransitionState(getInitialState(activityGraph));
-        if (dynamicHelper.isActionState(stateVertex))
+        return dynamicHelper.getStateTarget(dynamicHelper.getNextStateTransition(getInitialState(stateMachine)));
+    }
+
+    /**
+     * Returns the set of guard names that are included in the argument state machine.
+     *
+     * @param stateMachine a state machine, may not be <code>null</code>
+     * @return a set of String instances that represent the names of the guards in the argument state machine,
+     *  never <code>null</code>.
+     */
+    public Collection getGuardNames(StateMachine stateMachine)
+    {
+        final Collection guardNames = new LinkedHashSet();
+
+        Collection guardedTransitions = dynamicHelper.getGuardedTransitions(stateMachine);
+        for (Iterator iterator = guardedTransitions.iterator(); iterator.hasNext();)
         {
-            return (ActionState)stateVertex;
+            Transition transition = (Transition) iterator.next();
+            guardNames.add(transition.getGuard().getName());
         }
-        else
-        {
-            return null;
-        }
+
+        return guardNames;
     }
 
     /**
      * Returns a Collection containing all Transition instances that are going
-     * out of a Pseudostate of kind 'choice'.
+     * out of a decision point.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.statemachines.Transition</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
+     * @param stateMachine a StateMachine instance, may not be <code>null</code>
      * @return the collection of the Transition instances going out of 'choice'
-     *    Pseudostates found in the argument activity graph.
+     *    Pseudostates found in the argument state machine.
+     * @see org.andromda.core.uml14.UMLDynamicHelper#isDecisionPoint(Object object)
      */
-    public Collection getChoiceTransitions(ActivityGraph activityGraph)
+    public Collection getDecisionTransitions(StateMachine stateMachine)
     {
-        Set transitions = new HashSet();
+        final Set transitions = new HashSet();
 
-        Collection choices = dynamicHelper.getChoices(activityGraph);
-        for (Iterator iterator = choices.iterator(); iterator.hasNext();)
+        Collection decisions = dynamicHelper.getDecisionPoints(stateMachine);
+        for (Iterator iterator = decisions.iterator(); iterator.hasNext();)
         {
-            Pseudostate choice = (Pseudostate) iterator.next();
-            transitions.addAll(getOutgoingStateTransitions(choice));
+            Pseudostate decision = (Pseudostate) iterator.next();
+            transitions.addAll(dynamicHelper.getNextTriggeredTransitions(decision));
         }
 
         return transitions;
@@ -504,18 +521,18 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * @param useCase a use-case, may not be <code>null</code>
      * @return the collection of the Transition instances going out of 'choice'
      *    Pseudostates found for each activity graph in the argument use-case
-     * @see #getChoiceTransitions(ActivityGraph activityGraph)
+     * @see #getDecisionTransitions(StateMachine stateMachine)
      */
-    public Collection getUseCaseChoiceTransitions(UseCase useCase)
+    public Collection getUseCaseDecisionTransitions(UseCase useCase)
     {
-        final Collection choiceTransitions = new LinkedList();
-        Collection activityGraphs = dynamicHelper.getActivityGraphs(useCase);
-        for (Iterator iterator = activityGraphs.iterator(); iterator.hasNext();)
+        final Collection decisionTransitions = new LinkedList();
+        Collection stateMachines = dynamicHelper.getStateMachines(useCase);
+        for (Iterator iterator = stateMachines.iterator(); iterator.hasNext();)
         {
-            ActivityGraph activityGraph = (ActivityGraph) iterator.next();
-            choiceTransitions.addAll(getChoiceTransitions(activityGraph));
+            StateMachine stateMachine = (StateMachine) iterator.next();
+            decisionTransitions.addAll(getDecisionTransitions(stateMachine));
         }
-        return choiceTransitions;
+        return decisionTransitions;
     }
 
     /**
@@ -690,7 +707,17 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     {
         if (modelElement instanceof Transition)
         {
-            return toForwardName(dynamicHelper.getLastTransitionTarget(((Transition) modelElement).getTarget()));
+            Transition transition = (Transition)modelElement;
+            StateVertex target = transition.getTarget();
+
+            if (dynamicHelper.isState(target))
+            {
+                return toForwardName(target);
+            }
+            else
+            {
+                return toForwardName(dynamicHelper.getNextStateTransition((Pseudostate)target));
+            }
         }
         else
         {
@@ -961,20 +988,20 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Returns the activity graph associated with the argument use-case. If there is more than one graph this method
-     * will return the first one it finds.
+     * Returns the state machine associated with the argument use-case. If there is more than one state machine
+     * this method will return the first one it finds.
      * <p>
-     * If the use-case has no activity graphs associated to it this method will return <code>null<code>.
+     * If the use-case has no state machines associated to it this method will return <code>null<code>.
      *
      * @param useCase a use-case
-     * @return the activity graph associated to the use-case, or <code>null</code> if none is found
+     * @return the state machine associated to the use-case, or <code>null</code> if none is found
      */
-    public ActivityGraph getActivityGraph(UseCase useCase)
+    public StateMachine getStateMachine(UseCase useCase)
     {
-        Iterator iterator = dynamicHelper.getActivityGraphs(useCase).iterator();
+        Iterator iterator = dynamicHelper.getStateMachines(useCase).iterator();
         if (iterator.hasNext())
         {
-            return (ActivityGraph)iterator.next();
+            return (StateMachine)iterator.next();
         }
         else
         {
@@ -1003,7 +1030,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
             UseCase useCase = (UseCase) iterator.next();
             String fullyQualifiedName = getFullyQualifiedName(useCase);
 
-            if ( (useCaseName.equals(useCase.getName())) || (useCaseName.equals(fullyQualifiedName)) )
+            if ( (useCaseName.equalsIgnoreCase(useCase.getName())) || (useCaseName.equalsIgnoreCase(fullyQualifiedName)) )
             {
                 return fullyQualifiedName;
             }
@@ -1036,7 +1063,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         }
         else if (stereotypeNames.contains(ASPECT_FRONT_END_WORKFLOW))
         {
-            String firstUseCaseName = getFirstActionState(getActivityGraph(useCase)).getName();
+            String firstUseCaseName = getFirstState(getStateMachine(useCase)).getName();
             UseCase nextUseCase = findUseCaseByName(findFullyQualifiedUseCaseName(firstUseCaseName));
             return getFirstFrontEndUseCase(nextUseCase);
         }
@@ -1047,8 +1074,8 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * This method will lookup the given use-case's workflow, namely the activity graph in which it is being
-     * denoted as an action state. Having this workflow it is easy to determine what the next use-case will be
+     * This method will lookup the given use-case's workflow, namely the state machine in which it is being
+     * denoted as a state. Having this workflow it is easy to determine what the next use-case will be
      * after this one has finished.
      * <p>
      * It is possible that a use-case has more than one outgoing transition, each of those transitions are considered
@@ -1057,15 +1084,17 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      * You may choose to not specifiy any trigger name here, in that case
      * this method will follow the first outgoing transition, disregarding any
      * triggers.
+     * <p>
+     * The name comparison is case-insensitive.
      *
      * @param useCase the source use-case to start from, may not be <code>null</code>
      * @param triggerName the next trigger to follow
      * @return the next use-case, as defined in the parent workflow, or <code>null</code> in case
      *  <ul>
      *    <li>the source use-case has no name
-     *    <li>the target is not a valid use-case action state
+     *    <li>the target is not a valid use-case state
      *  </ul>
-     * @see #getTriggerTarget(StateVertex stateVertex, String triggerName)
+     * @see #getTriggerTarget(State state, String triggerName)
      */
     public UseCase findNextUseCaseInWorkflow(UseCase useCase, String triggerName)
     {
@@ -1073,16 +1102,16 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
 
         if (useCaseName != null)
         {
-            Collection actionStates = dynamicHelper.getAllActionStates();
-            for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+            Collection states = dynamicHelper.getAllStates();
+            for (Iterator iterator = states.iterator(); iterator.hasNext();)
             {
-                ActionState actionState = (ActionState) iterator.next();
-                if (useCaseName.equals(actionState.getName()))
+                State state = (State) iterator.next();
+                if (useCaseName.equalsIgnoreCase(state.getName()))
                 {
-                    // this means we found the action state for this use-case
-                    // now lookup the next action state's use-case and return it
-                    StateVertex stateVertex = getTriggerTarget(actionState, triggerName);
-                    if (dynamicHelper.isActionState(stateVertex))
+                    // this means we found the state for this use-case
+                    // now lookup the next state's use-case and return it
+                    StateVertex stateVertex = getTriggerTarget(state, triggerName);
+                    if (dynamicHelper.isState(stateVertex) && !dynamicHelper.isFinalState(stateVertex))
                     {
                         String qualifiedName = findFullyQualifiedUseCaseName(stateVertex.getName());
                         return findUseCaseByName(qualifiedName);
@@ -1099,13 +1128,13 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
     }
 
     /**
-     * Gets the next target specified by the outgoing transition marked with the argument trigger name.
+     * Returns the target of the outgoing transition with a trigger with the argument name.
+     * This method will perform all the necessary navigation through complex transition constructions.
      * <p>
-     * Simply put, this method returns the next state vertex following the desired transition.
-     * <p>
-     * Omitting the trigger name will result in the first outgoing transition being followed.
+     * If there is only an anonymous outgoing transition this one will be followed, if there are triggered transitions
+     * (one or more) the desired one is followed.
      *
-     * @param stateVertex the source of the outgoing transitions, may not be <code>null</code>
+     * @param state the source of the outgoing transitions, may not be <code>null</code>
      * @param triggerName the trigger to follow
      * @return the next state vertex after following the trigger from the source vertex, is <code>null</code> if
      *  <ul>
@@ -1113,20 +1142,37 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
      *    <li>the argument trigger name is not <code>null</code> but is not found in any of the
      *        outgoing transitions
      *  </ul>
-     * @see org.andromda.core.uml14.UMLDynamicHelper#getLastTransitionTarget(StateVertex stateVertex)
+     * @see org.andromda.core.uml14.UMLDynamicHelper#getNextTriggeredTransitions(State state)
      */
-    public StateVertex getTriggerTarget(StateVertex stateVertex, String triggerName)
+    private StateVertex getTriggerTarget(State state, String triggerName)
     {
-        Collection outgoing = stateVertex.getOutgoing();
-        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        Collection transitions = dynamicHelper.getNextTriggeredTransitions(state);
+        StateVertex target = null;
+
+        int transitionCount = transitions.size();
+
+        switch (transitionCount)
         {
-            Transition transition = (Transition) iterator.next();
-            if ( (triggerName == null) || (triggerName.equals(getTriggerName(transition))) )
-            {
-                return dynamicHelper.getLastTransitionTarget(transition.getTarget());
-            }
+            case 0 :
+                target = dynamicHelper.getStateTarget( dynamicHelper.getNextStateTransition(state) );
+                break;
+            case 1 :
+                target = dynamicHelper.getStateTarget((Transition)transitions.iterator().next());
+                break;
+            default :
+                for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
+                {
+                    Transition transition = (Transition) iterator.next();
+                    if (triggerName.equalsIgnoreCase(getTriggerName(transition)))
+                    {
+                        target = dynamicHelper.getStateTarget(transition);
+                        break;  // from the for-loop
+                    }
+                }
         }
-        return null;
+
+        System.out.println("target.getName() = " + target.getName());
+        return target;
     }
 
     /**
@@ -1141,6 +1187,7 @@ public final class StrutsScriptHelper implements ScriptHelper, RepositoryFacade
         Event trigger = transition.getTrigger();
         return (trigger == null) ? null : trigger.getName();
     }
+
 }
 
 
