@@ -3,6 +3,7 @@ package org.andromda.cartridges.webservice;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -40,9 +41,10 @@ public class WebServiceUtils
         });
         return allRoles;
     }
-    
+
     /**
      * Reverses the <code>packageName</code>.
+     * 
      * @param packageName the package name to reverse.
      * @return the reversed package name.
      */
@@ -50,29 +52,29 @@ public class WebServiceUtils
     {
         return StringUtils.reverseDelimited(
             packageName,
-            WebServiceGlobals.NAMESPACE_DELIMITER);        
+            WebServiceGlobals.NAMESPACE_DELIMITER);
     }
-    
+
     /**
      * <p>
-     * Creates and returns the schema type for the given 
-     * <code>type</code>.  It finds the mapped schema type
-     * from the passed in <code>schemaTypeMappings</code>.
+     * Creates and returns the schema type for the given <code>type</code>.
+     * It finds the mapped schema type from the passed in
+     * <code>schemaTypeMappings</code>.
      * </p>
      * 
      * @param type the ClassifierFacade instance
-     * @param schemaTypeMappings contains the mappings from model datatypes
-     *        to schema datatypes.
-     * @param namespacePrefix the prefix given to the schema type
-     *        if it's a custom type (non XSD type).
+     * @param schemaTypeMappings contains the mappings from model datatypes to
+     *        schema datatypes.
+     * @param namespacePrefix the prefix given to the schema type if it's a
+     *        custom type (non XSD type).
      * @param qName the qualifed name
      * @param wrappedArrayTypePrefix a prefix to give to wrapped array types.
      * @param withPrefix a flag indicating whether or not the type should have
      *        the prefix defined
-     * @param preserveArray true/false, if true then if the schema type is an 
-     *        array we'll preserve the fact that its an array and return an 
-     *        array schema type name.  If false we will return back the non 
-     *        array type even if its an array.
+     * @param preserveArray true/false, if true then if the schema type is an
+     *        array we'll preserve the fact that its an array and return an
+     *        array schema type name. If false we will return back the non array
+     *        type even if its an array.
      * @return the schema type name.
      */
     public static java.lang.String getSchemaType(
@@ -111,6 +113,12 @@ public class WebServiceUtils
                         {
                             schemaType.append(((WSDLType)nonArray).getQName());
                         }
+                        else if (WSDLEnumerationType.class
+                            .isAssignableFrom(nonArray.getClass()))
+                        {
+                            schemaType.append(((WSDLEnumerationType)nonArray)
+                                .getQName());
+                        }
                     }
                 }
                 else
@@ -140,8 +148,7 @@ public class WebServiceUtils
                         insertIndex = 0;
                     }
                 }
-                schemaType
-                    .insert(insertIndex, wrappedArrayTypePrefix);
+                schemaType.insert(insertIndex, wrappedArrayTypePrefix);
             }
             if (withPrefix
                 && !schemaType.toString().startsWith(namespacePrefix))
