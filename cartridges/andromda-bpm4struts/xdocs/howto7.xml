@@ -40,7 +40,7 @@
                     </li>
                     <li>Operation signatures do not always perfectly map, parameter names and types might be different;
                         generally speaking it is good practice to have an intermediate layer in which you
-                        can have these differences.
+                        can handle these differences.
                     </li>
                     <li>Often you will not want to directly expose exceptions from the back-end to your presentation
                         layer, this can also be handled in the controller.
