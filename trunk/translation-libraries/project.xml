@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	<extend>../project.xml</extend>
+  	<id>andromda-translation-libraries</id>
+  	<groupId>andromda-translation-libraries</groupId>
+  	<name>AndroMDA Translation Libraries</name>
+  	<repository>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</url>
+  	</repository>	
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+	</dependencies>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/*Test.java</include>
+	     	</includes>
+			<resources>
+				<resource>
+					<directory>src/test</directory>
+		  			<includes>
+		    			<include>**/*.xml</include>
+		    			<include>**/*.properties</include>
+		  			</includes>
+		  		</resource>
+			</resources>	     	
+    	</unitTest>
+		<resources>
+			<resource>
+				<directory>src/java</directory>
+	  			<includes>
+	    			<include>**/*.xml</include>
+	    			<include>**/*.properties</include>
+	  			</includes>
+	  		</resource>
+	  		<resource>
+				<directory>src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        		<exclude>test/**/*</exclude>
+	        	</excludes>
+	  		</resource>
+		</resources>
+  	</build>
+  	<!-- restrict the reports generated -->
+  	<reports>
+  		<report>maven-jxr-plugin</report>
+  		<report>maven-javadoc-plugin</report>
+  	    <report>maven-simian-plugin</report>
+  	    <report>maven-pmd-plugin</report>
+  	   	<report>maven-jdepend-plugin</report>
+  	</reports>
+</project>

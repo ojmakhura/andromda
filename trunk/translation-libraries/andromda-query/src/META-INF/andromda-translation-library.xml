@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<translation-library name="query">
+
+	<!-- contains the default class name (for this library) that provides the translation processing
+	     of the the translation file (it must implement org.andromda.core.translation.Translator) 
+	     (this can also be overridden on each translation element) -->
+	<translator>org.andromda.translation.query.QueryTranslator</translator>
+	
+	<!-- transformers -->
+    <templateObject 
+    	name="stringUtils"
+    	className="org.apache.commons.lang.StringUtils"/>   
+	
+	<translation name="Hibernate-QL">
+		<description>
+			Describes translation fragments that help to
+			generate Hibernate Query code out of OCL expressions.
+		</description>
+		<file>translations/query/Hibernate-QL.vsl</file>
+	</translation>    
+	
+	<translation name="EJB-QL">
+		<translator>org.andromda.translation.query.EjbQLTranslator</translator>
+		<!-- <translator>org.andromda.translation.testsuite.ContextElementFinder</translator> -->
+		<description>
+			Describes translation fragments that help to
+			generate EJB QL query code out of OCL expressions.
+		</description>
+		<file>translations/query/EJB-QL.vsl</file>
+	</translation>
+		
+</translation-library>

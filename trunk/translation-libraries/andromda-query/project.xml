@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-query-library</id>
+  	<name>Query Translation-Library</name>
+  	<shortDescription>Query Translation-Library</shortDescription>
+  	<description>
+  		Performs translation of OCL query expressions to different query
+  		languages, currently supports Enterprise Java Bean Query Language 
+  		and Hibernate Query Language.
+  	</description>
+	<package>org.andromda.translation.query</package>
+  	
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>maven-androdev-plugin</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>plugin</type>
+	    </dependency>
+    	<dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>	
+	</dependencies>
+  	
+</project>

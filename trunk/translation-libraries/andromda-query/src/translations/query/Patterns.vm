@@ -1,0 +1,10 @@
+
+<patterns>
+
+	<!-- ignore the 'includesAll' since thats being handled by the subSelect fragment -->
+	<ignore>\s*${navigableName}\s*->\s*includesAll${nonEmptyParentheses}</ignore>
+	
+	<!-- ignore stand-alone names for right now 
+	<ignore>${navigableName}</ignore> -->
+	
+</patterns>

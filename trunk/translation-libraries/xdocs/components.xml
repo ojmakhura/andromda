@@ -1,0 +1,67 @@
+<document> 
+	<properties>
+    	<title>Translation-Library Components</title> 
+    </properties>
+  	<body> 
+		<section name="Translation-Library Components">
+			<p>
+  				A Translation-Library is made up of a jar/directory containg the following components:
+  			</p>
+  			<table>
+  				<tr>
+  					<th>
+  						Resource
+  					</th>
+  					<th>
+  						Description
+  					</th>
+  					<th>
+  						Required
+  					</th>
+  				</tr>
+  				<tr>
+  					<td>
+  						/META-INF/andromda-translation-library.xml
+  					</td>
+  					<td>
+  						The <a href="descriptor-schema.html">descriptor</a> which describes the components
+  						of the translation-library and allows the framework to find
+  						the translation-library. 
+  					</td>
+  					<td>
+  						Yes
+  					</td>
+  				</tr>
+  				<tr>
+   					<td>
+  						/translations/<![CDATA[<translation name>]]>/*.vsl 
+  						(i.e. /translations/query/Hibernate-QL.vsl)
+  					</td>
+  					<td>
+  						Any templates used to map translation fragments to OCL
+  						expression fragments defined within a 
+  						<a href="../andromda-core/apidocs/org/andromda/core/translation/Translator.html">Translator</a> 
+  						class.  Each translation template is also an XML document which must comply with the
+  						translation <a href="translation-schema.html"> schema</a>.
+  					</td>
+  					<td>
+  						Yes
+  					</td>
+  				</tr>
+  				<tr>
+  					<td>
+  						/*.class files
+  					</td>
+  					<td>
+						 Java *.class files for the Translator object(s) (and any support classes) used for translation
+  						(translator objects must implement 
+  						<a href="../andromda-core/apidocs/org/andromda/core/translation/Translator.html">Translator</a>)  						
+  					</td>
+  					<td>
+  						Yes
+  					</td>  				
+  				</tr>
+  			</table>
+  		</section>
+  	</body> 
+</document>

@@ -1,0 +1,72 @@
+<document> 
+	<properties>
+    	<title>Translation-Library Descriptor Schema</title> 
+    </properties>
+  	<body> 
+  		<section name="Translation-Library Descriptor Schema">
+			<p>
+  				Each Translation-Library descriptor (andromda-translation-library.xml) must comply with the following XSD Schema: 
+  			</p>
+			<source>
+	<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+	
+	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	
+		<!-- description of what the translation-library does -->
+		<xs:element name="description" type="xs:string"/>
+		
+		<!-- the file that contains the 'translation' tempate -->
+		<xs:element name="file" type="xs:string"/>
+		
+		<!-- the fully qualified name of the class that is the 'engine' for the template processing, 
+			 this isn't required since a default exists, but it allows you to override the default 
+			 template engine -->
+		<xs:element name="templateEngine" type="xs:string"/>
+	
+		<!-- the translation which performs 'translation' of the expression in combination with the 
+		     translation file -->
+		<xs:element name="translator" type="xs:string"/>
+		
+		<!-- any objects to make available to the translation template file -->
+		<xs:element name="templateObject">
+			<xs:complexType>
+			
+				<!-- the name of the templateObject, this is the name of the scripting object
+				     made available to the translation template file during processing -->
+				<xs:attribute name="name" type="xs:string" use="required"/>
+				
+				<!-- the fully qualified class name of the object (must have a default public constructor) -->
+				<xs:attribute name="className" type="xs:string" use="required"/>
+				
+			</xs:complexType>
+		</xs:element>
+		
+		<!-- the 'translation' element -->
+		<xs:element name="translation">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="description"/>
+					<xs:element ref="templateEngine" minOccurs="0"/>
+					<xs:element ref="translator" minOccurs="1"/>
+					<xs:element ref="file"/>
+				</xs:sequence>
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:complexType>
+		</xs:element>
+		
+		<!-- the root 'translation-library' element -->
+		<xs:element name="translation-library">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="templateEngine" minOccurs="0"/>
+					<xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="translation"/>
+				</xs:sequence>
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:complexType>
+		</xs:element>
+	</xs:schema>]]>
+			</source>
+  		</section>  	
+  	</body> 
+</document>
