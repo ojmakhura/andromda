@@ -99,4 +99,34 @@ public class EJBSessionFacadeLogicImpl
     {
         return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#isStateful()
+     */
+    public boolean handleIsStateful()
+    {
+        return !isStateless();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogic#isStateless()
+     */
+    public boolean handleIsStateless()
+    {
+        return this.getAllInstanceAttributes() == null || 
+            this.getAllInstanceAttributes().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getType()
+     */
+    public String handleGetType()
+    {
+        String type = "Stateful";
+        if (this.isStateless())
+        {
+            type = "Stateless";
+        }
+        return type;
+    }
 }

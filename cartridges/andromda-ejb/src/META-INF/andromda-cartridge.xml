@@ -1,12 +1,7 @@
 <cartridge name="ejb">
 
-    <templateEngine>
-        <!-- library of macros used in template engine -->
-       <macrolibrary name="templates/EJB.vm" />
-    </templateEngine>
-
     <!-- define the template objects that are made availble to the template -->
-    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
 	    
     <template
@@ -14,17 +9,17 @@
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement stereotype="Entity"/>    
         </modelElements>
     </template>
 
     <template
-        path="templates/EntityLocalIntf.vsl"
+        path="templates/EntityLocal.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entity-beans"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement stereotype="Entity"/>    
         </modelElements>
     </template>
@@ -34,7 +29,7 @@
         outputPattern="{0}/{1}LocalHome.java"
         outlet="entity-beans"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement stereotype="Entity"/>    
         </modelElements>
     </template>
@@ -44,7 +39,7 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="entity">
             <modelElement stereotype="Entity"/>  
         </modelElements>  
     </template>
@@ -62,29 +57,29 @@
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="service">
             <modelElement stereotype="Service"/>   
         </modelElements> 
     </template>
     
     <template
-        path="templates/SessionLocalIntf.vsl"
+        path="templates/SessionLocal.vsl"
         outputPattern="{0}/{1}Local.java"
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">        
+        <modelElements variable="service">        
             <modelElement stereotype="Service"/>
         </modelElements>       
     </template>
 
     <template
-        path="templates/SessionRemoteIntf.vsl"
+        path="templates/SessionRemote.vsl"
         outputPattern="{0}/{1}.java"
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">            
+        <modelElements variable="service">            
             <modelElement stereotype="Service"/>  
         </modelElements> 
     </template>
@@ -95,7 +90,7 @@
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">           
+        <modelElements variable="service">           
             <modelElement stereotype="Service"/> 
         </modelElements>   
     </template>
@@ -106,7 +101,7 @@
         outlet="session-beans"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">               
+        <modelElements variable="service">               
             <modelElement stereotype="Service"/>  
         </modelElements>  
     </template>
@@ -116,7 +111,7 @@
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overwrite="false">
-        <modelElements variable="class">          
+        <modelElements variable="service">          
             <modelElement stereotype="Service"/>   
         </modelElements> 
     </template>
