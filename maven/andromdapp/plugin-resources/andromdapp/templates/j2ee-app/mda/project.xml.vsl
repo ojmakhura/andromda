@@ -72,7 +72,7 @@
                 <dataSource>${dataSource}</dataSource>
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
-                <serviceLocatorPackage>${pom.package}</serviceLocatorPackage>
+                <springTypesPackage>${pom.package}</springTypesPackage>
                 <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
                 <hibernateDefaultCascade>save-update</hibernateDefaultCascade>
                 <daos>${maven.andromda.core.generated.dir}</daos>
