@@ -27,7 +27,25 @@ class SpringMetafacadeUtils
             .trimToEmpty(packageName));
         fullyQualifiedName.append(".");
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
-        fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
+        if (StringUtils.isNotEmpty(suffix))
+        {
+            fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
+        }
         return fullyQualifiedName.toString();
+    }
+    
+    /**
+     * Creates a fully qualified name from the given <code>packageName</code>,
+     * <code>name</code>, and <code>suffix</code>.
+     * 
+     * @param packageName the name of the model element package.
+     * @param name the name of the model element.
+     * @return the new fully qualified name.
+     */
+    static String getFullyQualifiedName(
+        String packageName,
+        String name)
+    {
+        return getFullyQualifiedName(packageName, name, null);
     }
 }

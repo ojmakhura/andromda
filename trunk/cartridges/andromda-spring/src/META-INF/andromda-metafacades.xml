@@ -2,18 +2,21 @@
 
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="spring">
+    <property reference="daoNamePattern" default="{0}Dao"/>
+    <property reference="daoBaseNamePattern" default="{0}DaoBase"/>
+    <property reference="daoImplementationNamePattern" default="{0}DaoImpl"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>   
-            <stereotype>FINDER_METHOD</stereotype>              
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+            <stereotype>FINDER_METHOD</stereotype>
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
         <property reference="hibernateUseQueryCache" default="false"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>   
-            <property name="query"/>              
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+            <property name="query"/>
         </mapping>
         <property reference="hibernateQueryUseNamedParameters" default="false"/>
         <property reference="hibernateUseQueryCache" default="false"/>
@@ -24,8 +27,8 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>          
-        </mapping>        
+            <stereotype>SERVICE</stereotype>
+        </mapping>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
@@ -33,8 +36,8 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>SERVICE</stereotype>          
-        </mapping>       
+            <stereotype>SERVICE</stereotype>
+        </mapping>
         <property reference="ejbJndiNamePrefix" default=""/>
         <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
         <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
@@ -42,8 +45,8 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>         
-        </mapping>   
+            <stereotype>ENTITY</stereotype>
+        </mapping>
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
@@ -51,8 +54,8 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENTITY</stereotype>         
-        </mapping>   
+            <stereotype>ENTITY</stereotype>
+        </mapping>
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
         <property reference="hibernateDefaultCascade" default="none"/>
@@ -60,8 +63,8 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENTITY</stereotype>         
-        </mapping>  
+            <stereotype>ENTITY</stereotype>
+        </mapping>
         <stereotype>ENTITY</stereotype>
         <property reference="entityNamePattern" default="{0}"/>
         <property reference="defaultHibernateGeneratorClass" default="native"/>
@@ -70,25 +73,25 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>       
-        </mapping>  
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+        </mapping>
         <property reference="hibernateAssociationEndOuterJoin" default="auto"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>       
-        </mapping>  
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringService</context> 
-        </mapping> 
+            <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
+        </mapping>
         <property reference="implementationOperationNamePrefix" default="handle"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>       
-        </mapping>  
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
+        </mapping>
         <property reference="implementationOperationNamePrefix" default="handle"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
@@ -96,17 +99,17 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENUMERATION</stereotype>    
-        </mapping>  
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENUMERATION</stereotype>    
-        </mapping>  
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEnumerationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENUMERATION</stereotype>    
-        </mapping>  
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
     </metafacade>
 </metafacades>
