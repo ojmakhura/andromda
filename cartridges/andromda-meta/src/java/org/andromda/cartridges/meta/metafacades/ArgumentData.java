@@ -1,21 +1,22 @@
 package org.andromda.cartridges.meta.metafacades;
 
 /**
- *
  * @since 10.12.2003
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  */
 public class ArgumentData
 {
     private String fullyQualifiedTypeName;
     private String name;
 
-    public ArgumentData (String fullyQualifiedTypeName, String name)
+    public ArgumentData(
+        String fullyQualifiedTypeName,
+        String name)
     {
         this.fullyQualifiedTypeName = fullyQualifiedTypeName;
         this.name = name;
     }
-    
+
     /**
      * @return
      */
@@ -33,4 +34,3 @@ public class ArgumentData
     }
 
 }
-
