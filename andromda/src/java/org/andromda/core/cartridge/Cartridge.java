@@ -62,6 +62,11 @@ public class Cartridge
     private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
 
     /**
+     * Defines the location for merge templates.
+     */
+    private static final String MERGE_LOCATION = "mergeLocation";
+
+    /**
      * Processes all model elements with relevant stereotypes by retrieving the
      * model elements from the model facade contained within the context.
      * 
@@ -351,6 +356,16 @@ public class Cartridge
         ExceptionUtils
             .checkNull(methodName, "templateContext", templateContext);
         ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
+
+        // set the template engine merge location
+        Property mergeProperty = Namespaces.instance().findNamespaceProperty(
+            this.getName(),
+            MERGE_LOCATION,
+            false);
+        String mergeLocation = mergeProperty != null
+            ? mergeProperty.getName()
+            : null;
+        this.getTemplateEngine().setMergeLocation(mergeLocation);
 
         File outFile = null;
         try

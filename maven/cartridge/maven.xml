@@ -4,6 +4,31 @@
   		 xmlns:velocity="jelly:velocity">
   		 
     <preGoal name="jar:jar">
+        <!-- The following builds the the bootstrap plugin. 
+             You build the bootstrap plugin, by supplying the 
+             property 'maven.andromda.bootstrap.mode=true'-->
+        <j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
+        <j:if test="${bootstrapMode == null or bootstrapMode == ''}">
+            <j:set var="bootstrapMode" value="false"/>
+        </j:if>
+        <j:set var="bootstrapMetaCartridge" value=""/>
+        <j:set var="bootstrap" value=""/>
+        <j:if test="${bootstrapMode}">
+            <j:set var="bootstrap" value="-bootstrap"/>		
+            <j:set var="bootstrapPluginId" value="andromda-cartridge${bootstrap}-plugin"/>
+            <j:set var="bootstrapGroupId" value="${pom.groupId}${bootstrap}"/>
+            <j:set var="dummy" value="${pom.setArtifactId(bootstrapPluginId)}"/>
+            <j:set var="dummy" value="${pom.setGroupId(bootstrapGroupId)}"/>	
+            <!-- set the meta cartridge bootstrap dependency 
+                 into the bootstap project.xml-->
+            <j:set var="bootstrapMetaCartridge" trim="false">
+        <dependency> 
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+            </j:set>
+        </j:if>
     	<!-- replace the ${pom.currentVersion} in these
     		 files so we don't need to maintain them between
     		 different releases -->
