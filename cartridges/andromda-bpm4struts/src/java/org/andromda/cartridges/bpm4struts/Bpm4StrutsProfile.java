@@ -37,6 +37,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_EXCEPTION_TYPE = "@andromda.struts.exception.type";
     public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = "@andromda.struts.controller.usecase";
     public static final String TAGGEDVALUE_USECASE_ACTIVITY = "@andromda.struts.usecase.activity";
+    public static final String TAGGEDVALUE_ACTION_REDIRECT = "@andromda.struts.action.redirect";
 
     /* ----------------- Default Values ------------------- */
     public static final String TAGGEDVALUE_INPUT_DEFAULT_REQUIRED = "true";

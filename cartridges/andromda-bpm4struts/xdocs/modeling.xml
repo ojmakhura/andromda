@@ -98,6 +98,12 @@
                             <td>Indicates the type of trigger causing the action, possible values are hyperlink and form</td>
                         </tr>
                         <tr>
+                            <td>@andromda.struts.action.redirect</td>
+                            <td>Transition</td>
+                            <td>form</td>
+                            <td>Indicates whether or not HTTP redirection should occur when forwarded on to the next action</td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.action.success.message</td>
                             <td>Transition w/ FrontEndEvent</td>
                             <td>false</td>

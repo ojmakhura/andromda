@@ -38,7 +38,7 @@
 #foreach ($action in $useCase.actions)
         <action
             path="$action.actionPath"
-            type="${action.actionType}"
+            type="$action.actionType"
             name="$action.formBeanName"
 #set ($roles = $action.actionRoles)
 #if (($security=="true") && ($roles != ""))
@@ -73,7 +73,7 @@
             <forward
                 name="$actionForward.forwardName"
                 path="$actionForward.forwardPath"
-                redirect="false" />
+                redirect="$actionForward.redirect" />
 #end
         </action>
 #end
