@@ -10,6 +10,17 @@
     <uri>http://www.andromda.org/admin-console/tags</uri>
 
     <function>
+        <name>contains</name>
+        <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
+        <function-signature>
+            boolean
+                contains(
+                    java.util.Collection,
+                    java.lang.Object )
+        </function-signature>
+    </function>
+
+    <function>
         <name>getInsertWidget</name>
         <function-class>org.andromda.adminconsole.taglib.JspUtilFunctions</function-class>
         <function-signature>
