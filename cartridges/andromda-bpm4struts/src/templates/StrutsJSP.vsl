@@ -151,6 +151,11 @@ ${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field
 #end
 ${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
 ##
+##      H I D D E N
+##
+#elseif ($widgetType == 'hidden')
+${indent}<html:$widgetType property="$field.name" />
+##
 ##      C O M B O B O X     &      L I S T
 ##
 #elseif ($widgetType == 'select')
@@ -286,14 +291,23 @@ ${indent}<bean:write name="$action.actionName" property="$field.name" scope="req
 #else
         <html:form action="${action.actionPath}.do" onsubmit="$action.formValidationMethodName" onsubmit="$onsubmit">
 #end
+
+#foreach ($field in $actionParameters)
+#if ($field.widgetType == "hidden")
+#renderFormField($action $field "                        ")
+#end
+#end
+
             <table cellpadding="5" cellspacing="5" border="0">
 #foreach ($field in $actionParameters)
+#if ($field.widgetType != "hidden")
                 <tr>
                     <td><bean:message key="${messageKey}.$field.messageKey"/></td>
                     <td>
 #renderFormField($action $field "                        ")
                     </td>
                 </tr>
+#end
 #end
                 <tr>
                     <td>
