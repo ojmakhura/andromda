@@ -126,7 +126,7 @@ public class TemplateModelElements
     /**
      * Retrieves the variable for the given <code>stereotypeName</code>.
      * First it checks to see if a variable has been defined for the stereotype
-     * wit the <code>stereotypeName</code>, if it can't find that, it uses
+     * with the <code>stereotypeName</code>, if it can't find that, it uses
      * the default <code>variable</code> defined for this
      * TemplateModelElements object.
      * 

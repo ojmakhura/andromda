@@ -45,7 +45,7 @@
             <!-- the default variable name to use for any modelElements define in your <template/>
                  element, this will be used if no variable attribute is defined at the
                  <modelElement/> element -->
-            <xs:attribute name="variable" type="xs:string" use="required"/>
+            <xs:attribute name="variable" type="xs:string" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="modelElement">
