@@ -10,6 +10,10 @@
 		the components of AndroMDA work together.
   	</description>
   	<package>org.andromda.core.*</package>
+  	<repository>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/andromda</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda</url>
+  	</repository>
 	<dependencies>
 	    <dependency>
 	    	<groupId>picocontainer</groupId>
