@@ -117,7 +117,7 @@ public class SpringServiceLogicImpl
     {
         return MessageFormat.format(
             this.getEjbPackageNamePattern(),
-            new String[]
+            new Object[]
             {
                 StringUtils.trimToEmpty(this.getPackageName())
             });

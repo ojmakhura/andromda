@@ -98,7 +98,7 @@ public class WebServiceLogicImpl
     {
         return MessageFormat.format(
             this.getQualifiedNameLocalPartPattern(),
-            new String[]
+            new Object[]
             {
                 StringUtils.trimToEmpty(this.getName())
             });
@@ -114,7 +114,7 @@ public class WebServiceLogicImpl
         {
             packageName = WebServiceUtils.reversePackage(packageName);
         }
-        return MessageFormat.format(this.getNamespacePattern(), new String[]
+        return MessageFormat.format(this.getNamespacePattern(), new Object[]
         {
             StringUtils.trimToEmpty(packageName)
         });
@@ -584,7 +584,7 @@ public class WebServiceLogicImpl
     {
         return MessageFormat.format(
             this.getEjbHomeInterfacePattern(),
-            new String[]
+            new Object[]
             {
                 StringUtils.trimToEmpty(this.getPackageName()),
                 StringUtils.trimToEmpty(this.getName())
@@ -606,7 +606,7 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetEjbInterface()
     {
-        return MessageFormat.format(this.getEjbInterfacePattern(), new String[]
+        return MessageFormat.format(this.getEjbInterfacePattern(), new Object[]
         {
             StringUtils.trimToEmpty(this.getPackageName()),
             StringUtils.trimToEmpty(this.getName())
@@ -638,7 +638,7 @@ public class WebServiceLogicImpl
      */
     protected String handleGetRpcClassName()
     {
-        return MessageFormat.format(this.getRpcClassNamePattern(), new String[]
+        return MessageFormat.format(this.getRpcClassNamePattern(), new Object[]
         {
             StringUtils.trimToEmpty(this.getPackageName()),
             StringUtils.trimToEmpty(this.getName())
