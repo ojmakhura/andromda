@@ -20,6 +20,14 @@ body
     border-bottom: 1px solid #93A6B4;
 }
 
+#banner a#serverLink
+{
+    font-size: 86%;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
 #organizationLogo, #projectLogo
 {
     display: none;
@@ -60,7 +68,6 @@ body
 #leftColumn a, #leftColumn a:link, #leftColumn a:active, #leftColumn a:visited
 {
 	color: #043dbc;
-	font-size: 12px;
     text-decoration: none;
 }
 
@@ -207,60 +214,12 @@ div.screenshot tr.a td, div.screenshot tr.b td
 
 .indented { padding: 25px; }
 
-body, p, table, td, th, ul, li, dd, dt, dl, h1, h2, h3, h4, h5, h6, div, span, input
-{
-    font-family: Verdana;
-    line-height: 16px;
-}
-
-h1, h2, h3, h4, h5, h6
-{
-    font-weight: normal;
-    line-height: 24px;
-}
-
-p, ul, li, dt, dd, dl, table, td, th, #breadcrumbs, div, input, textarea
-{
-    font-size: 12px;
-}
-
-li
-{
-    padding: 2px;
-}
-
-img
-{
-    border: 0;
-}
-
-h2
-{
-    border-bottom: 1px solid;
-}
-
-h3
-{
-    font-weight: bold;
-}
-
-blockquote
-{
-    border: 2px dotted;
-}
-
-p
-{
-    padding: 0 10px 0 10px;
-}
-
-td, th
-{
-    border: 1px solid;
-    padding: 4px;
-}
-
-pre
-{
-    padding-left: 20px;
-}
+/* syntax highlighting */
+div.source { font-size: 92%; }
+div.jk, div.vk { color: #008; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity reserved keyword */
+div.jl, div.vl { color: #080; display: inline; font-size: 92%; font-weight: bold;   } /* java,velocity literal */
+div.jn, div.vn { color: #00F; display: inline; font-size: 92%; font-weight: normal; } /* java,velocity number */
+div.xe { color: #008; display: inline; font-size: 92%; font-weight: bold; } /* xml element */
+div.xl { color: #080; display: inline; font-size: 92%; font-weight: bold; } /* xml attribute literal (value) */
+div.xa { color: #00F; display: inline; font-size: 92%; font-weight: bold; } /* xml attribute name */
+div.xc { color: #888; display: inline; font-size: 92%; font-style: italic; } /* xml CDATA and comment sections */
