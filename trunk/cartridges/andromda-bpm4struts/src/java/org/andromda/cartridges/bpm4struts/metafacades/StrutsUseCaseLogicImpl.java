@@ -1,14 +1,22 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
-
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.*;
 
 
 /**

@@ -1,8 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -231,6 +233,9 @@ public class StrutsActionLogicImpl
         return getStrutsActivityGraph().getUseCase().getPackageName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isResettable()
+     */
     protected boolean handleIsResettable()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_RESETTABLE);
@@ -572,16 +577,25 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabCount()
+     */
     protected int handleGetTabCount()
     {
         return (isTabbed()) ? getTabMap().keySet().size() : 0;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabName(int)
+     */
     protected String handleGetTabName(int tabIndex)
     {
         return String.valueOf(tabIndex + 1);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabIndex()
+     */
     protected int handleGetTabIndex()
     {
         final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABINDEX));
@@ -596,6 +610,9 @@ public class StrutsActionLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabMap()
+     */
     protected Map handleGetTabMap()
     {
         Map tabMap = new LinkedHashMap();
@@ -623,6 +640,9 @@ public class StrutsActionLogicImpl
         return tabMap;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTargetPages()
+     */
     protected Collection handleGetTargetPages()
     {
         Collection targetPages = new HashSet();
@@ -655,6 +675,9 @@ public class StrutsActionLogicImpl
         return preloadFields;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#getTransitions()
+     */
     protected Collection handleGetTransitions()
     {
         if (transitions == null)
@@ -664,14 +687,36 @@ public class StrutsActionLogicImpl
         return transitions;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabs()
+     */
     protected Collection handleGetTabs()
     {
         // @todo: implement
         return Collections.EMPTY_LIST;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getStyleId()
+     */
     protected String handleGetStyleId()
     {
         return StringUtilsHelper.lowerCamelCaseName(getActionClassName());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isRedirect()
+     */
+    public boolean handleIsRedirect()
+    {
+        String redirect = (String)this.getConfiguredProperty(
+            Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
+        Object value = this
+            .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT);
+        if (value != null)
+        {
+            redirect = (String)value;
+        }
+        return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
     }
 }
