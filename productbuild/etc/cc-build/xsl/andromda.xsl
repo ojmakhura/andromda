@@ -108,7 +108,6 @@
                  <xsl:apply-templates select="$mavengoal/message[@priority='error']"/>
             </table>
         </xsl:if>		
-
         <xsl:variable name="testsuite" select="cruisecontrol/testsuite"/>
         <xsl:variable name="junit.failures" select="$testsuite[@failures!='0']"/>
 
@@ -180,8 +179,13 @@
     </xsl:template>
 
     <xsl:template match="message[@priority='error']">
+      <xsl:param name="text" select="."/>
          <tr>
            <td>
+			<!--  [cvs] C -->
+			<xsl:if test="contains($text, '[cvs] C')">
+				<BOLD>*** CVS Conflict ***</BOLD><BR></BR>
+			</xsl:if>
           <span class="compile-error-data">
         <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
         </span>
