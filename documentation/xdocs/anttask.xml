@@ -435,9 +435,10 @@
                 <code><![CDATA[<moduleSearchPath>]]></code> element pointing to
                 the location for which to find the base metafacade model.
             </p>
-            <source><![CDATA[
-<andromda modelURL="=jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml"
-          lastModifiedCheck="false">
+            <source>
+                <![CDATA[
+<andromda lastModifiedCheck="false">
+    <model url="jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml"/>
     <repository>
         <moduleSearchPath>
             <pathelement location="${basedir}/lib"/>
@@ -445,7 +446,52 @@
     </repository>
     ...
 </andromda>
-                ]]></source>
+                ]]>
+            </source>
+            <h2>
+                <a name="mappingsSearchPath"><![CDATA[<mappingsSearchPath>]]></a>
+            </h2>
+            <p class="std">
+                The
+                <a href="#AndroMDA">
+                    <code><![CDATA[<andromda>]]></code>
+                </a> element takes a nested
+                <code><![CDATA[<mappingsSearchPath>]]></code> element in order
+                to define the location of AndroMDA mapping files.  This allows
+                us to use the <code>logical</code> names for the location of
+                mapping files (instead of the complete path). The
+                <code><![CDATA[<mappingsSearchPath>]]></code> takes
+                any valid Ant path element structures.  See
+                <a href="http://ant.apache.org/manual/using.html#path">Path-like Structures</a>
+                for more information on how to define these paths.
+            </p>
+            <h3>Example</h3>
+            <p class="std">
+                We want to define the location of the mapping files so that we
+                use the logical name of mapping, files therefore we create a 
+                <code><![CDATA[<mappingsSearchPath>]]></code> element pointing to
+                the location for which to find all AndroMDA mapping files we'll be
+                using.  Note how we are able to use logical names such as <code>JDBC</code>
+                and <code>HypersonicSql</code> instead of the complete paths.
+            </p>
+            <source>
+                <![CDATA[
+<andromda lastModifiedCheck="false">
+    <model url="jar:file:/path/to/my/model.zuml!/model.xmi"/>
+    <mappingsSearchPath>
+        <pathelement location="${basedir}/src/mappings"/>
+    </mappingsSearchPath>
+    ...
+    <!-- This will generate the Hibernate code -->
+    <namespace name="hibernate" ignore="false">
+        <property name="jdbcMappingsUri" value="JDBC"/>
+        <property name="sqlMappingsUri" value="HypersonicSql"/>
+        ...
+    </namespace>
+    ...
+</andromda>
+                ]]>
+            </source>
         </section>
     </body>
 </document>
