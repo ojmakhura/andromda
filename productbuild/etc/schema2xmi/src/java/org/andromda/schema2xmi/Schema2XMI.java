@@ -23,10 +23,10 @@ public class Schema2XMI
      * The command to display help
      */
     private static final String HELP = "h";
-    
+
     /**
-     * The command line argument to specify the XMI version
-     * that will be producted.
+     * The command line argument to specify the XMI version that will be
+     * producted.
      */
     private static final String XMI_VERSION = "x";
 
@@ -70,10 +70,10 @@ public class Schema2XMI
      * element will be generated.
      */
     private static final String PACKAGE = "P";
-    
+
     /**
-     * The command line argument specifying the name of the
-     * schema where the table resides.
+     * The command line argument specifying the name of the schema where the
+     * table resides.
      */
     private static final String SCHEMA = "s";
 
@@ -81,31 +81,29 @@ public class Schema2XMI
      * The command line argument specifying the tables names to match on
      */
     private static final String TABLE_PATTERN = "t";
-        
+
     /**
-     * The command line argument specifying the class stereotype
-     * name.
+     * The command line argument specifying the class stereotype name.
      */
     private static final String CLASS_STEREOTYPES = "C";
-    
+
     /**
-     * The command line argument specifying the identifier
-     * stereotype name.
+     * The command line argument specifying the identifier stereotype name.
      */
     private static final String IDENTIFIER_STEREOTYPES = "I";
 
     /**
-     * The command line argument specifiying the name of the
-     * tagged value to use for tagged column names.
+     * The command line argument specifiying the name of the tagged value to use
+     * for tagged column names.
      */
     private static final String TABLE_TAGGEDVALUE = "V";
-    
+
     /**
-     * The command line argument specifiying the name of the
-     * tagged value to use for tagged column names.
+     * The command line argument specifiying the name of the tagged value to use
+     * for tagged column names.
      */
     private static final String COLUMN_TAGGEDVALUE = "v";
-    
+
     /**
      * Configure the CLI options.
      */
@@ -114,7 +112,7 @@ public class Schema2XMI
         try
         {
             AndroMDALogger.configure();
-            // turn off validation because of the incorrect parsers 
+            // turn off validation because of the incorrect parsers
             // in the JDK
             XmlObjectFactory.setDefaultValidating(false);
         }
@@ -165,7 +163,7 @@ public class Schema2XMI
             "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
         option.setLongOpt("mappings");
         options.addOption(option);
-        
+
         option = new Option(
             SCHEMA,
             true,
@@ -190,28 +188,28 @@ public class Schema2XMI
             "Comma seperated list of stereotype names to add to the created class");
         option.setLongOpt("classStereotypes");
         options.addOption(option);
-        
+
         option = new Option(
             IDENTIFIER_STEREOTYPES,
             true,
             "Comma seperated list of stereotype names to add to any class identifiers");
         option.setLongOpt("identifierStereotypes");
         options.addOption(option);
- 
+
         option = new Option(
             TABLE_TAGGEDVALUE,
             true,
             "The tagged value to use for storing the table name");
         option.setLongOpt("tableTaggedValue");
         options.addOption(option);
-        
+
         option = new Option(
             COLUMN_TAGGEDVALUE,
             true,
             "The tagged value to use for storing the column name");
         option.setLongOpt("columnTaggedValue");
         options.addOption(option);
-                
+
         option = new Option(
             OUTPUT_MODEL,
             true,
@@ -238,7 +236,7 @@ public class Schema2XMI
     /**
      * Parse a string-array of command-line arguments.
      * <p>
-     * This will parse the arguments against the configured odm2flatfile
+     * This will parse the arguments against the configured schema2xmi
      * command-line options, and return a <code>CommandLine</code> object from
      * which we can retrieve the command like options.
      * </p>
@@ -263,11 +261,11 @@ public class Schema2XMI
             CommandLine commandLine = schema2Xmi.parseCommands(args);
             if (commandLine.hasOption(HELP)
                 || !(commandLine.hasOption(INPUT_MODEL)
-                &&   commandLine.hasOption(OUTPUT_MODEL)
-                &&   commandLine.hasOption(DRIVER)
-                &&   commandLine.hasOption(CONNECTION_URL)
-                &&   commandLine.hasOption(USER)
-                &&   commandLine.hasOption(PASSWORD)))
+                    && commandLine.hasOption(OUTPUT_MODEL)
+                    && commandLine.hasOption(DRIVER)
+                    && commandLine.hasOption(CONNECTION_URL)
+                    && commandLine.hasOption(USER) && commandLine
+                    .hasOption(PASSWORD)))
             {
                 Schema2XMI.displayHelp();
             }
@@ -281,25 +279,25 @@ public class Schema2XMI
                     commandLine.getOptionValue(PASSWORD));
 
                 // set the extra options
-                transformer.setXmiVersion(
-                    commandLine.getOptionValue(XMI_VERSION));
+                transformer.setXmiVersion(commandLine
+                    .getOptionValue(XMI_VERSION));
                 transformer.setTypeMappings(commandLine
                     .getOptionValue(MAPPINGS));
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
-                transformer.setSchema(
-                    commandLine.getOptionValue(SCHEMA));
+                transformer.setSchema(commandLine.getOptionValue(SCHEMA));
                 transformer.setTableNamePattern(commandLine
                     .getOptionValue(TABLE_PATTERN));
-                transformer.setClassStereotypes(
-                    commandLine.getOptionValue(CLASS_STEREOTYPES));
-                transformer.setIdentifierStereotypes(
-                    commandLine.getOptionValue(IDENTIFIER_STEREOTYPES));
-                transformer.setTableTaggedValue(
-                    commandLine.getOptionValue(TABLE_TAGGEDVALUE));
-                transformer.setColumnTaggedValue(
-                    commandLine.getOptionValue(COLUMN_TAGGEDVALUE));
-                
-                String outputLocation = commandLine.getOptionValue(OUTPUT_MODEL);
+                transformer.setClassStereotypes(commandLine
+                    .getOptionValue(CLASS_STEREOTYPES));
+                transformer.setIdentifierStereotypes(commandLine
+                    .getOptionValue(IDENTIFIER_STEREOTYPES));
+                transformer.setTableTaggedValue(commandLine
+                    .getOptionValue(TABLE_TAGGEDVALUE));
+                transformer.setColumnTaggedValue(commandLine
+                    .getOptionValue(COLUMN_TAGGEDVALUE));
+
+                String outputLocation = commandLine
+                    .getOptionValue(OUTPUT_MODEL);
                 transformer.transform(inputModel, outputLocation);
             }
         }
