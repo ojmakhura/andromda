@@ -8,6 +8,10 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-09" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add">
+                <strong>ALL OCL string operations</strong> are now supported by the 
+                <a href="andromda-query-library/index.html">Query Translation Library</a>
+            </action>
             <action dev="cwbrandon" type="fix" issue="CORE-38">
                 Template object properties can now be specified more than once in the andromda-cartridge.xml.
             </action>
