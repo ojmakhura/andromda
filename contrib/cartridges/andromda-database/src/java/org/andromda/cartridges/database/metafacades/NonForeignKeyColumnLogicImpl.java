@@ -72,7 +72,7 @@ public class NonForeignKeyColumnLogicImpl
 
     private final static DateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
-    protected String handleGetInitialLoadValue(int index)
+    protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
 

@@ -30,7 +30,7 @@ public class TableLogicImpl
     /**
      * @see org.andromda.cartridges.database.metafacades.Table#getInitialLoadSize()
      */
-    protected int handleGetInitialLoadSize()
+    protected int handleGetDummyLoadSize()
     {
         int dummyLoadSize = 0;
         float dummyLoadMultiplier = 0;
@@ -43,6 +43,10 @@ public class TableLogicImpl
             {
                 dummyLoadSize = Integer.parseInt(initialLoadSizeString);
             }
+        }
+        catch(Exception e)
+        {
+            // do nothing, let the 'finally' clause handle it
         }
         finally
         {
@@ -60,6 +64,10 @@ public class TableLogicImpl
             {
                 dummyLoadMultiplier = Float.parseFloat(multiplierString);
             }
+        }
+        catch(Exception e)
+        {
+            // do nothing, let the 'finally' clause handle it
         }
         finally
         {

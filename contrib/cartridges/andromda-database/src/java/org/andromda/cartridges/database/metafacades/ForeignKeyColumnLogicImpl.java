@@ -61,7 +61,7 @@ public class ForeignKeyColumnLogicImpl
         return getType();
     }
 
-    protected String handleGetInitialLoadValue(int index)
+    protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
 
@@ -69,8 +69,8 @@ public class ForeignKeyColumnLogicImpl
 
         if (importedColumn != null)
         {
-            int randomValue = RANDOM.nextInt(importedColumn.getTable().getInitialLoadSize()) + 1;
-            initialLoadValue = importedColumn.getInitialLoadValue(randomValue);
+            int randomValue = RANDOM.nextInt(importedColumn.getTable().getDummyLoadSize()) + 1;
+            initialLoadValue = importedColumn.getDummyLoadValue(randomValue);
         }
 
         return initialLoadValue;
