@@ -14,34 +14,33 @@
         <section name="What is AndroMDA?">
 
             <p>
-          In short, AndroMDA is an open source
+                In short, AndroMDA is an open source
                 <a href="http://www.klasse.nl/english/mda/mda-faq.html">MDA</a>
-          framework - it takes any number of models 
-          (usually UML models stored in XMI produced from case-tools) combined with any 
-          number of andromda plugins (cartridge and translation-libraries) and produces
-          any number of custom components.  You can generate components for any language you want,
-          Java, .Net, HTML, PHP, anything really, you just write (or customize existing) plugins 
-          to support it and you're good to go.
+                framework - it takes any number of models 
+                (usually UML models stored in XMI produced from case-tools) combined with any 
+                number of andromda plugins (cartridge and translation-libraries) and produces
+                any number of custom components.  You can generate components for any language you want,
+                Java, .Net, HTML, PHP, anything really, you just write (or customize existing) plugins 
+                to support it and you're good to go.
             </p>
             <p>
                 <b>Tell me a little bit more about MDA and code generation</b>
             </p>
             <p>
-                In the classical way of software engineering one would first
-                try to determine how the system should be working, this is
-                the analysis phase. In this step the developer or architect has
-                something in mind that should be translated into a formal and platform
-                specific computer code, it will require an actual person to implement
-                this translation using a language such as ASM, C, C++, Java, ...
+                In the classical sense of software engineering, one first
+                determines what the system needs to do (the analysis phase). 
+                In this step the developer or architect has something in mind that 
+                will eventually be translated into a formal and platform specific system, 
+                it will require an actual person to implement this translation using a 
+                language such as ASM, C, C++, Java, ...
             </p>
             <p>
-                In MDA we will try to simplify the job of the developer/architect, we
-                can achieve this by making it easier for him to digitalize the ideas
-                he has in mind (the <i>Mental Model</i> or <i>MM</i>): we let him create the
-                <i>Platform Independent Model</i> or <i>PIM</i>, this model
-                is a one-or-one mapping of the MM into a more formal language
-                such as UML. This approach has several
-                obvious advantages:
+                With MDA we attempt to simplify the job of the developer/architect, we
+                achieve this by making it easier for him/her to digitalize the ideas
+                he/she has in mind (the <i>Mental Model</i> or <i>MM</i>): we let him/her 
+                create the <i>Platform Independent Model</i> or <i>PIM</i>, this model
+                is a one-or-one mapping of the MM into a more formal language such as UML. 
+                This approach has several obvious advantages:
             </p>
             <p>
                 <ul>
@@ -69,13 +68,14 @@
                 process is controlled using plugins called <i>cartridges</i> and each cartridge
                 is very easy to tune: you will never encounter a case where you will not be
                 able to have <i>your</i> specific code generated from the model. Any type
-                of customization is possible and you'll never get stuck.
+                of customization is possible, therefore you won't get stuck.
             </p>
             <p>
                 On the other hand it is very important to realize AndroMDA is here to help
-                you out with boring and repetitive tasks, and is not meant to be a
-                <i>Silver Bullet</i> solution where the computer takes over your job and you just
-                sit back and stop thinking.
+                eliminate boring and repetitive tasks, while at the same time allowing your
+                model to <strong>really</strong> communicate what the system is doing. 
+                it is not meant be a <i>Silver Bullet</i> solution where the computer takes 
+                over your job and you just sit back and stop thinking.
             </p>
             <p>
                 <b>Why would you want to use it?</b>
