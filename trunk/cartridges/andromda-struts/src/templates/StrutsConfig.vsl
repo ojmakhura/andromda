@@ -8,7 +8,7 @@
   <form-beans>
 #foreach ( $onePackage in $model.packages )
 #foreach ( $oneClass in $onePackage.classes )
-    #if ($transform.getStereotype($oneClass.id) == "StrutsForm")
+    #if ($transform.getStereotype($oneClass.id) == "WebForm")
     <form-bean
       name="$oneClass.name"
       type="$transform.findFullyQualifiedName($oneClass)"
@@ -23,7 +23,7 @@
    <action-mappings>
 #foreach ( $onePackage in $model.packages )
   #foreach ( $oneClass in $onePackage.classes )
-    #if ($transform.getStereotype($oneClass.id) == "StrutsAction")
+    #if ($transform.getStereotype($oneClass.id) == "WebAction")
       #set ($formClass = false)
       #set ($pageClass = false)
       #foreach ( $assocLink in $oneClass.associationLinks )
@@ -57,7 +57,7 @@
             #set ($roleName = $adata.target.roleName)
             #if (($roleName != "form") && ($roleName != "page"))
               #set ($target = $adata.target.type)
-              #if ($transform.getStereotype($target.id) == "StrutsJSP")
+              #if ($transform.getStereotype($target.id) == "WebPage")
                 #set ($targetPath = "${target.name}.jsp")
               #else
                 #set ($targetPath = "${target.name}.do")
