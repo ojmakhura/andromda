@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
  */
 public class LibraryTranslationFinder
 {
-
     private static Logger logger = Logger
         .getLogger(LibraryTranslationFinder.class);
 
@@ -84,5 +83,4 @@ public class LibraryTranslationFinder
         }
         return libraryTranslation;
     }
-
 }

@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
  */
 public class Translation
 {
-
     private static final Logger logger = Logger.getLogger(Translation.class);
 
     private String name;
@@ -247,5 +246,4 @@ public class Translation
     {
         return ToStringBuilder.reflectionToString(this);
     }
-
 }
