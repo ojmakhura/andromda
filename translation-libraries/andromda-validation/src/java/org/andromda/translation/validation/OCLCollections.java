@@ -47,12 +47,32 @@ public final class OCLCollections
 
     public static boolean isEmpty(Collection collection)
     {
-        return collection.isEmpty();
+        return (collection == null) || (collection.isEmpty());
+    }
+
+    public static boolean isEmpty(Object object)
+    {
+        return object == null;
+    }
+
+    public static boolean isEmpty(String string)
+    {
+        return (string == null) || (string.trim().length() == 0);
     }
 
     public static boolean notEmpty(Collection collection)
     {
-        return !isEmpty(collection);
+        return (collection != null) && (!isEmpty(collection));
+    }
+
+    public static boolean notEmpty(Object object)
+    {
+        return object != null;
+    }
+
+    public static boolean notEmpty(String string)
+    {
+        return (string != null) && (string.trim().length() > 0);
     }
 
     public static int size(Collection collection)
