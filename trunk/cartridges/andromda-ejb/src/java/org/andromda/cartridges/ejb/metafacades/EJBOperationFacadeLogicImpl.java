@@ -24,7 +24,7 @@ public class EJBOperationFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#getTransactionType()
      */
-    public java.lang.String handleGetTransactionType()
+    protected java.lang.String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(
             EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE,
@@ -34,7 +34,7 @@ public class EJBOperationFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#isBusinessOperation()
      */
-    public boolean handleIsBusinessOperation()
+    protected boolean handleIsBusinessOperation()
     {
         return !this.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD)
             && !this.hasStereotype(EJBProfile.STEREOTYPE_FINDER_METHOD)
@@ -44,7 +44,7 @@ public class EJBOperationFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#isSelectMethod()
      */
-    public boolean handleIsSelectMethod()
+    protected boolean handleIsSelectMethod()
     {
         return this.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD);
     }

@@ -24,7 +24,7 @@ public class XSDAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#getMaxOccurs()
      */
-    public java.lang.String handleGetMaxOccurs()
+    protected java.lang.String handleGetMaxOccurs()
     {
         String maxOccurs = null;
         boolean isMany = this.isMany();
@@ -42,7 +42,7 @@ public class XSDAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#getMinOccurs()
      */
-    public java.lang.String handleGetMinOccurs()
+    protected java.lang.String handleGetMinOccurs()
     {
         String minOccurs = null;
         boolean isRequired = this.isRequired();
@@ -60,7 +60,7 @@ public class XSDAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#isXsdAttribute()
      */
-    public boolean handleIsXsdAttribute()
+    protected boolean handleIsXsdAttribute()
     {
         return this.hasStereotype(XmlSchemaProfile.STEREOTYPE_XML_ATTRIBUTE);
     }
@@ -68,7 +68,7 @@ public class XSDAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#isXsdElement()
      */
-    public boolean handleIsXsdElement()
+    protected boolean handleIsXsdElement()
     {
         return !this.isXsdAttribute();
     }

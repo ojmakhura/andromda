@@ -26,7 +26,7 @@ public class EJBFinderMethodFacadeLogicImpl
         super(metaObject, context);
     }
 
-    public java.lang.String handleGetQuery()
+    protected java.lang.String handleGetQuery()
     {
 
         // first see if there is a query stored as a constraint

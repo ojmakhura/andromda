@@ -45,7 +45,7 @@ public class MetafacadeFacadeLogicImpl
      * 
      * @return the metaclass object
      */
-    public Object handleGetMetaclass()
+    protected Object handleGetMetaclass()
     {
         // delegate to recursive method
         return getMetaclass(this);
@@ -82,7 +82,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isMetaclassDirectDependency()
      */
-    public boolean handleIsMetaclassDirectDependency()
+    protected boolean handleIsMetaclassDirectDependency()
     {
         boolean isMetaClassDirectDependency = false;
         Collection dependencies = this.getSourceDependencies();
@@ -108,7 +108,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicName()
      */
-    public String handleGetLogicName()
+    protected String handleGetLogicName()
     {
         return this.getName() + "Logic";
     }
@@ -116,7 +116,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicImplName()
      */
-    public String handleGetLogicImplName()
+    protected String handleGetLogicImplName()
     {
         return this.getName() + "LogicImpl";
     }
@@ -124,7 +124,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedLogicImplName()
      */
-    public String handleGetFullyQualifiedLogicImplName(
+    protected String handleGetFullyQualifiedLogicImplName(
         String metamodelVersionPackage)
     {
         return this.getMetafacadeSupportClassName(metamodelVersionPackage, this
@@ -134,7 +134,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedLogicName()
      */
-    public String handleGetFullyQualifiedLogicName(
+    protected String handleGetFullyQualifiedLogicName(
         String metamodelVersionPackage)
     {
         return this.getMetafacadeSupportClassName(metamodelVersionPackage, this
@@ -144,7 +144,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicFile(java.lang.String)
      */
-    public String handleGetLogicFile(String metamodelVersionPackage)
+    protected String handleGetLogicFile(String metamodelVersionPackage)
     {
         return this.getFullyQualifiedLogicName(
             this.getLogicPackageName(metamodelVersionPackage))
@@ -155,7 +155,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicPackageName(java.lang.String)
      */
-    public String handleGetLogicPackageName(String metamodelVersionPackage)
+    protected String handleGetLogicPackageName(String metamodelVersionPackage)
     {
         String packageName = StringUtils.trimToEmpty(metamodelVersionPackage);
         if (StringUtils.isEmpty(metamodelVersionPackage))
@@ -168,7 +168,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicImplFile(java.lang.String)
      */
-    public String handleGetLogicImplFile(String metamodelVersionPackage)
+    protected String handleGetLogicImplFile(String metamodelVersionPackage)
     {
         return this.getFullyQualifiedLogicImplName(
             this.getLogicPackageName(metamodelVersionPackage))
@@ -202,7 +202,7 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getMethodDataForPSM(boolean)
      */
-    public Collection handleGetMethodDataForPSM(boolean includeSuperclasses)
+    protected Collection handleGetMethodDataForPSM(boolean includeSuperclasses)
     {
         HashMap map = new HashMap();
         internalGetMethodDataForPSM(map, this);

@@ -24,7 +24,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument#getQueryArgumentNameSetter()
      */
-    public java.lang.String handleGetQueryArgumentNameSetter()
+    protected java.lang.String handleGetQueryArgumentNameSetter()
     {
         String suffix = this.getType().getFullyQualifiedName();
         if (this.getType().isPrimitive())

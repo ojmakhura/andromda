@@ -27,7 +27,7 @@ public class HibernateAssociationEndLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isManagesRelationalLink()
      */
-    public boolean handleIsManagesRelationalLink()
+    protected boolean handleIsManagesRelationalLink()
     {
         return AssociationLinkManagerFinder.managesRelationalLink(this);
     }

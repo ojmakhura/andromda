@@ -47,7 +47,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getAllowedOperations()
      */
-    public java.util.Collection handleGetAllowedOperations()
+    protected java.util.Collection handleGetAllowedOperations()
     {
         List operations = new ArrayList(this.getOperations());
         CollectionUtils.filter(operations, new Predicate()
@@ -73,7 +73,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getAllowedMethods()
      */
-    public java.lang.String handleGetAllowedMethods()
+    protected java.lang.String handleGetAllowedMethods()
     {
         Collection methodNames = new ArrayList();
         Collection operations = this.getAllowedOperations();
@@ -92,7 +92,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getQName()
      */
-    public String handleGetQName()
+    protected String handleGetQName()
     {
         return MessageFormat.format(
             this.getQualifiedNameLocalPartPattern(),
@@ -110,7 +110,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getNamespace()
      */
-    public java.lang.String handleGetNamespace()
+    protected java.lang.String handleGetNamespace()
     {
         String packageName = this.getPackageName();
         if (this.isReverseNamespace())
@@ -133,7 +133,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getStyle()
      */
-    public java.lang.String handleGetStyle()
+    protected java.lang.String handleGetStyle()
     {
         String style = (String)this
             .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
@@ -153,7 +153,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getUse()
      */
-    public java.lang.String handleGetUse()
+    protected java.lang.String handleGetUse()
     {
         String use = (String)this
             .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
@@ -174,7 +174,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTypeMappingElements()
      */
-    public java.util.Collection handleGetTypeMappingElements()
+    protected java.util.Collection handleGetTypeMappingElements()
     {
         Collection paramTypes = new HashSet();
         Iterator operationIt = this.getAllowedOperations().iterator();
@@ -318,7 +318,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getProvider()
      */
-    public java.lang.String handleGetProvider()
+    protected java.lang.String handleGetProvider()
     {
         String provider = (String)this
             .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
@@ -332,7 +332,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getWsdlFile()
      */
-    public java.lang.String handleGetWsdlFile()
+    protected java.lang.String handleGetWsdlFile()
     {
         return '/' + this.getFullyQualifiedName(true).replace('.', '/')
             + ".wsdl";
@@ -414,7 +414,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
      */
-    public String handleGetNamespacePrefix()
+    protected String handleGetNamespacePrefix()
     {
         return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
     }
@@ -459,7 +459,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbJndiName()
      */
-    public java.lang.String handleGetEjbJndiName()
+    protected java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this
@@ -487,7 +487,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbHomeInterface()
      */
-    public java.lang.String handleGetEjbHomeInterface()
+    protected java.lang.String handleGetEjbHomeInterface()
     {
         return MessageFormat.format(
             this.getEjbHomeInterfacePattern(),
@@ -511,7 +511,7 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbInterface()
      */
-    public java.lang.String handleGetEjbInterface()
+    protected java.lang.String handleGetEjbInterface()
     {
         return MessageFormat.format(this.getEjbInterfacePattern(), new String[]
         {

@@ -22,7 +22,7 @@ public class XSDAssociationEndLogicImpl
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#getMaxOccurs()
      */
-    public java.lang.String handleGetMaxOccurs()
+    protected java.lang.String handleGetMaxOccurs()
     {
         String maxOccurs = null;
         boolean isMany = this.isMany();
@@ -40,7 +40,7 @@ public class XSDAssociationEndLogicImpl
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#getMinOccurs()
      */
-    public java.lang.String handleGetMinOccurs()
+    protected java.lang.String handleGetMinOccurs()
     {
         String minOccurs = null;
         boolean isRequired = this.isRequired();

@@ -27,7 +27,7 @@ public class HibernateSessionEJBLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB#getJndiName()
      */
-    public java.lang.String handleGetJndiName()
+    protected java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this
@@ -45,7 +45,7 @@ public class HibernateSessionEJBLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB#getViewType()
      */
-    public java.lang.String handleGetViewType()
+    protected java.lang.String handleGetViewType()
     {
         return HibernateMetafacadeUtils.getViewType(this);
     }
