@@ -7,7 +7,6 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 /**
@@ -16,50 +15,24 @@ import javax.xml.rpc.ServiceException;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
+ * @author Wouter Zoons
  */
 final class GuessController extends GuessControllerInterface
 {
-
-    /**
-     * Returns the session state object that is stored in the HTTP servlet session.
-     *
-     * @param request the last request
-     * @return the session state object
-     */
-    private static GuessSessionState getSessionState(HttpServletRequest request)
-    {
-        final String GUESS_STATE = "animal.quiz.guess.state";
-        HttpSession session = request.getSession();
-        GuessSessionState state = (GuessSessionState) session.getAttribute(GUESS_STATE);
-        if (state == null)
-        {
-            state = new GuessSessionState();
-            session.setAttribute(GUESS_STATE, state);
-        }
-        return state;
-    }
-
     /**
      * Fetches the first question from the business tier and
      * returns the prompt string in the form.
-     *
-     * @see GuessControllerInterface#getFirstQuestion(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public void getFirstQuestion(ActionMapping mapping,
-                                 GuessForm form,
-                                 HttpServletRequest request,
-                                 HttpServletResponse reponse)
-            throws Exception
+    public void getFirstQuestion(ActionMapping mapping, GuessControllerGetFirstQuestionInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         DecisionService decisionService = this.getService();
-        VODecisionItem vodi =
-                decisionService.getFirstQuestion();
+        VODecisionItem vodi = decisionService.getFirstQuestion();
 
         form.setQuestion(vodi.getPrompt());
 
         // Keep the decision item in the session so that
         // the next step can process it.
-        getSessionState(request).setLastDecisionItem(vodi);
+        getGuessSessionState(request).setLastDecisionItem(vodi);
     }
 
     /**
@@ -67,31 +40,25 @@ final class GuessController extends GuessControllerInterface
      * decision tree.
      *
      * @return String "yes" or "no".
-     * @see GuessControllerInterface#nextDecisionItemAvailable(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public java.lang.String nextDecisionItemAvailable(ActionMapping mapping,
-                                                      GuessForm form,
-                                                      HttpServletRequest request,
-                                                      HttpServletResponse reponse)
-            throws Exception
+    public String nextDecisionItemAvailable(ActionMapping mapping, GuessControllerNextDecisionItemAvailableInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        GuessSessionState gss = getSessionState(request);
-        VODecisionItem vodi = gss.getLastDecisionItem();
+        GuessSessionState sessionState = getGuessSessionState(request);
+        VODecisionItem vodi = sessionState.getLastDecisionItem();
 
         String idNextItem =
-                "yes".equals(gss.getLastAnswerFromUser()) ? vodi.getIdYesItem() : vodi.getIdNoItem();
+                "yes".equals(sessionState.getLastAnswerFromUser()) ? vodi.getIdYesItem() : vodi.getIdNoItem();
 
         if (idNextItem != null)
         {
-            DecisionService decisionService =
-                    this.getService();
+            DecisionService decisionService = this.getService();
             vodi = decisionService.getNextQuestion(idNextItem);
 
             form.setQuestion(vodi.getPrompt());
 
             // Keep the decision item in the session so that
             // the next step can process it.
-            gss.setLastDecisionItem(vodi);
+            sessionState.setLastDecisionItem(vodi);
             return "yes";
         }
         return "no";
@@ -100,41 +67,26 @@ final class GuessController extends GuessControllerInterface
     /**
      * Stores the name of the animal that the user has given. It is stored
      * inside the session state - no call to the business tier.
-     *
-     * @see GuessControllerInterface#rememberAnimal(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public void rememberAnimal(ActionMapping mapping,
-                               GuessForm form,
-                               HttpServletRequest request,
-                               HttpServletResponse reponse)
-            throws Exception
+    public void rememberAnimal(ActionMapping mapping, GuessControllerRememberAnimalInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        GuessSessionState gss = getSessionState(request);
-        gss.setLastAnimalName(form.getThisIsTheAnimalAnimal());
+        getGuessSessionState(request).setLastAnimalName(form.getThisIsTheAnimalAnimal());
     }
 
     /**
      * Takes the differentiator question that the user has given and creates
      * a new animal in the business tier. If the user answers "yes" to that question
      * during the next run of the game, that animal is presented as a guess.
-     *
-     * @see GuessControllerInterface#rememberQuestion(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public void rememberQuestion(ActionMapping mapping,
-                                 GuessForm form,
-                                 HttpServletRequest request,
-                                 HttpServletResponse reponse)
-            throws Exception
+    public void rememberQuestion(ActionMapping mapping, GuessControllerRememberQuestionInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
+        GuessSessionState sessionState = getGuessSessionState(request);
 
-        GuessSessionState gss = getSessionState(request);
+        DecisionService decisionService = this.getService();
 
-        DecisionService decisionService =
-                this.getService();
-
-        decisionService.addNewAnimalWithQuestion(gss.getLastAnimalName(),
-                form.getQuestion(),
-                gss.getLastDecisionItem().getId());
+        decisionService.addNewAnimalWithQuestion(sessionState.getLastAnimalName(),
+                form.getThisIsTheQuestionQuestion(),
+                sessionState.getLastDecisionItem().getId());
     }
 
     private DecisionService getService() throws ServiceException
@@ -146,43 +98,26 @@ final class GuessController extends GuessControllerInterface
 
     /**
      * Checks if the last answer from the user was "yes".
-     *
-     * @see GuessControllerInterface#lastAnswerWasYes(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public boolean lastAnswerWasYes(ActionMapping mapping,
-                                    GuessForm form,
-                                    HttpServletRequest request,
-                                    HttpServletResponse reponse)
-            throws Exception
+    public boolean lastAnswerWasYes(ActionMapping mapping, GuessControllerLastAnswerWasYesInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        return "yes".equals(getSessionState(request).getLastAnswerFromUser());
+        return "yes".equals(getGuessSessionState(request).getLastAnswerFromUser());
     }
+
 
     /**
      * Stores the fact that the last answer from the user was positive.
-     *
-     * @see GuessControllerInterface#rememberPositiveAnswer(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public void rememberPositiveAnswer(ActionMapping mapping,
-                                       GuessForm form,
-                                       HttpServletRequest request,
-                                       HttpServletResponse reponse)
-            throws Exception
+    public void rememberPositiveAnswer(ActionMapping mapping, GuessControllerRememberPositiveAnswerInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        getSessionState(request).setLastAnswerFromUser("yes");
+        getGuessSessionState(request).setLastAnswerFromUser("yes");
     }
 
     /**
      * Stores the fact that the last answer from the user was negative.
-     *
-     * @see GuessControllerInterface#rememberNegativeAnswer(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
-    public void rememberNegativeAnswer(ActionMapping mapping,
-                                       GuessForm form,
-                                       HttpServletRequest request,
-                                       HttpServletResponse reponse)
-            throws Exception
+    public void rememberNegativeAnswer(ActionMapping mapping, GuessControllerRememberNegativeAnswerInterface form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        getSessionState(request).setLastAnswerFromUser("no");
+        getGuessSessionState(request).setLastAnswerFromUser("no");
     }
 }
