@@ -67,6 +67,7 @@
             <ant:fileset dir="${maven.build.src}">
                 <ant:include name="**/*.gif"/>
                 <ant:include name="**/*.png"/>
+                <ant:include name="**/*.jpg"/>
                 <ant:include name="**/*.js"/>
                 <ant:include name="**/*.jsp"/>
                 <ant:include name="**/*.jspf"/>
