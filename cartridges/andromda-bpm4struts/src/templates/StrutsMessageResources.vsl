@@ -1,9 +1,12 @@
 main.title=$applicationUseCase.name
 
+breadcrumbs.error=Error on page
+required.fields.asterisk=Fields marked with an asterisk are required
+
 #
 #   Messages for the menu
 #
-menu.title=Other links
+menu.usecase.title=Other links
 
 #
 #   Messages for the calendar
@@ -130,6 +133,11 @@ ${messageKey}.$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllo
 #if (!$actionParameters.empty)
 #   ACTION-PARAMETERS
 #foreach ($field in $action.actionParameters)
+#if ($field.required && ($clientValidation=='true' || $serverValidation=='true'))
+#set ($requiredSuffix = ' is required')
+#else
+#set ($requiredSuffix = '')
+#end
 #set ($fieldComment = "")
 #if ($field.date)
 #set ($strict = "")
@@ -139,7 +147,7 @@ ${messageKey}.$actionTrigger.resetNotAllowedTitleKey=$actionTrigger.resetNotAllo
 #set ($fieldComment = " (use this lenient format: $field.dateFormat)")
 #end
 ${messageKey}.$field.messageKey=$field.messageValue
-${messageKey}.$field.titleKey=$field.titleValue$fieldComment
+${messageKey}.$field.titleKey=$field.titleValue$requiredSuffix$fieldComment
 #foreach ($optionKey in $field.optionKeys)
 ${messageKey}.$optionKey=${field.name}-$velocityCount
 ${messageKey}.${optionKey}.title=${field.name}-$velocityCount
